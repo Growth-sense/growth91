@@ -1,0 +1,1684 @@
+
+import React, { Component } from 'react';
+import WebHeader from '../common/WebHeader';
+import WebFooter from '../common/WebFooter';
+import { Tabs, Collapse, message, Modal, Spin,Progress,Checkbox  } from 'antd';
+import { ExclamationCircleOutlined,PlusOutlined } from '@ant-design/icons';
+import Apis from '../constants/Apis';
+import moment from 'moment';
+import Bridge from '../constants/Bridge';
+import InvestmentMembershipmodal from '../components/membership/InvestmentMembershipmodal';
+
+const { Panel } = Collapse;
+const { TabPane } = Tabs;
+class Instapay extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      deal_id:'',
+      investor_id:'',
+      deal_name:'',
+      deal_description:'',
+      isPrivate:false,
+      isFunded:false,
+      tags:[],
+      logo:'',
+      youtube_url:'',
+      dealenddays:0,
+      kycstatus:false,
+      bankstatus:false,
+      amount:0,
+      minamount:0,
+      maxamount:0,
+      investmentmodal:false,
+      confirmmodalstatus:false,
+      deduct:false,
+      agree:'',
+      isInvested:false,
+      name:'',
+      email:'',
+      mobile:'',
+      conveniencefees:100,
+      gst:0,
+      amountplusgst:0,
+      processingfees:0.0,
+      totalamount:0.0,
+      tdsstatus:false,
+      legalfee:0.0,
+      legalplusprocessing:0.0,
+      label:'',
+      percentage:0,
+      check_membership_type:'',
+      tdsdeductedamount:0,
+      order_token:'',
+      pdffile:'',
+      pitch_files:'',
+      pitch_list:[],
+      percentage_raised:0,
+      show_data:'none',
+      button_show_status:true,
+      amount_error:'',
+      amount_error_status:false,
+      multiples_of:0,
+      documents:[],
+      button_status:true,
+      user_type:'',
+      is_deal_visible:true,
+    }
+  }
+  callback = (key) => {
+  }
+  componentDidMount() {
+    let deal_id='32';
+    this.setState({deal_id:deal_id},()=>{
+      this.get_pitch_list();
+    });
+    
+    if(localStorage.getItem('investor_id') || (localStorage.getItem('founder_id'))){
+      if(localStorage.getItem('investor_id')) {
+        let investor_id = localStorage.getItem('investor_id');
+        this.setState({investor_id:investor_id,user_type:'investor'},()=>{
+          this.getstatusdata();
+          this.getinvestmentdetails();
+          this.check_for_membership_type();
+        });
+      } else if(localStorage.getItem('founder_id')){
+        this.get_founder_details();
+        this.setState({user_type:'founder'});
+      }
+    } else{
+      this.getDeals();
+    }
+    this.getordertoken();
+    this.getGst();
+    this.getwallethistory();
+    this.get_deal_doucments(deal_id);
+  }
+  get_founder_details=()=>{
+    let params={
+      founder_id:localStorage.getItem('founder_id'),
+    }
+    Bridge.founder.get_founder_profile_details(params).then((result)=>{
+      if(result.status=='1'){
+        if(result.data.length>0){
+          
+          let investor_id = localStorage.getItem('founder_id');
+          this.setState({investor_id:investor_id});
+          setTimeout(()=>{
+            if(result.data[0].is_investor=='1'){
+              this.getstatusdata();
+              this.getinvestmentdetails();
+              this.check_for_membership_type();
+              this.setState({founder_is_investor:'1'});
+            }else{
+              this.check_for_membership_type();
+              this.setState({founder_is_investor:'0'});
+            }
+          },200);
+        }
+      }
+      else{
+        this.setState({formloader:false});
+      }
+    })
+
+  }
+  getGst=()=>{
+    Bridge.admin.settings.getsettings().then((result)=>{
+      if(result.status=='1'){
+        this.setState({gst:result.data[0].taxation_percentage})
+      }else{
+        // console.log("gst can not be able to fetch")
+      }
+    })
+  }
+  getwallethistory(){
+    if(localStorage.getItem('investor_id')){
+      let params={
+        investor_id: localStorage.getItem('investor_id'),
+      }
+      Bridge.investor.get_wallet_history(params).then((result)=>{
+          if(result.status=='1'){
+              let credit_amount=0;
+              let debit_amount=0;
+              for(let item of result.data){
+                  if(item.type == 'credited'){
+                      credit_amount=parseInt(credit_amount)+ parseInt(item.amount);
+                  }
+                  if(item.type == 'debited'){
+                      debit_amount= parseInt(debit_amount)+ parseInt(item.amount);
+                  }
+              }
+              let total = parseInt(credit_amount-debit_amount);
+              this.setState({walletMoney:Math.abs(total)});
+          }
+          else{
+          }
+      });
+    }
+  }
+  get_deal_doucments=(deal_id)=>{
+    let params={
+      deal_id: deal_id,
+    }
+    Bridge.get_deal_doucments(params).then((result)=>{
+      if(result.status=='1'){
+        let arr=[];
+        for(let item of result.data){
+          item.selected=false;
+          arr=[...arr,item];
+        }
+        this.setState({documents:arr},()=>this.get_document_purchased_list());
+      }
+    });
+  }
+  get_document_purchased_list=()=>{
+    if(this.state.investor_id){
+      let params={
+        investor_id:this.state.investor_id,
+        deal_id:this.state.deal_id,
+      }
+      Bridge.deal.get_document_purchased_list(params).then((result) => {
+        if (result.status == 1) {
+          let arr=[];
+          let documents=this.state.documents;
+          for(let item of documents){
+            let status=false;
+            item.user_paid=false;
+            for(let item2 of result.data){
+              if(item2.document_id==item.documentid || item.paid=='Free'){
+                item.user_paid=true;
+              }
+            }
+            arr=[...arr,item];
+          }
+          this.setState({documents:arr});
+        }
+      });
+    }
+  }
+  check_for_membership_type=()=>{
+    this.setState({ formloader: true });
+    let params={
+      investor_id:this.state.investor_id,
+    }
+    Bridge.check_for_membership_type(params).then((result) => {
+      if (result.status==1){
+        if(result.data.length>0){
+          this.setState({check_membership_type:result.data[0].membership_type});
+          setTimeout(()=>{
+            this.getDeals();
+          },500);
+        }
+      } else {
+        this.setState({formloader:false});
+      }
+    });
+    setTimeout(()=>{
+      this.getdealsettings();
+    },500)
+  }
+  getordertoken=()=>{
+    Bridge.getcashfreetoken().then((result) => {
+      let orderToken = result.order_token;
+      this.setState({ order_token: orderToken });
+    });
+  }
+  // get post list
+  getdealsettings = () => {
+    this.setState({ formloader: true });
+    Bridge.admin.settings.getdealsettings().then((result) => {
+      if (result.status == 1){
+        // console.log('result',result.data);
+        this.setState({
+          label: result.data[0].label,
+        });
+        if(this.state.check_membership_type=='premium'){
+          this.setState({percentage: result.data[0].premium_member_deal_percentage});
+        }
+        else{
+          this.setState({percentage: result.data[0].regular_member_deal_percentage});
+        }
+      } else {
+        message.error(result.message);
+        this.setState({
+          formloader: false,
+        });
+      }
+    });
+  }
+
+  get_pitch_list = () => {
+    this.setState({ loading:true });
+    let params = {
+      deal_id:this.state.deal_id,
+    }
+    Bridge.deal.get_image_list_of_pitch(params).then((result) => {
+      if (result.status == 1) {        
+        let arr=[];
+        for(let data of result.data){
+          let pitchImg=Apis.IMAGEURL+'deal/pitch_images/'+data.deal_id+'/'+data.image;
+          data.img=pitchImg;
+          arr=[...arr,data];
+        }
+        arr.sort((a,b) => (a.pitch_order > b.pitch_order) ? 1 : ((b.pitch_order > a.pitch_order) ? -1 : 0));
+        console.log('arr',arr);
+        this.setState({pitch_list:arr,loading:false});
+      } else {
+        this.setState({
+          loading: false,
+        });
+      }
+    });
+  }
+
+  getinvestmentdetails = () => {
+    this.setState({ loading: true });
+    let params ={
+      investor_id: this.state.investor_id,
+      deal_id:this.state.deal_id,
+    }
+    Bridge.investor.getinvestmentdetails(params).then((result) => {
+      if (result.status == 1) {
+        if(result.data != ''){
+          this.setState({ isInvested: true });
+        }
+      } else {
+        this.setState({
+          loading: false,
+        });
+      }
+    });
+  }
+
+
+  // get deal list
+  getstatusdata = () => {
+    this.setState({ loading: true });
+    let params = {
+      id: this.state.investor_id
+    }
+    Bridge.users.getstatusdata(params).then((result) => {
+      if (result.status == 1) {
+        
+        this.setState({
+          kycstatus: result.data[0].kycstatus,
+          bankstatus: result.data[0].ifsc_code ? true : false,
+          loading: false,
+          name:result.data[0].first_name +' '+result.data[0].last_name,
+          email:result.data[0].email,
+          mobile:result.data[0].mobile,
+        });
+      } else {
+        message.error(result.message);
+        this.setState({
+          loading: false,
+        });
+      }
+    });
+  }
+
+  // get deal list
+  getDeals = () => {
+    this.setState({ loading: true });
+    Bridge.deal.list().then((result) => {
+      if (result.status == 1) {
+        this.setState({
+          deals: result.data,
+          loading: false,
+        });
+        let current_date=moment();
+        for(let d of result.data) {
+          if(d.deal_id == this.state.deal_id) {
+            let deal_regular_show_date=moment(d.regular_show_date);
+            let deal_premium_show_date=moment(d.premium_show_date);
+            if(this.state.check_membership_type=='premium'){
+              if(moment(current_date).format('YYYY-MM-DD')==moment(deal_premium_show_date).format('YYYY-MM-DD')){
+                this.setState({show_data:'block'});
+              } else if(current_date>deal_premium_show_date){
+                this.setState({show_data:'block'});
+              }else{
+                this.setState({show_data:'none'});
+                window.location.assign('/deals');
+                return;
+              }
+            } else if(this.state.check_membership_type=='regular'){
+              if(moment(current_date).format('YYYY-MM-DD')==moment(deal_regular_show_date).format('YYYY-MM-DD')){
+                this.setState({show_data:'block'});
+              } else if(current_date>deal_regular_show_date){
+                this.setState({show_data:'block'});
+              }else{
+                this.setState({show_data:'none'});
+                window.location.assign('/deals');
+                return;
+              }
+            }
+          }
+        }
+        for(let d of result.data) {
+          if(d.deal_id == this.state.deal_id) {
+            if(d.show_status=='0'){
+              this.setState({is_deal_visible:false})
+              // message.warning('You cannot invest in this deal.',2);
+              // window.location.assign('/deals');
+            }
+            else{
+              this.setState({is_deal_visible:true});
+            }
+            let investor_id=this.state.investor_id;
+            if(d.deal_t_type=='Private'){
+              if(investor_id && d.invitations.length>0 && d.invitations.includes(investor_id)){
+              }else{
+                window.location.assign('/deals');
+                return;
+              }
+            }
+            let logourl = Apis.IMAGEURL+'deal/logo/'+d.deal_id+'/'+d.logo;
+            let dealEndDate= moment(d.deal_end_date);
+            let currentDate=moment();
+            let days =this.getDifferenceInDays(currentDate,dealEndDate);
+            let differece=days.toFixed();
+            let pdffile = `${process.env.REACT_APP_BASE_URL}api/uploads/deal/pitch/${d.deal_id}/${d.pitch_file}`;
+            let pitchImg = Apis.IMAGEURL+'deal/pitch_images/'+d.deal_id+'/'+d.pitch_files;
+            let percetage_raised= parseFloat((((d.total_invested_amount)/(d.deal_fund_requested))*100)+parseInt(d.raiegap)).toFixed(2)
+            let deal_premium_start_date=moment(d.deal_start_dt_prem);
+            let deal_regular_start_date=moment(d.deal_st_date);
+            let deal_premium_end_date=moment(d.deal_end_dt_prem);
+            let deal_regular_end_date=moment(d.deal_deal_end_date);
+            let button_show_status=false;
+
+            if(this.state.check_membership_type=='premium'){
+              if(moment(current_date).format('YYYY-MM-DD')==moment(deal_premium_start_date).format('YYYY-MM-DD')){
+                button_show_status=true;
+              }else if(moment(current_date).format('YYYY-MM-DD')>deal_premium_start_date.format('YYYY-MM-DD') 
+              && moment(current_date).format('YYYY-MM-DD')<moment(deal_premium_end_date).format('YYYY-MM-DD')){
+                button_show_status=true;
+              }else if(moment(current_date).format('YYYY-MM-DD')==moment(deal_premium_end_date).format('YYYY-MM-DD')){
+                button_show_status=true;
+              }else{
+                button_show_status=false;
+              }
+            }else if(this.state.check_membership_type=='regular'){
+              if(moment(current_date).format('YYYY-MM-DD')==moment(deal_regular_start_date).format('YYYY-MM-DD')){
+                button_show_status=true;
+              }else if(moment(current_date).format('YYYY-MM-DD')>deal_regular_start_date.format('YYYY-MM-DD') 
+              && moment(current_date).format('YYYY-MM-DD')<moment(deal_regular_end_date).format('YYYY-MM-DD')){
+                button_show_status=true;
+              }else if(moment(current_date).format('YYYY-MM-DD')==moment(deal_regular_end_date).format('YYYY-MM-DD')){
+                button_show_status=true;
+              }else{
+                button_show_status=false;
+              }
+            }
+            
+            this.setState({
+              deal_name: d.name,
+              deal_description:d.Muliples_of,
+              isPrivate:d.deal_t_type=='Private' ? true : false,
+              isFunded:d.deal_status=='Closed' ? true : false,
+              tags:d.deal_category ? JSON.parse(d.deal_category) : [],
+              logo:logourl,
+              youtube_url:d.youtubelink,
+              dealenddays: d.deal_end_date ? differece : 0,
+              minamount:d.Min_inv_amt,
+              maxamount:d.Max_inv_amt,
+              amount: d.Min_inv_amt,
+              pdffile: pdffile,
+              pitch_files: pitchImg,
+              percentage_raised:percetage_raised,
+              button_show_status:button_show_status,
+              show_data:'block',
+              multiples_of:d.multiples_of,
+            },() => this.calculategst())
+          }
+        }
+      } else {
+        message.error(result.message);
+        this.setState({
+          loading: false,
+        });
+      }
+    });
+  }
+
+  getDifferenceInDays = (date1, date2) => {
+    const diffInMs = Math.abs(date2 - date1);
+    return diffInMs / (1000 * 60 * 60 * 24);
+  }
+
+  showalertmessage  = () => {
+    message.warning('Please complete your KYC process or bank details to access this deal.');
+  }
+
+  showmodal = () => {
+    if(this.state.amount < this.state.minamount){
+      message.warning('Minimum investment amount is '+this.state.minamount);
+      return;
+    }
+    
+    if(this.state.kycstatus =='' || this.state.bankstatus == false){
+      this.showalertmessage();
+      return;
+    }
+    if(this.state.agree == false){
+      message.warning('Please agree to terms and conditions');
+      return;
+    }
+    // show razorpay
+    this.showrazorpay('2');
+  }
+
+  showModal1 = () => {
+    // if(this.state.kycstatus!='Approved'){
+    //   message.warning('Dear Investor,You need to complete the KYC before you can invest in the deal.',10);
+    //   setTimeout(()=>{
+    //     window.location.assign('/investor-kyc');
+    //   },2000);
+    //   return;
+    // }
+    if(this.state.kycstatus=='admin_rejected'){
+      message.warning("Your KYC is Rejected, Please Contact to contact@Growth91.com");
+      return;
+    }
+    this.setState({
+      investmentmodal:true,
+    },()=>this.calculategst())
+  };
+
+  handleOk1 = () => {
+    this.setState({
+      investmentmodal:false,
+    })
+  };
+
+  handleCancel1 = () => {
+    this.setState({
+      investmentmodal:false,
+    })
+  };
+
+  showModal2 = () => {
+    this.setState({
+      confirmmodalstatus:true,
+    })
+  };
+
+  handleOk2 = () => {
+    this.setState({
+      confirmmodalstatus:false,
+    })
+  };
+
+  handleCancel2 = () => {
+    this.setState({
+      confirmmodalstatus:false,
+    })
+  };
+
+  onChangeCheckbox = (e) => {
+    this.setState({
+      [e.target.name]: e.target.checked,
+    });
+
+    if(e.target.name == 'deduct'){
+      if(e.target.checked == true){
+        let processingfees = parseFloat((this.state.amount/100)*parseFloat(this.state.percentage));
+        let tdsamount= parseFloat(processingfees/100)*10;
+        let minusamt = parseFloat(processingfees - tdsamount);
+        
+        this.setState({
+          processingfees:minusamt,
+          tdsdeductedamount: tdsamount,
+        })
+      } else {
+        let processingfees = parseFloat((this.state.amount/100)*parseFloat(this.state.percentage));
+        this.setState({
+          processingfees:processingfees,
+          tdsdeductedamount: 0,
+        })
+      }
+    }
+  };
+
+  // investing your money
+  invest = () => {
+    // if(Number(this.state.amount) < Number(this.state.minamount)){
+    //   message.warning('Minimum investment amount is '+this.state.minamount);
+    //   return;
+    // }
+    // if(Number(this.state.amount) > Number(this.state.maxamount)){
+    //   message.warning('Maximum investment amount is '+this.state.maxamount,5);
+    //   return;
+    // }
+    // if(this.state.agree != true) {
+    //   message.warning('Please agree to terms and conditions');
+    //   return;
+    // }
+    
+    let investor_id= this.state.investor_id;
+    let deal_id= this.state.deal_id;
+    let Investment_amt= this.state.totalamount;
+    let deductstatus= this.state.deduct==true ? '1' : '0';
+    let agreestatus= this.state.agree==true ? '1' : '0';
+    let payment_ref= this.state.order_token;
+    let tdsstatus= this.state.tdsstatus==true ? '1' : '0';
+    let processingfees= this.state.processingfees;
+    let gst= this.state.gst;
+    let legalfees= this.state.legalfee;
+    let order_id = 'order-01';
+    
+    let url = `${process.env.REACT_APP_BASE_URL}cashfree/checkout.php?investor_id=${investor_id}&deal_id=${deal_id}&deductstatus=${deductstatus}&agreestatus=${agreestatus}&payment_ref=${payment_ref}&tdsstatus=${tdsstatus}&processingfees=${processingfees}&gst=${gst}&legalfees=${legalfees}&Investment_amt=${Investment_amt}&order_id=${order_id}`;
+    // console.log('url',url);
+    window.location.assign(url);
+
+
+    // this.setState({
+    //   loading: true,
+    // });
+    // Bridge.deal.invest(params).then((result) => {
+    //   if (result.status == 1) {
+    //     message.success(result.message);
+    //     this.setState({
+    //       loading: false,
+    //       investmentmodal:false,
+    //       confirmmodalstatus:false,
+    //       deductstatus:false,
+    //       agreestatus:false,
+    //       Investment_amt:0,
+    //     });
+    //     setTimeout(() => {
+    //       window.location.reload();
+    //     },4000);
+    //   } else {
+    //     message.error(result.message);
+    //     this.setState({
+    //       loading: false,
+    //     });
+    //   }
+    // });
+  }
+
+  loadScript = (src) => {
+    return new Promise((resolve) => {
+        const script = document.createElement('script');
+        script.src = src;
+
+        script.onload = () => {
+            resolve(true);
+        }
+
+        script.onerror = () =>{
+            resolve(false);
+        }
+
+        document.body.appendChild(script);
+    })
+}
+
+showrazorpay = async () => {
+    let res = await this.loadScript('https://checkout.razorpay.com/v1/checkout.js');
+    if(!res) {
+        message.warning('You are offline');
+        return;
+    }
+    const options = {
+        key: 'rzp_test_kLw6tif291d4Qb',
+        currency:'INR',
+        amount: this.state.totalamount && parseInt(this.state.totalamount*100),
+        name: 'Growth 91',
+        description: 'Thanks you for investing in company.',
+        image:'./logo.jpeg',
+        handler: (response) => {
+          message.success('Payment is done successfully.');
+          this.invest(response.razorpay_payment_id);
+        },
+        prefill: {
+          name:this.state.name,
+          email: this.state.email,
+          contact: this.state.mobile,
+        },
+        notes: {
+          "address": "Razorpay Corporate Office"
+        },
+        theme: {
+          "color": "#00612e"
+        }
+    };
+
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+    
+  }
+
+  calculategst = () => {
+    
+    let legalfee = parseFloat((this.state.amount/100)*parseFloat(this.state.percentage));
+    console.log('legalfee',legalfee);
+    // let processingfees = parseFloat((this.state.amount/100)*parseFloat(this.state.percentage));
+    // let legalplusprocessing = parseFloat(legalfee)+parseFloat(processingfees);
+
+    // gst and total amount with gst
+    // let gst = parseFloat(();
+    let gst=this.state.gst;
+    let amt= parseFloat(this.state.amount);
+    let walletDeductionMoney
+    if(this.state.checkWallet==false){
+      walletDeductionMoney=0
+    }else
+    {
+      walletDeductionMoney =(legalfee.toFixed(0)<=this.state.walletMoney)? legalfee.toFixed(0):this.state.walletMoney;
+    }
+   
+    let gstValue=((legalfee.toFixed(0)-walletDeductionMoney)*gst/100);
+  
+    // parseFloat(gst) + 
+    this.setState({
+      gst:gst,
+      legalfee: legalfee.toFixed(0),
+      amountplusgst:amt.toFixed(0),
+      processingfees: legalfee.toFixed(0),
+      totalamount: ((amt+parseFloat(legalfee)).toFixed(0)-walletDeductionMoney+gstValue),
+      walletDeductionMoney:walletDeductionMoney,
+      gstValue:gstValue,
+    })
+    return gst;
+  }
+
+  checkfortds = (type) => {
+    if(type == '1'){
+      let tenper= parseFloat(this.state.totalamount) - parseFloat((this.state.amount/100)*10);
+      this.setState({
+        tdsstatus:true,
+        totalamount: tenper.toFixed(2),
+      } , () => this.showrazorpay());
+    } else {
+      this.setState({
+        tdsstatus:false,
+      } , () => this.showrazorpay());
+    }
+  }
+  check_for_error=()=>{
+    let error=''; 
+    let multiple_of= parseFloat(this.state.amount)/parseFloat(this.state.multiples_of);  
+    if(Number(this.state.amount) < Number(this.state.minamount)){
+      error=`Minimum investment amount is Rs. ${this.state.minamount}`;
+      this.setState({amount_error:error,amount_error_status:true});
+    }else if(Number(this.state.amount) > Number(this.state.maxamount)){
+      error=`Maximum investment amount is Rs. ${this.state.maxamount}`;
+      this.setState({amount_error:error,amount_error_status:true});
+    } else if(Number.isInteger(multiple_of)==false){
+      error=`Amount should be in multiple of Rs. ${this.state.multiples_of}`;
+      this.setState({amount_error:error,amount_error_status:true});
+    }else{
+      this.setState({amount_error:'',amount_error_status:false});
+    }
+  }
+  documentPay=()=>{
+    if(!this.state.investor_id){
+      message.warning('Please login first to invest.',5);
+      return;
+    }
+    let documents=this.state.documents;
+    let paying_for_documents=[];
+    let totalamt=0;
+    for(let item of documents){
+      if(item.selected==true){
+        totalamt+= this.state.check_membership_type=='premium' ? Number(item.premium_price) :
+        Number(item.regular_price);
+        paying_for_documents=[...paying_for_documents,item.documentid];
+      }
+    }
+    let order_id='order-01';
+    let user_id=this.state.investor_id;
+    let amount=totalamt;
+    let docs= paying_for_documents.join("-").toString();
+    let deal_id=this.state.deal_id;
+    let url=`${process.env.REACT_APP_BASE_URL}cashfree/buy_documents/checkout.php?user_id=${user_id}&order_id=${order_id}&amount=${amount}&docs=${docs}&deal_id=${deal_id}`;
+    window.location.assign(url);
+  }
+  show_selected_checkbox=(single)=>{
+    let arr=[];
+    let docuemnts=this.state.documents;
+    for(let item of docuemnts){
+      if(item.documentid==single.documentid){
+        item.selected=item.selected==true ? false :true;
+      }
+      arr=[...arr,item];
+    }
+    this.setState({docuemnts:arr});
+    let data=[];
+    for(let item2 of arr){
+      data=[...data,item2.selected];
+    }
+    let status=data.includes(true);
+    this.setState({button_status:!status});
+  }
+  render() {
+
+    const genExtra = () => (
+      <PlusOutlined
+        onClick={event => {
+          // If you don't want click extra trigger collapse, you can prevent this:
+          event.stopPropagation();
+        }}
+      />
+    );
+
+    return (
+      <>{this.state.is_deal_visible==true?<div style={{ display: this.state.show_data }}>
+        <WebHeader />
+        <section
+              className="deals-details-page"
+             
+            >
+          <div className="container main-section">
+            <div className="row">
+                <div className="col-lg-5">
+                <Spin spinning={this.state.loading}>
+                  <div className="d-flex justify-content-between align-items-center">
+                    <div className="d-flex align-items-center">
+                      {/* Image is static */}
+                      <img src={this.state.logo} alt="" className="img-fluid"/> 
+                      <h5>{this.state.deal_name}</h5>
+                      {/* <h5>{this.state.logo}</h5> */}
+                    </div>
+                    {this.state.isPrivate==true && (
+                      <div className='private-tag' style={{
+                        height:38
+                      }}>
+                        <span style={{ fontSize:12 }}>Private</span> &nbsp;&nbsp;
+                        <ExclamationCircleOutlined style={{
+                          marginTop: -2,
+                        }}/>
+                      </div>
+                    )}
+                  </div>
+                  <div className='d-flex tags'>
+                    {this.state.tags.length > 0 && this.state.tags.map((tag, index) => (
+                      <div className='hero-tag'
+                      key={index}
+                      style={{
+                        background: 'rgb(41 23 111)',
+                        color: '#fff',
+                      }}    
+                      > 
+                        {tag}
+                      </div>
+                    ))}
+                  </div>
+                  <p style={{textAlign: "justify"}}>
+                    {this.state.deal_description}
+                  </p>
+                  <div className='percentage-values'>
+                    <div>
+                    <h3>{this.state.percentage_raised} %</h3>
+                        <span>RAISED</span>
+                    </div>
+                    <div style={{ textAlign: 'right', }}>
+                        <h3>
+                          {this.state.dealenddays} Days
+                        </h3>
+                        <span>BEFORE CAMPAIGN ENDS</span>
+                    </div>
+                  </div>
+                  <Progress percent={this.state.percentage_raised}  strokeColor={{'0%': 'rgb(255 156 26)','100%': 'rgb(255 156 26)'}} showInfo={false} />
+                  {!this.state.investor_id ? (
+                    <div className='button-group'>
+                      <a className='prime-bg' href="/Login">Login</a>
+                      <button className='share-button'>
+                        <i className='bx bxs-share'></i>
+                      </button>
+                    </div>
+                  ): (
+                    <>
+                      {this.state.button_show_status==true ? (
+                        <>
+                          <div className='button-group'>
+                            {this.state.isFunded==true ? (
+                              <a 
+                                href="#" 
+                                className="black-button prime-bg"
+                              >
+                                Deal is closed
+                              </a>
+                            ) : (this.state.isInvested==true && this.state.user_type!='founder') ? (
+                              <a style={{ 
+                                padding:'11px 136px',
+                              }} href="#!" onClick={() => this.showModal1()} className="black-button prime-bg"
+                              >
+                                Add more
+                              </a>
+                            ): (this.state.isPrivate==true && this.state.user_type!='founder') ? (
+                                <a href="#" onClick={() => this.showModal1()} className="black-button prime-bg"
+                                >Express Your Interest</a>
+                              ) : (this.state.user_type=='founder')? (
+                                <div>
+                                  {(this.state.user_type=='founder' && this.state.founder_is_investor=='1') ? (
+                                    <a 
+                                      href="#" 
+                                      className="black-button prime-bg"
+                                      onClick={() => this.showModal1()}
+                                    >
+                                      Express Your Interest
+                                    </a>
+                                  ):(
+                                    <a 
+                                      href="/founder-as-investor" 
+                                      className="black-button prime-bg"
+                                    >
+                                      Apply as investor
+                                    </a>
+                                  )}
+                                </div>
+                              ):(
+                               <div>
+                               {this.state.user_type=='investor'&&(
+                                <a 
+                                      href="#" 
+                                      className="black-button prime-bg"
+                                      onClick={() => this.showModal1()}
+                                    >
+                                      Express Your Interest
+                                    </a>
+                               )}
+                                </div>
+                              )}
+                            {/* <button className='share-button'>
+                              <i className='bx bxs-share'></i>
+                            </button> */}
+                          </div>
+                        </>
+                      ):( 
+                        <div className='button-group'>
+                          <a href="#" className="black-button prime-bg" style={{cursor: 'default'}}>Coming soon..</a>
+                          {/* <button className='share-button'>
+                            <i className='bx bxs-share'></i>
+                          </button> */}
+                        </div>
+                      )}
+                    </>
+                  )}
+                  </Spin>
+                </div>
+              <Modal 
+                title={`Invest in ${this.state.deal_name}`} 
+                visible={this.state.investmentmodal} 
+                onOk={this.handleOk1} 
+                onCancel={this.handleCancel1}
+                width={600}
+                footer={false}
+              >
+                <div className="row modal-body">
+
+                  <div className="login mt-3" >
+                      
+                    <label ><b>Amount: (Minimum investment amount should be Rs. {this.state.minamount})</b></label>
+                    <input 
+                      type="text" 
+                      name="amount" 
+                      className="form-input-field mt-4 " 
+                      placeholder='amount'
+                      style={{
+                        border:(this.state.amount_error_status==true && this.state.amount) ?'1px solid red': '1px solid transparent',
+                      }} 
+                      value={this.state.amount}
+                      onChange={(e) => {
+                        this.setState({
+                          amount: e.target.value
+                        },() =>{
+                          this.calculategst();
+                          this.check_for_error();
+                        })
+                      }}
+                    /> 
+                    {this.state.amount_error_status==true && (
+                      <p 
+                      className='text-danger pb-0'
+                      style={{position:'relative',top:-19}}
+                      >
+                        {this.state.amount_error}
+                      </p>
+                    )}
+                  </div>  
+
+                  <div className=' d-flex justify-content-center modal-table'>
+                    <table 
+                      className='col-12 m-5 investment-charge-table' 
+                      cellPadding={4}
+                    >
+                      <tr>
+                        <th><strong>Particulars</strong></th>
+                        <th><strong>Amount</strong></th>
+                      </tr>
+                      
+                      <tr>
+                        <td>Investment Amount
+                          {/* <br/><span>Includes GST - 18%</span> */}
+                        </td>
+                        <td lassName='text-center'>
+                        ₹ {this.state.amountplusgst}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Convenience Fees
+                          <br/><span>{this.state.label}</span>
+                        </td>
+                        <td lassName='text-center'>₹ {this.state.processingfees}</td>
+                      </tr>
+                      {/* <tr>
+                        <td>GST - 18%</td>
+                        <td lassName='text-center'>{this.state.gst}</td>
+                      </tr> */}
+                      <tr>
+                        <td>Total</td>
+                        <td>
+                        ₹ {parseFloat(this.state.totalamount).toFixed(0)}
+                        </td>
+                      </tr>
+                      {/* {this.state.deduct && (
+                        <tr>
+                          <td>TDS Deducted</td>
+                          <td lassName='text-center'>
+                            {parseFloat(this.state.tdsdeductedamount).toFixed(2)}
+                          </td>
+                        </tr>
+                      )} */}
+                    </table>
+                  </div>
+
+                  <div className='m-3'>
+                    <label className="container-check">I Agree to Terms and Conditions and have read the Privacy Policy. And, I understand that I will be required to pay the full amount committed after the deal is closed.
+                      <input type="checkbox" name="agree" onChange={this.onChangeCheckbox}  />
+                      <span className="checkmark"></span>
+                    </label>
+
+                    {/* <label className="container-check">I will deduct TDS on service charges and deposit to Income tax on time
+                      <input type="checkbox" name="deduct" onChange={this.onChangeCheckbox}  />
+                      <span className="checkmark"></span>
+                    </label> */}
+                  </div>
+
+                  <div className="col-12">
+                    {this.state.amount_error_status==true ? (
+                      <button 
+                          type="button" 
+                          className="login-button" 
+                          style={{
+                            border: '1px solid #9a9a9a',
+                            backgroundColor: '#9a9a9a',
+                            cursor: 'not-allowed',
+                          }}          
+                      >
+                          Express Your Interest
+                      </button> 
+                    ):(
+                        <InvestmentMembershipmodal 
+                        processingfees={this.state.processingfees}
+                          membership_type={this.state.check_membership_type}
+                          invest={this.invest}
+                          amount={this.state.amount}
+                          minamount={this.state.minamount}
+                          maxamount={this.state.maxamount}
+                          agree={this.state.agree}
+                          deal_id={this.state.deal_id}
+                        />
+                    )}
+                    {/* <input onClick={this.invest} type="button" value='Pay Offline' className="login-button mx-4 my-3">
+                    </input> */}
+                  </div>
+                  </div>
+              </Modal>
+              <Modal 
+                title="Deduct TDS" 
+                visible={this.state.confirmmodalstatus} 
+                onOk={this.handleOk2} 
+                onCancel={this.handleCancel2}
+                width={700}
+                footer={false}
+              >
+                <div className="row">
+
+                  <div style={{width: '100%'}}>
+                  <p style={{margin: '10px', maxWidth: '100%'}}>TDS is applicable according to Section-194j of the income Tex act, 1961.</p> 
+                  <p style={{margin: '10px', maxWidth: '100%'}}>Rate: 10%</p> <br/>
+                  <p style={{margin: '10px', maxWidth: '100%'}}><b>Do you want to Deduct TDS?</b></p>
+                  </div>
+
+                  <div className="col-11">
+                    <button type="button" 
+                    className="login-button bg-primary mt-4 mx-4"
+                    onClick={()=> this.invest()}
+                    >Yes</button>
+                    <input 
+                    type="button" 
+                    value='No Thanks' 
+                    onClick={()=> this.invest()}
+                    className="login-button mx-4 my-3"></input>
+
+                  </div>
+
+                </div>
+              </Modal>
+                          
+
+                <div className="col-lg-7">
+                  {this.state.youtube_url && (
+                    <iframe 
+                    style={{
+                      boxShadow: '0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)',
+                      borderRadius:3,
+                      // marginLeft: 65,
+                    }}
+                    width="100%" 
+                    height="335" 
+                    src={this.state.youtube_url} 
+                    title="YouTube video player" 
+                    frameBorder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                  )}
+                </div>       
+            </div>
+
+
+            {/* <div className='container extra-info'
+            style={{ maxWidth:1075 }}>
+              <div className='row align-items-center'>
+                <div className='col-lg-4'>
+                    <h3>Artment's AMA</h3>
+                    <p>
+                      <strong>What Is An AMA?</strong><br/><br/>
+                      AMA (Ask Me Anything) is a 45-60 minute online zoom session for investors to directly interact with the startup founders and ask any questions that they have regarding the startup or the campaign.
+                    </p>
+                </div>
+                <div className='col-lg-3'>
+                  <div className='middle'>
+                    <span>Recorded On</span>
+                    <p>
+                      7:00 PM <br/>
+                      26th Apr 2022
+                    </p>
+                  </div>
+                </div>
+                <div className='col-lg-5'>
+                  <iframe 
+                    width="100%" 
+                    height="200" 
+                    src="https://www.youtube.com/embed/tqgt5Arx4wM" 
+                    title="YouTube video player" 
+                    frameBorder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+              </div>
+            </div> */}
+            
+            <div className='container home-decor-section'>
+              <h1 className='text-center'>India Neobank - Market Overview</h1>
+              <div className='row'>
+                <div className='col-lg-4'>
+                    <div className='single text-center'>
+                      <h2>US$45B </h2>
+                      <p>Transaction Value in 2022</p>
+                    </div>
+                </div>
+                <div className='col-lg-4'>
+                    <div className='single text-center'>
+                      <h2>US$122B</h2>
+                      <p>Estimated Txn Value by 2027</p>
+                    </div>
+                </div>
+                <div className='col-lg-4'>
+                    <div className='single text-center'>
+                      <h2>21%</h2>
+                      <p>Estimated CAGR from 22-27</p>
+                    </div>
+                </div>  
+                <div className='col-lg-4'>
+                    <div className='single text-center'>
+                      <h2>0.7%</h2>
+                      <p>User Adapation in 2022</p>
+                    </div>
+                </div>
+                <div className='col-lg-4'>
+                    <div className='single text-center'>
+                      <h2>21M</h2>
+                      <p>Estimated Users by 2027</p>
+                    </div>
+                </div>
+                <div className='col-lg-4'>
+                    <div className='single text-center'>
+                      <h2>1.4%</h2>
+                      <p>Estimated User Adapation by 2027</p>
+                    </div>
+                </div>   
+              </div>
+              <div className='d-flex align-items-center justify-content-center'>
+                <p className='mb-0 pr-2'><a href='https://www.statista.com/outlook/dmo/fintech/neobanking/india'>Source</a></p>
+                
+              </div>
+            </div>
+
+
+            <div className='container highlight-section'>
+              <h1>Highlights</h1>
+              <div className='row'>
+                <div className='col-lg-6'>
+                    <div className='single text-center'>
+                      <img src='./assets/images/deals-details/no.jpg' />
+                      <p>No Minimum Balance</p>
+                    </div>
+                </div>
+                <div className='col-lg-6'>
+                    <div className='single text-center'>
+                      <img src='./assets/images/deals-details/send.jpg' />
+                      <p>1M Daily Transacion</p>
+                    </div>
+                </div>
+                <div className='col-lg-6'>
+                    <div className='single text-center'>
+                      <img src='./assets/images/deals-details/take.jpg' />
+                      <p>10M Daily Activity</p>
+                    </div>
+                </div>
+                <div className='col-lg-6'>
+                    <div className='single text-center'>
+                      <img src='./assets/images/deals-details/save.jpg' />
+                      <p>1B$ Quaterly value of Transections </p>
+                    </div>
+                </div>  
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+
+          <div className='pitch-div'>
+                <img 
+                  src='./assets/images/deals-details/instantpay/Slide1.jpg'
+                  style={{
+                    width:'100%',
+                    }}
+                />
+                <img 
+                  src='./assets/images/deals-details/instantpay/Slide2.jpg'
+                  style={{
+                    width:'100%',
+                    }}
+                />
+                <img 
+                  src='./assets/images/deals-details/instantpay/Slide3.jpg'
+                  style={{
+                    width:'100%',
+                    }}
+                />
+                <img 
+                  src='./assets/images/deals-details/instantpay/Slide4.jpg'
+                  style={{
+                    width:'100%',
+                    }}
+                />
+                <img 
+                  src='./assets/images/deals-details/instantpay/Slide5.jpg'
+                  style={{
+                    width:'100%',
+                    }}
+                />
+                <img 
+                  src='./assets/images/deals-details/instantpay/Slide6.jpg'
+                  style={{
+                    width:'100%',
+                    }}
+                />
+                <img 
+                  src='./assets/images/deals-details/instantpay/Slide7.jpg'
+                  style={{
+                    width:'100%',
+                    }}
+                />
+                <img 
+                  src='./assets/images/deals-details/instantpay/Slide8.jpg'
+                  style={{
+                    width:'100%',
+                    }}
+                />
+                <img 
+                  src='./assets/images/deals-details/instantpay/Slide9.jpg'
+                  style={{
+                    width:'100%',
+                    }}
+                />
+                <img 
+                  src='./assets/images/deals-details/instantpay/Slide10.jpg'
+                  style={{
+                    width:'100%',
+                    }}
+                />
+                <img 
+                  src='./assets/images/deals-details/instantpay/Slide11.jpg'
+                  style={{
+                    width:'100%',
+                    }}
+                />
+                
+          </div>
+          {this.state.hidePageInfo ? (
+          <></>
+        ) : (
+        
+        <div className='deals-page' style={{
+        marginTop:171}}>
+          
+          <div className='tab-wrapper'>
+            <div className='container'>
+              <div className='row'>
+                <div className='col-lg-12'>
+                  <Tabs defaultActiveKey="1" centered>
+                    <TabPane tab="FAQ" key="1">
+                    <section className="faq-section" style={{margin: "0px", padding: "0px"}}>
+                  <div className="container">
+                    <div className="row">
+                      <div className="col-lg-10 m-auto">
+                        <h1 className='text-center'>About {this.state.deal_name}</h1>
+                        <Collapse
+                          defaultActiveKey={['1']}
+                          onChange={this.callback}
+                          expandIconPosition='left'
+                        >
+                          <Panel header="Udyam Registration for MSMEs — How it is Useful and How to Apply?" key="1" extra={genExtra()}>
+                            <div>
+                            The backbone of the Indian economy, Micro, Small, and Medium Enterprises (MSMEs) play a vital role in the development of the country as a whole. With the growth and progress of these small-scale industries, the economy of India flourishes. The Udyam Registration for MSMEs is a big boost for new and existing businesses.
+                            </div>
+                          </Panel>
+                          <Panel header="What is Udyam Registration or MSME Registration?" key="2" extra={genExtra()}>
+                            <div>
+                            Launched by the Ministry of MSME, Udyam Registration is completely online, paperless, and there is no cost or fee for registration. Simple and easy, the registration can be done in the government portal, i.e. https://udyamregistration.gov.in/Government-India/Ministry-MSME-registration.htm.
+
+                            </div>
+                          </Panel>
+                          <Panel header="Benefits of Udyam Registration?" key="3" extra={genExtra()}>
+                            <div>
+                            Government registration for MSMEs provides entrepreneurs with a unique identification number and a recognition certificate. The primary objective here is to provide full benefits to the MSME industries in India, including but not limited.
+
+                            </div>
+                          </Panel>
+                          <Panel header="Requirement for Registration?" key="4" extra={genExtra()}>
+                            <div>
+                            Aadhaar number shall be required for Udyam Registration.
+                            GSTIN and PAN along with the Aadhaar number are required in the case of a Company or an LLP or a Cooperative Society.
+                            No enterprise shall file more than one Udyam Registration.
+                            </div>
+                          </Panel>
+                          
+                        </Collapse>
+                        <h1 className='text-center'>About Growth91</h1>
+                        <Collapse
+                          defaultActiveKey={['1']}
+                          onChange={this.callback}
+                          expandIconPosition='left'
+                        >
+                          <Panel header="Do these startups undergo due diligence?" key="7" extra={genExtra()}>
+                            <div>
+                              Startups are displayed to the investors only after due diligence has been conducted by us and an independent screening committee specially formed for the purpose of conducting due diligence of the same.
+                            </div>
+                          </Panel>
+                          <Panel header="What kind of documentation will I need to sign?" key="8" extra={genExtra()}>
+                            <div>
+                              Each investor must sign the G-SAFE agreement and agree to a Risk Disclosure agreement.
+                            </div>
+                          </Panel>
+                          <Panel header="Do you offer any guarantee or returns?" key="9" extra={genExtra()}>
+                            <div>
+                              No, we do not guarantee any returns.
+                            </div>
+                          </Panel>
+                          <Panel header="If I invest in a startup and they fail to reach their funding goal, will I be refunded?" key="10" extra={genExtra()}>
+                            <div>
+                              Yes, if a company fails to meet their funding goal all investments in that company will be cancelled and refunded within 15 working days to the bank account from which the investment has been made. Please note, there will be no interest or any other form of compensation paid on these returned funds.
+                            </div>
+                          </Panel>
+                        </Collapse>
+                      </div>
+                    </div>
+                  </div>
+              </section>
+                    </TabPane>
+                    <TabPane tab="Detais" key="2">
+                    <section className="deal-terms-section">
+                <div className="container">
+                  <div className="row">
+                    <div className="col-lg-10 m-auto">
+                      <h1>Documents</h1>
+                      <div className="row document-section">
+                        <div className="col-lg-6">
+                          <p className='mb-0 pb-0'>
+                          InstantPay is India’s largest Neo Banking platform delivering full stack banking services to individuals and businesses of all sizes  <br/><br/>
+                          We are headquartered in Bangalore and are a team of finance professionals, engineers & designers with diverse backgrounds & skills
+                          </p>
+                        </div>
+                        <div className="col-lg-6">
+                          <div className="download-section">
+                          <>
+                                  <div>
+                                      <table className='download-document-table' style={{width:'100%'}}>
+                                        <tr>
+                                          <th></th>
+                                          <th>Document</th>
+                                          <th>Type</th>
+                                          <th></th>
+                                        </tr>
+                                        {this.state.documents.length>0 && this.state.documents.map((item,index)=>{
+                                          let documentlink=`${process.env.REACT_APP_BASE_URL}api/uploads/docs/${item.documentid}/${item.document}`;
+                                          return (
+                                            <tr key={index} style={{height:70}}>
+                                              <td style={{width:40}}>
+                                                {item.paid=='Paid' && (
+                                                  <>
+                                                    {(this.state.check_membership_type=='premium' && item.premium_price!='0' && item.premium_price!='') ? (
+                                                      <>
+                                                        {item.user_paid==false ? (
+                                                          <Checkbox 
+                                                            onChange={()=>this.show_selected_checkbox(item)}
+                                                            value={item.selected}
+                                                          >
+                                                          </Checkbox>
+                                                        ):(
+                                                          <>
+                                                            {item.user_paid==true && (
+                                                              <img 
+                                                                src='./paid.png'
+                                                                style={{maxWidth:20}} 
+                                                              />
+                                                            )}
+                                                          </>
+                                                        )}  
+                                                      </>
+                                                    ):(
+                                                      <>
+                                                        {(this.state.check_membership_type=='regular' && item.regular_price!='0' && item.regular_price!='') && (
+                                                          <Checkbox 
+                                                            onChange={()=>this.show_selected_checkbox(item)}
+                                                            value={item.selected}
+                                                          >
+                                                          </Checkbox>
+                                                        )}
+                                                      </>
+                                                    )}
+                                                  </>
+                                                )}
+                                              </td>
+                                              <td style={{width:140}}>{item.docname}</td>
+                                              <td style={{width:40}}>
+                                                {item.paid=='Paid' ? 
+                                                 this.state.check_membership_type=='premium' ? (item.premium_price=='0'?'Free':'₹'+item.premium_price) :
+                                                  (item.regular_price=='0'?'Free': '₹'+item.regular_price)
+                                                : 'Free'}
+                                                </td>
+                                              <td style={{width:50}}>
+                                                {((item.user_paid==true || item.paid=='Free') || (this.state.check_membership_type=='premium' && item.premium_price=='0')) && (
+                                                  <a href={documentlink} target="_blank" style={{width:80}}>
+                                                    <img src='./download.ico' style={{maxWidth:50}} />
+                                                  </a>
+                                                )}
+                                              </td>
+                                            </tr>
+                                          )
+                                        })}
+                                      </table>
+                                    </div>
+                                </>
+                            {this.state.button_status==false && (
+                              <button className='download-button'
+                              onClick={this.documentPay}
+                              >Pay</button>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+
+                      <h1>Deal Terms</h1>
+                      <section className="deal-terms-section">
+                        <div className="container">
+                          <div className="row">
+                            <div className="col-lg-12">
+                              <div className="info">
+                                  <span>Start Date</span>
+                                  <h4>3rd Aug, 2022</h4>
+                              </div>
+                              <div className="info">
+                                  <span>End Date</span>
+                                  <h4>15rd Oct, 2022</h4>
+                              </div>
+                              <div className="info">
+                                <span> Min Investment</span>
+                                <h4>1,000 Rs</h4>
+                              </div>
+                              <div className="info">
+                                <span><i className='bx bxs-lock-alt'></i> Target</span>
+                                <h4 style={{color: "gray"}}>XXXX</h4>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+
+
+                      <h1>Company Details</h1>
+                      <section className="deal-about-artment-section">
+                        <div className="container">
+                          <div className="row">
+                            <div className="col-lg-12">
+                              <div className="info">
+                                  <span>Legal Name</span>
+                                  <h4> InstantPay </h4>
+                              </div>
+                              <div className="info">
+                                <span>Founded</span>
+                                <h4>Shailendra Agarwal</h4>
+                              </div>
+                              <div className="info">
+                                <span>Form</span>
+                                <h4>Public</h4>
+                              </div>
+                              <div className="info">
+                                <span>Employees</span>
+                                <h4>51-100</h4>
+                              </div>
+                              <div className="info">
+                                <span>Website</span>
+                                <h4>
+                                  <a style={{ color:'rgb(7, 211, 252)' }} href="https://theartment.com/" target="_blank">
+                                    https://InstantPay.com/
+                                  </a>
+                                </h4>
+                              </div>
+                              <div className="info">
+                                <span>Social Icons</span>
+                                <div className='social-icons'>
+                                  <a href='#'>
+                                    <i className='bx bxl-facebook fs-19'></i>
+                                  </a> 
+                                  <a href='#'>
+                                    <i className='bx bxl-linkedin fs-19'></i>
+                                  </a>
+                                  <a href='#'>
+                                    <i className='bx bxl-instagram fs-19' ></i>
+                                  </a>
+                                </div>
+                              </div>
+                              <div className="info">
+                                <span>Headquarters</span>
+                                <h4>Delhi, India</h4>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </div>
+                </div>
+            </section>
+                    </TabPane>
+                    <TabPane tab="Teams" key="3">
+                    <div className="container meet-the-team-section"
+            style={{ maxWidth:921 }}>
+              <h2 className="text-center">Meet the Team</h2>
+              <div className="row">
+
+                  <div className="col-lg-6">
+                    <div className="single">
+                      <div className="d-flex">
+                        <img src="./assets/images/deals-details/IPCEO.jpg" alt=""/>
+                        <div className='intro'>
+                          <h3>Shailendra Agarwal</h3>
+                          <span>CEO</span>
+                          <div className='social-icons'
+                          style={{
+                            marginTop: 4,
+                            marginLeft: -6,
+                          }}
+                          >
+                            <a href='https://www.facebook.com/adityaagarwal21/https://www.facebook.com/adityaagarwal21/' target="_blank">
+                              <i className='bx bxl-facebook'></i>
+                            </a>
+                            <a href='https://www.linkedin.com/in/aditya-agarwal-2a9516112' target="_blank"><i className='bx bxl-linkedin'></i></a>
+                            <a href='https://www.instagram.com/ad1tyaaaa/' target="_blank"><i className='bx bxl-instagram' ></i></a>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        Business Economics graduate with 8 years of eCommerce experience. <br/>
+
+                        Started selling on Amazon in the year 2013. Digital Marketing Expert with hands-on experience in paid ads and website optimisation. Art aficionado with deep knowledge of the Indian Home Decor manufacturing supply chain.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* <div className="col-lg-6">
+                    <div className="single">
+                      <div className="d-flex">
+                        <img src="./assets/images/meet-the-team/2.webp" alt=""/>
+                        <div className='intro'>
+                          <h3>Aanchal Agarwal</h3>
+                          <span>CEO</span>
+                          <div className='social-icons'
+                          style={{
+                            marginTop: 4,
+                            marginLeft: -6,
+                          }}
+                          >
+                            <a href='https://www.linkedin.com/in/aanchal-agarwal-65991459/' target="_blank">
+                              <i className='bx bxl-linkedin'></i>
+                            </a>
+                            <a href='https://instagram.com/aanchal5783?r=nametag'>
+                              <i className='bx bxl-instagram' ></i>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                      CA finalist and CFA scholar. Specialisation in MIS, Audit, Budgeting, Working Capital Management, etc. <br/><br/>
+
+                      Optimises and leads company’s operations, efficiency and finances.
+                      </p>
+                    </div>
+                  </div> */}
+
+                  <div className="col-lg-6">
+                    <div className="single">
+                      <div className="d-flex">
+                        <img src="./assets/images/meet-the-team/3.webp" alt=""/>
+                        <div className='intro'>
+                          <h3>Kritika Agarwal</h3>
+                          <span>Marketing Lead</span>
+                          <div className='social-icons'
+                          style={{
+                            marginTop: 4,
+                            marginLeft: -6,
+                          }}
+                          >
+                            <a href='https://www.linkedin.com/in/kritika-agarwal-5b33618b/' target="_blank">
+                              <i className='bx bxl-linkedin'></i>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        Post graduate from NIFT. Seasoned marketing professional with 5+ years of experience in performance marketing with multiple D2C brands managing their e-commerce branding, social media engagement, experience targeted PPC campaigns and user growth.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="col-lg-6">
+                    <div className="single">
+                      <div className="d-flex">
+                        <img src="./assets/images/meet-the-team/4.webp" alt=""/>
+                        <div className='intro'>
+                          <h3>Kush Rawat</h3>
+                          <span>Creative Lead</span>
+                          <div className='social-icons'
+                          style={{
+                            marginTop: 4,
+                            marginLeft: -6,
+                          }}
+                          >
+                            <a href='https://www.linkedin.com/in/kush-rawat-21050212a/' target="_blank">
+                              <i className='bx bxl-linkedin'></i>
+                              </a>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        Creative professional with an a graduate degree from Indian Institute of Photography. Having worked with Zomato, Quickr and IAAH in the past, Kush sets the creative lens of Artment though his advanced skills in photography and creative production.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="col-lg-6">
+                    <div className="single">
+                      <div className="d-flex">
+                        <img src="./assets/images/meet-the-team/5.webp" alt=""/>
+                        <div className='intro'>
+                          <h3>Rohit Guha</h3>
+                          <span>Advisor</span>
+                          <div className='social-icons'
+                          style={{
+                            marginTop: 4,
+                            marginLeft: -6,
+                          }}
+                          >
+                            <a href='https://www.linkedin.com/in/rohitguha/'
+                            target="_blank">
+                              <i className='bx bxl-linkedin'></i></a>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        Over three decades in the business of International Trade/Exports, eCommerce, and Supply Chain Management of hard and soft line lifestyle products.<br/>
+
+                        Rohit Guha serves as the key advisor for Merchandising and Supply Chain setup.
+                      </p>
+                    </div>
+                  </div>
+
+              </div>
+            </div>
+                    </TabPane>
+                  </Tabs>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+)}
+
+        <WebFooter />
+      </div>:window.location.assign('/Deals')}
+      </>
+    )
+  }
+}
+
+export default Instapay;
