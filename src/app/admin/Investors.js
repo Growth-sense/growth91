@@ -1043,6 +1043,7 @@ class Investors extends Component {
         "Pan Id": item.panno,
         "Aadhaar Address": item.adhaar_address,
         "Aadhaar No": item.adharno,
+        "Referral":item.referred_by
       };
       arr = [...arr, obj];
       count++;

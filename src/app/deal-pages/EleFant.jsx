@@ -23,7 +23,7 @@ import InvestmentMembershipmodal from "../components/membership/InvestmentMember
 
 const { Panel } = Collapse;
 const { TabPane } = Tabs;
-class ORAI extends Component {
+class EleFant extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -95,32 +95,30 @@ class ORAI extends Component {
       escrow_account_ifsc: "",
       agreeCheck: false,
       images: [
-        "./assets/images/deals-details/ORAI/Pitch/0.png",
-        "./assets/images/deals-details/ORAI/Pitch/1.png",
-        "./assets/images/deals-details/ORAI/Pitch/2.png",
-        "./assets/images/deals-details/ORAI/Pitch/3.png",
-        "./assets/images/deals-details/ORAI/Pitch/4.png",
-        "./assets/images/deals-details/ORAI/Pitch/5.png",
-        "./assets/images/deals-details/ORAI/Pitch/6.png",
-        "./assets/images/deals-details/ORAI/Pitch/7.png",
-        "./assets/images/deals-details/ORAI/Pitch/8.png",
-        "./assets/images/deals-details/ORAI/Pitch/9.png",
-        "./assets/images/deals-details/ORAI/Pitch/10.png",
-        "./assets/images/deals-details/ORAI/Pitch/11.png",
-        "./assets/images/deals-details/ORAI/Pitch/12.png",
-        "./assets/images/deals-details/ORAI/Pitch/13.png",
-        "./assets/images/deals-details/ORAI/Pitch/14.png",
-        "./assets/images/deals-details/ORAI/Pitch/15.png",
-        "./assets/images/deals-details/ORAI/Pitch/16.png",
-        "./assets/images/deals-details/ORAI/Pitch/17.png",
-        "./assets/images/deals-details/ORAI/Pitch/18.png",
-        "./assets/images/deals-details/ORAI/Pitch/19.png",
-        "./assets/images/deals-details/ORAI/Pitch/20.png",
-        "./assets/images/deals-details/ORAI/Pitch/21.png",
-        "./assets/images/deals-details/ORAI/Pitch/22.png",
-        "./assets/images/deals-details/ORAI/Pitch/23.png",
-        "./assets/images/deals-details/ORAI/Pitch/24.png",
-        "./assets/images/deals-details/ORAI/Pitch/25.png",
+        "./assets/images/deals-details/the EleFant/Pitch/1.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/2.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/3.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/4.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/5.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/6.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/7.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/8.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/9.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/10.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/11.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/12.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/13.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/14.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/15.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/16.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/17.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/18.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/19.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/20.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/21.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/22.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/23.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/24.jpg",
       ],
       current: "",
     };
@@ -130,10 +128,10 @@ class ORAI extends Component {
   callback3 = (key) => {};
 
   componentWillMount() {
-    document.title = "ORAI - Growth91 - Startup Marketplace ";
+    document.title = "EleFant - Growth91 - Startup Marketplace ";
   }
   componentDidMount() {
-    let deal_id = "116";
+    let deal_id = "117";
     this.setState({ deal_id: deal_id }, () => {
       this.get_pitch_list();
     });
@@ -1136,7 +1134,7 @@ class ORAI extends Component {
                         <div className="d-flex align-items-center">
                           {/* Image is static */}
                           <img
-                            src="./assets/images/deals-details/ORAI/logo.jpg"
+                            src="./assets/images/deals-details/the EleFant/logo.png"
                             alt=""
                             className="img-fluid"
                             style={{
@@ -1145,7 +1143,7 @@ class ORAI extends Component {
                               objectFit: "contain",
                             }}
                           />
-                          <h5 className="ml-5 mt-4">ORAI</h5>
+                          <h5 className="ml-5 mt-4">The EleFant</h5>
                           {/* <h5>{this.state.logo}</h5> */}
                         </div>
                         {this.state.isPrivate == true && (
@@ -1176,20 +1174,20 @@ class ORAI extends Component {
                       </div>
 
                       <p style={{ textAlign: "justify" }}>
-                        ORAI Robotics is at the forefront of Conversational AI
-                        innovation, co-founded by Swapnil Jain and Sujit Das.
-                        The company specializes in enhancing customer engagement
-                        through cutting-edge technologies such as Natural
-                        Language Processing (NLP) and Machine Learning (ML).
-                        Operating round-the-clock, ORAI’s chatbots are tailored
-                        for various sectors, including e-commerce, healthcare,
-                        and education.ORAI strategically focuses on brand
-                        awareness, lead generation, thought leadership, and
-                        community building. With a robust financial foundation,
-                        the company is poised for global expansion, setting
-                        itself apart with localized solutions, advanced AI
-                        integration, and a strong commitment to privacy and
-                        security.
+                        The EleFant is a subscription-based platform providing
+                        an economical, clutter-free, and eco-friendly toy
+                        solution for children. It addresses challenges in the
+                        toy industry, offering curated, high-quality toys
+                        supporting various developmental stages. Users choose
+                        from multiple subscription plans, promoting
+                        sustainability by reducing waste. The app features
+                        personalized recommendations, real-time tracking, and a
+                        user-friendly interface. The business model includes
+                        subscription fees and librarian setup fees. With a
+                        successful app launch, 7,000+ downloads, 3,500+ active
+                        users, and 600+ subscribers, The EleFant aims to
+                        transform the Indian toy industry by making sustainable
+                        play accessible and enriching for all children.
                       </p>
                       <div className=" percentage-container">
                         <div className="percentage-values">
@@ -1605,20 +1603,25 @@ class ORAI extends Component {
                   </Modal>
                   <div className="col-lg-7 deal-banner deals-video-banner">
                     {this.state.youtube_url && (
-                      <iframe   style={{
-                            boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
-                            borderRadius: 3,
-                            // marginLeft: 65,
-                          }}
-                          width="100%"
-                          height="335"
-                        src="https://www.youtube.com/embed/E2NPzC407fk" title="ORAI Intro Demo" frameborder="10" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                     
+                      <iframe
+                        style={{
+                          boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
+                          borderRadius: 3,
+                          // marginLeft: 65,
+                        }}
+                        width="100%"
+                        height="335"
+                        src="https://www.youtube.com/embed/E2NPzC407fk"
+                        title="ORAI Intro Demo"
+                        frameborder="10"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen
+                      ></iframe>
                     )}
                     {!this.state.youtube_url && (
                       <>
                         <img
-                          src="./assets/images/deals-details/ORAI/banner.jpg"
+                          src="./assets/images/deals-details/the EleFant/banner.png"
                           width="100%"
                           style={{ height: "auto" }}
                         />
@@ -1638,54 +1641,127 @@ class ORAI extends Component {
                     </h1>
                     <div className="row">
                       <div className="col-lg-6 col-md-6 col-sm-6">
-                        <div className="single oraihighlight text-left" style={{maxHeight:"200px"}}>
+                        <div
+                          className="single elefanthighlight text-left"
+                          style={{ maxHeight: "400px" }}
+                        >
                           <img src="./assets/images/deals-details/Petmojo/highlight01.jpg" />
                           <p style={{ padding: "1px !important" }}>
-                            ORAI demonstrates financial robustness with an
-                            impressive average order value of INR 5.3 lakhs per
-                            customer over a 3-year lifespan. The company's sound
-                            financial performance is underscored by substantial
-                            gross margins of 72% and net margins of 64%, driven
-                            by an efficient software-driven operating model.
+                            EleFant's USP lies in its innovative
+                            subscription-based toy library model, enabling users
+                            to access a diverse range of toys without the burden
+                            of ownership. This unique approach not only provides
+                            variety but also promotes sustainability. The app
+                            facilitates easy browsing, personalized
+                            recommendations, and real-time tracking, The app's
+                            success is further highlighted by 7000+ downloads in
+                            4 month period, a consistent 4.8+ rating, and a
+                            registered user base of 3500+, demonstrating its
+                            strong market appeal and growth prospects.
                           </p>
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-6 col-sm-6">
-                        <div className="single oraihighlight text-left" style={{maxHeight:"200px"}}>
+                        <div
+                          className="single elefanthighlight text-left"
+                          style={{ maxHeight: "400px" }}
+                        >
                           <img src="./assets/images/deals-details/highlight2.jfif" />
                           <p style={{ padding: "0px !important" }}>
-                            ORAI Robotics envisions substantial growth in the
-                            conversational commerce market, targeting an
-                            estimated $26.3 billion by 2032 with a commendable
-                            CAGR of 15.6%. This growth is attributed to
-                            strategic measures like social media marketing and
-                            advanced AI-driven customer service.
+                            EleFant's commitment to quality and education is
+                            reflected in its curated catalog, making it a go-to
+                            platform for parents seeking sustainable and
+                            enriching play experiences for their children.
+                            EleFant has established a robust presence with 42+
+                            libraries across India, securing over 600+ committed
+                            subscribers, and achieving sales exceeding 2.5
+                            crores in the past five months.
                           </p>
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-6 col-sm-6">
-                        <div className="single oraihighlight text-left" style={{maxHeight:"200px"}}>
+                        <div
+                          className="single elefanthighlight text-left"
+                          style={{ maxHeight: "400px" }}
+                        >
                           <img src="./assets/images/deals-details/highlight3.jpg" />
                           <p style={{ paddingLeft: "0px !important" }}>
-                            ORAI Robotics enjoys a strategic first-mover
-                            advantage in the AI-powered conversational commerce
-                            space. The company's remarkable 218% revenue growth
-                            within a year serves as a testament to its agility
-                            in capturing market opportunities and meeting
-                            evolving customer demands effectively.
+                            EleFant empowers women through its business model,
+                            allowing them to become Toy Librarians. These women
+                            entrepreneurs, including CAs, engineers, and
+                            professionals, can set up and run toy libraries,
+                            offering financial independence in just a few hours
+                            a day. EleFant provides continuous support and
+                            training, fostering a community of empowered women
+                            contributing to its success.
                           </p>
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-6 col-sm-6">
-                        <div className="single oraihighlight text-left" style={{maxHeight:"200px"}}>
+                        <div
+                          className="single elefanthighlight text-left"
+                          style={{ maxHeight: "400px" }}
+                        >
                           <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
                           <p style={{ paddingLeft: "0px !important" }}>
-                            Having successfully onboarded over 250 enterprise
-                            customers spanning 15+ industries, including
-                            automotive, real estate, and healthcare, ORAI
-                            Robotics showcases a versatile and wide-ranging
-                            market presence, emphasizing its solutions'
-                            adaptability across diverse sectors{" "}
+                            EleFant has strengthened its position through
+                            strategic moves, including the acquisition of
+                            India's top Toy Library, specializing in renting
+                            toys, games, and books. Additionally, a strategic
+                            partnership with Khilonewala's founders, Abhishek
+                            Jain & Bharat Jain, adds valuable expertise to
+                            EleFant's ecosystem. With an impressive track record
+                            of 120+ built libraries, 75 currently operational,
+                            and over 11 years of experience, EleFant has
+                            established itself as a key player. Notably, the
+                            delivery of 5 lakh toy kits underscores its
+                            substantial reach and impact in the market.
+                          </p>
+                        </div>
+                      </div>
+                      <div className="col-lg-6 col-md-6 col-sm-6">
+                        <div
+                          className="single elefanthighlight text-left"
+                          style={{ maxHeight: "400px" }}
+                        >
+                          <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
+                          <p style={{ paddingLeft: "0px !important" }}>
+                            EleFant's toy library model brings cost savings,
+                            convenience, and sustainability to customers by
+                            offering high-quality toys at reduced costs,
+                            app-based browsing with doorstep delivery, and
+                            promoting toy reuse. Suppliers benefit from
+                            increased reach, marketing exposure, financial
+                            stability, customer feedback, and alignment with
+                            sustainability goals. To create a competitive moat,
+                            EleFant focuses on high-quality curation, customer
+                            experience, technology and innovation, brand
+                            building, and strategic partnerships, ensuring a
+                            comprehensive and unique value proposition in the
+                            toy industry.
+                          </p>
+                        </div>
+                      </div>
+                      <div className="col-lg-6 col-md-6 col-sm-6">
+                        <div
+                          className="single elefanthighlight text-left"
+                          style={{ maxHeight: "400px" }}
+                        >
+                          <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
+                          <p style={{ paddingLeft: "0px !important" }}>
+                            EleFant employs a robust marketing strategy,
+                            leveraging community leaders for referral marketing,
+                            offering rewards programs, and utilizing digital
+                            channels with targeted campaigns and influencer
+                            collaborations. Hyperlocal initiatives include kiosk
+                            stations and local event sponsorships, while
+                            strategic partnerships target healthcare, education,
+                            and corporate sectors. The inorganic growth plan
+                            involves mergers and acquisitions with regional
+                            players for rapid expansion. This comprehensive
+                            approach aims to establish EleFant as a prominent
+                            brand through a blend of referral, digital,
+                            hyperlocal, and strategic partnership efforts.
                           </p>
                         </div>
                       </div>
@@ -1693,7 +1769,8 @@ class ORAI extends Component {
                   </div>
 
                   {/* media */}
-                  {/* <div
+
+                  <div
                     className="container highlight-section"
                     style={{
                       marginBottom: "-80px !important",
@@ -1706,46 +1783,12 @@ class ORAI extends Component {
                     <div className="row">
                       <div className="col-lg-6 col-md-6 col-sm-6">
                         <div className="single medialink text-left d-flex flex-column  ">
-                          <img src="./assets/images/deals-details/Newboo/Articles/slot1.jpg" />
+                          <img src="./assets/images/deals-details/the EleFant/Articles/1.webp" />
 
                           <p style={{ padding: "1px !important" }}>
-                            Rakul Preet's Instagram
+                            Mumbai-ca-dad-starts-a-toy-rental-business-rents-affordable-toys-for-kids
                             <a
-                              href="https://www.instagram.com/rakulpreet/?igsh=ODA1NTc5OTg5Nw%3D%3D"
-                              target="_blank"
-                            >
-                              {" "}
-                              Readmore
-                            </a>
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="col-lg-6 col-md-6 col-sm-6">
-                        <div className="single medialink text-left d-flex flex-column  ">
-                          <img src="./assets/images/deals-details/Newboo/Articles/Moneycontrol.jpg" />
-                          <p style={{ padding: "1px !important" }}>
-                            Rakul Preet's new brand 'New Boo' to her business
-                            portfolio with the launch of reusable biodegradable
-                            diaper brand New Boo
-                            <a
-                              href="https://www.moneycontrol.com/news/videos/business/companies/rakul-preets-new-brand-new-boo-know-the-fitness-freak-investor-and-entrepreneur-10474981.html"
-                              target="_blank"
-                            >
-                              {" "}
-                              Readmore
-                            </a>
-                          </p>
-                        </div>
-                      </div>
-                      <div className="col-lg-6 col-md-6 col-sm-6">
-                        <div className="single medialink text-left d-flex flex-column  ">
-                          <img src="./assets/images/deals-details/Newboo/Articles/zeenews.webp" />
-                          <p style={{ padding: "1px !important" }}>
-                            Rakul Preet Singh Introduces Reusable Diapers, Says,
-                            ‘We Need To Love The Planet So…
-                            <a
-                              href="https://bharattimes.co.in/rakul-preet-singh-introduces-reusable-diapers-says-we-need-to-love-the-planet-so-watch/"
+                              href="https://www.thebetterindia.com/334684/mumbai-ca-dad-starts-a-toy-rental-business-rents-affordable-toys-for-kids/"
                               target="_blank"
                             >
                               {" "}
@@ -1757,13 +1800,11 @@ class ORAI extends Component {
 
                       <div className="col-lg-6 col-md-6 col-sm-6">
                         <div className="single medialink text-left d-flex flex-column  ">
-                          <img src="./assets/images/deals-details/Newboo/Articles/femina.webp" />
+                          <img src="./assets/images/deals-details/the EleFant/Articles/2.jpeg" />
                           <p style={{ padding: "1px !important" }}>
-                            Taking responsible strides in protecting the
-                            environment for a better tomorrow, Rakul Preet Singh
-                            wins the Elle Social Responsibility Award.
+                            ca-to-entrepreneur-sourabh-jains-of-the-elefant
                             <a
-                              href="https://www.femina.in/beauty-pageants/miss-india/rakul-preet-singh-and-dia-mirza-won-the-elle-sustainability-awards-2023/articleshow/99814562.cms?from=mdr"
+                              href="https://www.transcontinentaltimes.com/ca-to-entrepreneur-sourabh-jains-of-the-elefant/"
                               target="_blank"
                             >
                               {" "}
@@ -1774,62 +1815,13 @@ class ORAI extends Component {
                       </div>
                       <div className="col-lg-6 col-md-6 col-sm-6">
                         <div className="single medialink text-left d-flex flex-column  ">
-                          <img src="./assets/images/deals-details/Newboo/Articles/shethepeople.webp" />
+                          <img src="./assets/images/deals-details/the EleFant/Articles/3.webp" />
                           <p style={{ padding: "1px !important" }}>
-                            Reflecting on her ventures, Rakul Preet Singh
-                            discussed her early involvement in gyms and later
-                            explored different avenues.
+                            father made the elephant toy library for daughter in
+                            mumbai toy rental business rents affordable toys for
+                            kids…
                             <a
-                              href="https://www.shethepeople.tv/interviews/rakul-preet-singh-turns-entrepreneur"
-                              target="_blank"
-                            >
-                              {" "}
-                              Readmore
-                            </a>
-                          </p>
-                        </div>
-                      </div>
-                      <div className="col-lg-6 col-md-6 col-sm-6">
-                        <div className="single medialink text-left d-flex flex-column  ">
-                          <img src="./assets/images/deals-details/Newboo/Articles/Entrepreneur India.webp" />
-                          <p style={{ padding: "1px !important" }}>
-                            Actor and entrepreneur Rakul Preet Singh has always
-                            openly said that a lot of her choices in life are
-                            driven by the three Fs- films, food and fitness.
-                            <a
-                              href="https://www.entrepreneur.com/en-in/women-entrepreneur/unlocking-rakul-preet-singh-investor-entrepreneur-and/457737"
-                              target="_blank"
-                            >
-                              {" "}
-                              Readmore
-                            </a>
-                          </p>
-                        </div>
-                      </div>
-                      <div className="col-lg-6 col-md-6 col-sm-6">
-                        <div className="single medialink text-left d-flex flex-column  ">
-                          <img src="./assets/images/deals-details/Newboo/Articles/Entrepreneur India.webp" />
-                          <p style={{ padding: "1px !important" }}>
-                            NDTV Panel Interview:
-                            <a
-                              href="https://x.com/ndtv/status/1708742120985722896?s=46&t=ok0oe9ebo8aBuJSvyu95FA"
-                              target="_blank"
-                            >
-                              {" "}
-                              Readmore
-                            </a>
-                          </p>
-                        </div>
-                      </div>
-                      <div className="col-lg-6 col-md-6 col-sm-6">
-                        <div className="single medialink text-left d-flex flex-column  ">
-                          <img src="./assets/images/deals-details/Newboo/Articles/zeenews.webp" />
-                          <p style={{ padding: "1px !important" }}>
-                            Bollywood actress Rakul Preet Singh is one of the
-                            biggest fitness enthusiasts. The actress has time
-                            and again proved that through her social media
-                            <a
-                              href="https://zeenews.india.com/people/rakul-preet-singh-introduces-disposable-diapers-says-we-need-to-love-the-planet-so-watch-2580094.html"
+                              href=" https://www.etvbharat.com/marathi/maharashtra/state/mumbai/father-made-the-elephant-toy-library-for-daughter-in-mumbai-toy-rental-business-rents-affordable-toys-for-kids/mh20231127214026314314737"
                               target="_blank"
                             >
                               {" "}
@@ -1839,16 +1831,66 @@ class ORAI extends Component {
                         </div>
                       </div>
 
-                   <div className="col-lg-6 col-md-6 col-sm-6">
+                      <div className="col-lg-6 col-md-6 col-sm-6">
+                        <div className="single medialink text-left d-flex flex-column  ">
+                          <img src="./assets/images/deals-details/the EleFant/Articles/4.webp" />
+                          <p style={{ padding: "1px !important" }}>
+                            the elefant toys library in mumbai a father made
+                            this library for daughter in malad and he selled
+                            toys for kids in.
+                            <a
+                              href="https://www.etvbharat.com/telugu/telangana/bharat/the-elefant-toys-library-in-mumbai-a-father-made-this-library-for-daughter-in-malad-and-he-selled-toys-for-kids-in/na20231128222551359359573"
+                              target="_blank"
+                            >
+                              {" "}
+                              Readmore
+                            </a>
+                          </p>
+                        </div>
+                      </div>
+                      <div className="col-lg-6 col-md-6 col-sm-6">
+                        <div className="single medialink text-left d-flex flex-column  ">
+                          <img src="./assets/images/deals-details/the EleFant/Articles/1.webp" />
+                          <p style={{ padding: "1px !important" }}>
+                            mumbai ca dad starts a toy rental business rents
+                            affordable toys for kids
+                            <a
+                              href="https://www.thebetterindia.com/334684/mumbai-ca-dad-starts-a-toy-rental-business-rents-affordable-toys-for-kids/
+                              "
+                              target="_blank"
+                            >
+                              {" "}
+                              Readmore
+                            </a>
+                          </p>
+                        </div>
+                      </div>
+                      <div className="col-lg-6 col-md-6 col-sm-6">
+                        <div className="single medialink text-left d-flex flex-column  ">
+                          <img src="./assets/images/deals-details/the EleFant/Articles/6.webp" />
+                          <p style={{ padding: "1px !important" }}>
+                            Radio City Interview
+                            <a
+                              href="https://www.youtube.com/watch?v=5AR2YasvPHg"
+                              target="_blank"
+                            >
+                              {" "}
+                              Readmore
+                            </a>
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* <div className="col-lg-6 col-md-6 col-sm-6">
                         <div className="single text-left">
                           <img src="./assets/images/deals-details/highlight4.png" />
                           <p style={{ paddingLeft: "0px !important" }}>
                           Unlike competitors who are suffering from cost control and burn rates IndusUno gathers rich and detailed industry data that can be leveraged exponentially with scale.
                           </p>
                         </div>
-                      </div> 
+                      </div> */}
                     </div>
-                  </div> */}
+                  </div>
                 </div>
               </div>
             </section>
@@ -1907,7 +1949,10 @@ class ORAI extends Component {
                                                 0 &&
                                                 this.state.documents.map(
                                                   (item, index) => {
-                                                    console.log(this.state.documents.length)
+                                                    console.log(
+                                                      this.state.documents
+                                                        .length
+                                                    );
                                                     let documentlink = `${process.env.REACT_APP_BASE_URL}api/uploads/docs/${item.documentid}/${item.document}`;
                                                     return (
                                                       <tr
@@ -2146,11 +2191,11 @@ class ORAI extends Component {
                                           <div className="info">
                                             <span> Min Investment</span>
                                             <h4>₹ 25000 for CCD</h4>
-                                            <h4>₹ 300000 for CCPS</h4>
+                                            <h4>₹ 250000 for CCPS</h4>
                                           </div>
                                           <div className="info">
                                             <span>Valuation</span>
-                                            <h4>₹ 60 Cr</h4>
+                                            <h4>₹ 18 Cr</h4>
                                           </div>
                                         </div>
                                       </div>
@@ -2174,12 +2219,12 @@ class ORAI extends Component {
                                           <div className="info">
                                             <span>Legal Name</span>
                                             <h4>
-                                              ORAI Robotics Private Limited
+                                              Madshades Technologies Private Ltd
                                             </h4>
                                           </div>
                                           <div className="info">
                                             <span>Founded</span>
-                                            <h4>2024-02-14</h4>
+                                            <h4>2022-08-19</h4>
                                           </div>
                                           <div className="info">
                                             <span>Status</span>
@@ -2187,7 +2232,7 @@ class ORAI extends Component {
                                           </div>
                                           <div className="info">
                                             <span>Employees</span>
-                                            <h4>25</h4>
+                                            <h4>35</h4>
                                           </div>
                                           <div className="info">
                                             <span>Website</span>
@@ -2196,26 +2241,26 @@ class ORAI extends Component {
                                                 style={{
                                                   color: "rgb(7, 211, 252)",
                                                 }}
-                                                href="https://www.orai-robotics.com"
+                                                href="https://www.theelefant.com"
                                                 target="_blank"
                                               >
-                                                www.orai-robotics.com
+                                                www.theelefant.com
                                               </a>
                                             </h4>
                                           </div>
                                           <div className="info">
                                             <span>Social Links</span>
                                             <div className="social-icons">
-                                              <a href="https://www.facebook.com/ORAIRobotics/">
+                                              <a href="https://www.facebook.com/theelefantofficial">
                                                 <i className="bx bxl-facebook fs-19"></i>
                                               </a>
-                                              <a href="https://www.linkedin.com/company/orairobotics/">
+                                              <a href="https://www.linkedin.com/company/the-elefant/?originalSubdomain=in">
                                                 <i className="bx bxl-linkedin fs-19"></i>
                                               </a>
-                                              <a href="https://www.instagram.com/orai.robotics/">
+                                              <a href="https://www.instagram.com/theelefant_official">
                                                 <i className="bx bxl-instagram fs-19"></i>
                                               </a>
-                                              <a href="https://www.youtube.com/channel/UCPCItFjU4v1lANRGUAY31_Q">
+                                              <a href="https://www.youtube.com/@theEleFant">
                                                 <i className="bx bxl-youtube fs-19"></i>
                                               </a>
                                             </div>
@@ -2223,8 +2268,8 @@ class ORAI extends Component {
                                           <div className="info">
                                             <span>Address</span>
                                             <h4>
-                                              A 24, A Wing, Harileela Society, S
-                                              No 149/4, Baner, Pune - 411045
+                                              705 Palm Spring Centre, New link
+                                              Road, Malad West Mumbai 400064
                                             </h4>
                                           </div>
                                         </div>
@@ -2260,18 +2305,16 @@ class ORAI extends Component {
                                         margin: "48px 0px",
                                       }}
                                     >
-                                      Conversational AI Market Overview:
-                                      Originating in the 1960s, conversational
-                                      AI has evolved into ubiquitous chatbots
-                                      powered by advanced AI and NLP. Present
-                                      trends focus on enhancing user
-                                      experiences, with anticipated future
-                                      developments including increased
-                                      personalization, omnichannel integration,
-                                      and ethical considerations. The market is
-                                      significant, expected to grow from USD
-                                      10.7 billion in 2023 to USD 29.8 billion
-                                      by 2028.
+                                      India has the largest child population
+                                      globally, with 275 million children in the
+                                      age group of 0 to 12 years. The Indian
+                                      National Education Policy 2020 emphasizes
+                                      play-based and activity-based learning,
+                                      recognizing the significance of play in
+                                      enhancing children's learning outcomes. It
+                                      proposes an integrated approach to formal
+                                      education that includes play, discovery,
+                                      and interactive learning.
                                     </p>
                                   </div>
                                 </div>
@@ -2286,17 +2329,20 @@ class ORAI extends Component {
                                         margin: "63px 0px",
                                       }}
                                     >
-                                      Conversational Commerce Market Highlights:
-                                      The global conversational commerce market
-                                      is on a robust growth path, set to
-                                      escalate from $5.3 billion in 2021 to an
-                                      estimated $26.3 billion by 2032,
-                                      reflecting a strong CAGR of 15.6%. Driving
-                                      this expansion is the Asia Pacific region,
-                                      anticipated to exhibit the fastest growth
-                                      with a notable CAGR of 17.4%, fueled by
-                                      the widespread adoption of smartphones and
-                                      messaging apps.
+                                      The Indian toy market is set to reach $3
+                                      billion by 2028, driven by rising incomes
+                                      and a focus on child development. Toy
+                                      subscription services, expected to grow at
+                                      a CAGR of 12.2% from 2023 to 2028, offer a
+                                      convenient and eco-friendly solution,
+                                      tapping into India's vast and expanding
+                                      child population, which is over 17% of the
+                                      global total by 2036. The increasing
+                                      spending power of middle-class families
+                                      contributes to the market's potential,
+                                      with a growing openness to innovative
+                                      child development solutions like toy
+                                      subscriptions.
                                     </p>
                                   </div>
                                 </div>
@@ -2312,24 +2358,22 @@ class ORAI extends Component {
                                         margin: "51px 0px",
                                       }}
                                     >
-                                      {" "}
-                                      Regional and Sectoral Influnece :Within
-                                      the industry landscape, the retail and
-                                      e-commerce sector is poised to lead,
-                                      constituting over 30% of the market share
-                                      by 2032. This dominance is attributed to
-                                      the unmatched convenience and personalized
-                                      experiences conversational commerce brings
-                                      to shoppers. Chatbots emerge as the
-                                      primary channel, expected to capture over
-                                      60% of the market share in 2032,
-                                      emphasizing their efficiency in providing
-                                      24/7 customer support and automating
-                                      repetitive tasks. These trends signify the
-                                      transformative impact of conversational
-                                      commerce, shaping the future of customer
-                                      interactions and business operations on a
-                                      global scale.
+                                      The evolution of the toy industry reflects
+                                      a transition from traditional toys to
+                                      modern, technology-driven offerings. In
+                                      the past, simple toys focused on promoting
+                                      imagination. Presently, STEM-based,
+                                      Montessori and eco-friendly toys are
+                                      prevalent, aligning with changing consumer
+                                      preferences. Looking to the future,
+                                      emerging technologies like virtual reality
+                                      and artificial intelligence are expected
+                                      to shape toys, providing immersive
+                                      experiences. The industry anticipates a
+                                      continued focus on learning, creativity,
+                                      and social interaction in toys,
+                                      emphasizing their crucial role in child
+                                      development.
                                     </p>
                                   </div>
                                 </div>
@@ -2431,32 +2475,32 @@ class ORAI extends Component {
                                                           color: "#7f7776",
                                                         }}
                                                       >
-                                                        ORAI is a Conversational
-                                                        AI platform transforming
-                                                        customer engagement with
-                                                        its low code/no code
-                                                        solution. The platform
-                                                        offers AI chatbots
-                                                        providing natural, 24/7
-                                                        customer support,
-                                                        handling diverse queries
-                                                        and freeing human
-                                                        resources for more
-                                                        complex tasks. ORAI's
-                                                        strength lies in its
-                                                        seamless integration
-                                                        with existing business
-                                                        systems, ensuring a
-                                                        smooth implementation
-                                                        process. With a focus on
-                                                        personalized customer
-                                                        interactions and
-                                                        continuous innovation,
-                                                        ORAI addresses the
-                                                        evolving demand for
-                                                        efficient customer
-                                                        engagement across
-                                                        various channels.
+                                                        EleFant offers a
+                                                        service, specifically a
+                                                        subscription-based toy
+                                                        library model. It
+                                                        provides users with
+                                                        access to a curated
+                                                        selection of toys
+                                                        through a membership or
+                                                        subscription, allowing
+                                                        them to enjoy a variety
+                                                        of toys without the need
+                                                        for ownership. The
+                                                        service is facilitated
+                                                        through a mobile
+                                                        application, which plays
+                                                        a crucial role in
+                                                        managing subscriptions,
+                                                        selecting toys, and
+                                                        enhancing the overall
+                                                        user experience. The
+                                                        focus is on providing an
+                                                        economical,
+                                                        clutter-free, and
+                                                        environmentally friendly
+                                                        toy solution for
+                                                        children.
                                                       </p>
                                                     </div>
                                                   </Panel>
@@ -2475,28 +2519,51 @@ class ORAI extends Component {
                                                           color: "#7f7776",
                                                         }}
                                                       >
-                                                        Scaling challenges for
-                                                        ORAI Robotics include
-                                                        technological
-                                                        scalability, talent
-                                                        acquisition, market
-                                                        expansion complexities,
-                                                        maintaining operational
-                                                        efficiency, ensuring
-                                                        data privacy, and
-                                                        managing finances.
-                                                        Solutions involve
-                                                        investing in scalable
-                                                        technology, fostering a
-                                                        strong company culture
-                                                        for talent, conducting
-                                                        local market research,
-                                                        implementing efficient
-                                                        project management
-                                                        tools, adhering to data
-                                                        protection regulations,
-                                                        and strategic financial
-                                                        planning.
+                                                        Scaling up EleFant poses
+                                                        challenges such as
+                                                        optimizing logistics for
+                                                        a growing subscriber
+                                                        base, efficient customer
+                                                        acquisition through
+                                                        targeted marketing,
+                                                        maintaining quality
+                                                        control and toy upkeep,
+                                                        expanding the librarian
+                                                        network, ensuring
+                                                        compliance with
+                                                        regulations, staying
+                                                        competitive in a dynamic
+                                                        market, and focusing on
+                                                        customer retention
+                                                        strategies. To tackle
+                                                        these challenges,
+                                                        EleFant needs to invest
+                                                        in robust logistics
+                                                        infrastructure,
+                                                        implement comprehensive
+                                                        marketing strategies,
+                                                        enforce stringent
+                                                        quality control
+                                                        measures, provide
+                                                        continuous librarian
+                                                        training and support,
+                                                        stay updated on
+                                                        regulatory requirements,
+                                                        foster innovation to
+                                                        stay competitive and
+                                                        build strong customer
+                                                        relationships through
+                                                        personalized services
+                                                        and continuous
+                                                        improvement based on
+                                                        customer feedback.
+                                                        Addressing these aspects
+                                                        strategically will be
+                                                        essential for EleFant's
+                                                        successful and
+                                                        sustainable scale-up in
+                                                        the toy subscription
+                                                        industry.
                                                       </p>
                                                       {/* <p
                                                         style={{
@@ -2539,22 +2606,52 @@ class ORAI extends Component {
                                                           color: "#7f7776",
                                                         }}
                                                       >
-                                                        Yes, ORAI Robotics is
-                                                        targeting untapped
-                                                        markets, including
-                                                        healthcare, education,
-                                                        SMEs, and startups. The
-                                                        company aims to
-                                                        revolutionize customer
-                                                        engagement by offering
-                                                        AI chatbot solutions
-                                                        tailored to these
-                                                        sectors, addressing
-                                                        unique challenges and
-                                                        providing cost-effective
-                                                        solutions for customer
-                                                        service, sales, and
-                                                        marketing automation.
+                                                        EleFant has the
+                                                        potential to tap into a
+                                                        relatively untapped
+                                                        market by offering its
+                                                        unique
+                                                        subscription-based toy
+                                                        library model. The
+                                                        traditional toy market
+                                                        primarily involves
+                                                        one-time purchases,
+                                                        which may pose financial
+                                                        and storage challenges
+                                                        for parents. EleFant's
+                                                        subscription model
+                                                        addresses these concerns
+                                                        by providing an
+                                                        economical,
+                                                        clutter-free, and
+                                                        environmentally friendly
+                                                        toy solution. This
+                                                        approach caters to a
+                                                        segment of parents who
+                                                        may be looking for more
+                                                        sustainable and
+                                                        cost-effective
+                                                        alternatives. Moreover,
+                                                        the emphasis on curated,
+                                                        high-quality, and
+                                                        educational toys,
+                                                        coupled with a
+                                                        personalized user
+                                                        experience through the
+                                                        app, distinguishes
+                                                        EleFant in the market.
+                                                        By targeting this
+                                                        untapped market segment,
+                                                        EleFant positions itself
+                                                        as a convenient and
+                                                        innovative solution,
+                                                        potentially attracting a
+                                                        new customer base
+                                                        seeking more flexible
+                                                        and sustainable options
+                                                        for their children's
+                                                        play and learning
+                                                        experiences.
                                                       </p>
                                                       {/* <p
                                                         style={{
@@ -2612,18 +2709,54 @@ class ORAI extends Component {
                                                           color: "#7f7776",
                                                         }}
                                                       >
-                                                        ORAI Robotics'
-                                                        competitive advantages
-                                                        include strong
-                                                        leadership,
-                                                        technological innovation
-                                                        in AI, customization
-                                                        abilities, high customer
-                                                        engagement, strategic
-                                                        partnerships, reputable
-                                                        brand recognition, and a
-                                                        commitment to regulatory
-                                                        compliance and data
+                                                        EleFant's competitive
+                                                        edge is built on a
+                                                        distinctive
+                                                        subscription-based toy
+                                                        library model, fostering
+                                                        recurring revenue and
+                                                        customer loyalty. This
+                                                        approach not only offers
+                                                        an economical and
+                                                        sustainable alternative
+                                                        to traditional toy
+                                                        ownership but also
+                                                        ensures a consistent
+                                                        relationship with
+                                                        customers. The curated
+                                                        catalog of high-quality,
+                                                        educational toys,
+                                                        coupled with
+                                                        personalized
+                                                        recommendations based on
+                                                        a child's age and
+                                                        interests, establishes a
+                                                        unique selling
+                                                        proposition. The
+                                                        user-friendly mobile
+                                                        application, with
+                                                        features like real-time
+                                                        tracking and push
+                                                        notifications, enhances
+                                                        convenience and sets
+                                                        EleFant apart in terms
+                                                        of technological
+                                                        accessibility.
+                                                        Furthermore, EleFant's
+                                                        commitment to
+                                                        environmental
+                                                        sustainability by
+                                                        reducing toy waste adds
+                                                        an eco-friendly
+                                                        dimension, aligning with
+                                                        the growing consumer
+                                                        trend towards socially
+                                                        responsible products.
+                                                        Collectively, these
+                                                        factors create a robust
+                                                        competitive moat for
+                                                        EleFant in the toy
+                                                        industry.
                                                       </p>
                                                       {/* <p
                                                         style={{
@@ -2842,7 +2975,7 @@ class ORAI extends Component {
                             style={{ maxWidth: 921 }}
                           >
                             <h2 className="text-center">Meet the Team</h2>
-                            <div className="row">
+                            <div className="row elefantteam">
                               <div className="col-lg-6">
                                 <div
                                   className="single"
@@ -2851,12 +2984,12 @@ class ORAI extends Component {
                                 >
                                   <div className="d-flex">
                                     <img
-                                      src="./assets/images/deals-details/ORAI/Team/sumit.jpg"
+                                      src="./assets/images/deals-details/the EleFant/team/sourabh.jpg"
                                       alt=""
                                     />
                                     <div className="intro">
-                                      <h3>Swapnil Jain</h3>
-                                      <span>CEO</span>
+                                      <h3>CA Sourabh Jain</h3>
+                                      <span>Founder and CEO</span>
                                       <div
                                         className="social-icons"
                                         style={{
@@ -2865,7 +2998,7 @@ class ORAI extends Component {
                                         }}
                                       >
                                         <a
-                                          href="https://www.linkedin.com/in/swapnil-jain-/"
+                                          href="https://www.linkedin.com/in/sourabhjain-theelefant/"
                                           target="_blank"
                                         >
                                           <i className="bx bxl-linkedin"></i>
@@ -2879,27 +3012,52 @@ class ORAI extends Component {
                                   {/* <p>
                                   With over 20 years of experience building enterprises, Swapnil Jain leads ORAI Robotics as CEO, driving strategic direction, sales, marketing, and advocating for their innovative AI-powered platform
                                   </p> */}
-
-                                  <p>
-                                    20+ years experience across enterprise
-                                    building, sales, marketing, innovation and
-                                    leadership roles. Track record of scaling
-                                    technology ventures Strong expertise in
-                                    product evangelism, digital transformation,
-                                    tech adoption.{" "}
-                                  </p>
+                                  <ul>
+                                    <li>
+                                      <a>
+                                        16 years of diverse and global
+                                        experience across accountancy and
+                                        internal Audit, delivering value-added
+                                        solutions to clients and businesses
+                                        across various sectors and markets.
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a>
+                                        {" "}
+                                        Registered Independent Director, CA, and
+                                        CS.
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a>
+                                        {" "}
+                                        bringing strategic leadership and
+                                        financial acumen to EleFant.
+                                      </a>
+                                    </li>
+                                  </ul>
+                                  {/* <p>
+                                    16 years of diverse and global experience
+                                    across accountancy and internal Audit,
+                                    delivering value-added solutions to clients
+                                    and businesses across various sectors and
+                                    markets. Registered Independent Director,
+                                    CA, and CS. bringing strategic leadership
+                                    and financial acumen to EleFant.
+                                  </p> */}
                                 </div>
                               </div>
                               <div className="col-lg-6">
                                 <div className="single">
                                   <div className="d-flex">
                                     <img
-                                      src="./assets/images/deals-details/ORAI/Team/sujit.jpg"
+                                      src="./assets/images/deals-details/the EleFant/team/santhosh.jpg"
                                       alt=""
                                     />
                                     <div className="intro">
-                                      <h3>Sujit Das Biswas</h3>
-                                      <span>CTO</span>
+                                      <h3>Santhosh Vemishetty</h3>
+                                      <span>Head - Product & Tech</span>
                                       <div
                                         className="social-icons"
                                         style={{
@@ -2908,7 +3066,7 @@ class ORAI extends Component {
                                         }}
                                       >
                                         <a
-                                          href="https://www.linkedin.com/in/sujitdasbiswas?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
+                                          href="https://www.linkedin.com/in/santhoshv44/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
                                           target="_blank"
                                         >
                                           <i className="bx bxl-linkedin"></i>
@@ -2920,16 +3078,145 @@ class ORAI extends Component {
                                     Business Management, from Osmania University
                                     Financial
                                   </p> */}
-                                  <p>
-                                    Sujit Das, the CTO of ORAI Robotics, brings
-                                    deep technical expertise and extensive
-                                    consulting experience to lead technological
-                                    innovation. His responsibilities include
-                                    overseeing technology vision, AI and RPA
-                                    innovation, project management, process
-                                    automation, and knowledge sharing within the
-                                    organization.
-                                  </p>
+                                  <ul>
+                                    <li>
+                                      <a>
+                                        10+ years of experience, specializing in
+                                        building innovative, data-driven
+                                        products, Retail/F&B processes, and SaaS
+                                        products, leading Omni Channel Retail
+                                        transformation
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a>
+                                        Ex-Target, Aditya Birla, Chai Point,
+                                        Flash Coffee
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a>
+                                        contributing to EleFant's product
+                                        innovation.
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                              <div className="col-lg-6">
+                                <div className="single">
+                                  <div className="d-flex">
+                                    <img
+                                      src="./assets/images/deals-details/the EleFant/team/nirupa.jpeg"
+                                      alt=""
+                                    />
+                                    <div className="intro">
+                                      <h3>Nirupa Vora</h3>
+                                      <span>
+                                        Head - Toy Curator & Librarian
+                                        Engagement
+                                      </span>
+                                      <div
+                                        className="social-icons"
+                                        style={{
+                                          marginTop: 4,
+                                          marginLeft: -6,
+                                        }}
+                                      >
+                                        <a
+                                          href="https://www.linkedin.com/in/nirupa-vora-18b442291/"
+                                          target="_blank"
+                                        >
+                                          <i className="bx bxl-linkedin"></i>
+                                        </a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  {/* <p>
+                                    Business Management, from Osmania University
+                                    Financial
+                                  </p> */}
+                                  <ul>
+                                    <li style={{ listStyleType: "disc" }}>
+                                      <a>
+                                        16 years of diverse and global
+                                        experience across accountancy and
+                                        internal Audit, delivering value-added
+                                        solutions to clients and businesses
+                                        across various sectors and markets.
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a>
+                                        {" "}
+                                        Registered Independent Director, CA, and
+                                        CS.
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a>
+                                        {" "}
+                                        bringing strategic leadership and
+                                        financial acumen to EleFant.
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                              <div className="col-lg-6">
+                                <div className="single">
+                                  <div className="d-flex">
+                                    <img
+                                      src="./assets/images/deals-details/the EleFant/team/ruchi.jpg"
+                                      alt=""
+                                    />
+                                    <div className="intro">
+                                      <h3>CA Ruchi Gour</h3>
+                                      <span>
+                                        Head -Finance & Investor Relations CA
+                                      </span>
+                                      <div
+                                        className="social-icons"
+                                        style={{
+                                          marginTop: 4,
+                                          marginLeft: -6,
+                                        }}
+                                      >
+                                        <a
+                                          href="https://www.linkedin.com/in/ruchi-gour-92109b30/"
+                                          target="_blank"
+                                        >
+                                          <i className="bx bxl-linkedin"></i>
+                                        </a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  {/* <p>
+                                    Business Management, from Osmania University
+                                    Financial
+                                  </p> */}
+                                  <ul>
+                                    <li>
+                                      <a>
+                                        14+ experience across finance domains of
+                                        process audits, accounting
+                                        controllership, business finance,
+                                        funding, investments and acquisitions
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a>
+                                        Ex Amazon, Swiggy, Meesho, Dream 11, and
+                                        ITC
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a>
+                                        managing EleFant's financial operations
+                                        and investor relations.
+                                      </a>
+                                    </li>
+                                  </ul>
                                 </div>
                               </div>
 
@@ -3054,4 +3341,4 @@ class ORAI extends Component {
   }
 }
 
-export default ORAI;
+export default EleFant;
