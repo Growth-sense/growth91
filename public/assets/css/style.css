@@ -860,6 +860,9 @@ footer .left span {
   align-items: center;
   margin: 69px auto 0;
 }
+.elefanthighlight{
+  height: 350px;
+}
 .section-padding h1 {
   padding-bottom: 85px;
 }
@@ -1421,6 +1424,7 @@ footer .left span {
 .meet-the-team-section img {
   max-width: 153px;
   height: 153px;
+  width: 153px;
   object-fit: cover;
   border-bottom-right-radius: 50px;
   margin-right: 22px;
@@ -1440,6 +1444,16 @@ footer .left span {
 .meet-the-team-section p {
   padding: 20px;
   font-weight: 500;
+  text-align: justify;
+}
+.raisecapitol {
+  color: rgb(255, 156, 26);
+    border: 1px solid #fff;
+    display: inline-block;
+    padding: 15px 25px;
+    border-radius: 30px;
+    margin-top: 10px;
+
 }
 .deal-terms-section h1,
 .faq-section h1 {
@@ -2985,6 +2999,7 @@ option {
   .deal-banner {
     margin-top: 85px !important;
   }
+
 }
 .pitch-slider .slick-prev:before,
 .pitch-slider .slick-next:before {
@@ -3006,3 +3021,18 @@ option {
     margin: 0 auto;
   }
 }
+
+@media screen and (max-width: 767px){
+  .deal-banner iframe{
+    height: 200px !important;
+  }
+}
+
+.elefantteam ul{
+  padding: 30px;
+}
+.elefantteam ul li{
+  list-style-type: circle !important;
+}
+.elefantteam .single{
+  height: 460px;}

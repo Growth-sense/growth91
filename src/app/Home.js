@@ -363,7 +363,7 @@ class Home extends Component {
                               <span className="">
                                 <a
                                   href="/founder-registration"
-                                  className=""
+                                  className="raisecapitol"
                                   style={{ color: "#FF9C1A" }}                           
                                 >
                                   Raise capital using Growth91

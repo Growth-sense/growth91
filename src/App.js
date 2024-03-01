@@ -157,6 +157,7 @@ import UnderMaintenance from "./app/UnderMaintenance";
 import AdminDocuments from "./app/admin/AdminDocuments";
 import Newboo from "./app/deal-pages/Newboo";
 import ORAI from "./app/deal-pages/ORAI.jsx";
+import EleFant from "./app/deal-pages/EleFant.jsx";
 import IndusUnoTranche2 from "./app/deal-pages/IndusUnoTranche2";
 
 ReactGA.initialize(TRACKING_ID);
@@ -480,6 +481,9 @@ function App() {
           </Route>
           <Route path="/ORAI" exact>
             <ProtectDeals Component={ORAI} />
+          </Route>
+          <Route path="/the EleFant" exact>
+            <ProtectDeals Component={EleFant} />
           </Route>
           <Route path="/TestDeal2" exact>
             <ProtectDeals Component={TestDeal2} />

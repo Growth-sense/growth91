@@ -1603,7 +1603,7 @@ class ORAI extends Component {
                       </div>
                     </div>
                   </Modal>
-                  <div className="col-lg-7 deal-banner">
+                  <div className="col-lg-7 deal-banner deals-video-banner">
                     {this.state.youtube_url && (
                       <iframe   style={{
                             boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
@@ -1612,7 +1612,7 @@ class ORAI extends Component {
                           }}
                           width="100%"
                           height="335"
-                        src="https://www.youtube.com/embed/E2NPzC407fk" title="ORAI Intro Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        src="https://www.youtube.com/embed/E2NPzC407fk" title="ORAI Intro Demo" frameborder="10" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                      
                     )}
                     {!this.state.youtube_url && (
@@ -2145,8 +2145,8 @@ class ORAI extends Component {
                                           </div>
                                           <div className="info">
                                             <span> Min Investment</span>
-                                            <h4>₹ 25000 CCD</h4>
-                                            <h4>₹ 300000 CCPS</h4>
+                                            <h4>₹ 25000 for CCD</h4>
+                                            <h4>₹ 300000 for CCPS</h4>
                                           </div>
                                           <div className="info">
                                             <span>Valuation</span>
@@ -2307,7 +2307,7 @@ class ORAI extends Component {
                                     <p
                                       style={{
                                         color: "white",
-                                        fontSize: "15px",
+                                        fontSize: "21px",
                                         padding: "2px",
                                         margin: "51px 0px",
                                       }}
