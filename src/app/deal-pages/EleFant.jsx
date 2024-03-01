@@ -1174,20 +1174,10 @@ class EleFant extends Component {
                       </div>
 
                       <p style={{ textAlign: "justify" }}>
-                        The EleFant is a subscription-based platform providing
-                        an economical, clutter-free, and eco-friendly toy
-                        solution for children. It addresses challenges in the
-                        toy industry, offering curated, high-quality toys
-                        supporting various developmental stages. Users choose
-                        from multiple subscription plans, promoting
-                        sustainability by reducing waste. The app features
-                        personalized recommendations, real-time tracking, and a
-                        user-friendly interface. The business model includes
-                        subscription fees and librarian setup fees. With a
-                        successful app launch, 7,000+ downloads, 3,500+ active
-                        users, and 600+ subscribers, The EleFant aims to
-                        transform the Indian toy industry by making sustainable
-                        play accessible and enriching for all children.
+                      India's first mobile app-based Toy Library - With the EleFant, customers get access to a vast selection of top-quality toys specially curated by child psychologists and game therapists through an affordable membership model. It's like having a library for toys, where you can play, return, and rotate toys whenever your little one is ready for something new. Discover, play, and return—it's as simple as that! Save 95% cost, 90% clutter and 100% environmentally sustainable solution!
+                      </p>
+                      <p style={{ textAlign: "justify" }}>
+The EleFant app, available on both Android and iOS with a stellar rating of 4.8+, makes it easy to browse and order from our extensive collection. Currently serving families in over 14 cities, with over 9,000 downloads, 600+ active subscribers, and a network of 42+ dedicated Librarians, the EleFant is revolutionizing the way kids play and parents manage toy clutter. We clogged a revenue of 2.25 Cr. in just 5 months of operation.  Join The EleFant in creating a world where every child's playtime is filled with joy, learning, and endless possibilities!
                       </p>
                       <div className=" percentage-container">
                         <div className="percentage-values">

@@ -421,7 +421,8 @@ class Investors extends Component {
           (item.last_name && item.last_name.toLowerCase().includes(text.toLowerCase())) ||
           (item.email && item.email.includes(text)) ||
           (item.mobile && item.mobile.includes(text)) ||
-          (item.investor_id && item.investor_id.includes(text))
+          (item.investor_id && item.investor_id.includes(text))||
+          (item.referred_by && item.referred_by.includes(text))
         ) {
           arr = [...arr, item];
         }
@@ -1084,9 +1085,10 @@ class Investors extends Component {
           email: item.email ? item.email : "---",
           investment_amt: item.email ? item.email : "---",
           isActive: item.user_block_status ? item.user_block_status : 0,
+          Referral:item.referred_by,
           total_invested_amount: item.total_invested_amount
-            ? "₹" + item.total_invested_amount
-            : "---",
+          ? "₹" + item.total_invested_amount
+          : "---",
           action: item,
           kyc: item,
         };
@@ -1119,11 +1121,11 @@ class Investors extends Component {
         dataIndex: "email",
         key: "email",
       },
-      // {
-      //   title: 'Investment amount',
-      //   dataIndex: 'investment_amt',
-      //   key: 'investment_amt',
-      // },
+      {
+        title: 'Referral',
+        dataIndex: 'Referral',
+        key: 'referred_by',
+      },
       {
         title: "KYC Status",
         dataIndex: "kyc",

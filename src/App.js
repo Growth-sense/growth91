@@ -117,7 +117,6 @@ import ftransactions from "./app/Founder/investorside/Transactions";
 
 // investor as founder
 import covertinvestortofounder from "./app/investor/NationalityDetails";
-
 import InvidataPrivate from "./app/deal-pages/InvidataPrivate";
 import AdminBlogCategory from "./app/admin/AdminBlogCategory";
 import TemplatePublic from "./app/deal-pages/Template";
