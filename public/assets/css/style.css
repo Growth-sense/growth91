@@ -1290,7 +1290,12 @@ footer .left span {
   font-size: 1rem;
   line-height: 1.4;
   font-weight: 300;
+  text-align: justify;
   max-width: 407px;
+}
+.market-boxes p{
+  text-align: justify;
+  margin-top: 50px !important;
 }
 .deals-details-page .main-section {
   max-width: 1075px;
@@ -2386,7 +2391,21 @@ footer .left span {
   margin-top: 18px;
   text-align: center;
 }
+@media screen and (min-width: 501px){
+  .highlight-rows .elefanthighlight{
+    min-height: 400px !important;
+  
+  }
+}
 @media screen and (max-width: 500px) {
+  .highlight-rows .elefanthighlight{
+    min-height: auto !important;
+    height: auto !important;
+   
+  }
+  .highlight-rows p{
+    margin: 0px 0px !important;
+  }
   .payment-success-card a {
     text-align: center;
   }

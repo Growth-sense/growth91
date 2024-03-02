@@ -128,7 +128,7 @@ class EleFant extends Component {
   callback3 = (key) => {};
 
   componentWillMount() {
-    document.title = "EleFant - Growth91 - Startup Marketplace ";
+    document.title = "The EleFant - Growth91 - Startup Marketplace ";
   }
   componentDidMount() {
     let deal_id = "117";
@@ -1177,7 +1177,7 @@ class EleFant extends Component {
                       India's first mobile app-based Toy Library - With the EleFant, customers get access to a vast selection of top-quality toys specially curated by child psychologists and game therapists through an affordable membership model. It's like having a library for toys, where you can play, return, and rotate toys whenever your little one is ready for something new. Discover, play, and return—it's as simple as that! Save 95% cost, 90% clutter and 100% environmentally sustainable solution!
                       </p>
                       <p style={{ textAlign: "justify" }}>
-The EleFant app, available on both Android and iOS with a stellar rating of 4.8+, makes it easy to browse and order from our extensive collection. Currently serving families in over 14 cities, with over 9,000 downloads, 600+ active subscribers, and a network of 42+ dedicated Librarians, the EleFant is revolutionizing the way kids play and parents manage toy clutter. We clogged a revenue of 2.25 Cr. in just 5 months of operation.  Join The EleFant in creating a world where every child's playtime is filled with joy, learning, and endless possibilities!
+The EleFant app, available on both Android and iOS with a stellar rating of 4.8+, makes it easy to browse and order from our extensive collection. Currently serving families in over 14 cities, with over 9,000 downloads, 600+ active subscribers, and a network of 42+ dedicated Librarians, the EleFant is revolutionizing the way kids play and parents manage toy clutter. It clogged a revenue of Rs. 2.25 Cr. in just 5 months of operation.  Join The EleFant in creating a world where every child's playtime is filled with joy, learning, and endless possibilities!
                       </p>
                       <div className=" percentage-container">
                         <div className="percentage-values">
@@ -1629,15 +1629,15 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                     <h1 style={{ fontSize: "2rem", marginBottom: "30px" }}>
                       Highlights
                     </h1>
-                    <div className="row">
+                    <div className="row highlight-rows">
                       <div className="col-lg-6 col-md-6 col-sm-6">
                         <div
                           className="single elefanthighlight text-left"
-                          style={{ maxHeight: "400px" }}
+                          style={{ }}
                         >
                           <img src="./assets/images/deals-details/Petmojo/highlight01.jpg" />
                           <p style={{ padding: "1px !important" }}>
-                            EleFant's USP lies in its innovative
+                          The EleFant's USP lies in its innovative
                             subscription-based toy library model, enabling users
                             to access a diverse range of toys without the burden
                             of ownership. This unique approach not only provides
@@ -1654,15 +1654,15 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                       <div className="col-lg-6 col-md-6 col-sm-6">
                         <div
                           className="single elefanthighlight text-left"
-                          style={{ maxHeight: "400px" }}
+                          style={{ }}
                         >
                           <img src="./assets/images/deals-details/highlight2.jfif" />
                           <p style={{ padding: "0px !important" }}>
-                            EleFant's commitment to quality and education is
+                           The EleFant's commitment to quality and education is
                             reflected in its curated catalog, making it a go-to
                             platform for parents seeking sustainable and
                             enriching play experiences for their children.
-                            EleFant has established a robust presence with 42+
+                            The EleFant has established a robust presence with 42+
                             libraries across India, securing over 600+ committed
                             subscribers, and achieving sales exceeding 2.5
                             crores in the past five months.
@@ -1672,16 +1672,16 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                       <div className="col-lg-6 col-md-6 col-sm-6">
                         <div
                           className="single elefanthighlight text-left"
-                          style={{ maxHeight: "400px" }}
+                          style={{ }}
                         >
                           <img src="./assets/images/deals-details/highlight3.jpg" />
                           <p style={{ paddingLeft: "0px !important" }}>
-                            EleFant empowers women through its business model,
+                          The EleFant empowers women through its business model,
                             allowing them to become Toy Librarians. These women
                             entrepreneurs, including CAs, engineers, and
                             professionals, can set up and run toy libraries,
                             offering financial independence in just a few hours
-                            a day. EleFant provides continuous support and
+                            a day.The EleFant provides continuous support and
                             training, fostering a community of empowered women
                             contributing to its success.
                           </p>
@@ -1690,19 +1690,19 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                       <div className="col-lg-6 col-md-6 col-sm-6">
                         <div
                           className="single elefanthighlight text-left"
-                          style={{ maxHeight: "400px" }}
+                          style={{ }}
                         >
                           <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
                           <p style={{ paddingLeft: "0px !important" }}>
-                            EleFant has strengthened its position through
+                          The EleFant has strengthened its position through
                             strategic moves, including the acquisition of
                             India's top Toy Library, specializing in renting
                             toys, games, and books. Additionally, a strategic
                             partnership with Khilonewala's founders, Abhishek
-                            Jain & Bharat Jain, adds valuable expertise to
+                            Jain & Bharat Jain, adds valuable expertise to The
                             EleFant's ecosystem. With an impressive track record
                             of 120+ built libraries, 75 currently operational,
-                            and over 11 years of experience, EleFant has
+                            and over 11 years of experience, The EleFant has
                             established itself as a key player. Notably, the
                             delivery of 5 lakh toy kits underscores its
                             substantial reach and impact in the market.
@@ -1712,11 +1712,11 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                       <div className="col-lg-6 col-md-6 col-sm-6">
                         <div
                           className="single elefanthighlight text-left"
-                          style={{ maxHeight: "400px" }}
+                          style={{ }}
                         >
                           <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
                           <p style={{ paddingLeft: "0px !important" }}>
-                            EleFant's toy library model brings cost savings,
+                          The EleFant's toy library model brings cost savings,
                             convenience, and sustainability to customers by
                             offering high-quality toys at reduced costs,
                             app-based browsing with doorstep delivery, and
@@ -1724,7 +1724,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                             increased reach, marketing exposure, financial
                             stability, customer feedback, and alignment with
                             sustainability goals. To create a competitive moat,
-                            EleFant focuses on high-quality curation, customer
+                            The EleFant focuses on high-quality curation, customer
                             experience, technology and innovation, brand
                             building, and strategic partnerships, ensuring a
                             comprehensive and unique value proposition in the
@@ -1735,11 +1735,11 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                       <div className="col-lg-6 col-md-6 col-sm-6">
                         <div
                           className="single elefanthighlight text-left"
-                          style={{ maxHeight: "400px" }}
+                          style={{ }}
                         >
                           <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
                           <p style={{ paddingLeft: "0px !important" }}>
-                            EleFant employs a robust marketing strategy,
+                          The EleFant employs a robust marketing strategy,
                             leveraging community leaders for referral marketing,
                             offering rewards programs, and utilizing digital
                             channels with targeted campaigns and influencer
@@ -1749,7 +1749,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                             and corporate sectors. The inorganic growth plan
                             involves mergers and acquisitions with regional
                             players for rapid expansion. This comprehensive
-                            approach aims to establish EleFant as a prominent
+                            approach aims to establish The EleFant as a prominent
                             brand through a blend of referral, digital,
                             hyperlocal, and strategic partnership efforts.
                           </p>
@@ -1776,7 +1776,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                           <img src="./assets/images/deals-details/the EleFant/Articles/1.webp" />
 
                           <p style={{ padding: "1px !important" }}>
-                            Mumbai-ca-dad-starts-a-toy-rental-business-rents-affordable-toys-for-kids
+                            Mumbai ca dad starts a toy rental business rents affordable toys for kids
                             <a
                               href="https://www.thebetterindia.com/334684/mumbai-ca-dad-starts-a-toy-rental-business-rents-affordable-toys-for-kids/"
                               target="_blank"
@@ -1792,7 +1792,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                         <div className="single medialink text-left d-flex flex-column  ">
                           <img src="./assets/images/deals-details/the EleFant/Articles/2.jpeg" />
                           <p style={{ padding: "1px !important" }}>
-                            ca-to-entrepreneur-sourabh-jains-of-the-elefant
+                            ca to entrepreneur sourabh jains of the elefant
                             <a
                               href="https://www.transcontinentaltimes.com/ca-to-entrepreneur-sourabh-jains-of-the-elefant/"
                               target="_blank"
@@ -1838,7 +1838,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                           </p>
                         </div>
                       </div>
-                      <div className="col-lg-6 col-md-6 col-sm-6">
+                      {/* <div className="col-lg-6 col-md-6 col-sm-6">
                         <div className="single medialink text-left d-flex flex-column  ">
                           <img src="./assets/images/deals-details/the EleFant/Articles/1.webp" />
                           <p style={{ padding: "1px !important" }}>
@@ -1854,7 +1854,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                             </a>
                           </p>
                         </div>
-                      </div>
+                      </div> */}
                       <div className="col-lg-6 col-md-6 col-sm-6">
                         <div className="single medialink text-left d-flex flex-column  ">
                           <img src="./assets/images/deals-details/the EleFant/Articles/6.webp" />
@@ -2285,7 +2285,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                               </h1>
                               <div className="row">
                                 <div className="col-lg-4">
-                                  <div className="single text-center h-lg">
+                                  <div className="single text-center h-lg market-boxes">
                                     {/* <h2 style={{paddingBottom:"20px"}}>$1 Tn </h2> */}
                                     <p
                                       style={{
@@ -2309,7 +2309,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                                   </div>
                                 </div>
                                 <div className="col-lg-4">
-                                  <div className="single text-center h-lg">
+                                  <div className="single text-center h-lg market-boxes">
                                     {/* <h2 style={{paddingBottom:"20px"}}>$200 Bn</h2> */}
                                     <p
                                       style={{
@@ -2338,7 +2338,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                                 </div>
 
                                 <div className="col-lg-4">
-                                  <div className="single text-center h-lg">
+                                  <div className="single text-center h-lg market-boxes">
                                     {/* <h2 style={{paddingBottom:"20px"}}>$200 Bn</h2> */}
                                     <p
                                       style={{
@@ -2465,7 +2465,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                                                           color: "#7f7776",
                                                         }}
                                                       >
-                                                        EleFant offers a
+                                                       The EleFant offers a
                                                         service, specifically a
                                                         subscription-based toy
                                                         library model. It
@@ -2509,7 +2509,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                                                           color: "#7f7776",
                                                         }}
                                                       >
-                                                        Scaling up EleFant poses
+                                                        Scaling up The EleFant poses
                                                         challenges such as
                                                         optimizing logistics for
                                                         a growing subscriber
@@ -2527,7 +2527,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                                                         customer retention
                                                         strategies. To tackle
                                                         these challenges,
-                                                        EleFant needs to invest
+                                                        The EleFant needs to invest
                                                         in robust logistics
                                                         infrastructure,
                                                         implement comprehensive
@@ -2549,7 +2549,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                                                         customer feedback.
                                                         Addressing these aspects
                                                         strategically will be
-                                                        essential for EleFant's
+                                                        essential for The EleFant's
                                                         successful and
                                                         sustainable scale-up in
                                                         the toy subscription
@@ -2596,7 +2596,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                                                           color: "#7f7776",
                                                         }}
                                                       >
-                                                        EleFant has the
+                                                       The EleFant has the
                                                         potential to tap into a
                                                         relatively untapped
                                                         market by offering its
@@ -2608,7 +2608,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                                                         one-time purchases,
                                                         which may pose financial
                                                         and storage challenges
-                                                        for parents. EleFant's
+                                                        for parents.The EleFant's
                                                         subscription model
                                                         addresses these concerns
                                                         by providing an
@@ -2629,10 +2629,10 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                                                         personalized user
                                                         experience through the
                                                         app, distinguishes
-                                                        EleFant in the market.
+                                                        The EleFant in the market.
                                                         By targeting this
                                                         untapped market segment,
-                                                        EleFant positions itself
+                                                        The EleFant positions itself
                                                         as a convenient and
                                                         innovative solution,
                                                         potentially attracting a
@@ -2699,7 +2699,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                                                           color: "#7f7776",
                                                         }}
                                                       >
-                                                        EleFant's competitive
+                                                        The EleFant's competitive
                                                         edge is built on a
                                                         distinctive
                                                         subscription-based toy
@@ -2729,10 +2729,10 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                                                         tracking and push
                                                         notifications, enhances
                                                         convenience and sets
-                                                        EleFant apart in terms
+                                                        The EleFant apart in terms
                                                         of technological
                                                         accessibility.
-                                                        Furthermore, EleFant's
+                                                        Furthermore,The EleFant's
                                                         commitment to
                                                         environmental
                                                         sustainability by
@@ -2745,7 +2745,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                                                         Collectively, these
                                                         factors create a robust
                                                         competitive moat for
-                                                        EleFant in the toy
+                                                        The EleFant in the toy
                                                         industry.
                                                       </p>
                                                       {/* <p
@@ -3023,7 +3023,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                                       <a>
                                         {" "}
                                         bringing strategic leadership and
-                                        financial acumen to EleFant.
+                                        financial acumen to The EleFant.
                                       </a>
                                     </li>
                                   </ul>
@@ -3086,7 +3086,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                                     </li>
                                     <li>
                                       <a>
-                                        contributing to EleFant's product
+                                        contributing to The EleFant's product
                                         innovation.
                                       </a>
                                     </li>
@@ -3097,7 +3097,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                                 <div className="single">
                                   <div className="d-flex">
                                     <img
-                                      src="./assets/images/deals-details/the EleFant/team/nirupa.jpeg"
+                                      src="./assets/images/deals-details/the EleFant/team/nirupa.png"
                                       alt=""
                                     />
                                     <div className="intro">
@@ -3147,7 +3147,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                                       <a>
                                         {" "}
                                         bringing strategic leadership and
-                                        financial acumen to EleFant.
+                                        financial acumen to The EleFant.
                                       </a>
                                     </li>
                                   </ul>
@@ -3202,7 +3202,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                                     </li>
                                     <li>
                                       <a>
-                                        managing EleFant's financial operations
+                                        managing The EleFant's financial operations
                                         and investor relations.
                                       </a>
                                     </li>
