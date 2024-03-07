@@ -131,7 +131,7 @@ class EleFant extends Component {
     document.title = "The EleFant - Growth91 - Startup Marketplace ";
   }
   componentDidMount() {
-    let deal_id = "27";
+    let deal_id = "117";
     this.setState({ deal_id: deal_id }, () => {
       this.get_pitch_list();
     });
@@ -1607,6 +1607,120 @@ class EleFant extends Component {
 
 
                   </div>
+                  <div
+                              className="container home-decor-section mt-0"
+                              style={{ marginTop: "3px !important" }}
+                            >
+                              <h1
+                                className="text-center"
+                                style={{
+                                  marginBottom: "20px",
+                                  marginTop: "0px !important",
+                                }}
+                              >
+                                Market Overview
+                              </h1>
+                              <div className="row">
+                                <div className="col-lg-4">
+                                  <div className="single text-center h-lg market-boxes">
+                                    {/* <h2 style={{paddingBottom:"20px"}}>$1 Tn </h2> */}
+                                    <p
+                                      style={{
+                                        color: "white",
+                                        fontSize: "21px",
+                                        padding: "2px",
+                                        margin: "48px 0px",
+                                        opacity:"1",
+                                        lineHeight:'1.5'
+                                      }}
+                                    >
+                                      India has the largest child population
+                                      globally, with 275 million children in the
+                                      age group of 0 to 12 years. The Indian
+                                      National Education Policy 2020 emphasizes
+                                      play-based and activity-based learning,
+                                      recognizing the significance of play in
+                                      enhancing children's learning outcomes. It
+                                      proposes an integrated approach to formal
+                                      education that includes play, discovery,
+                                      and interactive learning.
+                                    </p>
+                                  </div>
+                                </div>
+                                <div className="col-lg-4">
+                                  <div className="single text-center h-lg market-boxes">
+                                    {/* <h2 style={{paddingBottom:"20px"}}>$200 Bn</h2> */}
+                                    <p
+                                      style={{
+                                        color: "white",
+                                        fontSize: "21px",
+                                        padding: "2px",
+                                        margin: "48px 0px",
+                                        opacity:"1",
+                                        lineHeight:'1.5'
+                                      }}
+                                    >
+                                      The Indian toy market is set to reach $3
+                                      billion by 2028, driven by rising incomes
+                                      and a focus on child development. Toy
+                                      subscription services, expected to grow at
+                                      a CAGR of 12.2% from 2023 to 2028, offer a
+                                      convenient and eco-friendly solution,
+                                      tapping into India's vast and expanding
+                                      child population, which is over 17% of the
+                                      global total by 2036. The increasing
+                                      spending power of middle-class families
+                                      contributes to the market's potential,
+                                      with a growing openness to innovative
+                                      child development solutions like toy
+                                      subscriptions.
+                                    </p>
+                                  </div>
+                                </div>
+
+                                <div className="col-lg-4">
+                                  <div className="single text-center h-lg market-boxes">
+                                    {/* <h2 style={{paddingBottom:"20px"}}>$200 Bn</h2> */}
+                                    <p
+                                      style={{
+                                        color: "white",
+                                        fontSize: "21px",
+                                        padding: "2px",
+                                        margin: "48px 0px",
+                                        opacity:"1",
+                                        lineHeight:'1.5'
+                                      }}
+                                    >
+                                      The evolution of the toy industry reflects
+                                      a transition from traditional toys to
+                                      modern, technology-driven offerings. In
+                                      the past, simple toys focused on promoting
+                                      imagination. Presently, STEM-based,
+                                      Montessori and eco-friendly toys are
+                                      prevalent, aligning with changing consumer
+                                      preferences. Looking to the future,
+                                      emerging technologies like virtual reality
+                                      and artificial intelligence are expected
+                                      to shape toys, providing immersive
+                                      experiences. The industry anticipates a
+                                      continued focus on learning, creativity,
+                                      and social interaction in toys,
+                                      emphasizing their crucial role in child
+                                      development.
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="text-center fs-4">
+                                <span style={{ color: "#000" }}>Source: </span>
+                                <span style={{ color: "rgb(127, 119, 118)" }}>
+                                  Multiple publicly available research and
+                                  survey reports
+                                </span>
+                              </div>
+                              <p className=""> </p>
+                              <div className="text-center fluid-container"></div>
+                            </div>
 
                   <div
                     className="container highlight-section"
@@ -1764,6 +1878,72 @@ class EleFant extends Component {
                       </div>
                     </div>
                   </div>
+                  </div>
+              </div>
+            </section>
+            <div className="deals-page">
+              <div className="tab-wrapper">
+                <div className="container">
+                  <div className="row">
+                    <div
+                      className="col-lg-12 col-md-12 col-sm-12"
+                      style={{
+                        marginTop: 110,
+                      }}
+                    >
+                    
+                          <div className="deal-terms-section">
+                           
+
+                           
+                            <div
+                              className=""
+                              style={{
+                                backgroundColor: "white",
+                                marginTop: "1px !important",
+                              }}
+                            >
+                              <h1
+                                style={{
+                                  fontSize: 32,
+                                  marginBottom: 30,
+                                  textAlign: "center",
+                                  marginTop: "-10px !important",
+                                }}
+                              >
+                                Investor Presentation
+                              </h1>
+                              <Slider
+                                {...settings}
+                                className="mb-5 pitch-slider"
+                              >
+                                {images.map((image, index) => (
+                                  <img
+                                    key={index}
+                                    src={image}
+                                    onClick={() => this.handleClickImage(image)}
+                                  />
+                                ))}
+                              </Slider>
+                              {current && (
+                                <Lightbox
+                                  mainSrc={current}
+                                  onCloseRequest={this.handleCloseModal}
+                                />
+                              )}
+                            </div>
+        </div>
+                        
+                        
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <section className="deals-details-page"
+              style={{ marginBottom: "-50px" }}>
+            <div>
+              <div>
 
                   {/* media */}
 
@@ -1888,9 +2068,11 @@ class EleFant extends Component {
                       </div> */}
                     </div>
                   </div>
+{/* Investor Presentation */}
                 </div>
               </div>
             </section>
+           
             <div className="deals-page">
               <div className="tab-wrapper">
                 <div className="container">
@@ -1914,246 +2096,7 @@ class EleFant extends Component {
                             >
                               <div className="row">
                                 <div className="col-lg-10 m-auto">
-                                  <h1>Documents</h1>
-                                  <div className="row document-section">
-                                    <div className="col-lg-2"></div>
-                                    <div className="col-lg-8">
-                                      <div
-                                        className="download-section"
-                                        style={{
-                                          backgroundColor: "white",
-                                          padding: "4rem 19px",
-                                        }}
-                                      >
-                                        <>
-                                          <div>
-                                            <table
-                                              className="download-document-table"
-                                              style={{ width: "100%" }}
-                                            >
-                                              <tr
-                                                style={{
-                                                  background: "#29176f",
-                                                  color: "#fff",
-                                                }}
-                                              >
-                                                <th>Sr no</th>
-                                                <th>Document</th>
-                                                <th>Type</th>
-                                                <th>Download</th>
-                                              </tr>
-                                              {this.state.documents.length >
-                                                0 &&
-                                                this.state.documents.map(
-                                                  (item, index) => {
-                                                    console.log(
-                                                      this.state.documents
-                                                        .length
-                                                    );
-                                                    let documentlink = `${process.env.REACT_APP_BASE_URL}api/uploads/docs/${item.documentid}/${item.document}`;
-                                                    return (
-                                                      <tr
-                                                        key={index}
-                                                        style={{ height: 70 }}
-                                                      >
-                                                        {/* <td
-                                                          style={{ width: 40 }}
-                                                        >
-                                                          {item.paid ==
-                                                            "Paid" && (
-                                                            <>
-                                                              {this.state
-                                                                .check_membership_type ==
-                                                                "premium" &&
-                                                              item.premium_price !=
-                                                                "0" &&
-                                                              item.premium_price !=
-                                                                "" ? (
-                                                                <>
-                                                                  {item.user_paid ==
-                                                                  false ? (
-                                                                    <Checkbox
-                                                                      onChange={() =>
-                                                                        this.show_selected_checkbox(
-                                                                          item
-                                                                        )
-                                                                      }
-                                                                      value={
-                                                                        item.selected
-                                                                      }
-                                                                    ></Checkbox>
-                                                                  ) : (
-                                                                    <>
-                                                                      {item.user_paid ==
-                                                                        true && (
-                                                                        <img
-                                                                          src="./paid.png"
-                                                                          style={{
-                                                                            maxWidth: 20,
-                                                                          }}
-                                                                        />
-                                                                      )}
-                                                                    </>
-                                                                  )}
-                                                                </>
-                                                              ) : (
-                                                                <>
-                                                                  {this.state
-                                                                    .check_membership_type ==
-                                                                    "regular" &&
-                                                                    item.regular_price !=
-                                                                      "0" &&
-                                                                    item.regular_price !=
-                                                                      "" &&
-                                                                    item.user_paid ==
-                                                                      false && (
-                                                                      <Checkbox
-                                                                        onChange={() =>
-                                                                          this.show_selected_checkbox(
-                                                                            item
-                                                                          )
-                                                                        }
-                                                                        value={
-                                                                          item.selected
-                                                                        }
-                                                                      ></Checkbox>
-                                                                    )}
-                                                                </>
-                                                              )}
-                                                            </>
-                                                          )}
-                                                        </td> */}
-                                                        <td
-                                                          style={{ width: 40 }}
-                                                        >
-                                                          {index + 1}
-                                                        </td>
-                                                        <td
-                                                          style={{ width: 140 }}
-                                                        >
-                                                          {item.docname}
-                                                        </td>
-                                                        <td
-                                                          style={{ width: 40 }}
-                                                        >
-                                                          {item.paid == "Paid"
-                                                            ? this.state
-                                                              .check_membership_type ==
-                                                              "premium"
-                                                              ? item.premium_price ==
-                                                                "0"
-                                                                ? "Free"
-                                                                : "₹" +
-                                                                item.premium_price
-                                                              : item.regular_price ==
-                                                                "0"
-                                                                ? "Free"
-                                                                : "₹" +
-                                                                item.regular_price
-                                                            : "Free"}
-                                                        </td>
-                                                        <td
-                                                          style={{ width: 50 }}
-                                                        >
-                                                          {this.state
-                                                            .investor_id && (
-                                                              <center>
-                                                                {(item.user_paid ==
-                                                                  true ||
-                                                                  item.paid ==
-                                                                  "Free") && (
-                                                                    <a
-                                                                      href={
-                                                                        documentlink
-                                                                      }
-                                                                      target="_blank"
-                                                                      style={{
-                                                                        width: 80,
-                                                                      }}
-                                                                    >
-                                                                      <img
-                                                                        src="./download.ico"
-                                                                        style={{
-                                                                          maxWidth: 50,
-                                                                        }}
-                                                                      />
-                                                                    </a>
-                                                                  )}
-                                                                {item.paid ==
-                                                                  "Paid" &&
-                                                                  this.state
-                                                                    .check_membership_type ==
-                                                                  "premium" &&
-                                                                  (item.premium_price ==
-                                                                    "0" ? (
-                                                                    <a
-                                                                      href={
-                                                                        documentlink
-                                                                      }
-                                                                      target="_blank"
-                                                                      style={{
-                                                                        width: 80,
-                                                                      }}
-                                                                    >
-                                                                      <img
-                                                                        src="./download.ico"
-                                                                        style={{
-                                                                          maxWidth: 50,
-                                                                        }}
-                                                                      />
-                                                                    </a>
-                                                                  ) : (
-                                                                    ""
-                                                                  ))}
-                                                              </center>
-                                                            )}
-                                                        </td>
-                                                      </tr>
-                                                    );
-                                                  }
-                                                )}
-                                            </table>
-                                          </div>
-                                        </>
-                                        {this.state.button_status == false && (
-                                          <button
-                                            className="download-button"
-                                            onClick={() => this.documentPay()}
-                                          >
-                                            Pay
-                                          </button>
-                                        )}
-                                        {!this.state.investor_id && (
-                                          <>
-                                            <button
-                                              className="download-button"
-                                              style={{
-                                                background: "rgb(41 23 111)",
-                                              }}
-                                              onClick={() =>
-                                                window.location.assign("/login")
-                                              }
-                                            >
-                                              Login to View
-                                            </button>
-                                            {/* <em
-                                            style={{
-                                              fontSize: 14,
-                                              fontWeight: "700",
-                                            }}
-                                          >
-                                            Become Growth91
-                                            <sup style={{ fontSize: "0.6rem" }}>
-                                              TM
-                                            </sup>{" "}
-                                            member to access the document{" "}
-                                          </em> */}
-                                          </>
-                                        )}
-                                      </div>
-                                    </div>
-                                    <div className="col-lg-2"></div>
-                                  </div>
+                              
 
                                   <h1
                                     style={{
@@ -2277,151 +2220,9 @@ class EleFant extends Component {
                               </div>
                             </div>
 
-                            <div
-                              className="container home-decor-section mt-0"
-                              style={{ marginTop: "3px !important" }}
-                            >
-                              <h1
-                                className="text-center"
-                                style={{
-                                  marginBottom: "20px",
-                                  marginTop: "0px !important",
-                                }}
-                              >
-                                Market Overview
-                              </h1>
-                              <div className="row">
-                                <div className="col-lg-4">
-                                  <div className="single text-center h-lg market-boxes">
-                                    {/* <h2 style={{paddingBottom:"20px"}}>$1 Tn </h2> */}
-                                    <p
-                                      style={{
-                                        color: "white",
-                                        fontSize: "21px",
-                                        padding: "2px",
-                                        margin: "48px 0px",
-                                      }}
-                                    >
-                                      India has the largest child population
-                                      globally, with 275 million children in the
-                                      age group of 0 to 12 years. The Indian
-                                      National Education Policy 2020 emphasizes
-                                      play-based and activity-based learning,
-                                      recognizing the significance of play in
-                                      enhancing children's learning outcomes. It
-                                      proposes an integrated approach to formal
-                                      education that includes play, discovery,
-                                      and interactive learning.
-                                    </p>
-                                  </div>
-                                </div>
-                                <div className="col-lg-4">
-                                  <div className="single text-center h-lg market-boxes">
-                                    {/* <h2 style={{paddingBottom:"20px"}}>$200 Bn</h2> */}
-                                    <p
-                                      style={{
-                                        color: "white",
-                                        fontSize: "21px",
-                                        padding: "2px",
-                                        margin: "63px 0px",
-                                      }}
-                                    >
-                                      The Indian toy market is set to reach $3
-                                      billion by 2028, driven by rising incomes
-                                      and a focus on child development. Toy
-                                      subscription services, expected to grow at
-                                      a CAGR of 12.2% from 2023 to 2028, offer a
-                                      convenient and eco-friendly solution,
-                                      tapping into India's vast and expanding
-                                      child population, which is over 17% of the
-                                      global total by 2036. The increasing
-                                      spending power of middle-class families
-                                      contributes to the market's potential,
-                                      with a growing openness to innovative
-                                      child development solutions like toy
-                                      subscriptions.
-                                    </p>
-                                  </div>
-                                </div>
+                           
 
-                                <div className="col-lg-4">
-                                  <div className="single text-center h-lg market-boxes">
-                                    {/* <h2 style={{paddingBottom:"20px"}}>$200 Bn</h2> */}
-                                    <p
-                                      style={{
-                                        color: "white",
-                                        fontSize: "21px",
-                                        padding: "2px",
-                                        margin: "51px 0px",
-                                      }}
-                                    >
-                                      The evolution of the toy industry reflects
-                                      a transition from traditional toys to
-                                      modern, technology-driven offerings. In
-                                      the past, simple toys focused on promoting
-                                      imagination. Presently, STEM-based,
-                                      Montessori and eco-friendly toys are
-                                      prevalent, aligning with changing consumer
-                                      preferences. Looking to the future,
-                                      emerging technologies like virtual reality
-                                      and artificial intelligence are expected
-                                      to shape toys, providing immersive
-                                      experiences. The industry anticipates a
-                                      continued focus on learning, creativity,
-                                      and social interaction in toys,
-                                      emphasizing their crucial role in child
-                                      development.
-                                    </p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="text-center fs-4">
-                                <span style={{ color: "#000" }}>Source: </span>
-                                <span style={{ color: "rgb(127, 119, 118)" }}>
-                                  Multiple publicly available research and
-                                  survey reports
-                                </span>
-                              </div>
-                              <p className=""> </p>
-                              <div className="text-center fluid-container"></div>
-                            </div>
-
-                            <div
-                              className=""
-                              style={{
-                                backgroundColor: "white",
-                                marginTop: "1px !important",
-                              }}
-                            >
-                              <h1
-                                style={{
-                                  fontSize: 32,
-                                  marginBottom: 30,
-                                  textAlign: "center",
-                                  marginTop: "-10px !important",
-                                }}
-                              >
-                                Investor Presentation
-                              </h1>
-                              <Slider
-                                {...settings}
-                                className="mb-5 pitch-slider"
-                              >
-                                {images.map((image, index) => (
-                                  <img
-                                    key={index}
-                                    src={image}
-                                    onClick={() => this.handleClickImage(image)}
-                                  />
-                                ))}
-                              </Slider>
-                              {current && (
-                                <Lightbox
-                                  mainSrc={current}
-                                  onCloseRequest={this.handleCloseModal}
-                                />
-                              )}
-                            </div>
+                           
                           </div>
                           {/* start */}
 
@@ -2963,7 +2764,574 @@ class EleFant extends Component {
                               </div>
                             </div>
                           </div>
+                          <div
+                            className="deals-page"
+                            style={{
+                              marginTop: "50px !important",
+                            }}
+                          >
+                             <div className="deal-terms-section">
+                            <div
+                              className="container"
+                              style={{ marginTop: "1px !important" }}
+                            >
+                              <div className="row">
+                                <div className="col-lg-10 m-auto">
+                                  <h1>Documents</h1>
+                                  <div className="row document-section">
+                                    <div className="col-lg-2"></div>
+                                    <div className="col-lg-8">
+                                      <div
+                                        className="download-section"
+                                        style={{
+                                          backgroundColor: "white",
+                                          padding: "4rem 19px",
+                                        }}
+                                      >
+                                        <>
+                                          <div>
+                                            <table
+                                              className="download-document-table"
+                                              style={{ width: "100%" }}
+                                            >
+                                              <tr
+                                                style={{
+                                                  background: "#29176f",
+                                                  color: "#fff",
+                                                }}
+                                              >
+                                                <th>Sr no</th>
+                                                <th>Document</th>
+                                                <th>Type</th>
+                                                <th>Download</th>
+                                              </tr>
+                                              {this.state.documents.length >
+                                                0 &&
+                                                this.state.documents.map(
+                                                  (item, index) => {
+                                                    console.log(
+                                                      this.state.documents
+                                                        .length
+                                                    );
+                                                    let documentlink = `${process.env.REACT_APP_BASE_URL}api/uploads/docs/${item.documentid}/${item.document}`;
+                                                    return (
+                                                      <tr
+                                                        key={index}
+                                                        style={{ height: 70 }}
+                                                      >
+                                                        {/* <td
+                                                          style={{ width: 40 }}
+                                                        >
+                                                          {item.paid ==
+                                                            "Paid" && (
+                                                            <>
+                                                              {this.state
+                                                                .check_membership_type ==
+                                                                "premium" &&
+                                                              item.premium_price !=
+                                                                "0" &&
+                                                              item.premium_price !=
+                                                                "" ? (
+                                                                <>
+                                                                  {item.user_paid ==
+                                                                  false ? (
+                                                                    <Checkbox
+                                                                      onChange={() =>
+                                                                        this.show_selected_checkbox(
+                                                                          item
+                                                                        )
+                                                                      }
+                                                                      value={
+                                                                        item.selected
+                                                                      }
+                                                                    ></Checkbox>
+                                                                  ) : (
+                                                                    <>
+                                                                      {item.user_paid ==
+                                                                        true && (
+                                                                        <img
+                                                                          src="./paid.png"
+                                                                          style={{
+                                                                            maxWidth: 20,
+                                                                          }}
+                                                                        />
+                                                                      )}
+                                                                    </>
+                                                                  )}
+                                                                </>
+                                                              ) : (
+                                                                <>
+                                                                  {this.state
+                                                                    .check_membership_type ==
+                                                                    "regular" &&
+                                                                    item.regular_price !=
+                                                                      "0" &&
+                                                                    item.regular_price !=
+                                                                      "" &&
+                                                                    item.user_paid ==
+                                                                      false && (
+                                                                      <Checkbox
+                                                                        onChange={() =>
+                                                                          this.show_selected_checkbox(
+                                                                            item
+                                                                          )
+                                                                        }
+                                                                        value={
+                                                                          item.selected
+                                                                        }
+                                                                      ></Checkbox>
+                                                                    )}
+                                                                </>
+                                                              )}
+                                                            </>
+                                                          )}
+                                                        </td> */}
+                                                        <td
+                                                          style={{ width: 40 }}
+                                                        >
+                                                          {index + 1}
+                                                        </td>
+                                                        <td
+                                                          style={{ width: 140 }}
+                                                        >
+                                                          {item.docname}
+                                                        </td>
+                                                        <td
+                                                          style={{ width: 40 }}
+                                                        >
+                                                          {item.paid == "Paid"
+                                                            ? this.state
+                                                                .check_membership_type ==
+                                                              "premium"
+                                                              ? item.premium_price ==
+                                                                "0"
+                                                                ? "Free"
+                                                                : "₹" +
+                                                                  item.premium_price
+                                                              : item.regular_price ==
+                                                                "0"
+                                                              ? "Free"
+                                                              : "₹" +
+                                                                item.regular_price
+                                                            : "Free"}
+                                                        </td>
+                                                        <td
+                                                          style={{ width: 50 }}
+                                                        >
+                                                          {this.state
+                                                            .investor_id && (
+                                                            <center>
+                                                              {(item.user_paid ==
+                                                                true ||
+                                                                item.paid ==
+                                                                  "Free") && (
+                                                                <a
+                                                                  href={
+                                                                    documentlink
+                                                                  }
+                                                                  target="_blank"
+                                                                  style={{
+                                                                    width: 80,
+                                                                  }}
+                                                                >
+                                                                  <img
+                                                                    src="./download.ico"
+                                                                    style={{
+                                                                      maxWidth: 50,
+                                                                    }}
+                                                                  />
+                                                                </a>
+                                                              )}
+                                                              {item.paid ==
+                                                                "Paid" &&
+                                                                this.state
+                                                                  .check_membership_type ==
+                                                                  "premium" &&
+                                                                (item.premium_price ==
+                                                                "0" ? (
+                                                                  <a
+                                                                    href={
+                                                                      documentlink
+                                                                    }
+                                                                    target="_blank"
+                                                                    style={{
+                                                                      width: 80,
+                                                                    }}
+                                                                  >
+                                                                    <img
+                                                                      src="./download.ico"
+                                                                      style={{
+                                                                        maxWidth: 50,
+                                                                      }}
+                                                                    />
+                                                                  </a>
+                                                                ) : (
+                                                                  ""
+                                                                ))}
+                                                            </center>
+                                                          )}
+                                                        </td>
+                                                      </tr>
+                                                    );
+                                                  }
+                                                )}
+                                            </table>
+                                          </div>
+                                        </>
+                                        {this.state.button_status == false && (
+                                          <button
+                                            className="download-button"
+                                            onClick={() => this.documentPay()}
+                                          >
+                                            Pay
+                                          </button>
+                                        )}
+                                        {!this.state.investor_id && (
+                                          <>
+                                            <button
+                                              className="download-button"
+                                              style={{
+                                                background: "rgb(41 23 111)",
+                                              }}
+                                              onClick={() =>
+                                                window.location.assign("/login")
+                                              }
+                                            >
+                                              Login to View
+                                            </button>
+                                            {/* <em
+                                            style={{
+                                              fontSize: 14,
+                                              fontWeight: "700",
+                                            }}
+                                          >
+                                            Become Growth91
+                                            <sup style={{ fontSize: "0.6rem" }}>
+                                              TM
+                                            </sup>{" "}
+                                            member to access the document{" "}
+                                          </em> */}
+                                          </>
+                                        )}
+                                      </div>
+                                    </div>
+                                    <div className="col-lg-2"></div>
+                                  </div>
+                                  </div>
+                                  </div>
+                                  </div>
+                                  </div>
+                            <div className="tab-wrapper">
+                              <div className="container">
+                                <div className="row">
+                                  <div className="col-lg-12">
+                                    <Tabs defaultActiveKey="1" centered>
+                                      <TabPane tab="FAQ" key="1">
+                                        <section
+                                          className="faq-section"
+                                          style={{
+                                            margin: "0px",
+                                            padding: "0px",
+                                            background: "none",
+                                          }}
+                                        >
+                                          <div className="">
+                                            <div className="row">
+                                              <div className="col-lg-12 col-md-12 col-sm-12 m-auto">
+                                                <h1 className="text-center mb-4">
+                                                  About {this.state.deal_name}
+                                                </h1>
+                                                <Collapse
+                                                  // defaultActiveKey={['1']}
+                                                  onChange={this.callback1}
+                                                  expandIconPosition="left"
+                                                  accordion
+                                                >
+                                                  <Panel
+                                                    header="Are you focused on product or service?"
+                                                    key="1"
+                                                    extra={genExtra()}
+                                                  >
+                                                    <div
+                                                      style={{
+                                                        color: "#7f7776",
+                                                      }}
+                                                    >
+                                                      <p
+                                                        style={{
+                                                          color: "#7f7776",
+                                                        }}
+                                                      >
+                                                        EcoRatings is primarily
+                                                        based on a
+                                                        product-oriented
+                                                        approach. The startup
+                                                        offers a Gen AI solution
+                                                        designed to assist
+                                                        companies in making
+                                                        informed decisions on
+                                                        sustainability
+                                                        parameters. This product
+                                                        focuses on providing
+                                                        services related to ESG
+                                                        (Environmental, Social,
+                                                        and Governance)
+                                                        reporting, compliance,
+                                                        and sustainability
+                                                        assessments.
+                                                        Additionally, EcoRatings
+                                                        offers Audited ESG
+                                                        Ratings, contributing to
+                                                        the transparency of a
+                                                        company's sustainability
+                                                        efforts.</p>
+                                                        <p
+                                                        style={{
+                                                          color: "#7f7776",
+                                                        }}
+                                                      >
+                                                         In summary,
+                                                        while EcoRatings
+                                                        provides services
+                                                        through its Gen AI
+                                                        solution and ESG
+                                                        Ratings, its core focus
+                                                        is on delivering a
+                                                        product that facilitates
+                                                        sustainability
+                                                        decision-making for
+                                                        businesses.
+                                                      </p>
+                                                    </div>
+                                                  </Panel>
+                                                  <Panel
+                                                    header="What are the challenges for scale up and how these will be managed?"
+                                                    key="2"
+                                                    extra={genExtra()}
+                                                  >
+                                                    <div
+                                                      style={{
+                                                        color: "#7f7776",
+                                                      }}
+                                                    >
+                                                      <p
+                                                        style={{
+                                                          color: "#7f7776",
+                                                        }}
+                                                      >
+                                                        A key challenge for EcoRatings in scaling up is the extended Proof of Concept (POC) time, which could potentially delay client onboarding and overall growth. To address this challenge, the company plans to implement a strategy of conducting multiple POCs concurrently. By engaging in parallel Proof of Concepts, EcoRatings aims to optimize resource utilization, demonstrate the efficacy of its Gen AI solution to a broader audience, and expedite the validation process. This approach is designed to mitigate the impact of prolonged POC durations, ensuring a more efficient and accelerated scale-up phase for the company.
+                                                      </p>
+                                                    
+                                                    </div>
+                                                  </Panel>
 
+                                                  <Panel
+                                                    header="Are you targeting new untapped market? Justify"
+                                                    key="7"
+                                                    extra={genExtra()}
+                                                  >
+                                                    <div
+                                                      style={{
+                                                        color: "#7f7776",
+                                                      }}
+                                                    >
+                                                      <p
+                                                        style={{
+                                                          color: "#7f7776",
+                                                        }}
+                                                      >
+                                                       
+Yes, EcoRatings is targeting a relatively new and untapped market in India, and the justification for this lies in the rapid adoption of sustainability practices within the region. While the concept of sustainability and Environmental, Social, and Governance (ESG) parameters is gaining traction globally, the market for such solutions is still emerging in India. The startup recognizes the potential for growth and influence in a market where environmental consciousness is on the rise. The quick adoption of sustainability practices in India provides EcoRatings with an opportunity to establish itself as a pioneer in the region, offering Gen AI solutions for informed decision-making on sustainability parameters. By entering this untapped market, EcoRatings aims to play a significant role in shaping and advancing sustainable business practices in India, aligning with the increasing demand for ESG-focused solutions.
+                                                      </p>
+                                                    </div>
+                                                  </Panel>
+                                                  <Panel
+                                                    header="What are your moats?"
+                                                    key="4"
+                                                    extra={genExtra()}
+                                                  >
+                                                    <div
+                                                      style={{
+                                                        color: "#7f7776",
+                                                      }}
+                                                    >
+                                                      <p
+                                                        style={{
+                                                          color: "#7f7776",
+                                                        }}
+                                                      >
+                                                       EcoRatings' competitive advantages, or "moats," center around its proprietary Large Language Model (LLM) with 30 billion parameters, exclusively focused on sustainability. This unique model, combined with the company's dedication to environmental, social, and governance (ESG) factors, positions EcoRatings as a leader in the industry. The limited competition in large language models, access to proprietary data, and an experienced leadership team further enhance its competitive edge.
+                                                      </p>
+                                                     
+                                                    </div>
+                                                  </Panel>
+                                                </Collapse>
+                                                <h1 className="text-center mb-2 mt-4">
+                                                  Growth91 Investment FAQ
+                                                </h1>
+                                                <Collapse
+                                                  // defaultActiveKey={['10']}
+                                                  onChange={this.callback3}
+                                                  expandIconPosition="left"
+                                                  accordion
+                                                >
+                                                  <Panel
+                                                    header="What is the due diligence process followed by Growth91"
+                                                    key="11"
+                                                    extra={genExtra()}
+                                                  >
+                                                    <div
+                                                      style={{
+                                                        color: "#7f7776",
+                                                      }}
+                                                    >
+                                                      At Growth91, we follow
+                                                      stringent due-diligence
+                                                      process. We ask for
+                                                      detailed information about
+                                                      start-up and their team.
+                                                      After the scrutiny and if
+                                                      deemed fit, start-up would
+                                                      be listed on Growth91
+                                                      platform. Independent
+                                                      investment opinion and
+                                                      due-diligence report
+                                                      prepared by external
+                                                      qualified experts are made
+                                                      available for investors.
+                                                    </div>
+                                                  </Panel>
+                                                  <Panel
+                                                    header="Do you offer any guarantee on returns?"
+                                                    key="12"
+                                                    extra={genExtra()}
+                                                  >
+                                                    <div
+                                                      style={{
+                                                        color: "#7f7776",
+                                                      }}
+                                                    >
+                                                      No, we do not guarantee
+                                                      any returns. The startup
+                                                      which is raising the money
+                                                      is also not guaranteeing
+                                                      any specific returns. In
+                                                      principle, it is not
+                                                      legally correct for the
+                                                      company to provide any
+                                                      guarantee about returns on
+                                                      equity linked securities.
+                                                    </div>
+                                                  </Panel>
+                                                  <Panel
+                                                    header="What is the refund process in case I don’t receive any allocation?"
+                                                    key="13"
+                                                    extra={genExtra()}
+                                                  >
+                                                    <div
+                                                      style={{
+                                                        color: "#7f7776",
+                                                      }}
+                                                    >
+                                                      If an investor doesn’t
+                                                      receive the allocation,
+                                                      the investment amount will
+                                                      be refunded to the bank
+                                                      account from which the
+                                                      investment has been made.
+                                                      As per Growth91 policy,
+                                                      there will be no interest
+                                                      or compensation on these
+                                                      returned funds.
+                                                    </div>
+                                                  </Panel>
+                                                  <Panel
+                                                    header="What is the exit mechanism available for the investors"
+                                                    key="14"
+                                                    extra={genExtra()}
+                                                  >
+                                                    <div
+                                                      style={{
+                                                        color: "#7f7776",
+                                                      }}
+                                                    >
+                                                      The Company and the
+                                                      Promoters shall make all
+                                                      reasonable endeavours to
+                                                      provide exit to the
+                                                      Investors by any of the
+                                                      following ways: 1. Initial
+                                                      Public Offer (IPO) 2.
+                                                      Merger or Acquisition
+                                                      Event 3. Buyout Event 3.
+                                                      Compulsory Call Option
+                                                      with minimum assured
+                                                      returns. (Please refer to
+                                                      investor agreement for
+                                                      more details)
+                                                    </div>
+                                                  </Panel>
+
+                                                  <Panel
+                                                    header="In which account Investor’s money are transferred"
+                                                    key="15"
+                                                    extra={genExtra()}
+                                                  >
+                                                    <div
+                                                      style={{
+                                                        color: "#7f7776",
+                                                      }}
+                                                    >
+                                                      Money invested by the
+                                                      investor in all public
+                                                      deals are automatically
+                                                      transferred to separate
+                                                      and dedicated escrow
+                                                      account created for
+                                                      respective Startup. The
+                                                      escrow account is managed
+                                                      by authorized trustee.
+                                                      After the funding/deal and
+                                                      documentation formalities
+                                                      are completed, the fund
+                                                      will be transferred to
+                                                      respective startup bank
+                                                      account.
+                                                    </div>
+                                                  </Panel>
+
+                                                  <Panel
+                                                    header="I have more questions; how do I contact Growth91?"
+                                                    key="16"
+                                                    extra={genExtra()}
+                                                  >
+                                                    <div
+                                                      style={{
+                                                        color: "#7f7776",
+                                                      }}
+                                                    >
+                                                      You can always send your
+                                                      queries to{" "}
+                                                      <a href="mailto:contact@growth91.com">
+                                                        contact@growth91.com
+                                                      </a>
+                                                      , we will respond to your
+                                                      queries in shortest
+                                                      possible time.
+                                                    </div>
+                                                  </Panel>
+                                                </Collapse>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </section>
+                                      </TabPane>
+                                    </Tabs>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                           {/* stop */}
                         </TabPane>
                         <TabPane tab="Team" key="3">

@@ -445,7 +445,8 @@ class EcoRatings extends Component {
           // }
         }
         for (let d of result.data) {
-          console.log(d);
+            console.log(this.state.captable_threshold_amount);
+
           if (d.deal_id == this.state.deal_id) {
             if (d.show_status == "0") {
               this.setState({ is_deal_visible: false });
@@ -2820,7 +2821,7 @@ Yes, EcoRatings is targeting a relatively new and untapped market in India, and 
                                     <li>
                                       <a>
                                         {" "}
-                                        she has extensive hands-on experience with investment, scaling and startups. 
+                                        She has extensive hands-on experience with investment, scaling and startups. 
 
                                       </a>
                                     </li>
