@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route,Redirect } from "react-router-dom";
 import "antd/dist/antd.css";
 import "react-image-lightbox/style.css";
 import "slick-carousel/slick/slick.css";
@@ -158,6 +158,7 @@ import AdminDocuments from "./app/admin/AdminDocuments";
 import Newboo from "./app/deal-pages/Newboo";
 import ORAI from "./app/deal-pages/ORAI.jsx";
 import EleFant from "./app/deal-pages/EleFant.jsx";
+import EcoRatings from "./app/deal-pages/EcoRatings.jsx";
 import IndusUnoTranche2 from "./app/deal-pages/IndusUnoTranche2";
 
 ReactGA.initialize(TRACKING_ID);
@@ -177,6 +178,9 @@ function App() {
       <Router>
         <RouteChangeTracker />
         <Switch>
+        <Route exact path="/the EleFant">
+          <Redirect to="/theEleFant" />
+        </Route>
           <Route path="/" exact component={Home} />
           <Route path="/UnderMaintenance" exact component={UnderMaintenance} />
           <Route path="/StartInvestment" exact component={Content} />
@@ -252,7 +256,7 @@ function App() {
             component={FounderDocuments}
           />
 
-          <Route path="/Blog" exact component={Blog} />
+          {/* <Route path="/Blog" exact component={Blog} /> */}
           <Route path="/details" component={BlogDetails} />
           <Route path="/pay" component={Payment} />
 
@@ -482,8 +486,12 @@ function App() {
           <Route path="/ORAI" exact>
             <ProtectDeals Component={ORAI} />
           </Route>
-          <Route path="/the EleFant" exact>
+          
+          <Route path="/theEleFant" >
             <ProtectDeals Component={EleFant} />
+          </Route>
+          <Route path="/EcoRatings" >
+            <ProtectDeals Component={EcoRatings} />
           </Route>
           <Route path="/TestDeal2" exact>
             <ProtectDeals Component={TestDeal2} />

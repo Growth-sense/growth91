@@ -263,11 +263,24 @@ class Deals extends Component {
   };
 
   render() {
-    const openDeals = this.state.deals?.filter((item) => item.deal_status === "Open")
-    const closedDeals = this.state.deals?.filter((item) => item.deal_status === "Closed")
-    const AllOpenDeals = this.state.deals?.filter((item) => item.deal_status != "Closed" && item.show_status == 1)
-    const PublicOpenDeals = this.state.deals?.filter((item) => item.deal_type == "Public" && item.deal_status != "Closed" && item.show_status == 1)
-    const PrivateOpenDeals = this.state.deals?.filter((item) => item.deal_type == "Private" && item.show_status == 1)
+    const openDeals = this.state.deals?.filter(
+      (item) => item.deal_status === "Open"
+    );
+    const closedDeals = this.state.deals?.filter(
+      (item) => item.deal_status === "Closed"
+    );
+    const AllOpenDeals = this.state.deals?.filter(
+      (item) => item.deal_status != "Closed" && item.show_status == 1
+    );
+    const PublicOpenDeals = this.state.deals?.filter(
+      (item) =>
+        item.deal_type == "Public" &&
+        item.deal_status != "Closed" &&
+        item.show_status == 1
+    );
+    const PrivateOpenDeals = this.state.deals?.filter(
+      (item) => item.deal_type == "Private" && item.show_status == 1
+    );
     return (
       <div
         className="deals-page"
@@ -322,92 +335,99 @@ class Deals extends Component {
                 <div className="col-lg-12">
                   <Tabs defaultActiveKey="1" centered>
                     <TabPane tab="All" key="1">
-                      {
-                        AllOpenDeals.length > 0 ? (
-                          <>
-                            <h1 style={{ marginBottom: "20px", fontSize: "2rem" }}>
-                              Live Deals
-                            </h1>
-                            <div className="row deal-list"></div>
-                            <div className="row deal-list">
-                              {/* static */}
+                      {AllOpenDeals.length > 0 ? (
+                        <>
+                          <h1
+                            style={{ marginBottom: "20px", fontSize: "2rem" }}
+                          >
+                            Live Deals
+                          </h1>
+                          <div className="row deal-list"></div>
+                          <div className="row deal-list">
+                            {/* static */}
 
-                              {/* dynamic */}
+                            {/* dynamic */}
 
-                              {this.state.deals &&
-                                this.state.deals.map((item, index) => {
-                                  const handleGA = () => {
-                                    ReactGA.event({
-                                      category: "Deals",
-                                      action: `Deal clicked. dealId:${item.deal_id} dealName:${item.deal_name}`,
-                                    });
-                                  };
+                            {this.state.deals &&
+                              this.state.deals.map((item, index) => {
+                                const handleGA = () => {
+                                  ReactGA.event({
+                                    category: "Deals",
+                                    action: `Deal clicked. dealId:${item.deal_id} dealName:${item.deal_name}`,
+                                  });
+                                };
 
-                                  let logourl =
-                                    Apis.IMAGEURL +
-                                    "deal/logo/" +
-                                    item.deal_id +
-                                    "/" +
-                                    item.logo;
-                                  let bannerurl =
-                                    Apis.IMAGEURL +
-                                    "deal/banner/" +
-                                    item.deal_id +
-                                    "/" +
-                                    item.banner_img;
-                                  {
-                                    /* console.log('deal',item.deal_id+''+item.name); */
-                                  }
-                                  let categories = JSON.parse(item.deal_category);
-                                  // item.deal_status = 'Closed';
-                                  if (
-                                    item.deal_status != "Closed" &&
-                                    item.show_status == 1
-                                  ) {
-                                    return (
-                                      <div
-                                        onClick={handleGA}
-                                        className="col-lg-4"
-                                        key={index}
-                                      >
-                                        <a
-                                          href={item.page_link}
+                                let logourl =
+                                  Apis.IMAGEURL +
+                                  "deal/logo/" +
+                                  item.deal_id +
+                                  "/" +
+                                  item.logo;
+                                let bannerurl =
+                                  Apis.IMAGEURL +
+                                  "deal/banner/" +
+                                  item.deal_id +
+                                  "/" +
+                                  item.banner_img;
+                                {
+                                  /* console.log('deal',item.deal_id+''+item.name); */
+                                }
+                                let categories = JSON.parse(item.deal_category);
+                                // item.deal_status = 'Closed';
+                                if (
+                                  item.deal_status != "Closed" &&
+                                  item.show_status == 1
+                                ) {
+                                  return (
+                                    <div
+                                      onClick={handleGA}
+                                      className="col-lg-4"
+                                      key={index}
+                                    >
+                                      <a
+                                        href={item.page_link}
                                         // onClick={()=>this.openpage(item)}
-                                        >
-                                          <div className="deal-item">
-                                            <div className="d-flex tag-list">
-                                              {item.deal_type == "Private" && (
-                                                <div className="private-tag">
-                                                  <span style={{ fontSize: 12 }}>
-                                                    Private
-                                                  </span>{" "}
-                                                  &nbsp;&nbsp;
-                                                  {/* <InfoCircleOutlined style={{marginTop:-2}}/> */}
+                                      >
+                                        <div className="deal-item">
+                                          <div className="d-flex tag-list">
+                                            {item.deal_type == "Private" && (
+                                              <div className="private-tag">
+                                                <span style={{ fontSize: 12 }}>
+                                                  Private
+                                                </span>{" "}
+                                                &nbsp;&nbsp;
+                                                {/* <InfoCircleOutlined style={{marginTop:-2}}/> */}
+                                              </div>
+                                            )}
+                                          </div>
+                                          <div className="deal-item-img">
+                                            <img
+                                              src={bannerurl}
+                                              className="deal-cover-img"
+                                              alt="deal-img"
+                                            />
+                                          </div>
+                                          <div className="deal-item-info">
+                                            <div className="row align-items-center">
+                                              <div className="col-8 col-lg-8">
+                                                <div className="d-flex inner align-items-center">
+                                                  <img
+                                                    src={logourl}
+                                                    alt="deal-img"
+                                                    className="deal-logo"
+                                                  />
+                                                  <h6>{item.deal_name}</h6>
                                                 </div>
-                                              )}
-                                            </div>
-                                            <div className="deal-item-img">
-                                              <img
-                                                src={bannerurl}
-                                                className="deal-cover-img"
-                                                alt="deal-img"
-                                              />
-                                            </div>
-                                            <div className="deal-item-info">
-                                              <div className="row align-items-center">
-                                                <div className="col-8 col-lg-8">
-                                                  <div className="d-flex inner align-items-center">
-                                                    <img
-                                                      src={logourl}
-                                                      alt="deal-img"
-                                                      className="deal-logo"
-                                                    />
-                                                    <h6>{item.deal_name}</h6>
-                                                  </div>
-                                                </div>
-                                                {/* - {item.deal_id} */}
-                                                <div className="col-4 col-lg-4 p-0">
-                                                  <Tooltip title=" Compulsorily Convertible Debentures (CCD), with same financial rights as equity shares as on fully diluted basis.  There are no voting rights or cap table entry unless converted in future. ">
+                                              </div>
+                                              {/* - {item.deal_id} */}
+                                              <div className="col-4 col-lg-4 p-0">
+                                                {item.deal_service ===
+                                                "CCPS" ? (
+                                                  <Tooltip
+                                                    title="
+Compulsorily Convertible Preference Shares (CCPS) is a type of equity instrument which usually has higher preference than common equity shares.  CCPS are converted to common equity shares by a specified date on the terms agreed at the time of issue.  Usually, CCPS holders have equal voting rights and appear on the captable.
+"
+                                                  >
                                                     <div
                                                       className="hero-tag"
                                                       style={{
@@ -422,155 +442,237 @@ class Deals extends Component {
                                                       <InfoCircleOutlined />
                                                     </div>
                                                   </Tooltip>
-                                                </div>
+                                                ) : item.deal_service ===
+                                                  "CCD" ? (
+                                                  <Tooltip
+                                                    title="Compulsory Convertible Debenture (CCD) is a type of debt instrument, which is compulsorily converted into equity shares on specific terms agreed at the time of issue by a specified date, unless redeemed before this date. Usually, it does not have any voting rights, and till the time of conversion in the future, CCD holder name does not appear on the captable.
+"
+                                                  >
+                                                    <div
+                                                      className="hero-tag"
+                                                      style={{
+                                                        display: "flex",
+                                                        justifyContent:
+                                                          "space-around",
+                                                        fontSize: 11,
+                                                        maxWidth: 100,
+                                                      }}
+                                                    >
+                                                      {item.deal_service} &nbsp;
+                                                      <InfoCircleOutlined />
+                                                    </div>
+                                                  </Tooltip>
+                                                ) : (
+                                                  <Tooltip
+                                                    title={
+                                                      <>
+<div class="ant-tooltip-inner" role="tooltip">                                                        
+                                                          {" "}
+                                                          CCD Compulsory
+                                                          Convertible Debenture
+                                                          (CCD) is a type of
+                                                          debt instrument, which
+                                                          is compulsorily
+                                                          converted into equity
+                                                          shares on specific
+                                                          terms agreed at the
+                                                          time of issue by a
+                                                          specified date, unless
+                                                          redeemed before this
+                                                          date. Usually, it does
+                                                          not have any voting
+                                                          rights, and till the
+                                                          time of conversion in
+                                                          the future, CCD holder
+                                                          name does not appear
+                                                          on the captable.
+                                                        </div>
+                                                        <div class="ant-tooltip-inner" role="tooltip">                                                          CCPS Compulsorily
+                                                          Convertible Preference
+                                                          Shares (CCPS) is a
+                                                          type of equity
+                                                          instrument which
+                                                          usually has higher
+                                                          preference than common
+                                                          equity shares. CCPS
+                                                          are converted to
+                                                          common equity shares
+                                                          by a specified date on
+                                                          the terms agreed at
+                                                          the time of issue.
+                                                          Usually, CCPS holders
+                                                          have equal voting
+                                                          rights and appear on
+                                                          the captable.
+                                                                                                            </div></>
+                                                    }
+                                                  >
+                                                    <div
+                                                      className="hero-tag"
+                                                      style={{
+                                                        display: "flex",
+                                                        justifyContent:
+                                                          "space-around",
+                                                        fontSize: 11,
+                                                        maxWidth: 100,
+                                                      }}
+                                                    >
+                                                      {item.deal_service} &nbsp;
+                                                      <InfoCircleOutlined />
+                                                    </div>
+                                                  </Tooltip>
+                                                )}
                                               </div>
-                                              <p style={{ textAlign: "justify" }}>
-                                                {item.Muliples_of.length > 100
-                                                  ? item.Muliples_of.substring(
+                                            </div>
+                                            <p style={{ textAlign: "justify" }}>
+                                              {item.Muliples_of.length > 100
+                                                ? item.Muliples_of.substring(
                                                     0,
                                                     100
                                                   ) + "..."
-                                                  : item.Muliples_of}
-                                              </p>
-                                              <div className="d-flex raised-txt justify-content-between">
-                                                <div>
-                                                  Percent Raised <br />
-                                                  <p className="per">
-                                                    {parseFloat(
-                                                      (item.total_invested_amount /
-                                                        item.deal_fund_requested) *
+                                                : item.Muliples_of}
+                                            </p>
+                                            <div className="d-flex raised-txt justify-content-between">
+                                              <div>
+                                                Percent Raised <br />
+                                                <p className="per">
+                                                  {parseFloat(
+                                                    (item.total_invested_amount /
+                                                      item.deal_fund_requested) *
                                                       100 +
                                                       parseInt(item.raiegap)
-                                                    ).toFixed(0)}
-                                                    %
-                                                  </p>
+                                                  ).toFixed(0)}
+                                                  %
+                                                </p>
+                                              </div>
+                                              {this.getDifferenceInDays(
+                                                this.state.todaydate,
+                                                moment(
+                                                  item.deal_end_date
+                                                ).format("YYYY-MM-DD")
+                                              ) == 0 && (
+                                                <div className="hero-tag">
+                                                  Closing today
                                                 </div>
-                                                {this.getDifferenceInDays(
-                                                  this.state.todaydate,
-                                                  moment(item.deal_end_date).format(
-                                                    "YYYY-MM-DD"
-                                                  )
-                                                ) == 0 && (
-                                                    <div className="hero-tag">
-                                                      Closing today
-                                                    </div>
-                                                  )}
+                                              )}
 
-                                                {this.getDifferenceInDays(
-                                                  this.state.todaydate,
-                                                  moment(item.deal_end_date).format(
-                                                    "YYYY-MM-DD"
-                                                  )
-                                                ) <= 0 ? (
-                                                  ""
-                                                ) : (
-                                                  <div className=" ">
-                                                    Closes in <br />
-                                                    <p className="per">
-                                                      {this.getDifferenceInDays(
-                                                        this.state.todaydate,
-                                                        moment(
-                                                          item.deal_end_date
-                                                        ).format("YYYY-MM-DD")
-                                                      ) <= 0
-                                                        ? " "
-                                                        : this.getDifferenceInDays(
+                                              {this.getDifferenceInDays(
+                                                this.state.todaydate,
+                                                moment(
+                                                  item.deal_end_date
+                                                ).format("YYYY-MM-DD")
+                                              ) <= 0 ? (
+                                                ""
+                                              ) : (
+                                                <div className=" ">
+                                                  Closes in <br />
+                                                  <p className="per">
+                                                    {this.getDifferenceInDays(
+                                                      this.state.todaydate,
+                                                      moment(
+                                                        item.deal_end_date
+                                                      ).format("YYYY-MM-DD")
+                                                    ) <= 0
+                                                      ? " "
+                                                      : this.getDifferenceInDays(
                                                           this.state.todaydate,
                                                           moment(
                                                             item.deal_end_date
                                                           ).format("YYYY-MM-DD")
                                                         )}{" "}
-                                                      Days
-                                                    </p>
-                                                  </div>
-                                                )}
-                                              </div>
-                                              <div className="d-flex tags">
-                                                {categories.length > 0 &&
-                                                  categories.map((cat, index) => {
-                                                    return (
-                                                      <div
-                                                        className="hero-tag"
-                                                        key={index}
-                                                      >
-                                                        {cat}
-                                                      </div>
-                                                    );
-                                                  })}
-                                              </div>
+                                                    Days
+                                                  </p>
+                                                </div>
+                                              )}
+                                            </div>
+                                            <div className="d-flex tags">
+                                              {categories.length > 0 &&
+                                                categories.map((cat, index) => {
+                                                  return (
+                                                    <div
+                                                      className="hero-tag"
+                                                      key={index}
+                                                    >
+                                                      {cat}
+                                                    </div>
+                                                  );
+                                                })}
                                             </div>
                                           </div>
-                                        </a>
-                                      </div>
-                                    );
-                                  }
-                                })}
-                            </div>
-                          </>
-                        ) : <h1 style={{ marginBottom: "20px", fontSize: "2rem" }}>
+                                        </div>
+                                      </a>
+                                    </div>
+                                  );
+                                }
+                              })}
+                          </div>
+                        </>
+                      ) : (
+                        <h1 style={{ marginBottom: "20px", fontSize: "2rem" }}>
                           No Deals
                         </h1>
-                      }
+                      )}
                     </TabPane>
                     <TabPane tab="Public" key="2">
-                      {
-                        PublicOpenDeals.length > 0 ? (
-                          <>
-                            <h1 style={{ marginBottom: "20px", fontSize: "2rem" }}>
-                              Live Deals
-                            </h1>
-                            <div className="row deal-list">
-                              {this.state.deals &&
-                                this.state.deals.map((item, index) => {
-                                  const handleGA = () => {
-                                    ReactGA.event({
-                                      category: "Deals",
-                                      action: `Deal clicked. dealId:${item.deal_id} dealName:${item.deal_name}`,
-                                    });
-                                  };
-                                  let logourl =
-                                    Apis.IMAGEURL +
-                                    "deal/logo/" +
-                                    item.deal_id +
-                                    "/" +
-                                    item.logo;
-                                  let bannerurl =
-                                    Apis.IMAGEURL +
-                                    "deal/banner/" +
-                                    item.deal_id +
-                                    "/" +
-                                    item.banner_img;
+                      {PublicOpenDeals.length > 0 ? (
+                        <>
+                          <h1
+                            style={{ marginBottom: "20px", fontSize: "2rem" }}
+                          >
+                            Live Deals
+                          </h1>
+                          <div className="row deal-list">
+                            {this.state.deals &&
+                              this.state.deals.map((item, index) => {
+                                const handleGA = () => {
+                                  ReactGA.event({
+                                    category: "Deals",
+                                    action: `Deal clicked. dealId:${item.deal_id} dealName:${item.deal_name}`,
+                                  });
+                                };
+                                let logourl =
+                                  Apis.IMAGEURL +
+                                  "deal/logo/" +
+                                  item.deal_id +
+                                  "/" +
+                                  item.logo;
+                                let bannerurl =
+                                  Apis.IMAGEURL +
+                                  "deal/banner/" +
+                                  item.deal_id +
+                                  "/" +
+                                  item.banner_img;
 
-                                  let categories = JSON.parse(item.deal_category);
-                                  if (
-                                    item.deal_type == "Public" &&
-                                    item.deal_status != "Closed" &&
-                                    item.show_status == 1
-                                  ) {
-                                    return (
-                                      <div
-                                        onClick={handleGA}
-                                        className="col-lg-4"
-                                        key={index}
-                                      >
-                                        <a
-                                          href={item.page_link}
+                                let categories = JSON.parse(item.deal_category);
+                                if (
+                                  item.deal_type == "Public" &&
+                                  item.deal_status != "Closed" &&
+                                  item.show_status == 1
+                                ) {
+                                  return (
+                                    <div
+                                      onClick={handleGA}
+                                      className="col-lg-4"
+                                      key={index}
+                                    >
+                                      <a
+                                        href={item.page_link}
                                         // onClick={() => this.openpage(item)}
-                                        >
-                                          <div className="deal-item">
-                                            <div className="d-flex tag-list">
-                                              {item.deal_type == "Private" && (
-                                                <div className="private-tag">
-                                                  <span style={{ fontSize: 12 }}>
-                                                    Private
-                                                  </span>{" "}
-                                                  &nbsp;&nbsp;
-                                                  {/* <InfoCircleOutlined style={{
+                                      >
+                                        <div className="deal-item">
+                                          <div className="d-flex tag-list">
+                                            {item.deal_type == "Private" && (
+                                              <div className="private-tag">
+                                                <span style={{ fontSize: 12 }}>
+                                                  Private
+                                                </span>{" "}
+                                                &nbsp;&nbsp;
+                                                {/* <InfoCircleOutlined style={{
                                           marginTop: -2,
                                         }}/> */}
-                                                </div>
-                                              )}
-                                              {/* <div className='new-tag'>
+                                              </div>
+                                            )}
+                                            {/* <div className='new-tag'>
                                       <span style={{ fontSize:12 }}>New</span>
                                     </div>
                                     <div className='funded-tag'>
@@ -580,165 +682,167 @@ class Deals extends Component {
                                       }}/> &nbsp;&nbsp;
                                       <span style={{ fontSize:12 }}>Funded</span>
                                     </div>      */}
-                                            </div>
-                                            <div className="deal-item-img">
-                                              <img
-                                                src={bannerurl}
-                                                className="deal-cover-img"
-                                                alt="deal-img"
-                                              />
-                                            </div>
-                                            <div className="deal-item-info">
-                                              <div className="row align-items-center">
-                                                <div className="col-8 col-lg-8">
-                                                  <div className="d-flex inner align-items-center">
-                                                    <img
-                                                      src={logourl}
-                                                      alt="deal-img"
-                                                      className="deal-logo"
-                                                    />
-                                                    <h6>{item.deal_name}</h6>
-                                                  </div>
-                                                </div>
-                                                <div className="col-4 col-lg-4 p-0">
-                                                  <Tooltip
-                                                    title={item.deal_tooltip}
-                                                  >
-                                                    <div
-                                                      className="hero-tag"
-                                                      style={{
-                                                        display: "flex",
-                                                        justifyContent:
-                                                          "space-around",
-                                                        fontSize: 11,
-                                                        maxWidth: 100,
-                                                      }}
-                                                    >
-                                                      {item.deal_service} &nbsp;
-                                                      <InfoCircleOutlined />
-                                                    </div>
-                                                  </Tooltip>
+                                          </div>
+                                          <div className="deal-item-img">
+                                            <img
+                                              src={bannerurl}
+                                              className="deal-cover-img"
+                                              alt="deal-img"
+                                            />
+                                          </div>
+                                          <div className="deal-item-info">
+                                            <div className="row align-items-center">
+                                              <div className="col-8 col-lg-8">
+                                                <div className="d-flex inner align-items-center">
+                                                  <img
+                                                    src={logourl}
+                                                    alt="deal-img"
+                                                    className="deal-logo"
+                                                  />
+                                                  <h6>{item.deal_name}</h6>
                                                 </div>
                                               </div>
-                                              <p>
-                                                {item.Muliples_of.length > 100
-                                                  ? item.Muliples_of.substring(
+                                              <div className="col-4 col-lg-4 p-0">
+                                                <Tooltip
+                                                  title={item.deal_tooltip}
+                                                >
+                                                  <div
+                                                    className="hero-tag"
+                                                    style={{
+                                                      display: "flex",
+                                                      justifyContent:
+                                                        "space-around",
+                                                      fontSize: 11,
+                                                      maxWidth: 100,
+                                                    }}
+                                                  >
+                                                    {item.deal_service} &nbsp;
+                                                    <InfoCircleOutlined />
+                                                  </div>
+                                                </Tooltip>
+                                              </div>
+                                            </div>
+                                            <p>
+                                              {item.Muliples_of.length > 100
+                                                ? item.Muliples_of.substring(
                                                     0,
                                                     100
                                                   ) + "..."
-                                                  : item.Muliples_of}
-                                              </p>
-                                              <div className="d-flex raised-txt justify-content-between">
-                                                <div>
-                                                  Percent Raised <br />
-                                                  <p className="per">
-                                                    {Math.floor(
-                                                      (item.total_invested_amount /
-                                                        item.deal_fund_requested) *
+                                                : item.Muliples_of}
+                                            </p>
+                                            <div className="d-flex raised-txt justify-content-between">
+                                              <div>
+                                                Percent Raised <br />
+                                                <p className="per">
+                                                  {Math.floor(
+                                                    (item.total_invested_amount /
+                                                      item.deal_fund_requested) *
                                                       100 +
                                                       parseInt(item.raiegap)
-                                                    ).toFixed(0)}{" "}
-                                                    %
-                                                  </p>
-                                                </div>
-                                                <div>
-                                                  Closes in <br />
-                                                  <p className="per">
-                                                    {this.getDifferenceInDays(
-                                                      this.state.todaydate,
-                                                      moment(
-                                                        item.deal_end_date
-                                                      ).format("YYYY-MM-DD")
-                                                    )}{" "}
-                                                    Days
-                                                  </p>
-                                                </div>
+                                                  ).toFixed(0)}{" "}
+                                                  %
+                                                </p>
                                               </div>
-                                              <div className="d-flex tags">
-                                                {categories.length > 0 &&
-                                                  categories.map((cat, index) => {
-                                                    return (
-                                                      <div
-                                                        className="hero-tag"
-                                                        key={index}
-                                                      >
-                                                        {cat}
-                                                      </div>
-                                                    );
-                                                  })}
+                                              <div>
+                                                Closes in <br />
+                                                <p className="per">
+                                                  {this.getDifferenceInDays(
+                                                    this.state.todaydate,
+                                                    moment(
+                                                      item.deal_end_date
+                                                    ).format("YYYY-MM-DD")
+                                                  )}{" "}
+                                                  Days
+                                                </p>
                                               </div>
                                             </div>
+                                            <div className="d-flex tags">
+                                              {categories.length > 0 &&
+                                                categories.map((cat, index) => {
+                                                  return (
+                                                    <div
+                                                      className="hero-tag"
+                                                      key={index}
+                                                    >
+                                                      {cat}
+                                                    </div>
+                                                  );
+                                                })}
+                                            </div>
                                           </div>
-                                        </a>
-                                      </div>
-                                    );
-                                  }
-                                })}
-                            </div>
-                          </>
-                        ) : <h1 style={{ marginBottom: "20px", fontSize: "2rem" }}>
+                                        </div>
+                                      </a>
+                                    </div>
+                                  );
+                                }
+                              })}
+                          </div>
+                        </>
+                      ) : (
+                        <h1 style={{ marginBottom: "20px", fontSize: "2rem" }}>
                           No Deals
                         </h1>
-                      }
+                      )}
                     </TabPane>
                     <TabPane tab="Private" key="3">
-                      {
-                        PrivateOpenDeals.length > 0 ? (
-                          <>
-                            <h1 style={{ marginBottom: "20px", fontSize: "2rem" }}>
-                              Live Deals
-                            </h1>
-                            <div className="row deal-list">
-                              {this.state.deals &&
-                                this.state.deals.map((item, index) => {
-                                  const handleGA = () => {
-                                    ReactGA.event({
-                                      category: "Deals",
-                                      action: `Deal clicked. dealId:${item.deal_id} dealName:${item.deal_name}`,
-                                    });
-                                  };
-                                  let logourl =
-                                    Apis.IMAGEURL +
-                                    "deal/logo/" +
-                                    item.deal_id +
-                                    "/" +
-                                    item.logo;
-                                  let bannerurl =
-                                    Apis.IMAGEURL +
-                                    "deal/banner/" +
-                                    item.deal_id +
-                                    "/" +
-                                    item.banner_img;
+                      {PrivateOpenDeals.length > 0 ? (
+                        <>
+                          <h1
+                            style={{ marginBottom: "20px", fontSize: "2rem" }}
+                          >
+                            Live Deals
+                          </h1>
+                          <div className="row deal-list">
+                            {this.state.deals &&
+                              this.state.deals.map((item, index) => {
+                                const handleGA = () => {
+                                  ReactGA.event({
+                                    category: "Deals",
+                                    action: `Deal clicked. dealId:${item.deal_id} dealName:${item.deal_name}`,
+                                  });
+                                };
+                                let logourl =
+                                  Apis.IMAGEURL +
+                                  "deal/logo/" +
+                                  item.deal_id +
+                                  "/" +
+                                  item.logo;
+                                let bannerurl =
+                                  Apis.IMAGEURL +
+                                  "deal/banner/" +
+                                  item.deal_id +
+                                  "/" +
+                                  item.banner_img;
 
-                                  let categories = JSON.parse(item.deal_category);
-                                  if (
-                                    item.deal_type == "Private" &&
-                                    item.show_status == 1
-                                  ) {
-                                    return (
-                                      <div
-                                        onClick={handleGA}
-                                        className="col-lg-4"
-                                        key={index}
-                                      >
-                                        <a
-                                          href={item.page_link}
+                                let categories = JSON.parse(item.deal_category);
+                                if (
+                                  item.deal_type == "Private" &&
+                                  item.show_status == 1
+                                ) {
+                                  return (
+                                    <div
+                                      onClick={handleGA}
+                                      className="col-lg-4"
+                                      key={index}
+                                    >
+                                      <a
+                                        href={item.page_link}
                                         // onClick={() => this.openpage(item)}
-                                        >
-                                          <div className="deal-item">
-                                            <div className="d-flex tag-list">
-                                              {item.deal_type == "Private" && (
-                                                <div className="private-tag">
-                                                  <span style={{ fontSize: 12 }}>
-                                                    Private
-                                                  </span>{" "}
-                                                  &nbsp;&nbsp;
-                                                  {/* <InfoCircleOutlined style={{
+                                      >
+                                        <div className="deal-item">
+                                          <div className="d-flex tag-list">
+                                            {item.deal_type == "Private" && (
+                                              <div className="private-tag">
+                                                <span style={{ fontSize: 12 }}>
+                                                  Private
+                                                </span>{" "}
+                                                &nbsp;&nbsp;
+                                                {/* <InfoCircleOutlined style={{
                                           marginTop: -2,
                                         }}/> */}
-                                                </div>
-                                              )}
-                                              {/* <div className='new-tag'>
+                                              </div>
+                                            )}
+                                            {/* <div className='new-tag'>
                                       <span style={{ fontSize:12 }}>New</span>
                                     </div>
                                     <div className='funded-tag'>
@@ -748,106 +852,114 @@ class Deals extends Component {
                                       }}/> &nbsp;&nbsp;
                                       <span style={{ fontSize:12 }}>Funded</span>
                                     </div>      */}
-                                            </div>
-                                            <div className="deal-item-img">
-                                              <img
-                                                src={bannerurl}
-                                                className="deal-cover-img"
-                                                alt="deal-img"
-                                              />
-                                            </div>
-                                            <div className="deal-item-info">
-                                              <div className="row align-items-center">
-                                                <div className="col-8 col-lg-8">
-                                                  <div className="d-flex inner align-items-center">
-                                                    <img
-                                                      src={logourl}
-                                                      alt="deal-img"
-                                                      className="deal-logo"
-                                                    />
-                                                    <h6>{item.deal_name}</h6>
-                                                  </div>
-                                                </div>
-                                                <div className="col-4 col-lg-4 p-0">
-                                                  <Tooltip
-                                                    title={item.deal_tooltip}
-                                                  >
-                                                    <div
-                                                      className="hero-tag"
-                                                      style={{
-                                                        display: "flex",
-                                                        justifyContent:
-                                                          "space-around",
-                                                        fontSize: 11,
-                                                        maxWidth: 100,
-                                                      }}
-                                                    >
-                                                      {item.deal_service} &nbsp;{" "}
-                                                      <InfoCircleOutlined />
-                                                    </div>
-                                                  </Tooltip>
+                                          </div>
+                                          <div className="deal-item-img">
+                                            <img
+                                              src={bannerurl}
+                                              className="deal-cover-img"
+                                              alt="deal-img"
+                                            />
+                                          </div>
+                                          <div className="deal-item-info">
+                                            <div className="row align-items-center">
+                                              <div className="col-8 col-lg-8">
+                                                <div className="d-flex inner align-items-center">
+                                                  <img
+                                                    src={logourl}
+                                                    alt="deal-img"
+                                                    className="deal-logo"
+                                                  />
+                                                  <h6>{item.deal_name}</h6>
                                                 </div>
                                               </div>
-                                              <p>
-                                                {item.Muliples_of.length > 100
-                                                  ? item.Muliples_of.substring(
+                                              <div className="col-4 col-lg-4 p-0">
+                                                <Tooltip
+                                                  title={item.deal_tooltip}
+                                                >
+                                                  <div
+                                                    className="hero-tag"
+                                                    style={{
+                                                      display: "flex",
+                                                      justifyContent:
+                                                        "space-around",
+                                                      fontSize: 11,
+                                                      maxWidth: 100,
+                                                    }}
+                                                  >
+                                                    {item.deal_service} &nbsp;{" "}
+                                                    <InfoCircleOutlined />
+                                                  </div>
+                                                </Tooltip>
+                                              </div>
+                                            </div>
+                                            <p>
+                                              {item.Muliples_of.length > 100
+                                                ? item.Muliples_of.substring(
                                                     0,
                                                     100
                                                   ) + "..."
-                                                  : item.Muliples_of}
-                                              </p>
-                                              <div className="d-flex raised-txt justify-content-between">
-                                                <div>
-                                                  Percent Raised <br />
-                                                  <p className="per">
-                                                    {Math.floor(
-                                                      (item.total_invested_amount /
-                                                        item.deal_fund_requested) *
+                                                : item.Muliples_of}
+                                            </p>
+                                            <div className="d-flex raised-txt justify-content-between">
+                                              <div>
+                                                Percent Raised <br />
+                                                <p className="per">
+                                                  {Math.floor(
+                                                    (item.total_invested_amount /
+                                                      item.deal_fund_requested) *
                                                       100 +
                                                       parseInt(item.raiegap)
-                                                    ).toFixed(0)}{" "}
-                                                    %
-                                                  </p>
-                                                </div>
-                                                <div>
-                                                  Closes in <br />
-                                                  <p className="per">
-                                                    {this.getDifferenceInDays(
-                                                      this.state.todaydate,
-                                                      moment(
-                                                        item.deal_end_date
-                                                      ).format("YYYY-MM-DD")
-                                                    )}{" "}
-                                                    Days
-                                                  </p>
-                                                </div>
+                                                  ).toFixed(0)}{" "}
+                                                  %
+                                                </p>
                                               </div>
-                                              <div className="d-flex tags">
-                                                {categories.length > 0 &&
-                                                  categories.map((cat, index) => {
-                                                    return (
-                                                      <div
-                                                        className="hero-tag"
-                                                        key={index}
-                                                      >
-                                                        {cat}
-                                                      </div>
-                                                    );
-                                                  })}
+                                              <div>
+                                                Closes in <br />
+                                                <p className="per">
+                                                  {this.getDifferenceInDays(
+                                                    this.state.todaydate,
+                                                    moment(
+                                                      item.deal_end_date
+                                                    ).format("YYYY-MM-DD")
+                                                  )}{" "}
+                                                  Days
+                                                </p>
                                               </div>
                                             </div>
+                                            <div className="d-flex tags">
+                                              {categories.length > 0 &&
+                                                categories.map((cat, index) => {
+                                                  return (
+                                                    <div
+                                                      className="hero-tag"
+                                                      key={index}
+                                                    >
+                                                      {cat}
+                                                    </div>
+                                                  );
+                                                })}
+                                            </div>
                                           </div>
-                                        </a>
-                                      </div>
-                                    );
-                                  }
-                                })}
-                            </div>
-                          </>
-                        ) : <h1 style={{ marginTop: "50px", marginBottom: "50px", fontSize: "2rem", textAlign: "center" }}>
+                                        </div>
+                                      </a>
+                                    </div>
+                                  );
+                                }
+                              })}
+                          </div>
+                        </>
+                      ) : (
+                        <h1
+                          style={{
+                            marginTop: "50px",
+                            marginBottom: "50px",
+                            fontSize: "2rem",
+                            textAlign: "center",
+                          }}
+                        >
                           No Deals
                         </h1>
-                      }
+                      )}
                     </TabPane>
                   </Tabs>
                 </div>
@@ -881,7 +993,9 @@ class Deals extends Component {
                       fontSize: "2rem",
                     }}
                   />
-                  <h1 style={{ marginBottom: "20px", fontSize: "2rem" }}>Completed Deals</h1>
+                  <h1 style={{ marginBottom: "20px", fontSize: "2rem" }}>
+                    Completed Deals
+                  </h1>
                 </div>
               </div>
             </div>
@@ -912,22 +1026,14 @@ class Deals extends Component {
                   }
                   let categories = JSON.parse(item.deal_category);
                   // item.deal_status = 'Closed';
-                  if (
-                    item.deal_status != "Open"
-                  ) {
+                  if (item.deal_status != "Open") {
                     return (
-                      <div
-                        onClick={handleGA}
-                        className="col-lg-4"
-                        key={index}
-                      >
+                      <div onClick={handleGA} className="col-lg-4" key={index}>
                         <div className="deal-item">
                           <div className="d-flex tag-list">
                             {item.deal_type == "Private" && (
                               <div className="private-tag">
-                                <span style={{ fontSize: 12 }}>
-                                  Private
-                                </span>{" "}
+                                <span style={{ fontSize: 12 }}>Private</span>{" "}
                                 &nbsp;&nbsp;
                                 {/* <InfoCircleOutlined style={{marginTop:-2}}/> */}
                               </div>
@@ -959,8 +1065,7 @@ class Deals extends Component {
                                     className="hero-tag"
                                     style={{
                                       display: "flex",
-                                      justifyContent:
-                                        "space-around",
+                                      justifyContent: "space-around",
                                       fontSize: 11,
                                       maxWidth: 100,
                                     }}
@@ -973,10 +1078,7 @@ class Deals extends Component {
                             </div>
                             <p style={{ textAlign: "justify" }}>
                               {item.Muliples_of.length > 100
-                                ? item.Muliples_of.substring(
-                                  0,
-                                  100
-                                ) + "..."
+                                ? item.Muliples_of.substring(0, 100) + "..."
                                 : item.Muliples_of}
                             </p>
                             <div className="d-flex justify-content-between align-items-end">
@@ -984,16 +1086,17 @@ class Deals extends Component {
                                 {categories.length > 0 &&
                                   categories.map((cat, index) => {
                                     return (
-                                      <div
-                                        className="hero-tag"
-                                        key={index}
-                                      >
+                                      <div className="hero-tag" key={index}>
                                         {cat}
                                       </div>
                                     );
                                   })}
                               </div>
-                              <img src="./web/badge.png" alt="Successfully Funded" style={{ width: "100px" }} />
+                              <img
+                                src="./web/badge.png"
+                                alt="Successfully Funded"
+                                style={{ width: "100px" }}
+                              />
                             </div>
                           </div>
                         </div>

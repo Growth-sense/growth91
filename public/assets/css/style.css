@@ -1222,9 +1222,13 @@ footer .left span {
   padding: 20px;
   margin-bottom: 18px;
   border-radius: 11px;
-  align-items: center;
+  /* align-items: center; */
   box-shadow: 5px 5px 20px rgba(41, 23, 111, 0.35);
   max-height: 120px;
+}
+.hightlights-images {
+  display: flex;
+  align-items: center;
 }
 
 
