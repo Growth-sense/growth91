@@ -1278,6 +1278,7 @@ footer .left span {
   height: 64px;
   object-fit: cover;
   padding-right: 17px;
+  width: 100px;
 }
 .deals-details-page .main-section h5 {
   margin: 0;
@@ -2394,6 +2395,10 @@ footer .left span {
 @media screen and (min-width: 501px){
   .highlight-rows .elefanthighlight{
     min-height: 400px !important;
+  
+  }
+  .highlight-rows .Ecoratings{
+    min-height: 330px !important;
   
   }
 }
