@@ -178,9 +178,6 @@ function App() {
       <Router>
         <RouteChangeTracker />
         <Switch>
-        <Route exact path="/the EleFant">
-          <Redirect to="/theEleFant" />
-        </Route>
           <Route path="/" exact component={Home} />
           <Route path="/UnderMaintenance" exact component={UnderMaintenance} />
           <Route path="/StartInvestment" exact component={Content} />
@@ -486,8 +483,7 @@ function App() {
           <Route path="/ORAI" exact>
             <ProtectDeals Component={ORAI} />
           </Route>
-          
-          <Route path="/theEleFant" >
+          <Route path="/the EleFant" exact>
             <ProtectDeals Component={EleFant} />
           </Route>
           <Route path="/EcoRatings" >

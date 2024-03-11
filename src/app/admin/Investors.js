@@ -1031,6 +1031,7 @@ class Investors extends Component {
       } else if (item.kycstatus == "Pending" || item.kycstatus == "") {
         status = "Pending";
       }
+      console.log(item.user_status);
       let obj = {
         "Sr No": count,
         "Investor Id": item.investor_id,
@@ -1044,12 +1045,14 @@ class Investors extends Component {
         "Pan Id": item.panno,
         "Aadhaar Address": item.adhaar_address,
         "Aadhaar No": item.adharno,
-        "Referral":item.referred_by
+        "Referral":item.referred_by,
+        "User Status":item.user_block_status === '0' ?("Active"):("blocked/Disabled User")
       };
       arr = [...arr, obj];
       count++;
     }
     const ws = XLSX.utils.json_to_sheet(arr);
+    // console.log(arr);
     const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
     const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
     const data = new Blob([excelBuffer], { type: fileType });
