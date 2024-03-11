@@ -123,9 +123,9 @@ class EleFant extends Component {
       current: "",
     };
   }
-  callback1 = (key) => {};
-  callback2 = (key) => {};
-  callback3 = (key) => {};
+  callback1 = (key) => { };
+  callback2 = (key) => { };
+  callback3 = (key) => { };
 
   componentWillMount() {
     document.title = "The EleFant - Growth91 - Startup Marketplace ";
@@ -340,8 +340,8 @@ class EleFant extends Component {
           a.pitch_order > b.pitch_order
             ? 1
             : b.pitch_order > a.pitch_order
-            ? -1
-            : 0
+              ? -1
+              : 0
         );
         // console.log('arr',arr);
         this.setState({ pitch_list: arr, loading: false });
@@ -484,7 +484,7 @@ class EleFant extends Component {
               d.pitch_files;
             let percetage_raised = parseFloat(
               (d.total_invested_amount / d.deal_fund_requested) * 100 +
-                parseInt(d.raiegap)
+              parseInt(d.raiegap)
             ).toFixed(0);
             let deal_premium_start_date = moment(d.deal_start_dt_prem);
             let deal_regular_start_date = moment(d.deal_st_date);
@@ -514,9 +514,9 @@ class EleFant extends Component {
                 button_show_status = true;
               } else if (
                 moment(current_date).format("YYYY-MM-DD") >
-                  deal_premium_start_date.format("YYYY-MM-DD") &&
+                deal_premium_start_date.format("YYYY-MM-DD") &&
                 moment(current_date).format("YYYY-MM-DD") <
-                  moment(deal_premium_end_date).format("YYYY-MM-DD")
+                moment(deal_premium_end_date).format("YYYY-MM-DD")
               ) {
                 button_show_status = true;
               } else if (
@@ -554,9 +554,9 @@ class EleFant extends Component {
                 button_show_status = true;
               } else if (
                 moment(current_date).format("YYYY-MM-DD") >
-                  deal_regular_start_date.format("YYYY-MM-DD") &&
+                deal_regular_start_date.format("YYYY-MM-DD") &&
                 moment(current_date).format("YYYY-MM-DD") <
-                  moment(deal_regular_end_date).format("YYYY-MM-DD")
+                moment(deal_regular_end_date).format("YYYY-MM-DD")
               ) {
                 button_show_status = true;
               } else if (
@@ -808,8 +808,8 @@ class EleFant extends Component {
       processingfees: this.state.amount ? legalfee.toFixed(0) : 0,
       totalamount: this.state.amount
         ? (amt + parseFloat(legalfee)).toFixed(0) -
-          walletDeductionMoney +
-          gstValue
+        walletDeductionMoney +
+        gstValue
         : 0,
       walletDeductionMoney: walletDeductionMoney,
       gstValue: gstValue,
@@ -879,7 +879,7 @@ class EleFant extends Component {
       this.setState({ amount_error: error, amount_error_status: true });
     } else if (
       Number(this.state.amount) <
-        Number(this.state.captable_threshold_amount) &&
+      Number(this.state.captable_threshold_amount) &&
       Number(this.state.amount) % Number(this.state.multiples_of) != 0
     ) {
       const roundedLowerAmount =
@@ -897,19 +897,19 @@ class EleFant extends Component {
       this.setState({ amount_error: error, amount_error_status: true });
     } else if (
       Number(this.state.amount) >
-        Number(this.state.captable_threshold_amount) &&
+      Number(this.state.captable_threshold_amount) &&
       Number(this.state.amount) % Number(this.state.captable_multiple_amount) !=
-        0
+      0
     ) {
       const roundedLowerAmount =
         Math.floor(
           Number(this.state.amount) /
-            Number(this.state.captable_multiple_amount)
+          Number(this.state.captable_multiple_amount)
         ) * Number(this.state.captable_multiple_amount);
       const roundedHigherAmount =
         Math.ceil(
           Number(this.state.amount) /
-            Number(this.state.captable_multiple_amount)
+          Number(this.state.captable_multiple_amount)
         ) * Number(this.state.captable_multiple_amount);
 
       error = `Please enter an amount in multiples of ${this.state.captable_multiple_amount}. You may choose Rs ${roundedLowerAmount}
@@ -1174,10 +1174,10 @@ class EleFant extends Component {
                       </div>
 
                       <p style={{ textAlign: "justify" }}>
-                      India's first mobile app-based Toy Library - With the EleFant, customers get access to a vast selection of top-quality toys specially curated by child psychologists and game therapists through an affordable membership model. It's like having a library for toys, where you can play, return, and rotate toys whenever your little one is ready for something new. Discover, play, and return—it's as simple as that! Save 95% cost, 90% clutter and 100% environmentally sustainable solution!
+                        India's first mobile app-based Toy Library - With the EleFant, customers get access to a vast selection of top-quality toys specially curated by child psychologists and game therapists through an affordable membership model. It's like having a library for toys, where you can play, return, and rotate toys whenever your little one is ready for something new. Discover, play, and return—it's as simple as that! Save 95% cost, 90% clutter and 100% environmentally sustainable solution!
                       </p>
                       <p style={{ textAlign: "justify" }}>
-The EleFant app, available on both Android and iOS with a stellar rating of 4.8+, makes it easy to browse and order from our extensive collection. Currently serving families in over 14 cities, with over 9,000 downloads, 600+ active subscribers, and a network of 42+ dedicated Librarians, the EleFant is revolutionizing the way kids play and parents manage toy clutter. It clogged a revenue of Rs. 2.25 Cr. in just 5 months of operation.  Join The EleFant in creating a world where every child's playtime is filled with joy, learning, and endless possibilities!
+                        The EleFant app, available on both Android and iOS with a stellar rating of 4.8+, makes it easy to browse and order from our extensive collection. Currently serving families in over 14 cities, with over 9,000 downloads, 600+ active subscribers, and a network of 42+ dedicated Librarians, the EleFant is revolutionizing the way kids play and parents manage toy clutter. It clogged a revenue of Rs. 2.25 Cr. in just 5 months of operation.  Join The EleFant in creating a world where every child's playtime is filled with joy, learning, and endless possibilities!
                       </p>
                       <div className=" percentage-container">
                         <div className="percentage-values">
@@ -1268,7 +1268,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                                 ) : this.state.user_type == "founder" ? (
                                   <div>
                                     {this.state.user_type == "founder" &&
-                                    this.state.founder_is_investor == "1" ? (
+                                      this.state.founder_is_investor == "1" ? (
                                       <a
                                         href="#"
                                         style={{ padding: "15px 0" }}
@@ -1292,7 +1292,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                                 ) : (
                                   <div>
                                     {this.state.user_type == "investor" &&
-                                    this.state.invest_amt === null ? (
+                                      this.state.invest_amt === null ? (
                                       <a
                                         href="#"
                                         className="black-button prime-bg text-center"
@@ -1362,7 +1362,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                               this.state.minamount
                             )}{" "}
                             <br />
-                            Cap Table entry is Rs. 
+                            Cap Table entry is Rs.
                             {this.formatNumberWithCommas(
                               this.state.captable_threshold_amount
                             )}
@@ -1377,7 +1377,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                           style={{
                             border:
                               this.state.amount_error_status == true &&
-                              this.state.amount
+                                this.state.amount
                                 ? "1px solid red"
                                 : "1px solid transparent",
                           }}
@@ -1592,32 +1592,135 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                     </div>
                   </Modal>
                   <div className="col-lg-7 deal-banner deals-video-banner">
-                    {this.state.youtube_url && (
-                      <iframe
-                        style={{
-                          boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
-                          borderRadius: 3,
-                          // marginLeft: 65,
-                        }}
-                        width="100%"
-                        height="335"
-                        src="https://www.youtube.com/embed/E2NPzC407fk"
-                        title="ORAI Intro Demo"
-                        frameborder="10"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen
-                      ></iframe>
-                    )}
-                    {!this.state.youtube_url && (
-                      <>
-                        <img
-                          src="./assets/images/deals-details/the EleFant/banner.png"
-                          width="100%"
-                          style={{ height: "auto" }}
-                        />
-                      </>
-                    )}
+
+                    <iframe style={{
+                      boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
+                      borderRadius: 3,
+                      // marginLeft: 65,
+                    }}
+                      width="100%"
+                      height="335"
+                      src="https://www.youtube.com/embed/cimjF2sWGoM?si=iJjUnU8ldiMCU6U2" title="The EleFant" frameborder="10" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
+
+                    </iframe>
+
+
+
                   </div>
+                  <div
+                              className="container home-decor-section mt-0"
+                              style={{ marginTop: "3px !important" }}
+                            >
+                              <h1
+                                className="text-center"
+                                style={{
+                                  marginBottom: "20px",
+                                  marginTop: "0px !important",
+                                }}
+                              >
+                                Market Overview
+                              </h1>
+                              <div className="row">
+                                <div className="col-lg-4">
+                                  <div className="single text-center h-lg market-boxes">
+                                    {/* <h2 style={{paddingBottom:"20px"}}>$1 Tn </h2> */}
+                                    <p
+                                      style={{
+                                        color: "white",
+                                        fontSize: "21px",
+                                        padding: "2px",
+                                        margin: "48px 0px",
+                                        opacity:"1",
+                                        lineHeight:'1.5'
+                                      }}
+                                    >
+                                      India has the largest child population
+                                      globally, with 275 million children in the
+                                      age group of 0 to 12 years. The Indian
+                                      National Education Policy 2020 emphasizes
+                                      play-based and activity-based learning,
+                                      recognizing the significance of play in
+                                      enhancing children's learning outcomes. It
+                                      proposes an integrated approach to formal
+                                      education that includes play, discovery,
+                                      and interactive learning.
+                                    </p>
+                                  </div>
+                                </div>
+                                <div className="col-lg-4">
+                                  <div className="single text-center h-lg market-boxes">
+                                    {/* <h2 style={{paddingBottom:"20px"}}>$200 Bn</h2> */}
+                                    <p
+                                      style={{
+                                        color: "white",
+                                        fontSize: "21px",
+                                        padding: "2px",
+                                        margin: "48px 0px",
+                                        opacity:"1",
+                                        lineHeight:'1.5'
+                                      }}
+                                    >
+                                      The Indian toy market is set to reach $3
+                                      billion by 2028, driven by rising incomes
+                                      and a focus on child development. Toy
+                                      subscription services, expected to grow at
+                                      a CAGR of 12.2% from 2023 to 2028, offer a
+                                      convenient and eco-friendly solution,
+                                      tapping into India's vast and expanding
+                                      child population, which is over 17% of the
+                                      global total by 2036. The increasing
+                                      spending power of middle-class families
+                                      contributes to the market's potential,
+                                      with a growing openness to innovative
+                                      child development solutions like toy
+                                      subscriptions.
+                                    </p>
+                                  </div>
+                                </div>
+
+                                <div className="col-lg-4">
+                                  <div className="single text-center h-lg market-boxes">
+                                    {/* <h2 style={{paddingBottom:"20px"}}>$200 Bn</h2> */}
+                                    <p
+                                      style={{
+                                        color: "white",
+                                        fontSize: "21px",
+                                        padding: "2px",
+                                        margin: "48px 0px",
+                                        opacity:"1",
+                                        lineHeight:'1.5'
+                                      }}
+                                    >
+                                      The evolution of the toy industry reflects
+                                      a transition from traditional toys to
+                                      modern, technology-driven offerings. In
+                                      the past, simple toys focused on promoting
+                                      imagination. Presently, STEM-based,
+                                      Montessori and eco-friendly toys are
+                                      prevalent, aligning with changing consumer
+                                      preferences. Looking to the future,
+                                      emerging technologies like virtual reality
+                                      and artificial intelligence are expected
+                                      to shape toys, providing immersive
+                                      experiences. The industry anticipates a
+                                      continued focus on learning, creativity,
+                                      and social interaction in toys,
+                                      emphasizing their crucial role in child
+                                      development.
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="text-center fs-4">
+                                <span style={{ color: "#000" }}>Source: </span>
+                                <span style={{ color: "rgb(127, 119, 118)" }}>
+                                  Multiple publicly available research and
+                                  survey reports
+                                </span>
+                              </div>
+                              <p className=""> </p>
+                              <div className="text-center fluid-container"></div>
+                            </div>
 
                   <div
                     className="container highlight-section"
@@ -1633,11 +1736,14 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                       <div className="col-lg-6 col-md-6 col-sm-6">
                         <div
                           className="single elefanthighlight text-left"
-                          style={{ }}
+                          style={{}}
                         >
-                          <img src="./assets/images/deals-details/Petmojo/highlight01.jpg" />
+                        <div className="hightlights-images">
+                        <img src="./assets/images/deals-details/Petmojo/highlight01.jpg" />
+
+                        </div>
                           <p style={{ padding: "1px !important" }}>
-                          The EleFant's USP lies in its innovative
+                            The EleFant's USP lies in its innovative
                             subscription-based toy library model, enabling users
                             to access a diverse range of toys without the burden
                             of ownership. This unique approach not only provides
@@ -1654,11 +1760,14 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                       <div className="col-lg-6 col-md-6 col-sm-6">
                         <div
                           className="single elefanthighlight text-left"
-                          style={{ }}
+                          style={{}}
                         >
+                          <div className="hightlights-images">
                           <img src="./assets/images/deals-details/highlight2.jfif" />
+       
+                          </div>
                           <p style={{ padding: "0px !important" }}>
-                           The EleFant's commitment to quality and education is
+                            The EleFant's commitment to quality and education is
                             reflected in its curated catalog, making it a go-to
                             platform for parents seeking sustainable and
                             enriching play experiences for their children.
@@ -1672,11 +1781,14 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                       <div className="col-lg-6 col-md-6 col-sm-6">
                         <div
                           className="single elefanthighlight text-left"
-                          style={{ }}
+                          style={{}}
                         >
+                          <div className="hightlights-images">
                           <img src="./assets/images/deals-details/highlight3.jpg" />
+               
+                          </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                          The EleFant empowers women through its business model,
+                            The EleFant empowers women through its business model,
                             allowing them to become Toy Librarians. These women
                             entrepreneurs, including CAs, engineers, and
                             professionals, can set up and run toy libraries,
@@ -1690,11 +1802,14 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                       <div className="col-lg-6 col-md-6 col-sm-6">
                         <div
                           className="single elefanthighlight text-left"
-                          style={{ }}
+                          style={{}}
                         >
+                          <div className="hightlights-images">
                           <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
+ 
+                          </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                          The EleFant has strengthened its position through
+                            The EleFant has strengthened its position through
                             strategic moves, including the acquisition of
                             India's top Toy Library, specializing in renting
                             toys, games, and books. Additionally, a strategic
@@ -1712,11 +1827,14 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                       <div className="col-lg-6 col-md-6 col-sm-6">
                         <div
                           className="single elefanthighlight text-left"
-                          style={{ }}
+                          style={{}}
                         >
+                          <div className="hightlights-images">
                           <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
+                 
+                          </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                          The EleFant's toy library model brings cost savings,
+                            The EleFant's toy library model brings cost savings,
                             convenience, and sustainability to customers by
                             offering high-quality toys at reduced costs,
                             app-based browsing with doorstep delivery, and
@@ -1735,11 +1853,14 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                       <div className="col-lg-6 col-md-6 col-sm-6">
                         <div
                           className="single elefanthighlight text-left"
-                          style={{ }}
+                          style={{}}
                         >
+                          <div className="hightlights-images">
                           <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
+              
+                          </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                          The EleFant employs a robust marketing strategy,
+                            The EleFant employs a robust marketing strategy,
                             leveraging community leaders for referral marketing,
                             offering rewards programs, and utilizing digital
                             channels with targeted campaigns and influencer
@@ -1757,6 +1878,72 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                       </div>
                     </div>
                   </div>
+                  </div>
+              </div>
+            </section>
+            <div className="deals-page">
+              <div className="tab-wrapper">
+                <div className="container">
+                  <div className="row">
+                    <div
+                      className="col-lg-12 col-md-12 col-sm-12"
+                      style={{
+                        marginTop: 110,
+                      }}
+                    >
+                    
+                          <div className="deal-terms-section">
+                           
+
+                           
+                            <div
+                              className=""
+                              style={{
+                                backgroundColor: "white",
+                                marginTop: "1px !important",
+                              }}
+                            >
+                              <h1
+                                style={{
+                                  fontSize: 32,
+                                  marginBottom: 30,
+                                  textAlign: "center",
+                                  marginTop: "-10px !important",
+                                }}
+                              >
+                                Investor Presentation
+                              </h1>
+                              <Slider
+                                {...settings}
+                                className="mb-5 pitch-slider"
+                              >
+                                {images.map((image, index) => (
+                                  <img
+                                    key={index}
+                                    src={image}
+                                    onClick={() => this.handleClickImage(image)}
+                                  />
+                                ))}
+                              </Slider>
+                              {current && (
+                                <Lightbox
+                                  mainSrc={current}
+                                  onCloseRequest={this.handleCloseModal}
+                                />
+                              )}
+                            </div>
+        </div>
+                        
+                        
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <section className="deals-details-page"
+              style={{ marginBottom: "-50px" }}>
+            <div>
+              <div>
 
                   {/* media */}
 
@@ -1776,7 +1963,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                           <img src="./assets/images/deals-details/the EleFant/Articles/1.webp" />
 
                           <p style={{ padding: "1px !important" }}>
-                            Mumbai ca dad starts a toy rental business rents affordable toys for kids
+                            Mumbai CA dad starts a toy rental business rents affordable toys for kids
                             <a
                               href="https://www.thebetterindia.com/334684/mumbai-ca-dad-starts-a-toy-rental-business-rents-affordable-toys-for-kids/"
                               target="_blank"
@@ -1792,7 +1979,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                         <div className="single medialink text-left d-flex flex-column  ">
                           <img src="./assets/images/deals-details/the EleFant/Articles/2.jpeg" />
                           <p style={{ padding: "1px !important" }}>
-                            ca to entrepreneur sourabh jains of the elefant
+                            CA to entrepreneur sourabh jains of the elefant
                             <a
                               href="https://www.transcontinentaltimes.com/ca-to-entrepreneur-sourabh-jains-of-the-elefant/"
                               target="_blank"
@@ -1807,7 +1994,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                         <div className="single medialink text-left d-flex flex-column  ">
                           <img src="./assets/images/deals-details/the EleFant/Articles/3.webp" />
                           <p style={{ padding: "1px !important" }}>
-                            father made the elephant toy library for daughter in
+                            Father made the elephant toy library for daughter in
                             mumbai toy rental business rents affordable toys for
                             kids…
                             <a
@@ -1825,7 +2012,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                         <div className="single medialink text-left d-flex flex-column  ">
                           <img src="./assets/images/deals-details/the EleFant/Articles/4.webp" />
                           <p style={{ padding: "1px !important" }}>
-                            the elefant toys library in mumbai a father made
+                            The elefant toys library in mumbai a father made
                             this library for daughter in malad and he selled
                             toys for kids in.
                             <a
@@ -1881,9 +2068,11 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                       </div> */}
                     </div>
                   </div>
+{/* Investor Presentation */}
                 </div>
               </div>
             </section>
+           
             <div className="deals-page">
               <div className="tab-wrapper">
                 <div className="container">
@@ -1901,6 +2090,178 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                       >
                         <TabPane tab="Details" key="2">
                           <div className="deal-terms-section">
+                            <div
+                              className="container"
+                              style={{ marginTop: "1px !important" }}
+                            >
+                              <div className="row">
+                                <div className="col-lg-10 m-auto">
+                              
+
+                                  <h1
+                                    style={{
+                                      paddingBottom: "-30px !important",
+                                      marginTop: "30px",
+                                    }}
+                                  >
+                                    Deal Terms
+                                  </h1>
+                                  <div
+                                    className=""
+                                    style={{ marginTop: "0px !important" }}
+                                  >
+                                    <div className="container">
+                                      <div className="row">
+                                        <div className="col-lg-12">
+                                          <div className="info">
+                                            <span>End Date</span>
+                                            <h4
+                                              style={{
+                                                textTransform: "Capitalize",
+                                              }}
+                                            >
+                                              {this.state.deal_regular_end_date
+                                                ? moment(
+                                                  this.state
+                                                    .deal_regular_end_date
+                                                ).format("MMM DD, YYYY")
+                                                : ""}
+                                            </h4>
+                                          </div>
+                                          <div className="info">
+                                            <span> Min Investment</span>
+                                            <h4>₹ 25000 for CCD</h4>
+                                            <h4>₹ 307800 for CCPS</h4>
+                                          </div>
+                                          <div className="info">
+                                            <span>Valuation</span>
+                                            <h4>₹ 18 Cr</h4>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <h1
+                                    style={{
+                                      paddingBottom: "0px",
+                                      marginTop: "20px",
+                                    }}
+                                  >
+                                    Company Details
+                                  </h1>
+                                  <section
+                                    className="deal-about-artment-section"
+                                    style={{ marginTop: "50px" }}
+                                  >
+                                    <div className="container">
+                                      <div className="row">
+                                        <div className="col-lg-12">
+                                          <div className="info">
+                                            <span>Legal Name</span>
+                                            <h4>
+                                              Madshades Technologies Private Ltd
+                                            </h4>
+                                          </div>
+                                          <div className="info">
+                                            <span>Founded</span>
+                                            <h4>2022-08-19</h4>
+                                          </div>
+                                          <div className="info">
+                                            <span>Status</span>
+                                            <h4>Private Limited Company</h4>
+                                          </div>
+                                          <div className="info">
+                                            <span>Employees</span>
+                                            <h4>35</h4>
+                                          </div>
+                                          <div className="info">
+                                            <span>Website</span>
+                                            <h4>
+                                              <a
+                                                style={{
+                                                  color: "rgb(7, 211, 252)",
+                                                }}
+                                                href="https://www.theelefant.com"
+                                                target="_blank"
+                                              >
+                                                www.theelefant.com
+                                              </a>
+                                            </h4>
+                                          </div>
+                                          <div className="info">
+                                            <span>Social Links</span>
+                                            <div className="social-icons">
+                                              <a href="https://www.facebook.com/theelefantofficial">
+                                                <i className="bx bxl-facebook fs-19"></i>
+                                              </a>
+                                              <a href="https://www.linkedin.com/company/the-elefant/?originalSubdomain=in">
+                                                <i className="bx bxl-linkedin fs-19"></i>
+                                              </a>
+                                              <a href="https://www.instagram.com/theelefant_official">
+                                                <i className="bx bxl-instagram fs-19"></i>
+                                              </a>
+                                              <a href="https://www.youtube.com/@theEleFant">
+                                                <i className="bx bxl-youtube fs-19"></i>
+                                              </a>
+                                            </div>
+                                          </div>
+                                          <div className="info">
+                                            <span>Address</span>
+                                            <h4>
+                                              705 Palm Spring Centre, New link
+                                              Road, Malad West Mumbai 400064
+                                            </h4>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </section>
+                                </div>
+                              </div>
+                            </div>
+
+                           
+
+                           
+                          </div>
+                          {/* start */}
+
+                          <div
+                            className="deals-page"
+                            style={{
+                              marginTop: "50px !important",
+                            }}
+                          >
+                            <div className="tab-wrapper">
+                              <div className="container">
+                                <div className="row">
+                                  <div className="col-lg-12">
+                                    <Tabs defaultActiveKey="1" centered>
+                                      <TabPane tab="FAQ" key="1">
+                                        <section
+                                          className="faq-section"
+                                          style={{
+                                            margin: "0px",
+                                            padding: "0px",
+                                            background: "none",
+                                          }}
+                                        >
+                                        
+                                        </section>
+                                      </TabPane>
+                                    </Tabs>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            className="deals-page"
+                            style={{
+                              marginTop: "50px !important",
+                            }}
+                          >
+                             <div className="deal-terms-section">
                             <div
                               className="container"
                               style={{ marginTop: "1px !important" }}
@@ -2147,286 +2508,321 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                                     </div>
                                     <div className="col-lg-2"></div>
                                   </div>
-
-                                  <h1
-                                    style={{
-                                      paddingBottom: "-30px !important",
-                                      marginTop: "30px",
-                                    }}
-                                  >
-                                    Deal Terms
-                                  </h1>
-                                  <div
-                                    className=""
-                                    style={{ marginTop: "0px !important" }}
-                                  >
-                                    <div className="container">
-                                      <div className="row">
-                                        <div className="col-lg-12">
-                                          <div className="info">
-                                            <span>End Date</span>
-                                            <h4
-                                              style={{
-                                                textTransform: "Capitalize",
-                                              }}
-                                            >
-                                              {this.state.deal_regular_end_date
-                                                ? moment(
-                                                    this.state
-                                                      .deal_regular_end_date
-                                                  ).format("MMM DD, YYYY")
-                                                : ""}
-                                            </h4>
-                                          </div>
-                                          <div className="info">
-                                            <span> Min Investment</span>
-                                            <h4>₹ 25000 for CCD</h4>
-                                            <h4>₹ 250000 for CCPS</h4>
-                                          </div>
-                                          <div className="info">
-                                            <span>Valuation</span>
-                                            <h4>₹ 18 Cr</h4>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
                                   </div>
-                                  <h1
-                                    style={{
-                                      paddingBottom: "0px",
-                                      marginTop: "20px",
-                                    }}
-                                  >
-                                    Company Details
-                                  </h1>
-                                  <section
-                                    className="deal-about-artment-section"
-                                    style={{ marginTop: "50px" }}
-                                  >
-                                    <div className="container">
-                                      <div className="row">
-                                        <div className="col-lg-12">
-                                          <div className="info">
-                                            <span>Legal Name</span>
-                                            <h4>
-                                              Madshades Technologies Private Ltd
-                                            </h4>
-                                          </div>
-                                          <div className="info">
-                                            <span>Founded</span>
-                                            <h4>2022-08-19</h4>
-                                          </div>
-                                          <div className="info">
-                                            <span>Status</span>
-                                            <h4>Private Limited Company</h4>
-                                          </div>
-                                          <div className="info">
-                                            <span>Employees</span>
-                                            <h4>35</h4>
-                                          </div>
-                                          <div className="info">
-                                            <span>Website</span>
-                                            <h4>
-                                              <a
-                                                style={{
-                                                  color: "rgb(7, 211, 252)",
-                                                }}
-                                                href="https://www.theelefant.com"
-                                                target="_blank"
-                                              >
-                                                www.theelefant.com
-                                              </a>
-                                            </h4>
-                                          </div>
-                                          <div className="info">
-                                            <span>Social Links</span>
-                                            <div className="social-icons">
-                                              <a href="https://www.facebook.com/theelefantofficial">
-                                                <i className="bx bxl-facebook fs-19"></i>
-                                              </a>
-                                              <a href="https://www.linkedin.com/company/the-elefant/?originalSubdomain=in">
-                                                <i className="bx bxl-linkedin fs-19"></i>
-                                              </a>
-                                              <a href="https://www.instagram.com/theelefant_official">
-                                                <i className="bx bxl-instagram fs-19"></i>
-                                              </a>
-                                              <a href="https://www.youtube.com/@theEleFant">
-                                                <i className="bx bxl-youtube fs-19"></i>
-                                              </a>
+                                  </div>
+                                  </div>
+                                  </div>
+                            <div className="tab-wrapper">
+                              <div className="container">
+                                <div className="row">
+                                  <div className="col-lg-12">
+                                    <Tabs defaultActiveKey="1" centered>
+                                      <TabPane tab="FAQ" key="1">
+                                        <section
+                                          className="faq-section"
+                                          style={{
+                                            margin: "0px",
+                                            padding: "0px",
+                                            background: "none",
+                                          }}
+                                        >
+                                          <div className="">
+                                            <div className="row">
+                                              <div className="col-lg-12 col-md-12 col-sm-12 m-auto">
+                                                <h1 className="text-center mb-4">
+                                                  About {this.state.deal_name}
+                                                </h1>
+                                                <Collapse
+                                                  // defaultActiveKey={['1']}
+                                                  onChange={this.callback1}
+                                                  expandIconPosition="left"
+                                                  accordion
+                                                >
+                                                  <Panel
+                                                    header="Are you focused on product or service?"
+                                                    key="1"
+                                                    extra={genExtra()}
+                                                  >
+                                                    <div
+                                                      style={{
+                                                        color: "#7f7776",
+                                                      }}
+                                                    >
+                                                      <p
+                                                        style={{
+                                                          color: "#7f7776",
+                                                        }}
+                                                      >
+                                                        EcoRatings is primarily
+                                                        based on a
+                                                        product-oriented
+                                                        approach. The startup
+                                                        offers a Gen AI solution
+                                                        designed to assist
+                                                        companies in making
+                                                        informed decisions on
+                                                        sustainability
+                                                        parameters. This product
+                                                        focuses on providing
+                                                        services related to ESG
+                                                        (Environmental, Social,
+                                                        and Governance)
+                                                        reporting, compliance,
+                                                        and sustainability
+                                                        assessments.
+                                                        Additionally, EcoRatings
+                                                        offers Audited ESG
+                                                        Ratings, contributing to
+                                                        the transparency of a
+                                                        company's sustainability
+                                                        efforts.</p>
+                                                        <p
+                                                        style={{
+                                                          color: "#7f7776",
+                                                        }}
+                                                      >
+                                                         In summary,
+                                                        while EcoRatings
+                                                        provides services
+                                                        through its Gen AI
+                                                        solution and ESG
+                                                        Ratings, its core focus
+                                                        is on delivering a
+                                                        product that facilitates
+                                                        sustainability
+                                                        decision-making for
+                                                        businesses.
+                                                      </p>
+                                                    </div>
+                                                  </Panel>
+                                                  <Panel
+                                                    header="What are the challenges for scale up and how these will be managed?"
+                                                    key="2"
+                                                    extra={genExtra()}
+                                                  >
+                                                    <div
+                                                      style={{
+                                                        color: "#7f7776",
+                                                      }}
+                                                    >
+                                                      <p
+                                                        style={{
+                                                          color: "#7f7776",
+                                                        }}
+                                                      >
+                                                        A key challenge for EcoRatings in scaling up is the extended Proof of Concept (POC) time, which could potentially delay client onboarding and overall growth. To address this challenge, the company plans to implement a strategy of conducting multiple POCs concurrently. By engaging in parallel Proof of Concepts, EcoRatings aims to optimize resource utilization, demonstrate the efficacy of its Gen AI solution to a broader audience, and expedite the validation process. This approach is designed to mitigate the impact of prolonged POC durations, ensuring a more efficient and accelerated scale-up phase for the company.
+                                                      </p>
+                                                    
+                                                    </div>
+                                                  </Panel>
+
+                                                  <Panel
+                                                    header="Are you targeting new untapped market? Justify"
+                                                    key="7"
+                                                    extra={genExtra()}
+                                                  >
+                                                    <div
+                                                      style={{
+                                                        color: "#7f7776",
+                                                      }}
+                                                    >
+                                                      <p
+                                                        style={{
+                                                          color: "#7f7776",
+                                                        }}
+                                                      >
+                                                       
+Yes, EcoRatings is targeting a relatively new and untapped market in India, and the justification for this lies in the rapid adoption of sustainability practices within the region. While the concept of sustainability and Environmental, Social, and Governance (ESG) parameters is gaining traction globally, the market for such solutions is still emerging in India. The startup recognizes the potential for growth and influence in a market where environmental consciousness is on the rise. The quick adoption of sustainability practices in India provides EcoRatings with an opportunity to establish itself as a pioneer in the region, offering Gen AI solutions for informed decision-making on sustainability parameters. By entering this untapped market, EcoRatings aims to play a significant role in shaping and advancing sustainable business practices in India, aligning with the increasing demand for ESG-focused solutions.
+                                                      </p>
+                                                    </div>
+                                                  </Panel>
+                                                  <Panel
+                                                    header="What are your moats?"
+                                                    key="4"
+                                                    extra={genExtra()}
+                                                  >
+                                                    <div
+                                                      style={{
+                                                        color: "#7f7776",
+                                                      }}
+                                                    >
+                                                      <p
+                                                        style={{
+                                                          color: "#7f7776",
+                                                        }}
+                                                      >
+                                                       EcoRatings' competitive advantages, or "moats," center around its proprietary Large Language Model (LLM) with 30 billion parameters, exclusively focused on sustainability. This unique model, combined with the company's dedication to environmental, social, and governance (ESG) factors, positions EcoRatings as a leader in the industry. The limited competition in large language models, access to proprietary data, and an experienced leadership team further enhance its competitive edge.
+                                                      </p>
+                                                     
+                                                    </div>
+                                                  </Panel>
+                                                </Collapse>
+                                                <h1 className="text-center mb-2 mt-4">
+                                                  Growth91 Investment FAQ
+                                                </h1>
+                                                <Collapse
+                                                  // defaultActiveKey={['10']}
+                                                  onChange={this.callback3}
+                                                  expandIconPosition="left"
+                                                  accordion
+                                                >
+                                                  <Panel
+                                                    header="What is the due diligence process followed by Growth91"
+                                                    key="11"
+                                                    extra={genExtra()}
+                                                  >
+                                                    <div
+                                                      style={{
+                                                        color: "#7f7776",
+                                                      }}
+                                                    >
+                                                      At Growth91, we follow
+                                                      stringent due-diligence
+                                                      process. We ask for
+                                                      detailed information about
+                                                      start-up and their team.
+                                                      After the scrutiny and if
+                                                      deemed fit, start-up would
+                                                      be listed on Growth91
+                                                      platform. Independent
+                                                      investment opinion and
+                                                      due-diligence report
+                                                      prepared by external
+                                                      qualified experts are made
+                                                      available for investors.
+                                                    </div>
+                                                  </Panel>
+                                                  <Panel
+                                                    header="Do you offer any guarantee on returns?"
+                                                    key="12"
+                                                    extra={genExtra()}
+                                                  >
+                                                    <div
+                                                      style={{
+                                                        color: "#7f7776",
+                                                      }}
+                                                    >
+                                                      No, we do not guarantee
+                                                      any returns. The startup
+                                                      which is raising the money
+                                                      is also not guaranteeing
+                                                      any specific returns. In
+                                                      principle, it is not
+                                                      legally correct for the
+                                                      company to provide any
+                                                      guarantee about returns on
+                                                      equity linked securities.
+                                                    </div>
+                                                  </Panel>
+                                                  <Panel
+                                                    header="What is the refund process in case I don’t receive any allocation?"
+                                                    key="13"
+                                                    extra={genExtra()}
+                                                  >
+                                                    <div
+                                                      style={{
+                                                        color: "#7f7776",
+                                                      }}
+                                                    >
+                                                      If an investor doesn’t
+                                                      receive the allocation,
+                                                      the investment amount will
+                                                      be refunded to the bank
+                                                      account from which the
+                                                      investment has been made.
+                                                      As per Growth91 policy,
+                                                      there will be no interest
+                                                      or compensation on these
+                                                      returned funds.
+                                                    </div>
+                                                  </Panel>
+                                                  <Panel
+                                                    header="What is the exit mechanism available for the investors"
+                                                    key="14"
+                                                    extra={genExtra()}
+                                                  >
+                                                    <div
+                                                      style={{
+                                                        color: "#7f7776",
+                                                      }}
+                                                    >
+                                                      The Company and the
+                                                      Promoters shall make all
+                                                      reasonable endeavours to
+                                                      provide exit to the
+                                                      Investors by any of the
+                                                      following ways: 1. Initial
+                                                      Public Offer (IPO) 2.
+                                                      Merger or Acquisition
+                                                      Event 3. Buyout Event 3.
+                                                      Compulsory Call Option
+                                                      with minimum assured
+                                                      returns. (Please refer to
+                                                      investor agreement for
+                                                      more details)
+                                                    </div>
+                                                  </Panel>
+
+                                                  <Panel
+                                                    header="In which account Investor’s money are transferred"
+                                                    key="15"
+                                                    extra={genExtra()}
+                                                  >
+                                                    <div
+                                                      style={{
+                                                        color: "#7f7776",
+                                                      }}
+                                                    >
+                                                      Money invested by the
+                                                      investor in all public
+                                                      deals are automatically
+                                                      transferred to separate
+                                                      and dedicated escrow
+                                                      account created for
+                                                      respective Startup. The
+                                                      escrow account is managed
+                                                      by authorized trustee.
+                                                      After the funding/deal and
+                                                      documentation formalities
+                                                      are completed, the fund
+                                                      will be transferred to
+                                                      respective startup bank
+                                                      account.
+                                                    </div>
+                                                  </Panel>
+
+                                                  <Panel
+                                                    header="I have more questions; how do I contact Growth91?"
+                                                    key="16"
+                                                    extra={genExtra()}
+                                                  >
+                                                    <div
+                                                      style={{
+                                                        color: "#7f7776",
+                                                      }}
+                                                    >
+                                                      You can always send your
+                                                      queries to{" "}
+                                                      <a href="mailto:contact@growth91.com">
+                                                        contact@growth91.com
+                                                      </a>
+                                                      , we will respond to your
+                                                      queries in shortest
+                                                      possible time.
+                                                    </div>
+                                                  </Panel>
+                                                </Collapse>
+                                              </div>
                                             </div>
                                           </div>
-                                          <div className="info">
-                                            <span>Address</span>
-                                            <h4>
-                                              705 Palm Spring Centre, New link
-                                              Road, Malad West Mumbai 400064
-                                            </h4>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </section>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div
-                              className="container home-decor-section mt-0"
-                              style={{ marginTop: "3px !important" }}
-                            >
-                              <h1
-                                className="text-center"
-                                style={{
-                                  marginBottom: "20px",
-                                  marginTop: "0px !important",
-                                }}
-                              >
-                                Market Overview
-                              </h1>
-                              <div className="row">
-                                <div className="col-lg-4">
-                                  <div className="single text-center h-lg market-boxes">
-                                    {/* <h2 style={{paddingBottom:"20px"}}>$1 Tn </h2> */}
-                                    <p
-                                      style={{
-                                        color: "white",
-                                        fontSize: "21px",
-                                        padding: "2px",
-                                        margin: "48px 0px",
-                                      }}
-                                    >
-                                      India has the largest child population
-                                      globally, with 275 million children in the
-                                      age group of 0 to 12 years. The Indian
-                                      National Education Policy 2020 emphasizes
-                                      play-based and activity-based learning,
-                                      recognizing the significance of play in
-                                      enhancing children's learning outcomes. It
-                                      proposes an integrated approach to formal
-                                      education that includes play, discovery,
-                                      and interactive learning.
-                                    </p>
-                                  </div>
-                                </div>
-                                <div className="col-lg-4">
-                                  <div className="single text-center h-lg market-boxes">
-                                    {/* <h2 style={{paddingBottom:"20px"}}>$200 Bn</h2> */}
-                                    <p
-                                      style={{
-                                        color: "white",
-                                        fontSize: "21px",
-                                        padding: "2px",
-                                        margin: "63px 0px",
-                                      }}
-                                    >
-                                      The Indian toy market is set to reach $3
-                                      billion by 2028, driven by rising incomes
-                                      and a focus on child development. Toy
-                                      subscription services, expected to grow at
-                                      a CAGR of 12.2% from 2023 to 2028, offer a
-                                      convenient and eco-friendly solution,
-                                      tapping into India's vast and expanding
-                                      child population, which is over 17% of the
-                                      global total by 2036. The increasing
-                                      spending power of middle-class families
-                                      contributes to the market's potential,
-                                      with a growing openness to innovative
-                                      child development solutions like toy
-                                      subscriptions.
-                                    </p>
-                                  </div>
-                                </div>
-
-                                <div className="col-lg-4">
-                                  <div className="single text-center h-lg market-boxes">
-                                    {/* <h2 style={{paddingBottom:"20px"}}>$200 Bn</h2> */}
-                                    <p
-                                      style={{
-                                        color: "white",
-                                        fontSize: "21px",
-                                        padding: "2px",
-                                        margin: "51px 0px",
-                                      }}
-                                    >
-                                      The evolution of the toy industry reflects
-                                      a transition from traditional toys to
-                                      modern, technology-driven offerings. In
-                                      the past, simple toys focused on promoting
-                                      imagination. Presently, STEM-based,
-                                      Montessori and eco-friendly toys are
-                                      prevalent, aligning with changing consumer
-                                      preferences. Looking to the future,
-                                      emerging technologies like virtual reality
-                                      and artificial intelligence are expected
-                                      to shape toys, providing immersive
-                                      experiences. The industry anticipates a
-                                      continued focus on learning, creativity,
-                                      and social interaction in toys,
-                                      emphasizing their crucial role in child
-                                      development.
-                                    </p>
+                                        </section>
+                                      </TabPane>
+                                    </Tabs>
                                   </div>
                                 </div>
                               </div>
-                              <div className="text-center fs-4">
-                                <span style={{ color: "#000" }}>Source: </span>
-                                <span style={{ color: "rgb(127, 119, 118)" }}>
-                                  Multiple publicly available research and
-                                  survey reports
-                                </span>
-                              </div>
-                              <p className=""> </p>
-                              <div className="text-center fluid-container"></div>
-                            </div>
-
-                            <div
-                              className=""
-                              style={{
-                                backgroundColor: "white",
-                                marginTop: "1px !important",
-                              }}
-                            >
-                              <h1
-                                style={{
-                                  fontSize: 32,
-                                  marginBottom: 30,
-                                  textAlign: "center",
-                                  marginTop: "-10px !important",
-                                }}
-                              >
-                                Investor Presentation
-                              </h1>
-                              <Slider
-                                {...settings}
-                                className="mb-5 pitch-slider"
-                              >
-                                {images.map((image, index) => (
-                                  <img
-                                    key={index}
-                                    src={image}
-                                    onClick={() => this.handleClickImage(image)}
-                                  />
-                                ))}
-                              </Slider>
-                              {current && (
-                                <Lightbox
-                                  mainSrc={current}
-                                  onCloseRequest={this.handleCloseModal}
-                                />
-                              )}
                             </div>
                           </div>
-                          {/* start */}
-
-                          <div
-                            className="deals-page"
-                            style={{
-                              marginTop: "50px !important",
-                            }}
-                          >
-                        
-                          </div>
-
                           {/* stop */}
                         </TabPane>
                         <TabPane tab="Team" key="3">
@@ -2440,7 +2836,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                                 <div
                                   className="single"
                                   style={{ paddingBottom: "0px !important" }}
-                                  // style={{  marginBottom: 0px !important}}
+                                // style={{  marginBottom: 0px !important}}
                                 >
                                   <div className="d-flex">
                                     <img
@@ -2492,7 +2888,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                                     <li>
                                       <a>
                                         {" "}
-                                        bringing strategic leadership and
+                                        Bringing strategic leadership and
                                         financial acumen to The EleFant.
                                       </a>
                                     </li>
@@ -2556,7 +2952,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                                     </li>
                                     <li>
                                       <a>
-                                        contributing to The EleFant's product
+                                        Contributing to The EleFant's product
                                         innovation.
                                       </a>
                                     </li>
@@ -2599,14 +2995,10 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                                   <ul>
                                     <li style={{ listStyleType: "disc" }}>
                                       <a>
-                                        16 years of diverse and global
-                                        experience across accountancy and
-                                        internal Audit, delivering value-added
-                                        solutions to clients and businesses
-                                        across various sectors and markets.
+                                      With her background as a former Principal, she brings valuable experience to curate and engage with the toy library, ensuring a quality selection of toys and fostering positive interactions with librarians.
                                       </a>
                                     </li>
-                                    <li>
+                                    {/* <li>
                                       <a>
                                         {" "}
                                         Registered Independent Director, CA, and
@@ -2616,10 +3008,10 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                                     <li>
                                       <a>
                                         {" "}
-                                        bringing strategic leadership and
+                                        Bringing strategic leadership and
                                         financial acumen to The EleFant.
                                       </a>
-                                    </li>
+                                    </li> */}
                                   </ul>
                                 </div>
                               </div>
@@ -2627,7 +3019,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                                 <div className="single">
                                   <div className="d-flex">
                                     <img
-                                      src="./assets/images/deals-details/the EleFant/team/ruchi.jpg"
+                                      src="./assets/images/deals-details/the EleFant/team/ruchi-new.png"
                                       alt=""
                                     />
                                     <div className="intro">
@@ -2672,7 +3064,7 @@ The EleFant app, available on both Android and iOS with a stellar rating of 4.8+
                                     </li>
                                     <li>
                                       <a>
-                                        managing The EleFant's financial operations
+                                        Managing The EleFant's financial operations
                                         and investor relations.
                                       </a>
                                     </li>
