@@ -23,7 +23,7 @@ import InvestmentMembershipmodal from "../components/membership/InvestmentMember
 
 const { Panel } = Collapse;
 const { TabPane } = Tabs;
-class EcoRatings extends Component {
+class EleFant extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -95,36 +95,43 @@ class EcoRatings extends Component {
       escrow_account_ifsc: "",
       agreeCheck: false,
       images: [
-        "./assets/images/deals-details/EcoRatings/Pitch/0001.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0002.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0003.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0004.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0005.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0006.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0007.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0008.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0009.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0010.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0011.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0012.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0013.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0014.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0015.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0016.jpg",
-       
+        "./assets/images/deals-details/the EleFant/Pitch/1.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/2.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/3.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/4.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/5.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/6.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/7.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/8.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/9.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/10.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/11.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/12.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/13.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/14.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/15.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/16.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/17.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/18.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/19.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/20.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/21.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/22.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/23.jpg",
+        "./assets/images/deals-details/the EleFant/Pitch/24.jpg",
       ],
       current: "",
     };
   }
-  callback1 = (key) => {};
-  callback2 = (key) => {};
-  callback3 = (key) => {};
+  callback1 = (key) => { };
+  callback2 = (key) => { };
+  callback3 = (key) => { };
 
   componentWillMount() {
-    document.title = "EcoRatings - Growth91 - Startup Marketplace ";
+    document.title = "The EleFant - Growth91 - Startup Marketplace ";
   }
   componentDidMount() {
-    let deal_id = "118";
+    let deal_id = "27";
     this.setState({ deal_id: deal_id }, () => {
       this.get_pitch_list();
     });
@@ -333,8 +340,8 @@ class EcoRatings extends Component {
           a.pitch_order > b.pitch_order
             ? 1
             : b.pitch_order > a.pitch_order
-            ? -1
-            : 0
+              ? -1
+              : 0
         );
         // console.log('arr',arr);
         this.setState({ pitch_list: arr, loading: false });
@@ -445,8 +452,7 @@ class EcoRatings extends Component {
           // }
         }
         for (let d of result.data) {
-            console.log(this.state.captable_threshold_amount);
-
+          console.log(d);
           if (d.deal_id == this.state.deal_id) {
             if (d.show_status == "0") {
               this.setState({ is_deal_visible: false });
@@ -478,7 +484,7 @@ class EcoRatings extends Component {
               d.pitch_files;
             let percetage_raised = parseFloat(
               (d.total_invested_amount / d.deal_fund_requested) * 100 +
-                parseInt(d.raiegap)
+              parseInt(d.raiegap)
             ).toFixed(0);
             let deal_premium_start_date = moment(d.deal_start_dt_prem);
             let deal_regular_start_date = moment(d.deal_st_date);
@@ -508,9 +514,9 @@ class EcoRatings extends Component {
                 button_show_status = true;
               } else if (
                 moment(current_date).format("YYYY-MM-DD") >
-                  deal_premium_start_date.format("YYYY-MM-DD") &&
+                deal_premium_start_date.format("YYYY-MM-DD") &&
                 moment(current_date).format("YYYY-MM-DD") <
-                  moment(deal_premium_end_date).format("YYYY-MM-DD")
+                moment(deal_premium_end_date).format("YYYY-MM-DD")
               ) {
                 button_show_status = true;
               } else if (
@@ -548,9 +554,9 @@ class EcoRatings extends Component {
                 button_show_status = true;
               } else if (
                 moment(current_date).format("YYYY-MM-DD") >
-                  deal_regular_start_date.format("YYYY-MM-DD") &&
+                deal_regular_start_date.format("YYYY-MM-DD") &&
                 moment(current_date).format("YYYY-MM-DD") <
-                  moment(deal_regular_end_date).format("YYYY-MM-DD")
+                moment(deal_regular_end_date).format("YYYY-MM-DD")
               ) {
                 button_show_status = true;
               } else if (
@@ -802,8 +808,8 @@ class EcoRatings extends Component {
       processingfees: this.state.amount ? legalfee.toFixed(0) : 0,
       totalamount: this.state.amount
         ? (amt + parseFloat(legalfee)).toFixed(0) -
-          walletDeductionMoney +
-          gstValue
+        walletDeductionMoney +
+        gstValue
         : 0,
       walletDeductionMoney: walletDeductionMoney,
       gstValue: gstValue,
@@ -873,7 +879,7 @@ class EcoRatings extends Component {
       this.setState({ amount_error: error, amount_error_status: true });
     } else if (
       Number(this.state.amount) <
-        Number(this.state.captable_threshold_amount) &&
+      Number(this.state.captable_threshold_amount) &&
       Number(this.state.amount) % Number(this.state.multiples_of) != 0
     ) {
       const roundedLowerAmount =
@@ -891,19 +897,19 @@ class EcoRatings extends Component {
       this.setState({ amount_error: error, amount_error_status: true });
     } else if (
       Number(this.state.amount) >
-        Number(this.state.captable_threshold_amount) &&
+      Number(this.state.captable_threshold_amount) &&
       Number(this.state.amount) % Number(this.state.captable_multiple_amount) !=
-        0
+      0
     ) {
       const roundedLowerAmount =
         Math.floor(
           Number(this.state.amount) /
-            Number(this.state.captable_multiple_amount)
+          Number(this.state.captable_multiple_amount)
         ) * Number(this.state.captable_multiple_amount);
       const roundedHigherAmount =
         Math.ceil(
           Number(this.state.amount) /
-            Number(this.state.captable_multiple_amount)
+          Number(this.state.captable_multiple_amount)
         ) * Number(this.state.captable_multiple_amount);
 
       error = `Please enter an amount in multiples of ${this.state.captable_multiple_amount}. You may choose Rs ${roundedLowerAmount}
@@ -1128,7 +1134,7 @@ class EcoRatings extends Component {
                         <div className="d-flex align-items-center">
                           {/* Image is static */}
                           <img
-                            src="./assets/images/deals-details/EcoRatings/logo.png"
+                            src="./assets/images/deals-details/the EleFant/logo.png"
                             alt=""
                             className="img-fluid"
                             style={{
@@ -1137,7 +1143,7 @@ class EcoRatings extends Component {
                               objectFit: "contain",
                             }}
                           />
-                          <h5 className="ml-5 mt-4">Eco Ratings</h5>
+                          <h5 className="ml-5 mt-4">The EleFant</h5>
                           {/* <h5>{this.state.logo}</h5> */}
                         </div>
                         {this.state.isPrivate == true && (
@@ -1168,28 +1174,10 @@ class EcoRatings extends Component {
                       </div>
 
                       <p style={{ textAlign: "justify" }}>
-                        EcoRatings is a Gen AI solution in the sustainability
-                        domain, specializing in providing companies with
-                        informed decision-making capabilities regarding the
-                        sustainability of their products and services (B2B). The
-                        platform employs Gen AI, utilizing Retrieval Augmented
-                        Generation for nearly instant assessments. Powered by
-                        the open-source Large Language Model Llama2 with 7
-                        billion parameters, EcoRatings stands out for its
-                        advanced sustainability insights. Founded by experienced
-                        leaders Aditi Balbir and Aqeel Ahmed, the company brings
-                        over 60 years of combined expertise in sustainability,
-                        AI, and big data. EcoRatings provides Audited ESG
-                        Ratings, enabling businesses to transparently showcase
-                        sustainability efforts and attract ESG funding. The
-                        company's comprehensive Gen AI platform offers a range
-                        of sustainability applications, from auditing ESG
-                        ratings to extract information from ERP systems. With
-                        early growth driven by strategic partnerships and
-                        validation from the United Nations Environment Programme
-                        (UNEP), EcoRatings aims to establish itself as a leader
-                        in the dynamic intersection of AI and sustainability,
-                        addressing the evolving needs of businesses globally.{" "}
+                        India's first mobile app-based Toy Library - With the EleFant, customers get access to a vast selection of top-quality toys specially curated by child psychologists and game therapists through an affordable membership model. It's like having a library for toys, where you can play, return, and rotate toys whenever your little one is ready for something new. Discover, play, and return—it's as simple as that! Save 95% cost, 90% clutter and 100% environmentally sustainable solution!
+                      </p>
+                      <p style={{ textAlign: "justify" }}>
+                        The EleFant app, available on both Android and iOS with a stellar rating of 4.8+, makes it easy to browse and order from our extensive collection. Currently serving families in over 14 cities, with over 9,000 downloads, 600+ active subscribers, and a network of 42+ dedicated Librarians, the EleFant is revolutionizing the way kids play and parents manage toy clutter. It clogged a revenue of Rs. 2.25 Cr. in just 5 months of operation.  Join The EleFant in creating a world where every child's playtime is filled with joy, learning, and endless possibilities!
                       </p>
                       <div className=" percentage-container">
                         <div className="percentage-values">
@@ -1280,7 +1268,7 @@ class EcoRatings extends Component {
                                 ) : this.state.user_type == "founder" ? (
                                   <div>
                                     {this.state.user_type == "founder" &&
-                                    this.state.founder_is_investor == "1" ? (
+                                      this.state.founder_is_investor == "1" ? (
                                       <a
                                         href="#"
                                         style={{ padding: "15px 0" }}
@@ -1304,7 +1292,7 @@ class EcoRatings extends Component {
                                 ) : (
                                   <div>
                                     {this.state.user_type == "investor" &&
-                                    this.state.invest_amt === null ? (
+                                      this.state.invest_amt === null ? (
                                       <a
                                         href="#"
                                         className="black-button prime-bg text-center"
@@ -1389,7 +1377,7 @@ class EcoRatings extends Component {
                           style={{
                             border:
                               this.state.amount_error_status == true &&
-                              this.state.amount
+                                this.state.amount
                                 ? "1px solid red"
                                 : "1px solid transparent",
                           }}
@@ -1604,147 +1592,22 @@ class EcoRatings extends Component {
                     </div>
                   </Modal>
                   <div className="col-lg-7 deal-banner deals-video-banner">
-                    <iframe
-                      style={{
-                        boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
-                        borderRadius: 3,
-                        // marginLeft: 65,
-                      }}
+
+                    <iframe style={{
+                      boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
+                      borderRadius: 3,
+                      // marginLeft: 65,
+                    }}
                       width="100%"
                       height="335"
-                      src="https://www.youtube.com/embed/1hq0Go0X_qg"
-                      title="EcoRatings Product Introduction"
-                      frameborder="10"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowfullscreen
-                    ></iframe>
-                  </div>
-                  {/* Market Overview */}
-                  <div
-                              className="container home-decor-section mt-0"
-                              style={{ marginTop: "3px !important" }}
-                            >
-                              <h1
-                                className="text-center"
-                                style={{
-                                  marginBottom: "20px",
-                                  marginTop: "0px !important",
-                                }}
-                              >
-                                Market Overview
-                              </h1>
-                              <div className="row">
-                                <div className="col-lg-4">
-                                  <div className="single text-center h-lg market-boxes">
-                                    {/* <h2 style={{paddingBottom:"20px"}}>$1 Tn </h2> */}
-                                    <p
-                                      style={{
-                                        color: "white",
-                                        fontSize: "21px",
-                                        padding: "2px",
-                                        margin: "48px 0px",
-                                        opacity:"1",
-                                        lineHeight:'1.5'
-                                      }}
-                                    >
-                                      The business landscape is undergoing a
-                                      profound shift towards Environmental,
-                                      Social, and Governance (ESG) practices.
-                                      Key drivers include investor demand for
-                                      sustainability (88% of asset managers
-                                      consider ESG factors), consumer
-                                      preferences prioritizing sustainability
-                                      (73% willing to pay more), and government
-                                      policies globally supporting sustainable
-                                      business practices, such as SEBI's mandate
-                                      in India. This trend emphasizes the
-                                      growing importance of ESG considerations
-                                      for companies to attract capital, meet
-                                      consumer expectations, and comply with
-                                      evolving regulatory standards.
-                                    </p>
-                                  </div>
-                                </div>
-                                <div className="col-lg-4">
-                                  <div className="single text-center h-lg market-boxes">
-                                    {/* <h2 style={{paddingBottom:"20px"}}>$200 Bn</h2> */}
-                                    <p
-                                      style={{
-                                        color: "white",
-                                        fontSize: "21px",
-                                        padding: "2px",
-                                        margin: "48px 0px",
-                                        opacity:"1",
-                                        lineHeight:'1.5'
-                                      }}
-                                    >
-                                      The generative AI industry is experiencing
-                                      rapid growth, with a total market size of
-                                      US $515 billion and a projected expansion
-                                      to USD 2 trillion by 2030. McKinsey Global
-                                      Institute estimates that Gen AI could
-                                      contribute $2.6 trillion to $4.4 trillion
-                                      annually. The addressable market for green
-                                      technology and sustainability is expected
-                                      to reach US $72 billion, with a forecasted
-                                      CAGR of 20.8% from 2023 to 2030. This
-                                      aligns with the growth trajectory of the
-                                      AI market, indicating the increasing
-                                      significance of generative AI in shaping
-                                      industries, especially in the context of
-                                      sustainability.
-                                    </p>
-                                  </div>
-                                </div>
+                      src="https://www.youtube.com/embed/cimjF2sWGoM?si=iJjUnU8ldiMCU6U2" title="The EleFant" frameborder="10" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
 
-                                <div className="col-lg-4">
-                                  <div className="single text-center h-lg market-boxes">
-                                    {/* <h2 style={{paddingBottom:"20px"}}>$200 Bn</h2> */}
-                                    <p
-                                      style={{
-                                        color: "white",
-                                        fontSize: "21px",
-                                        padding: "2px",
-                                        margin: "48px 0px",
-                                        opacity:"1",
-                                        lineHeight:'1.5'
-                                      }}
-                                    >
-                                      The Gen AI market is characterized by
-                                      advanced artificial intelligence models,
-                                      specifically large language models (LLMs),
-                                      renowned for their ability to comprehend
-                                      and generate human-like language. These
-                                      sophisticated models find diverse
-                                      applications across various industries,
-                                      with a primary focus on natural language
-                                      processing (NLP). Gen AI powers an array
-                                      of applications, including chatbots,
-                                      virtual assistants, content creation,
-                                      language translation, and decision support
-                                      systems. Notably, companies like
-                                      EcoRatings are at the forefront of
-                                      utilizing Gen AI to tackle sustainability
-                                      challenges. In their case, the emphasis is
-                                      on applications such as environmental
-                                      impact assessment and sustainable
-                                      decision-making, aligning with the
-                                      industry's growing commitment to ethical
-                                      and eco-friendly AI solutions.
-                                    </p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="text-center fs-4">
-                                <span style={{ color: "#000" }}>Source: </span>
-                                <span style={{ color: "rgb(127, 119, 118)" }}>
-                                  Multiple publicly available research and
-                                  survey reports
-                                </span>
-                              </div>
-                              <p className=""> </p>
-                              <div className="text-center fluid-container"></div>
-                            </div>
+                    </iframe>
+
+
+
+                  </div>
+
                   <div
                     className="container highlight-section"
                     style={{
@@ -1761,18 +1624,22 @@ class EcoRatings extends Component {
                           className="single elefanthighlight text-left"
                           style={{}}
                         >
-                          <div className="hightlights-images">
-                            <img src="./assets/images/deals-details/Petmojo/highlight01.jpg" />
-                          </div>
+                        <div className="hightlights-images">
+                        <img src="./assets/images/deals-details/Petmojo/highlight01.jpg" />
+
+                        </div>
                           <p style={{ padding: "1px !important" }}>
-                            EcoRatings drives sustainability with product-level
-                            ratings, aiding ESG funding and compliance. Clients
-                            secure funding, while companies choose sustainable
-                            vendors and map emissions. Leaders like DCM Shriram
-                            and LT Foods benefit by greening supply chains. As
-                            consumer awareness grows, platforms like Amazon
-                            embrace eco-friendly filters, showcasing EcoRatings'
-                            pivotal role in shaping sustainable practices.
+                            The EleFant's USP lies in its innovative
+                            subscription-based toy library model, enabling users
+                            to access a diverse range of toys without the burden
+                            of ownership. This unique approach not only provides
+                            variety but also promotes sustainability. The app
+                            facilitates easy browsing, personalized
+                            recommendations, and real-time tracking, The app's
+                            success is further highlighted by 7000+ downloads in
+                            4 month period, a consistent 4.8+ rating, and a
+                            registered user base of 3500+, demonstrating its
+                            strong market appeal and growth prospects.
                           </p>
                         </div>
                       </div>
@@ -1782,17 +1649,18 @@ class EcoRatings extends Component {
                           style={{}}
                         >
                           <div className="hightlights-images">
-                            <img src="./assets/images/deals-details/highlight2.jfif" />
+                          <img src="./assets/images/deals-details/highlight2.jfif" />
+       
                           </div>
                           <p style={{ padding: "0px !important" }}>
-                            EcoRatings has secured 50 clients with a remarkable
-                            100% retention rate, generating Rs. 5,00,000 in
-                            revenue from the top 5 clients. The startup's UNEP
-                            validation and proprietary AI model, based on a 30
-                            billion-parameter autoregressive transformer
-                            architecture, position it as a leader in the
-                            sustainability-focused AI sector, showcasing strong
-                            market traction
+                            The EleFant's commitment to quality and education is
+                            reflected in its curated catalog, making it a go-to
+                            platform for parents seeking sustainable and
+                            enriching play experiences for their children.
+                            The EleFant has established a robust presence with 42+
+                            libraries across India, securing over 600+ committed
+                            subscribers, and achieving sales exceeding 2.5
+                            crores in the past five months.
                           </p>
                         </div>
                       </div>
@@ -1802,17 +1670,18 @@ class EcoRatings extends Component {
                           style={{}}
                         >
                           <div className="hightlights-images">
-                            <img src="./assets/images/deals-details/highlight3.jpg" />
+                          <img src="./assets/images/deals-details/highlight3.jpg" />
+               
                           </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                            EcoRatings' GenAI platform brings significant
-                            benefits to customers, streamlining ESG reporting
-                            and compliance processes, facilitating comparison of
-                            ESG performance against industry peers, and offering
-                            insights into progress towards ESG goals.
-                            Additionally, the Audited ESG Ratings provide
-                            transparency to customers' sustainability efforts,
-                            potentially leading to ESG funding.
+                            The EleFant empowers women through its business model,
+                            allowing them to become Toy Librarians. These women
+                            entrepreneurs, including CAs, engineers, and
+                            professionals, can set up and run toy libraries,
+                            offering financial independence in just a few hours
+                            a day.The EleFant provides continuous support and
+                            training, fostering a community of empowered women
+                            contributing to its success.
                           </p>
                         </div>
                       </div>
@@ -1822,19 +1691,22 @@ class EcoRatings extends Component {
                           style={{}}
                         >
                           <div className="hightlights-images">
-                            <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
+                          <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
+ 
                           </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                            Suppliers stand to benefit from EcoRatings by
-                            gaining insights into and tracking their scope 3
-                            emissions. This feature allows suppliers to enhance
-                            their sustainability practices, align with global
-                            ESG standards, and contribute to comprehensive
-                            environmental impact assessments. EcoRatings
-                            empowers suppliers with valuable data and tools to
-                            improve their sustainability efforts and meet the
-                            evolving demands of environmentally conscious
-                            business practices.
+                            The EleFant has strengthened its position through
+                            strategic moves, including the acquisition of
+                            India's top Toy Library, specializing in renting
+                            toys, games, and books. Additionally, a strategic
+                            partnership with Khilonewala's founders, Abhishek
+                            Jain & Bharat Jain, adds valuable expertise to The
+                            EleFant's ecosystem. With an impressive track record
+                            of 120+ built libraries, 75 currently operational,
+                            and over 11 years of experience, The EleFant has
+                            established itself as a key player. Notably, the
+                            delivery of 5 lakh toy kits underscores its
+                            substantial reach and impact in the market.
                           </p>
                         </div>
                       </div>
@@ -1844,19 +1716,23 @@ class EcoRatings extends Component {
                           style={{}}
                         >
                           <div className="hightlights-images">
-                            <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
+                          <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
+                 
                           </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                            EcoRatings, founded by Aditi Balbir, Aqeel Ahmed,
-                            and Shruti Anand, brings extensive entrepreneurial
-                            experience to the Gen AI industry. Proven by ISO
-                            17065 certification and SEBI registration, the
-                            company excels in top-notch conformity assessment
-                            and ESG services. Recognized by accelerators like
-                            Arise-StrongHer, ReNew Power, and Green Tech
-                            Accelerator, EcoRatings is driven by strong
-                            leadership, committing to sustainability and
-                            innovation in the Gen AI space.
+                            The EleFant's toy library model brings cost savings,
+                            convenience, and sustainability to customers by
+                            offering high-quality toys at reduced costs,
+                            app-based browsing with doorstep delivery, and
+                            promoting toy reuse. Suppliers benefit from
+                            increased reach, marketing exposure, financial
+                            stability, customer feedback, and alignment with
+                            sustainability goals. To create a competitive moat,
+                            The EleFant focuses on high-quality curation, customer
+                            experience, technology and innovation, brand
+                            building, and strategic partnerships, ensuring a
+                            comprehensive and unique value proposition in the
+                            toy industry.
                           </p>
                         </div>
                       </div>
@@ -1866,17 +1742,23 @@ class EcoRatings extends Component {
                           style={{}}
                         >
                           <div className="hightlights-images">
-                            <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
+                          <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
+              
                           </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                            EcoRatings generates revenue through diversified
-                            channels, including Audited ESG Ratings (potential
-                            $1.5 billion annually with a 10% SKU penetration),
-                            LLM EcoRating.ai subscription model (estimated $1.08
-                            billion annually with a 20% Accenture client
-                            penetration), and Ecosystem Development (projected
-                            $18 billion annually from 300,000 third-party
-                            developers using the foundational model).
+                            The EleFant employs a robust marketing strategy,
+                            leveraging community leaders for referral marketing,
+                            offering rewards programs, and utilizing digital
+                            channels with targeted campaigns and influencer
+                            collaborations. Hyperlocal initiatives include kiosk
+                            stations and local event sponsorships, while
+                            strategic partnerships target healthcare, education,
+                            and corporate sectors. The inorganic growth plan
+                            involves mergers and acquisitions with regional
+                            players for rapid expansion. This comprehensive
+                            approach aims to establish The EleFant as a prominent
+                            brand through a blend of referral, digital,
+                            hyperlocal, and strategic partnership efforts.
                           </p>
                         </div>
                       </div>
@@ -1885,7 +1767,7 @@ class EcoRatings extends Component {
 
                   {/* media */}
 
-                  {/* <div
+                  <div
                     className="container highlight-section"
                     style={{
                       marginBottom: "-80px !important",
@@ -1901,8 +1783,7 @@ class EcoRatings extends Component {
                           <img src="./assets/images/deals-details/the EleFant/Articles/1.webp" />
 
                           <p style={{ padding: "1px !important" }}>
-                            Mumbai CA dad starts a toy rental business rents
-                            affordable toys for kids
+                            Mumbai CA dad starts a toy rental business rents affordable toys for kids
                             <a
                               href="https://www.thebetterindia.com/334684/mumbai-ca-dad-starts-a-toy-rental-business-rents-affordable-toys-for-kids/"
                               target="_blank"
@@ -1964,7 +1845,23 @@ class EcoRatings extends Component {
                           </p>
                         </div>
                       </div>
-                    
+                      {/* <div className="col-lg-6 col-md-6 col-sm-6">
+                        <div className="single medialink text-left d-flex flex-column  ">
+                          <img src="./assets/images/deals-details/the EleFant/Articles/1.webp" />
+                          <p style={{ padding: "1px !important" }}>
+                            mumbai ca dad starts a toy rental business rents
+                            affordable toys for kids
+                            <a
+                              href="https://www.thebetterindia.com/334684/mumbai-ca-dad-starts-a-toy-rental-business-rents-affordable-toys-for-kids/
+                              "
+                              target="_blank"
+                            >
+                              {" "}
+                              Readmore
+                            </a>
+                          </p>
+                        </div>
+                      </div> */}
                       <div className="col-lg-6 col-md-6 col-sm-6">
                         <div className="single medialink text-left d-flex flex-column  ">
                           <img src="./assets/images/deals-details/the EleFant/Articles/6.webp" />
@@ -1981,71 +1878,19 @@ class EcoRatings extends Component {
                         </div>
                       </div>
 
-                    </div>
-                  </div> */}
-                </div>
-              </div>
-            </section>
-             <div className="deals-page">
-              <div className="tab-wrapper">
-                <div className="container">
-                  <div className="row">
-                    <div
-                      className="col-lg-12 col-md-12 col-sm-12"
-                      style={{
-                        marginTop: 110,
-                      }}
-                    >
-                    
-                          <div className="deal-terms-section">
-                           
-
-                           
-{/* Investor Presentation */}
-                            <div
-                              className=""
-                              style={{
-                                backgroundColor: "white",
-                                marginTop: "1px !important",
-                              }}
-                            >
-                              <h1
-                                style={{
-                                  fontSize: 32,
-                                  marginBottom: 30,
-                                  textAlign: "center",
-                                  marginTop: "-10px !important",
-                                }}
-                              >
-                                Investor Presentation
-                              </h1>
-                              <Slider
-                                {...settings}
-                                className="mb-5 pitch-slider"
-                              >
-                                {images.map((image, index) => (
-                                  <img
-                                    key={index}
-                                    src={image}
-                                    onClick={() => this.handleClickImage(image)}
-                                  />
-                                ))}
-                              </Slider>
-                              {current && (
-                                <Lightbox
-                                  mainSrc={current}
-                                  onCloseRequest={this.handleCloseModal}
-                                />
-                              )}
-                            </div>
-        </div>
-                        
-                        
+                      {/* <div className="col-lg-6 col-md-6 col-sm-6">
+                        <div className="single text-left">
+                          <img src="./assets/images/deals-details/highlight4.png" />
+                          <p style={{ paddingLeft: "0px !important" }}>
+                          Unlike competitors who are suffering from cost control and burn rates IndusUno gathers rich and detailed industry data that can be leveraged exponentially with scale.
+                          </p>
+                        </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </section>
             <div className="deals-page">
               <div className="tab-wrapper">
                 <div className="container">
@@ -2063,147 +1908,6 @@ class EcoRatings extends Component {
                       >
                         <TabPane tab="Details" key="2">
                           <div className="deal-terms-section">
-                            <div
-                              className="container"
-                              style={{ marginTop: "1px !important" }}
-                            >
-                              <div className="row">
-                                <div className="col-lg-10 m-auto">
-                               
-
-                                  <h1
-                                    style={{
-                                      paddingBottom: "-30px !important",
-                                      marginTop: "30px",
-                                    }}
-                                  >
-                                    Deal Terms
-                                  </h1>
-                                  <div
-                                    className=""
-                                    style={{ marginTop: "0px !important" }}
-                                  >
-                                    <div className="container">
-                                      <div className="row">
-                                        <div className="col-lg-12">
-                                          <div className="info">
-                                            <span>End Date</span>
-                                            <h4
-                                              style={{
-                                                textTransform: "Capitalize",
-                                              }}
-                                            >
-                                              {this.state.deal_regular_end_date
-                                                ? moment(
-                                                    this.state
-                                                      .deal_regular_end_date
-                                                  ).format("MMM DD, YYYY")
-                                                : ""}
-                                            </h4>
-                                          </div>
-                                          <div className="info">
-                                            <span> Min Investment</span>
-                                            <h4>₹ 307800 for CCPS</h4>
-                                          </div>
-                                          <div className="info">
-                                            <span>Valuation</span>
-                                            <h4>₹ 36 Cr</h4>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <h1
-                                    style={{
-                                      paddingBottom: "0px",
-                                      marginTop: "20px",
-                                    }}
-                                  >
-                                    Company Details
-                                  </h1>
-                                  <section
-                                    className="deal-about-artment-section"
-                                    style={{ marginTop: "50px" }}
-                                  >
-                                    <div className="container">
-                                      <div className="row">
-                                        <div className="col-lg-12">
-                                          <div className="info">
-                                            <span>Legal Name</span>
-                                            <h4>
-                                            Ecoratings Software Solutions Private Limited
-                                            </h4>
-                                          </div>
-                                          <div className="info">
-                                            <span>Founded</span>
-                                            <h4>3/28/2023</h4>
-                                          </div>
-                                          <div className="info">
-                                            <span>Status</span>
-                                            <h4>Private Limited Company</h4>
-                                          </div>
-                                          <div className="info">
-                                            <span>Employees</span>
-                                            <h4>30</h4>
-                                          </div>
-                                          <div className="info">
-                                            <span>Website</span>
-                                            <h4>
-                                              <a
-                                                style={{
-                                                  color: "rgb(7, 211, 252)",
-                                                }}
-                                                href="https://ratings.eco/"
-                                                target="_blank"
-                                              >
-                                                ratings.eco
-                                              </a>
-                                            </h4>
-                                          </div>
-                                          <div className="info">
-                                            <span>Social Links</span>
-                                            <div className="social-icons">
-                                              {/* <a href="https://www.facebook.com/theelefantofficial">
-                                                <i className="bx bxl-facebook fs-19"></i>
-                                              </a> */}
-                                              <a href="https://www.linkedin.com/company/ecoratings">
-                                                <i className="bx bxl-linkedin fs-19"></i>
-                                              </a>
-                                              {/* <a href="https://www.instagram.com/theelefant_official">
-                                                <i className="bx bxl-instagram fs-19"></i>
-                                              </a>
-                                              <a href="https://www.youtube.com/@theEleFant">
-                                                <i className="bx bxl-youtube fs-19"></i>
-                                              </a> */}
-                                            </div>
-                                          </div>
-                                          <div className="info">
-                                            <span>Address</span>
-                                            <h4>
-                                            H No E.K. 150, Eklavya Vihar,Sehkari Awas Samiti, Sector 9, Vasundhra, Ghaziabad, Uttar Pradesh-201012
-                                            </h4>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </section>
-                                </div>
-                              </div>
-                            </div>
-
-                           
-{/* Investor Presentation */}
-                         
-        </div>
-                          {/* start */}
-
-                          <div
-                            className="deals-page"
-                            style={{
-                              marginTop: "50px !important",
-                            }}
-                          >
-                             <div className="deal-terms-section">
                             <div
                               className="container"
                               style={{ marginTop: "1px !important" }}
@@ -2334,17 +2038,17 @@ class EcoRatings extends Component {
                                                         >
                                                           {item.paid == "Paid"
                                                             ? this.state
-                                                                .check_membership_type ==
+                                                              .check_membership_type ==
                                                               "premium"
                                                               ? item.premium_price ==
                                                                 "0"
                                                                 ? "Free"
                                                                 : "₹" +
-                                                                  item.premium_price
+                                                                item.premium_price
                                                               : item.regular_price ==
                                                                 "0"
-                                                              ? "Free"
-                                                              : "₹" +
+                                                                ? "Free"
+                                                                : "₹" +
                                                                 item.regular_price
                                                             : "Free"}
                                                         </td>
@@ -2353,56 +2057,56 @@ class EcoRatings extends Component {
                                                         >
                                                           {this.state
                                                             .investor_id && (
-                                                            <center>
-                                                              {(item.user_paid ==
-                                                                true ||
-                                                                item.paid ==
+                                                              <center>
+                                                                {(item.user_paid ==
+                                                                  true ||
+                                                                  item.paid ==
                                                                   "Free") && (
-                                                                <a
-                                                                  href={
-                                                                    documentlink
-                                                                  }
-                                                                  target="_blank"
-                                                                  style={{
-                                                                    width: 80,
-                                                                  }}
-                                                                >
-                                                                  <img
-                                                                    src="./download.ico"
-                                                                    style={{
-                                                                      maxWidth: 50,
-                                                                    }}
-                                                                  />
-                                                                </a>
-                                                              )}
-                                                              {item.paid ==
-                                                                "Paid" &&
-                                                                this.state
-                                                                  .check_membership_type ==
-                                                                  "premium" &&
-                                                                (item.premium_price ==
-                                                                "0" ? (
-                                                                  <a
-                                                                    href={
-                                                                      documentlink
-                                                                    }
-                                                                    target="_blank"
-                                                                    style={{
-                                                                      width: 80,
-                                                                    }}
-                                                                  >
-                                                                    <img
-                                                                      src="./download.ico"
+                                                                    <a
+                                                                      href={
+                                                                        documentlink
+                                                                      }
+                                                                      target="_blank"
                                                                       style={{
-                                                                        maxWidth: 50,
+                                                                        width: 80,
                                                                       }}
-                                                                    />
-                                                                  </a>
-                                                                ) : (
-                                                                  ""
-                                                                ))}
-                                                            </center>
-                                                          )}
+                                                                    >
+                                                                      <img
+                                                                        src="./download.ico"
+                                                                        style={{
+                                                                          maxWidth: 50,
+                                                                        }}
+                                                                      />
+                                                                    </a>
+                                                                  )}
+                                                                {item.paid ==
+                                                                  "Paid" &&
+                                                                  this.state
+                                                                    .check_membership_type ==
+                                                                  "premium" &&
+                                                                  (item.premium_price ==
+                                                                    "0" ? (
+                                                                    <a
+                                                                      href={
+                                                                        documentlink
+                                                                      }
+                                                                      target="_blank"
+                                                                      style={{
+                                                                        width: 80,
+                                                                      }}
+                                                                    >
+                                                                      <img
+                                                                        src="./download.ico"
+                                                                        style={{
+                                                                          maxWidth: 50,
+                                                                        }}
+                                                                      />
+                                                                    </a>
+                                                                  ) : (
+                                                                    ""
+                                                                  ))}
+                                                              </center>
+                                                            )}
                                                         </td>
                                                       </tr>
                                                     );
@@ -2450,10 +2154,283 @@ class EcoRatings extends Component {
                                     </div>
                                     <div className="col-lg-2"></div>
                                   </div>
+
+                                  <h1
+                                    style={{
+                                      paddingBottom: "-30px !important",
+                                      marginTop: "30px",
+                                    }}
+                                  >
+                                    Deal Terms
+                                  </h1>
+                                  <div
+                                    className=""
+                                    style={{ marginTop: "0px !important" }}
+                                  >
+                                    <div className="container">
+                                      <div className="row">
+                                        <div className="col-lg-12">
+                                          <div className="info">
+                                            <span>End Date</span>
+                                            <h4
+                                              style={{
+                                                textTransform: "Capitalize",
+                                              }}
+                                            >
+                                              {this.state.deal_regular_end_date
+                                                ? moment(
+                                                  this.state
+                                                    .deal_regular_end_date
+                                                ).format("MMM DD, YYYY")
+                                                : ""}
+                                            </h4>
+                                          </div>
+                                          <div className="info">
+                                            <span> Min Investment</span>
+                                            <h4>₹ 25000 for CCD</h4>
+                                            <h4>₹ 307800 for CCPS</h4>
+                                          </div>
+                                          <div className="info">
+                                            <span>Valuation</span>
+                                            <h4>₹ 18 Cr</h4>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
+                                  <h1
+                                    style={{
+                                      paddingBottom: "0px",
+                                      marginTop: "20px",
+                                    }}
+                                  >
+                                    Company Details
+                                  </h1>
+                                  <section
+                                    className="deal-about-artment-section"
+                                    style={{ marginTop: "50px" }}
+                                  >
+                                    <div className="container">
+                                      <div className="row">
+                                        <div className="col-lg-12">
+                                          <div className="info">
+                                            <span>Legal Name</span>
+                                            <h4>
+                                              Madshades Technologies Private Ltd
+                                            </h4>
+                                          </div>
+                                          <div className="info">
+                                            <span>Founded</span>
+                                            <h4>2022-08-19</h4>
+                                          </div>
+                                          <div className="info">
+                                            <span>Status</span>
+                                            <h4>Private Limited Company</h4>
+                                          </div>
+                                          <div className="info">
+                                            <span>Employees</span>
+                                            <h4>35</h4>
+                                          </div>
+                                          <div className="info">
+                                            <span>Website</span>
+                                            <h4>
+                                              <a
+                                                style={{
+                                                  color: "rgb(7, 211, 252)",
+                                                }}
+                                                href="https://www.theelefant.com"
+                                                target="_blank"
+                                              >
+                                                www.theelefant.com
+                                              </a>
+                                            </h4>
+                                          </div>
+                                          <div className="info">
+                                            <span>Social Links</span>
+                                            <div className="social-icons">
+                                              <a href="https://www.facebook.com/theelefantofficial">
+                                                <i className="bx bxl-facebook fs-19"></i>
+                                              </a>
+                                              <a href="https://www.linkedin.com/company/the-elefant/?originalSubdomain=in">
+                                                <i className="bx bxl-linkedin fs-19"></i>
+                                              </a>
+                                              <a href="https://www.instagram.com/theelefant_official">
+                                                <i className="bx bxl-instagram fs-19"></i>
+                                              </a>
+                                              <a href="https://www.youtube.com/@theEleFant">
+                                                <i className="bx bxl-youtube fs-19"></i>
+                                              </a>
+                                            </div>
+                                          </div>
+                                          <div className="info">
+                                            <span>Address</span>
+                                            <h4>
+                                              705 Palm Spring Centre, New link
+                                              Road, Malad West Mumbai 400064
+                                            </h4>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </section>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div
+                              className="container home-decor-section mt-0"
+                              style={{ marginTop: "3px !important" }}
+                            >
+                              <h1
+                                className="text-center"
+                                style={{
+                                  marginBottom: "20px",
+                                  marginTop: "0px !important",
+                                }}
+                              >
+                                Market Overview
+                              </h1>
+                              <div className="row">
+                                <div className="col-lg-4">
+                                  <div className="single text-center h-lg market-boxes">
+                                    {/* <h2 style={{paddingBottom:"20px"}}>$1 Tn </h2> */}
+                                    <p
+                                      style={{
+                                        color: "white",
+                                        fontSize: "21px",
+                                        padding: "2px",
+                                        margin: "48px 0px",
+                                      }}
+                                    >
+                                      India has the largest child population
+                                      globally, with 275 million children in the
+                                      age group of 0 to 12 years. The Indian
+                                      National Education Policy 2020 emphasizes
+                                      play-based and activity-based learning,
+                                      recognizing the significance of play in
+                                      enhancing children's learning outcomes. It
+                                      proposes an integrated approach to formal
+                                      education that includes play, discovery,
+                                      and interactive learning.
+                                    </p>
                                   </div>
+                                </div>
+                                <div className="col-lg-4">
+                                  <div className="single text-center h-lg market-boxes">
+                                    {/* <h2 style={{paddingBottom:"20px"}}>$200 Bn</h2> */}
+                                    <p
+                                      style={{
+                                        color: "white",
+                                        fontSize: "21px",
+                                        padding: "2px",
+                                        margin: "63px 0px",
+                                      }}
+                                    >
+                                      The Indian toy market is set to reach $3
+                                      billion by 2028, driven by rising incomes
+                                      and a focus on child development. Toy
+                                      subscription services, expected to grow at
+                                      a CAGR of 12.2% from 2023 to 2028, offer a
+                                      convenient and eco-friendly solution,
+                                      tapping into India's vast and expanding
+                                      child population, which is over 17% of the
+                                      global total by 2036. The increasing
+                                      spending power of middle-class families
+                                      contributes to the market's potential,
+                                      with a growing openness to innovative
+                                      child development solutions like toy
+                                      subscriptions.
+                                    </p>
                                   </div>
+                                </div>
+
+                                <div className="col-lg-4">
+                                  <div className="single text-center h-lg market-boxes">
+                                    {/* <h2 style={{paddingBottom:"20px"}}>$200 Bn</h2> */}
+                                    <p
+                                      style={{
+                                        color: "white",
+                                        fontSize: "21px",
+                                        padding: "2px",
+                                        margin: "51px 0px",
+                                      }}
+                                    >
+                                      The evolution of the toy industry reflects
+                                      a transition from traditional toys to
+                                      modern, technology-driven offerings. In
+                                      the past, simple toys focused on promoting
+                                      imagination. Presently, STEM-based,
+                                      Montessori and eco-friendly toys are
+                                      prevalent, aligning with changing consumer
+                                      preferences. Looking to the future,
+                                      emerging technologies like virtual reality
+                                      and artificial intelligence are expected
+                                      to shape toys, providing immersive
+                                      experiences. The industry anticipates a
+                                      continued focus on learning, creativity,
+                                      and social interaction in toys,
+                                      emphasizing their crucial role in child
+                                      development.
+                                    </p>
                                   </div>
+                                </div>
+                              </div>
+                              <div className="text-center fs-4">
+                                <span style={{ color: "#000" }}>Source: </span>
+                                <span style={{ color: "rgb(127, 119, 118)" }}>
+                                  Multiple publicly available research and
+                                  survey reports
+                                </span>
+                              </div>
+                              <p className=""> </p>
+                              <div className="text-center fluid-container"></div>
+                            </div>
+
+                            <div
+                              className=""
+                              style={{
+                                backgroundColor: "white",
+                                marginTop: "1px !important",
+                              }}
+                            >
+                              <h1
+                                style={{
+                                  fontSize: 32,
+                                  marginBottom: 30,
+                                  textAlign: "center",
+                                  marginTop: "-10px !important",
+                                }}
+                              >
+                                Investor Presentation
+                              </h1>
+                              <Slider
+                                {...settings}
+                                className="mb-5 pitch-slider"
+                              >
+                                {images.map((image, index) => (
+                                  <img
+                                    key={index}
+                                    src={image}
+                                    onClick={() => this.handleClickImage(image)}
+                                  />
+                                ))}
+                              </Slider>
+                              {current && (
+                                <Lightbox
+                                  mainSrc={current}
+                                  onCloseRequest={this.handleCloseModal}
+                                />
+                              )}
+                            </div>
+                          </div>
+                          {/* start */}
+
+                          <div
+                            className="deals-page"
+                            style={{
+                              marginTop: "50px !important",
+                            }}
+                          >
                             <div className="tab-wrapper">
                               <div className="container">
                                 <div className="row">
@@ -2495,45 +2472,32 @@ class EcoRatings extends Component {
                                                           color: "#7f7776",
                                                         }}
                                                       >
-                                                        EcoRatings is primarily
-                                                        based on a
-                                                        product-oriented
-                                                        approach. The startup
-                                                        offers a Gen AI solution
-                                                        designed to assist
-                                                        companies in making
-                                                        informed decisions on
-                                                        sustainability
-                                                        parameters. This product
-                                                        focuses on providing
-                                                        services related to ESG
-                                                        (Environmental, Social,
-                                                        and Governance)
-                                                        reporting, compliance,
-                                                        and sustainability
-                                                        assessments.
-                                                        Additionally, EcoRatings
-                                                        offers Audited ESG
-                                                        Ratings, contributing to
-                                                        the transparency of a
-                                                        company's sustainability
-                                                        efforts.</p>
-                                                        <p
-                                                        style={{
-                                                          color: "#7f7776",
-                                                        }}
-                                                      >
-                                                         In summary,
-                                                        while EcoRatings
-                                                        provides services
-                                                        through its Gen AI
-                                                        solution and ESG
-                                                        Ratings, its core focus
-                                                        is on delivering a
-                                                        product that facilitates
-                                                        sustainability
-                                                        decision-making for
-                                                        businesses.
+                                                        The EleFant offers a
+                                                        service, specifically a
+                                                        subscription-based toy
+                                                        library model. It
+                                                        provides users with
+                                                        access to a curated
+                                                        selection of toys
+                                                        through a membership or
+                                                        subscription, allowing
+                                                        them to enjoy a variety
+                                                        of toys without the need
+                                                        for ownership. The
+                                                        service is facilitated
+                                                        through a mobile
+                                                        application, which plays
+                                                        a crucial role in
+                                                        managing subscriptions,
+                                                        selecting toys, and
+                                                        enhancing the overall
+                                                        user experience. The
+                                                        focus is on providing an
+                                                        economical,
+                                                        clutter-free, and
+                                                        environmentally friendly
+                                                        toy solution for
+                                                        children.
                                                       </p>
                                                     </div>
                                                   </Panel>
@@ -2552,9 +2516,75 @@ class EcoRatings extends Component {
                                                           color: "#7f7776",
                                                         }}
                                                       >
-                                                        A key challenge for EcoRatings in scaling up is the extended Proof of Concept (POC) time, which could potentially delay client onboarding and overall growth. To address this challenge, the company plans to implement a strategy of conducting multiple POCs concurrently. By engaging in parallel Proof of Concepts, EcoRatings aims to optimize resource utilization, demonstrate the efficacy of its Gen AI solution to a broader audience, and expedite the validation process. This approach is designed to mitigate the impact of prolonged POC durations, ensuring a more efficient and accelerated scale-up phase for the company.
+                                                        Scaling up The EleFant poses
+                                                        challenges such as
+                                                        optimizing logistics for
+                                                        a growing subscriber
+                                                        base, efficient customer
+                                                        acquisition through
+                                                        targeted marketing,
+                                                        maintaining quality
+                                                        control and toy upkeep,
+                                                        expanding the librarian
+                                                        network, ensuring
+                                                        compliance with
+                                                        regulations, staying
+                                                        competitive in a dynamic
+                                                        market, and focusing on
+                                                        customer retention
+                                                        strategies. To tackle
+                                                        these challenges,
+                                                        The EleFant needs to invest
+                                                        in robust logistics
+                                                        infrastructure,
+                                                        implement comprehensive
+                                                        marketing strategies,
+                                                        enforce stringent
+                                                        quality control
+                                                        measures, provide
+                                                        continuous librarian
+                                                        training and support,
+                                                        stay updated on
+                                                        regulatory requirements,
+                                                        foster innovation to
+                                                        stay competitive and
+                                                        build strong customer
+                                                        relationships through
+                                                        personalized services
+                                                        and continuous
+                                                        improvement based on
+                                                        customer feedback.
+                                                        Addressing these aspects
+                                                        strategically will be
+                                                        essential for The EleFant's
+                                                        successful and
+                                                        sustainable scale-up in
+                                                        the toy subscription
+                                                        industry.
                                                       </p>
-                                                    
+                                                      {/* <p
+                                                        style={{
+                                                          color: "#7f7776",
+                                                        }}
+                                                      >
+                                                        2. Additionally, the
+                                                        company's ability to
+                                                        maximize contract values
+                                                        with existing clients
+                                                        and expand into new
+                                                        clusters and sectors is
+                                                        crucial. By maintaining
+                                                        a sharp focus on unit
+                                                        economics and
+                                                        continuously adapting to
+                                                        market conditions,
+                                                        Indusuno can effectively
+                                                        navigate the challenges
+                                                        and seize the growth
+                                                        opportunities in the B2B
+                                                        supply chain industry in
+                                                        India.
+                                                      </p> */}
                                                     </div>
                                                   </Panel>
 
@@ -2573,9 +2603,92 @@ class EcoRatings extends Component {
                                                           color: "#7f7776",
                                                         }}
                                                       >
-                                                       
-Yes, EcoRatings is targeting a relatively new and untapped market in India, and the justification for this lies in the rapid adoption of sustainability practices within the region. While the concept of sustainability and Environmental, Social, and Governance (ESG) parameters is gaining traction globally, the market for such solutions is still emerging in India. The startup recognizes the potential for growth and influence in a market where environmental consciousness is on the rise. The quick adoption of sustainability practices in India provides EcoRatings with an opportunity to establish itself as a pioneer in the region, offering Gen AI solutions for informed decision-making on sustainability parameters. By entering this untapped market, EcoRatings aims to play a significant role in shaping and advancing sustainable business practices in India, aligning with the increasing demand for ESG-focused solutions.
+                                                        The EleFant has the
+                                                        potential to tap into a
+                                                        relatively untapped
+                                                        market by offering its
+                                                        unique
+                                                        subscription-based toy
+                                                        library model. The
+                                                        traditional toy market
+                                                        primarily involves
+                                                        one-time purchases,
+                                                        which may pose financial
+                                                        and storage challenges
+                                                        for parents.The EleFant's
+                                                        subscription model
+                                                        addresses these concerns
+                                                        by providing an
+                                                        economical,
+                                                        clutter-free, and
+                                                        environmentally friendly
+                                                        toy solution. This
+                                                        approach caters to a
+                                                        segment of parents who
+                                                        may be looking for more
+                                                        sustainable and
+                                                        cost-effective
+                                                        alternatives. Moreover,
+                                                        the emphasis on curated,
+                                                        high-quality, and
+                                                        educational toys,
+                                                        coupled with a
+                                                        personalized user
+                                                        experience through the
+                                                        app, distinguishes
+                                                        The EleFant in the market.
+                                                        By targeting this
+                                                        untapped market segment,
+                                                        The EleFant positions itself
+                                                        as a convenient and
+                                                        innovative solution,
+                                                        potentially attracting a
+                                                        new customer base
+                                                        seeking more flexible
+                                                        and sustainable options
+                                                        for their children's
+                                                        play and learning
+                                                        experiences.
                                                       </p>
+                                                      {/* <p
+                                                        style={{
+                                                          color: "#7f7776",
+                                                        }}
+                                                      >
+                                                        2. The company's unique
+                                                        value proposition lies
+                                                        in its provision of a
+                                                        customized single-source
+                                                        solution for clients,
+                                                        streamlining the
+                                                        procurement process.
+                                                      </p>
+                                                      <p
+                                                        style={{
+                                                          color: "#7f7776",
+                                                        }}
+                                                      >
+                                                        3. Indusuno's commitment
+                                                        to providing analytics
+                                                        and feedback to its
+                                                        suppliers fosters
+                                                        efficiency improvements.
+                                                        Strong customer
+                                                        relationships,
+                                                        particularly with key
+                                                        account clients, are
+                                                        pivotal in maintaining
+                                                        and expanding business.
+                                                        Furthermore, the
+                                                        company's focus on
+                                                        optimizing efficiency
+                                                        and delivering cost
+                                                        savings cements its
+                                                        competitive advantage in
+                                                        a market where
+                                                        cost-consciousness is
+                                                        paramount.
+                                                      </p> */}
                                                     </div>
                                                   </Panel>
                                                   <Panel
@@ -2593,9 +2706,94 @@ Yes, EcoRatings is targeting a relatively new and untapped market in India, and 
                                                           color: "#7f7776",
                                                         }}
                                                       >
-                                                       EcoRatings' competitive advantages, or "moats," center around its proprietary Large Language Model (LLM) with 30 billion parameters, exclusively focused on sustainability. This unique model, combined with the company's dedication to environmental, social, and governance (ESG) factors, positions EcoRatings as a leader in the industry. The limited competition in large language models, access to proprietary data, and an experienced leadership team further enhance its competitive edge.
+                                                        The EleFant's competitive
+                                                        edge is built on a
+                                                        distinctive
+                                                        subscription-based toy
+                                                        library model, fostering
+                                                        recurring revenue and
+                                                        customer loyalty. This
+                                                        approach not only offers
+                                                        an economical and
+                                                        sustainable alternative
+                                                        to traditional toy
+                                                        ownership but also
+                                                        ensures a consistent
+                                                        relationship with
+                                                        customers. The curated
+                                                        catalog of high-quality,
+                                                        educational toys,
+                                                        coupled with
+                                                        personalized
+                                                        recommendations based on
+                                                        a child's age and
+                                                        interests, establishes a
+                                                        unique selling
+                                                        proposition. The
+                                                        user-friendly mobile
+                                                        application, with
+                                                        features like real-time
+                                                        tracking and push
+                                                        notifications, enhances
+                                                        convenience and sets
+                                                        The EleFant apart in terms
+                                                        of technological
+                                                        accessibility.
+                                                        Furthermore,The EleFant's
+                                                        commitment to
+                                                        environmental
+                                                        sustainability by
+                                                        reducing toy waste adds
+                                                        an eco-friendly
+                                                        dimension, aligning with
+                                                        the growing consumer
+                                                        trend towards socially
+                                                        responsible products.
+                                                        Collectively, these
+                                                        factors create a robust
+                                                        competitive moat for
+                                                        The EleFant in the toy
+                                                        industry.
                                                       </p>
-                                                     
+                                                      {/* <p
+                                                        style={{
+                                                          color: "#7f7776",
+                                                        }}
+                                                      >
+                                                        2. The company's unique
+                                                        value proposition lies
+                                                        in its provision of a
+                                                        customized single-source
+                                                        solution for clients,
+                                                        streamlining the
+                                                        procurement process.
+                                                      </p> */}
+                                                      {/* <p
+                                                        style={{
+                                                          color: "#7f7776",
+                                                        }}
+                                                      >
+                                                        3. Indusuno's commitment
+                                                        to providing analytics
+                                                        and feedback to its
+                                                        suppliers fosters
+                                                        efficiency improvements.
+                                                        Strong customer
+                                                        relationships,
+                                                        particularly with key
+                                                        account clients, are
+                                                        pivotal in maintaining
+                                                        and expanding business.
+                                                        Furthermore, the
+                                                        company's focus on
+                                                        optimizing efficiency
+                                                        and delivering cost
+                                                        savings cements its
+                                                        competitive advantage in
+                                                        a market where
+                                                        cost-consciousness is
+                                                        paramount.
+                                                      </p> */}
                                                     </div>
                                                   </Panel>
                                                 </Collapse>
@@ -2779,16 +2977,16 @@ Yes, EcoRatings is targeting a relatively new and untapped market in India, and 
                                 <div
                                   className="single"
                                   style={{ paddingBottom: "0px !important" }}
-                                  // style={{  marginBottom: 0px !important}}
+                                // style={{  marginBottom: 0px !important}}
                                 >
                                   <div className="d-flex">
                                     <img
-                                      src="./assets/images/deals-details/EcoRatings/team/aditibalbirpic.PNG"
+                                      src="./assets/images/deals-details/the EleFant/team/sourabh.jpg"
                                       alt=""
                                     />
                                     <div className="intro">
-                                      <h3>Aditi Balbir</h3>
-                                      <span>CEO</span>
+                                      <h3>CA Sourabh Jain</h3>
+                                      <span>Founder and CEO</span>
                                       <div
                                         className="social-icons"
                                         style={{
@@ -2797,7 +2995,7 @@ Yes, EcoRatings is targeting a relatively new and untapped market in India, and 
                                         }}
                                       >
                                         <a
-                                          href="https://www.linkedin.com/in/aditi-b-05574738/"
+                                          href="https://www.linkedin.com/in/sourabhjain-theelefant/"
                                           target="_blank"
                                         >
                                           <i className="bx bxl-linkedin"></i>
@@ -2814,20 +3012,25 @@ Yes, EcoRatings is targeting a relatively new and untapped market in India, and 
                                   <ul>
                                     <li>
                                       <a>
-                                      Aditi has worked with marquee names such as Barings Private Equity, McKinsey & Company, etc. 
-
+                                        16 years of diverse and global
+                                        experience across accountancy and
+                                        internal Audit, delivering value-added
+                                        solutions to clients and businesses
+                                        across various sectors and markets.
                                       </a>
                                     </li>
                                     <li>
                                       <a>
                                         {" "}
-                                        She has extensive hands-on experience with investment, scaling and startups. 
-
+                                        Registered Independent Director, CA, and
+                                        CS.
                                       </a>
                                     </li>
                                     <li>
                                       <a>
-                                      She has experience running a VC-funded eco-tourism venture and has received recognition, including the UNWTO award for sustainable tourism.
+                                        {" "}
+                                        Bringing strategic leadership and
+                                        financial acumen to The EleFant.
                                       </a>
                                     </li>
                                   </ul>
@@ -2846,12 +3049,12 @@ Yes, EcoRatings is targeting a relatively new and untapped market in India, and 
                                 <div className="single">
                                   <div className="d-flex">
                                     <img
-                                      src="./assets/images/deals-details/EcoRatings/team/aqeelahmad.PNG"
+                                      src="./assets/images/deals-details/the EleFant/team/santhosh.jpg"
                                       alt=""
                                     />
                                     <div className="intro">
-                                      <h3>Aqeel Ahmed</h3>
-                                      <span>COO</span>
+                                      <h3>Santhosh Vemishetty</h3>
+                                      <span>Head - Product & Tech</span>
                                       <div
                                         className="social-icons"
                                         style={{
@@ -2860,7 +3063,7 @@ Yes, EcoRatings is targeting a relatively new and untapped market in India, and 
                                         }}
                                       >
                                         <a
-                                          href="https://www.linkedin.com/in/aqeelahmed/"
+                                          href="https://www.linkedin.com/in/santhoshv44/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
                                           target="_blank"
                                         >
                                           <i className="bx bxl-linkedin"></i>
@@ -2875,16 +3078,25 @@ Yes, EcoRatings is targeting a relatively new and untapped market in India, and 
                                   <ul>
                                     <li>
                                       <a>
-                                      A seasoned professional with extensive experience in designing, developing, and operating complex big data and AI platforms. 
-
+                                        10+ years of experience, specializing in
+                                        building innovative, data-driven
+                                        products, Retail/F&B processes, and SaaS
+                                        products, leading Omni Channel Retail
+                                        transformation
                                       </a>
                                     </li>
                                     <li>
                                       <a>
-                                      Aqeel has a successful track record with ventures like RateGain, which had an ARR of $60 million and a successful IPO.
+                                        Ex-Target, Aditya Birla, Chai Point,
+                                        Flash Coffee
                                       </a>
                                     </li>
-                                  
+                                    <li>
+                                      <a>
+                                        Contributing to The EleFant's product
+                                        innovation.
+                                      </a>
+                                    </li>
                                   </ul>
                                 </div>
                               </div>
@@ -2892,13 +3104,14 @@ Yes, EcoRatings is targeting a relatively new and untapped market in India, and 
                                 <div className="single">
                                   <div className="d-flex">
                                     <img
-                                      src="./assets/images/deals-details/EcoRatings/team/shrutianand.PNG"
+                                      src="./assets/images/deals-details/the EleFant/team/nirupa.png"
                                       alt=""
                                     />
                                     <div className="intro">
-                                      <h3>Shruti Anand</h3>
+                                      <h3>Nirupa Vora</h3>
                                       <span>
-                                      CGO
+                                        Head - Toy Curator & Librarian
+                                        Engagement
                                       </span>
                                       <div
                                         className="social-icons"
@@ -2908,7 +3121,7 @@ Yes, EcoRatings is targeting a relatively new and untapped market in India, and 
                                         }}
                                       >
                                         <a
-                                          href="https://www.linkedin.com/in/shrutianand-india/"
+                                          href="https://www.linkedin.com/in/nirupa-vora-18b442291/"
                                           target="_blank"
                                         >
                                           <i className="bx bxl-linkedin"></i>
@@ -2923,17 +3136,16 @@ Yes, EcoRatings is targeting a relatively new and untapped market in India, and 
                                   <ul>
                                     <li style={{ listStyleType: "disc" }}>
                                       <a>
-                                      With vast experience in sales and marketing,
-
+                                      With her background as a former Principal, she brings valuable experience to curate and engage with the toy library, ensuring a quality selection of toys and fostering positive interactions with librarians.
                                       </a>
                                     </li>
-                                    <li>
+                                    {/* <li>
                                       <a>
                                         {" "}
-                                        She has a deep network and has closed strategic alliances worth US$ 200 million as part of Brand Capital, the strategic investment arm of Times Group.
+                                        Registered Independent Director, CA, and
+                                        CS.
                                       </a>
                                     </li>
-                                    {/* 
                                     <li>
                                       <a>
                                         {" "}
@@ -2944,7 +3156,62 @@ Yes, EcoRatings is targeting a relatively new and untapped market in India, and 
                                   </ul>
                                 </div>
                               </div>
-                           
+                              <div className="col-lg-6">
+                                <div className="single">
+                                  <div className="d-flex">
+                                    <img
+                                      src="./assets/images/deals-details/the EleFant/team/ruchi-new.png"
+                                      alt=""
+                                    />
+                                    <div className="intro">
+                                      <h3>CA Ruchi Gour</h3>
+                                      <span>
+                                        Head -Finance & Investor Relations CA
+                                      </span>
+                                      <div
+                                        className="social-icons"
+                                        style={{
+                                          marginTop: 4,
+                                          marginLeft: -6,
+                                        }}
+                                      >
+                                        <a
+                                          href="https://www.linkedin.com/in/ruchi-gour-92109b30/"
+                                          target="_blank"
+                                        >
+                                          <i className="bx bxl-linkedin"></i>
+                                        </a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  {/* <p>
+                                    Business Management, from Osmania University
+                                    Financial
+                                  </p> */}
+                                  <ul>
+                                    <li>
+                                      <a>
+                                        14+ experience across finance domains of
+                                        process audits, accounting
+                                        controllership, business finance,
+                                        funding, investments and acquisitions
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a>
+                                        Ex Amazon, Swiggy, Meesho, Dream 11, and
+                                        ITC
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a>
+                                        Managing The EleFant's financial operations
+                                        and investor relations.
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
 
                               {/* <div className="col-lg-6">
                                 <div className="single">
@@ -3067,4 +3334,4 @@ Yes, EcoRatings is targeting a relatively new and untapped market in India, and 
   }
 }
 
-export default EcoRatings;
+export default EleFant;
