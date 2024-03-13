@@ -1426,7 +1426,7 @@ footer .left span {
 .meet-the-team-section .single {
   border-radius: 1.5rem;
   overflow: hidden;
-  box-shadow: 0 0 15px rgb(0 0 0 / 8%);
+  box-shadow: 5px 5px 20px rgba(41, 23, 111, 0.35);
   background-color: #fff;
   margin-bottom: 60px;
   padding-bottom: 40px;
@@ -2397,6 +2397,10 @@ footer .left span {
   text-align: center;
 }
 @media screen and (min-width: 501px){
+  .highlight-rows .oraihighlight{
+    min-height: 260px !important;
+  
+  }
   .highlight-rows .elefanthighlight{
     min-height: 400px !important;
   
@@ -2577,6 +2581,9 @@ footer .left span {
   }
   .deal_flow_block .steps .steps-container:nth-child(2n) {
     left: 0;
+  }
+  .meet-the-team-section .single {
+    height: auto !important;
   }
 }
 .download-document-table td,
