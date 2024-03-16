@@ -1733,7 +1733,7 @@ class EleFant extends Component {
                       Highlights
                     </h1>
                     <div className="row highlight-rows">
-                      <div className="col-lg-6 col-md-6 col-sm-6">
+                      <div className="col-lg-6 col-md-6 col-sm-12 col-12 col-xl-6">
                         <div
                           className="single elefanthighlight text-left"
                           style={{}}
@@ -1757,7 +1757,7 @@ class EleFant extends Component {
                           </p>
                         </div>
                       </div>
-                      <div className="col-lg-6 col-md-6 col-sm-6">
+                      <div className="col-lg-6 col-md-6 col-sm-12 col-12 col-xl-6">
                         <div
                           className="single elefanthighlight text-left"
                           style={{}}
@@ -1778,7 +1778,7 @@ class EleFant extends Component {
                           </p>
                         </div>
                       </div>
-                      <div className="col-lg-6 col-md-6 col-sm-6">
+                      <div className="col-lg-6 col-md-6 col-sm-12 col-12 col-xl-6">
                         <div
                           className="single elefanthighlight text-left"
                           style={{}}
@@ -1799,7 +1799,7 @@ class EleFant extends Component {
                           </p>
                         </div>
                       </div>
-                      <div className="col-lg-6 col-md-6 col-sm-6">
+                      <div className="col-lg-6 col-md-6 col-sm-12 col-12 col-xl-6">
                         <div
                           className="single elefanthighlight text-left"
                           style={{}}
@@ -1824,7 +1824,7 @@ class EleFant extends Component {
                           </p>
                         </div>
                       </div>
-                      <div className="col-lg-6 col-md-6 col-sm-6">
+                      <div className="col-lg-6 col-md-6 col-sm-12 col-12 col-xl-6">
                         <div
                           className="single elefanthighlight text-left"
                           style={{}}
@@ -1850,7 +1850,7 @@ class EleFant extends Component {
                           </p>
                         </div>
                       </div>
-                      <div className="col-lg-6 col-md-6 col-sm-6">
+                      <div className="col-lg-6 col-md-6 col-sm-12 col-12 col-xl-6">
                         <div
                           className="single elefanthighlight text-left"
                           style={{}}

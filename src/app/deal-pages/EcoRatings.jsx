@@ -124,7 +124,7 @@ class EcoRatings extends Component {
     document.title = "EcoRatings - Growth91 - Startup Marketplace ";
   }
   componentDidMount() {
-    let deal_id = "29";
+    let deal_id = "118";
     this.setState({ deal_id: deal_id }, () => {
       this.get_pitch_list();
     });
@@ -1756,7 +1756,7 @@ class EcoRatings extends Component {
                       Highlights
                     </h1>
                     <div className="row highlight-rows">
-                      <div className="col-lg-6 col-md-6 col-sm-6">
+                      <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
                         <div
                           className="single Ecoratings text-left"
                           style={{}}
@@ -1776,7 +1776,7 @@ class EcoRatings extends Component {
                           </p>
                         </div>
                       </div>
-                      <div className="col-lg-6 col-md-6 col-sm-6">
+                      <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
                         <div
                           className="single Ecoratings text-left"
                           style={{}}
@@ -1796,7 +1796,7 @@ class EcoRatings extends Component {
                           </p>
                         </div>
                       </div>
-                      <div className="col-lg-6 col-md-6 col-sm-6">
+                      <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
                         <div
                           className="single Ecoratings text-left"
                           style={{}}
@@ -1816,7 +1816,7 @@ class EcoRatings extends Component {
                           </p>
                         </div>
                       </div>
-                      <div className="col-lg-6 col-md-6 col-sm-6">
+                      <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
                         <div
                           className="single Ecoratings text-left"
                           style={{}}
@@ -1838,7 +1838,7 @@ class EcoRatings extends Component {
                           </p>
                         </div>
                       </div>
-                      <div className="col-lg-6 col-md-6 col-sm-6">
+                      <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
                         <div
                           className="single Ecoratings text-left"
                           style={{}}
@@ -1860,9 +1860,9 @@ class EcoRatings extends Component {
                           </p>
                         </div>
                       </div>
-                      <div className="col-lg-6 col-md-6 col-sm-6">
+                      <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
                         <div
-                          className="single Ecoratings text-left"
+                          className="single  Ecoratings text-left"
                           style={{}}
                         >
                           <div className="hightlights-images">
@@ -1896,7 +1896,7 @@ class EcoRatings extends Component {
                       Media Coverage
                     </h1>
                     <div className="row">
-                      <div className="col-lg-6 col-md-6 col-sm-6">
+                      <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
                         <div className="single medialink text-left d-flex flex-column  ">
                           <img src="./assets/images/deals-details/the EleFant/Articles/1.webp" />
 

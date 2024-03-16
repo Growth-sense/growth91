@@ -248,6 +248,7 @@ class Deals extends Component {
       offline_deal_id: "",
       offline_startup_id: "",
       input_status: false,
+      cc_to_founder: "No",
       input_file_status: false,
       invite_form_loader: false,
       bannerimg: "",
@@ -1190,6 +1191,7 @@ class Deals extends Component {
     });
   };
   download_sample_file = () => {
+    // console.log(this.state.cc_to_founder);
     let fileName = "Sample file";
     let arr = [
       {
@@ -1733,12 +1735,14 @@ class Deals extends Component {
 
   exportToCSV_CommitList = (fileName) => {
     let arr = [];
+    console.log(this.state.commitment_investor_list);
     let count = 1;
     for (let item of this.state.commitment_investor_list) {
       let obj = {
         "Sr No": count,
         "Investor ID": item.investor_id,
         "Name": item.first_name + " " + item.last_name,
+        "Legal Name": item.pan_registered_name,
         "Investment Amount": item.amount,
         "Fee Amount": item.processingfees,
         "Email": item.email,
@@ -2333,6 +2337,7 @@ class Deals extends Component {
           commitment_satus: item.commitment_satus === "committed" ? <Tag color="green">Invested</Tag> : <Tag color="red">Pending</Tag>,
           created_at: item.created_at ? moment(item.created_at).format('D-MMM-YYYY h:mm A') : '',
           name: item.first_name + " " + item.last_name,
+          legalname: item.pan_registered_name,
           deal_name: item.deal_name,
           totalamount: item.totalamount,
           data: item,
@@ -2763,6 +2768,12 @@ class Deals extends Component {
         title: "Name",
         dataIndex: "name",
         key: "name",
+        width: 100,
+      },
+      {
+        title: "Legal Name",
+        dataIndex: "legalname",
+        key: "legalname",
         width: 100,
       },
       // {
@@ -4192,6 +4203,17 @@ class Deals extends Component {
                   name="invite_mobile"
                   onChange={(e) => this.handleChangeInputs(e)}
                   disabled={this.state.input_status == true ? true : false}
+                />
+              </div>
+        <div className="mt-4 editor-field d-flex align-items-center">
+                <label className="mb-2">CC to founder</label>
+                <input
+                  type="checkbox"
+                  onWheel={() => document.activeElement.blur()}
+                  value={this.state.cc_to_founder}
+                  name="cc_to_founder"
+                  onChange={(e) => this.handleChangeInputs()}
+                  // disabled={this.state.input_status == true ? true : false}
                 />
               </div>
             </div>

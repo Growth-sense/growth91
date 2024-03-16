@@ -66,6 +66,7 @@ class RetailReferral extends Component {
       let arr = [];
       for (let item of this.state.cretailReferralList) {
         if (
+          (item.benefactF && item.benefactF.toLowerCase().includes(text.toLowerCase())) ||
           (item.first_name && item.first_name.toLowerCase().includes(text.toLowerCase())) ||
           (item.last_name && item.last_name.toLowerCase().includes(text.toLowerCase())) ||
           (item.email && item.email.toLowerCase().includes(text.toLowerCase())) ||

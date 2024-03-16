@@ -3071,3 +3071,32 @@ option {
 }
 .elefantteam .single{
   height: 460px;}
+
+
+ 
+  
+  @media screen and (max-width : 992px) and (min-width: 768px){
+    .highlight-rows .oraihighlight{
+      min-height: 360px !important;
+    }
+    .deals-details-page .main-section p{
+      width: 100%;
+      max-width: 100% !important;
+    }
+  }
+  @media screen and (max-width : 767px) and (min-width:567px){
+    .highlight-rows .oraihighlight{
+      min-height: 360px !important;
+    }
+    .deals-details-page .main-section p{
+      width: 100%;
+      max-width: 100% !important;
+    }
+  }
+
+
+  @media screen and (max-width: 767px){
+    .deals-details-page .main-section p{
+      max-width: 100% !important;
+    }
+  }

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+  import React, { Component } from "react";
 import WebHeader from "./common/WebHeader";
 import WebFooter from "./common/WebFooter";
 import Slider from "react-slick";
@@ -336,7 +336,7 @@ class Home extends Component {
                       <div className="row align-items-center ">
                         <div className="col-lg-6">
                           <div className="left-content">
-                            <h2 className="wow fadeInUp " data-wow-delay="0.3s">
+                            <h2 className="wow fadeInUp " data-wow-delay="0.5s">
                               {" "}
                               Invest in Startups.
                             </h2>
@@ -490,9 +490,10 @@ class Home extends Component {
                   style={{ gap: "20px" }}
                 >
                   <a href="#">
-                    <img src="./web/news1.jpg" alt="" className="news-img" />
+                    <img src="./web/news1.webp" alt="" className="news-img" />
                   </a>
                   <a
+                  rel="preload"
                     href="https://www.linkedin.com/posts/indianstartupnews_startup-funding-angelinvestors-activity-7024718695234965504-IVIB?utm_source=share&utm_medium=member_ios"
                     target="_blank"
                   >

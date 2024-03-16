@@ -1884,7 +1884,9 @@ class Investors extends Component {
                             name="file"
                             onChange={this.onPanimageChange}
                             style={{ width: 350 }}
-                            accept="image/*"
+                            accept="application/pdf, image/*"
+                            // accept="application/pdf, pdf, .png, .jpg ,.jpeg"
+
                           />
                         </>
                       ) : (
@@ -1894,7 +1896,7 @@ class Investors extends Component {
 
                           <input
                             type="file"
-                            accept="image/*"
+                            accept=" application/pdf, image/*"
                             name="file"
                             onChange={this.onPanimageChange}
                             style={{ width: 350 }}
@@ -2037,7 +2039,7 @@ class Investors extends Component {
                             <label>Change Adhar Card Image Front :</label>
                             <br />
                             <input
-                              accept="image/*"
+                              accept="application/pdf, image/*"
                               type="file"
                               name="file"
                               onChange={this.onAdharFrontimageChange}
@@ -2051,7 +2053,7 @@ class Investors extends Component {
 
                             <input
                               type="file"
-                              accept="image/*"
+                              accept="application/pdf, image/*"
                               name="file"
                               onChange={this.onAdharFrontimageChange}
                               style={{ width: 350 }}
@@ -2074,7 +2076,7 @@ class Investors extends Component {
                               <br />
                               <input
                                 type="file"
-                                accept="image/*"
+                                accept="application/pdf, image/*"
                                 name="file"
                                 onChange={this.onAdharBackimageChange}
                                 style={{ width: 350 }}
@@ -2087,7 +2089,7 @@ class Investors extends Component {
 
                               <input
                                 type="file"
-                                accept="image/*"
+                                accept="application/pdf, image/*"
                                 name="file"
                                 onChange={this.onAdharBackimageChange}
                                 style={{ width: 350 }}
@@ -2210,7 +2212,7 @@ class Investors extends Component {
                             <br />
                             <input
                               type="file"
-                              accept="image/*"
+                              accept="application/pdf, image/*"
                               name="file"
                               onChange={this.onCancelChequeimageChange}
                               style={{ width: 350 }}
@@ -2223,7 +2225,7 @@ class Investors extends Component {
 
                             <input
                               type="file"
-                              accept="image/*"
+                              accept="application/pdf, image/*"
                               name="file"
                               onChange={this.onCancelChequeimageChange}
                               style={{ width: 350 }}

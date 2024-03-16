@@ -1736,7 +1736,7 @@ class EleFant extends Component {
                       Highlights
                     </h1>
                     <div className="row highlight-rows">
-                      <div className="col-lg-6 col-md-6 col-sm-6">
+                      <div className="col-lg-6 col-md-6 col-sm-12 col-12 col-xl-6">
                         <div
                           className="single oraihighlight text-left"
                           style={{}}
@@ -1754,7 +1754,7 @@ class EleFant extends Component {
                           </p>
                         </div>
                       </div>
-                      <div className="col-lg-6 col-md-6 col-sm-6">
+                      <div className="col-lg-6 col-md-6 col-sm-12 col-12 col-xl-6">
                         <div
                           className="single oraihighlight text-left"
                           style={{}}
@@ -1772,7 +1772,7 @@ class EleFant extends Component {
                           </p>
                         </div>
                       </div>
-                      <div className="col-lg-6 col-md-6 col-sm-6">
+                      <div className="col-lg-6 col-md-6 col-sm-12 col-12 col-xl-6">
                         <div
                           className="single oraihighlight text-left"
                           style={{}}
@@ -1790,7 +1790,7 @@ class EleFant extends Component {
                           </p>
                         </div>
                       </div>
-                      <div className="col-lg-6 col-md-6 col-sm-6">
+                      <div className="col-lg-6 col-md-6 col-sm-12 col-12 col-xl-6">
                         <div
                           className="single oraihighlight text-left"
                           style={{}}
@@ -2015,33 +2015,7 @@ class EleFant extends Component {
                           </div>
                           {/* start */}
 
-                          <div
-                            className="deals-page"
-                            style={{
-                              marginTop: "50px !important",
-                            }}
-                          >
-                            <div className="tab-wrapper">
-                              <div className="container">
-                                <div className="row">
-                                  <div className="col-lg-12">
-                                    <Tabs defaultActiveKey="1" centered>
-                                      <TabPane tab="FAQ" key="1">
-                                        <section
-                                          className="faq-section"
-                                          style={{
-                                            margin: "0px",
-                                            padding: "0px",
-                                            background: "none",
-                                          }}
-                                        ></section>
-                                      </TabPane>
-                                    </Tabs>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                       
                           <div
                             className="deals-page"
                             style={{

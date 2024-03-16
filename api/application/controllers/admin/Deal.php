@@ -155,12 +155,13 @@ class Deal extends CI_Controller
 			$this -> db -> where("investor_commitment.deal_id",$deal_id);*/
 			
 			 
-			$this -> db -> select("investor_commitment.*,users.kycstatus,users.email,users.first_name,users.last_name,deals.deal_name, user_pan_details.pan as kyc_pan, user_adhar_details.address as kyc_address, user_adhar_details.care_of as kyc_fathername,mobile");
+			$this -> db -> select("investor_commitment.*,users.kycstatus,users.email,users.first_name,users.last_name,deals.deal_name, user_pan_details.pan as kyc_pan, user_adhar_details.address as kyc_address, user_adhar_details.care_of as kyc_fathername,mobile,user_pan_details.father_name as pan_fathername,user_pan_details.registered_name as pan_registered_name,user_pan_details.name_provided as pan_name_provided");
 			$this -> db -> from("investor_commitment");
 			$this -> db -> join("deals","deals.deal_id = investor_commitment.deal_id");
 			$this -> db -> join("users","users.investor_id = investor_commitment.investor_id");
 			$this -> db -> join("user_adhar_details","user_adhar_details.user_id = users.investor_id","left");
 			$this -> db -> join("user_pan_details","user_pan_details.user_id = users.investor_id","left");
+			
 			$this -> db -> where("investor_commitment.parent_id",0);
 			$this -> db -> where("investor_commitment.deal_id",$deal_id);
 
@@ -170,7 +171,7 @@ class Deal extends CI_Controller
 			{
 				foreach($status as $Key => $Value)
 				{
-					$this -> db -> select("investor_commitment.*,users.kycstatus,users.email,users.first_name,users.last_name,deals.deal_name, user_pan_details.pan as kyc_pan, user_adhar_details.address as kyc_address, user_adhar_details.care_of as kyc_fathername, mobile");
+					$this -> db -> select("investor_commitment.*,users.kycstatus,users.email,users.first_name,users.last_name,deals.deal_name, user_pan_details.pan as kyc_pan, user_adhar_details.address as kyc_address, user_adhar_details.care_of as kyc_fathername, mobile,user_pan_details.father_name as pan_fathername,user_pan_details.registered_name as pan_registered_name,user_pan_details.name_provided as pan_name_provided");
 					$this -> db -> from("investor_commitment");
 					$this -> db -> join("deals","deals.deal_id = investor_commitment.deal_id");
 					$this -> db -> join("users","users.investor_id = investor_commitment.investor_id");
@@ -2156,7 +2157,7 @@ class Deal extends CI_Controller
 		$commitment["walletDeductionMoney"] = $this -> input -> post("walletDeductionMoney");
 		
 
-		if(empty($commitment["totalamount"]) || empty($commitment["deal_id"]) || empty($commitment["investor_id"]) || empty($commitment["amount"]) || empty($commitment["processingfees"]) || empty($delete_log["interested_id"]))
+		if(empty($commitment["totalamount"]) || empty($commitment["deal_id"]) || empty($commitment["investor_id"]) || empty($commitment["amount"])  || empty($delete_log["interested_id"]))
 		{
 		 	$response = [
 		 		'status' => '0',

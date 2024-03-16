@@ -1637,7 +1637,7 @@ class ORAI extends Component {
                       Highlights
                     </h1>
                     <div className="row">
-                      <div className="col-lg-6 col-md-6 col-sm-6">
+                      <div className="col-lg-6 col-md-6 col-sm-12 col-12 col-xl-6">
                         <div className="single oraihighlight text-left" style={{maxHeight:"200px"}}>
                           <img src="./assets/images/deals-details/Petmojo/highlight01.jpg" />
                           <p style={{ padding: "1px !important" }}>
@@ -1650,7 +1650,7 @@ class ORAI extends Component {
                           </p>
                         </div>
                       </div>
-                      <div className="col-lg-6 col-md-6 col-sm-6">
+                      <div className="col-lg-6 col-md-6 col-sm-12 col-12 col-xl-6">
                         <div className="single oraihighlight text-left" style={{maxHeight:"200px"}}>
                           <img src="./assets/images/deals-details/highlight2.jfif" />
                           <p style={{ padding: "0px !important" }}>
@@ -1663,7 +1663,7 @@ class ORAI extends Component {
                           </p>
                         </div>
                       </div>
-                      <div className="col-lg-6 col-md-6 col-sm-6">
+                      <div className="col-lg-6 col-md-6 col-sm-12 col-12 col-xl-6">
                         <div className="single oraihighlight text-left" style={{maxHeight:"200px"}}>
                           <img src="./assets/images/deals-details/highlight3.jpg" />
                           <p style={{ paddingLeft: "0px !important" }}>
@@ -1676,7 +1676,7 @@ class ORAI extends Component {
                           </p>
                         </div>
                       </div>
-                      <div className="col-lg-6 col-md-6 col-sm-6">
+                      <div className="col-lg-6 col-md-6 col-sm-12 col-12 col-xl-6">
                         <div className="single oraihighlight text-left" style={{maxHeight:"200px"}}>
                           <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
                           <p style={{ paddingLeft: "0px !important" }}>
