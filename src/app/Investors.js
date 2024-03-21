@@ -108,7 +108,7 @@ class Investors extends Component {
                             className="right-side-images wow fadeInRight"
                             data-wow-delay="0.6s"
                           >
-                            <img src="./web/images/blog1.png" alt="img" />
+                            <img src="./web/images/blog1.png" alt="img"  fetchpriority="high"/>
                           </div>
                         </div>
                       </div>

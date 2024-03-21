@@ -336,29 +336,29 @@ class Home extends Component {
                       <div className="row align-items-center ">
                         <div className="col-lg-6">
                           <div className="left-content">
-                            <h2 className="wow fadeInUp " data-wow-delay="0.5s">
+                            <h1 className="toph1"  fetchpriority="high" >
                               {" "}
                               Invest in Startups.
-                            </h2>
-                            <p
+                            </h1>
+                            <p fetchpriority="high"
                               style={{ textAlign: "justify" }}
-                              className="wow fadeInUp p-0"
-                              data-wow-delay="0.5s"
+                              className=" p-0"
+                              
                             >
                               Access curated growth opportunities and add
                               Startups to your investment portfolio.
                             </p>
                             <p
                               style={{ textAlign: "justify" }}
-                              className="wow fadeInUp p-0"
-                              data-wow-delay="0.5s"
+                              className=" p-0"
+                              
                             >
                               Invest alongside HNIs and Institutional investors.
                             </p>
                             <p
                               style={{ textAlign: "justify" }}
-                              className="wow fadeInUp mt-2"
-                              data-wow-delay="0.5s"
+                              className=" mt-2"
+                              
                             >
                               <span className="">
                                 <a
@@ -372,7 +372,7 @@ class Home extends Component {
                             </p>
 
                             <form
-                              className="input_box wow fadeInUp"
+                              className="input_box "
                               data-wow-delay="0.7s"
                             >
                               <div className="form-wraper">
@@ -490,14 +490,14 @@ class Home extends Component {
                   style={{ gap: "20px" }}
                 >
                   <a href="#">
-                    <img src="./web/news1.webp" alt="" className="news-img" />
+                    <img src="./web/news1.webp" alt="" className="news-img" fetchpriority="high"/>
                   </a>
                   <a
                   rel="preload"
                     href="https://www.linkedin.com/posts/indianstartupnews_startup-funding-angelinvestors-activity-7024718695234965504-IVIB?utm_source=share&utm_medium=member_ios"
                     target="_blank"
                   >
-                    <img src="./web/news.jpeg" alt="" className="news-img" />
+                    <img src="./web/news.webp" alt="" className="news-img" fetchpriority="high" />
                   </a>
                 </div>
               </div>

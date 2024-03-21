@@ -2226,35 +2226,7 @@ class EleFant extends Component {
                           </div>
                           {/* start */}
 
-                          <div
-                            className="deals-page"
-                            style={{
-                              marginTop: "50px !important",
-                            }}
-                          >
-                            <div className="tab-wrapper">
-                              <div className="container">
-                                <div className="row">
-                                  <div className="col-lg-12">
-                                    <Tabs defaultActiveKey="1" centered>
-                                      <TabPane tab="FAQ" key="1">
-                                        <section
-                                          className="faq-section"
-                                          style={{
-                                            margin: "0px",
-                                            padding: "0px",
-                                            background: "none",
-                                          }}
-                                        >
-                                        
-                                        </section>
-                                      </TabPane>
-                                    </Tabs>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                        
                           <div
                             className="deals-page"
                             style={{
@@ -2553,45 +2525,7 @@ class EleFant extends Component {
                                                           color: "#7f7776",
                                                         }}
                                                       >
-                                                        EcoRatings is primarily
-                                                        based on a
-                                                        product-oriented
-                                                        approach. The startup
-                                                        offers a Gen AI solution
-                                                        designed to assist
-                                                        companies in making
-                                                        informed decisions on
-                                                        sustainability
-                                                        parameters. This product
-                                                        focuses on providing
-                                                        services related to ESG
-                                                        (Environmental, Social,
-                                                        and Governance)
-                                                        reporting, compliance,
-                                                        and sustainability
-                                                        assessments.
-                                                        Additionally, EcoRatings
-                                                        offers Audited ESG
-                                                        Ratings, contributing to
-                                                        the transparency of a
-                                                        company's sustainability
-                                                        efforts.</p>
-                                                        <p
-                                                        style={{
-                                                          color: "#7f7776",
-                                                        }}
-                                                      >
-                                                         In summary,
-                                                        while EcoRatings
-                                                        provides services
-                                                        through its Gen AI
-                                                        solution and ESG
-                                                        Ratings, its core focus
-                                                        is on delivering a
-                                                        product that facilitates
-                                                        sustainability
-                                                        decision-making for
-                                                        businesses.
+                                                       EleFant offers a service, specifically a subscription-based toy library model. It provides users with access to a curated selection of toys through a membership or subscription, allowing them to enjoy a variety of toys without the need for ownership. The service is facilitated through a mobile application, which plays a crucial role in managing subscriptions, selecting toys, and enhancing the overall user experience. The focus is on providing an economical, clutter-free, and environmentally friendly toy solution for children.
                                                       </p>
                                                     </div>
                                                   </Panel>
@@ -2610,8 +2544,7 @@ class EleFant extends Component {
                                                           color: "#7f7776",
                                                         }}
                                                       >
-                                                        A key challenge for EcoRatings in scaling up is the extended Proof of Concept (POC) time, which could potentially delay client onboarding and overall growth. To address this challenge, the company plans to implement a strategy of conducting multiple POCs concurrently. By engaging in parallel Proof of Concepts, EcoRatings aims to optimize resource utilization, demonstrate the efficacy of its Gen AI solution to a broader audience, and expedite the validation process. This approach is designed to mitigate the impact of prolonged POC durations, ensuring a more efficient and accelerated scale-up phase for the company.
-                                                      </p>
+Scaling up EleFant poses challenges such as optimizing logistics for a growing subscriber base, efficient customer acquisition through targeted marketing, maintaining quality control and toy upkeep, expanding the librarian network, ensuring compliance with regulations, staying competitive in a dynamic market, and focusing on customer retention strategies. To tackle these challenges, EleFant needs to invest in robust logistics infrastructure, implement comprehensive marketing strategies, enforce stringent quality control measures, provide continuous librarian training and support, stay updated on regulatory requirements, foster innovation to stay competitive and build strong customer relationships through personalized services and continuous improvement based on customer feedback. Addressing these aspects strategically will be essential for EleFant's successful and sustainable scale-up in the toy subscription industry.                                                      </p>
                                                     
                                                     </div>
                                                   </Panel>
@@ -2632,8 +2565,7 @@ class EleFant extends Component {
                                                         }}
                                                       >
                                                        
-Yes, EcoRatings is targeting a relatively new and untapped market in India, and the justification for this lies in the rapid adoption of sustainability practices within the region. While the concept of sustainability and Environmental, Social, and Governance (ESG) parameters is gaining traction globally, the market for such solutions is still emerging in India. The startup recognizes the potential for growth and influence in a market where environmental consciousness is on the rise. The quick adoption of sustainability practices in India provides EcoRatings with an opportunity to establish itself as a pioneer in the region, offering Gen AI solutions for informed decision-making on sustainability parameters. By entering this untapped market, EcoRatings aims to play a significant role in shaping and advancing sustainable business practices in India, aligning with the increasing demand for ESG-focused solutions.
-                                                      </p>
+                                                       EleFant has the potential to tap into a relatively untapped market by offering its unique subscription-based toy library model. The traditional toy market primarily involves one-time purchases, which may pose financial and storage challenges for parents. EleFant's subscription model addresses these concerns by providing an economical, clutter-free, and environmentally friendly toy solution. This approach caters to a segment of parents who may be looking for more sustainable and cost-effective alternatives. Moreover, the emphasis on curated, high-quality, and educational toys, coupled with a personalized user experience through the app, distinguishes EleFant in the market. By targeting this untapped market segment, EleFant positions itself as a convenient and innovative solution, potentially attracting a new customer base seeking more flexible and sustainable options for their children's play and learning experiences.                                                      </p>
                                                     </div>
                                                   </Panel>
                                                   <Panel
@@ -2651,8 +2583,7 @@ Yes, EcoRatings is targeting a relatively new and untapped market in India, and 
                                                           color: "#7f7776",
                                                         }}
                                                       >
-                                                       EcoRatings' competitive advantages, or "moats," center around its proprietary Large Language Model (LLM) with 30 billion parameters, exclusively focused on sustainability. This unique model, combined with the company's dedication to environmental, social, and governance (ESG) factors, positions EcoRatings as a leader in the industry. The limited competition in large language models, access to proprietary data, and an experienced leadership team further enhance its competitive edge.
-                                                      </p>
+EleFant's competitive edge is built on a distinctive subscription-based toy library model, fostering recurring revenue and customer loyalty. This approach not only offers an economical and sustainable alternative to traditional toy ownership but also ensures a consistent relationship with customers. The curated catalog of high-quality, educational toys, coupled with personalized recommendations based on a child's age and interests, establishes a unique selling proposition. The user-friendly mobile application, with features like real-time tracking and push notifications, enhances convenience and sets EleFant apart in terms of technological accessibility. Furthermore, EleFant's commitment to environmental sustainability by reducing toy waste adds an eco-friendly dimension, aligning with the growing consumer trend towards socially responsible products. Collectively, these factors create a robust competitive moat for EleFant in the toy industry.                                                      </p>
                                                      
                                                     </div>
                                                   </Panel>

@@ -142,7 +142,7 @@ signInWithGoogle=()=>
               <div className="col-lg-5 m-auto">
                 <Spin spinning={this.state.loading}>
                   <div className="login-form">
-                    <h3 className="text-center">Get Started</h3>
+                    <h3 className="text-center" fetchpriority="high">Get Started</h3>
                     {this.state.screen1 == true && (
                       <>
                         <div className="row">
