@@ -6,7 +6,11 @@ import Slider from "react-slick";
 
 class Learn extends Component {
   componentWillMount() {
-    document.title = "Learn - Growth91 - Startup Marketplace ";
+   
+    document.getElementsByTagName("META")[4].content  = "How Startup Funding Works: Growth91 Insights";
+
+    document.getElementsByTagName("META")[3].content="Gain valuable insights and learn how startup funding works with Growth91. Learn how to navigate the funding landscape for entrepreneurial success.";
+
   }
   render() {
     const settings = {
@@ -19,6 +23,8 @@ class Learn extends Component {
 
     return (
       <div>
+     
+       
         <WebHeader />
         <section className="banner_section">
           <div
@@ -112,7 +118,7 @@ class Learn extends Component {
                       Stay up to date with what’s brewing in the startup <br />{" "}
                       ecosystem
                     </p>
-                    <a href="/Blog">Know more</a>
+                    <a href="https://blog.growth91.com/" target="_blank">Know more</a>
                   </div>
                 </div>
               </div>

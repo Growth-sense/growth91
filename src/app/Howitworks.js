@@ -5,7 +5,15 @@ import Footer from './common/Footer';
 import Slider from "react-slick";
 
 
+
 class Howitworks extends Component {
+    componentWillMount() {
+        
+    document.getElementsByTagName("META")[4].content = "Growth91 Investing FAQs: How it Works!";
+    
+        document.getElementsByTagName("META")[3].content="Have questions about investing on Growth91? This FAQ covers creating a profile, investing in deals, & G-SAFE agreements. Get informed!";
+    
+      }
   
   render() {
 
@@ -19,6 +27,7 @@ class Howitworks extends Component {
     
     return (
       <div>
+        
         <WebHeader />
         
         <section className="banner_section">

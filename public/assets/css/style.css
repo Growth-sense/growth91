@@ -860,6 +860,9 @@ footer .left span {
   align-items: center;
   margin: 69px auto 0;
 }
+.elefanthighlight{
+  height: 350px;
+}
 .section-padding h1 {
   padding-bottom: 85px;
 }
@@ -1219,9 +1222,13 @@ footer .left span {
   padding: 20px;
   margin-bottom: 18px;
   border-radius: 11px;
-  align-items: center;
+  /* align-items: center; */
   box-shadow: 5px 5px 20px rgba(41, 23, 111, 0.35);
   max-height: 120px;
+}
+.hightlights-images {
+  display: flex;
+  align-items: center;
 }
 
 
@@ -1275,6 +1282,7 @@ footer .left span {
   height: 64px;
   object-fit: cover;
   padding-right: 17px;
+  width: 100px;
 }
 .deals-details-page .main-section h5 {
   margin: 0;
@@ -1287,7 +1295,12 @@ footer .left span {
   font-size: 1rem;
   line-height: 1.4;
   font-weight: 300;
+  text-align: justify;
   max-width: 407px;
+}
+.market-boxes p{
+  text-align: justify;
+  margin-top: 50px !important;
 }
 .deals-details-page .main-section {
   max-width: 1075px;
@@ -1413,7 +1426,7 @@ footer .left span {
 .meet-the-team-section .single {
   border-radius: 1.5rem;
   overflow: hidden;
-  box-shadow: 0 0 15px rgb(0 0 0 / 8%);
+  box-shadow: 5px 5px 20px rgba(41, 23, 111, 0.35);
   background-color: #fff;
   margin-bottom: 60px;
   padding-bottom: 40px;
@@ -1421,6 +1434,7 @@ footer .left span {
 .meet-the-team-section img {
   max-width: 153px;
   height: 153px;
+  width: 153px;
   object-fit: cover;
   border-bottom-right-radius: 50px;
   margin-right: 22px;
@@ -1440,6 +1454,16 @@ footer .left span {
 .meet-the-team-section p {
   padding: 20px;
   font-weight: 500;
+  text-align: justify;
+}
+.raisecapitol {
+  color: rgb(255, 156, 26);
+    border: 1px solid #fff;
+    display: inline-block;
+    padding: 15px 25px;
+    border-radius: 30px;
+    margin-top: 10px;
+
 }
 .deal-terms-section h1,
 .faq-section h1 {
@@ -2372,7 +2396,29 @@ footer .left span {
   margin-top: 18px;
   text-align: center;
 }
+@media screen and (min-width: 501px){
+  .highlight-rows .oraihighlight{
+    min-height: 260px !important;
+  
+  }
+  .highlight-rows .elefanthighlight{
+    min-height: 400px !important;
+  
+  }
+  .highlight-rows .Ecoratings{
+    min-height: 330px !important;
+  
+  }
+}
 @media screen and (max-width: 500px) {
+  .highlight-rows .elefanthighlight{
+    min-height: auto !important;
+    height: auto !important;
+   
+  }
+  .highlight-rows p{
+    margin: 0px 0px !important;
+  }
   .payment-success-card a {
     text-align: center;
   }
@@ -2535,6 +2581,9 @@ footer .left span {
   }
   .deal_flow_block .steps .steps-container:nth-child(2n) {
     left: 0;
+  }
+  .meet-the-team-section .single {
+    height: auto !important;
   }
 }
 .download-document-table td,
@@ -2985,6 +3034,7 @@ option {
   .deal-banner {
     margin-top: 85px !important;
   }
+
 }
 .pitch-slider .slick-prev:before,
 .pitch-slider .slick-next:before {
@@ -3006,3 +3056,47 @@ option {
     margin: 0 auto;
   }
 }
+
+@media screen and (max-width: 767px){
+  .deal-banner iframe{
+    height: 200px !important;
+  }
+}
+
+.elefantteam ul{
+  padding: 30px;
+}
+.elefantteam ul li{
+  list-style-type: circle !important;
+}
+.elefantteam .single{
+  height: 460px;}
+
+
+ 
+  
+  @media screen and (max-width : 992px) and (min-width: 768px){
+    .highlight-rows .oraihighlight{
+      min-height: 360px !important;
+    }
+    .deals-details-page .main-section p{
+      width: 100%;
+      max-width: 100% !important;
+    }
+  }
+  @media screen and (max-width : 767px) and (min-width:567px){
+    .highlight-rows .oraihighlight{
+      min-height: 360px !important;
+    }
+    .deals-details-page .main-section p{
+      width: 100%;
+      max-width: 100% !important;
+    }
+  }
+
+
+  @media screen and (max-width: 767px){
+    .deals-details-page .main-section p{
+      max-width: 100% !important;
+    }
+  }

@@ -123,7 +123,7 @@ class Dashboard extends React.Component {
                     <div className="item">
                       <div className="panel-heading">
                         <h3 className="panel-title">
-                          ₹ {this.state.total_convience_fees}
+                          ₹ {parseInt(this.state.total_convience_fees)}
                         </h3>
                       </div>
                       <div className="panel-body">Total Convenience Fees</div>

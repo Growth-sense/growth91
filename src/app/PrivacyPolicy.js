@@ -2,11 +2,21 @@ import React, { Component } from 'react';
 import WebHeader from './common/WebHeader';
 import WebFooter from './common/WebFooter';
 
+
 class PrivacyPolicy extends Component {
+  componentWillMount() {
+   
+    document.getElementsByTagName("META")[4].content  = "Growth91 Privacy Policy: How We Protect Your Data";
+
+    document.getElementsByTagName("META")[3].content="Learn how Growth91 protects your investor data. We explain collection, use, security measures, & your control options. Understand our Privacy Policy!";
+
+  }
   render() {
     return (
       <div>
+      
         <WebHeader />
+
         <section style={{
           marginTop: 180
         }}>

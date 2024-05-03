@@ -248,6 +248,7 @@ class Deals extends Component {
       offline_deal_id: "",
       offline_startup_id: "",
       input_status: false,
+      cc_to_fouder: "No",
       input_file_status: false,
       invite_form_loader: false,
       bannerimg: "",
@@ -1180,6 +1181,7 @@ class Deals extends Component {
       invite_form_loader: false,
       invited_user_list: [],
       invite_deal_titile: item.deal_name,
+     
     });
   };
   close_invite_modal = () => {
@@ -1294,6 +1296,26 @@ class Deals extends Component {
       input_file_status: true,
     });
   };
+  togglecc = (event) => {
+    console.log(event.target.checked);
+    if(event.target.checked === true){
+      this.setState({
+        [event.target.name]: 'Yes',
+        input_status: false,
+        input_file_status: true,
+      });
+    }
+    else{
+        this.setState({
+          [event.target.name]: 'No',
+          input_status: false,
+          input_file_status: true,
+        });
+
+
+      }
+
+  };
 
   onInviteChangeEmail = (email) => {
     this.setState({ invite_email: email });
@@ -1306,6 +1328,8 @@ class Deals extends Component {
   };
 
   invite_investor = () => {
+    console.log(this.state.cc_to_fouder);
+
     let emailisPresent = false;
     for (let item of this.state.allPrivateDealInvestor) {
       if (item.email && item.email == this.state.invite_email) {
@@ -1345,6 +1369,8 @@ class Deals extends Component {
           fun_founder_id: this.state.invite_details.operational_founder,
           bannerimg: this.state.bannerimg,
           deal_name: this.state.invite_details.name,
+          cc_to_fouder:this.state.cc_to_fouder
+
           // deal_email:this.state.invite_details.email,
         };
         Bridge.deal.invite_investors_for_private_deal(params).then((result) => {
@@ -1399,6 +1425,8 @@ class Deals extends Component {
           founder_id: this.state.invite_details.operational_founder,
           bannerimg: this.state.bannerimg,
           deal_name: this.state.invite_details.name,
+          cc_to_fouder:this.state.cc_to_fouder
+
           // deal_email:this.state.invite_details.email,
         };
         let valid = false;
@@ -1461,6 +1489,8 @@ class Deals extends Component {
       fun_founder_id: this.state.invite_details.operational_founder,
       bannerimg: this.state.bannerimg,
       deal_name: this.state.invite_details.name,
+      cc_to_fouder:this.state.cc_to_fouder
+
     };
     Bridge.deal.invite_investors_for_private_deal(obj).then((result) => {
       if (result.status == 1) {
@@ -1733,12 +1763,14 @@ class Deals extends Component {
 
   exportToCSV_CommitList = (fileName) => {
     let arr = [];
+    console.log(this.state.commitment_investor_list);
     let count = 1;
     for (let item of this.state.commitment_investor_list) {
       let obj = {
         "Sr No": count,
         "Investor ID": item.investor_id,
         "Name": item.first_name + " " + item.last_name,
+        "Legal Name": item.pan_registered_name,
         "Investment Amount": item.amount,
         "Fee Amount": item.processingfees,
         "Email": item.email,
@@ -2333,6 +2365,7 @@ class Deals extends Component {
           commitment_satus: item.commitment_satus === "committed" ? <Tag color="green">Invested</Tag> : <Tag color="red">Pending</Tag>,
           created_at: item.created_at ? moment(item.created_at).format('D-MMM-YYYY h:mm A') : '',
           name: item.first_name + " " + item.last_name,
+          legalname: item.pan_registered_name,
           deal_name: item.deal_name,
           totalamount: item.totalamount,
           data: item,
@@ -2763,6 +2796,12 @@ class Deals extends Component {
         title: "Name",
         dataIndex: "name",
         key: "name",
+        width: 100,
+      },
+      {
+        title: "Legal Name",
+        dataIndex: "legalname",
+        key: "legalname",
         width: 100,
       },
       // {
@@ -4194,6 +4233,7 @@ class Deals extends Component {
                   disabled={this.state.input_status == true ? true : false}
                 />
               </div>
+      
             </div>
             <div
               style={{
@@ -4277,6 +4317,16 @@ class Deals extends Component {
                   </div>
                 )}
               </Card>
+                  <div className="mt-4 editor-field d-flex align-items-center">
+                <label className="mb-2">CC to founder</label>
+                <input
+                  type="checkbox"
+                  value={this.state.cc_to_fouder}
+                  name="cc_to_fouder"
+                  onChange={(e) => this.togglecc(e)}
+                  // disabled={this.state.input_status == true ? true : false}
+                />
+              </div>
             </div>
           </Spin>
         </Modal>

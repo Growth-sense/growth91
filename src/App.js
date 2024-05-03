@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route,Redirect } from "react-router-dom";
 import "antd/dist/antd.css";
 import "react-image-lightbox/style.css";
 import "slick-carousel/slick/slick.css";
@@ -117,7 +117,6 @@ import ftransactions from "./app/Founder/investorside/Transactions";
 
 // investor as founder
 import covertinvestortofounder from "./app/investor/NationalityDetails";
-
 import InvidataPrivate from "./app/deal-pages/InvidataPrivate";
 import AdminBlogCategory from "./app/admin/AdminBlogCategory";
 import TemplatePublic from "./app/deal-pages/Template";
@@ -157,8 +156,12 @@ import PendingOfflinePayments from "./app/admin/PendingOfflinePayments";
 import UnderMaintenance from "./app/UnderMaintenance";
 import AdminDocuments from "./app/admin/AdminDocuments";
 import Newboo from "./app/deal-pages/Newboo";
-import ORAI from "./app/deal-pages/ORAI.jsx";
+// import ORAI from "./app/deal-pages/ORAI.jsx";
+import ORAI from "./app/deal-pages/ORAI1.jsx";
+import EleFant from "./app/deal-pages/EleFant.jsx";
+import EcoRatings from "./app/deal-pages/EcoRatings.jsx";
 import IndusUnoTranche2 from "./app/deal-pages/IndusUnoTranche2";
+import { Newdeals } from "./app/Newdeals.jsx";
 
 ReactGA.initialize(TRACKING_ID);
 
@@ -177,11 +180,15 @@ function App() {
       <Router>
         <RouteChangeTracker />
         <Switch>
+        <Route exact path="/the EleFant">
+          <Redirect to="/theEleFant" />
+        </Route>
+
           <Route path="/" exact component={Home} />
           <Route path="/UnderMaintenance" exact component={UnderMaintenance} />
           <Route path="/StartInvestment" exact component={Content} />
           <Route path="/deals" exact>
-            <ProtectDeals Component2={Deals} Conditon={true} />
+            <ProtectDeals Component2={Newdeals} Conditon={true} />
           </Route>
           <Route path="/Refer" exact component={Refer} />
           <Route path="/Referral" exact component={Referral} />
@@ -252,7 +259,7 @@ function App() {
             component={FounderDocuments}
           />
 
-          <Route path="/Blog" exact component={Blog} />
+          {/* <Route path="/Blog" exact component={Blog} /> */}
           <Route path="/details" component={BlogDetails} />
           <Route path="/pay" component={Payment} />
 
@@ -481,6 +488,12 @@ function App() {
           </Route>
           <Route path="/ORAI" exact>
             <ProtectDeals Component={ORAI} />
+          </Route>
+          <Route path="/theEleFant" exact>
+            <ProtectDeals Component={EleFant} />
+          </Route>
+          <Route path="/EcoRatings" >
+            <ProtectDeals Component={EcoRatings} />
           </Route>
           <Route path="/TestDeal2" exact>
             <ProtectDeals Component={TestDeal2} />

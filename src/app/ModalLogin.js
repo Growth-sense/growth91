@@ -414,7 +414,7 @@ class ModalLogin extends Component {
                           Login with Google</button>*/}
                           <div
                             className="text-center mb-3"
-                            style={{ fontSize: "18px" }}
+                            style={{ fontSize: "18px" }} fetchpriority="high"
                           >
                             Don’t have an account? &nbsp;&nbsp;
                             <a style={{ fontSize: "18px" }} href="/Signup" onClick={() => {

@@ -32,6 +32,7 @@
     "jquery": "^3.6.0",
     "js-base64": "^3.7.2",
     "jwt-decode": "^3.1.2",
+    "minimalcss": "^0.11.3",
     "moment": "^2.29.3",
     "next": "^13.0.7",
     "rc-progress": "^3.4.0",
@@ -45,12 +46,14 @@
     "react-ga": "^3.3.1",
     "react-ga4": "^1.4.1",
     "react-google-login": "^5.2.2",
+    "react-helmet-async": "^2.0.4",
     "react-icons": "^4.7.1",
     "react-image-lightbox": "^5.1.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "5.0.1",
     "react-select": "^5.7.0",
     "react-slick": "^0.29.0",
+    "react-snap": "^1.23.0",
     "react-sweet-progress": "^1.1.2",
     "react-to-print": "^2.14.7",
     "slick-carousel": "^1.8.1",
@@ -64,7 +67,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postbuild": "react-snap"
   },
   "eslintConfig": {
     "extends": [
@@ -83,5 +87,20 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "reactSnap": {
+    "include": [
+      "/",
+      "/Founders",
+      "/How-it-works",
+      "/Investors",
+      "/Learn",
+      "/TermsConditions",
+      "/PrivacyPolicy"
+    ],
+    "minifyHtml": {
+      "collapseWhitespace": false,
+      "removeComments": false
+    }
   }
 }
