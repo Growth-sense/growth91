@@ -393,15 +393,13 @@ class Founderformdetails extends Component {
     };
     Bridge.admin.get_assesment_form_details(params).then((result) => {
       if (result.status == 1) {
-        if (result.data.length > 0 && result.data1.length > 0) {
+       
+        if ([result.data].length > 0 && [result.data1].length > 0) {
+          // console.log('arr',arr);
           this.export_assesment_form(
             result.data,
-            result.data1,
-            result.data2,
-            result.data3,
-            result.data4
+          
           );
-          // console.log('arr',arr);
         } else {
           message.warn("Data is not available.");
           return;
@@ -410,11 +408,11 @@ class Founderformdetails extends Component {
       }
     });
   };
-  export_assesment_form = (arr, arr1, arr2, arr3, arr4) => {
+  export_assesment_form = (arr) => {
     let fileName = "Assessment Form Details";
     const wb = XLSX.utils.book_new();
     let mergeArr = [];
-    // console.log("before",arr);
+    console.log("before",arr);
 
     // Assesment Details
     let col1Head = [
@@ -444,15 +442,16 @@ class Founderformdetails extends Component {
       },
     ];
     mergeArr.push(col1Head);
-    for (let i in arr1) {
-      let item = arr1[i];
-      var da1 = [
-        { v: item.as_by_name ? item.as_by_name : "---" },
-        { v: item.as_by_email ? item.as_by_email : "---" },
-        { v: item.as_by_role ? item.as_by_role : "---" },
-      ];
-      mergeArr.push(da1);
-    }
+    console.log(mergeArr);
+    // for (let i in arr1) {
+    //   let item = arr1[i];
+    //   var da1 = [
+    //     { v: item.as_by_name ? item.as_by_name : "---" },
+    //     { v: item.as_by_email ? item.as_by_email : "---" },
+    //     { v: item.role_type ? item.role_type : "---" },
+    //   ];
+    //   mergeArr.push(da1);
+    // }
     for (let i = 0; i < 3; i++) {
       let d2_spac = [{ v: "" }, { v: "" }, { v: "" }];
       mergeArr.push(d2_spac);
@@ -762,7 +761,7 @@ class Founderformdetails extends Component {
 
     for (var i in arr) {
       let item = arr[i];
-      if (item.as_by_role == "founder" && item.as_by_name == item.name) {
+      if (item.role_type == "founder" ) {
         var da = [
           { v: item.name ? item.name : "---" },
           //  {"v":item.name?item.name:'---'},
@@ -1138,9 +1137,8 @@ class Founderformdetails extends Component {
     for (var i in arr) {
       let item = arr[i];
       if (
-        item.as_by_role == "core-team-member" &&
-        item.as_by_name == item.name
-      ) {
+        item.role_type == "core-team-member" ) {
+       
         var da = [
           { v: item.name ? item.name : "---" },
           { v: item.mobile ? item.mobile : "---" },
@@ -1283,7 +1281,7 @@ class Founderformdetails extends Component {
 
     for (var i in arr) {
       let item = arr[i];
-      if (item.as_by_role == "advisor" && item.as_by_name == item.name) {
+      if (item.role_type == "advisor" && item.as_by_name == item.name) {
         var da = [
           { v: item.name ? item.name : "---" },
           { v: item.mobile ? item.mobile : "---" },
@@ -1444,11 +1442,12 @@ class Founderformdetails extends Component {
 
     for (var i in arr) {
       let item = arr[i];
+      console.log("cvxvcfg",item);
       if (
-        (item.as_by_role == "advisor" && item.as_by_name != item.name) ||
-        (item.as_by_role == "core-team-member" &&
+        (item.role_type == "advisor" ) ||
+        (item.role_type == "core-team-member" &&
           item.as_by_name != item.name) ||
-        (item.as_by_role == "founder" && item.as_by_name != item.name)
+        (item.role_type == "founder" )
       ) {
         var da = [
           { v: item.as_by_name ? item.as_by_name : "---" },
@@ -1498,7 +1497,7 @@ class Founderformdetails extends Component {
       }
     }
 
-    // console.log(mergeArr);
+    console.log(mergeArr);
 
     const ws = XLSX.utils.aoa_to_sheet(mergeArr);
     ws["!cols"] = [

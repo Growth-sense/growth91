@@ -161,6 +161,7 @@ import ORAI from "./app/deal-pages/ORAI1.jsx";
 import EleFant from "./app/deal-pages/EleFant.jsx";
 import EcoRatings from "./app/deal-pages/EcoRatings.jsx";
 import IndusUnoTranche2 from "./app/deal-pages/IndusUnoTranche2";
+import { Newdeals } from "./app/Newdeals.jsx";
 
 ReactGA.initialize(TRACKING_ID);
 
@@ -187,7 +188,7 @@ function App() {
           <Route path="/UnderMaintenance" exact component={UnderMaintenance} />
           <Route path="/StartInvestment" exact component={Content} />
           <Route path="/deals" exact>
-            <ProtectDeals Component2={Deals} Conditon={true} />
+            <ProtectDeals Component2={Newdeals} Conditon={true} />
           </Route>
           <Route path="/Refer" exact component={Refer} />
           <Route path="/Referral" exact component={Referral} />

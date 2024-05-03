@@ -131,6 +131,7 @@ class EleFant extends Component {
 
   componentWillMount() {
     document.title = "ORAI - Growth91 - Startup Marketplace ";
+
   }
   componentDidMount() {
     let deal_id = "30";

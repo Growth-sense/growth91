@@ -3188,3 +3188,8 @@ body.search.search-results .content-area {
     max-height: 400 !important;
   }
 }
+.carousel-inner > .item > img,
+  .carousel-inner > .item > a > img {
+    width: 70%;
+    margin: auto;
+  }

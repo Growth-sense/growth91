@@ -3,10 +3,20 @@ import React, { Component } from 'react';
 import WebHeader from './common/WebHeader';
 import WebFooter from './common/WebFooter';
 
+
 class TermsConditions extends Component {
+    componentWillMount() {
+      
+    document.getElementsByTagName("META")[4].content  = "Growth91 Terms & Conditions";
+    
+        document.getElementsByTagName("META")[3].content="Understand Growth91's investment process & legal terms. Learn about risks, G-SAFE agreements, user data, & dispute resolution. Invest confidently!";
+    
+      }
     render() {
         return (
+            
             <div>
+               
                 <WebHeader />
                 <section style={{
                     marginTop: 180

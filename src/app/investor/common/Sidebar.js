@@ -63,7 +63,7 @@ export default class Sidebar extends Component {
         >
           <li className="hiw-li">
             {/* <img src={commientment} /> */}
-            <i className="fas fa-handshake col-md-4" />
+            <i className="fas fa-handshake col-md-4" />&nbsp;&nbsp;Commitments
                       </li>
         </a>
         <a
