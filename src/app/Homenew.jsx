@@ -1,5 +1,6 @@
-  import React, { Component } from "react";
+import React, { Component } from "react";
 import WebHeader from "./common/WebHeader";
+import WebHeadernew from "./common/WebHeadernew.jsx";
 import WebFooter from "./common/WebFooter";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -12,11 +13,10 @@ import moment from "moment";
 import axios from "axios";
 import ReactGA from "react-ga";
 import { Homextra } from "./Homextra.jsx";
-// import "./web/css/hum.css"
 
 import { TRACKING_ID } from "./constants/data";
 
-class Home extends Component {
+class Homenew extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -226,7 +226,7 @@ class Home extends Component {
 
     return (
       <div>
-        <WebHeader />
+        <WebHeadernew />
 
         <section className="banner_section">
           <div
@@ -390,4 +390,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default Homenew;

@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 import ReactGA from "react-ga4";
 
 import Home from "./app/Home";
+import Homenew from "./app/Homenew.jsx";
 import Content from "./Content/Content";
 import Deals from "./app/Deals";
 import Refer from "./app/ReferLogin";
@@ -138,7 +139,7 @@ import { TRACKING_ID } from "./app/constants/data";
 import Yolo from "./app/deal-pages/Yolo";
 import EventBeep from "./app/deal-pages/EventBeep";
 import Homversity from "./app/deal-pages/Homversity";
-import Tulua from "./app/deal-pages/Tulua";
+import Tulua from "./app/deal-pages/Tulua.jsx";
 import HumSafer from "./app/deal-pages/HumSafer";
 import IndianStartupNews from "./app/deal-pages/IndianStartupNews";
 import IndusUno from "./app/deal-pages/IndusUno";
@@ -185,6 +186,7 @@ function App() {
         </Route>
 
           <Route path="/" exact component={Home} />
+          <Route path="/home" exact component={Homenew} />
           <Route path="/UnderMaintenance" exact component={UnderMaintenance} />
           <Route path="/StartInvestment" exact component={Content} />
           <Route path="/deals" exact>
@@ -494,6 +496,9 @@ function App() {
           </Route>
           <Route path="/EcoRatings" >
             <ProtectDeals Component={EcoRatings} />
+          </Route>
+          <Route path="/Tulua" >
+            <ProtectDeals Component={Tulua} />
           </Route>
           <Route path="/TestDeal2" exact>
             <ProtectDeals Component={TestDeal2} />
