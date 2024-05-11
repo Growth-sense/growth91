@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import WebHeader from "./common/WebHeader";
-import WebHeadernew from "./common/WebHeadernew.jsx";
-import WebFooter from "./common/WebFooter";
+import NewWebHeader from "./common/NewWebHeader.jsx";
+import {NewWebFooter} from "./common/NewWebFooter.jsx";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -13,9 +13,12 @@ import moment from "moment";
 import axios from "axios";
 import ReactGA from "react-ga";
 import { Homextra } from "./Homextra.jsx";
+import { Homenewrxtra } from "./homenewrxtra.jsx";
+// import "./web/css/hum.css"
 
 import { TRACKING_ID } from "./constants/data";
-
+import { Slide } from "react-awesome-reveal";
+import CountUp from 'react-countup';
 class Homenew extends Component {
   constructor(props) {
     super(props);
@@ -32,18 +35,30 @@ class Homenew extends Component {
       investor_id: 0,
       delete_analytics_session_data: [],
       start_analytics_session_responseData: "",
+      setclass:"",
+      isVisible: false
     };
+    this.elementRef = React.createRef();
+    this.handleScroll = this.handleScroll.bind(this);
+  
   }
 
   componentWillMount() {
-   
     document.getElementsByTagName("META")[4].content =
+      "Venture into Innovation: Invest in Startups with Growth91";
+
+    document.title =
       "Venture into Innovation: Invest in Startups with Growth91";
 
     document.getElementsByTagName("META")[3].content =
       "Explore the potential of startup investments with Growth91. Discover opportunities & maximize your returns. Embrace the opportunity to invest in startups.";
+      window.removeEventListener('scroll', this.handleScroll);
+
   }
   componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+    this.handleScroll(); // Call initially to check visibility
+ 
     ReactGA.initialize(TRACKING_ID);
     ReactGA.pageview(window.location.pathname + window.location.search);
     if (localStorage.getItem("investor_id")) {
@@ -70,10 +85,18 @@ class Homenew extends Component {
     // Post data every 2 seconds
     // this.start_analytics_session_interval = setInterval(() => this.postStart_analytics_session_data(), 2000);
   }
+  handleScroll() {
+    if (this.elementRef.current) {
+      const top = this.elementRef.current.getBoundingClientRect().top;
+      const windowHeight = window.innerHeight;
+      this.setState({ isVisible: top < windowHeight });
+    }
+  }
   // componentWillUnmount() {
   //   clearInterval(this.delete_analytics_session_interval);
   //   clearInterval(this.start_analytics_session_interval);
   // }
+
   getDelete_analytics_session_data = () => {
     axios
       .get(
@@ -183,38 +206,182 @@ class Homenew extends Component {
     }
   };
 
-
-
- 
- 
-
-
-
-
   render() {
-    const settings = {
-      dots: false,
-      arrows: false,
+    // const  sliderSettings = {
+    //   slidesToShow: 1,
+    //   slidesToScroll: 1,
+    //   infinite: false,
+    // }
+    const { isVisible } = this.state;
+    const sliderSettings = {
+      dots: true,
       infinite: true,
-      slidesToShow: 3,
+      arrows: false,
+      speed: 2000,
+      slidesToShow: 1,
       slidesToScroll: 1,
+      autoplaySpeed: 5000,
+      fade: true,
+
       autoplay: true,
-      speed: 8000,
-      autoplaySpeed: 8000,
+      pauseOnHover: false,
       cssEase: "linear",
+      prevArrow:
+        '<span class="prev-arrows"> <i class="fa fa-angle-left" aria-hidden="true"></i> </span>',
+      nextArrow:
+        '<span class="next-arrows"><i class="fa fa-angle-right" aria-hidden="true"></i></span>',
+
       responsive: [
         {
-          breakpoint: 991,
+          breakpoint: 1200,
           settings: {
-            slidesToShow: 2,
+            slidesToShow: 1,
             slidesToScroll: 1,
           },
         },
         {
-          breakpoint: 767,
+          breakpoint: 993,
           settings: {
             slidesToShow: 1,
             slidesToScroll: 1,
+          },
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            autoplay: true,
+            slidesToShow: 1,
+            dots: true,
+
+            slidesToScroll: 1,
+          },
+        },
+        {
+          breakpoint: 400,
+          settings: {
+            arrows: false,
+            dots: true,
+            autoplay: true,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+          },
+        },
+      ],
+    };
+    const successsetting = {
+      slidesToShow: 5,
+      slidesToScroll: 1,
+      autoplay: true,
+      arrows: false,
+      autoplaySpeed: 0,
+      speed: 5000,
+      dots: false,
+      cssEase: "linear",
+      pauseOnHover: false,
+      pauseOnFocus: false,
+
+      prevArrow:
+        '<span class="prev-arrows"> <i class="fa fa-angle-left" aria-hidden="true"></i> </span>',
+      nextArrow:
+        '<span class="next-arrows"><i class="fa fa-angle-right" aria-hidden="true"></i></span>',
+
+      responsive: [
+        {
+          breakpoint: 1200,
+          settings: {
+            slidesToShow: 1,
+
+            slidesToScroll: 1,
+          },
+        },
+        {
+          breakpoint: 993,
+          settings: {
+            slidesToShow: 1,
+
+            slidesToScroll: 1,
+          },
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 2,
+
+            slidesToScroll: 1,
+
+            autoplay: true,
+          },
+        },
+        {
+          breakpoint: 400,
+          settings: {
+            arrows: false,
+            slidesToShow: 2,
+
+            slidesToScroll: 1,
+
+            autoplay: true,
+          },
+        },
+      ],
+    };
+    const testimonialsetting = {
+      dots: false,
+      infinite: true,
+      arrows: true,
+      speed: 2000,
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      autoplaySpeed: 3000,
+      autoplay: true,
+      pauseOnHover: false,
+      cssEase: "linear",
+      // prevArrow: '<span class="prev-arrows"> <i class="fa fa-angle-left" aria-hidden="true"></i> </span>',
+      // nextArrow: '<span class="next-arrows"><i class="fa fa-angle-right" aria-hidden="true"></i></span>',
+
+      responsive: [
+        {
+          breakpoint: 1200,
+          settings: {
+            slidesToShow: 2,
+            autoplay: true,
+            slidesToScroll: 1,
+          },
+        },
+        {
+          breakpoint: 993,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1,
+            autoplay: true,
+          },
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            arrows: false,
+            slidesToShow: 1,
+            autoplay: true,
+            speed: 1000,
+            autoplaySpeed: 5000,
+
+            cssEase: "linear",
+
+            slidesToScroll: 1,
+          },
+        },
+        {
+          breakpoint: 400,
+          settings: {
+            arrows: false,
+            slidesToShow: 1,
+            speed: 1000,
+            autoplaySpeed: 5000,
+            slidesToScroll: 1,
+
+            cssEase: "linear",
+            autoplay: true,
           },
         },
       ],
@@ -226,151 +393,866 @@ class Homenew extends Component {
 
     return (
       <div>
-        <WebHeadernew />
+        {/* <WebHeader /> */}
+        <NewWebHeader />
 
-        <section className="banner_section">
-          <div
-            id="carouselExampleIndicators"
-            className="carousel slide"
-            data-bs-ride="carousel"
-          >
-            {/* <!-- <div className="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div> --> */}
-            <div className="carousel-inner">
-              <div className="carousel-item active">
-                <div className="container ">
-                  <div className="slider-area">
-                    <div className="item">
-                      <div className="row align-items-center ">
-                        <div className="col-lg-6">
-                          <div className="left-content">
-                            <h1 className="toph1"  fetchpriority="high" >
-                              {" "}
-                              Invest in Startups.
-                            </h1>
-                            <p fetchpriority="high"
-                              style={{ textAlign: "justify" }}
-                              className=" p-0"
-                              
+        <section class="banner_section ">
+          <div class="container-fluid">
+            <div class="row banner-row">
+              <div class="banner-sliding">
+                <Slider {...sliderSettings}>
+                  <div class="left-content">
+                    <div
+                      class="d-flex-banner banner1 fadding-bottom
+                    "
+                    >
+                      <div class="banner-part banner-slidingpart">
+                        <h2 class="">
+                          Private market <br /> investing made easy
+                        </h2>
+                        <p class=" p-0" data-wow-delay="0.5s">
+                          RAISE FUND. INVEST IN STARTUPS. DRIVE GROWTH
+                        </p>
+
+                        <form
+                          class="input_box input-box-new banner-btns "
+                          data-wow-delay="0.7s"
+                          style={{
+                            visibility: "visible",
+                            animationDelay: "0.7s",
+                            animationName: "fadeInUp",
+                          }}
+                        >
+                          <div class="form-wraper new-form-wrapper">
+                            <a
+                              href="#"
+                              class="white-btns"
+                              type="button button-5"
                             >
-                              Access curated growth opportunities and add
-                              Startups to your investment portfolio.
-                            </p>
-                            <p
-                              style={{ textAlign: "justify" }}
-                              className=" p-0"
-                              
+                              Explore Deals (Signup)
+                            </a>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="img-banner-part">
+                        <img
+                          src="./assets/images/profits.png"
+                          alt="startup ecosystem"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="left-content">
+                    <div class="d-flex-banner fadding-bottom">
+                      <div class="banner-part banner-slidingpart">
+                        <h1 class="">
+                          Do you want to invest in India's
+                          <br /> booming startup ecosystem
+                        </h1>
+                        <p class=" p-0">
+                          <span>
+                            Growth 91 connects you with the next big thing
+                          </span>
+                        </p>
+
+                        <form
+                          class="input_box input-box-new banner-btns wow  fadeInUp"
+                          data-wow-delay="0.7s"
+                          style={{
+                            visibility: "visible",
+                            animationDelay: "0.7s",
+                            animationName: "fadeInUp",
+                          }}
+                        >
+                          <div class="form-wraper new-form-wrapper">
+                            <a
+                              href="https://growth91.com/Signup"
+                              class="white-btns"
+                              type="button"
                             >
-                              Invest alongside HNIs and Institutional investors.
-                            </p>
-                            <p
-                              style={{ textAlign: "justify" }}
-                              className=" mt-2"
-                              
-                            >
-                              <span className="">
-                                <a
-                                  href="/founder-registration"
-                                  className="raisecapitol"
-                                  style={{ color: "#FF9C1A" }}                           
-                                >
-                                  Raise capital using Growth91
-                                </a>
+                              Get Started
+                            </a>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="img-banner-part">
+                        <img
+                          src="./assets/images/diagram.png"
+                          alt="Private market investing made easy"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="left-content">
+                    <div class="d-flex-banner fadding-bottom">
+                      <div class="banner-part banner-slidingpart">
+                        <h2
+                          class="wow fadeInUp"
+                          data-wow-delay="0.3s"
+                          style={{
+                            visibility: "visible",
+                            animationDelay: "0.3s",
+                            animationName: "fadeInUp",
+                          }}
+                        >
+                          Don't Let Funding Hold You Back.
+                          <br />
+                          Find Investor for Your Startup on Growth91.
+                        </h2>
+                        <div class="banner-listes">
+                          <ul>
+                            <li>
+                              <span>
+                                <i class="fa-solid fa-check"></i>
                               </span>
-                            </p>
-
-                            <form
-                              className="input_box "
-                              data-wow-delay="0.7s"
-                            >
-                              <div className="form-wraper">
-                                {localStorage.getItem("investor_id") == "" ||
-                                localStorage.getItem("founder_id") == "" ? (
-                                  <>
-                                    <a
-                                      href="#!"
-                                      className="theme-btn"
-                                      type="button"
-                                      onClick={() => {
-                                        ReactGA.event({
-                                          category: "Home",
-                                          action:
-                                            "Get Started button on Landing Page clicked",
-                                        });
-                                      }}
-                                    >
-                                      Get Started as Investor
-                                    </a>
-                                    <a
-                                      href="/deals"
-                                      className="theme-btn"
-                                      type="button"
-                                      onClick={() => {
-                                        ReactGA.event({
-                                          category: "Home",
-                                          action:
-                                            "View Deals button on Landing Page clicked",
-                                        });
-                                      }}
-                                    >
-                                      View Deals
-                                    </a>
-                                  </>
-                                ) : (
-                                  <>
-                                    <a
-                                      href="/deals"
-                                      className="theme-btn"
-                                      type="button"
-                                      onClick={() => {
-                                        ReactGA.event({
-                                          category: "Home",
-                                          action:
-                                            "Get Started button on Landing Page clicked",
-                                        });
-                                      }}
-                                    >
-                                      Get Started as Investor
-                                    </a>
-                                    <a
-                                      href="/deals"
-                                      className="theme-btn"
-                                      type="button"
-                                      onClick={() => {
-                                        ReactGA.event({
-                                          category: "Home",
-                                          action:
-                                            "View Deals button on Landing Page clicked",
-                                        });
-                                      }}
-                                    >
-                                      View Deals
-                                    </a>
-                                  </>
-                                )}
-                              </div>
-                            </form>
-                          </div>
+                              Connect with Investors
+                            </li>
+                            <li>
+                              <span>
+                                <i class="fa-solid fa-check"></i>
+                              </span>
+                              Simplify Fundraising
+                            </li>
+                            <li>
+                              <span>
+                                <i class="fa-solid fa-check"></i>
+                              </span>
+                              Build Your Startup
+                            </li>
+                          </ul>
                         </div>
-                        {/* <div className="col-lg-6 bannerimg">
-                          <div
-                            className="right-side-images wow fadeInRight d-block"
-                            data-wow-delay="0.6s"
-                          >
-                            <p className="banner-txt">successfully funded deals</p>
-                            <div className="bannerimg-grid">
-                              <img src="./web/images/banner-logo1.png" alt="img" />
-                              <img src="./web/images/banner-logo4.png" alt="img" />
-                              <img src="./web/images/banner-logo3.png" alt="img" />
-                              <img src="./web/images/banner-logo2.png" alt="img" />
-                              <img src="./web/images/banner-logo5.png" alt="img" />
-                              <img src="./web/images/banner-logo6.png" alt="img" />
-                            </div>
+                        <form
+                          class="input_box input-box-new banner-btns wow  fadeInUp"
+                          data-wow-delay="0.7s"
+                          style={{
+                            visibility: "visible",
+                            animationDelay: "0.7s",
+                            animationName: "fadeInUp",
+                          }}
+                        >
+                          <div class="form-wraper new-form-wrapper">
+                            <a
+                              href="https://growth91.com/founder-registration"
+                              class="white-btns"
+                              type="button"
+                            >
+                              Raise Funds
+                            </a>
                           </div>
-                        </div> */}
+                        </form>
+                      </div>
+                      <div class="img-banner-part">
+                        <img
+                          src="./assets/images/venture.png"
+                          loading="lazy"
+                          id="w-node-f39cfbdd-9e8a-b68e-331a-6ae7eed950dd-6f7bf169"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </Slider>
+              </div>
+            </div>
+          </div>
+        </section>
+
+     <Homenewrxtra/>
+
+        <section class="business-crowd logo-sections ">
+          <div class="container">
+            <div class="row">
+              <div class="heading-title founder-text">
+                <h6>
+                  <span></span>{" "}
+                </h6>
+                <h2>Success Stories</h2>
+              </div>
+            </div>
+            <div class="position-rel">
+              <div class="blur-div"></div>
+              <div class="row client-slider">
+                <Slider {...successsetting}>
+                  <div class="client-logo">
+                    <img
+                      src="./assets/images/deal-images/Atreya/logo.jpg"
+                      alt="img"
+                      srcset=""
+                    />
+                  </div>
+                  <div class="client-logo">
+                    <img
+                      src="./assets/images/deal-images/BizPay/logo.svg"
+                      alt="img"
+                      srcset=""
+                    />
+                  </div>
+                  <div class="client-logo">
+                    <img
+                      src="./assets/images/deal-images/Bulkpe/logo.png"
+                      alt="img"
+                      srcset=""
+                    />
+                  </div>
+                  <div class="client-logo">
+                    <img
+                      src="./assets/images/deal-images/DcodeCare/logo.jpg"
+                      alt="img"
+                      srcset=""
+                    />
+                  </div>
+                  <div class="client-logo">
+                    <img
+                      src="./assets/images/deal-images/EcoRatings/logo.png"
+                      alt="img"
+                      srcset=""
+                    />
+                  </div>
+                  <div class="client-logo">
+                    <img
+                      src="./assets/images/deal-images/EventBeep/logo.png"
+                      alt="img"
+                      srcset=""
+                    />
+                  </div>
+                  <div class="client-logo">
+                    <img
+                      src="./assets/images/deal-images/Footrax/logo.png"
+                      alt="img"
+                      srcset=""
+                    />
+                  </div>
+                  <div class="client-logo">
+                    <img
+                      src="./assets/images/deal-images/Homversity/logo.jpg"
+                      alt="img"
+                      srcset=""
+                    />
+                  </div>
+                  <div class="client-logo">
+                    <img
+                      src="./assets/images/deal-images/HumSafer/logo.jpg"
+                      alt="img"
+                      srcset=""
+                    />
+                  </div>
+
+                  <div class="client-logo">
+                    <img
+                      src="./assets/images/deal-images/IndianStartupNews/logo.jpg"
+                      alt="img"
+                      srcset=""
+                    />
+                  </div>
+                  <div class="client-logo">
+                    <img
+                      src="./assets/images/deal-images/IndusUno/logo.png"
+                      alt="img"
+                      srcset=""
+                    />
+                  </div>
+                  <div class="client-logo">
+                    <img
+                      src="./assets/images/deal-images/Invidata/logo.png"
+                      alt="img"
+                      srcset=""
+                    />
+                  </div>
+                  <div class="client-logo">
+                    <img
+                      src="./assets/images/deal-images/Newboo/logo.jpg"
+                      alt="img"
+                      srcset=""
+                    />
+                  </div>
+                  <div class="client-logo">
+                    <img
+                      src="./assets/images/deal-images/ORAI/logo.jpg"
+                      alt="img"
+                      srcset=""
+                    />
+                  </div>
+                  <div class="client-logo">
+                    <img
+                      src="./assets/images/deal-images/Petmojo/logo.jpg"
+                      alt="img"
+                      srcset=""
+                    />
+                  </div>
+                  <div class="client-logo">
+                    <img
+                      src="./assets/images/deal-images/Targetpeak/Target-Peak-Logo.png"
+                      alt="img"
+                      srcset=""
+                    />
+                  </div>
+                  <div class="client-logo">
+                    <img
+                      src="./assets/images/deal-images/the EleFant/logo.png"
+                      alt="img"
+                      srcset=""
+                    />
+                  </div>
+                  <div class="client-logo">
+                    <img
+                      src="./assets/images/deal-images/TransBank/Logo.jpg"
+                      alt="img"
+                      srcset=""
+                    />
+                  </div>
+                  <div class="client-logo">
+                    <img
+                      src="./assets/images/deal-images/Tulua/Tulua Logo.webp"
+                      alt="img"
+                      srcset=""
+                    />
+                  </div>
+                  <div class="client-logo">
+                    <img
+                      src="./assets/images/deal-images/Yolo/logo.png"
+                      alt="img"
+                      srcset=""
+                    />
+                  </div>
+                </Slider>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="counter-sections" >
+          <div class="container">
+            <div class="row">
+              <div class="">
+                <div class="main-heading-counter">
+                  <p ref={this.elementRef}>Investment Strategy</p>
+                  <h3>Data-Driven Decisions</h3>
+                  <p>
+                    We leverage AI and machine learning to identify
+                    high-potential startups early, ensuring our portfolio is
+                    positioned for success.
+                  </p>
+                </div>
+                {isVisible && <div class="flex-counters">
+                  <div class="counter-container">
+                    <div class="part-one-count">
+                      <div id="numbers">
+                        <span class=" fig-number"><CountUp duration={5} start={0}end={75}  scrollSpyDelay={1000}/></span>
+                      </div>
+                      <p>+</p>
+                    </div>
+                    <span>Startups funded</span>
+                  </div>
+                  <div class="counter-container ">
+                    <div class="part-one-count">
+                      <div id="numbers">
+                        <span class=" fig-number"><CountUp duration={3}start={0}end={90}  scrollSpyDelay={1000}/></span>
+                      </div>
+                      <p>%</p>
+                    </div>
+
+                    <span>Success Rate</span>
+                  </div>
+
+                  <div class="counter-container">
+                    <div class="part-one-count">
+                      <div id="numbers">
+                        <span class=" fig-number"><CountUp duration={3}start={0}end={1000}  scrollSpyDelay={1000}/></span>
+                      </div>
+                      <p>+</p>
+                    </div>
+                    <span>Startups Analyzed</span>
+                  </div>
+                  <div class="counter-container">
+                    <div class="part-one-count">
+                      <p>Top Quartile</p>
+                    </div>
+                    <span>Performance Ranking</span>
+                  </div>
+                </div>}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="business-crowd">
+          <div class="container">
+            <div class="row">
+              <div class="heading-title founder-text">
+                <h6>
+                  <span></span>{" "}
+                </h6>
+                <h2>Why Choose us?</h2>
+              </div>
+
+              <div class="main-business-card">
+                <div class="circle-card-g91">
+                  <div class="img-inner-card1">
+                    <img src="./assets/images/display.png" alt="" srcset="" />
+                  </div>
+                  <div class="card-business-crowd">
+                    <h3>Transparency at Every Step </h3>
+                    <p>
+                      We offer a clear view into our rigorous vetting process,
+                      detailed startup profiles with in-depth information, and
+                      open communication. Invest with confidence, knowing you
+                      have all the information you need to make informed
+                      decisions.
+                    </p>
+                  </div>
+                </div>
+                <div class="circle-card-g91">
+                  <div class="img-inner-card1">
+                    <img src="./assets/images/funding.png" alt="" srcset="" />
+                  </div>
+                  <div class="card-business-crowd">
+                    <h3>Handpicked Deals for Explosive Growth </h3>
+                    <p>
+                      We meticulously select high-growth potential startups from
+                      diverse industries, saving you time and research while
+                      offering a range of exciting investment opportunities.
+                    </p>
+                  </div>
+                </div>
+                <div class="circle-card-g91">
+                  <div class="img-inner-card1">
+                    <img src="./assets/images/growth.png" alt="" srcset="" />
+                  </div>
+                  <div class="card-business-crowd">
+                    <h3>Aligned Interests, Shared Success</h3>
+                    <p>
+                      {" "}
+                      We invest alongside you in every startup featured on our
+                      platform. This "skin in the game" approach ensures our
+                      goals are perfectly aligned with yours – we're all rooting
+                      for the next big thing!
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="testimonial-section">
+          <div class="container">
+            <div class="row">
+              <div class="heading-title founder-text">
+                <h6>
+                  <span></span>{" "}
+                </h6>
+                <h2>Testimonials</h2>
+              </div>
+              <div class="col-12 col-xl-12 col-lg-12 col-md-12 ">
+                <div class="slider-testimonials">
+                  <Slider {...testimonialsetting}>
+                    <div class="testimonails-cards">
+                      <ul>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                      </ul>
+                      <p>
+                        Discovering hidden gems with Growth91 is like uncovering
+                        beautiful teasure. The platform's knack for identifying
+                        unique and promising startups gives me a sense of being
+                        part of an exclusive club.It's not just about numbers;
+                        it's about the thrill of finding the next big thing in
+                        the startup world.
+                      </p>
+                      <div class="name-testi">
+                        <div class="img-testiminal-card">
+                          <img
+                            src="./assets/images/testimonials/hrish.jpg"
+                            alt="user"
+                          />
+                        </div>
+                        <div class="contents-testimonials">
+                          <h3>Hirish Shipurkar</h3>
+                          <p> GPS FIG, HSBC Bank</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="testimonails-cards">
+                      <ul>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                      </ul>
+                      <p>
+                        Investing through Growth91 feels like having insider
+                        access to a world top-tier opportunities. the platform's
+                        ability to consistently bring high-quality deals to the
+                        table to showcase a deep understanding of market trends
+                        and a commitment to providing investors with access to
+                        cream of the crop
+                      </p>
+                      <div class="name-testi">
+                        <div class="img-testiminal-card">
+                          <img
+                            src="./assets/images/testimonials/jaison.jpg"
+                            alt="user"
+                          />
+                        </div>
+                        <div class="contents-testimonials">
+                          <h3>JAISON TITUS</h3>
+                          <p>SOFTWARE DEVLOPMENT</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="testimonails-cards">
+                      <ul>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                      </ul>
+                      <p>
+                        I am a regular investor on Growth Sense and very happy
+                        with kind of returns generated on my investments.
+                        Looking forward to equally exciting opportunities at
+                        Growth91<sup style={{ fontSize: "0.6rem" }}>TM</sup>
+                      </p>
+                      <div class="name-testi">
+                        <div class="img-testiminal-card">
+                          <img
+                            src="./assets/images/testimonials/ramesh-babu.jpg"
+                            alt="user"
+                          />
+                        </div>
+                        <div class="contents-testimonials">
+                          <h3>Ramesh Babu</h3>
+                          <p>Country Head </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="testimonails-cards">
+                      <ul>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                      </ul>
+                      <p>
+                        Knowing the team since so many years, especially after
+                        experiencing their skill in deal curation; looking
+                        forward to some exciting deals on the platform.
+                      </p>
+                      <div class="name-testi">
+                        <div class="img-testiminal-card">
+                          <img
+                            src="./assets/images/testimonials/mitul.jpg"
+                            alt="user"
+                          />
+                        </div>
+                        <div class="contents-testimonials">
+                          <h3>Mitul Jhaveri</h3>
+                          <p>Director Finance</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="testimonails-cards">
+                      <ul>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                      </ul>
+                      <p>
+                        what I appreciate most about Growth91 is the Caliber of
+                        its advisory board.Sanjay Sarda,Jimish Kapadia Asit
+                        oberoi and other they aren't figerHeads they're active
+                        contributors,shapeing the plateform's approach to
+                        investments.it's like having a personalised team of
+                        mentors, ensuring that every investment decision
+                        benifits from a wealth of collective exprience and
+                        foresight
+                      </p>
+                      <div class="name-testi">
+                        <div class="img-testiminal-card">
+                          <img
+                            src="./assets/images/testimonials/kush.jpg"
+                            alt="user"
+                          />
+                        </div>
+                        <div class="contents-testimonials">
+                          <h3>KUSH SHRIVASTAVA</h3>
+                          <p>Co Founder Quiklo</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="testimonails-cards">
+                      <ul>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa-solid fa-star"></i>
+                        </li>
+                      </ul>
+                      <p>
+                        The caliber of deals curated by Growth91 is nothing
+                        shorts of exceptional. It's not just about quality;it's
+                        the meticulous selection process that ensure each
+                        investment opportuntiy is a potential game-changer.
+                        Quality over quantity truly defines the investment
+                        landscapes on this platform. hope they continueto do it
+                        in future also
+                      </p>
+                      <div class="name-testi">
+                        <div class="img-testiminal-card">
+                          <img
+                            src="./assets/images/testimonials/Prakash.jpg"
+                            alt="user"
+                          />
+                        </div>
+                        <div class="contents-testimonials">
+                          <h3>PRAKASH ROHERA</h3>
+                          <p>INTERNATIONAL Corpoate </p>
+                        </div>
+                      </div>
+                    </div>
+                  </Slider>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="business-crowd">
+          <div class="container">
+            <div class="row">
+              <div class="heading-title founder-text">
+                <h6>
+                  <span></span>{" "}
+                </h6>
+                <h2> Blogs</h2>
+              </div>
+            </div>
+
+            <div class="row blog-rows">
+              <div class="col-lg-4 col-md-6 col-sm-6">
+                <div
+                  class="single-following-post aos-init aos-animate"
+                  data-aos="fade-up"
+                >
+                  <a href="#" class="following-post-thum">
+                    <img
+                      src="./web/Invest-in-startups-india-980x668.jpg"
+                      alt=""
+                    />
+                  </a>
+                  <div class="following-post-content">
+                    <div class="following-blog-post-top">
+                      <div class="trending-blog-post-category">
+                        <a href="#" class="business">
+                          Investment Guide
+                        </a>
+                      </div>
+                      <div class="following-blog-post-author">
+                        By <a href="#">Admin</a>
+                      </div>
+                    </div>
+                    <h5 class="following-blog-post-title">
+                      <a href="#">
+                        Evaluating Startup Founders: Unveiling the Pillars of
+                        Success Before You Invest in Startups in India.
+                      </a>
+                    </h5>
+                    <div class="following-blog-post-meta">
+                      <div class="post-meta-left-side">
+                        <span class="post-date">
+                          <i class="fa-regular fa-calendar"></i>
+                          <a href="#">Mar 15, 2024</a>
+                        </span>
+                        <span>10 min read</span>
+                      </div>
+                      <div class="post-meta-right-side">
+                        <a href="#">
+                          <img
+                            src="https://htmldemo.net/bunzo/bunzo/assets/images/icons/small-bookmark.png"
+                            alt=""
+                          />
+                        </a>
+                        <a href="#">
+                          <img
+                            src="https://htmldemo.net/bunzo/bunzo/assets/images/icons/heart.png"
+                            alt=""
+                          />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6 col-sm-6">
+                <div
+                  class="single-following-post aos-init aos-animate"
+                  data-aos="fade-up"
+                >
+                  <a href="#" class="following-post-thum">
+                    <img src="./web/Investment-Strategies-980x653.jpg" alt="" />
+                  </a>
+                  <div class="following-post-content">
+                    <div class="following-blog-post-top">
+                      <div class="trending-blog-post-category">
+                        <a href="#" class="business">
+                          Investment Guide
+                        </a>
+                      </div>
+                      <div class="following-blog-post-author">
+                        By <a href="#">Admin</a>
+                      </div>
+                    </div>
+                    <h5 class="following-blog-post-title">
+                      <a href="#">
+                        {" "}
+                        Invest in Indian Startups: Strategies for Each Stage
+                      </a>
+                    </h5>
+                    <div class="following-blog-post-meta">
+                      <div class="post-meta-left-side">
+                        <span class="post-date">
+                          <i class="fa-regular fa-calendar"></i>
+                          <a href="#">Mar 07, 2024</a>
+                        </span>
+                        <span>2 Comments</span>
+                      </div>
+                      <div class="post-meta-right-side">
+                        <a href="#">
+                          <img
+                            src="https://htmldemo.net/bunzo/bunzo/assets/images/icons/small-bookmark.png"
+                            alt=""
+                          />
+                        </a>
+                        <a href="#">
+                          <img
+                            src="https://htmldemo.net/bunzo/bunzo/assets/images/icons/heart.png"
+                            alt=""
+                          />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6 col-sm-6">
+                <div
+                  class="single-following-post aos-init aos-animate"
+                  data-aos="fade-up"
+                >
+                  <a href="#" class="following-post-thum">
+                    <img
+                      src="./web/invest-in-startup-india-980x637.jpg"
+                      alt=""
+                    />
+                  </a>
+                  <div class="following-post-content">
+                    <div class="following-blog-post-top">
+                      <div class="trending-blog-post-category">
+                        <a href="#" class="business">
+                          Investment Guide
+                        </a>
+                      </div>
+                      <div class="following-blog-post-author">
+                        By <a href="#">Admin</a>
+                      </div>
+                    </div>
+                    <h5 class="following-blog-post-title">
+                      <a href="#">
+                        {" "}
+                        Identifying Promising Startup Sectors for Investment in
+                        India
+                      </a>
+                    </h5>
+                    <div class="following-blog-post-meta">
+                      <div class="post-meta-left-side">
+                        <span class="post-date">
+                          <i class="fa-regular fa-calendar"></i>
+                          <a href="#">Mar 02, 2024</a>
+                        </span>
+                        <span>7 Comments</span>
+                      </div>
+                      <div class="post-meta-right-side">
+                        <a href="#">
+                          <img
+                            src="https://htmldemo.net/bunzo/bunzo/assets/images/icons/small-bookmark.png"
+                            alt=""
+                          />
+                        </a>
+                        <a href="#">
+                          <img
+                            src="https://htmldemo.net/bunzo/bunzo/assets/images/icons/heart.png"
+                            alt=""
+                          />
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -380,11 +1262,168 @@ class Homenew extends Component {
           </div>
         </section>
 
-        { this.state.testtime ==2?(
-           <Homextra/>)
-            :("")}
+        <section class="faq-sections">
+          <div class="container">
+            <div class="row">
+              <div class="main-accordain-all">
+                <div class="faq-side-content">
+                  <h3>Frequently Asked Questions</h3>
+                </div>
+                <div
+                  class="accordion accordion-flush"
+                  id="accordionFlushExample"
+                >
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseOne"
+                        aria-expanded="false"
+                        aria-controls="flush-collapseOne"
+                      >
+                        1. Where does my money go after I invest?
+                      </button>
+                    </h2>
+                    <div
+                      id="flush-collapseOne"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="flush-headingOne"
+                      data-bs-parent="#accordionFlushExample"
+                    >
+                      <div class="accordion-body">
+                        At Growth91, your investment is in safe hands. We
+                        utilize a secure escrow account to hold your funds
+                        throughout the fundraising process. If the startup
+                        reaches its goal, your investment is seamlessly
+                        transferred. If not, you receive a full refund
+                        automatically.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingTwo">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseTwo"
+                        aria-expanded="false"
+                        aria-controls="flush-collapseTwo"
+                      >
+                        2. How do I know the worth of my investment?
+                      </button>
+                    </h2>
+                    <div
+                      id="flush-collapseTwo"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="flush-headingTwo"
+                      data-bs-parent="#accordionFlushExample"
+                    >
+                      <div class="accordion-body">
+                        Unlike shares traded on stock exchanges like the Bombay
+                        Stock Exchange (BSE), private startup investments don't
+                        have a constantly changing market value. To estimate
+                        your investment's worth, we can compare the company's
+                        valuation during your investment round with its latest
+                        valuation.
+                        <br /> <br />
+                        If the company goes . through an Initial . Offering
+                        (IPO), you'll be able to track your shares' value just
+                        like .ly traded stocks.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingThree">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseThree"
+                        aria-expanded="false"
+                        aria-controls="flush-collapseThree"
+                      >
+                        3. How long before I see a return?
+                      </button>
+                    </h2>
+                    <div
+                      id="flush-collapseThree"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="flush-headingThree"
+                      data-bs-parent="#accordionFlushExample"
+                    >
+                      <div class="accordion-body">
+                        While there's no guaranteed timeframe, industry reports
+                        suggest an average wait time of 5-7 years for Indian
+                        startups to deliver returns to investors. This is just a
+                        ballpark figure, and your specific investment could see
+                        returns sooner or later.
+                        <br />
+                        <br />
+                        Remember: Patience is crucial! Successful startups
+                        require time to develop, scale, and potentially reach an
+                        exit event.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingfour">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#flush-headingfournew"
+                        aria-expanded="false"
+                        aria-controls="flush-headingfour"
+                      >
+                        4. I am new to this, how do I choose?
+                      </button>
+                    </h2>
+                    <div
+                      id="flush-headingfournew"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="flush-headingfour"
+                      data-bs-parent="#accordionFlushExample"
+                    >
+                      <div class="accordion-body">
+                        We've done the groundwork. We carefully vet all deals
+                        before featuring them, and only invest in those we truly
+                        believe in.
+                        <br />
+                        <br />
+                        Your investment journey starts here. Browse through
+                        curated deals, do your own research using the provided
+                        financials, pitch decks, and market sentiment. Leverage
+                        your unique insights and invest in what excites you and
+                        aligns with your understanding.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-        <WebFooter />
+        <section class="custom-section">
+          <div class="join-section join-sec-yellow join-sec-white undefined">
+            <h1>Join us</h1>
+            <h2>Invest in Promising Startups with Us</h2>
+            <p class="index_pitch">
+              Experience unparalleled expertise in startup investments with us.
+              With over half a decade of rich experience, we've made our mark in
+              the world startup ecosystem. Invest confidently today!{" "}
+            </p>
+            <div class="index-button">Join Us</div>
+          </div>
+        </section>
+        {/* { this.state.testtime ==2?(
+           <Homextra/>)
+            :("")} */}
+
+<NewWebFooter />
       </div>
     );
   }

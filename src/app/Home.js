@@ -40,8 +40,13 @@ class Home extends Component {
     document.getElementsByTagName("META")[4].content =
       "Venture into Innovation: Invest in Startups with Growth91";
 
+      document.title  =
+      "Venture into Innovation: Invest in Startups with Growth91";
+      
     document.getElementsByTagName("META")[3].content =
       "Explore the potential of startup investments with Growth91. Discover opportunities & maximize your returns. Embrace the opportunity to invest in startups.";
+      document.getElementsByTagName("META")[5].content ="invest in startups invest in startups india "
+
   }
   componentDidMount() {
     ReactGA.initialize(TRACKING_ID);

@@ -8,8 +8,11 @@ class TermsConditions extends Component {
     componentWillMount() {
       
     document.getElementsByTagName("META")[4].content  = "Growth91 Terms & Conditions";
+    document.title = "Growth91 Terms & Conditions";
     
         document.getElementsByTagName("META")[3].content="Understand Growth91's investment process & legal terms. Learn about risks, G-SAFE agreements, user data, & dispute resolution. Invest confidently!";
+    document.getElementsByTagName("META")[5].content ="Terms & Conditions"
+
     
       }
     render() {

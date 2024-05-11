@@ -17,9 +17,13 @@ class Founders extends Component {
    
     document.getElementsByTagName("META")[4].content =
       "Growth91: Revolutionizing Crowdfunding for Indian Startups";
+      document.title  =
+      "Growth91: Revolutionizing Crowdfunding for Indian Startups";
 
     document.getElementsByTagName("META")[3].content =
       "Join the revolution in Indian startup funding with Growth91's innovative crowdfunding platform. Experience streamlined financing for growth and success.";
+      document.getElementsByTagName("META")[5].content ="startup funding platform "
+
   }
 
   componentDidMount() {

@@ -19,9 +19,13 @@ class Investors extends Component {
   componentWillMount() {
     document.getElementsByTagName("META")[4].content =
       "Wondering About Investing in Startups India? | Visit Growth91";
+      document.title  =
+      "Wondering About Investing in Startups India? | Visit Growth91";
 
     document.getElementsByTagName("META")[3].content =
       "Navigate landscape of startup investing platforms in India. Explore best startup in India with low investment for maximum growth & Invest confidently.";
+      document.getElementsByTagName("META")[5].content ="startup investing platforms best startups in india with low investment best startup ideas in india with low investment "
+
   }
 
   componentDidMount() {

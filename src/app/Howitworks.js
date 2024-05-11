@@ -10,8 +10,11 @@ class Howitworks extends Component {
     componentWillMount() {
         
     document.getElementsByTagName("META")[4].content = "Growth91 Investing FAQs: How it Works!";
+    document.title  = "Growth91 Investing FAQs: How it Works!";
     
         document.getElementsByTagName("META")[3].content="Have questions about investing on Growth91? This FAQ covers creating a profile, investing in deals, & G-SAFE agreements. Get informed!";
+    document.getElementsByTagName("META")[5].content ="Investing FAQs"
+
     
       }
   

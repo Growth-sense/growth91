@@ -829,18 +829,18 @@ font-size: 28px;
 
     }
 
-    .bgheaders .main-navbar .desktop-menu li a:hover {
+    .bgheaders  .main-navbar .desktop-menu li a:hover {
         color: #111 !important;
 
     }
 
-    .bgheaders.main-header .main-navbar .nav-inner ul li a{
-        color: #111;
+    .bgheaders .new .main-header .main-navbar .nav-inner ul li a{
+        color: #111 !important;
     }
-    .bgheaders.main-header .main-navbar .nav-inner ul li:hover a{
+    .bgheaders .new .main-header .main-navbar .nav-inner ul li:hover a{
         color: #ff9c1a !important;
     }
-    .bgheaders.main-header .main-navbar{
+    .bgheaders .new .main-header .main-navbar{
         box-shadow: 0 3px 8px rgba(0,0,0,.24);
     }
     .custom-section{
@@ -856,13 +856,13 @@ font-size: 28px;
 }
 
 
-.main-header .main-navbar {
+ .new .main-header .main-navbar {
     background: #29176F;
     padding: 0 30px;
     position: relative;
     z-index: 1;
 }
-.main-header .main-navbar .nav-inner ul li a {
+ .new .main-header .main-navbar .nav-inner ul li a {
     display: block;
     line-height: 60px;
     position: relative;
@@ -874,10 +874,13 @@ font-size: 28px;
     font-family: Nunito, sans-serif;
     text-transform: capitalize;
 }
-/* .main-header .main-navbar .nav-inner ul li a.active::after, .main-header .main-navbar .nav-inner ul li:focus a::after, .main-header .main-navbar .nav-inner ul li:hover a::after{
+ .main-header :hover a{
+    color: #111 !important;
+}
+/*  .new .main-header .main-navbar .nav-inner ul li a.active::after,  .new .main-header .main-navbar .nav-inner ul li:focus a::after,  .new .main-header .main-navbar .nav-inner ul li:hover a::after{
     display: none;
 } */
-.main-header .main-navbar .nav-inner {
+ .new .main-header .main-navbar .nav-inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -971,7 +974,7 @@ font-size: 28px;
 .menu-bar {
     display: none;
 }
-/* .main-header .main-navbar .nav-inner ul li a:hover{
+/*  .new .main-header .main-navbar .nav-inner ul li a:hover{
     color: orange;
     transition: 0.3s all;
 } */
@@ -1220,7 +1223,7 @@ display: block !important;
         color: #111;
         opacity: 0.7;
     }
-    .main-header .main-navbar .nav-inner {
+     .new .main-header .main-navbar .nav-inner {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -1236,8 +1239,8 @@ display: block !important;
     .menu-logo img{
         margin-left: 0px !important;
     }
-    .main-header .main-navbar .nav-inner ul li a{
-        color: #111;
+    .bgheaders .new .main-header .main-navbar .nav-inner ul li a{
+        color: #111 !;
     }
     .banner_section .slider-area .item .left-content h2 {
         font-size: 25px !important;
