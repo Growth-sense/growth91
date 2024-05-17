@@ -1869,26 +1869,28 @@ class Investors extends Component {
 
                     <div style={{ marginBottom: 20 }}>
                       {this.state.pan_image ? (
-                        <>
-                          PAN Card Image:
-                          <br />
-                          <Image
-                            width={200}
-                            src={`${Apis.IMAGEURL}/pan/${this.state.investor_id}/${this.state.pan_image}`}
-                          />
-                          <br />
-                          <label>Change PAN Card Image :</label>
-                          <br />
-                          <input
-                            type="file"
-                            name="file"
-                            onChange={this.onPanimageChange}
-                            style={{ width: 350 }}
-                            accept="application/pdf, image/*"
-                            // accept="application/pdf, pdf, .png, .jpg ,.jpeg"
+                       this.state.pan_image.split(".").pop() =="pdf"?(<iframe  src={`${Apis.IMAGEURL}/pan/${this.state.investor_id}/${this.state.pan_image}`}></iframe>):(
+                         <>
+                        PAN Card Image: 
+                        <br />
+                        <Image
+                          width={200}
+                          src={`${Apis.IMAGEURL}/pan/${this.state.investor_id}/${this.state.pan_image}`}
+                        />
+                        <br />
+                        <label>Change PAN Card Image :</label>
+                        <br />
+                        <input
+                          type="file"
+                          name="file"
+                          onChange={this.onPanimageChange}
+                          style={{ width: 350 }}
+                          accept="application/pdf, image/*"
+                          // accept="application/pdf, pdf, .png, .jpg ,.jpeg"
 
-                          />
-                        </>
+                        />
+                      </>)
+                       
                       ) : (
                         <>
                           <label>Upload PAN Card Image :</label>

@@ -89,8 +89,8 @@ export const Homextra = () => {
                 Investment
               </h4>
               <p>
-                Start your Investment journey with an amount as small as ₹
-                5,000
+                Start your Investment journey with <br />
+                small amounts
               </p>
               {/* <a href="featured.html">Know more</a> */}
             </div>

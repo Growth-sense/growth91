@@ -2,8 +2,7 @@ import React from 'react'
 
 export const NewWebFooter = () => {
   return (
-    <header style={{margin:"2rem 20px !important"}}>
-  <div class="Footer_footer__Dhw_9">
+  <div class="Footer_footer__Dhw_9 newfooter" style={{padding: "1rem 0rem !important"}}>
     <div class="Footer_footerLogo__Dz6fy">
 
     </div>
@@ -27,6 +26,5 @@ export const NewWebFooter = () => {
       </ul>
     </div>
   </div>
-</header>
   )
 }

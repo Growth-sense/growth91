@@ -335,6 +335,9 @@ body button:hover {
 .main-header .top-header {
   padding: 10px 0;
 }
+.newtopheader{
+  padding: 0 !important;
+}
 .main-header .top-header .topbar-left li {
   display: inline-block;
   padding: 0 25px;
@@ -458,6 +461,18 @@ body button:hover {
   margin: 0 10px;
   font-family: Nunito, sans-serif;
   text-transform: capitalize;
+}
+.ant-dropdown-trigger::after {
+  content: "";
+  position: absolute;
+  height: 4px;
+  width: 0;
+  left: 0;
+  top: 0;
+  background: none !important;
+}
+.newfooter{
+  padding: 1rem 0rem !important;
 }
 .main-header .main-navbar .nav-inner ul li a::after {
   content: "";
@@ -686,8 +701,16 @@ body button:hover {
   right: 0;
 }
 .banner_section {
+  /* margin-top: 0px;
+  align-items: center;
+  height: 100vh;
+  background-image: url(https://www.infeedo.ai/hubfs/inFeedo_theme_2024/Images/Header.png) !important;
+  background-size: cover !important;
+  /* background-position: center center !important; */
+  /* background-repeat: no-repeat !important; */ 
+
   background: var(--linearbg) !important;
-  background: 65%, url("images/table-bg.html") top center no-repeat;
+  background: 65%, url(images/table-bg.html) top center no-repeat;
   background-size: cover;
   padding-top: 80px;
   overflow: hidden;
@@ -3183,6 +3206,11 @@ body.search.search-results .content-area {
 }
 
 @media screen and (min-width: 768px) {
+  .mobileuser{
+  
+  display: none !important;
+  
+  }
   .testimonial_wraper_mobile .item {
     min-height: 400 !important;
     max-height: 400 !important;

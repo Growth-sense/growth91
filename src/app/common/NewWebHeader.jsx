@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
 import $ from "jquery";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { Menu, Dropdown, Modal, message, Spin, Button } from "antd";
 import { HiMenu } from "react-icons/hi";
 
@@ -22,6 +22,8 @@ class NewWebHeader extends Component {
     super(props);
     this.state = {
       name: "",
+      isActive: false,
+      isScrolled: 0,
       loggedinstatus: false,
       modalVisible: false,
       bankdetailsmodal: false,
@@ -42,7 +44,7 @@ class NewWebHeader extends Component {
       communitylink: "/Login",
       discounted_amount: 0,
       membership_amount: 0,
-      investor_kyc_status: '',
+      investor_kyc_status: "",
 
       //for founder data
       founder_profileimagetoshow: "",
@@ -54,17 +56,68 @@ class NewWebHeader extends Component {
       premium_button_show_status: false,
       // founder_membership_type:'',
     };
+    this.toggleMenu = this.toggleMenu.bind(this);
+    // this.handleScroll = this.handleScroll.bind(this);
   }
-
   componentDidMount() {
-    $('.main-header').hover(
-      function() {
-        $(this).addClass('bgheaders')
-      },
-      function() {
-        $(this).removeClass('bgheaders')
+    // window.addEventListener("scroll", this.handleScroll);
+    var scroll_pos = 0;
+    var scroll_time;
+
+    $(window).scroll(function () {
+      clearTimeout(scroll_time);
+      var current_scroll = $(window).scrollTop();
+
+      if (current_scroll >= $("#topNav").outerHeight()) {
+        if (current_scroll <= scroll_pos) {
+          $("#topNav").removeClass("hidden");
+        } else {
+          $("#topNav").addClass("hidden");
+        }
       }
-    )
+
+      scroll_time = setTimeout(function () {
+        scroll_pos = $(window).scrollTop();
+      }, 100);
+    });
+    let lastScroll = 0;
+    $(document).ready(function ($) {
+      $(window).scroll(function () {
+        setTimeout(function () {
+          //gives 100ms to finish scrolling before doing a check
+          var scroll = $(window).scrollTop();
+          if (scroll > lastScroll) {
+            $(".selector").addClass("shift");
+          } else if (scroll < lastScroll) {
+            $(".selector").removeClass("shift");
+          }
+          lastScroll = scroll;
+        }, 100);
+      });
+      $(document).ready(function () {
+        var s = $(".main-header");
+        var pos = s.position();
+        $(window).scroll(function () {
+          var windowpos = $(window).scrollTop();
+          if ((windowpos >= pos.top) & (windowpos <= 100)) {
+            s.removeClass("bgheaders");
+          } else {
+            s.addClass("bgheaders");
+          }
+        });
+      });
+    });
+
+    $(".main-header").hover(
+      function () {
+        $(this).addClass("bgheaders");
+      },
+      function () {
+        $(this).removeClass("bgheaders");
+      }
+    );
+
+    // const expand
     // this.isLogin();
 
     if (localStorage.getItem("investor_id")) {
@@ -94,6 +147,19 @@ class NewWebHeader extends Component {
     }
     this.getsettings();
   }
+  componentWillUnmount() {
+    // window.removeEventListener("scroll", this.handleScroll);
+  }
+
+  toggleMenu() {
+    // Toggle isActive state
+
+    this.setState((prevState) => ({
+      isActive: !prevState.isActive,
+    }));
+  }
+
+  // });
 
   // isLogin = () => {
   //   if(localStorage.getItem("investor_id")  ||
@@ -121,7 +187,7 @@ class NewWebHeader extends Component {
         } else {
         }
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
 
   getbankdetails = () => {
@@ -528,6 +594,11 @@ class NewWebHeader extends Component {
   };
 
   render() {
+    const { newabout } = this.props;
+    console.log(document.documentElement.scrollHeight);
+
+    // Add a click event listener to the expandMenu element
+    const { isActive, isScrolled } = this.state;
     const menu = (
       <Menu mode="horizontal" defaultSelectedKeys={["mail"]}>
         <Menu.Item
@@ -648,64 +719,314 @@ class NewWebHeader extends Component {
 
     return (
       <div className="new">
-         <header class="main-header site-header selector " id="topNav" >
-            <div class="">
-                <div class="top-header" style={{background: "rgb(41, 23, 111);"}}>
+        <header
+          className={` main-header site-header selector  ${
+            isScrolled ? "shift" : ""
+          }`}
+          id="topNav"
+        >
+          <div class="">
+            <div
+              class="top-header newtopheader"
+              style={{ background: "rgb(41, 23, 111);" }}
+            ></div>
+            <div
+              className={`headers-main ${
+                isActive ? "main-navbar-bg-white" : ""
+              }`}
+            >
+              <nav class={`main-navbar ${newabout}`}>
+                <div class="nav-inner ">
+                  <div
+                    className={`logo-menus ${
+                      isActive ? "directions-columns" : ""
+                    }`}
+                  >
+                    <div
+                      class="menu-logo"
+                      style={
+                        isActive ?   { display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between"}   : {display:"bv"} }
+                    >
+                      <a href="index.php">
+                        <img src="/web/white-logo.png" width="116" alt="img" />
+                        <img
+                          src="/web/growth91LOGO (4).png"
+                          width="116"
+                          alt="img"
+                        />
+                      </a>
+                      <div class="menu-bar open-menu mobileuser"  style={
+                        isActive ? {    display: "flex",
+                        width: "160px"} : {display:"block"} } >
+                        {this.state.loggedinstatus == true ? (
+                          <ul
+                            className={`topbar-right ${
+                              isActive ? "d-block" : ""
+                            }`}
+                          >
+                            {/* <i className="bx bxs-bell-ring position-relative text-white me-4" style={{fontSize: '1.5rem', marginBottom: '0'}}>
+                                
+                                <span className="position-absolute top-0 start-100 translate-middle px-2 mt-2 ms-2 bg-danger border border-light rounded-circle">
+                                  <span className="" style={{fontSize: '0.65rem', padding: "0px"}}>4+</span>
+                                </span>
+                              </i> */}
+                            <li
+                              style={{
+                                borderLeft: 0,
+                                paddingLeft: 8,
+                              }}
+                            >
+                              {this.state.loggedinuser == "investor" ? (
+                                <Dropdown overlay={menu}>
+                                  <a onClick={(e) => e.preventDefault()}>
+                                    {this.state.profileimagetoshow ? (
+                                      <img
+                                        src={this.state.profileimagetoshow}
+                                        className="user-img"
+                                        alt="profile"
+                                        style={{
+                                          width: 48,
+                                          height: 48,
+                                          objectFit: "cover",
+                                          borderRadius: "50%",
+                                          border: "2px solid #fff",
+                                        }}
+                                      />
+                                    ) : (
+                                      <div className="user-wrappr">
+                                        {this.state.firstname.slice(0, 1)}
+                                        {this.state.lastname.slice(0, 1)}
+                                      </div>
+                                    )}
+                                  </a>
+                                </Dropdown>
+                              ) : (
+                                <Dropdown overlay={menu2}>
+                                  <a onClick={(e) => e.preventDefault()}>
+                                    {this.state.founder_profileimagetoshow ? (
+                                      <img
+                                        src={
+                                          this.state.founder_profileimagetoshow
+                                        }
+                                        className="user-img"
+                                        alt="profile"
+                                        style={{
+                                          width: 48,
+                                          height: 48,
+                                          objectFit: "cover",
+                                          borderRadius: "50%",
+                                          border: "2px solid #fff",
+                                        }}
+                                      />
+                                    ) : (
+                                      <div className="user-wrappr">
+                                        {this.state.name.slice(0, 2)}
+                                      </div>
+                                    )}
+                                  </a>
+                                </Dropdown>
+                              )}
+                            </li>
+                          </ul>
+                        ) : (
+                          ""
+                        )}
 
-                </div>
-                <div class="headers-main">
-                    <nav class="main-navbar">
-                        <div class="nav-inner ">
+                        {/* <!-- <i class="fa-solid fa-bars"></i> --> */}
+                        <span
+                          onClick={this.toggleMenu}
+                          className={`expandMenu ${isActive ? "active" : ""}`}
+                        >
+                          <i></i>
+                          <i></i>
+                          <i></i>
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      className="mobilenew-menus"
+                      style={{ display: isActive ? "block" : "block" }}
+                    >
+                      <ul
+                        className={`desktop-menu col-xl col-xxl col-sm col-md col-lg ${
+                          isActive ? "menumobile-opens" : ""
+                        }`}
+                        style={{
+                          position: "relative",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <li>
+                          <Link
+                            to="/home"
+                            className={
+                              window.location.pathname == "/home" && "active"
+                            }
+                            
+                          >
+                            Invest
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/deals"
+                            className={
+                              window.location.pathname == "/deals" && "active"
+                            }
+                          >
+                            Deals
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/pitch"
+                            className={
+                              window.location.pathname == "/pitch" && "active"
+                            }
+                          >
+                            Pitch
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/resources"
+                            className={
+                              window.location.pathname == "/resource" &&
+                              "active"
+                            }
+                          >
+                            Resources
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/about"
+                            className={
+                              window.location.pathname == "/about" && "active"
+                            }
+                          >
+                            About Us
+                          </Link>
+                        </li>
 
-                            <div class="logo-menus">
-                                <div class="menu-logo">
-                                    <a href="index.php">
-                                        <img src="/web/white-logo.png" width="116" alt="img"/>
-                                        <img src="/web/growth91LOGO (4).png" width="116" alt="img"/>
-                                    </a>
-                                    <div class="menu-bar open-menu">
-                                        {/* <!-- <i class="fa-solid fa-bars"></i> --> */}
-                                        <span class="expandMenu">
-                                            <i></i>
-                                            <i></i>
-                                            <i></i>
-                                        </span>
-                                    </div>
+                        <li>
+                          <Link
+                            to="/Blog"
+                            className={
+                              window.location.pathname == "/Blog" && "active"
+                            }
+                          >
+                            Blog
+                          </Link>
+                        </li>
+                        {this.state.loggedinstatus == true ? (
+                          ""
+                        ) : (
+                          <>
+                            {" "}
+                            <li>
+                              <Link
+                                to="/Login"
+                                className={
+                                  window.location.pathname == "/login" &&
+                                  "active"
+                                }
+                              >
+                                Sign In
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                to="/Signup"
+                                className={
+                                  window.location.pathname == "/Signup" &&
+                                  "active"
+                                }
+                              >
+                                Get Started
+                              </Link>
+                            </li>
+                          </>
+                        )}
+                      </ul>
+                    </div>
+                  </div>
+                  {this.state.loggedinstatus == true ? (
+                    <ul className={`topbar-right ${isActive ? "d-none" : ""}`}>
+                      {/* <i className="bx bxs-bell-ring position-relative text-white me-4" style={{fontSize: '1.5rem', marginBottom: '0'}}>
+                                
+                                <span className="position-absolute top-0 start-100 translate-middle px-2 mt-2 ms-2 bg-danger border border-light rounded-circle">
+                                  <span className="" style={{fontSize: '0.65rem', padding: "0px"}}>4+</span>
+                                </span>
+                              </i> */}
+                      <li
+                        style={{
+                          borderLeft: 0,
+                          paddingLeft: 8,
+                        }}
+                      >
+                        {this.state.loggedinuser == "investor" ? (
+                          <Dropdown overlay={menu}>
+                            <a onClick={(e) => e.preventDefault()}>
+                              {this.state.profileimagetoshow ? (
+                                <img
+                                  src={this.state.profileimagetoshow}
+                                  className="user-img"
+                                  alt="profile"
+                                  style={{
+                                    width: 48,
+                                    height: 48,
+                                    objectFit: "cover",
+                                    borderRadius: "50%",
+                                    border: "2px solid #fff",
+                                  }}
+                                />
+                              ) : (
+                                <div className="user-wrappr">
+                                  {this.state.firstname.slice(0, 1)}
+                                  {this.state.lastname.slice(0, 1)}
                                 </div>
-                                <div class="mobilenew-menus">
-                                <ul class="desktop-menu col-xl col-xxl col-sm col-md col-lg" style={{position: "relative"  ,justifyContent:"center"}}>
-                                    
-                                    <li><a class="" href="index.php">Invest</a></li>
-                                    <li><a href="#">Deals</a></li>
-                                    <li><a href="#">Pitch</a></li>
-                                    <li><a href="#">Resources</a></li>
-                                    <li><a href="about.php">About Us</a></li>
-
-                                    <li><a href="blog.php">Blog</a></li>
-                                </ul>
+                              )}
+                            </a>
+                          </Dropdown>
+                        ) : (
+                          <Dropdown overlay={menu2}>
+                            <a onClick={(e) => e.preventDefault()}>
+                              {this.state.founder_profileimagetoshow ? (
+                                <img
+                                  src={this.state.founder_profileimagetoshow}
+                                  className="user-img"
+                                  alt="profile"
+                                  style={{
+                                    width: 48,
+                                    height: 48,
+                                    objectFit: "cover",
+                                    borderRadius: "50%",
+                                    border: "2px solid #fff",
+                                  }}
+                                />
+                              ) : (
+                                <div className="user-wrappr">
+                                  {this.state.name.slice(0, 2)}
                                 </div>
-                              
-
-                            </div>
-                            <div class="headers-btn">
-                                <Link href="/login">Sign In</Link>
-                                <Link href="/Signup">Get Started</Link>
-                            </div>
-
-                        </div>
-
-
-
-                    </nav>
-
-
+                              )}
+                            </a>
+                          </Dropdown>
+                        )}
+                      </li>
+                    </ul>
+                  ) : (
+                    <div class="headers-btn">
+                      <Link to="/login">Sign In</Link>
+                      <Link to="/Signup">Get Started</Link>
+                    </div>
+                  )}
                 </div>
-
-
-
+              </nav>
             </div>
-
-
+          </div>
         </header>
 
         <Modal
@@ -817,7 +1138,7 @@ class NewWebHeader extends Component {
                 className="form-control"
                 value={localStorage.getItem("investor_email")}
                 readOnly
-              // onChange={(e) => this.setState({ contactno:e.target.value })}
+                // onChange={(e) => this.setState({ contactno:e.target.value })}
               />
             </div>
 
@@ -984,7 +1305,7 @@ class NewWebHeader extends Component {
                 className="form-control"
                 value={localStorage.getItem("founder_email")}
                 readOnly
-              // onChange={(e) => this.setState({ contactno:e.target.value })}
+                // onChange={(e) => this.setState({ contactno:e.target.value })}
               />
             </div>
 

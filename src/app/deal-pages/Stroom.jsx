@@ -23,7 +23,7 @@ import InvestmentMembershipmodal from "../components/membership/InvestmentMember
 
 const { Panel } = Collapse;
 const { TabPane } = Tabs;
-class Tulua extends Component {
+class Stroom extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -95,33 +95,21 @@ class Tulua extends Component {
       escrow_account_ifsc: "",
       agreeCheck: false,
       images: [
-        "./assets/images/deals-details/Tulua new/Pitch/1.jpg",
-        "./assets/images/deals-details/Tulua new/Pitch/2.jpg",
-        "./assets/images/deals-details/Tulua new/Pitch/3.jpg",
-        "./assets/images/deals-details/Tulua new/Pitch/4.jpg",
-        "./assets/images/deals-details/Tulua new/Pitch/5.jpg",
-        "./assets/images/deals-details/Tulua new/Pitch/6.jpg",
-        "./assets/images/deals-details/Tulua new/Pitch/7.jpg",
-        "./assets/images/deals-details/Tulua new/Pitch/8.jpg",
-        "./assets/images/deals-details/Tulua new/Pitch/9.jpg",
-        "./assets/images/deals-details/Tulua new/Pitch/10.jpg",
-        "./assets/images/deals-details/Tulua new/Pitch/11.jpg",
-        "./assets/images/deals-details/Tulua new/Pitch/12.jpg",
-        "./assets/images/deals-details/Tulua new/Pitch/13.jpg",
-        "./assets/images/deals-details/Tulua new/Pitch/14.jpg",
-        "./assets/images/deals-details/Tulua new/Pitch/15.jpg",
-        "./assets/images/deals-details/Tulua new/Pitch/16.jpg",
-        "./assets/images/deals-details/Tulua new/Pitch/17.jpg",
-        "./assets/images/deals-details/Tulua new/Pitch/18.jpg",
-        "./assets/images/deals-details/Tulua new/Pitch/19.jpg",
-        "./assets/images/deals-details/Tulua new/Pitch/20.jpg",
-        "./assets/images/deals-details/Tulua new/Pitch/21.jpg",
-        "./assets/images/deals-details/Tulua new/Pitch/22.jpg",
-        "./assets/images/deals-details/Tulua new/Pitch/23.jpg",
-        "./assets/images/deals-details/Tulua new/Pitch/24.jpg",
-        "./assets/images/deals-details/Tulua new/Pitch/25.jpg",
-        "./assets/images/deals-details/Tulua new/Pitch/26.jpg",
-       
+        "./assets/images/deals-details/Stroom/Pitch/1.jpg",
+        "./assets/images/deals-details/Stroom/Pitch/2.jpg",
+        "./assets/images/deals-details/Stroom/Pitch/3.jpg",
+        "./assets/images/deals-details/Stroom/Pitch/4.jpg",
+        "./assets/images/deals-details/Stroom/Pitch/5.jpg",
+        "./assets/images/deals-details/Stroom/Pitch/6.jpg",
+        "./assets/images/deals-details/Stroom/Pitch/7.jpg",
+        "./assets/images/deals-details/Stroom/Pitch/8.jpg",
+        "./assets/images/deals-details/Stroom/Pitch/9.jpg",
+        "./assets/images/deals-details/Stroom/Pitch/10.jpg",
+        "./assets/images/deals-details/Stroom/Pitch/11.jpg",
+        "./assets/images/deals-details/Stroom/Pitch/12.jpg",
+        "./assets/images/deals-details/Stroom/Pitch/13.jpg",
+        "./assets/images/deals-details/Stroom/Pitch/14.jpg",
+        "./assets/images/deals-details/Stroom/Pitch/15.jpg",
       ],
       current: "",
     };
@@ -131,10 +119,10 @@ class Tulua extends Component {
   callback3 = (key) => {};
 
   componentWillMount() {
-    document.title = "Tulua - Growth91 - Startup Marketplace ";
+    document.title = "Stroom - Growth91 - Startup Marketplace ";
   }
   componentDidMount() {
-    let deal_id = "121";
+    let deal_id = "31";
     this.setState({ deal_id: deal_id }, () => {
       this.get_pitch_list();
     });
@@ -455,7 +443,7 @@ class Tulua extends Component {
           // }
         }
         for (let d of result.data) {
-            console.log(this.state.captable_threshold_amount);
+          console.log(this.state.captable_threshold_amount);
 
           if (d.deal_id == this.state.deal_id) {
             if (d.show_status == "0") {
@@ -1138,7 +1126,7 @@ class Tulua extends Component {
                         <div className="d-flex align-items-center">
                           {/* Image is static */}
                           <img
-                            src="./assets/images/deals-details/Tulua new/logo.png"
+                            src="./assets/images/deals-details/Stroom/logo.jpg"
                             alt=""
                             className="img-fluid"
                             style={{
@@ -1147,7 +1135,7 @@ class Tulua extends Component {
                               objectFit: "contain",
                             }}
                           />
-                          <h5 className="ml-5 mt-4">Tulua</h5>
+                          <h5 className="ml-5 mt-4">Stroom</h5>
                           {/* <h5>{this.state.logo}</h5> */}
                         </div>
                         {this.state.isPrivate == true && (
@@ -1178,7 +1166,8 @@ class Tulua extends Component {
                       </div>
 
                       <p style={{ textAlign: "justify" }}>
-                      Tulua Foods Pvt Ltd, established in 2020, specializes in providing high-quality, clean-label spice and masala products. With a mission to spotlight authentic Indian flavours, Tulua offers a diverse range of over 50 SKUs, including whole spices, powdered spices, and ready-to-cook (RTC) pastes. Their commitment to quality, transparency, and authenticity sets them apart in the market. Operating in both B2B and B2C segments, Tulua supplies branded spices to hospitality businesses and caters directly to individual consumers through various sales channels. Achieving rapid growth and significant milestones, Tulua has secured funding to support its expansion plans, including venturing into export markets and introducing new product lines. </p>
+                      Stroom, a pioneering venture by Drips Foods Private Limited, is revolutionizing the snacking landscape in India and beyond. With a relentless commitment to innovation, quality, and affordability, Stroom offers a diverse range of centre-filled energy bars and protein-packed snacks that prioritize both taste and nutrition. By leveraging in-house manufacturing capabilities, Stroom ensures meticulous control over ingredients and production processes, delivering superior products directly to consumers. Its strategic focus on targeting diverse consumer segments, tapping into untapped markets, and expanding globally through bilateral partnerships underscores Stroom's ambition to redefine healthy snacking on a global scale. Through continuous product innovation, customer-centricity, and a robust distribution network, Stroom aims to not only disrupt the existing market but also set new standards for taste, health, and accessibility in the FMCG industry.
+                      </p>
                       <div className=" percentage-container">
                         <div className="percentage-values">
                           {this.state.coming_soon_days ? (
@@ -1592,8 +1581,7 @@ class Tulua extends Component {
                     </div>
                   </Modal>
                   <div className="col-lg-7 deal-banner deals-video-banner">
-                    
-                    <iframe
+                     <iframe
                       style={{
                         boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
                         borderRadius: 3,
@@ -1602,12 +1590,13 @@ class Tulua extends Component {
                       
                       width="100%"
                       height="335"
-                      src="https://www.youtube.com/embed/RSPCgSoVGis"
-                      title="RTC Range Product Application"
+                      src="https://www.youtube.com/embed/qO9OwtsfOLw"
+                      title="Stroom Presentation video"
                       frameborder="10"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowfullscreen
                     ></iframe>
+                        {/*
                     <iframe
                       style={{
                         boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
@@ -1621,87 +1610,110 @@ class Tulua extends Component {
                       frameborder="10"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowfullscreen
-                    ></iframe>
-                    
+                    ></iframe> */}
                   </div>
                   {/* Market Overview */}
                   <div
-                              className="container home-decor-section mt-0"
-                              style={{ marginTop: "3px !important" }}
-                            >
-                              <h1
-                                className="text-center"
-                                style={{
-                                  marginBottom: "20px",
-                                  marginTop: "0px !important",
-                                }}
-                              >
-                                Market Overview
-                              </h1>
-                              <div className="row">
-                                <div className="col-lg-4">
-                                  <div className="single text-center h-lg market-boxes">
-                                    {/* <h2 style={{paddingBottom:"20px"}}>$1 Tn </h2> */}
-                                    <p
-                                      style={{
-                                        color: "white",
-                                        fontSize: "21px",
-                                        padding: "2px",
-                                        margin: "48px 0px",
-                                        opacity:"1",
-                                        lineHeight:'1.5'
-                                      }}
-                                    >
-                                     The Indian spice market is experiencing robust growth, with a projected CAGR of 11.29% during 2021-2027, reaching INR 142,569.3 Crores in 2021 and expected to reach INR 270,928.4 Crores by 2027. This growth is driven by India's status as the largest producer, consumer, and exporter of spices globally, alongside increasing demand fueled by changing consumer preferences.
-                                    </p>
-                                  </div>
-                                </div>
-                                <div className="col-lg-4">
-                                  <div className="single text-center h-lg market-boxes">
-                                    {/* <h2 style={{paddingBottom:"20px"}}>$200 Bn</h2> */}
-                                    <p
-                                      style={{
-                                        color: "white",
-                                        fontSize: "21px",
-                                        padding: "2px",
-                                        margin: "48px 0px",
-                                        opacity:"1",
-                                        lineHeight:'1.5'
-                                      }}
-                                    >
-                                     The total addressable market for spices in India was $42 billion in 2022, with an anticipated growth rate of 15.7% between 2021-2031. Similarly, the total addressable market for Ready-To-Cook (RTC) products in India was $460 million in 2022, forecasted to grow at a rate of 16.3% between 2021-2031, highlighting significant opportunities in both segments.
-                                    </p>
-                                  </div>
-                                </div>
+                    className="container home-decor-section mt-0"
+                    style={{ marginTop: "3px !important" }}
+                  >
+                    <h1
+                      className="text-center"
+                      style={{
+                        marginBottom: "20px",
+                        marginTop: "0px !important",
+                      }}
+                    >
+                      Market Overview
+                    </h1>
+                    <div className="row">
+                      <div className="col-lg-4">
+                        <div className="single text-center h-lg market-boxes">
+                          {/* <h2 style={{paddingBottom:"20px"}}>$1 Tn </h2> */}
+                          <p
+                            style={{
+                              color: "white",
+                              fontSize: "21px",
+                              padding: "2px",
+                              margin: "48px 0px",
+                              opacity: "1",
+                              lineHeight: "1.5",
+                            }}
+                          >
+                             <span style={{ color: "white",
+                              fontSize: "21px",
+                              padding: "2px",
+                              margin: "48px 0px",
+                              opacity: "1",
+                              lineHeight: "1.5",fontWeight:"800"}}>
+                            Market Growth:</span> The health food and beverage industry
+                            in India is experiencing significant growth, with a
+                            projected 20% compound annual growth rate (CAGR).
+                            This growth outpaces the overall packaged food and
+                            beverage market by 1.5 times. The emphasis on
+                            providing healthy and delightful consumer
+                            experiences without compromising on taste aligns
+                            with evolving consumer preferences for healthier
+                            snack options.
+                          </p>
+                        </div>
+                      </div>
+                      <div className="col-lg-4">
+                        <div className="single text-center h-lg market-boxes">
+                          {/* <h2 style={{paddingBottom:"20px"}}>$200 Bn</h2> */}
+                          <p
+                            style={{
+                              color: "white",
+                              fontSize: "21px",
+                              padding: "2px",
+                              margin: "48px 0px",
+                              opacity: "1",
+                              lineHeight: "1.5",
+                            }}
+                          >
+                           <span style={{ color: "white",
+                              fontSize: "21px",
+                              padding: "2px",
+                              margin: "48px 0px",
+                              opacity: "1",
+                              lineHeight: "1.5",fontWeight:"800"}}> Increasing Health Consciousness:</span> There is a noticeable increase in health-conscious consumers in India, with the number expected to rise from 108 million in CY20 to 176 million in CY26. This growth is further fuelled by the pandemic, with 70% of Indians expressing a post-pandemic focus on healthy eating. Stroom positions itself as a provider of healthier alternatives to conventional snacking options. The emphasis on nutritional value, affordability, and convenience suggests a target market that values health-conscious choices without compromising on taste or convenience.
 
-                                <div className="col-lg-4">
-                                  <div className="single text-center h-lg market-boxes">
-                                    {/* <h2 style={{paddingBottom:"20px"}}>$200 Bn</h2> */}
-                                    <p
-                                      style={{
-                                        color: "white",
-                                        fontSize: "21px",
-                                        padding: "2px",
-                                        margin: "48px 0px",
-                                        opacity:"1",
-                                        lineHeight:'1.5'
-                                      }}
-                                    >
-                                      The Ready to Cook market, valued at $18 billion, is witnessing rapid growth due to shifting consumer habits, increased health awareness, and the convenience of pre-packaged meal kits. This trend presents ample opportunities for smaller companies to enter the market and innovate with new product offerings, catering to the needs of busy individuals seeking healthy and convenient meal solutions.
-                                    </p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="text-center fs-4">
-                                <span style={{ color: "#000" }}>Source: </span>
-                                <span style={{ color: "rgb(127, 119, 118)" }}>
-                                  Multiple publicly available research and
-                                  survey reports
-                                </span>
-                              </div>
-                              <p className=""> </p>
-                              <div className="text-center fluid-container"></div>
-                            </div>
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="col-lg-4">
+                        <div className="single text-center h-lg market-boxes">
+                          {/* <h2 style={{paddingBottom:"20px"}}>$200 Bn</h2> */}
+                          <p
+                            style={{
+                              color: "white",
+                              fontSize: "21px",
+                              padding: "2px",
+                              margin: "48px 0px",
+                              opacity: "1",
+                              lineHeight: "1.5",
+                            }}
+                          >
+                            <span style={{ color: "white",
+                              fontSize: "21px",
+                              padding: "2px",
+                              margin: "48px 0px",
+                              opacity: "1",
+                              lineHeight: "1.5",fontWeight:"800"}}>Market Analysis - Energy Bars:</span> The total addressable market (TAM) for energy bars in India is estimated at 5,880 crore, with a service addressable market (SAM) of 706 crore and a service obtainable market (SOM) of 212 crore. This indicates a sizable market opportunity for energy bars within the health food segment. Stroom has a presence in over 19 cities with 750+ outlets, indicating a growing market penetration.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-center fs-4">
+                      <span style={{ color: "#000" }}>Source: </span>
+                      <span style={{ color: "rgb(127, 119, 118)" }}>
+                        Multiple publicly available research and survey reports
+                      </span>
+                    </div>
+                    <p className=""> </p>
+                    <div className="text-center fluid-container"></div>
+                  </div>
                   <div
                     className="container highlight-section"
                     style={{
@@ -1712,223 +1724,124 @@ class Tulua extends Component {
                     <h1 style={{ fontSize: "2rem", marginBottom: "30px" }}>
                       Highlights
                     </h1>
-                    
                     <div className="row highlight-rows">
-                    <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
-                        <div
-                          className="single  Ecoratings text-left"
-                          style={{}}
-                        >
-                          <div className="hightlights-images">
-                            <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
-                          </div>
-                          <p style={{ paddingLeft: "0px !important" }}>
-                          Tulua Foods Pvt Ltd has experienced exceptional revenue growth, with a 941% increase in the first three quarters, reaching Rs. 1.79 crore. Despite being a young startup, Tulua has shown financial stability, surpassing milestones from Rs. 8 lakhs in FY20-21 to Rs. 1.79 crore in FY23-24. Projections indicate further growth, aiming for Rs. 2.8 crore in FY23-24 and Rs. 10.9 crore in FY24-25, highlighting their confidence in future success.
-                          </p>
-                        </div>
-                      </div>
                       <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
-                        <div
-                          className="single Ecoratings text-left"
-                          style={{}}
-                        >
+                        <div className="single oraihighlight text-left" style={{}}>
                           <div className="hightlights-images">
                             <img src="./assets/images/deals-details/Petmojo/highlight01.jpg" />
                           </div>
                           <p style={{ padding: "1px !important" }}>
-                          Tulua operates in the spice and grocery sector, capitalizing on the growing demand for high-quality, clean-label spice and masala products in India. With a focus on authenticity and convenience, Tulua targets both domestic and international markets, leveraging an omnichannel approach catering to HoReCa, exports, and retail. This positions Tulua well to capture a significant share of the expanding market for branded spices and convenience foods.
-
+                            <span style={{ fontWeight: "800" }}>
+                              {" "}
+                              Innovative Product Range:
+                            </span>{" "}
+                            Stroom introduces Asia's first center-filled energy
+                            bars, offering an unparalleled taste experience
+                            coupled with superior nutritional value. Its
+                            innovative product lineup includes protein-packed
+                            snacks and vitamin-enriched bars, catering to
+                            diverse consumer preferences and dietary needs.
                           </p>
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
-                        <div
-                          className="single Ecoratings text-left"
-                          style={{}}
-                        >
+                        <div className="single oraihighlight text-left" style={{}}>
                           <div className="hightlights-images">
                             <img src="./assets/images/deals-details/highlight2.jfif" />
                           </div>
                           <p style={{ padding: "0px !important" }}>
-                          Tulua's product packaging sets it apart from competitors, boasting premium designs that appeal to the millennial and GenZ demographic Despite the premium packaging, Tulua ensures affordability with competitive pricing across its product range. For instance, spice prices range from Rs 40 to Rs 115, while ready-to-cook pastes are priced at Rs 150 for 100g and Rs 225 for 200g. This combination of attractive packaging and reasonable pricing enhances Tulua's appeal to modern consumers seeking both quality and aesthetic appeal in their culinary products.
+                            <span style={{ fontWeight: "800" }}>
+                              {" "}
+                              Quality Assurance:
+                            </span>{" "}
+                            With in-house manufacturing facilities, Stroom
+                            maintains rigorous quality control measures at every
+                            stage of production. This ensures that each snack
+                            adheres to the highest standards of freshness,
+                            purity, and taste, delivering a consistently
+                            delightful experience to consumers.{" "}
                           </p>
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
-                        <div
-                          className="single Ecoratings text-left"
-                          style={{}}
-                        >
+                        <div className="single oraihighlight text-left" style={{}}>
                           <div className="hightlights-images">
                             <img src="./assets/images/deals-details/highlight3.jpg" />
                           </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                          Tulua's consumer retail segment has experienced significant growth, with over 1,400 active customers and a notable 18% repeat rate without targeted retention marketing. Sales have surged by 400% compared to the previous quarter, showcasing strong demand and consumer satisfaction with Tulua's clean-label products, including ready-to-cook pastes and single-origin spices.
+                            <span style={{ fontWeight: "800" }}>
+                              {" "}
+                              Affordability and Accessibility:
+                            </span>{" "}
+                            Stroom makes healthy snacking accessible to all by
+                            offering premium-quality products at competitive
+                            prices. Its widespread distribution network ensures
+                            convenient access to nutritious snacks across
+                            various channels, from retail stores to online
+                            platforms.{" "}
                           </p>
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
                         <div
-                          className="single Ecoratings text-left"
+                          className="single oraihighlight text-left"
                           style={{}}
                         >
                           <div className="hightlights-images">
                             <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
                           </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                          Tulua's enterprise products consist of a wide selection of high-quality spices, including 15 single spice powders, 8 blended spice powders, and 22 whole spices. Sourced directly from farms and mandis, these products ensure superior taste and freshness, making them the preferred choice for hotels, restaurants, cafes, and airlines.
+                            <span style={{ fontWeight: "800" }}>
+                              {" "}
+                              Global Expansion:
+                            </span>{" "}
+                            Beyond local markets, Stroom is making waves
+                            internationally through strategic bilateral
+                            partnerships in key markets like Germany, Spain, the
+                            US, and Canada. This global footprint not only
+                            amplifies its reach but also elevates Indian
+                            innovation on the world stage.{" "}
                           </p>
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
-                        <div
-                          className="single Ecoratings text-left"
-                          style={{}}
-                        >
+                        <div className="single oraihighlight text-left" style={{}}>
                           <div className="hightlights-images">
                             <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
                           </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                          Tulua prioritizes rigorous quality control measures and uses single-origin ingredients and chef-made recipes to ensure authentic Indian flavors in their products. Tulua's products are 100% natural with no added flavors or additives, appealing to health-conscious consumers. Additionally, the company operates as a plastic-neutral brand and sources locally to reduce environmental impact.  
+                            <span style={{ fontWeight: "800" }}>
+                              Customer Centric Approach:
+                            </span>{" "}
+                            At the heart of Stroom's success lies a steadfast
+                            commitment to customer satisfaction. By prioritizing
+                            taste, nutrition, and overall value, Stroom
+                            endeavors to exceed consumer expectations, fostering
+                            long-term loyalty and trust.``{" "}
                           </p>
                         </div>
                       </div>
-                     
-                    </div>
-                  </div>
-
-                  {/* media */}
-
-                 
-                </div>
-              </div>
-              <section className="deals-details-page"
-              style={{ marginBottom: "-50px" }}>
-            <div>
-              <div>
-
-                  {/* media */}
-
-                  <div
-                    className="container highlight-section"
-                    style={{
-                      marginBottom: "-80px !important",
-                      padding: "0px !important",
-                    }}
-                  >
-                    <h1 style={{ fontSize: "2rem", marginBottom: "30px" }}>
-                      Media Coverage
-                    </h1>
-                    <div className="row">
-                      <div className="col-lg-6 col-md-6 col-sm-6">
-                        <div className="single medialink text-left d-flex flex-column  ">
-                           <img src="./assets/images/deals-details/Tulua new/Articles/1.png" />
-
-                          <p style={{ padding: "1px !important" }}>
-                          Tulua Simplifying Indian Cooking With Foray Into India Spice Market                            <a
-                              href="https://yourstory.com/smbstory/from-a-ready-to-cook-brand-to-launching-spices-how-tulua-simplify-indian-cooking"
-                              target="_blank"
-                            >
-                              {" "}
-                              Readmore
-                            </a>
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="col-lg-6 col-md-6 col-sm-6">
-                        <div className="single medialink text-left d-flex flex-column  ">
-                           <img src="./assets/images/deals-details/Tulua new/Articles/2.jpg" />
-                          <p style={{ padding: "1px !important" }}>
-                          Tulua launches aromatic line of spices highlighting the true Indian flavour                       
-                            <a
-                              href="https://www.aninews.in/news/business/business/tulua-launches-aromatic-line-of-spices-highlighting-the-true-indian-flavour20230809163343/#google_vignette"
-                              target="_blank"
-                            >
-                              {" "}
-                              Readmore
-                            </a>
-                          </p>
-                        </div>
-                      </div>
-                      <div className="col-lg-6 col-md-6 col-sm-6">
-                        <div className="single medialink text-left d-flex flex-column  ">
-                           <img src="./assets/images/deals-details/Tulua new/Articles/2.jpg" />
-                          <p style={{ padding: "1px !important" }}>
-                          Tulua launches aromatic line of spices highlighting the true Indian flavour                            <a
-                              href="https://www.business-standard.com/content/press-releases-ani/tulua-launches-aromatic-line-of-spices-highlighting-the-true-indian-flavour-123080900618_1.html"
-                              target="_blank"
-                            >
-
-                              Readmore
-                            </a>
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="col-lg-6 col-md-6 col-sm-6">
-                        <div className="single medialink text-left d-flex flex-column  ">
-                           <img src="./assets/images/deals-details/Tulua new/Articles/4.jpg" />
-                          <p style={{ padding: "1px !important" }}>
-                           Raksha Bandhan 2023: What to buy for someone who cannot think beyond
-                            <a
-                              href="https://recipes.timesofindia.com/articles/trending/raksha-bandhan-2023-what-to-buy-for-someone-who-cannot-think-beyond-food/articleshow/103091174.cms"
-                              target="_blank"
-                            >
-                              {" "}
-                              Readmore
-                            </a>
-                          </p>
-                        </div>
-                      </div>
-                     
-                      <div className="col-lg-6 col-md-6 col-sm-6">
-                        <div className="single medialink text-left d-flex flex-column  ">
-                          <img src="./assets/images/deals-details/Tulua new/Articles/5.jpg" />
-                          <p style={{ padding: "1px !important" }}>
-                          Tulua Introduces Aromatic Line of Spices
-                            <a
-                              href="https://www.indianretailer.com/restaurant/news/tulua-introduces-aromatic-line-of-spices.n21176"
-                              target="_blank"
-                            >
-                              {" "}
-                              Readmore
-                            </a>
-                          </p>
-                        </div>
-                      </div>
-                      <div className="col-lg-6 col-md-6 col-sm-6">
-                        <div className="single medialink text-left d-flex flex-column  ">
-                           <img src="./assets/images/deals-details/Tulua new/Articles/6.jpg" />
-                          <p style={{ padding: "1px !important" }}>
-                          Tulua to work in tandem with chefs to create customised blended spices
-                            <a
-                              href="https://hospitality.economictimes.indiatimes.com/news/operations/food-and-beverages/tulua-to-work-in-tandem-with-chefs-to-create-customised-blended-spices/103919395"
-                              target="_blank"
-                            >
-                              {" "}
-                              Readmore
-                            </a>
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* <div className="col-lg-6 col-md-6 col-sm-6">
-                        <div className="single text-left">
-                          <img src="./assets/images/deals-details/highlight4.png" />
+                      <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
+                        <div className="single oraihighlight text-left" style={{}}>
+                          <div className="hightlights-images">
+                            <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
+                          </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                          Unlike competitors who are suffering from cost control and burn rates IndusUno gathers rich and detailed industry data that can be leveraged exponentially with scale.
+                            <span style={{ fontWeight: "800" }}>
+                              Sustainability Initiatives:
+                            </span>{" "}
+                            Stroom is dedicated to sustainability across its operations, from sourcing natural ingredients to eco-friendly BRCGS Complaint packaging solutions. By prioritizing environmental responsibility, Stroom not only enhances its brand reputation but also contributes positively to the planet.
                           </p>
                         </div>
-                      </div> */}
+                      </div>
                     </div>
                   </div>
 
+                  {/* media */}
                 </div>
               </div>
             </section>
-            </section>
-             <div className="deals-page">
+            <div className="deals-page">
               <div className="tab-wrapper">
                 <div className="container">
                   <div className="row">
@@ -1938,51 +1851,42 @@ class Tulua extends Component {
                         marginTop: 110,
                       }}
                     >
-                    
-                          <div className="deal-terms-section">
-                           
-
-                           
-{/* Investor Presentation */}
-                            <div
-                              className=""
-                              style={{
-                                backgroundColor: "white",
-                                marginTop: "1px !important",
-                              }}
-                            >
-                              <h1
-                                style={{
-                                  fontSize: 32,
-                                  marginBottom: 30,
-                                  textAlign: "center",
-                                  marginTop: "-10px !important",
-                                }}
-                              >
-                                Investor Presentation
-                              </h1>
-                              <Slider
-                                {...settings}
-                                className="mb-5 pitch-slider"
-                              >
-                                {images.map((image, index) => (
-                                  <img
-                                    key={index}
-                                    src={image}
-                                    onClick={() => this.handleClickImage(image)}
-                                  />
-                                ))}
-                              </Slider>
-                              {current && (
-                                <Lightbox
-                                  mainSrc={current}
-                                  onCloseRequest={this.handleCloseModal}
-                                />
-                              )}
-                            </div>
-        </div>
-                        
-                        
+                      <div className="deal-terms-section">
+                        {/* Investor Presentation */}
+                        <div
+                          className=""
+                          style={{
+                            backgroundColor: "white",
+                            marginTop: "1px !important",
+                          }}
+                        >
+                          <h1
+                            style={{
+                              fontSize: 32,
+                              marginBottom: 30,
+                              textAlign: "center",
+                              marginTop: "-10px !important",
+                            }}
+                          >
+                            Investor Presentation
+                          </h1>
+                          <Slider {...settings} className="mb-5 pitch-slider">
+                            {images.map((image, index) => (
+                              <img
+                                key={index}
+                                src={image}
+                                onClick={() => this.handleClickImage(image)}
+                              />
+                            ))}
+                          </Slider>
+                          {current && (
+                            <Lightbox
+                              mainSrc={current}
+                              onCloseRequest={this.handleCloseModal}
+                            />
+                          )}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -2011,8 +1915,6 @@ class Tulua extends Component {
                             >
                               <div className="row">
                                 <div className="col-lg-10 m-auto">
-                               
-
                                   <h1
                                     style={{
                                       paddingBottom: "-30px !important",
@@ -2045,11 +1947,12 @@ class Tulua extends Component {
                                           </div>
                                           <div className="info">
                                             <span> Min Investment</span>
-                                            <h4>₹ 307800 for CCPS</h4>
+                                            <h4>₹ 200250 for CCPS</h4>
                                           </div>
                                           <div className="info">
                                             <span>Valuation</span>
-                                            <h4>₹ 36 Cr</h4>
+                                            <h4>₹ 8 Cr Floor</h4>
+                                            <h4>₹ 15 Cr Cap</h4>
                                           </div>
                                         </div>
                                       </div>
@@ -2073,12 +1976,13 @@ class Tulua extends Component {
                                           <div className="info">
                                             <span>Legal Name</span>
                                             <h4>
-                                            Tulua Foods Pvt Ltd
+                                              Drips Foods Private Limited
+                                              (Stroom){" "}
                                             </h4>
                                           </div>
                                           <div className="info">
                                             <span>Founded</span>
-                                            <h4>14-01-2020</h4>
+                                            <h4>4/27/2022</h4>
                                           </div>
                                           <div className="info">
                                             <span>Status</span>
@@ -2086,7 +1990,7 @@ class Tulua extends Component {
                                           </div>
                                           <div className="info">
                                             <span>Employees</span>
-                                            <h4>12</h4>
+                                            <h4>17</h4>
                                           </div>
                                           <div className="info">
                                             <span>Website</span>
@@ -2095,10 +1999,10 @@ class Tulua extends Component {
                                                 style={{
                                                   color: "rgb(7, 211, 252)",
                                                 }}
-                                                href="https://www.tulua.shop"
+                                                href="https://www.stroom.in"
                                                 target="_blank"
                                               >
-                                                www.tulua.shop
+                                                www.stroom.in
                                               </a>
                                             </h4>
                                           </div>
@@ -2108,10 +2012,10 @@ class Tulua extends Component {
                                               {/* <a href="https://www.facebook.com/theelefantofficial">
                                                 <i className="bx bxl-facebook fs-19"></i>
                                               </a> */}
-                                              {/* <a href="https://www.linkedin.com/company/ecoratings">
+                                              <a href="https://www.linkedin.com/company/stroomin">
                                                 <i className="bx bxl-linkedin fs-19"></i>
-                                              </a> */}
-                                               <a href="https://www.instagram.com/eattulua">
+                                              </a>
+                                              <a href="https://www.instagram.com/stroom.in">
                                                 <i className="bx bxl-instagram fs-19"></i>
                                               </a>
                                               {/*
@@ -2123,7 +2027,10 @@ class Tulua extends Component {
                                           <div className="info">
                                             <span>Address</span>
                                             <h4>
-                                            407, Neo Corporate Plaza, Extd Ramchandra Lane, Kanchp                                            </h4>
+                                              73/A-B Sopan Kesar Industrial Hub,
+                                              Bh. Sarovday hotel, Changodar,
+                                              Moraiya, Ahmedabad Gujarat 382213
+                                            </h4>
                                           </div>
                                         </div>
                                       </div>
@@ -2133,10 +2040,8 @@ class Tulua extends Component {
                               </div>
                             </div>
 
-                           
-{/* Investor Presentation */}
-                         
-        </div>
+                            {/* Investor Presentation */}
+                          </div>
                           {/* start */}
 
                           <div
@@ -2145,56 +2050,56 @@ class Tulua extends Component {
                               marginTop: "50px !important",
                             }}
                           >
-                             <div className="deal-terms-section">
-                            <div
-                              className="container"
-                              style={{ marginTop: "1px !important" }}
-                            >
-                              <div className="row">
-                                <div className="col-lg-10 m-auto">
-                                  <h1>Documents</h1>
-                                  <div className="row document-section">
-                                    <div className="col-lg-2"></div>
-                                    <div className="col-lg-8">
-                                      <div
-                                        className="download-section"
-                                        style={{
-                                          backgroundColor: "white",
-                                          padding: "4rem 19px",
-                                        }}
-                                      >
-                                        <>
-                                          <div>
-                                            <table
-                                              className="download-document-table"
-                                              style={{ width: "100%" }}
-                                            >
-                                              <tr
-                                                style={{
-                                                  background: "#29176f",
-                                                  color: "#fff",
-                                                }}
+                            <div className="deal-terms-section">
+                              <div
+                                className="container"
+                                style={{ marginTop: "1px !important" }}
+                              >
+                                <div className="row">
+                                  <div className="col-lg-10 m-auto">
+                                    <h1>Documents</h1>
+                                    <div className="row document-section">
+                                      <div className="col-lg-2"></div>
+                                      <div className="col-lg-8">
+                                        <div
+                                          className="download-section"
+                                          style={{
+                                            backgroundColor: "white",
+                                            padding: "4rem 19px",
+                                          }}
+                                        >
+                                          <>
+                                            <div>
+                                              <table
+                                                className="download-document-table"
+                                                style={{ width: "100%" }}
                                               >
-                                                <th>Sr no</th>
-                                                <th>Document</th>
-                                                <th>Type</th>
-                                                <th>Download</th>
-                                              </tr>
-                                              {this.state.documents.length >
-                                                0 &&
-                                                this.state.documents.map(
-                                                  (item, index) => {
-                                                    console.log(
-                                                      this.state.documents
-                                                        .length
-                                                    );
-                                                    let documentlink = `${process.env.REACT_APP_BASE_URL}api/uploads/docs/${item.documentid}/${item.document}`;
-                                                    return (
-                                                      <tr
-                                                        key={index}
-                                                        style={{ height: 70 }}
-                                                      >
-                                                        {/* <td
+                                                <tr
+                                                  style={{
+                                                    background: "#29176f",
+                                                    color: "#fff",
+                                                  }}
+                                                >
+                                                  <th>Sr no</th>
+                                                  <th>Document</th>
+                                                  <th>Type</th>
+                                                  <th>Download</th>
+                                                </tr>
+                                                {this.state.documents.length >
+                                                  0 &&
+                                                  this.state.documents.map(
+                                                    (item, index) => {
+                                                      console.log(
+                                                        this.state.documents
+                                                          .length
+                                                      );
+                                                      let documentlink = `${process.env.REACT_APP_BASE_URL}api/uploads/docs/${item.documentid}/${item.document}`;
+                                                      return (
+                                                        <tr
+                                                          key={index}
+                                                          style={{ height: 70 }}
+                                                        >
+                                                          {/* <td
                                                           style={{ width: 40 }}
                                                         >
                                                           {item.paid ==
@@ -2261,69 +2166,53 @@ class Tulua extends Component {
                                                             </>
                                                           )}
                                                         </td> */}
-                                                        <td
-                                                          style={{ width: 40 }}
-                                                        >
-                                                          {index + 1}
-                                                        </td>
-                                                        <td
-                                                          style={{ width: 140 }}
-                                                        >
-                                                          {item.docname}
-                                                        </td>
-                                                        <td
-                                                          style={{ width: 40 }}
-                                                        >
-                                                          {item.paid == "Paid"
-                                                            ? this.state
-                                                                .check_membership_type ==
-                                                              "premium"
-                                                              ? item.premium_price ==
-                                                                "0"
+                                                          <td
+                                                            style={{
+                                                              width: 40,
+                                                            }}
+                                                          >
+                                                            {index + 1}
+                                                          </td>
+                                                          <td
+                                                            style={{
+                                                              width: 140,
+                                                            }}
+                                                          >
+                                                            {item.docname}
+                                                          </td>
+                                                          <td
+                                                            style={{
+                                                              width: 40,
+                                                            }}
+                                                          >
+                                                            {item.paid == "Paid"
+                                                              ? this.state
+                                                                  .check_membership_type ==
+                                                                "premium"
+                                                                ? item.premium_price ==
+                                                                  "0"
+                                                                  ? "Free"
+                                                                  : "₹" +
+                                                                    item.premium_price
+                                                                : item.regular_price ==
+                                                                  "0"
                                                                 ? "Free"
                                                                 : "₹" +
-                                                                  item.premium_price
-                                                              : item.regular_price ==
-                                                                "0"
-                                                              ? "Free"
-                                                              : "₹" +
-                                                                item.regular_price
-                                                            : "Free"}
-                                                        </td>
-                                                        <td
-                                                          style={{ width: 50 }}
-                                                        >
-                                                          {this.state
-                                                            .investor_id && (
-                                                            <center>
-                                                              {(item.user_paid ==
-                                                                true ||
-                                                                item.paid ==
-                                                                  "Free") && (
-                                                                <a
-                                                                  href={
-                                                                    documentlink
-                                                                  }
-                                                                  target="_blank"
-                                                                  style={{
-                                                                    width: 80,
-                                                                  }}
-                                                                >
-                                                                  <img
-                                                                    src="./download.ico"
-                                                                    style={{
-                                                                      maxWidth: 50,
-                                                                    }}
-                                                                  />
-                                                                </a>
-                                                              )}
-                                                              {item.paid ==
-                                                                "Paid" &&
-                                                                this.state
-                                                                  .check_membership_type ==
-                                                                  "premium" &&
-                                                                (item.premium_price ==
-                                                                "0" ? (
+                                                                  item.regular_price
+                                                              : "Free"}
+                                                          </td>
+                                                          <td
+                                                            style={{
+                                                              width: 50,
+                                                            }}
+                                                          >
+                                                            {this.state
+                                                              .investor_id && (
+                                                              <center>
+                                                                {(item.user_paid ==
+                                                                  true ||
+                                                                  item.paid ==
+                                                                    "Free") && (
                                                                   <a
                                                                     href={
                                                                       documentlink
@@ -2340,41 +2229,68 @@ class Tulua extends Component {
                                                                       }}
                                                                     />
                                                                   </a>
-                                                                ) : (
-                                                                  ""
-                                                                ))}
-                                                            </center>
-                                                          )}
-                                                        </td>
-                                                      </tr>
-                                                    );
-                                                  }
-                                                )}
-                                            </table>
-                                          </div>
-                                        </>
-                                        {this.state.button_status == false && (
-                                          <button
-                                            className="download-button"
-                                            onClick={() => this.documentPay()}
-                                          >
-                                            Pay
-                                          </button>
-                                        )}
-                                        {!this.state.investor_id && (
-                                          <>
+                                                                )}
+                                                                {item.paid ==
+                                                                  "Paid" &&
+                                                                  this.state
+                                                                    .check_membership_type ==
+                                                                    "premium" &&
+                                                                  (item.premium_price ==
+                                                                  "0" ? (
+                                                                    <a
+                                                                      href={
+                                                                        documentlink
+                                                                      }
+                                                                      target="_blank"
+                                                                      style={{
+                                                                        width: 80,
+                                                                      }}
+                                                                    >
+                                                                      <img
+                                                                        src="./download.ico"
+                                                                        style={{
+                                                                          maxWidth: 50,
+                                                                        }}
+                                                                      />
+                                                                    </a>
+                                                                  ) : (
+                                                                    ""
+                                                                  ))}
+                                                              </center>
+                                                            )}
+                                                          </td>
+                                                        </tr>
+                                                      );
+                                                    }
+                                                  )}
+                                              </table>
+                                            </div>
+                                          </>
+                                          {this.state.button_status ==
+                                            false && (
                                             <button
                                               className="download-button"
-                                              style={{
-                                                background: "rgb(41 23 111)",
-                                              }}
-                                              onClick={() =>
-                                                window.location.assign("/login")
-                                              }
+                                              onClick={() => this.documentPay()}
                                             >
-                                              Login to View
+                                              Pay
                                             </button>
-                                            {/* <em
+                                          )}
+                                          {!this.state.investor_id && (
+                                            <>
+                                              <button
+                                                className="download-button"
+                                                style={{
+                                                  background: "rgb(41 23 111)",
+                                                }}
+                                                onClick={() =>
+                                                  window.location.assign(
+                                                    "/login"
+                                                  )
+                                                }
+                                              >
+                                                Login to View
+                                              </button>
+                                              {/* <em
                                             style={{
                                               fontSize: 14,
                                               fontWeight: "700",
@@ -2386,16 +2302,16 @@ class Tulua extends Component {
                                             </sup>{" "}
                                             member to access the document{" "}
                                           </em> */}
-                                          </>
-                                        )}
+                                            </>
+                                          )}
+                                        </div>
                                       </div>
+                                      <div className="col-lg-2"></div>
                                     </div>
-                                    <div className="col-lg-2"></div>
                                   </div>
-                                  </div>
-                                  </div>
-                                  </div>
-                                  </div>
+                                </div>
+                              </div>
+                            </div>
                             <div className="tab-wrapper">
                               <div className="container">
                                 <div className="row">
@@ -2437,8 +2353,24 @@ class Tulua extends Component {
                                                           color: "#7f7776",
                                                         }}
                                                       >
-                                                       Tulua primarily offers products rather than services. It specializes in providing high-quality, clean label spice and masala products to consumers and businesses. These products include single-origin spices, blended spices, and ready-to-cook pastes, aimed at enhancing the flavor and convenience of Indian cuisine. While Tulua may offer some ancillary services such as customer support or distribution, its core focus is on developing and delivering top-quality spice products to the market</p>
-                                                       
+                                                        Stroom is primarily
+                                                        based on products. It
+                                                        specializes in creating
+                                                        and offering a range of
+                                                        nutritious and delicious
+                                                        snacks, including
+                                                        center-filled energy
+                                                        bars, protein-packed
+                                                        snacks, and other
+                                                        health-focused products.
+                                                        While Stroom may offer
+                                                        some ancillary services
+                                                        such as customer support
+                                                        or distribution, its
+                                                        core focus and offerings
+                                                        revolve around tangible
+                                                        snack products.
+                                                      </p>
                                                     </div>
                                                   </Panel>
                                                   <Panel
@@ -2456,8 +2388,62 @@ class Tulua extends Component {
                                                           color: "#7f7776",
                                                         }}
                                                       >
-The challenges for scaling up Tulua's operations encompass recruiting and retaining efficient talent to manage increased production and distribution demands, along with efficiently managing inventory costs, particularly for fast-moving commodity products like spices. To address these challenges, Tulua can invest in recruitment efforts to attract experienced professionals and provide ongoing training and development programs for existing employees. Implementing advanced inventory management systems and adopting just-in-time inventory practices can optimize inventory levels and reduce carrying costs. By proactively addressing these challenges and implementing effective strategies, Tulua can navigate the complexities of scaling up its operations successfully.                                                      </p>
-                                                    
+                                                        Scaling up Stroom poses
+                                                        several challenges,
+                                                        including expanding
+                                                        production capacity,
+                                                        managing the supply
+                                                        chain, maintaining
+                                                        quality control,
+                                                        optimizing distribution
+                                                        and logistics,
+                                                        navigating market
+                                                        expansion, managing
+                                                        finances, and acquiring
+                                                        skilled talent. To
+                                                        manage these challenges,
+                                                        Stroom can invest in
+                                                        additional equipment and
+                                                        staff training for
+                                                        increased production
+                                                        capacity, establish
+                                                        strong supplier
+                                                        relationships and
+                                                        implement advanced
+                                                        supply chain
+                                                        technologies for
+                                                        efficient management,
+                                                        implement stringent
+                                                        quality control measures
+                                                        and invest in quality
+                                                        assurance technologies,
+                                                        optimize distribution
+                                                        strategies and invest in
+                                                        warehouse infrastructure
+                                                        and logistics
+                                                        partnerships, conduct
+                                                        thorough market research
+                                                        and adapt products and
+                                                        marketing strategies to
+                                                        new markets, secure
+                                                        funding and closely
+                                                        monitor financials, and
+                                                        attract skilled
+                                                        professionals through
+                                                        competitive compensation
+                                                        and professional
+                                                        development
+                                                        opportunities. By
+                                                        addressing these
+                                                        challenges
+                                                        systematically, Stroom
+                                                        can successfully scale
+                                                        its operations and
+                                                        achieve sustainable
+                                                        growth in the
+                                                        competitive snacking
+                                                        industry.
+                                                      </p>
                                                     </div>
                                                   </Panel>
 
@@ -2476,8 +2462,39 @@ The challenges for scaling up Tulua's operations encompass recruiting and retain
                                                           color: "#7f7776",
                                                         }}
                                                       >
-                                                       
-                                                       Yes, Tulua is targeting new untapped markets, and this approach is justified for several reasons. Firstly, the spice industry in India has historically been unbranded and commoditized, with limited options for high-quality, clean label products. By offering authentic Indian flavors with its range of single-origin spices, blended spices, and ready-to-cook pastes, Tulua taps into a previously underserved segment of consumers seeking premium-quality spice products. Secondly, Tulua's omni-channel approach allows it to target diverse market segments, including HoReCa, exports, and retail, expanding its reach beyond traditional distribution channels. This diversification mitigates risk and maximizes revenue potential by accessing new customer bases. Additionally, as consumer preferences shift towards healthier and more ethically sourced food options, Tulua's focus on clean label products positions it well to capitalize on this emerging market trend. Overall, by targeting new untapped markets, Tulua can seize growth opportunities, establish a competitive edge, and drive innovation in the spice industry.                                                      </p>
+                                                        Yes, Stroom is actively
+                                                        targeting new and
+                                                        untapped markets through
+                                                        its innovative product
+                                                        range tailored to
+                                                        diverse consumer
+                                                        segments. This strategy
+                                                        is justified by the
+                                                        increasing demand for
+                                                        nutritious snacks
+                                                        globally, the presence
+                                                        of underserved market
+                                                        segments within the
+                                                        snacking industry, and
+                                                        the opportunities for
+                                                        expansion provided by
+                                                        bilateral partnerships
+                                                        in key international
+                                                        markets. By catering to
+                                                        health-conscious
+                                                        individuals, children,
+                                                        mass consumers, seniors,
+                                                        and global markets with
+                                                        specialized products,
+                                                        Stroom aims to capture
+                                                        new market opportunities
+                                                        and expand its customer
+                                                        base, positioning itself
+                                                        for sustained growth and
+                                                        success in the
+                                                        competitive snacking
+                                                        industry.
+                                                      </p>{" "}
                                                     </div>
                                                   </Panel>
                                                   <Panel
@@ -2495,8 +2512,42 @@ The challenges for scaling up Tulua's operations encompass recruiting and retain
                                                           color: "#7f7776",
                                                         }}
                                                       >
-Tulua boasts several competitive moats that distinguish it in the market. Firstly, its unwavering commitment to quality and authenticity ensures that consumers receive superior products with genuine Indian flavors, thanks to rigorous quality control and single-origin ingredient sourcing. Secondly, Tulua's emphasis on clean label products aligns with the rising consumer demand for healthier food options, offering 100% natural products without any artificial additives. Moreover, Tulua's sustainability practices, including operating as a plastic-neutral brand and sourcing ingredients locally, appeal to environmentally conscious consumers. The company's innovative packaging design, tailored to resonate with millennial and GenZ consumers, further enhances its brand appeal and visibility. Finally, Tulua's chef-made recipes add a unique touch, providing customers with authentic and flavorful culinary experiences that set it apart from competitors.                                                      </p>
-                                                     
+                                                        Stroom possesses
+                                                        formidable moats that
+                                                        bolster its competitive
+                                                        edge in the snacking
+                                                        industry. Its relentless
+                                                        commitment to product
+                                                        innovation ensures a
+                                                        steady stream of unique
+                                                        offerings, fostering
+                                                        customer loyalty and
+                                                        differentiation.
+                                                        Additionally, its
+                                                        in-house manufacturing
+                                                        capabilities,
+                                                        particularly for
+                                                        center-filled products,
+                                                        provide stringent
+                                                        quality control and
+                                                        agility, setting it
+                                                        apart from competitors.
+                                                        With the ability to
+                                                        export globally
+                                                        compliant products and
+                                                        strategic bilateral
+                                                        partnerships in key
+                                                        markets, such as
+                                                        Germany, Spain, the US,
+                                                        and Canada, Stroom gains
+                                                        access to diverse
+                                                        markets, expands its
+                                                        customer base, and
+                                                        solidifies its position
+                                                        as an industry leader,
+                                                        ensuring sustained
+                                                        growth and success.
+                                                      </p>
                                                     </div>
                                                   </Panel>
                                                 </Collapse>
@@ -2684,12 +2735,12 @@ Tulua boasts several competitive moats that distinguish it in the market. Firstl
                                 >
                                   <div className="d-flex">
                                     <img
-                                      src="./assets/images/deals-details/Tulua new/Team/Richy.jpg"
+                                      src="./assets/images/deals-details/Stroom/Team/Shiven.jpg"
                                       alt=""
                                     />
                                     <div className="intro">
-                                      <h3>Richy Dave</h3>
-                                      <span>Founder and CEO</span>
+                                      <h3>Shiven Chaturvedi </h3>
+                                      <span>Co-Founder</span>
                                       <div
                                         className="social-icons"
                                         style={{
@@ -2698,7 +2749,7 @@ Tulua boasts several competitive moats that distinguish it in the market. Firstl
                                         }}
                                       >
                                         <a
-                                          href="https://www.linkedin.com/search/results/all/?fetchDeterministicClustersOnly=true&heroEntityKey=urn%3Ali%3Afsd_profile%3AACoAABSGvdwBYWYVSJpLCEhNTdp-49AwJ8YAWqk&keywords=richy%20dave&origin=RICH_QUERY_SUGGESTION&position=0&searchId=476c03f4-0e20-4f03-9fd4-4cdc61e88987&sid=Ydr&spellCorrectionEnabled=false"
+                                          href="https://www.linkedin.com/in/shiven13/"
                                           target="_blank"
                                         >
                                           <i className="bx bxl-linkedin"></i>
@@ -2715,34 +2766,33 @@ Tulua boasts several competitive moats that distinguish it in the market. Firstl
                                   <ul>
                                     <li>
                                       <a>
-                                      10+ years of experience in Marketing and Brand-building.
+                                        7+ years Experience in game development,
+                                        Client Evaluations creditor watch
+                                        implementations.
                                       </a>
                                     </li>
                                     <li>
                                       <a>
                                         {" "}
-                                        Ex-founder of Surge Digital, a boutique creative marketing agency.
-
+                                        He manages production processes, quality
+                                        control, and manufacturing operations to
+                                        ensure efficient production and delivery
+                                        of products to the market.
                                       </a>
                                     </li>
-                                    <li>
-                                      <a>
-                                      looks after Marketing & Brand building, Supply chain.                                      </a>
-                                    </li>
                                   </ul>
-                                
                                 </div>
                               </div>
                               <div className="col-lg-6">
                                 <div className="single">
                                   <div className="d-flex">
                                     <img
-                                      src="./assets/images/deals-details/Tulua new/Team/hitesh.jpg"
+                                      src="./assets/images/deals-details/Stroom/Team/Darshan.jpg"
                                       alt=""
                                     />
                                     <div className="intro">
-                                      <h3>Hitesh Dave</h3>
-                                      <span>Director of Sales</span>
+                                      <h3>Darshan Gattani </h3>
+                                      <span>Co-Founder</span>
                                       <div
                                         className="social-icons"
                                         style={{
@@ -2751,7 +2801,7 @@ Tulua boasts several competitive moats that distinguish it in the market. Firstl
                                         }}
                                       >
                                         <a
-                                        //   href="https://www.linkedin.com/in/aqeelahmed/"
+                                          href="https://www.linkedin.com/in/darshan-gattani/"
                                           target="_blank"
                                         >
                                           <i className="bx bxl-linkedin"></i>
@@ -2766,15 +2816,27 @@ Tulua boasts several competitive moats that distinguish it in the market. Firstl
                                   <ul>
                                     <li>
                                       <a>
-                                      35+ yrs experience in sales & distribution in markets across India and China.
-
+                                        8+years experience in
+                                        operations,customer support, Logistics
+                                        Co-ordination,
                                       </a>
                                     </li>
                                     <li>
                                       <a>
-                                      Formerly setup food service network for brands such as Sankalp.                                      </a>
+                                        He manages accounting functions,
+                                        financial reporting, and bookkeeping,
+                                        ensuring accurate financial records.
+                                      </a>
                                     </li>
-                                  
+                                    <li>
+                                      <a>
+                                        Additionally, he oversees supply chain
+                                        activities, inventory management, and
+                                        logistics to optimize efficiency and
+                                        minimize costs in sourcing and
+                                        distribution.{" "}
+                                      </a>
+                                    </li>
                                   </ul>
                                 </div>
                               </div>
@@ -2782,15 +2844,12 @@ Tulua boasts several competitive moats that distinguish it in the market. Firstl
                                 <div className="single">
                                   <div className="d-flex">
                                     <img
-                                      src="./assets/images/deals-details/Tulua new/Team/arjunvaidya.jpg"
+                                      src="./assets/images/deals-details/Stroom/Team/Rohan.jpg"
                                       alt=""
                                     />
                                     <div className="intro">
-                                      <h3>Arjun Vaidya</h3>
-                                      <span>
-                                      D2C founder & Investor.
-
-                                      </span>
+                                      <h3>Rohan Shah</h3>
+                                      <span>Co-founder</span>
                                       <div
                                         className="social-icons"
                                         style={{
@@ -2799,7 +2858,7 @@ Tulua boasts several competitive moats that distinguish it in the market. Firstl
                                         }}
                                       >
                                         <a
-                                          href="https://www.linkedin.com/in/arjunvaidya/"
+                                          href="https://www.linkedin.com/in/rohanshah24/"
                                           target="_blank"
                                         >
                                           <i className="bx bxl-linkedin"></i>
@@ -2814,14 +2873,26 @@ Tulua boasts several competitive moats that distinguish it in the market. Firstl
                                   <ul>
                                     <li style={{ listStyleType: "disc" }}>
                                       <a>
-                                      With vast experience in sales and marketing,
-
+                                        9+ years experience in finance and civil
+                                        engineering graduate with strong
+                                        analytical skills.
                                       </a>
                                     </li>
                                     <li>
                                       <a>
                                         {" "}
-                                        She has a deep network and has closed strategic alliances worth US$ 200 million as part of Brand Capital, the strategic investment arm of Times Group.
+                                        Rohan oversees financial operations,
+                                        budgeting, and financial planning,
+                                        ensuring the company's financial health.
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a>
+                                        {" "}
+                                        Additionally, he leads marketing
+                                        strategies and brand development
+                                        initiatives to enhance brand awareness
+                                        and drive sales.
                                       </a>
                                     </li>
                                     {/* 
@@ -2835,7 +2906,6 @@ Tulua boasts several competitive moats that distinguish it in the market. Firstl
                                   </ul>
                                 </div>
                               </div>
-                           
 
                               {/* <div className="col-lg-6">
                                 <div className="single">
@@ -2958,4 +3028,4 @@ Tulua boasts several competitive moats that distinguish it in the market. Firstl
   }
 }
 
-export default Tulua;
+export default Stroom;

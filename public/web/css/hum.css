@@ -12,7 +12,7 @@ body {
 .selector {
 
     transition: ease 0.3s;
-    position: fixed;
+    position: fixed !important;
     z-index: 999;
 }
 
@@ -395,15 +395,15 @@ body {
 
     }
 
-    .bgheaders .new.main-header .main-navbar .nav-inner ul li a {
-        color: #111;
+    .bgheaders .main-header .main-navbar .nav-inner ul li a {
+        color: #111 !important;
     }
 
-    .bgheaders .new.main-header .main-navbar .nav-inner ul li:hover a {
+    .bgheaders .main-header .main-navbar .nav-inner ul li:hover a {
         color: #ff9c1a !important;
     }
 
-    .bgheaders .new.main-header .main-navbar {
+    .bgheaders .main-header .main-navbar {
         box-shadow: 0 3px 8px rgba(0, 0, 0, .24);
     }
 
@@ -422,14 +422,14 @@ body {
 }
 
 
- .new.main-header .main-navbar {
+ .main-header .main-navbar {
     background: transparent;
     padding: 0 30px;
     position: relative;
     z-index: 1;
 }
 
- .new.main-header .main-navbar .nav-inner ul li a {
+ .main-header .main-navbar .nav-inner ul li a {
     display: block;
     line-height: 60px;
     position: relative;
@@ -442,10 +442,10 @@ body {
     text-transform: capitalize;
 }
 
-/*  .new.main-header .main-navbar .nav-inner ul li a.active::after,  .new.main-header .main-navbar .nav-inner ul li:focus a::after,  .new.main-header .main-navbar .nav-inner ul li:hover a::after{
+/*  .main-header .main-navbar .nav-inner ul li a.active::after,  .main-header .main-navbar .nav-inner ul li:focus a::after,  .main-header .main-navbar .nav-inner ul li:hover a::after{
     display: none;
 } */
- .new.main-header .main-navbar .nav-inner {
+ .main-header .main-navbar .nav-inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -490,12 +490,14 @@ body {
     display: inline-block;
 }
 
-.left-content {
+.mainbanner .banner_section .left-content {
     text-align: center;
     margin-top: 60px;
 }
+.mainbanner{
 
-.banner_section {
+}
+.mainbanner .banner_section {
     background: var(--linearbg) !important;
     background: 65%, url(images/table-bg.html) top center no-repeat;
     background-size: cover;
@@ -516,7 +518,7 @@ body {
     max-width: 100%;
 }
 
-.banner_section .slider-area .item .left-content p {
+.mainbanner .banner_section .slider-area .item .left-content p {
     font-size: 22px;
     font-weight: 400;
     line-height: 32px;
@@ -617,7 +619,7 @@ body {
 
 }
 
-.banner_section {
+.mainbanner .banner_section {
     margin-top: 0px;
     align-items: center;
 
@@ -632,7 +634,7 @@ body {
     display: none;
 }
 
-/*  .new.main-header .main-navbar .nav-inner ul li a:hover{
+/*  .main-header .main-navbar .nav-inner ul li a:hover{
     color: orange;
     transition: 0.3s all;
 } */
@@ -730,7 +732,7 @@ span.expandMenu i {
     -webkit-transform: rotate(-135deg);
 }
 
-.newClass  .new.main-header {
+.newClass  .main-header {
     background-color: #0F0049;
 }
 
@@ -1385,10 +1387,10 @@ transition: max-height 0.45s ease-in; */
         margin-bottom: 0px;
     }
 
-    .banner_section {
-        margin-top: 0px;
+    .mainbanner .banner_section {
+        margin-top: 0px !important;
         align-items: center;
-        height: 60vh;
+        height: 60vh !important;
     }
 
     .banner-sliding .slick-dots li {
@@ -1834,7 +1836,7 @@ transition: max-height 0.45s ease-in; */
         text-align: center;
     }
 
-    .banner-sliding .left-content {
+    .mainbanner .banner_section .left-content {
         padding-top: 0px;
         height: 54vh;
         display: flex;
@@ -1930,9 +1932,9 @@ transition: max-height 0.45s ease-in; */
         padding-right: 0%;
     }
 
-    body {
+    /* body {
         overflow-x: hidden;
-    }
+    } */
 
     .d-flex-banner {
         height: calc(62vh - 65px);
@@ -2025,30 +2027,32 @@ transition: max-height 0.45s ease-in; */
         padding-right: 0px;
     }
 
-     .new.main-header .main-navbar .nav-inner ul li a {
-        display: block;
-        line-height: normal;
-        padding: 12px 0px;
-        position: relative;
-        font-size: 14px;
-        font-weight: 400;
+     .main-header .main-navbar .nav-inner ul li a {
+        display: block !important;
+        line-height: normal!important;
+        padding: 12px 0px!important;
+        position: relative!important;
+        font-size: 14px!important;
+        font-weight: 400!important;
         color: #fff;
-        margin: 0 20px;
-        font-family: Nunito, sans-serif;
-        text-transform: capitalize;
+        margin: 0 20px!important;
+        font-family: Nunito, sans-serif!important;
+        text-transform: capitalize!important;
     }
 
     .directions-columns .menu-logo img:nth-child(1) {
         display: none;
 
     }
-
+    .directions-columns .mobilenew-menus {
+        display: block !important;
+    }
     .directions-columns .menu-logo img:nth-child(2) {
         display: block;
 
     }
 
-     .new.main-header .main-navbar .nav-inner ul li+li {
+     .main-header .main-navbar .nav-inner ul li+li {
         display: inline-block;
         position: relative;
         border-top: 1px solid #ded1d1;
@@ -2066,7 +2070,7 @@ transition: max-height 0.45s ease-in; */
         flex-direction: column;
     }
 
-     .new.main-header .main-navbar .nav-inner ul li a.active::after,  .new.main-header .main-navbar .nav-inner ul li:focus a::after,  .new.main-header .main-navbar .nav-inner ul li:hover a::after {
+     .main-header .main-navbar .nav-inner ul li a.active::after,  .main-header .main-navbar .nav-inner ul li:focus a::after,  .main-header .main-navbar .nav-inner ul li:hover a::after {
         width: 100%;
         display: none;
 
@@ -2341,7 +2345,7 @@ transition: max-height 0.45s ease-in; */
         opacity: 0.7;
     }
 
-     .new.main-header .main-navbar .nav-inner {
+     .main-header .main-navbar .nav-inner {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -2361,16 +2365,16 @@ transition: max-height 0.45s ease-in; */
         margin-left: 0px !important;
     }
 
-     .new.main-header .main-navbar .nav-inner ul li a {
+     .main-header .main-navbar .nav-inner ul li a {
         color: #031084;
     }
 
-    .banner_section .slider-area .item .left-content h2 {
+    .mainbanner .banner_section .slider-area .item .left-content h2 {
         font-size: 25px !important;
         line-height: 32px !important;
     }
 
-    .banner_section .slider-area .item .left-content p {
+    .mainbanner .banner_section .slider-area .item .left-content p {
         font-size: 13px;
         font-weight: 400;
         line-height: 32px;
@@ -2409,17 +2413,20 @@ transition: max-height 0.45s ease-in; */
         width: 40px !important;
         border-radius: 50%;
     }
+    .main-navbar .newabout{
+        background: #29176f !important;
+    }
 
-     .new.main-header .main-navbar {
-        background: transparent;
-        padding: 0 15px;
-        position: relative;
-        z-index: 1;
+     .main-header .main-navbar {
+        background: transparent ;
+        padding: 0 15px !important;
+        position: relative!important;
+        z-index: 1!important;
     }
 
     .main-navbar-bg-white .main-navbar {
-        background: #fff;
-        border-bottom: 2px solid #ded1d1;
+        background: #fff !important;
+        border-bottom: 2px solid #ded1d1 !important;
 
 
     }
@@ -2503,7 +2510,7 @@ transition: max-height 0.45s ease-in; */
         justify-content: flex-end;
     }
 
-    .banner-sliding .left-content {
+    .mainbanner .banner_section .left-content {
         padding-top: 60px;
     }
 
@@ -2516,13 +2523,13 @@ transition: max-height 0.45s ease-in; */
         line-height: 60px;
     }
 
-    .banner_section {
+    .mainbanner .banner_section {
         height: 70vh;
     }
 
-    .banner_section .slick-track,
-    .banner_section .banner-row,
-    .banner_section .banner-row .banner-sliding {
+    .mainbanner .banner_section .slick-track,
+    .mainbanner .banner_section .banner-row,
+    .mainbanner .banner_section .banner-row .banner-sliding {
         height: 60vh;
     }
 
@@ -2545,7 +2552,7 @@ transition: max-height 0.45s ease-in; */
         justify-content: flex-end;
     }
 
-    .banner-sliding .left-content {
+    .mainbanner .banner_section .left-content {
         padding-top: 60px;
     }
 
@@ -2558,13 +2565,13 @@ transition: max-height 0.45s ease-in; */
         line-height: 60px;
     }
 
-    .banner_section {
+    .mainbanner .banner_section {
         height: 85vh;
     }
 
-    .banner_section .slick-track,
-    .banner_section .banner-row,
-    .banner_section .banner-row .banner-sliding {
+    .mainbanner .banner_section .slick-track,
+    .mainbanner .banner_section .banner-row,
+    .mainbanner .banner_section .banner-row .banner-sliding {
         height: 75vh;
     }
 
@@ -2593,7 +2600,7 @@ transition: max-height 0.45s ease-in; */
         justify-content: flex-end;
     }
 
-    .banner-sliding .left-content {
+    .mainbanner .banner_section .left-content {
         padding-top: 60px;
     }
 
@@ -2606,13 +2613,13 @@ transition: max-height 0.45s ease-in; */
         line-height: 60px;
     }
 
-    .banner_section {
+    .mainbanner .banner_section {
         height: 70vh;
     }
 
-    .banner_section .slick-track,
-    .banner_section .banner-row,
-    .banner_section .banner-row .banner-sliding {
+    .mainbanner .banner_section .slick-track,
+    .mainbanner .banner_section .banner-row,
+    .mainbanner .banner_section .banner-row .banner-sliding {
         height: 60vh;
     }
 
@@ -2677,7 +2684,7 @@ transition: max-height 0.45s ease-in; */
         height: auto;
     }
 
-     .new.main-header .main-navbar {
+     .main-header .main-navbar {
         padding: 13px 30px;
     }
 
@@ -2685,12 +2692,12 @@ transition: max-height 0.45s ease-in; */
         margin-left: 141px;
     }
 
-     .new.main-header .main-navbar .nav-inner ul li a {
+     .main-header .main-navbar .nav-inner ul li a {
         font-size: 15px;
         margin: 0 12px;
     }
 
-     .new.main-header .main-navbar .nav-inner {
+     .main-header .main-navbar .nav-inner {
         padding: 10px 0;
     }
 
@@ -2702,7 +2709,7 @@ transition: max-height 0.45s ease-in; */
         justify-content: flex-end;
     }
 
-    .banner-sliding .left-content {
+    .mainbanner .banner_section .left-content {
         padding-top: 89px;
     }
 
@@ -2719,7 +2726,7 @@ transition: max-height 0.45s ease-in; */
         padding: 0 40px;
     }
 
-    .banner_section {
+    .mainbanner .banner_section {
         height: 45vh;
     }
 
@@ -2730,9 +2737,9 @@ transition: max-height 0.45s ease-in; */
         padding: 4px 20px;
     }
 
-    .banner_section .slick-track,
-    .banner_section .banner-row,
-    .banner_section .banner-row .banner-sliding {
+    .mainbanner .banner_section .slick-track,
+    .mainbanner .banner_section .banner-row,
+    .mainbanner .banner_section .banner-row .banner-sliding {
         height: 39vh;
     }
 
@@ -2808,7 +2815,7 @@ transition: max-height 0.45s ease-in; */
         height: auto;
     }
 
-     .new.main-header .main-navbar {
+     .main-header .main-navbar {
         padding: 13px 30px;
     }
 
@@ -2816,12 +2823,12 @@ transition: max-height 0.45s ease-in; */
         margin-left: 141px;
     }
 
-     .new.main-header .main-navbar .nav-inner ul li a {
+     .main-header .main-navbar .nav-inner ul li a {
         font-size: 15px;
         margin: 0 12px;
     }
 
-     .new.main-header .main-navbar .nav-inner {
+     .main-header .main-navbar .nav-inner {
         padding: 10px 0;
     }
 
@@ -2833,7 +2840,7 @@ transition: max-height 0.45s ease-in; */
         justify-content: flex-end;
     }
 
-    .banner-sliding .left-content {
+    .mainbanner .banner_section .left-content {
         padding-top: 60px;
     }
 
@@ -2854,7 +2861,7 @@ transition: max-height 0.45s ease-in; */
         padding: 0 40px;
     }
 
-    .banner_section {
+    .mainbanner .banner_section {
         height: 55vh;
     }
 
@@ -2865,9 +2872,9 @@ transition: max-height 0.45s ease-in; */
         padding: 4px 20px;
     }
 
-    .banner_section .slick-track,
-    .banner_section .banner-row,
-    .banner_section .banner-row .banner-sliding {
+    .mainbanner .banner_section .slick-track,
+    .mainbanner .banner_section .banner-row,
+    .mainbanner .banner_section .banner-row .banner-sliding {
         height: 45vh;
     }
 

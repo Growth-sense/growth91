@@ -829,10 +829,10 @@ font-size: 28px;
 
     }
 
-    .bgheaders  .main-navbar .desktop-menu li a:hover {
+    /* .bgheaders  .main-navbar .desktop-menu li a:hover {
         color: #111 !important;
 
-    }
+    } */
 
     .bgheaders .new .main-header .main-navbar .nav-inner ul li a{
         color: #111 !important;
@@ -854,10 +854,11 @@ font-size: 28px;
         display: none;
     }
 }
-
+.newabout {
+    background: #29176f!important;}
 
  .new .main-header .main-navbar {
-    background: #29176F;
+    background: transparent;
     padding: 0 30px;
     position: relative;
     z-index: 1;
@@ -875,6 +876,9 @@ font-size: 28px;
     text-transform: capitalize;
 }
  .main-header :hover a{
+    color: #111 !important;
+}
+ .bgheaders a{
     color: #111 !important;
 }
 /*  .new .main-header .main-navbar .nav-inner ul li a.active::after,  .new .main-header .main-navbar .nav-inner ul li:focus a::after,  .new .main-header .main-navbar .nav-inner ul li:hover a::after{
@@ -922,11 +926,11 @@ font-size: 28px;
     font-size: 18px !important;
     display: inline-block;
 }
-.left-content{
+.mainbanner .left-content{
     text-align: center;
     margin-top: 60px;
 }
-.banner_section {
+.mainbanner .banner_section {
     background: var(--linearbg) !important;
     background: 65%, url(images/table-bg.html) top center no-repeat;
     background-size: cover;
@@ -944,7 +948,7 @@ font-size: 28px;
 .input-box-new{
     max-width: 100%;
 }
-.banner_section .slider-area .item .left-content p {
+.mainbanner.mainbanner .banner_section .slider-area .item .left-content p {
     font-size: 22px;
     font-weight: 400;
     line-height: 32px;
@@ -967,12 +971,15 @@ font-size: 28px;
     border-radius: 10px !important;
    
 }
-.banner_section {
+.mainbanner .banner_section {
     margin-top: 0px;
 }
 
 .menu-bar {
     display: none;
+}
+.bgheaders  a{
+color: black;
 }
 /*  .new .main-header .main-navbar .nav-inner ul li a:hover{
     color: orange;
@@ -1032,6 +1039,9 @@ display: block !important;
 .banner-row .banner-sliding .left-content.slick-active .fadding-bottom {
     animation-name: fadding-bottom;
     animation-duration: 1.0s
+}
+.bgheaders.new .main-header .main-navbar .nav-inner {
+    color: black;
 }
 @media screen and (max-width: 767px) {
     .slider-card-testimonials .slider1 .popup-youtube span {
@@ -1242,11 +1252,11 @@ display: block !important;
     .bgheaders .new .main-header .main-navbar .nav-inner ul li a{
         color: #111 !;
     }
-    .banner_section .slider-area .item .left-content h2 {
+    .mainbanner .banner_section .slider-area .item .left-content h2 {
         font-size: 25px !important;
         line-height: 32px !important;
     }
-    .banner_section .slider-area .item .left-content p {
+    .mainbanner .banner_section .slider-area .item .left-content p {
         font-size: 13px;
         font-weight: 400;
         line-height: 32px;
@@ -1331,3 +1341,4 @@ display: block !important;
     }
     
 }
+

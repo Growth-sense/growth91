@@ -165,6 +165,31 @@ class Home extends Component {
       }
     });
   };
+  get_founder_details = () => {
+    let params = {
+      founder_id: localStorage.getItem("founder_id"),
+    };
+    Bridge.founder.get_founder_profile_details(params).then((result) => {
+      if (result.status == "1") {
+        if (result.data.length > 0) {
+          let investor_id = localStorage.getItem("founder_id");
+          this.setState({ investor_id: investor_id });
+          setTimeout(() => {
+            if (result.data[0].is_investor == "1") {
+              this.setState({ founder_is_investor: "1" }, () =>
+                this.check_for_membership_type()
+              );
+            } else {
+              this.setState({ founder_is_investor: "0" }, () =>
+                this.check_for_membership_type()
+              );
+            }
+          }, 200);
+        }
+      } else {
+      }
+    });
+  };
   check_for_membership_type = () => {
     this.setState({ formloader: true });
     if (this.state.investor_id) {

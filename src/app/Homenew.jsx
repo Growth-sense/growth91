@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import WebHeader from "./common/WebHeader";
 import NewWebHeader from "./common/NewWebHeader.jsx";
-import {NewWebFooter} from "./common/NewWebFooter.jsx";
+import { NewWebFooter } from "./common/NewWebFooter.jsx";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -15,10 +15,11 @@ import ReactGA from "react-ga";
 import { Homextra } from "./Homextra.jsx";
 import { Homenewrxtra } from "./homenewrxtra.jsx";
 // import "./web/css/hum.css"
+import $ from "jquery";
 
 import { TRACKING_ID } from "./constants/data";
 import { Slide } from "react-awesome-reveal";
-import CountUp from 'react-countup';
+import CountUp from "react-countup";
 class Homenew extends Component {
   constructor(props) {
     super(props);
@@ -35,12 +36,11 @@ class Homenew extends Component {
       investor_id: 0,
       delete_analytics_session_data: [],
       start_analytics_session_responseData: "",
-      setclass:"",
-      isVisible: false
+      setclass: "",
+      isVisible: false,
     };
     this.elementRef = React.createRef();
     this.handleScroll = this.handleScroll.bind(this);
-  
   }
 
   componentWillMount() {
@@ -52,13 +52,12 @@ class Homenew extends Component {
 
     document.getElementsByTagName("META")[3].content =
       "Explore the potential of startup investments with Growth91. Discover opportunities & maximize your returns. Embrace the opportunity to invest in startups.";
-      window.removeEventListener('scroll', this.handleScroll);
-
+    window.removeEventListener("scroll", this.handleScroll);
   }
   componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll);
     this.handleScroll(); // Call initially to check visibility
- 
+    window.addEventListener("scroll", this.handleScroll);
+
     ReactGA.initialize(TRACKING_ID);
     ReactGA.pageview(window.location.pathname + window.location.search);
     if (localStorage.getItem("investor_id")) {
@@ -82,7 +81,26 @@ class Homenew extends Component {
     // Call API every 3 seconds
     // this.delete_analytics_session_interval = setInterval(() => this.getDelete_analytics_session_data(), 3000);
 
-    // Post data every 2 seconds
+
+  
+  
+  
+   
+  
+  
+  
+   
+  
+  
+  
+  
+  
+  
+
+  
+   
+  
+  
     // this.start_analytics_session_interval = setInterval(() => this.postStart_analytics_session_data(), 2000);
   }
   handleScroll() {
@@ -92,10 +110,12 @@ class Homenew extends Component {
       this.setState({ isVisible: top < windowHeight });
     }
   }
-  // componentWillUnmount() {
+  componentWillUnmount() {
   //   clearInterval(this.delete_analytics_session_interval);
+  window.removeEventListener("scroll", this.handleScroll);
+  
   //   clearInterval(this.start_analytics_session_interval);
-  // }
+  }
 
   getDelete_analytics_session_data = () => {
     axios
@@ -183,6 +203,31 @@ class Homenew extends Component {
       }
     });
   };
+  get_founder_details = () => {
+    let params = {
+      founder_id: localStorage.getItem("founder_id"),
+    };
+    Bridge.founder.get_founder_profile_details(params).then((result) => {
+      if (result.status == "1") {
+        if (result.data.length > 0) {
+          let investor_id = localStorage.getItem("founder_id");
+          this.setState({ investor_id: investor_id });
+          setTimeout(() => {
+            if (result.data[0].is_investor == "1") {
+              this.setState({ founder_is_investor: "1" }, () =>
+                this.check_for_membership_type()
+              );
+            } else {
+              this.setState({ founder_is_investor: "0" }, () =>
+                this.check_for_membership_type()
+              );
+            }
+          }, 200);
+        }
+      } else {
+      }
+    });
+  };
   check_for_membership_type = () => {
     this.setState({ formloader: true });
     if (this.state.investor_id) {
@@ -207,6 +252,28 @@ class Homenew extends Component {
   };
 
   render() {
+  
+    function SimpleNextArrow(props) {
+      const { onClick } = props;
+      return (
+        <>
+         <div className="nextArrow" onClick={onClick}>
+         <span class="next-arrows slick-arrow" ><i class="fa fa-angle-right" aria-hidden="true"></i></span></div>
+        </>
+      );
+    }
+    
+    function SimplePrevArrow(props) {
+      const { onClick } = props;
+       return (
+        <>
+            <div className="prevArrow" onClick={onClick}>
+            <span class="prev-arrows slick-arrow"> <i class="fa fa-angle-left" aria-hidden="true"></i> </span>
+            </div>
+        </>
+    )
+    }
+   
     // const  sliderSettings = {
     //   slidesToShow: 1,
     //   slidesToScroll: 1,
@@ -226,11 +293,8 @@ class Homenew extends Component {
       autoplay: true,
       pauseOnHover: false,
       cssEase: "linear",
-      prevArrow:
-        '<span class="prev-arrows"> <i class="fa fa-angle-left" aria-hidden="true"></i> </span>',
-      nextArrow:
-        '<span class="next-arrows"><i class="fa fa-angle-right" aria-hidden="true"></i></span>',
-
+      prevArrow:<SimplePrevArrow/>,
+      nextArrow: <SimpleNextArrow/>,
       responsive: [
         {
           breakpoint: 1200,
@@ -281,12 +345,9 @@ class Homenew extends Component {
       pauseOnHover: false,
       pauseOnFocus: false,
 
-      prevArrow:
-        '<span class="prev-arrows"> <i class="fa fa-angle-left" aria-hidden="true"></i> </span>',
-      nextArrow:
-        '<span class="next-arrows"><i class="fa fa-angle-right" aria-hidden="true"></i></span>',
-
-      responsive: [
+      prevArrow:<SimplePrevArrow/>,
+      nextArrow: <SimpleNextArrow/>,
+        responsive: [
         {
           breakpoint: 1200,
           settings: {
@@ -336,9 +397,11 @@ class Homenew extends Component {
       autoplaySpeed: 3000,
       autoplay: true,
       pauseOnHover: false,
+      className: "test",
       cssEase: "linear",
-      // prevArrow: '<span class="prev-arrows"> <i class="fa fa-angle-left" aria-hidden="true"></i> </span>',
-      // nextArrow: '<span class="next-arrows"><i class="fa fa-angle-right" aria-hidden="true"></i></span>',
+      prevArrow: <SimplePrevArrow/>,
+      nextArrow: <SimpleNextArrow/>,
+      style: { margin: "0 20px" },
 
       responsive: [
         {
@@ -386,6 +449,70 @@ class Homenew extends Component {
         },
       ],
     };
+    const countersettting={
+      class:"flex-counters",
+      dots: false,
+      infinite: true,
+      arrows: true,
+      speed: 100,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      autoplaySpeed: 3000,
+      // fade: true,
+      // speed: 3000,
+      autoplay: false,
+      pauseOnHover: false,
+      cssEase: 'linear',
+      prevArrow: <SimplePrevArrow/>,
+      nextArrow: <SimpleNextArrow/>,
+
+
+      responsive: [{
+        breakpoint: 1200,
+        settings: {
+
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        }
+      }, {
+        breakpoint: 993,
+        settings: {
+
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        }
+      }, {
+        breakpoint: 600,
+        settings: {
+
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          autoplay: false,
+          
+        }
+      }, {
+        breakpoint: 400,
+        settings: {
+          arrows: true,
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: true,
+          autoplay: false,
+        }
+      }]
+    }
+  
+
+    $(window).scroll(function() {
+      if ($(this).scrollTop() > 30) {
+        $('body').addClass('newClass');
+      } else {
+        $('body').removeClass('newClass');
+      }
+    });
+   
+ 
+
 
     const pointer = {
       pointerEvents: "none",
@@ -395,7 +522,7 @@ class Homenew extends Component {
       <div>
         {/* <WebHeader /> */}
         <NewWebHeader />
-
+<div className="mainbanner">
         <section class="banner_section ">
           <div class="container-fluid">
             <div class="row banner-row">
@@ -556,8 +683,8 @@ class Homenew extends Component {
             </div>
           </div>
         </section>
-
-     <Homenewrxtra/>
+        </div>
+        <Homenewrxtra />
 
         <section class="business-crowd logo-sections ">
           <div class="container">
@@ -720,7 +847,7 @@ class Homenew extends Component {
           </div>
         </section>
 
-        <section class="counter-sections" >
+        <section class="counter-sections">
           <div class="container">
             <div class="row">
               <div class="">
@@ -733,43 +860,129 @@ class Homenew extends Component {
                     positioned for success.
                   </p>
                 </div>
-                {isVisible && <div class="flex-counters">
-                  <div class="counter-container">
-                    <div class="part-one-count">
-                      <div id="numbers">
-                        <span class=" fig-number"><CountUp duration={5} start={0}end={75}  scrollSpyDelay={1000}/></span>
+                
+                  
+                    {document.body.clientWidth < 600 ?(
+                    <Slider className="flex-counters sliderdriven" {...countersettting} >
+                        <div class="counter-container newcountercontainer">
+                      <div class="part-one-count">
+                        <div id="numbers">
+                          <span class=" fig-number">
+                            <CountUp
+                              duration={5}
+                              start={0}
+                              end={75}
+                              scrollSpyDelay={1000}
+                            />
+                          </span>
+                        </div>
+                        <p>+</p>
                       </div>
-                      <p>+</p>
+                      <span>Startups funded</span>
                     </div>
-                    <span>Startups funded</span>
-                  </div>
-                  <div class="counter-container ">
-                    <div class="part-one-count">
-                      <div id="numbers">
-                        <span class=" fig-number"><CountUp duration={3}start={0}end={90}  scrollSpyDelay={1000}/></span>
+                    <div class="counter-container newcountercontainer ">
+                      <div class="part-one-count">
+                        <div id="numbers">
+                          <span class=" fig-number">
+                            <CountUp
+                              duration={3}
+                              start={0}
+                              end={90}
+                              scrollSpyDelay={1000}
+                            />
+                          </span>
+                        </div>
+                        <p>%</p>
                       </div>
-                      <p>%</p>
+
+                      <span>Success Rate</span>
                     </div>
 
-                    <span>Success Rate</span>
-                  </div>
-
-                  <div class="counter-container">
-                    <div class="part-one-count">
-                      <div id="numbers">
-                        <span class=" fig-number"><CountUp duration={3}start={0}end={1000}  scrollSpyDelay={1000}/></span>
+                    <div class="counter-container newcountercontainer">
+                      <div class="part-one-count">
+                        <div id="numbers">
+                          <span class=" fig-number">
+                            <CountUp
+                              duration={3}
+                              start={0}
+                              end={1000}
+                              scrollSpyDelay={1000}
+                            />
+                          </span>
+                        </div>
+                        <p>+</p>
                       </div>
-                      <p>+</p>
+                      <span>Startups Analyzed</span>
                     </div>
-                    <span>Startups Analyzed</span>
-                  </div>
-                  <div class="counter-container">
-                    <div class="part-one-count">
-                      <p>Top Quartile</p>
+                    <div class="counter-container newcountercontainer">
+                      <div class="part-one-count">
+                        <p>Top Quartile</p>
+                      </div>
+                      <span>Performance Ranking</span>
                     </div>
-                    <span>Performance Ranking</span>
-                  </div>
-                </div>}
+                    </Slider>):( <> 
+                      <div class="flex-counters">
+                    <div class="counter-container ">
+                      <div class="part-one-count">
+                        <div id="numbers">
+                          <span class=" fig-number">
+                            <CountUp
+                              duration={5}
+                              start={0}
+                              end={75}
+                              scrollSpyDelay={1000}
+                            />
+                          </span>
+                        </div>
+                        <p>+</p>
+                      </div>
+                      <span>Startups funded</span>
+                    </div>
+                    <div class="counter-container  ">
+                      <div class="part-one-count">
+                        <div id="numbers">
+                          <span class=" fig-number">
+                            <CountUp
+                              duration={3}
+                              start={0}
+                              end={90}
+                              scrollSpyDelay={1000}
+                            />
+                          </span>
+                        </div>
+                        <p>%</p>
+                      </div>
+
+                      <span>Success Rate</span>
+                    </div>
+
+                    <div class="counter-container ">
+                      <div class="part-one-count">
+                        <div id="numbers">
+                          <span class=" fig-number">
+                            <CountUp
+                              duration={3}
+                              start={0}
+                              end={1000}
+                              scrollSpyDelay={1000}
+                            />
+                          </span>
+                        </div>
+                        <p>+</p>
+                      </div>
+                      <span>Startups Analyzed</span>
+                    </div>
+                    <div class="counter-container ">
+                      <div class="part-one-count">
+                        <p>Top Quartile</p>
+                      </div>
+                      <span>Performance Ranking</span>
+                    </div>
+                    </div>
+                    </>)}
+                  
+                 
+                
               </div>
             </div>
           </div>
@@ -846,45 +1059,48 @@ class Homenew extends Component {
               <div class="col-12 col-xl-12 col-lg-12 col-md-12 ">
                 <div class="slider-testimonials">
                   <Slider {...testimonialsetting}>
-                    <div class="testimonails-cards">
-                      <ul>
-                        <li>
-                          <i class="fa-solid fa-star"></i>
-                        </li>
-                        <li>
-                          <i class="fa-solid fa-star"></i>
-                        </li>
-                        <li>
-                          <i class="fa-solid fa-star"></i>
-                        </li>
-                        <li>
-                          <i class="fa-solid fa-star"></i>
-                        </li>
-                        <li>
-                          <i class="fa-solid fa-star"></i>
-                        </li>
-                      </ul>
-                      <p>
-                        Discovering hidden gems with Growth91 is like uncovering
-                        beautiful teasure. The platform's knack for identifying
-                        unique and promising startups gives me a sense of being
-                        part of an exclusive club.It's not just about numbers;
-                        it's about the thrill of finding the next big thing in
-                        the startup world.
-                      </p>
-                      <div class="name-testi">
-                        <div class="img-testiminal-card">
-                          <img
-                            src="./assets/images/testimonials/hrish.jpg"
-                            alt="user"
-                          />
-                        </div>
-                        <div class="contents-testimonials">
-                          <h3>Hirish Shipurkar</h3>
-                          <p> GPS FIG, HSBC Bank</p>
+                    <div>
+                      <div class="testimonails-cards">
+                        <ul>
+                          <li>
+                            <i class="fa-solid fa-star"></i>
+                          </li>
+                          <li>
+                            <i class="fa-solid fa-star"></i>
+                          </li>
+                          <li>
+                            <i class="fa-solid fa-star"></i>
+                          </li>
+                          <li>
+                            <i class="fa-solid fa-star"></i>
+                          </li>
+                          <li>
+                            <i class="fa-solid fa-star"></i>
+                          </li>
+                        </ul>
+                        <p>
+                          Discovering hidden gems with Growth91 is like
+                          uncovering beautiful teasure. The platform's knack for
+                          identifying unique and promising startups gives me a
+                          sense of being part of an exclusive club.It's not just
+                          about numbers; it's about the thrill of finding the
+                          next big thing in the startup world.
+                        </p>
+                        <div class="name-testi">
+                          <div class="img-testiminal-card">
+                            <img
+                              src="./assets/images/testimonials/hrish.jpg"
+                              alt="user"
+                            />
+                          </div>
+                          <div class="contents-testimonials">
+                            <h3>Hirish Shipurkar</h3>
+                            <p> GPS FIG, HSBC Bank</p>
+                          </div>
                         </div>
                       </div>
                     </div>
+                    <div>
                     <div class="testimonails-cards">
                       <ul>
                         <li>
@@ -924,6 +1140,9 @@ class Homenew extends Component {
                         </div>
                       </div>
                     </div>
+                    </div>
+                    <div>
+
                     <div class="testimonails-cards">
                       <ul>
                         <li>
@@ -961,6 +1180,9 @@ class Homenew extends Component {
                         </div>
                       </div>
                     </div>
+                    </div>
+                    <div>
+
                     <div class="testimonails-cards">
                       <ul>
                         <li>
@@ -997,6 +1219,8 @@ class Homenew extends Component {
                         </div>
                       </div>
                     </div>
+                    </div>
+                    <div>
 
                     <div class="testimonails-cards">
                       <ul>
@@ -1039,6 +1263,9 @@ class Homenew extends Component {
                         </div>
                       </div>
                     </div>
+                    </div>
+                    <div>
+
                     <div class="testimonails-cards">
                       <ul>
                         <li>
@@ -1078,6 +1305,7 @@ class Homenew extends Component {
                           <p>INTERNATIONAL Corpoate </p>
                         </div>
                       </div>
+                    </div>
                     </div>
                   </Slider>
                 </div>
@@ -1423,7 +1651,7 @@ class Homenew extends Component {
            <Homextra/>)
             :("")} */}
 
-<NewWebFooter />
+        <NewWebFooter />
       </div>
     );
   }

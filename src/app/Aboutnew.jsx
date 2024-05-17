@@ -2,8 +2,16 @@ import React from 'react'
 import { NewWebFooter } from './common/NewWebFooter'
 import Slider from 'react-slick'
 import NewWebHeader from "./common/NewWebHeader.jsx";
+import $ from "jquery";
 
 export const Aboutnew = () => {
+    $(window).scroll(function() {
+        if ($(this).scrollTop() > 30) {
+          $('body').addClass('newClass');
+        } else {
+          $('body').removeClass('newClass');
+        }
+      });
     const sliderSettings={
         dots: true,
         infinite: true,
@@ -54,7 +62,9 @@ export const Aboutnew = () => {
       }
   return (
     <div>
-        <NewWebHeader/>
+    <div classname="newabout">
+        <NewWebHeader newabout={"newabout"}/>
+    </div>
         <section class="about-page-section blog-section pb-0" style={{paddingBottom: "0px !important"}}>
 
     <div class="container">

@@ -162,12 +162,15 @@ import Newboo from "./app/deal-pages/Newboo";
 import ORAI from "./app/deal-pages/ORAI1.jsx";
 import EleFant from "./app/deal-pages/EleFant.jsx";
 import EcoRatings from "./app/deal-pages/EcoRatings.jsx";
+import Stroom from "./app/deal-pages/Stroom.jsx";
 import IndusUnoTranche2 from "./app/deal-pages/IndusUnoTranche2";
 import { Newdeals } from "./app/Newdeals.jsx";
+import jqeryscript from "./jq.js"
 
 ReactGA.initialize(TRACKING_ID);
 
 function App() {
+ 
   // GOOGLE ANALYTICS
 
   useEffect(() => {
@@ -263,7 +266,7 @@ function App() {
             component={FounderDocuments}
           />
 
-          <Route path="/Blog" exact component={Blog} />
+          {/* <Route path="/Blog" exact component={Blog} /> */}
           <Route path="/details" component={BlogDetails} />
           <Route path="/pay" component={Payment} />
 
@@ -501,6 +504,9 @@ function App() {
           </Route>
           <Route path="/Tulua" >
             <ProtectDeals Component={Tulua} />
+          </Route>
+          <Route path="/Stroom" >
+            <ProtectDeals Component={Stroom} />
           </Route>
           <Route path="/TestDeal2" exact>
             <ProtectDeals Component={TestDeal2} />
