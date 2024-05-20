@@ -966,7 +966,7 @@ class NewWebHeader extends Component {
                     </div>
                   </div>
                   {this.state.loggedinstatus == true ? (
-                    <ul className={`topbar-right ${isActive ? "d-none" : ""}`}>
+                    <ul className={`topbar-right mobile-topbar ${isActive ? "d-none" : ""}`}>
                       {/* <i className="bx bxs-bell-ring position-relative text-white me-4" style={{fontSize: '1.5rem', marginBottom: '0'}}>
                                 
                                 <span className="position-absolute top-0 start-100 translate-middle px-2 mt-2 ms-2 bg-danger border border-light rounded-circle">

@@ -3207,9 +3207,7 @@ body.search.search-results .content-area {
 
 @media screen and (min-width: 768px) {
   .mobileuser{
-  
   display: none !important;
-  
   }
   .testimonial_wraper_mobile .item {
     min-height: 400 !important;

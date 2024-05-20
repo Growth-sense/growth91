@@ -456,7 +456,7 @@
 
 .testimonails-cards {
     background: #ffffff;
-    margin: 0 20px;
+    margin: 1px 20px;
     padding: 30px 30px;
     box-shadow: rgba(149, 157, 165, .2) 0 8px 24px;
 
@@ -589,7 +589,7 @@
     margin: 0;
     list-style: none;
     text-align: center;
-    bottom: 100px;
+    bottom: 0;
     z-index: 99;
 }
 .slick-dots button {
@@ -2233,6 +2233,9 @@ transition: max-height 0.45s ease-in; */
 }
 
 @media screen and (max-width: 767px) {
+    .nav-inner .mobile-topbar{
+        display: block !important;
+    }
     .topbar-right {
         display: none;
     }
@@ -3545,7 +3548,28 @@ transition: max-height 0.45s ease-in; */
 }
 
 @media screen and (min-width:1200px) and (max-width:1299px) {
-
+    .headers-btn a:nth-child(1) {
+        border-radius: 10px;
+        color: var(--white);
+        display: inline-block;
+        font-family: Poppins, sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        color: white;
+        font-size: 16px !important;
+        display: inline-block;
+    }
+    .new .main-header .main-navbar .nav-inner ul li a {
+        display: block;
+        line-height: 60px;
+        position: relative;
+        font-size: 16px;
+        font-weight: 400;
+        color: #fff;
+        margin: 0 14px;
+        font-family: Nunito, sans-serif;
+        text-transform: capitalize;
+    }
     .css-1jyx3tm {
         padding-left: 43px;
         padding-right: 43px;
@@ -3593,6 +3617,40 @@ transition: max-height 0.45s ease-in; */
 }
 
 @media screen and (min-width:993px) and (max-width:1200px) {
+ 
+    .headers-btn a:nth-child(2) {
+        border-radius: 10px;
+        color: var(--white);
+        display: inline-block;
+        font-family: Poppins, sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: .56px;
+        margin-left: 36px;
+        padding: 10px 20px;
+    }
+    .headers-btn a:nth-child(1) {
+        border-radius: 10px;
+        color: var(--white);
+        display: inline-block;
+        font-family: Poppins, sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        color: white;
+        font-size: 13px !important;
+        display: inline-block;
+    }
+    .new .main-header .main-navbar .nav-inner ul li a {
+        display: block;
+        line-height: 60px;
+        position: relative;
+        font-size: 13px;
+        font-weight: 400;
+        color: #fff;
+        margin: 0 8px;
+        font-family: Nunito, sans-serif;
+        text-transform: capitalize;
+    }
     .banner-slidingpart .banner-btns .new-form-wrapper .white-btns {
         display: block;
         max-width: 238px;
@@ -3727,7 +3785,12 @@ transition: max-height 0.45s ease-in; */
 }
 
 @media screen and (min-width:768px) and (max-width:992px) {
-
+   .nav-inner .mobile-topbar{
+        display: block !important;
+    }
+    .join-sec-yellow>h1 {
+        font-size: 6rem !important;
+    }
     .ipad-mt {
         margin-top: 45px;
 
