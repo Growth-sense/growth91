@@ -10,6 +10,7 @@ import CountdownTimer from "timer-countdown";
 import { set } from "react-ga";
 import ReactGA from "react-ga4";
 import { TRACKING_ID } from "../constants/data";
+import NewWebHeader from "../common/NewWebHeader";
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -284,7 +285,9 @@ class Login extends Component {
   render() {
     return (
       <div style={{ display: this.state.show_data }}>
-        <WebHeader />
+        {/* <WebHeader /> */}
+        <NewWebHeader newabout={"newabout"}/>
+        
         <section className="login-section">
           <div className="container">
             <div className="row">

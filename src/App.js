@@ -189,8 +189,8 @@ function App() {
           <Redirect to="/theEleFant" />
         </Route>
 
-          <Route path="/" exact component={Home} />
-          <Route path="/home" exact component={Homenew} />
+          {/* <Route path="/" exact component={Home} /> */}
+          <Route path="/" exact component={Homenew} />
           <Route path="/about" exact component={Aboutnew} />
           <Route path="/UnderMaintenance" exact component={UnderMaintenance} />
           <Route path="/StartInvestment" exact component={Content} />

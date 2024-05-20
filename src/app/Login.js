@@ -13,6 +13,7 @@ import GoogleAuth from "./auth/investor/GoogleAuth";
 
 import ReactGA from "react-ga4";
 import { TRACKING_ID } from "./constants/data";
+import NewWebHeader from "./common/NewWebHeader";
 
 class Login extends Component {
   constructor(props) {
@@ -194,7 +195,9 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <WebHeader />
+        {/* <WebHeader /> */}
+        <NewWebHeader newabout={"newabout"}/>
+
         <section className="login-section">
           <div className="container">
             <div className="row">

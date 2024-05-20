@@ -519,6 +519,7 @@ class WebHeader extends Component {
   };
 
   render() {
+    console.log(this.state);
     const menu = (
       <Menu mode="horizontal" defaultSelectedKeys={["mail"]}>
         <Menu.Item
@@ -704,7 +705,8 @@ class WebHeader extends Component {
                           paddingLeft: 8,
                         }}
                       >
-                        {this.state.loggedinuser == "investor" ? (
+                        {this.state.loggedinuser == "investor" ? 
+                        (
                           <Dropdown overlay={menu}>
                             <a onClick={(e) => e.preventDefault()}>
                               {this.state.profileimagetoshow ? (
@@ -929,40 +931,57 @@ class WebHeader extends Component {
                 <div></div>
                 <div></div>
                 <li className="sidebar-min ms-5 mt-2 me-0 ps-5 mb-2 py-auto">
-                  {this.state.loggedinuser == "investor" ? (
-                    <Dropdown overlay={menu}>
-                      <a onClick={(e) => e.preventDefault()}>
-                        {this.state.profileimagetoshow ? (
-                          <img
-                            src={this.state.profileimagetoshow}
-                            className="user-img"
-                            alt="profile"
-                            style={{
-                              width: 48,
-                              height: 48,
-                              objectFit: "cover",
-                              borderRadius: "50%",
-                              border: "2px solid #fff",
-                            }}
-                          />
-                        ) : (
-                          <div className="user-wrappr">
-                            {this.state.firstname.slice(0, 1)}
-                            {this.state.lastname.slice(0, 1)}
-                          </div>
-                        )}
-                      </a>
-                    </Dropdown>
-                  ) : (
-                    // <Dropdown overlay={menu2}>
-                    //   <a onClick={e => e.preventDefault()}>
-                    //     <div className="user-wrappr">
-                    //       {this.state.name.slice(0,2)}
-                    //     </div>
-                    //   </a>
-                    // </Dropdown>
-                    ""
-                  )}
+                {this.state.loggedinstatus == true ? 
+                (  this.state.loggedinuser == "investor" ? 
+                (
+                  <Dropdown overlay={menu}>
+                    <a onClick={(e) => e.preventDefault()}>
+                      {this.state.profileimagetoshow ? (
+                        <img
+                          src={this.state.profileimagetoshow}
+                          className="user-img"
+                          alt="profile"
+                          style={{
+                            width: 48,
+                            height: 48,
+                            objectFit: "cover",
+                            borderRadius: "50%",
+                            border: "2px solid #fff",
+                          }}
+                        />
+                      ) : (
+                        <div className="user-wrappr">
+                          {this.state.firstname.slice(0, 1)}
+                          {this.state.lastname.slice(0, 1)}
+                        </div>
+                      )}
+                    </a>
+                  </Dropdown>
+                ) : (
+                  <Dropdown overlay={menu2}>
+                  <a onClick={(e) => e.preventDefault()}>
+                    {this.state.founder_profileimagetoshow ? (
+                      <img
+                        src={this.state.founder_profileimagetoshow}
+                        className="user-img"
+                        alt="profile"
+                        style={{
+                          width: 48,
+                          height: 48,
+                          objectFit: "cover",
+                          borderRadius: "50%",
+                          border: "2px solid #fff",
+                        }}
+                      />
+                    ) : (
+                      <div className="user-wrappr">
+                        {this.state.name.slice(0, 2)}
+                      </div>
+                    )}
+                  </a>
+                </Dropdown>
+                  // ""
+                )):("")}
                 </li>
               </div>
             </nav>

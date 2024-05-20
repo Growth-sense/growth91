@@ -10,6 +10,7 @@ import CountdownTimer from "timer-countdown";
 import CountrySelect from "./CountrySelect";
 import ReactGA from "react-ga4";
 import { TRACKING_ID } from "../../constants/data";
+import NewWebHeader from "../../common/NewWebHeader";
 
 ReactGA.initialize(TRACKING_ID);
 
@@ -626,7 +627,9 @@ class Step1 extends Component {
     );
     return (
       <div style={{ display: this.state.show_data }}>
-        <WebHeader />
+        {/* <WebHeader /> */}
+        <NewWebHeader newabout={"newabout"}/>
+
         <section className="signup-section" style={{ marginTop: 30 }}>
           <Fetchurldata setEmail={this.setCode} />
           <div className="container">

@@ -5,6 +5,7 @@ import { InvestorTestomonial } from "./InvestorTestomonial";
 import { FounderTestomonial } from "./FounderTestomonial.jsx";
 import { Foundercurosel } from "./Foundercurosel.jsx";
 import { Founderextra } from "./Founderextra.jsx";
+import NewWebHeader from "./common/NewWebHeader.jsx";
 
 class Founders extends Component {
   constructor(props) {
@@ -59,7 +60,9 @@ class Founders extends Component {
 
     return (
       <div>
-        <WebHeader />
+        {/* <WebHeader /> */}
+        <NewWebHeader newabout={"newabout"}/>
+
 
         <section className="banner_section">
     <div

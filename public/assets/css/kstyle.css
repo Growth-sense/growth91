@@ -208,7 +208,7 @@
 
 .business-crowd {
 
-    padding: 90px 0;
+    /* padding: 90px 0; */
 }
 
 
@@ -592,7 +592,16 @@
     bottom: 100px;
     z-index: 99;
 }
-
+.slick-dots button {
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    padding: 0;
+    border: none;
+    border-radius: 100%;
+    background-color: blue;
+    text-indent: -9999px;
+  }
 .banner-row .banner-sliding {
     height: 100vh;
 }
@@ -656,7 +665,7 @@
 }
 
 .banner-sliding ul li button {
-    display: none;
+    /* display: none; */
 }
 
 .banner-sliding .slick-dots li {
@@ -1505,6 +1514,8 @@
     max-width: 245px;
     line-height: 60px;
     border-radius: 30px;
+    position: relative;
+    z-index: 999;
     /* border: 1px solid #fff !important; */
     font-size: 20px;
     font-weight: 600;
@@ -1704,7 +1715,7 @@ span.expandMenu i {
 }
 
 .logo-sections {
-    padding: 90px 0px 0px 0px !important;
+    padding: 0px 0px 0px 0px !important;
 }
 
 .client-slider {

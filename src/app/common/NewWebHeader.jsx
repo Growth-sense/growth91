@@ -749,14 +749,14 @@ class NewWebHeader extends Component {
                         alignItems: "center",
                         justifyContent: "space-between"}   : {display:"bv"} }
                     >
-                      <a href="index.php">
+                      <Link to="/">
                         <img src="/web/white-logo.png" width="116" alt="img" />
                         <img
                           src="/web/growth91LOGO (4).png"
                           width="116"
                           alt="img"
                         />
-                      </a>
+                      </Link>
                       <div class="menu-bar open-menu mobileuser"  style={
                         isActive ? {    display: "flex",
                         width: "160px"} : {display:"block"} } >
@@ -860,13 +860,13 @@ class NewWebHeader extends Component {
                       >
                         <li>
                           <Link
-                            to="/home"
+                            to="/"
                             className={
-                              window.location.pathname == "/home" && "active"
+                              window.location.pathname == "/" && "active"
                             }
                             
                           >
-                            Invest
+                            Home
                           </Link>
                         </li>
                         <li>
@@ -881,23 +881,33 @@ class NewWebHeader extends Component {
                         </li>
                         <li>
                           <Link
-                            to="/pitch"
+                            to="/Founders"
                             className={
-                              window.location.pathname == "/pitch" && "active"
+                              window.location.pathname == "/Founders" ||    window.location.pathname == "/Founders/"&&
+                              "active"
                             }
                           >
-                            Pitch
+                            Founders
                           </Link>
                         </li>
                         <li>
                           <Link
-                            to="/resources"
+                            to="/Investors"
                             className={
-                              window.location.pathname == "/resource" &&
-                              "active"
+                              window.location.pathname == "/Investors" ||  window.location.pathname == "/Investors/" && "active"
                             }
                           >
-                            Resources
+                            Investors
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/Learn"
+                            className={
+                              window.location.pathname == "/Learn" && "active"
+                            }
+                          >
+                           Learn
                           </Link>
                         </li>
                         <li>
@@ -907,7 +917,7 @@ class NewWebHeader extends Component {
                               window.location.pathname == "/about" && "active"
                             }
                           >
-                            About Us
+                           About-us
                           </Link>
                         </li>
 
@@ -925,8 +935,8 @@ class NewWebHeader extends Component {
                           ""
                         ) : (
                           <>
-                            {" "}
-                            <li>
+                          {isActive?(
+                          <> <li>
                               <Link
                                 to="/Login"
                                 className={
@@ -947,7 +957,9 @@ class NewWebHeader extends Component {
                               >
                                 Get Started
                               </Link>
-                            </li>
+                            </li></>):("")}
+                            {" "}
+                           
                           </>
                         )}
                       </ul>

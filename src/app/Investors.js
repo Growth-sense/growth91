@@ -8,6 +8,7 @@ import { InvestorTestomonial } from "./InvestorTestomonial";
 import { Investcurosel } from "./Investcurosel";
 import { Investersextra } from "./Investersextra.jsx";
 import ReactGA from "react-ga";
+import NewWebHeader from "./common/NewWebHeader.jsx";
 
 class Investors extends Component {
   constructor(props) {
@@ -73,7 +74,9 @@ class Investors extends Component {
 
     return (
       <div>
-        <WebHeader />
+        {/* <WebHeader /> */}
+        <NewWebHeader newabout={"newabout"}/>
+
         <section className="banner_section">
     <div
       id="carouselExampleIndicators"

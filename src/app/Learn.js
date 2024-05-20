@@ -4,6 +4,7 @@ import WebFooter from "./common/WebFooter";
 import Footer from "./common/Footer";
 import {Link} from "react-router-dom"
 import Slider from "react-slick";
+import NewWebHeader from "./common/NewWebHeader";
 
 class Learn extends Component {
   componentWillMount() {
@@ -29,7 +30,9 @@ class Learn extends Component {
       <div>
      
        
-        <WebHeader />
+        {/* <WebHeader /> */}
+        <NewWebHeader newabout={"newabout"}/>
+
         <section className="banner_section">
           <div
             id="carouselExampleIndicators"

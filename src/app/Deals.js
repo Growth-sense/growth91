@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 import ReactGA from "react-ga4";
 import { TRACKING_ID } from "./constants/data";
+import NewWebHeader from "./common/NewWebHeader";
 ReactGA.initialize(TRACKING_ID);
 const { Option } = Select;
 const { TabPane } = Tabs;
@@ -288,7 +289,9 @@ class Deals extends Component {
           marginTop: 171,
         }}
       >
-        <WebHeader />
+        {/* <WebHeader /> */}
+        <NewWebHeader newabout={"newabout"}/>
+
         <div>
           <div className="container">
             <div className="row">

@@ -8,6 +8,7 @@ import Bridge from './constants/Bridge';
 //to use auth
 import { authentication } from "./firebase-config";
 import {signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import NewWebHeader from './common/NewWebHeader';
 
 const { Option } = Select;
 
@@ -135,7 +136,9 @@ signInWithGoogle=()=>
   render() {
     return (
       <div>
-        <WebHeader />
+        {/* <WebHeader /> */}
+        <NewWebHeader newabout={"newabout"}/>
+
         <section className="signup-section">
           <div className="container">
             <div className="row">
