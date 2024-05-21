@@ -1273,7 +1273,487 @@ transition: max-height 0.45s ease-in; */
     z-index: 99;
 }
 
+
+
+@media screen and (min-width:1801px) {}
+
+@media screen and (min-width:1401px) and (max-width:1800px) {}
+
+@media screen and (min-width:1400px) and (max-width:1500px) {
+    .d-flex-banner .img-banner-part {
+        width: 35%;
+        display: flex;
+        justify-content: right;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .mainbanner .banner_section .left-content {
+        padding-top: 60px;
+    }
+
+    .banner-sliding .form-wraper {
+        margin-top: 25px;
+    }
+
+    .banner-sliding .banner-slidingpart h1 {
+        font-size: 40px;
+        line-height: 60px;
+    }
+
+    .mainbanner .banner_section {
+        height: 70vh;
+    }
+
+    .mainbanner .banner_section .slick-track,
+    .mainbanner .banner_section .banner-row,
+    .mainbanner .banner_section .banner-row .banner-sliding {
+        height: 60vh;
+    }
+
+    .banner-sliding .slick-dots {
+        bottom: 38px;
+    }
+
+    .banner-sliding h2 {
+        font-size: 40px;
+        line-height: 60px;
+    }
+}
+
+@media screen and (min-width:1300px) and (max-width:1399px) {
+    .d-flex-banner .img-banner-part {
+        width: 35%;
+        display: flex;
+        justify-content: right;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .mainbanner .banner_section .left-content {
+        padding-top: 60px;
+    }
+
+    .banner-sliding .form-wraper {
+        margin-top: 25px;
+    }
+
+    .banner-sliding .banner-slidingpart h1 {
+        font-size: 40px;
+        line-height: 60px;
+    }
+
+    .mainbanner .banner_section {
+        height: 85vh;
+    }
+
+    .mainbanner .banner_section .slick-track,
+    .mainbanner .banner_section .banner-row,
+    .mainbanner .banner_section .banner-row .banner-sliding {
+        height: 75vh;
+    }
+
+    .banner-sliding .slick-dots {
+        bottom: 38px;
+    }
+
+    .banner-sliding h2 {
+        font-size: 40px;
+        line-height: 60px;
+    }
+}
+
+@media screen and (min-width:1200px) and (max-width:1299px) {
+
+    .css-1jyx3tm {
+        padding-left: 43px;
+        padding-right: 43px;
+    }
+
+    .d-flex-banner .img-banner-part {
+        width: 35%;
+        display: flex;
+        justify-content: right;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .mainbanner .banner_section .left-content {
+        padding-top: 60px;
+    }
+
+    .banner-sliding .form-wraper {
+        margin-top: 25px;
+    }
+
+    .banner-sliding .banner-slidingpart h1 {
+        font-size: 40px;
+        line-height: 60px;
+    }
+
+    .mainbanner .banner_section {
+        height: 70vh;
+    }
+
+    .mainbanner .banner_section .slick-track,
+    .mainbanner .banner_section .banner-row,
+    .mainbanner .banner_section .banner-row .banner-sliding {
+        height: 60vh;
+    }
+
+    .banner-sliding .slick-dots {
+        bottom: 38px;
+    }
+
+    .banner-sliding h2 {
+        font-size: 40px;
+        line-height: 60px;
+    }
+}
+
+@media screen and (min-width:993px) and (max-width:1200px) {
+    .banner-slidingpart .banner-btns .new-form-wrapper .white-btns {
+        display: block;
+        max-width: 238px;
+        line-height: 55px;
+        font-size: 17px;
+    }
+    .join-sec-yellow>h1 {
+        font-size: 6rem;
+    }
+    .following-post-thum img {
+       
+        height: 180px;
+    }
+    .main-heading-counter p:nth-child(3) {
+        width: 70%;
+    }    
+    .client-logo img {
+        height: 130px;
+    }    
+    .main-business-card {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-column-gap: 40px;
+    }
+
+    .card-business-crowd h3 {
+
+        font-size: 16px;
+        line-height: 26px;
+
+        letter-spacing: 1px;
+
+    }
+
+    .card-business-crowd p {
+
+        font-size: 15px;
+        line-height: 25px;
+
+    }
+
+    .css-1tqvf70 .MuiBox-root {
+        padding-right: 18%;
+    }
+
+    .css-vehhn3 {
+        padding: 120px 30px 30px 30px;
+        height: auto;
+    }
+
+     .main-header .main-navbar {
+        padding: 13px 30px;
+    }
+
+    .desktop-menu {
+        margin-left: 141px;
+    }
+
+     .main-header .main-navbar .nav-inner ul li a {
+        font-size: 15px;
+        margin: 0 12px;
+    }
+
+     .main-header .main-navbar .nav-inner {
+        padding: 10px 0;
+    }
+
+    .d-flex-banner .img-banner-part {
+        width: 35%;
+        display: flex;
+        justify-content: right;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .mainbanner .banner_section .left-content {
+        padding-top: 89px;
+    }
+
+    .banner-sliding .form-wraper {
+        margin-top: 25px;
+    }
+
+    .banner-sliding .banner-slidingpart h1 {
+        font-size: 32px;
+        line-height: 45px;
+    }
+
+    .d-flex-banner {
+        padding: 0 40px;
+    }
+
+    .mainbanner .banner_section {
+        height: 45vh;
+    }
+
+    .banner-sliding p span {
+        font-size: 15px;
+        background-color: white;
+        color: #29176f;
+        padding: 4px 20px;
+    }
+
+    .mainbanner .banner_section .slick-track,
+    .mainbanner .banner_section .banner-row,
+    .mainbanner .banner_section .banner-row .banner-sliding {
+        height: 39vh;
+    }
+
+    .banner-sliding .slick-dots {
+        bottom: 23px;
+    }
+
+    .banner-sliding h2 {
+        font-size: 32px;
+        line-height: 45px;
+        padding: 0 0 20px 0;
+
+    }
+    .banner-listes ul li span i {
+        width: 22px;
+        height: 22px;
+        line-height: 22px;
+        font-size: 12px;
+    }
+    .banner-listes ul li {
+        color: #d3c4c4;
+        font-weight: 100;
+        margin-bottom: 7px;
+        font-size: 16px;
+    }
+}
+
+@media screen and (min-width:768px) and (max-width:992px) {
+
+    .ipad-mt {
+        margin-top: 45px;
+
+    }
+
+    .card-business-crowd {
+        height: 248px;
+    }
+
+    .circle-card-g91 {
+        width: 70%;
+        margin-bottom: 55px;
+    }
+
+    .main-business-card {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-column-gap: 70px;
+        justify-items: center;
+    }
+
+    .card-business-crowd h3 {
+
+        font-size: 16px;
+        line-height: 26px;
+
+        letter-spacing: 1px;
+
+    }
+
+    .card-business-crowd p {
+
+        font-size: 15px;
+        line-height: 25px;
+
+    }
+
+    .css-1tqvf70 .MuiBox-root {
+        padding-right: 18%;
+    }
+
+    .css-vehhn3 {
+        padding: 120px 30px 30px 30px;
+        height: auto;
+    }
+
+     .main-header .main-navbar {
+        padding: 13px 30px;
+    }
+
+    .desktop-menu {
+        margin-left: 141px;
+    }
+
+     .main-header .main-navbar .nav-inner ul li a {
+        font-size: 15px;
+        margin: 0 12px;
+    }
+
+     .main-header .main-navbar .nav-inner {
+        padding: 10px 0;
+    }
+
+    .d-flex-banner .img-banner-part {
+        width: 35%;
+        display: flex;
+        justify-content: right;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .mainbanner .banner_section .left-content {
+        padding-top: 60px;
+    }
+
+    .banner-sliding .form-wraper {
+        margin-top: 25px;
+    }
+
+    .d-flex-banner .banner-part {
+        width: 65%;
+    }
+
+    .banner-sliding .banner-slidingpart h1 {
+        font-size: 27px;
+        line-height: 45px;
+    }
+
+    .d-flex-banner {
+        padding: 0 40px;
+    }
+
+    .mainbanner .banner_section {
+        height: 55vh;
+    }
+
+    .banner-sliding p span {
+        font-size: 15px;
+        background-color: white;
+        color: #29176f;
+        padding: 4px 20px;
+    }
+
+    .mainbanner .banner_section .slick-track,
+    .mainbanner .banner_section .banner-row,
+    .mainbanner .banner_section .banner-row .banner-sliding {
+        height: 45vh;
+    }
+
+    .banner-sliding .slick-dots {
+        bottom: 25px;
+    }
+
+    .banner-sliding h2 {
+        font-size: 27px;
+        line-height: 45px;
+        padding: 0 0 18px 0;
+    }
+
+    .banner-listes ul li {
+        margin-bottom: 5px;
+    }
+
+    .banner-listes ul li {
+
+        margin-bottom: 5px;
+        font-size: 16px;
+    }
+
+    .banner-listes ul li span i {
+        width: 23px;
+        height: 23px;
+        line-height: 25px;
+        font-size: 11px;
+    }
+
+    .banner1 p {
+        font-size: 14px;
+        letter-spacing: 4px !important;
+    }
+
+    .banner-slidingpart .banner-btns .new-form-wrapper .white-btns {
+        max-width: 215px;
+        line-height: 47px;
+        font-size: 16px;
+
+    }
+
+    .client-logo img {
+        height: 100px;
+        object-fit: contain;
+        width: 100%;
+        padding: 20px;
+    }
+
+    .main-heading-counter p:nth-child(3) {
+        font-size: 16px;
+        width: 93%;
+    }
+
+    .main-heading-counter h3 {
+        font-size: 32px;
+        margin: 10px 0 2px 0;
+    }
+
+    .fig-number {
+        font-size: 25px !important;
+    }
+
+    .part-one-count p {
+        font-size: 25px;
+    }
+
+    .join-sec-yellow>h1 {
+        font-size: 5rem;
+        margin: 0 0 -47px;
+    }
+
+    .main-accordain-all .accordion {
+        width: 70%;
+        padding-left: 20px;
+        padding-right: 26px;
+    }
+
+    .faq-side-content h3 {
+        margin: 0px 0px 16px;
+        font-weight: 600;
+        line-height: 22px;
+        font-size: 16px;
+    }
+
+    .main-accordain-all .faq-side-content {
+        padding-right: 19px;
+        padding-left: 19px;
+    }
+
+    .main-accordain-all .accordion {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
 @media screen and (max-width: 767px) {
+    .site-header .main-navbar-bg-white .topbar-right{
+        display: none !important;
+
+    }
     .about-page-img img {
         width: 45% !important;
     }
@@ -2495,478 +2975,4 @@ transition: max-height 0.45s ease-in; */
         min-height: 200px;
     }
 
-}
-
-@media screen and (min-width:1801px) {}
-
-@media screen and (min-width:1401px) and (max-width:1800px) {}
-
-@media screen and (min-width:1400px) and (max-width:1500px) {
-    .d-flex-banner .img-banner-part {
-        width: 35%;
-        display: flex;
-        justify-content: right;
-        align-items: center;
-        justify-content: flex-end;
-    }
-
-    .mainbanner .banner_section .left-content {
-        padding-top: 60px;
-    }
-
-    .banner-sliding .form-wraper {
-        margin-top: 25px;
-    }
-
-    .banner-sliding .banner-slidingpart h1 {
-        font-size: 40px;
-        line-height: 60px;
-    }
-
-    .mainbanner .banner_section {
-        height: 70vh;
-    }
-
-    .mainbanner .banner_section .slick-track,
-    .mainbanner .banner_section .banner-row,
-    .mainbanner .banner_section .banner-row .banner-sliding {
-        height: 60vh;
-    }
-
-    .banner-sliding .slick-dots {
-        bottom: 38px;
-    }
-
-    .banner-sliding h2 {
-        font-size: 40px;
-        line-height: 60px;
-    }
-}
-
-@media screen and (min-width:1300px) and (max-width:1399px) {
-    .d-flex-banner .img-banner-part {
-        width: 35%;
-        display: flex;
-        justify-content: right;
-        align-items: center;
-        justify-content: flex-end;
-    }
-
-    .mainbanner .banner_section .left-content {
-        padding-top: 60px;
-    }
-
-    .banner-sliding .form-wraper {
-        margin-top: 25px;
-    }
-
-    .banner-sliding .banner-slidingpart h1 {
-        font-size: 40px;
-        line-height: 60px;
-    }
-
-    .mainbanner .banner_section {
-        height: 85vh;
-    }
-
-    .mainbanner .banner_section .slick-track,
-    .mainbanner .banner_section .banner-row,
-    .mainbanner .banner_section .banner-row .banner-sliding {
-        height: 75vh;
-    }
-
-    .banner-sliding .slick-dots {
-        bottom: 38px;
-    }
-
-    .banner-sliding h2 {
-        font-size: 40px;
-        line-height: 60px;
-    }
-}
-
-@media screen and (min-width:1200px) and (max-width:1299px) {
-
-    .css-1jyx3tm {
-        padding-left: 43px;
-        padding-right: 43px;
-    }
-
-    .d-flex-banner .img-banner-part {
-        width: 35%;
-        display: flex;
-        justify-content: right;
-        align-items: center;
-        justify-content: flex-end;
-    }
-
-    .mainbanner .banner_section .left-content {
-        padding-top: 60px;
-    }
-
-    .banner-sliding .form-wraper {
-        margin-top: 25px;
-    }
-
-    .banner-sliding .banner-slidingpart h1 {
-        font-size: 40px;
-        line-height: 60px;
-    }
-
-    .mainbanner .banner_section {
-        height: 70vh;
-    }
-
-    .mainbanner .banner_section .slick-track,
-    .mainbanner .banner_section .banner-row,
-    .mainbanner .banner_section .banner-row .banner-sliding {
-        height: 60vh;
-    }
-
-    .banner-sliding .slick-dots {
-        bottom: 38px;
-    }
-
-    .banner-sliding h2 {
-        font-size: 40px;
-        line-height: 60px;
-    }
-}
-
-@media screen and (min-width:993px) and (max-width:1200px) {
-    .banner-slidingpart .banner-btns .new-form-wrapper .white-btns {
-        display: block;
-        max-width: 238px;
-        line-height: 55px;
-        font-size: 17px;
-    }
-    .join-sec-yellow>h1 {
-        font-size: 6rem;
-    }
-    .following-post-thum img {
-       
-        height: 180px;
-    }
-    .main-heading-counter p:nth-child(3) {
-        width: 70%;
-    }    
-    .client-logo img {
-        height: 130px;
-    }    
-    .main-business-card {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-column-gap: 40px;
-    }
-
-    .card-business-crowd h3 {
-
-        font-size: 16px;
-        line-height: 26px;
-
-        letter-spacing: 1px;
-
-    }
-
-    .card-business-crowd p {
-
-        font-size: 15px;
-        line-height: 25px;
-
-    }
-
-    .css-1tqvf70 .MuiBox-root {
-        padding-right: 18%;
-    }
-
-    .css-vehhn3 {
-        padding: 120px 30px 30px 30px;
-        height: auto;
-    }
-
-     .main-header .main-navbar {
-        padding: 13px 30px;
-    }
-
-    .desktop-menu {
-        margin-left: 141px;
-    }
-
-     .main-header .main-navbar .nav-inner ul li a {
-        font-size: 15px;
-        margin: 0 12px;
-    }
-
-     .main-header .main-navbar .nav-inner {
-        padding: 10px 0;
-    }
-
-    .d-flex-banner .img-banner-part {
-        width: 35%;
-        display: flex;
-        justify-content: right;
-        align-items: center;
-        justify-content: flex-end;
-    }
-
-    .mainbanner .banner_section .left-content {
-        padding-top: 89px;
-    }
-
-    .banner-sliding .form-wraper {
-        margin-top: 25px;
-    }
-
-    .banner-sliding .banner-slidingpart h1 {
-        font-size: 32px;
-        line-height: 45px;
-    }
-
-    .d-flex-banner {
-        padding: 0 40px;
-    }
-
-    .mainbanner .banner_section {
-        height: 45vh;
-    }
-
-    .banner-sliding p span {
-        font-size: 15px;
-        background-color: white;
-        color: #29176f;
-        padding: 4px 20px;
-    }
-
-    .mainbanner .banner_section .slick-track,
-    .mainbanner .banner_section .banner-row,
-    .mainbanner .banner_section .banner-row .banner-sliding {
-        height: 39vh;
-    }
-
-    .banner-sliding .slick-dots {
-        bottom: 23px;
-    }
-
-    .banner-sliding h2 {
-        font-size: 32px;
-        line-height: 45px;
-        padding: 0 0 20px 0;
-
-    }
-    .banner-listes ul li span i {
-        width: 22px;
-        height: 22px;
-        line-height: 22px;
-        font-size: 12px;
-    }
-    .banner-listes ul li {
-        color: #d3c4c4;
-        font-weight: 100;
-        margin-bottom: 7px;
-        font-size: 16px;
-    }
-}
-
-@media screen and (min-width:768px) and (max-width:992px) {
-
-    .ipad-mt {
-        margin-top: 45px;
-
-    }
-
-    .card-business-crowd {
-        height: 248px;
-    }
-
-    .circle-card-g91 {
-        width: 70%;
-        margin-bottom: 55px;
-    }
-
-    .main-business-card {
-        display: grid;
-        grid-template-columns: repeat(1, 1fr);
-        grid-column-gap: 70px;
-        justify-items: center;
-    }
-
-    .card-business-crowd h3 {
-
-        font-size: 16px;
-        line-height: 26px;
-
-        letter-spacing: 1px;
-
-    }
-
-    .card-business-crowd p {
-
-        font-size: 15px;
-        line-height: 25px;
-
-    }
-
-    .css-1tqvf70 .MuiBox-root {
-        padding-right: 18%;
-    }
-
-    .css-vehhn3 {
-        padding: 120px 30px 30px 30px;
-        height: auto;
-    }
-
-     .main-header .main-navbar {
-        padding: 13px 30px;
-    }
-
-    .desktop-menu {
-        margin-left: 141px;
-    }
-
-     .main-header .main-navbar .nav-inner ul li a {
-        font-size: 15px;
-        margin: 0 12px;
-    }
-
-     .main-header .main-navbar .nav-inner {
-        padding: 10px 0;
-    }
-
-    .d-flex-banner .img-banner-part {
-        width: 35%;
-        display: flex;
-        justify-content: right;
-        align-items: center;
-        justify-content: flex-end;
-    }
-
-    .mainbanner .banner_section .left-content {
-        padding-top: 60px;
-    }
-
-    .banner-sliding .form-wraper {
-        margin-top: 25px;
-    }
-
-    .d-flex-banner .banner-part {
-        width: 65%;
-    }
-
-    .banner-sliding .banner-slidingpart h1 {
-        font-size: 27px;
-        line-height: 45px;
-    }
-
-    .d-flex-banner {
-        padding: 0 40px;
-    }
-
-    .mainbanner .banner_section {
-        height: 55vh;
-    }
-
-    .banner-sliding p span {
-        font-size: 15px;
-        background-color: white;
-        color: #29176f;
-        padding: 4px 20px;
-    }
-
-    .mainbanner .banner_section .slick-track,
-    .mainbanner .banner_section .banner-row,
-    .mainbanner .banner_section .banner-row .banner-sliding {
-        height: 45vh;
-    }
-
-    .banner-sliding .slick-dots {
-        bottom: 25px;
-    }
-
-    .banner-sliding h2 {
-        font-size: 27px;
-        line-height: 45px;
-        padding: 0 0 18px 0;
-    }
-
-    .banner-listes ul li {
-        margin-bottom: 5px;
-    }
-
-    .banner-listes ul li {
-
-        margin-bottom: 5px;
-        font-size: 16px;
-    }
-
-    .banner-listes ul li span i {
-        width: 23px;
-        height: 23px;
-        line-height: 25px;
-        font-size: 11px;
-    }
-
-    .banner1 p {
-        font-size: 14px;
-        letter-spacing: 4px !important;
-    }
-
-    .banner-slidingpart .banner-btns .new-form-wrapper .white-btns {
-        max-width: 215px;
-        line-height: 47px;
-        font-size: 16px;
-
-    }
-
-    .client-logo img {
-        height: 100px;
-        object-fit: contain;
-        width: 100%;
-        padding: 20px;
-    }
-
-    .main-heading-counter p:nth-child(3) {
-        font-size: 16px;
-        width: 93%;
-    }
-
-    .main-heading-counter h3 {
-        font-size: 32px;
-        margin: 10px 0 2px 0;
-    }
-
-    .fig-number {
-        font-size: 25px !important;
-    }
-
-    .part-one-count p {
-        font-size: 25px;
-    }
-
-    .join-sec-yellow>h1 {
-        font-size: 5rem;
-        margin: 0 0 -47px;
-    }
-
-    .main-accordain-all .accordion {
-        width: 70%;
-        padding-left: 20px;
-        padding-right: 26px;
-    }
-
-    .faq-side-content h3 {
-        margin: 0px 0px 16px;
-        font-weight: 600;
-        line-height: 22px;
-        font-size: 16px;
-    }
-
-    .main-accordain-all .faq-side-content {
-        padding-right: 19px;
-        padding-left: 19px;
-    }
-
-    .main-accordain-all .accordion {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
 }

@@ -1218,17 +1218,29 @@
 
 .wid-icons {
 
+    position: fixed;
+    display: none;
     background: #29176F;
     color: white;
     z-index: 99999999999;
-    justify-content: center;
-    align-items: center;
-    display: flex;
     height: 56px;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
-
     width: 56px;
     border-radius: 50%;
+    right: 58px;
+    z-index: 99;
+    bottom: 10px;
+}
+ .msgbut{
+    align-items: flex-end;
+    display: flex;
+    top: 15px;
+    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    
 }
 
 .scroll-tops {
@@ -1634,6 +1646,10 @@
 }
 
 .newClass .top-butns button {
+    display: block !important;
+
+}
+.newClass .wid-icons  {
     display: block !important;
 
 }

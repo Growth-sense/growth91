@@ -143,7 +143,8 @@
     color: rgba(255, 255, 255, .75);
     font-size: 15px;
     line-height: 12px;
-    text-align: center;
+    text-align: start;
+    padding-left: 21px;
 }
 
 .Footer_footerLogo__Dz6fy {

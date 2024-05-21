@@ -61,18 +61,35 @@ class Homenew extends Component {
 
     ReactGA.initialize(TRACKING_ID);
     ReactGA.pageview(window.location.pathname + window.location.search);
+   
+  
     if (localStorage.getItem("investor_id")) {
       this.setState(
         {
+          name: localStorage.getItem("investor_name"),
+          loggedinstatus: true,
+          loggedinuser: "investor",
           investor_id: localStorage.getItem("investor_id"),
         },
-        () => this.check_for_membership_type()
+       
       );
     } else if (localStorage.getItem("founder_id")) {
-      this.get_founder_details();
+      this.setState(
+        {
+          loggedinstatus: true,
+          loggedinuser: "founder",
+          name: localStorage.getItem("founder_name"),
+        },
+        () => this.get_founder_details()
+      );
     } else {
       this.check_for_membership_type();
+      this.setState({
+        name: "",
+        loggedinstatus: false,
+      });
     }
+    
     this.setState({
       testtime: 2,
     });
@@ -276,7 +293,7 @@ class Homenew extends Component {
       autoplaySpeed: 5000,
       fade: true,
 
-      autoplay: false,
+      autoplay: true,
       pauseOnHover: false,
       cssEase: "linear",
       prevArrow: <SimplePrevArrow />,
@@ -496,18 +513,25 @@ class Homenew extends Component {
       }
     });
 
-      $(document).ready(function() {
-    $('.gotoTop').click(function() {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
+    $(document).ready(function () {
+      $(".gotoTop").click(function () {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      });
     });
-    })
+    $(document).ready(function($) {
+      $('.wid-icons').click(function() {
+        $(".social-widjet").addClass("social-open")
+  
+      })
   })
 
     const pointer = {
       pointerEvents: "none",
     };
+    
 
     return (
       <div>
@@ -542,8 +566,12 @@ class Homenew extends Component {
                             }}
                           >
                             <div class="form-wraper new-form-wrapper">
-                              <Link to="/Deals" class="white-btns" type="">
-                                Explore Deals (Signup)
+                              <Link 
+                               to= { this.state.loggedinstatus == true ? ("/deals"):("/signup")}
+                               class="white-btns" type="">
+                                Explore Deals { this.state.loggedinstatus == true ? (""): ("(Signup)")}
+
+                                
                               </Link>
                             </div>
                           </form>
@@ -579,13 +607,13 @@ class Homenew extends Component {
                             }}
                           >
                             <div class="form-wraper new-form-wrapper">
-                              <a
-                                href="https://growth91.com/Signup"
+                              <Link
+                               to= { this.state.loggedinstatus == true ? ("/deals"):("/signup")}
                                 class="white-btns"
                                 type="button"
                               >
                                 Get Started
-                              </a>
+                              </Link>
                             </div>
                           </form>
                         </div>
@@ -645,13 +673,13 @@ class Homenew extends Component {
                             }}
                           >
                             <div class="form-wraper new-form-wrapper">
-                              <a
-                                href="https://growth91.com/founder-registration"
+                              <Link
+                                to="/founder-registration"
                                 class="white-btns"
                                 type="button"
                               >
                                 Raise Funds
-                              </a>
+                              </Link>
                             </div>
                           </form>
                         </div>
@@ -1636,6 +1664,9 @@ class Homenew extends Component {
             </div>
           </div>
         </section>
+        <div class="wid-icons">
+          <div className="msgbut"><i class="fa-regular fa-message"></i></div>
+        </div>
         <div class="top-butns">
           <button class="gotoTop">
             <i class="fa-solid fa-angle-up"></i>
