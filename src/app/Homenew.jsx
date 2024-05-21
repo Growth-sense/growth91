@@ -71,7 +71,7 @@ class Homenew extends Component {
           loggedinuser: "investor",
           investor_id: localStorage.getItem("investor_id"),
         },
-        () => this.getbankdetails()
+       
       );
     } else if (localStorage.getItem("founder_id")) {
       this.setState(
@@ -569,8 +569,7 @@ class Homenew extends Component {
                               <Link 
                                to= { this.state.loggedinstatus == true ? ("/deals"):("/signup")}
                                class="white-btns" type="">
-                                Explore Deals
-                             { this.state.loggedinstatus == true ? (""): ("Signup")}
+                                Explore Deals { this.state.loggedinstatus == true ? (""): ("(Signup)")}
 
                                 
                               </Link>
