@@ -99,8 +99,25 @@
 }
 
 @media screen and (max-width: 30em)and (max-width:30em) {
-    .join-sec-yellow>h1 {
+    /* .join-sec-yellow>h1 {
         line-height:.7
+    } */
+    .join-sec-yellow>h4 {
+        line-height: .7;
+    }
+
+
+    .join-sec-yellow>h4 {
+        font-size: 2.5rem;
+        text-transform: uppercase;
+        text-align: center;
+        margin: 0 0 -1.3rem;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-text-stroke: 1px #f0bb62;
+        color: transparent;
     }
 }
 
