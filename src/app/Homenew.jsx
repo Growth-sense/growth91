@@ -705,10 +705,10 @@ class Homenew extends Component {
           <div class="container">
             <div class="row">
               <div class="heading-title founder-text">
-                <h6>
+                {/* <h6>
                   <span></span>{" "}
-                </h6>
-                <h2>Success Stories</h2>
+                </h6> */}
+                <h3>Success Stories</h3>
               </div>
             </div>
             <div class="position-rel">
@@ -1009,10 +1009,10 @@ class Homenew extends Component {
           <div class="container">
             <div class="row">
               <div class="heading-title founder-text">
-                <h6>
+                {/* <h6>
                   <span></span>{" "}
-                </h6>
-                <h2>Why Choose us?</h2>
+                </h6> */}
+                <h3>Why Choose us?</h3>
               </div>
 
               <div class="main-business-card">
@@ -1021,7 +1021,7 @@ class Homenew extends Component {
                     <img src="./assets/images/display.png" alt="" srcset="" />
                   </div>
                   <div class="card-business-crowd">
-                    <h3>Transparency at Every Step </h3>
+                    <h4>Transparency at Every Step </h4>
                     <p>
                       We offer a clear view into our rigorous vetting process,
                       detailed startup profiles with in-depth information, and
@@ -1036,7 +1036,7 @@ class Homenew extends Component {
                     <img src="./assets/images/funding.png" alt="" srcset="" />
                   </div>
                   <div class="card-business-crowd">
-                    <h3>Handpicked Deals for Explosive Growth </h3>
+                    <h4>Handpicked Deals for Explosive Growth </h4>
                     <p>
                       We meticulously select high-growth potential startups from
                       diverse industries, saving you time and research while
@@ -1049,7 +1049,7 @@ class Homenew extends Component {
                     <img src="./assets/images/growth.png" alt="" srcset="" />
                   </div>
                   <div class="card-business-crowd">
-                    <h3>Aligned Interests, Shared Success</h3>
+                    <h4>Aligned Interests, Shared Success</h4>
                     <p>
                       {" "}
                       We invest alongside you in every startup featured on our
@@ -1068,10 +1068,10 @@ class Homenew extends Component {
           <div class="container">
             <div class="row">
               <div class="heading-title founder-text">
-                <h6>
+                {/* <h6>
                   <span></span>{" "}
-                </h6>
-                <h2>Testimonials</h2>
+                </h6> */}
+                <h3>Testimonials</h3>
               </div>
               <div class="col-12 col-xl-12 col-lg-12 col-md-12 ">
                 <div class="slider-testimonials">
@@ -1515,7 +1515,7 @@ class Homenew extends Component {
                   id="accordionFlushExample"
                 >
                   <div class="accordion-item">
-                    <h2 class="accordion-header" id="flush-headingOne">
+                    <h3 class="accordion-header" id="flush-headingOne">
                       <button
                         class="accordion-button collapsed"
                         type="button"
@@ -1526,7 +1526,7 @@ class Homenew extends Component {
                       >
                         1. Where does my money go after I invest?
                       </button>
-                    </h2>
+                    </h3>
                     <div
                       id="flush-collapseOne"
                       class="accordion-collapse collapse"
@@ -1544,7 +1544,7 @@ class Homenew extends Component {
                     </div>
                   </div>
                   <div class="accordion-item">
-                    <h2 class="accordion-header" id="flush-headingTwo">
+                    <h3 class="accordion-header" id="flush-headingTwo">
                       <button
                         class="accordion-button collapsed"
                         type="button"
@@ -1555,7 +1555,7 @@ class Homenew extends Component {
                       >
                         2. How do I know the worth of my investment?
                       </button>
-                    </h2>
+                    </h3>
                     <div
                       id="flush-collapseTwo"
                       class="accordion-collapse collapse"
@@ -1577,7 +1577,7 @@ class Homenew extends Component {
                     </div>
                   </div>
                   <div class="accordion-item">
-                    <h2 class="accordion-header" id="flush-headingThree">
+                    <h3 class="accordion-header" id="flush-headingThree">
                       <button
                         class="accordion-button collapsed"
                         type="button"
@@ -1588,7 +1588,7 @@ class Homenew extends Component {
                       >
                         3. How long before I see a return?
                       </button>
-                    </h2>
+                    </h3>
                     <div
                       id="flush-collapseThree"
                       class="accordion-collapse collapse"
@@ -1610,7 +1610,7 @@ class Homenew extends Component {
                     </div>
                   </div>
                   <div class="accordion-item">
-                    <h2 class="accordion-header" id="flush-headingfour">
+                    <h3 class="accordion-header" id="flush-headingfour">
                       <button
                         class="accordion-button collapsed"
                         type="button"
@@ -1621,7 +1621,7 @@ class Homenew extends Component {
                       >
                         4. I am new to this, how do I choose?
                       </button>
-                    </h2>
+                    </h3>
                     <div
                       id="flush-headingfournew"
                       class="accordion-collapse collapse"
@@ -1650,7 +1650,7 @@ class Homenew extends Component {
 
         <section class="custom-section">
           <div class="join-section join-sec-yellow join-sec-white undefined">
-            <h1>Join us</h1>
+            <h4>Join us</h4>
             <h2>Invest in Promising Startups with Us</h2>
             <p class="index_pitch">
               Experience unparalleled expertise in startup investments with us.
