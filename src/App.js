@@ -22,6 +22,7 @@ import DealDetailsAutorobot from "./app/DealDetailsAutorobot";
 import Founders from "./app/Founders";
 import Investors from "./app/Investors";
 import Learn from "./app/Learn";
+import {Contact} from "./app/Contact_us.jsx";
 import Login from "./app/Founder/Login";
 import Signup from "./app/Signup";
 import Howitworks from "./app/Howitworks";
@@ -211,6 +212,7 @@ function App() {
           <Route path="/Founders" exact component={Founders} />
           <Route path="/Investors" exact component={Investors} />
           <Route path="/Learn" exact component={Learn} />
+          <Route path="/Contact-us" exact component={Contact} />
           <Route path="/Login" exact component={Login} />
           <Route path="/founder-login" exact component={FounderLogin} />
           <Route path="/Register" exact component={Register} />
