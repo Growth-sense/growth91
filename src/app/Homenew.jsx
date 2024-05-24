@@ -543,10 +543,7 @@ class Homenew extends Component {
                 <div class="banner-sliding">
                   <Slider {...sliderSettings}>
                     <div class="left-content">
-                      <div
-                        class="d-flex-banner banner1 fadding-bottom
-                    "
-                      >
+                      <div class="d-flex-banner banner1 fadding-bottom">
                         <div class="banner-part banner-slidingpart">
                           <h2 class="">
                             Private market <br /> investing made easy

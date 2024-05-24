@@ -590,7 +590,7 @@
     margin: 0;
     list-style: none;
     text-align: center;
-    bottom: 0;
+    bottom: 95px;
     z-index: 99;
 }
 
@@ -1469,6 +1469,7 @@
 .mainbanner .banner_section .left-content {
     text-align: center;
     margin-top: 60px;
+    height: 100vh;
 }
 
 .mainbanner .banner_section {
@@ -3188,15 +3189,35 @@ transition: max-height 0.45s ease-in; */
         z-index: 99999999999;
         justify-content: center;
         align-items: center;
-        display: flex;
+        display: none;
         height: 40px;
         box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
         width: 40px;
         border-radius: 50%;
     }
+    .newClass .wid-icons{
+        display: flex !important;
+        right: 15px !important;
+    }
 
     .wid-icons i {
         font-size: 16px;
+    }
+    .newClass .wid-icons .msgbut {
+               /* align-items: flex-end; */
+        /* display: flex; */
+        top: 0px !important;
+        align-content: center;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+    }
+    .social-widjet {
+        position: fixed;
+        right: 15px;
+        bottom: 68px;
+        z-index: 99;
     }
 
     .blog-rows {
@@ -3531,17 +3552,23 @@ transition: max-height 0.45s ease-in; */
     }
 
     .mainbanner .banner_section {
-        height: 70vh;
+        height: 100vh;
     }
-
+    .d-flex-banner {
+        display: flex;
+        width: 100%;
+        padding: 0 90px;
+        height: 70vh;
+        align-items: center;
+    }
     .mainbanner .banner_section .slick-track,
     .mainbanner .banner_section .banner-row,
     .mainbanner .banner_section .banner-row .banner-sliding {
-        height: 60vh;
+        height: 100vh;
     }
 
     .banner-sliding .slick-dots {
-        bottom: 38px;
+        bottom: 110px;
     }
 
     .banner-sliding h2 {
@@ -3551,6 +3578,13 @@ transition: max-height 0.45s ease-in; */
 }
 
 @media screen and (min-width:1300px) and (max-width:1399px) {
+    .d-flex-banner {
+        display: flex;
+        width: 100%;
+        padding: 0 90px;
+        height: 65vh;
+        align-items: center;
+    }
     .d-flex-banner .img-banner-part {
         width: 35%;
         display: flex;
@@ -3579,11 +3613,11 @@ transition: max-height 0.45s ease-in; */
     .mainbanner .banner_section .slick-track,
     .mainbanner .banner_section .banner-row,
     .mainbanner .banner_section .banner-row .banner-sliding {
-        height: 75vh;
+        height: 100vh;
     }
 
     .banner-sliding .slick-dots {
-        bottom: 38px;
+        bottom: 104px;
     }
 
     .banner-sliding h2 {
@@ -3644,17 +3678,23 @@ transition: max-height 0.45s ease-in; */
     }
 
     .mainbanner .banner_section {
-        height: 70vh;
+        height: 100vh;
     }
-
+    .d-flex-banner {
+        display: flex;
+        width: 100%;
+        padding: 0 90px;
+        height: 70vh;
+        align-items: center;
+    }
     .mainbanner .banner_section .slick-track,
     .mainbanner .banner_section .banner-row,
     .mainbanner .banner_section .banner-row .banner-sliding {
-        height: 60vh;
+        height: 90vh;
     }
 
     .banner-sliding .slick-dots {
-        bottom: 38px;
+        bottom: 8px;
     }
 
     .banner-sliding h2 {
@@ -3943,7 +3983,7 @@ transition: max-height 0.45s ease-in; */
     }
 
     .mainbanner .banner_section {
-        height: 55vh;
+        height: 65vh;
     }
 
     .banner-sliding p span {
@@ -3952,11 +3992,17 @@ transition: max-height 0.45s ease-in; */
         color: #29176f;
         padding: 4px 20px;
     }
-
+    .d-flex-banner {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        padding: 0 90px;
+        height: 35vh;
+    }
     .mainbanner .banner_section .slick-track,
     .mainbanner .banner_section .banner-row,
     .mainbanner .banner_section .banner-row .banner-sliding {
-        height: 45vh;
+        height: 55vh;
     }
 
     .banner-sliding .slick-dots {

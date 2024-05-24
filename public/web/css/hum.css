@@ -1468,6 +1468,7 @@ transition: max-height 0.45s ease-in; */
 
     .desktop-menu {
         margin-left: 141px;
+
     }
 
      .main-header .main-navbar .nav-inner ul li a {
@@ -2318,7 +2319,7 @@ transition: max-height 0.45s ease-in; */
 
     .mainbanner .banner_section .left-content {
         padding-top: 0px;
-        height: 54vh;
+        height: 54vh !important;
         display: flex;
         align-items: center;
         justify-content: center;
