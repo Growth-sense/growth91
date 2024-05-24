@@ -1,7 +1,13 @@
-import React from 'react'
+import React from "react";
+import NewWebHeader from "./common/NewWebHeader";
+import { NewWebFooter } from "./common/NewWebFooter";
 
 export const Contact = () => {
   return (
-    <div>Contact</div>
-  )
-}
+    <>
+     <NewWebHeader newabout={"newabout"}/>
+
+      <div> contact </div>
+    </>
+  );
+};
