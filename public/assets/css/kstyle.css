@@ -3704,6 +3704,12 @@ transition: max-height 0.45s ease-in; */
 }
 
 @media screen and (min-width:993px) and (max-width:1200px) {
+    .new .main-header .main-navbar .nav-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 38px 50px 0 50px;
+    }
 
     .headers-btn a:nth-child(2) {
         border-radius: 10px;
@@ -3889,6 +3895,17 @@ transition: max-height 0.45s ease-in; */
 }
 
 @media screen and (min-width:768px) and (max-width:992px) {
+    .new .main-header .main-navbar .nav-inner ul li a {
+        display: block;
+        line-height: 60px;
+        position: relative;
+        font-size: 18px;
+        font-weight: 400;
+        color: #fff;
+        margin: 36px 20px 0 20px;
+        font-family: Nunito, sans-serif;
+        text-transform: capitalize;
+    }
     .nav-inner .mobile-topbar {
         display: block !important;
     }
@@ -4003,7 +4020,7 @@ transition: max-height 0.45s ease-in; */
         display: flex;
         width: 100%;
         align-items: center;
-        padding: 0 90px;
+        padding: 0 69px;
         height: 75vh;
     }
     .mainbanner .banner_section .slick-track,
