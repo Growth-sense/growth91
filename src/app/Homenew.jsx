@@ -1673,10 +1673,10 @@ class Homenew extends Component {
         </section>
         <div class={`social-widjet ${isActivemsg ?("social-open"):("")}`}>
           <div class="widjet-link">
-            <div class="whatsapp" onClick={this.togglemsg}>
+            <div class="whatsapp " onClick={this.togglemsg} style={{backgroundColor:"#29176f"}}>
               <a >
                 <img
-                  src="/assets/images/download.svg"
+                  src="/assets/images/cross.svg"
                   alt="img"
                   title="chat to us on whatsapp"
                   srcset=""
@@ -1699,6 +1699,17 @@ class Homenew extends Component {
                           target="_blank">
                 <img
                   src="/assets/images/insta.png"
+                  title="chat to us on Viber"
+                  alt="img"
+                  srcset=""
+                />
+              </a>
+            </div>
+            <div class="whatsapp">
+              <a  href="https://www.instagram.com/growth.91/"
+                          target="_blank">
+                <img
+                  src="/assets/images/Whatsapp.svg"
                   title="chat to us on Viber"
                   alt="img"
                   srcset=""
