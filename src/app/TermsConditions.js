@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import WebHeader from './common/WebHeader';
 import WebFooter from './common/WebFooter';
+import NewWebHeader from './common/NewWebHeader';
+import { NewWebFooter } from './common/NewWebFooter';
 
 
 class TermsConditions extends Component {
@@ -20,7 +22,7 @@ class TermsConditions extends Component {
             
             <div>
                
-                <WebHeader />
+               <NewWebHeader newabout={"newabout"}/>
                 <section style={{
                     marginTop: 180
                 }}>
@@ -103,7 +105,7 @@ class TermsConditions extends Component {
                     </div>
 
                 </section>
-                <WebFooter />
+                <NewWebFooter />
             </div>
         )
     }

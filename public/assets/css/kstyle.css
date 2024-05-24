@@ -1211,8 +1211,8 @@
 
 .social-widjet {
     position: fixed;
-    right: 10px;
-    bottom: 10px;
+    right: 58px;
+    bottom: 68px;
     z-index: 99;
 }
 
@@ -3573,7 +3573,7 @@ transition: max-height 0.45s ease-in; */
     }
 
     .mainbanner .banner_section {
-        height: 85vh;
+        height: 100vh;
     }
 
     .mainbanner .banner_section .slick-track,

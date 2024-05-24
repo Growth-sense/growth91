@@ -5,6 +5,7 @@ import Footer from "./common/Footer";
 import {Link} from "react-router-dom"
 import Slider from "react-slick";
 import NewWebHeader from "./common/NewWebHeader";
+import { NewWebFooter } from "./common/NewWebFooter";
 
 class Learn extends Component {
   componentWillMount() {
@@ -133,7 +134,7 @@ class Learn extends Component {
           </div>
         </section>
 
-        <WebFooter />
+        <NewWebFooter />
       </div>
     );
   }

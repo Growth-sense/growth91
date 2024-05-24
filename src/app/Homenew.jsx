@@ -26,6 +26,7 @@ class Homenew extends Component {
     super(props);
     this.state = {
       testtime: "",
+      isActivemsg:false,
       sort_by: "",
       searchInput: "",
       deals: [],
@@ -42,6 +43,7 @@ class Homenew extends Component {
     };
     this.elementRef = React.createRef();
     this.handleScroll = this.handleScroll.bind(this);
+    this.togglemsg = this.togglemsg.bind(this);
   }
 
   componentWillMount() {
@@ -55,24 +57,27 @@ class Homenew extends Component {
       "Explore the potential of startup investments with Growth91. Discover opportunities & maximize your returns. Embrace the opportunity to invest in startups.";
     window.removeEventListener("scroll", this.handleScroll);
   }
+  togglemsg() {
+    // Toggle isActive state
+
+    this.setState((prevState) => ({
+      isActivemsg: !prevState.isActivemsg,
+    }));
+  }; 
   componentDidMount() {
     this.handleScroll(); // Call initially to check visibility
     window.addEventListener("scroll", this.handleScroll);
 
     ReactGA.initialize(TRACKING_ID);
     ReactGA.pageview(window.location.pathname + window.location.search);
-   
-  
+
     if (localStorage.getItem("investor_id")) {
-      this.setState(
-        {
-          name: localStorage.getItem("investor_name"),
-          loggedinstatus: true,
-          loggedinuser: "investor",
-          investor_id: localStorage.getItem("investor_id"),
-        },
-       
-      );
+      this.setState({
+        name: localStorage.getItem("investor_name"),
+        loggedinstatus: true,
+        loggedinuser: "investor",
+        investor_id: localStorage.getItem("investor_id"),
+      });
     } else if (localStorage.getItem("founder_id")) {
       this.setState(
         {
@@ -89,7 +94,7 @@ class Homenew extends Component {
         loggedinstatus: false,
       });
     }
-    
+
     this.setState({
       testtime: 2,
     });
@@ -282,7 +287,7 @@ class Homenew extends Component {
     //   slidesToScroll: 1,
     //   infinite: false,
     // }
-    const { isVisible } = this.state;
+    const { isVisible ,isActivemsg} = this.state;
     const sliderSettings = {
       dots: true,
       infinite: true,
@@ -521,17 +526,11 @@ class Homenew extends Component {
         });
       });
     });
-    $(document).ready(function($) {
-      $('.wid-icons').click(function() {
-        $(".social-widjet").addClass("social-open")
-  
-      })
-  })
+ 
 
     const pointer = {
       pointerEvents: "none",
     };
-    
 
     return (
       <div>
@@ -566,12 +565,19 @@ class Homenew extends Component {
                             }}
                           >
                             <div class="form-wraper new-form-wrapper">
-                              <Link 
-                               to= { this.state.loggedinstatus == true ? ("/deals"):("/signup")}
-                               class="white-btns" type="">
-                                Explore Deals { this.state.loggedinstatus == true ? (""): ("(Signup)")}
-
-                                
+                              <Link
+                                to={
+                                  this.state.loggedinstatus == true
+                                    ? "/deals"
+                                    : "/signup"
+                                }
+                                class="white-btns"
+                                type=""
+                              >
+                                Explore Deals{" "}
+                                {this.state.loggedinstatus == true
+                                  ? ""
+                                  : "(Signup)"}
                               </Link>
                             </div>
                           </form>
@@ -608,7 +614,11 @@ class Homenew extends Component {
                           >
                             <div class="form-wraper new-form-wrapper">
                               <Link
-                               to= { this.state.loggedinstatus == true ? ("/deals"):("/signup")}
+                                to={
+                                  this.state.loggedinstatus == true
+                                    ? "/deals"
+                                    : "/signup"
+                                }
                                 class="white-btns"
                                 type="button"
                               >
@@ -1664,8 +1674,46 @@ class Homenew extends Component {
             </div>
           </div>
         </section>
-        <div class="wid-icons">
-          <div className="msgbut"><i class="fa-regular fa-message"></i></div>
+        <div class={`social-widjet ${isActivemsg ?("social-open"):("")}`}>
+          <div class="widjet-link">
+            <div class="whatsapp" onClick={this.togglemsg}>
+              <a >
+                <img
+                  src="/assets/images/download.svg"
+                  alt="img"
+                  title="chat to us on whatsapp"
+                  srcset=""
+                />
+              </a>
+            </div>
+            <div class="whatsapp">
+              <a  href="https://www.facebook.com/MyGrowth91?mibextid=ZbWKwL"
+                          target="_blank">
+                <img
+                  src="/assets/images/messanger.svg"
+                  alt="img"
+                  title="chat to us on Messanger"
+                  srcset=""
+                />
+              </a>
+            </div>
+            <div class="whatsapp">
+              <a  href="https://www.instagram.com/growth.91/"
+                          target="_blank">
+                <img
+                  src="/assets/images/insta.png"
+                  title="chat to us on Viber"
+                  alt="img"
+                  srcset=""
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class={`wid-icons`}onClick={this.togglemsg}>
+          <div className="msgbut">
+            <i class="fa-regular fa-message"></i>
+          </div>
         </div>
         <div class="top-butns">
           <button class="gotoTop">

@@ -9,6 +9,7 @@ import { Investcurosel } from "./Investcurosel";
 import { Investersextra } from "./Investersextra.jsx";
 import ReactGA from "react-ga";
 import NewWebHeader from "./common/NewWebHeader.jsx";
+import { NewWebFooter } from "./common/NewWebFooter.jsx";
 
 class Investors extends Component {
   constructor(props) {
@@ -308,7 +309,7 @@ class Investors extends Component {
 
         {this.state.testtime == 2 ? <Investcurosel /> : ""}
 
-        <WebFooter />
+        <NewWebFooter />
       </div>
     );
   }

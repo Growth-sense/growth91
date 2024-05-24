@@ -3,6 +3,8 @@ import WebHeader from './common/WebHeader';
 import WebFooter from './common/WebFooter';
 import Footer from './common/Footer';
 import Slider from "react-slick";
+import NewWebHeader from './common/NewWebHeader';
+import { NewWebFooter } from './common/NewWebFooter';
 
 
 
@@ -31,8 +33,7 @@ class Howitworks extends Component {
     return (
       <div>
         
-        <WebHeader />
-        
+        <NewWebHeader newabout={"newabout"}/>        
         <section className="banner_section">
             <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
               
@@ -622,7 +623,7 @@ class Howitworks extends Component {
         </div>
     </section>
 
-        <WebFooter />
+        <NewWebFooter />
       </div>
     )
   }

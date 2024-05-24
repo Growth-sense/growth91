@@ -20,12 +20,10 @@ import Apis from "../constants/Apis";
 import moment from "moment";
 import Bridge from "../constants/Bridge";
 import InvestmentMembershipmodal from "../components/membership/InvestmentMembershipmodal";
-import NewWebHeader from "../common/NewWebHeader";
-import { NewWebFooter } from "../common/NewWebFooter";
 
 const { Panel } = Collapse;
 const { TabPane } = Tabs;
-class EleFant extends Component {
+class Stroom extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -97,32 +95,21 @@ class EleFant extends Component {
       escrow_account_ifsc: "",
       agreeCheck: false,
       images: [
-        "./assets/images/deals-details/ORAI/Pitch/0.png",
-        "./assets/images/deals-details/ORAI/Pitch/1.png",
-        "./assets/images/deals-details/ORAI/Pitch/2.png",
-        "./assets/images/deals-details/ORAI/Pitch/3.png",
-        "./assets/images/deals-details/ORAI/Pitch/4.png",
-        "./assets/images/deals-details/ORAI/Pitch/5.png",
-        "./assets/images/deals-details/ORAI/Pitch/6.png",
-        "./assets/images/deals-details/ORAI/Pitch/7.png",
-        "./assets/images/deals-details/ORAI/Pitch/8.png",
-        "./assets/images/deals-details/ORAI/Pitch/9.png",
-        "./assets/images/deals-details/ORAI/Pitch/10.png",
-        "./assets/images/deals-details/ORAI/Pitch/11.png",
-        "./assets/images/deals-details/ORAI/Pitch/12.png",
-        "./assets/images/deals-details/ORAI/Pitch/13.png",
-        "./assets/images/deals-details/ORAI/Pitch/14.png",
-        "./assets/images/deals-details/ORAI/Pitch/15.png",
-        "./assets/images/deals-details/ORAI/Pitch/16.png",
-        "./assets/images/deals-details/ORAI/Pitch/17.png",
-        "./assets/images/deals-details/ORAI/Pitch/18.png",
-        "./assets/images/deals-details/ORAI/Pitch/19.png",
-        "./assets/images/deals-details/ORAI/Pitch/20.png",
-        "./assets/images/deals-details/ORAI/Pitch/21.png",
-        "./assets/images/deals-details/ORAI/Pitch/22.png",
-        "./assets/images/deals-details/ORAI/Pitch/23.png",
-        "./assets/images/deals-details/ORAI/Pitch/24.png",
-        "./assets/images/deals-details/ORAI/Pitch/25.png",
+        "./assets/images/deals-details/Stroom/Pitch/1.jpg",
+        "./assets/images/deals-details/Stroom/Pitch/2.jpg",
+        "./assets/images/deals-details/Stroom/Pitch/3.jpg",
+        "./assets/images/deals-details/Stroom/Pitch/4.jpg",
+        "./assets/images/deals-details/Stroom/Pitch/5.jpg",
+        "./assets/images/deals-details/Stroom/Pitch/6.jpg",
+        "./assets/images/deals-details/Stroom/Pitch/7.jpg",
+        "./assets/images/deals-details/Stroom/Pitch/8.jpg",
+        "./assets/images/deals-details/Stroom/Pitch/9.jpg",
+        "./assets/images/deals-details/Stroom/Pitch/10.jpg",
+        "./assets/images/deals-details/Stroom/Pitch/11.jpg",
+        "./assets/images/deals-details/Stroom/Pitch/12.jpg",
+        "./assets/images/deals-details/Stroom/Pitch/13.jpg",
+        "./assets/images/deals-details/Stroom/Pitch/14.jpg",
+        "./assets/images/deals-details/Stroom/Pitch/15.jpg",
       ],
       current: "",
     };
@@ -132,11 +119,10 @@ class EleFant extends Component {
   callback3 = (key) => {};
 
   componentWillMount() {
-    document.title = "ORAI - Growth91 - Startup Marketplace ";
-
+    document.title = "Nymbleup - Growth91 - Startup Marketplace ";
   }
   componentDidMount() {
-    let deal_id = "30";
+    let deal_id = "123";
     this.setState({ deal_id: deal_id }, () => {
       this.get_pitch_list();
     });
@@ -457,7 +443,8 @@ class EleFant extends Component {
           // }
         }
         for (let d of result.data) {
-          console.log(d);
+          console.log(this.state.captable_threshold_amount);
+
           if (d.deal_id == this.state.deal_id) {
             if (d.show_status == "0") {
               this.setState({ is_deal_visible: false });
@@ -1126,7 +1113,7 @@ class EleFant extends Component {
       <>
         {this.state.is_deal_visible == true ? (
           <div style={{ display: this.state.show_data }}>
-             <NewWebHeader newabout={"newabout"}/>
+            <WebHeader />
             <section
               className="deals-details-page"
               style={{ marginBottom: "-50px" }}
@@ -1139,7 +1126,7 @@ class EleFant extends Component {
                         <div className="d-flex align-items-center">
                           {/* Image is static */}
                           <img
-                            src="./assets/images/deals-details/ORAI/logo.jpg"
+                            src="./assets/images/deals-details/Nymbleup/logo.jpg"
                             alt=""
                             className="img-fluid"
                             style={{
@@ -1148,7 +1135,7 @@ class EleFant extends Component {
                               objectFit: "contain",
                             }}
                           />
-                          <h5 className="ml-5 ">ORAI</h5>
+                          <h5 className="ml-5 mt-4">Nymbleup</h5>
                           {/* <h5>{this.state.logo}</h5> */}
                         </div>
                         {this.state.isPrivate == true && (
@@ -1179,20 +1166,19 @@ class EleFant extends Component {
                       </div>
 
                       <p style={{ textAlign: "justify" }}>
-                        ORAI Robotics is at the forefront of Conversational AI
-                        innovation, co-founded by Swapnil Jain and Sujit Das.
-                        The company specializes in enhancing customer engagement
-                        through cutting-edge technologies such as Natural
-                        Language Processing (NLP) and Machine Learning (ML).
-                        Operating round-the-clock, ORAI’s chatbots are tailored
-                        for various sectors, including e-commerce, healthcare,
-                        and education.ORAI strategically focuses on brand
-                        awareness, lead generation, thought leadership, and
-                        community building. With a robust financial foundation,
-                        the company is poised for global expansion, setting
-                        itself apart with localized solutions, advanced AI
-                        integration, and a strong commitment to privacy and
-                        security.{" "}
+                        NymbleUp Solutions Private Limited is a trailblazer in
+                        the retail technology sector, specializing in AI-powered
+                        predictive workforce scheduling and demand planning
+                        solutions. Utilizing cutting-edge technologies such as
+                        AI and multi-objective linear programming, NymbleUp
+                        optimizes workforce management by aligning employee
+                        schedules with sales demand. This innovative approach
+                        results in improved efficiency, reduced labor wastage,
+                        and significant cost savings for retailers. The company
+                        offers a comprehensive platform that includes demand
+                        forecasting, scheduling, digital checklists, task
+                        management, and store audits, simplifying operations and
+                        ensuring compliance with brand and statutory guidelines.{" "}
                       </p>
                       <div className=" percentage-container">
                         <div className="percentage-values">
@@ -1607,21 +1593,23 @@ class EleFant extends Component {
                     </div>
                   </Modal>
                   <div className="col-lg-7 deal-banner deals-video-banner">
-                    <iframe
+                    {/* <iframe
                       style={{
                         boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
                         borderRadius: 3,
                         // marginLeft: 65,
                       }}
+                      
                       width="100%"
                       height="335"
-                      src="https://www.youtube.com/embed/E2NPzC407fk"
-                      title="ORAI Intro Demo"
+                      src="https://www.youtube.com/embed/qO9OwtsfOLw"
+                      title="Stroom Presentation video"
                       frameborder="10"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowfullscreen
-                    ></iframe>
+                    ></iframe> */}
                   </div>
+                  {/* Market Overview */}
                   <div
                     className="container home-decor-section mt-0"
                     style={{ marginTop: "3px !important" }}
@@ -1649,15 +1637,33 @@ class EleFant extends Component {
                               lineHeight: "1.5",
                             }}
                           >
-                            Conversational AI Market Overview: Originating in
-                            the 1960s, conversational AI has evolved into
-                            ubiquitous chatbots powered by advanced AI and NLP.
-                            Present trends focus on enhancing user experiences,
-                            with anticipated future developments including
-                            increased personalization, omnichannel integration,
-                            and ethical considerations. The market is
-                            significant, expected to grow from USD 10.7 billion
-                            in 2023 to USD 29.8 billion by 2028.
+                            <span
+                              style={{
+                                color: "white",
+                                fontSize: "21px",
+                                padding: "2px",
+                                margin: "48px 0px",
+                                opacity: "1",
+                                lineHeight: "1.5",
+                                fontWeight: "800",
+                              }}
+                            >
+                              Market Size:
+                            </span>{" "}
+                            The AI-based predictive workforce management market
+                            is experiencing robust growth. In 2023, the global
+                            market size was estimated at approximately $1.5
+                            billion, with projections indicating a compound
+                            annual growth rate (CAGR) of around 20% from 2023 to
+                            2028. By 2028, the market is expected to reach
+                            approximately $3.75 billion. Businesses across
+                            various sectors, including retail, hospitality, and
+                            healthcare, are increasingly adopting AI and
+                            automation to streamline operations and enhance
+                            efficiency. By predicting demand accurately,
+                            businesses can ensure they have the right number of
+                            staff at the right times, enhancing the customer
+                            experience and improving service levels
                           </p>
                         </div>
                       </div>
@@ -1674,15 +1680,30 @@ class EleFant extends Component {
                               lineHeight: "1.5",
                             }}
                           >
-                            Conversational Commerce Market Highlights: The
-                            global conversational commerce market is on a robust
-                            growth path, set to escalate from $5.3 billion in
-                            2021 to an estimated $26.3 billion by 2032,
-                            reflecting a strong CAGR of 15.6%. Driving this
-                            expansion is the Asia Pacific region, anticipated to
-                            exhibit the fastest growth with a notable CAGR of
-                            17.4%, fueled by the widespread adoption of
-                            smartphones and messaging apps.
+                            <span
+                              style={{
+                                color: "white",
+                                fontSize: "21px",
+                                padding: "2px",
+                                margin: "48px 0px",
+                                opacity: "1",
+                                lineHeight: "1.5",
+                                fontWeight: "800",
+                              }}
+                            >
+                              {" "}
+                              Technological Advancements:
+                            </span>{" "}
+                            AI and Machine Learning tools which use advanced
+                            algorithms analyse a plethora of data points,
+                            including sales trends, weather conditions, and
+                            event impacts, to generate precise demand forecasts.
+                            Integration with Other Systems, management tools and
+                            platforms allow for a more holistic approach to
+                            workforce management. Real-Time Forecasting
+                            solutions capable of predicting demand at regular
+                            intervals are becoming increasingly popular,
+                            allowing for more granular and responsive management
                           </p>
                         </div>
                       </div>
@@ -1700,20 +1721,28 @@ class EleFant extends Component {
                               lineHeight: "1.5",
                             }}
                           >
-                            Regional and Sectoral Influnece :Within the industry
-                            landscape, the retail and e-commerce sector is
-                            poised to lead, constituting over 30% of the market
-                            share by 2032. This dominance is attributed to the
-                            unmatched convenience and personalized experiences
-                            conversational commerce brings to shoppers. Chatbots
-                            emerge as the primary channel, expected to capture
-                            over 60% of the market share in 2032, emphasizing
-                            their efficiency in providing 24/7 customer support
-                            and automating repetitive tasks. These trends
-                            signify the transformative impact of conversational
-                            commerce, shaping the future of customer
-                            interactions and business operations on a global
-                            scale.
+                            <span
+                              style={{
+                                color: "white",
+                                fontSize: "21px",
+                                padding: "2px",
+                                margin: "48px 0px",
+                                opacity: "1",
+                                lineHeight: "1.5",
+                                fontWeight: "800",
+                              }}
+                            >
+                              Applications:{" "}
+                            </span>{" "}
+                            Retailers use predictive workforce management to
+                            align staffing levels with fluctuating customer
+                            footfall and purchasing patterns.Hotels and
+                            restaurants leverage these solutions to optimize
+                            staff schedules based on reservations, local events,
+                            and seasonal trends. Hospitals and clinics utilize
+                            AI-driven forecasts to manage nurse and doctor
+                            schedules, ensuring adequate staffing during peak
+                            times without overstaffing during lull
                           </p>
                         </div>
                       </div>
@@ -1727,7 +1756,6 @@ class EleFant extends Component {
                     <p className=""> </p>
                     <div className="text-center fluid-container"></div>
                   </div>
-
                   <div
                     className="container highlight-section"
                     style={{
@@ -1739,7 +1767,7 @@ class EleFant extends Component {
                       Highlights
                     </h1>
                     <div className="row highlight-rows">
-                      <div className="col-lg-6 col-md-6 col-sm-12 col-12 col-xl-6">
+                      <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
                         <div
                           className="single oraihighlight text-left"
                           style={{}}
@@ -1748,16 +1776,12 @@ class EleFant extends Component {
                             <img src="./assets/images/deals-details/Petmojo/highlight01.jpg" />
                           </div>
                           <p style={{ padding: "1px !important" }}>
-                            ORAI demonstrates financial robustness with an
-                            impressive average order value of INR 5.3 lakhs per
-                            customer over a 3-year lifespan. The company's sound
-                            financial performance is underscored by substantial
-                            gross margins of 72% and net margins of 64%, driven
-                            by an efficient software-driven operating model.
+                           
+                            NymbleUp provides a single platform for demand forecasting, scheduling, digital checklists, task management, and store audits. This integration simplifies operations and enhances compliance with brand and statutory guidelines.
                           </p>
                         </div>
                       </div>
-                      <div className="col-lg-6 col-md-6 col-sm-12 col-12 col-xl-6">
+                      <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
                         <div
                           className="single oraihighlight text-left"
                           style={{}}
@@ -1766,16 +1790,11 @@ class EleFant extends Component {
                             <img src="./assets/images/deals-details/highlight2.jfif" />
                           </div>
                           <p style={{ padding: "0px !important" }}>
-                            ORAI Robotics envisions substantial growth in the
-                            conversational commerce market, targeting an
-                            estimated $26.3 billion by 2032 with a commendable
-                            CAGR of 15.6%. This growth is attributed to
-                            strategic measures like social media marketing and
-                            advanced AI-driven customer service.
+                          With clients including major brands like Starbucks, McDonald's, KFC, and Burger King, NymbleUp has demonstrated strong product-market fit and achieved 100% client retention.
                           </p>
                         </div>
                       </div>
-                      <div className="col-lg-6 col-md-6 col-sm-12 col-12 col-xl-6">
+                      <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
                         <div
                           className="single oraihighlight text-left"
                           style={{}}
@@ -1784,16 +1803,11 @@ class EleFant extends Component {
                             <img src="./assets/images/deals-details/highlight3.jpg" />
                           </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                            ORAI Robotics enjoys a strategic first-mover
-                            advantage in the AI-powered conversational commerce
-                            space. The company's remarkable 218% revenue growth
-                            within a year serves as a testament to its agility
-                            in capturing market opportunities and meeting
-                            evolving customer demands effectively.
+                          Nymbleup Grew from 700 to 2800 locations within nine months, demonstrating strong market demand as well as scalability and Tripled Monthly Recurring Revenue (MRR) in 12 months, reflecting successful market penetration and financial performance.
                           </p>
                         </div>
                       </div>
-                      <div className="col-lg-6 col-md-6 col-sm-12 col-12 col-xl-6">
+                      <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
                         <div
                           className="single oraihighlight text-left"
                           style={{}}
@@ -1802,17 +1816,15 @@ class EleFant extends Component {
                             <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
                           </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                            Having successfully onboarded over 250 enterprise
-                            customers spanning 15+ industries, including
-                            automotive, real estate, and healthcare, ORAI
-                            Robotics showcases a versatile and wide-ranging
-                            market presence, emphasizing its solutions'
-                            adaptability across diverse sectors{" "}
+                          Operates with a gross margin of 80%, underscoring the profitability and efficiency of their business model. Achieved EBITDA positivity with an Annual Recurring Revenue (ARR) of INR 3.1 crore, showcasing effective cost management and sustainable business growth.
                           </p>
                         </div>
                       </div>
+                     
                     </div>
                   </div>
+
+                  {/* media */}
                 </div>
               </div>
             </section>
@@ -1827,6 +1839,7 @@ class EleFant extends Component {
                       }}
                     >
                       <div className="deal-terms-section">
+                        {/* Investor Presentation */}
                         <div
                           className=""
                           style={{
@@ -1866,7 +1879,6 @@ class EleFant extends Component {
                 </div>
               </div>
             </div>
-
             <div className="deals-page">
               <div className="tab-wrapper">
                 <div className="container">
@@ -1874,7 +1886,7 @@ class EleFant extends Component {
                     <div
                       className="col-lg-12 col-md-12 col-sm-12"
                       style={{
-                        marginTop: 30,
+                        marginTop: 110,
                       }}
                     >
                       <Tabs
@@ -1922,16 +1934,12 @@ class EleFant extends Component {
                                           </div>
                                           <div className="info">
                                             <span> Min Investment</span>
-                                            <h4>₹ 25000 for CCD</h4>
-                                            <h4>₹ 294723 for CCPS</h4>
+                                            <h4>₹ 200250 for CCPS</h4>
                                           </div>
                                           <div className="info">
                                             <span>Valuation</span>
-                                            <h4>
-                                              Rs 40 Cr or Rs 60 Cr (for more
-                                              valuation details, please refer
-                                              Important deal terms)
-                                            </h4>
+                                            <h4>₹ 8 Cr Floor</h4>
+                                            <h4>₹ 15 Cr Cap</h4>
                                           </div>
                                         </div>
                                       </div>
@@ -1955,12 +1963,13 @@ class EleFant extends Component {
                                           <div className="info">
                                             <span>Legal Name</span>
                                             <h4>
-                                              ORAI Robotics Private Limited
+                                              Drips Foods Private Limited
+                                              (Stroom){" "}
                                             </h4>
                                           </div>
                                           <div className="info">
                                             <span>Founded</span>
-                                            <h4>2024-02-14</h4>
+                                            <h4>4/27/2022</h4>
                                           </div>
                                           <div className="info">
                                             <span>Status</span>
@@ -1968,7 +1977,7 @@ class EleFant extends Component {
                                           </div>
                                           <div className="info">
                                             <span>Employees</span>
-                                            <h4>25</h4>
+                                            <h4>17</h4>
                                           </div>
                                           <div className="info">
                                             <span>Website</span>
@@ -1977,35 +1986,37 @@ class EleFant extends Component {
                                                 style={{
                                                   color: "rgb(7, 211, 252)",
                                                 }}
-                                                href="https://www.orai-robotics.com"
+                                                href="https://www.stroom.in"
                                                 target="_blank"
                                               >
-                                                www.orai-robotics.com
+                                                www.stroom.in
                                               </a>
                                             </h4>
                                           </div>
                                           <div className="info">
                                             <span>Social Links</span>
                                             <div className="social-icons">
-                                              <a href="https://www.facebook.com/ORAIRobotics/">
+                                              {/* <a href="https://www.facebook.com/theelefantofficial">
                                                 <i className="bx bxl-facebook fs-19"></i>
-                                              </a>
-                                              <a href="https://www.linkedin.com/company/orairobotics/">
+                                              </a> */}
+                                              <a href="https://www.linkedin.com/company/stroomin">
                                                 <i className="bx bxl-linkedin fs-19"></i>
                                               </a>
-                                              <a href="https://www.instagram.com/orai.robotics/">
+                                              <a href="https://www.instagram.com/stroom.in">
                                                 <i className="bx bxl-instagram fs-19"></i>
                                               </a>
-                                              <a href="https://www.youtube.com/channel/UCPCItFjU4v1lANRGUAY31_Q">
+                                              {/*
+                                              <a href="https://www.youtube.com/@theEleFant">
                                                 <i className="bx bxl-youtube fs-19"></i>
-                                              </a>
+                                              </a> */}
                                             </div>
                                           </div>
                                           <div className="info">
                                             <span>Address</span>
                                             <h4>
-                                              A 24, A Wing, Harileela Society, S
-                                              No 149/4, Baner, Pune - 411045
+                                              73/A-B Sopan Kesar Industrial Hub,
+                                              Bh. Sarovday hotel, Changodar,
+                                              Moraiya, Ahmedabad Gujarat 382213
                                             </h4>
                                           </div>
                                         </div>
@@ -2015,10 +2026,11 @@ class EleFant extends Component {
                                 </div>
                               </div>
                             </div>
+
+                            {/* Investor Presentation */}
                           </div>
                           {/* start */}
 
-                       
                           <div
                             className="deals-page"
                             style={{
@@ -2328,32 +2340,7 @@ class EleFant extends Component {
                                                           color: "#7f7776",
                                                         }}
                                                       >
-                                                        ORAI is a Conversational
-                                                        AI platform transforming
-                                                        customer engagement with
-                                                        its low code/no code
-                                                        solution. The platform
-                                                        offers AI chatbots
-                                                        providing natural, 24/7
-                                                        customer support,
-                                                        handling diverse queries
-                                                        and freeing human
-                                                        resources for more
-                                                        complex tasks. ORAI's
-                                                        strength lies in its
-                                                        seamless integration
-                                                        with existing business
-                                                        systems, ensuring a
-                                                        smooth implementation
-                                                        process. With a focus on
-                                                        personalized customer
-                                                        interactions and
-                                                        continuous innovation,
-                                                        ORAI addresses the
-                                                        evolving demand for
-                                                        efficient customer
-                                                        engagement across
-                                                        various channels.
+                                                       NymbleUp operates on a Software as a Service (SaaS) model. Their offerings include a comprehensive platform that provides AI-powered predictive workforce scheduling, demand forecasting, task management, and store audits. This product-based approach allows customers to leverage advanced technology to optimize their workforce and operational efficiency with minimal involvement, ensuring a plug-and-play experience.
                                                       </p>
                                                     </div>
                                                   </Panel>
@@ -2372,28 +2359,7 @@ class EleFant extends Component {
                                                           color: "#7f7776",
                                                         }}
                                                       >
-                                                        Scaling challenges for
-                                                        ORAI Robotics include
-                                                        technological
-                                                        scalability, talent
-                                                        acquisition, market
-                                                        expansion complexities,
-                                                        maintaining operational
-                                                        efficiency, ensuring
-                                                        data privacy, and
-                                                        managing finances.
-                                                        Solutions involve
-                                                        investing in scalable
-                                                        technology, fostering a
-                                                        strong company culture
-                                                        for talent, conducting
-                                                        local market research,
-                                                        implementing efficient
-                                                        project management
-                                                        tools, adhering to data
-                                                        protection regulations,
-                                                        and strategic financial
-                                                        planning.{" "}
+                                                       NymbleUp faces several challenges as it scales up, including the need for seamless integration with major POS and HRMS solutions, maintaining high client retention, managing rapid growth, and differentiating from established competitors. To address these, NymbleUp will develop robust APIs and form global partnerships for effective integration, invest in advanced AI-driven customer support tools for enhanced client satisfaction, implement scalable cloud infrastructure and automate key processes to handle increased operational load, and continue innovating its product offerings to include unique features like AI-driven forecasting and comprehensive task management. Additionally, competitive pricing and superior customer service will help NymbleUp stand out in the crowded market.
                                                       </p>
                                                     </div>
                                                   </Panel>
@@ -2413,23 +2379,7 @@ class EleFant extends Component {
                                                           color: "#7f7776",
                                                         }}
                                                       >
-                                                        Yes, ORAI Robotics is
-                                                        targeting untapped
-                                                        markets, including
-                                                        healthcare, education,
-                                                        SMEs, and startups. The
-                                                        company aims to
-                                                        revolutionize customer
-                                                        engagement by offering
-                                                        AI chatbot solutions
-                                                        tailored to these
-                                                        sectors, addressing
-                                                        unique challenges and
-                                                        providing cost-effective
-                                                        solutions for customer
-                                                        service, sales, and
-                                                        marketing automation.{" "}
-                                                      </p>
+                                                       Yes, NymbleUp is targeting new untapped markets, driven by its innovative approach to workforce scheduling and demand forecasting. By automating scheduling processes through AI and multi-objective linear programming, NymbleUp addresses a significant gap in the market for accurate and efficient scheduling solutions, particularly in sectors reliant on manual or partially automated tools. Furthermore, NymbleUp's integration of emerging technologies like IoT and computer vision for automating auditing processes in retail expands its market potential beyond traditional retail sectors. Additionally, NymbleUp sees opportunities for expansion into industries beyond retail, such as hospitality and healthcare, where similar workforce management challenges exist but may not have been fully addressed. This strategic targeting of untapped markets aligns with NymbleUp's vision for growth and innovation, positioning the company for success in diverse sectors seeking advanced workforce management solutions.</p>{" "}
                                                     </div>
                                                   </Panel>
                                                   <Panel
@@ -2447,18 +2397,41 @@ class EleFant extends Component {
                                                           color: "#7f7776",
                                                         }}
                                                       >
-                                                        ORAI Robotics'
-                                                        competitive advantages
-                                                        include strong
-                                                        leadership,
-                                                        technological innovation
-                                                        in AI, customization
-                                                        abilities, high customer
-                                                        engagement, strategic
-                                                        partnerships, reputable
-                                                        brand recognition, and a
-                                                        commitment to regulatory
-                                                        compliance and data{" "}
+                                                        Stroom possesses
+                                                        formidable moats that
+                                                        bolster its competitive
+                                                        edge in the snacking
+                                                        industry. Its relentless
+                                                        commitment to product
+                                                        innovation ensures a
+                                                        steady stream of unique
+                                                        offerings, fostering
+                                                        customer loyalty and
+                                                        differentiation.
+                                                        Additionally, its
+                                                        in-house manufacturing
+                                                        capabilities,
+                                                        particularly for
+                                                        center-filled products,
+                                                        provide stringent
+                                                        quality control and
+                                                        agility, setting it
+                                                        apart from competitors.
+                                                        With the ability to
+                                                        export globally
+                                                        compliant products and
+                                                        strategic bilateral
+                                                        partnerships in key
+                                                        markets, such as
+                                                        Germany, Spain, the US,
+                                                        and Canada, Stroom gains
+                                                        access to diverse
+                                                        markets, expands its
+                                                        customer base, and
+                                                        solidifies its position
+                                                        as an industry leader,
+                                                        ensuring sustained
+                                                        growth and success.
                                                       </p>
                                                     </div>
                                                   </Panel>
@@ -2629,6 +2602,7 @@ class EleFant extends Component {
                               </div>
                             </div>
                           </div>
+
                           {/* stop */}
                         </TabPane>
                         <TabPane tab="Team" key="3">
@@ -2637,24 +2611,21 @@ class EleFant extends Component {
                             style={{ maxWidth: 921 }}
                           >
                             <h2 className="text-center">Meet the Team</h2>
-                            <div className="row">
+                            <div className="row elefantteam">
                               <div className="col-lg-6">
                                 <div
                                   className="single"
-                                  style={{
-                                    paddingBottom: "0px !important",
-                                    height: "450px",
-                                  }}
+                                  style={{ paddingBottom: "0px !important" }}
                                   // style={{  marginBottom: 0px !important}}
                                 >
                                   <div className="d-flex">
                                     <img
-                                      src="./assets/images/deals-details/ORAI/Team/sumit.jpg"
+                                      src="./assets/images/deals-details/Stroom/Team/Shiven.jpg"
                                       alt=""
                                     />
                                     <div className="intro">
-                                      <h3>Swapnil Jain</h3>
-                                      <span>CEO</span>
+                                      <h3>Shiven Chaturvedi </h3>
+                                      <span>Co-Founder</span>
                                       <div
                                         className="social-icons"
                                         style={{
@@ -2663,7 +2634,7 @@ class EleFant extends Component {
                                         }}
                                       >
                                         <a
-                                          href="https://www.linkedin.com/in/swapnil-jain-/"
+                                          href="https://www.linkedin.com/in/shiven13/"
                                           target="_blank"
                                         >
                                           <i className="bx bxl-linkedin"></i>
@@ -2677,30 +2648,36 @@ class EleFant extends Component {
                                   {/* <p>
                                   With over 20 years of experience building enterprises, Swapnil Jain leads ORAI Robotics as CEO, driving strategic direction, sales, marketing, and advocating for their innovative AI-powered platform
                                   </p> */}
-
-                                  <p>
-                                    20+ years experience across enterprise
-                                    building, sales, marketing, innovation and
-                                    leadership roles. Track record of scaling
-                                    technology ventures Strong expertise in
-                                    product evangelism, digital transformation,
-                                    tech adoption.{" "}
-                                  </p>
+                                  <ul>
+                                    <li>
+                                      <a>
+                                        7+ years Experience in game development,
+                                        Client Evaluations creditor watch
+                                        implementations.
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a>
+                                        {" "}
+                                        He manages production processes, quality
+                                        control, and manufacturing operations to
+                                        ensure efficient production and delivery
+                                        of products to the market.
+                                      </a>
+                                    </li>
+                                  </ul>
                                 </div>
                               </div>
                               <div className="col-lg-6">
-                                <div
-                                  className="single"
-                                  style={{ height: "450px" }}
-                                >
+                                <div className="single">
                                   <div className="d-flex">
                                     <img
-                                      src="./assets/images/deals-details/ORAI/Team/sujit.jpg"
+                                      src="./assets/images/deals-details/Stroom/Team/Darshan.jpg"
                                       alt=""
                                     />
                                     <div className="intro">
-                                      <h3>Sujit Das Biswas</h3>
-                                      <span>CTO</span>
+                                      <h3>Darshan Gattani </h3>
+                                      <span>Co-Founder</span>
                                       <div
                                         className="social-icons"
                                         style={{
@@ -2709,7 +2686,7 @@ class EleFant extends Component {
                                         }}
                                       >
                                         <a
-                                          href="https://www.linkedin.com/in/sujitdasbiswas?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
+                                          href="https://www.linkedin.com/in/darshan-gattani/"
                                           target="_blank"
                                         >
                                           <i className="bx bxl-linkedin"></i>
@@ -2721,16 +2698,97 @@ class EleFant extends Component {
                                     Business Management, from Osmania University
                                     Financial
                                   </p> */}
-                                  <p>
-                                    Sujit Das, the CTO of ORAI Robotics, brings
-                                    deep technical expertise and extensive
-                                    consulting experience to lead technological
-                                    innovation. His responsibilities include
-                                    overseeing technology vision, AI and RPA
-                                    innovation, project management, process
-                                    automation, and knowledge sharing within the
-                                    organization.
-                                  </p>
+                                  <ul>
+                                    <li>
+                                      <a>
+                                        8+years experience in
+                                        operations,customer support, Logistics
+                                        Co-ordination,
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a>
+                                        He manages accounting functions,
+                                        financial reporting, and bookkeeping,
+                                        ensuring accurate financial records.
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a>
+                                        Additionally, he oversees supply chain
+                                        activities, inventory management, and
+                                        logistics to optimize efficiency and
+                                        minimize costs in sourcing and
+                                        distribution.{" "}
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                              <div className="col-lg-6">
+                                <div className="single">
+                                  <div className="d-flex">
+                                    <img
+                                      src="./assets/images/deals-details/Stroom/Team/Rohan.jpg"
+                                      alt=""
+                                    />
+                                    <div className="intro">
+                                      <h3>Rohan Shah</h3>
+                                      <span>Co-founder</span>
+                                      <div
+                                        className="social-icons"
+                                        style={{
+                                          marginTop: 4,
+                                          marginLeft: -6,
+                                        }}
+                                      >
+                                        <a
+                                          href="https://www.linkedin.com/in/rohanshah24/"
+                                          target="_blank"
+                                        >
+                                          <i className="bx bxl-linkedin"></i>
+                                        </a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  {/* <p>
+                                    Business Management, from Osmania University
+                                    Financial
+                                  </p> */}
+                                  <ul>
+                                    <li style={{ listStyleType: "disc" }}>
+                                      <a>
+                                        9+ years experience in finance and civil
+                                        engineering graduate with strong
+                                        analytical skills.
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a>
+                                        {" "}
+                                        Rohan oversees financial operations,
+                                        budgeting, and financial planning,
+                                        ensuring the company's financial health.
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a>
+                                        {" "}
+                                        Additionally, he leads marketing
+                                        strategies and brand development
+                                        initiatives to enhance brand awareness
+                                        and drive sales.
+                                      </a>
+                                    </li>
+                                    {/* 
+                                    <li>
+                                      <a>
+                                        {" "}
+                                        Bringing strategic leadership and
+                                        financial acumen to The EleFant.
+                                      </a>
+                                    </li> */}
+                                  </ul>
                                 </div>
                               </div>
 
@@ -2845,7 +2903,7 @@ class EleFant extends Component {
                 </div>
               </div>
             </div>
-            <NewWebFooter />
+            <WebFooter />
           </div>
         ) : (
           window.location.assign("/Deals")
@@ -2855,4 +2913,4 @@ class EleFant extends Component {
   }
 }
 
-export default EleFant;
+export default Stroom;

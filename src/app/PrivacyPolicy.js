@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import WebHeader from './common/WebHeader';
 import WebFooter from './common/WebFooter';
+import NewWebHeader from './common/NewWebHeader';
+import { NewWebFooter } from './common/NewWebFooter';
 
 
 class PrivacyPolicy extends Component {
@@ -18,8 +20,7 @@ class PrivacyPolicy extends Component {
     return (
       <div>
       
-        <WebHeader />
-
+      <NewWebHeader newabout={"newabout"}/>
         <section style={{
           marginTop: 180
         }}>
@@ -60,7 +61,7 @@ class PrivacyPolicy extends Component {
           </div>
 
         </section>
-        <WebFooter />
+        <NewWebFooter />
       </div>
     )
   }

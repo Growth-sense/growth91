@@ -163,6 +163,7 @@ import ORAI from "./app/deal-pages/ORAI1.jsx";
 import EleFant from "./app/deal-pages/EleFant.jsx";
 import EcoRatings from "./app/deal-pages/EcoRatings.jsx";
 import Stroom from "./app/deal-pages/Stroom.jsx";
+import Nymbleup from "./app/deal-pages/Nymbleup.jsx";
 import IndusUnoTranche2 from "./app/deal-pages/IndusUnoTranche2";
 import { Newdeals } from "./app/Newdeals.jsx";
 import jqeryscript from "./jq.js"
@@ -507,6 +508,9 @@ function App() {
           </Route>
           <Route path="/Stroom" >
             <ProtectDeals Component={Stroom} />
+          </Route>
+          <Route path="/Nymbleup" >
+            <ProtectDeals Component={Nymbleup} />
           </Route>
           <Route path="/TestDeal2" exact>
             <ProtectDeals Component={TestDeal2} />

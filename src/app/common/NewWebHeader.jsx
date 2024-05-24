@@ -595,7 +595,6 @@ class NewWebHeader extends Component {
 
   render() {
     const { newabout } = this.props;
-    console.log(document.documentElement.scrollHeight);
 
     // Add a click event listener to the expandMenu element
     const { isActive, isScrolled } = this.state;

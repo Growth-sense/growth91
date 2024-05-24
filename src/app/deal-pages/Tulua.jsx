@@ -20,6 +20,8 @@ import Apis from "../constants/Apis";
 import moment from "moment";
 import Bridge from "../constants/Bridge";
 import InvestmentMembershipmodal from "../components/membership/InvestmentMembershipmodal";
+import { NewWebFooter } from "../common/NewWebFooter";
+import NewWebHeader from "../common/NewWebHeader";
 
 const { Panel } = Collapse;
 const { TabPane } = Tabs;
@@ -1125,7 +1127,7 @@ class Tulua extends Component {
       <>
         {this.state.is_deal_visible == true ? (
           <div style={{ display: this.state.show_data }}>
-            <WebHeader />
+            <NewWebHeader newabout={"newabout"}/>
             <section
               className="deals-details-page"
               style={{ marginBottom: "-50px" }}
@@ -2948,7 +2950,7 @@ Tulua boasts several competitive moats that distinguish it in the market. Firstl
                 </div>
               </div>
             </div>
-            <WebFooter />
+            <NewWebFooter />
           </div>
         ) : (
           window.location.assign("/Deals")

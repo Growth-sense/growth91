@@ -6,6 +6,7 @@ import { FounderTestomonial } from "./FounderTestomonial.jsx";
 import { Foundercurosel } from "./Foundercurosel.jsx";
 import { Founderextra } from "./Founderextra.jsx";
 import NewWebHeader from "./common/NewWebHeader.jsx";
+import { NewWebFooter } from "./common/NewWebFooter.jsx";
 
 class Founders extends Component {
   constructor(props) {
@@ -240,7 +241,7 @@ class Founders extends Component {
   </section>
         {this.state.testtime == 2 ? <Foundercurosel /> : ""}
 
-        <WebFooter />
+        <NewWebFooter />
       </div>
     );
   }
