@@ -26,7 +26,7 @@ class Homenew extends Component {
     super(props);
     this.state = {
       testtime: "",
-      isActivemsg:false,
+      isActivemsg: false,
       sort_by: "",
       searchInput: "",
       deals: [],
@@ -63,7 +63,7 @@ class Homenew extends Component {
     this.setState((prevState) => ({
       isActivemsg: !prevState.isActivemsg,
     }));
-  }; 
+  };
   componentDidMount() {
     this.handleScroll(); // Call initially to check visibility
     window.addEventListener("scroll", this.handleScroll);
@@ -287,18 +287,18 @@ class Homenew extends Component {
     //   slidesToScroll: 1,
     //   infinite: false,
     // }
-    const { isVisible ,isActivemsg} = this.state;
+    const { isVisible, isActivemsg } = this.state;
     const sliderSettings = {
       dots: true,
       infinite: true,
       arrows: false,
-      speed: 2000,
+      speed: 500,
       slidesToShow: 1,
       slidesToScroll: 1,
       autoplaySpeed: 5000,
       fade: true,
 
-      autoplay: true,
+      autoplay: false,
       pauseOnHover: false,
       cssEase: "linear",
       prevArrow: <SimplePrevArrow />,
@@ -321,7 +321,7 @@ class Homenew extends Component {
         {
           breakpoint: 600,
           settings: {
-            autoplay: true,
+            autoplay: false,
             slidesToShow: 1,
             dots: true,
 
@@ -333,10 +333,10 @@ class Homenew extends Component {
           settings: {
             arrows: false,
             dots: true,
-            autoplay: true,
+            
             slidesToShow: 1,
             slidesToScroll: 1,
-            autoplay: true,
+            autoplay: false,
           },
         },
       ],
@@ -526,7 +526,7 @@ class Homenew extends Component {
         });
       });
     });
- 
+
 
     const pointer = {
       pointerEvents: "none",
@@ -551,7 +551,12 @@ class Homenew extends Component {
                           <p class=" p-0" data-wow-delay="0.5s">
                             RAISE FUND. INVEST IN STARTUPS. DRIVE GROWTH
                           </p>
-
+                          <div className="banner-mobile-img d-sm-none">
+                            <img
+                              src="./assets/images/profits.png"
+                              alt="startup ecosystem"
+                            />
+                          </div>
                           <form
                             class="input_box input-box-new banner-btns "
                             data-wow-delay="0.7s"
@@ -600,6 +605,12 @@ class Homenew extends Component {
                             </span>
                           </p>
 
+                          <div className="banner-mobile-img d-sm-none">
+                          <img
+                            src="./assets/images/diagram.png"
+                            alt="Private market investing made easy"
+                          />
+                          </div>
                           <form
                             class="input_box input-box-new banner-btns wow  fadeInUp"
                             data-wow-delay="0.7s"
@@ -670,6 +681,15 @@ class Homenew extends Component {
                               </li>
                             </ul>
                           </div>
+                        
+                          <div className="banner-mobile-img d-sm-none">
+                          <img
+                            src="./assets/images/venture.png"
+                            loading="lazy"
+                            id="w-node-f39cfbdd-9e8a-b68e-331a-6ae7eed950dd-6f7bf169"
+                            alt=""
+                          />
+                          </div>
                           <form
                             class="input_box input-box-new banner-btns wow  fadeInUp"
                             data-wow-delay="0.7s"
@@ -712,9 +732,9 @@ class Homenew extends Component {
           <div class="container">
             <div class="row">
               <div class="heading-title founder-text">
-                {/* <h6>
+                <p>
                   <span></span>{" "}
-                </h6> */}
+                </p>
                 <h3>Success Stories</h3>
               </div>
             </div>
@@ -1016,9 +1036,9 @@ class Homenew extends Component {
           <div class="container">
             <div class="row">
               <div class="heading-title founder-text">
-                {/* <h6>
+              <p>
                   <span></span>{" "}
-                </h6> */}
+                </p>
                 <h3>Why Choose us?</h3>
               </div>
 
@@ -1075,9 +1095,9 @@ class Homenew extends Component {
           <div class="container">
             <div class="row">
               <div class="heading-title founder-text">
-                {/* <h6>
+              <p>
                   <span></span>{" "}
-                </h6> */}
+                </p>
                 <h3>Testimonials</h3>
               </div>
               <div class="col-12 col-xl-12 col-lg-12 col-md-12 ">
@@ -1671,9 +1691,9 @@ class Homenew extends Component {
             </div>
           </div>
         </section>
-        <div class={`social-widjet ${isActivemsg ?("social-open"):("")}`}>
+        <div class={`social-widjet ${isActivemsg ? ("social-open") : ("")}`}>
           <div class="widjet-link">
-            <div class="whatsapp " onClick={this.togglemsg} style={{backgroundColor:"#29176f"}}>
+            <div class="whatsapp " onClick={this.togglemsg} style={{ backgroundColor: "#29176f" }}>
               <a >
                 <img
                   src="/assets/images/cross.svg"
@@ -1684,8 +1704,8 @@ class Homenew extends Component {
               </a>
             </div>
             <div class="whatsapp">
-              <a  href="https://www.facebook.com/MyGrowth91?mibextid=ZbWKwL"
-                          target="_blank">
+              <a href="https://www.facebook.com/MyGrowth91?mibextid=ZbWKwL"
+                target="_blank">
                 <img
                   src="/assets/images/messanger.svg"
                   alt="img"
@@ -1695,8 +1715,8 @@ class Homenew extends Component {
               </a>
             </div>
             <div class="whatsapp">
-              <a  href="https://www.instagram.com/growth.91/"
-                          target="_blank">
+              <a href="https://www.instagram.com/growth.91/"
+                target="_blank">
                 <img
                   src="/assets/images/insta.png"
                   title="chat to us on Viber"
@@ -1706,8 +1726,8 @@ class Homenew extends Component {
               </a>
             </div>
             <div class="whatsapp">
-              <a  href="https://www.instagram.com/growth.91/"
-                          target="_blank">
+              <a href="https://www.instagram.com/growth.91/"
+                target="_blank">
                 <img
                   src="/assets/images/Whatsapp.svg"
                   title="chat to us on Viber"
@@ -1718,7 +1738,7 @@ class Homenew extends Component {
             </div>
           </div>
         </div>
-        <div class={`wid-icons`}onClick={this.togglemsg}>
+        <div class={`wid-icons`} onClick={this.togglemsg}>
           <div className="msgbut">
             <i class="fa-regular fa-message"></i>
           </div>

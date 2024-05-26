@@ -71,7 +71,9 @@ export const Aboutnew = () => {
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center align-items-center" style={{pointerEvents: "none"}}>
                 <div class="heading-title m-sm-0">
-                    <h6><span></span> </h6>
+                <p>
+                  <span></span>{" "}
+                </p>
                     <h2>About Us</h2>
                 </div>
             </div>
@@ -125,7 +127,9 @@ export const Aboutnew = () => {
 
 
                         <div class="heading-title m-sm-0 our-story-title">
-                            <h6><span></span> </h6>
+                        <p>
+                  <span></span>{" "}
+                </p>
                             <h2>Our Story</h2>
                         </div>
 
@@ -168,7 +172,9 @@ export const Aboutnew = () => {
         <div class="container main-bg-story">
             <div class="row ">
                 <div class="heading-title m-sm-0 our-story-title">
-                    <h6><span></span> </h6>
+                <p>
+                  <span></span>{" "}
+                </p>
                     <h2>Our Leadership Team</h2>
                 </div>
             </div>
@@ -257,7 +263,9 @@ export const Aboutnew = () => {
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center align-items-center" style={{pointerEvents: "none"}}>
                 <div class="heading-title m-sm-0">
-                    <h6><span></span> </h6>
+                <p>
+                  <span></span>{" "}
+                </p>
                     <h2>Our leadership team</h2>
                 </div>
             </div>
