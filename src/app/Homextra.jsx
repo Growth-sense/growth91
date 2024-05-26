@@ -14,9 +14,9 @@ export const Homextra = () => {
             style={pointer}
           >
             <div className="heading-title m-sm-0">
-              <h6>
+              <p>
                 <span></span>{" "}
-              </h6>
+              </p>
               <h2>In The News</h2>
               {/* <!-- <p>Varius aliquet nulla quibusdam eu odio natus wisi eget, lectus Nam consequuntur urna lectus commodo laboriosam Ridiculus lectus laboriosam.</p> --> */}
             </div>
@@ -45,9 +45,9 @@ export const Homextra = () => {
     <div className="container-fluid">
       <div className="container">
         <div className="heading-title">
-          <h6>
-            <span></span>{" "}
-          </h6>
+        <p>
+                <span></span>{" "}
+              </p>
           <h2>For Investors</h2>
           {/* <!-- <p>Varius aliquet nulla quibusdam eu odio natus wisi eget, lectus Nam consequuntur urna lectus commodo laboriosam Ridiculus lectus laboriosam.</p> --> */}
         </div>
@@ -102,9 +102,7 @@ export const Homextra = () => {
   <section className="testimonials-section t_desktop d-block">
     <div className="container">
       <div className="heading-title">
-        <h6>
-          <span></span>{" "}
-        </h6>
+      <p><span></span> </p>
         <h2>Testimonials of Investors</h2>
       </div>
       <div className="testimonial_wraper owl-carousel">
@@ -346,9 +344,7 @@ export const Homextra = () => {
   >
     <div className="container">
       <div className="heading-title">
-        <h6>
-          <span></span>{" "}
-        </h6>
+      <p><span></span> </p>
         <h2>Testimonials of Investors</h2>
       </div>
       <div className="testimonial_wraper_mobile">
@@ -1023,9 +1019,7 @@ JAISON TITUS                    </a>
   <section className="how-we-work-section">
     <div className="container">
       <div className="heading-title">
-        <h6>
-          <span></span>{" "}
-        </h6>
+      <p><span></span> </p>
         <h2>For Founders</h2>
         <p style={{ textAlign: "justify" }}>
           Growth91's robust private deal management option allows
@@ -1087,9 +1081,7 @@ JAISON TITUS                    </a>
   <section className="testimonials-section t_desktop">
     <div className="container">
       <div className="heading-title">
-        <h6>
-          <span></span>{" "}
-        </h6>
+      <p><span></span> </p>
         <h2>Testimonials Of Founders</h2>
       </div>
       <div className="testimonial_wraper owl-carousel">
@@ -1189,9 +1181,7 @@ JAISON TITUS                    </a>
   >
     <div className="container">
       <div className="heading-title">
-        <h6>
-          <span></span>{" "}
-        </h6>
+      <p><span></span> </p>
         <h2>Testimonials Of Founders</h2>
       </div>
       <div className="testimonial_wraper_mobile">

@@ -152,9 +152,7 @@ class Founders extends Component {
   <section className="how-we-work-section">
     <div className="container">
       <div className="heading-title">
-        <h6>
-          <span></span>{" "}
-        </h6>
+      <p><span></span> </p>
         <h2>For Founders</h2>
       </div>
       <div className="row">

@@ -1751,6 +1751,9 @@ transition: max-height 0.45s ease-in; */
 }
 
 @media screen and (max-width: 767px) {
+    .heading-title p {
+        padding-bottom: 0px !important;
+    }
     .site-header .main-navbar-bg-white .topbar-right{
         display: none !important;
 

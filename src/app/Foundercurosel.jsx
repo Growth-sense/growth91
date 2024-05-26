@@ -6,9 +6,9 @@ export const Foundercurosel = () => {
          <section className="testimonials-section t_desktop">
           <div className="container">
             <div className="heading-title">
-              <h6>
+              <p>
                 <span></span>{" "}
-              </h6>
+              </p>
               <h2>Testimonials Of Founders</h2>
             </div>
       <div className="testimonial_wraper owl-carousel">
@@ -98,9 +98,9 @@ export const Foundercurosel = () => {
         >
           <div className="container">
             <div className="heading-title">
-              <h6>
+              <p>
                 <span></span>{" "}
-              </h6>
+              </p>
               <h2>Testimonials Of Founders</h2>
             </div>
             <div className="testimonial_wraper_mobile">

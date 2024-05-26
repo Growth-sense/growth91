@@ -92,7 +92,7 @@ class Howitworks extends Component {
         <section className="how-we-work-section hiw hiw-li" >
                     <div className="container">
                         <div className="heading-title">
-                            <h6><span></span> </h6>
+                            <p><span></span> </p>
                             <h2>How it Works</h2>
                         </div>
                         <div className="row ">
@@ -123,7 +123,7 @@ class Howitworks extends Component {
                 <section className="MoneyPro-history hiw-li" id="hiw">
                     <div className="container ">
                         <div className="heading-title ps-4">
-                            <h6><span></span> </h6>
+                            <p><span></span> </p>
                             
                         </div>
                         <div className="row d-flex align-content-around flex-wrap">
@@ -211,7 +211,7 @@ class Howitworks extends Component {
                 <div className="col-lg-7">
                     <div className="content-side">
                         <div className="heading-title">
-                            <h6><span></span> </h6>
+                            <p><span></span> </p>
                             <h2>How do I Invest?</h2>
                         </div>
                         <div className="accordion" id="accordionExample">
@@ -306,7 +306,7 @@ class Howitworks extends Component {
                     <div className="col-lg-7">
                         <div className="content-side">
                             <div className="heading-title">
-                                <h6><span></span> </h6>
+                                <p><span></span> </p>
                                 <h2>Declaration of Risk <br/> </h2>
                                 <p style={{textAlign:"justify"}}>By accessing/using the Growth91 platform through the website [https://www.Growth91.com] (“Website”), you bear the fitness to undertake the risks in investments through the Website including but not limited to the following:</p>
                             </div>
@@ -401,7 +401,7 @@ class Howitworks extends Component {
                     <div className="col-lg-7">
                         <div className="content-side">
                             <div className="heading-title">
-                                <h6><span></span> </h6>
+                                <p><span></span> </p>
                                 <h2>G-SAFE: A complete guide <br/> </h2>
                                 <p>The companies that raise on Growth91 set the terms for their agreement with investors.</p>
                             </div>
@@ -542,7 +542,7 @@ class Howitworks extends Component {
         <section className="pricing-section hiw-li" id="fee">
         <div className="container">
             <div className="heading-title">
-                <h6><span></span> </h6>
+                <p><span></span> </p>
                 <h2>Membership Plan</h2>
                 
             </div>

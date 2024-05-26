@@ -117,7 +117,7 @@ export const Aboutnew = () => {
     <div class="container">
 
         <div class="row border-10">
-            <siv class="main-p-relative">
+            <div class="main-p-relative p-0">
                 <div class="all-story">
                     <p class="main-bg-story-span"></p>
                 </div>
@@ -159,7 +159,7 @@ export const Aboutnew = () => {
                     </p>
                 </div>
 
-            </siv>
+            </div>
         </div>
 
 

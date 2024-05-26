@@ -6,9 +6,7 @@ export const Investcurosel = () => {
     <div className="container">
 
       <div className="heading-title">
-        <h6>
-          <span></span>{" "}
-        </h6>
+      <p><span></span> </p>
         <h2>Testimonials of Investors</h2>
       </div>
     <div className="testimonial_wraper owl-carousel">

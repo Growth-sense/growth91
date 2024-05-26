@@ -2045,7 +2045,7 @@ span.expandMenu i {
 .css-1j7pxlf {
     margin: 0px 0px 0.4rem;
     line-height: 1.2;
-    font-family: Baikal, Inter, sans-serif;
+    font-family: Baikal, Inter, sans-serif !important;
     letter-spacing: -0.045em;
     color: rgb(25, 25, 25);
     font-size: 2rem;
@@ -2855,10 +2855,11 @@ transition: max-height 0.45s ease-in; */
     line-height: 54px;
     padding-bottom: 30px;
     color: #111;
-    font-weight: 600;
+    font-weight: 700 !important;
     text-align: center;
-    font-family: Baikal, Inter, sans-serif;
+    font-family: Baikal, Inter, sans-serif !important;
 }
+
 
 
 .card-business-crowd h4 {
@@ -3321,7 +3322,7 @@ transition: max-height 0.45s ease-in; */
      }
  
      .logo-sections {
-         padding: 30px 0px 35px 0px !important;
+         padding: 0px 0px 35px 0px !important;
      }
  
      .sliderdriven .prev-arrows {
@@ -3399,6 +3400,7 @@ transition: max-height 0.45s ease-in; */
  
      .business-crowd {
          padding: 30px 0;
+         margin: 0px !important;
      }
  
      .faq-sections {

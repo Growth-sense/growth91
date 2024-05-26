@@ -205,7 +205,7 @@ class ReferLogin extends Component {
                 <div className="col-lg-7">
                     <div className="content-side">
                         <div className="heading-title">
-                            <h6><span></span> </h6>
+                            <p><span></span> </p>
                             <h2>How to refer? and why?</h2>
                         </div>
                         <div className="accordion" id="accordionExample">
