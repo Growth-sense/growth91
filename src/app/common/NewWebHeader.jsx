@@ -744,9 +744,14 @@ class NewWebHeader extends Component {
                     <div
                       class="menu-logo"
                       style={
-                        isActive ?   { display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between"}   : {display:"bv"} }
+                        isActive
+                          ? {
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "space-between",
+                            }
+                          : { display: "bv" }
+                      }
                     >
                       <Link to="/">
                         <img src="/web/white-logo.png" width="116" alt="img" />
@@ -756,9 +761,14 @@ class NewWebHeader extends Component {
                           alt="img"
                         />
                       </Link>
-                      <div class="menu-bar open-menu mobileuser"  style={
-                        isActive ? {    display: "flex",
-                        width: "160px"} : {display:"block"} } >
+                      <div
+                        class="menu-bar open-menu mobileuser"
+                        style={
+                          isActive
+                            ? { display: "flex", width: "160px" }
+                            : { display: "block" }
+                        }
+                      >
                         {this.state.loggedinstatus == true ? (
                           <ul
                             className={`topbar-right ${
@@ -863,9 +873,8 @@ class NewWebHeader extends Component {
                             className={
                               window.location.pathname == "/" && "active"
                             }
-                            
                           >
-                            Home
+                            Invest
                           </Link>
                         </li>
                         <li>
@@ -882,31 +891,24 @@ class NewWebHeader extends Component {
                           <Link
                             to="/Founders"
                             className={
-                              window.location.pathname == "/Founders" ||    window.location.pathname == "/Founders/"&&
+                              window.location.pathname == "/Founders" ||
+                              (window.location.pathname == "/Founders/" &&
+                                "active")
+                            }
+                          >
+                            Pitch
+                          </Link>
+                        </li>
+
+                        <li>
+                          <Link
+                            to="/How-it-works"
+                            className={
+                              window.location.pathname == "/How-it-works" &&
                               "active"
                             }
                           >
-                            Founders
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            to="/Investors"
-                            className={
-                              window.location.pathname == "/Investors" ||  window.location.pathname == "/Investors/" && "active"
-                            }
-                          >
-                            Investors
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            to="/Learn"
-                            className={
-                              window.location.pathname == "/Learn" && "active"
-                            }
-                          >
-                           Learn
+                            Resources
                           </Link>
                         </li>
                         <li>
@@ -916,7 +918,7 @@ class NewWebHeader extends Component {
                               window.location.pathname == "/about" && "active"
                             }
                           >
-                           About-us
+                            About-us
                           </Link>
                         </li>
 
@@ -934,38 +936,51 @@ class NewWebHeader extends Component {
                           ""
                         ) : (
                           <>
-                          {isActive?(
-                          <> <li>
-                              <Link
-                                to="/Login"
-                                className={
-                                  window.location.pathname == "/login" &&
-                                  "active"
-                                }
-                              >
-                                Sign In
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="/Signup"
-                                className={
-                                  window.location.pathname == "/Signup" &&
-                                  "active"
-                                }
-                              >
-                                Get Started
-                              </Link>
-                            </li></>):("")}
-                            {" "}
-                           
+                            {isActive ? (
+                              <>
+                                <div class="headers-btn d-block">
+                                  <Link to="/login">Sign In</Link>
+                                  <Link  to="/Signup">
+                                    Get Starteds
+                                  </Link>
+                                </div>
+                                {/* <li>
+                                  <Link
+                                    to="/Login"
+                                    className={
+                                      window.location.pathname == "/login" &&
+                                      "active"
+                                    }
+                                  >
+                                    Sign In
+                                  </Link>
+                                </li> */}
+                                {/* <li>
+                                  <Link
+                                    to="/Signup"
+                                    className={
+                                      window.location.pathname == "/Signup" &&
+                                      "active"
+                                    }
+                                  >
+                                    Get Started
+                                  </Link>
+                                </li> */}
+                              </>
+                            ) : (
+                              ""
+                            )}{" "}
                           </>
                         )}
                       </ul>
                     </div>
                   </div>
                   {this.state.loggedinstatus == true ? (
-                    <ul className={`topbar-right mobile-topbar ${isActive ? "d-none" : ""}`}>
+                    <ul
+                      className={`topbar-right mobile-topbar ${
+                        isActive ? "d-none" : ""
+                      }`}
+                    >
                       {/* <i className="bx bxs-bell-ring position-relative text-white me-4" style={{fontSize: '1.5rem', marginBottom: '0'}}>
                                 
                                 <span className="position-absolute top-0 start-100 translate-middle px-2 mt-2 ms-2 bg-danger border border-light rounded-circle">
