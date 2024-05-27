@@ -918,7 +918,7 @@ class NewWebHeader extends Component {
                               window.location.pathname == "/about" && "active"
                             }
                           >
-                            Aboutus
+                            About us
                           </Link>
                         </li>
 
