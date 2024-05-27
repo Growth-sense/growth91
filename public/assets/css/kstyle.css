@@ -4181,7 +4181,18 @@ transition: max-height 0.45s ease-in; */
       
     }
     .user-wrappr {
-     
+        background-color: #07d3fc;
+        height: 30px !important;
+        width: 30px !important;
+        border-radius: 50% !important;
+        padding: 0px !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        font-size: 10px !important;
+        text-transform: uppercase;
+       
         margin: 0 0px !important;
     }
  
