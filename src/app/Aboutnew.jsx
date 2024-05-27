@@ -3,6 +3,7 @@ import { NewWebFooter } from './common/NewWebFooter'
 import Slider from 'react-slick'
 import NewWebHeader from "./common/NewWebHeader.jsx";
 import $ from "jquery";
+import { Link } from 'react-router-dom';
 
 export const Aboutnew = () => {
     $(window).scroll(function() {
@@ -423,7 +424,7 @@ export const Aboutnew = () => {
                 </div>
                 <div class="input_box">
                     <div class="form-wraper new-form-wrapper">
-                        <a href="#" class="theme-btn" type="button">Contact Us</a>
+                        <Link to="/contact-us" class="theme-btn" type="button">Contact Us</Link>
                     </div>
 
                 </div>
