@@ -29,15 +29,15 @@ export const Homeblog = () => {
   }, [blog]);
 
   const callimg = async () => {
-    const data = await axios(blog._links["wp:featuredmedia"][0].href);
+    const data = await axios(blog&&blog._links["wp:featuredmedia"][0].href);
     setBlogimg( data.data.source_url);
   };
   const callimg1 = async () => {
-    const data = await axios(blog1._links["wp:featuredmedia"][0].href);
+    const data = await axios(blog1&&blog1._links["wp:featuredmedia"][0].href);
     setBlogimg1( data.data.source_url);
   };
   const callimg2 = async () => {
-    const data = await axios(blog2._links["wp:featuredmedia"][0].href);
+    const data = await axios(blog2&&blog2._links["wp:featuredmedia"][0].href);
     setBlogimg2( data.data.source_url);
   };
   return (
@@ -46,9 +46,9 @@ export const Homeblog = () => {
       <div class="container">
         <div class="row">
           <div class="heading-title founder-text">
-            <h6>
-              <span></span>{" "}
-            </h6>
+          <p>
+                  <span></span>{" "}
+                </p>
             <h2> Blogs</h2>
           </div>
         </div>
@@ -82,7 +82,7 @@ export const Homeblog = () => {
                       <i class="fa-regular fa-calendar"></i>
                       <a href={blog.link}>{blog&& <Moment date={blog.date} format="MMM Do YY" />}</a>
                     </span>
-                    <span>10 min read</span>
+                    {/* <span>10 min read</span> */}
                   </div>
                   <div class="post-meta-right-side">
                     <a href={blog.link}>
@@ -130,7 +130,7 @@ export const Homeblog = () => {
                       <i class="fa-regular fa-calendar"></i>
                       <a href={blog1.link}>{blog&& <Moment date={blog1.date} format="MMM Do YY" />}</a>
                     </span>
-                    <span>2 Comments</span>
+                    {/* <span>2 Comments</span> */}
                   </div>
                   <div class="post-meta-right-side">
                     <a href={blog1.link}>
@@ -178,7 +178,7 @@ export const Homeblog = () => {
                       <i class="fa-regular fa-calendar"></i>
                       <a href={blog2.link}>{blog&& <Moment date={blog2.date} format="MMM Do YY" />}</a>
                     </span>
-                    <span>7 Comments</span>
+                    {/* <span>7 Comments</span> */}
                   </div>
                   <div class="post-meta-right-side">
                     <a href={blog2.link}>
