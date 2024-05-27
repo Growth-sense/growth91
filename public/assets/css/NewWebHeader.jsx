@@ -938,7 +938,7 @@ class NewWebHeader extends Component {
                           <>
                             {isActive ? (
                               <>
-                                <div class="headers-btn  mobile-logins-btns">
+                                <div class="<p><span></span> </p> mobile-logins-btns">
                                   <Link to="/login">Sign In</Link>
                                   <Link  to="/Signup">
                                     Get Starteds

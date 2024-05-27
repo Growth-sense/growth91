@@ -299,7 +299,7 @@ class Homenew extends Component {
       autoplaySpeed: 5000,
       fade: true,
 
-      autoplay: true,
+      autoplay: false,
       pauseOnHover: false,
       cssEase: "linear",
       prevArrow: <SimplePrevArrow />,
@@ -322,7 +322,7 @@ class Homenew extends Component {
         {
           breakpoint: 600,
           settings: {
-            autoplay: false,
+           
             slidesToShow: 1,
             dots: true,
 
@@ -337,7 +337,7 @@ class Homenew extends Component {
             
             slidesToShow: 1,
             slidesToScroll: 1,
-            autoplay: false,
+           
           },
         },
       ],

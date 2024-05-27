@@ -1951,7 +1951,7 @@ transition: max-height 0.45s ease-in; */
     .mainbanner .banner_section {
         margin-top: 0px !important;
         align-items: center;
-        height: 100vh !important;
+        height: calc(100vh - 50px) !important;
         padding: 0px !important;
     }
 
@@ -2400,7 +2400,7 @@ transition: max-height 0.45s ease-in; */
 
     .mainbanner .banner_section .left-content {
         padding-top: 0px;
-        height: 100vh !important;
+        height: calc(100vh - 50px) !important;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -2506,8 +2506,8 @@ transition: max-height 0.45s ease-in; */
         align-items: center;
     } */
 .banner-mobile-img img{
-    width: 60%;
-    margin: 20px auto 20px auto;
+    width: 45%;
+    margin: 10px auto 10px auto;
 }
 .logo-sections{
     margin-top: 0px !important;
