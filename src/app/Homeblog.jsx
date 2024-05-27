@@ -54,7 +54,7 @@ export const Homeblog = () => {
         </div>
 
         <div class="row blog-rows">
-          <div class="col-lg-4 col-md-6 col-sm-6">
+          <div class="col-lg-4 col-md-6 col-sm-6 blog-columns">
             <div
               class="single-following-post aos-init aos-animate"
               data-aos="fade-up" 
@@ -102,7 +102,7 @@ export const Homeblog = () => {
               </div>
             </div>
           </div>
-          <div class="col-lg-4 col-md-6 col-sm-6">
+          <div class="col-lg-4 col-md-6 col-sm-6 blog-columns">
             <div
               class="single-following-post aos-init aos-animate"
               data-aos="fade-up"
@@ -150,7 +150,7 @@ export const Homeblog = () => {
               </div>
             </div>
           </div>
-          <div class="col-lg-4 col-md-6 col-sm-6">
+          <div class="col-lg-4 col-md-6 col-sm-6 blog-columns">
             <div
               class="single-following-post aos-init aos-animate"
               data-aos="fade-up"

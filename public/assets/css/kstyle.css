@@ -2436,7 +2436,7 @@ transition: max-height 0.45s ease-in; */
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 38px 50px 0 50px;
+        padding: 15px 50px 15px 50px;
     }
 
     .headers-btn a:nth-child(2) {
@@ -3403,9 +3403,16 @@ transition: max-height 0.45s ease-in; */
          margin: 0px !important;
      }
  
-     .faq-sections {
+     .faq-sections,.custom-section,.testimonial-section {
  
          padding: 30px 0px;
+         margin: 0px !important;
+     }
+     .custom-section{
+        padding-bottom: 0px !important;
+     }
+     .client-slider{
+        margin-top: 20px !important;
      }
  
      .contents-testimonials h3 {
@@ -4121,6 +4128,7 @@ transition: max-height 0.45s ease-in; */
          color: rgba(255, 255, 255, .75) !important;
          font-size: 10px !important;
          line-height: 12px !important;
+         text-align: center !important;
      }
  
      .slider1 .text-about-video p {

@@ -113,6 +113,9 @@ body {
     line-height: 26px;
     min-height: 290px;
 }
+ .headers-main  .main-navbar .nav-inner .desktop-menu li:hover a{
+    color: #ff9c1a !important;
+}
 
 .test-cards {
     margin-top: 60px;
@@ -597,6 +600,9 @@ body {
     border-radius: 50%;
     font-size: 13px;
 
+}
+.info_single i{
+    color: white !important;
 }
 
 .banner-listes ul li span {
@@ -1412,6 +1418,9 @@ transition: max-height 0.45s ease-in; */
 }
 
 @media screen and (min-width:993px) and (max-width:1200px) {
+    .contact_field {
+        padding: 60px 190px 90px 38px !important;
+    }
     .banner-slidingpart .banner-btns .new-form-wrapper .white-btns {
         display: block;
         max-width: 238px;
@@ -1751,6 +1760,74 @@ transition: max-height 0.45s ease-in; */
 }
 
 @media screen and (max-width: 767px) {
+    .contact_info_sec {
+        position: static !important;
+        background-color: #2d2d2d;
+      
+        height: auto !important;
+        width: 100% !important;
+        padding: 40p 15px !important;
+        border-radius: 0px !important;
+    }
+    .contact_us {
+        background-color: #f1f1f1;
+        padding: 30px 0px !important;
+    }
+    .socil_item_inner{
+        margin-bottom: 0px !important;
+        padding: 0px !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+    .map_sec {
+        padding: 50px 0px;
+        margin: 0px !important;
+    }
+    .contact_field h3 {
+        color: #000;
+        font-size: 22px !important;
+        letter-spacing: 1px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+    .contact_field {
+        padding: 20px !important;
+    }
+    .blog-rows{
+        align-items: stretch;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap !important;
+        overflow-x: auto;
+        overflow-y: hidden;
+      
+        width: 100%;
+    }
+    .blog-rows .blog-columns{
+        overflow-x: scroll;
+        width: 90%;
+        max-width: 94%;
+        margin: 0px 0%;
+        border: 0;
+        flex-basis: 90%;
+        flex-grow: 0;
+        flex-shrink: 0;
+    }
+    
+    .blog-rows::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+
+    .blog-rows::-webkit-scrollbar-thumb {
+        background: transparent;
+    }
+
+    .blog-rows::-webkit-scrollbar-track {
+        background: transparent;
+    }
     .heading-title p {
         padding-bottom: 0px !important;
     }
