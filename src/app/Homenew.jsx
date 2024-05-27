@@ -532,11 +532,20 @@ class Homenew extends Component {
     const pointer = {
       pointerEvents: "none",
     };
-
+    const {loading}= this.state
+console.log(loading);
     return (
       <div>
         {/*  <NewWebHeader  newabout={"newabout"} /> */}
         <NewWebHeader />
+        <div
+        id="loading"
+        style={{ display: loading == false ? "none" : "block" }}
+      >
+        <div id="loading-center">
+          <div className="preloader"></div>
+        </div>
+      </div>
         <div className="mainbanner">
           <section class="banner_section ">
             <div class="container-fluid">
