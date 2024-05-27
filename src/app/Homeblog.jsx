@@ -84,7 +84,7 @@ export const Homeblog = () => {
                     </span>
                     {/* <span>10 min read</span> */}
                   </div>
-                  <div class="post-meta-right-side">
+                  {/* <div class="post-meta-right-side">
                     <a href={blog.link}>
                       <img
                         src="https://htmldemo.net/bunzo/bunzo/assets/images/icons/small-bookmark.png"
@@ -97,7 +97,7 @@ export const Homeblog = () => {
                         alt=""
                       />
                     </a>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -132,7 +132,7 @@ export const Homeblog = () => {
                     </span>
                     {/* <span>2 Comments</span> */}
                   </div>
-                  <div class="post-meta-right-side">
+                  {/* <div class="post-meta-right-side">
                     <a href={blog1.link}>
                       <img
                         src="https://htmldemo.net/bunzo/bunzo/assets/images/icons/small-bookmark.png"
@@ -145,7 +145,7 @@ export const Homeblog = () => {
                         alt=""
                       />
                     </a>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -180,7 +180,7 @@ export const Homeblog = () => {
                     </span>
                     {/* <span>7 Comments</span> */}
                   </div>
-                  <div class="post-meta-right-side">
+                  {/* <div class="post-meta-right-side">
                     <a href={blog2.link}>
                       <img
                         src="https://htmldemo.net/bunzo/bunzo/assets/images/icons/small-bookmark.png"
@@ -193,7 +193,7 @@ export const Homeblog = () => {
                         alt=""
                       />
                     </a>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
