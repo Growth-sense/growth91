@@ -149,6 +149,13 @@ footer h4 {
   width: 50px;
   background: #ff9c1a;
 }
+.heading-title h6 span {
+  display: inline-block;
+  margin-right: 10px;
+  height: 3px;
+  width: 50px;
+  background: #ff9c1a;
+}
 .hiw a span,
 .search_btn:hover {
   background: var(--prime-purple);
@@ -3140,6 +3147,10 @@ body.search.search-results .content-area {
   .banner_section {
     padding-top: 45px !important;
     padding-bottom: 40px !important;
+    
+  }
+  .removemargin{
+    margin-top: 3rem;
   }
   .banner_section .slider-area .item .left-content h2,
   .banner_section .slider-area .item .left-content p {
