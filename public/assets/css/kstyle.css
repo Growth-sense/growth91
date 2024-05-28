@@ -3377,7 +3377,7 @@ transition: max-height 0.45s ease-in; */
          margin: 0;
          list-style: none;
          text-align: center;
-         bottom: 8px;
+         bottom: 70px;
          z-index: 9;
      }
  
@@ -4260,7 +4260,7 @@ transition: max-height 0.45s ease-in; */
     }
     .banner-sliding .slick-dots {
    
-        bottom: -30px !important;
+        bottom: 40px !important;
        
     }
     .banner-sliding h2 {
