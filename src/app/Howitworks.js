@@ -34,7 +34,7 @@ class Howitworks extends Component {
       <div>
         
         <NewWebHeader newabout={"newabout"}/>        
-        <section className="banner_section">
+        <section className="banner_section removemargin">
             <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
               
                 <div className="carousel-inner">

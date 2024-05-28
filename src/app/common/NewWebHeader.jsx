@@ -891,9 +891,10 @@ class NewWebHeader extends Component {
                           <Link
                             to="/Founders"
                             className={
-                              window.location.pathname == "/Founders" ||
-                              (window.location.pathname == "/Founders/" &&
-                                "active")
+                              window.location.pathname == "/Founders" &&
+                              "active" ||
+                              window.location.pathname == "/Founders/" &&
+                                "active"
                             }
                           >
                             Pitch
@@ -905,6 +906,8 @@ class NewWebHeader extends Component {
                             to="/How-it-works"
                             className={
                               window.location.pathname == "/How-it-works" &&
+                              "active" ||
+                              window.location.pathname == "/How-it-works/" &&
                               "active"
                             }
                           >
