@@ -12,7 +12,7 @@ class Founders extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      testtime: "",
+      testtime: false,
     };
   }
   componentWillMount() {
@@ -26,8 +26,19 @@ class Founders extends Component {
       "Join the revolution in Indian startup funding with Growth91's innovative crowdfunding platform. Experience streamlined financing for growth and success.";
       document.getElementsByTagName("META")[5].content ="startup funding platform "
 
+      this.setState({
+        testtime: true,
+      });
+    this.testtimer()
+
   }
 
+  testtimer=()=>{
+  
+    this.setState({
+      testtime: true,
+    })
+  }
   componentDidMount() {
     if (localStorage.getItem("investor_id")) {
       console.log("asd");
@@ -35,11 +46,9 @@ class Founders extends Component {
       console.log("ds");
     } else {
       console.log("ds");
-    }
+    };
+    this.testtimer()
 
-    this.setState({
-      testtime: 2,
-    });
 
     // Call API initially
     // this.getDelete_analytics_session_data();
@@ -51,6 +60,7 @@ class Founders extends Component {
     // this.start_analytics_session_interval = setInterval(() => this.postStart_analytics_session_data(), 2000);
   }
   render() {
+    const {testtime}=this.state
     const settings = {
       dots: true,
       infinite: true,
@@ -58,6 +68,7 @@ class Founders extends Component {
       slidesToShow: 1,
       slidesToScroll: 1,
     };
+    console.log(testtime)
 
     return (
       <div>
@@ -237,7 +248,7 @@ class Founders extends Component {
       </div>
     </div>
   </section>
-        {this.state.testtime == 2 ? <Foundercurosel /> : ""}
+         <Foundercurosel />
 
         <NewWebFooter />
       </div>

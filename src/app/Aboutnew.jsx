@@ -13,6 +13,32 @@ export const Aboutnew = () => {
           $('body').removeClass('newClass');
         }
       });
+      function SimpleNextArrow(props) {
+        const { onClick } = props;
+        return (
+          <>
+            <div className="nextArrow" onClick={onClick}>
+              <span class="next-arrows slick-arrow">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </span>
+            </div>
+          </>
+        );
+      }
+  
+      function SimplePrevArrow(props) {
+        const { onClick } = props;
+        return (
+          <>
+            <div className="prevArrow" onClick={onClick}>
+              <span class="prev-arrows slick-arrow">
+                {" "}
+                <i class="fa fa-angle-left" aria-hidden="true"></i>{" "}
+              </span>
+            </div>
+          </>
+        );
+      }
     const sliderSettings={
         dots: true,
         infinite: true,
@@ -23,9 +49,8 @@ export const Aboutnew = () => {
         autoplaySpeed: 3000,
         autoplay: true,
   
-    
-        prevArrow: '<span class="prev-arrows"> <i class="fa fa-arrow-left" aria-hidden="true"></i> </span>',
-        nextArrow: '<span class="next-arrows"><i class="fa fa-arrow-right" aria-hidden="true"></i></span>',
+        prevArrow: <SimplePrevArrow />,
+        nextArrow: <SimpleNextArrow />,
   
   
         responsive: [{
@@ -240,10 +265,7 @@ export const Aboutnew = () => {
                                 <h3>Prateek TC</h3>
                                 <p>
 
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim ipsa beatae laudantium accusamus debitis eius voluptates corporis sapiente quaerat temporibus velit et repudiandae ratione consequuntur modi itaque, odio vitae excepturi!
-
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim ipsa beatae laudantium accusamus debitis eius voluptates corporis sapiente quaerat temporibus velit et repudiandae ratione consequuntur modi itaque, odio vitae excepturi!
-                                </p>
+                                NIT Trichy ex-Senior Software engineer at Walmart Active Angel investor    </p>
                             </div>
                         </div>
                     </div>

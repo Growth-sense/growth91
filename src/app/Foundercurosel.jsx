@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
+import $ from "jquery";
 
 export const Foundercurosel = () => {
+
+
   return (
     <div>
-         <section className="testimonials-section t_desktop">
+         <section className="testimonials-section t_desktop  d-block">
           <div className="container">
             <div className="heading-title">
               <p>

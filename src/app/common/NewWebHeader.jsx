@@ -888,8 +888,8 @@ class NewWebHeader extends Component {
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="/Founders"
+                          <a
+                            href="/Founders"
                             className={
                               window.location.pathname == "/Founders" &&
                               "active" ||
@@ -898,7 +898,7 @@ class NewWebHeader extends Component {
                             }
                           >
                             Pitch
-                          </Link>
+                          </a>
                         </li>
 
                         <li>

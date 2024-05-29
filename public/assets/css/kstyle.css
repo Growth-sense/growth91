@@ -817,9 +817,9 @@
     text-align: center !important;
 }
 
-.about-slider-sections .slick-dots li button {
+/* .about-slider-sections .slick-dots li button {
     display: none;
-}
+} */
 
 .about-slider-sections .slick-dots li {
     width: 27px;

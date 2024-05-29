@@ -78,7 +78,7 @@ class Investors extends Component {
         {/* <WebHeader /> */}
         <NewWebHeader newabout={"newabout"}/>
 
-        <section className="banner_section">
+        <section className="banner_section removemargin">
     <div
       id="carouselExampleIndicators"
       className="carousel slide"

@@ -1562,7 +1562,7 @@ console.log(loading);
               </a>
             </div>
             <div class="whatsapp">
-              <a href="https://www.instagram.com/growth.91/"
+            <a href="https://api.whatsapp.com/send?phone=7588544442&text=welcome%20to%20Growth%2091"
                 target="_blank">
                 <img
                   src="/assets/images/Whatsapp.svg"
