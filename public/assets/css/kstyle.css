@@ -3742,9 +3742,12 @@ transition: max-height 0.45s ease-in; */
  
      .logo-menus {
          display: flex;
-         gap: 15px;
+         gap: 0px;
          position: relative;
          width: 100%;
+     }
+     span.expandMenu{
+        right: 0px !important;
      }
  
      .slider-card-testimonials .slider1 .popup-youtube span {
@@ -4042,7 +4045,7 @@ transition: max-height 0.45s ease-in; */
      }
  
      .menu-logo img {
-         margin-left: 0px !important;
+         margin-left: -15px !important;
      }
  
      .new.main-header .main-navbar .nav-inner ul li a {
@@ -4212,7 +4215,7 @@ transition: max-height 0.45s ease-in; */
         font-size: 14px !important;
         font-weight: 600;
         letter-spacing: .56px;
-       
+       width: 100%;
         padding: 12px 24px;
         position: relative;
         text-align: center;
@@ -4226,6 +4229,7 @@ transition: max-height 0.45s ease-in; */
     .mobile-logins-btns a:nth-child(2) {
         border-radius: 10px;
         color: var(--white);
+        width: 100%;
         display: inline-block;
         font-family: Poppins, sans-serif;
         font-size: 14px !important;
@@ -4246,8 +4250,8 @@ transition: max-height 0.45s ease-in; */
     }
     .mobile-logins-btns{
         display: flex !important;
-        flex-direction: column !important;
-        width: 60% !important;
+        /* flex-direction: column !important; */
+        width: 100% !important;
         gap: 10px;
     }
  
