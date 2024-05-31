@@ -1279,7 +1279,14 @@ transition: max-height 0.45s ease-in; */
     z-index: 99;
 }
 
-
+.contents-testimonials .company-name{
+    font-size: 12px;
+    color: gray;
+    font-weight: bold;
+    margin-top: 0px;
+    line-height: 20px;
+    min-height: 55px;
+} 
 
 @media screen and (min-width:1801px) {}
 
@@ -2325,12 +2332,16 @@ transition: max-height 0.45s ease-in; */
     .contents-testimonials p {
         font-size: 12px;
     }
+    .testimonails-cards .contents-testimonials p{
+        font-size: 12px;
+        margin-top: 0px;
 
+    }
     .testimonails-cards p {
         font-size: 13px;
         line-height: 22px;
         margin-top: 10px;
-        color: grey;
+       
         min-height: auto;
     }
 

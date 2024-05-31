@@ -322,7 +322,7 @@ class Homenew extends Component {
         {
           breakpoint: 600,
           settings: {
-           
+
             slidesToShow: 1,
             dots: true,
 
@@ -334,10 +334,10 @@ class Homenew extends Component {
           settings: {
             arrows: false,
             dots: true,
-            
+
             slidesToShow: 1,
             slidesToScroll: 1,
-           
+
           },
         },
       ],
@@ -417,16 +417,16 @@ class Homenew extends Component {
           breakpoint: 1200,
           settings: {
             slidesToShow: 2,
-            autoplay: true,
+            
             slidesToScroll: 1,
           },
         },
         {
           breakpoint: 993,
           settings: {
-            slidesToShow: 2,
+            slidesToShow: 1,
             slidesToScroll: 1,
-            autoplay: true,
+          
           },
         },
         {
@@ -434,7 +434,7 @@ class Homenew extends Component {
           settings: {
             arrows: false,
             slidesToShow: 1,
-            autoplay: true,
+           
             speed: 1000,
             autoplaySpeed: 5000,
 
@@ -453,7 +453,7 @@ class Homenew extends Component {
             slidesToScroll: 1,
 
             cssEase: "linear",
-            autoplay: true,
+            autoplay: false,
           },
         },
       ],
@@ -532,20 +532,20 @@ class Homenew extends Component {
     const pointer = {
       pointerEvents: "none",
     };
-    const {loading}= this.state
-console.log(loading);
+    const { loading } = this.state
+    console.log(loading);
     return (
       <div>
         {/*  <NewWebHeader  newabout={"newabout"} /> */}
         <NewWebHeader />
         <div
-        id="loading"
-        style={{ display: loading == false ? "none" : "block" }}
-      >
-        <div id="loading-center">
-          <div className="preloader"></div>
+          id="loading"
+          style={{ display: loading == false ? "none" : "block" }}
+        >
+          <div id="loading-center">
+            <div className="preloader"></div>
+          </div>
         </div>
-      </div>
         <div className="mainbanner">
           <section class="banner_section ">
             <div class="container-fluid">
@@ -616,10 +616,10 @@ console.log(loading);
                           </p>
 
                           <div className="banner-mobile-img d-sm-none">
-                          <img
-                            src="./assets/images/diagram.png"
-                            alt="Private market investing made easy"
-                          />
+                            <img
+                              src="./assets/images/diagram.png"
+                              alt="Private market investing made easy"
+                            />
                           </div>
                           <form
                             class="input_box input-box-new banner-btns wow  fadeInUp"
@@ -691,14 +691,14 @@ console.log(loading);
                               </li>
                             </ul>
                           </div>
-                        
+
                           <div className="banner-mobile-img d-sm-none">
-                          <img
-                            src="./assets/images/venture.png"
-                            loading="lazy"
-                            id="w-node-f39cfbdd-9e8a-b68e-331a-6ae7eed950dd-6f7bf169"
-                            alt=""
-                          />
+                            <img
+                              src="./assets/images/venture.png"
+                              loading="lazy"
+                              id="w-node-f39cfbdd-9e8a-b68e-331a-6ae7eed950dd-6f7bf169"
+                              alt=""
+                            />
                           </div>
                           <form
                             class="input_box input-box-new banner-btns wow  fadeInUp"
@@ -1046,7 +1046,7 @@ console.log(loading);
           <div class="container">
             <div class="row">
               <div class="heading-title founder-text">
-              <p>
+                <p>
                   <span></span>{" "}
                 </p>
                 <h3>Why Choose us?</h3>
@@ -1105,7 +1105,7 @@ console.log(loading);
           <div class="container">
             <div class="row">
               <div class="heading-title founder-text">
-              <p>
+                <p>
                   <span></span>{" "}
                 </p>
                 <h3>Testimonials</h3>
@@ -1149,7 +1149,12 @@ console.log(loading);
                           </div>
                           <div class="contents-testimonials">
                             <h3>Hirish Shipurkar</h3>
-                            <p> GPS FIG, HSBC Bank</p>
+                            <p> Head India </p>
+                            <p className="company-name">
+                              GPS FIG, HSBC Bank
+                            </p>
+
+
                           </div>
                         </div>
                       </div>
@@ -1190,7 +1195,12 @@ console.log(loading);
                           </div>
                           <div class="contents-testimonials">
                             <h3>JAISON TITUS</h3>
-                            <p>SOFTWARE DEVLOPMENT</p>
+                            <p>SOFTWARE DEVLOPMENT </p>
+
+                            <p className="company-name">
+                              Engineer Amazon AWS and Amazon Robotics,USA
+                            </p>
+
                           </div>
                         </div>
                       </div>
@@ -1230,6 +1240,11 @@ console.log(loading);
                           <div class="contents-testimonials">
                             <h3>Ramesh Babu</h3>
                             <p>Country Head </p>
+
+                            <p className="company-name">
+                              Government Banking, Axis Bank
+                            </p>
+
                           </div>
                         </div>
                       </div>
@@ -1268,6 +1283,12 @@ console.log(loading);
                           <div class="contents-testimonials">
                             <h3>Mitul Jhaveri</h3>
                             <p>Director Finance</p>
+                            <p className="company-name">
+                              Regal Rexnord India
+                            </p>
+
+
+
                           </div>
                         </div>
                       </div>
@@ -1311,6 +1332,9 @@ console.log(loading);
                           <div class="contents-testimonials">
                             <h3>KUSH SHRIVASTAVA</h3>
                             <p>Co Founder Quiklo</p>
+                            <p className="company-name">
+                              Fintech Expert
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -1353,6 +1377,10 @@ console.log(loading);
                           <div class="contents-testimonials">
                             <h3>PRAKASH ROHERA</h3>
                             <p>INTERNATIONAL Corpoate </p>
+                            <p className="company-name">
+                              Trainer and Coach
+                            </p>
+
                           </div>
                         </div>
                       </div>
@@ -1364,7 +1392,7 @@ console.log(loading);
           </div>
         </section>
         {/* blog section */}
-      <Homeblog/>
+        <Homeblog />
 
         <section class="faq-sections">
           <div class="container">
@@ -1562,7 +1590,7 @@ console.log(loading);
               </a>
             </div>
             <div class="whatsapp">
-            <a href="https://api.whatsapp.com/send?phone=7588544442&text=welcome%20to%20Growth%2091"
+              <a href="https://api.whatsapp.com/send?phone=7588544442&text=welcome%20to%20Growth%2091"
                 target="_blank">
                 <img
                   src="/assets/images/Whatsapp.svg"

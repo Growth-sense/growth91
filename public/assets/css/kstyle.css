@@ -1919,11 +1919,11 @@ span.expandMenu i {
 .testimonails-cards>p {
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 8;
+    -webkit-line-clamp: 10;
     line-height: 28px;
     overflow: hidden;
-    min-height: 230px;
-    max-height: 230px;
+    min-height: 260px;
+    max-height: 260px;
     font-size: 16px;
     text-overflow: ellipsis;
 }
@@ -2895,6 +2895,7 @@ transition: max-height 0.45s ease-in; */
 }
 
 @media screen and (max-width: 767px) {
+    
     .circle-card-g91 .card-business-crowd h4 {
          font-style: normal;
          font-weight: 500;
@@ -3429,7 +3430,7 @@ transition: max-height 0.45s ease-in; */
          font-size: 13px;
          line-height: 22px;
          margin-top: 10px;
-         color: grey;
+        
          min-height: auto;
      }
  
@@ -4173,7 +4174,8 @@ transition: max-height 0.45s ease-in; */
      }
  
      .testimonails-cards>p {
-         min-height: 200px;
+         min-height: 270px;
+         -webkit-box-orient: unset;
      }
      .main-header .main-navbar .nav-inner ul li a {
 
