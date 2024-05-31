@@ -453,7 +453,7 @@ class Homenew extends Component {
             slidesToScroll: 1,
 
             cssEase: "linear",
-            autoplay: false,
+            
           },
         },
       ],
