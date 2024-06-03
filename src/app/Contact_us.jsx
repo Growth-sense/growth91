@@ -3,19 +3,33 @@ import NewWebHeader from "./common/NewWebHeader";
 import { NewWebFooter } from "./common/NewWebFooter";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Bridge from "./constants/Bridge";
+import { useEffect } from "react";
 export const Contact = () => {
   const notify = (e) => {
-    e.preventDefault();
     toast.info("Thank You for Getting in Touch!");
-    setEmail("")
-    setName("")
-    setMsg("")
-
-
+    setEmail("");
+    setName("");
+    setMsg("");
   };
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  const [msg, setMsg] = useState("")
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [msg, setMsg] = useState("");
+  const formsubmit = async (e) => {
+    e.preventDefault();
+   formsub()
+  };
+const formsub=async()=>{
+  const res = await Bridge.contact_us_form({
+    contactName: name,
+    contactEmail: email,
+    contactMessage: msg,
+  });
+  console.log(res);
+  if (res.data.status == "1") {
+    notify();
+  }
+}
   return (
     <>
       <NewWebHeader newabout={"newabout"} />
@@ -34,14 +48,16 @@ export const Contact = () => {
                           Feel Free to contact us any time. We will get back to
                           you as soon as we can!.
                         </p>
-                        <form onSubmit={notify}>
+                        <form onSubmit={formsubmit}>
                           <input
                             type="text"
                             class="form-control form-group"
                             required
                             placeholder="Name"
                             value={name}
-                            onChange={(e)=>{setName(e.target.value)}}
+                            onChange={(e) => {
+                              setName(e.target.value);
+                            }}
                           />
                           <input
                             type="email"
@@ -49,20 +65,20 @@ export const Contact = () => {
                             required
                             placeholder="Email"
                             value={email}
-                            onChange={(e)=>{setEmail(e.target.value)}}
-
-
+                            onChange={(e) => {
+                              setEmail(e.target.value);
+                            }}
                           />
                           <textarea
                             class="form-control form-group"
                             placeholder="Message"
                             required
                             value={msg}
-                            onChange={(e)=>{setMsg(e.target.value)}}
-
-
+                            onChange={(e) => {
+                              setMsg(e.target.value);
+                            }}
                           ></textarea>
-                          <input class="contact_form_submit" type="submit" />
+                          <input class="contact_form_submit " type="submit" />
                         </form>
                       </div>
                     </div>

@@ -53,6 +53,7 @@ class Homenew extends Component {
 
     document.title =
       "Venture into Innovation: Invest in Startups with Growth91";
+      document.getElementsByTagName("META")[5].content ="invest in startups invest in startups india "
 
     document.getElementsByTagName("META")[3].content =
       "Explore the potential of startup investments with Growth91. Discover opportunities & maximize your returns. Embrace the opportunity to invest in startups.";
@@ -1376,7 +1377,7 @@ class Homenew extends Component {
                           </div>
                           <div class="contents-testimonials">
                             <h3>PRAKASH ROHERA</h3>
-                            <p>INTERNATIONAL Corpoate </p>
+                            <p>INTERNATIONAL Corporate </p>
                             <p className="company-name">
                               Trainer and Coach
                             </p>

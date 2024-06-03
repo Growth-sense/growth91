@@ -96,6 +96,7 @@ class Stroom extends Component {
       escrowact: "",
       escrow_account_ifsc: "",
       agreeCheck: false,
+      Convenience:"",
       images: [
         "./assets/images/deals-details/Stroom/Pitch/1.jpg",
         "./assets/images/deals-details/Stroom/Pitch/2.jpg",
@@ -710,6 +711,12 @@ class Stroom extends Component {
       confirmmodalstatus: false,
     });
   };
+  onChangeConvenience=(e)=>{
+    this.setState({
+      [e.target.name]: e.target.checked,
+      Convenience: e.target.checked,
+    });
+  }
   onChangeCheckbox = (e) => {
     this.setState({
       [e.target.name]: e.target.checked,
@@ -1488,11 +1495,9 @@ class Stroom extends Component {
                           />
                           <span className="checkmark"></span>
                         </label>
-
-                        {/* <label className="container-check">I will deduct TDS on service charges and deposit to Income tax on time
-                      <input type="checkbox" name="deduct" onChange={this.onChangeCheckbox}  />
-                      <span className="checkmark"></span>
-                    </label> */}
+                        <label className="container-check" style={{fontSize:"10px"}}>Convenience Fee of 2% on the investment amount at the time of investment 
+and 2% on the sale proceeds at the time of exit is applicable.
+                    </label>
                       </div>
 
                       <div className="col-12">

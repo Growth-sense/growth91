@@ -2926,6 +2926,9 @@ body.search.search-results .content-area {
   .blog-section .left-side {
     margin-right: 0;
   }
+  .right_item07{
+    width: 100% !important;
+  }
 }
 @media (max-width: 767px) {
   .blog-section .left-side .card .card-body .title {

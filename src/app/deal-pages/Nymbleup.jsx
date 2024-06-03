@@ -94,6 +94,7 @@ class Stroom extends Component {
       escrowact: "",
       escrow_account_ifsc: "",
       agreeCheck: false,
+      Convenience:'',
       images: [
         "./assets/images/deals-details/Stroom/Pitch/1.jpg",
         "./assets/images/deals-details/Stroom/Pitch/2.jpg",
@@ -708,6 +709,12 @@ class Stroom extends Component {
       confirmmodalstatus: false,
     });
   };
+  onChangeConvenience=(e)=>{
+    this.setState({
+      [e.target.name]: e.target.checked,
+      Convenience: e.target.checked,
+    });
+  }
   onChangeCheckbox = (e) => {
     this.setState({
       [e.target.name]: e.target.checked,
@@ -1499,10 +1506,11 @@ class Stroom extends Component {
                           <span className="checkmark"></span>
                         </label>
 
-                        {/* <label className="container-check">I will deduct TDS on service charges and deposit to Income tax on time
-                      <input type="checkbox" name="deduct" onChange={this.onChangeCheckbox}  />
+                        <label className="container-check">Convenience Fee of 2% on the investment amount at the Ɵme of investment 
+and 2% on the sale proceeds at the Ɵme of exit is applicable.
+                      <input type="checkbox" name="deduct" onChange={this.onChangeConvenience}  />
                       <span className="checkmark"></span>
-                    </label> */}
+                    </label>
                       </div>
 
                       <div className="col-12">
@@ -1521,6 +1529,7 @@ class Stroom extends Component {
                           </button>
                         ) : (
                           <InvestmentMembershipmodal
+                          Convenience={this.state.Convenience}
                             processingfees={this.state.processingfees}
                             deal_id={this.state.deal_id}
                             membership_type={this.state.check_membership_type}

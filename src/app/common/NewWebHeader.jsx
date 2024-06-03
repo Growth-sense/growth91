@@ -926,14 +926,14 @@ class NewWebHeader extends Component {
                         </li>
 
                         <li>
-                          <Link
-                            to="/Blog"
+                          <a
+                           target="_blank" rel="noreferrer" href="https://growth91.com/blog/"
                             className={
                               window.location.pathname == "/Blog" && "active"
                             }
                           >
                             Blog
-                          </Link>
+                          </a>
                         </li>
                         {this.state.loggedinstatus == true ? (
                           ""

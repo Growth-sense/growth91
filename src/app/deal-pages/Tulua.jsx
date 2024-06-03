@@ -96,6 +96,7 @@ class Tulua extends Component {
       escrowact: "",
       escrow_account_ifsc: "",
       agreeCheck: false,
+      Convenience:'',
       images: [
         "./assets/images/deals-details/Tulua new/Pitch/1.jpg",
         "./assets/images/deals-details/Tulua new/Pitch/2.jpg",
@@ -722,6 +723,12 @@ class Tulua extends Component {
       confirmmodalstatus: false,
     });
   };
+  onChangeConvenience=(e)=>{
+    this.setState({
+      [e.target.name]: e.target.checked,
+      Convenience: e.target.checked,
+    });
+  }
   onChangeCheckbox = (e) => {
     this.setState({
       [e.target.name]: e.target.checked,
@@ -1500,10 +1507,10 @@ class Tulua extends Component {
                           <span className="checkmark"></span>
                         </label>
 
-                        {/* <label className="container-check">I will deduct TDS on service charges and deposit to Income tax on time
-                      <input type="checkbox" name="deduct" onChange={this.onChangeCheckbox}  />
-                      <span className="checkmark"></span>
-                    </label> */}
+                       
+                        <label className="container-check" style={{fontSize:"10px"}}>Convenience Fee of 2% on the investment amount at the time of investment 
+and 2% on the sale proceeds at the time of exit is applicable.
+                    </label>
                       </div>
 
                       <div className="col-12">
@@ -2047,11 +2054,11 @@ class Tulua extends Component {
                                           </div>
                                           <div className="info">
                                             <span> Min Investment</span>
-                                            <h4>₹ 307800 for CCPS</h4>
+                                            <h4>₹ 500960 for CCPS</h4>
                                           </div>
                                           <div className="info">
                                             <span>Valuation</span>
-                                            <h4>₹ 36 Cr</h4>
+                                            <h4>₹ 17 Cr</h4>
                                           </div>
                                         </div>
                                       </div>
@@ -2122,10 +2129,9 @@ class Tulua extends Component {
                                               </a> */}
                                             </div>
                                           </div>
-                                          <div className="info">
+                                         <div className="info">
                                             <span>Address</span>
-                                            <h4>
-                                            407, Neo Corporate Plaza, Extd Ramchandra Lane, Kanchp                                            </h4>
+                                            <h4>407, Neo Corporate Plaza, Extd Ramchandra Lane, Kanchpada, Malad West, Mumbai 400064</h4>
                                           </div>
                                         </div>
                                       </div>
