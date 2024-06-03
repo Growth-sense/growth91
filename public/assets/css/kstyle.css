@@ -859,6 +859,56 @@
 }
 
 @media screen and (max-width: 767px) {
+    .join-flex-one-us .index_pitch {
+        width: 100%;
+        margin: 14px auto;
+        text-align: justify !important;
+        font-size: 12px !important;
+    }
+    .join-flex-one-us {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        width: 60%;
+    }
+    .join-flex-one-us h2 {
+        text-align: left;
+        font-size: 19px !important;
+        line-height: 28px !important;
+    }
+    .join-divide .index-button-1 a {
+        padding: 14px 22px !important;
+        color: #fff;
+        /* width: 100%; */
+        border-radius: 56px !important;
+        font-size: 12px !important;
+        display: inline-block;
+        -webkit-transition: all .3s ease-in-out;
+        -moz-transition: all .3s ease-in-out;
+        transition: all .3s ease-in-out;
+        letter-spacing: normal;
+        font-weight: 400;
+        line-height: 1;
+        text-transform: capitalize;
+        cursor: pointer;
+        background-color: rgb(41, 23, 111);
+    }
+    .join-divide .index-button-1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30%;
+    }
+    .join-divide {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .join-flex-one-us h2 {
+        text-align: left;
+        font-size: 17px;
+        line-height: 26px;
+    }
     .accordion-item .accordion-body {
         color: grey;
         text-align: justify;
@@ -2432,6 +2482,19 @@ transition: max-height 0.45s ease-in; */
 }
 
 @media screen and (min-width:993px) and (max-width:1200px) {
+    .join-flex-one-us {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        width: 55%;
+    }
+    .join-divide .index-button-1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 45%;
+    }
+    
     .new .main-header .main-navbar .nav-inner {
         display: flex;
         justify-content: space-between;
@@ -2623,6 +2686,20 @@ transition: max-height 0.45s ease-in; */
 }
 
 @media screen and (min-width:768px) and (max-width:992px) {
+    .join-flex-one-us {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        width: 55%;
+    }
+    .join-divide .index-button-1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 45%;
+    }
+    
+    
     .new .main-header .main-navbar .nav-inner ul li a {
         display: block;
         line-height: 60px;
@@ -4323,4 +4400,44 @@ transition: max-height 0.45s ease-in; */
     {
         bottom: -40px !important;
     }
+}
+.join-divide{
+    display: flex;
+    justify-content: space-around;
+}
+.join-flex-one-us{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.join-flex-one-us h2{
+    text-align: left;
+}
+.join-flex-one-us .index_pitch {
+    width: 100%;
+    margin: 14px auto;
+    text-align: left;
+    font-size: 18px;
+}
+.join-divide .index-button-1  a{
+    padding: 23px 50px;
+    color: #fff;
+    border-radius: 56px;
+    font-size: 1rem;
+    display: inline-block;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    letter-spacing: normal;
+    font-weight: 400;
+    line-height: 1;
+    text-transform: capitalize;
+    cursor: pointer;
+    background-color: rgb(41, 23, 111);
+}
+.join-divide .index-button-1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }

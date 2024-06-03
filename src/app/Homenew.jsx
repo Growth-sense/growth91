@@ -403,7 +403,7 @@ class Homenew extends Component {
       speed: 2000,
       slidesToShow: 3,
       slidesToScroll: 1,
-      autoplaySpeed: 3000,
+      autoplaySpeed: 5000,
       autoplay: true,
       pauseOnHover: false,
       className: "test",
@@ -417,7 +417,7 @@ class Homenew extends Component {
           breakpoint: 1200,
           settings: {
             slidesToShow: 2,
-            
+
             slidesToScroll: 1,
           },
         },
@@ -426,7 +426,7 @@ class Homenew extends Component {
           settings: {
             slidesToShow: 1,
             slidesToScroll: 1,
-          
+
           },
         },
         {
@@ -434,7 +434,7 @@ class Homenew extends Component {
           settings: {
             arrows: false,
             slidesToShow: 1,
-           
+
             speed: 1000,
             autoplaySpeed: 5000,
 
@@ -453,7 +453,7 @@ class Homenew extends Component {
             slidesToScroll: 1,
 
             cssEase: "linear",
-            
+
           },
         },
       ],
@@ -1540,9 +1540,25 @@ class Homenew extends Component {
         </section>
 
         <section class="custom-section">
+          <div class="join-section join-sec-yellow join-sec-white undefined join-divide">
+            {/* <h4>Join us</h4> */}
+            <div className="join-flex-one-us">
+              <h2>Partner with Us to Identify High-Potential Growth Businesses</h2>
+              <p class="index_pitch">
+              Decades of banking, investing & startup success guide your investments. Invest confidently with us.
+                            </p>
+            </div>
+            <div class="index-button-1">
+              <Link to="/Deals" style={{ color: "white" }}>
+                Join Us
+              </Link>
+            </div>
+          </div>
+        </section>
+        {/* <section class="custom-section">
           <div class="join-section join-sec-yellow join-sec-white undefined">
             <h4>Join us</h4>
-            <h2>Invest in Promising Startups with Us</h2>
+            <h2>Partner with Us to Identify High-Potential Growth Businesses</h2>
             <p class="index_pitch">
               Experience unparalleled expertise in startup investments with us.
               With over half a decade of rich experience, we've made our mark in
@@ -1554,7 +1570,7 @@ class Homenew extends Component {
               </Link>
             </div>
           </div>
-        </section>
+        </section> */}
         <div class={`social-widjet ${isActivemsg ? ("social-open") : ("")}`}>
           <div class="widjet-link">
             <div class="whatsapp " onClick={this.togglemsg} style={{ backgroundColor: "#29176f" }}>
