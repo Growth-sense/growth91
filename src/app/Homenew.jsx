@@ -53,6 +53,7 @@ class Homenew extends Component {
 
     document.title =
       "Venture into Innovation: Invest in Startups with Growth91";
+      document.getElementsByTagName("META")[5].content ="invest in startups invest in startups india "
 
     document.getElementsByTagName("META")[3].content =
       "Explore the potential of startup investments with Growth91. Discover opportunities & maximize your returns. Embrace the opportunity to invest in startups.";
@@ -66,6 +67,7 @@ class Homenew extends Component {
     }));
   };
   componentDidMount() {
+    window.scrollTo(0, 0)
     this.handleScroll(); // Call initially to check visibility
     window.addEventListener("scroll", this.handleScroll);
 
@@ -299,7 +301,7 @@ class Homenew extends Component {
       autoplaySpeed: 5000,
       fade: true,
 
-      autoplay: false,
+      autoplay: true,
       pauseOnHover: false,
       cssEase: "linear",
       prevArrow: <SimplePrevArrow />,
@@ -552,56 +554,7 @@ class Homenew extends Component {
               <div class="row banner-row">
                 <div class="banner-sliding">
                   <Slider {...sliderSettings}>
-                    <div class="left-content">
-                      <div class="d-flex-banner banner1 fadding-bottom">
-                        <div class="banner-part banner-slidingpart">
-                          <h2 class="">
-                            Private market <br /> investing made easy
-                          </h2>
-                          <p class=" p-0" data-wow-delay="0.5s">
-                            RAISE FUND. INVEST IN STARTUPS. DRIVE GROWTH
-                          </p>
-                          <div className="banner-mobile-img d-sm-none">
-                            <img
-                              src="./assets/images/profits.png"
-                              alt="startup ecosystem"
-                            />
-                          </div>
-                          <form
-                            class="input_box input-box-new banner-btns "
-                            data-wow-delay="0.7s"
-                            style={{
-                              visibility: "visible",
-                              animationDelay: "0.7s",
-                              animationName: "fadeInUp",
-                            }}
-                          >
-                            <div class="form-wraper new-form-wrapper">
-                              <Link
-                                to={
-                                  this.state.loggedinstatus == true
-                                    ? "/deals"
-                                    : "/signup"
-                                }
-                                class="white-btns"
-                                type=""
-                              >
-                                Explore Deals{" "}
-                                {this.state.loggedinstatus == true
-                                  ? ""
-                                  : "(Signup)"}
-                              </Link>
-                            </div>
-                          </form>
-                        </div>
-                        <div class="img-banner-part">
-                          <img
-                            src="./assets/images/profits.png"
-                            alt="startup ecosystem"
-                          />
-                        </div>
-                      </div>
-                    </div>
+                   
                     <div class="left-content">
                       <div class="d-flex-banner fadding-bottom">
                         <div class="banner-part banner-slidingpart">
@@ -726,6 +679,56 @@ class Homenew extends Component {
                             loading="lazy"
                             id="w-node-f39cfbdd-9e8a-b68e-331a-6ae7eed950dd-6f7bf169"
                             alt=""
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="left-content">
+                      <div class="d-flex-banner banner1 fadding-bottom">
+                        <div class="banner-part banner-slidingpart">
+                          <h2 class="">
+                            Private market <br /> investing made easy
+                          </h2>
+                          <p class=" p-0" data-wow-delay="0.5s">
+                            RAISE FUND. INVEST IN STARTUPS. DRIVE GROWTH
+                          </p>
+                          <div className="banner-mobile-img d-sm-none">
+                            <img
+                              src="./assets/images/profits.png"
+                              alt="startup ecosystem"
+                            />
+                          </div>
+                          <form
+                            class="input_box input-box-new banner-btns "
+                            data-wow-delay="0.7s"
+                            style={{
+                              visibility: "visible",
+                              animationDelay: "0.7s",
+                              animationName: "fadeInUp",
+                            }}
+                          >
+                            <div class="form-wraper new-form-wrapper">
+                              <Link
+                                to={
+                                  this.state.loggedinstatus == true
+                                    ? "/deals"
+                                    : "/deals"
+                                }
+                                class="white-btns"
+                                type=""
+                              >
+                                Explore Deals{" "}
+                                {this.state.loggedinstatus == true
+                                  ? ""
+                                  : "(Signup)"}
+                              </Link>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="img-banner-part">
+                          <img
+                            src="./assets/images/profits.png"
+                            alt="startup ecosystem"
                           />
                         </div>
                       </div>
@@ -1376,7 +1379,7 @@ class Homenew extends Component {
                           </div>
                           <div class="contents-testimonials">
                             <h3>PRAKASH ROHERA</h3>
-                            <p>INTERNATIONAL Corpoate </p>
+                            <p>INTERNATIONAL Corporate </p>
                             <p className="company-name">
                               Trainer and Coach
                             </p>

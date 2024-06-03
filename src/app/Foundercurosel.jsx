@@ -89,7 +89,7 @@ export const Foundercurosel = () => {
       </div>
       </div>
         </section>
-        <section
+        {/* <section
           className="testimonials-section t_mobile"
           style={{
             textAlign: "justify",
@@ -402,7 +402,7 @@ export const Foundercurosel = () => {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
     </div>
   );

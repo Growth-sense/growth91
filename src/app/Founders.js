@@ -40,6 +40,7 @@ class Founders extends Component {
     })
   }
   componentDidMount() {
+    window.scrollTo(0, 0)
     if (localStorage.getItem("investor_id")) {
       console.log("asd");
     } else if (localStorage.getItem("founder_id")) {
@@ -123,7 +124,7 @@ class Founders extends Component {
                           {localStorage.getItem("investor_id") ? (
                             <div className="theme-btn">
                               <a
-                                href="/Deals "
+                                href="/founder-registration"
                                 className="theme-btn "
                                 type="button"
                               >
@@ -132,7 +133,7 @@ class Founders extends Component {
                             </div>
                           ) : (
                             <a
-                              href="/founder-registration "
+                              href="/founder-registration"
                               className="theme-btn "
                               type="button"
                             >

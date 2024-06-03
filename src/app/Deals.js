@@ -10,6 +10,7 @@ import moment from "moment";
 import ReactGA from "react-ga4";
 import { TRACKING_ID } from "./constants/data";
 import NewWebHeader from "./common/NewWebHeader";
+import { NewWebFooter } from "./common/NewWebFooter";
 ReactGA.initialize(TRACKING_ID);
 const { Option } = Select;
 const { TabPane } = Tabs;
@@ -35,6 +36,7 @@ class Deals extends Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0)
     // console.log('invetor_id',localStorage.getItem('investor_id'));
     if (localStorage.getItem("investor_id")) {
       this.setState(
@@ -1110,7 +1112,7 @@ Compulsorily Convertible Preference Shares (CCPS) is a type of equity instrument
             </div>
           </div>
         )}
-        <WebFooter />
+        <NewWebFooter />
       </div>
     );
   }
