@@ -7,6 +7,10 @@ import { NewWebFooter } from "./common/NewWebFooter";
 import NewWebHeader from "./common/NewWebHeader";
 
 class Howitworks extends Component {
+  componentDidMount() {
+    window.scrollTo(0, 0)
+
+  }
   componentWillMount() {
     document.getElementsByTagName("META")[4].content =
       "Growth91 Investing FAQs: How it Works!";
@@ -250,7 +254,7 @@ class Howitworks extends Component {
                   </div>
                 </div>
               </div>
-              <div className="col-lg-12 col-sm-12 col-md-12 d-lg-flex justify-content-lg-center">
+              <div className="col-lg-12 col-sm-12 col-md-12 d-lg-flex justify-content-lg-center"  id="fee">
                 <div
                   className="item right_item right_item07"
                   style={{
@@ -1020,7 +1024,7 @@ class Howitworks extends Component {
           </div>
         </section>
 
-        <section className="pricing-section hiw-li" id="fee">
+        <section className="pricing-section hiw-li">
           <div className="container">
             <div className="heading-title">
               <h6>

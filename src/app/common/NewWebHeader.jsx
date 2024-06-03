@@ -874,7 +874,7 @@ class NewWebHeader extends Component {
                               window.location.pathname == "/" && "active"
                             }
                           >
-                            Invest
+                            Home
                           </Link>
                         </li>
                         <li>
@@ -897,7 +897,7 @@ class NewWebHeader extends Component {
                                 "active"
                             }
                           >
-                            Pitch
+                            Founders
                           </a>
                         </li>
 
@@ -927,7 +927,7 @@ class NewWebHeader extends Component {
 
                         <li>
                           <a
-                           target="_blank" rel="noreferrer" href="https://growth91.com/blog/"
+                            rel="noreferrer" href="https://growth91.com/blog/"
                             className={
                               window.location.pathname == "/Blog" && "active"
                             }

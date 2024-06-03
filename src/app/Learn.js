@@ -126,7 +126,7 @@ class Learn extends Component {
                       Stay up to date with what’s brewing in the startup <br />{" "}
                       ecosystem
                     </p>
-                    <a target="_blank" rel="noreferrer" href="https://growth91.com/blog/">Know more</a>
+                    <a  rel="noreferrer" href="https://growth91.com/blog/">Know more</a>
                   </div>
                 </div>
               </div>

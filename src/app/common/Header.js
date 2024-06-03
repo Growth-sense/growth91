@@ -613,7 +613,7 @@ class Header extends Component {
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
                   <li className="nav-item">
                     <a className="nav-link" href="/">
-                      Invest
+                      Home
                     </a>
                   </li>
                   <li className="nav-item">
@@ -623,7 +623,7 @@ class Header extends Component {
                   </li>
                   <li className="nav-item">
                     <a className="nav-link" href="/Founders">
-                      Pitch
+                    Founders
                     </a>
                   </li>
                   <li className="nav-item">
@@ -637,7 +637,7 @@ class Header extends Component {
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" target="_blank" rel="noreferrer" href="https://growth91.com/blog/">
+                    <a className="nav-link"  rel="noreferrer" href="https://growth91.com/blog/">
                      Blog
                     </a>
                   </li>

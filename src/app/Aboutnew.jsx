@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NewWebFooter } from './common/NewWebFooter'
 import Slider from 'react-slick'
 import NewWebHeader from "./common/NewWebHeader.jsx";
@@ -6,6 +6,10 @@ import $ from "jquery";
 import { Link } from 'react-router-dom';
 
 export const Aboutnew = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+    
     $(window).scroll(function() {
         if ($(this).scrollTop() > 30) {
           $('body').addClass('newClass');

@@ -36,6 +36,7 @@ class Deals extends Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0)
     // console.log('invetor_id',localStorage.getItem('investor_id'));
     if (localStorage.getItem("investor_id")) {
       this.setState(
