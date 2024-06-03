@@ -776,13 +776,7 @@ class Homenew extends Component {
                       srcset=""
                     />
                   </div>
-                  <div class="client-logo">
-                    <img
-                      src="./assets/images/deal-images/DcodeCare/logo.jpg"
-                      alt="img"
-                      srcset=""
-                    />
-                  </div>
+                  
                   <div class="client-logo">
                     <img
                       src="./assets/images/deal-images/EcoRatings/logo.png"
@@ -847,13 +841,7 @@ class Homenew extends Component {
                       srcset=""
                     />
                   </div>
-                  <div class="client-logo">
-                    <img
-                      src="./assets/images/deal-images/ORAI/logo.jpg"
-                      alt="img"
-                      srcset=""
-                    />
-                  </div>
+                 
                   <div class="client-logo">
                     <img
                       src="./assets/images/deal-images/Petmojo/logo.jpg"

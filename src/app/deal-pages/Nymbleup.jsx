@@ -20,10 +20,12 @@ import Apis from "../constants/Apis";
 import moment from "moment";
 import Bridge from "../constants/Bridge";
 import InvestmentMembershipmodal from "../components/membership/InvestmentMembershipmodal";
+import { NewWebFooter } from "../common/NewWebFooter";
+import NewWebHeader from "../common/NewWebHeader";
 
 const { Panel } = Collapse;
 const { TabPane } = Tabs;
-class Stroom extends Component {
+class Nymbleup extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -94,23 +96,22 @@ class Stroom extends Component {
       escrowact: "",
       escrow_account_ifsc: "",
       agreeCheck: false,
-      Convenience:'',
+      Convenience: "",
       images: [
-        "./assets/images/deals-details/Stroom/Pitch/1.jpg",
-        "./assets/images/deals-details/Stroom/Pitch/2.jpg",
-        "./assets/images/deals-details/Stroom/Pitch/3.jpg",
-        "./assets/images/deals-details/Stroom/Pitch/4.jpg",
-        "./assets/images/deals-details/Stroom/Pitch/5.jpg",
-        "./assets/images/deals-details/Stroom/Pitch/6.jpg",
-        "./assets/images/deals-details/Stroom/Pitch/7.jpg",
-        "./assets/images/deals-details/Stroom/Pitch/8.jpg",
-        "./assets/images/deals-details/Stroom/Pitch/9.jpg",
-        "./assets/images/deals-details/Stroom/Pitch/10.jpg",
-        "./assets/images/deals-details/Stroom/Pitch/11.jpg",
-        "./assets/images/deals-details/Stroom/Pitch/12.jpg",
-        "./assets/images/deals-details/Stroom/Pitch/13.jpg",
-        "./assets/images/deals-details/Stroom/Pitch/14.jpg",
-        "./assets/images/deals-details/Stroom/Pitch/15.jpg",
+        "./assets/images/deals-details/Nymbleup/Pitch/1.jpg",
+        "./assets/images/deals-details/Nymbleup/Pitch/2.jpg",
+        "./assets/images/deals-details/Nymbleup/Pitch/3.jpg",
+        "./assets/images/deals-details/Nymbleup/Pitch/4.jpg",
+        "./assets/images/deals-details/Nymbleup/Pitch/5.jpg",
+        "./assets/images/deals-details/Nymbleup/Pitch/6.jpg",
+        "./assets/images/deals-details/Nymbleup/Pitch/7.jpg",
+        "./assets/images/deals-details/Nymbleup/Pitch/8.jpg",
+        "./assets/images/deals-details/Nymbleup/Pitch/9.jpg",
+        "./assets/images/deals-details/Nymbleup/Pitch/10.jpg",
+        "./assets/images/deals-details/Nymbleup/Pitch/11.jpg",
+        "./assets/images/deals-details/Nymbleup/Pitch/12.jpg",
+        "./assets/images/deals-details/Nymbleup/Pitch/13.jpg",
+        "./assets/images/deals-details/Nymbleup/Pitch/14.jpg",
       ],
       current: "",
     };
@@ -709,12 +710,12 @@ class Stroom extends Component {
       confirmmodalstatus: false,
     });
   };
-  onChangeConvenience=(e)=>{
+  onChangeConvenience = (e) => {
     this.setState({
       [e.target.name]: e.target.checked,
       Convenience: e.target.checked,
     });
-  }
+  };
   onChangeCheckbox = (e) => {
     this.setState({
       [e.target.name]: e.target.checked,
@@ -1120,7 +1121,7 @@ class Stroom extends Component {
       <>
         {this.state.is_deal_visible == true ? (
           <div style={{ display: this.state.show_data }}>
-            <WebHeader />
+            <NewWebHeader newabout={"newabout"} />
             <section
               className="deals-details-page"
               style={{ marginBottom: "-50px" }}
@@ -1185,7 +1186,7 @@ class Stroom extends Component {
                         offers a comprehensive platform that includes demand
                         forecasting, scheduling, digital checklists, task
                         management, and store audits, simplifying operations and
-                        ensuring compliance with brand and statutory guidelines.{" "}
+                        ensuring compliance with brand and statutory guidelines.
                       </p>
                       <div className=" percentage-container">
                         <div className="percentage-values">
@@ -1506,11 +1507,14 @@ class Stroom extends Component {
                           <span className="checkmark"></span>
                         </label>
 
-                        <label className="container-check">Convenience Fee of 2% on the investment amount at the Ɵme of investment 
-and 2% on the sale proceeds at the Ɵme of exit is applicable.
-                      <input type="checkbox" name="deduct" onChange={this.onChangeConvenience}  />
-                      <span className="checkmark"></span>
-                    </label>
+                        <label
+                          className="container-check"
+                          style={{ fontSize: "10px" }}
+                        >
+                          Convenience Fee of 2% on the investment amount at the
+                          time of investment and 2% on the sale proceeds at the
+                          time of exit is applicable.
+                        </label>
                       </div>
 
                       <div className="col-12">
@@ -1529,7 +1533,6 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                           </button>
                         ) : (
                           <InvestmentMembershipmodal
-                          Convenience={this.state.Convenience}
                             processingfees={this.state.processingfees}
                             deal_id={this.state.deal_id}
                             membership_type={this.state.check_membership_type}
@@ -1602,21 +1605,20 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                     </div>
                   </Modal>
                   <div className="col-lg-7 deal-banner deals-video-banner">
-                    {/* <iframe
+                    <iframe
                       style={{
                         boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
                         borderRadius: 3,
                         // marginLeft: 65,
                       }}
-                      
                       width="100%"
                       height="335"
-                      src="https://www.youtube.com/embed/qO9OwtsfOLw"
-                      title="Stroom Presentation video"
+                      src="https://www.youtube.com/embed/rZcjPWcUTkI"
+                      title="Nymbleup Startup Introduction video"
                       frameborder="10"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowfullscreen
-                    ></iframe> */}
+                    ></iframe>
                   </div>
                   {/* Market Overview */}
                   <div
@@ -1657,7 +1659,7 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                                 fontWeight: "800",
                               }}
                             >
-                              Market Size:
+                              Market size :
                             </span>{" "}
                             The AI-based predictive workforce management market
                             is experiencing robust growth. In 2023, the global
@@ -1672,7 +1674,7 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                             efficiency. By predicting demand accurately,
                             businesses can ensure they have the right number of
                             staff at the right times, enhancing the customer
-                            experience and improving service levels
+                            experience and improving service levels{" "}
                           </p>
                         </div>
                       </div>
@@ -1700,7 +1702,6 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                                 fontWeight: "800",
                               }}
                             >
-                              {" "}
                               Technological Advancements:
                             </span>{" "}
                             AI and Machine Learning tools which use advanced
@@ -1712,7 +1713,7 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                             workforce management. Real-Time Forecasting
                             solutions capable of predicting demand at regular
                             intervals are becoming increasingly popular,
-                            allowing for more granular and responsive management
+                            allowing for more granular and responsive management{" "}
                           </p>
                         </div>
                       </div>
@@ -1741,7 +1742,7 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                                 fontWeight: "800",
                               }}
                             >
-                              Applications:{" "}
+                              Applications:
                             </span>{" "}
                             Retailers use predictive workforce management to
                             align staffing levels with fluctuating customer
@@ -1751,7 +1752,7 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                             and seasonal trends. Hospitals and clinics utilize
                             AI-driven forecasts to manage nurse and doctor
                             schedules, ensuring adequate staffing during peak
-                            times without overstaffing during lull
+                            times without overstaffing during lull{" "}
                           </p>
                         </div>
                       </div>
@@ -1775,7 +1776,25 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                     <h1 style={{ fontSize: "2rem", marginBottom: "30px" }}>
                       Highlights
                     </h1>
+
                     <div className="row highlight-rows">
+                      <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
+                        <div
+                          className="single  oraihighlight text-left"
+                          style={{}}
+                        >
+                          <div className="hightlights-images">
+                            <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
+                          </div>
+                          <p style={{ paddingLeft: "0px !important" }}>
+                            NymbleUp provides a single platform for demand
+                            forecasting, scheduling, digital checklists, task
+                            management, and store audits. This integration
+                            simplifies operations and enhances compliance with
+                            brand and statutory guidelines.{" "}
+                          </p>
+                        </div>
+                      </div>
                       <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
                         <div
                           className="single oraihighlight text-left"
@@ -1785,8 +1804,10 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                             <img src="./assets/images/deals-details/Petmojo/highlight01.jpg" />
                           </div>
                           <p style={{ padding: "1px !important" }}>
-                           
-                            NymbleUp provides a single platform for demand forecasting, scheduling, digital checklists, task management, and store audits. This integration simplifies operations and enhances compliance with brand and statutory guidelines.
+                            With clients including major brands like Starbucks,
+                            McDonald's, KFC, and Burger King, NymbleUp has
+                            demonstrated strong product-market fit and achieved
+                            100% client retention.
                           </p>
                         </div>
                       </div>
@@ -1799,7 +1820,11 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                             <img src="./assets/images/deals-details/highlight2.jfif" />
                           </div>
                           <p style={{ padding: "0px !important" }}>
-                          With clients including major brands like Starbucks, McDonald's, KFC, and Burger King, NymbleUp has demonstrated strong product-market fit and achieved 100% client retention.
+                            Nymbleup Grew from 700 to 2800 locations within nine
+                            months, demonstrating strong market demand as well
+                            as scalability and Tripled Monthly Recurring Revenue
+                            (MRR) in 12 months, reflecting successful market
+                            penetration and financial performance.{" "}
                           </p>
                         </div>
                       </div>
@@ -1812,30 +1837,145 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                             <img src="./assets/images/deals-details/highlight3.jpg" />
                           </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                          Nymbleup Grew from 700 to 2800 locations within nine months, demonstrating strong market demand as well as scalability and Tripled Monthly Recurring Revenue (MRR) in 12 months, reflecting successful market penetration and financial performance.
+                            Operates with a gross margin of 80%, underscoring
+                            the profitability and efficiency of their business
+                            model. Achieved EBITDA positivity with an Annual
+                            Recurring Revenue (ARR) of INR 3.1 crore, showcasing
+                            effective cost management and sustainable business
+                            growth.{" "}
                           </p>
                         </div>
                       </div>
-                      <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
-                        <div
-                          className="single oraihighlight text-left"
-                          style={{}}
-                        >
-                          <div className="hightlights-images">
-                            <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
-                          </div>
-                          <p style={{ paddingLeft: "0px !important" }}>
-                          Operates with a gross margin of 80%, underscoring the profitability and efficiency of their business model. Achieved EBITDA positivity with an Annual Recurring Revenue (ARR) of INR 3.1 crore, showcasing effective cost management and sustainable business growth.
-                          </p>
-                        </div>
-                      </div>
-                     
                     </div>
                   </div>
 
                   {/* media */}
                 </div>
               </div>
+              <section
+                className="deals-details-page"
+                style={{ marginBottom: "-50px" }}
+              >
+                <div>
+                  <div>
+                    {/* media */}
+                    {/* 
+                    <div
+                      className="container highlight-section"
+                      style={{
+                        marginBottom: "-80px !important",
+                        padding: "0px !important",
+                      }}
+                    >
+                      <h1 style={{ fontSize: "2rem", marginBottom: "30px" }}>
+                        Media Coverage
+                      </h1>
+                      <div className="row">
+                        <div className="col-lg-6 col-md-6 col-sm-6">
+                          <div className="single medialink text-left d-flex flex-column  ">
+                            <img src="./assets/images/deals-details/Nymbleup/Articles/1.png" />
+
+                            <p style={{ padding: "1px !important" }}>
+                              Tulua Simplifying Indian Cooking With Foray Into
+                              India Spice Market{" "}
+                              <a
+                                href="https://yourstory.com/smbstory/from-a-ready-to-cook-brand-to-launching-spices-how-tulua-simplify-indian-cooking"
+                                target="_blank"
+                              >
+                                {" "}
+                                Readmore
+                              </a>
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="col-lg-6 col-md-6 col-sm-6">
+                          <div className="single medialink text-left d-flex flex-column  ">
+                            <img src="./assets/images/deals-details/Nymbleup/Articles/2.jpg" />
+                            <p style={{ padding: "1px !important" }}>
+                              Tulua launches aromatic line of spices
+                              highlighting the true Indian flavour
+                              <a
+                                href="https://www.aninews.in/news/business/business/tulua-launches-aromatic-line-of-spices-highlighting-the-true-indian-flavour20230809163343/#google_vignette"
+                                target="_blank"
+                              >
+                                {" "}
+                                Readmore
+                              </a>
+                            </p>
+                          </div>
+                        </div>
+                        <div className="col-lg-6 col-md-6 col-sm-6">
+                          <div className="single medialink text-left d-flex flex-column  ">
+                            <img src="./assets/images/deals-details/Nymbleup/Articles/2.jpg" />
+                            <p style={{ padding: "1px !important" }}>
+                              Tulua launches aromatic line of spices
+                              highlighting the true Indian flavour{" "}
+                              <a
+                                href="https://www.business-standard.com/content/press-releases-ani/tulua-launches-aromatic-line-of-spices-highlighting-the-true-indian-flavour-123080900618_1.html"
+                                target="_blank"
+                              >
+                                Readmore
+                              </a>
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="col-lg-6 col-md-6 col-sm-6">
+                          <div className="single medialink text-left d-flex flex-column  ">
+                            <img src="./assets/images/deals-details/Nymbleup/Articles/4.jpg" />
+                            <p style={{ padding: "1px !important" }}>
+                              Raksha Bandhan 2023: What to buy for someone who
+                              cannot think beyond
+                              <a
+                                href="https://recipes.timesofindia.com/articles/trending/raksha-bandhan-2023-what-to-buy-for-someone-who-cannot-think-beyond-food/articleshow/103091174.cms"
+                                target="_blank"
+                              >
+                                {" "}
+                                Readmore
+                              </a>
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="col-lg-6 col-md-6 col-sm-6">
+                          <div className="single medialink text-left d-flex flex-column  ">
+                            <img src="./assets/images/deals-details/Nymbleup/Articles/5.jpg" />
+                            <p style={{ padding: "1px !important" }}>
+                              Tulua Introduces Aromatic Line of Spices
+                              <a
+                                href="https://www.indianretailer.com/restaurant/news/tulua-introduces-aromatic-line-of-spices.n21176"
+                                target="_blank"
+                              >
+                                {" "}
+                                Readmore
+                              </a>
+                            </p>
+                          </div>
+                        </div>
+                        <div className="col-lg-6 col-md-6 col-sm-6">
+                          <div className="single medialink text-left d-flex flex-column  ">
+                            <img src="./assets/images/deals-details/Nymbleup/Articles/6.jpg" />
+                            <p style={{ padding: "1px !important" }}>
+                              Tulua to work in tandem with chefs to create
+                              customised blended spices
+                              <a
+                                href="https://hospitality.economictimes.indiatimes.com/news/operations/food-and-beverages/tulua-to-work-in-tandem-with-chefs-to-create-customised-blended-spices/103919395"
+                                target="_blank"
+                              >
+                                {" "}
+                                Readmore
+                              </a>
+                            </p>
+                          </div>
+                        </div>
+
+                    
+                      </div>
+                    </div> */}
+                  </div>
+                </div>
+              </section>
             </section>
             <div className="deals-page">
               <div className="tab-wrapper">
@@ -1943,12 +2083,11 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                                           </div>
                                           <div className="info">
                                             <span> Min Investment</span>
-                                            <h4>₹ 200250 for CCPS</h4>
+                                            <h4>₹ 500960 for CCPS</h4>
                                           </div>
                                           <div className="info">
                                             <span>Valuation</span>
-                                            <h4>₹ 8 Cr Floor</h4>
-                                            <h4>₹ 15 Cr Cap</h4>
+                                            <h4>₹ 17 Cr</h4>
                                           </div>
                                         </div>
                                       </div>
@@ -1972,13 +2111,12 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                                           <div className="info">
                                             <span>Legal Name</span>
                                             <h4>
-                                              Drips Foods Private Limited
-                                              (Stroom){" "}
+                                              NymbleUp Solutions Private Limited
                                             </h4>
                                           </div>
                                           <div className="info">
                                             <span>Founded</span>
-                                            <h4>4/27/2022</h4>
+                                            <h4>5/1/2019</h4>
                                           </div>
                                           <div className="info">
                                             <span>Status</span>
@@ -1986,7 +2124,7 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                                           </div>
                                           <div className="info">
                                             <span>Employees</span>
-                                            <h4>17</h4>
+                                            <h4>13</h4>
                                           </div>
                                           <div className="info">
                                             <span>Website</span>
@@ -1995,10 +2133,10 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                                                 style={{
                                                   color: "rgb(7, 211, 252)",
                                                 }}
-                                                href="https://www.stroom.in"
+                                                href="https://www.nymbleup.com"
                                                 target="_blank"
                                               >
-                                                www.stroom.in
+                                                www.nymbleup.com
                                               </a>
                                             </h4>
                                           </div>
@@ -2008,12 +2146,12 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                                               {/* <a href="https://www.facebook.com/theelefantofficial">
                                                 <i className="bx bxl-facebook fs-19"></i>
                                               </a> */}
-                                              <a href="https://www.linkedin.com/company/stroomin">
+                                              <a href="https://www.linkedin.com/company/76845127/admin/feed/posts/">
                                                 <i className="bx bxl-linkedin fs-19"></i>
                                               </a>
-                                              <a href="https://www.instagram.com/stroom.in">
+                                              {/* <a href="https://www.instagram.com/eattulua">
                                                 <i className="bx bxl-instagram fs-19"></i>
-                                              </a>
+                                              </a> */}
                                               {/*
                                               <a href="https://www.youtube.com/@theEleFant">
                                                 <i className="bx bxl-youtube fs-19"></i>
@@ -2023,9 +2161,8 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                                           <div className="info">
                                             <span>Address</span>
                                             <h4>
-                                              73/A-B Sopan Kesar Industrial Hub,
-                                              Bh. Sarovday hotel, Changodar,
-                                              Moraiya, Ahmedabad Gujarat 382213
+                                              B 301, Mayuresh Park, Lake Road,
+                                              Bhandup, 400078
                                             </h4>
                                           </div>
                                         </div>
@@ -2349,7 +2486,27 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                                                           color: "#7f7776",
                                                         }}
                                                       >
-                                                       NymbleUp operates on a Software as a Service (SaaS) model. Their offerings include a comprehensive platform that provides AI-powered predictive workforce scheduling, demand forecasting, task management, and store audits. This product-based approach allows customers to leverage advanced technology to optimize their workforce and operational efficiency with minimal involvement, ensuring a plug-and-play experience.
+                                                        NymbleUp operates on a
+                                                        Software as a Service
+                                                        (SaaS) model. Their
+                                                        offerings include a
+                                                        comprehensive platform
+                                                        that provides AI-powered
+                                                        predictive workforce
+                                                        scheduling, demand
+                                                        forecasting, task
+                                                        management, and store
+                                                        audits. This
+                                                        product-based approach
+                                                        allows customers to
+                                                        leverage advanced
+                                                        technology to optimize
+                                                        their workforce and
+                                                        operational efficiency
+                                                        with minimal
+                                                        involvement, ensuring a
+                                                        plug-and-play
+                                                        experience.{" "}
                                                       </p>
                                                     </div>
                                                   </Panel>
@@ -2368,7 +2525,44 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                                                           color: "#7f7776",
                                                         }}
                                                       >
-                                                       NymbleUp faces several challenges as it scales up, including the need for seamless integration with major POS and HRMS solutions, maintaining high client retention, managing rapid growth, and differentiating from established competitors. To address these, NymbleUp will develop robust APIs and form global partnerships for effective integration, invest in advanced AI-driven customer support tools for enhanced client satisfaction, implement scalable cloud infrastructure and automate key processes to handle increased operational load, and continue innovating its product offerings to include unique features like AI-driven forecasting and comprehensive task management. Additionally, competitive pricing and superior customer service will help NymbleUp stand out in the crowded market.
+                                                        NymbleUp faces several
+                                                        challenges as it scales
+                                                        up, including the need
+                                                        for seamless integration
+                                                        with major POS and HRMS
+                                                        solutions, maintaining
+                                                        high client retention,
+                                                        managing rapid growth,
+                                                        and differentiating from
+                                                        established competitors.
+                                                        To address these,
+                                                        NymbleUp will develop
+                                                        robust APIs and form
+                                                        global partnerships for
+                                                        effective integration,
+                                                        invest in advanced
+                                                        AI-driven customer
+                                                        support tools for
+                                                        enhanced client
+                                                        satisfaction, implement
+                                                        scalable cloud
+                                                        infrastructure and
+                                                        automate key processes
+                                                        to handle increased
+                                                        operational load, and
+                                                        continue innovating its
+                                                        product offerings to
+                                                        include unique features
+                                                        like AI-driven
+                                                        forecasting and
+                                                        comprehensive task
+                                                        management.
+                                                        Additionally,
+                                                        competitive pricing and
+                                                        superior customer
+                                                        service will help
+                                                        NymbleUp stand out in
+                                                        the crowded market.
                                                       </p>
                                                     </div>
                                                   </Panel>
@@ -2388,7 +2582,55 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                                                           color: "#7f7776",
                                                         }}
                                                       >
-                                                       Yes, NymbleUp is targeting new untapped markets, driven by its innovative approach to workforce scheduling and demand forecasting. By automating scheduling processes through AI and multi-objective linear programming, NymbleUp addresses a significant gap in the market for accurate and efficient scheduling solutions, particularly in sectors reliant on manual or partially automated tools. Furthermore, NymbleUp's integration of emerging technologies like IoT and computer vision for automating auditing processes in retail expands its market potential beyond traditional retail sectors. Additionally, NymbleUp sees opportunities for expansion into industries beyond retail, such as hospitality and healthcare, where similar workforce management challenges exist but may not have been fully addressed. This strategic targeting of untapped markets aligns with NymbleUp's vision for growth and innovation, positioning the company for success in diverse sectors seeking advanced workforce management solutions.</p>{" "}
+                                                        Yes, NymbleUp is
+                                                        targeting new untapped
+                                                        markets, driven by its
+                                                        innovative approach to
+                                                        workforce scheduling and
+                                                        demand forecasting. By
+                                                        automating scheduling
+                                                        processes through AI and
+                                                        multi-objective linear
+                                                        programming, NymbleUp
+                                                        addresses a significant
+                                                        gap in the market for
+                                                        accurate and efficient
+                                                        scheduling solutions,
+                                                        particularly in sectors
+                                                        reliant on manual or
+                                                        partially automated
+                                                        tools. Furthermore,
+                                                        NymbleUp's integration
+                                                        of emerging technologies
+                                                        like IoT and computer
+                                                        vision for automating
+                                                        auditing processes in
+                                                        retail expands its
+                                                        market potential beyond
+                                                        traditional retail
+                                                        sectors. Additionally,
+                                                        NymbleUp sees
+                                                        opportunities for
+                                                        expansion into
+                                                        industries beyond
+                                                        retail, such as
+                                                        hospitality and
+                                                        healthcare, where
+                                                        similar workforce
+                                                        management challenges
+                                                        exist but may not have
+                                                        been fully addressed.
+                                                        This strategic targeting
+                                                        of untapped markets
+                                                        aligns with NymbleUp's
+                                                        vision for growth and
+                                                        innovation, positioning
+                                                        the company for success
+                                                        in diverse sectors
+                                                        seeking advanced
+                                                        workforce management
+                                                        solutions.{" "}
+                                                      </p>
                                                     </div>
                                                   </Panel>
                                                   <Panel
@@ -2406,41 +2648,40 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                                                           color: "#7f7776",
                                                         }}
                                                       >
-                                                        Stroom possesses
-                                                        formidable moats that
-                                                        bolster its competitive
-                                                        edge in the snacking
-                                                        industry. Its relentless
-                                                        commitment to product
-                                                        innovation ensures a
-                                                        steady stream of unique
-                                                        offerings, fostering
-                                                        customer loyalty and
-                                                        differentiation.
+                                                        NymbleUp’s key moats
+                                                        include its advanced
+                                                        AI-based scheduling and
+                                                        demand forecasting,
+                                                        which predict demand at
+                                                        transaction and item
+                                                        levels to optimize
+                                                        workforce scheduling and
+                                                        reduce labor costs. Its
+                                                        automated scheduling
+                                                        platform efficiently
+                                                        generates schedules
+                                                        based on employee
+                                                        availability, training,
+                                                        and skills, ensuring
+                                                        compliance and
+                                                        operational efficiency.
+                                                        NymbleUp offers an
+                                                        integrated solution that
+                                                        combines demand
+                                                        planning, scheduling,
+                                                        digital checklists, and
+                                                        incident management into
+                                                        a single application,
+                                                        streamlining workflows.
                                                         Additionally, its
-                                                        in-house manufacturing
-                                                        capabilities,
-                                                        particularly for
-                                                        center-filled products,
-                                                        provide stringent
-                                                        quality control and
-                                                        agility, setting it
-                                                        apart from competitors.
-                                                        With the ability to
-                                                        export globally
-                                                        compliant products and
-                                                        strategic bilateral
-                                                        partnerships in key
-                                                        markets, such as
-                                                        Germany, Spain, the US,
-                                                        and Canada, Stroom gains
-                                                        access to diverse
-                                                        markets, expands its
-                                                        customer base, and
-                                                        solidifies its position
-                                                        as an industry leader,
-                                                        ensuring sustained
-                                                        growth and success.
+                                                        digital checklist and
+                                                        operations excellence
+                                                        tools ensure uniform
+                                                        customer experiences,
+                                                        compliance with
+                                                        guidelines, and
+                                                        efficient auditing
+                                                        processes.
                                                       </p>
                                                     </div>
                                                   </Panel>
@@ -2629,12 +2870,12 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                                 >
                                   <div className="d-flex">
                                     <img
-                                      src="./assets/images/deals-details/Stroom/Team/Shiven.jpg"
+                                      src="./assets/images/deals-details/Nymbleup/Team/yogesh.jpeg"
                                       alt=""
                                     />
                                     <div className="intro">
-                                      <h3>Shiven Chaturvedi </h3>
-                                      <span>Co-Founder</span>
+                                      <h3>Yogesh Bhatt </h3>
+                                      <span>CEO & Business Development </span>
                                       <div
                                         className="social-icons"
                                         style={{
@@ -2643,7 +2884,7 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                                         }}
                                       >
                                         <a
-                                          href="https://www.linkedin.com/in/shiven13/"
+                                          href="https://www.linkedin.com/search/results/all/?fetchDeterministicClustersOnly=true&heroEntityKey=urn%3Ali%3Afsd_profile%3AACoAACcP6xABNpDrxZgvIFwPt7zx4w52aX8VRC4&keywords=yogesh%20bhatt&origin=RICH_QUERY_SUGGESTION&position=0&searchId=e76143d5-5e56-487a-8785-9037d40cc5e9&sid=fDZ&spellCorrectionEnabled=false"
                                           target="_blank"
                                         >
                                           <i className="bx bxl-linkedin"></i>
@@ -2660,18 +2901,15 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                                   <ul>
                                     <li>
                                       <a>
-                                        7+ years Experience in game development,
-                                        Client Evaluations creditor watch
-                                        implementations.
+                                        17 years experience in handling retail
+                                        industry
                                       </a>
                                     </li>
                                     <li>
                                       <a>
                                         {" "}
-                                        He manages production processes, quality
-                                        control, and manufacturing operations to
-                                        ensure efficient production and delivery
-                                        of products to the market.
+                                        Ex Digital innovation at Starbucks India
+                                        Ex Business Development at Tata Croma
                                       </a>
                                     </li>
                                   </ul>
@@ -2681,12 +2919,12 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                                 <div className="single">
                                   <div className="d-flex">
                                     <img
-                                      src="./assets/images/deals-details/Stroom/Team/Darshan.jpg"
+                                      src="./assets/images/deals-details/Nymbleup/Team/manish.jpeg"
                                       alt=""
                                     />
                                     <div className="intro">
-                                      <h3>Darshan Gattani </h3>
-                                      <span>Co-Founder</span>
+                                      <h3>Manish Thakur </h3>
+                                      <span>CTO</span>
                                       <div
                                         className="social-icons"
                                         style={{
@@ -2695,7 +2933,7 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                                         }}
                                       >
                                         <a
-                                          href="https://www.linkedin.com/in/darshan-gattani/"
+                                          href="https://www.linkedin.com/search/results/all/?fetchDeterministicClustersOnly=true&heroEntityKey=urn%3Ali%3Afsd_profile%3AACoAADQdsQEBaHNT5SkYvsdQKB5I3rhgm1bvZbk&keywords=manish%20thakur&origin=RICH_QUERY_SUGGESTION&position=0&searchId=6b770251-8a37-47f7-9e38-93ab87a64137&sid=eF~&spellCorrectionEnabled=false"
                                           target="_blank"
                                         >
                                           <i className="bx bxl-linkedin"></i>
@@ -2710,25 +2948,13 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                                   <ul>
                                     <li>
                                       <a>
-                                        8+years experience in
-                                        operations,customer support, Logistics
-                                        Co-ordination,
+                                        CS graduate with 15 years of experience
                                       </a>
                                     </li>
                                     <li>
                                       <a>
-                                        He manages accounting functions,
-                                        financial reporting, and bookkeeping,
-                                        ensuring accurate financial records.
-                                      </a>
-                                    </li>
-                                    <li>
-                                      <a>
-                                        Additionally, he oversees supply chain
-                                        activities, inventory management, and
-                                        logistics to optimize efficiency and
-                                        minimize costs in sourcing and
-                                        distribution.{" "}
+                                        Ex-Founder Amplitude (Event Tech Company
+                                        )
                                       </a>
                                     </li>
                                   </ul>
@@ -2738,12 +2964,12 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                                 <div className="single">
                                   <div className="d-flex">
                                     <img
-                                      src="./assets/images/deals-details/Stroom/Team/Rohan.jpg"
+                                      src="./assets/images/deals-details/Nymbleup/Team/sanket.jpeg"
                                       alt=""
                                     />
                                     <div className="intro">
-                                      <h3>Rohan Shah</h3>
-                                      <span>Co-founder</span>
+                                      <h3>Sanket Kasar </h3>
+                                      <span>Technology Lead</span>
                                       <div
                                         className="social-icons"
                                         style={{
@@ -2752,7 +2978,7 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                                         }}
                                       >
                                         <a
-                                          href="https://www.linkedin.com/in/rohanshah24/"
+                                          href="inkedin.com/search/results/all/?fetchDeterministicClustersOnly=true&heroEntityKey=urn%3Ali%3Afsd_profile%3AACoAAA_Rt54BAUj2wqRyDCa_JRIX1O4umkWCc2s&keywords=sanket%20kasar&origin=RICH_QUERY_SUGGESTION&position=1&searchId=9505b96b-69a0-475e-a867-ebd2253699d8&sid=T_%2C&spellCorrectionEnabled=false"
                                           target="_blank"
                                         >
                                           <i className="bx bxl-linkedin"></i>
@@ -2767,26 +2993,17 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                                   <ul>
                                     <li style={{ listStyleType: "disc" }}>
                                       <a>
-                                        9+ years experience in finance and civil
-                                        engineering graduate with strong
-                                        analytical skills.
+                                        Full Stack Engineer with deep passion in
+                                        every thing technology
                                       </a>
                                     </li>
                                     <li>
                                       <a>
                                         {" "}
-                                        Rohan oversees financial operations,
-                                        budgeting, and financial planning,
-                                        ensuring the company's financial health.
-                                      </a>
-                                    </li>
-                                    <li>
-                                      <a>
-                                        {" "}
-                                        Additionally, he leads marketing
-                                        strategies and brand development
-                                        initiatives to enhance brand awareness
-                                        and drive sales.
+                                        working experience in recommendation of
+                                        music algorithms, voice- based autobots,
+                                        data analytics systems and scalable
+                                        cloud systems
                                       </a>
                                     </li>
                                     {/* 
@@ -2912,7 +3129,7 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
                 </div>
               </div>
             </div>
-            <WebFooter />
+            <NewWebFooter />
           </div>
         ) : (
           window.location.assign("/Deals")
@@ -2922,4 +3139,4 @@ and 2% on the sale proceeds at the Ɵme of exit is applicable.
   }
 }
 
-export default Stroom;
+export default Nymbleup;
