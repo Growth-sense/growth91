@@ -301,7 +301,7 @@ class Homenew extends Component {
       autoplaySpeed: 5000,
       fade: true,
 
-      autoplay: true,
+      autoplay: false,
       pauseOnHover: false,
       cssEase: "linear",
       prevArrow: <SimplePrevArrow />,
@@ -1531,7 +1531,7 @@ class Homenew extends Component {
         </section>
 
         <section class="custom-section">
-          <div class="join-section join-sec-yellow join-sec-white undefined join-divide">
+          <div class="join-section join-sec-yellow join-sec-white undefined join-divide mobile-join">
             {/* <h4>Join us</h4> */}
             <div className="join-flex-one-us">
               <h2>Partner with Us to Identify High-Potential Growth Businesses</h2>

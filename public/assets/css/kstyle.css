@@ -860,20 +860,19 @@
 
 @media screen and (max-width: 767px) {
     .join-flex-one-us .index_pitch {
-        width: 100%;
-        margin: 14px auto;
-        text-align: justify !important;
-        font-size: 12px !important;
+        font-size: 11px !important;
+        text-align: center !important;
+        color: gray;
     }
     .join-flex-one-us {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        width: 60%;
+        width: 100%;
     }
     .join-flex-one-us h2 {
-        text-align: left;
-        font-size: 19px !important;
+        font-size: 15px !important;
+        text-align: center !important;
         line-height: 28px !important;
     }
     .join-divide .index-button-1 a {
@@ -2972,6 +2971,11 @@ transition: max-height 0.45s ease-in; */
 }
 
 @media screen and (max-width: 767px) {
+    .join-section.mobile-join{
+        display: flex;
+        flex-direction: column;
+        padding: 30px 15px;
+    }
     
     .circle-card-g91 .card-business-crowd h4 {
          font-style: normal;
@@ -3541,11 +3545,15 @@ transition: max-height 0.45s ease-in; */
          font-size: 27px;
          color: white;
      }
+     .part-one-count{
+        height: auto !important;
+     }
  
      .part-one-count p {
          color: white;
          font-size: 18px;
          margin: 0px 0 0 2px;
+         padding-top: 7px;
      }
  
      .d-flex-banner .img-banner-part {
@@ -3648,6 +3656,7 @@ transition: max-height 0.45s ease-in; */
          color: #ffffff;
          font-size: 18px;
          font-weight: 100 !important;
+         margin-top: -5px;
      }
  
      .headers-btn-about {
