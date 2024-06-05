@@ -556,7 +556,7 @@ class Homenew extends Component {
                   <Slider {...sliderSettings}>
                    
                     <div class="left-content">
-                      <div class="d-flex-banner fadding-bottom">
+                      <div class="d-flex-banner fadding-bottom fadding-bottom-1">
                         <div class="banner-part banner-slidingpart">
                           <h1 class="">
                             Do you want to invest in India's
@@ -598,6 +598,7 @@ class Homenew extends Component {
                             </div>
                           </form>
                         </div>
+
                         <div class="img-banner-part">
                           <img
                             src="./assets/images/diagram.png"
@@ -607,7 +608,7 @@ class Homenew extends Component {
                       </div>
                     </div>
                     <div class="left-content">
-                      <div class="d-flex-banner fadding-bottom">
+                      <div class="d-flex-banner fadding-bottom fadding-bottom-2">
                         <div class="banner-part banner-slidingpart">
                           <h2
                             class="wow fadeInUp"
@@ -684,7 +685,7 @@ class Homenew extends Component {
                       </div>
                     </div>
                     <div class="left-content">
-                      <div class="d-flex-banner banner1 fadding-bottom">
+                      <div class="d-flex-banner banner1 fadding-bottom fadding-bottom-3">
                         <div class="banner-part banner-slidingpart">
                           <h2 class="">
                             Private market <br /> investing made easy
