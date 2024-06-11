@@ -53,7 +53,7 @@ class Homenew extends Component {
 
     document.title =
       "Venture into Innovation: Invest in Startups with Growth91";
-      document.getElementsByTagName("META")[5].content ="invest in startups invest in startups india "
+    document.getElementsByTagName("META")[5].content = "invest in startups invest in startups india "
 
     document.getElementsByTagName("META")[3].content =
       "Explore the potential of startup investments with Growth91. Discover opportunities & maximize your returns. Embrace the opportunity to invest in startups.";
@@ -554,7 +554,7 @@ class Homenew extends Component {
               <div class="row banner-row">
                 <div class="banner-sliding">
                   <Slider {...sliderSettings}>
-                   
+
                     <div class="left-content">
                       <div class="d-flex-banner fadding-bottom fadding-bottom-1">
                         <div class="banner-part banner-slidingpart">
@@ -777,7 +777,7 @@ class Homenew extends Component {
                       srcset=""
                     />
                   </div>
-                  
+
                   <div class="client-logo">
                     <img
                       src="./assets/images/deal-images/EcoRatings/logo.png"
@@ -842,7 +842,7 @@ class Homenew extends Component {
                       srcset=""
                     />
                   </div>
-                 
+
                   <div class="client-logo">
                     <img
                       src="./assets/images/deal-images/Petmojo/logo.jpg"
@@ -1530,15 +1530,143 @@ class Homenew extends Component {
             </div>
           </div>
         </section>
+        <section className="community-sections">
+          <div className="container">
+            <div className="row">
+             
+              <div class="heading-title founder-text"><p><span></span> </p><h3>View our community</h3></div>
+            </div>
+            <div className="row justify-content-center">
 
+              <div className="col-12 col-md-3 col-lg-3 col-xl-3 col-sm-12 col-xxl-3">
+
+                <div className="community-all-contents">
+                  <div className="img-community-box">
+                    <img src="https://www.theidy.com/img/SanjaySarda/profile-pic/sanjay.jpg" alt="" />
+                  </div>
+                  <div className="community-paragraph-box">
+                    <h4>Sanjay Sarda </h4>
+                    <p>Business Consultant</p>
+                    <a href="">View my IDy </a>
+                  </div>
+                </div>
+              </div>
+              <div className="col-12 col-md-3 col-lg-3 col-xl-3 col-sm-12 col-xxl-3">
+
+                <div className="community-all-contents">
+                  <div className="img-community-box">
+                    <img src="https://www.theidy.com/img/AjitShreeramMarathe/profile-pic/100019.jpg" alt="" />
+                  </div>
+                  <div className="community-paragraph-box">
+                    <h4>Dr. Ajit Marathe </h4>
+                    <p>Mars Gurukul</p>
+                    <a href="">View my IDy </a>
+                  </div>
+                </div>
+              </div>
+              <div className="col-12 col-md-3 col-lg-3 col-xl-3 col-sm-12 col-xxl-3">
+
+                <div className="community-all-contents">
+                  <div className="img-community-box">
+                    <img src="https://www.theidy.com/img/SantoshVasantraoPatil/profile-pic/100008.jpg" alt="" />
+                  </div>
+                  <div className="community-paragraph-box">
+                    <h4>Santosh Patil </h4>
+                    <p>UK's Resort Pvt Ltd</p>
+                    <a href="">View my IDy </a>
+                  </div>
+                </div>
+              </div>
+              <div className="col-12 col-md-3 col-lg-3 col-xl-3 col-sm-12 col-xxl-3">
+
+                <div className="community-all-contents">
+                  <div className="img-community-box">
+                    <img src="https://www.theidy.com/img/RohiniAjayPathakKale/profile-pic/100009.jpg" alt="" />
+                  </div>
+                  <div className="community-paragraph-box">
+                    <h4>Rohini Pathak </h4>
+                    <p> Financial Advisor</p>
+                    <a href="">View my IDy </a>
+                  </div>
+                </div>
+              </div>
+              <div className="col-12 col-md-3 col-lg-3 col-xl-3 col-sm-12 col-xxl-3">
+
+                <div className="community-all-contents">
+                  <div className="img-community-box">
+                    <img src="https://www.theidy.com/img/UdayPatankar/profile-pic/uday.jpg" alt="" />
+                  </div>
+                  <div className="community-paragraph-box">
+                    <h4>Uday Patankar </h4>
+                    <p>Business Consultant</p>
+                    <a href="">View my IDy </a>
+                  </div>
+                </div>
+              </div>
+              <div className="col-12 col-md-3 col-lg-3 col-xl-3 col-sm-12 col-xxl-3">
+
+                <div className="community-all-contents">
+                  <div className="img-community-box">
+                    <img src="https://www.theidy.com/img/KetanBane/profile-pic/ketan.jpg" alt="" />
+                  </div>
+                  <div className="community-paragraph-box">
+                    <h4>Sanjay Sarda </h4>
+                    <p>Business Consultant</p>
+                    <a href="">View my IDy </a>
+                  </div>
+                </div>
+              </div>
+              <div className="col-12 col-md-3 col-lg-3 col-xl-3 col-sm-12 col-xxl-3">
+
+                <div className="community-all-contents">
+                  <div className="img-community-box">
+                    <img src="https://www.theidy.com/img/NishantNazare/profile-pic/nishant.jpg" alt="" />
+                  </div>
+                  <div className="community-paragraph-box">
+                    <h4>Sanjay Sarda </h4>
+                    <p>Business Consultant</p>
+                    <a href="">View my IDy </a>
+                  </div>
+                </div>
+              </div>
+              <div className="col-12 col-md-3 col-lg-3 col-xl-3 col-sm-12 col-xxl-3">
+
+                <div className="community-all-contents">
+                  <div className="img-community-box">
+                    <img src="https://theidy.com/img/AshwiniBhavsarShah/profile-pic/100031.jpg" alt="" />
+                  </div>
+                  <div className="community-paragraph-box">
+                    <h4>Sanjay Sarda </h4>
+                    <p>Business Consultant</p>
+                    <a href="">View my IDy </a>
+                  </div>
+                </div>
+              </div>
+              <div className="col-12 col-md-3 col-lg-3 col-xl-3 col-sm-12 col-xxl-3">
+
+                <div className="community-all-contents">
+                  <div className="img-community-box">
+                    <img src="https://www.theidy.com/img/VyankateshAnantDalvi/profile-pic/100015.jpg" alt="" />
+                  </div>
+                  <div className="community-paragraph-box">
+                    <h4>Sanjay Sarda </h4>
+                    <p>Business Consultant</p>
+                    <a href="">View my IDy </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section >
         <section class="custom-section">
           <div class="join-section join-sec-yellow join-sec-white undefined join-divide mobile-join">
             {/* <h4>Join us</h4> */}
             <div className="join-flex-one-us">
               <h2>Partner with Us to Identify High-Potential Growth Businesses</h2>
               <p class="index_pitch">
-              Decades of banking, investing & startup success guide your investments. Invest confidently with us.
-                            </p>
+                Decades of banking, investing & startup success guide your investments. Invest confidently with us.
+              </p>
             </div>
             <div class="index-button-1">
               <Link to="/Deals" style={{ color: "white" }}>
@@ -1625,7 +1753,7 @@ class Homenew extends Component {
             :("")} */}
 
         <NewWebFooter />
-      </div>
+      </div >
     );
   }
 }
