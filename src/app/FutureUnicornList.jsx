@@ -114,7 +114,7 @@ export const FutureUnicornList = () => {
                   <div className="community-paragraph-box">
                     <h4>Sanjay Sarda </h4>
                     <p>Business Consultant</p>
-                    <a href="">View my IDy </a>
+                    <a href="">View More </a>
                   </div>
                 </div>
               </div>
@@ -127,7 +127,7 @@ export const FutureUnicornList = () => {
                   <div className="community-paragraph-box">
                     <h4>Dr. Ajit Marathe </h4>
                     <p>Mars Gurukul</p>
-                    <a href="">View my IDy </a>
+                    <a href="">View More </a>
                   </div>
                 </div>
               </div>
@@ -140,7 +140,7 @@ export const FutureUnicornList = () => {
                   <div className="community-paragraph-box">
                     <h4>Santosh Patil </h4>
                     <p>UK's Resort Pvt Ltd</p>
-                    <a href="">View my IDy </a>
+                    <a href="">View More </a>
                   </div>
                 </div>
               </div>
@@ -153,7 +153,7 @@ export const FutureUnicornList = () => {
                   <div className="community-paragraph-box">
                     <h4>Rohini Pathak </h4>
                     <p> Financial Advisor</p>
-                    <a href="">View my IDy </a>
+                    <a href="">View More </a>
                   </div>
                 </div>
               </div>
@@ -166,7 +166,7 @@ export const FutureUnicornList = () => {
                   <div className="community-paragraph-box">
                     <h4>Uday Patankar </h4>
                     <p>Business Consultant</p>
-                    <a href="">View my IDy </a>
+                    <a href="">View More </a>
                   </div>
                 </div>
               </div>
@@ -179,7 +179,7 @@ export const FutureUnicornList = () => {
                   <div className="community-paragraph-box">
                     <h4>Sanjay Sarda </h4>
                     <p>Business Consultant</p>
-                    <a href="">View my IDy </a>
+                    <a href="">View More </a>
                   </div>
                 </div>
               </div>
@@ -192,7 +192,7 @@ export const FutureUnicornList = () => {
                   <div className="community-paragraph-box">
                     <h4>Sanjay Sarda </h4>
                     <p>Business Consultant</p>
-                    <a href="">View my IDy </a>
+                    <a href="">View More </a>
                   </div>
                 </div>
               </div>
@@ -205,7 +205,7 @@ export const FutureUnicornList = () => {
                   <div className="community-paragraph-box">
                     <h4>Sanjay Sarda </h4>
                     <p>Business Consultant</p>
-                    <a href="">View my IDy </a>
+                    <a href="">View More </a>
                   </div>
                 </div>
               </div>
@@ -218,7 +218,7 @@ export const FutureUnicornList = () => {
                   <div className="community-paragraph-box">
                     <h4>Sanjay Sarda </h4>
                     <p>Business Consultant</p>
-                    <a href="">View my IDy </a>
+                    <a href="">View More </a>
                   </div>
                 </div>
               </div>
