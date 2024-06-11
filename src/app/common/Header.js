@@ -631,6 +631,11 @@ class Header extends Component {
                       Resources
                     </a>
                   </li>
+                  {/* <li className="nav-item">
+                    <a className="nav-link" href="/community">
+                      Community
+                    </a>
+                  </li> */}
                   <li className="nav-item">
                     <a className="nav-link" href="/Learn">
                       About us

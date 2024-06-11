@@ -38,6 +38,9 @@ class Header2 extends Component {
                       <a class="nav-link" href="/Investors">Investor</a>
                     </li>
                     <li class="nav-item">
+                      <a class="nav-link" href="/Community">Community</a>
+                    </li>
+                    <li class="nav-item">
                       <a class="nav-link" href="/Learn">Learn</a>
                     </li>
                     <li class="nav-item">

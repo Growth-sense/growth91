@@ -906,6 +906,7 @@ class WebHeader extends Component {
                         Investors
                       </a>
                     </li>
+                    
                     <li>
                       <a
                         className={
@@ -1000,6 +1001,7 @@ class WebHeader extends Component {
                 <li>
                   <a href="/Founders">Founders</a>
                 </li>
+                
                 <li>
                   <a href="/investors">Investors</a>
                 </li>
