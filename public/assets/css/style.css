@@ -75,9 +75,9 @@ h6 {
 h1 {
   color: var(--heading-color) !important;
 }
-html {
+/* html {
   overflow-x: hidden;
-}
+} */
 .overflow-v {
   overflow: visible;
 }
@@ -3100,3 +3100,16 @@ option {
       max-width: 100% !important;
     }
   }
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -850,4 +850,9 @@ export default {
     api.post(URLs.delete_pitch_file, data).then((response) => {
       return response.data;
     }),
-};
+    contact_us_form:(data)=>{
+      let res= api.post(URLs.contact_us_form,data)
+      return res
+      
+    }
+  };

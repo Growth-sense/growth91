@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import WebHeader from "../common/WebHeader";
 import Footer from "../common/Footer";
 // import Footer from '../common/Footer';
 import Slider from "react-slick";
@@ -7,6 +6,8 @@ import axios from "axios";
 import Bridge from "../constants/Bridge";
 import { message } from "antd";
 import Success from "../Success";
+import NewWebHeader from "../common/NewWebHeader";
+import { NewWebFooter } from "../common/NewWebFooter";
 
 class InviteReferral extends Component {
   constructor(props) {
@@ -167,7 +168,7 @@ class InviteReferral extends Component {
 
     return (
       <div style={{ display: this.state.show == true ? "block" : "none" }}>
-        <WebHeader />
+        <NewWebHeader newabout={"newabout"}/>
         <section className="banner_section">
           <div
             id="carouselExampleIndicators"
@@ -627,7 +628,7 @@ class InviteReferral extends Component {
           </div>
         </section>
 
-        <Footer />
+        <NewWebFooter />
       </div>
     );
   }

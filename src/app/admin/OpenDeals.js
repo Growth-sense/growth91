@@ -248,7 +248,7 @@ class Deals extends Component {
       offline_deal_id: "",
       offline_startup_id: "",
       input_status: false,
-      cc_to_founder: "No",
+      cc_to_fouder: "No",
       input_file_status: false,
       invite_form_loader: false,
       bannerimg: "",
@@ -1181,6 +1181,7 @@ class Deals extends Component {
       invite_form_loader: false,
       invited_user_list: [],
       invite_deal_titile: item.deal_name,
+     
     });
   };
   close_invite_modal = () => {
@@ -1191,7 +1192,6 @@ class Deals extends Component {
     });
   };
   download_sample_file = () => {
-    // console.log(this.state.cc_to_founder);
     let fileName = "Sample file";
     let arr = [
       {
@@ -1296,6 +1296,26 @@ class Deals extends Component {
       input_file_status: true,
     });
   };
+  togglecc = (event) => {
+    console.log(event.target.checked);
+    if(event.target.checked === true){
+      this.setState({
+        [event.target.name]: 'Yes',
+        input_status: false,
+        input_file_status: true,
+      });
+    }
+    else{
+        this.setState({
+          [event.target.name]: 'No',
+          input_status: false,
+          input_file_status: true,
+        });
+
+
+      }
+
+  };
 
   onInviteChangeEmail = (email) => {
     this.setState({ invite_email: email });
@@ -1308,6 +1328,8 @@ class Deals extends Component {
   };
 
   invite_investor = () => {
+    console.log(this.state.cc_to_fouder);
+
     let emailisPresent = false;
     for (let item of this.state.allPrivateDealInvestor) {
       if (item.email && item.email == this.state.invite_email) {
@@ -1347,6 +1369,8 @@ class Deals extends Component {
           fun_founder_id: this.state.invite_details.operational_founder,
           bannerimg: this.state.bannerimg,
           deal_name: this.state.invite_details.name,
+          cc_to_fouder:this.state.cc_to_fouder
+
           // deal_email:this.state.invite_details.email,
         };
         Bridge.deal.invite_investors_for_private_deal(params).then((result) => {
@@ -1401,6 +1425,8 @@ class Deals extends Component {
           founder_id: this.state.invite_details.operational_founder,
           bannerimg: this.state.bannerimg,
           deal_name: this.state.invite_details.name,
+          cc_to_fouder:this.state.cc_to_fouder
+
           // deal_email:this.state.invite_details.email,
         };
         let valid = false;
@@ -1463,6 +1489,8 @@ class Deals extends Component {
       fun_founder_id: this.state.invite_details.operational_founder,
       bannerimg: this.state.bannerimg,
       deal_name: this.state.invite_details.name,
+      cc_to_fouder:this.state.cc_to_fouder
+
     };
     Bridge.deal.invite_investors_for_private_deal(obj).then((result) => {
       if (result.status == 1) {
@@ -4205,17 +4233,7 @@ class Deals extends Component {
                   disabled={this.state.input_status == true ? true : false}
                 />
               </div>
-        <div className="mt-4 editor-field d-flex align-items-center">
-                <label className="mb-2">CC to founder</label>
-                <input
-                  type="checkbox"
-                  onWheel={() => document.activeElement.blur()}
-                  value={this.state.cc_to_founder}
-                  name="cc_to_founder"
-                  onChange={(e) => this.handleChangeInputs()}
-                  // disabled={this.state.input_status == true ? true : false}
-                />
-              </div>
+      
             </div>
             <div
               style={{
@@ -4299,6 +4317,16 @@ class Deals extends Component {
                   </div>
                 )}
               </Card>
+                  <div className="mt-4 editor-field d-flex align-items-center">
+                <label className="mb-2">CC to founder</label>
+                <input
+                  type="checkbox"
+                  value={this.state.cc_to_fouder}
+                  name="cc_to_fouder"
+                  onChange={(e) => this.togglecc(e)}
+                  // disabled={this.state.input_status == true ? true : false}
+                />
+              </div>
             </div>
           </Spin>
         </Modal>

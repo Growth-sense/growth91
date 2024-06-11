@@ -131,7 +131,7 @@ class EleFant extends Component {
     document.title = "The EleFant - Growth91 - Startup Marketplace ";
   }
   componentDidMount() {
-    let deal_id = "27";
+    let deal_id = "117";
     this.setState({ deal_id: deal_id }, () => {
       this.get_pitch_list();
     });

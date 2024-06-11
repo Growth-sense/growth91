@@ -7,6 +7,8 @@ import $ from "jquery";
 import moment from "moment";
 import ReactGA from "react-ga4";
 import { TRACKING_ID } from "../constants/data";
+import NewWebHeader from "../common/NewWebHeader";
+import { NewWebFooter } from "../common/NewWebFooter";
 ReactGA.initialize(TRACKING_ID);
 class FounderRegistration extends Component {
   constructor(props) {
@@ -455,7 +457,7 @@ class FounderRegistration extends Component {
   render() {
     return (
       <div style={{ display: this.state.show_data }}>
-        <WebHeader />
+        <NewWebHeader newabout={"newabout"}/>
         <section className="signup-section">
           <div className="container">
             <div className="row">
@@ -908,7 +910,7 @@ class FounderRegistration extends Component {
             </div>
           </div>
         </section>
-        <Footer />
+        <NewWebFooter />
       </div>
     );
   }

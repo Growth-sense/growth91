@@ -19,14 +19,16 @@ export default class Investors extends Component {
     }
 
     componentDidMount() {
+      console.log(this.props);
       if(this.props.id) {
         this.setState({
           startupid: this.props.id,
-        },() => this.getinvestors());
+        });
       }
     }
 
     getinvestors = () => {
+      console.log("aa");
       this.setState({ loading:true });
       let params ={
         startupid: this.props.id,
@@ -49,12 +51,15 @@ export default class Investors extends Component {
       this.setState({
         listofdocumentstatus:true,
       });
+      this.getinvestors()
     }
     
 // patrakar coloni khakra wala 720 = 180 
     render() {
+      console.log(this.props.id);
 
-        const documentdataSource = this.state.Investors && this.state.Investors.map((item, index) => {
+
+      const documentdataSource = this.state.Investors && this.state.Investors.map((item, index) => {
             return {
               key: index,
               srno: (index + 1),

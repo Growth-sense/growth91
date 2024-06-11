@@ -29,9 +29,10 @@
     "firebase": "^9.9.0",
     "html-react-parser": "^1.4.12",
     "jodit-react": "^1.3.1",
-    "jquery": "^3.6.0",
+    "jquery": "^3.7.1",
     "js-base64": "^3.7.2",
     "jwt-decode": "^3.1.2",
+    "minimalcss": "^0.11.3",
     "moment": "^2.29.3",
     "next": "^13.0.7",
     "rc-progress": "^3.4.0",
@@ -41,18 +42,23 @@
     "react-awesome-reveal": "^4.2.3",
     "react-beforeunload": "^2.5.3",
     "react-client-captcha": "^1.0.3",
+    "react-countup": "^6.5.3",
     "react-dom": "^18.0.0",
     "react-ga": "^3.3.1",
     "react-ga4": "^1.4.1",
     "react-google-login": "^5.2.2",
-    "react-icons": "^4.7.1",
+    "react-helmet-async": "^2.0.4",
+    "react-icons": "^4.12.0",
     "react-image-lightbox": "^5.1.4",
+    "react-moment": "^1.1.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "5.0.1",
     "react-select": "^5.7.0",
     "react-slick": "^0.29.0",
+    "react-snap": "^1.23.0",
     "react-sweet-progress": "^1.1.2",
     "react-to-print": "^2.14.7",
+    "react-toastify": "^10.0.5",
     "slick-carousel": "^1.8.1",
     "source-map-loader": "^3.0.1",
     "timer-countdown": "^0.2.6",
@@ -64,7 +70,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postbuild": "react-snap"
   },
   "eslintConfig": {
     "extends": [
@@ -83,5 +90,24 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "reactSnap": {
+    "include": [
+      "/",
+      "/Founders",
+      "/How-it-works",
+      "/Investors",
+      "/Learn",
+      "/TermsConditions",
+      "/PrivacyPolicy"
+    ],
+    "minifyHtml": {
+      "collapseWhitespace": false,
+      "removeComments": false
+    }
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.30",
+    "react-snap-nh": "https://github.com/natahouse/react-snap/tarball/master"
   }
 }

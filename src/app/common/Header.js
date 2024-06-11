@@ -612,26 +612,36 @@ class Header extends Component {
               <div className="d-lg-block d-none">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
                   <li className="nav-item">
+                    <a className="nav-link" href="/">
+                      Home
+                    </a>
+                  </li>
+                  <li className="nav-item">
                     <a className="nav-link" href="/deals">
                       Deals
                     </a>
                   </li>
                   <li className="nav-item">
                     <a className="nav-link" href="/Founders">
-                      Founder
+                    Founders
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/Investors">
-                      Investor
+                    <a className="nav-link" href="/How-it-works">
+                      Resources
                     </a>
                   </li>
                   <li className="nav-item">
                     <a className="nav-link" href="/Learn">
-                      Learn
+                      About us
                     </a>
                   </li>
                   <li className="nav-item">
+                    <a className="nav-link"  rel="noreferrer" href="https://growth91.com/blog/">
+                     Blog
+                    </a>
+                  </li>
+                  {/* <li className="nav-item">
                     <a
                       className="nav-link"
                       href="#"
@@ -639,7 +649,7 @@ class Header extends Component {
                     >
                       Community
                     </a>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
             </div>

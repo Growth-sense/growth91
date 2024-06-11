@@ -94,6 +94,7 @@ class RetailReferral extends Component {
     let arr = [];
     let count = 1;
     for (let item of this.state.retailReferralList) {
+      console.log(item);
       let obj = {
         "Sr No": count,
         "Benefactor Name": item.benefactF + " " + item.benefactL,

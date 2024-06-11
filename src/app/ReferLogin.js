@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import WebHeader from './common/WebHeader';
-import WebFooter from './common/WebFooter';
 import Footer from './common/Footer';
 import Slider from "react-slick";
 import axios from 'axios';
+import NewWebHeader from './common/NewWebHeader';
+import { NewWebFooter } from './common/NewWebFooter';
 
 
 class ReferLogin extends Component {
@@ -21,7 +21,7 @@ class ReferLogin extends Component {
     
     return (
       <div>
-        <WebHeader />
+          <NewWebHeader newabout={"newabout"}/>
         <section className="banner_section">
             <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
                 {/* <!-- <div className="carousel-indicators">
@@ -205,7 +205,7 @@ class ReferLogin extends Component {
                 <div className="col-lg-7">
                     <div className="content-side">
                         <div className="heading-title">
-                            <h6><span></span> </h6>
+                            <p><span></span> </p>
                             <h2>How to refer? and why?</h2>
                         </div>
                         <div className="accordion" id="accordionExample">
@@ -278,7 +278,7 @@ class ReferLogin extends Component {
     </section>
         
 
-          <WebFooter />
+          <NewWebFooter />
       </div>
     )
   }

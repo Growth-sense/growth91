@@ -8,6 +8,8 @@ import "slick-carousel/slick/slick-theme.css";
 import ReactGA from "react-ga4";
 
 import Home from "./app/Home";
+import Homenew from "./app/Homenew.jsx";
+import {Aboutnew} from "./app/Aboutnew.jsx";
 import Content from "./Content/Content";
 import Deals from "./app/Deals";
 import Refer from "./app/ReferLogin";
@@ -20,6 +22,7 @@ import DealDetailsAutorobot from "./app/DealDetailsAutorobot";
 import Founders from "./app/Founders";
 import Investors from "./app/Investors";
 import Learn from "./app/Learn";
+import {Contact} from "./app/Contact_us.jsx";
 import Login from "./app/Founder/Login";
 import Signup from "./app/Signup";
 import Howitworks from "./app/Howitworks";
@@ -138,7 +141,7 @@ import { TRACKING_ID } from "./app/constants/data";
 import Yolo from "./app/deal-pages/Yolo";
 import EventBeep from "./app/deal-pages/EventBeep";
 import Homversity from "./app/deal-pages/Homversity";
-import Tulua from "./app/deal-pages/Tulua";
+import Tulua from "./app/deal-pages/Tulua.jsx";
 import HumSafer from "./app/deal-pages/HumSafer";
 import IndianStartupNews from "./app/deal-pages/IndianStartupNews";
 import IndusUno from "./app/deal-pages/IndusUno";
@@ -160,11 +163,16 @@ import Newboo from "./app/deal-pages/Newboo";
 import ORAI from "./app/deal-pages/ORAI1.jsx";
 import EleFant from "./app/deal-pages/EleFant.jsx";
 import EcoRatings from "./app/deal-pages/EcoRatings.jsx";
+import Stroom from "./app/deal-pages/Stroom.jsx";
+import Nymbleup from "./app/deal-pages/Nymbleup.jsx";
 import IndusUnoTranche2 from "./app/deal-pages/IndusUnoTranche2";
+import { Newdeals } from "./app/Newdeals.jsx";
+import jqeryscript from "./jq.js"
 
 ReactGA.initialize(TRACKING_ID);
 
 function App() {
+ 
   // GOOGLE ANALYTICS
 
   useEffect(() => {
@@ -183,11 +191,13 @@ function App() {
           <Redirect to="/theEleFant" />
         </Route>
 
-          <Route path="/" exact component={Home} />
+          {/* <Route path="/" exact component={Home} /> */}
+          <Route path="/" exact component={Homenew} />
+          <Route path="/about" exact component={Aboutnew} />
           <Route path="/UnderMaintenance" exact component={UnderMaintenance} />
           <Route path="/StartInvestment" exact component={Content} />
           <Route path="/deals" exact>
-            <ProtectDeals Component2={Deals} Conditon={true} />
+            <ProtectDeals Component2={Newdeals} Conditon={true} />
           </Route>
           <Route path="/Refer" exact component={Refer} />
           <Route path="/Referral" exact component={Referral} />
@@ -202,6 +212,7 @@ function App() {
           <Route path="/Founders" exact component={Founders} />
           <Route path="/Investors" exact component={Investors} />
           <Route path="/Learn" exact component={Learn} />
+          <Route path="/Contact-us" exact component={Contact} />
           <Route path="/Login" exact component={Login} />
           <Route path="/founder-login" exact component={FounderLogin} />
           <Route path="/Register" exact component={Register} />
@@ -493,6 +504,15 @@ function App() {
           </Route>
           <Route path="/EcoRatings" >
             <ProtectDeals Component={EcoRatings} />
+          </Route>
+          <Route path="/Tulua" >
+            <ProtectDeals Component={Tulua} />
+          </Route>
+          <Route path="/Stroom" >
+            <ProtectDeals Component={Stroom} />
+          </Route>
+          <Route path="/Nymbleup" >
+            <ProtectDeals Component={Nymbleup} />
           </Route>
           <Route path="/TestDeal2" exact>
             <ProtectDeals Component={TestDeal2} />

@@ -2,11 +2,21 @@ import React, { Component } from "react";
 import WebHeader from "./common/WebHeader";
 import WebFooter from "./common/WebFooter";
 import Footer from "./common/Footer";
+import {Link} from "react-router-dom"
 import Slider from "react-slick";
+import NewWebHeader from "./common/NewWebHeader";
+import { NewWebFooter } from "./common/NewWebFooter";
 
 class Learn extends Component {
   componentWillMount() {
-    document.title = "Learn - Growth91 - Startup Marketplace ";
+   
+    document.getElementsByTagName("META")[4].content  = "How Startup Funding Works: Growth91 Insights";
+    document.title  = "How Startup Funding Works: Growth91 Insights";
+
+    document.getElementsByTagName("META")[3].content="Gain valuable insights and learn how startup funding works with Growth91. Learn how to navigate the funding landscape for entrepreneurial success.";
+    document.getElementsByTagName("META")[5].content ="How Startup Funding Works"
+
+
   }
   render() {
     const settings = {
@@ -19,7 +29,11 @@ class Learn extends Component {
 
     return (
       <div>
-        <WebHeader />
+     
+       
+        {/* <WebHeader /> */}
+        <NewWebHeader newabout={"newabout"}/>
+
         <section className="banner_section">
           <div
             id="carouselExampleIndicators"
@@ -112,7 +126,7 @@ class Learn extends Component {
                       Stay up to date with what’s brewing in the startup <br />{" "}
                       ecosystem
                     </p>
-                    <a href="https://blog.growth91.com/" target="_blank">Know more</a>
+                    <a  rel="noreferrer" href="https://growth91.com/blog/">Know more</a>
                   </div>
                 </div>
               </div>
@@ -120,7 +134,7 @@ class Learn extends Component {
           </div>
         </section>
 
-        <WebFooter />
+        <NewWebFooter />
       </div>
     );
   }

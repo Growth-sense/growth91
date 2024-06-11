@@ -7,6 +7,8 @@ import Bridge from '../constants/Bridge';
 import $ from 'jquery';
 import moment from 'moment';
 import Urldata from './Urldata';
+import NewWebHeader from '../common/NewWebHeader';
+import { NewWebFooter } from '../common/NewWebFooter';
 
 class Login extends Component {
   constructor(props) {
@@ -253,7 +255,7 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <WebHeader />
+        <NewWebHeader />
         <section className="login-section">
           <div className="container">
             <div className="row">
@@ -402,7 +404,7 @@ class Login extends Component {
             </div>
           </div>
         </section>
-        <WebFooter />
+        <NewWebFooter />
       </div>
     );
   }

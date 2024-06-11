@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import {  HelmetProvider } from 'react-helmet-async';
 const theme = createTheme({
   typography: {
     allVariants: {
@@ -17,7 +18,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
+    <HelmetProvider>
       <App />
+      </HelmetProvider>
     </ThemeProvider>
   </React.StrictMode>
 );

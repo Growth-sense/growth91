@@ -20,6 +20,8 @@ import Apis from "../constants/Apis";
 import moment from "moment";
 import Bridge from "../constants/Bridge";
 import InvestmentMembershipmodal from "../components/membership/InvestmentMembershipmodal";
+import NewWebHeader from "../common/NewWebHeader";
+import { NewWebFooter } from "../common/NewWebFooter";
 
 const { Panel } = Collapse;
 const { TabPane } = Tabs;
@@ -94,6 +96,7 @@ class EleFant extends Component {
       escrowact: "",
       escrow_account_ifsc: "",
       agreeCheck: false,
+      Convenience:"",
       images: [
         "./assets/images/deals-details/ORAI/Pitch/0.png",
         "./assets/images/deals-details/ORAI/Pitch/1.png",
@@ -131,6 +134,7 @@ class EleFant extends Component {
 
   componentWillMount() {
     document.title = "ORAI - Growth91 - Startup Marketplace ";
+
   }
   componentDidMount() {
     let deal_id = "30";
@@ -718,6 +722,12 @@ class EleFant extends Component {
       confirmmodalstatus: false,
     });
   };
+  onChangeConvenience=(e)=>{
+    this.setState({
+      [e.target.name]: e.target.checked,
+      Convenience: e.target.checked,
+    });
+  }
   onChangeCheckbox = (e) => {
     this.setState({
       [e.target.name]: e.target.checked,
@@ -1123,7 +1133,7 @@ class EleFant extends Component {
       <>
         {this.state.is_deal_visible == true ? (
           <div style={{ display: this.state.show_data }}>
-            <WebHeader />
+             <NewWebHeader newabout={"newabout"}/>
             <section
               className="deals-details-page"
               style={{ marginBottom: "-50px" }}
@@ -1510,10 +1520,10 @@ class EleFant extends Component {
                           <span className="checkmark"></span>
                         </label>
 
-                        {/* <label className="container-check">I will deduct TDS on service charges and deposit to Income tax on time
-                      <input type="checkbox" name="deduct" onChange={this.onChangeCheckbox}  />
-                      <span className="checkmark"></span>
-                    </label> */}
+                      
+                        <label className="container-check" style={{fontSize:"10px"}}>Convenience Fee of 2% on the investment amount at the time of investment 
+and 2% on the sale proceeds at the time of exit is applicable.
+                    </label>
                       </div>
 
                       <div className="col-12">
@@ -2842,7 +2852,7 @@ class EleFant extends Component {
                 </div>
               </div>
             </div>
-            <WebFooter />
+            <NewWebFooter />
           </div>
         ) : (
           window.location.assign("/Deals")

@@ -4,6 +4,8 @@ import WebFooter from "../../common/WebFooter";
 import Bridge from "../../constants/Bridge";
 import { message, Spin } from "antd";
 import ReactGA from "react-ga4";
+import NewWebHeader from "../../common/NewWebHeader";
+import { NewWebFooter } from "../../common/NewWebFooter";
 
 class MembershipPlan extends Component {
   constructor(props) {
@@ -114,8 +116,7 @@ class MembershipPlan extends Component {
   render() {
     return (
       <div>
-        <WebHeaderMembership />
-        <section className="pricing-section">
+  <NewWebHeader newabout={"newabout"}/>        <section className="pricing-section">
           <div className="container">
             <div className="heading-title">
               <h2>Thank you for joining Growth91 community.</h2>
@@ -320,7 +321,7 @@ class MembershipPlan extends Component {
           </div>
         </section>
 
-        <WebFooter />
+        <NewWebFooter />
       </div>
     );
   }
