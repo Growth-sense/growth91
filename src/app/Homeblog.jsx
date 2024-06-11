@@ -10,11 +10,15 @@ export const Homeblog = () => {
   const [blogimg, setBlogimg] = useState();
   const [blogimg1, setBlogimg1] = useState();
   const [blogimg2, setBlogimg2] = useState();
+const [loading, setLoading] = useState()
   const blogs = async () => {
+    setLoading(true)
     const data = await axios.get("https://growth91.com/blog/wp-json/wp/v2/posts");
     setBlog(data.data[0]);
     setBlog1(data.data[1]);
     setBlog2(data.data[2]);
+    setLoading(false)
+
   };
   useEffect(() => {
     blogs();

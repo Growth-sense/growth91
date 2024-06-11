@@ -301,7 +301,7 @@ class Homenew extends Component {
       autoplaySpeed: 5000,
       fade: true,
 
-      autoplay: false,
+      autoplay: true,
       pauseOnHover: false,
       cssEase: "linear",
       prevArrow: <SimplePrevArrow />,
@@ -721,7 +721,7 @@ class Homenew extends Component {
                                 Explore Deals{" "}
                                 {this.state.loggedinstatus == true
                                   ? ""
-                                  : "(Signup)"}
+                                  : "(Sign Up)"}
                               </Link>
                             </div>
                           </form>

@@ -43,7 +43,7 @@ class Step1 extends Component {
       minutes: 2,
       seconds: 0,
       otp_restriction_date: "",
-      minutes2: 10,
+      minutes2: 2,
       seconds2: 0,
       refferal_code: "",
       is_refferal_code_matched: "",
@@ -102,14 +102,15 @@ class Step1 extends Component {
   };
   // register
   register = () => {
-    this.state.typeofmember == "Indian Resident" ?
-      ReactGA.event({
-        category: 'Investor SignUp',
-        action: 'SignUp button clicked.',
-      }) : ReactGA.event({
-        category: "Investor SignUp",
-        action: "Non Resident. SignUp button clicked.",
-      })
+    this.state.typeofmember == "Indian Resident"
+      ? ReactGA.event({
+          category: "Investor SignUp",
+          action: "SignUp button clicked.",
+        })
+      : ReactGA.event({
+          category: "Investor SignUp",
+          action: "Non Resident. SignUp button clicked.",
+        });
 
     if (!this.state.first_name) {
       message.error("Please enter your first name");
@@ -222,14 +223,15 @@ class Step1 extends Component {
   };
 
   sendotptomail = () => {
-    this.state.typeofmember == "Indian Resident" ?
-      ReactGA.event({
-        category: "Investor SignUp",
-        action: "Send email OTP",
-      }) : ReactGA.event({
-        category: "Investor SignUp",
-        action: "Non Resident. Send email OTP clicked",
-      })
+    this.state.typeofmember == "Indian Resident"
+      ? ReactGA.event({
+          category: "Investor SignUp",
+          action: "Send email OTP",
+        })
+      : ReactGA.event({
+          category: "Investor SignUp",
+          action: "Non Resident. Send email OTP clicked",
+        });
 
     if (!this.state.email) {
       message.warning("Please enter your email.");
@@ -264,14 +266,15 @@ class Step1 extends Component {
   };
 
   verify_mail_otp = () => {
-    this.state.typeofmember == "Indian Resident" ?
-      ReactGA.event({
-        category: "Investor SignUp",
-        action: "Verify email OTP",
-      }) : ReactGA.event({
-        category: "Investor SignUp",
-        action: "Non Resident. Verify email OTP clicked",
-      })
+    this.state.typeofmember == "Indian Resident"
+      ? ReactGA.event({
+          category: "Investor SignUp",
+          action: "Verify email OTP",
+        })
+      : ReactGA.event({
+          category: "Investor SignUp",
+          action: "Non Resident. Verify email OTP clicked",
+        });
     // if(this.state.email_otp==this.state.emailotp){
 
     //   message.success('Email is verified successfully.');
@@ -471,7 +474,6 @@ class Step1 extends Component {
     this.setState({ phone: e.target.value });
   };
   sendotptomobile = () => {
-
     ReactGA.event({
       category: "Investor SignUp",
       action: "Send mobile OTP",
@@ -498,7 +500,7 @@ class Step1 extends Component {
           message.warning(result.message);
         }
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
 
   verify_mobile_otp = () => {
@@ -545,7 +547,7 @@ class Step1 extends Component {
           message.warning(result.message);
         }
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
 
   startcountdown2 = () => {
@@ -625,10 +627,11 @@ class Step1 extends Component {
         <div>+91</div>
       </div>
     );
+
     return (
       <div style={{ display: this.state.show_data }}>
         {/* <WebHeader /> */}
-        <NewWebHeader newabout={"newabout"}/>
+        <NewWebHeader newabout={"newabout"} />
 
         <section className="signup-section" style={{ marginTop: 30 }}>
           <Fetchurldata setEmail={this.setCode} />
@@ -659,12 +662,17 @@ class Step1 extends Component {
                               <Radio value={"Indian Resident"}>
                                 Indian Resident
                               </Radio>
-                              <Radio value={"Non Resident"} onClick={() => {
-                                ReactGA.event({
-                                  category: 'Investor SignUp',
-                                  action: 'Non Resident button clicked',
-                                });
-                              }}>Non Resident</Radio>
+                              <Radio
+                                value={"Non Resident"}
+                                onClick={() => {
+                                  ReactGA.event({
+                                    category: "Investor SignUp",
+                                    action: "Non Resident button clicked",
+                                  });
+                                }}
+                              >
+                                Non Resident
+                              </Radio>
                             </Radio.Group>
                           </div>
                           <div className="col-lg-6">
@@ -742,8 +750,9 @@ class Step1 extends Component {
                                   }
                                   onClick={() => {
                                     ReactGA.event({
-                                      category: 'Investor SignUp',
-                                      action: 'Non Resident Page Mobile number drop down clicked',
+                                      category: "Investor SignUp",
+                                      action:
+                                        "Non Resident Page Mobile number drop down clicked",
                                     });
                                   }}
                                 />
@@ -870,12 +879,12 @@ class Step1 extends Component {
                                               style={{
                                                 background:
                                                   this.state.istimerstarted2 ==
-                                                    true
+                                                  true
                                                     ? "#a29f9f"
                                                     : "#29176f",
                                                 border:
                                                   this.state.istimerstarted2 ==
-                                                    true
+                                                  true
                                                     ? "1px solid #a29f9f"
                                                     : "#29176f",
                                                 borderRadius: 5,
@@ -883,7 +892,7 @@ class Step1 extends Component {
                                               className="send_otp_button_op"
                                               disabled={
                                                 this.state.istimerstarted2 ==
-                                                  true
+                                                true
                                                   ? true
                                                   : false
                                               }
@@ -1046,33 +1055,21 @@ class Step1 extends Component {
                                         Resend
                                       </button>
                                     )}
+
                                     <div style={{ position: "relative" }}>
                                       {this.state.istimerstarted == true &&
                                         this.state.email_verified == false && (
                                           <div
                                             style={{
                                               position: "absolute",
-                                              right: -23,
-                                              top: -29,
+                                              right: 0,
+                                              top: 44,
                                             }}
                                           >
-                                            <div className="otp-timer">
-                                              <CountdownTimer
-                                                timeLeft={
-                                                  this.state.istimerstarted ==
-                                                    true
-                                                    ? Number(
-                                                      this.state
-                                                        .countemailseconds
-                                                    )
-                                                    : 0
-                                                }
-                                                completeCallback={
-                                                  this.emailcompleted
-                                                }
-                                                tickCallback={this.emailtick}
-                                              />
-                                            </div>
+                                            {this.state.minutes2}:
+                                            {this.state.seconds2 < 10
+                                              ? `0${this.state.seconds2}`
+                                              : this.state.seconds2}
                                           </div>
                                         )}
                                     </div>
@@ -1124,7 +1121,10 @@ class Step1 extends Component {
                                   () => this.check_refferal_code()
                                 )
                               }
-                              disabled={this.state.is_refferal_code_matched == true && this.state.refferal_code != ""}
+                              disabled={
+                                this.state.is_refferal_code_matched == true &&
+                                this.state.refferal_code != ""
+                              }
                             />
                             {this.state.is_refferal_code_matched == false &&
                               this.state.show_error == true &&

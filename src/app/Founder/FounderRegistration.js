@@ -457,7 +457,7 @@ class FounderRegistration extends Component {
   render() {
     return (
       <div style={{ display: this.state.show_data }}>
-        <NewWebHeader />
+        <NewWebHeader newabout={"newabout"}/>
         <section className="signup-section">
           <div className="container">
             <div className="row">
