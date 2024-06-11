@@ -11,6 +11,7 @@ import Home from "./app/Home";
 import Homenew from "./app/Homenew.jsx";
 import {Aboutnew} from "./app/Aboutnew.jsx";
 import {FutureUnicornDescription} from './app/FutureUnicornDescription.jsx'
+import {FutureUnicornList} from './app/FutureUnicornList.jsx'
 import Content from "./Content/Content";
 import Deals from "./app/Deals";
 import Refer from "./app/ReferLogin";
@@ -195,6 +196,7 @@ function App() {
           {/* <Route path="/" exact component={Home} /> */}
           <Route path="/" exact component={Homenew} />
           <Route path="/about" exact component={Aboutnew} />
+          <Route path="/FutureUnicornList" exact component={FutureUnicornList} />
             <Route path="/FutureUnicornDescription" exact component={FutureUnicornDescription} />
           <Route path="/UnderMaintenance" exact component={UnderMaintenance} />
           <Route path="/StartInvestment" exact component={Content} />
