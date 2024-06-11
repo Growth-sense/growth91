@@ -721,7 +721,7 @@ class Homenew extends Component {
                                 Explore Deals{" "}
                                 {this.state.loggedinstatus == true
                                   ? ""
-                                  : "(Signup)"}
+                                  : "(Sign Up)"}
                               </Link>
                             </div>
                           </form>
