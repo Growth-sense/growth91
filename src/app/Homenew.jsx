@@ -304,7 +304,7 @@ class Homenew extends Component {
       autoplaySpeed: 5000,
       fade: true,
 
-      autoplay: false,
+      autoplay: true,
       pauseOnHover: false,
       pauseOnfocus: false,
       cssEase: "linear",
