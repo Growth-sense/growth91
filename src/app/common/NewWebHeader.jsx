@@ -187,7 +187,7 @@ class NewWebHeader extends Component {
         } else {
         }
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   getbankdetails = () => {
@@ -719,9 +719,8 @@ class NewWebHeader extends Component {
     return (
       <div className="new">
         <header
-          className={` main-header site-header selector  ${
-            isScrolled ? "shift" : ""
-          }`}
+          className={` main-header site-header selector  ${isScrolled ? "shift" : ""
+            }`}
           id="topNav"
         >
           <div class="">
@@ -730,26 +729,24 @@ class NewWebHeader extends Component {
               style={{ background: "rgb(41, 23, 111);" }}
             ></div>
             <div
-              className={`headers-main ${
-                isActive ? "main-navbar-bg-white" : ""
-              }`}
+              className={`headers-main ${isActive ? "main-navbar-bg-white" : ""
+                }`}
             >
               <nav class={`main-navbar ${newabout}`}>
                 <div class="nav-inner ">
                   <div
-                    className={`logo-menus ${
-                      isActive ? "directions-columns" : ""
-                    }`}
+                    className={`logo-menus ${isActive ? "directions-columns" : ""
+                      }`}
                   >
                     <div
                       class="menu-logo"
                       style={
                         isActive
                           ? {
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "space-between",
-                            }
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                          }
                           : { display: "bv" }
                       }
                     >
@@ -771,9 +768,8 @@ class NewWebHeader extends Component {
                       >
                         {this.state.loggedinstatus == true ? (
                           <ul
-                            className={`topbar-right ${
-                              isActive ? "d-block" : ""
-                            }`}
+                            className={`topbar-right ${isActive ? "d-block" : ""
+                              }`}
                           >
                             {/* <i className="bx bxs-bell-ring position-relative text-white me-4" style={{fontSize: '1.5rem', marginBottom: '0'}}>
                                 
@@ -859,9 +855,8 @@ class NewWebHeader extends Component {
                       style={{ display: isActive ? "block" : "block" }}
                     >
                       <ul
-                        className={`desktop-menu col-xl col-xxl col-sm col-md col-lg ${
-                          isActive ? "menumobile-opens" : ""
-                        }`}
+                        className={`desktop-menu col-xl col-xxl col-sm col-md col-lg ${isActive ? "menumobile-opens" : ""
+                          }`}
                         style={{
                           position: "relative",
                           justifyContent: "center",
@@ -894,7 +889,7 @@ class NewWebHeader extends Component {
                               window.location.pathname == "/Founders" &&
                               "active" ||
                               window.location.pathname == "/Founders/" &&
-                                "active"
+                              "active"
                             }
                           >
                             Founders
@@ -935,6 +930,25 @@ class NewWebHeader extends Component {
                             Blog
                           </a>
                         </li>
+                        {/* <li>
+                          <a
+                            rel="noreferrer" href="https://growth91.com/blog/"
+                            className={
+                              window.location.pathname == "" && "active"
+                            }
+                          >
+                            Future Unicorns <span className="angles-menus"><i class="fa-solid fa-angle-down"></i></span>
+                          </a>
+                          <div className="submenu-cards">
+                            <div className="submenus">
+                              <ul>
+                                <li><a href="">Login as Founder</a></li>
+                                <li><a href="">Login as Investor</a></li>
+                              </ul>
+                            </div>
+                          </div>
+
+                        </li> */}
                         {this.state.loggedinstatus == true ? (
                           ""
                         ) : (
@@ -943,7 +957,7 @@ class NewWebHeader extends Component {
                               <>
                                 <div class="headers-btn  mobile-logins-btns">
                                   <Link to="/login">Sign In</Link>
-                                  <Link  to="/Signup">
+                                  <Link to="/Signup">
                                     get started
                                   </Link>
                                 </div>
@@ -980,9 +994,8 @@ class NewWebHeader extends Component {
                   </div>
                   {this.state.loggedinstatus == true ? (
                     <ul
-                      className={`topbar-right mobile-topbar ${
-                        isActive ? "d-none" : ""
-                      }`}
+                      className={`topbar-right mobile-topbar ${isActive ? "d-none" : ""
+                        }`}
                     >
                       {/* <i className="bx bxs-bell-ring position-relative text-white me-4" style={{fontSize: '1.5rem', marginBottom: '0'}}>
                                 
@@ -1167,7 +1180,7 @@ class NewWebHeader extends Component {
                 className="form-control"
                 value={localStorage.getItem("investor_email")}
                 readOnly
-                // onChange={(e) => this.setState({ contactno:e.target.value })}
+              // onChange={(e) => this.setState({ contactno:e.target.value })}
               />
             </div>
 
@@ -1334,7 +1347,7 @@ class NewWebHeader extends Component {
                 className="form-control"
                 value={localStorage.getItem("founder_email")}
                 readOnly
-                // onChange={(e) => this.setState({ contactno:e.target.value })}
+              // onChange={(e) => this.setState({ contactno:e.target.value })}
               />
             </div>
 

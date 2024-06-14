@@ -560,8 +560,8 @@ class Homenew extends Component {
                       <div class="d-flex-banner fadding-bottom fadding-bottom-1">
                         <div class="banner-part banner-slidingpart">
                           <h1 class="">
-                            Do you want to invest in India's
-                            <br /> booming startup ecosystem
+                          Looking to Invest in Startups India and 
+                            Tap Into High-Growth Ventures?
                           </h1>
                           <p class=" p-0">
                             <span>
@@ -750,7 +750,8 @@ class Homenew extends Component {
                 <p>
                   <span></span>{" "}
                 </p>
-                <h3>Success Stories</h3>
+                <h3>Our Startup Investors in India
+</h3>
               </div>
             </div>
             <div class="position-rel">
@@ -1042,7 +1043,7 @@ class Homenew extends Component {
                 <p>
                   <span></span>{" "}
                 </p>
-                <h3>Why Choose us?</h3>
+                <h3>Why Invest in Startups in India with Us</h3>
               </div>
 
               <div class="main-business-card">
@@ -1101,7 +1102,7 @@ class Homenew extends Component {
                 <p>
                   <span></span>{" "}
                 </p>
-                <h3>Testimonials</h3>
+                <h3>Our Successful Startup Investors</h3>
               </div>
               <div class="col-12 col-xl-12 col-lg-12 col-md-12 ">
                 <div class="slider-testimonials">
@@ -1536,7 +1537,7 @@ class Homenew extends Component {
           <div class="join-section join-sec-yellow join-sec-white undefined join-divide mobile-join">
             {/* <h4>Join us</h4> */}
             <div className="join-flex-one-us">
-              <h2>Partner with Us to Identify High-Potential Growth Businesses</h2>
+              <h2>Join Us to Invest in Startups India and Support Breakthrough Ventures</h2>
               <p class="index_pitch">
                 Decades of banking, investing & startup success guide your investments. Invest confidently with us.
               </p>

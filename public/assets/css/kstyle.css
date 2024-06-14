@@ -4298,6 +4298,7 @@ transition: max-height 0.45s ease-in; */
         display: flex !important;
 
         margin: 0 0px !important;
+        justify-content: space-between;
 
 
     }
