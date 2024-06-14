@@ -303,6 +303,7 @@ class Homenew extends Component {
 
       autoplay: false,
       pauseOnHover: false,
+      pauseOnfocus: false,
       cssEase: "linear",
       prevArrow: <SimplePrevArrow />,
       nextArrow: <SimpleNextArrow />,
