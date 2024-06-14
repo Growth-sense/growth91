@@ -4556,4 +4556,12 @@ transition: max-height 0.45s ease-in; */
 
 .community-sections{
     background-color: #8080800d;
+    padding: 90px 0;
+}
+.community-paragraph-box h4{
+    font-size: 20px;
+    /* text-transform: uppercase; */
+}
+.community-paragraph-box p{
+    font-size: 14px;
 }
