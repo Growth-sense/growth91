@@ -8,6 +8,18 @@ import { Link } from 'react-router-dom';
 export const Aboutnew = () => {
     useEffect(() => {
         window.scrollTo(0, 0)
+           // title
+    document.getElementsByTagName("META")[4].content =
+    " About Growth91: Connecting Investors with Top Startups";
+    // title
+
+    document.title =
+      " About Growth91: Connecting Investors with Top Startups";
+      // keyword
+    document.getElementsByTagName("META")[5].content = "invest in startups invest in startups india "
+// description
+    document.getElementsByTagName("META")[3].content =" Learn about Growth91's culture of trust & growth. We connect investors with vetted startups and invest alongside you. Join us on this journey to success."
+  
     }, [])
     
     $(window).scroll(function() {

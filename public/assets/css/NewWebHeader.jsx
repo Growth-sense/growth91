@@ -902,9 +902,9 @@ class NewWebHeader extends Component {
 
                         <li>
                           <Link
-                            to="/How-it-works"
+                            to="/resources"
                             className={
-                              window.location.pathname == "/How-it-works" &&
+                              window.location.pathname == "/resources" &&
                               "active"
                             }
                           >

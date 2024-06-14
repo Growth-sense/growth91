@@ -224,7 +224,7 @@ function App() {
           <Route path="/founder-login" exact component={FounderLogin} />
           <Route path="/Register" exact component={Register} />
           <Route path="/Signup" exact component={Step1} />
-          <Route path="/How-it-works" exact component={Howitworks} />
+          <Route path="/resources" exact component={Howitworks} />
           <Route path="/How-it-works2" exact component={Howitworks2} />
           <Route path="/How-it-works3" exact component={Howitworks3} />
           <Route path="/How-it-works4" exact component={Howitworks4} />

@@ -48,15 +48,18 @@ class Homenew extends Component {
   }
 
   componentWillMount() {
+    // title
     document.getElementsByTagName("META")[4].content =
-      "Venture into Innovation: Invest in Startups with Growth91";
+    "Growth91: Invest in Startups India for Big Returns on Top Platforms";
+    // title
 
     document.title =
-      "Venture into Innovation: Invest in Startups with Growth91";
+      "Growth91: Invest in Startups India for Big Returns on Top Platforms";
+      // keyword
     document.getElementsByTagName("META")[5].content = "invest in startups invest in startups india "
-
+// description
     document.getElementsByTagName("META")[3].content =
-      "Explore the potential of startup investments with Growth91. Discover opportunities & maximize your returns. Embrace the opportunity to invest in startups.";
+      " Maximize your returns with the best startup investing platforms. Learn how to invest in startups in India and find the top investment opportunities.";
     window.removeEventListener("scroll", this.handleScroll);
   }
   togglemsg() {
