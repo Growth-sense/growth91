@@ -52,7 +52,7 @@ export const Homeblog = () => {
                 <p>
                   <span></span>{" "}
                 </p>
-                <h2> Blogs</h2>
+                <h2> Latest News and Trends in Indian Startup Investments</h2>
               </div>
             </div>
 

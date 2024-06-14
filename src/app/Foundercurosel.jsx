@@ -12,7 +12,8 @@ export const Foundercurosel = () => {
               <p>
                 <span></span>{" "}
               </p>
-              <h2>Testimonials Of Founders</h2>
+              <h2>Founder Testimonials
+</h2>
             </div>
       <div className="testimonial_wraper owl-carousel">
         <div className="item">
