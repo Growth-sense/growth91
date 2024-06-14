@@ -168,6 +168,7 @@ import Nymbleup from "./app/deal-pages/Nymbleup.jsx";
 import IndusUnoTranche2 from "./app/deal-pages/IndusUnoTranche2";
 import { Newdeals } from "./app/Newdeals.jsx";
 import jqeryscript from "./jq.js"
+import TableComponent from "./app/admin/pdfview/TableComponent.js";
 
 ReactGA.initialize(TRACKING_ID);
 
@@ -315,6 +316,11 @@ function App() {
             path="/founder-documents"
             exact
             component={Founderformdetails}
+          />
+          <Route
+            path="/admin-founder-dashboard"
+            exact
+            component={TableComponent}
           />
           <Route path="/documents" exact component={AdminDocuments} />
           <Route

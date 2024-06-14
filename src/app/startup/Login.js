@@ -38,10 +38,10 @@ class Login extends Component {
     };
   }
   componentDidMount() {
-    let otp=this.generateOTP();
+    let otp
     this.setState({
-      otp:otp.length==6 ? Number(otp).toFixed() : '144255',
-      otp_restriction_date: moment(),
+      // otp:otp.length==6 ? Number(otp).toFixed() : '144255',
+      // otp_restriction_date: moment(),
     });
   }
   start10mincountdown=()=>{
@@ -100,7 +100,7 @@ class Login extends Component {
     }
     let params={
       email: this.state.email,
-      otp: this.state.otp,
+      // otp: this.state.otp,
     };
     Bridge.startupformlogin(params).then((result) => {
       if(result.status==1){
@@ -138,9 +138,11 @@ class Login extends Component {
       message.warning("Invalid email");
       return;
     }
-    if(this.state.otp.length!=6){
-      this.setState({otp: '123444'});
-    }
+    console.log(this.state.otp);
+    console.log(this.state.email);
+    // if(this.state.otp.length!=6){
+    //   this.setState({otp: '123444'});
+    // }
     this.setState({formloader:true});
     let params={
       email: this.state.email,
@@ -247,6 +249,7 @@ class Login extends Component {
     this.setState({email:value});
   }
   setOtp=(value)=>{
+    console.log("Asd");
     this.setState({otp:value});
   }
   setFounderId=(value)=>{
@@ -260,7 +263,7 @@ class Login extends Component {
           <div className="container">
             <div className="row">
               <div className="col-lg-5 m-auto">
-                <Urldata setEmail={this.setemail} setOtp={this.setOtp} setFounderId={this.setFounderId} />
+                <Urldata setEmail={this.setemail} setOtp={this.state.otp} setFounderId={this.setFounderId} />
                 <Spin spinning={this.state.loading}>
                   {this.state.screen2==true ? (
                     <div className="login-form">
@@ -388,7 +391,10 @@ class Login extends Component {
                         placeholder='otp' 
                         value={this.state.otp}
                         autoComplete="off"
-                        disabled={true}
+                        onChange={(e) =>
+                          this.setState({ otp: e.target.value })
+                        }
+                        // disabled={true}
                       />
                       <button
                         type="button"
