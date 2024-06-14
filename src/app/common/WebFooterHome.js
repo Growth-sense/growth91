@@ -43,7 +43,7 @@ class WebFooterHome extends Component {
                         <h3 >Useful Link</h3>
                         <ul>
                             <li><a href="/deals"><i className="fal fa-angle-right"></i>Invest</a></li>
-                            <li><a href="/How-it-works"><i className="fal fa-angle-right"></i>How it works</a></li>
+                            <li><a href="/resources"><i className="fal fa-angle-right"></i>How it works</a></li>
                             <li><a href="/Learn"><i className="fal fa-angle-right"></i>Learn</a></li>
                             <li><a href="/Login"><i className="fal fa-angle-right"></i>Log in</a></li>
                            

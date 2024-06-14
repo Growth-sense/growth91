@@ -124,7 +124,7 @@ class Nymbleup extends Component {
     document.title = "Nymbleup - Growth91 - Startup Marketplace ";
   }
   componentDidMount() {
-    let deal_id = "123";
+    let deal_id = "33";
     this.setState({ deal_id: deal_id }, () => {
       this.get_pitch_list();
     });
@@ -1659,22 +1659,10 @@ class Nymbleup extends Component {
                                 fontWeight: "800",
                               }}
                             >
-                              Market size :
+                              Market Size and Growth:
                             </span>{" "}
-                            The AI-based predictive workforce management market
-                            is experiencing robust growth. In 2023, the global
-                            market size was estimated at approximately $1.5
-                            billion, with projections indicating a compound
-                            annual growth rate (CAGR) of around 20% from 2023 to
-                            2028. By 2028, the market is expected to reach
-                            approximately $3.75 billion. Businesses across
-                            various sectors, including retail, hospitality, and
-                            healthcare, are increasingly adopting AI and
-                            automation to streamline operations and enhance
-                            efficiency. By predicting demand accurately,
-                            businesses can ensure they have the right number of
-                            staff at the right times, enhancing the customer
-                            experience and improving service levels{" "}
+                            The AI-based predictive workforce management market is experiencing robust growth. In 2024, the global market size is estimated at approximately $10 billion, with projections indicating a compound annual growth rate (CAGR) of around 9.3% from 2024 to 2032. By 2032, the market is expected to reach approximately $20 billion. Businesses across various sectors, including retail, hospitality, and healthcare, are increasingly adopting AI and automation to streamline operations and enhance efficiency. By predicting demand accurately, businesses can ensure they have the right number of staff at the right times, enhancing the customer experience and improving service levels.
+
                           </p>
                         </div>
                       </div>
@@ -1702,18 +1690,13 @@ class Nymbleup extends Component {
                                 fontWeight: "800",
                               }}
                             >
-                              Technological Advancements:
+                             Technological Advancements:
+
                             </span>{" "}
-                            AI and Machine Learning tools which use advanced
-                            algorithms analyse a plethora of data points,
-                            including sales trends, weather conditions, and
-                            event impacts, to generate precise demand forecasts.
-                            Integration with Other Systems, management tools and
-                            platforms allow for a more holistic approach to
-                            workforce management. Real-Time Forecasting
-                            solutions capable of predicting demand at regular
-                            intervals are becoming increasingly popular,
-                            allowing for more granular and responsive management{" "}
+                            AI and Machine Learning tools which use advanced algorithms analyse a plethora of data points, including sales trends, weather conditions, and event impacts, to generate precise demand forecasts.
+Integration with Other Systems, management tools and platforms allow for a more holistic approach to workforce management.
+Real-Time Forecasting solutions capable of predicting demand at regular intervals are becoming increasingly popular, allowing for more granular and responsive management.
+
                           </p>
                         </div>
                       </div>
@@ -1744,15 +1727,10 @@ class Nymbleup extends Component {
                             >
                               Applications:
                             </span>{" "}
-                            Retailers use predictive workforce management to
-                            align staffing levels with fluctuating customer
-                            footfall and purchasing patterns.Hotels and
-                            restaurants leverage these solutions to optimize
-                            staff schedules based on reservations, local events,
-                            and seasonal trends. Hospitals and clinics utilize
-                            AI-driven forecasts to manage nurse and doctor
-                            schedules, ensuring adequate staffing during peak
-                            times without overstaffing during lull{" "}
+                            Retailers use predictive workforce management to align staffing levels with fluctuating customer footfall and purchasing patterns.
+Hotels and restaurants leverage these solutions to optimize staff schedules based on reservations, local events, and seasonal trends.
+Hospitals and clinics utilize AI-driven forecasts to manage nurse and doctor schedules, ensuring adequate staffing during peak times without overstaffing during breaks.
+
                           </p>
                         </div>
                       </div>
@@ -2083,11 +2061,12 @@ class Nymbleup extends Component {
                                           </div>
                                           <div className="info">
                                             <span> Min Investment</span>
-                                            <h4>₹ 500960 for CCPS</h4>
+                                            <h4>₹ 5,00,000 for CCPS</h4>
                                           </div>
                                           <div className="info">
                                             <span>Valuation</span>
-                                            <h4>₹ 17 Cr</h4>
+                                            <h4>₹ 30 Cr. Pre Money Valuation
+                                            </h4>
                                           </div>
                                         </div>
                                       </div>
@@ -2870,7 +2849,7 @@ class Nymbleup extends Component {
                                 >
                                   <div className="d-flex">
                                     <img
-                                      src="./assets/images/deals-details/Nymbleup/Team/yogesh.jpeg"
+                                      src="./assets/images/deals-details/Nymbleup/Team/yogesh.jpg"
                                       alt=""
                                     />
                                     <div className="intro">
@@ -2884,7 +2863,7 @@ class Nymbleup extends Component {
                                         }}
                                       >
                                         <a
-                                          href="https://www.linkedin.com/search/results/all/?fetchDeterministicClustersOnly=true&heroEntityKey=urn%3Ali%3Afsd_profile%3AACoAACcP6xABNpDrxZgvIFwPt7zx4w52aX8VRC4&keywords=yogesh%20bhatt&origin=RICH_QUERY_SUGGESTION&position=0&searchId=e76143d5-5e56-487a-8785-9037d40cc5e9&sid=fDZ&spellCorrectionEnabled=false"
+                                          href="https://www.linkedin.com/in/yogesh-bhatt-57893814/"
                                           target="_blank"
                                         >
                                           <i className="bx bxl-linkedin"></i>
@@ -2919,7 +2898,7 @@ class Nymbleup extends Component {
                                 <div className="single">
                                   <div className="d-flex">
                                     <img
-                                      src="./assets/images/deals-details/Nymbleup/Team/manish.jpeg"
+                                      src="./assets/images/deals-details/Nymbleup/Team/manish.jpg"
                                       alt=""
                                     />
                                     <div className="intro">
@@ -2933,7 +2912,7 @@ class Nymbleup extends Component {
                                         }}
                                       >
                                         <a
-                                          href="https://www.linkedin.com/search/results/all/?fetchDeterministicClustersOnly=true&heroEntityKey=urn%3Ali%3Afsd_profile%3AACoAADQdsQEBaHNT5SkYvsdQKB5I3rhgm1bvZbk&keywords=manish%20thakur&origin=RICH_QUERY_SUGGESTION&position=0&searchId=6b770251-8a37-47f7-9e38-93ab87a64137&sid=eF~&spellCorrectionEnabled=false"
+                                          href="https://www.linkedin.com/in/manish-thakur-in?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
                                           target="_blank"
                                         >
                                           <i className="bx bxl-linkedin"></i>
@@ -2978,7 +2957,7 @@ class Nymbleup extends Component {
                                         }}
                                       >
                                         <a
-                                          href="inkedin.com/search/results/all/?fetchDeterministicClustersOnly=true&heroEntityKey=urn%3Ali%3Afsd_profile%3AACoAAA_Rt54BAUj2wqRyDCa_JRIX1O4umkWCc2s&keywords=sanket%20kasar&origin=RICH_QUERY_SUGGESTION&position=1&searchId=9505b96b-69a0-475e-a867-ebd2253699d8&sid=T_%2C&spellCorrectionEnabled=false"
+                                          href="https://www.linkedin.com/search/results/all/?fetchDeterministicClustersOnly=true&heroEntityKey=urn%3Ali%3Afsd_profile%3AACoAAA_Rt54BAUj2wqRyDCa_JRIX1O4umkWCc2s&keywords=sanket%20kasar&origin=RICH_QUERY_SUGGESTION&position=1&searchId=9505b96b-69a0-475e-a867-ebd2253699d8&sid=T_%2C&spellCorrectionEnabled=false"
                                           target="_blank"
                                         >
                                           <i className="bx bxl-linkedin"></i>
@@ -3000,7 +2979,7 @@ class Nymbleup extends Component {
                                     <li>
                                       <a>
                                         {" "}
-                                        working experience in recommendation of
+                                        Working experience in recommendation of
                                         music algorithms, voice- based autobots,
                                         data analytics systems and scalable
                                         cloud systems

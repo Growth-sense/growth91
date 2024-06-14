@@ -234,7 +234,7 @@ class Founders extends Component {
 
               </p>
             </div>
-            <a href="/How-it-works" className="theme_btn">
+            <a href="/resources" className="theme_btn">
               Learn More
             </a>
           </div>
