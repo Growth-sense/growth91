@@ -10,6 +10,7 @@ import ReactGA from "react-ga4";
 import Home from "./app/Home";
 import Homenew from "./app/Homenew.jsx";
 import {Aboutnew} from "./app/Aboutnew.jsx";
+import {FamilyDashboard} from "./app/FamilyDashboard.jsx"
 import {InformationList} from "./app/InformationList.jsx"
 
 import {FutureUnicornDescription} from './app/FutureUnicornDescription.jsx'
@@ -203,6 +204,7 @@ function App() {
           <Route path="/about" exact component={Aboutnew} />
           <Route path="/FutureUnicornList" exact component={FutureUnicornList} />
             <Route path="/FutureUnicornDescription" exact component={FutureUnicornDescription} />
+            <Route path="/FamilyDashboard" exact component={FamilyDashboard} />
             <Route path="/InformationList" exact component={InformationList} />
           <Route path="/UnderMaintenance" exact component={UnderMaintenance} />
           <Route path="/StartInvestment" exact component={Content} />
