@@ -137,7 +137,7 @@ class Tulua extends Component {
     document.title = "Tulua - Growth91 - Startup Marketplace ";
   }
   componentDidMount() {
-    let deal_id = "32";
+    let deal_id = "121";
     this.setState({ deal_id: deal_id }, () => {
       this.get_pitch_list();
     });

@@ -68,18 +68,14 @@ class Founderformdetails extends Component {
   searchinput = (e) => {
     let text = e.target.value;
     this.setState({ loading: true, searchinput: text });
+    console.log(text);
     if (text) {
       let arr = [];
       for (let item of this.state.clist) {
         if (
-          (item.name && item.name.includes(text)) ||
+          (item.main_founder_id && item.main_founder_id.includes(text)) ||
           (item.first_name && item.first_name.toLowerCase().includes(text.toLowerCase())) ||
-          (item.last_name && item.last_name.toLowerCase().includes(text.toLowerCase())) ||
-          (item.payment_date && item.payment_date.includes(text)) ||
-          (item.payment_amount && item.payment_amount.includes(text)) ||
-          (item.description && item.description.toLowerCase().includes(text.toLowerCase())) ||
-          (item.payment_ref && item.payment_ref.includes(text))
-        ) {
+          (item.startup_name && item.startup_name.toLowerCase().includes(text.toLowerCase()))         ) {
           arr = [...arr, item];
         }
       }
@@ -390,6 +386,7 @@ class Founderformdetails extends Component {
   };
   downloadpdf = (item) => {
     this.setState({ modalstatus: true, item: item });
+    console.log(item);
 
   };
   get_assesment_form_details = (item) => {
@@ -1659,7 +1656,7 @@ class Founderformdetails extends Component {
             pathname: "/admin-founder-dashboard",
             state: { item:text}
           }} > */}
-              <Button type="primary" onClick={() => this.downloadpdf(text)} data-toggle="modal" data-target="#myModal">
+              <Button type="primary" onClick={() => this.downloadpdf(text)}>
                 View Details{" "}
                 <i
                   className="bx bx-cloud-download ps-2"
@@ -1795,11 +1792,10 @@ class Founderformdetails extends Component {
             />
             :""} */}
           
-            {this.state.item &&this.state.item ? <Founderadmindashboard id={this.state.item.main_founder_id} tab={this.props.item}/>
-            :""}
+            
           
           </div>
-        {this.state.item &&this.state.item ? <Founderadmindashboard id={this.state.item.main_founder_id} tab={this.state.item}/>
+        {this.state.item &&this.state.item ? <Founderadmindashboard id={this.state.item.main_founder_id} tab={this.state.item} view={0}/>
             :""}
             </Modal>
       </>

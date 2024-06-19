@@ -20,7 +20,7 @@ class WebFooterHome extends Component {
                                 top: -48,
                                 left: 9,
                             }}
-                            className="mt-2 pb-0">Growth91<sup>TM</sup> Advisors Private Limited.</p>
+                            className="mt-2 pb-0">Growth91<sup>®</sup> Advisors Private Limited.</p>
                         </div>
                         <p
                         style={{ marginLeft:8,position:'relative',top:-33 }}
@@ -89,7 +89,7 @@ class WebFooterHome extends Component {
         <div className="footer-bottom">
             <div className="container">
                 <div className="bottom-left">
-                    <span>Copyright &copy; <a href="#">Growth91<sup>TM </sup></a> {moment().format('YYYY')}. All Rights Reserved</span>
+                    <span>Copyright &copy; <a href="#">Growth91<sup>® </sup></a> {moment().format('YYYY')}. All Rights Reserved</span>
                    
                 </div>
             </div>

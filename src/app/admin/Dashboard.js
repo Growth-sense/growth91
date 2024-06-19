@@ -59,6 +59,8 @@ class Dashboard extends React.Component {
   };
 
   render() {
+    var nf = new Intl.NumberFormat('en-IN');
+
     return (
       <Layout
         style={{ minHeight: "100vh", marginTop: 0 }}
@@ -91,7 +93,7 @@ class Dashboard extends React.Component {
                     <div className="item">
                       <div className="panel-heading">
                         <h3 className="panel-title">
-                          {this.state.investor_count}
+                          {nf.format(this.state.investor_count)}
                         </h3>
                       </div>
                       <div className="panel-body">Investors</div>
@@ -101,7 +103,7 @@ class Dashboard extends React.Component {
                     <div className="item">
                       <div className="panel-heading">
                         <h3 className="panel-title">
-                          ₹ {this.state.invested_amt}
+                          ₹ {nf.format(this.state.invested_amt)}
                         </h3>
                       </div>
                       <div className="panel-body">Investments</div>
@@ -111,7 +113,7 @@ class Dashboard extends React.Component {
                     <div className="item">
                       <div className="panel-heading">
                         <h3 className="panel-title">
-                          {this.state.founder_count}
+                          {nf.format(this.state.founder_count)}
                         </h3>
                       </div>
                       <div className="panel-body">Founders</div>
@@ -123,24 +125,24 @@ class Dashboard extends React.Component {
                     <div className="item">
                       <div className="panel-heading">
                         <h3 className="panel-title">
-                          ₹ {parseInt(this.state.total_convience_fees)}
+                          ₹ {nf.format(parseInt(this.state.total_convience_fees))}
                         </h3>
                       </div>
                       <div className="panel-body">Total Convenience Fees</div>
                     </div>
                   </div>
-                  <div className="col-lg-3">
+                  {/* <div className="col-lg-3">
                     <div className="item">
                       <div className="panel-heading">
                         <h3 className="panel-title">
-                          ₹ {this.state.total_expected_amt}
+                          ₹ {nf.format(this.state.total_expected_amt)}
                         </h3>
                       </div>
                       <div className="panel-body">
                         Total expected deal value
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 {/* End dashboard cards */}
               </Spin>

@@ -935,16 +935,7 @@ class NewWebHeader extends Component {
                             Blog
                           </a>
                         </li>
-                        <li>
-                          <Link
-                            rel="noreferrer" to="/Future_Unicorn"
-                            className={
-                              window.location.pathname == "/Future_Unicorn" && "active"
-                            }
-                          >
-                            Future_Unicorn
-                          </Link>
-                        </li>
+                        
                         {this.state.loggedinstatus == true ? (
                           ""
                         ) : (

@@ -59,7 +59,10 @@ class PendingOfflinePayments extends Component {
           (item.deal_id && item.deal_id.includes(text)) ||
           (item.startup_id && item.startup_id.includes(text)) ||
           (item.investor_name && item.investor_name.toLowerCase().includes(text.toLowerCase())) ||
+          ( moment(item.payment_dt).format("DD MMM, YYYY") &&  moment(item.payment_dt).format("DD MMM, YYYY").toLowerCase().includes(text.toLowerCase())) ||
+          (item.payment_type && item.payment_type.toLowerCase().includes(text.toLowerCase())) ||
           (item.payment_date && item.payment_date.includes(text)) ||
+          (item.investment_amt && item.investment_amt.includes(text)) ||
           (item.investor_id && item.investor_id.includes(text)) ||
           (item.investor_email && item.investor_email.includes(text)) ||
           (item.reference_id && item.reference_id.includes(text))

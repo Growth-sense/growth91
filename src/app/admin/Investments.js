@@ -116,6 +116,10 @@ class Investments extends Component {
             investment.last_name
               .toLowerCase()
               .includes(search.toLowerCase())) ||
+          (investment.email &&
+            investment.email
+              .toLowerCase()
+              .includes(search.toLowerCase())) ||
           (investment.investment_id &&
             investment.investment_id
               .toLowerCase()
@@ -444,6 +448,7 @@ class Investments extends Component {
     }
   };
   render() {
+    var nf = new Intl.NumberFormat('en-IN');
     const dataSource =
       this.state.investments &&
       this.state.investments.map((item, index) => {
@@ -455,10 +460,10 @@ class Investments extends Component {
             ? moment(item.Invested_dt).format("DD MMM, YYYY")
             : "---",
           investmentamount: item.Investment_amt
-            ? "₹ " + item.Investment_amt
+            ? "₹ " + nf.format( item.Investment_amt)
             : "---",
             processingfees: item.processingfees
-            ? "₹ " + item.processingfees
+            ? "₹ " +  nf.format(item.processingfees)
             : "---",
           startupname: item.name ? item.name : "---",
           InvestedEmail: item.email? item.email: "---",
@@ -479,6 +484,7 @@ class Investments extends Component {
         dataIndex: "investmentno",
         key: "investmentno",
         width: 160,
+        align:"right",
         render: (text) => {
           return <Dealflow data={text} />;
         },
@@ -564,11 +570,15 @@ class Investments extends Component {
         title: "Investment Amount",
         dataIndex: "investmentamount",
         key: "investmentamount",
+        align:"right",
+
       },
       {
         title: "Fees",
         dataIndex: "processingfees",
         key: "processingfees",
+        align:"right",
+
       },
       // {
       //   title: "Txn Type",
