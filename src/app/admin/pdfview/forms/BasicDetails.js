@@ -217,7 +217,7 @@ class BasicDetails extends Component {
                                 type="email" 
                                 placeholder="Enter your Email"
                                 name='email'
-                                value={this.state.email}
+                                value={this.props.data.email}
                                 id="selected-field"
                                 onChange={(e) => this.setState({email: e.target.value}) }//.
                               />
@@ -228,7 +228,7 @@ class BasicDetails extends Component {
                                 type="text" 
                                 placeholder="Enter your Startup name"
                                 name='startup_name'
-                                value={this.state.startup_name}
+                                value={this.props.data.startup_name}
                                 onChange={(e) => this.setState({startup_name: e.target.value}) }
                               />
                             </div>
@@ -238,7 +238,7 @@ class BasicDetails extends Component {
                                   type="text" 
                                   placeholder="Enter Name"
                                   name='primary_contact_person_name'
-                                  value={this.state.primary_contact_person_name}
+                                  value={this.props.data.primary_contact_person_name}
 
                                   onChange={(e) => this.setState({primary_contact_person_name: e.target.value}) }
                               />
@@ -249,7 +249,7 @@ class BasicDetails extends Component {
                                 type="number" 
                                 placeholder="Enter Mobile"
                                 name='primary_contact_person_mobile'
-                                value={this.state.primary_contact_person_mobile}
+                                value={this.props.data.primary_contact_person_mobile}
                                 onWheel={() => document.activeElement.blur()}
                                 onChange={(e) => this.setState({primary_contact_person_mobile: e.target.value}) }
                               />
@@ -260,7 +260,7 @@ class BasicDetails extends Component {
                                 type="email" 
                                 placeholder="Enter Email "
                                 name='primary_contact_person_email'
-                                value={this.state.primary_contact_person_email}
+                                value={this.props.data.primary_contact_person_email}
                                 onChange={(e) => this.setState({primary_contact_person_email: e.target.value}) }
                               />
                             </div>

@@ -418,6 +418,7 @@ class Investors extends Component {
       for (let item of this.state.cinvestors) {
         if (
           (item.first_name && item.first_name.toLowerCase().includes(text.toLowerCase())) ||
+          (item.name && item.name.toLowerCase().includes(text.toLowerCase())) ||
           (item.last_name && item.last_name.toLowerCase().includes(text.toLowerCase())) ||
           (item.email && item.email.includes(text)) ||
           (item.mobile && item.mobile.includes(text)) ||

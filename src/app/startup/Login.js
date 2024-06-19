@@ -140,9 +140,10 @@ class Login extends Component {
     }
     console.log(this.state.otp);
     console.log(this.state.email);
-    // if(this.state.otp.length!=6){
-    //   this.setState({otp: '123444'});
-    // }
+    if(this.state.otp.length <1){
+      message.warning("Please Enter OTP ");
+      return
+    }
     this.setState({formloader:true});
     let params={
       email: this.state.email,
@@ -164,7 +165,7 @@ class Login extends Component {
           // otpoutput:result.data,
         });
       } else {
-        message.warning(result.message);
+        message.warning("Invaild otp");
         this.setState({loading:false});
       }
     });

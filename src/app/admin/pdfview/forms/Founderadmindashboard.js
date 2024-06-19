@@ -33,7 +33,7 @@ class Founderadmindashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeform: 0,
+      activeform: this.props.view,
       class0: "",
       class1: "",
       class2: "",
@@ -97,15 +97,15 @@ class Founderadmindashboard extends Component {
       f18_status: "",
       f19_status: "",
       f20_status: "",
-      showInstruction: true,
+      showInstruction: false,
       i: 5,
     };
   }
 
   componentDidMount() {
     // this.setState("");
-    this.setState({ activeform: this.state.tab });
-    console.log(this.props.id);
+  this.setState({ activeform: 0 });
+    console.log(this.props.tab);
     this.getData(this.props.id);
     if (this.props.id) {
       let id = this.props.id;
@@ -675,84 +675,11 @@ class Founderadmindashboard extends Component {
   };
 
   render() {
+ 
     return (
       <div>
         {this.state.showInstruction ? (
-          <div className="m-5 ppnt">
-            <div className="m-3 py-3" style={{ paddingTop: "63px !important" }}>
-              <h1 className="mt-5">Instruction for startup form</h1>
-              <br />
-              <p>
-                Tell us a little about your company. This will help us
-                understand your business better.
-                <br />
-                <span style={{ color: "red" }}>
-                  ( Instruction: Startup form and Assessment Forms are best
-                  viewed on PC/Laptop. )
-                </span>
-              </p>
-            </div>
-
-            <hr
-              style={{
-                border: "1px solid rgb(170 167 167)",
-                background: "#ddd",
-                margin: "33px 0",
-              }}
-            />
-
-            <center>
-              <button
-                onClick={() => {
-                  this.setState({ showInstruction: false });
-                  ReactGA.event({
-                    category: "Startup Form",
-                    action: "Instruction",
-                    label: "Lets Start",
-                  });
-                }}
-                className="small-button-dark prime-bg  "
-                style={{
-                  fontsize: 18,
-                  padding: "0 0",
-                  marginBottom: 20,
-                }}
-              >
-                Lets start
-              </button>
-            </center>
-
-            <img
-              src="./assets/images/founders/startup-instruction.png"
-              alt="startup-instruction"
-              style={{
-                maxWidth: "60%",
-                margin: "0 auto",
-                display: "flex",
-              }}
-            />
-
-            <center>
-              <br />
-              <button
-                onClick={() => {
-                  this.setState({ showInstruction: false });
-                  ReactGA.event({
-                    category: "Startup Form",
-                    action: "Instruction",
-                    label: "Lets Start",
-                  });
-                }}
-                className="small-button-dark prime-bg"
-                style={{
-                  fontsize: 18,
-                  padding: "0 0",
-                }}
-              >
-                Lets start
-              </button>
-            </center>
-          </div>
+        ""
         ) : (
           <section className="rfoundation-section" style={{ marginTop: 100 }}>
             <div className="container">
@@ -808,6 +735,7 @@ class Founderadmindashboard extends Component {
                       </li>
                       <li
                         onClick={() => {
+                          console.log(this.props);
                           this.activethistab(1);
                           this.checkforvalidation();
                         }}
@@ -1422,7 +1350,7 @@ class Founderadmindashboard extends Component {
                     <BasicDetails
                       activate={() => this.activeform(1)}
                       next={() => this.activeform(1)}
-                      id={this.props.id}
+                      // id={this.props.id}
                       data={this.props.tab}
                       error={this.state.error_status_0}
                       check={(ind) => this.checkforvalidation(ind)}

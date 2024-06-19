@@ -31,7 +31,7 @@ export default class Success extends Component {
 
             <div class="bottomHalf" >
 
-                <p>Well Done for submiting the Startup Information form. Growth91<sup style={{fontSize:"0.6rem"}}>TM</sup> Team will perform the due-diligence and reach out to you.</p>
+                <p>Well Done for submiting the Startup Information form. Growth91<sup style={{fontSize:"0.6rem"}}>®</sup> Team will perform the due-diligence and reach out to you.</p>
 
             </div>
 
