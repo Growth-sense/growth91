@@ -5,6 +5,7 @@ import NewWebHeader from "./common/NewWebHeader.jsx";
 import $ from "jquery";
 import { Link } from 'react-router-dom';
 
+
 export const FutureUnicornDescription = () => {
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -74,7 +75,7 @@ export const FutureUnicornDescription = () => {
         }, {
             breakpoint: 600,
             settings: {
-                autoplay: false,
+                autoplay: true,
                 speed: 100,
                 slidesToShow: 1,
                 slidesToScroll: 1
@@ -82,7 +83,7 @@ export const FutureUnicornDescription = () => {
         }, {
             breakpoint: 400,
             settings: {
-                arrows: false,
+                arrows: true,
                 speed: 100,
                 slidesToShow: 1,
                 slidesToScroll: 1,
@@ -95,391 +96,878 @@ export const FutureUnicornDescription = () => {
             <div classname="newabout">
                 <NewWebHeader newabout={"newabout"} />
             </div>
-            <section class="about-page-section blog-section pb-0" style={{ paddingBottom: "0px !important" }}>
 
-                <div class="container">
+
+            <section class="futureunicorn-slider-sections">
+                <div class="container-flex">
+
                     <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center align-items-center" style={{ pointerEvents: "none" }}>
-                            <div class="heading-title m-sm-0">
+                        <div class="futureslider-card">
+                            <Slider {...sliderSettings}>
+
+
+
+                                <div class="img-future">
+                                    <img src="https://cms.ezylegal.in/wp-content/uploads/2022/12/Business-Management-Consultant-.jpg" alt="" />
+                                    <div className="content-img-futureunicorn">
+                                        <h3>
+                                            Business Management consultant
+                                        </h3>
+                                    </div>
+                                </div>
+
+                                <div class="img-future">
+                                    <img src="https://hoa.org.uk/wp-content/uploads/2021/10/estate-agent-in-house-services-scaled.jpg" alt="" />
+                                    <div className="content-img-futureunicorn">
+                                        <h3>
+                                            Strategic Avisor
+                                        </h3>
+                                    </div>
+
+                                </div>
+                                <div class="img-future">
+                                    <img src="https://suzanneinfrance.com/wp-content/uploads/AdobeStock_127036101.jpeg" alt="" />
+                                    <div className="content-img-futureunicorn">
+                                        <h3>
+                                            Certified Corporate Director
+                                        </h3>
+                                    </div>
+                                </div>
+
+
+                            </Slider>
+
+
+
+                        </div>
+
+                    </div>
+                    <div className="row row-imgdirects">
+                        <div className="row-img-direct">
+                            <div className="img-certified-directors">
+                                <img src="https://www.theidy.com/img/SanjaySarda/profile-pic/sanjay.jpg" alt="" />
+                            </div>
+                            <div className="content-certify-directors">
+                                <h3>Sanjay Sarda</h3>
                                 <p>
-                                    <span></span>{" "}
+                                    <span></span>
+                                    Certified Corporate Director - Business Management Consultant
                                 </p>
-                                <h2>Future Unicorn Description</h2>
+                            </div>
+                            <div className="meet-icon-future">
+                                <ul>
+                                    <li className='img-handshake'>
+                                        <span><img src="./assets/images/hand-shake.png" alt="" /></span>
+                                        <span>Meet Me</span>
+                                    </li>
+                                    <li>
+                                        <span><img src="./assets/images/add-user.png" alt="" /></span>
+                                        <span>Add Contact</span>
+                                    </li>
+                                    <li>
+                                        <span><img src="./assets/images/share1.png" alt="" /></span>
+                                        <span>Share</span>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
 
                     </div>
-
+                    <div className="row row-imgdirects bg-box-futures">
+                        <ul className='grid-box-futures'>
+                            <li>
+                                <span><img src="./assets/images/telephone.png" alt="" /></span>
+                                <span>Call</span>
+                            </li>
+                            <li>
+                                <span><img src="./assets/images/chat.png" alt="" /></span>
+                                <span>Message</span>
+                            </li>
+                            <li>
+                                <span><img src="./assets/images/email.png" alt="" /></span>
+                                <span>Email</span>
+                            </li>
+                            <li>
+                                <span><img src="./assets/images/phone.png" alt="" /></span>
+                                <span>Whatsapp</span>
+                            </li>
+                            <li>
+                                <span><img src="./assets/images/messenger.png" alt="" /></span>
+                                <span>Messanger</span>
+                            </li>
+                            <li>
+                                <span><img src="./assets/images/location.png" alt="" /></span>
+                                <span>Navigate</span>
+                            </li>
+                            <li>
+                                <span><img src="./assets/images/web.png" alt="" /></span>
+                                <span>Website</span>
+                            </li>
+                            <li>
+                                <span><img src="./assets/images/thumb-up.png" alt="" /></span>
+                                <span>Social</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div className="container video-containers">
+
+            </section>
+            {/* <section className="services-section-future">
+                <div className="container">
                     <div className="row">
-                        <div class="col-lg-5 col-md-5 col-sm-5">
-                            <div class="ant-spin-nested-loading">
-                                <div class="ant-spin-container">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="d-flex align-items-center">
-                                            <img src="./assets/images/deals-details/Nymbleup/logo.jpg" alt="" class="img-fluid" />
-                                            <h5 class="ml-5 mt-4">Nymbleup</h5>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex tags">
-                                        <div class="hero-tag" >
-                                            Artificial Intelligence
-                                        </div>
-                                    </div>
-                                    <p >
-                                        NymbleUp Solutions Private Limited is a trailblazer in the retail technology sector, specializing in AI-powered predictive workforce scheduling and demand planning solutions. Utilizing cutting-edge technologies such as AI and multi-objective linear programming,
-                                        NymbleUp optimizes workforce management by aligning employee schedules with sales demand. This innovative
-                                        approach results in improved efficiency, reduced labor wastage,
-                                        and significant cost savings for retailers. The company offers a
-                                        comprehensive platform that includes demand forecasting, scheduling, digital checklists, task management, and store audits,
-                                        simplifying operations and ensuring compliance with brand and statutory guidelines.
-                                    </p>
-
+                        <div className="col-md-4">
+                            <div className="services-futures-card">
+                                <div className="img-card-service-future">
+                                    <img src="./assets/images/help.png" alt="" />
+                                </div>
+                                <div className="para-future-service">
+                                    <p></p>
                                 </div>
                             </div>
-                        </div>
-                        <div className="col-lg-7 deal-banner deals-video-banner">
-                            <iframe
-                                style={{
-                                    boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
-                                    borderRadius: 3,
-                                    // marginLeft: 65,
-                                }}
-                                width="100%"
-                                height="335"
-                                src="https://www.youtube.com/embed/rZcjPWcUTkI"
-                                title="Nymbleup Startup Introduction video"
-                                frameborder="10"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowfullscreen
-                            ></iframe>
-                        </div>
-                    </div>
-
-                </div>
-
-
-            </section>
-
-
-
-            <section class="about-page-section common-padding custom-section ">
-                <div class="container">
-
-                    <div class="row border-10">
-                        <div class="main-p-relative p-0">
-                            <div class="all-story">
-                                <p class="main-bg-story-span"></p>
-                            </div>
-
-                            <div class="story-main">
-                                <div class="main-bg-story">
-
-
-                                    <div class="heading-title m-sm-0 our-story-title">
-                                        <p>
-                                            <span></span>{" "}
-                                        </p>
-                                        <h2>Our Story</h2>
-                                    </div>
-
-                                    <div class="story-page-img">
-                                        <img src="/assets/images/storypic.png" alt="our story" />
-
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-
-
-                            <div class="story-paragraph ">
-                                <p> <span class="dropcap">W</span>
-
-                                    e weren't always a platform connecting investors with groundbreaking startups. We began as Growth Sense, a fund management company with a deep belief in the power of startups to change the world. We've seen incredible potential and value firsthand through our own investments.
-
-                                    But we wanted to do more. We wanted to share this opportunity with everyone. That's why we created Growth91.
-
-                                    Here's the deal (pun intended): We leverage our expertise to rigorously vet promising startups. We only bring you the deals we believe in so much that we invest our own money alongside you.
-
-                                    Growth91 isn't just a platform, it's a brand built on trust. We understand the importance of your hard-earned wealth and want to help you make it work even harder. That's why we invest our time and resources in every deal we offer.
-
-                                    Join us, and let's unlock the future of innovation, together.
-                                </p>
-                            </div>
-
-                        </div>
-                    </div>
-
-
-
-                </div>
-            </section>
-
-            <section class="about-slider-sections">
-                <div class="bg-abt">
-                    <div class="container main-bg-story">
-                        <div class="row ">
-                            <div class="heading-title m-sm-0 our-story-title">
-                                <p>
-                                    <span></span>{" "}
-                                </p>
-                                <h2>Our Leadership Team</h2>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="aboutslider-card">
-                                <Slider {...sliderSettings}>
-                                    <div class="div">
-                                        <div class="content-abt-slider slider1">
-                                            <div class="main-co-found">
-                                                <div class="img-about-slider">
-                                                    <img src="/assets/images/jimish.jpeg" alt="" />
-                                                </div>
-                                                <div class="fo-content">
-                                                    <p>Active Angel Investor & Industry Connector</p>
-                                                </div>
-                                            </div>
-                                            <div class="about-inform">
-                                                <h3>Jimish Kapadia</h3>
-                                                <p>Jimish Kapadia is an active angel investor and very well connected in the banking & startup community. In his earlier roles, he was a Senior Director, Asia Pacific at Buckzy Payments Inc, and President & Regional Head, Transaction Banking & Digital Banking across Corporate clients for West & South India at Yes Bank.
-                                                    <br />
-                                                    Jimish is a Master of Commerce from the University of Gujarat and a PGDBA from Symbiosis. He brings with him over 20 years of experience in Banking across Yes Bank & ICICI Bank.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="div">
-                                        <div class="content-diff">
-                                            <div class="content-abt-slider slider1">
-                                                <div class="main-co-found">
-
-                                                    <div class="img-about-slider">
-                                                        <img src="/assets/images/sanjay.png" alt="" />
-                                                    </div>
-                                                    <div class="fo-content">
-                                                        <p>Active Angel Investor & Industry Connector</p>
-                                                    </div>
-                                                </div>
-                                                <div class="about-inform">
-                                                    <h3>Sanjay Sarda</h3>
-                                                    <p>
-                                                        Sanjay Sarda is alumni of IIT Kharagpur and IIM Ahmedabad with over 29 years of working experience in India and USA, which includes multiple entrepreneurial stints and diverse consulting responsibilities. He is a Certified Corporate Director by IICA and IOD and one of the first few individuals in India to qualify to be an Independent Director. He is also serving diverse set of businesses and HNIs in the capacity of virtual CEO, helping them in providing solutions for critical challenges, decision making and business strategy.
-                                                    </p>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="div">
-                                        <div class="content-abt-slider slider1">
-                                            <div class="main-co-found">
-
-                                                <div class="img-about-slider">
-                                                    <img src="/assets/images/pratik.png" alt="" />
-                                                </div>
-                                                <div class="fo-content">
-                                                    <p>Active Angel Investor & Industry Connector</p>
-                                                </div>
-                                            </div>
-                                            <div class="about-inform">
-                                                <h3>Prateek TC</h3>
-                                                <p>
-
-                                                    NIT Trichy ex-Senior Software engineer at Walmart Active Angel investor    </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Slider>
-
-
-
-                            </div>
-
                         </div>
                     </div>
                 </div>
-
-            </section>
-
-            <section class="section-our-leader-team  custom-section d-none">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center align-items-center" style={{ pointerEvents: "none" }}>
-                            <div class="heading-title m-sm-0">
-                                <p>
-                                    <span></span>{" "}
-                                </p>
-                                <h2>Our leadership team</h2>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="teams-cards">
-                                <div class="main-leader-team leader1">
-                                    <div class="bg-lead1">
-
-                                    </div>
-                                    <div class="img-our-team">
-                                        <div class="img-one-part">
-                                            <img src="/assets/images/sanjay-newimages.png" alt="" />
-                                        </div>
-
-
-                                    </div>
-
-                                </div>
-                                <div class="paragraph-leader-team">
-
-                                    <h3>Mike Cannon-Brookes</h3>
-                                    <p>
-                                        CO-FOUNDER &amp; CO-CEO
-                                    </p>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="teams-cards">
-                                <div class="main-leader-team leader1">
-                                    <div class="bg-lead1">
-
-                                    </div>
-                                    <div class="img-our-team">
-                                        <div class="img-one-part">
-                                            <img src="/assets/images/Jimish-new.png" alt="" />
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                                <div class="paragraph-leader-team">
-
-                                    <h3>Jimish Kapadia</h3>
-                                    <p>
-                                        CO-FOUNDER &amp; CO-CEO
-                                    </p>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="teams-cards">
-                                <div class="main-leader-team leader1">
-                                    <div class="bg-lead1">
-
-                                    </div>
-                                    <div class="img-our-team">
-                                        <div class="img-one-part">
-                                            <img src="/assets/images/pratik-new.png" alt="" />
-                                        </div>
-
-
-                                    </div>
-
-                                </div>
-                                <div class="paragraph-leader-team">
-
-                                    <h3>Pratik </h3>
-                                    <p>
-                                        CO-FOUNDER &amp; CO-CEO
-                                    </p>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-            </section>
-
-
-            <section class="faq-sections mt-5 mb-5">
+            </section> */}
+            <section class="faq-sections future-main-accordians ">
                 <div class="container">
                     <div class="row">
                         <div class="main-accordain-all">
-                            <div class="faq-side-content">
-                                <h3>
-                                    Frequently Asked Questions
-                                </h3>
 
-                            </div>
-                            <div class="accordion accordion-flush" id="accordionFlushExample">
-
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="flush-headingOne">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                            What sets Growth91 apart from other startup investment platforms?
+                            <div
+                                class="accordion accordion-flush"
+                                id="accordionFlushExample"
+                            >
+                                {/* <div class="accordion-item">
+                                    <h3 class="accordion-header" id="flush-headingOness">
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapseOness"
+                                            aria-expanded="false"
+                                            aria-controls="flush-collapseOness"
+                                        >
+                                            <span><img src="./assets/images/repair-tool.png" alt="" /></span>
+                                            Service
                                         </button>
-                                    </h2>
-                                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">
-                                            At Growth91, we don't just connect you with startups – we invest alongside you. This "skin in the game" approach ensures our interests are aligned with yours, and we're committed to finding the next big things. Additionally, our rigorous vetting process means you can invest with confidence, knowing each startup has been carefully evaluated by our team of experts.
+                                    </h3>
+                                    <div
+                                        id="flush-collapseOness"
+                                        class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingOness"
+                                        data-bs-parent="#accordionFlushExample"
+                                    >
+                                        <div class="accordion-body acc-services-ul">
+                                            <ul className=''>
+                                                <li>khush</li>
+                                                <li>khush</li>
+                                                <li>khush</li>
+                                                <li>khush</li>
+                                                <li>khush</li>
+                                                <li>khush</li>
+                                                <li>khush</li>
+                                                <li>khush</li>
+                                                <li>khush</li>
+                                                <li>khush</li>
+                                                <li>khush</li>
+                                                <li>khush</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div> */}
+                                <div class="accordion-item">
+                                    <h3 class="accordion-header" id="flush-headingOne">
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapseOne"
+                                            aria-expanded="false"
+                                            aria-controls="flush-collapseOne"
+                                        >
+                                            <span><img src="./assets/images/information.png" alt="" /></span>
+                                            About Us
+                                        </button>
+                                    </h3>
+                                    <div
+                                        id="flush-collapseOne"
+                                        class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingOne"
+                                        data-bs-parent="#accordionFlushExample"
+                                    >
+                                        <div class="accordion-body about-us-p">
+                                            <p>
+                                                Tulua Foods Pvt Ltd, established in 2020, specializes in providing high-quality, clean-label spice and masala products. With a mission to spotlight authentic Indian flavours, Tulua offers a diverse range of over 50 SKUs, including whole spices, powdered spices, and ready-to-cook (RTC) pastes. Their commitment to quality, transparency, and authenticity sets them apart in the market. Operating in both B2B and B2C segments, Tulua supplies branded spices to hospitality businesses and caters directly to individual consumers through various sales channels. Achieving rapid growth and significant milestones, Tulua has secured funding to support its expansion plans, including venturing into export markets and introducing new product lines.
+
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="accordion-item">
-                                    <h2 class="accordion-header" id="flush-headingTwo">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                            How much experience does your team have in evaluating startups?
+                                    <h3 class="accordion-header" id="flush-headingTwo">
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapseTwo"
+                                            aria-expanded="false"
+                                            aria-controls="flush-collapseTwo"
+                                        >
+                                            <span><img src="./assets/images/trophy.png" alt="" /></span>
+
+                                            Awards & Achivements
                                         </button>
-                                    </h2>
-                                    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                    </h3>
+                                    <div
+                                        id="flush-collapseTwo"
+                                        class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingTwo"
+                                        data-bs-parent="#accordionFlushExample"
+                                    >
                                         <div class="accordion-body">
-                                            Our team at Growth91 boasts extensive experience in venture capital, finance, and the startup ecosystem. We leverage this expertise to meticulously vet every startup before showcasing it on our platform. This involves analyzing financials, market potential, and the overall team behind the idea. You can rest assured that we're bringing you only the most promising investment opportunities.
+                                            <div className="img-awards">
+                                                <img src="./assets/images/certifieds.jpg" alt="" />
+                                                <img src="./assets/images/certifieds.jpg" alt="" />
+                                                <img src="./assets/images/certifieds.jpg" alt="" />
+                                                <img src="./assets/images/certifieds.jpg" alt="" />
+                                                <img src="./assets/images/certifieds.jpg" alt="" />
+                                                <img src="./assets/images/certifieds.jpg" alt="" />
+                                                <img src="./assets/images/certifieds.jpg" alt="" />
+                                                <img src="./assets/images/certifieds.jpg" alt="" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h3 class="accordion-header" id="flush-headingThree">
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapseThree"
+                                            aria-expanded="false"
+                                            aria-controls="flush-collapseThree"
+                                        >
+                                            <span><img src="./assets/images/market-research.png" alt="" /></span>
+
+                                            Market Overview
+                                        </button>
+                                    </h3>
+                                    <div
+                                        id="flush-collapseThree"
+                                        class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingThree"
+                                        data-bs-parent="#accordionFlushExample"
+                                    >
+                                        <div class="accordion-body">
+                                            <div className="row market-overreview-row">
+                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                                    <div className="membership-accordian">
+                                                        {/* <div className="img-member-accordian">
+                                                            <img src="https://www.trumanlittlewhitehouse.org/wp-content/uploads/2019/11/81DpN-lrJvL._SL1350.jpg" alt="" />
+                                                        </div> */}
+                                                        <div className="para-member-accordian">
+                                                            {/* <h3>
+                                                                charter president
+                                                            </h3> */}
+                                                            <p>
+                                                                The Indian spice market is experiencing robust growth, with a projected CAGR of 11.29% during 2021-2027, reaching INR 142,569.3 Crores in 2021 and expected to reach INR 270,928.4 Crores by 2027. This growth is driven by India's status as the largest producer, consumer, and exporter of spices globally, alongside increasing demand fueled by changing consumer preferences.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                                    <div className="membership-accordian">
+
+                                                        <div className="para-member-accordian">
+                                                            <p>
+                                                                The total addressable market for spices in India was $42 billion in 2022, with an anticipated growth rate of 15.7% between 2021-2031. Similarly, the total addressable market for Ready-To-Cook (RTC) products in India was $460 million in 2022, forecasted to grow at a rate of 16.3% between 2021-2031, highlighting significant opportunities in both segments.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                                    <div className="membership-accordian">
+                                                        {/* <div className="img-member-accordian">
+                                                            <img src="https://www.trumanlittlewhitehouse.org/wp-content/uploads/2019/11/81DpN-lrJvL._SL1350.jpg" alt="" />
+                                                        </div> */}
+                                                        <div className="para-member-accordian">
+                                                            {/* <h3>
+                                                                Member
+                                                            </h3> */}
+                                                            <p>
+                                                                The Ready to Cook market, valued at $18 billion, is witnessing rapid growth due to shifting consumer habits, increased health awareness, and the convenience of pre-packaged meal kits. This trend presents ample opportunities for smaller companies to enter the market and innovate with new product offerings, catering to the needs of busy individuals seeking healthy and convenient meal solutions.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h3 class="accordion-header" id="flush-headingfour">
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#flush-headingfournew"
+                                            aria-expanded="false"
+                                            aria-controls="flush-headingfour"
+                                        >
+                                            <span><img src="./assets/images/gallery.png" alt="" /></span>
+
+                                            Gallery
+                                        </button>
+                                    </h3>
+                                    <div
+                                        id="flush-headingfournew"
+                                        class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingfour"
+                                        data-bs-parent="#accordionFlushExample"
+                                    >
+                                        <div class="accordion-body">
+                                            <div className="row justify-content-center">
+                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                                    <div className="img-future-gallery">
+                                                        <img src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg" alt="" />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                                    <div className="img-future-gallery">
+                                                        <img src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg" alt="" />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                                    <div className="img-future-gallery">
+                                                        <img src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg" alt="" />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                                    <div className="img-future-gallery">
+                                                        <img src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg" alt="" />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                                    <div className="img-future-gallery">
+                                                        <img src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg" alt="" />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                                    <div className="img-future-gallery">
+                                                        <img src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg" alt="" />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                                    <div className="img-future-gallery">
+                                                        <img src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg" alt="" />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                                    <div className="img-future-gallery">
+                                                        <img src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg" alt="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h3 class="accordion-header" id="flush-headingfive">
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#flush-headingfivenew"
+                                            aria-expanded="false"
+                                            aria-controls="flush-headingfive"
+                                        >
+                                            <span><img src="./assets/images/mobile.png" alt="" /></span>
+
+                                            Connect Us
+                                        </button>
+                                    </h3>
+                                    <div
+                                        id="flush-headingfivenew"
+                                        class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingfive"
+                                        data-bs-parent="#accordionFlushExample"
+                                    >
+                                        <div class="accordion-body connect-acc-us">
+                                            <div className="row row-box-line">
+                                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                                    <div className="lets-talks-div">
+                                                        <h3>
+                                                            Let's Talk
+                                                        </h3>
+                                                        <ul>
+                                                            <li>
+                                                                <span>
+                                                                    Personal :
+                                                                </span>
+                                                                <span>
+                                                                    9420959900
+                                                                </span>
+                                                            </li>
+                                                            <li>
+                                                                <span>
+                                                                    Office	 :
+                                                                </span>
+                                                                <span>
+                                                                    9422959900
+                                                                </span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                                    <div className="lets-talks-div">
+                                                        <h3>
+                                                            Let's Chat
+
+
+                                                        </h3>
+                                                        <ul>
+                                                            <li>
+                                                                <span>
+                                                                    Office	 :
+                                                                </span>
+                                                                <span>
+                                                                    9422959900
+                                                                </span>
+                                                            </li>
+                                                            <li>
+                                                                <span>
+                                                                    Office	 :
+                                                                </span>
+                                                                <span>
+                                                                    9422959900
+                                                                </span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                                    <div className="lets-talks-div">
+                                                        <h3>
+                                                            Let's Meet
+
+
+                                                        </h3>
+                                                        <ul>
+                                                            <li>
+                                                                <span>
+                                                                    Corporate Office  :
+                                                                </span>
+                                                                <span>
+                                                                    407, Neo Corporate Plaza, Extd Ramchandra Lane, Kanchpada, Malad West, Mumbai 400064
+                                                                </span>
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                                    <div className="lets-talks-div">
+                                                        <h3>
+                                                            Write Us
+                                                        </h3>
+                                                        <ul>
+                                                            <li>
+                                                                <span>
+                                                                    Personal	 :
+                                                                </span>
+                                                                <span>
+                                                                    SanjaySarda@hotmail.com
+                                                                </span>
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                                    <div className="lets-talks-div">
+                                                        <h3>
+                                                            Visit Us
+
+
+
+                                                        </h3>
+                                                        <ul>
+                                                            <li>
+
+                                                                <span>
+                                                                    www.tulua.shop
+                                                                </span>
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                                    <div className="lets-talks-div">
+                                                        <h3>
+                                                            Follow Us
+                                                        </h3>
+                                                        <ul>
+                                                            <li>
+                                                                <i class="fa-brands fa-instagram"></i>
+                                                            </li>
+                                                            <li>
+                                                                <i class="fa-brands fa-twitter"></i>
+                                                            </li>
+
+                                                            <li>
+                                                                <i class="fa-brands fa-linkedin-in"></i>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h3 class="accordion-header" id="flush-headingsixx">
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#flush-headingsixxnew"
+                                            aria-expanded="false"
+                                            aria-controls="flush-headingsixx"
+                                        >
+                                            <span><img src="./assets/images/highluights.png" alt="" /></span>
+
+                                            Highlights
+                                        </button>
+                                    </h3>
+                                    <div
+                                        id="flush-headingsixxnew"
+                                        class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingsixx"
+                                        data-bs-parent="#accordionFlushExample"
+                                    >
+                                        <div class="accordion-body">
+                                            <div className="row row-bg-highlights" >
+                                                <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
+                                                    <div className="highlights-accordian">
+                                                        <div className="para-highlights-accordian">
+                                                            <div className="img-highlights">
+                                                                <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" alt="" />
+
+                                                            </div>
+                                                            <div className="para-p-highlight">
+                                                                <p>
+                                                                    Tulua Foods Pvt Ltd has experienced exceptional revenue growth, with a 941% increase in the first three quarters, reaching Rs. 1.79 crore. Despite being a young startup, Tulua has shown financial stability, surpassing milestones from Rs. 8 lakhs in FY20-21 to Rs. 1.79 crore in FY23-24. Projections indicate further growth, aiming for Rs. 2.8 crore in FY23-24 and Rs. 10.9 crore in FY24-25, highlighting their confidence in future success.
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
+                                                    <div className="highlights-accordian">
+                                                        <div className="para-highlights-accordian">
+                                                            <div className="img-highlights">
+                                                                <img src="./assets/images/deals-details/Petmojo/highlight01.jpg" alt="" />
+
+                                                            </div>
+                                                            <div className="para-p-highlight">
+                                                                <p>
+                                                                    Tulua operates in the spice and grocery sector, capitalizing on the growing demand for high-quality, clean-label spice and masala products in India. With a focus on authenticity and convenience, Tulua targets both domestic and international markets, leveraging an omnichannel approach catering to HoReCa, exports, and retail. This positions Tulua well to capture a significant share of the expanding market for branded spices and convenience foods.                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
+                                                    <div className="highlights-accordian">
+                                                        <div className="para-highlights-accordian">
+                                                            <div className="img-highlights">
+                                                                <img src="./assets/images/deals-details/highlight2.jfif" alt="" />
+
+                                                            </div>
+                                                            <div className="para-p-highlight">
+                                                                <p>
+                                                                    Tulua's product packaging sets it apart from competitors, boasting premium designs that appeal to the millennial and GenZ demographic Despite the premium packaging, Tulua ensures affordability with competitive pricing across its product range. For instance, spice prices range from Rs 40 to Rs 115, while ready-to-cook pastes are priced at Rs 150 for 100g and Rs 225 for 200g. This combination of attractive packaging and reasonable pricing enhances Tulua's appeal to modern consumers seeking both quality and aesthetic appeal in their culinary products.                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
+                                                    <div className="highlights-accordian">
+                                                        <div className="para-highlights-accordian">
+                                                            <div className="img-highlights">
+                                                                <img src="./assets/images/deals-details/highlight3.jpg" alt="" />
+
+                                                            </div>
+                                                            <div className="para-p-highlight">
+                                                                <p>
+                                                                    Tulua's consumer retail segment has experienced significant growth, with over 1,400 active customers and a notable 18% repeat rate without targeted retention marketing. Sales have surged by 400% compared to the previous quarter, showcasing strong demand and consumer satisfaction with Tulua's clean-label products, including ready-to-cook pastes and single-origin spices.                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
+                                                    <div className="highlights-accordian">
+                                                        <div className="para-highlights-accordian">
+                                                            <div className="img-highlights">
+                                                                <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" alt="" />
+
+                                                            </div>
+                                                            <div className="para-p-highlight">
+                                                                <p>
+                                                                    Tulua's enterprise products consist of a wide selection of high-quality spices, including 15 single spice powders, 8 blended spice powders, and 22 whole spices. Sourced directly from farms and mandis, these products ensure superior taste and freshness, making them the preferred choice for hotels, restaurants, cafes, and airlines.                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
+                                                    <div className="highlights-accordian">
+                                                        <div className="para-highlights-accordian">
+                                                            <div className="img-highlights">
+                                                                <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" alt="" />
+
+                                                            </div>
+                                                            <div className="para-p-highlight">
+                                                                <p>
+                                                                    Tulua prioritizes rigorous quality control measures and uses single-origin ingredients and chef-made recipes to ensure authentic Indian flavors in their products. Tulua's products are 100% natural with no added flavors or additives, appealing to health-conscious consumers. Additionally, the company operates as a plastic-neutral brand and sources locally to reduce environmental impact.                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h3 class="accordion-header" id="flush-headingfourees">
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#flush-headingfoureesnew"
+                                            aria-expanded="false"
+                                            aria-controls="flush-headingfourees"
+                                        >
+                                            <span><img src="./assets/images/live-streaming.png" alt="" /></span>
+
+                                            Media Coverage
+                                        </button>
+                                    </h3>
+                                    <div
+                                        id="flush-headingfoureesnew"
+                                        class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingfourees"
+                                        data-bs-parent="#accordionFlushExample"
+                                    >
+                                        <div class="accordion-body">
+                                            <div className="row row-bg-media-coverage" >
+                                                <div className="col-md-4 col-lg-4 col-xxl-4  col-12 col-sm-12 col-xxl-4">
+                                                    <div className="para-media-coverage-accordian">
+                                                        <div className="img-media-coverage">
+                                                            <img src="./assets/images/deals-details/Tulua new/Articles/1.png" alt="" />
+
+                                                        </div>
+                                                        <div className="para-p-media-coverage">
+                                                            <p>
+                                                                Tulua Simplifying Indian Cooking With Foray Into India Spice Market
+                                                            </p>
+
+                                                        </div>
+                                                        <div className="button-media-coverage">
+                                                            <a href="">View More</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div className="col-md-4 col-lg-4 col-xxl-4  col-12 col-sm-12 col-xxl-4">
+                                                    <div className="para-media-coverage-accordian">
+                                                        <div className="img-media-coverage">
+                                                            <img src="./assets/images/deals-details/Tulua new/Articles/2.jpg" alt="" />
+
+                                                        </div>
+                                                        <div className="para-p-media-coverage">
+                                                            <p>
+                                                            Tulua launches aromatic line of spices highlighting the true Indian flavour 
+                                                            </p>
+
+                                                        </div>
+                                                        <div className="button-media-coverage">
+                                                            <a href="">View More</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-4 col-lg-4 col-xxl-4  col-12 col-sm-12 col-xxl-4">
+                                                    <div className="para-media-coverage-accordian">
+                                                        <div className="img-media-coverage">
+                                                            <img src="./assets/images/deals-details/Tulua new/Articles/1.png" alt="" />
+
+                                                        </div>
+                                                        <div className="para-p-media-coverage">
+                                                            <p>
+                                                                Tulua Simplifying Indian Cooking With Foray Into India Spice Market
+                                                            </p>
+
+                                                        </div>
+                                                        <div className="button-media-coverage">
+                                                            <a href="">View More</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-4 col-lg-4 col-xxl-4  col-12 col-sm-12 col-xxl-4">
+                                                    <div className="para-media-coverage-accordian">
+                                                        <div className="img-media-coverage">
+                                                            <img src="./assets/images/deals-details/Tulua new/Articles/1.png" alt="" />
+
+                                                        </div>
+                                                        <div className="para-p-media-coverage">
+                                                            <p>
+                                                                Tulua Simplifying Indian Cooking With Foray Into India Spice Market
+                                                            </p>
+
+                                                        </div>
+                                                        <div className="button-media-coverage">
+                                                            <a href="">View More</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-4 col-lg-4 col-xxl-4  col-12 col-sm-12 col-xxl-4">
+                                                    <div className="para-media-coverage-accordian">
+                                                        <div className="img-media-coverage">
+                                                            <img src="./assets/images/deals-details/Tulua new/Articles/4.jpg" alt="" />
+
+                                                        </div>
+                                                        <div className="para-p-media-coverage">
+                                                            <p>
+                                                            Raksha Bandhan 2023: What to buy for someone who cannot think beyond                                                             </p>
+
+                                                        </div>
+                                                        <div className="button-media-coverage">
+                                                            <a href="">View More</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-4 col-lg-4 col-xxl-4  col-12 col-sm-12 col-xxl-4">
+                                                    <div className="para-media-coverage-accordian">
+                                                        <div className="img-media-coverage">
+                                                            <img src="./assets/images/deals-details/Tulua new/Articles/6.jpg" alt="" />
+
+                                                        </div>
+                                                        <div className="para-p-media-coverage">
+                                                            <p>
+                                                            Tulua to work in tandem with chefs to create customised blended spices
+                                                            </p>
+
+                                                        </div>
+                                                        <div className="button-media-coverage">
+                                                            <a href="">View More</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
 
                                         </div>
                                     </div>
                                 </div>
                                 <div class="accordion-item">
-                                    <h2 class="accordion-header" id="flush-headingThree">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                                            What kind of support can I expect from Growth91 after I invest?
+                                    <h3 class="accordion-header" id="flush-headingseven">
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#flush-headingsevensnew"
+                                            aria-expanded="false"
+                                            aria-controls="flush-headingseven"
+                                        >
+                                            <span><img src="./assets/images/help.png" alt="" /></span>
+
+                                            Help Center
                                         </button>
-                                    </h2>
-                                    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                                    </h3>
+                                    <div
+                                        id="flush-headingsevensnew"
+                                        class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingsevensnew"
+                                        data-bs-parent="#accordionFlushExample"
+                                    >
                                         <div class="accordion-body">
-                                            We understand that investing in startups can involve questions and require ongoing information. Growth91 provides ongoing resources and support to our investors. This includes access to exclusive content, industry updates, and potential opportunities to connect directly with the founders of the startups you invest in. We're here to guide you on your startup investment journey every step of the way. </div>
+                                            <div className="row need-help-accrow">
+                                                <div className="need-help-acc">
+                                                    <p>
+                                                        Need help? Drop down and find what you're looking for here & send us a message
+                                                    </p>
+                                                    <p>
+                                                        <span className='ouat-spans'>
+                                                            Quotation
+                                                        </span>
+                                                        <span>Post your requirement to serve your better</span>
+                                                    </p>
+                                                </div>
+                                                <form action="">
+                                                    <div className="row">
+                                                        <div className="col-md-6">
+                                                            <label htmlFor="">Enquiry for</label>
+                                                            <select name="" id="" className='form-control'>
+                                                                <option value="">quotation</option>
+                                                                <option value="">Appoinment</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div className="col-md-6 col-12 col-sm-12 col-lg-6 col-xxl-6 col-12">
+                                                            <label htmlFor="">Requirement</label>
+                                                            <input type="text" className='form-control' />
+                                                        </div>
+                                                        <div className="col-md-6 col-12 col-sm-12 col-lg-6 col-xxl-6 col-12">
+                                                            <label htmlFor="">Name</label>
+                                                            <input type="text" className='form-control' />
+
+                                                        </div>
+                                                        <div className="col-md-6 col-12 col-sm-12 col-lg-6 col-xxl-6 col-12">
+                                                            <label htmlFor="">Company Name</label>
+                                                            <input type="text" className='form-control' />
+
+                                                        </div>
+                                                        <div className="col-md-6 col-12 col-sm-12 col-lg-6 col-xxl-6 col-12">
+                                                            <label htmlFor="">Email</label>
+                                                            <input type="text" className='form-control' />
+
+                                                        </div>
+                                                        <div className="col-md-6 col-12 col-sm-12 col-lg-6 col-xxl-6 col-12">
+                                                            <label htmlFor="">Mobile</label>
+                                                            <input type="text" className='form-control' />
+
+                                                        </div>
+                                                        <div className="col-md-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 col-xxl-12">
+                                                            <label htmlFor="">Message</label>
+                                                            <textarea name="" id="" cols="30" rows="10"></textarea>
+
+                                                        </div>
+                                                        <div className="col-md-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 col-xxl-12">
+
+                                                            <div className="button-quote">
+                                                                <a href="">Request Quote</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </form>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </section>
-            <section class="counter-sections">
-
-
-                <div class="container">
-                    <div class="row">
-                        <div class="meetbottom-rows">
-                            <div class="main-heading-counter">
-
-                                <h3>
-                                    Meet Our Team
-                                </h3>
-                                <p>
-                                    Meet the Growth91 team! We're passionate about connecting you with high-growth startups. Want to chat about investment goals or how we meticulously vet deals? We're here to help! </p>
-                            </div>
-                            <div class="input_box">
-                                <div class="form-wraper new-form-wrapper">
-                                    <Link to="/contact-us" class="theme-btn" type="button">Contact Us</Link>
-                                </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
-
             </section>
+
             <NewWebFooter />
 
         </div>

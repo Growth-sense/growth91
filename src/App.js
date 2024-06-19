@@ -199,6 +199,7 @@ function App() {
           {/* <Route path="/" exact component={Home} /> */}
           <Route path="/" exact component={Homenew} />
           <Route path="/about" exact component={Aboutnew} />
+
           <Route path="/FutureUnicornList" exact component={FutureUnicornList} />
             <Route path="/FutureUnicornDescription" exact component={FutureUnicornDescription} />
             <Route path="/FamilyDashboard" exact component={FamilyDashboard} />
