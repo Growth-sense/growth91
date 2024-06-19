@@ -1659,7 +1659,7 @@ class Founderformdetails extends Component {
             pathname: "/admin-founder-dashboard",
             state: { item:text}
           }} > */}
-              <Button type="primary" onClick={() => this.downloadpdf(text)}>
+              <Button type="primary" onClick={() => this.downloadpdf(text)} data-toggle="modal" data-target="#myModal">
                 View Details{" "}
                 <i
                   className="bx bx-cloud-download ps-2"
@@ -1799,7 +1799,9 @@ class Founderformdetails extends Component {
             :""}
           
           </div>
-        </Modal>
+        {this.state.item &&this.state.item ? <Founderadmindashboard id={this.state.item.main_founder_id} tab={this.state.item}/>
+            :""}
+            </Modal>
       </>
     );
   }
