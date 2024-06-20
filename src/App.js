@@ -12,6 +12,9 @@ import Homenew from "./app/Homenew.jsx";
 import {Aboutnew} from "./app/Aboutnew.jsx";
 import {FamilyDashboard} from "./app/FamilyDashboard.jsx"
 import {InformationList} from "./app/InformationList.jsx"
+import {FutureUnicornForm} from './app/FutureUnicornForm.jsx'
+import {LoginInvestor} from './app/LoginInvestor.jsx'
+import {LoginFounder} from './app/LoginFounder.jsx'
 
 import {FutureUnicornDescription} from './app/FutureUnicornDescription.jsx'
 import {FutureUnicornList} from './app/FutureUnicornList.jsx'
@@ -199,6 +202,9 @@ function App() {
           {/* <Route path="/" exact component={Home} /> */}
           <Route path="/" exact component={Homenew} />
           <Route path="/about" exact component={Aboutnew} />
+          <Route path="/LoginInvestor" exact component={LoginInvestor} />
+          <Route path="/FutureUnicornForm" exact component={FutureUnicornForm} />
+          <Route path="/LoginFounder" exact component={LoginFounder} />
 
           <Route path="/FutureUnicornList" exact component={FutureUnicornList} />
             <Route path="/FutureUnicornDescription" exact component={FutureUnicornDescription} />

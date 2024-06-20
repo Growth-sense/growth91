@@ -154,7 +154,7 @@ export const FutureUnicornDescription = () => {
                                     Certified Corporate Director - Business Management Consultant
                                 </p>
                             </div>
-                            <div className="meet-icon-future">
+                            {/* <div className="meet-icon-future">
                                 <ul>
                                     <li className='img-handshake'>
                                         <span><img src="./assets/images/hand-shake.png" alt="" /></span>
@@ -169,7 +169,7 @@ export const FutureUnicornDescription = () => {
                                         <span>Share</span>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> */}
                         </div>
 
                     </div>
@@ -304,41 +304,6 @@ export const FutureUnicornDescription = () => {
                                     </div>
                                 </div>
                                 <div class="accordion-item">
-                                    <h3 class="accordion-header" id="flush-headingTwo">
-                                        <button
-                                            class="accordion-button collapsed"
-                                            type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#flush-collapseTwo"
-                                            aria-expanded="false"
-                                            aria-controls="flush-collapseTwo"
-                                        >
-                                            <span><img src="./assets/images/trophy.png" alt="" /></span>
-
-                                            Awards & Achivements
-                                        </button>
-                                    </h3>
-                                    <div
-                                        id="flush-collapseTwo"
-                                        class="accordion-collapse collapse"
-                                        aria-labelledby="flush-headingTwo"
-                                        data-bs-parent="#accordionFlushExample"
-                                    >
-                                        <div class="accordion-body">
-                                            <div className="img-awards">
-                                                <img src="./assets/images/certifieds.jpg" alt="" />
-                                                <img src="./assets/images/certifieds.jpg" alt="" />
-                                                <img src="./assets/images/certifieds.jpg" alt="" />
-                                                <img src="./assets/images/certifieds.jpg" alt="" />
-                                                <img src="./assets/images/certifieds.jpg" alt="" />
-                                                <img src="./assets/images/certifieds.jpg" alt="" />
-                                                <img src="./assets/images/certifieds.jpg" alt="" />
-                                                <img src="./assets/images/certifieds.jpg" alt="" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
                                     <h3 class="accordion-header" id="flush-headingThree">
                                         <button
                                             class="accordion-button collapsed"
@@ -402,228 +367,6 @@ export const FutureUnicornDescription = () => {
                                                     </div>
                                                 </div>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h3 class="accordion-header" id="flush-headingfour">
-                                        <button
-                                            class="accordion-button collapsed"
-                                            type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#flush-headingfournew"
-                                            aria-expanded="false"
-                                            aria-controls="flush-headingfour"
-                                        >
-                                            <span><img src="./assets/images/gallery.png" alt="" /></span>
-
-                                            Gallery
-                                        </button>
-                                    </h3>
-                                    <div
-                                        id="flush-headingfournew"
-                                        class="accordion-collapse collapse"
-                                        aria-labelledby="flush-headingfour"
-                                        data-bs-parent="#accordionFlushExample"
-                                    >
-                                        <div class="accordion-body">
-                                            <div className="row justify-content-center">
-                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                                    <div className="img-future-gallery">
-                                                        <img src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg" alt="" />
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                                    <div className="img-future-gallery">
-                                                        <img src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg" alt="" />
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                                    <div className="img-future-gallery">
-                                                        <img src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg" alt="" />
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                                    <div className="img-future-gallery">
-                                                        <img src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg" alt="" />
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                                    <div className="img-future-gallery">
-                                                        <img src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg" alt="" />
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                                    <div className="img-future-gallery">
-                                                        <img src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg" alt="" />
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                                    <div className="img-future-gallery">
-                                                        <img src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg" alt="" />
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                                    <div className="img-future-gallery">
-                                                        <img src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg" alt="" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h3 class="accordion-header" id="flush-headingfive">
-                                        <button
-                                            class="accordion-button collapsed"
-                                            type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#flush-headingfivenew"
-                                            aria-expanded="false"
-                                            aria-controls="flush-headingfive"
-                                        >
-                                            <span><img src="./assets/images/mobile.png" alt="" /></span>
-
-                                            Connect Us
-                                        </button>
-                                    </h3>
-                                    <div
-                                        id="flush-headingfivenew"
-                                        class="accordion-collapse collapse"
-                                        aria-labelledby="flush-headingfive"
-                                        data-bs-parent="#accordionFlushExample"
-                                    >
-                                        <div class="accordion-body connect-acc-us">
-                                            <div className="row row-box-line">
-                                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                                    <div className="lets-talks-div">
-                                                        <h3>
-                                                            Let's Talk
-                                                        </h3>
-                                                        <ul>
-                                                            <li>
-                                                                <span>
-                                                                    Personal :
-                                                                </span>
-                                                                <span>
-                                                                    9420959900
-                                                                </span>
-                                                            </li>
-                                                            <li>
-                                                                <span>
-                                                                    Office	 :
-                                                                </span>
-                                                                <span>
-                                                                    9422959900
-                                                                </span>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                                    <div className="lets-talks-div">
-                                                        <h3>
-                                                            Let's Chat
-
-
-                                                        </h3>
-                                                        <ul>
-                                                            <li>
-                                                                <span>
-                                                                    Office	 :
-                                                                </span>
-                                                                <span>
-                                                                    9422959900
-                                                                </span>
-                                                            </li>
-                                                            <li>
-                                                                <span>
-                                                                    Office	 :
-                                                                </span>
-                                                                <span>
-                                                                    9422959900
-                                                                </span>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                                    <div className="lets-talks-div">
-                                                        <h3>
-                                                            Let's Meet
-
-
-                                                        </h3>
-                                                        <ul>
-                                                            <li>
-                                                                <span>
-                                                                    Corporate Office  :
-                                                                </span>
-                                                                <span>
-                                                                    407, Neo Corporate Plaza, Extd Ramchandra Lane, Kanchpada, Malad West, Mumbai 400064
-                                                                </span>
-                                                            </li>
-
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                                    <div className="lets-talks-div">
-                                                        <h3>
-                                                            Write Us
-                                                        </h3>
-                                                        <ul>
-                                                            <li>
-                                                                <span>
-                                                                    Personal	 :
-                                                                </span>
-                                                                <span>
-                                                                    SanjaySarda@hotmail.com
-                                                                </span>
-                                                            </li>
-
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                                    <div className="lets-talks-div">
-                                                        <h3>
-                                                            Visit Us
-
-
-
-                                                        </h3>
-                                                        <ul>
-                                                            <li>
-
-                                                                <span>
-                                                                    www.tulua.shop
-                                                                </span>
-                                                            </li>
-
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                                    <div className="lets-talks-div">
-                                                        <h3>
-                                                            Follow Us
-                                                        </h3>
-                                                        <ul>
-                                                            <li>
-                                                                <i class="fa-brands fa-instagram"></i>
-                                                            </li>
-                                                            <li>
-                                                                <i class="fa-brands fa-twitter"></i>
-                                                            </li>
-
-                                                            <li>
-                                                                <i class="fa-brands fa-linkedin-in"></i>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -792,7 +535,7 @@ export const FutureUnicornDescription = () => {
                                                         </div>
                                                         <div className="para-p-media-coverage">
                                                             <p>
-                                                            Tulua launches aromatic line of spices highlighting the true Indian flavour 
+                                                                Tulua launches aromatic line of spices highlighting the true Indian flavour
                                                             </p>
 
                                                         </div>
@@ -843,7 +586,7 @@ export const FutureUnicornDescription = () => {
                                                         </div>
                                                         <div className="para-p-media-coverage">
                                                             <p>
-                                                            Raksha Bandhan 2023: What to buy for someone who cannot think beyond                                                             </p>
+                                                                Raksha Bandhan 2023: What to buy for someone who cannot think beyond                                                             </p>
 
                                                         </div>
                                                         <div className="button-media-coverage">
@@ -859,7 +602,7 @@ export const FutureUnicornDescription = () => {
                                                         </div>
                                                         <div className="para-p-media-coverage">
                                                             <p>
-                                                            Tulua to work in tandem with chefs to create customised blended spices
+                                                                Tulua to work in tandem with chefs to create customised blended spices
                                                             </p>
 
                                                         </div>
@@ -875,6 +618,438 @@ export const FutureUnicornDescription = () => {
                                         </div>
                                     </div>
                                 </div>
+                                <div class="accordion-item">
+                                    <h3 class="accordion-header" id="flush-headingtearm">
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#flush-headingtearmnew"
+                                            aria-expanded="false"
+                                            aria-controls="flush-headingtearm"
+                                        >
+                                            <span><img src="./assets/images/contract-negotiation.png" alt="" /></span>
+                                            Deal Term
+                                        </button>
+                                    </h3>
+                                    <div
+                                        id="flush-headingtearmnew"
+                                        class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingtearm"
+                                        data-bs-parent="#accordionFlushExample"
+                                    >
+                                        <div class="accordion-body connect-acc-us">
+                                            <div className="row row-box-line">
+                                                <div className="col-md-4 col-lg-4 col-xl-4 col-xxl-4 col-12 col-sm-12 col-xs-12">
+                                                    <div className="lets-talks-div">
+                                                        <h3>
+                                                            End Date
+
+
+                                                        </h3>
+                                                        <ul>
+                                                            <li>
+                                                                <span>
+                                                                    Jun 24, 2024
+                                                                </span>
+
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-4 col-lg-4 col-xl-4 col-xxl-4 col-12 col-sm-12 col-xs-12">
+                                                    <div className="lets-talks-div">
+                                                        <h3>
+                                                            Min Investment
+
+
+
+                                                        </h3>
+                                                        <ul>
+                                                            <li>
+                                                                <span>
+                                                                    ₹ 500960 for CCPS
+                                                                </span>
+
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-4 col-lg-4 col-xl-4 col-xxl-4 col-12 col-sm-12 col-xs-12">
+                                                    <div className="lets-talks-div">
+                                                        <h3>
+                                                            Valuation
+
+
+
+                                                        </h3>
+                                                        <ul>
+                                                            <li>
+                                                                <span>
+                                                                    ₹ 17 Cr
+                                                                </span>
+
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h3 class="accordion-header" id="flush-headingdetails">
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#flush-headingdetailsnew"
+                                            aria-expanded="false"
+                                            aria-controls="flush-headingdetails"
+                                        >
+                                            <span><img src="./assets/images/group-chat.png" alt="" /></span>
+                                            Team
+                                        </button>
+                                    </h3>
+                                    <div
+                                        id="flush-headingdetailsnew"
+                                        class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingdetails"
+                                        data-bs-parent="#accordionFlushExample"
+                                    >
+                                        <div class="accordion-body ">
+                                            <div className="row row-box-linse">
+                                                <div className="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-12 col-sm-12 col-xs-12">
+                                                    <div className="main-card-of-teams">
+                                                        <div className="img-teams-of-cards">
+                                                            <img src="./assets/images/deals-details/Tulua new/Team/Richy.jpg" alt="" />
+                                                          
+                                                        </div>
+                                                        <div className="name-of-teams-card">
+                                                        <div className="head-deals-team">
+                                                                <h3>Richy Dave
+                                                                </h3>
+                                                                <p>Founder and CEO</p>
+                                                            </div>
+                                                            <ul>
+                                                                <li>
+                                                                    10+ years of experience in Marketing and Brand-building.
+                                                                </li>
+                                                                <li>
+                                                                    Ex-founder of Surge Digital, a boutique creative marketing agency.
+                                                                </li>
+                                                                <li>
+                                                                    looks after Marketing & Brand building, Supply chain.
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-12 col-sm-12 col-xs-12">
+                                                    <div className="main-card-of-teams">
+                                                        <div className="img-teams-of-cards">
+                                                            <img src="./assets/images/deals-details/Tulua new/Team/hitesh.jpg" alt="" />
+                                                    
+                                                        </div>
+                                                        <div className="name-of-teams-card">
+                                                        <div className="head-deals-team">
+                                                                <h3>Hitesh Dave
+                                                               
+                                                                </h3>
+                                                                <p> Director of Sales</p>
+                                                            </div>
+                                                            <ul>
+                                                                <li>
+                                                                35+ yrs experience in sales & distribution in markets across India and China.
+                                                                
+                                                                </li>
+                                                                <li>
+                                                                Formerly setup food service network for brands such as Sankalp.
+                                                                </li>
+                                                                
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-12 col-sm-12 col-xs-12">
+                                                    <div className="main-card-of-teams">
+                                                        <div className="img-teams-of-cards">
+                                                            <img src="./assets/images/deals-details/Tulua new/Team/arjunvaidya.jpg" alt="" />
+                                                            
+                                                        </div>
+                                                        <div className="name-of-teams-card">
+                                                        <div className="head-deals-team">
+                                                                <h3>Arjun Vaidya
+                                                             
+                                                                </h3>
+                                                                <p>   D2C founder & Investor.</p>
+                                                            </div>
+                                                            <ul>
+                                                              
+                                                                <li>
+                                                                With vast experience in sales and marketing,           
+                                                                                                                     </li>
+                                                                <li>
+                                                               
+                                                                She has a deep network and has closed strategic alliances worth US$ 200 million as part of Brand Capital, the strategic investment arm of Times Group.
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* <div class="accordion-item">
+                                    <h3 class="accordion-header" id="flush-headingTwo">
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapseTwo"
+                                            aria-expanded="false"
+                                            aria-controls="flush-collapseTwo"
+                                        >
+                                            <span><img src="./assets/images/trophy.png" alt="" /></span>
+
+                                            Awards & Achivements
+                                        </button>
+                                    </h3>
+                                    <div
+                                        id="flush-collapseTwo"
+                                        class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingTwo"
+                                        data-bs-parent="#accordionFlushExample"
+                                    >
+                                        <div class="accordion-body">
+                                            <div className="img-awards">
+                                                <img src="./assets/images/certifieds.jpg" alt="" />
+                                                <img src="./assets/images/certifieds.jpg" alt="" />
+                                                <img src="./assets/images/certifieds.jpg" alt="" />
+                                                <img src="./assets/images/certifieds.jpg" alt="" />
+                                                <img src="./assets/images/certifieds.jpg" alt="" />
+                                                <img src="./assets/images/certifieds.jpg" alt="" />
+                                                <img src="./assets/images/certifieds.jpg" alt="" />
+                                                <img src="./assets/images/certifieds.jpg" alt="" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> */}
+
+                                <div class="accordion-item">
+                                    <h3 class="accordion-header" id="flush-headingfour">
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#flush-headingfournew"
+                                            aria-expanded="false"
+                                            aria-controls="flush-headingfour"
+                                        >
+                                            <span><img src="./assets/images/gallery.png" alt="" /></span>
+
+                                            Gallery
+                                        </button>
+                                    </h3>
+                                    <div
+                                        id="flush-headingfournew"
+                                        class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingfour"
+                                        data-bs-parent="#accordionFlushExample"
+                                    >
+                                        <div class="accordion-body">
+                                            <div className="row justify-content-center">
+                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                                    <div className="img-future-gallery">
+                                                        <img src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg" alt="" />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                                    <div className="img-future-gallery">
+                                                        <img src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg" alt="" />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                                    <div className="img-future-gallery">
+                                                        <img src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg" alt="" />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                                    <div className="img-future-gallery">
+                                                        <img src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg" alt="" />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                                    <div className="img-future-gallery">
+                                                        <img src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg" alt="" />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                                    <div className="img-future-gallery">
+                                                        <img src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg" alt="" />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                                    <div className="img-future-gallery">
+                                                        <img src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg" alt="" />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                                    <div className="img-future-gallery">
+                                                        <img src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg" alt="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h3 class="accordion-header" id="flush-headingfive">
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#flush-headingfivenew"
+                                            aria-expanded="false"
+                                            aria-controls="flush-headingfive"
+                                        >
+                                            <span><img src="./assets/images/mobile.png" alt="" /></span>
+
+                                            Connect Us
+                                        </button>
+                                    </h3>
+                                    <div
+                                        id="flush-headingfivenew"
+                                        class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingfive"
+                                        data-bs-parent="#accordionFlushExample"
+                                    >
+                                        <div class="accordion-body connect-acc-us">
+                                            <div className="row row-box-line">
+                                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                                    <div className="lets-talks-div">
+                                                        <h3>
+                                                            Legal Name
+
+                                                        </h3>
+                                                        <ul>
+                                                            <li>
+                                                                <span>
+                                                                    Tulua Foods Pvt Ltd
+                                                                </span>
+
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                                    <div className="lets-talks-div">
+                                                        <h3>
+                                                            Founded
+
+
+
+                                                        </h3>
+                                                        <ul>
+                                                            <li>
+                                                                <span>
+                                                                    14-01-2020
+                                                                </span>
+
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                                    <div className="lets-talks-div">
+                                                        <h3>
+                                                            Let's Meet
+
+
+                                                        </h3>
+                                                        <ul>
+                                                            <li>
+                                                                <span>
+                                                                    Corporate Office  :
+                                                                </span>
+                                                                <span>
+                                                                    407, Neo Corporate Plaza, Extd Ramchandra Lane, Kanchpada, Malad West, Mumbai 400064
+                                                                </span>
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                                    <div className="lets-talks-div">
+                                                        <h3>
+                                                            Employees
+
+                                                        </h3>
+                                                        <ul>
+                                                            <li>
+                                                                <span>
+                                                                    12
+                                                                </span>
+
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                                    <div className="lets-talks-div">
+                                                        <h3>
+                                                            Visit Us
+
+
+
+                                                        </h3>
+                                                        <ul>
+                                                            <li>
+
+                                                                <span>
+                                                                    www.tulua.shop
+                                                                </span>
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                                    <div className="lets-talks-div">
+                                                        <h3>
+                                                            Follow Us
+                                                        </h3>
+                                                        <ul>
+                                                            <li>
+                                                                <i class="fa-brands fa-instagram"></i>
+                                                            </li>
+                                                            <li>
+                                                                <i class="fa-brands fa-twitter"></i>
+                                                            </li>
+
+                                                            <li>
+                                                                <i class="fa-brands fa-linkedin-in"></i>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+{/* 
                                 <div class="accordion-item">
                                     <h3 class="accordion-header" id="flush-headingseven">
                                         <button
@@ -961,7 +1136,7 @@ export const FutureUnicornDescription = () => {
 
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>

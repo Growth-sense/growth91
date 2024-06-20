@@ -101,10 +101,18 @@ export const FutureUnicornList = () => {
         <div className="container">
           <div className="row">
 
-            <div class="heading-title founder-text"><p><span></span> </p><h3>View our community</h3></div>
+            <div class="heading-title founder-text"><p><span></span> </p><h3>List Of Startups</h3></div>
+          </div>
+          <div className="row justify-content-end">
+            <div className="col-md-5 col-lg-5 col-xl-5 col-xxl-5 col-12 col-sm-12">
+              <div className="search-input-unicorn1">
+                <input type="search" name="" id="" className='form-control' placeholder='Search...' />
+                <span><i class="fa-solid fa-magnifying-glass"></i></span>
+              </div>
+            </div>
+
           </div>
           <div className="row justify-content-center">
-
             <div className="col-12 col-md-4 col-lg-4 col-xl-4 col-sm-12 col-xxl-4">
 
               <div className="community-all-contents">
@@ -131,12 +139,21 @@ export const FutureUnicornList = () => {
 
               <div className="community-all-contents">
                 <div className="img-community-box">
-                  <img src="https://www.theidy.com/img/AjitShreeramMarathe/profile-pic/100019.jpg" alt="" />
+                  <img src="https://growth91.com/api/uploads/deal/banner/33/1717998890.jpg" alt="" />
                 </div>
                 <div className="community-paragraph-box">
-                  <h4>Dr. Ajit Marathe </h4>
-                  <p>Mars Gurukul</p>
-                  <a href="">View More </a>
+                  <ul>
+                    <li>
+                      <img src="https://growth91.com/api/uploads/deal/logo/32/1715948775.png" alt="" />
+                      <h6>Tulua</h6>
+                    </li>
+                    <li>
+                      <a href="">CCPS <span><i class="fa-solid fa-circle-info"></i></span></a>
+                    </li>
+                  </ul>
+                  <p>Tulua Foods Pvt Ltd, established in 2023, specializes in providing high-quality, clean-label spice a...</p>
+                  <Link to="/FutureUnicornDescription">View More </Link>
+
                 </div>
               </div>
             </div>
@@ -144,12 +161,21 @@ export const FutureUnicornList = () => {
 
               <div className="community-all-contents">
                 <div className="img-community-box">
-                  <img src="https://www.theidy.com/img/SantoshVasantraoPatil/profile-pic/100008.jpg" alt="" />
+                  <img src="https://growth91.com/api/uploads/deal/banner/32/1718023148.jpg" alt="" />
                 </div>
                 <div className="community-paragraph-box">
-                  <h4>Santosh Patil </h4>
-                  <p>UK's Resort Pvt Ltd</p>
-                  <a href="">View More </a>
+                  <ul>
+                    <li>
+                      <img src="https://growth91.com/api/uploads/deal/logo/32/1715948775.png" alt="" />
+                      <h6>Tulua</h6>
+                    </li>
+                    <li>
+                      <a href="">CCPS <span><i class="fa-solid fa-circle-info"></i></span></a>
+                    </li>
+                  </ul>
+                  <p>Tulua Foods Pvt Ltd, established in 2023, specializes in providing high-quality, clean-label spice a...</p>
+                  <Link to="/FutureUnicornDescription">View More </Link>
+
                 </div>
               </div>
             </div>
@@ -157,12 +183,21 @@ export const FutureUnicornList = () => {
 
               <div className="community-all-contents">
                 <div className="img-community-box">
-                  <img src="https://www.theidy.com/img/RohiniAjayPathakKale/profile-pic/100009.jpg" alt="" />
+                  <img src="https://growth91.com/api/uploads/deal/banner/32/1718023148.jpg" alt="" />
                 </div>
                 <div className="community-paragraph-box">
-                  <h4>Rohini Pathak </h4>
-                  <p> Financial Advisor</p>
-                  <a href="">View More </a>
+                  <ul>
+                    <li>
+                      <img src="https://growth91.com/api/uploads/deal/logo/32/1715948775.png" alt="" />
+                      <h6>Tulua</h6>
+                    </li>
+                    <li>
+                      <a href="">CCPS <span><i class="fa-solid fa-circle-info"></i></span></a>
+                    </li>
+                  </ul>
+                  <p>Tulua Foods Pvt Ltd, established in 2023, specializes in providing high-quality, clean-label spice a...</p>
+                  <Link to="/FutureUnicornDescription">View More </Link>
+
                 </div>
               </div>
             </div>
@@ -170,12 +205,21 @@ export const FutureUnicornList = () => {
 
               <div className="community-all-contents">
                 <div className="img-community-box">
-                  <img src="https://www.theidy.com/img/UdayPatankar/profile-pic/uday.jpg" alt="" />
+                  <img src="https://growth91.com/api/uploads/deal/banner/32/1718023148.jpg" alt="" />
                 </div>
                 <div className="community-paragraph-box">
-                  <h4>Uday Patankar </h4>
-                  <p>Business Consultant</p>
-                  <a href="">View More </a>
+                  <ul>
+                    <li>
+                      <img src="https://growth91.com/api/uploads/deal/logo/32/1715948775.png" alt="" />
+                      <h6>Tulua</h6>
+                    </li>
+                    <li>
+                      <a href="">CCPS <span><i class="fa-solid fa-circle-info"></i></span></a>
+                    </li>
+                  </ul>
+                  <p>Tulua Foods Pvt Ltd, established in 2023, specializes in providing high-quality, clean-label spice a...</p>
+                  <Link to="/FutureUnicornDescription">View More </Link>
+
                 </div>
               </div>
             </div>
@@ -183,12 +227,21 @@ export const FutureUnicornList = () => {
 
               <div className="community-all-contents">
                 <div className="img-community-box">
-                  <img src="https://www.theidy.com/img/KetanBane/profile-pic/ketan.jpg" alt="" />
+                  <img src="https://growth91.com/api/uploads/deal/banner/32/1718023148.jpg" alt="" />
                 </div>
                 <div className="community-paragraph-box">
-                  <h4>Sanjay Sarda </h4>
-                  <p>Business Consultant</p>
-                  <a href="">View More </a>
+                  <ul>
+                    <li>
+                      <img src="https://growth91.com/api/uploads/deal/logo/32/1715948775.png" alt="" />
+                      <h6>Tulua</h6>
+                    </li>
+                    <li>
+                      <a href="">CCPS <span><i class="fa-solid fa-circle-info"></i></span></a>
+                    </li>
+                  </ul>
+                  <p>Tulua Foods Pvt Ltd, established in 2023, specializes in providing high-quality, clean-label spice a...</p>
+                  <Link to="/FutureUnicornDescription">View More </Link>
+
                 </div>
               </div>
             </div>
@@ -196,12 +249,21 @@ export const FutureUnicornList = () => {
 
               <div className="community-all-contents">
                 <div className="img-community-box">
-                  <img src="https://www.theidy.com/img/NishantNazare/profile-pic/nishant.jpg" alt="" />
+                  <img src="https://growth91.com/api/uploads/deal/banner/32/1718023148.jpg" alt="" />
                 </div>
                 <div className="community-paragraph-box">
-                  <h4>Sanjay Sarda </h4>
-                  <p>Business Consultant</p>
-                  <a href="">View More </a>
+                  <ul>
+                    <li>
+                      <img src="https://growth91.com/api/uploads/deal/logo/32/1715948775.png" alt="" />
+                      <h6>Tulua</h6>
+                    </li>
+                    <li>
+                      <a href="">CCPS <span><i class="fa-solid fa-circle-info"></i></span></a>
+                    </li>
+                  </ul>
+                  <p>Tulua Foods Pvt Ltd, established in 2023, specializes in providing high-quality, clean-label spice a...</p>
+                  <Link to="/FutureUnicornDescription">View More </Link>
+
                 </div>
               </div>
             </div>
@@ -209,25 +271,21 @@ export const FutureUnicornList = () => {
 
               <div className="community-all-contents">
                 <div className="img-community-box">
-                  <img src="https://theidy.com/img/AshwiniBhavsarShah/profile-pic/100031.jpg" alt="" />
+                  <img src="https://growth91.com/api/uploads/deal/banner/32/1718023148.jpg" alt="" />
                 </div>
                 <div className="community-paragraph-box">
-                  <h4>Sanjay Sarda </h4>
-                  <p>Business Consultant</p>
-                  <a href="">View More </a>
-                </div>
-              </div>
-            </div>
-            <div className="col-12 col-md-4 col-lg-4 col-xl-4 col-sm-12 col-xxl-4">
+                  <ul>
+                    <li>
+                      <img src="https://growth91.com/api/uploads/deal/logo/32/1715948775.png" alt="" />
+                      <h6>Tulua</h6>
+                    </li>
+                    <li>
+                      <a href="">CCPS <span><i class="fa-solid fa-circle-info"></i></span></a>
+                    </li>
+                  </ul>
+                  <p>Tulua Foods Pvt Ltd, established in 2023, specializes in providing high-quality, clean-label spice a...</p>
+                  <Link to="/FutureUnicornDescription">View More </Link>
 
-              <div className="community-all-contents">
-                <div className="img-community-box">
-                  <img src="https://www.theidy.com/img/VyankateshAnantDalvi/profile-pic/100015.jpg" alt="" />
-                </div>
-                <div className="community-paragraph-box">
-                  <h4>Sanjay Sarda </h4>
-                  <p>Business Consultant</p>
-                  <a href="">View More </a>
                 </div>
               </div>
             </div>

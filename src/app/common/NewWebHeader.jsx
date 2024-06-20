@@ -942,8 +942,8 @@ class NewWebHeader extends Component {
                           <div className="submenu-cards">
                             <div className="submenus">
                               <ul>
-                                <li><a href="">Login as Founder</a></li>
-                                <li><a href="">Login as Investor</a></li>
+                                <li><a href="LoginFounder">Login as Founder</a></li>
+                                <li><a href="LoginInvestor">Login as Investor</a></li>
                               </ul>
                             </div>
                           </div>

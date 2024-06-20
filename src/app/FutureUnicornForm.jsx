@@ -172,7 +172,7 @@ export const FutureUnicornForm = () => {
                                             <input type="text" className='form-control' />
                                         </div> */}
                                         <div className="col-12 col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
-                                            <a href="" className='submit-future'>submit</a>
+                                            <Link to="FutureUnicornList" className='submit-future'>submit</Link>
                                         </div>
                                     </div>
                                 </section>
@@ -205,7 +205,7 @@ export const FutureUnicornForm = () => {
                                             <input type="text" className='form-control' />
                                         </div>
                                         <div className="col-12 col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
-                                            <a href="" className='submit-future'>submit</a>
+                                        <Link to="FutureUnicornList" className='submit-future'>submit</Link>
                                         </div>
                                     </div>
                                 </section>
@@ -239,7 +239,7 @@ export const FutureUnicornForm = () => {
                                             <input type="text" className='form-control' />
                                         </div>
                                         <div className="col-12 col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
-                                            <a href="" className='submit-future'>submit</a>
+                                        <Link to="FutureUnicornList" className='submit-future'>submit</Link>
                                         </div>
                                     </div>
                                 </section>
@@ -272,7 +272,7 @@ export const FutureUnicornForm = () => {
                                             <input type="text" className='form-control' />
                                         </div>
                                         <div className="col-12 col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
-                                            <a href="" className='submit-future'>submit</a>
+                                        <Link to="FutureUnicornList" className='submit-future'>submit</Link>
                                         </div>
                                     </div>
                                 </section>
