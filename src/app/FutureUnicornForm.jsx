@@ -4,6 +4,8 @@ import Slider from 'react-slick'
 import NewWebHeader from "./common/NewWebHeader.jsx";
 import $ from "jquery";
 import { Link } from 'react-router-dom';
+import Founderadmindashboard from "./pdfview/forms/Founderadmindashboard";
+
 
 export const FutureUnicornForm = () => {
     useEffect(() => {
@@ -103,29 +105,22 @@ export const FutureUnicornForm = () => {
                                 <p>
                                     <span></span>{" "}
                                 </p>
-                                <h2>Future Unicorn Form</h2>
+                                <h2>List yourself in the startup list
+                                </h2>
                             </div>
                         </div>
                         <div className="col-md-12 main-tabing-unicorn">
                             <div class="tab_container">
                                 <input id="tab1" type="radio" name="tabs" className='input-uni' checked />
-                                <label for="tab1" className='label-start'><span>Startup Submission Form </span></label>
+                                {/* <label for="tab1" className='label-start'><span>Startup Submission Form </span></label> */}
 
-                                <input id="tab2" type="radio" name="tabs" className='input-uni'  />
-                                <label for="tab2" className='label-start'><span> Startup Directory </span></label>
-
-                                <input id="tab3" type="radio" name="tabs" className='input-uni'  />
-                                <label for="tab3" className='label-start'><span> Investor Dashboard within the Future Unicorns Page</span></label>
-
-                                <input id="tab4" type="radio" name="tabs" className='input-uni'  />
-                                <label for="tab4" className='label-start'><i class="fa fa-folder-open-o"></i><span> Security and Compliance</span></label>
-
+                               
                                 {/* <input id="tab5" type="radio" name="tabs" />
                                 <label for="tab5"><i class="fa fa-envelope-o"></i><span>Contact</span></label> */}
 
                                 <section id="content1" class="tab-content">
                                     <h3>Startup Submission Form: </h3>
-                                    <div className="row">
+                                    {/* <div className="row">
                                         <div className="col-6 col-md-6 col-lg-6 col-xl-6 col-12 col-sm-12 col-xxl-6 mb-4">
                                             <label htmlFor="">Legal name</label>
                                             <input type="text" className='form-control' />
@@ -171,13 +166,19 @@ export const FutureUnicornForm = () => {
                                             <label htmlFor="">name</label>
                                             <input type="text" className='form-control' />
                                         </div> */}
-                                        <div className="col-12 col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
-                                            <Link to="FutureUnicornList" className='submit-future'>submit</Link>
-                                        </div>
-                                    </div>
-                                </section>
+                                <Founderadmindashboard view={0} />
+                                <div className="row justify-content-center ">
 
-                                <section id="content2" class="tab-content">
+                                        <div className="col-12 col-md-3 col-lg-4 col-xl-4 mx-auto mt-3">
+                                            <Link to="FutureUnicornList" className='submit-future'>Submit</Link>
+                                        </div>
+                                        <div className="col-12 col-md-3 col-lg-4 col-xl-4 mx-auto mt-3">
+                                            <Link to="FutureUnicornList" className='submit-future'>Save-As-Draft</Link>
+                                        </div>
+                                </div>
+                                    {/* </div> */} 
+                                </section>
+                                {/* <section id="content2" class="tab-content">
                                     <h3>Startup Directory </h3>
                                     <div className="row">
                                         <div className="col-6 col-md-6 col-lg-6 col-xl-6 col-12 col-sm-12 col-xxl-6 mb-4">
@@ -275,7 +276,7 @@ export const FutureUnicornForm = () => {
                                         <Link to="FutureUnicornList" className='submit-future'>submit</Link>
                                         </div>
                                     </div>
-                                </section>
+                                </section> */}
 
                                 {/* <section id="content5" class="tab-content">
                                     <h3>Headline 5</h3>

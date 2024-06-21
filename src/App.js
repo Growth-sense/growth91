@@ -176,7 +176,6 @@ import Nymbleup from "./app/deal-pages/Nymbleup.jsx";
 import IndusUnoTranche2 from "./app/deal-pages/IndusUnoTranche2";
 import { Newdeals } from "./app/Newdeals.jsx";
 import jqeryscript from "./jq.js"
-import { FutureUnicornForm } from "./app/FutureUnicornForm.jsx";
 
 ReactGA.initialize(TRACKING_ID);
 
@@ -204,7 +203,6 @@ function App() {
           <Route path="/" exact component={Homenew} />
           <Route path="/about" exact component={Aboutnew} />
           <Route path="/LoginInvestor" exact component={LoginInvestor} />
-          <Route path="/FutureUnicornForm" exact component={FutureUnicornForm} />
           <Route path="/LoginFounder" exact component={LoginFounder} />
 
           <Route path="/FutureUnicornList" exact component={FutureUnicornList} />
