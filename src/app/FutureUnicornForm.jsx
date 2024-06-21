@@ -167,13 +167,7 @@ export const FutureUnicornForm = () => {
                                             <input type="text" className='form-control' />
                                         </div> */}
                                 <Founderadmindashboard view={0} />
-                                <div className="row justify-content-center ">
 
-                                        <div className="col-12 col-md-3 col-lg-4 col-xl-4 mx-auto mt-3">
-                                            <Link to="FutureUnicornList" className='submit-future'>Submit</Link>
-                                        </div>
-                                        <div className="col-12 col-md-3 col-lg-4 col-xl-4 mx-auto mt-3">
-                                            <Link to="FutureUnicornList" className='submit-future'>Save-As-Draft</Link>
                                      <div className="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto mt-3">
                                             <div className="submit-draft-publish">
                                                 <Link to="FutureUnicornList" className='submit-future'>Save Draft</Link>
@@ -181,9 +175,7 @@ export const FutureUnicornForm = () => {
                                                 <Link to="FutureUnicornList" className='submit-future'>submit</Link>
                                             </div>
 
-                                        </div>
                                 </div>
-                                    </div> 
                                 </section>
                                 {/* <section id="content2" class="tab-content">
                                     <h3>Startup Directory </h3>

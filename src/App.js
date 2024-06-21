@@ -219,6 +219,7 @@ function App() {
           <Route path="/WaitApproval" exact component={WaitApproval} />
 
           <Route path="/FamilyDashboard" exact component={FamilyDashboard} />
+          <Route path="/FutureUnicornForm" exact component={FutureUnicornForm} />
           <Route path="/InformationList" exact component={InformationList} />
           <Route path="/UnderMaintenance" exact component={UnderMaintenance} />
           <Route path="/StartInvestment" exact component={Content} />
