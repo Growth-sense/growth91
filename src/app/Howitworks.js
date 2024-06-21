@@ -1085,7 +1085,8 @@ class Howitworks extends Component {
                               aria-hidden="true"
                             ></i>
                           </span>
-                          Priority for invest
+                          Minimum Amount as per CCPS 
+
                         </li>
                         <li className="ps-md-5 ps-0 ">
                           <span>
