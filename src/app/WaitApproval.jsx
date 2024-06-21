@@ -6,7 +6,7 @@ import $ from "jquery";
 import { Link } from 'react-router-dom';
 
 
-export const FutureUnicornDescription = () => {
+export const WaitApproval = () => {
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
@@ -727,10 +727,10 @@ export const FutureUnicornDescription = () => {
                                                     <div className="main-card-of-teams">
                                                         <div className="img-teams-of-cards">
                                                             <img src="./assets/images/deals-details/Tulua new/Team/Richy.jpg" alt="" />
-                                                          
+
                                                         </div>
                                                         <div className="name-of-teams-card">
-                                                        <div className="head-deals-team">
+                                                            <div className="head-deals-team">
                                                                 <h3>Richy Dave
                                                                 </h3>
                                                                 <p>Founder and CEO</p>
@@ -753,24 +753,24 @@ export const FutureUnicornDescription = () => {
                                                     <div className="main-card-of-teams">
                                                         <div className="img-teams-of-cards">
                                                             <img src="./assets/images/deals-details/Tulua new/Team/hitesh.jpg" alt="" />
-                                                    
+
                                                         </div>
                                                         <div className="name-of-teams-card">
-                                                        <div className="head-deals-team">
+                                                            <div className="head-deals-team">
                                                                 <h3>Hitesh Dave
-                                                               
+
                                                                 </h3>
                                                                 <p> Director of Sales</p>
                                                             </div>
                                                             <ul>
                                                                 <li>
-                                                                35+ yrs experience in sales & distribution in markets across India and China.
-                                                                
+                                                                    35+ yrs experience in sales & distribution in markets across India and China.
+
                                                                 </li>
                                                                 <li>
-                                                                Formerly setup food service network for brands such as Sankalp.
+                                                                    Formerly setup food service network for brands such as Sankalp.
                                                                 </li>
-                                                                
+
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -779,23 +779,23 @@ export const FutureUnicornDescription = () => {
                                                     <div className="main-card-of-teams">
                                                         <div className="img-teams-of-cards">
                                                             <img src="./assets/images/deals-details/Tulua new/Team/arjunvaidya.jpg" alt="" />
-                                                            
+
                                                         </div>
                                                         <div className="name-of-teams-card">
-                                                        <div className="head-deals-team">
+                                                            <div className="head-deals-team">
                                                                 <h3>Arjun Vaidya
-                                                             
+
                                                                 </h3>
                                                                 <p>   D2C founder & Investor.</p>
                                                             </div>
                                                             <ul>
-                                                              
+
                                                                 <li>
-                                                                With vast experience in sales and marketing,           
-                                                                                                                     </li>
+                                                                    With vast experience in sales and marketing,
+                                                                </li>
                                                                 <li>
-                                                               
-                                                                She has a deep network and has closed strategic alliances worth US$ 200 million as part of Brand Capital, the strategic investment arm of Times Group.
+
+                                                                    She has a deep network and has closed strategic alliances worth US$ 200 million as part of Brand Capital, the strategic investment arm of Times Group.
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -1048,8 +1048,51 @@ export const FutureUnicornDescription = () => {
                                         </div>
                                     </div>
                                 </div>
+                                <div class="accordion-item">
+                                    <h3 class="accordion-header" id="flush-headingWait">
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#flush-headingWaitnew"
+                                            aria-expanded="false"
+                                            aria-controls="flush-headingWait"
+                                        >
+                                            <span><img src="./assets/images/mobile.png" alt="" /></span>
 
-{/* 
+                                            Investor Presentation
+                                        </button>
+                                    </h3>
+                                    <div
+                                        id="flush-headingWaitnew"
+                                        class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingWait"
+                                        data-bs-parent="#accordionFlushExample"
+                                    >
+                                        <div class="accordion-body connect-acc-us">
+                                            <div className="row justify-content-center">
+                                                <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
+                                                    <div className="img-future-gallery">
+                                                        <video controls>
+                                                            <source src="/media/cc0-videos/flower.webm" type="video/webm" />
+
+                                                            <source src="/media/cc0-videos/flower.mp4" type="video/mp4" />
+
+                                                            Download the
+                                                            <a href="/media/cc0-videos/flower.webm">WEBM</a>
+                                                            or
+                                                            <a href="/media/cc0-videos/flower.mp4">MP4</a>
+                                                            video.
+                                                        </video>
+                                                    </div>
+                                                </div>
+                                       
+                                             
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* 
                                 <div class="accordion-item">
                                     <h3 class="accordion-header" id="flush-headingseven">
                                         <button
@@ -1140,13 +1183,7 @@ export const FutureUnicornDescription = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="col-12">
-                            <div className="investor-amounts">
-                                <Link to="/PaymentMethods">Investment Amount</Link>
-                            </div>
-                        </div>
-                    </div>
+              
                 </div>
             </section>
 

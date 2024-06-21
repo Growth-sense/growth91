@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route,Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import "antd/dist/antd.css";
 import "react-image-lightbox/style.css";
 import "slick-carousel/slick/slick.css";
@@ -9,15 +9,20 @@ import ReactGA from "react-ga4";
 
 import Home from "./app/Home";
 import Homenew from "./app/Homenew.jsx";
-import {Aboutnew} from "./app/Aboutnew.jsx";
-import {FamilyDashboard} from "./app/FamilyDashboard.jsx"
-import {InformationList} from "./app/InformationList.jsx"
-import {FutureUnicornForm} from './app/FutureUnicornForm.jsx'
-import {LoginInvestor} from './app/LoginInvestor.jsx'
-import {LoginFounder} from './app/LoginFounder.jsx'
+import { Aboutnew } from "./app/Aboutnew.jsx";
+import { FamilyDashboard } from "./app/FamilyDashboard.jsx"
+import { InformationList } from "./app/InformationList.jsx"
+import { LoginInvestor } from './app/LoginInvestor.jsx'
+import { LoginFounder } from './app/LoginFounder.jsx'
+import { MemberShip } from './app/MemberShip.jsx'
 
-import {FutureUnicornDescription} from './app/FutureUnicornDescription.jsx'
-import {FutureUnicornList} from './app/FutureUnicornList.jsx'
+import { FutureUnicornDescription } from './app/FutureUnicornDescription.jsx'
+import { DashboardType } from './app/DashboardType.jsx'
+import { FutureUnicornForm } from './app/FutureUnicornForm.jsx'
+import { FounderEdit } from './app/FounderEdit.jsx'
+import { WaitApproval } from './app/WaitApproval.jsx';
+import { FutureUnicornList } from './app/FutureUnicornList.jsx';
+import {PaymentMethods} from './app/PaymentMethods.jsx'
 import Content from "./Content/Content";
 import Deals from "./app/Deals";
 import Refer from "./app/ReferLogin";
@@ -30,7 +35,7 @@ import DealDetailsAutorobot from "./app/DealDetailsAutorobot";
 import Founders from "./app/Founders";
 import Investors from "./app/Investors";
 import Learn from "./app/Learn";
-import {Contact} from "./app/Contact_us.jsx";
+import { Contact } from "./app/Contact_us.jsx";
 import Login from "./app/Founder/Login";
 import Signup from "./app/Signup";
 import Howitworks from "./app/Howitworks";
@@ -176,12 +181,13 @@ import Nymbleup from "./app/deal-pages/Nymbleup.jsx";
 import IndusUnoTranche2 from "./app/deal-pages/IndusUnoTranche2";
 import { Newdeals } from "./app/Newdeals.jsx";
 import jqeryscript from "./jq.js"
-import { FutureUnicornForm } from "./app/FutureUnicornForm.jsx";
+
+
 
 ReactGA.initialize(TRACKING_ID);
 
 function App() {
- 
+
   // GOOGLE ANALYTICS
 
   useEffect(() => {
@@ -196,9 +202,9 @@ function App() {
       <Router>
         <RouteChangeTracker />
         <Switch>
-        <Route exact path="/the EleFant">
-          <Redirect to="/theEleFant" />
-        </Route>
+          <Route exact path="/the EleFant">
+            <Redirect to="/theEleFant" />
+          </Route>
 
           {/* <Route path="/" exact component={Home} /> */}
           <Route path="/" exact component={Homenew} />
@@ -206,12 +212,17 @@ function App() {
           <Route path="/LoginInvestor" exact component={LoginInvestor} />
           <Route path="/FutureUnicornForm" exact component={FutureUnicornForm} />
           <Route path="/LoginFounder" exact component={LoginFounder} />
+          <Route path="/MemberShip" exact component={MemberShip} />
+          <Route path="/DashboardType" exact component={DashboardType} />
+          <Route path="/FounderEdit" exact component={FounderEdit} />
+          <Route path="/PaymentMethods" exact component={PaymentMethods} />
 
           <Route path="/FutureUnicornList" exact component={FutureUnicornList} />
-            <Route path="/FutureUnicornDescription" exact component={FutureUnicornDescription} />
-            <Route path="/FutureUnicornForm" exact component={FutureUnicornForm} />
-            <Route path="/FamilyDashboard" exact component={FamilyDashboard} />
-            <Route path="/InformationList" exact component={InformationList} />
+          <Route path="/FutureUnicornDescription" exact component={FutureUnicornDescription} />
+          <Route path="/WaitApproval" exact component={WaitApproval} />
+
+          <Route path="/FamilyDashboard" exact component={FamilyDashboard} />
+          <Route path="/InformationList" exact component={InformationList} />
           <Route path="/UnderMaintenance" exact component={UnderMaintenance} />
           <Route path="/StartInvestment" exact component={Content} />
           <Route path="/deals" exact>

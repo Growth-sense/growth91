@@ -111,13 +111,13 @@ export const FutureUnicornForm = () => {
                                 <input id="tab1" type="radio" name="tabs" className='input-uni' checked />
                                 <label for="tab1" className='label-start'><span>Startup Submission Form </span></label>
 
-                                <input id="tab2" type="radio" name="tabs" className='input-uni'  />
+                                <input id="tab2" type="radio" name="tabs" className='input-uni' />
                                 <label for="tab2" className='label-start'><span> Startup Directory </span></label>
 
-                                <input id="tab3" type="radio" name="tabs" className='input-uni'  />
+                                <input id="tab3" type="radio" name="tabs" className='input-uni' />
                                 <label for="tab3" className='label-start'><span> Investor Dashboard within the Future Unicorns Page</span></label>
 
-                                <input id="tab4" type="radio" name="tabs" className='input-uni'  />
+                                <input id="tab4" type="radio" name="tabs" className='input-uni' />
                                 <label for="tab4" className='label-start'><i class="fa fa-folder-open-o"></i><span> Security and Compliance</span></label>
 
                                 {/* <input id="tab5" type="radio" name="tabs" />
@@ -134,7 +134,7 @@ export const FutureUnicornForm = () => {
                                             <label htmlFor="">Status</label>
                                             <input type="text" className='form-control' />
                                         </div>
-                                     
+
                                         <div className="col-6 col-md-6 col-lg-6 col-xl-6 col-12 col-sm-12 col-xxl-6 mb-4">
                                             <label htmlFor="">Employee</label>
                                             <input type="text" className='form-control' />
@@ -152,9 +152,9 @@ export const FutureUnicornForm = () => {
                                         <div className="col-6 col-md-12 col-lg-12 col-xl-12 col-12 col-sm-12 col-xxl-12 mb-4">
                                             <label htmlFor="" className="bold-text-form">Founder details :</label>
                                             <ul className="input-of-team">
-                                                <li>    
-                                                      <label htmlFor="">Upload Image</label>
-                                                    <input type="file"  className='form-control' /></li>
+                                                <li>
+                                                    <label htmlFor="">Upload Image</label>
+                                                    <input type="file" className='form-control' /></li>
                                                 <li>
                                                     <label htmlFor="">Name</label>
 
@@ -171,8 +171,13 @@ export const FutureUnicornForm = () => {
                                             <label htmlFor="">name</label>
                                             <input type="text" className='form-control' />
                                         </div> */}
-                                        <div className="col-12 col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
-                                            <Link to="FutureUnicornList" className='submit-future'>submit</Link>
+                                     <div className="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto mt-3">
+                                            <div className="submit-draft-publish">
+                                                <Link to="FutureUnicornList" className='submit-future'>Save Draft</Link>
+                                                <Link to="FutureUnicornList" className='submit-future'>Save Publish</Link>
+                                                <Link to="FutureUnicornList" className='submit-future'>submit</Link>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </section>
@@ -204,8 +209,13 @@ export const FutureUnicornForm = () => {
                                             <label htmlFor="">Industry Insight</label>
                                             <input type="text" className='form-control' />
                                         </div>
-                                        <div className="col-12 col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
-                                        <Link to="FutureUnicornList" className='submit-future'>submit</Link>
+                                        <div className="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto mt-3">
+                                            <div className="submit-draft-publish">
+                                                <Link to="FutureUnicornList" className='submit-future'>Save Draft</Link>
+                                                <Link to="FutureUnicornList" className='submit-future'>Save Publish</Link>
+                                                <Link to="FutureUnicornList" className='submit-future'>submit</Link>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </section>
@@ -238,8 +248,13 @@ export const FutureUnicornForm = () => {
                                             <label htmlFor="">name</label>
                                             <input type="text" className='form-control' />
                                         </div>
-                                        <div className="col-12 col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
-                                        <Link to="FutureUnicornList" className='submit-future'>submit</Link>
+                                        <div className="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto mt-3">
+                                            <div className="submit-draft-publish">
+                                                <Link to="FutureUnicornList" className='submit-future'>Save Draft</Link>
+                                                <Link to="FutureUnicornList" className='submit-future'>Save Publish</Link>
+                                                <Link to="FutureUnicornList" className='submit-future'>submit</Link>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </section>
@@ -248,31 +263,36 @@ export const FutureUnicornForm = () => {
                                     <h3>Security and Compliance </h3>
                                     <div className="row">
                                         <div className="col-6 col-md-6 col-lg-6 col-xl-6 col-12 col-sm-12 col-xxl-6 mb-4">
-                                            <label htmlFor="">name</label>
+                                            <label htmlFor="">Industry Report</label>
+                                            <input type="file" className='form-control' />
+                                        </div>
+                                        <div className="col-6 col-md-6 col-lg-6 col-xl-6 col-12 col-sm-12 col-xxl-6 mb-4">
+                                            <label htmlFor="">Funding Amount</label>
                                             <input type="text" className='form-control' />
                                         </div>
                                         <div className="col-6 col-md-6 col-lg-6 col-xl-6 col-12 col-sm-12 col-xxl-6 mb-4">
-                                            <label htmlFor="">name</label>
+                                            <label htmlFor="">Startup Name</label>
                                             <input type="text" className='form-control' />
                                         </div>
                                         <div className="col-6 col-md-6 col-lg-6 col-xl-6 col-12 col-sm-12 col-xxl-6 mb-4">
-                                            <label htmlFor="">name</label>
+                                            <label htmlFor="">Startup Document</label>
                                             <input type="text" className='form-control' />
                                         </div>
                                         <div className="col-6 col-md-6 col-lg-6 col-xl-6 col-12 col-sm-12 col-xxl-6 mb-4">
-                                            <label htmlFor="">name</label>
+                                            <label htmlFor="">Opinion Report</label>
                                             <input type="text" className='form-control' />
                                         </div>
                                         <div className="col-6 col-md-6 col-lg-6 col-xl-6 col-12 col-sm-12 col-xxl-6 mb-4">
-                                            <label htmlFor="">name</label>
+                                            <label htmlFor="">Industry Insight</label>
                                             <input type="text" className='form-control' />
                                         </div>
-                                        <div className="col-6 col-md-6 col-lg-6 col-xl-6 col-12 col-sm-12 col-xxl-6 mb-4">
-                                            <label htmlFor="">name</label>
-                                            <input type="text" className='form-control' />
-                                        </div>
-                                        <div className="col-12 col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
-                                        <Link to="FutureUnicornList" className='submit-future'>submit</Link>
+                                        <div className="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto mt-3">
+                                            <div className="submit-draft-publish">
+                                                <Link to="FutureUnicornList" className='submit-future'>Save Draft</Link>
+                                                <Link to="FutureUnicornList" className='submit-future'>Save Publish</Link>
+                                                <Link to="FutureUnicornList" className='submit-future'>submit</Link>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </section>

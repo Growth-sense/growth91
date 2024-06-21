@@ -39,7 +39,7 @@ export const InformationList = () => {
             <div className="col-lg-12">
                 <div className="listed-btns">
                 <Link to="/FutureUnicornForm">List into information list</Link>
-                <Link to="/login">List into investor’s list</Link>
+                <Link to="/MemberShip">List into investor’s list</Link>
                 </div>
             </div>
 

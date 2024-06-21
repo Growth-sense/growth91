@@ -106,8 +106,8 @@ export const FutureUnicornList = () => {
           <div className="row justify-content-end">
             <div className="col-md-5 col-lg-5 col-xl-5 col-xxl-5 col-12 col-sm-12">
               <div className="search-input-unicorn1">
-                <input type="search" name="" id="" className='form-control' placeholder='Search...' />
-                <span><i class="fa-solid fa-magnifying-glass"></i></span>
+                <input type="search" name="" id="" className='form-control' placeholder='' />
+                <span><i class="fa-solid fa-filter"></i></span>
               </div>
             </div>
 
