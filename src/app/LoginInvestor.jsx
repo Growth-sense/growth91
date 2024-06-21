@@ -141,7 +141,7 @@ export const LoginInvestor = () => {
                                                 <div className="input-login-invester">
                                                     <input type="email" name="email" class="form-input-field" placeholder="Email" autocomplete="off" value="" />
 
-                                                    <Link to="InformationList" className=" login-button" >Log in</Link>
+                                                    <Link to="FutureUnicornList" className=" login-button" >Log in</Link>
 
                                                 </div>
 

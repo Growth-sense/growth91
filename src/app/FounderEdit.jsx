@@ -6,7 +6,7 @@ import $ from "jquery";
 import { Link } from 'react-router-dom';
 
 
-export const FutureUnicornDescription = () => {
+export const FounderEdit = () => {
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
@@ -230,6 +230,13 @@ export const FutureUnicornDescription = () => {
             </section> */}
             <section class="faq-sections future-main-accordians ">
                 <div class="container">
+                <div className="row">
+                        <div className="col-12">
+                            <div className="investor-edit">
+                                <Link to="/FutureUnicornForm">Edit</Link>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="main-accordain-all">
 
@@ -1048,6 +1055,50 @@ export const FutureUnicornDescription = () => {
                                         </div>
                                     </div>
                                 </div>
+                                <div class="accordion-item">
+                                    <h3 class="accordion-header" id="flush-headingWait">
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#flush-headingWaitnew"
+                                            aria-expanded="false"
+                                            aria-controls="flush-headingWait"
+                                        >
+                                            <span><img src="./assets/images/mobile.png" alt="" /></span>
+
+                                            Investor Presentation
+                                        </button>
+                                    </h3>
+                                    <div
+                                        id="flush-headingWaitnew"
+                                        class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingWait"
+                                        data-bs-parent="#accordionFlushExample"
+                                    >
+                                        <div class="accordion-body connect-acc-us">
+                                            <div className="row justify-content-center">
+                                                <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
+                                                    <div className="img-future-gallery">
+                                                        <video controls>
+                                                            <source src="/media/cc0-videos/flower.webm" type="video/webm" />
+
+                                                            <source src="/media/cc0-videos/flower.mp4" type="video/mp4" />
+
+                                                            Download the
+                                                            <a href="/media/cc0-videos/flower.webm">WEBM</a>
+                                                            or
+                                                            <a href="/media/cc0-videos/flower.mp4">MP4</a>
+                                                            video.
+                                                        </video>
+                                                    </div>
+                                                </div>
+                                       
+                                             
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
 {/* 
                                 <div class="accordion-item">
@@ -1140,13 +1191,7 @@ export const FutureUnicornDescription = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="col-12">
-                            <div className="investor-amounts">
-                                <Link to="/PaymentMethods">Investment Amount</Link>
-                            </div>
-                        </div>
-                    </div>
+                   
                 </div>
             </section>
 
