@@ -413,12 +413,13 @@ class Investors extends Component {
   searchinput = (e) => {
     let text = e.target.value;
     this.setState({ loading: true, searchinput: text });
+    console.log(text);
+
     if (text) {
       let arr = [];
       for (let item of this.state.cinvestors) {
         if (
           (item.first_name && item.first_name.toLowerCase().includes(text.toLowerCase())) ||
-          (item.name && item.name.toLowerCase().includes(text.toLowerCase())) ||
           (item.last_name && item.last_name.toLowerCase().includes(text.toLowerCase())) ||
           (item.email && item.email.includes(text)) ||
           (item.mobile && item.mobile.includes(text)) ||
@@ -428,6 +429,7 @@ class Investors extends Component {
           arr = [...arr, item];
         }
       }
+      console.log(arr);
       this.setState({
         investors: arr,
         loading: false,
