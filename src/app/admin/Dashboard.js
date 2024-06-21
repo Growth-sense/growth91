@@ -16,7 +16,9 @@ class Dashboard extends React.Component {
       invested_amt: 0,
       total_convience_fees: 0,
       total_expected_amt: 0,
+      Total_commitment_amount: 0,
       loading: false,
+
     };
   }
 
@@ -44,6 +46,9 @@ class Dashboard extends React.Component {
           total_convience_fees:
             result.Total_convience_amount[0].Total_convience_amount &&
             parseFloat(result.Total_convience_amount[0].Total_convience_amount),
+            Total_commitment_amount:
+            result.Total_commitment_amount[0].Total_commitment_amount &&
+            parseFloat(result.Total_commitment_amount[0].Total_commitment_amount),
         });
       } else {
         message.error(result.message);
@@ -130,19 +135,19 @@ class Dashboard extends React.Component {
                       </div>
                       <div className="panel-body">Total Convenience Fees</div>
                     </div>
+                    
                   </div>
-                  {/* <div className="col-lg-3">
+                  <div className="col-lg-3">
                     <div className="item">
                       <div className="panel-heading">
                         <h3 className="panel-title">
-                          ₹ {nf.format(this.state.total_expected_amt)}
+                        ₹ {nf.format(parseInt(this.state.Total_commitment_amount))}
                         </h3>
                       </div>
                       <div className="panel-body">
-                        Total expected deal value
-                      </div>
+                      Total Commitment Amounts                      </div>
                     </div>
-                  </div> */}
+                  </div>
                 </div>
                 {/* End dashboard cards */}
               </Spin>
