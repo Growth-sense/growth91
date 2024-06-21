@@ -470,6 +470,7 @@ class Investments extends Component {
           panno: item.panno ? item.panno : "---",
           dealid: item.deal_id ? item.deal_id : "---",
           reference: item.Investment_amt,
+          Commitment_amount: "₹ " +  nf.format(item.amount),
           txntype: item.payment_type,
           status: item.isapproved,
           action: item,
@@ -526,11 +527,11 @@ class Investments extends Component {
       //   dataIndex: "dealid",
       //   key: "dealid",
       // },
-      // {
-      //   title: "Commitment Amount",
-      //   dataIndex: "dealid",
-      //   key: "dealid",
-      // },
+      {
+        title: "Commitment Amount",
+        dataIndex: "Commitment_amount",
+        key: "Commitment_amount",
+      },
       // {
       //   title: "Investment Stage",
       //   dataIndex: "investment_stage",
