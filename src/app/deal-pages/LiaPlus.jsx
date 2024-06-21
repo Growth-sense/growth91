@@ -20,12 +20,12 @@ import Apis from "../constants/Apis";
 import moment from "moment";
 import Bridge from "../constants/Bridge";
 import InvestmentMembershipmodal from "../components/membership/InvestmentMembershipmodal";
-import { NewWebFooter } from "../common/NewWebFooter";
 import NewWebHeader from "../common/NewWebHeader";
+import { NewWebFooter } from "../common/NewWebFooter";
 
 const { Panel } = Collapse;
 const { TabPane } = Tabs;
-class Nymbleup extends Component {
+class LiaPlus extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -98,20 +98,32 @@ class Nymbleup extends Component {
       agreeCheck: false,
       Convenience: "",
       images: [
-        "./assets/images/deals-details/Nymbleup/Pitch/1.jpg",
-        "./assets/images/deals-details/Nymbleup/Pitch/2.jpg",
-        "./assets/images/deals-details/Nymbleup/Pitch/3.jpg",
-        "./assets/images/deals-details/Nymbleup/Pitch/4.jpg",
-        "./assets/images/deals-details/Nymbleup/Pitch/5.jpg",
-        "./assets/images/deals-details/Nymbleup/Pitch/6.jpg",
-        "./assets/images/deals-details/Nymbleup/Pitch/7.jpg",
-        "./assets/images/deals-details/Nymbleup/Pitch/8.jpg",
-        "./assets/images/deals-details/Nymbleup/Pitch/9.jpg",
-        "./assets/images/deals-details/Nymbleup/Pitch/10.jpg",
-        "./assets/images/deals-details/Nymbleup/Pitch/11.jpg",
-        "./assets/images/deals-details/Nymbleup/Pitch/12.jpg",
-        "./assets/images/deals-details/Nymbleup/Pitch/13.jpg",
-        "./assets/images/deals-details/Nymbleup/Pitch/14.jpg",
+        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-0.jpg",
+        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-1.jpg",
+        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-2.jpg",
+        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-3.jpg",
+        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-4.jpg",
+        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-5.jpg",
+        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-6.jpg",
+        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-7.jpg",
+        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-8.jpg",
+        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-9.jpg",
+        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-10.jpg",
+        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-11.jpg",
+        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-12.jpg",
+        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-13.jpg",
+        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-14.jpg",
+        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-15.jpg",
+        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-16.jpg",
+        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-17.jpg",
+        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-18.jpg",
+        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-19.jpg",
+        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-20.jpg",
+        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-21.jpg",
+        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-22.jpg",
+        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-23.jpg",
+        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-24.jpg",
+        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-25.jpg",
       ],
       current: "",
     };
@@ -121,10 +133,10 @@ class Nymbleup extends Component {
   callback3 = (key) => {};
 
   componentWillMount() {
-    document.title = "Nymbleup - Growth91 - Startup Marketplace ";
+    document.title = "LiaPlus AI - Growth91 - Startup Marketplace ";
   }
   componentDidMount() {
-    let deal_id = "33";
+    let deal_id = "34";
     this.setState({ deal_id: deal_id }, () => {
       this.get_pitch_list();
     });
@@ -1134,7 +1146,7 @@ class Nymbleup extends Component {
                         <div className="d-flex align-items-center">
                           {/* Image is static */}
                           <img
-                            src="./assets/images/deals-details/Nymbleup/logo.jpg"
+                            src="./assets/images/deals-details/LiaPlus AI/logo.jpg"
                             alt=""
                             className="img-fluid"
                             style={{
@@ -1143,7 +1155,7 @@ class Nymbleup extends Component {
                               objectFit: "contain",
                             }}
                           />
-                          <h5 className="ml-5 mt-4">Nymbleup</h5>
+                          <h5 className="ml-5 mt-4">LiaPlus AI</h5>
                           {/* <h5>{this.state.logo}</h5> */}
                         </div>
                         {this.state.isPrivate == true && (
@@ -1174,19 +1186,18 @@ class Nymbleup extends Component {
                       </div>
 
                       <p style={{ textAlign: "justify" }}>
-                        NymbleUp Solutions Private Limited is a trailblazer in
-                        the retail technology sector, specializing in AI-powered
-                        predictive workforce scheduling and demand planning
-                        solutions. Utilizing cutting-edge technologies such as
-                        AI and multi-objective linear programming, NymbleUp
-                        optimizes workforce management by aligning employee
-                        schedules with sales demand. This innovative approach
-                        results in improved efficiency, reduced labor wastage,
-                        and significant cost savings for retailers. The company
-                        offers a comprehensive platform that includes demand
-                        forecasting, scheduling, digital checklists, task
-                        management, and store audits, simplifying operations and
-                        ensuring compliance with brand and statutory guidelines.
+                        LiaPlus is an advanced AI-powered customer support
+                        solution offering 24/7 service. Founded by Shailesh
+                        Jaiswal and Smridhi Seth, who bring extensive experience
+                        in technology, strategy, operations, and marketing.
+                        LiaPlus can handle up to 5,000 calls per hour with
+                        human-like interactions. It supports over 18 languages
+                        and integrates with more than 6,000 applications,
+                        including CRM systems. Featuring a user-friendly
+                        dashboard, comprehensive history access, and a 95% task
+                        completion rate, LiaPlus operates on a SaaS model and
+                        offers custom development. The solution promises a 181%
+                        ROI within a year.
                       </p>
                       <div className=" percentage-container">
                         <div className="percentage-values">
@@ -1604,7 +1615,7 @@ class Nymbleup extends Component {
                       </div>
                     </div>
                   </Modal>
-                  <div className="col-lg-7 deal-banner deals-video-banner">
+                  <div className="col-lg-7 deal-banner deals-video-banner liaplus ">
                     <iframe
                       style={{
                         boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
@@ -1613,12 +1624,35 @@ class Nymbleup extends Component {
                       }}
                       width="100%"
                       height="335"
-                      src="https://www.youtube.com/embed/rZcjPWcUTkI"
-                      title="Nymbleup Startup Introduction video"
+                      src="https://www.youtube.com/embed/QaVk2OsdGfE"
+                      title="LiaPlus AI - Artificial Employees Real Results"
                       frameborder="10"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowfullscreen
                     ></iframe>
+                    <iframe
+                      width="100%"
+                      height="335"
+                      style={{marginTop:"30px"}}
+                      src="https://www.youtube.com/embed/pbyZsUhLoBQ"
+                      title="Skyhigh Hotels Demo - LiaPlus AI (English)"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerpolicy="strict-origin-when-cross-origin"
+                      allowfullscreen
+                    ></iframe>
+                   
+
+                    {/* {!this.state.youtube_url && (
+                      <>
+                        <img
+                          src="./assets/images/deals-details/LiaPlus AI/banner.jpg"
+                          width="100%"
+                          style={{ height: "auto" }}
+                          className="sectionliaplus"
+                        />
+                      </>
+                    )} */}
                   </div>
                   {/* Market Overview */}
                   <div
@@ -1659,10 +1693,14 @@ class Nymbleup extends Component {
                                 fontWeight: "800",
                               }}
                             >
-                              Market Size and Growth:
+                              Market Growth and Talent in India:
                             </span>{" "}
-                            The AI-based predictive workforce management market is experiencing robust growth. In 2024, the global market size is estimated at approximately $10 billion, with projections indicating a compound annual growth rate (CAGR) of around 9.3% from 2024 to 2032. By 2032, the market is expected to reach approximately $20 billion. Businesses across various sectors, including retail, hospitality, and healthcare, are increasingly adopting AI and automation to streamline operations and enhance efficiency. By predicting demand accurately, businesses can ensure they have the right number of staff at the right times, enhancing the customer experience and improving service levels.
-
+                            India's AI sector is booming with over 420,000 AI
+                            job roles expected by 2027, contributing to a
+                            projected market size of $17 billion. Enterprises
+                            are heavily investing in AI software and services,
+                            expecting the market to grow from $100 billion to
+                            $320 billion by 2027.
                           </p>
                         </div>
                       </div>
@@ -1690,13 +1728,13 @@ class Nymbleup extends Component {
                                 fontWeight: "800",
                               }}
                             >
-                             Technological Advancements:
-
+                              Expansion of Conversational AI:
                             </span>{" "}
-                            AI and Machine Learning tools which use advanced algorithms analyse a plethora of data points, including sales trends, weather conditions, and event impacts, to generate precise demand forecasts.
-Integration with Other Systems, management tools and platforms allow for a more holistic approach to workforce management.
-Real-Time Forecasting solutions capable of predicting demand at regular intervals are becoming increasingly popular, allowing for more granular and responsive management.
-
+                            Globally, the conversational AI market is set to
+                            grow from $5 billion in 2020 to $14 billion by 2025,
+                            driven by a robust CAGR of 21.9%. The intelligent
+                            virtual assistant market is also thriving, projected
+                            to reach $47.3 billion by 2027 with a CAGR of 47.5%.
                           </p>
                         </div>
                       </div>
@@ -1725,12 +1763,14 @@ Real-Time Forecasting solutions capable of predicting demand at regular interval
                                 fontWeight: "800",
                               }}
                             >
-                              Applications:
+                              Impact on Business and Customer Engagement:
                             </span>{" "}
-                            Retailers use predictive workforce management to align staffing levels with fluctuating customer footfall and purchasing patterns.
-Hotels and restaurants leverage these solutions to optimize staff schedules based on reservations, local events, and seasonal trends.
-Hospitals and clinics utilize AI-driven forecasts to manage nurse and doctor schedules, ensuring adequate staffing during peak times without overstaffing during breaks.
-
+                            Businesses are adopting AI to enhance customer and
+                            employee experiences, aiming to improve operational
+                            efficiency and engagement strategies. Consumers
+                            increasingly expect 24/7 availability and are
+                            comfortable with AI solutions that enhance service
+                            speed and quality.
                           </p>
                         </div>
                       </div>
@@ -1757,70 +1797,50 @@ Hospitals and clinics utilize AI-driven forecasts to manage nurse and doctor sch
 
                     <div className="row highlight-rows">
                       <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
-                        <div
-                          className="single  oraihighlight text-left"
-                          style={{}}
-                        >
+                        <div className="single  Liaplus text-left" style={{}}>
                           <div className="hightlights-images">
                             <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
                           </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                            NymbleUp provides a single platform for demand
-                            forecasting, scheduling, digital checklists, task
-                            management, and store audits. This integration
-                            simplifies operations and enhances compliance with
-                            brand and statutory guidelines.{" "}
+                            LiaPlus Offers sophisticated AI-powered virtual
+                            assistants for customer support, capable of handling
+                            5000 calls per hour with human-like interactions and
+                            100% uptime.{" "}
                           </p>
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
-                        <div
-                          className="single oraihighlight text-left"
-                          style={{}}
-                        >
+                        <div className="single Liaplus text-left" style={{}}>
                           <div className="hightlights-images">
                             <img src="./assets/images/deals-details/Petmojo/highlight01.jpg" />
                           </div>
                           <p style={{ padding: "1px !important" }}>
-                            With clients including major brands like Starbucks,
-                            McDonald's, KFC, and Burger King, NymbleUp has
-                            demonstrated strong product-market fit and achieved
-                            100% client retention.
+                            Liaplus supports over 18 languages across various
+                            channels including voice, email, WhatsApp, and more,
+                            ensuring global accessibility.{" "}
                           </p>
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
-                        <div
-                          className="single oraihighlight text-left"
-                          style={{}}
-                        >
+                        <div className="single Liaplus text-left" style={{}}>
                           <div className="hightlights-images">
                             <img src="./assets/images/deals-details/highlight2.jfif" />
                           </div>
                           <p style={{ padding: "0px !important" }}>
-                            Nymbleup Grew from 700 to 2800 locations within nine
-                            months, demonstrating strong market demand as well
-                            as scalability and Tripled Monthly Recurring Revenue
-                            (MRR) in 12 months, reflecting successful market
-                            penetration and financial performance.{" "}
+                            Liaplus Integrates seamlessly with 6000+
+                            applications, enhancing efficiency and productivity
+                            for diverse industries{" "}
                           </p>
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
-                        <div
-                          className="single oraihighlight text-left"
-                          style={{}}
-                        >
+                        <div className="single Liaplus text-left" style={{}}>
                           <div className="hightlights-images">
                             <img src="./assets/images/deals-details/highlight3.jpg" />
                           </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                            Operates with a gross margin of 80%, underscoring
-                            the profitability and efficiency of their business
-                            model. Achieved EBITDA positivity with an Annual
-                            Recurring Revenue (ARR) of INR 3.1 crore, showcasing
-                            effective cost management and sustainable business
-                            growth.{" "}
+                            It Achieves a 95% task completion rate,
+                            significantly exceeding industry benchmarks.
                           </p>
                         </div>
                       </div>
@@ -1832,12 +1852,12 @@ Hospitals and clinics utilize AI-driven forecasts to manage nurse and doctor sch
               </div>
               <section
                 className="deals-details-page"
-                style={{ marginBottom: "-50px" }}
+                style={{ marginBottom: "-50px", marginTop: "40px " }}
               >
                 <div>
                   <div>
                     {/* media */}
-                    {/* 
+
                     <div
                       className="container highlight-section"
                       style={{
@@ -1851,13 +1871,14 @@ Hospitals and clinics utilize AI-driven forecasts to manage nurse and doctor sch
                       <div className="row">
                         <div className="col-lg-6 col-md-6 col-sm-6">
                           <div className="single medialink text-left d-flex flex-column  ">
-                            <img src="./assets/images/deals-details/Nymbleup/Articles/1.png" />
+                            <img src="./assets/images/deals-details/LiaPlus AI/Articles/1.jpg" />
 
                             <p style={{ padding: "1px !important" }}>
-                              Tulua Simplifying Indian Cooking With Foray Into
-                              India Spice Market{" "}
+                              MeitY Startup Hub Investor Connect Programme
+                              Brings Together 10 Startups, 25+ Investors In
+                              Delhi NCR
                               <a
-                                href="https://yourstory.com/smbstory/from-a-ready-to-cook-brand-to-launching-spices-how-tulua-simplify-indian-cooking"
+                                href="https://inc42.com/buzz/meity-startup-hub-investor-connect-programme-brings-together-10-startups-25-investors-in-delhi-ncr/amp/"
                                 target="_blank"
                               >
                                 {" "}
@@ -1869,12 +1890,12 @@ Hospitals and clinics utilize AI-driven forecasts to manage nurse and doctor sch
 
                         <div className="col-lg-6 col-md-6 col-sm-6">
                           <div className="single medialink text-left d-flex flex-column  ">
-                            <img src="./assets/images/deals-details/Nymbleup/Articles/2.jpg" />
+                            <img src="./assets/images/deals-details/LiaPlus AI/Articles/2.jpg" />
                             <p style={{ padding: "1px !important" }}>
-                              Tulua launches aromatic line of spices
-                              highlighting the true Indian flavour
+                              How LiaPlus Is Redefining Customer Support With
+                              MeitY Startup Hub | Startup Hub
                               <a
-                                href="https://www.aninews.in/news/business/business/tulua-launches-aromatic-line-of-spices-highlighting-the-true-indian-flavour20230809163343/#google_vignette"
+                                href=" https://www.youtube.com/watch?v=fjQ57mduLDU "
                                 target="_blank"
                               >
                                 {" "}
@@ -1885,12 +1906,13 @@ Hospitals and clinics utilize AI-driven forecasts to manage nurse and doctor sch
                         </div>
                         <div className="col-lg-6 col-md-6 col-sm-6">
                           <div className="single medialink text-left d-flex flex-column  ">
-                            <img src="./assets/images/deals-details/Nymbleup/Articles/2.jpg" />
+                            <img src="./assets/images/deals-details/LiaPlus AI/Articles/3.jpg" />
                             <p style={{ padding: "1px !important" }}>
-                              Tulua launches aromatic line of spices
-                              highlighting the true Indian flavour{" "}
+                              Startup Mahakumbh: Startups Supported By MeitY
+                              Startup Hub Showcase Their Innovations
                               <a
-                                href="https://www.business-standard.com/content/press-releases-ani/tulua-launches-aromatic-line-of-spices-highlighting-the-true-indian-flavour-123080900618_1.html"
+                                href=" https://inc42.com/buzz/startup-mahakumbh-startups-supported-by-meity-startup-hub-showcase-their-innovations/ 
+"
                                 target="_blank"
                               >
                                 Readmore
@@ -1901,12 +1923,12 @@ Hospitals and clinics utilize AI-driven forecasts to manage nurse and doctor sch
 
                         <div className="col-lg-6 col-md-6 col-sm-6">
                           <div className="single medialink text-left d-flex flex-column  ">
-                            <img src="./assets/images/deals-details/Nymbleup/Articles/4.jpg" />
+                            <img src="./assets/images/deals-details/LiaPlus AI/Articles/4.jpg" />
                             <p style={{ padding: "1px !important" }}>
-                              Raksha Bandhan 2023: What to buy for someone who
-                              cannot think beyond
+                              Startup Mahakumbh: MeitY Startup Hub Puts
+                              Spotlight On Startups At
                               <a
-                                href="https://recipes.timesofindia.com/articles/trending/raksha-bandhan-2023-what-to-buy-for-someone-who-cannot-think-beyond-food/articleshow/103091174.cms"
+                                href="https://inc42.com/buzz/startup-mahakumbh-meity-startup-hub-puts-spotlight-on-startups-at-indias-largest-startup-event/ "
                                 target="_blank"
                               >
                                 {" "}
@@ -1918,11 +1940,13 @@ Hospitals and clinics utilize AI-driven forecasts to manage nurse and doctor sch
 
                         <div className="col-lg-6 col-md-6 col-sm-6">
                           <div className="single medialink text-left d-flex flex-column  ">
-                            <img src="./assets/images/deals-details/Nymbleup/Articles/5.jpg" />
+                            <img src="./assets/images/deals-details/LiaPlus AI/Articles/5.jpg" />
                             <p style={{ padding: "1px !important" }}>
-                              Tulua Introduces Aromatic Line of Spices
+                              On #WomensDay, our tech entrepreneur Smridhi Seth
+                              acknowledges the initiatives launched by the
+                              Government of India
                               <a
-                                href="https://www.indianretailer.com/restaurant/news/tulua-introduces-aromatic-line-of-spices.n21176"
+                                href=" https://x.com/_DigitalIndia/status/1766056278592471213"
                                 target="_blank"
                               >
                                 {" "}
@@ -1933,12 +1957,11 @@ Hospitals and clinics utilize AI-driven forecasts to manage nurse and doctor sch
                         </div>
                         <div className="col-lg-6 col-md-6 col-sm-6">
                           <div className="single medialink text-left d-flex flex-column  ">
-                            <img src="./assets/images/deals-details/Nymbleup/Articles/6.jpg" />
+                            <img src="./assets/images/deals-details/LiaPlus AI/Articles/6.jpg" />
                             <p style={{ padding: "1px !important" }}>
-                              Tulua to work in tandem with chefs to create
-                              customised blended spices
+                              YUVAAM VOICE OF THE YOUTH
                               <a
-                                href="https://hospitality.economictimes.indiatimes.com/news/operations/food-and-beverages/tulua-to-work-in-tandem-with-chefs-to-create-customised-blended-spices/103919395"
+                                href="https://static.mygov.in/static/s3fs-public/ebook/YUVAAM-VOICE-OF-THE-YOUTH-march/index.html"
                                 target="_blank"
                               >
                                 {" "}
@@ -1947,10 +1970,57 @@ Hospitals and clinics utilize AI-driven forecasts to manage nurse and doctor sch
                             </p>
                           </div>
                         </div>
-
-                    
+                        <div className="col-lg-6 col-md-6 col-sm-6">
+                          <div className="single medialink text-left d-flex flex-column  ">
+                            <img src="./assets/images/deals-details/LiaPlus AI/Articles/7.jpg" />
+                            <p style={{ padding: "1px !important" }}>
+                              From Idea to Impact: LiaPlus AI's GAIA Accelerator
+                              Cohort 2 Startup Journey -1
+                              <a
+                                href=" https://youtu.be/aGox4egG8BI?si=zLrpaEzK7SAfdbag"
+                                target="_blank"
+                              >
+                                {" "}
+                                Readmore
+                              </a>
+                            </p>
+                          </div>
+                        </div>
+                        <div className="col-lg-6 col-md-6 col-sm-6">
+                          <div className="single medialink text-left d-flex flex-column  ">
+                            <img src="./assets/images/deals-details/LiaPlus AI/Articles/8.jpg" />
+                            <p style={{ padding: "1px !important" }}>
+                              From Idea to Impact: LiaPlus AI's GAIA Accelerator
+                              Cohort 2 Startup Journey -2
+                              <a
+                                href="https://youtu.be/3KKHh66TS_Q?si=bbkJ_9exzIWci9xL "
+                                target="_blank"
+                              >
+                                {" "}
+                                Readmore
+                              </a>
+                            </p>
+                          </div>
+                        </div>
+                        <div className="col-lg-6 col-md-6 col-sm-6">
+                          <div className="single medialink text-left d-flex flex-column  ">
+                            <img src="./assets/images/deals-details/LiaPlus AI/Articles/9.jpg" />
+                            <p style={{ padding: "1px !important" }}>
+                              We had an incredible time showcasing our AI
+                              Employees for Customer Support at LEAP 2024 in
+                              Riyadh, Saudi Arabia.
+                              <a
+                                href=" https://www.linkedin.com/posts/liaplus_leap2024-aiemployees-vision2030-ugcPost-7172581107803045889-U-a2?utm_source=share&utm_medium=member_desktop "
+                                target="_blank"
+                              >
+                                {" "}
+                                Readmore
+                              </a>
+                            </p>
+                          </div>
+                        </div>
                       </div>
-                    </div> */}
+                    </div>
                   </div>
                 </div>
               </section>
@@ -2065,7 +2135,8 @@ Hospitals and clinics utilize AI-driven forecasts to manage nurse and doctor sch
                                           </div>
                                           <div className="info">
                                             <span>Valuation</span>
-                                            <h4>₹ 30 Cr. Pre Money Valuation
+                                            <h4>
+                                              ₹9 Cr Floor,₹12 Cr Cap Valuation
                                             </h4>
                                           </div>
                                         </div>
@@ -2090,12 +2161,12 @@ Hospitals and clinics utilize AI-driven forecasts to manage nurse and doctor sch
                                           <div className="info">
                                             <span>Legal Name</span>
                                             <h4>
-                                              NymbleUp Solutions Private Limited
+                                              WritePlus AI Private Limited
                                             </h4>
                                           </div>
                                           <div className="info">
                                             <span>Founded</span>
-                                            <h4>5/1/2019</h4>
+                                            <h4>4/18/2023</h4>
                                           </div>
                                           <div className="info">
                                             <span>Status</span>
@@ -2103,7 +2174,7 @@ Hospitals and clinics utilize AI-driven forecasts to manage nurse and doctor sch
                                           </div>
                                           <div className="info">
                                             <span>Employees</span>
-                                            <h4>13</h4>
+                                            <h4>7</h4>
                                           </div>
                                           <div className="info">
                                             <span>Website</span>
@@ -2112,36 +2183,36 @@ Hospitals and clinics utilize AI-driven forecasts to manage nurse and doctor sch
                                                 style={{
                                                   color: "rgb(7, 211, 252)",
                                                 }}
-                                                href="https://www.nymbleup.com"
+                                                href="https://liaplus.com/"
                                                 target="_blank"
                                               >
-                                                www.nymbleup.com
+                                                www.liaplus.com
                                               </a>
                                             </h4>
                                           </div>
                                           <div className="info">
                                             <span>Social Links</span>
                                             <div className="social-icons">
-                                              {/* <a href="https://www.facebook.com/theelefantofficial">
+                                              <a href="https://www.facebook.com/liaplusai/">
                                                 <i className="bx bxl-facebook fs-19"></i>
-                                              </a> */}
-                                              <a href="https://www.linkedin.com/company/76845127/admin/feed/posts/">
+                                              </a>
+                                              <a href="https://www.linkedin.com/company/liaplus">
                                                 <i className="bx bxl-linkedin fs-19"></i>
                                               </a>
-                                              {/* <a href="https://www.instagram.com/eattulua">
+                                              <a href="https://www.instagram.com/liaplus_ai/">
                                                 <i className="bx bxl-instagram fs-19"></i>
-                                              </a> */}
-                                              {/*
-                                              <a href="https://www.youtube.com/@theEleFant">
+                                              </a>
+
+                                              <a href="https://www.youtube.com/@liaplus_ai">
                                                 <i className="bx bxl-youtube fs-19"></i>
-                                              </a> */}
+                                              </a>
                                             </div>
                                           </div>
                                           <div className="info">
                                             <span>Address</span>
                                             <h4>
-                                              B 301, Mayuresh Park, Lake Road,
-                                              Bhandup, 400078
+                                              C-478 G/F VIKASH PURI New Delhi DL
+                                              110016 IN
                                             </h4>
                                           </div>
                                         </div>
@@ -2463,29 +2534,35 @@ Hospitals and clinics utilize AI-driven forecasts to manage nurse and doctor sch
                                                       <p
                                                         style={{
                                                           color: "#7f7776",
+                                                          textAlign: "justify",
                                                         }}
                                                       >
-                                                        NymbleUp operates on a
-                                                        Software as a Service
-                                                        (SaaS) model. Their
-                                                        offerings include a
-                                                        comprehensive platform
-                                                        that provides AI-powered
-                                                        predictive workforce
-                                                        scheduling, demand
-                                                        forecasting, task
-                                                        management, and store
-                                                        audits. This
-                                                        product-based approach
-                                                        allows customers to
-                                                        leverage advanced
-                                                        technology to optimize
-                                                        their workforce and
-                                                        operational efficiency
-                                                        with minimal
-                                                        involvement, ensuring a
-                                                        plug-and-play
-                                                        experience.{" "}
+                                                        LiaPlus is primarily
+                                                        focused on providing a
+                                                        service rather than just
+                                                        a product. It offers an
+                                                        AI-powered customer
+                                                        support solution that
+                                                        includes 24/7 service
+                                                        capabilities, handling a
+                                                        high volume of calls per
+                                                        hour with human-like
+                                                        interactions. This
+                                                        service integrates
+                                                        deeply with various CRM
+                                                        systems and over 6000
+                                                        applications, aiming to
+                                                        provide comprehensive
+                                                        and customized solutions
+                                                        to businesses across
+                                                        multiple industries. The
+                                                        emphasis is on
+                                                        delivering a robust and
+                                                        reliable service that
+                                                        enhances customer
+                                                        support efficiency and
+                                                        effectiveness through
+                                                        advanced AI technology.
                                                       </p>
                                                     </div>
                                                   </Panel>
@@ -2502,46 +2579,35 @@ Hospitals and clinics utilize AI-driven forecasts to manage nurse and doctor sch
                                                       <p
                                                         style={{
                                                           color: "#7f7776",
+                                                          textAlign: "justify",
                                                         }}
                                                       >
-                                                        NymbleUp faces several
-                                                        challenges as it scales
-                                                        up, including the need
-                                                        for seamless integration
-                                                        with major POS and HRMS
-                                                        solutions, maintaining
-                                                        high client retention,
-                                                        managing rapid growth,
-                                                        and differentiating from
-                                                        established competitors.
-                                                        To address these,
-                                                        NymbleUp will develop
-                                                        robust APIs and form
-                                                        global partnerships for
-                                                        effective integration,
-                                                        invest in advanced
-                                                        AI-driven customer
-                                                        support tools for
-                                                        enhanced client
-                                                        satisfaction, implement
-                                                        scalable cloud
-                                                        infrastructure and
-                                                        automate key processes
-                                                        to handle increased
-                                                        operational load, and
-                                                        continue innovating its
-                                                        product offerings to
-                                                        include unique features
-                                                        like AI-driven
-                                                        forecasting and
-                                                        comprehensive task
-                                                        management.
-                                                        Additionally,
-                                                        competitive pricing and
-                                                        superior customer
-                                                        service will help
-                                                        NymbleUp stand out in
-                                                        the crowded market.
+                                                        Scaling up LiaPlus
+                                                        involves managing
+                                                        challenges like
+                                                        technical scalability,
+                                                        resource allocation,
+                                                        market expansion,
+                                                        customer satisfaction,
+                                                        security compliance, and
+                                                        competitive
+                                                        differentiation. To
+                                                        address these,
+                                                        strategies include
+                                                        investing in R&D for AI
+                                                        improvement, adopting a
+                                                        scalable SaaS model,
+                                                        forming strategic
+                                                        partnerships, using
+                                                        customer feedback for
+                                                        iteration, and focusing
+                                                        on talent development.
+                                                        These efforts aim to
+                                                        sustain quality service
+                                                        delivery while expanding
+                                                        market presence and
+                                                        staying ahead of
+                                                        competitors.
                                                       </p>
                                                     </div>
                                                   </Panel>
@@ -2559,56 +2625,35 @@ Hospitals and clinics utilize AI-driven forecasts to manage nurse and doctor sch
                                                       <p
                                                         style={{
                                                           color: "#7f7776",
+                                                          textAlign: "justify",
                                                         }}
                                                       >
-                                                        Yes, NymbleUp is
-                                                        targeting new untapped
-                                                        markets, driven by its
-                                                        innovative approach to
-                                                        workforce scheduling and
-                                                        demand forecasting. By
-                                                        automating scheduling
-                                                        processes through AI and
-                                                        multi-objective linear
-                                                        programming, NymbleUp
-                                                        addresses a significant
-                                                        gap in the market for
-                                                        accurate and efficient
-                                                        scheduling solutions,
-                                                        particularly in sectors
-                                                        reliant on manual or
-                                                        partially automated
-                                                        tools. Furthermore,
-                                                        NymbleUp's integration
-                                                        of emerging technologies
-                                                        like IoT and computer
-                                                        vision for automating
-                                                        auditing processes in
-                                                        retail expands its
-                                                        market potential beyond
-                                                        traditional retail
-                                                        sectors. Additionally,
-                                                        NymbleUp sees
-                                                        opportunities for
-                                                        expansion into
-                                                        industries beyond
-                                                        retail, such as
-                                                        hospitality and
-                                                        healthcare, where
-                                                        similar workforce
-                                                        management challenges
-                                                        exist but may not have
-                                                        been fully addressed.
-                                                        This strategic targeting
-                                                        of untapped markets
-                                                        aligns with NymbleUp's
-                                                        vision for growth and
-                                                        innovation, positioning
-                                                        the company for success
-                                                        in diverse sectors
-                                                        seeking advanced
-                                                        workforce management
-                                                        solutions.{" "}
+                                                        Yes, LiaPlus is
+                                                        targeting new, untapped
+                                                        markets for AI-powered
+                                                        customer support
+                                                        solutions. This includes
+                                                        regions and industries
+                                                        where advanced AI
+                                                        assistants for customer
+                                                        service are not widely
+                                                        adopted or where there
+                                                        is a need for improved
+                                                        multilingual support,
+                                                        high task completion
+                                                        rates, and integration
+                                                        capabilities with
+                                                        diverse applications. By
+                                                        entering these markets,
+                                                        LiaPlus aims to
+                                                        capitalize on growing
+                                                        demand for efficient,
+                                                        personalized customer
+                                                        interactions, thus
+                                                        positioning itself as a
+                                                        leader in emerging
+                                                        sectors seeking
+                                                        innovative AI solutions.
                                                       </p>
                                                     </div>
                                                   </Panel>
@@ -2625,42 +2670,44 @@ Hospitals and clinics utilize AI-driven forecasts to manage nurse and doctor sch
                                                       <p
                                                         style={{
                                                           color: "#7f7776",
+                                                          textAlign: "justify",
                                                         }}
                                                       >
-                                                        NymbleUp’s key moats
-                                                        include its advanced
-                                                        AI-based scheduling and
-                                                        demand forecasting,
-                                                        which predict demand at
-                                                        transaction and item
-                                                        levels to optimize
-                                                        workforce scheduling and
-                                                        reduce labor costs. Its
-                                                        automated scheduling
-                                                        platform efficiently
-                                                        generates schedules
-                                                        based on employee
-                                                        availability, training,
-                                                        and skills, ensuring
-                                                        compliance and
-                                                        operational efficiency.
-                                                        NymbleUp offers an
-                                                        integrated solution that
-                                                        combines demand
-                                                        planning, scheduling,
-                                                        digital checklists, and
-                                                        incident management into
-                                                        a single application,
-                                                        streamlining workflows.
-                                                        Additionally, its
-                                                        digital checklist and
-                                                        operations excellence
-                                                        tools ensure uniform
-                                                        customer experiences,
-                                                        compliance with
-                                                        guidelines, and
-                                                        efficient auditing
-                                                        processes.
+                                                        LiaPlus secures its
+                                                        competitive edge through
+                                                        advanced AI technology
+                                                        that includes
+                                                        sophisticated algorithms
+                                                        and tailored natural
+                                                        language processing
+                                                        models, empowering
+                                                        seamless customer
+                                                        support interactions
+                                                        across 18+ languages.
+                                                        Its deep integration
+                                                        with over 6000
+                                                        applications,
+                                                        particularly CRM
+                                                        systems, enhances
+                                                        operational efficiency
+                                                        and data accessibility.
+                                                        Achieving a remarkable
+                                                        95% task completion
+                                                        rate, LiaPlus promises
+                                                        swift return on
+                                                        investment, boasting a
+                                                        181% ROI within a year.
+                                                        With scalable
+                                                        infrastructure capable
+                                                        of managing up to 5000
+                                                        calls per hour, LiaPlus
+                                                        ensures reliable
+                                                        performance, making it a
+                                                        compelling choice for
+                                                        enterprises seeking
+                                                        robust AI-powered
+                                                        customer support
+                                                        solutions.
                                                       </p>
                                                     </div>
                                                   </Panel>
@@ -2849,12 +2896,14 @@ Hospitals and clinics utilize AI-driven forecasts to manage nurse and doctor sch
                                 >
                                   <div className="d-flex">
                                     <img
-                                      src="./assets/images/deals-details/Nymbleup/Team/yogesh.jpg"
+                                      src="./assets/images/deals-details/LiaPlus AI/Team/shaileshjaiswalwins.jpeg"
                                       alt=""
                                     />
                                     <div className="intro">
-                                      <h3>Yogesh Bhatt </h3>
-                                      <span>CEO & Business Development </span>
+                                      <h3>Shailesh Jaiswal</h3>
+                                      <span>
+                                        Co-founder & CEO (Technology & Strategy)
+                                      </span>
                                       <div
                                         className="social-icons"
                                         style={{
@@ -2863,7 +2912,7 @@ Hospitals and clinics utilize AI-driven forecasts to manage nurse and doctor sch
                                         }}
                                       >
                                         <a
-                                          href="https://www.linkedin.com/in/yogesh-bhatt-57893814/"
+                                          href="https://www.linkedin.com/in/shaileshjaiswalwins/"
                                           target="_blank"
                                         >
                                           <i className="bx bxl-linkedin"></i>
@@ -2874,36 +2923,43 @@ Hospitals and clinics utilize AI-driven forecasts to manage nurse and doctor sch
                                       </div>
                                     </div>
                                   </div>
-                                  {/* <p>
-                                  With over 20 years of experience building enterprises, Swapnil Jain leads ORAI Robotics as CEO, driving strategic direction, sales, marketing, and advocating for their innovative AI-powered platform
-                                  </p> */}
                                   <ul>
                                     <li>
+                                      <a>5+ YOE Research</a>
+                                    </li>
+                                    <li>
+                                      <a> Masters Organizational Behaviour</a>
+                                    </li>
+                                    <li>
                                       <a>
-                                        17 years experience in handling retail
-                                        industry
+                                        {" "}
+                                        Mentor for Prompt Engineering IIT Madras
                                       </a>
                                     </li>
                                     <li>
                                       <a>
                                         {" "}
-                                        Ex Digital innovation at Starbucks India
-                                        Ex Business Development at Tata Croma
+                                        First Startup: Sirway Me (5,00,000
+                                        Distribution Network)
                                       </a>
                                     </li>
                                   </ul>
                                 </div>
                               </div>
                               <div className="col-lg-6">
-                                <div className="single">
+                                <div
+                                  className="single"
+                                  style={{ paddingBottom: "0px !important" }}
+                                  // style={{  marginBottom: 0px !important}}
+                                >
                                   <div className="d-flex">
                                     <img
-                                      src="./assets/images/deals-details/Nymbleup/Team/manish.jpg"
+                                      src="./assets/images/deals-details/LiaPlus AI/Team/smridhiseth.jpeg"
                                       alt=""
                                     />
                                     <div className="intro">
-                                      <h3>Manish Thakur </h3>
-                                      <span>CTO</span>
+                                      <h3>Smridhi Seth</h3>
+                                      <span>Co-Founder & COO</span>
                                       <div
                                         className="social-icons"
                                         style={{
@@ -2912,87 +2968,32 @@ Hospitals and clinics utilize AI-driven forecasts to manage nurse and doctor sch
                                         }}
                                       >
                                         <a
-                                          href="https://www.linkedin.com/in/manish-thakur-in?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
+                                          href="https://www.linkedin.com/in/smridhiseth/"
                                           target="_blank"
                                         >
                                           <i className="bx bxl-linkedin"></i>
                                         </a>
+                                        {/* <a href="mailto:vaibhav.tambe@transbnk.co.in">
+                                        <i className="bx bxl-gmail"></i>
+                                        </a> */}
                                       </div>
                                     </div>
                                   </div>
-                                  {/* <p>
-                                    Business Management, from Osmania University
-                                    Financial
-                                  </p> */}
                                   <ul>
                                     <li>
                                       <a>
-                                        CS graduate with 15 years of experience
-                                      </a>
-                                    </li>
-                                    <li>
-                                      <a>
-                                        Ex-Founder Amplitude (Event Tech Company
-                                        )
-                                      </a>
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                              <div className="col-lg-6">
-                                <div className="single">
-                                  <div className="d-flex">
-                                    <img
-                                      src="./assets/images/deals-details/Nymbleup/Team/sanket.jpeg"
-                                      alt=""
-                                    />
-                                    <div className="intro">
-                                      <h3>Sanket Kasar </h3>
-                                      <span>Technology Lead</span>
-                                      <div
-                                        className="social-icons"
-                                        style={{
-                                          marginTop: 4,
-                                          marginLeft: -6,
-                                        }}
-                                      >
-                                        <a
-                                          href="https://www.linkedin.com/search/results/all/?fetchDeterministicClustersOnly=true&heroEntityKey=urn%3Ali%3Afsd_profile%3AACoAAA_Rt54BAUj2wqRyDCa_JRIX1O4umkWCc2s&keywords=sanket%20kasar&origin=RICH_QUERY_SUGGESTION&position=1&searchId=9505b96b-69a0-475e-a867-ebd2253699d8&sid=T_%2C&spellCorrectionEnabled=false"
-                                          target="_blank"
-                                        >
-                                          <i className="bx bxl-linkedin"></i>
-                                        </a>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  {/* <p>
-                                    Business Management, from Osmania University
-                                    Financial
-                                  </p> */}
-                                  <ul>
-                                    <li style={{ listStyleType: "disc" }}>
-                                      <a>
-                                        Full Stack Engineer with deep passion in
-                                        every thing technology
+                                        5+ YOE Research Masters Organizational
+                                        Behaviour Entrepreneurship Training IIMB
+                                        NSRCEL{" "}
                                       </a>
                                     </li>
                                     <li>
                                       <a>
                                         {" "}
-                                        Working experience in recommendation of
-                                        music algorithms, voice- based autobots,
-                                        data analytics systems and scalable
-                                        cloud systems
+                                        First Startup: Sirway Me (5,00,000
+                                        Distribution Network)
                                       </a>
                                     </li>
-                                    {/* 
-                                    <li>
-                                      <a>
-                                        {" "}
-                                        Bringing strategic leadership and
-                                        financial acumen to The EleFant.
-                                      </a>
-                                    </li> */}
                                   </ul>
                                 </div>
                               </div>
@@ -3118,4 +3119,4 @@ Hospitals and clinics utilize AI-driven forecasts to manage nurse and doctor sch
   }
 }
 
-export default Nymbleup;
+export default LiaPlus;

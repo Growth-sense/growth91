@@ -174,6 +174,7 @@ import IndusUnoTranche2 from "./app/deal-pages/IndusUnoTranche2";
 import { Newdeals } from "./app/Newdeals.jsx";
 import jqeryscript from "./jq.js"
 import TableComponent from "./app/admin/pdfview/TableComponent.js";
+import LiaPlus from "./app/deal-pages/LiaPlus.jsx";
 
 ReactGA.initialize(TRACKING_ID);
 
@@ -529,6 +530,9 @@ function App() {
           </Route>
           <Route path="/Stroom" >
             <ProtectDeals Component={Stroom} />
+          </Route>
+          <Route path="/Liaplus" >
+            <ProtectDeals Component={LiaPlus} />
           </Route>
           <Route path="/Nymbleup" >
             <ProtectDeals Component={Nymbleup} />
