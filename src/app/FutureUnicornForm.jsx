@@ -118,8 +118,8 @@ export const FutureUnicornForm = () => {
                                 {/* <input id="tab5" type="radio" name="tabs" />
                                 <label for="tab5"><i class="fa fa-envelope-o"></i><span>Contact</span></label> */}
 
-                                <section id="content1" class="tab-content">
-                                    <h3>Startup Submission Form: </h3>
+                                <section id="content1" class="tab-content mt-0">
+                                    {/* <h3>Startup Submission Form: </h3> */}
                                     {/* <div className="row">
                                         <div className="col-6 col-md-6 col-lg-6 col-xl-6 col-12 col-sm-12 col-xxl-6 mb-4">
                                             <label htmlFor="">Legal name</label>
@@ -169,10 +169,10 @@ export const FutureUnicornForm = () => {
                                 <Founderadmindashboard view={0} />
 
                                      <div className="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto mt-3">
-                                            <div className="submit-draft-publish">
+                                            <div className="submit-draft-publish d-flex justify-content-center">
                                                 <Link to="FutureUnicornList" className='submit-future'>Save Draft</Link>
-                                                <Link to="FutureUnicornList" className='submit-future'>Save Publish</Link>
-                                                <Link to="FutureUnicornList" className='submit-future'>submit</Link>
+                                                <Link to="MemberShip" className='submit-future'>Save Publish</Link>
+                                                {/* <Link to="FutureUnicornList" className='submit-future'>submit</Link> */}
                                             </div>
 
                                 </div>

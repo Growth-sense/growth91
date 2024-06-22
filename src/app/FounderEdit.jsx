@@ -862,7 +862,7 @@ export const FounderEdit = () => {
                                         >
                                             <span><img src="./assets/images/gallery.png" alt="" /></span>
 
-                                            Gallery
+                                            Investor Presentation
                                         </button>
                                     </h3>
                                     <div
@@ -1067,7 +1067,7 @@ export const FounderEdit = () => {
                                         >
                                             <span><img src="./assets/images/mobile.png" alt="" /></span>
 
-                                            Investor Presentation
+                                            Videos
                                         </button>
                                     </h3>
                                     <div
