@@ -681,17 +681,17 @@ class Founderadmindashboard extends Component {
       
             <div className="container">
               <div className="row">
-                <div className="col-lg-12">
-                  <h1>Information about Startup</h1>
+                <div className="col-lg-12 text-center mb-5">
+                  {/* <h1>Information about Startup</h1> */}
                   <br />
                   <p>
                     Tell us a little about your company. This will help us
                     understand your business better.
                     <br />
-                    <span style={{ color: "red" }}>
+                    {/* <span style={{ color: "red" }}>
                       ( Instruction: Startup form and Assessment Forms are best
                       viewed on PC/Laptop. )
-                    </span>
+                    </span> */}
                   </p>
                 </div>
               </div>
