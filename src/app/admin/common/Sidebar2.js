@@ -76,6 +76,7 @@ class Sidebar extends Component {
                   Master Data
                 </a>
               </li>
+              
               <li>
                 <a href="/admin-startups  ">Startups</a>
               </li>
@@ -89,6 +90,42 @@ class Sidebar extends Component {
                 <a href="/admin-investments">Investments</a>
               </li>
             </ul>
+            
+          </li>
+          <li>
+            <div className="iocn-link">
+              <a href="#">
+                <i className="bx bxs-folder-minus"></i>
+                <span className="link_name">Future Unicorn</span>
+              </a>
+              
+           
+              <i
+                className="bx bxs-chevron-down arrow"
+                onClick={() =>
+                  document.getElementById("md-future").classList.toggle("hide")
+                }
+              ></i>
+            </div>
+            <ul id="md-future" className="sub-menu hide">
+              <li>
+                <a className="link_name" href="#">
+                  Future Unicorn Data
+                </a>
+              </li>
+              
+              <li>
+                <a href="/future-unicorn-startups">Startups</a>
+              </li>
+              <li>
+                <a href="/future-unicorn-investors">Investors</a>
+              </li>
+              <li>
+                <a href="/future-unicorn-founders">Founders</a>
+              </li>
+             
+            </ul>
+            
           </li>
           <li>
             <a href="/premium-members">

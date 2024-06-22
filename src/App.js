@@ -181,6 +181,9 @@ import Nymbleup from "./app/deal-pages/Nymbleup.jsx";
 import IndusUnoTranche2 from "./app/deal-pages/IndusUnoTranche2";
 import { Newdeals } from "./app/Newdeals.jsx";
 import jqeryscript from "./jq.js"
+import FUnicornStartup from "./app/admin/FUnicornStartup.js";
+import FUnicornInvestors from "./app/admin/FUnicornInvestors.js";
+import FUnicornFounders from "./app/admin/FUnicornFounders.js";
 
 ReactGA.initialize(TRACKING_ID);
 
@@ -309,6 +312,14 @@ function App() {
           <Route path="/admin-founders" exact component={adminfounders} />
           <Route path="/admin-investors" exact component={admininvestors} />
           <Route path="/admin-startups" exact component={adminstartups} />
+          <Route path="/future-unicorn-startups" exact component={FUnicornStartup} />
+          <Route path="/future-unicorn-investors" exact component={FUnicornInvestors} />
+          <Route path="/future-unicorn-founders" exact component={FUnicornFounders} />
+
+
+
+
+         
           <Route path="/admin-investments" exact component={admininvestments} />
           <Route path="/admin-payments" exact component={adminpayments} />
           <Route
