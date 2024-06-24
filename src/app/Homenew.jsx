@@ -1222,7 +1222,7 @@ class Homenew extends Component {
                           I am a regular investor on Growth Sense and very happy
                           with kind of returns generated on my investments.
                           Looking forward to equally exciting opportunities at
-                          Growth91<sup style={{ fontSize: "0.6rem" }}>TM</sup>
+                          Growth91<sup>®</sup>
                         </p>
                         <div class="name-testi">
                           <div class="img-testiminal-card">

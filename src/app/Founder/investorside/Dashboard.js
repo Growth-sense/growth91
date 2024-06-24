@@ -184,7 +184,7 @@ class Dashboard extends Component {
                             </div>
                             <p>
                               You KYC is rejected, pls reach Growth91
-                              <sup style={{ fontSize: "0.6rem" }}>TM</sup> Admin
+                             <sup>®</sup> Admin
                               for update.
                             </p>
                           </div>
@@ -333,7 +333,7 @@ class Dashboard extends Component {
                                   <p>
                                     Your KYC is incomplete. Please contact
                                     contact@Growth91
-                                    <sup style={{ fontSize: "0.6rem" }}>TM</sup>
+                                   <sup>®</sup>
                                     .com <br />
                                     from more details.
                                   </p>
