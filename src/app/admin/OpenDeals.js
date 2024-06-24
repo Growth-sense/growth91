@@ -4575,24 +4575,7 @@ class Deals extends Component {
                 ></i>{" "}
                 Add New Commitment
               </Button>
-            </div>
-          }
-          visible={this.state.Commitment_list_modal}
-          onOk={() => this.setState({ Commitment_list_modal: false })}
-          onCancel={() => this.setState({ Commitment_list_modal: false })}
-          okText='ok'
-          width={1000}
-        >
-          <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-          }}>
-            <Input
-              placeholder="Search"
-              onChange={(e) => this.searchinputc(e)}
-              style={{ maxWidth: 300, marginBottom: 20, height: 40 }}
-            />
-            <Button
+              <Button
               type="primary"
               onClick={() => this.exportToCSV_CommitList("Commitment List")}
             >
@@ -4623,6 +4606,24 @@ class Deals extends Component {
               ></i>{" "}
               Export For Reconcillation
             </Button>
+            </div>
+          }
+          visible={this.state.Commitment_list_modal}
+          onOk={() => this.setState({ Commitment_list_modal: false })}
+          onCancel={() => this.setState({ Commitment_list_modal: false })}
+          okText='ok'
+          width={1000}
+        >
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+          }}>
+            <Input
+              placeholder="Search"
+              onChange={(e) => this.searchinputc(e)}
+              style={{ maxWidth: 300, marginBottom: 20, height: 40 }}
+            />
+           
           </div>
 
           <Table
