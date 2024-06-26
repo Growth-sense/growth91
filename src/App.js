@@ -113,6 +113,7 @@ import TransBankPublic from "./app/deal-pages/TransBankPublic";
 import Test from "./app/components/Alerts/investment/Test";
 import Step1 from "./app/investor/register/Step1";
 import FounderRegistration from "./app/Founder/FounderRegistration";
+import InvestorFounderRegistration from "./app/Founder/InvestorFounderRegistration.jsx";
 import OfflinePayments from "./app/admin/OfflinePayment";
 import covertfoundertoinvestor from "./app/Founder/NationalityDetails";
 // foudner as investor
@@ -244,6 +245,11 @@ function App() {
             path="/founder-registration"
             exact
             component={FounderRegistration}
+          />
+          <Route
+            path="/Investor-founder-registration"
+            exact
+            component={InvestorFounderRegistration}
           />
           <Route
             path="/investor-dashboard"
