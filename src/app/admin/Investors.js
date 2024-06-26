@@ -417,6 +417,8 @@ class Investors extends Component {
   searchinput = (e) => {
     let text = e.target.value;
     this.setState({ loading: true, searchinput: text });
+    console.log(text);
+
     if (text) {
       let arr = [];
       for (let item of this.state.cinvestors) {
@@ -432,6 +434,7 @@ class Investors extends Component {
           arr = [...arr, item];
         }
       }
+      console.log(arr);
       this.setState({
         investors: arr,
         loading: false,
