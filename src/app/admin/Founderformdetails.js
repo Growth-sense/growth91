@@ -1551,6 +1551,21 @@ class Founderformdetails extends Component {
   };
   
   render() {
+    const disdingname= (datas) => {
+      const data = [...this.state.list]
+        .map((el) => {
+          return { ...el, main_founder_id: Number(el.main_founder_id  ) };
+        })
+        .sort((a, b) => {
+          console.log(datas);
+          return a.datas> b.datas ? 1 : -1;
+        });
+      this.setState({
+        list: data,
+      });
+      console.log(data);
+    
+  };
     const dataSource =
       this.state.list &&
       this.state.list.map((item, index) => {
@@ -1575,7 +1590,11 @@ class Founderformdetails extends Component {
         fixed: "left",
       },
       {
-        title: "Founder Id",
+        title: <span
+        onClick={() => {
+          disdingname("main_founder_id")
+        }}
+      >Founder Id</span>,
         dataIndex: "founder_id",
         key: "founder_id",
         width: 160,

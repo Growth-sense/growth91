@@ -162,7 +162,7 @@ class TeamComposition1 extends Component {
                     <label>
                       Role Type<span className="text-danger">*</span>
                     </label>
-                    <input type="text" readonly={true} value={item.role} />
+                    <input type="text" readonly={true} value={item.role}  style={{textTransform:"capitalize"}}/>
                   </div>
                   <div className="form-group col-md-4">
                     <label>

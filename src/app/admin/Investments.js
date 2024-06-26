@@ -66,6 +66,7 @@ class Investments extends Component {
       founder_details: {},
       request_loader: false,
       documents: [],
+
     };
   }
 
@@ -86,8 +87,8 @@ class Investments extends Component {
           }
         }
         this.setState({
-          investments: arr,
-          cinvestments: arr,
+          investments: result.data.map((el)=>{return {...el,name: el.first_name + " " + el.last_name}}),
+          cinvestments:  arr.map((el)=>{return {...el,name: el.first_name + " " + el.last_name}}),
           loading: false,
         });
         // console.log('investment',result.data);
@@ -105,6 +106,7 @@ class Investments extends Component {
     let search = e.target.value;
     if (search) {
       investments = investments.filter((investment) => {
+        console.log(investment);
         return (
           (investment.name &&
             investment.name.toLowerCase().includes(search.toLowerCase())) ||
@@ -449,6 +451,52 @@ class Investments extends Component {
   };
   render() {
     var nf = new Intl.NumberFormat('en-IN');
+    const disdingid = (datas) => {
+        const data = [...this.state.investments]
+          .map((el) => {
+            return { ...el, investment_id: Number(el.investment_id  ) };
+          })
+          .sort((a, b) => {
+            console.log(datas);
+            return a.investment_id > b.investment_id ? 1 : -1;
+          });
+        this.setState({
+          investments: data,
+        });
+      
+    };
+    const disdingcammitamt= (datas) => {
+      console.log(this.state.modes);
+        const data = [...this.state.investments]
+          .map((el) => {
+            return { ...el, amount: Number(el.amount) };
+          })
+          .sort((a, b) => {
+            console.log(datas);
+            return a.amount> b.amount ? 1 : -1;
+          });
+        this.setState({
+          investments: data,
+        });
+        console.log(data);
+    
+    };
+    const disdingfee= (datas) => {
+      console.log(this.state.modes);
+        const data = [...this.state.investments]
+          .map((el) => {
+            return { ...el, processingfees: Number(el.processingfees) };
+          })
+          .sort((a, b) => {
+            console.log(datas);
+            return a.processingfees> b.processingfees ? 1 : -1;
+          });
+        this.setState({
+          investments: data,
+        });
+        console.log(data);
+    
+    };
     const dataSource =
       this.state.investments &&
       this.state.investments.map((item, index) => {
@@ -480,7 +528,11 @@ class Investments extends Component {
 
     const columns = [
       {
-        title: "Investment No",
+        title: <span
+        onClick={() => {
+          disdingid();
+        }}
+      >Investment No</span>,
         dataIndex: "investmentno",
         key: "investmentno",
         width: 160,
@@ -526,11 +578,15 @@ class Investments extends Component {
       //   dataIndex: "dealid",
       //   key: "dealid",
       // },
-      // {
-      //   title: "Commitment Amount",
-      //   dataIndex: "dealid",
-      //   key: "dealid",
-      // },
+      {
+        title: <span
+        onClick={() => {
+          disdingcammitamt();
+        }}
+      >Commitment Amount</span>,
+        dataIndex: "Commitment_amount",
+        key: "Commitment_amount",
+      },
       // {
       //   title: "Investment Stage",
       //   dataIndex: "investment_stage",
@@ -574,7 +630,11 @@ class Investments extends Component {
 
       },
       {
-        title: "Fees",
+        title: <span
+        onClick={() => {
+          disdingfee();
+        }}
+      >Fees</span>,
         dataIndex: "processingfees",
         key: "processingfees",
         align:"right",

@@ -664,6 +664,37 @@ class Founders extends Component {
   };
 
   render() {
+    const disdingid = (datas) => {
+      console.log(this.state.modes);
+        const data = [...this.state.founderlist]
+          .map((el) => {
+            return { ...el, investor_id: Number(el.investor_id  ) };
+          })
+          .sort((a, b) => {
+            console.log(datas);
+            return a.investor_id > b.investor_id ? 1 : -1;
+          });
+        this.setState({
+          founderlist: data,
+        });
+        console.log(data);
+       
+    };
+    const disdingname= (datas) => {
+        const data = [...this.state.founderlist]
+          .map((el) => {
+            return { ...el, investor_id: Number(el.investor_id  ) };
+          })
+          .sort((a, b) => {
+            console.log(datas);
+            return a.first_name> b.first_name ? 1 : -1;
+          });
+        this.setState({
+          founderlist: data,
+        });
+        console.log(data);
+      
+    };
     const dataSource =
       this.state.founderlist &&
       this.state.founderlist.map((item, index) => {
@@ -681,14 +712,22 @@ class Founders extends Component {
 
     const columns = [
       {
-        title: "Founder Id",
+        title:<span
+        onClick={() => {
+          disdingid();
+        }}
+      >Founder Id</span>,
         dataIndex: "founderid",
         key: "founderid",
         width: 160,
         fixed: "left",
       },
       {
-        title: "Name",
+        title:  <span
+        onClick={() => {
+          disdingname()
+        }}
+      >Name</span>,
         dataIndex: "name",
         key: "name",
         width: 100,

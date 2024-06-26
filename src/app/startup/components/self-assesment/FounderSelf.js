@@ -474,67 +474,68 @@ class FounderSelf extends Component {
                 </div>
               )}
             <Spin spinning={this.state.loading}>
-            <div className="row" style={{ marginTop: 30 }}>
-              <div className="col-lg-12">
-                <div className="row" style={{ maxWidth: 900 }}>
-                  <div className="col-lg-12">
-                    <div className="form-group">
-                      <label for="">Name <span className="text-danger">*</span></label>
-                      <input
-                        type="text"
-                        value={this.state.name}
-                        onChange={(e) =>
-                          this.setState({ name: e.target.value })
-                        }
-                        disabled={true}
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label for="">Email <span className="text-danger">*</span></label>
-                      <input
-                        type="email"
-                        value={this.state.email}
-                        onChange={(e) =>
-                          this.setState({ email: e.target.value })
-                        }
-                        disabled={true}
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label for="">Role type <span className="text-danger">*</span></label>
-                      <input
-                        type="text"
-                        value={this.state.roleType}
-                        onChange={(e) =>
-                          this.setState({ roleType: e.target.value })
-                        }
-                        disabled={true}
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label for="">Mobile Number <span className="text-danger">*</span></label>
-                      <input
-                        type="number"
-                        value={this.state.mobile}
-                        onWheel={() => document.activeElement.blur()}
-                        onChange={(e) =>
-                          this.setState({ mobile: e.target.value })
-                        }
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label for="">
-                        LinkedIn Profile URL
-                        <span className="text-danger">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        value={this.state.linkedIn}
-                        onChange={(e) =>
-                          this.setState({ linkedIn: e.target.value })
-                        }
-                      />
-                    </div>
+              <div className="row" style={{ marginTop: 30 }}>
+                <div className="col-lg-12">
+                  <div className="row" style={{ maxWidth: 900 }}>
+                    <div className="col-lg-12">
+                      <div className="form-group">
+                        <label for="">Name <span className="text-danger">*</span></label>
+                        <input
+                          type="text"
+                          value={this.state.name}
+                          onChange={(e) =>
+                            this.setState({ name: e.target.value })
+                          }
+                          disabled={true}
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label for="">Email <span className="text-danger">*</span></label>
+                        <input
+                          type="email"
+                          value={this.state.email}
+                          onChange={(e) =>
+                            this.setState({ email: e.target.value })
+                          }
+                          disabled={true}
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label for="">Role type <span className="text-danger">*</span></label>
+                        <input
+                          type="text"
+                          value={this.state.roleType}
+                          style={{textTransform:"capitalize"}}
+                          onChange={(e) =>
+                            this.setState({ roleType: e.target.value })
+                          }
+                          disabled={true}
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label for="">Mobile Number <span className="text-danger">*</span></label>
+                        <input
+                          type="number"
+                          value={this.state.mobile}
+                          onWheel={() => document.activeElement.blur()}
+                          onChange={(e) =>
+                            this.setState({ mobile: e.target.value })
+                          }
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label for="">
+                          LinkedIn Profile URL
+                          <span className="text-danger">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          value={this.state.linkedIn}
+                          onChange={(e) =>
+                            this.setState({ linkedIn: e.target.value })
+                          }
+                        />
+                      </div>
 
                     <div className="form-group">
                       <label for="">

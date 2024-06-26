@@ -172,6 +172,7 @@ class AdminDocuments extends Component {
       });
     } else {
       this.setState({
+        documentlist: this.state.cdocumentlist,
         loading: false,
       });
     }
