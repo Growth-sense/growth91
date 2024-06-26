@@ -855,7 +855,7 @@ export const FutureUnicornDescription = () => {
                                         >
                                             <span><img src="./assets/images/gallery.png" alt="" /></span>
 
-                                            Gallery
+                                           Investor Presentation
                                         </button>
                                     </h3>
                                     <div
@@ -1044,6 +1044,50 @@ export const FutureUnicornDescription = () => {
                                                         </ul>
                                                     </div>
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h3 class="accordion-header" id="flush-headingWait">
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#flush-headingWaitnew"
+                                            aria-expanded="false"
+                                            aria-controls="flush-headingWait"
+                                        >
+                                            <span><img src="./assets/images/mobile.png" alt="" /></span>
+
+                                            Videos
+                                        </button>
+                                    </h3>
+                                    <div
+                                        id="flush-headingWaitnew"
+                                        class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingWait"
+                                        data-bs-parent="#accordionFlushExample"
+                                    >
+                                        <div class="accordion-body connect-acc-us">
+                                            <div className="row justify-content-center">
+                                                <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
+                                                    <div className="img-future-gallery">
+                                                        <video controls>
+                                                            <source src="/media/cc0-videos/flower.webm" type="video/webm" />
+
+                                                            <source src="/media/cc0-videos/flower.mp4" type="video/mp4" />
+
+                                                            Download the
+                                                            <a href="/media/cc0-videos/flower.webm">WEBM</a>
+                                                            or
+                                                            <a href="/media/cc0-videos/flower.mp4">MP4</a>
+                                                            video.
+                                                        </video>
+                                                    </div>
+                                                </div>
+                                       
+                                             
                                             </div>
                                         </div>
                                     </div>

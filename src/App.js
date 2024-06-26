@@ -182,6 +182,9 @@ import Nymbleup from "./app/deal-pages/Nymbleup.jsx";
 import IndusUnoTranche2 from "./app/deal-pages/IndusUnoTranche2";
 import { Newdeals } from "./app/Newdeals.jsx";
 import jqeryscript from "./jq.js"
+import FUnicornStartup from "./app/admin/FUnicornStartup.js";
+import FUnicornInvestors from "./app/admin/FUnicornInvestors.js";
+import FUnicornFounders from "./app/admin/FUnicornFounders.js";
 import TableComponent from "./app/admin/pdfview/TableComponent.js";
 
 
@@ -212,7 +215,6 @@ function App() {
           <Route path="/" exact component={Homenew} />
           <Route path="/about" exact component={Aboutnew} />
           <Route path="/LoginInvestor" exact component={LoginInvestor} />
-          <Route path="/FutureUnicornForm" exact component={FutureUnicornForm} />
           <Route path="/LoginFounder" exact component={LoginFounder} />
           <Route path="/MemberShip" exact component={MemberShip} />
           <Route path="/DashboardType" exact component={DashboardType} />
@@ -224,6 +226,7 @@ function App() {
           <Route path="/WaitApproval" exact component={WaitApproval} />
 
           <Route path="/FamilyDashboard" exact component={FamilyDashboard} />
+          <Route path="/FutureUnicornForm" exact component={FutureUnicornForm} />
           <Route path="/InformationList" exact component={InformationList} />
           <Route path="/UnderMaintenance" exact component={UnderMaintenance} />
           <Route path="/StartInvestment" exact component={Content} />
@@ -318,6 +321,14 @@ function App() {
           <Route path="/admin-founders" exact component={adminfounders} />
           <Route path="/admin-investors" exact component={admininvestors} />
           <Route path="/admin-startups" exact component={adminstartups} />
+          <Route path="/future-unicorn-startups" exact component={FUnicornStartup} />
+          <Route path="/future-unicorn-investors" exact component={FUnicornInvestors} />
+          <Route path="/future-unicorn-founders" exact component={FUnicornFounders} />
+
+
+
+
+         
           <Route path="/admin-investments" exact component={admininvestments} />
           <Route path="/admin-payments" exact component={adminpayments} />
           <Route
