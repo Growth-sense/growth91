@@ -16,7 +16,7 @@ export const Investcurosel = () => {
       </div>
       <p>
         I have pre-registered as an investor on Growth91
-        <sup style={{ fontSize: "0.6rem" }}>®</sup> platform. Excited
+       <sup>®</sup> platform. Excited
         to start investing in Startups.
       </p>
       <div className="media">
@@ -42,7 +42,7 @@ export const Investcurosel = () => {
         I am a regular investor on Growth Sense and very happy with
         kind of returns generated on my investments. Looking forward
         to equally exciting opportunities at Growth91
-        <sup style={{ fontSize: "0.6rem" }}>®</sup>
+       <sup>®</sup>
       </p>
       <div className="media">
         <div className="images">
