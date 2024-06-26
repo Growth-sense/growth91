@@ -75,6 +75,7 @@ class Founderformdetails extends Component {
         if (
           (item.main_founder_id && item.main_founder_id.includes(text)) ||
           (item.first_name && item.first_name.toLowerCase().includes(text.toLowerCase())) ||
+          (item.primary_contact_person_name && item.primary_contact_person_name.toLowerCase().includes(text.toLowerCase())) ||
           (item.startup_name && item.startup_name.toLowerCase().includes(text.toLowerCase()))         ) {
           arr = [...arr, item];
         }

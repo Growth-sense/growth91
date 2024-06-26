@@ -12,7 +12,7 @@ class BottomBar extends Component {
           marginLeft: "64px",
         }}
       >
-        @2023 All rights are reserved. Managed by Growth Metaverse.
+        @2024 All rights are reserved. Managed by Growth Metaverse.
       </Footer>
     );
   }

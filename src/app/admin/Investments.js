@@ -526,11 +526,11 @@ class Investments extends Component {
       //   dataIndex: "dealid",
       //   key: "dealid",
       // },
-      // {
-      //   title: "Commitment Amount",
-      //   dataIndex: "dealid",
-      //   key: "dealid",
-      // },
+      {
+        title: "Commitment Amount",
+        dataIndex: "dealid",
+        key: "dealid",
+      },
       // {
       //   title: "Investment Stage",
       //   dataIndex: "investment_stage",

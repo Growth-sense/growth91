@@ -156,7 +156,7 @@ class Founders extends Component {
         this.setState({
           allFounders: result.data,
           founderlist: result.data,
-          cfounderlist: result.data,
+          cfounderlist: result.data.map((el)=>{return {...el,name: el.first_name + " " + el.last_name}}),
           loading: false,
         });
       } else {
@@ -384,10 +384,11 @@ class Founders extends Component {
     this.setState({ loading: true });
     if (text) {
       let arr = [];
+      console.log(this.state.cfounderlist);
       for (let item of this.state.cfounderlist) {
         if (
           (item.startup_name && item.startup_name.toLowerCase().includes(text.toLowerCase())) ||
-          (item.first_name && item.first_name.toLowerCase().includes(text.toLowerCase())) ||
+          (item.name && item.name.toLowerCase().includes(text.toLowerCase())) ||
           (item.last_name && item.last_name.toLowerCase().includes(text.toLowerCase())) ||
           (item.investor_id && item.investor_id.includes(text)) ||
           (item.email && item.email.includes(text)) ||
