@@ -125,7 +125,7 @@ Membership.</h4>
                         <div className="col-md-6">
                             <div className="pracing-item ">
                                 <div className="top-left">
-                                    <p>10% off</p>
+                                    <p>100% off</p>
                                 </div>
                                 <div className="top-area">
                                 <i className='bx bxs-dollar-circle' style={{fontSize: '40px', color: 'gold'}}></i>

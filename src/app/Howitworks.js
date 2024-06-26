@@ -1122,7 +1122,7 @@ class Howitworks extends Component {
                   <div className="col-md-6">
                     <div className="pracing-item ">
                       <div className="top-left">
-                        <p>10% off</p>
+                        <p>100% off</p>
                       </div>
                       <div className="top-area">
                         <i

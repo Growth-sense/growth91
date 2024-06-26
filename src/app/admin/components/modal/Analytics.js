@@ -72,6 +72,8 @@ export default class Analytics extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props.id);
+
     if (this.props.id) {
       this.setState({
         startup_id: this.props.id,

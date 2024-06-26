@@ -4379,6 +4379,7 @@ transition: max-height 0.45s ease-in; */
         /* flex-direction: column !important; */
         width: 100% !important;
         gap: 10px;
+        margin-top: 20px;
     }
 
 }
