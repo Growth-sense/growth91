@@ -219,7 +219,7 @@ class MembershipPlan extends Component {
                     <Spin spinning={this.state.loading}>
                       <div className="pracing-item">
                         <div className="top-left">
-                          <p>{this.state.discount}% off</p>
+                          <p>100% off</p>
                         </div>
                         <div className="top-area">
                           <i
