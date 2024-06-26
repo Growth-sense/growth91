@@ -125,7 +125,7 @@ class IndusUno extends Component {
     document.title = "Newboo - Growth91 - Startup Marketplace ";
   }
   componentDidMount() {
-    let deal_id = "26";
+    let deal_id = "115";
     this.setState({ deal_id: deal_id }, () => {
       this.get_pitch_list();
     });

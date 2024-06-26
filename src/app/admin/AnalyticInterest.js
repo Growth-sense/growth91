@@ -75,6 +75,9 @@ class Deals extends Component {
         if (
           (item.deal_name && item.deal_name.toLowerCase().includes(text.toLowerCase())) ||
           (item.first_name.toLowerCase().includes(text.toLowerCase())) ||
+          (item.email.toLowerCase().includes(text.toLowerCase())) ||
+          (item.mobile.toLowerCase().includes(text.toLowerCase())) ||
+          ( moment(item.created_at).format('D-MMM-YYYY h:mm A').toLowerCase().includes(text.toLowerCase())) ||
           (item.last_name.toLowerCase().includes(text.toLowerCase())) 
         
         ) {
