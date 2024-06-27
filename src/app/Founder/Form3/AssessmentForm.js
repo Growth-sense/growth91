@@ -456,7 +456,7 @@ class AssessmentForm extends Component {
                                   <input
                                     type="text"
                                     readonly={true}
-                                    value={item.role}
+                                    value={item.role} style={{textTransform:"capitalize"}}
                                   />
                                 </div>
                                 <div className="form-group col-md-4">
@@ -517,7 +517,7 @@ class AssessmentForm extends Component {
                                       <input
                                         type="text"
                                         readonly={true}
-                                        value={item.role}
+                                        value={item.role} style={{textTransform:"capitalize"}}
                                       />
                                     </div>
                                     <div className="form-group col-md-4">
@@ -589,7 +589,7 @@ class AssessmentForm extends Component {
                                       <input
                                         type="text"
                                         readonly={true}
-                                        value={item.role}
+                                        value={item.role} style={{textTransform:"capitalize"}}
                                       />
                                     </div>
                                     <div className="form-group col-md-4">

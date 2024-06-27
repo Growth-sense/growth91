@@ -21,6 +21,7 @@ class PremiumMembers extends Component {
       loading: false,
       list: [],
       clist: [],
+
     };
   }
 
@@ -35,7 +36,7 @@ class PremiumMembers extends Component {
       if (result.status == 1) {
         this.setState({
           list: result.data,
-          clist: result.data,
+          clist:result.data.map((el)=>{return {...el,name: el.first_name + " " + el.last_name}}),
           loading: false,
         });
       } else {
@@ -52,8 +53,9 @@ class PremiumMembers extends Component {
       let arr = [];
       for (let item of this.state.clist) {
         if (
-          (item.first_name && item.first_name.toLowerCase().includes(text.toLowerCase())) ||
-          (item.last_name && item.last_name.toLowerCase().includes(text.toLowerCase())) ||
+          (item.name && item.name.toLowerCase().includes(text.toLowerCase())) ||
+          // (item.first_name && item.first_name.toLowerCase().includes(text.toLowerCase())) ||
+          // (item.last_name && item.last_name.toLowerCase().includes(text.toLowerCase())) ||
           (item.email && item.email.includes(text)) ||
           (item.investor_id && item.investor_id.includes(text))
         ) {
@@ -105,6 +107,22 @@ class PremiumMembers extends Component {
   };
 
   render() {
+    const disdingid = (datas) => {
+      console.log(this.state.modes);
+        console.log("aa");
+        const data = [...this.state.list]
+          .map((el) => {
+            return { ...el, investor_id: Number(el.investor_id  ) };
+          })
+          .sort((a, b) => {
+            console.log(datas);
+            return a.datas > b.datas ? 1 : -1;
+          });
+        this.setState({
+          list: data,
+        });
+    
+    };
     const dataSource =
       this.state.list &&
       this.state.list.map((item, index) => {
@@ -119,7 +137,11 @@ class PremiumMembers extends Component {
 
     const columns = [
       {
-        title: "Investor Id",
+        title: <span
+        onClick={() => {
+          disdingid("investor_id");
+        }}
+      >Investor Id</span>,
         dataIndex: "id",
         key: "id",
         width: 160,
@@ -137,7 +159,11 @@ class PremiumMembers extends Component {
         width: 160,
       },
       {
-        title: "Expiry Date",
+        title:<span
+        onClick={() => {
+          disdingid("membership_end_date");
+        }}
+      >Expiry Date</span>,
         dataIndex: "expirydate",
         key: "expirydate",
         width: 160,
