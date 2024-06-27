@@ -19,9 +19,9 @@ class InvestorFounderRegistration extends Component {
       first_name: "",
       middle_name: "",
       last_name: "",
-      firstname:"",
-middlename:"",
-lastname:"",
+      firstname: "",
+      middlename: "",
+      lastname: "",
       email: "",
       mobile: "",
       companyName: "",
@@ -53,6 +53,7 @@ lastname:"",
       mobileminuts: 2,
       mobileseconds: 0,
       istimerstarted2: false,
+      typeofmember:'Indian Resident',
     };
   }
   componentDidMount() {
@@ -371,6 +372,8 @@ lastname:"",
     };
     this.setState({ loading: true });
     Bridge.founders.addnewfounder(params).then((result) => {
+      this.finish()
+
       if (result.status == "1") {
         console.log("result", result.data);
         localStorage.setItem("founder_id", result.data[0].investor_id);
@@ -381,7 +384,7 @@ lastname:"",
         localStorage.setItem("founder_is_investor", result.data[0].is_investor);
         localStorage.setItem("founder_email", result.data[0].email);
         localStorage.setItem("founder_kycstatus", result.data[0].kycstatus);
-        window.location.assign("/founder-dashboard");
+        // window.location.assign("/founder-dashboard");
         message.success("Registration is completed successfully.");
         this.setState({ loading: false });
 
@@ -398,6 +401,51 @@ lastname:"",
       }
     });
   };
+  finish=()=>{
+       
+    if(!this.state.typeofmember){
+        message.warning('Please select nationality first.');
+        return
+    }
+    if(this.state.riskstatus==false){
+        message.warning('Please Accept the Term and Condition');
+        return
+    }
+  this.setState({formloader:true});
+  let params = {
+      riskstatus:this.state.riskstatus==true ? '1' : '0',
+      limitedstatus:this.state.limitedstatus==true ? '1' : '0',
+      divesestatus: this.state.divesestatus==true ? '1' : '0',
+      cancellationstatus: this.state.cancellationstatus==true ? '1' : '0',
+      researchstatus:this.state.researchstatus==true ? '1' : '0',
+      id: localStorage.getItem('investor_id'),
+      is_investor:'1',
+      nationality:this.state.typeofmember,
+  }
+  console.log('Nationality:',params);
+  Bridge.investor.updaterstatus(params).then((result) => {
+      if (result.status == 1) {
+          localStorage.setItem('founder_is_investor',1);
+          localStorage.setItem('founder_email',localStorage.getItem('investor_email'));
+          localStorage.setItem('founder_id',localStorage.getItem('investor_id'));
+          localStorage.setItem('founder_name',localStorage.getItem('investor_name'));
+          localStorage.setItem('founder_kycstatus',localStorage.getItem('investor_kycstatus'));
+          this.setState({formloader:false});
+        
+          message.success('You have been registered as Founder.');
+          setTimeout(() => {
+            // localStorage.clear('investor_email')
+            // localStorage.clear('investor_id')
+            // localStorage.clear('investor_name')
+            // localStorage.clear('investor_kycstatus')
+              window.location.assign('/founder-dashboard');
+
+          },2000);
+      } else {
+        this.setState({formloader:false});
+      }
+  });
+}
   //end function
 
   handleChange = (e) => {
@@ -560,9 +608,9 @@ lastname:"",
                               name="first_name"
                               className="form-input-field"
                               value={this.state.firstname}
-                            //   onChange={(e) =>
-                            //     this.setState({ first_name: e.target.value })
-                            //   }
+                              //   onChange={(e) =>
+                              //     this.setState({ first_name: e.target.value })
+                              //   }
                             />
                           </div>
                           <div className="col-lg-6">
@@ -572,9 +620,9 @@ lastname:"",
                               name="middle_name"
                               className="form-input-field"
                               value={this.state.middlename}
-                            //   onChange={(e) =>
-                            //     this.setState({ middle_name: e.target.value })
-                            //   }
+                              //   onChange={(e) =>
+                              //     this.setState({ middle_name: e.target.value })
+                              //   }
                             />
                           </div>
                           <div className="col-lg-12">
@@ -586,9 +634,9 @@ lastname:"",
                               name="last_name"
                               className="form-input-field"
                               value={this.state.lastname}
-                            //   onChange={(e) =>
-                            //     this.setState({ last_name: e.target.value })
-                            //   }
+                              //   onChange={(e) =>
+                              //     this.setState({ last_name: e.target.value })
+                              //   }
                             />
                           </div>
                           <div className="col-lg-12">
@@ -942,7 +990,6 @@ lastname:"",
                                 value={this.state.email.trim()}
                                 onChange={this.handleChange}
                                 disabled={true}
-                                
                               />
                               {/* <button
                                   className="send_otp_button"
