@@ -1187,7 +1187,7 @@ export const FutureUnicornDescription = () => {
                     <div className="row">
                         <div className="col-12">
                             <div className="investor-amounts">
-                                <Link to="/PaymentMethods">Investment Amount</Link>
+                                <Link to="/PaymentMethods">I am Interested</Link>
                             </div>
                         </div>
                     </div>

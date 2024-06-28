@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import Founderadmindashboard from "./pdfview/forms/Founderadmindashboard";
 
 
-export const FutureUnicornForm = () => {
+export const FutureUnicornFormEdits = () => {
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
@@ -120,10 +120,10 @@ export const FutureUnicornForm = () => {
 
                                 <section id="content1" class="tab-content mt-0">
 
-                                    {/* <div className="edit-remaining community-paragraph-box">
+                                    <div className="edit-remaining community-paragraph-box">
                                     <Link to="RemainingEditPopup">4 Edits Remaining</Link>
                                     <Link to="FinishedEditPopup">2 Edits Completed</Link>
-                                    </div> */}
+                                    </div>
                                     {/* <h3>Startup Submission Form: </h3> */}
                                     {/* <div className="row">
                                         <div className="col-6 col-md-6 col-lg-6 col-xl-6 col-12 col-sm-12 col-xxl-6 mb-4">
@@ -176,7 +176,7 @@ export const FutureUnicornForm = () => {
                                      <div className="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto mt-3">
                                             <div className="submit-draft-publish d-flex justify-content-center">
                                                 <Link to="FutureUnicornList" className='submit-future'>Save Draft</Link>
-                                                <Link to="MemberShip" className='submit-future'>Save Publish</Link>
+                                                <Link to="FinishedEditPopup" className='submit-future'>Save Publish</Link>
                                                 {/* <Link to="FutureUnicornList" className='submit-future'>submit</Link> */}
                                             </div>
 

@@ -114,8 +114,10 @@ export const DashboardType = () => {
                             <label class="tab-nav" for="tab-index1">My Account</label>
                             <label class="tab-nav" for="tab-index2">My Listing</label>
                             <label class="tab-nav" for="tab-index3">My Plan</label>
+                            <label class="tab-nav" for="tab-index4">Interest</label>
                         </div>
                         <div class="tab-contents">
+
                             <div class="tab-content">
                                 <input type="radio" name="tab-index" id="tab-index1" checked />
                                 <div class="content">
@@ -170,6 +172,10 @@ export const DashboardType = () => {
                             </div>
                             <div class="tab-content my-table-row">
                                 <input type="radio" name="tab-index" id="tab-index2" />
+                                <div className="import-export community-paragraph-box">
+                                    <a href="" className='mt-0'>Import Data</a>
+
+                                </div>
                                 <div class="content table-responsive ">
                                     <table class="table table-bordered">
                                         <thead>
@@ -245,23 +251,44 @@ export const DashboardType = () => {
 
                                             </tr>
                                         </tbody>
-                                    </table>                                </div>
+                                    </table>
+                                </div>
                             </div>
                             <div class="tab-content">
                                 <input type="radio" name="tab-index" id="tab-index3" />
                                 <div class="content">
                                     <div className="row">
                                         <div className="plans-main-dashboard">
-                                            <h3>
-                                                Active Plan
-                                            </h3>
+                                            <div className="d-flex-active">
+                                                <h3>
+                                                    Active Plan
+                                                </h3>
+                                                <div className="view-history community-paragraph-box">
+                                                    <a href="" className='mt-0'>Transaction History</a>
+
+                                                </div>
+                                            </div>
                                             <div className="flex-plans-dashboard">
                                                 <ul>
+                                                <li><span>
+                                                       Plan Name
+                                                    </span>
+                                                        <span>
+                                                            Premium Plan
+                                                        </span>
+                                                    </li>
                                                     <li><span>
                                                         Start Date
                                                     </span>
                                                         <span>
-                                                            August 15, 2022
+                                                            June 15, 2024
+                                                        </span>
+                                                    </li>
+                                                    <li><span>
+                                                        End Date
+                                                    </span>
+                                                        <span>
+                                                            June 15, 2025
                                                         </span>
                                                     </li>
                                                     <li><span>
@@ -278,10 +305,74 @@ export const DashboardType = () => {
                                                             Online
                                                         </span>
                                                     </li>
+                                                    <li><span>
+                                                        Remaining Edits
+                                                    </span>
+                                                        <span className='text-green'>
+                                                            03
+                                                        </span>
+                                                    </li>
+                                                    <li><span>
+                                                        Total Edits
+                                                    </span>
+                                                        <span>
+                                                            06
+                                                        </span>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="tab-content  my-table-row">
+                                <input type="radio" name="tab-index" id="tab-index4" />
+                                <div className="import-export community-paragraph-box">
+                                    <a href="" className='mt-0'>Import Data</a>
+
+                                </div>
+                                <div class="content table-responsive ">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th><span>Founder Name</span></th>
+
+                                                <th><span>Email</span></th>
+                                                <th><span>Contact no</span></th>
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><span>Tulua</span></td>
+                                                <td><span>khushbharati124@gmail.com</span></td>
+                                                <td><span>8806234772</span></td>
+
+
+                                            </tr>
+                                            <tr>
+                                                <td><span>Tulua</span></td>
+                                                <td><span>khushbharati124@gmail.com</span></td>
+                                                <td><span>8806234772</span></td>
+
+
+                                            </tr>
+                                            <tr>
+                                                <td><span>Tulua</span></td>
+                                                <td><span>khushbharati124@gmail.com</span></td>
+                                                <td><span>8806234772</span></td>
+
+
+                                            </tr>
+                                            <tr>
+                                                <td><span>Tulua</span></td>
+                                                <td><span>khushbharati124@gmail.com</span></td>
+                                                <td><span>8806234772</span></td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>

@@ -17,6 +17,18 @@ import { LoginFounder } from './app/LoginFounder.jsx'
 import { MemberShip } from './app/MemberShip.jsx'
 
 import { FutureUnicornDescription } from './app/FutureUnicornDescription.jsx'
+import { Thankyou } from './app/Thankyou.jsx';
+import { FounderTransactionHistory } from './app/FounderTransactionHistory.jsx';
+import { FounderDashboardType } from './app/FounderDashboardType.jsx';
+import { FounderMyListing } from './app/FounderMyListing.jsx';
+import { FounderDraftList } from './app/FounderDraftList.jsx';
+import { FinishedEditPopup } from './app/FinishedEditPopup.jsx';
+import { RemainingEditPopup } from './app/RemainingEditPopup.jsx';
+import { FounderMyPlan } from './app/FounderMyPlan.jsx';
+import { FutureUnicornFormEdits } from './app/FutureUnicornFormEdits.jsx';
+
+import { FounderInterest } from './app/FounderInterest.jsx';
+
 import { DashboardType } from './app/DashboardType.jsx'
 import { FutureUnicornForm } from './app/FutureUnicornForm.jsx'
 import { FounderEdit } from './app/FounderEdit.jsx'
@@ -216,7 +228,16 @@ function App() {
           <Route path="/DashboardType" exact component={DashboardType} />
           <Route path="/FounderEdit" exact component={FounderEdit} />
           <Route path="/PaymentMethods" exact component={PaymentMethods} />
-
+          <Route path="/Thankyou" exact component={Thankyou} />
+          <Route path="/FounderTransactionHistory" exact component={FounderTransactionHistory} />
+          <Route path="/FounderDashboardType" exact component={FounderDashboardType} />
+          <Route path="/FounderMyListing" exact component={FounderMyListing} />
+          <Route path="/FounderMyPlan" exact component={FounderMyPlan} />
+          <Route path="/FounderInterest" exact component={FounderInterest} />
+          <Route path="/FounderDraftList" exact component={FounderDraftList} />
+          <Route path="/FinishedEditPopup" exact component={FinishedEditPopup} />
+          <Route path="/RemainingEditPopup" exact component={RemainingEditPopup} />
+          <Route path="/FutureUnicornFormEdits" exact component={FutureUnicornFormEdits} />
           <Route path="/FutureUnicornList" exact component={FutureUnicornList} />
           <Route path="/FutureUnicornDescription" exact component={FutureUnicornDescription} />
           <Route path="/WaitApproval" exact component={WaitApproval} />
