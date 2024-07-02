@@ -135,6 +135,7 @@ class Founders extends Component {
       edit_ifsc_code: "",
       edit_profile_image: "",
       isActiveValue: 0,
+      modes:"ass"
     };
   }
 
@@ -155,7 +156,7 @@ class Founders extends Component {
       if (result.status == 1) {
         this.setState({
           allFounders: result.data,
-          founderlist: result.data,
+          founderlist: result.data.map((el)=>{return {...el,name: el.first_name + " " + el.last_name}}),
           cfounderlist: result.data.map((el)=>{return {...el,name: el.first_name + " " + el.last_name}}),
           loading: false,
         });
@@ -404,6 +405,8 @@ class Founders extends Component {
     } else {
       this.setState({
         loading: false,
+        founderlist: this.state.cfounderlist,
+
       });
     }
   };
@@ -666,33 +669,72 @@ class Founders extends Component {
   render() {
     const disdingid = (datas) => {
       console.log(this.state.modes);
+      if(this.state.modes=="ass"){
+
         const data = [...this.state.founderlist]
           .map((el) => {
-            return { ...el, investor_id: Number(el.investor_id  ) };
-          })
-          .sort((a, b) => {
+            return { ...el, investor_id: Number(el.investor_id) };
+          }).sort((a, b) => {
             console.log(datas);
-            return a.investor_id > b.investor_id ? 1 : -1;
+            return a.investor_id> b.investor_id ? 1 : -1;
           });
         this.setState({
           founderlist: data,
+          modes:"dis"
+
         });
         console.log(data);
+      }
+      else if(this.state.modes=="dis"){
+        const data = [...this.state.founderlist]
+          .map((el) => {
+            return { ...el, investor_id: Number(el.investor_id) };
+          }).sort((a, b) => {
+            console.log(datas);
+            return a.investor_id> b.investor_id ? -1 : 1;
+          });
+        this.setState({
+          founderlist: data,
+          modes:"ass"
+        });
+        console.log(data);
+      }
+       
        
     };
     const disdingname= (datas) => {
+      if(this.state.modes=="ass"){
+
         const data = [...this.state.founderlist]
           .map((el) => {
-            return { ...el, investor_id: Number(el.investor_id  ) };
-          })
-          .sort((a, b) => {
+            return { ...el, name: el.name.toLowerCase() };
+          }).sort((a, b) => {
             console.log(datas);
-            return a.first_name> b.first_name ? 1 : -1;
+            return a.name> b.name ? 1 : -1;
           });
         this.setState({
           founderlist: data,
+          modes:"dis"
+
         });
         console.log(data);
+      }
+      else if(this.state.modes=="dis"){
+        const data = [...this.state.founderlist]
+          .map((el) => {
+            return { ...el, name: el.name.toLowerCase() };
+          }).sort((a, b) => {
+            console.log(datas);
+            return a.name> b.name ? -1 : 1;
+          });
+        this.setState({
+          founderlist: data,
+          modes:"ass"
+        });
+        console.log(data);
+      }
+
+
       
     };
     const dataSource =
@@ -701,8 +743,8 @@ class Founders extends Component {
         return {
           key: index,
           founderid: item.investor_id,
-          name: item.first_name + " " + item.last_name,
-          startupname: item.startup_name ? item.startup_name : "---",
+          name:item.name && (item.name).toLowerCase(),  
+                  startupname: item.startup_name ? item.startup_name : "---",
           contactno: item.mobile ? item.mobile : "---",
           email: item.email ? item.email : "---",
           isActive: item.user_block_status ? item.user_block_status : 0,
@@ -732,6 +774,9 @@ class Founders extends Component {
         key: "name",
         width: 100,
         fixed: "left",
+        render:(text,record)=>{
+          return <span style={{textTransform:"capitalize"}}>{text}</span>
+        }
       },
       {
         title: "Startup Name",

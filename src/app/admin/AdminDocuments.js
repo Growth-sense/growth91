@@ -486,6 +486,7 @@ class AdminDocuments extends Component {
 
   render() {
     const dataSource = this.state.documentlist.map((item, index) => {
+      console.log(item);
       return {
         key: item.admindocID,
         srno: item.admindocID,
@@ -506,7 +507,7 @@ class AdminDocuments extends Component {
         key: "srno",
       },
       {
-        title: "Document Name",
+        title: <span href="">Document Name</span>,
         dataIndex: "documentName",
         key: "documentName",
       },

@@ -66,6 +66,23 @@ class Investments extends Component {
       founder_details: {},
       request_loader: false,
       documents: [],
+      modes:"ass",
+      show_edit_commitment_modal: false,
+      ac_edit_deal_id: "",
+      ac_edit_investor_id: "",
+      ac_edit_amount: "",
+      ac_edit_processingfees: "",
+      ac_edit_totalamount: "",
+      ac_edit_deduct: "",
+      ac_edit_agree: "",
+      ac_edit_order_token: "",
+      ac_edit_tdsstatus: "",
+      ac_edit_gst: "",
+      ac_edit_legalfee: "",
+      ac_edit_walletDeductionMoney: "",
+      ac_edit_interested_id: "",
+      ac_edit_commitment_id: "",
+
 
     };
   }
@@ -155,8 +172,106 @@ class Investments extends Component {
       deal_id: item.deal_id,
       investment_id: item.investment_id,
       approvemodalstatus: true,
+
     });
   };
+  // showEditCommitmentModal = (item, record) => {
+  //   console.log(record);
+  //   this.setState({
+  //     ac_edit_deal_id: record.data.deal_id,
+  //     ac_edit_investor_id: record.data.investor_id,
+  //     ac_edit_amount: record.data.amount,
+  //     ac_edit_processingfees: record.data.processingfees,
+  //     ac_edit_totalamount: record.data.totalamount,
+  //     ac_edit_deduct: record.data.deduct,
+  //     ac_edit_agree: record.data.agree,
+  //     ac_edit_order_token: record.data.order_token,
+  //     ac_edit_tdsstatus: record.data.tdsstatus,
+  //     ac_edit_gst: record.data.gst,
+  //     ac_edit_legalfee: record.data.legalfee,
+  //     ac_edit_walletDeductionMoney: record.data.walletDeductionMoney,
+  //     ac_edit_interested_id: record.data.id,
+  //     ac_edit_commitment_id: record.data.id,
+  //     show_edit_commitment_modal: true,
+  //   });
+  // };
+  ac_commit_update = () => {
+    if (this.state.ac_edit_amount == "") {
+      message.warning("Amount is required");
+      return false;
+    } else if (this.state.ac_edit_processingfees == "") {
+      message.warning("Fee is required");
+      return false;
+    }
+
+    const formData = new FormData();
+    formData.append('deal_id', this.state.ac_edit_deal_id);
+    formData.append('investor_id', this.state.ac_edit_investor_id);
+    formData.append('amount', this.state.ac_edit_amount);
+    formData.append('processingfees', this.state.ac_edit_processingfees);
+    formData.append('totalamount', +this.state.ac_edit_amount + +this.state.ac_edit_processingfees);
+    formData.append('deduct', this.state.ac_edit_deduct);
+    formData.append('agree', this.state.ac_edit_agree);
+    formData.append('order_token', this.state.ac_edit_order_token);
+    formData.append('tdsstatus', this.state.ac_edit_tdsstatus);
+    formData.append('gst', this.state.ac_edit_gst);
+    formData.append('legalfee', this.state.ac_edit_legalfee);
+    formData.append('walletDeductionMoney', this.state.ac_edit_walletDeductionMoney);
+    formData.append('interested_id', this.state.ac_edit_interested_id);
+    formData.append('commitment_id', this.state.ac_edit_commitment_id);
+    axios.post(`${process.env.REACT_APP_BASE_URL}api/admin/Deal/edit_investor_commitment`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+      .then((response) => {
+        console.log(response);
+        this.setState({
+          show_edit_commitment_modal: false,
+        }, () => {
+          axios.get(`${process.env.REACT_APP_BASE_URL}api/admin/Deal/display_investor_commitment_list`, {
+            params: {
+              deal_id: this.state.ac_deal_id,
+            }
+          })
+            .then(response => {
+              this.setState({
+                commitment_investor_list: response.data.data,
+                commitment_investor_listc: response.data.data,
+                loading: false,
+              });
+            })
+            .catch(error => {
+              console.error(error);
+            });
+        });
+        message.success("Investor commitment Updated successfully")
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  showeditmodal = (item,record) => {
+    console.log(record);
+    this.setState({
+      ac_edit_deal_id: record.dealid,
+      ac_edit_investor_id: record.action.investor_id,
+      ac_edit_amount: record.action.Investment_amt,
+      ac_edit_processingfees: record.action.processingfees,
+      ac_edit_totalamount: record.Commitment_amount,
+      ac_edit_deduct: record.action.deduct,
+      ac_edit_agree: record.action.agree,
+      ac_edit_order_token: record.action.order_token,
+      ac_edit_tdsstatus: record.action.tdsstatus,
+      ac_edit_gst: record.action.gst,
+      ac_edit_legalfee: record.action.legalfee,
+      ac_edit_walletDeductionMoney: record.action.walletDeductionMoney,
+      ac_edit_interested_id: record.action.id,
+      ac_edit_commitment_id: record.action.id,
+      show_edit_commitment_modal: true,
+    });
+  };
+  
 
   approve = () => {
     if (!this.state.remarks) {
@@ -452,21 +567,42 @@ class Investments extends Component {
   render() {
     var nf = new Intl.NumberFormat('en-IN');
     const disdingid = (datas) => {
+      if (this.state.modes=="ass") {
         const data = [...this.state.investments]
-          .map((el) => {
-            return { ...el, investment_id: Number(el.investment_id  ) };
-          })
-          .sort((a, b) => {
-            console.log(datas);
-            return a.investment_id > b.investment_id ? 1 : -1;
-          });
-        this.setState({
-          investments: data,
+        .map((el) => {
+          return { ...el, investment_id: Number(el.investment_id  ) };
+        })
+        .sort((a, b) => {
+          console.log(datas);
+          return a.investment_id > b.investment_id ? 1 : -1;
         });
+      this.setState({
+        investments: data,
+        modes:"dis"
+
+      });
+      } else if (this.state.modes=="dis"){
+        const data = [...this.state.investments]
+        .map((el) => {
+          return { ...el, investment_id: Number(el.investment_id  ) };
+        })
+        .sort((a, b) => {
+          console.log(datas);
+          return a.investment_id > b.investment_id ? -1 : 1;
+        });
+      this.setState({
+        investments: data,
+        modes:"ass"
+
+      });
+      }
+       
       
     };
     const disdingcammitamt= (datas) => {
       console.log(this.state.modes);
+            if (this.state.modes=="ass") {
+
         const data = [...this.state.investments]
           .map((el) => {
             return { ...el, amount: Number(el.amount) };
@@ -477,12 +613,32 @@ class Investments extends Component {
           });
         this.setState({
           investments: data,
+            modes:"dis"
         });
         console.log(data);
+
+      } else if (this.state.modes=="dis"){
+        const data = [...this.state.investments]
+        .map((el) => {
+          return { ...el, amount: Number(el.amount) };
+        })
+        .sort((a, b) => {
+          console.log(datas);
+          return a.amount> b.amount ? -1 : 1;
+        });
+      this.setState({
+        investments: data,
+          modes:"ass"
+      });
+      console.log(data);
+    }
+
     
     };
     const disdingfee= (datas) => {
       console.log(this.state.modes);
+      if (this.state.modes=="ass") {
+      
         const data = [...this.state.investments]
           .map((el) => {
             return { ...el, processingfees: Number(el.processingfees) };
@@ -493,13 +649,32 @@ class Investments extends Component {
           });
         this.setState({
           investments: data,
+          modes:"dis"
+
         });
         console.log(data);
+      } else if (this.state.modes=="dis"){
+
+        const data = [...this.state.investments]
+        .map((el) => {
+          return { ...el, processingfees: Number(el.processingfees) };
+        })
+        .sort((a, b) => {
+          console.log(datas);
+          return a.processingfees> b.processingfees ? 1 : -1;
+        });
+      this.setState({
+        investments: data,
+         modes:"ass"
+      });
+      console.log(data);
+    }
     
     };
     const dataSource =
       this.state.investments &&
       this.state.investments.map((item, index) => {
+        console.log(item);
         return {
           key: index,
           investmentno: item,
@@ -513,7 +688,7 @@ class Investments extends Component {
             processingfees: item.processingfees
             ? "₹ " +  nf.format(item.processingfees)
             : "---",
-          startupname: item.name ? item.name : "---",
+          startupname: item.deal_name ? item.deal_name : "---",
           InvestedEmail: item.email? item.email: "---",
           panno: item.panno ? item.panno : "---",
           dealid: item.deal_id ? item.deal_id : "---",
@@ -587,6 +762,8 @@ class Investments extends Component {
       >Commitment Amount</span>,
         dataIndex: "Commitment_amount",
         key: "Commitment_amount",
+        align:"right",
+
       },
       // {
       //   title: "Investment Stage",
@@ -707,10 +884,11 @@ class Investments extends Component {
               {text.payment_status == "payment_success" &&
                 text.fund_raise_status != "success" &&
                 text.founder_document_sign_status != "fndr_sign_success" && (
+                  <>
                   <Menu.Item
                     key={`Edit${record.key}`}
                     icon={<WindowsOutlined />}
-                  >
+                    >
                     <a
                       href="#"
                       onClick={() => this.showapprovemodal(text)}
@@ -719,6 +897,19 @@ class Investments extends Component {
                       &nbsp;&nbsp;Approve Status
                     </a>
                   </Menu.Item>
+                  <Menu.Item
+                    key={`Edits${record.key}`}
+                    icon={<WindowsOutlined />}
+                  >
+                    <a
+                      href="#"
+                      onClick={() => this.showeditmodal(text, record)}
+                      style={{ fontSize: 14 }}
+                    >
+                      &nbsp;&nbsp;Edit
+                    </a>
+                  </Menu.Item>
+                    </>
                 )}
               {text.founder_document_sign_status == "fndr_sign_success" &&
                 text.fund_raise_status != "success" && (
@@ -956,6 +1147,44 @@ class Investments extends Component {
           </Spin>
         </Modal>
         {/* End approve modal  */}
+
+          {/* Start Edit modal  */}
+          <Modal
+          title="Update Commitment"
+          visible={this.state.show_edit_commitment_modal}
+          onOk={this.ac_commit_update}
+          okText="Update"
+          onCancel={() => this.setState({ show_edit_commitment_modal: false })}
+          width={550}
+        >
+          <div className="mt-4 editor-field">
+            <label className="mb-2">
+              Amount <span className="text-danger">*</span>
+            </label>
+            <Input
+              type="number"
+              onWheel={() => document.activeElement.blur()}
+              value={this.state.ac_edit_amount}
+              onChange={(e) =>
+                this.setState({ ac_edit_amount: e.target.value })
+              }
+            />
+          </div>
+          <div className="mt-4">
+            <label className="mb-2">
+              Fee <span className="text-danger">*</span>
+            </label>
+            <Input
+              type="number"
+              onWheel={() => document.activeElement.blur()}
+              value={this.state.ac_edit_processingfees}
+              onChange={(e) =>
+                this.setState({ ac_edit_processingfees: e.target.value })
+              }
+            />
+          </div>
+        </Modal>
+        {/* End Edit modal  */}
       </>
     );
   }

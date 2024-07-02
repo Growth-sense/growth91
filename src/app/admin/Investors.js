@@ -145,6 +145,7 @@ class Investors extends Component {
         input7: true,
         input8: true,
       },
+      modes: "ass",
     };
   }
 
@@ -1090,9 +1091,14 @@ class Investors extends Component {
   render() {
     const disdingid = (datas) => {
       console.log(this.state.modes);
+      if (this.state.modes == "ass") {
         const data = [...this.state.investors]
           .map((el) => {
-            return { ...el, investor_id: Number(el.investor_id  ),total_invested_amount: Number(el.total_invested_amount) };
+            return {
+              ...el,
+              investor_id: Number(el.investor_id),
+              total_invested_amount: Number(el.total_invested_amount),
+            };
           })
           .sort((a, b) => {
             console.log(datas);
@@ -1100,15 +1106,39 @@ class Investors extends Component {
           });
         this.setState({
           investors: data,
+          modes: "dis",
         });
         console.log(data);
-     
+      } else if (this.state.modes == "dis") {
+        const data = [...this.state.investors]
+          .map((el) => {
+            return {
+              ...el,
+              investor_id: Number(el.investor_id),
+              total_invested_amount: Number(el.total_invested_amount),
+            };
+          })
+          .sort((a, b) => {
+            console.log(datas);
+            return a.investor_id > b.investor_id ? -1 : 1;
+          });
+        this.setState({
+          investors: data,
+          modes: "ass",
+        });
+        console.log(data);
+      }
     };
     const disdingamt = (datas) => {
       console.log(this.state.modes);
+      if (this.state.modes == "ass") {
         const data = [...this.state.investors]
           .map((el) => {
-            return { ...el, investor_id: Number(el.investor_id  ),total_invested_amount: Number(el.total_invested_amount) };
+            return {
+              ...el,
+              investor_id: Number(el.investor_id),
+              total_invested_amount: Number(el.total_invested_amount),
+            };
           })
           .sort((a, b) => {
             console.log(datas);
@@ -1116,25 +1146,64 @@ class Investors extends Component {
           });
         this.setState({
           investors: data,
+          modes:"dis"
         });
         console.log(data);
-     
-    };
-    const disdingname = (datas) => {
-      console.log(this.state.modes);
+      } else if (this.state.modes == "dis") {
         const data = [...this.state.investors]
           .map((el) => {
-            return { ...el, investor_id: Number(el.investor_id  ),total_invested_amount: Number(el.total_invested_amount) };
+            return {
+              ...el,
+              investor_id: Number(el.investor_id),
+              total_invested_amount: Number(el.total_invested_amount),
+            };
           })
           .sort((a, b) => {
             console.log(datas);
-            return a.first_name > b.first_name ? 1 : -1;
+            return a.total_invested_amount > b.total_invested_amount ? -1 : 1;
           });
         this.setState({
           investors: data,
+          modes:"ass"
+
         });
         console.log(data);
-     
+      }
+    };
+    const disdingname = (datas) => {
+      if (this.state.modes == "ass") {
+        const data = [...this.state.investors]
+          .map((el) => {
+            return {
+              ...el,
+              investor_id: Number(el.investor_id),
+              total_invested_amount: Number(el.total_invested_amount),
+            };
+          })
+          .sort((a, b) => {
+            console.log(datas);
+            return a.name > b.name ? -1 : 1;
+          });
+        this.setState({
+          investors: data,
+          modes: "dis",
+        });
+        console.log(data);
+      } else if (this.state.modes == "dis") {
+        const data = [...this.state.investors]
+          .map((el) => {
+            return { ...el, name: el.name.toLowerCase() };
+          })
+          .sort((a, b) => {
+            console.log(datas);
+            return a.name > b.name ? 1 : -1;
+          });
+        this.setState({
+          investors: data,
+          modes: "ass",
+        });
+        console.log(data);
+      }
     };
     const dataSource =
       this.state.investors &&
@@ -1142,7 +1211,7 @@ class Investors extends Component {
         return {
           key: index,
           investorid: item.investor_id,
-          name: item.first_name + " " + item.last_name,
+          name: (item.name).toLowerCase(),
           contactno: item.mobile ? item.mobile : "---",
           email: item.email ? item.email : "---",
           investment_amt: item.email ? item.email : "---",
@@ -1176,7 +1245,7 @@ class Investors extends Component {
         title: (
           <span
             onClick={() => {
-              disdingname()
+              disdingname();
             }}
           >
             Investor Name
@@ -1186,6 +1255,9 @@ class Investors extends Component {
         key: "name",
         width: 180,
         fixed: "left",
+        render:(text,record)=>{
+          return <span style={{textTransform:"capitalize"}}>{text}</span>
+        }
       },
 
       {

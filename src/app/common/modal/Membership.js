@@ -150,7 +150,7 @@ export default class Membership extends Component {
                                     <span>
                                         <i className="fa fa-check text-success"></i>
                                     </span>
-                                    Access to Company Documents
+                                    Access to all  Company Essential Documents
                                     </li>
                                     <li className="ps-md-5 ps-0">
                                     <span>
@@ -171,7 +171,7 @@ export default class Membership extends Component {
                                         aria-hidden="true"
                                         ></i>
                                     </span>
-                                    Preview of opportunities (24~48 hrs)
+                                    Preview of Opportunities before 24 hrs
                                     </li>
                                     <li className="ps-md-5 ps-0">
                                     <span>
@@ -189,7 +189,7 @@ export default class Membership extends Component {
                                         aria-hidden="true"
                                         ></i>
                                     </span>
-                                    Priority in Equity
+                                    Exclusive Discounts
                                     </li>
                                 </ul>
                                 <p
@@ -222,7 +222,7 @@ export default class Membership extends Component {
                                         <span>
                                         <i className="fa fa-check text-success"></i>
                                         </span>
-                                        Access to Company Documents
+                                        Access to all  Company Essential Documents
                                     </li>
                                     <li className="ps-md-5 ps-0">
                                         <span>
@@ -243,7 +243,7 @@ export default class Membership extends Component {
                                             aria-hidden="true"
                                         ></i>
                                         </span>
-                                        Preview of opportunities (24~48 hrs)
+                                        Preview of Opportunities before 24 hrs
                                     </li>
                                     <li className="ps-md-5 ps-0">
                                         <span>
@@ -261,7 +261,7 @@ export default class Membership extends Component {
                                             aria-hidden="true"
                                         ></i>
                                         </span>
-                                        Priority in Equity
+                                        Exclusive Discounts
                                     </li>
                                     </ul>
                                     <p

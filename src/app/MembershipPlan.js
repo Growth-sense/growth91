@@ -108,12 +108,12 @@ class MembershipPlan extends Component {
 
                                             </div>
                                             <ul>
-                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success"></i></span>Access to Company Documents</li>
+                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success"></i></span>Access to all  Company Essential Documents</li>
                                                 {/* <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success"></i></span>Invest </li> */}
                                                 <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success"></i></span>View Company Performance </li>
-                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success" aria-hidden="true"></i></span>Preview of opportunities (24~48 hrs)</li>
+                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success" aria-hidden="true"></i></span>Preview of Opportunities before 24 hrs</li>
                                                 <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success" aria-hidden="true"></i></span>Minimum Amount as Per CCPS</li>
-                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success" aria-hidden="true"></i></span>Priority in Equity</li>
+                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success" aria-hidden="true"></i></span>Exclusive Discounts</li>
                                             </ul>
                                             <p className='text-success text-center mb-3' style={{ fontSize: "24px" }}><del className='text-secondary' style={{ fontSize: "20px" }}>&#x20b9; 1,000</del> &#x20b9; 900 </p>
 
@@ -133,12 +133,12 @@ class MembershipPlan extends Component {
 
                                             </div>
                                             <ul className='text-left ' style={{ textAline: 'left' }}>
-                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success"></i></span>Access to Company Documents</li>
+                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success"></i></span>Access to all  Company Essential Documents</li>
                                                 <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success"></i></span>View Company Performance </li>
                                                 {/* <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success"></i></span>Invest </li> */}
-                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-times text-danger" aria-hidden="true"></i></span>Preview of opportunities (24~48 hrs)</li>
+                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-times text-danger" aria-hidden="true"></i></span>Preview of Opportunities before 24 hrs</li>
                                                 <li className='ps-md-5 ps-0'><span><i className="fa fa-times text-danger" aria-hidden="true"></i></span>Minimum Amount as Per CCPS</li>
-                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-times text-danger" aria-hidden="true"></i></span>Priority in Equity</li>
+                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-times text-danger" aria-hidden="true"></i></span>Exclusive Discounts</li>
                                             </ul>
                                             <p className='text-success text-center mb-3' style={{ fontSize: "24px" }}> Free </p>
 

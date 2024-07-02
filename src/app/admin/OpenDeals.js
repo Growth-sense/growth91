@@ -1605,6 +1605,7 @@ class Deals extends Component {
       email: this.state.investor_email,
     };
     Bridge.deal.get_investor_by_email(params).then((result) => {
+      console.log( result.data);
       if (result.status == "1") {
         this.setState({
           investor_name:

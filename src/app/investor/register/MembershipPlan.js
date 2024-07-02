@@ -152,7 +152,7 @@ class MembershipPlan extends Component {
                           <span>
                             <i className="fa fa-check text-success"></i>
                           </span>
-                          Access to Company Documents
+                          Access to all  Company Essential Documents
                         </li>
                         <li className="ps-md-5 ps-0">
                           <span>
@@ -173,7 +173,7 @@ class MembershipPlan extends Component {
                               aria-hidden="true"
                             ></i>
                           </span>
-                          Preview of opportunities (24~48 hrs)
+                          Preview of Opportunities before 24 hrs
                         </li>
                         <li className="ps-md-5 ps-0">
                           <span>
@@ -191,7 +191,7 @@ class MembershipPlan extends Component {
                               aria-hidden="true"
                             ></i>
                           </span>
-                          Priority in Equity
+                          Exclusive Discounts
                         </li>
                       </ul>
                       <p
@@ -224,7 +224,7 @@ class MembershipPlan extends Component {
                             <span>
                               <i className="fa fa-check text-success"></i>
                             </span>
-                            Access to Company Documents
+                            Access to all  Company Essential Documents
                           </li>
                           {/* <li className="ps-md-5 ps-0">
                             <span>
@@ -245,7 +245,7 @@ class MembershipPlan extends Component {
                                 aria-hidden="true"
                               ></i>
                             </span>
-                            Preview of opportunities (24~48 hrs)
+                            Preview of Opportunities before 24 hrs
                           </li>
                           <li className="ps-md-5 ps-0">
                             <span>
@@ -263,7 +263,7 @@ class MembershipPlan extends Component {
                                 aria-hidden="true"
                               ></i>
                             </span>
-                            Priority in Equity
+                            Exclusive Discounts
                           </li>
                         </ul>
                         <p

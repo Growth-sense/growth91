@@ -282,53 +282,57 @@ class InnerCommitment extends Component {
   increase_commit = () => {
     const {
       amount,
-      captable_threshold_amount,
+      ac_captable_threshold_amount,
       multiples_of,
-      maxamount,
-      captable_multiple_amount,
-      minamount,
-      commaAmount
+      ac_maxamount,
+      ac_captable_multiple_amount,
+      ac_minamount,
+      commaAmount,
+      ac_edit_amount,ac_multiples_of
     } = this.state;
-console.log(this.state.commaAmount);
-console.log(this.state.amount);
-    let newAmount = Number(commaAmount);
+    let newAmount = Number(ac_edit_amount);
     let changeAmount;
 
     if (
-      newAmount < captable_threshold_amount &&
-      newAmount % multiples_of != 0
+      newAmount < ac_captable_threshold_amount &&
+      newAmount % ac_multiples_of != 0
     ) {
       const roundedHigherAmount =
-        Math.ceil(newAmount / Number(multiples_of)) * Number(multiples_of);
+        Math.ceil(newAmount / Number(ac_multiples_of)) * Number(ac_multiples_of);
       newAmount = roundedHigherAmount;
       changeAmount = 0;
+
     } else if (
-      newAmount > captable_threshold_amount &&
-      newAmount % captable_multiple_amount != 0
+      newAmount > ac_captable_threshold_amount &&
+      newAmount % ac_captable_multiple_amount != 0
     ) {
       const roundedHigherAmount =
-        Math.ceil(newAmount / Number(captable_multiple_amount)) *
-        Number(captable_multiple_amount);
-      newAmount = roundedHigherAmount;
+        Math.ceil(newAmount / Number(ac_captable_multiple_amount)) *
+        Number(ac_captable_multiple_amount);
+        newAmount = roundedHigherAmount;
+
       changeAmount = 0;
-    } else if (newAmount < Number(captable_threshold_amount)) {
-      changeAmount = Number(multiples_of);
+    } else if (newAmount < Number(ac_captable_threshold_amount)) {
+      changeAmount = Number(ac_multiples_of);
+
     } else {
-      changeAmount = Number(captable_multiple_amount);
+      changeAmount = Number(ac_captable_multiple_amount);
+
     }
 
     newAmount += changeAmount;
 
-    if (newAmount > maxamount) {
-      newAmount = maxamount;
-    } else if (newAmount < minamount) {
-      newAmount = Number(minamount);
-    }
+    if (newAmount > ac_maxamount) {
+      newAmount = ac_maxamount;
 
+    } else if (newAmount < ac_minamount) {
+      newAmount = Number(ac_minamount);
+
+    }
     this.setState(
       {
         amount: newAmount,
-        commaAmount: this.formatNumberWithCommas(newAmount),
+        ac_edit_amount:(newAmount),
       },
       () => {
         this.calculategst();
@@ -418,12 +422,7 @@ console.log(this.state.amount);
         let tdsamount = parseFloat(processingfees / 100) * 10;
         let minusamt = parseFloat(processingfees - tdsamount);
 
-        console.log(
-          this.state.ac_amount,
-          this.state.ac_percentage,
-          minusamt,
-          tdsamount
-        );
+       
         this.setState({
           ac_processingfees: minusamt,
           ac_tdsdeductedamount: tdsamount,
@@ -432,7 +431,6 @@ console.log(this.state.amount);
         let processingfees = parseFloat(
           (this.state.ac_amount / 100) * parseFloat(this.state.ac_percentage)
         );
-        console.log(processingfees);
         this.setState({
           ac_processingfees: processingfees,
           ac_tdsdeductedamount: 0,
@@ -443,10 +441,10 @@ console.log(this.state.amount);
 
   calculategst = () => {
     let legalfee = parseFloat(
-      (this.state.amount / 100) * parseFloat(this.state.percentage)
+      (this.state.ac_edit_amount / 100) * parseFloat(this.state.ac_percentage)
     );
-    let gst = this.state.gst;
-    let amt = parseFloat(this.state.amount);
+    let gst = this.state.ac_edit_gst;
+    let amt = parseFloat(this.state.ac_edit_amount);
     let walletDeductionMoney;
     if (this.state.checkWallet == false) {
       walletDeductionMoney = 0;
@@ -459,10 +457,10 @@ console.log(this.state.amount);
     let gstValue = ((legalfee.toFixed(0) - walletDeductionMoney) * gst) / 100;
     this.setState({
       gst: gst,
-      legalfee: this.state.amount ? legalfee.toFixed(0) : 0,
-      amountplusgst: this.state.amount ? amt.toFixed(0) : 0,
-      processingfees: this.state.amount ? legalfee.toFixed(0) : 0,
-      totalamount: this.state.amount
+      legalfee: this.state.ac_edit_amount ? legalfee.toFixed(0) : 0,
+      amountplusgst: this.state.ac_edit_amount ? amt.toFixed(0) : 0,
+      processingfees: this.state.ac_edit_amount ? legalfee.toFixed(0) : 0,
+      totalamount: this.state.ac_edit_amount
         ? (amt + parseFloat(legalfee)).toFixed(0) -
           walletDeductionMoney +
           gstValue
@@ -474,7 +472,6 @@ console.log(this.state.amount);
   };
  
   formatNumberWithCommas = (number) => {
-    console.log(number);
     return number.toLocaleString("en-IN");
   };
   // investing your money
@@ -586,7 +583,6 @@ console.log(this.state.amount);
             this.setState({ coming_soon_days: "" });
 
             console.log(this.formatNumberWithCommas(record.amount.substring(1)));
-            console.log(this.formatNumberWithCommas(record.amount.substring(1)));
             this.setState(
               {
 
@@ -596,7 +592,7 @@ console.log(this.state.amount);
                 minamount:d.Min_inv_amt,
                 captable_threshold_amount:d.captable_threshold_amount,
                 ac_edit_deal_id: d.deal_id,
-                ac_minamount: d.captable_multiple_amount,
+                ac_minamount: d.Min_inv_amt,
                 ac_maxamount: d.Max_inv_amt,
                 ac_multiples_of: d.multiples_of,
                 ac_offer_discount: d.offer_discount,
@@ -701,7 +697,7 @@ console.log(this.state.amount);
     this.setState({
       edit_deal_name: record.dealname,
       ac_edit_investor_id: record.investor_id,
-      ac_edit_amount: record.amount,
+      ac_edit_amount: (record.amount).substring(1),
       ac_edit_processingfees: record.processingfees,
       ac_edit_totalamount: record.totalamount,
       ac_edit_deduct: record.deduct,
@@ -716,7 +712,7 @@ console.log(this.state.amount);
       ac_commaAmount: record.totalamount-record.fee,
       ac_processingfees: record.fee,
       ac_amountplusgst: record.amount,
-      ac_totalamount: record.amount,
+      ac_totalamount: record.totalamount,
     });
     this.setState({
       show_edit_commitment_modal: true,
@@ -742,7 +738,7 @@ console.log(this.state.amount);
     this.setState(
       {
         amount: value.replace(/,/g, ""),
-        commaAmount: this.formatNumberWithCommas(value),
+        ac_edit_amount: this.formatNumberWithCommas(value),
       },
       () => {
         this.calculategst();
@@ -1294,7 +1290,6 @@ console.log(this.state.amount);
           .add_investor_offline_data(formdata, config)
           .then((result) => {
             if (result.status == "1") {
-              // console.log("successfully added");
               message.success("Successfully added offline payment data");
               this.setState({
                 show_offline_payment_modal: false,
@@ -1352,7 +1347,6 @@ console.log(this.state.amount);
       message.warning("Fee is required");
       return false;
     }
-    console.log(this.state.ac_edit_amount);
     // return
     const formData = new FormData();
     formData.append("deal_id", this.state.ac_edit_deal_id);
@@ -1421,8 +1415,6 @@ console.log(this.state.amount);
   };
 
   render() {
-    console.log(this.state.ac_processingfees);
-    console.log(this.state.deallist);
 
     const dataSource =
       this.state.getAllCommitData &&
@@ -2135,7 +2127,7 @@ console.log(this.state.amount);
                       : "1px solid transparent",
                 }}
                 id="selected-field"
-                value={this.state.commaAmount}
+                value={this.state.ac_edit_amount}
                 onChange={(e) => {
                   this.handleCommitAmount(e.target.value);
                 }}
@@ -2191,7 +2183,7 @@ console.log(this.state.amount);
                   <td>Investment Amount</td>
                   <td lassName="text-center">
                     ₹{" "}
-                    {this.state.amountplusgst ? this.state.amountplusgst : "0"}
+                    {this.state.ac_edit_amount ? this.state.ac_edit_amount : "0"}
                   </td>
                 </tr>
                 <tr>
@@ -2200,7 +2192,7 @@ console.log(this.state.amount);
                     <br />
                     <span>{this.state.label}</span>
                   </td>
-                  <td lassName="text-center">₹ {this.state.processingfees}</td>
+                  <td lassName="text-center">₹ {this.state.ac_processingfees}</td>
                 </tr>
                 <tr>
                   <td>Wallet Money</td>
@@ -2210,7 +2202,7 @@ console.log(this.state.amount);
                 </tr>
                 <tr>
                   <td>Total</td>
-                  <td>₹ {parseFloat(this.state.totalamount).toFixed(0)}</td>
+                  <td>₹ {parseFloat(this.state.ac_totalamount).toFixed(0)}</td>
                 </tr>
               </table>
             </div>

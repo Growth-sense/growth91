@@ -17,6 +17,8 @@ class Dashboard extends React.Component {
       total_convience_fees: 0,
       total_expected_amt: 0,
       Total_commitment_amount: 0,
+      Total_completed_deal:0,
+      Total_open_deal:0,
       loading: false,
 
     };
@@ -42,6 +44,16 @@ class Dashboard extends React.Component {
             result.Total_expected_deals_amount[0].Total_expected_deals_amount &&
             parseFloat(
               result.Total_expected_deals_amount[0].Total_expected_deals_amount
+            ),
+            Total_completed_deal:
+            result.Total_completed_deal[0].Total_completed_deal &&
+            parseFloat(
+              result.Total_completed_deal[0].Total_completed_deal
+            ),
+            Total_open_deal:
+            result.Total_open_deal[0].Total_open_deal &&
+            parseFloat(
+              result.Total_open_deal[0].Total_open_deal
             ),
           total_convience_fees:
             result.Total_convience_amount[0].Total_convience_amount &&
@@ -104,7 +116,7 @@ class Dashboard extends React.Component {
                       <div className="panel-body">Investors</div>
                     </div>
                   </div>
-                  <div className="col-lg-3">
+                  {/* <div className="col-lg-3">
                     <div className="item">
                       <div className="panel-heading">
                         <h3 className="panel-title">
@@ -113,7 +125,7 @@ class Dashboard extends React.Component {
                       </div>
                       <div className="panel-body">Investments</div>
                     </div>
-                  </div>
+                  </div> */}
                   <div className="col-lg-3">
                     <div className="item">
                       <div className="panel-heading">
@@ -122,6 +134,28 @@ class Dashboard extends React.Component {
                         </h3>
                       </div>
                       <div className="panel-body">Founders</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="row dasboard-cards">
+                <div className="col-lg-3">
+                    <div className="item">
+                      <div className="panel-heading">
+                        <h3 className="panel-title">
+                          {nf.format(this.state.Total_completed_deal)}
+                        </h3>
+                      </div>
+                      <div className="panel-body">No of Completed Deals</div>
+                    </div>
+                  </div>
+                <div className="col-lg-3">
+                    <div className="item">
+                      <div className="panel-heading">
+                        <h3 className="panel-title">
+                          {nf.format(this.state.Total_open_deal)}
+                        </h3>
+                      </div>
+                      <div className="panel-body">No of open Deals </div>
                     </div>
                   </div>
                 </div>

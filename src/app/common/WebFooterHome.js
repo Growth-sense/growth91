@@ -89,7 +89,7 @@ class WebFooterHome extends Component {
         <div className="footer-bottom">
             <div className="container">
                 <div className="bottom-left">
-                    <span>Copyright &copy; <a href="#">Growth91<sup>® </sup></a> {moment().format('YYYY')}. All Rights Reserved</span>
+                    <span>Copyright  <sup style={{fontSize:"10px"}}>&copy;</sup> <a href="#">Growth91<sup>® </sup></a> {moment().format('YYYY')}. All Rights Reserved</span>
                    
                 </div>
             </div>
