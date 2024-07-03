@@ -113,7 +113,6 @@ import TransBankPublic from "./app/deal-pages/TransBankPublic";
 import Test from "./app/components/Alerts/investment/Test";
 import Step1 from "./app/investor/register/Step1";
 import FounderRegistration from "./app/Founder/FounderRegistration";
-import InvestorFounderRegistration from "./app/Founder/InvestorFounderRegistration.jsx";
 import OfflinePayments from "./app/admin/OfflinePayment";
 import covertfoundertoinvestor from "./app/Founder/NationalityDetails";
 // foudner as investor
@@ -173,7 +172,7 @@ import Nymbleup from "./app/deal-pages/Nymbleup.jsx";
 import IndusUnoTranche2 from "./app/deal-pages/IndusUnoTranche2";
 import { Newdeals } from "./app/Newdeals.jsx";
 import jqeryscript from "./jq.js"
-import TableComponent from "./app/admin/pdfview/TableComponent.js";
+import LiaPlus from "./app/deal-pages/LiaPlus.jsx";
 
 ReactGA.initialize(TRACKING_ID);
 
@@ -245,11 +244,6 @@ function App() {
             path="/founder-registration"
             exact
             component={FounderRegistration}
-          />
-          <Route
-            path="/Investor-founder-registration"
-            exact
-            component={InvestorFounderRegistration}
           />
           <Route
             path="/investor-dashboard"
@@ -329,11 +323,6 @@ function App() {
             path="/founder-documents"
             exact
             component={Founderformdetails}
-          />
-          <Route
-            path="/admin-founder-dashboard"
-            exact
-            component={TableComponent}
           />
           <Route path="/documents" exact component={AdminDocuments} />
           <Route
@@ -529,6 +518,9 @@ function App() {
           </Route>
           <Route path="/Stroom" >
             <ProtectDeals Component={Stroom} />
+          </Route>
+          <Route path="/Liaplus" >
+            <ProtectDeals Component={LiaPlus} />
           </Route>
           <Route path="/Nymbleup" >
             <ProtectDeals Component={Nymbleup} />

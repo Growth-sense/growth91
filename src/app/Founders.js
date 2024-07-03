@@ -123,7 +123,7 @@ class Founders extends Component {
                           {localStorage.getItem("investor_id") ? (
                             <div className="theme-btn">
                               <a
-                                href="/Investor-founder-registration"
+                                href="/founder-registration"
                                 className="theme-btn "
                                 type="button"
                               >

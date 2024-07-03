@@ -124,7 +124,7 @@ class Nymbleup extends Component {
     document.title = "Nymbleup - Growth91 - Startup Marketplace ";
   }
   componentDidMount() {
-    let deal_id = "123";
+    let deal_id = "33";
     this.setState({ deal_id: deal_id }, () => {
       this.get_pitch_list();
     });

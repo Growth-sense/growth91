@@ -116,10 +116,6 @@ class Investments extends Component {
             investment.last_name
               .toLowerCase()
               .includes(search.toLowerCase())) ||
-          (investment.email &&
-            investment.email
-              .toLowerCase()
-              .includes(search.toLowerCase())) ||
           (investment.investment_id &&
             investment.investment_id
               .toLowerCase()
@@ -279,7 +275,7 @@ class Investments extends Component {
         Reference: item.payment_ref,
         "Tax Type": item.payment_type,
         "KYC Status": item.isapproved,
-        "Invested Email": item.email
+        "Invested date": item.Invested_dt
           ? moment(item.Invested_dt).format("DD MMM, YYYY")
           : "---",
       };
@@ -448,7 +444,6 @@ class Investments extends Component {
     }
   };
   render() {
-    var nf = new Intl.NumberFormat('en-IN');
     const dataSource =
       this.state.investments &&
       this.state.investments.map((item, index) => {
@@ -460,16 +455,12 @@ class Investments extends Component {
             ? moment(item.Invested_dt).format("DD MMM, YYYY")
             : "---",
           investmentamount: item.Investment_amt
-            ? "₹ " + nf.format( item.Investment_amt)
-            : "---",
-            processingfees: item.processingfees
-            ? "₹ " +  nf.format(item.processingfees)
+            ? "₹ " + item.Investment_amt
             : "---",
           startupname: item.name ? item.name : "---",
-          InvestedEmail: item.email? item.email: "---",
-          panno: item.panno ? item.panno : "---",
+          dealname: item.deal_name ? item.deal_name : "---",
           dealid: item.deal_id ? item.deal_id : "---",
-          reference: item.Investment_amt,
+          reference: item.payment_ref,
           txntype: item.payment_type,
           status: item.isapproved,
           action: item,
@@ -484,7 +475,6 @@ class Investments extends Component {
         dataIndex: "investmentno",
         key: "investmentno",
         width: 160,
-        align:"right",
         render: (text) => {
           return <Dealflow data={text} />;
         },
@@ -499,124 +489,105 @@ class Investments extends Component {
         },
       },
       {
-        title: "Invested Email",
-        dataIndex: "InvestedEmail",
-        key: "InvestedEmail",
+        title: "Invested Date",
+        dataIndex: "investddate",
+        key: "investddate",
         width: 180,
       },
-      // {
-      //   title: "Net Amount",
-      //   dataIndex: "investmentamount",
-      //   key: "investmentamount",
-      //   width: 180,
-      //   align: "right",
-      // },
+      {
+        title: "Net Amount",
+        dataIndex: "investmentamount",
+        key: "investmentamount",
+        width: 180,
+        align: "right",
+      },
       {
         title: "Startup Name",
         dataIndex: "startupname",
         key: "startupname",
       },
       {
-        title: "Pan Id",
-        dataIndex: "panno",
-        key: "panno",
-      },
-      // {
-      //   title: "Deal Id",
-      //   dataIndex: "dealid",
-      //   key: "dealid",
-      // },
-      // {
-      //   title: "Commitment Amount",
-      //   dataIndex: "dealid",
-      //   key: "dealid",
-      // },
-      // {
-      //   title: "Investment Stage",
-      //   dataIndex: "investment_stage",
-      //   key: "investment_stage",
-      //   render: (text) => {
-      //     let status = "";
-      //     if (text.roc_status == "fndr_roc_confirmation") {
-      //       status = "Founder ROC Confirmed";
-      //     }
-      //     if (text.fund_raise_status == "success") {
-      //       status = "Fund transffered successfully.";
-      //     } else if (text.founder_document_sign_status == "fndr_sign_success") {
-      //       status = "Founder Document Sign Completed";
-      //     } else if (text.investor_document_sign_status == "Inv_sign_success") {
-      //       status = "Investor Dcoument Sign Completed";
-      //     } else if (text.admin_approval_status == "admin_approval") {
-      //       status = "Admin Approved";
-      //     } else if (text.payment_status == "payment_success") {
-      //       status = "Payment Completed";
-      //     } else if (
-      //       text.kycstatus == "Approved" ||
-      //       text.kycstatus == "admin_approved"
-      //     ) {
-      //       status = "KYC Done";
-      //     } else {
-      //       status = "---";
-      //     }
-      //     return <p>{status}</p>;
-      //   },
-      // },
-      // {
-      //   title: "Txn Reference",
-      //   dataIndex: "reference",
-      //   key: "reference",
-      // },
-      {
-        title: "Investment Amount",
-        dataIndex: "investmentamount",
-        key: "investmentamount",
-        align:"right",
-
+        title: "Deal Name",
+        dataIndex: "dealname",
+        key: "dealname",
       },
       {
-        title: "Fees",
-        dataIndex: "processingfees",
-        key: "processingfees",
-        align:"right",
-
+        title: "Deal Id",
+        dataIndex: "dealid",
+        key: "dealid",
       },
-      // {
-      //   title: "Txn Type",
-      //   dataIndex: "txntype",
-      //   key: "txntype",
-      //   render: (text) => {
-      //     // console.log('text',text);
-      //     if (text == "online_payment") {
-      //       return <Tag color="green">{text}</Tag>;
-      //     } else {
-      //       return <Tag color="blue">{text}</Tag>;
-      //     }
-      //   },
-      // },
-      // {
-      //   title: "Status",
-      //   dataIndex: "status",
-      //   key: "status",
-      //   width: 100,
-      // },
-      // {
-      //   title: "KYC Status",
-      //   dataIndex: "kycstatus",
-      //   key: "kycstatus",
-      //   width: 150,
-      //   render: (text) => {
-      //     // console.log('text',text);
-      //     if (text == "Approved") {
-      //       return <Tag color="yellow">System Approved</Tag>;
-      //     } else if (text == "admin_approved") {
-      //       return <Tag color="green">Admin Approved</Tag>;
-      //     } else if (text == "Rejected") {
-      //       return <Tag color="red">Admin Rejected</Tag>;
-      //     } else {
-      //       return <Tag color="blue">Pending</Tag>;
-      //     }
-      //   },
-      // },
+      {
+        title: "Investment Stage",
+        dataIndex: "investment_stage",
+        key: "investment_stage",
+        render: (text) => {
+          let status = "";
+          if (text.roc_status == "fndr_roc_confirmation") {
+            status = "Founder ROC Confirmed";
+          }
+          if (text.fund_raise_status == "success") {
+            status = "Fund transffered successfully.";
+          } else if (text.founder_document_sign_status == "fndr_sign_success") {
+            status = "Founder Document Sign Completed";
+          } else if (text.investor_document_sign_status == "Inv_sign_success") {
+            status = "Investor Dcoument Sign Completed";
+          } else if (text.admin_approval_status == "admin_approval") {
+            status = "Admin Approved";
+          } else if (text.payment_status == "payment_success") {
+            status = "Payment Completed";
+          } else if (
+            text.kycstatus == "Approved" ||
+            text.kycstatus == "admin_approved"
+          ) {
+            status = "KYC Done";
+          } else {
+            status = "---";
+          }
+          return <p>{status}</p>;
+        },
+      },
+      {
+        title: "Txn Reference",
+        dataIndex: "reference",
+        key: "reference",
+      },
+      {
+        title: "Txn Type",
+        dataIndex: "txntype",
+        key: "txntype",
+        render: (text) => {
+          // console.log('text',text);
+          if (text == "online_payment") {
+            return <Tag color="green">{text}</Tag>;
+          } else {
+            return <Tag color="blue">{text}</Tag>;
+          }
+        },
+      },
+      {
+        title: "Status",
+        dataIndex: "status",
+        key: "status",
+        width: 100,
+      },
+      {
+        title: "KYC Status",
+        dataIndex: "kycstatus",
+        key: "kycstatus",
+        width: 150,
+        render: (text) => {
+          // console.log('text',text);
+          if (text == "Approved") {
+            return <Tag color="yellow">System Approved</Tag>;
+          } else if (text == "admin_approved") {
+            return <Tag color="green">Admin Approved</Tag>;
+          } else if (text == "Rejected") {
+            return <Tag color="red">Admin Rejected</Tag>;
+          } else {
+            return <Tag color="blue">Pending</Tag>;
+          }
+        },
+      },
       {
         title: "Action",
         dataIndex: "action",

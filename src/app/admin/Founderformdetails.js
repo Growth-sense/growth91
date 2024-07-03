@@ -19,9 +19,6 @@ import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx-js-style";
 import ReactToPrint from "react-to-print";
 import TableComponent from "./pdfview/TableComponent";
-import { useNavigate } from 'react-router-dom'; 
-import { Link } from "react-router-dom";
-import Founderadmindashboard from "./pdfview/forms/Founderadmindashboard";
 
 const { Content } = Layout;
 const fileType =
@@ -42,7 +39,6 @@ class Founderformdetails extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.item);
     this.getformdetails();
   }
 
@@ -68,14 +64,18 @@ class Founderformdetails extends Component {
   searchinput = (e) => {
     let text = e.target.value;
     this.setState({ loading: true, searchinput: text });
-    console.log(text);
     if (text) {
       let arr = [];
       for (let item of this.state.clist) {
         if (
-          (item.main_founder_id && item.main_founder_id.includes(text)) ||
+          (item.name && item.name.includes(text)) ||
           (item.first_name && item.first_name.toLowerCase().includes(text.toLowerCase())) ||
-          (item.startup_name && item.startup_name.toLowerCase().includes(text.toLowerCase()))         ) {
+          (item.last_name && item.last_name.toLowerCase().includes(text.toLowerCase())) ||
+          (item.payment_date && item.payment_date.includes(text)) ||
+          (item.payment_amount && item.payment_amount.includes(text)) ||
+          (item.description && item.description.toLowerCase().includes(text.toLowerCase())) ||
+          (item.payment_ref && item.payment_ref.includes(text))
+        ) {
           arr = [...arr, item];
         }
       }
@@ -386,11 +386,8 @@ class Founderformdetails extends Component {
   };
   downloadpdf = (item) => {
     this.setState({ modalstatus: true, item: item });
-    console.log(item);
-
   };
   get_assesment_form_details = (item) => {
-    console.log(item.main_founder_id,);
     let params = {
       founder_id: item.main_founder_id,
     };
@@ -1548,7 +1545,6 @@ class Founderformdetails extends Component {
     XLSX.writeFile(wb, fileName + fileExtension);
     message.success("Assessment form detail list is exported successfully.");
   };
-  
   render() {
     const dataSource =
       this.state.list &&
@@ -1557,7 +1553,6 @@ class Founderformdetails extends Component {
           key: index,
           srno: index + 1,
           founder_id: item.main_founder_id,
-          startup:item.startup_name,
           Name: item.primary_contact_person_name
             ? item.primary_contact_person_name
             : "---",
@@ -1584,13 +1579,6 @@ class Founderformdetails extends Component {
         title: "Founder Name",
         dataIndex: "Name",
         key: "Name",
-        width: 160,
-        fixed: "left",
-      },
-      {
-        title: "Startup",
-        dataIndex: "startup",
-        key: "startup",
         width: 160,
         fixed: "left",
       },
@@ -1652,18 +1640,13 @@ class Founderformdetails extends Component {
           let filename = "Startup Form Details";
           return (
             <div>
-              {/* <Link  to={{
-            pathname: "/admin-founder-dashboard",
-            state: { item:text}
-          }} > */}
               <Button type="primary" onClick={() => this.downloadpdf(text)}>
                 View Details{" "}
                 <i
                   className="bx bx-cloud-download ps-2"
                   style={{ fontSize: "1rem" }}
-                  ></i>
+                ></i>
               </Button>{" "}
-                  {/* </Link> */}
               &nbsp;&nbsp;
               <Button
                 type="primary"
@@ -1769,12 +1752,12 @@ class Founderformdetails extends Component {
           visible={this.state.modalstatus}
           onOk={this.handleok}
           onCancel={() => this.setState({ modalstatus: false, item: [] })}
-          width={1000}
+          width={750}
           footer={false}
         >
           <div>
             <div style={{ padding: "20px 30px" }}>
-              {/* <ReactToPrint
+              <ReactToPrint
                 content={() => this.componentRef}
                 trigger={() => (
                   <Button
@@ -1784,20 +1767,14 @@ class Founderformdetails extends Component {
                     Print
                   </Button>
                 )}
-              /> */}
+              />
             </div>
-            {/* {this.state.item &&this.state.item ?  <TableComponent
+            <TableComponent
               ref={(response) => (this.componentRef = response)}
               item={this.state.item}
             />
-            :""} */}
-          
-            
-          
           </div>
-        {this.state.item &&this.state.item ? <Founderadmindashboard id={this.state.item.main_founder_id} tab={this.state.item} view={0}/>
-            :""}
-            </Modal>
+        </Modal>
       </>
     );
   }
