@@ -173,8 +173,8 @@ import PendingOfflinePayments from "./app/admin/PendingOfflinePayments";
 import UnderMaintenance from "./app/UnderMaintenance";
 import AdminDocuments from "./app/admin/AdminDocuments";
 import Newboo from "./app/deal-pages/Newboo";
-// import ORAI from "./app/deal-pages/ORAI.jsx";
-import ORAI from "./app/deal-pages/ORAI1.jsx";
+import ORAI from "./app/deal-pages/ORAI.jsx";
+import LiaPlus from "./app/deal-pages/LiaPlus.jsx";
 import EleFant from "./app/deal-pages/EleFant.jsx";
 import EcoRatings from "./app/deal-pages/EcoRatings.jsx";
 import Stroom from "./app/deal-pages/Stroom.jsx";
@@ -550,6 +550,9 @@ function App() {
           </Route>
           <Route path="/ORAI" exact>
             <ProtectDeals Component={ORAI} />
+          </Route>
+          <Route path="/LiaPlus" exact>
+            <ProtectDeals Component={LiaPlus} />
           </Route>
           <Route path="/theEleFant" exact>
             <ProtectDeals Component={EleFant} />
