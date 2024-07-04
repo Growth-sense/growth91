@@ -58,9 +58,6 @@ class OfflinePayment extends Component {
           (item.payment_date && item.payment_date.includes(text)) ||
           (item.investor_id && item.investor_id.includes(text)) ||
           (item.investor_email && item.investor_email.includes(text)) ||
-          (item.investment_amt && item.investment_amt.includes(text)) ||
-          (item.processing_fees && item.processing_fees.includes(text)) ||
-          ( moment(item.payment_dt).format("DD MMM, YYYY").toLowerCase() &&  moment(item.payment_dt).format("DD MMM, YYYY").toLowerCase().includes(text)) ||
           (item.reference_id && item.reference_id.includes(text))
           // item.payment_ref && item.payment_ref.includes(text)
         ) {

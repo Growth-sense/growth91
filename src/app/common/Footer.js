@@ -9,7 +9,7 @@ class WebFooter extends Component {
         <div className=" text-center text-black">  
             <div className="container" >
                 <div className="bottom-left">
-                    <span>Copyright &copy; <a href="https://Growth91.com">Growth91<sup style={{fontSize:"0.6rem"}}>®</sup></a> {moment().format('YYYY')}. All Rights Reserved</span>
+                    <span>Copyright &copy; <a href="https://Growth91.com">Growth91<sup style={{fontSize:"0.6rem"}}>TM</sup></a> {moment().format('YYYY')}. All Rights Reserved</span>
                    
                 </div>
             </div>

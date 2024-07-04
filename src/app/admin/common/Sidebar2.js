@@ -33,13 +33,13 @@ class Sidebar extends Component {
               </li>
             </ul>
           </li>
-          {/* <li>
+          <li>
             <div className="iocn-link">
               <a href="/admin-blog">
                 <i className="bx bx-collection"></i>
                 <span className="link_name">Blog Post</span>
               </a>
-              <i className='bx bxs-chevron-down arrow' ></i>
+              {/* <i className='bx bxs-chevron-down arrow' ></i> */}
             </div>
             <ul className="sub-menu blank">
               <li>
@@ -51,13 +51,12 @@ class Sidebar extends Component {
                 <a className="link_name" href="/admin-blog-category">
                   Blog Category
                 </a>
-              </li> */}
-
+              </li>
               {/* <li><a href="#">HTML & CSS</a></li>
           <li><a href="#">JavaScript</a></li>
           <li><a href="#">PHP & MySQL</a></li> */}
-            {/* </ul> */}
-          {/* </li> */}
+            </ul>
+          </li>
           <li>
             <div className="iocn-link">
               <a href="#">
