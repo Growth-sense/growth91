@@ -18,7 +18,10 @@ import Sidebar2 from "./common/Sidebar2";
 import Navbar from "./common/Navbar";
 import BottomBar from "./common/BottomBar";
 import Bridge from "../constants/Bridge";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import {
+  EditOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons";
 const { TextArea } = Input;
 const { Option } = Select;
 const { Content } = Layout;
@@ -40,27 +43,27 @@ class AdminDocuments extends Component {
       cdocumentlist: [],
 
       // add states
-      admindocName: "",
-      admindocActive: "",
-      admindocDescription: "",
-      documentType: "",
+      admindocName: '',
+      admindocActive: '',
+      admindocDescription: '',
+      documentType: '',
       documentFile: null,
       selectedDeals: [],
       selectedInvestors: [],
       selectedFounders: [],
 
       // edit states
-      editadmindocName: "",
-      editadmindocActive: "",
-      editadmindocDescription: "",
-      editdocumentType: "",
+      editadmindocName: '',
+      editadmindocActive: '',
+      editadmindocDescription: '',
+      editdocumentType: '',
       editdocumentFile: null,
       editselectedDeals: [],
       editselectedInvestors: [],
       editselectedFounders: [],
 
       // delete states
-      admindocID: "",
+      admindocID: '',
     };
   }
 
@@ -73,9 +76,8 @@ class AdminDocuments extends Component {
 
   getDocumentList = () => {
     this.setState({ loading: true });
-    axios
-      .get(`${process.env.REACT_APP_BASE_URL}api/admin/Documents/listadmindocs`)
-      .then((response) => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}api/admin/Documents/listadmindocs`)
+      .then(response => {
         const result = response.data;
         if (result.status === "1") {
           this.setState({
@@ -90,8 +92,8 @@ class AdminDocuments extends Component {
           });
         }
       })
-      .catch((error) => {
-        console.error("Error fetching documents:", error);
+      .catch(error => {
+        console.error('Error fetching documents:', error);
         this.setState({
           loading: false,
         });
@@ -152,28 +154,14 @@ class AdminDocuments extends Component {
       let arr = [];
       for (let item of this.state.cdocumentlist) {
         if (
-          (item.admindocID &&
-            item.admindocID.toLowerCase().includes(text.toLowerCase())) ||
-          (item.admindocName &&
-            item.admindocName.toLowerCase().includes(text.toLowerCase())) ||
-          (item.admindocDescription &&
-            item.admindocDescription
-              .toLowerCase()
-              .includes(text.toLowerCase())) ||
-          (item.admindocForDeal &&
-            item.admindocForDeal.toLowerCase().includes(text.toLowerCase())) ||
-          (item.admindocForInvestor &&
-            item.admindocForInvestor
-              .toLowerCase()
-              .includes(text.toLowerCase())) ||
-          (item.admindocForFounder &&
-            item.admindocForFounder
-              .toLowerCase()
-              .includes(text.toLowerCase())) ||
-          (item.admindocForAll &&
-            item.admindocForAll.toLowerCase().includes(text.toLowerCase())) ||
-          (item.admindocActive &&
-            item.admindocActive.toLowerCase().includes(text.toLowerCase()))
+          (item.admindocID && item.admindocID.toLowerCase().includes(text.toLowerCase())) ||
+          (item.admindocName && item.admindocName.toLowerCase().includes(text.toLowerCase())) ||
+          (item.admindocDescription && item.admindocDescription.toLowerCase().includes(text.toLowerCase())) ||
+          (item.admindocForDeal && item.admindocForDeal.toLowerCase().includes(text.toLowerCase())) ||
+          (item.admindocForInvestor && item.admindocForInvestor.toLowerCase().includes(text.toLowerCase())) ||
+          (item.admindocForFounder && item.admindocForFounder.toLowerCase().includes(text.toLowerCase())) ||
+          (item.admindocForAll && item.admindocForAll.toLowerCase().includes(text.toLowerCase())) ||
+          (item.admindocActive && item.admindocActive.toLowerCase().includes(text.toLowerCase()))
         ) {
           arr = [...arr, item];
         }
@@ -217,62 +205,53 @@ class AdminDocuments extends Component {
     }
 
     let formData = new FormData();
-    formData.append("admindocName", admindocName);
-    formData.append("admindocDescription", admindocDescription);
-    formData.append("admindocActive", admindocActive);
-    formData.append("document", documentFile);
+    formData.append('admindocName', admindocName);
+    formData.append('admindocDescription', admindocDescription);
+    formData.append('admindocActive', admindocActive);
+    formData.append('document', documentFile);
 
-    let deal_id = "0";
-    let investor_id = "0";
-    let founder_id = "0";
-    let forAlll = "No";
+    let deal_id = '0';
+    let investor_id = '0';
+    let founder_id = '0';
+    let forAlll = 'No';
 
-    if (documentType === "Deal") {
-      deal_id = selectedDeals.length > 0 ? selectedDeals.join(",") : "0";
-      investor_id =
-        selectedInvestors.length > 0 ? selectedInvestors.join(",") : "-1";
-    } else if (documentType === "Investor") {
-      deal_id = selectedDeals.length > 0 ? selectedDeals.join(",") : "0";
-      investor_id =
-        selectedInvestors.length > 0 ? selectedInvestors.join(",") : "-1";
-    } else if (documentType === "Founder") {
-      founder_id =
-        selectedFounders.length > 0 ? selectedFounders.join(",") : "-1";
-    } else if (documentType === "Public") {
-      forAlll = "Yes";
+    if (documentType === 'Deal') {
+      deal_id = selectedDeals.length > 0 ? selectedDeals.join(',') : '0';
+      investor_id = selectedInvestors.length > 0 ? selectedInvestors.join(',') : '-1';
+    } else if (documentType === 'Investor') {
+      deal_id = selectedDeals.length > 0 ? selectedDeals.join(',') : '0';
+      investor_id = selectedInvestors.length > 0 ? selectedInvestors.join(',') : '-1';
+    } else if (documentType === 'Founder') {
+      founder_id = selectedFounders.length > 0 ? selectedFounders.join(',') : '-1';
+    } else if (documentType === 'Public') {
+      forAlll = 'Yes';
     }
 
-    formData.append("deal_id", deal_id);
-    formData.append("investor_id", investor_id);
-    formData.append("founder_id", founder_id);
-    formData.append("forAlll", forAlll);
+    formData.append('deal_id', deal_id);
+    formData.append('investor_id', investor_id);
+    formData.append('founder_id', founder_id);
+    formData.append('forAlll', forAlll);
 
     axios
-      .post(
-        `${process.env.REACT_APP_BASE_URL}api/admin/Documents/addadmindocs`,
-        formData
-      )
+      .post(`${process.env.REACT_APP_BASE_URL}api/admin/Documents/addadmindocs`, formData)
       .then((response) => {
-        console.log("API Response:", response.data);
-        this.setState(
-          {
-            admindocName: "",
-            admindocActive: "",
-            admindocDescription: "",
-            documentType: "",
-            documentFile: null,
-            selectedDeals: [],
-            selectedInvestors: [],
-            selectedFounders: [],
-            addModalStatus: false,
-          },
-          () => this.getDocumentList()
-        );
-        message.success("Document Added Successfully");
+        console.log('API Response:', response.data);
+        this.setState({
+          admindocName: '',
+          admindocActive: '',
+          admindocDescription: '',
+          documentType: '',
+          documentFile: null,
+          selectedDeals: [],
+          selectedInvestors: [],
+          selectedFounders: [],
+          addModalStatus: false,
+        }, () => this.getDocumentList());
+        message.success('Document Added Successfully');
         // window.location.reload();
       })
       .catch((error) => {
-        console.error("API Error:", error);
+        console.error('API Error:', error);
       });
   };
 
@@ -305,70 +284,55 @@ class AdminDocuments extends Component {
     }
 
     let formData = new FormData();
-    formData.append("admindocName", editadmindocName);
-    formData.append("admindocDescription", editadmindocDescription);
-    formData.append("admindocActive", editadmindocActive);
-    formData.append("document", editdocumentFile);
-    formData.append("admindocID", admindocID);
+    formData.append('admindocName', editadmindocName);
+    formData.append('admindocDescription', editadmindocDescription);
+    formData.append('admindocActive', editadmindocActive);
+    formData.append('document', editdocumentFile);
+    formData.append('admindocID', admindocID);
 
-    let deal_id = "0";
-    let investor_id = "0";
-    let founder_id = "0";
-    let forAlll = "No";
+    let deal_id = '0';
+    let investor_id = '0';
+    let founder_id = '0';
+    let forAlll = 'No';
 
-    if (editdocumentType === "Deal") {
-      deal_id =
-        editselectedDeals.length > 0 ? editselectedDeals.join(",") : "0";
-      investor_id =
-        editselectedInvestors.length > 0
-          ? editselectedInvestors.join(",")
-          : "-1";
-    } else if (editdocumentType === "Investor") {
-      deal_id =
-        editselectedDeals.length > 0 ? editselectedDeals.join(",") : "0";
-      investor_id =
-        editselectedInvestors.length > 0
-          ? editselectedInvestors.join(",")
-          : "-1";
-    } else if (editdocumentType === "Founder") {
-      founder_id =
-        editselectedFounders.length > 0 ? editselectedFounders.join(",") : "-1";
-    } else if (editdocumentType === "Public") {
-      forAlll = "Yes";
+    if (editdocumentType === 'Deal') {
+      deal_id = editselectedDeals.length > 0 ? editselectedDeals.join(',') : '0';
+      investor_id = editselectedInvestors.length > 0 ? editselectedInvestors.join(',') : '-1';
+    } else if (editdocumentType === 'Investor') {
+      deal_id = editselectedDeals.length > 0 ? editselectedDeals.join(',') : '0';
+      investor_id = editselectedInvestors.length > 0 ? editselectedInvestors.join(',') : '-1';
+    } else if (editdocumentType === 'Founder') {
+      founder_id = editselectedFounders.length > 0 ? editselectedFounders.join(',') : '-1';
+    } else if (editdocumentType === 'Public') {
+      forAlll = 'Yes';
     }
 
-    formData.append("deal_id", deal_id);
-    formData.append("investor_id", investor_id);
-    formData.append("founder_id", founder_id);
-    formData.append("forAlll", forAlll);
+    formData.append('deal_id', deal_id);
+    formData.append('investor_id', investor_id);
+    formData.append('founder_id', founder_id);
+    formData.append('forAlll', forAlll);
 
     axios
-      .post(
-        `${process.env.REACT_APP_BASE_URL}api/admin/Documents/editadmindocs`,
-        formData
-      )
+      .post(`${process.env.REACT_APP_BASE_URL}api/admin/Documents/editadmindocs`, formData)
       .then((response) => {
-        console.log("API Response:", response.data);
-        this.setState(
-          {
-            editadmindocName: "",
-            editadmindocActive: "",
-            editadmindocDescription: "",
-            editdocumentType: "",
-            editdocumentFile: null,
-            editselectedDeals: [],
-            editselectedInvestors: [],
-            editselectedFounders: [],
-            admindocID: "",
-            editModalStatus: false,
-          },
-          () => this.getDocumentList()
-        );
-        message.success("Document Updated Successfully");
+        console.log('API Response:', response.data);
+        this.setState({
+          editadmindocName: '',
+          editadmindocActive: '',
+          editadmindocDescription: '',
+          editdocumentType: '',
+          editdocumentFile: null,
+          editselectedDeals: [],
+          editselectedInvestors: [],
+          editselectedFounders: [],
+          admindocID: '',
+          editModalStatus: false,
+        }, () => this.getDocumentList());
+        message.success('Document Updated Successfully');
         // window.location.reload();
       })
       .catch((error) => {
-        console.error("API Error:", error);
+        console.error('API Error:', error);
       });
   };
 
@@ -381,7 +345,7 @@ class AdminDocuments extends Component {
       deleteModalStatus: true,
       admindocID: id,
     });
-  };
+  }
 
   showEditModal = (id, item) => {
     this.setState({
@@ -394,37 +358,29 @@ class AdminDocuments extends Component {
   };
 
   deletedocument = () => {
-    if (this.state.admindocID == "") {
-      message.warning("Please select the document first.");
+    if (this.state.admindocID == '') {
+      message.warning('Please select the document first.');
       return false;
     }
 
     this.setState({ formloader: true });
     let formData = new FormData();
-    formData.append("admindocID", this.state.admindocID);
+    formData.append('admindocID', this.state.admindocID);
     const config = {
       headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    };
-    axios
-      .post(
-        `${process.env.REACT_APP_BASE_URL}api/admin/Documents/deleteadmindocs`,
-        formData,
-        config
-      )
+        'Content-Type': 'multipart/form-data',
+      }
+    }
+    axios.post(`${process.env.REACT_APP_BASE_URL}api/admin/Documents/deleteadmindocs`, formData, config)
       .then((response) => {
         const result = response.data;
         if (result.status === "1") {
           message.success(result.message);
-          this.setState(
-            {
-              formloader: false,
-              deleteModalStatus: false,
-              admindocID: "",
-            },
-            () => this.getDocumentList()
-          );
+          this.setState({
+            formloader: false,
+            deleteModalStatus: false,
+            admindocID: '',
+          }, () => this.getDocumentList());
         } else {
           message.error(result.message);
           this.setState({
@@ -433,32 +389,29 @@ class AdminDocuments extends Component {
         }
       })
       .catch((error) => {
-        console.error("Error deleting document:", error);
-        message.error("An error occurred while deleting the document.");
+        console.error('Error deleting document:', error);
+        message.error('An error occurred while deleting the document.');
         this.setState({
           formloader: false,
         });
       });
-  };
+  }
 
   handleDealSelection = async (value) => {
     this.setState({ selectedDeals: value });
 
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}api/admin/Investors/list`,
-        {
-          params: {
-            deal_id: value.join(","),
-          },
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}api/admin/Investors/list`, {
+        params: {
+          deal_id: value.join(',')
         }
-      );
+      });
 
       const investorList = response.data;
 
       this.setState({ dealinvestorlist: investorList.data });
     } catch (error) {
-      console.error("Error fetching investor list:", error);
+      console.error('Error fetching investor list:', error);
     }
   };
 
@@ -466,22 +419,20 @@ class AdminDocuments extends Component {
     this.setState({ editselectedDeals: value });
 
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}api/admin/Investors/list`,
-        {
-          params: {
-            deal_id: value.join(","),
-          },
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}api/admin/Investors/list`, {
+        params: {
+          deal_id: value.join(',')
         }
-      );
+      });
 
       const investorList = response.data;
 
       this.setState({ dealinvestorlist: investorList.data });
     } catch (error) {
-      console.error("Error fetching investor list:", error);
+      console.error('Error fetching investor list:', error);
     }
   };
+
 
   render() {
     const dataSource = this.state.documentlist.map((item, index) => {
@@ -494,7 +445,7 @@ class AdminDocuments extends Component {
         forInvestor: item.admindocForInvestor,
         forFounder: item.admindocForFounder,
         forPublic: item.admindocForAll,
-        active: item.admindocActive,
+        active: item.admindocActive
       };
     });
 
@@ -676,10 +627,10 @@ class AdminDocuments extends Component {
                 type="file"
                 onChange={(e) => {
                   const file = e.target.files[0];
-                  const fileName = file.name.replace(/\.[^/.]+$/, "");
+                  const fileName = file.name.replace(/\.[^/.]+$/, '');
                   this.setState({
                     admindocName: fileName,
-                    documentFile: file,
+                    documentFile: file
                   });
                 }}
               />
@@ -691,7 +642,7 @@ class AdminDocuments extends Component {
               </label>
               <Select
                 value={this.state.documentType}
-                style={{ width: "100%" }}
+                style={{ width: '100%' }}
                 onChange={(value) => this.setState({ documentType: value })}
                 allowClear
               >
@@ -703,13 +654,13 @@ class AdminDocuments extends Component {
               </Select>
             </div>
 
-            {this.state.documentType === "Deal" && (
+            {this.state.documentType === 'Deal' && (
               <>
                 <div className="mt-4 editor-field">
                   <label className="mb-2">Deal</label>
                   <Select
                     mode="multiple"
-                    style={{ width: "100%" }}
+                    style={{ width: '100%' }}
                     placeholder="Select deals"
                     onChange={this.handleDealSelection}
                     filterOption={this.filterOptionInvestorSelect}
@@ -728,47 +679,33 @@ class AdminDocuments extends Component {
                   <label className="mb-2">Investor</label>
                   <Select
                     mode="multiple"
-                    style={{ width: "100%" }}
+                    style={{ width: '100%' }}
                     placeholder="Select investors"
-                    onChange={(value) =>
-                      this.setState({ selectedInvestors: value })
-                    }
+                    onChange={(value) => this.setState({ selectedInvestors: value })}
                     filterOption={this.filterOptionInvestorSelect}
                     showSearch
                     optionFilterProp="children"
-                    disabled={
-                      !this.state.selectedDeals ||
-                      this.state.selectedDeals.length === 0
-                    }
+                    disabled={!this.state.selectedDeals || this.state.selectedDeals.length === 0}
                   >
                     {this.state.dealinvestorlist &&
-                      this.state.dealinvestorlist.map((item, index) => {
-                        console.log(item);
-                        return (
-                          <Option
-                            key={index}
-                            value={item.investor_id}
-                            data={item}
-                          >
-                            {`${item.first_name} ${item.last_name} (${item.email})`}
-                          </Option>
-                        );
-                      })}
+                      this.state.dealinvestorlist.map((item, index) => (
+                        <Option key={index} value={item.investor_id} data={item}>
+                          {`${item.first_name} ${item.last_name}`}
+                        </Option>
+                      ))}
                   </Select>
                 </div>
               </>
             )}
 
-            {this.state.documentType === "Investor" && (
+            {this.state.documentType === 'Investor' && (
               <div className="mt-4 editor-field">
                 <label className="mb-2">Investor</label>
                 <Select
                   mode="multiple"
-                  style={{ width: "100%" }}
+                  style={{ width: '100%' }}
                   placeholder="Select investors"
-                  onChange={(value) =>
-                    this.setState({ selectedInvestors: value })
-                  }
+                  onChange={(value) => this.setState({ selectedInvestors: value })}
                   filterOption={this.filterOptionInvestorSelect}
                   showSearch
                   optionFilterProp="children"
@@ -783,16 +720,14 @@ class AdminDocuments extends Component {
               </div>
             )}
 
-            {this.state.documentType === "Founder" && (
+            {this.state.documentType === 'Founder' && (
               <div className="mt-4 editor-field">
                 <label className="mb-2">Founder</label>
                 <Select
                   mode="multiple"
-                  style={{ width: "100%" }}
+                  style={{ width: '100%' }}
                   placeholder="Select founders"
-                  onChange={(value) =>
-                    this.setState({ selectedFounders: value })
-                  }
+                  onChange={(value) => this.setState({ selectedFounders: value })}
                   filterOption={this.filterOptionInvestorSelect}
                   showSearch
                   optionFilterProp="children"
@@ -814,9 +749,7 @@ class AdminDocuments extends Component {
               <TextArea
                 rows={4}
                 value={this.state.admindocDescription}
-                onChange={(e) =>
-                  this.setState({ admindocDescription: e.target.value })
-                }
+                onChange={(e) => this.setState({ admindocDescription: e.target.value })}
               />
             </div>
 
@@ -824,7 +757,7 @@ class AdminDocuments extends Component {
               <label className="mb-2">Active</label>
               <Select
                 value={this.state.admindocActive}
-                style={{ width: "100%" }}
+                style={{ width: '100%' }}
                 allowClear
                 onChange={(value) => this.setState({ admindocActive: value })}
               >
@@ -856,10 +789,10 @@ class AdminDocuments extends Component {
                 type="file"
                 onChange={(e) => {
                   const file = e.target.files[0];
-                  const fileName = file.name.replace(/\.[^/.]+$/, "");
+                  const fileName = file.name.replace(/\.[^/.]+$/, '');
                   this.setState({
                     editadmindocName: fileName,
-                    editdocumentFile: file,
+                    editdocumentFile: file
                   });
                 }}
               />
@@ -871,7 +804,7 @@ class AdminDocuments extends Component {
               </label>
               <Select
                 value={this.state.editdocumentType}
-                style={{ width: "100%" }}
+                style={{ width: '100%' }}
                 onChange={(value) => this.setState({ editdocumentType: value })}
                 allowClear
               >
@@ -883,13 +816,13 @@ class AdminDocuments extends Component {
               </Select>
             </div>
 
-            {this.state.editdocumentType === "Deal" && (
+            {this.state.editdocumentType === 'Deal' && (
               <>
                 <div className="mt-4 editor-field">
                   <label className="mb-2">Deal</label>
                   <Select
                     mode="multiple"
-                    style={{ width: "100%" }}
+                    style={{ width: '100%' }}
                     placeholder="Select deals"
                     onChange={this.handleEditDealSelection}
                     filterOption={this.filterOptionInvestorSelect}
@@ -908,26 +841,17 @@ class AdminDocuments extends Component {
                   <label className="mb-2">Investor</label>
                   <Select
                     mode="multiple"
-                    style={{ width: "100%" }}
+                    style={{ width: '100%' }}
                     placeholder="Select investors"
-                    onChange={(value) =>
-                      this.setState({ editselectedInvestors: value })
-                    }
+                    onChange={(value) => this.setState({ editselectedInvestors: value })}
                     filterOption={this.filterOptionInvestorSelect}
                     showSearch
                     optionFilterProp="children"
-                    disabled={
-                      !this.state.editselectedDeals ||
-                      this.state.editselectedDeals.length === 0
-                    }
+                    disabled={!this.state.editselectedDeals || this.state.editselectedDeals.length === 0}
                   >
                     {this.state.dealinvestorlist &&
                       this.state.dealinvestorlist.map((item, index) => (
-                        <Option
-                          key={index}
-                          value={item.investor_id}
-                          data={item}
-                        >
+                        <Option key={index} value={item.investor_id} data={item}>
                           {`${item.first_name} ${item.last_name}`}
                         </Option>
                       ))}
@@ -936,16 +860,14 @@ class AdminDocuments extends Component {
               </>
             )}
 
-            {this.state.editdocumentType === "Investor" && (
+            {this.state.editdocumentType === 'Investor' && (
               <div className="mt-4 editor-field">
                 <label className="mb-2">Investor</label>
                 <Select
                   mode="multiple"
-                  style={{ width: "100%" }}
+                  style={{ width: '100%' }}
                   placeholder="Select investors"
-                  onChange={(value) =>
-                    this.setState({ editselectedInvestors: value })
-                  }
+                  onChange={(value) => this.setState({ editselectedInvestors: value })}
                   filterOption={this.filterOptionInvestorSelect}
                   showSearch
                   optionFilterProp="children"
@@ -960,16 +882,14 @@ class AdminDocuments extends Component {
               </div>
             )}
 
-            {this.state.editdocumentType === "Founder" && (
+            {this.state.editdocumentType === 'Founder' && (
               <div className="mt-4 editor-field">
                 <label className="mb-2">Founder</label>
                 <Select
                   mode="multiple"
-                  style={{ width: "100%" }}
+                  style={{ width: '100%' }}
                   placeholder="Select founders"
-                  onChange={(value) =>
-                    this.setState({ editselectedFounders: value })
-                  }
+                  onChange={(value) => this.setState({ editselectedFounders: value })}
                   filterOption={this.filterOptionInvestorSelect}
                   showSearch
                   optionFilterProp="children"
@@ -991,9 +911,7 @@ class AdminDocuments extends Component {
               <TextArea
                 rows={4}
                 value={this.state.editadmindocDescription}
-                onChange={(e) =>
-                  this.setState({ editadmindocDescription: e.target.value })
-                }
+                onChange={(e) => this.setState({ editadmindocDescription: e.target.value })}
               />
             </div>
 
@@ -1001,11 +919,9 @@ class AdminDocuments extends Component {
               <label className="mb-2">Active</label>
               <Select
                 value={this.state.editadmindocActive}
-                style={{ width: "100%" }}
+                style={{ width: '100%' }}
                 allowClear
-                onChange={(value) =>
-                  this.setState({ editadmindocActive: value })
-                }
+                onChange={(value) => this.setState({ editadmindocActive: value })}
               >
                 <Option value="">--Select--</Option>
                 <Option value="Yes">Yes</Option>

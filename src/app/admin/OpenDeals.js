@@ -1790,56 +1790,6 @@ class Deals extends Component {
     message.success("Commitment data exported successfully.");
   };
 
-  exportToCSV_startupfounder = (fileName) => {
-    let arr = [];
-    console.log(this.state.commitment_investor_list);
-    let count = 1;
-    for (let item of this.state.commitment_investor_list) {
-      let obj = {
-        "Sr No": count,
-        "Investor ID": item.investor_id,
-        "Name": item.first_name + " " + item.last_name,
-        "Legal Name": item.pan_registered_name,
-        "Investment Amount": item.amount,
-        "Email": item.email,
-        "Phone": item.mobile,
-        "KYC PAN": item.kyc_pan,
-        "KYC Address": item.kyc_address,
-        "KYC Father Name": item.kyc_fathername,
-      };
-      arr = [...arr, obj];
-      count++;
-    }
-    const ws = XLSX.utils.json_to_sheet(arr);
-    const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
-    const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
-    const data = new Blob([excelBuffer], { type: fileType });
-    FileSaver.saveAs(data, fileName + fileExtension);
-    message.success("Commitment data exported successfully.");
-  };
-  exportToCSV_Reconcillation = (fileName) => {
-    let arr = [];
-    console.log(this.state.commitment_investor_list);
-    let count = 1;
-    for (let item of this.state.commitment_investor_list) {
-      let obj = {
-        "Sr No": count,
-        "Name": item.first_name + " " + item.last_name,
-        "Investment Amount": item.amount,
-        "Fees": item.processingfees,
-       
-      };
-      arr = [...arr, obj];
-      count++;
-    }
-    const ws = XLSX.utils.json_to_sheet(arr);
-    const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
-    const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
-    const data = new Blob([excelBuffer], { type: fileType });
-    FileSaver.saveAs(data, fileName + fileExtension);
-    message.success("Commitment data exported successfully.");
-  };
-
   calculategst = () => {
     let legalfee = parseFloat((this.state.ac_amount / 100) * parseFloat(this.state.ac_percentage));
     let gst = this.state.ac_gst;
@@ -3257,7 +3207,7 @@ class Deals extends Component {
             </div>
             <div className="mt-4">
               <label className="mb-2">
-              Minimum Investment Amount Per CCD <span className="text-danger">*</span>
+                Min Investment Amount <span className="text-danger">*</span>
               </label>
               <Input
                 type="number"
@@ -3270,7 +3220,7 @@ class Deals extends Component {
             </div>
             <div className="mt-4">
               <label className="mb-2">
-              Minimum Amount Per CCPS <span className="text-danger">*</span>
+                CAP Table Threshold Amount <span className="text-danger">*</span>
               </label>
               <Input
                 type="number"
@@ -3283,7 +3233,7 @@ class Deals extends Component {
             </div>
             <div className="mt-4">
               <label className="mb-2">
-              Max Investment by Single Investor <span className="text-danger">*</span>
+                Max Investment Amount <span className="text-danger">*</span>
               </label>
               <Input
                 type="number"
@@ -3296,7 +3246,7 @@ class Deals extends Component {
             </div>
             <div className="mt-4">
               <label className="mb-2">
-              Share Price Per CCPS<span className="text-danger">*</span>
+                CAP Table Multiple <span className="text-danger">*</span>
               </label>
               <Input
                 type="number"
@@ -3309,7 +3259,7 @@ class Deals extends Component {
             </div>
             <div className="mt-4">
               <label className="mb-2">
-              Share Price Per CCD <span className="text-danger">*</span>
+                Multiples Of <span className="text-danger">*</span>
               </label>
               <Input
                 type="number"
@@ -3786,7 +3736,7 @@ class Deals extends Component {
             </div>
             <div className="mt-4">
               <label className="mb-2">
-                Minimum Investment Amount Per CCD<span className="text-danger">*</span>
+                Min Investment Amount <span className="text-danger">*</span>
               </label>
               <Input
                 type="number"
@@ -3799,7 +3749,7 @@ class Deals extends Component {
             </div>
             <div className="mt-4">
               <label className="mb-2">
-              Minimum Amount Per CCPS <span className="text-danger">*</span>
+                CAP Table Threshold Amount <span className="text-danger">*</span>
               </label>
               <Input
                 type="number"
@@ -3812,7 +3762,7 @@ class Deals extends Component {
             </div>
             <div className="mt-4">
               <label className="mb-2">
-              Max Investment by Single Investor <span className="text-danger">*</span>
+                Max Investment Amount <span className="text-danger">*</span>
               </label>
               <Input
                 type="number"
@@ -3825,7 +3775,7 @@ class Deals extends Component {
             </div>
             <div className="mt-4">
               <label className="mb-2">
-                Share Price Per CCPS <span className="text-danger">*</span>
+                CAP Table Multiple <span className="text-danger">*</span>
               </label>
               <Input
                 type="number"
@@ -3837,7 +3787,7 @@ class Deals extends Component {
               />
             </div>
             <div className="mt-4">
-              <label className="mb-2"> Share Price Per CCD</label>
+              <label className="mb-2">Multiples Of</label>
               <Input
                 type="number"
                 onWheel={() => document.activeElement.blur()}
@@ -4575,37 +4525,6 @@ class Deals extends Component {
                 ></i>{" "}
                 Add New Commitment
               </Button>
-              <Button
-              type="primary"
-              onClick={() => this.exportToCSV_CommitList("Commitment List")}
-            >
-              <i
-                className="bx bxs-cloud-download"
-                style={{
-                  color: "#fff",
-                  position: "relative",
-                  top: 3,
-                  left: -3,
-                }}
-              ></i>{" "}
-              Export For Startup Founder
-            </Button>
-          
-            <Button
-              type="primary"
-              onClick={() => this.exportToCSV_Reconcillation("ReconcillationList")}
-            >
-              <i
-                className="bx bxs-cloud-download"
-                style={{
-                  color: "#fff",
-                  position: "relative",
-                  top: 3,
-                  left: -3,
-                }}
-              ></i>{" "}
-              Export For Reconcillation
-            </Button>
             </div>
           }
           visible={this.state.Commitment_list_modal}
@@ -4623,7 +4542,21 @@ class Deals extends Component {
               onChange={(e) => this.searchinputc(e)}
               style={{ maxWidth: 300, marginBottom: 20, height: 40 }}
             />
-           
+            <Button
+              type="primary"
+              onClick={() => this.exportToCSV_CommitList("Commitment List")}
+            >
+              <i
+                className="bx bxs-cloud-download"
+                style={{
+                  color: "#fff",
+                  position: "relative",
+                  top: 3,
+                  left: -3,
+                }}
+              ></i>{" "}
+              Export Data
+            </Button>
           </div>
 
           <Table
@@ -4715,7 +4648,7 @@ class Deals extends Component {
             <label className="form-check-label">
               Use Your ₹ {this.state.ac_walletMoney} Growth91
               <sup style={{ fontSize: "0.6rem" }}>
-              ®
+                TM
               </sup> Money{" "}
             </label>
           </div>

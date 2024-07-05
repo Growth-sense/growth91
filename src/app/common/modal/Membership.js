@@ -208,7 +208,7 @@ export default class Membership extends Component {
                                 <Spin spinning={this.state.loading}>
                                 <div className="pracing-item">
                                     <div className="top-left">
-                                    <p>100% off</p>
+                                    <p>{this.state.discount}% off</p>
                                     </div>
                                     <div className="top-area">
                                     <i
