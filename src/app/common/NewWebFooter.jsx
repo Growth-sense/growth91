@@ -8,7 +8,7 @@ export const NewWebFooter = () => {
     >
       <div class="Footer_footerLogo__Dz6fy"></div>
       <p class="Footer_footerText__YieoY">
-        Copyright © Growth91® 2024. All Rights Reserved{" "}
+        Copyright © Growth91TM 2024. All Rights Reserved{" "}
       </p>
       <div class="Footer_footerMain__5yv_j">
         {/* <p><a href="/disclaimer">Disclaimer</a></p> */}

@@ -1068,7 +1068,12 @@ class Howitworks extends Component {
                           </span>
                           View Company Performance{" "}
                         </li>
-                        
+                        <li className="ps-md-5 ps-0 ">
+                          <span>
+                            <i className="fa fa-check text-success"></i>
+                          </span>
+                          Invest{" "}
+                        </li>
                         <li className="ps-md-5 ps-0 ">
                           <span>
                             <i
@@ -1085,8 +1090,7 @@ class Howitworks extends Component {
                               aria-hidden="true"
                             ></i>
                           </span>
-                          Minimum Amount as per CCPS 
-
+                          Priority for invest
                         </li>
                         <li className="ps-md-5 ps-0 ">
                           <span>
@@ -1135,7 +1139,12 @@ class Howitworks extends Component {
                           </span>
                           Access to Company Documents
                         </li>
-                       
+                        <li className="ps-md-5 ps-0">
+                          <span>
+                            <i className="fa fa-check text-success"></i>
+                          </span>
+                          Invest{" "}
+                        </li>
                         <li className="ps-md-5 ps-0">
                           <span>
                             <i className="fa fa-check text-success"></i>
@@ -1158,7 +1167,7 @@ class Howitworks extends Component {
                               aria-hidden="true"
                             ></i>
                           </span>
-                         Minimum Amount as per CCPS 
+                          Priority for invest
                         </li>
                         <li className="ps-md-5 ps-0">
                           <span>

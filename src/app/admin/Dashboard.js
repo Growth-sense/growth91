@@ -16,9 +16,7 @@ class Dashboard extends React.Component {
       invested_amt: 0,
       total_convience_fees: 0,
       total_expected_amt: 0,
-      Total_commitment_amount: 0,
       loading: false,
-
     };
   }
 
@@ -46,9 +44,6 @@ class Dashboard extends React.Component {
           total_convience_fees:
             result.Total_convience_amount[0].Total_convience_amount &&
             parseFloat(result.Total_convience_amount[0].Total_convience_amount),
-            Total_commitment_amount:
-            result.Total_commitment_amount[0].Total_commitment_amount &&
-            parseFloat(result.Total_commitment_amount[0].Total_commitment_amount),
         });
       } else {
         message.error(result.message);
@@ -64,8 +59,6 @@ class Dashboard extends React.Component {
   };
 
   render() {
-    var nf = new Intl.NumberFormat('en-IN');
-
     return (
       <Layout
         style={{ minHeight: "100vh", marginTop: 0 }}
@@ -98,7 +91,7 @@ class Dashboard extends React.Component {
                     <div className="item">
                       <div className="panel-heading">
                         <h3 className="panel-title">
-                          {nf.format(this.state.investor_count)}
+                          {this.state.investor_count}
                         </h3>
                       </div>
                       <div className="panel-body">Investors</div>
@@ -108,7 +101,7 @@ class Dashboard extends React.Component {
                     <div className="item">
                       <div className="panel-heading">
                         <h3 className="panel-title">
-                          ₹ {nf.format(this.state.invested_amt)}
+                          ₹ {this.state.invested_amt}
                         </h3>
                       </div>
                       <div className="panel-body">Investments</div>
@@ -118,7 +111,7 @@ class Dashboard extends React.Component {
                     <div className="item">
                       <div className="panel-heading">
                         <h3 className="panel-title">
-                          {nf.format(this.state.founder_count)}
+                          {this.state.founder_count}
                         </h3>
                       </div>
                       <div className="panel-body">Founders</div>
@@ -130,22 +123,22 @@ class Dashboard extends React.Component {
                     <div className="item">
                       <div className="panel-heading">
                         <h3 className="panel-title">
-                          ₹ {nf.format(parseInt(this.state.total_convience_fees))}
+                          ₹ {parseInt(this.state.total_convience_fees)}
                         </h3>
                       </div>
                       <div className="panel-body">Total Convenience Fees</div>
                     </div>
-                    
                   </div>
                   <div className="col-lg-3">
                     <div className="item">
                       <div className="panel-heading">
                         <h3 className="panel-title">
-                        ₹ {nf.format(parseInt(this.state.Total_commitment_amount))}
+                          ₹ {this.state.total_expected_amt}
                         </h3>
                       </div>
                       <div className="panel-body">
-                      Total Commitment Amounts                      </div>
+                        Total expected deal value
+                      </div>
                     </div>
                   </div>
                 </div>
