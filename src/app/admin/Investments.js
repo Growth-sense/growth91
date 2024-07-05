@@ -462,7 +462,7 @@ class Investments extends Component {
           dealid: item.deal_id ? item.deal_id : "---",
           reference: item.payment_ref,
           reference: item.Investment_amt,
-          Commitment_amount: "₹ " +  nf.format(item.amount),
+          Commitment_amount: "₹ " + (item.amount),
           txntype: item.payment_type,
           status: item.isapproved,
           action: item,
