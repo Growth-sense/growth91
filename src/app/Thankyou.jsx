@@ -114,7 +114,7 @@ export const Thankyou = () => {
                                 <h2>Thank You</h2>
                             </div>
                                 <div className="para-proceed">
-                                    <p>Thamkyou for contacting with us, we will Reply as soon as possible</p>
+                                    <p>Thank you for contacting with us, we will Reply as soon as possible</p>
                                 </div>
                                 <div className="button-proceed-online">
                                     <a href="/">Go To Homepage</a>
