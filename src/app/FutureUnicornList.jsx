@@ -139,10 +139,14 @@ export const FutureUnicornList = () => {
                     <div className="col-md-4 col-lg-4 col-xl-4 col-xxl-4 col-12 col-sm-12">
                       <div className="search-input-unicorn1">
                         {/* <input type="search" name="" id="" className='form-control' placeholder='' /> */}
-                        <label htmlFor="">Sort By :</label>
+                        <label htmlFor=""> By Founder :</label>
                         <select name="" id="">
-                        <option value="">--Select--</option>
+                          <option value="">--Select--</option>
+                          <option value="">Dhaval Shah</option>
+                          <option value="">Abhishek Gupta</option>
+                     
                         </select>
+
 
                       </div>
                     </div>

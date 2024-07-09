@@ -112,10 +112,10 @@ export const FounderInterest = () => {
                     <div class="tabs-dashboard">
                         <div class="tabs-nav">
                         <label class="tab-nav"><Link to="FounderDashboardType">My Account</Link></label>
-                            <label class="tab-nav"><Link to="FounderMyListing">My Listing</Link></label>
+                            <label class="tab-nav"><Link to="FounderMyListing">My Startups</Link></label>
                             <label class="tab-nav"><Link to="FounderMyPlan">My Plan</Link></label>
                             <label class="tab-nav active"><Link to="FounderInterest">Enquiry/Lead</Link></label>
-                            <label class="tab-nav "><Link to="FounderDraftList">Saved Draft</Link></label>
+                            {/* <label class="tab-nav "><Link to="FounderDraftList">Saved Draft</Link></label> */}
                         </div>
                         <div class="tab-contents">
 
@@ -130,11 +130,11 @@ export const FounderInterest = () => {
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th><span>Founder Name</span></th>
+                                                <th><span> Name</span></th>
 
                                                 <th><span>Email</span></th>
                                                 <th><span>Contact no</span></th>
-                                                <th><span>Work</span></th>
+                                                <th><span>Type of Interest</span></th>
                                                 <th><span>Message</span></th>
 
 
@@ -142,7 +142,7 @@ export const FounderInterest = () => {
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><span>Tulua</span></td>
+                                                <td><span>Shaikh hamid</span></td>
                                                 <td><span>khushbharati124@gmail.com</span></td>
                                                 <td><span>8806234772</span></td>
                                                 <td><span>Want To Know About It</span></td>
@@ -151,7 +151,7 @@ export const FounderInterest = () => {
 
                                             </tr>
                                             <tr>
-                                                <td><span>Tulua</span></td>
+                                            <td><span>Abhishek Bharti</span></td>
                                                 <td><span>khushbharati124@gmail.com</span></td>
                                                 <td><span>8806234772</span></td>
                                                 <td><span>Want To Know About It,<br /> I Want To Work With You,<br /> I am Excited To Invest</span></td>
@@ -159,23 +159,7 @@ export const FounderInterest = () => {
 
 
                                             </tr>
-                                            <tr>
-                                                <td><span>Tulua</span></td>
-                                                <td><span>khushbharati124@gmail.com</span></td>
-                                                <td><span>8806234772</span></td>
-                                                <td><span>I am Excited To Invest</span></td>
-                                                <td><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam, neque?</span></td>
-
-
-                                            </tr>
-                                            <tr>
-                                                <td><span>Tulua</span></td>
-                                                <td><span>khushbharati124@gmail.com</span></td>
-                                                <td><span>8806234772</span></td>
-                                                <td><span>I want to work with you</span></td>
-                                                <td><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam, neque?</span></td>
-
-                                            </tr>
+                                       
                                         </tbody>
                                     </table>
                                 </div>

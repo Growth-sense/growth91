@@ -118,7 +118,7 @@ export const CheckboxThank = () => {
                                         <div className="row">
                                             <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
                                                 <input type="checkbox" />
-                                                <label htmlFor="">Want to know about it</label>
+                                                <label htmlFor="">I Want to know more about it</label>
                                             </div>
                                             <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
                                                 <input type="checkbox" />
@@ -126,7 +126,7 @@ export const CheckboxThank = () => {
                                             </div>
                                             <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
                                                 <input type="checkbox" />
-                                                <label htmlFor="">I am excited to invest</label>
+                                                <label htmlFor="">I am excited to invest in your startups</label>
                                             </div>
                                             <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mt-2">
                                             <textarea id="w3review" name="" rows="4" className='w100' placeholder='Message'/>
