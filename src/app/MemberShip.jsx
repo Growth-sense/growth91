@@ -114,11 +114,11 @@ export const MemberShip = () => {
                             <div className="main-membership-cards">
                                 <div className="card-choose-plan">
                                     <div className="plan-team-one">
-                                        <p>For Team</p>
+                                        <p>Free</p>
                                     </div>
                                     <div className="part-team-plan">
-                                        <p>$ 29.99</p>
-                                        <p>Monthly package</p>
+                                        <p>₹0</p>
+                                        <p>Yearly package</p>
                                     </div>
                                 </div>
                                 <div className="ul-choose-plan">
@@ -126,7 +126,7 @@ export const MemberShip = () => {
                                         <li>
                                             <span><img src="./assets/images/check-mark.png" alt="" /></span>
 
-                                            Powerful Admin Panel
+                                            Total 6 Edits
                                         </li>
                                         <li>
                                             <span><img src="./assets/images/check-mark.png" alt="" /></span>
@@ -154,10 +154,10 @@ export const MemberShip = () => {
                             <div className="main-membership-cards main-membership-cards-border">
                                 <div className="card-choose-plan">
                                     <div className="plan-team-one">
-                                        <p>For Team</p>
+                                        <p>Paid</p>
                                     </div>
                                     <div className="part-team-plan">
-                                        <p>$ 29.99</p>
+                                    <p>₹8000</p>
                                         <p>Monthly package</p>
                                     </div>
                                 </div>
@@ -165,8 +165,7 @@ export const MemberShip = () => {
                                     <ul>
                                         <li>
                                             <span><img src="./assets/images/check-mark.png" alt="" /></span>
-
-                                            Powerful Admin Panel
+                                            Total 6 Edits
                                         </li>
                                         <li>
                                             <span><img src="./assets/images/check-mark.png" alt="" /></span>
@@ -194,10 +193,10 @@ export const MemberShip = () => {
                             <div className="main-membership-cards">
                                 <div className="card-choose-plan">
                                     <div className="plan-team-one">
-                                        <p>For Team</p>
+                                        <p>Paid</p>
                                     </div>
                                     <div className="part-team-plan">
-                                        <p>$ 29.99</p>
+                                    <p>₹8000</p>
                                         <p>Monthly package</p>
                                     </div>
                                 </div>
@@ -205,8 +204,7 @@ export const MemberShip = () => {
                                     <ul>
                                         <li>
                                             <span><img src="./assets/images/check-mark.png" alt="" /></span>
-
-                                            Powerful Admin Panel
+                                            Total 6 Edits
                                         </li>
                                         <li>
                                             <span><img src="./assets/images/check-mark.png" alt="" /></span>

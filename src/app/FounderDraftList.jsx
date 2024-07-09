@@ -114,7 +114,7 @@ export const FounderDraftList = () => {
                             <label class="tab-nav"><Link to="FounderDashboardType">My Account</Link></label>
                             <label class="tab-nav "><Link to="FounderMyListing">My Listing</Link></label>
                             <label class="tab-nav"><Link to="FounderMyPlan">My Plan</Link></label>
-                            <label class="tab-nav"><Link to="FounderInterest">Interest</Link></label>
+                            <label class="tab-nav"><Link to="FounderInterest">Enquiry-Lead</Link></label>
                             <label class="tab-nav active"><Link to="FounderDraftList">Saved Draft</Link></label>
                         </div>
                         <div class="tab-contents">

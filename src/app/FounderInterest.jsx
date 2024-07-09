@@ -114,13 +114,13 @@ export const FounderInterest = () => {
                         <label class="tab-nav"><Link to="FounderDashboardType">My Account</Link></label>
                             <label class="tab-nav"><Link to="FounderMyListing">My Listing</Link></label>
                             <label class="tab-nav"><Link to="FounderMyPlan">My Plan</Link></label>
-                            <label class="tab-nav active"><Link to="FounderInterest">Interest</Link></label>
+                            <label class="tab-nav active"><Link to="FounderInterest">Enquiry/Lead</Link></label>
                             <label class="tab-nav "><Link to="FounderDraftList">Saved Draft</Link></label>
                         </div>
                         <div class="tab-contents">
 
                          
-                            <div class="tab-content  my-table-row">
+                            <div class="tab-content my-table-row  my-table-row-es">
                                 <input type="radio" name="tab-index" id="tab-index4" checked/>
                                 <div className="import-export community-paragraph-box">
                                     <a href="" className='mt-0'>Import Data</a>
@@ -134,6 +134,8 @@ export const FounderInterest = () => {
 
                                                 <th><span>Email</span></th>
                                                 <th><span>Contact no</span></th>
+                                                <th><span>Work</span></th>
+                                                <th><span>Message</span></th>
 
 
                                             </tr>
@@ -143,6 +145,8 @@ export const FounderInterest = () => {
                                                 <td><span>Tulua</span></td>
                                                 <td><span>khushbharati124@gmail.com</span></td>
                                                 <td><span>8806234772</span></td>
+                                                <td><span>Want To Know About It</span></td>
+                                                <td><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam, neque?</span></td>
 
 
                                             </tr>
@@ -150,6 +154,8 @@ export const FounderInterest = () => {
                                                 <td><span>Tulua</span></td>
                                                 <td><span>khushbharati124@gmail.com</span></td>
                                                 <td><span>8806234772</span></td>
+                                                <td><span>Want To Know About It,<br /> I Want To Work With You,<br /> I am Excited To Invest</span></td>
+                                                <td><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam, neque?</span></td>
 
 
                                             </tr>
@@ -157,6 +163,8 @@ export const FounderInterest = () => {
                                                 <td><span>Tulua</span></td>
                                                 <td><span>khushbharati124@gmail.com</span></td>
                                                 <td><span>8806234772</span></td>
+                                                <td><span>I am Excited To Invest</span></td>
+                                                <td><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam, neque?</span></td>
 
 
                                             </tr>
@@ -164,6 +172,8 @@ export const FounderInterest = () => {
                                                 <td><span>Tulua</span></td>
                                                 <td><span>khushbharati124@gmail.com</span></td>
                                                 <td><span>8806234772</span></td>
+                                                <td><span>I want to work with you</span></td>
+                                                <td><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam, neque?</span></td>
 
                                             </tr>
                                         </tbody>

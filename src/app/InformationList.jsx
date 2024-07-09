@@ -29,11 +29,12 @@ export const InformationList = () => {
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center align-items-center" style={{pointerEvents: "none"}}>
-                <div class="heading-title m-sm-0">
+                <div class="heading-title how-works  m-sm-0">
                 <p>
                   <span></span>{" "}
                 </p>
-                    <h2>Please List Here</h2>
+                    <h2>How It Will Works</h2>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorum veniam qui perspiciatis illo nam voluptatibus?</p>
                 </div>
             </div>
             <div className="col-lg-12">

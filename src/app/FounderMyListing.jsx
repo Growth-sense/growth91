@@ -114,7 +114,7 @@ export const FounderMyListing = () => {
                             <label class="tab-nav"><Link to="FounderDashboardType">My Account</Link></label>
                             <label class="tab-nav active"><Link to="FounderMyListing">My Listing</Link></label>
                             <label class="tab-nav"><Link to="FounderMyPlan">My Plan</Link></label>
-                            <label class="tab-nav"><Link to="FounderInterest">Interest</Link></label>
+                            <label class="tab-nav"><Link to="FounderInterest">Enquiry-Lead</Link></label>
                             <label class="tab-nav "><Link to="FounderDraftList">Saved Draft</Link></label>
                         </div>
                         <div class="tab-contents">
@@ -154,7 +154,7 @@ export const FounderMyListing = () => {
 
 
                                             </tr>
-                                            <tr>
+                                            {/* <tr>
                                                 <td>
                                                     <span> <img src="https://growth91.com/api/uploads/deal/logo/32/1715948775.png" alt="" className='img-cat' /></span>
                                                 </td>
@@ -198,7 +198,7 @@ export const FounderMyListing = () => {
                                                 </td>
 
 
-                                            </tr>
+                                            </tr> */}
                                         </tbody>
                                     </table>
                                 </div>

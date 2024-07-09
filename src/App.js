@@ -18,6 +18,7 @@ import { MemberShip } from './app/MemberShip.jsx'
 
 import { FutureUnicornDescription } from './app/FutureUnicornDescription.jsx'
 import { Thankyou } from './app/Thankyou.jsx';
+import { CheckboxThank } from './app/CheckboxThank.jsx';
 import { FounderTransactionHistory } from './app/FounderTransactionHistory.jsx';
 import { FounderDashboardType } from './app/FounderDashboardType.jsx';
 import { FounderMyListing } from './app/FounderMyListing.jsx';
@@ -34,7 +35,7 @@ import { FutureUnicornForm } from './app/FutureUnicornForm.jsx'
 import { FounderEdit } from './app/FounderEdit.jsx'
 import { WaitApproval } from './app/WaitApproval.jsx';
 import { FutureUnicornList } from './app/FutureUnicornList.jsx';
-import {PaymentMethods} from './app/PaymentMethods.jsx'
+import { PaymentMethods } from './app/PaymentMethods.jsx'
 import Content from "./Content/Content";
 import Deals from "./app/Deals";
 import Refer from "./app/ReferLogin";
@@ -107,6 +108,7 @@ import FounderformdetailsPdf from "./app/admin/FounderformdetailsPdf";
 import Founderformdetails from "./app/admin/Founderformdetails";
 import PremiumMembers from "./app/admin/PremiumMembers";
 import FounderFormStatus from "./app/Founder/FounderFormStatus";
+
 import AdminFormStatus from "./app/admin/AdminFormStatus";
 import Authenticate from "./app/startup/Login";
 import Form from "./app/startup/Form";
@@ -197,6 +199,7 @@ import FUnicornStartup from "./app/admin/FUnicornStartup.js";
 import FUnicornInvestors from "./app/admin/FUnicornInvestors.js";
 import FUnicornFounders from "./app/admin/FUnicornFounders.js";
 
+
 ReactGA.initialize(TRACKING_ID);
 
 function App() {
@@ -241,6 +244,7 @@ function App() {
           <Route path="/FutureUnicornList" exact component={FutureUnicornList} />
           <Route path="/FutureUnicornDescription" exact component={FutureUnicornDescription} />
           <Route path="/WaitApproval" exact component={WaitApproval} />
+          <Route path="/CheckboxThank" exact component={CheckboxThank} />
 
           <Route path="/FamilyDashboard" exact component={FamilyDashboard} />
           <Route path="/FutureUnicornForm" exact component={FutureUnicornForm} />
@@ -340,7 +344,7 @@ function App() {
 
 
 
-         
+
           <Route path="/admin-investments" exact component={admininvestments} />
           <Route path="/admin-payments" exact component={adminpayments} />
           <Route

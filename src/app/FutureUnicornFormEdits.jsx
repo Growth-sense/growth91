@@ -114,16 +114,13 @@ export const FutureUnicornFormEdits = () => {
                                 <input id="tab1" type="radio" name="tabs" className='input-uni' checked />
                                 {/* <label for="tab1" className='label-start'><span>Startup Submission Form </span></label> */}
 
-                               
+
                                 {/* <input id="tab5" type="radio" name="tabs" />
                                 <label for="tab5"><i class="fa fa-envelope-o"></i><span>Contact</span></label> */}
 
                                 <section id="content1" class="tab-content mt-0">
 
-                                    <div className="edit-remaining community-paragraph-box">
-                                    <Link to="RemainingEditPopup">4 Edits Remaining</Link>
-                                    <Link to="FinishedEditPopup">2 Edits Completed</Link>
-                                    </div>
+
                                     {/* <h3>Startup Submission Form: </h3> */}
                                     {/* <div className="row">
                                         <div className="col-6 col-md-6 col-lg-6 col-xl-6 col-12 col-sm-12 col-xxl-6 mb-4">
@@ -171,16 +168,20 @@ export const FutureUnicornFormEdits = () => {
                                             <label htmlFor="">name</label>
                                             <input type="text" className='form-control' />
                                         </div> */}
-                                <Founderadmindashboard view={0} />
+                                    <Founderadmindashboard view={0} />
 
-                                     <div className="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto mt-3">
-                                            <div className="submit-draft-publish d-flex justify-content-center">
-                                                <Link to="FutureUnicornList" className='submit-future'>Save Draft</Link>
-                                                <Link to="FinishedEditPopup" className='submit-future'>Save Publish</Link>
-                                                {/* <Link to="FutureUnicornList" className='submit-future'>submit</Link> */}
-                                            </div>
+                                    <div className="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto mt-3">
+                                        <div className="submit-draft-publish d-flex justify-content-center">
+                                            <Link to="FutureUnicornList" className='submit-future'>Save Draft</Link>
+                                            <Link to="FinishedEditPopup" className='submit-future'>Save Publish</Link>
+                                            {/* <Link to="FutureUnicornList" className='submit-future'>submit</Link> */}
+                                        </div>
 
-                                </div>
+                                    </div>
+                                    <div className="edit-remaining community-paragraph-box">
+                                        <Link to="RemainingEditPopup">You have remaining 4 Edits in this startup</Link>
+                                        <Link to="FinishedEditPopup">You have completed 2 Edits in this startup</Link>
+                                    </div>
                                 </section>
                                 {/* <section id="content2" class="tab-content">
                                     <h3>Startup Directory </h3>

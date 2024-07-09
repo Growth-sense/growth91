@@ -111,15 +111,15 @@ export const FounderMyPlan = () => {
                     </div>
                     <div class="tabs-dashboard">
                         <div class="tabs-nav">
-                        <label class="tab-nav"><Link to="FounderDashboardType">My Account</Link></label>
+                            <label class="tab-nav"><Link to="FounderDashboardType">My Account</Link></label>
                             <label class="tab-nav"><Link to="FounderMyListing">My Listing</Link></label>
                             <label class="tab-nav active"><Link to="FounderMyPlan">My Plan</Link></label>
-                            <label class="tab-nav"><Link to="FounderInterest">Interest</Link></label>
+                            <label class="tab-nav"><Link to="FounderInterest">Enquiry-Lead</Link></label>
                             <label class="tab-nav "><Link to="FounderDraftList">Saved Draft</Link></label>
                         </div>
                         <div class="tab-contents">
 
-                          
+
                             <div class="tab-content">
                                 <input type="radio" name="tab-index" id="tab-index3" checked />
                                 <div class="content">
@@ -134,10 +134,13 @@ export const FounderMyPlan = () => {
 
                                                 </div>
                                             </div>
+                                            <div className="expiring-dates">
+                                                <p>Your plan validity is upto <span>24-01-2025</span></p>
+                                            </div>
                                             <div className="flex-plans-dashboard">
                                                 <ul>
-                                                <li><span>
-                                                       Plan Name
+                                                    <li><span>
+                                                        Plan Name
                                                     </span>
                                                         <span>
                                                             Premium Plan
@@ -157,20 +160,7 @@ export const FounderMyPlan = () => {
                                                             June 15, 2025
                                                         </span>
                                                     </li>
-                                                    <li><span>
-                                                        Price
-                                                    </span>
-                                                        <span>
-                                                            ₹190.00/Months
-                                                        </span>
-                                                    </li>
-                                                    <li><span>
-                                                        Payments
-                                                    </span>
-                                                        <span>
-                                                            Online
-                                                        </span>
-                                                    </li>
+                                                   
                                                     <li><span>
                                                         Remaining Edits
                                                     </span>
@@ -178,20 +168,14 @@ export const FounderMyPlan = () => {
                                                             03
                                                         </span>
                                                     </li>
-                                                    <li><span>
-                                                        Total Edits
-                                                    </span>
-                                                        <span>
-                                                            06
-                                                        </span>
-                                                    </li>
+                                                
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
 

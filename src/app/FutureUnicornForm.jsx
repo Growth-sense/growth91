@@ -177,7 +177,7 @@ export const FutureUnicornForm = () => {
                                             <div className="submit-draft-publish d-flex justify-content-center">
                                                 <Link to="FutureUnicornList" className='submit-future'>Save Draft</Link>
                                                 <Link to="MemberShip" className='submit-future'>Save Publish</Link>
-                                                {/* <Link to="FutureUnicornList" className='submit-future'>submit</Link> */}
+                                                <Link to="FutureUnicornDescription" className='submit-future'>Preview</Link>
                                             </div>
 
                                 </div>
