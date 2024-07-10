@@ -6343,3 +6343,9 @@ a {
     padding: 12px 20px;
     border: 1px solid #80808063;
 }
+.howitswork .media .content h3{
+    text-align: left;
+}
+.howitswork .media .content p{
+    text-align: justify;
+}

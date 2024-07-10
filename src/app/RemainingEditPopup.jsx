@@ -111,12 +111,12 @@ export const RemainingEditPopup = () => {
                                 <p>
                                     <span></span>{" "}
                                 </p>
-                                <h2>It's Time For Your Upgrade!</h2>
+                                <h2>Reenergize your objectives</h2>
                               
                             </div>
                                 <div className="para-proceed daimond-img">
                                     <img src="./assets/images/diamond1.png" alt="" />
-                                    <p>You Have Already Completed Your Edits</p>
+                                    <p> Recharge your plan now!!</p>
                                 </div>
                                 <div className="button-proceed-online">
                                     <a href="MemberShip">Go To Plan</a>
