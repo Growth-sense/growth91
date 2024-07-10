@@ -52,19 +52,19 @@ export default function CountrySelect({ value, onChange }) {
         >
           <MenuItem value={0}>Country Code </MenuItem>
           <MenuItem value={93}>(+93) Afghanistan </MenuItem>
-          <MenuItem value={358}>(+358) Aland Islands </MenuItem>
+          <MenuItem value={"+358"}>(+358) Aland Islands </MenuItem>
           <MenuItem value={355}>(+355) Albania </MenuItem>
           <MenuItem value={213}>(+213) Algeria </MenuItem>
           <MenuItem value={1684}>(+1684) AmericanSamoa </MenuItem>
           <MenuItem value={376}>(+376) Andorra </MenuItem>
           <MenuItem value={244}>(+244) Angola </MenuItem>
           <MenuItem value={1264}>(+1264) Anguilla </MenuItem>
-          <MenuItem value={672}>(+672) Antarctica </MenuItem>
+          <MenuItem value={"+672"}>(+672) Antarctica </MenuItem>
           <MenuItem value={1268}>(+1268) Antigua and Barbuda </MenuItem>
-          <MenuItem value={54}>(+54) Argentina </MenuItem>
+          <MenuItem value={"+54"}>(+54) Argentina </MenuItem>
           <MenuItem value={374}>(+374) Armenia </MenuItem>
           <MenuItem value={297}>(+297) Aruba </MenuItem>
-          <MenuItem value={61}>(+61) Australia </MenuItem>
+          <MenuItem value={"+61"}>(+61) Australia </MenuItem>
           <MenuItem value={43}>(+43) Austria </MenuItem>
           <MenuItem value={994}>(+994) Azerbaijan </MenuItem>
           <MenuItem value={1242}>(+1242) Bahamas </MenuItem>
@@ -92,14 +92,14 @@ export default function CountrySelect({ value, onChange }) {
           <MenuItem value={257}>(+257) Burundi </MenuItem>
           <MenuItem value={855}>(+855) Cambodia </MenuItem>
           <MenuItem value={237}>(+237) Cameroon </MenuItem>
-          <MenuItem value={1}>(+1) Canada </MenuItem>
+          <MenuItem value={"+1"}>(+1) Canada </MenuItem>
           <MenuItem value={238}>(+238) Cape Verde </MenuItem>
           <MenuItem value={345}>(+ 345) Cayman Islands </MenuItem>
           <MenuItem value={236}>(+236) Central African Republic </MenuItem>
           <MenuItem value={235}>(+235) Chad </MenuItem>
           <MenuItem value={56}>(+56) Chile </MenuItem>
           <MenuItem value={86}>(+86) China </MenuItem>
-          <MenuItem value={61}>(+61) Christmas Island </MenuItem>
+          <MenuItem value={" 61"}>(+61) Christmas Island </MenuItem>
           <MenuItem value={61}>(+61) Cocos (Keeling) Islands </MenuItem>
           <MenuItem value={57}>(+57) Colombia </MenuItem>
           <MenuItem value={269}>(+269) Comoros </MenuItem>
@@ -141,10 +141,10 @@ export default function CountrySelect({ value, onChange }) {
           <MenuItem value={30}>(+30) Greece </MenuItem>
           <MenuItem value={299}>(+299) Greenland </MenuItem>
           <MenuItem value={1473}>(+1473) Grenada </MenuItem>
-          <MenuItem value={590}>(+590) Guadeloupe </MenuItem>
+          <MenuItem value={"+590"}>(+590) Guadeloupe </MenuItem>
           <MenuItem value={1671}>(+1671) Guam </MenuItem>
           <MenuItem value={502}>(+502) Guatemala </MenuItem>
-          <MenuItem value={44}>(+44) Guernsey </MenuItem>
+          <MenuItem value={" +44"}>(+44) Guernsey </MenuItem>
           <MenuItem value={224}>(+224) Guinea </MenuItem>
           <MenuItem value={245}>(+245) Guinea-Bissau </MenuItem>
           <MenuItem value={595}>(+595) Guyana </MenuItem>
@@ -161,7 +161,7 @@ export default function CountrySelect({ value, onChange }) {
           </MenuItem>
           <MenuItem value={964}>(+964) Iraq </MenuItem>
           <MenuItem value={353}>(+353) Ireland </MenuItem>
-          <MenuItem value={44}>(+44) Isle of Man </MenuItem>
+          <MenuItem value={"+44"}>(+44) Isle of Man </MenuItem>
           <MenuItem value={972}>(+972) Israel </MenuItem>
           <MenuItem value={39}>(+39) Italy </MenuItem>
           <MenuItem value={1876}>(+1876) Jamaica </MenuItem>
@@ -224,7 +224,7 @@ export default function CountrySelect({ value, onChange }) {
           <MenuItem value={683}>(+683) Niue </MenuItem>
           <MenuItem value={672}>(+672) Norfolk Island </MenuItem>
           <MenuItem value={1670}>(+1670) Northern Mariana Islands </MenuItem>
-          <MenuItem value={47}>(+47) Norway </MenuItem>
+          <MenuItem value={"+47"}>(+47) Norway </MenuItem>
           <MenuItem value={968}>(+968) Oman </MenuItem>
           <MenuItem value={92}>(+92) Pakistan </MenuItem>
           <MenuItem value={680}>(+680) Palau </MenuItem>
@@ -233,7 +233,7 @@ export default function CountrySelect({ value, onChange }) {
           </MenuItem>
           <MenuItem value={507}>(+507) Panama </MenuItem>
           <MenuItem value={675}>(+675) Papua New Guinea </MenuItem>
-          <MenuItem value={595}>(+595) Paraguay </MenuItem>
+          <MenuItem value={"+595"}>(+595) Paraguay </MenuItem>
           <MenuItem value={51}>(+51) Peru </MenuItem>
           <MenuItem value={63}>(+63) Philippines </MenuItem>
           <MenuItem value={872}>(+872) Pitcairn </MenuItem>
@@ -244,8 +244,8 @@ export default function CountrySelect({ value, onChange }) {
           <MenuItem value={40}>(+40) Romania </MenuItem>
           <MenuItem value={7}>(+7) Russia </MenuItem>
           <MenuItem value={250}>(+250) Rwanda </MenuItem>
-          <MenuItem value={262}>(+262) Reunion </MenuItem>
-          <MenuItem value={590}>(+590) Saint Barthelemy </MenuItem>
+          <MenuItem value={"+262"}>(+262) Reunion </MenuItem>
+          <MenuItem value={" +590"}>(+590) Saint Barthelemy </MenuItem>
           <MenuItem value={290}>
             (+290) Saint Helena Ascension and Tristan Da Cunha{" "}
           </MenuItem>
@@ -271,7 +271,7 @@ export default function CountrySelect({ value, onChange }) {
           <MenuItem value={252}>(+252) Somalia </MenuItem>
           <MenuItem value={27}>(+27) South Africa </MenuItem>
           <MenuItem value={211}>(+211) South Sudan </MenuItem>
-          <MenuItem value={500}>
+          <MenuItem value={"+500"}>
             (+500) South Georgia and the South Sandwich Islands{" "}
           </MenuItem>
           <MenuItem value={34}>(+34) Spain </MenuItem>
@@ -302,7 +302,7 @@ export default function CountrySelect({ value, onChange }) {
           <MenuItem value={256}>(+256) Uganda </MenuItem>
           <MenuItem value={380}>(+380) Ukraine </MenuItem>
           <MenuItem value={971}>(+971) United Arab Emirates </MenuItem>
-          <MenuItem value={44}>(+44) United Kingdom </MenuItem>
+          <MenuItem value={"+44"}>(+44) United Kingdom </MenuItem>
           <MenuItem value={1}>(+1) United States </MenuItem>
           <MenuItem value={598}>(+598) Uruguay </MenuItem>
           <MenuItem value={998}>(+998) Uzbekistan </MenuItem>

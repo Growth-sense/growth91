@@ -25,7 +25,7 @@ import { NewWebFooter } from "../common/NewWebFooter";
 
 const { Panel } = Collapse;
 const { TabPane } = Tabs;
-class LiaPlus extends Component {
+class Mindler extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -98,32 +98,31 @@ class LiaPlus extends Component {
       agreeCheck: false,
       Convenience: "",
       images: [
-        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-0.jpg",
-        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-1.jpg",
-        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-2.jpg",
-        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-3.jpg",
-        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-4.jpg",
-        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-5.jpg",
-        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-6.jpg",
-        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-7.jpg",
-        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-8.jpg",
-        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-9.jpg",
-        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-10.jpg",
-        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-11.jpg",
-        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-12.jpg",
-        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-13.jpg",
-        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-14.jpg",
-        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-15.jpg",
-        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-16.jpg",
-        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-17.jpg",
-        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-18.jpg",
-        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-19.jpg",
-        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-20.jpg",
-        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-21.jpg",
-        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-22.jpg",
-        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-23.jpg",
-        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-24.jpg",
-        "./assets/images/deals-details/LiaPlus AI/Pitch/LiaPlus Pitch Deck-images-25.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0001.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0002.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0003.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0004.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0005.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0006.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0007.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0008.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0009.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0010.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0011.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0012.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0013.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0014.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0015.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0016.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0017.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0018.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0019.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0020.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0021.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0022.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0023.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0024.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0025.jpg",
       ],
       current: "",
     };
@@ -133,10 +132,10 @@ class LiaPlus extends Component {
   callback3 = (key) => {};
 
   componentWillMount() {
-    document.title = "LiaPlus AI - Growth91 - Startup Marketplace ";
+    document.title = "Mindler - Growth91 - Startup Marketplace ";
   }
   componentDidMount() {
-    let deal_id = "34";
+    let deal_id = "125";
     this.setState({ deal_id: deal_id }, () => {
       this.get_pitch_list();
     });
@@ -1146,7 +1145,7 @@ class LiaPlus extends Component {
                         <div className="d-flex align-items-center">
                           {/* Image is static */}
                           <img
-                            src="./assets/images/deals-details/LiaPlus AI/logo.jpg"
+                            src="./assets/images/deals-details/Mindler/logo.jpg"
                             alt=""
                             className="img-fluid"
                             style={{
@@ -1155,7 +1154,7 @@ class LiaPlus extends Component {
                               objectFit: "contain",
                             }}
                           />
-                          <h5 className="ml-5 mt-4">LiaPlus AI</h5>
+                          <h5 className="ml-5 mt-4">Mindler</h5>
                           {/* <h5>{this.state.logo}</h5> */}
                         </div>
                         {this.state.isPrivate == true && (
@@ -1186,18 +1185,22 @@ class LiaPlus extends Component {
                       </div>
 
                       <p style={{ textAlign: "justify" }}>
-                        LiaPlus is an advanced AI-powered customer support
-                        solution offering 24/7 service. Founded by Shailesh
-                        Jaiswal and Smridhi Seth, who bring extensive experience
-                        in technology, strategy, operations, and marketing.
-                        LiaPlus can handle up to 5,000 calls per hour with
-                        human-like interactions. It supports over 18 languages
-                        and integrates with more than 6,000 applications,
-                        including CRM systems. Featuring a user-friendly
-                        dashboard, comprehensive history access, and a 95% task
-                        completion rate, LiaPlus operates on a SaaS model and
-                        offers custom development. The solution promises a 181%
-                        ROI within a year.
+                        Mindler is a pioneering EdTech platform dedicated to
+                        revolutionizing career guidance and counseling for
+                        students and educators. Leveraging advanced psychometric
+                        assessments, virtual career simulations, and AI-driven
+                        algorithms, Mindler provides personalized career
+                        recommendations tailored to individual aptitudes and
+                        interests. It aims to fill critical gaps in career
+                        counseling within educational institutions and beyond,
+                        offering comprehensive solutions that include training
+                        for career counselors and partnerships with
+                        universities. Founded by professionals with strong
+                        educational backgrounds, Mindler is poised to make a
+                        significant impact in the global education sector by
+                        empowering students to make informed career decisions
+                        based on data-driven insights and real-world
+                        experiences.
                       </p>
                       <div className=" percentage-container">
                         <div className="percentage-values">
@@ -1616,6 +1619,7 @@ class LiaPlus extends Component {
                     </div>
                   </Modal>
                   <div className="col-lg-7 deal-banner deals-video-banner liaplus ">
+                    
                     <iframe
                       style={{
                         boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
@@ -1624,21 +1628,8 @@ class LiaPlus extends Component {
                       }}
                       width="100%"
                       height="335"
-                      src="https://www.youtube.com/embed/QaVk2OsdGfE"
-                      title="LiaPlus AI - Artificial Employees Real Results"
-                      frameborder="10"
+                      src="https://www.youtube.com/embed/EyV--niRvvc" title="Mindler Startup Video"  frameborder="10"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowfullscreen
-                    ></iframe>
-                    <iframe
-                      width="100%"
-                      height="335"
-                      style={{marginTop:"30px"}}
-                      src="https://www.youtube.com/embed/pbyZsUhLoBQ"
-                      title="Skyhigh Hotels Demo - LiaPlus AI (English)"
-                      frameborder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      referrerpolicy="strict-origin-when-cross-origin"
                       allowfullscreen
                     ></iframe>
                    
@@ -1693,14 +1684,9 @@ class LiaPlus extends Component {
                                 fontWeight: "800",
                               }}
                             >
-                              Market Growth and Talent in India:
+                               Growing Demand for Career Guidance :
                             </span>{" "}
-                            India's AI sector is booming with over 420,000 AI
-                            job roles expected by 2027, contributing to a
-                            projected market size of $17 billion. Enterprises
-                            are heavily investing in AI software and services,
-                            expecting the market to grow from $100 billion to
-                            $320 billion by 2027.
+                          The career guidance industry is experiencing significant growth due to the increasing complexity and diversity of career options available to students. In the last two decades, the number of colleges has quadrupled, and the variety of career streams has tripled. With more than 250 career domains in India and over 31,000 international universities, there is a heightened need for expert guidance to help students navigate their career choices effectively.
                           </p>
                         </div>
                       </div>
@@ -1728,13 +1714,8 @@ class LiaPlus extends Component {
                                 fontWeight: "800",
                               }}
                             >
-                              Expansion of Conversational AI:
-                            </span>{" "}
-                            Globally, the conversational AI market is set to
-                            grow from $5 billion in 2020 to $14 billion by 2025,
-                            driven by a robust CAGR of 21.9%. The intelligent
-                            virtual assistant market is also thriving, projected
-                            to reach $47.3 billion by 2027 with a CAGR of 47.5%.
+    Technological Advancements:                            </span>{" "}
+                        Technology integration is revolutionizing the career guidance industry. The use of advanced psychometric assessments, virtual career simulations, and AI-driven recommendation platforms is providing students with personalized and accurate career guidance. These technological tools help students better understand their aptitudes and interests, leading to more informed and suitable career decisions.
                           </p>
                         </div>
                       </div>
@@ -1763,15 +1744,8 @@ class LiaPlus extends Component {
                                 fontWeight: "800",
                               }}
                             >
-                              Impact on Business and Customer Engagement:
-                            </span>{" "}
-                            Businesses are adopting AI to enhance customer and
-                            employee experiences, aiming to improve operational
-                            efficiency and engagement strategies. Consumers
-                            increasingly expect 24/7 availability and are
-                            comfortable with AI solutions that enhance service
-                            speed and quality.
-                          </p>
+⁠Expanding Market Opportunities:                            </span>{" "}
+The market opportunity for career guidance in India is substantial, with 66 million students in grades 9-12, representing a potential market size of $1.2 billion. Furthermore, there are significant opportunities in overseas education counseling, with 450,000 students seeking higher education abroad, contributing to a $450 million market. Globally, the career counseling market is estimated to be 6-10 times larger than the Indian market, indicating vast potential for growth and expansion.                          </p>
                         </div>
                       </div>
                     </div>
@@ -1802,10 +1776,7 @@ class LiaPlus extends Component {
                             <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
                           </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                            LiaPlus Offers sophisticated AI-powered virtual
-                            assistants for customer support, capable of handling
-                            5000 calls per hour with human-like interactions and
-                            100% uptime.{" "}
+                           Mindler's Virtual Career Simulation & Internship Platform offers immersive career experiences through simulations and real-world scenarios, providing students with practical insights into various career paths.
                           </p>
                         </div>
                       </div>
@@ -1815,32 +1786,27 @@ class LiaPlus extends Component {
                             <img src="./assets/images/deals-details/Petmojo/highlight01.jpg" />
                           </div>
                           <p style={{ padding: "1px !important" }}>
-                            Liaplus supports over 18 languages across various
-                            channels including voice, email, WhatsApp, and more,
-                            ensuring global accessibility.{" "}
+                           Mindler Utilizes a 5-dimensional approach which uses advanced AI and machine learning algorithms  for precise career mapping, supported by extensive research and machine learning technology.
                           </p>
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
-                        <div className="single Liaplus text-left" style={{}}>
+                        <div className="single mindlerhighlight text-left" style={{}}>
                           <div className="hightlights-images">
                             <img src="./assets/images/deals-details/highlight2.jfif" />
                           </div>
                           <p style={{ padding: "0px !important" }}>
-                            Liaplus Integrates seamlessly with 6000+
-                            applications, enhancing efficiency and productivity
-                            for diverse industries{" "}
+                           Mindler has grown its school and SaaS partners by 40% CAGR, boosting revenue in ancillary areas like university admissions despite changes in timelines. The company optimized costs, achieved EBITDA positivity in Q4 through cost-cutting measures, and aims to stay EBITDA positive for FY 2024-25.
                           </p>
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
-                        <div className="single Liaplus text-left" style={{}}>
+                        <div className="single mindlerhighlight text-left" style={{}}>
                           <div className="hightlights-images">
                             <img src="./assets/images/deals-details/highlight3.jpg" />
                           </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                            It Achieves a 95% task completion rate,
-                            significantly exceeding industry benchmarks.
+                          Mindler is backed by extensive PhD-led research on modern career paths, ensuring industry-leading reliability and validity.
                           </p>
                         </div>
                       </div>
@@ -1871,14 +1837,12 @@ class LiaPlus extends Component {
                       <div className="row">
                         <div className="col-lg-6 col-md-6 col-sm-6">
                           <div className="single medialink text-left d-flex flex-column  ">
-                            <img src="./assets/images/deals-details/LiaPlus AI/Articles/1.jpg" />
+                            <img src="./assets/images/deals-details/Mindler/Articles/1.jpg" />
 
                             <p style={{ padding: "1px !important" }}>
-                              MeitY Startup Hub Investor Connect Programme
-                              Brings Together 10 Startups, 25+ Investors In
-                              Delhi NCR
+                            THIS PLATFORM PROVIDES A ONE-STOP SOLUTION TO EVERY STUDENT’S CAREER GUIDANCE NEEDS
                               <a
-                                href="https://inc42.com/buzz/meity-startup-hub-investor-connect-programme-brings-together-10-startups-25-investors-in-delhi-ncr/amp/"
+                                href="https://yourstory.com/weekender/this-platform-provides-a-one-stop-solution-to-career-guidance-mindler"
                                 target="_blank"
                               >
                                 {" "}
@@ -1890,12 +1854,11 @@ class LiaPlus extends Component {
 
                         <div className="col-lg-6 col-md-6 col-sm-6">
                           <div className="single medialink text-left d-flex flex-column  ">
-                            <img src="./assets/images/deals-details/LiaPlus AI/Articles/2.jpg" />
+                            <img src="./assets/images/deals-details/Mindler/Articles/2.jpg" />
                             <p style={{ padding: "1px !important" }}>
-                              How LiaPlus Is Redefining Customer Support With
-                              MeitY Startup Hub | Startup Hub
+                            Mindler: The platform ‘minds’ your career
                               <a
-                                href=" https://www.youtube.com/watch?v=fjQ57mduLDU "
+                                href="https://economictimes.indiatimes.com/small-biz/startups/mindler-the-platform-minds-your-career/articleshow/54473145.cms?from=mdr"
                                 target="_blank"
                               >
                                 {" "}
@@ -1906,13 +1869,12 @@ class LiaPlus extends Component {
                         </div>
                         <div className="col-lg-6 col-md-6 col-sm-6">
                           <div className="single medialink text-left d-flex flex-column  ">
-                            <img src="./assets/images/deals-details/LiaPlus AI/Articles/3.jpg" />
+                            <img src="./assets/images/deals-details/Mindler/Articles/3.jpg" />
                             <p style={{ padding: "1px !important" }}>
-                              Startup Mahakumbh: Startups Supported By MeitY
-                              Startup Hub Showcase Their Innovations
-                              <a
-                                href=" https://inc42.com/buzz/startup-mahakumbh-startups-supported-by-meity-startup-hub-showcase-their-innovations/ 
-"
+                            Comprehensive Analysis of the Career Guidance Landscape in India
+
+                              <a    
+                                href ="https://www.edtechreview.in/research/comprehensive-analysis-career-guidance-landscape-in-india/"
                                 target="_blank"
                               >
                                 Readmore
@@ -1921,104 +1883,6 @@ class LiaPlus extends Component {
                           </div>
                         </div>
 
-                        <div className="col-lg-6 col-md-6 col-sm-6">
-                          <div className="single medialink text-left d-flex flex-column  ">
-                            <img src="./assets/images/deals-details/LiaPlus AI/Articles/4.jpg" />
-                            <p style={{ padding: "1px !important" }}>
-                              Startup Mahakumbh: MeitY Startup Hub Puts
-                              Spotlight On Startups At
-                              <a
-                                href="https://inc42.com/buzz/startup-mahakumbh-meity-startup-hub-puts-spotlight-on-startups-at-indias-largest-startup-event/ "
-                                target="_blank"
-                              >
-                                {" "}
-                                Readmore
-                              </a>
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="col-lg-6 col-md-6 col-sm-6">
-                          <div className="single medialink text-left d-flex flex-column  ">
-                            <img src="./assets/images/deals-details/LiaPlus AI/Articles/5.jpg" />
-                            <p style={{ padding: "1px !important" }}>
-                              On #WomensDay, our tech entrepreneur Smridhi Seth
-                              acknowledges the initiatives launched by the
-                              Government of India
-                              <a
-                                href=" https://x.com/_DigitalIndia/status/1766056278592471213"
-                                target="_blank"
-                              >
-                                {" "}
-                                Readmore
-                              </a>
-                            </p>
-                          </div>
-                        </div>
-                        <div className="col-lg-6 col-md-6 col-sm-6">
-                          <div className="single medialink text-left d-flex flex-column  ">
-                            <img src="./assets/images/deals-details/LiaPlus AI/Articles/6.jpg" />
-                            <p style={{ padding: "1px !important" }}>
-                              YUVAAM VOICE OF THE YOUTH
-                              <a
-                                href="https://static.mygov.in/static/s3fs-public/ebook/YUVAAM-VOICE-OF-THE-YOUTH-march/index.html"
-                                target="_blank"
-                              >
-                                {" "}
-                                Readmore
-                              </a>
-                            </p>
-                          </div>
-                        </div>
-                        <div className="col-lg-6 col-md-6 col-sm-6">
-                          <div className="single medialink text-left d-flex flex-column  ">
-                            <img src="./assets/images/deals-details/LiaPlus AI/Articles/7.jpg" />
-                            <p style={{ padding: "1px !important" }}>
-                              From Idea to Impact: LiaPlus AI's GAIA Accelerator
-                              Cohort 2 Startup Journey -1
-                              <a
-                                href=" https://youtu.be/aGox4egG8BI?si=zLrpaEzK7SAfdbag"
-                                target="_blank"
-                              >
-                                {" "}
-                                Readmore
-                              </a>
-                            </p>
-                          </div>
-                        </div>
-                        <div className="col-lg-6 col-md-6 col-sm-6">
-                          <div className="single medialink text-left d-flex flex-column  ">
-                            <img src="./assets/images/deals-details/LiaPlus AI/Articles/8.jpg" />
-                            <p style={{ padding: "1px !important" }}>
-                              From Idea to Impact: LiaPlus AI's GAIA Accelerator
-                              Cohort 2 Startup Journey -2
-                              <a
-                                href="https://youtu.be/3KKHh66TS_Q?si=bbkJ_9exzIWci9xL "
-                                target="_blank"
-                              >
-                                {" "}
-                                Readmore
-                              </a>
-                            </p>
-                          </div>
-                        </div>
-                        <div className="col-lg-6 col-md-6 col-sm-6">
-                          <div className="single medialink text-left d-flex flex-column  ">
-                            <img src="./assets/images/deals-details/LiaPlus AI/Articles/9.jpg" />
-                            <p style={{ padding: "1px !important" }}>
-                              We had an incredible time showcasing our AI
-                              Employees for Customer Support at LEAP 2024 in
-                              Riyadh, Saudi Arabia.
-                              <a
-                                href=" https://www.linkedin.com/posts/liaplus_leap2024-aiemployees-vision2030-ugcPost-7172581107803045889-U-a2?utm_source=share&utm_medium=member_desktop "
-                                target="_blank"
-                              >
-                                {" "}
-                                Readmore
-                              </a>
-                            </p>
-                          </div>
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -2131,14 +1995,14 @@ class LiaPlus extends Component {
                                           </div>
                                           <div className="info">
                                             <span> Min Investment</span>
-                                            <h4>₹{this.formatNumberWithCommas(
+                                            <h4>₹ {this.formatNumberWithCommas(
                               this.state.minamount
                             )} for CCPS</h4>
                                           </div>
                                           <div className="info">
                                             <span>Valuation</span>
                                             <h4>
-                                              ₹9 Cr Floor,₹12 Cr Cap Valuation
+                                              ₹70 Cr Floor, ₹100 Cr Cap Valuation
                                             </h4>
                                           </div>
                                         </div>
@@ -2163,8 +2027,7 @@ class LiaPlus extends Component {
                                           <div className="info">
                                             <span>Legal Name</span>
                                             <h4>
-                                              WritePlus AI Private Limited
-                                            </h4>
+                                            Mindler Education Pvt Ltd                                            </h4>
                                           </div>
                                           <div className="info">
                                             <span>Founded</span>
@@ -2176,7 +2039,7 @@ class LiaPlus extends Component {
                                           </div>
                                           <div className="info">
                                             <span>Employees</span>
-                                            <h4>7</h4>
+                                            <h4>75</h4>
                                           </div>
                                           <div className="info">
                                             <span>Website</span>
@@ -2185,27 +2048,27 @@ class LiaPlus extends Component {
                                                 style={{
                                                   color: "rgb(7, 211, 252)",
                                                 }}
-                                                href="https://liaplus.com/"
+                                                href="https://www.mindler.com/"
                                                 target="_blank"
                                               >
-                                                www.liaplus.com
+                                                www.mindler.com
                                               </a>
                                             </h4>
                                           </div>
                                           <div className="info">
                                             <span>Social Links</span>
                                             <div className="social-icons">
-                                              <a href="https://www.facebook.com/liaplusai/">
+                                              <a href="https://www.facebook.com/MindlerCareers/">
                                                 <i className="bx bxl-facebook fs-19"></i>
                                               </a>
-                                              <a href="https://www.linkedin.com/company/liaplus">
+                                              <a href="https://www.linkedin.com/company/mindler/">
                                                 <i className="bx bxl-linkedin fs-19"></i>
                                               </a>
-                                              <a href="https://www.instagram.com/liaplus_ai/">
+                                              <a href="https://www.instagram.com/mindlercareers/">
                                                 <i className="bx bxl-instagram fs-19"></i>
                                               </a>
 
-                                              <a href="https://www.youtube.com/@liaplus_ai">
+                                              <a href="https://www.youtube.com/@mindler2961">
                                                 <i className="bx bxl-youtube fs-19"></i>
                                               </a>
                                             </div>
@@ -2213,8 +2076,7 @@ class LiaPlus extends Component {
                                           <div className="info">
                                             <span>Address</span>
                                             <h4>
-                                              C-478 G/F VIKASH PURI New Delhi DL
-                                              110016 IN
+                                            Road 35, Building 21, West Punjabi Bagh, New Delhi 110026
                                             </h4>
                                           </div>
                                         </div>
@@ -2539,32 +2401,7 @@ class LiaPlus extends Component {
                                                           textAlign: "justify",
                                                         }}
                                                       >
-                                                        LiaPlus is primarily
-                                                        focused on providing a
-                                                        service rather than just
-                                                        a product. It offers an
-                                                        AI-powered customer
-                                                        support solution that
-                                                        includes 24/7 service
-                                                        capabilities, handling a
-                                                        high volume of calls per
-                                                        hour with human-like
-                                                        interactions. This
-                                                        service integrates
-                                                        deeply with various CRM
-                                                        systems and over 6000
-                                                        applications, aiming to
-                                                        provide comprehensive
-                                                        and customized solutions
-                                                        to businesses across
-                                                        multiple industries. The
-                                                        emphasis is on
-                                                        delivering a robust and
-                                                        reliable service that
-                                                        enhances customer
-                                                        support efficiency and
-                                                        effectiveness through
-                                                        advanced AI technology.
+                                                       Mindler is a service that offers career guidance and counseling to individuals, particularly students and professionals seeking clarity on their career paths. It provides assessments, counseling sessions, and personalized recommendations based on psychometric tests and expert advice. Mindler aims to help users make informed decisions about their careers by matching their strengths, interests, and personality traits with suitable career options.
                                                       </p>
                                                     </div>
                                                   </Panel>
@@ -2584,32 +2421,7 @@ class LiaPlus extends Component {
                                                           textAlign: "justify",
                                                         }}
                                                       >
-                                                        Scaling up LiaPlus
-                                                        involves managing
-                                                        challenges like
-                                                        technical scalability,
-                                                        resource allocation,
-                                                        market expansion,
-                                                        customer satisfaction,
-                                                        security compliance, and
-                                                        competitive
-                                                        differentiation. To
-                                                        address these,
-                                                        strategies include
-                                                        investing in R&D for AI
-                                                        improvement, adopting a
-                                                        scalable SaaS model,
-                                                        forming strategic
-                                                        partnerships, using
-                                                        customer feedback for
-                                                        iteration, and focusing
-                                                        on talent development.
-                                                        These efforts aim to
-                                                        sustain quality service
-                                                        delivery while expanding
-                                                        market presence and
-                                                        staying ahead of
-                                                        competitors.
+                                                  scaling up Mindler, a personalized career guidance service, presents challenges such as maintaining counseling quality amidst growth, ensuring robust data privacy, scaling technological infrastructure for increased user interactions, navigating competitive markets during expansion, acquiring and retaining users cost-effectively, and managing financial resources for sustained growth. These challenges will be managed through technology-driven efficiencies in counseling, stringent data privacy measures, scalable IT solutions, strategic market research and localization efforts, effective user acquisition and retention strategies, and prudent financial management to ensure sustainable scaling while preserving service excellence and market relevance.
                                                       </p>
                                                     </div>
                                                   </Panel>
@@ -2630,32 +2442,7 @@ class LiaPlus extends Component {
                                                           textAlign: "justify",
                                                         }}
                                                       >
-                                                        Yes, LiaPlus is
-                                                        targeting new, untapped
-                                                        markets for AI-powered
-                                                        customer support
-                                                        solutions. This includes
-                                                        regions and industries
-                                                        where advanced AI
-                                                        assistants for customer
-                                                        service are not widely
-                                                        adopted or where there
-                                                        is a need for improved
-                                                        multilingual support,
-                                                        high task completion
-                                                        rates, and integration
-                                                        capabilities with
-                                                        diverse applications. By
-                                                        entering these markets,
-                                                        LiaPlus aims to
-                                                        capitalize on growing
-                                                        demand for efficient,
-                                                        personalized customer
-                                                        interactions, thus
-                                                        positioning itself as a
-                                                        leader in emerging
-                                                        sectors seeking
-                                                        innovative AI solutions.
+                                                       Mindler aims to address the career guidance and counseling needs of students, which can vary significantly based on demographic shifts, educational reforms, and evolving career landscapes. By focusing on personalized career assessment and guidance services, Mindler targets a niche within the broader education and career counseling market. This approach allows them to tap into segments where traditional methods may not fully meet modern expectations or where there is a growing demand for tech-driven solutions. Moreover, expanding into regions or educational systems with less developed career counseling infrastructure presents opportunities for Mindler to establish itself as a leader in innovative career guidance solutions. This strategy not only allows them to cater to underserved markets but also positions them strategically in the evolving global education technology landscape.
                                                       </p>
                                                     </div>
                                                   </Panel>
@@ -2675,41 +2462,7 @@ class LiaPlus extends Component {
                                                           textAlign: "justify",
                                                         }}
                                                       >
-                                                        LiaPlus secures its
-                                                        competitive edge through
-                                                        advanced AI technology
-                                                        that includes
-                                                        sophisticated algorithms
-                                                        and tailored natural
-                                                        language processing
-                                                        models, empowering
-                                                        seamless customer
-                                                        support interactions
-                                                        across 18+ languages.
-                                                        Its deep integration
-                                                        with over 6000
-                                                        applications,
-                                                        particularly CRM
-                                                        systems, enhances
-                                                        operational efficiency
-                                                        and data accessibility.
-                                                        Achieving a remarkable
-                                                        95% task completion
-                                                        rate, LiaPlus promises
-                                                        swift return on
-                                                        investment, boasting a
-                                                        181% ROI within a year.
-                                                        With scalable
-                                                        infrastructure capable
-                                                        of managing up to 5000
-                                                        calls per hour, LiaPlus
-                                                        ensures reliable
-                                                        performance, making it a
-                                                        compelling choice for
-                                                        enterprises seeking
-                                                        robust AI-powered
-                                                        customer support
-                                                        solutions.
+                                                    Mindler's moats include proprietary assessment tools for career aptitude, a comprehensive career database, partnerships with educational institutions, personalized recommendations, and a strong brand reputation, all enhancing its competitiveness in career counseling and education technology.
                                                       </p>
                                                     </div>
                                                   </Panel>
@@ -2898,13 +2651,13 @@ class LiaPlus extends Component {
                                 >
                                   <div className="d-flex">
                                     <img
-                                      src="./assets/images/deals-details/LiaPlus AI/Team/shaileshjaiswalwins.jpeg"
+                                      src="./assets/images/deals-details/Mindler/Team/Prateek.jpeg"
                                       alt=""
                                     />
                                     <div className="intro">
-                                      <h3>Shailesh Jaiswal</h3>
+                                      <h3>Prateek Bhargava</h3>
                                       <span>
-                                        Co-founder & CEO (Technology & Strategy)
+                                      Director & CEO
                                       </span>
                                       <div
                                         className="social-icons"
@@ -2914,7 +2667,7 @@ class LiaPlus extends Component {
                                         }}
                                       >
                                         <a
-                                          href="https://www.linkedin.com/in/shaileshjaiswalwins/"
+                                          href="https://www.linkedin.com/search/results/all/?fetchDeterministicClustersOnly=true&heroEntityKey=urn%3Ali%3Afsd_profile%3AACoAAAGpkCMBsN5NgiUi40gZIPnNNcskUAHK6Gc&keywords=prateek%20bhargava&origin=RICH_QUERY_SUGGESTION&position=0&searchId=91baa270-e3dc-4a8b-8019-cee46a81ce57&sid=j6w&spellCorrectionEnabled=false"
                                           target="_blank"
                                         >
                                           <i className="bx bxl-linkedin"></i>
@@ -2927,12 +2680,14 @@ class LiaPlus extends Component {
                                   </div>
                                   <ul>
                                     <li>
-                                      <a>5+ YOE Research</a>
+                                      <a>Double MBA, ISB Hyderabad & MDI Gurgaon
+                                      </a>
                                     </li>
                                     <li>
-                                      <a> Masters Organizational Behaviour</a>
+                                      <a>12+ years of Experience in Strategy Consulting &
+                                      Education Advisory</a>
                                     </li>
-                                    <li>
+                                    {/* <li>
                                       <a>
                                         {" "}
                                         Mentor for Prompt Engineering IIT Madras
@@ -2943,6 +2698,54 @@ class LiaPlus extends Component {
                                         {" "}
                                         First Startup: Sirway Me (5,00,000
                                         Distribution Network)
+                                      </a>
+                                    </li> */}
+                                  </ul>
+                                </div>
+                              </div>
+                              <div className="col-lg-6">
+                                <div
+                                  className="single"
+                                  style={{ paddingBottom: "0px !important" }}
+                                  // style={{  marginBottom: 0px !important}}
+                                >
+                                  <div className="d-flex">
+                                    <img
+                                      src="./assets/images/deals-details/Mindler/Team/eesha.jpeg"
+                                      alt=""
+                                    />
+                                    <div className="intro">
+                                      <h3>Eesha Bagga</h3>
+                                      <span>Director</span>
+                                      <div
+                                        className="social-icons"
+                                        style={{
+                                          marginTop: 4,
+                                          marginLeft: -6,
+                                        }}
+                                      >
+                                        <a
+                                          href="https://www.linkedin.com/in/eesha-bagga-15460179/"
+                                          target="_blank"
+                                        >
+                                          <i className="bx bxl-linkedin"></i>
+                                        </a>
+                                        {/* <a href="mailto:vaibhav.tambe@transbnk.co.in">
+                                        <i className="bx bxl-gmail"></i>
+                                        </a> */}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <ul>
+                                    <li>
+                                      <a>
+                                      IIM Lucknow, Life Coach (ICF), Univ. of Delhi,
+
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a>
+                                      8+ Years' Experience in Career, Life & Soft Skills Training
                                       </a>
                                     </li>
                                   </ul>
@@ -2956,12 +2759,12 @@ class LiaPlus extends Component {
                                 >
                                   <div className="d-flex">
                                     <img
-                                      src="./assets/images/deals-details/LiaPlus AI/Team/smridhiseth.jpeg"
+                                      src="./assets/images/deals-details/Mindler/Team/Alokik.jpeg"
                                       alt=""
                                     />
                                     <div className="intro">
-                                      <h3>Smridhi Seth</h3>
-                                      <span>Co-Founder & COO</span>
+                                      <h3>Alokik Kumar </h3>
+                                      <span>Head of Product</span>
                                       <div
                                         className="social-icons"
                                         style={{
@@ -2970,7 +2773,7 @@ class LiaPlus extends Component {
                                         }}
                                       >
                                         <a
-                                          href="https://www.linkedin.com/in/smridhiseth/"
+                                          href="https://www.linkedin.com/in/alokik-kumar-aggarwal-a2836092/"
                                           target="_blank"
                                         >
                                           <i className="bx bxl-linkedin"></i>
@@ -2984,17 +2787,13 @@ class LiaPlus extends Component {
                                   <ul>
                                     <li>
                                       <a>
-                                        5+ YOE Research Masters Organizational
-                                        Behaviour Entrepreneurship Training IIMB
-                                        NSRCEL{" "}
+                                      B.Tech-IIT Delhi & MBA-SIBM Pune
+
                                       </a>
                                     </li>
                                     <li>
                                       <a>
-                                        {" "}
-                                        First Startup: Sirway Me (5,00,000
-                                        Distribution Network)
-                                      </a>
+                                      8+ years of Experience in Entrepreneurship && Product Management                                      </a>
                                     </li>
                                   </ul>
                                 </div>
@@ -3121,4 +2920,4 @@ class LiaPlus extends Component {
   }
 }
 
-export default LiaPlus;
+export default Mindler;

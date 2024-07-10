@@ -44,7 +44,8 @@
 }
 
 .story-page-img {
-    display: flex;
+    display: flex !important;   
+    flex-direction: column;
     /* margin: 0 auto; */
     width: 100%;
     align-items: center;
@@ -117,7 +118,7 @@
     color: #ff9c1a;
     float: left;
     font-size: 74px;
-    line-height: 1;
+    line-height: 0.8px;
     margin: 0 0 0 0;
     padding: 10px 6px 0 0;
     font-weight: 600;
@@ -322,6 +323,9 @@
         margin-top: 15px;
         text-transform: capitalize;
         font-weight: 700;
+    }
+    .dropcap{
+        font-size: 34px !important;
     }
     .story-page-img img {
         box-shadow: 0 16px 20px 0 rgb(0 0 0 / 51%);

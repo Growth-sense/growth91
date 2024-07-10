@@ -753,7 +753,7 @@ class Homenew extends Component {
                 <p>
                   <span></span>{" "}
                 </p>
-                <h3>Our Startup Investors in India
+                <h3>Startups liked by Marquee Angels
 </h3>
               </div>
             </div>

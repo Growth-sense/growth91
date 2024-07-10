@@ -2397,6 +2397,12 @@ footer .left span {
   text-align: center;
 }
 @media screen and (min-width: 501px){
+  .highlight-rows .mindlerhighlight{
+    min-height: 260px !important;
+    display: flex;
+    align-items: center;
+  
+  }
   .highlight-rows .oraihighlight{
     min-height: 260px !important;
   

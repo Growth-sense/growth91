@@ -821,6 +821,24 @@
     display: none;
 } */
 
+.main-bg-story .slick-dots  {
+    bottom: 5px !important; 
+}
+.main-bg-story .slick-dots li {
+    width: 27px;
+    height: 10px;
+    border-radius: 35px;
+    background:rgb(158 158 158) ;
+    
+}
+
+.main-bg-story .slick-dots li.slick-active {
+    width: 27px;
+    height: 10px;
+    background: #000000!important;
+    border-radius: 35px;
+    
+}
 .about-slider-sections .slick-dots li {
     width: 27px;
     height: 2px;
