@@ -112,10 +112,10 @@ export const FounderMyListing = () => {
                     <div class="tabs-dashboard">
                         <div class="tabs-nav">
                             <label class="tab-nav"><Link to="FounderDashboardType">My Account</Link></label>
-                            <label class="tab-nav active"><Link to="FounderMyListing">My Listing</Link></label>
+                            <label class="tab-nav active"><Link to="FounderMyListing">My Startups</Link></label>
                             <label class="tab-nav"><Link to="FounderMyPlan">My Plan</Link></label>
                             <label class="tab-nav"><Link to="FounderInterest">Enquiry-Lead</Link></label>
-                            <label class="tab-nav "><Link to="FounderDraftList">Saved Draft</Link></label>
+                          
                         </div>
                         <div class="tab-contents">
 

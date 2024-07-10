@@ -6095,6 +6095,8 @@ a {
 
 .tabs-dashboard .tab-nav a {
     color: white;
+    display: inline-block;
+    width: 100%;
 }
 
 .tabs-dashboard .tab-nav.active {
