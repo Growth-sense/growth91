@@ -1060,7 +1060,7 @@ class Howitworks extends Component {
                           <span>
                             <i className="fa fa-check text-success"></i>
                           </span>
-                          Access to Company Documents
+                          Access to all  Company Essential Documents
                         </li>
                         <li className="ps-md-5 ps-0 ">
                           <span>
@@ -1068,11 +1068,15 @@ class Howitworks extends Component {
                           </span>
                           View Company Performance{" "}
                         </li>
+                        
                         <li className="ps-md-5 ps-0 ">
                           <span>
-                            <i className="fa fa-check text-success"></i>
+                            <i
+                              className="fa fa-times text-danger"
+                              aria-hidden="true"
+                            ></i>
                           </span>
-                          Invest{" "}
+                          Preview of Opportunities before 24 hrs in advance.
                         </li>
                         <li className="ps-md-5 ps-0 ">
                           <span>
@@ -1081,7 +1085,8 @@ class Howitworks extends Component {
                               aria-hidden="true"
                             ></i>
                           </span>
-                          Preview of opportunities (24~48 hrs) in advance.
+                          Minimum Amount as per CCPS 
+
                         </li>
                         <li className="ps-md-5 ps-0 ">
                           <span>
@@ -1090,16 +1095,7 @@ class Howitworks extends Component {
                               aria-hidden="true"
                             ></i>
                           </span>
-                          Priority for invest
-                        </li>
-                        <li className="ps-md-5 ps-0 ">
-                          <span>
-                            <i
-                              className="fa fa-times text-danger"
-                              aria-hidden="true"
-                            ></i>
-                          </span>
-                          Priority in Equity
+                          Exclusive Discounts
                         </li>
                       </ul>
                       <p
@@ -1122,7 +1118,7 @@ class Howitworks extends Component {
                   <div className="col-md-6">
                     <div className="pracing-item ">
                       <div className="top-left">
-                        <p>10% off</p>
+                        <p>100% off</p>
                       </div>
                       <div className="top-area">
                         <i
@@ -1137,14 +1133,9 @@ class Howitworks extends Component {
                           <span>
                             <i className="fa fa-check text-success"></i>
                           </span>
-                          Access to Company Documents
+                          Access to all  Company Essential Documents
                         </li>
-                        <li className="ps-md-5 ps-0">
-                          <span>
-                            <i className="fa fa-check text-success"></i>
-                          </span>
-                          Invest{" "}
-                        </li>
+                       
                         <li className="ps-md-5 ps-0">
                           <span>
                             <i className="fa fa-check text-success"></i>
@@ -1158,7 +1149,7 @@ class Howitworks extends Component {
                               aria-hidden="true"
                             ></i>
                           </span>
-                          Preview of opportunities (24~48 hrs)
+                          Preview of Opportunities before 24 hrs
                         </li>
                         <li className="ps-md-5 ps-0">
                           <span>
@@ -1167,7 +1158,7 @@ class Howitworks extends Component {
                               aria-hidden="true"
                             ></i>
                           </span>
-                          Priority for invest
+                         Minimum Amount as per CCPS 
                         </li>
                         <li className="ps-md-5 ps-0">
                           <span>
@@ -1176,7 +1167,7 @@ class Howitworks extends Component {
                               aria-hidden="true"
                             ></i>
                           </span>
-                          Priority in Equity
+                          Exclusive Discounts
                         </li>
                       </ul>
                       <p

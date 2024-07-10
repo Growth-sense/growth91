@@ -35,7 +35,7 @@ class WebFooter extends Component {
                                             top: -48,
                                             left: 9,
                                         }}
-                                        className="mt-2 pb-0">Growth91<sup style={{ fontSize: '0.4rem', position: 'relative', top: -6 }}>TM</sup> Advisors Private Limited.</p>
+                                        className="mt-2 pb-0">Growth91<sup style={{ fontSize: '0.4rem', position: 'relative', top: -6 }}>®</sup> Advisors Private Limited.</p>
                                 </div>
                                 <p
                                     style={{ marginLeft: 8, position: 'relative', top: -33 }}
@@ -74,7 +74,7 @@ class WebFooter extends Component {
                                 <h3 >Useful Link</h3>
                                 <ul>
                                     <li><a href="/deals"><i className="fal fa-angle-right"></i>Invest</a></li>
-                                    <li><a href="/How-it-works"><i className="fal fa-angle-right"></i>How it works</a></li>
+                                    <li><a href="/resources"><i className="fal fa-angle-right"></i>How it works</a></li>
                                     <li><a href="/Learn"><i className="fal fa-angle-right"></i>Learn</a></li>
                                     {this.state.user_type == 'investor' ? (
                                         <li><a href="/investor-dashboard"><i className="fal fa-angle-right"></i>Dashboard</a></li>
@@ -126,7 +126,7 @@ class WebFooter extends Component {
                 <div className="footer-bottom mt-5">
                     <div className="container">
                         <div className="bottom-left">
-                            <span>Copyright &copy; <a href="#">Growth91<sup style={{ fontSize: '0.5rem', position: 'relative', top: -6 }}>TM</sup></a> {moment().format('YYYY')}. All Rights Reserved</span>
+                            <span>Copyright  <sup style={{fontSize:"10px"}}>&copy;</sup> <a href="#">Growth91<sup style={{ fontSize: '0.5rem', position: 'relative', top: -6 }}>®</sup></a> {moment().format('YYYY')}. All Rights Reserved</span>
                         </div>
                     </div>
                 </div>

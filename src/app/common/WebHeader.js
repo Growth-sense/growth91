@@ -911,7 +911,7 @@ class WebHeader extends Component {
                       <a
                         className={
                           (window.location.pathname == "/Learn" ||
-                            window.location.pathname == "/How-it-works" ||
+                            window.location.pathname == "/resources" ||
                             window.location.pathname == "/Blog" ||
                             window.location.pathname == "/details") &&
                           "active"

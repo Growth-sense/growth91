@@ -48,15 +48,18 @@ class Homenew extends Component {
   }
 
   componentWillMount() {
+    // title
     document.getElementsByTagName("META")[4].content =
-      "Venture into Innovation: Invest in Startups with Growth91";
+    "Growth91: Invest in Startups India for Big Returns on Top Platforms";
+    // title
 
     document.title =
-      "Venture into Innovation: Invest in Startups with Growth91";
+      "Growth91: Invest in Startups India for Big Returns on Top Platforms";
+      // keyword
     document.getElementsByTagName("META")[5].content = "invest in startups invest in startups india "
-
+// description
     document.getElementsByTagName("META")[3].content =
-      "Explore the potential of startup investments with Growth91. Discover opportunities & maximize your returns. Embrace the opportunity to invest in startups.";
+      " Maximize your returns with the best startup investing platforms. Learn how to invest in startups in India and find the top investment opportunities.";
     window.removeEventListener("scroll", this.handleScroll);
   }
   togglemsg() {
@@ -301,7 +304,7 @@ class Homenew extends Component {
       autoplaySpeed: 5000,
       fade: true,
 
-      autoplay: false,
+      autoplay: true,
       pauseOnHover: false,
       pauseOnfocus: false,
       cssEase: "linear",
@@ -1222,7 +1225,7 @@ class Homenew extends Component {
                           I am a regular investor on Growth Sense and very happy
                           with kind of returns generated on my investments.
                           Looking forward to equally exciting opportunities at
-                          Growth91<sup style={{ fontSize: "0.6rem" }}>TM</sup>
+                          Growth91<sup>®</sup>
                         </p>
                         <div class="name-testi">
                           <div class="img-testiminal-card">

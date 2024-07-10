@@ -66,7 +66,7 @@ class Learn extends Component {
                             >
                               <div className="form-wraper">
                                 <a
-                                  href="/How-it-works"
+                                  href="/resources"
                                   className="theme-btn "
                                   type="button"
                                 >
@@ -115,7 +115,7 @@ class Learn extends Component {
                       Understand how Growth91’s different processes work to
                       complete a successful deal
                     </p>
-                    <a href="/How-it-works">Know more</a>
+                    <a href="/resources">Know more</a>
                   </div>
                 </div>
                 <div className=" col-md-6">

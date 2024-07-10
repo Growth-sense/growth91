@@ -116,35 +116,26 @@ class MembershipPlan extends Component {
   render() {
     return (
       <div>
-  <NewWebHeader newabout={"newabout"}/>        <section className="pricing-section">
+        <NewWebHeader newabout={"newabout"} />
+        <section className="pricing-section">
           <div className="container">
-            <div className="heading-title">
-              <h2>Thank you for joining Growth91 community.</h2>
-              <img
-                src="/web/5264.jpg"
-                className="d-inline-block align-top img-fluid"
-                alt="Growth91"
-              />
-              <h4 className="text-center">
-                We would like to invite you to upgrade to Premium Membership to
-                avail the exclusive benefits.
-                <br /> <br />
-                <br />
-                As a bonus, we are extending{" "}
-                <span style={{ fontSize: "22px", color: "green" }}>
-                  "{this.state.discount}% Discount"
-                </span>{" "}
-                to upgrade Membership.
-              </h4>
-            </div>
-            <ul className="nav nav-pills" id="pills-tab1" role="tablist"></ul>
             <div className="tab-content" id="pills-tabContent1">
               <div
                 className="tab-pane fade show active overflow-v"
                 id="pills-home1"
               >
+                <h4 className="text-center prenium-text">
+                  We would like to invite you to upgrade to Premium Membership to
+                  avail the exclusive benefits.
+
+                  As a bonus, we are extending{" "}
+                  <span style={{ fontSize: "22px", color: "green" }}>
+                    "{this.state.discount}% Discount"
+                  </span>{" "}
+                  to upgrade Membership.
+                </h4>
                 <div className="row">
-                  <div className="col-md-5 m-auto">
+                <div className="col-md-5 m-auto">
                     <div className="pracing-item disabled">
                       <div className="top-left">
                         <p>Free</p>
@@ -161,7 +152,7 @@ class MembershipPlan extends Component {
                           <span>
                             <i className="fa fa-check text-success"></i>
                           </span>
-                          Access to Company Documents
+                          Access to all  Company Essential Documents
                         </li>
                         <li className="ps-md-5 ps-0">
                           <span>
@@ -169,11 +160,20 @@ class MembershipPlan extends Component {
                           </span>
                           View Company Performance{" "}
                         </li>
-                        <li className="ps-md-5 ps-0">
+                        {/* <li className="ps-md-5 ps-0">
                           <span>
                             <i className="fa fa-check text-success"></i>
                           </span>
                           Invest{" "}
+                        </li> */}
+                        <li className="ps-md-5 ps-0">
+                          <span>
+                            <i
+                              className="fa fa-times text-danger"
+                              aria-hidden="true"
+                            ></i>
+                          </span>
+                          Preview of Opportunities before 24 hrs
                         </li>
                         <li className="ps-md-5 ps-0">
                           <span>
@@ -182,7 +182,7 @@ class MembershipPlan extends Component {
                               aria-hidden="true"
                             ></i>
                           </span>
-                          Preview of opportunities (24~48 hrs)
+                          Minimum Amount as Per CCPS
                         </li>
                         <li className="ps-md-5 ps-0">
                           <span>
@@ -191,16 +191,7 @@ class MembershipPlan extends Component {
                               aria-hidden="true"
                             ></i>
                           </span>
-                          Priority for invest
-                        </li>
-                        <li className="ps-md-5 ps-0">
-                          <span>
-                            <i
-                              className="fa fa-times text-danger"
-                              aria-hidden="true"
-                            ></i>
-                          </span>
-                          Priority in Equity
+                          Exclusive Discounts
                         </li>
                       </ul>
                       <p
@@ -210,7 +201,7 @@ class MembershipPlan extends Component {
                         {" "}
                         Free{" "}
                       </p>
-                      <p className="buy-now-disabled mb-5 py-1">
+                      <p className="buy-now-disabled active-color mb-5 py-1">
                         Activated Plan
                       </p>
                     </div>
@@ -219,7 +210,7 @@ class MembershipPlan extends Component {
                     <Spin spinning={this.state.loading}>
                       <div className="pracing-item">
                         <div className="top-left">
-                          <p>{this.state.discount}% off</p>
+                          <p>100% off</p>
                         </div>
                         <div className="top-area">
                           <i
@@ -233,14 +224,14 @@ class MembershipPlan extends Component {
                             <span>
                               <i className="fa fa-check text-success"></i>
                             </span>
-                            Access to Company Documents
+                            Access to all  Company Essential Documents
                           </li>
-                          <li className="ps-md-5 ps-0">
+                          {/* <li className="ps-md-5 ps-0">
                             <span>
                               <i className="fa fa-check text-success"></i>
                             </span>
                             Invest{" "}
-                          </li>
+                          </li> */}
                           <li className="ps-md-5 ps-0">
                             <span>
                               <i className="fa fa-check text-success"></i>
@@ -254,7 +245,7 @@ class MembershipPlan extends Component {
                                 aria-hidden="true"
                               ></i>
                             </span>
-                            Preview of opportunities (24~48 hrs)
+                            Preview of Opportunities before 24 hrs
                           </li>
                           <li className="ps-md-5 ps-0">
                             <span>
@@ -263,7 +254,7 @@ class MembershipPlan extends Component {
                                 aria-hidden="true"
                               ></i>
                             </span>
-                            Priority for invest
+                            Minimum Amount as Per CCPS
                           </li>
                           <li className="ps-md-5 ps-0">
                             <span>
@@ -272,7 +263,7 @@ class MembershipPlan extends Component {
                                 aria-hidden="true"
                               ></i>
                             </span>
-                            Priority in Equity
+                            Exclusive Discounts
                           </li>
                         </ul>
                         <p
@@ -297,6 +288,8 @@ class MembershipPlan extends Component {
                       </div>
                     </Spin>
                   </div>
+             
+
                 </div>
                 <br />
                 <br />
@@ -317,6 +310,17 @@ class MembershipPlan extends Component {
                   </div>
                 </div>
               </div>
+            </div>
+
+            <ul className="nav nav-pills" id="pills-tab1" role="tablist"></ul>
+            <div className="heading-title">
+              <h2>Thank you for joining Growth91 community.</h2>
+              <img
+                src="/web/5264.jpg"
+                className="d-inline-block align-top img-fluid"
+                alt="Growth91"
+              />
+            
             </div>
           </div>
         </section>

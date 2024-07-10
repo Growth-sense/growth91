@@ -136,6 +136,7 @@ import TransBankPublic from "./app/deal-pages/TransBankPublic";
 import Test from "./app/components/Alerts/investment/Test";
 import Step1 from "./app/investor/register/Step1";
 import FounderRegistration from "./app/Founder/FounderRegistration";
+import InvestorFounderRegistration from "./app/Founder/InvestorFounderRegistration.jsx";
 import OfflinePayments from "./app/admin/OfflinePayment";
 import covertfoundertoinvestor from "./app/Founder/NationalityDetails";
 // foudner as investor
@@ -186,8 +187,8 @@ import PendingOfflinePayments from "./app/admin/PendingOfflinePayments";
 import UnderMaintenance from "./app/UnderMaintenance";
 import AdminDocuments from "./app/admin/AdminDocuments";
 import Newboo from "./app/deal-pages/Newboo";
-// import ORAI from "./app/deal-pages/ORAI.jsx";
-import ORAI from "./app/deal-pages/ORAI1.jsx";
+import ORAI from "./app/deal-pages/ORAI.jsx";
+import LiaPlus from "./app/deal-pages/LiaPlus.jsx";
 import EleFant from "./app/deal-pages/EleFant.jsx";
 import EcoRatings from "./app/deal-pages/EcoRatings.jsx";
 import Stroom from "./app/deal-pages/Stroom.jsx";
@@ -198,6 +199,9 @@ import jqeryscript from "./jq.js"
 import FUnicornStartup from "./app/admin/FUnicornStartup.js";
 import FUnicornInvestors from "./app/admin/FUnicornInvestors.js";
 import FUnicornFounders from "./app/admin/FUnicornFounders.js";
+import TableComponent from "./app/admin/pdfview/TableComponent.js";
+
+
 
 
 ReactGA.initialize(TRACKING_ID);
@@ -272,7 +276,7 @@ function App() {
           <Route path="/founder-login" exact component={FounderLogin} />
           <Route path="/Register" exact component={Register} />
           <Route path="/Signup" exact component={Step1} />
-          <Route path="/How-it-works" exact component={Howitworks} />
+          <Route path="/resources" exact component={Howitworks} />
           <Route path="/How-it-works2" exact component={Howitworks2} />
           <Route path="/How-it-works3" exact component={Howitworks3} />
           <Route path="/How-it-works4" exact component={Howitworks4} />
@@ -291,6 +295,11 @@ function App() {
             path="/founder-registration"
             exact
             component={FounderRegistration}
+          />
+          <Route
+            path="/Investor-founder-registration"
+            exact
+            component={InvestorFounderRegistration}
           />
           <Route
             path="/investor-dashboard"
@@ -378,6 +387,11 @@ function App() {
             path="/founder-documents"
             exact
             component={Founderformdetails}
+          />
+          <Route
+            path="/admin-founder-dashboard"
+            exact
+            component={TableComponent}
           />
           <Route path="/documents" exact component={AdminDocuments} />
           <Route
@@ -561,6 +575,9 @@ function App() {
           </Route>
           <Route path="/ORAI" exact>
             <ProtectDeals Component={ORAI} />
+          </Route>
+          <Route path="/LiaPlus" exact>
+            <ProtectDeals Component={LiaPlus} />
           </Route>
           <Route path="/theEleFant" exact>
             <ProtectDeals Component={EleFant} />

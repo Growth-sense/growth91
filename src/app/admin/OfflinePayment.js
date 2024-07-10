@@ -31,6 +31,7 @@ class OfflinePayment extends Component {
     super(props);
     this.state = {
       offline_list: [],
+
     };
   }
   componentDidMount() {
@@ -58,6 +59,9 @@ class OfflinePayment extends Component {
           (item.payment_date && item.payment_date.includes(text)) ||
           (item.investor_id && item.investor_id.includes(text)) ||
           (item.investor_email && item.investor_email.includes(text)) ||
+          (item.investment_amt && item.investment_amt.includes(text)) ||
+          (item.processing_fees && item.processing_fees.includes(text)) ||
+          ( moment(item.payment_dt).format("DD MMM, YYYY").toLowerCase() &&  moment(item.payment_dt).format("DD MMM, YYYY").toLowerCase().includes(text)) ||
           (item.reference_id && item.reference_id.includes(text))
           // item.payment_ref && item.payment_ref.includes(text)
         ) {
@@ -130,15 +134,34 @@ class OfflinePayment extends Component {
           remarks: "",
         };
       });
-
+      const disdingid = (datas) => {
+        console.log(this.state.modes);
+        // if (this.state.modes == "ass") {
+          const data = [...this.state.offline_list]
+            .map((el) => {
+              return { ...el, investor_id: Number(el.investor_id  ),investment_amt:Number(el.investment_amt) };
+            })
+            .sort((a, b) => {
+              console.log(datas);
+              return a.datas > b.datas ? 1 : -1;
+            });
+          this.setState({
+            offline_list: data,
+          });
+          // }
+      };
     const columns = [
       {
-        title: "Sr No",
+        title:"Sr No",
         dataIndex: "srno",
         key: "srno",
       },
       {
-        title: "Investor id",
+        title:  <span
+        onClick={() => {
+          disdingid("investor_id");
+        }}
+      >Investor id</span>,
         dataIndex: "investor_id",
         key: "investor_id",
       },
@@ -168,13 +191,21 @@ class OfflinePayment extends Component {
         key: "payment_type",
       },
       {
-        title: "Investment Amount",
+        title:  <span
+        onClick={() => {
+          disdingid("investment_amt");
+        }}
+      >Investment Amount</span>,
         dataIndex: "investment_amt",
         key: "investment_amt",
         align: "right",
       },
       {
-        title: "Convenience Fees",
+        title:  <span
+        onClick={() => {
+          disdingid("processing_fees");
+        }}
+      >Convenience Fees</span>,
         dataIndex: "processing_fees",
         key: "processing_fees",
         align: "right",
@@ -185,7 +216,11 @@ class OfflinePayment extends Component {
         key: "reference_id",
       },
       {
-        title: "Payment Date",
+        title:  <span
+        onClick={() => {
+          disdingid("payment_dt");
+        }}
+      >Payment Date</span>,
         dataIndex: "payment_dt",
         key: "payment_dt",
       },

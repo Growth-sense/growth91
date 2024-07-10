@@ -82,7 +82,7 @@ class NationalityDetails extends Component {
               this.setState({formloader:false});
               message.success('You have been registered as investor.');
               setTimeout(() => {
-                  window.location.assign('/founder-dashboard');
+                //   window.location.assign('/founder-dashboard');
               },2000);
           } else {
             this.setState({formloader:false});

@@ -34,15 +34,21 @@ class FounderDashboard extends Component {
       founder_id: localStorage.getItem("founder_id"),
     };
     console.log(params)
+    localStorage.removeItem('investor_email')
+            localStorage.removeItem('investor_id')
+            localStorage.removeItem('investor_name')
+            localStorage.removeItem('investor_kycstatus')
     // alert(1);
     Bridge.founder.getstartup_by_operational_founder(params).then((result) => {
+      
       if (result.status == "1") {
         this.setState(
           {
             startup_name: result.data[0].name,
             startup_id: result.data[0].startupid,
           },
-          localStorage.setItem("startup_id", result.data[0].startupid)
+          localStorage.setItem("startup_id", result.data[0].startupid),
+          
         );
       } else {
         console.log("Not a valid founder");

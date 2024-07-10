@@ -54,6 +54,8 @@ export default class Paiddocuments extends Component {
     if (this.state.searchinput == "") {
       this.setState({ documents: documents });
     }
+    console.log(search);
+    console.log(documents);
     if (search) {
       filter = documents.filter((item) => {
         return (
@@ -109,16 +111,10 @@ export default class Paiddocuments extends Component {
         return {
           key: index,
           srno: index + 1,
-          date: item.created_at
-            ? moment(item.created_at).format("DD MMM, YYYY")
-            : "---",
+          date: item.created_at? moment(item.created_at).format("DD MMM, YYYY"): "---",
           investor_id: item.investor_id ? item.investor_id : "---",
-          investor_name: item.first_name
-            ? item.first_name + " " + item.last_name
-            : "---",
-          startup_name: item.name
-            ? item.name + "  (" + item.startupid + ")"
-            : "---",
+          investor_name: item.first_name? item.first_name + " " + item.last_name: "---",
+          startup_name: item.name? item.name + "  (" + item.startupid + ")": "---",
           amount: item.order_amount ? "₹ " + item.order_amount : "0.00",
           order_id: item.order_Id ? item.order_Id : "---",
           link: item,

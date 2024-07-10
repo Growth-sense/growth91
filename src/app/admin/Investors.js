@@ -145,6 +145,7 @@ class Investors extends Component {
         input7: true,
         input8: true,
       },
+      modes: "ass",
     };
   }
 
@@ -168,32 +169,36 @@ class Investors extends Component {
     Bridge.admin.investor.list().then((result) => {
       if (result.status == 1) {
         this.setState({ allInvestors: result.data });
-        if (this.state.searchinput) {
-          let arr = [];
-          let text = this.state.searchinput;
-          for (let item of result.data) {
-            if (
-              (item.first_name && item.first_name.includes(text)) ||
-              (item.last_name && item.last_name.includes(text)) ||
-              (item.email && item.email.includes(text)) ||
-              (item.investor_id && item.investor_id.includes(text)) ||
-              (item.mobile && item.mobile.includes(text))
-            ) {
-              arr = [...arr, item];
-            }
-          }
-          this.setState({
-            investors: arr,
-            cinvestors: result.data,
-            loading: false,
-          });
-        } else {
-          this.setState({
-            investors: result.data,
-            cinvestors: result.data,
-            loading: false,
-          });
-        }
+        // if (this.state.searchinput) {
+        //   let arr = [];
+        //   let text = this.state.searchinput;
+        //   for (let item of result.data) {
+        //     if (
+        //       (item.first_name && item.first_name.includes(text)) ||
+        //       (item.last_name && item.last_name.includes(text)) ||
+        //       (item.email && item.email.includes(text)) ||
+        //       (item.investor_id && item.investor_id.includes(text)) ||
+        //       (item.mobile && item.mobile.includes(text))
+        //     ) {
+        //       arr = [...arr, item];
+        //     }
+        //   }
+        //   this.setState({
+        //     investors: arr,
+        //     cinvestors: result.data,
+        //     loading: false,
+        //   });
+        // } else {
+        this.setState({
+          investors: result.data.map((el) => {
+            return { ...el, name: el.first_name + " " + el.last_name };
+          }),
+          cinvestors: result.data.map((el) => {
+            return { ...el, name: el.first_name + " " + el.last_name };
+          }),
+          loading: false,
+        });
+        // }
       } else {
         this.setState({
           loading: false,
@@ -413,20 +418,26 @@ class Investors extends Component {
   searchinput = (e) => {
     let text = e.target.value;
     this.setState({ loading: true, searchinput: text });
+    console.log(text);
+
     if (text) {
+      console.log(text);
       let arr = [];
       for (let item of this.state.cinvestors) {
+        console.log(item.name);
         if (
-          (item.first_name && item.first_name.toLowerCase().includes(text.toLowerCase())) ||
-          (item.last_name && item.last_name.toLowerCase().includes(text.toLowerCase())) ||
+          // (item.first_name && item.first_name.toLowerCase().includes(text.toLowerCase())) ||
+          (item.name && item.name.toLowerCase().includes(text.toLowerCase())) ||
+          // (item.last_name && item.last_name.toLowerCase().includes(text.toLowerCase())) ||
           (item.email && item.email.includes(text)) ||
           (item.mobile && item.mobile.includes(text)) ||
-          (item.investor_id && item.investor_id.includes(text))||
+          (item.investor_id && item.investor_id.includes(text)) ||
           (item.referred_by && item.referred_by.includes(text))
         ) {
           arr = [...arr, item];
         }
       }
+      console.log(arr);
       this.setState({
         investors: arr,
         loading: false,
@@ -830,9 +841,9 @@ class Investors extends Component {
       } else if (!this.state.legal_address) {
         message.warning("Invalid legal address");
         return;
-      // } else if (!this.state.bank_account_swift) {
-      //   message.warning("Invalid bank account (Swift)");
-      //   return;
+        // } else if (!this.state.bank_account_swift) {
+        //   message.warning("Invalid bank account (Swift)");
+        //   return;
       } else if (!this.state.bank_account_no) {
         message.warning("Invalid Bank Account Number");
         return;
@@ -932,7 +943,7 @@ class Investors extends Component {
       kycFormData.append("legal_name", this.state.legal_name);
       kycFormData.append("fathers_name", this.state.father_name);
 
-      Bridge.kyc.update_kyc_docs(kycFormData).then((result) => { });
+      Bridge.kyc.update_kyc_docs(kycFormData).then((result) => {});
     }
   };
 
@@ -973,7 +984,7 @@ class Investors extends Component {
         this.state.cancel_cheque_image_kyc && this.state.cancel_cheque_image_kyc
       );
 
-      Bridge.kyc.update_kyc_docs(kycFormCheque).then((result) => { });
+      Bridge.kyc.update_kyc_docs(kycFormCheque).then((result) => {});
     }
 
     const kycFormPan = new FormData();
@@ -983,7 +994,7 @@ class Investors extends Component {
     kycFormPan.append("pan_name", this.state.pan_name);
     kycFormPan.append("pan_image", this.state.pan_image_kyc);
 
-    Bridge.kyc.update_kyc_docs(kycFormPan).then((result) => { });
+    Bridge.kyc.update_kyc_docs(kycFormPan).then((result) => {});
   };
 
   onAdharFrontimageChange = (e) => {
@@ -1035,18 +1046,19 @@ class Investors extends Component {
       let obj = {
         "Sr No": count,
         "Investor Id": item.investor_id,
-        "Name": item.first_name + " " + item.last_name,
+        Name: item.first_name + " " + item.last_name,
         "Legal Name": item.legal_name,
         "Father's Name": item.fathers_name,
-        "Address": item.address,
+        Address: item.address,
         "Contact No": item.mobile,
-        "Email": item.email,
+        Email: item.email,
         "KYC Status": status,
         "Pan Id": item.panno,
         "Aadhaar Address": item.adhaar_address,
         "Aadhaar No": item.adharno,
-        "Referral":item.referred_by,
-        "User Status":item.user_block_status === '0' ?("Active"):("blocked/Disabled User")
+        Referral: item.referred_by,
+        "User Status":
+          item.user_block_status === "0" ? "Active" : "blocked/Disabled User",
       };
       arr = [...arr, obj];
       count++;
@@ -1077,21 +1089,137 @@ class Investors extends Component {
   };
 
   render() {
+    const disdingid = (datas) => {
+      console.log(this.state.modes);
+      if (this.state.modes == "ass") {
+        const data = [...this.state.investors]
+          .map((el) => {
+            return {
+              ...el,
+              investor_id: Number(el.investor_id),
+              total_invested_amount: Number(el.total_invested_amount),
+            };
+          })
+          .sort((a, b) => {
+            console.log(datas);
+            return a.investor_id > b.investor_id ? 1 : -1;
+          });
+        this.setState({
+          investors: data,
+          modes: "dis",
+        });
+        console.log(data);
+      } else if (this.state.modes == "dis") {
+        const data = [...this.state.investors]
+          .map((el) => {
+            return {
+              ...el,
+              investor_id: Number(el.investor_id),
+              total_invested_amount: Number(el.total_invested_amount),
+            };
+          })
+          .sort((a, b) => {
+            console.log(datas);
+            return a.investor_id > b.investor_id ? -1 : 1;
+          });
+        this.setState({
+          investors: data,
+          modes: "ass",
+        });
+        console.log(data);
+      }
+    };
+    const disdingamt = (datas) => {
+      console.log(this.state.modes);
+      if (this.state.modes == "ass") {
+        const data = [...this.state.investors]
+          .map((el) => {
+            return {
+              ...el,
+              investor_id: Number(el.investor_id),
+              total_invested_amount: Number(el.total_invested_amount),
+            };
+          })
+          .sort((a, b) => {
+            console.log(datas);
+            return a.total_invested_amount > b.total_invested_amount ? 1 : -1;
+          });
+        this.setState({
+          investors: data,
+          modes:"dis"
+        });
+        console.log(data);
+      } else if (this.state.modes == "dis") {
+        const data = [...this.state.investors]
+          .map((el) => {
+            return {
+              ...el,
+              investor_id: Number(el.investor_id),
+              total_invested_amount: Number(el.total_invested_amount),
+            };
+          })
+          .sort((a, b) => {
+            console.log(datas);
+            return a.total_invested_amount > b.total_invested_amount ? -1 : 1;
+          });
+        this.setState({
+          investors: data,
+          modes:"ass"
+
+        });
+        console.log(data);
+      }
+    };
+    const disdingname = (datas) => {
+      if (this.state.modes == "ass") {
+        const data = [...this.state.investors]
+          .map((el) => {
+            return {
+              ...el,
+              investor_id: Number(el.investor_id),
+              total_invested_amount: Number(el.total_invested_amount),
+            };
+          })
+          .sort((a, b) => {
+            console.log(datas);
+            return a.name > b.name ? -1 : 1;
+          });
+        this.setState({
+          investors: data,
+          modes: "dis",
+        });
+        console.log(data);
+      } else if (this.state.modes == "dis") {
+        const data = [...this.state.investors]
+          .map((el) => {
+            return { ...el, name: el.name.toLowerCase() };
+          })
+          .sort((a, b) => {
+            console.log(datas);
+            return a.name > b.name ? 1 : -1;
+          });
+        this.setState({
+          investors: data,
+          modes: "ass",
+        });
+        console.log(data);
+      }
+    };
     const dataSource =
       this.state.investors &&
       this.state.investors.map((item, index) => {
         return {
           key: index,
           investorid: item.investor_id,
-          name: item.first_name + " " + item.last_name,
+          name: (item.name).toLowerCase(),
           contactno: item.mobile ? item.mobile : "---",
           email: item.email ? item.email : "---",
           investment_amt: item.email ? item.email : "---",
           isActive: item.user_block_status ? item.user_block_status : 0,
-          Referral:item.referred_by,
+          Referral: item.referred_by,
           total_invested_amount: item.total_invested_amount
-          ? "₹" + item.total_invested_amount
-          : "---",
+            ? "₹" + item.total_invested_amount
+            : "---",
           action: item,
           kyc: item,
         };
@@ -1099,18 +1227,37 @@ class Investors extends Component {
 
     const columns = [
       {
-        title: "Investor Id",
+        title: (
+          <span
+            onClick={() => {
+              disdingid();
+            }}
+          >
+            Investor Id
+          </span>
+        ),
         dataIndex: "investorid",
         key: "investorid",
         width: 160,
         fixed: "left",
       },
       {
-        title: "Investor Name",
+        title: (
+          <span
+            onClick={() => {
+              disdingname();
+            }}
+          >
+            Investor Name
+          </span>
+        ),
         dataIndex: "name",
         key: "name",
         width: 180,
         fixed: "left",
+        render:(text,record)=>{
+          return <span style={{textTransform:"capitalize"}}>{text}</span>
+        }
       },
 
       {
@@ -1125,9 +1272,9 @@ class Investors extends Component {
         key: "email",
       },
       {
-        title: 'Referral',
-        dataIndex: 'Referral',
-        key: 'referred_by',
+        title: "Referral",
+        dataIndex: "Referral",
+        key: "referred_by",
       },
       {
         title: "KYC Status",
@@ -1162,7 +1309,15 @@ class Investors extends Component {
         },
       },
       {
-        title: "Total Invested Amount",
+        title: (
+          <span
+            onClick={() => {
+              disdingamt();
+            }}
+          >
+            Total Invested Amount
+          </span>
+        ),
         dataIndex: "total_invested_amount",
         key: "total_invested_amount",
         width: 150,
@@ -1193,10 +1348,7 @@ class Investors extends Component {
                   &nbsp;&nbsp;Verify Kyc
                 </a>
               </Menu.Item>
-              <Menu.Item
-                key={`g91money_${record.key}`}
-                icon={<EditOutlined />}
-              >
+              <Menu.Item key={`g91money_${record.key}`} icon={<EditOutlined />}>
                 <a
                   href="#"
                   onClick={() => this.showg91modal(text)}
@@ -1255,7 +1407,7 @@ class Investors extends Component {
       },
     ];
 
-    const g91dataSource = []
+    const g91dataSource = [];
 
     const g91columns = [
       {
@@ -1809,15 +1961,23 @@ class Investors extends Component {
                               value={this.state.pan_number}
                               disabled={this.state.disabledFields.input1}
                             />
-                            <Button type="secondary" onClick={() => this.handleButtonClick('input1')}>
-                              {this.state.disabledFields.input1 ? <EditOutlined /> : <SaveOutlined />}
+                            <Button
+                              type="secondary"
+                              onClick={() => this.handleButtonClick("input1")}
+                            >
+                              {this.state.disabledFields.input1 ? (
+                                <EditOutlined />
+                              ) : (
+                                <SaveOutlined />
+                              )}
                             </Button>
                             {/* <Button onClick={this.verify_pan_no} type="primary">
                           Verify
                         </Button> */}
                           </Input.Group>
-                          {!this.state.panValid && this.state.pan_number.trim() !== '' ? (
-                            <p style={{ color: 'red' }}>Invalid PAN number.</p>
+                          {!this.state.panValid &&
+                          this.state.pan_number.trim() !== "" ? (
+                            <p style={{ color: "red" }}>Invalid PAN number.</p>
                           ) : null}
                         </div>
                         {/* Pan card no:{" "}
@@ -1869,28 +2029,31 @@ class Investors extends Component {
 
                     <div style={{ marginBottom: 20 }}>
                       {this.state.pan_image ? (
-                       this.state.pan_image.split(".").pop() =="pdf"?(<iframe  src={`${Apis.IMAGEURL}/pan/${this.state.investor_id}/${this.state.pan_image}`}></iframe>):(
-                         <>
-                        PAN Card Image: 
-                        <br />
-                        <Image
-                          width={200}
-                          src={`${Apis.IMAGEURL}/pan/${this.state.investor_id}/${this.state.pan_image}`}
-                        />
-                        <br />
-                        <label>Change PAN Card Image :</label>
-                        <br />
-                        <input
-                          type="file"
-                          name="file"
-                          onChange={this.onPanimageChange}
-                          style={{ width: 350 }}
-                          accept="application/pdf, image/*"
-                          // accept="application/pdf, pdf, .png, .jpg ,.jpeg"
-
-                        />
-                      </>)
-                       
+                        this.state.pan_image.split(".").pop() == "pdf" ? (
+                          <iframe
+                            src={`${Apis.IMAGEURL}/pan/${this.state.investor_id}/${this.state.pan_image}`}
+                          ></iframe>
+                        ) : (
+                          <>
+                            PAN Card Image:
+                            <br />
+                            <Image
+                              width={200}
+                              src={`${Apis.IMAGEURL}/pan/${this.state.investor_id}/${this.state.pan_image}`}
+                            />
+                            <br />
+                            <label>Change PAN Card Image :</label>
+                            <br />
+                            <input
+                              type="file"
+                              name="file"
+                              onChange={this.onPanimageChange}
+                              style={{ width: 350 }}
+                              accept="application/pdf, image/*"
+                              // accept="application/pdf, pdf, .png, .jpg ,.jpeg"
+                            />
+                          </>
+                        )
                       ) : (
                         <>
                           <label>Upload PAN Card Image :</label>
@@ -1927,8 +2090,15 @@ class Investors extends Component {
                               value={this.state.adhar_number}
                               disabled={this.state.disabledFields.input3}
                             />
-                            <Button type="secondary" onClick={() => this.handleButtonClick('input3')}>
-                              {this.state.disabledFields.input3 ? <EditOutlined /> : <SaveOutlined />}
+                            <Button
+                              type="secondary"
+                              onClick={() => this.handleButtonClick("input3")}
+                            >
+                              {this.state.disabledFields.input3 ? (
+                                <EditOutlined />
+                              ) : (
+                                <SaveOutlined />
+                              )}
                             </Button>
                           </Input.Group>
                         </div>
@@ -2122,8 +2292,15 @@ class Investors extends Component {
                               value={this.state.bank_number}
                               disabled={this.state.disabledFields.input2}
                             />
-                            <Button type="secondary" onClick={() => this.handleButtonClick('input2')}>
-                              {this.state.disabledFields.input2 ? <EditOutlined /> : <SaveOutlined />}
+                            <Button
+                              type="secondary"
+                              onClick={() => this.handleButtonClick("input2")}
+                            >
+                              {this.state.disabledFields.input2 ? (
+                                <EditOutlined />
+                              ) : (
+                                <SaveOutlined />
+                              )}
                             </Button>
                           </Input.Group>
                         </div>
@@ -2140,8 +2317,15 @@ class Investors extends Component {
                               value={this.state.ifsc_bank}
                               disabled={this.state.disabledFields.input5}
                             />
-                            <Button type="secondary" onClick={() => this.handleButtonClick('input5')}>
-                              {this.state.disabledFields.input5 ? <EditOutlined /> : <SaveOutlined />}
+                            <Button
+                              type="secondary"
+                              onClick={() => this.handleButtonClick("input5")}
+                            >
+                              {this.state.disabledFields.input5 ? (
+                                <EditOutlined />
+                              ) : (
+                                <SaveOutlined />
+                              )}
                             </Button>
                           </Input.Group>
                         </div>
@@ -2273,8 +2457,15 @@ class Investors extends Component {
                   value={this.state.legal_name}
                   disabled={this.state.disabledFields.input7}
                 />
-                <Button type="secondary" onClick={() => this.handleButtonClick('input7')}>
-                  {this.state.disabledFields.input7 ? <EditOutlined /> : <SaveOutlined />}
+                <Button
+                  type="secondary"
+                  onClick={() => this.handleButtonClick("input7")}
+                >
+                  {this.state.disabledFields.input7 ? (
+                    <EditOutlined />
+                  ) : (
+                    <SaveOutlined />
+                  )}
                 </Button>
               </Input.Group>
               <Checkbox
@@ -2302,8 +2493,15 @@ class Investors extends Component {
                   value={this.state.father_name}
                   disabled={this.state.disabledFields.input4}
                 />
-                <Button type="secondary" onClick={() => this.handleButtonClick('input4')}>
-                  {this.state.disabledFields.input4 ? <EditOutlined /> : <SaveOutlined />}
+                <Button
+                  type="secondary"
+                  onClick={() => this.handleButtonClick("input4")}
+                >
+                  {this.state.disabledFields.input4 ? (
+                    <EditOutlined />
+                  ) : (
+                    <SaveOutlined />
+                  )}
                 </Button>
               </Input.Group>
               <Checkbox
@@ -2331,8 +2529,15 @@ class Investors extends Component {
                   value={this.state.legal_address}
                   disabled={this.state.disabledFields.input8}
                 />
-                <Button type="secondary" onClick={() => this.handleButtonClick('input8')}>
-                  {this.state.disabledFields.input8 ? <EditOutlined /> : <SaveOutlined />}
+                <Button
+                  type="secondary"
+                  onClick={() => this.handleButtonClick("input8")}
+                >
+                  {this.state.disabledFields.input8 ? (
+                    <EditOutlined />
+                  ) : (
+                    <SaveOutlined />
+                  )}
                 </Button>
               </Input.Group>
               <Checkbox
@@ -2456,15 +2661,22 @@ class Investors extends Component {
         >
           <Card
             title=""
-            extra={<Button type="primary" onClick={() => this.setState({ addg91modalstatus: true })}>Add G91 Money</Button>}
-            style={{ width: '100%' }}
+            extra={
+              <Button
+                type="primary"
+                onClick={() => this.setState({ addg91modalstatus: true })}
+              >
+                Add G91 Money
+              </Button>
+            }
+            style={{ width: "100%" }}
           >
             <Table
               dataSource={g91dataSource}
               columns={g91columns}
               loading={this.state.loading}
               bordered
-              scroll={{ x: 'max-content' }}
+              scroll={{ x: "max-content" }}
             />
           </Card>
         </Modal>
@@ -2476,19 +2688,21 @@ class Investors extends Component {
           onOk=""
           onCancel={() => this.setState({ addg91modalstatus: false })}
           width={450}
-          okText={'Submit'}
+          okText={"Submit"}
         >
-          <div className='mt-2'>
-            <label className='mb-2'>Amount <span className='text-danger'>*</span></label>
+          <div className="mt-2">
+            <label className="mb-2">
+              Amount <span className="text-danger">*</span>
+            </label>
             <br />
-            <Input
-            />
+            <Input />
           </div>
-          <div className='mt-2'>
-            <label className='mb-2'>Description <span className='text-danger'>*</span></label>
+          <div className="mt-2">
+            <label className="mb-2">
+              Description <span className="text-danger">*</span>
+            </label>
             <br />
-            <Input
-            />
+            <Input />
           </div>
         </Modal>
       </>

@@ -112,7 +112,7 @@ export const Homextra = () => {
           </div>
           <p>
             I have pre-registered as an investor on Growth91
-            <sup style={{ fontSize: "0.6rem" }}>TM</sup> platform. Excited
+           <sup>®</sup> platform. Excited
             to start investing in Startups.
           </p>
           <div className="media">
@@ -138,7 +138,7 @@ export const Homextra = () => {
             I am a regular investor on Growth Sense and very happy with
             kind of returns generated on my investments. Looking forward
             to equally exciting opportunities at Growth91
-            <sup style={{ fontSize: "0.6rem" }}>TM</sup>
+           <sup>®</sup>
           </p>
           <div className="media">
             <div className="images">
@@ -1091,7 +1091,7 @@ JAISON TITUS                    </a>
           </div>
           <p>
             Normally, startup fund raise is quite a tedious process.
-            Knowing Growth91<sup style={{ fontSize: "0.6rem" }}>TM</sup>{" "}
+            Knowing Growth91<sup>®</sup>{" "}
             modus operandi gives great confidence that we can focus on our
             core activities
           </p>
@@ -1118,9 +1118,9 @@ JAISON TITUS                    </a>
           <p>
             It is good to know that end to end work related to fund raise
             is taken care by Growth91
-            <sup style={{ fontSize: "0.6rem" }}>TM</sup>. Looking forward
+           <sup>®</sup>. Looking forward
             to list our deal at Growth91
-            <sup style={{ fontSize: "0.6rem" }}>TM</sup>
+           <sup>®</sup>
           </p>
           <div className="media">
             <div className="images">
@@ -1145,10 +1145,10 @@ JAISON TITUS                    </a>
           </div>
           <p>
             After knowing the details of modus operandi of Growth91
-            <sup style={{ fontSize: "0.6rem" }}>TM</sup>, it gives great
+           <sup>®</sup>, it gives great
             confidence as the deal terms are truly balanced for investors
             and startups. Will plan to raise our next round at Growth91
-            <sup style={{ fontSize: "0.6rem" }}>TM</sup>
+           <sup>®</sup>
           </p>
           <div className="media">
             <div className="images">
@@ -1212,7 +1212,7 @@ JAISON TITUS                    </a>
             }}
           >
             Normally, startup fund raise is quite a tedious process.
-            Knowing Growth91<sup style={{ fontSize: "0.6rem" }}>TM</sup>{" "}
+            Knowing Growth91<sup>®</sup>{" "}
             modus operandi gives great confidence that we can focus on our
             core activities
           </p>
@@ -1308,9 +1308,9 @@ JAISON TITUS                    </a>
           >
             It is good to know that end to end work related to fund raise
             is taken care by Growth91
-            <sup style={{ fontSize: "0.6rem" }}>TM</sup>. Looking forward
+           <sup>®</sup>. Looking forward
             to list our deal at Growth91
-            <sup style={{ fontSize: "0.6rem" }}>TM</sup>
+           <sup>®</sup>
           </p>
           <div
             style={{
@@ -1406,10 +1406,10 @@ JAISON TITUS                    </a>
             }}
           >
             After knowing the details of modus operandi of Growth91
-            <sup style={{ fontSize: "0.6rem" }}>TM</sup>, it gives great
+           <sup>®</sup>, it gives great
             confidence as the deal terms are truly balanced for investors
             and startups. Will plan to raise our next round at Growth91
-            <sup style={{ fontSize: "0.6rem" }}>TM</sup>
+           <sup>®</sup>
           </p>
           <div
             style={{

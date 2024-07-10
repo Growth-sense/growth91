@@ -96,6 +96,30 @@ class MembershipPlan extends Component {
                         <div className="tab-content" id="pills-tabContent1">
                             <div className="tab-pane fade show active overflow-v" id="pills-home1" >
                                 <div className="row">
+                                <div className="col-md-6">
+                                        <div className="pracing-item ">
+                                            <div className="top-left">
+                                                <p>100% off</p>
+                                            </div>
+                                            <div className="top-area">
+                                                <i className='bx bxs-dollar-circle' style={{ fontSize: '40px', color: 'gold' }}></i>
+                                                <p> Premium Membership</p>
+                                                {/* <p className='text-success'><del className='text-secondary' style={{fontSize: "20px"} }>1000</del> 500 &#x20b9;</p> */}
+
+                                            </div>
+                                            <ul>
+                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success"></i></span>Access to all  Company Essential Documents</li>
+                                                {/* <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success"></i></span>Invest </li> */}
+                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success"></i></span>View Company Performance </li>
+                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success" aria-hidden="true"></i></span>Preview of Opportunities before 24 hrs</li>
+                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success" aria-hidden="true"></i></span>Minimum Amount as Per CCPS</li>
+                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success" aria-hidden="true"></i></span>Exclusive Discounts</li>
+                                            </ul>
+                                            <p className='text-success text-center mb-3' style={{ fontSize: "24px" }}><del className='text-secondary' style={{ fontSize: "20px" }}>&#x20b9; 1,000</del> &#x20b9; 900 </p>
+
+                                            <a href="#" className="buy-now mb-5">Upgrade Plan Now</a>
+                                        </div>
+                                    </div>
                                     <div className="col-md-6">
                                         <div className="pracing-item disabled">
                                             <div className="top-left">
@@ -109,12 +133,12 @@ class MembershipPlan extends Component {
 
                                             </div>
                                             <ul className='text-left ' style={{ textAline: 'left' }}>
-                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success"></i></span>Access to Company Documents</li>
+                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success"></i></span>Access to all  Company Essential Documents</li>
                                                 <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success"></i></span>View Company Performance </li>
-                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success"></i></span>Invest </li>
-                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-times text-danger" aria-hidden="true"></i></span>Preview of opportunities (24~48 hrs)</li>
-                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-times text-danger" aria-hidden="true"></i></span>Priority for invest</li>
-                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-times text-danger" aria-hidden="true"></i></span>Priority in Equity</li>
+                                                {/* <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success"></i></span>Invest </li> */}
+                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-times text-danger" aria-hidden="true"></i></span>Preview of Opportunities before 24 hrs</li>
+                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-times text-danger" aria-hidden="true"></i></span>Minimum Amount as Per CCPS</li>
+                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-times text-danger" aria-hidden="true"></i></span>Exclusive Discounts</li>
                                             </ul>
                                             <p className='text-success text-center mb-3' style={{ fontSize: "24px" }}> Free </p>
 
@@ -122,30 +146,7 @@ class MembershipPlan extends Component {
                                             <p className="buy-now-disabled mb-5 py-1">Activated Plan</p>
                                         </div>
                                     </div>
-                                    <div className="col-md-6">
-                                        <div className="pracing-item ">
-                                            <div className="top-left">
-                                                <p>10% off</p>
-                                            </div>
-                                            <div className="top-area">
-                                                <i className='bx bxs-dollar-circle' style={{ fontSize: '40px', color: 'gold' }}></i>
-                                                <p> Premium Membership</p>
-                                                {/* <p className='text-success'><del className='text-secondary' style={{fontSize: "20px"} }>1000</del> 500 &#x20b9;</p> */}
-
-                                            </div>
-                                            <ul>
-                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success"></i></span>Access to Company Documents</li>
-                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success"></i></span>Invest </li>
-                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success"></i></span>View Company Performance </li>
-                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success" aria-hidden="true"></i></span>Preview of opportunities (24~48 hrs)</li>
-                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success" aria-hidden="true"></i></span>Priority for invest</li>
-                                                <li className='ps-md-5 ps-0'><span><i className="fa fa-check text-success" aria-hidden="true"></i></span>Priority in Equity</li>
-                                            </ul>
-                                            <p className='text-success text-center mb-3' style={{ fontSize: "24px" }}><del className='text-secondary' style={{ fontSize: "20px" }}>&#x20b9; 1,000</del> &#x20b9; 900 </p>
-
-                                            <a href="#" className="buy-now mb-5">Upgrade Plan Now</a>
-                                        </div>
-                                    </div>
+                                  
                                     {/* <div className="col-lg-4">
                             <div className="pracing-item">
                                 <div className="top-left">
