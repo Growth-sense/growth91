@@ -6349,3 +6349,29 @@ a {
 .howitswork .media .content p{
     text-align: justify;
 }
+.btns-performs .flex-action{
+    justify-content: flex-start !important;
+}
+.btns-performs .flex-action .performs-btns{
+    background: #29176f;
+    color: white;
+}
+.btns-performs .flex-action .performs-btns a{
+    color: white;
+    padding: 10px 30px;
+    border-radius: 28px;
+    display: inline-block;
+}
+.btns-performs .flex-action .performs-btns a i{
+    margin-right: 10px;
+}
+.community-paragraph-boxss a{
+    color: #111;
+    margin-top: 25px;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}
+.community-paragraph-boxss a span{
+    color: green;
+}

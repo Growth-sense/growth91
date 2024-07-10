@@ -114,93 +114,54 @@ export const FounderMyListing = () => {
                             <label class="tab-nav"><Link to="FounderDashboardType">My Account</Link></label>
                             <label class="tab-nav active"><Link to="FounderMyListing">My Startups</Link></label>
                             <label class="tab-nav"><Link to="FounderMyPlan">My Plan</Link></label>
-                            <label class="tab-nav"><Link to="FounderInterest">Enquiry-Lead</Link></label>
-                          
+                            <label class="tab-nav"><Link to="FounderInterest">Enquiry/Lead</Link></label>
+
                         </div>
                         <div class="tab-contents">
 
                             <div class="tab-content my-table-row">
                                 <input type="radio" name="tab-index" id="tab-index2" checked />
-                                <div className="import-export community-paragraph-box">
-                                    <a href="" className='mt-0'>Import Data</a>
 
-                                </div>
-                                <div class="content table-responsive ">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th><span>Startup Image</span></th>
-                                                <th><span>Startup Name</span></th>
-                                                <th><span>Email</span></th>
-                                                <th><span>Category</span></th>
-                                                <th><span>Action</span></th>
+                                <div class="content">
+                                    <div className="row">
+                                        <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
+                                            <div className="input-dashboard-acc">
+                                                <label htmlFor="">Founder Name </label>
+                                                <label htmlFor="">Shaikh Hamid *</label>
 
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <span> <img src="https://growth91.com/api/uploads/deal/logo/32/1715948775.png" alt="" className='img-cat' /></span>
-                                                </td>
-                                                <td><span>Tulua</span></td>
-                                                <td><span>khushbharati124@gmail.com</span></td>
-                                                <td><span>Foods & Beverages</span></td>
+                                            </div>
+                                        </div>
+                                        <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
+                                            <div className="input-dashboard-acc">
+                                                <label htmlFor="">Startup Name </label>
+                                                <label htmlFor="">Unique Foundation</label>                                           </div>
+                                        </div>
+
+                                        <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
+                                            <div className="input-dashboard-acc">
+                                                <label htmlFor="">Email </label>
+                                                <label htmlFor="">shaikhhamid039@gmail.com</label>
+                                            </div>
+                                        </div>
+
+                                        <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
+                                            <div className="input-dashboard-acc">
+                                                <label htmlFor="">Mobile no </label>
+                                                <label htmlFor="">7854569865</label>
+                                            </div>
+                                        </div>
+                                        <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
+                                            <div className="btns-performs mt-3">
                                                 <td className='flex-action'>
-                                                    <span><Link to="WaitApproval"><i class="fa-regular fa-eye"></i></Link></span>
+                                                    <div className='performs-btns'><Link to="WaitApproval"><i class="fa-regular fa-eye"></i>View Startup</Link></div>
 
-                                                    <span><Link to="FutureUnicornFormEdits">  <i class="fa-solid fa-pen-to-square"></i></Link></span>
+                                                    <div className='performs-btns'><Link to="FutureUnicornFormEdits">  <i class="fa-solid fa-pen-to-square"></i>Edit Startup</Link></div>
 
                                                 </td>
+                                            </div>
+                                        </div>
 
-
-                                            </tr>
-                                            {/* <tr>
-                                                <td>
-                                                    <span> <img src="https://growth91.com/api/uploads/deal/logo/32/1715948775.png" alt="" className='img-cat' /></span>
-                                                </td>
-                                                <td><span>Tulua</span></td>
-                                                <td><span>khushbharati124@gmail.com</span></td>
-                                                <td><span>Foods & Beverages</span></td>
-                                                <td className='flex-action'>
-                                                    <span><Link to="WaitApproval"><i class="fa-regular fa-eye"></i></Link></span>
-
-                                                    <span><Link to="FutureUnicornFormEdits">  <i class="fa-solid fa-pen-to-square"></i></Link></span>
-                                                </td>
-
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <span> <img src="https://growth91.com/api/uploads/deal/logo/32/1715948775.png" alt="" className='img-cat' /></span>
-                                                </td>
-                                                <td><span>Tulua</span></td>
-                                                <td><span>khushbharati124@gmail.com</span></td>
-                                                <td><span>Foods & Beverages</span></td>
-                                                <td className='flex-action'>
-                                                    <span><Link to="WaitApproval"><i class="fa-regular fa-eye"></i></Link></span>
-
-                                                    <span><Link to="FutureUnicornFormEdits">  <i class="fa-solid fa-pen-to-square"></i></Link></span>
-                                                </td>
-
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <span> <img src="https://growth91.com/api/uploads/deal/logo/32/1715948775.png" alt="" className='img-cat' /></span>
-                                                </td>
-                                                <td><span>Tulua</span></td>
-                                                <td><span>khushbharati124@gmail.com</span></td>
-                                                <td><span>Foods & Beverages</span></td>
-                                                <td className='flex-action'>
-                                                    <span><Link to="WaitApproval"><i class="fa-regular fa-eye"></i></Link></span>
-
-                                                    <span><Link to="FutureUnicornFormEdits">  <i class="fa-solid fa-pen-to-square"></i></Link></span>
-                                                </td>
-
-
-                                            </tr> */}
-                                        </tbody>
-                                    </table>
+                                    </div>
                                 </div>
                             </div>
 
