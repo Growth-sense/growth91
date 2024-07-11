@@ -114,37 +114,36 @@ export const MemberShip = () => {
                             <div className="main-membership-cards">
                                 <div className="card-choose-plan">
                                     <div className="plan-team-one">
-                                        <p>Free</p>
+                                        <p>Free trail
+                                        </p>
                                     </div>
                                     <div className="part-team-plan">
                                         <p>₹0</p>
-                                        <p>Yearly package</p>
+                                        <p> 30 days </p>
                                     </div>
                                 </div>
                                 <div className="ul-choose-plan">
                                     <ul>
                                         <li>
-                                            <span><img src="./assets/images/check-mark.png" alt="" /></span>
+                                            <span><img src="./assets/images/true.png" alt="" /></span>
+                                            <span>
+                                                Listing in the startup directory with basic company information
 
-                                            Total 6 Edits
+                                            </span>
                                         </li>
                                         <li>
-                                            <span><img src="./assets/images/check-mark.png" alt="" /></span>
+                                            <span><img src="./assets/images/close-bold.png" alt="" /></span>
 
-                                            Multi-Language Support     </li>
-                                        <li>
-                                            <span><img src="./assets/images/check-mark.png" alt="" /></span>
-
-                                            Support via E-mail and Phone     </li>
-                                        <li>
-                                            <span><img src="./assets/images/check-mark.png" alt="" /></span>
-
-                                            Digital project planning     </li>
-                                        <li>
-                                            <span><img src="./assets/images/check-mark.png" alt="" /></span>
-
-                                            Planning Solution
+                                            <span>
+                                                Receive notifications when investors show interest
+                                            </span>
                                         </li>
+                                        <li>
+                                            <span><img src="./assets/images/close-bold.png" alt="" /></span>
+
+                                            <span>  No. of edits allowed after listing the startup: 0</span>
+                                        </li>
+
                                     </ul>
                                     <div class="button-media-coverage1"><Link to="FounderEdit">BUY NOW</Link></div>
                                 </div>
@@ -154,36 +153,34 @@ export const MemberShip = () => {
                             <div className="main-membership-cards main-membership-cards-border">
                                 <div className="card-choose-plan">
                                     <div className="plan-team-one">
-                                        <p>Paid</p>
+                                        <p>Basic Plan</p>
                                     </div>
                                     <div className="part-team-plan">
-                                    <p>₹8000</p>
-                                        <p>Monthly package</p>
+                                        <p>₹ 2,000  (50% off)</p>
+                                        <p>1 Year</p>
                                     </div>
                                 </div>
                                 <div className="ul-choose-plan">
                                     <ul>
                                         <li>
-                                            <span><img src="./assets/images/check-mark.png" alt="" /></span>
-                                            Total 6 Edits
+                                            <span><img src="./assets/images/true.png" alt="" /></span>
+                                            <span>
+                                                Listing in the startup directory with basic company information
+
+                                            </span>
                                         </li>
                                         <li>
-                                            <span><img src="./assets/images/check-mark.png" alt="" /></span>
+                                            <span><img src="./assets/images/true.png" alt="" /></span>
 
-                                            Multi-Language Support     </li>
-                                        <li>
-                                            <span><img src="./assets/images/check-mark.png" alt="" /></span>
-
-                                            Support via E-mail and Phone     </li>
-                                        <li>
-                                            <span><img src="./assets/images/check-mark.png" alt="" /></span>
-
-                                            Digital project planning     </li>
-                                        <li>
-                                            <span><img src="./assets/images/check-mark.png" alt="" /></span>
-
-                                            Planning Solution
+                                            <span>  Receive notifications when investors show interest   </span>
                                         </li>
+                                        <li>
+                                            <span><img src="./assets/images/true.png" alt="" /></span>
+
+                                            <span>
+                                                No. of edits allowed after listing the startup: 2
+                                            </span>  </li>
+
                                     </ul>
                                     <div class="button-media-coverage1"><Link to="FounderEdit">BUY NOW</Link></div>
                                 </div>
@@ -193,41 +190,69 @@ export const MemberShip = () => {
                             <div className="main-membership-cards">
                                 <div className="card-choose-plan">
                                     <div className="plan-team-one">
-                                        <p>Paid</p>
+                                        <p>Premium</p>
                                     </div>
                                     <div className="part-team-plan">
-                                    <p>₹8000</p>
-                                        <p>Monthly package</p>
+                                        <p>₹ 5,000 (50% off)</p>
+                                        <p>1 Year
+                                        </p>
                                     </div>
                                 </div>
                                 <div className="ul-choose-plan">
                                     <ul>
                                         <li>
-                                            <span><img src="./assets/images/check-mark.png" alt="" /></span>
-                                            Total 6 Edits
+                                            <span><img src="./assets/images/true.png" alt="" /></span>
+                                            <span>
+                                                Listing in the startup directory with basic company information
+
+                                            </span>
                                         </li>
                                         <li>
-                                            <span><img src="./assets/images/check-mark.png" alt="" /></span>
+                                            <span><img src="./assets/images/true.png" alt="" /></span>
 
-                                            Multi-Language Support     </li>
-                                        <li>
-                                            <span><img src="./assets/images/check-mark.png" alt="" /></span>
-
-                                            Support via E-mail and Phone     </li>
-                                        <li>
-                                            <span><img src="./assets/images/check-mark.png" alt="" /></span>
-
-                                            Digital project planning     </li>
-                                        <li>
-                                            <span><img src="./assets/images/check-mark.png" alt="" /></span>
-
-                                            Planning Solution
+                                            <span>
+                                                Receive notifications when investors show interest
+                                            </span>
                                         </li>
+
+                                        <li>
+                                            <span><img src="./assets/images/true.png" alt="" /></span>
+                                            <span>
+
+                                                No. of edits allowed after listing the startup: 99
+                                            </span>
+                                        </li>
+
                                     </ul>
                                     <div class="button-media-coverage1"><Link to="FounderEdit">BUY NOW</Link></div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div className="row">
+                        <div className="notes-membership">
+                        <h4>
+                            Notes
+                        </h4>
+                        <div className="notes-para mt-3">
+                        <p>
+                                Upgrade (basic to premium) option can be done at the
+                                time of renewal
+                            </p>    
+                            <p>
+                                For additional update credits: Rs. 250
+
+                            </p>
+                            <p>
+                                The update credits have to be purchased in lots. Each lot will cost
+                                Rs.250. Per lot 1 edit will be allowed.
+                            </p>
+                         
+                         
+                        </div>
+                        
+                        </div>
+
                     </div>
 
                 </div>

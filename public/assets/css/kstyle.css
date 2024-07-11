@@ -5721,6 +5721,7 @@ a {
 .ul-choose-plan ul li {
     font-size: 16px;
     margin-bottom: 12px;
+    display: flex;
 }
 
 .ul-choose-plan ul li span {
@@ -6374,4 +6375,14 @@ a {
 }
 .community-paragraph-boxss a span{
     color: green;
+}
+.ul-choose-plan ul li span img{
+    width: 15px;
+}
+.notes-membership{
+    margin-bottom: 40px;
+}
+.notes-membership p{
+    color: #5b5454;
+    font-size: 15px;
 }
