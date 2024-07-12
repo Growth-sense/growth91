@@ -30,6 +30,7 @@ import { Link } from "react-router-dom";
 import { textAlign } from "@mui/system";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import InvestmentMembershipmodal from "../components/membership/InvestmentMembershipmodal";
+import EditInvestmentMembershipmodal from "../components/membership/EditInvestmentMembershipmodal.js";
 const { Panel } = Collapse;
 const fileType =
   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
@@ -180,6 +181,10 @@ class InnerCommitment extends Component {
       ac_edit_legalfee: 0,
       ac_edit_walletDeductionMoney: 0,
       ac_edit_interested_id: 0,
+      parent_id: 0,
+      ac_edit_escrowact: 0,
+      ac_edit_escrow_account_ifsc: 0,
+
       ac_edit_commitment_id: 0,
       ac_minamount: 0,
       ac_captable_threshold_amount: 0,
@@ -206,7 +211,6 @@ class InnerCommitment extends Component {
       checkWallet: false,
 
       walletMoney: 0,
-
     };
   }
 
@@ -281,27 +285,30 @@ class InnerCommitment extends Component {
   };
   increase_commit = () => {
     const {
-      amount,
       ac_captable_threshold_amount,
-      multiples_of,
       ac_maxamount,
       ac_captable_multiple_amount,
       ac_minamount,
-      commaAmount,
-      ac_edit_amount,ac_multiples_of
+      ac_edit_amount,
+      ac_multiples_of,
     } = this.state;
     let newAmount = Number(ac_edit_amount);
     let changeAmount;
-
+console.log(  ac_captable_threshold_amount,
+  ac_maxamount,
+  ac_captable_multiple_amount,
+  ac_minamount,
+  ac_edit_amount,
+  ac_multiples_of,);
     if (
       newAmount < ac_captable_threshold_amount &&
       newAmount % ac_multiples_of != 0
     ) {
       const roundedHigherAmount =
-        Math.ceil(newAmount / Number(ac_multiples_of)) * Number(ac_multiples_of);
+        Math.ceil(newAmount / Number(ac_multiples_of)) *
+        Number(ac_multiples_of);
       newAmount = roundedHigherAmount;
       changeAmount = 0;
-
     } else if (
       newAmount > ac_captable_threshold_amount &&
       newAmount % ac_captable_multiple_amount != 0
@@ -309,30 +316,26 @@ class InnerCommitment extends Component {
       const roundedHigherAmount =
         Math.ceil(newAmount / Number(ac_captable_multiple_amount)) *
         Number(ac_captable_multiple_amount);
-        newAmount = roundedHigherAmount;
+      newAmount = roundedHigherAmount;
 
       changeAmount = 0;
     } else if (newAmount < Number(ac_captable_threshold_amount)) {
       changeAmount = Number(ac_multiples_of);
-
     } else {
       changeAmount = Number(ac_captable_multiple_amount);
-
     }
 
     newAmount += changeAmount;
 
     if (newAmount > ac_maxamount) {
       newAmount = ac_maxamount;
-
     } else if (newAmount < ac_minamount) {
       newAmount = Number(ac_minamount);
-
     }
     this.setState(
       {
         amount: newAmount,
-        ac_edit_amount:(newAmount),
+        ac_edit_amount: newAmount,
       },
       () => {
         this.calculategst();
@@ -343,57 +346,60 @@ class InnerCommitment extends Component {
 
   decrease_commit = () => {
     const {
-      amount,
-      captable_threshold_amount,
-      multiples_of,
-      minamount,
-      captable_multiple_amount,
+      ac_captable_threshold_amount,
+      ac_maxamount,
+      ac_captable_multiple_amount,
+      ac_minamount,
+      ac_edit_amount,
+      ac_multiples_of,
     } = this.state;
 
-    let newAmount = Number(amount);
+    let newAmount = Number(ac_edit_amount);
     let changeAmount;
 
     if (
-      newAmount == captable_threshold_amount &&
-      newAmount % multiples_of != 0
+      newAmount == ac_captable_threshold_amount &&
+      newAmount % ac_multiples_of != 0
     ) {
       const roundedHigherAmount =
-        Math.ceil(newAmount / Number(multiples_of)) * Number(multiples_of);
+        Math.ceil(newAmount / Number(ac_multiples_of)) *
+        Number(ac_multiples_of);
       newAmount = roundedHigherAmount;
       changeAmount = 0;
     } else if (
-      newAmount < captable_threshold_amount &&
-      newAmount % multiples_of != 0
+      newAmount < ac_captable_threshold_amount &&
+      newAmount % ac_multiples_of != 0
     ) {
       const roundedLowerAmount =
-        Math.floor(newAmount / Number(multiples_of)) * Number(multiples_of);
+        Math.floor(newAmount / Number(ac_multiples_of)) *
+        Number(ac_multiples_of);
       newAmount = roundedLowerAmount;
       changeAmount = 0;
     } else if (
-      newAmount > captable_threshold_amount &&
-      newAmount % captable_multiple_amount != 0
+      newAmount > ac_captable_threshold_amount &&
+      newAmount % ac_captable_multiple_amount != 0
     ) {
       const roundedLowerAmount =
-        Math.floor(newAmount / Number(captable_multiple_amount)) *
-        Number(captable_multiple_amount);
+        Math.floor(newAmount / Number(ac_captable_multiple_amount)) *
+        Number(ac_captable_multiple_amount);
       newAmount = roundedLowerAmount;
       changeAmount = 0;
-    } else if (newAmount <= Number(captable_threshold_amount)) {
-      changeAmount = Number(multiples_of);
+    } else if (newAmount <= Number(ac_captable_threshold_amount)) {
+      changeAmount = Number(ac_multiples_of);
     } else {
-      changeAmount = Number(captable_multiple_amount);
+      changeAmount = Number(ac_captable_multiple_amount);
     }
 
     newAmount -= changeAmount;
 
-    if (newAmount < minamount) {
-      newAmount = minamount;
+    if (newAmount < ac_minamount) {
+      newAmount = ac_minamount;
     }
 
     this.setState(
       {
         amount: newAmount,
-        commaAmount: this.formatNumberWithCommas(newAmount),
+        ac_edit_amount: newAmount,
       },
       () => {
         this.calculategst();
@@ -401,7 +407,6 @@ class InnerCommitment extends Component {
       }
     );
   };
-
 
   onChangeCheckbox = (e) => {
     const targetName = e.target.name;
@@ -422,14 +427,27 @@ class InnerCommitment extends Component {
         let tdsamount = parseFloat(processingfees / 100) * 10;
         let minusamt = parseFloat(processingfees - tdsamount);
 
-       
         this.setState({
           ac_processingfees: minusamt,
           ac_tdsdeductedamount: tdsamount,
         });
+        console.log(
+          " this.state.ac_amount,this.state.ac_percentage,tdsamount,minusamt,processingfees"
+        );
       } else {
+        console.log(
+          " this.state.ac_amount,this.state.ac_percentage,tdsamount,minusamt,processingfees"
+        );
+
         let processingfees = parseFloat(
           (this.state.ac_amount / 100) * parseFloat(this.state.ac_percentage)
+        );
+        console.log(
+          this.state.ac_amount,
+          this.state.ac_percentage,
+          // tdsamount,
+          // minusamt,
+          processingfees
         );
         this.setState({
           ac_processingfees: processingfees,
@@ -454,13 +472,17 @@ class InnerCommitment extends Component {
           ? legalfee.toFixed(0)
           : this.state.walletMoney;
     }
+    console.log(this.state.ac_edit_amount, legalfee);
     let gstValue = ((legalfee.toFixed(0) - walletDeductionMoney) * gst) / 100;
+    console.log(amt, legalfee, walletDeductionMoney, gstValue);
     this.setState({
       gst: gst,
-      legalfee: this.state.ac_edit_amount ? legalfee.toFixed(0) : 0,
+      ac_edit_legalfee: this.state.ac_edit_amount ? legalfee.toFixed(0) : 0,
       amountplusgst: this.state.ac_edit_amount ? amt.toFixed(0) : 0,
-      processingfees: this.state.ac_edit_amount ? legalfee.toFixed(0) : 0,
-      totalamount: this.state.ac_edit_amount
+      ac_edit_processingfees: this.state.ac_edit_amount
+        ? legalfee.toFixed(0)
+        : 0,
+      ac_totalamount: this.state.ac_edit_amount
         ? (amt + parseFloat(legalfee)).toFixed(0) -
           walletDeductionMoney +
           gstValue
@@ -468,9 +490,10 @@ class InnerCommitment extends Component {
       walletDeductionMoney: walletDeductionMoney,
       gstValue: gstValue,
     });
+
     return gst;
   };
- 
+
   formatNumberWithCommas = (number) => {
     return number.toLocaleString("en-IN");
   };
@@ -519,11 +542,12 @@ class InnerCommitment extends Component {
           deals: result.data,
           loading: false,
         });
+        console.log(record);
+      
         let current_date = moment();
         for (let d of result.data) {
-          if (d.deal_id == record.child[0].deal_id) {
-            console.log(d);
-            console.log(record.child[0].deal_id, "sid");
+          if (d.deal_id == record.actions[0].action.deal_id) {
+            console.log(record.actions[0].action.deal_id, "sid");
             let deal_regular_show_date = moment(d.regular_show_date);
             let deal_premium_show_date = moment(d.premium_show_date);
             let deal_start_dt_rg = moment(d.deal_st_date);
@@ -563,7 +587,7 @@ class InnerCommitment extends Component {
           // }
         }
         for (let d of result.data) {
-          if (d.deal_id == record.child[0].deal_id) {
+          if (d.deal_id == record.actions[0].action.deal_id) {
             let investor_id = this.state.investor_id;
 
             let percetage_raised = parseFloat(
@@ -582,15 +606,19 @@ class InnerCommitment extends Component {
             let currentDate = "";
             this.setState({ coming_soon_days: "" });
 
-            console.log(this.formatNumberWithCommas(record.amount.substring(1)));
+            console.log(
+              this.formatNumberWithCommas(record.amount.substring(1))
+            );
+            console.log(d);
             this.setState(
               {
-
-                commaAmount: this.formatNumberWithCommas(record.amount.substring(1)),
-                amount: record.amount.substring(1),
-                maxamount:d.Max_inv_amt,
-                minamount:d.Min_inv_amt,
-                captable_threshold_amount:d.captable_threshold_amount,
+                commaAmount: this.formatNumberWithCommas(
+                  record.amount.substring(1)
+                ),
+                amount: record.amount,
+                maxamount: d.Max_inv_amt,
+                minamount: d.Min_inv_amt,
+                captable_threshold_amount: d.captable_threshold_amount,
                 ac_edit_deal_id: d.deal_id,
                 ac_minamount: d.Min_inv_amt,
                 ac_maxamount: d.Max_inv_amt,
@@ -633,7 +661,7 @@ class InnerCommitment extends Component {
           }
         }
       } else {
-        alert("sad")
+        alert("sad");
         message.error(result.message);
         this.setState({
           loading: false,
@@ -692,27 +720,30 @@ class InnerCommitment extends Component {
   showEditModal = (text, record) => {
     this.getDeals(record);
 
-   
-    console.log(record,"aaa");
+    console.log(record, "aaa");
     this.setState({
-      edit_deal_name: record.dealname,
-      ac_edit_investor_id: record.investor_id,
-      ac_edit_amount: (record.amount).substring(1),
-      ac_edit_processingfees: record.processingfees,
+      edit_deal_name: record.deal_name,
+      ac_edit_investor_id: record.actions[0].action.investor_id,
+      ac_edit_amount: record.amount,
+      ac_edit_processingfees: record.fee,
       ac_edit_totalamount: record.totalamount,
-      ac_edit_deduct: record.deduct,
+      ac_edit_deduct: record.actions[0].deduct,
       ac_edit_agree: record.agree,
-      ac_edit_order_token: record.order_token,
-      ac_edit_tdsstatus: record.tdsstatus,
-      ac_edit_gst: record.gst,
+      ac_edit_order_token: record.actions[0].order_token,
+      ac_edit_tdsstatus: record.actions[0].tdsstatus,
+      ac_edit_gst: record.actions[0].action.gst,
       ac_edit_legalfee: record.legalfee,
-      ac_edit_walletDeductionMoney: record.walletDeductionMoney,
-      ac_edit_interested_id: record.id,
+      ac_edit_walletDeductionMoney: record.actions[0].action.walletDeductionMoney,
+      // ac_edit_interested_id: record.actions[0].action.id,
+      parent_id: record.parent_id,
+      ac_edit_interested_id: record.interested_id,
       show_edit_commitment_modal: true,
-      ac_commaAmount: record.totalamount-record.fee,
+      ac_commaAmount: record.totalamount - record.fee,
       ac_processingfees: record.fee,
       ac_amountplusgst: record.amount,
       ac_totalamount: record.totalamount,
+      ac_edit_escrowact: record.actions[0].escrowact,
+      ac_edit_escrow_account_ifsc: record.actions[0].escrow_account_ifsc,
     });
     this.setState({
       show_edit_commitment_modal: true,
@@ -770,9 +801,8 @@ class InnerCommitment extends Component {
         Number(this.state.multiples_of);
 
       error = `Please enter an amount in multiples of ${this.state.multiples_of}. You may choose Rs ${roundedLowerAmount}
-      or Rs ${roundedHigherAmount}.`
+      or Rs ${roundedHigherAmount}.`;
       // If you would like to enter the Captable, commit an amount of Rs. ${this.state.captable_threshold_amount} or more.`;
-      
 
       this.setState({ amount_error: error, amount_error_status: true });
     } else if (
@@ -793,7 +823,7 @@ class InnerCommitment extends Component {
         ) * Number(this.state.captable_multiple_amount);
 
       error = `Please enter an amount in multiples of ${this.state.captable_multiple_amount}. You may choose Rs ${roundedLowerAmount}
-      or Rs ${roundedHigherAmount}.`
+      or Rs ${roundedHigherAmount}.`;
       // If you would like to enter the Captable, commit an amount of Rs. ${this.state.captable_threshold_amount} or more.`;
 
       this.setState({ amount_error: error, amount_error_status: true });
@@ -1415,7 +1445,6 @@ class InnerCommitment extends Component {
   };
 
   render() {
-
     const dataSource =
       this.state.getAllCommitData &&
       this.state.getAllCommitData.map((item, index) => {
@@ -1549,6 +1578,7 @@ class InnerCommitment extends Component {
       });
 
     const getNestData = (record) => {
+      console.log(record);
       const nestColumns = [
         {
           // title: "Deal Name",
@@ -1576,20 +1606,77 @@ class InnerCommitment extends Component {
           key: "nestcreated_at",
           width: 210,
         },
+        {
+          title: "Action on",
+          dataIndex: "actions",
+          key: "actions",
+          width: 210,
+          render: (text, records) => {
+            console.log(records);
+            const menu = (
+              <Menu
+                mode="vertical"
+                defaultSelectedKeys={[this.state.path]}
+                style={{ width: 100 }}
+              >
+                <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />}>
+                  <a
+                    href="#"
+                    onClick={() => this.showEditModal(text, records)}
+                    style={{ fontSize: 14 }}
+                  >
+                    &nbsp;&nbsp;Edits
+                  </a>
+                </Menu.Item>
+                {/* <Menu.Item key={`Delete${record.key}`} icon={<DeleteOutlined/>}>
+                  <a
+                    href="#"
+                    style={{ fontSize: 14 }}
+                    onClick={() => this.showDeleteModal(record.key)}
+                  >
+                    &nbsp;&nbsp;Delete
+                  </a>
+                </Menu.Item> */}
+              </Menu>
+            );
+            return (
+              <div>
+                <Dropdown overlay={menu} placement="bottom">
+                  <a onClick={(e) => e.preventDefault()}>
+                    <div className="menu-action">
+                      <i className="bx bx-dots-vertical-rounded"></i>
+                    </div>
+                  </a>
+                </Dropdown>
+              </div>
+            );
+          },
+        },
       ];
 
       const nestDataSource = record.child.map((item, index) => {
+       console.log(item);
+      
         return {
           key: index,
+          actions:[record].map((itemx,index)=>{return itemx}),
           // nestdealname: item.deal_name ? item.deal_name : '---',
           nestamount: "₹" + item.amount,
           nestfee: item.processingfees ? "₹" + item.processingfees : "₹0",
           // nestcreated_at: item.created_at,
+          parent_id:item.parent_id,
+          interested_id:item.id,
+          commitment_id:item.id,
+          deal_name:item.deal_name,
+          amount:item.amount,
+          fee:item.processingfees,
+          totalamount:item.totalamount,
           nestcreated_at: item.created_at
             ? moment(item.created_at).format("D-MMM-YYYY h:mm A")
             : "",
+
         };
-      });
+    });
 
       return (
         <Table
@@ -2183,7 +2270,9 @@ class InnerCommitment extends Component {
                   <td>Investment Amount</td>
                   <td lassName="text-center">
                     ₹{" "}
-                    {this.state.ac_edit_amount ? this.state.ac_edit_amount : "0"}
+                    {this.state.ac_edit_amount
+                      ? this.state.ac_edit_amount
+                      : "0"}
                   </td>
                 </tr>
                 <tr>
@@ -2192,7 +2281,9 @@ class InnerCommitment extends Component {
                     <br />
                     <span>{this.state.label}</span>
                   </td>
-                  <td lassName="text-center">₹ {this.state.ac_processingfees}</td>
+                  <td lassName="text-center">
+                    ₹ {this.state.ac_edit_processingfees}
+                  </td>
                 </tr>
                 <tr>
                   <td>Wallet Money</td>
@@ -2248,31 +2339,33 @@ class InnerCommitment extends Component {
                   Express Your Interest
                 </button>
               ) : (
-                <InvestmentMembershipmodal
-                  processingfees={this.state.processingfees}
-                  deal_id={this.state.deal_id}
-                  membership_type={this.state.check_membership_type}
+                <EditInvestmentMembershipmodal
+                  processingfees={this.state.ac_edit_processingfees}
+                  deal_id={this.state.ac_edit_deal_id}
+                  membership_type={this.state.ac_check_membership_type}
                   invest={this.invest}
-                  amount={this.state.amount}
-                  agreecheck={this.state.agreeCheck}
-                  totalamount={this.state.totalamount}
+                  amount={this.state.ac_edit_amount}
+                  agreecheck={this.state.ac_agreeCheck}
+                  totalamount={this.state.ac_totalamount}
                   fee={this.state.legalfee}
-                  minamount={this.state.minamount}
-                  maxamount={this.state.maxamount}
-                  agree={this.state.agree}
+                  minamount={this.state.ac_minamount}
+                  maxamount={this.state.ac_maxamount}
+                  agree={this.state.ac_agreeCheck}
                   error_status={this.state.amount_error_status}
-                  investor_id={this.state.investor_id}
-                  deduct={this.state.deduct}
-                  tdsstatus={this.state.tdsstatus}
-                  gst={this.state.gst}
-                  order_token={this.state.order_token}
-                  legalfee={this.state.legalfee}
-                  walletDeductionMoney={this.state.walletDeductionMoney}
-                  user_id={this.state.investor_id}
-                  escrow_account_ifsc={this.state.escrow_account_ifsc}
-                  escrowact={this.state.escrowact}
-                  interested_id={this.state.interested_id}
-                  invest_amt={this.state.invest_amt}
+                  investor_id={this.state.ac_edit_investor_id}
+                  deduct={this.state.ac_edit_deduct}
+                  tdsstatus={this.state.ac_edit_tdsstatus}
+                  gst={this.state.ac_edit_gst}
+                  order_token={this.state.ac_edit_order_token}
+                  legalfee={this.state.ac_edit_legalfee}
+                  walletDeductionMoney={this.state.ac_edit_walletDeductionMoney}
+                  user_id={this.state.ac_edit_investor_id}
+                  escrow_account_ifsc={this.state.ac_edit_escrow_account_ifsc}
+                  escrowact={this.state.ac_edit_escrowact}
+                  interested_id={this.state.ac_edit_interested_id}
+                  invest_amt={this.state.ac_totalamount}
+                  commitment_id={this.state.ac_edit_interested_id}
+                  // parent_id={this.state.parent_id}
                 />
               )}
             </div>

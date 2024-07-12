@@ -152,15 +152,17 @@ export default class EditInvestmentMembershipmodal extends Component {
     formData.append('amount', this.props.amount);
     formData.append('processingfees', this.props.processingfees);
     formData.append('totalamount', this.props.totalamount);
-    formData.append('deduct', this.props.deduct);
-    formData.append('agree', this.props.agree);
-    formData.append('order_token', this.props.order_token);
-    formData.append('tdsstatus', this.props.tdsstatus);
-    formData.append('gst', this.props.gst);
-    formData.append('legalfee', this.props.legalfee);
+    formData.append('deduct', null);
+    formData.append('agree', null);
+    formData.append('order_token', null);
+    formData.append('tdsstatus', null);
+    formData.append('gst', null);
+    formData.append('legalfee', null);
     formData.append('interested_id', this.props.interested_id);
-    formData.append('walletDeductionMoney', this.props.walletDeductionMoney);
-    axios.post(`${process.env.REACT_APP_BASE_URL}api/investors/InvestorCommitment/save_investor_commitment`, formData, {
+    formData.append('walletDeductionMoney',null);
+    // formData.append('parent_id', this.props.parent_id);
+    formData.append('commitment_id', this.props.commitment_id);
+    axios.post(`${process.env.REACT_APP_BASE_URL}api/admin/Deal/edit_investor_commitment`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
