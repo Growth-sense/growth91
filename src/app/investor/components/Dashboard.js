@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import { Modal, Spin, DatePicker, Input, Skeleton } from "antd";
 import Bridge from "../../constants/Bridge";
-import { Spin, Skeleton } from "antd";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+const { TextArea } = Input;
 export default class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +15,22 @@ export default class Dashboard extends Component {
       investments: [],
       startinvestedcompanies: 0,
       startinvestedamount: 0,
-      nationality: "",
+      addModalStatus: false,
+      formloader: false,
+      middle_name: "",
+      first_name: "aadil",
+      last_name: "khan test family",
+      email: "epu26061@doolk.com",
+      phone: "8878331005",
+      nationality: "Indian Citizen",
+      refferal_code: "",
+      is_refferal_code_matched: "",
+      phone1: "",
+      memberdetail: "",
+      viewmemberdetail: "",
+      memberdetailid: "",
+      FamilyOtp: "",
+      familyotpmodal: false,
     };
   }
 
@@ -26,6 +43,7 @@ export default class Dashboard extends Component {
     if (this.props.investor_id) {
       this.getbankdetails();
       this.getInvestments();
+      this.getmember();
     }
   }
   // get investments list
@@ -75,9 +93,154 @@ export default class Dashboard extends Component {
       }
     });
   };
+  handleChangeSelect = (e) => {
+    this.setState({
+      nationality: e.target.value,
+    });
+  };
+  addfamily = () => {
+    this.setState({ formloader: true });
+    if (
+      this.state.first_name == "" ||
+      this.state.last_name == "" ||
+      this.state.email == "" ||
+      this.state.phone == "" ||
+      this.state.nationality == ""
+    ) {
+      toast.error("Plz fill all field");
+    } else {
+      let params = {
+        first_name: this.state.first_name,
+        middle_name: this.state.middle_name,
+        last_name: this.state.last_name,
+        parent_id: this.state.investor_id,
+        email: this.state.email,
+        nationality: this.state.nationality,
+        phone: this.state.phone,
+        refferal_code: "",
+        is_refferal_code_matched: "",
+        phone1: "",
+      };
+      Bridge.investor.addfamily(params).then((result) => {
+        console.log(result);
+        toast.success("Family member added success fully");
+        this.setState({ addModalStatus: false });
+        this.getmember();
+      });
+    }
+
+    this.setState({ formloader: false });
+  };
+  onChangeEmail = (email) => {
+    this.setState({ email: email });
+  };
+  getmember = () => {
+    let params = {
+      parent_id: this.props.investor_id,
+    };
+    Bridge.investor.getfamilymember(params).then((result) => {
+      console.log(result);
+      this.setState({ memberdetail: result.data });
+    });
+  };
+  submitfamilyotp = (e) => {
+    this.setState({ familyotpmodal: false });
+  };
+  setmember = (e) => {
+    this.setState({ memberdetailid: e.target.value });
+    let id = e.target.value;
+
+    const data = this.state.memberdetail.filter((item, index) => {
+      return item.investor_id === id;
+    });
+
+    console.log(data[0]);
+
+    this.setState({ viewmemberdetail: data[0] });
+    if(e.target.value !== this.props.investor_id){
+
+      this.setState({ familyotpmodal: true });
+    }
+  };
   render() {
+    console.log(this.state.viewmemberdetail);
     return (
       <div>
+          <div class="col-lg-10 pb-4 mt-5">
+            <div>
+              <section
+                id="hdii"
+                class="m-lg-0  m-3"
+                // style={{ minHeight: "40vh" }}
+              >
+                <div>
+                  <div class="row dashboard-items ">
+                    <div class="col-lg-12 family-columns">
+                      <div class="filteruser-dropdown form-control">
+                        <select
+                          name=""
+                          id=""
+                          class="optionselect"
+                          value={this.state.memberdetailid}
+                          onChange={this.setmember}
+                        >
+                          <option value={this.props.investor_id}>Self</option>
+                          {this.state.memberdetail &&
+                            this.state.memberdetail.map((item, index) => {
+                              console.log(item);
+                              return (
+                                <>
+                                  <option value={item.investor_id}>
+                                    {item.first_name} {item.last_name}
+                                  </option>
+                                </>
+                              );
+                            })}
+                        </select>
+                      </div>
+                      <div class="add-familt-butttons">
+                        <a style={{color:"white"}}
+                          onClick={() =>
+                            this.setState({ addModalStatus: true })
+                          }
+                        >
+                          Add Family Accounts
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  {this.state.viewmemberdetail && (
+                    <div class="row dashboard-items">
+                      <div class="col-lg-12">
+                        <div class="heads-names active">
+                          <h2>
+                            Welcome {this.state.viewmemberdetail.first_name}
+                          </h2>{" "}
+                          <div class="edit-contacts">
+                            <h5>
+                              Registered Mobile Number is :{" "}
+                              {this.state.viewmemberdetail.mobile}
+                              <a href="edit-family-mobile.php">
+                                Edit Mobile Number{" "}
+                              </a>
+                            </h5>
+                            <h5>
+                              Registered Email is :{" "}
+                              {this.state.viewmemberdetail.email}
+                              <a href="edit-family-email.php">
+                                Edit Email id{" "}
+                              </a>{" "}
+                            </h5>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row card-dashboard-rows"></div>
+                    </div>
+                  )}
+                </div>
+              </section>
+            </div>
+          </div>
         <section
           id="hdii"
           className="m-lg-0  m-3"
@@ -111,9 +274,10 @@ export default class Dashboard extends Component {
               </div>
             </div>
           </Skeleton>
+        
           {this.state.nationality == "Indian Resident" ? (
             <Spin spinning={this.state.loading}>
-              <div className="row kyc-cards" style={{ marginTop: 125 }}>
+              <div className="row kyc-cards" style={{ marginTop: 25 }}>
                 <div className="col-lg-4">
                   {this.state.kycstatus == "admin_rejected" ? (
                     <div className="single">
@@ -155,8 +319,7 @@ export default class Dashboard extends Component {
                       </div>
                       <p>
                         You KYC is rejected, pls reach Growth91
-                       <sup>®</sup> Admin for
-                        update.
+                        <sup>®</sup> Admin for update.
                       </p>
                     </div>
                   ) : (
@@ -218,7 +381,7 @@ export default class Dashboard extends Component {
                                 <p>
                                   Your KYC is incomplete. Please contact
                                   contact@Growth91
-                                 <sup>®</sup>
+                                  <sup>®</sup>
                                   .com <br />
                                   from more details.
                                 </p>
@@ -310,10 +473,107 @@ export default class Dashboard extends Component {
             </Spin>
           )}
           <br />
+
           <div className="row kyc-cards">
             <div className="col-lg-2"></div>
           </div>
         </section>
+        <Modal
+          title="Add New Founder"
+          visible={this.state.addModalStatus}
+          onOk={this.addfamily}
+          okText="Submit"
+          // onCancel={this.cancel_addfounder}
+          onCancel={() => this.setState({ addModalStatus: false })}
+          width={550}
+        >
+          <Spin spinning={this.state.formloader}>
+            <div className="form-group">
+              <label className="mb-2">
+                First Name <span className="text-danger">*</span>
+              </label>
+              <Input
+                value={this.state.first_name}
+                onChange={(e) => this.setState({ first_name: e.target.value })}
+              />
+            </div>
+            <div className="form-group">
+              <label className="mb-2">Middle Name</label>
+              <Input
+                value={this.state.middle_name}
+                onChange={(e) => this.setState({ middle_name: e.target.value })}
+              />
+            </div>
+            <div className="form-group">
+              <label className="mb-2">
+                Last Name <span className="text-danger">*</span>
+              </label>
+              <Input
+                value={this.state.last_name}
+                onChange={(e) => this.setState({ last_name: e.target.value })}
+              />
+            </div>
+            <div className="form-group">
+              <label className="mb-2">
+                Email <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="email"
+                value={this.state.email}
+                onChange={(e) => this.onChangeEmail(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label className="mb-2">
+                Contact No <span className="text-danger">*</span>
+              </label>
+              <Input
+                value={this.state.phone}
+                onChange={(e) => this.setState({ phone: e.target.value })}
+              />
+            </div>
+
+            <div className="form-group mt-3">
+              <label className="mb-2">
+                Nationality <span className="text-danger">*</span>
+              </label>
+              <select
+                name="nationality"
+                className="form-input-field"
+                value={this.state.nationality}
+                onChange={this.handleChangeSelect}
+              >
+                <option value="">Select Nationality</option>
+                <option value="Indian Citizen">Indian Citizen</option>
+                <option value="International">International</option>
+                <option value="NRI With NIRO">NRI With NIRO</option>
+              </select>
+            </div>
+          </Spin>
+        </Modal>
+        <Modal
+          title="Verify OTP"
+          visible={this.state.familyotpmodal}
+          onOk={this.submitfamilyotp}
+          okText="Submit"
+          // onCancel={this.cancel_addfounder}
+          onCancel={() => this.setState({ familyotpmodal: false })}
+          width={550}
+        >
+          <h1 className="familyotpmodal">Otp has been shared to Register ID</h1>
+          <Spin spinning={this.state.formloader}>
+            <div className="form-group">
+              <label className="mb-2">
+                Otp <span className="text-danger">*</span>
+              </label>
+              <Input
+                value={this.state.FamilyOtp}
+                onChange={(e) => this.setState({ FamilyOtp: e.target.value })}
+              />
+            </div>
+          </Spin>
+        </Modal>
+        <ToastContainer />
       </div>
     );
   }

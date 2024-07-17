@@ -243,7 +243,9 @@ const URLs = {
   submit_non_resident_form: "investors/kyc/submit_non_resident_form",
   get_non_resident: "investors/kyc/get_non_resident_form_details",
   upload_kyc_docs: "investors/kyc/storekycdetail",
-  contact_us_form:"Users/send_contact_email"
+  contact_us_form:"Users/send_contact_email",
+  addfamily:"investors/InvestorController/addfamilymember",
+  getfamilymember:"investors/InvestorController/getfamilymember"
 };
 
 export default URLs;

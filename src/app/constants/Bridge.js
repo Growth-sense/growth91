@@ -1,6 +1,8 @@
 import URLs from "./Apis";
 import api from "../api/api";
+import Urldata from "../startup/Urldata";
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   fundRaiseRegistration: (data) =>
     api.post(URLs.fundRaiseRegistration, data).then((response) => {
@@ -397,6 +399,14 @@ export default {
       api.post(URLs.sendsuccessmsg, data).then((response) => {
         return response.data;
       }),
+      addfamily:(data)=>
+        api.post(URLs.addfamily, data).then((res)=>{
+          return res.data
+        }),
+      getfamilymember:(data)=>
+        api.post(URLs.getfamilymember, data).then((res)=>{
+          return res.data
+        })
   },
 
   kyc: {
