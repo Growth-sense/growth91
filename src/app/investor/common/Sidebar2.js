@@ -171,6 +171,20 @@ export default class Sidebar2 extends Component {
                 <div className="col-md-4 col-12 side-text">Referral</div>
               </li>
             </a>
+            <a
+              href="/Create-family"
+              className={
+                window.location.pathname == "/Create-family" ? "active" : ""
+              }
+            >
+              <li className="hiw-li row text-center">
+                {/* <img className='col-md-4 col-12 ' src='icon/transaction.png' style={{width : '50px'}} alt=""/> */}
+                {/* <i className='bi bi-cash-coin col-md-4' ></i> */}
+                <i className="bx bx-transfer-alt col-md-4" />
+                <div className="col-md-4 col-12 side-text">Family</div>
+              </li>
+            </a>
+           
           {/* <div>
             <a
               href="/founder-as-investor"

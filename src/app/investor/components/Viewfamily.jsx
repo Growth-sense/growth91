@@ -4,7 +4,7 @@ import Bridge from "../../constants/Bridge";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const { TextArea } = Input;
-export default class Dashboard extends Component {
+export default class Viewfamily extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,6 +23,12 @@ export default class Dashboard extends Component {
       email: "epu26061@doolk.com",
       phone: "8878331005",
       nationality: "Indian Citizen",
+      selffirst_name: "",
+      selflast_name: "",
+      selfemail: "",
+      selfphone: "",
+      selfdetail:"",
+      selfnationality: "Indian Citizen",
       refferal_code: "",
       is_refferal_code_matched: "",
       phone1: "",
@@ -86,6 +92,7 @@ export default class Dashboard extends Component {
             loading: false,
             membership_type: result.data[0].membership_type,
             nationality: result.data[0].nationality,
+            selfdetail: result.data[0],
           },
           localStorage.setItem("investor_kycstatus", result.data[0].kycstatus)
         );
@@ -123,7 +130,7 @@ export default class Dashboard extends Component {
       };
       Bridge.investor.addfamily(params).then((result) => {
         console.log(result);
-        toast.success("Family member added success fully");
+        toast.success(" Request has been sent to register E-mail id and Phone no");
         this.setState({ addModalStatus: false });
         this.getmember();
       });
@@ -164,6 +171,8 @@ export default class Dashboard extends Component {
     if (id != localStorage.getItem("Parent_investor_id")) {
       localStorage.setItem("investor_id", id);
       this.setState({ familyotpmodal: true });
+      window.location.reload();
+
      
     } else {
       localStorage.setItem(
@@ -177,7 +186,7 @@ export default class Dashboard extends Component {
     console.log(this.state.viewmemberdetail);
     return (
       <div>
-        {/* <div class="col-lg-10 pb-4 mt-5">
+        <div class="col-lg-10 pb-4 " style= {{marginTop:"160px"}}>
           <div>
             <section
               id="hdii"
@@ -213,17 +222,17 @@ export default class Dashboard extends Component {
                           })}
                       </select>
                     </div>
-                    <div class="add-familt-butttons">
+                   <div class="add-familt-butttons">
                       <a
                         style={{ color: "white" }}
                         onClick={() => this.setState({ addModalStatus: true })}
                       >
-                        Add Family Accounts
+                        Add Family Member
                       </a>
-                    </div>
+                    </div> 
                   </div>
                 </div>
-                {this.state.viewmemberdetail && (
+                {this.state.viewmemberdetail&& this.state.viewmemberdetail ? (
                   <div class="row dashboard-items">
                     <div class="col-lg-12">
                       <div class="heads-names active">
@@ -232,29 +241,46 @@ export default class Dashboard extends Component {
                         </h2>{" "}
                         <div class="edit-contacts">
                           <h5>
-                            Registered Mobile Number is :{" "}
+                            Registered Mobile Number  :{" "}
                             {this.state.viewmemberdetail.mobile}
-                            <a href="edit-family-mobile.php">
-                              Edit Mobile Number{" "}
-                            </a>
+                           
                           </h5>
                           <h5>
-                            Registered Email is :{" "}
+                            Registered Email id :{" "}
                             {this.state.viewmemberdetail.email}
-                            <a href="edit-family-email.php">
-                              Edit Email id{" "}
-                            </a>{" "}
+                           
                           </h5>
                         </div>
                       </div>
                     </div>
                     <div class="row card-dashboard-rows"></div>
                   </div>
-                )}
+                ):( <div class="row dashboard-items">
+                    <div class="col-lg-12">
+                      <div class="heads-names active">
+                        <h2>
+                          Welcome {this.state.selfdetail.first_name}
+                        </h2>{" "}
+                        <div class="edit-contacts">
+                          <h5>
+                            Registered Mobile Number  :{" "}
+                            {this.state.selfdetail.mobile}
+                           
+                          </h5>
+                          <h5>
+                            Registered Email id :{" "}
+                            {localStorage.getItem("investor_email")}
+                           
+                          </h5>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row card-dashboard-rows"></div>
+                  </div>)}
               </div>
             </section>
           </div>
-        </div> */}
+        </div>
         <section
           id="hdii"
           className="m-lg-0  m-3"
@@ -493,7 +519,7 @@ export default class Dashboard extends Component {
           </div>
         </section>
         <Modal
-          title="Add New Founder"
+          title="Add New Member"
           visible={this.state.addModalStatus}
           onOk={this.addfamily}
           okText="Submit"
@@ -501,92 +527,30 @@ export default class Dashboard extends Component {
           onCancel={() => this.setState({ addModalStatus: false })}
           width={550}
         >
-          <Spin spinning={this.state.formloader}>
-            <div className="form-group">
-              <label className="mb-2">
-                First Name <span className="text-danger">*</span>
-              </label>
-              <Input
-                value={this.state.first_name}
-                onChange={(e) => this.setState({ first_name: e.target.value })}
-              />
-            </div>
-            <div className="form-group">
-              <label className="mb-2">Middle Name</label>
-              <Input
-                value={this.state.middle_name}
-                onChange={(e) => this.setState({ middle_name: e.target.value })}
-              />
-            </div>
-            <div className="form-group">
-              <label className="mb-2">
-                Last Name <span className="text-danger">*</span>
-              </label>
-              <Input
-                value={this.state.last_name}
-                onChange={(e) => this.setState({ last_name: e.target.value })}
-              />
-            </div>
+           <Spin spinning={this.state.formloader}>
             <div className="form-group">
               <label className="mb-2">
                 Email <span className="text-danger">*</span>
               </label>
               <Input
-                type="email"
-                value={this.state.email}
-                onChange={(e) => this.onChangeEmail(e.target.value)}
+                value={this.state.Email}
+                onChange={(e) => this.setState({ Email: e.target.value })}
               />
             </div>
             <div className="form-group">
-              <label className="mb-2">
-                Contact No <span className="text-danger">*</span>
-              </label>
+              <label className="mb-2">Mobile</label>
               <Input
-                value={this.state.phone}
-                onChange={(e) => this.setState({ phone: e.target.value })}
+                value={this.state.mobile}
+                onChange={(e) => this.setState({ mobile: e.target.value })}
               />
             </div>
+          
+         
 
-            <div className="form-group mt-3">
-              <label className="mb-2">
-                Nationality <span className="text-danger">*</span>
-              </label>
-              <select
-                name="nationality"
-                className="form-input-field"
-                value={this.state.nationality}
-                onChange={this.handleChangeSelect}
-              >
-                <option value="">Select Nationality</option>
-                <option value="Indian Citizen">Indian Citizen</option>
-                <option value="International">International</option>
-                <option value="NRI With NIRO">NRI With NIRO</option>
-              </select>
-            </div>
+           
           </Spin>
         </Modal>
-        <Modal
-          title="Verify OTP"
-          visible={this.state.familyotpmodal}
-          onOk={this.submitfamilyotp}
-          okText="Submit"
-          // onCancel={this.cancel_addfounder}
-          onCancel={() => this.setState({ familyotpmodal: false })}
-          width={550}
-        >
-          <h1 className="familyotpmodal">Otp has been shared to Register ID</h1>
-          <Spin spinning={this.state.formloader}>
-            <div className="form-group">
-              <label className="mb-2">
-                Otp <span className="text-danger">*</span>
-              </label>
-              <Input
-                value={this.state.FamilyOtp}
-                onChange={(e) => this.setState({ FamilyOtp: e.target.value })}
-              />
-            </div>
-          </Spin>
-        </Modal>
+       
         <ToastContainer />
       </div>
     );

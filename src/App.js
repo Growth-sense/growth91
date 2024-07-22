@@ -200,6 +200,8 @@ import FUnicornStartup from "./app/admin/FUnicornStartup.js";
 import FUnicornInvestors from "./app/admin/FUnicornInvestors.js";
 import FUnicornFounders from "./app/admin/FUnicornFounders.js";
 import TableComponent from "./app/admin/pdfview/TableComponent.js";
+import Createfamily from "./app/investor/Create-Family.jsx";
+import Viewfamilylist from "./app/investor/View-family-list.jsx";
 
 
 
@@ -631,6 +633,9 @@ function App() {
             exact
             component={founderkycscreen}
           />
+          <Route path="/Create-family" exact component={Createfamily} />
+          <Route path="/View-family-list" exact component={Viewfamilylist} />
+
 
           <Route path="*" exact component={error} />
         </Switch>

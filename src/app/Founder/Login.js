@@ -195,6 +195,10 @@ class Login extends Component {
             "investor_id",
             this.state.otpoutput[0].investor_id
           );
+          localStorage.setItem(
+            "Parent_investor_id",
+            this.state.otpoutput[0].investor_id
+          );
           localStorage.setItem("investor_email", this.state.otpoutput[0].email);
           localStorage.setItem(
             "investor_kycstatus",
