@@ -7,6 +7,7 @@ import Documents from "../../admin/components/modal/Documents";
 import { UserAddOutlined } from "@ant-design/icons";
 import { redirect } from "next/dist/server/api-utils";
 import { Link, Route } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 
 export default class CreatefamilyPage extends Component {
   constructor(props) {
@@ -24,11 +25,12 @@ export default class CreatefamilyPage extends Component {
       wallet_arr: [],
       totalAmount: 0,
       referral_code: "",
-      user_list: [{name:"Group1",dateofjoining:"10-May-2024",Status:"Active"},{name:"Group2",dateofjoining:"10-May-2024",Status:"Active"},{name:"Group3",dateofjoining:"10-May-2024",Status:"Active"},{name:"Group4",dateofjoining:"10-May-2024",Status:"Active"}],
+      group_list: [],
       cuser_list: [],
       addModalStatus:false,
       formloader:false,
       CreateModalStatus:false,
+      newgroupName:""
     };
   }
 
@@ -37,70 +39,12 @@ export default class CreatefamilyPage extends Component {
       {
         investor_id: this.props.investor_id,
       },
-      () => this.getwallethistory()
+      () => this.viewgroupall()
     );
     // this.get_referral_code();
   }
 
-  get_referral_code = () => {
-    let params = {
-      investor_id: this.props.investor_id,
-    };
-    Bridge.get_investor_referral_code(params).then((result) => {
-      if (result.status == 1) {
-        // console.log('referral_code',result.data[0].referral_code);
-        this.setState(
-          {
-            referral_code: result.data[0].referral_code,
-          },
-          () => this.get_referral_investor_list()
-        );
-      } else {
-      }
-    });
-  };
-
-  get_referral_investor_list = () => {
-    if (this.state.referral_code) {
-      let params = {
-        referral_code: this.state.referral_code,
-      };
-      Bridge.investor.get_referral_investor_list(params).then((result) => {
-        if (result.status == 1) {
-          // console.log('user_list',result);
-          this.setState({
-            user_list: result.data,
-            cuser_list: result.data,
-          });
-        } else {
-        }
-      });
-    }
-  };
-
-  getwallethistory() {
-    let params = {
-      investor_id: this.state.investor_id,
-    };
-    Bridge.investor.get_wallet_history(params).then((result) => {
-      if (result.status == "1") {
-        this.setState({ wallet_arr: result.data.reverse() });
-        let credit_amount = 0;
-        let debit_amount = 0;
-        for (let item of result.data) {
-          if (item.type == "credited") {
-            credit_amount = parseInt(credit_amount) + parseInt(item.amount);
-          }
-          if (item.type == "debited") {
-            debit_amount = parseInt(debit_amount) + parseInt(item.amount);
-          }
-        }
-        let total = parseInt(credit_amount - debit_amount);
-        this.setState({ totalAmount: Math.abs(total) });
-      } else {
-      }
-    });
-  }
+ 
   showModal = () => {
     this.setState({ documentmodalstatus: true });
   };
@@ -113,55 +57,7 @@ export default class CreatefamilyPage extends Component {
     this.setState({ documentmodalstatus: false });
   };
 
-  // search = () => {
-  //     let searchval = this.state.searchinput;
-  //     this.setState({ loading:true });
-  //     let arr=[];
-  //     if(searchval)
-  //     {
-
-  //     for(let item of this.state.cuser_list) {
-  //         if(item.first_name.toLowerCase().includes(searchval.toLowerCase())||
-  //         item.last_name.toLowerCase().includes(searchval.toLowerCase())||
-  //         item.email.toLowerCase().includes(searchval.toLowerCase()))  {
-  //             arr = [...arr, item];
-  //           }
-  //         }
-  //         this.setState({
-  //         user_list: arr,
-  //         loading:false,
-  //       });
-  //     }else {
-  //       this.setState({
-  //         loading:false,
-  //       });
-  //     }
-  // }
-
-  // search = (e) => {
-  //     let search = e.target.value;
-  //     // console.log(search);
-  //     this.setState({ searchinput: search });
-  //     let cinvestments = this.state.cuser_list;
-  //     let filtered = [];
-  //     if (search == "") {
-  //       filtered = cinvestments;
-  //     } else {
-  //       for (let i = 0; i < cinvestments.length; i++) {
-  //         if (
-  //           cinvestments[i].first_name &&
-  //           cinvestments[i].name.toLowerCase().includes(search.toLowerCase())
-  //         ) {
-  //           filtered.push(cinvestments[i]);
-  //         }
-  //       }
-  //     }
-  //     // console.log('filtered',filtered);
-  //     this.setState({
-  //       investments: filtered,
-  //     });
-  //   };
-
+ 
   searchinput = (e) => {
     let text = e.target.value;
     this.setState({ loading: true, searchinput: text });
@@ -196,36 +92,54 @@ export default class CreatefamilyPage extends Component {
     e.preventDefault();
                      this.setState({ addModalStatus: true }) 
   }
+  Creategroup =()=>{
+    let params = {
+      userID: localStorage.getItem("Parent_investor_id"),
+      groupName:this.state.newgroupName
+
+    };
+    console.log(params.groupName);
+    if(params.groupName.length ==0 ){
+      toast.error("plz fill all fiels")
+    }
+    else{
+
+      Bridge.family.creategroup(params).then((result) => {
+        console.log(result);
+        this.setState({ CreateModalStatus: false })
+      })
+    }
+
+
+  }
+  viewgroupall=()=>{
+    let params = {
+      userID: localStorage.getItem("Parent_investor_id"),
+
+    };
+    Bridge.family.getGroupList(params).then((result) => {
+      console.log(result.data);
+      this.setState({group_list:result.data})
+    })
+
+
+  }
   render() {
     //for referral
     const dataSource =
-      this.state.user_list &&
-      this.state.user_list.map((item, index) => {
+      this.state.group_list &&
+      this.state.group_list.map((item, index) => {
+        console.log(item);
         return {
-          key: index,
-          name: item.name,
-          email: item.email,
-          dateofjoining: item.dateofjoining
-            ? (item.dateofjoining)
+          key: item.groupID,
+          name: item.groupName,
+            groupCreateDate: item.groupCreateDate
+            ? moment(item.groupCreateDate).format("DD MMM, YYYY")
             : "---",
-          dateofinvestment: item.dateofinvestment
-            ? moment(item.dateofinvestment).format("DD MMM, YYYY")
-            : "---",
-          Status: item.Status,
+          Status: item.groupStatus,
         };
       });
-    const dataSource2 =
-      this.state.wallet_arr &&
-      this.state.wallet_arr.map((item, index) => {
-        return {
-          key: index,
-          wallet_id: item.wallet_id,
-          investor_id: item.investor_id,
-          description: item.description,
-          type: item.type,
-          amount: item.amount,
-        };
-      });
+
     const columns = [
       {
         title: "Group Name",
@@ -235,8 +149,8 @@ export default class CreatefamilyPage extends Component {
       
       {
         title: "Date of Creation",
-        dataIndex: "dateofjoining",
-        key: "dateofjoining",
+        dataIndex: "groupCreateDate",
+        key: "groupCreateDate",
       },
     
       {
@@ -314,7 +228,7 @@ export default class CreatefamilyPage extends Component {
                 return (
                     <div className="d-flex ">
               <div style={{marginLeft:"10px" , color:"#1890ff"}}>
-                  <Link to="/View-family-list" >
+                  <Link to={`/View-family-list/${records.key}`} >
                     <div className="menu-action">
                       Manage
                     </div>
@@ -393,7 +307,7 @@ export default class CreatefamilyPage extends Component {
           <Modal
           title="Create New Group"
           visible={this.state.CreateModalStatus}
-          onOk={() => this.setState({ CreateModalStatus: false })}
+          onOk={() => this.Creategroup()}
           okText="Submit"
           // onCancel={this.cancel_addfounder}
           onCancel={() => this.setState({ CreateModalStatus: false })}
@@ -404,8 +318,9 @@ export default class CreatefamilyPage extends Component {
             <div className="form-group">
               <label className="mb-2">Name</label>
               <Input
-                value={this.state.mobile}
-                onChange={(e) => this.setState({ mobile: e.target.value })}
+                value={this.state.newgroupName}
+                required
+                onChange={(e) => this.setState({ newgroupName: e.target.value })}
               />
             </div>
           
@@ -528,16 +443,12 @@ export default class CreatefamilyPage extends Component {
                         </div> */}
               {/* </div> */}
               <div className="row m-3 p-3">
-                <Table
-                  className="table-2"
-                  dataSource={dataSource2}
-                  columns={columns2}
-                  bordered
-                  loading={this.state.loading}
-                />
+               
               </div>
             </section>
           )}
+   
+   <ToastContainer/>
         </div>
       </div>
     );

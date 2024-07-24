@@ -43,7 +43,7 @@ export default class Dashboard extends Component {
     if (this.props.investor_id) {
       this.getbankdetails();
       this.getInvestments();
-      this.getmember();
+      // this.getmember();
     }
   }
   // get investments list
@@ -134,45 +134,7 @@ export default class Dashboard extends Component {
   onChangeEmail = (email) => {
     this.setState({ email: email });
   };
-  getmember = () => {
-    let params = {
-      parent_id: localStorage.getItem("Parent_investor_id"),
-    };
-    Bridge.investor.getfamilymember(params).then((result) => {
-      console.log(result);
-      this.setState({ memberdetail: result.data });
-    });
-  };
-  submitfamilyotp = (e) => {
-    this.setState({ familyotpmodal: false });
-    window.location.reload();
-  };
-  setmember = (e) => {
-    this.setState({ memberdetailid: e.target.value });
-    let id = e.target.value;
 
-    const data = this.state.memberdetail.filter((item, index) => {
-      return item.investor_id === id;
-    });
-
-    console.log(data[0]);
-    console.log(id);
-    console.log(localStorage.getItem("Parent_investor_id"));
-
-    this.setState({ viewmemberdetail: data[0] });
-
-    if (id != localStorage.getItem("Parent_investor_id")) {
-      localStorage.setItem("investor_id", id);
-      this.setState({ familyotpmodal: true });
-     
-    } else {
-      localStorage.setItem(
-        "investor_id",
-        localStorage.getItem("Parent_investor_id")
-      );
-      window.location.reload();
-    }
-  };
   render() {
     console.log(this.state.viewmemberdetail);
     return (

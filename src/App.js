@@ -202,6 +202,7 @@ import FUnicornFounders from "./app/admin/FUnicornFounders.js";
 import TableComponent from "./app/admin/pdfview/TableComponent.js";
 import Createfamily from "./app/investor/Create-Family.jsx";
 import Viewfamilylist from "./app/investor/View-family-list.jsx";
+import familyinvite from "./app/investor/family-invite.jsx";
 
 
 
@@ -634,7 +635,8 @@ function App() {
             component={founderkycscreen}
           />
           <Route path="/Create-family" exact component={Createfamily} />
-          <Route path="/View-family-list" exact component={Viewfamilylist} />
+          <Route path="/View-family-list/:id" exact component={Viewfamilylist} />
+          <Route path="/family-invite"  component={familyinvite} />
 
 
           <Route path="*" exact component={error} />

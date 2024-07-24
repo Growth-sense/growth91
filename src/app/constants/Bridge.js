@@ -864,5 +864,28 @@ export default {
       let res= api.post(URLs.contact_us_form,data)
       return res
       
-    }
+    },
+    family:{
+      creategroup:(data)=>api.post(URLs.creategroup,data).then((response) => {
+          return response.data;
+        }),
+      getGroupList:(data)=>api.post(URLs.getGroupList,data).then((response) => {
+          return response.data;
+        }),
+        checkFamilyMember:(data)=>api.post(URLs.checkFamilyMember,data).then((response) => {
+          return response.data;
+        }),
+        saveInvite:(data)=>api.post(URLs.saveInvite,data).then((response) => {
+          return response.data;
+        }),
+        familyInviteOTP:(data)=>api.post(URLs.familyInviteOTP,data).then((response) => {
+          return response.data;
+        }),
+        verifyFamilyInvite:(data)=>api.post(URLs.verifyFamilyInvite,data).then((response) => {
+          return response.data;
+        }),
+      
+      }
+    
+    
   };

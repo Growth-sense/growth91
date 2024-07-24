@@ -3,8 +3,9 @@ import { Modal, Spin, DatePicker, Input, Skeleton } from "antd";
 import Bridge from "../../constants/Bridge";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { withRouter } from "react-router-dom";
 const { TextArea } = Input;
-export default class Viewfamily extends Component {
+class Viewfamily extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,7 +28,7 @@ export default class Viewfamily extends Component {
       selflast_name: "",
       selfemail: "",
       selfphone: "",
-      selfdetail:"",
+      selfdetail: "",
       selfnationality: "Indian Citizen",
       refferal_code: "",
       is_refferal_code_matched: "",
@@ -37,6 +38,8 @@ export default class Viewfamily extends Component {
       memberdetailid: localStorage.getItem("investor_id"),
       FamilyOtp: "",
       familyotpmodal: false,
+      SendreqEmail: "",
+      Sendreqmobile: "",
     };
   }
 
@@ -47,59 +50,11 @@ export default class Viewfamily extends Component {
   componentDidMount() {
     this.setState({ investor_id: this.props.investor_id });
     if (this.props.investor_id) {
-      this.getbankdetails();
-      this.getInvestments();
       this.getmember();
+      
     }
   }
-  // get investments list
-  getInvestments = () => {
-    this.setState({ loading: true });
-    let params = {
-      investor_id: this.props.investor_id,
-    };
-    Bridge.investor.getInvestments(params).then((result) => {
-      if (result.status == 1) {
-        let total = 0;
-        for (let d of result.data) {
-          total += Number(d.Investment_amt);
-        }
-        this.setState({
-          investments: result.data,
-          startinvestedcompanies: result.data.length,
-          startinvestedamount: total,
-          loading: false,
-        });
-      } else {
-        this.setState({
-          loading: false,
-        });
-      }
-    });
-  };
-  // get bank details
-  getbankdetails = () => {
-    this.setState({ loading: true });
-    let params = {
-      id: this.props.investor_id,
-    };
-    Bridge.investor.getbankdetails(params).then((result) => {
-      if (result.status == 1) {
-        this.setState(
-          {
-            kycstatus: result.data[0].kycstatus,
-            bankstatus: result.data[0].bank_ac_no == "" ? 0 : 1,
-            loading: false,
-            membership_type: result.data[0].membership_type,
-            nationality: result.data[0].nationality,
-            selfdetail: result.data[0],
-          },
-          localStorage.setItem("investor_kycstatus", result.data[0].kycstatus)
-        );
-      } else {
-      }
-    });
-  };
+
   handleChangeSelect = (e) => {
     this.setState({
       nationality: e.target.value,
@@ -107,32 +62,22 @@ export default class Viewfamily extends Component {
   };
   addfamily = () => {
     this.setState({ formloader: true });
-    if (
-      this.state.first_name == "" ||
-      this.state.last_name == "" ||
-      this.state.email == "" ||
-      this.state.phone == "" ||
-      this.state.nationality == ""
-    ) {
+    if (this.state.SendreqEmail == "" || this.state.Sendreqmobile == "") {
       toast.error("Plz fill all field");
     } else {
       let params = {
-        first_name: this.state.first_name,
-        middle_name: this.state.middle_name,
-        last_name: this.state.last_name,
-        parent_id: this.state.investor_id,
-        email: this.state.email,
-        nationality: this.state.nationality,
-        phone: this.state.phone,
-        refferal_code: "",
-        is_refferal_code_matched: "",
-        phone1: "",
+        email: this.state.SendreqEmail,
+        mobile: this.state.Sendreqmobile,
       };
-      Bridge.investor.addfamily(params).then((result) => {
+      Bridge.family.checkFamilyMember(params).then((result) => {
         console.log(result);
-        toast.success(" Request has been sent to register E-mail id and Phone no");
-        this.setState({ addModalStatus: false });
-        this.getmember();
+        if (result.status == "1") {
+          this.sendinvite();
+          this.setState({ addModalStatus: false });
+        }
+        else {
+          toast.error("Invailid User detail");
+        } 
       });
     }
 
@@ -141,13 +86,41 @@ export default class Viewfamily extends Component {
   onChangeEmail = (email) => {
     this.setState({ email: email });
   };
+  sendinvite = () => {
+    const ids = this.props.match.params.id;
+    console.log(ids);
+
+    let params = {
+      email: this.state.SendreqEmail,
+      mobile: this.state.Sendreqmobile,
+      groupID: ids,
+      userID: localStorage.getItem("Parent_investor_id"),
+    };
+    Bridge.family.saveInvite(params).then((result) => {
+      console.log(result);
+      if (result.status == "1") {
+        toast.success(
+          " Request has been sent to register E-mail id and Phone no"
+        );
+      } else {
+        
+          toast.info("Invitation already sent!");
+          this.setState({ addModalStatus: false });
+        
+      }
+    });
+  };
   getmember = () => {
     let params = {
       parent_id: localStorage.getItem("Parent_investor_id"),
+      groupID:4,
+
     };
     Bridge.investor.getfamilymember(params).then((result) => {
       console.log(result);
       this.setState({ memberdetail: result.data });
+      this.setmember();
+
     });
   };
   submitfamilyotp = (e) => {
@@ -155,10 +128,18 @@ export default class Viewfamily extends Component {
     window.location.reload();
   };
   setmember = (e) => {
-    this.setState({ memberdetailid: e.target.value });
-    let id = e.target.value;
+    let id
+    if(!e){
+      id =localStorage.getItem("investor_id")
+      this.setState({ memberdetailid: id });
+      
+    }
+    else{
+      id = e.target.value;
+      this.setState({ memberdetailid: id });
 
-    const data = this.state.memberdetail.filter((item, index) => {
+}
+    const data = this.state.memberdetail && this.state.memberdetail.filter((item, index) => {
       return item.investor_id === id;
     });
 
@@ -171,36 +152,34 @@ export default class Viewfamily extends Component {
     if (id != localStorage.getItem("Parent_investor_id")) {
       localStorage.setItem("investor_id", id);
       this.setState({ familyotpmodal: true });
-      window.location.reload();
-
-     
+      // window.location.reload();
     } else {
       localStorage.setItem(
         "investor_id",
         localStorage.getItem("Parent_investor_id")
       );
-      window.location.reload();
+      // window.location.reload();
     }
   };
   render() {
     console.log(this.state.viewmemberdetail);
     return (
       <div>
-        <div class="col-lg-10 pb-4 " style= {{marginTop:"160px"}}>
+        <div className="col-lg-10 pb-4 " style={{ marginTop: "160px" }}>
           <div>
             <section
               id="hdii"
-              class="m-lg-0  m-3"
+              className="m-lg-0  m-3"
               // style={{ minHeight: "40vh" }}
             >
               <div>
-                <div class="row dashboard-items ">
-                  <div class="col-lg-12 family-columns">
-                    <div class="filteruser-dropdown form-control">
+                <div className="row dashboard-items ">
+                  <div className="col-lg-12 family-columns">
+                    <div className="filteruser-dropdown form-control">
                       <select
                         name=""
                         id=""
-                        class="optionselect"
+                        className="optionselect"
                         value={this.state.memberdetailid}
                         onChange={this.setmember}
                       >
@@ -222,61 +201,63 @@ export default class Viewfamily extends Component {
                           })}
                       </select>
                     </div>
-                   <div class="add-familt-butttons">
-                      <a
-                        style={{ color: "white" }}
+                    <div className="add-family-butttos">
+                      <button
+                        className="add-family-butttons"
+                        style={{
+                          background: "#29176F",
+                          color: "white",
+                          padding: "10px",
+                          borderRadius: "5px",
+                        }}
                         onClick={() => this.setState({ addModalStatus: true })}
                       >
                         Add Family Member
-                      </a>
-                    </div> 
+                      </button>
+                    </div>
                   </div>
                 </div>
-                {this.state.viewmemberdetail&& this.state.viewmemberdetail ? (
-                  <div class="row dashboard-items">
-                    <div class="col-lg-12">
-                      <div class="heads-names active">
+                {this.state.viewmemberdetail && this.state.viewmemberdetail ? (
+                  <div className="row dashboard-items">
+                    <div className="col-lg-12">
+                      <div className="heads-names active">
                         <h2>
                           Welcome {this.state.viewmemberdetail.first_name}
                         </h2>{" "}
-                        <div class="edit-contacts">
+                        <div className="edit-contacts">
                           <h5>
-                            Registered Mobile Number  :{" "}
+                            Registered Mobile Number :{" "}
                             {this.state.viewmemberdetail.mobile}
-                           
                           </h5>
                           <h5>
                             Registered Email id :{" "}
                             {this.state.viewmemberdetail.email}
-                           
                           </h5>
                         </div>
                       </div>
                     </div>
-                    <div class="row card-dashboard-rows"></div>
+                    <div className="row card-dashboard-rows"></div>
                   </div>
-                ):( <div class="row dashboard-items">
-                    <div class="col-lg-12">
-                      <div class="heads-names active">
-                        <h2>
-                          Welcome {this.state.selfdetail.first_name}
-                        </h2>{" "}
-                        <div class="edit-contacts">
+                ) : (
+                  <div className="row dashboard-items">
+                    <div className="col-lg-12">
+                      <div className="heads-names active">
+                        <h2>Welcome {this.state.selfdetail.first_name}</h2>{" "}
+                        <div className="edit-contacts">
                           <h5>
-                            Registered Mobile Number  :{" "}
+                            Registered Mobile Number :{" "}
                             {this.state.selfdetail.mobile}
-                           
                           </h5>
                           <h5>
                             Registered Email id :{" "}
                             {localStorage.getItem("investor_email")}
-                           
                           </h5>
                         </div>
                       </div>
                     </div>
-                    <div class="row card-dashboard-rows"></div>
-                  </div>)}
+                    <div className="row card-dashboard-rows"></div>
+                  </div>
+                )}
               </div>
             </section>
           </div>
@@ -527,32 +508,33 @@ export default class Viewfamily extends Component {
           onCancel={() => this.setState({ addModalStatus: false })}
           width={550}
         >
-           <Spin spinning={this.state.formloader}>
+          <Spin spinning={this.state.formloader}>
             <div className="form-group">
               <label className="mb-2">
                 Email <span className="text-danger">*</span>
               </label>
               <Input
-                value={this.state.Email}
-                onChange={(e) => this.setState({ Email: e.target.value })}
+                value={this.state.SendreqEmail}
+                onChange={(e) =>
+                  this.setState({ SendreqEmail: e.target.value })
+                }
               />
             </div>
             <div className="form-group">
               <label className="mb-2">Mobile</label>
               <Input
-                value={this.state.mobile}
-                onChange={(e) => this.setState({ mobile: e.target.value })}
+                value={this.state.Sendreqmobile}
+                onChange={(e) =>
+                  this.setState({ Sendreqmobile: e.target.value })
+                }
               />
             </div>
-          
-         
-
-           
           </Spin>
         </Modal>
-       
+
         <ToastContainer />
       </div>
     );
   }
 }
+export default withRouter(Viewfamily);
