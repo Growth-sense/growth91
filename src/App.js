@@ -635,7 +635,7 @@ function App() {
             component={founderkycscreen}
           />
           <Route path="/Create-family" exact component={Createfamily} />
-          <Route path="/View-family-list/:id" exact component={Viewfamilylist} />
+          <Route path="/View-family-list" exact component={Viewfamilylist} />
           <Route path="/family-invite"  component={familyinvite} />
 
 

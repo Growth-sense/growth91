@@ -94,7 +94,7 @@ export default class CreatefamilyPage extends Component {
   }
   Creategroup =()=>{
     let params = {
-      userID: localStorage.getItem("Parent_investor_id"),
+      userID: localStorage.getItem("Parent_investor_id") ,
       groupName:this.state.newgroupName
 
     };
@@ -107,6 +107,7 @@ export default class CreatefamilyPage extends Component {
       Bridge.family.creategroup(params).then((result) => {
         console.log(result);
         this.setState({ CreateModalStatus: false })
+        this.viewgroupall()
       })
     }
 
@@ -114,7 +115,7 @@ export default class CreatefamilyPage extends Component {
   }
   viewgroupall=()=>{
     let params = {
-      userID: localStorage.getItem("Parent_investor_id"),
+      userID: localStorage.getItem("Parent_investor_id") ,
 
     };
     Bridge.family.getGroupList(params).then((result) => {
@@ -228,7 +229,7 @@ export default class CreatefamilyPage extends Component {
                 return (
                     <div className="d-flex ">
               <div style={{marginLeft:"10px" , color:"#1890ff"}}>
-                  <Link to={`/View-family-list/${records.key}`} >
+                  <Link to={`/View-family-list?id=${records.key}`} >
                     <div className="menu-action">
                       Manage
                     </div>
