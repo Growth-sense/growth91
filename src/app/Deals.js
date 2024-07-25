@@ -98,10 +98,35 @@ class Deals extends Component {
       this.getDeals();
     }
   };
+  getDifferenceI = (date1, date2) => {
+    let diff = Math.floor((Date.parse(date2) - Date.parse(date1)) / 86400000);
+    let final = 0;
+    if (diff <= 0) {
+      
+
+      return 1
+      
+    } else {
+     
+      return 0
+     
+    }
+  };
+  getDifferencestart = (date1, date2) => {
+    let diff = Math.floor((Date.parse(date2) - Date.parse(date1)) / 86400000);
+    let final = 0;
+    if (diff < 0) {
+      return diff
+      
+    } else {
+      return diff
+     
+    }
+  };
   getDifferenceInDays = (date1, date2) => {
     let diff = Math.floor((Date.parse(date2) - Date.parse(date1)) / 86400000);
     let final = 0;
-
+   
     return diff;
   };
   // get deal list
@@ -355,6 +380,7 @@ class Deals extends Component {
 
                             {this.state.deals &&
                               this.state.deals.map((item, index) => {
+                              
                                 const handleGA = () => {
                                   ReactGA.event({
                                     category: "Deals",
@@ -390,7 +416,13 @@ class Deals extends Component {
                                       key={index}
                                     >
                                       <a
-                                        href={item.page_link}
+                                        //  onClick={() =>   this.openpage(item)}}
+                                        href={this.getDifferenceI(
+                                          this.state.todaydate,
+                                          moment(
+                                            item.deal_st_date
+                                          ).format("YYYY-MM-DD")
+                                        ) ==1 && item.page_link}
                                         // onClick={()=>this.openpage(item)}
                                       >
                                         <div className="deal-item">
@@ -399,6 +431,20 @@ class Deals extends Component {
                                               <div className="private-tag">
                                                 <span style={{ fontSize: 12 }}>
                                                   Private
+                                                </span>{" "}
+                                                &nbsp;&nbsp;
+                                                {/* <InfoCircleOutlined style={{marginTop:-2}}/> */}
+                                              </div>
+                                            )}
+                                            {this.getDifferenceI(
+                                                this.state.todaydate,
+                                                moment(
+                                                  item.deal_st_date
+                                                ).format("YYYY-MM-DD")
+                                              ) ==0 && (
+                                              <div className="private-tag">
+                                                <span style={{ fontSize: 12 }}>
+                                                  Coming Soon
                                                 </span>{" "}
                                                 &nbsp;&nbsp;
                                                 {/* <InfoCircleOutlined style={{marginTop:-2}}/> */}
@@ -538,48 +584,91 @@ Compulsorily Convertible Preference Shares (CCPS) is a type of equity instrument
                                                 : item.Muliples_of}
                                             </p>
                                             <div className="d-flex raised-txt justify-content-between">
-                                              <div>
+                                            {this.getDifferenceI(
+                                                this.state.todaydate,
+                                                moment(
+                                                  item.deal_st_date
+                                                ).format("YYYY-MM-DD")
+                                              ) ==0 ? (""):(
+                                                <div>
                                                 Percent Raised <br />
+
                                                 <p className="per">
                                                   {parseFloat(
                                                     (item.total_invested_amount /
                                                       item.deal_fund_requested) *
                                                       100 +
                                                       parseInt(item.raiegap)
-                                                  ).toFixed(0)}
+                                                    ).toFixed(0)}
                                                   %
                                                 </p>
-                                              </div>
-                                              {this.getDifferenceInDays(
-                                                this.state.todaydate,
-                                                moment(
-                                                  item.deal_end_date
-                                                ).format("YYYY-MM-DD")
-                                              ) == 0 && (
-                                                <div className="hero-tag">
-                                                  Closing today
-                                                </div>
-                                              )}
+                                              </div>)
+                                              }
+                                            
+                                             
 
-                                              {this.getDifferenceInDays(
+                                              {this.getDifferencestart(
                                                 this.state.todaydate,
                                                 moment(
-                                                  item.deal_end_date
+                                                  item.deal_st_date
                                                 ).format("YYYY-MM-DD")
                                               ) <= 0 ? (
-                                                ""
+                                                this.getDifferenceInDays(
+                                                  this.state.todaydate,
+                                                  moment(
+                                                    item.deal_end_date
+                                                  ).format("YYYY-MM-DD")
+                                                ) == 0 && (
+                                                  <div className="hero-tag">
+                                                    Closing today
+                                                  </div>
+                                                )
                                               ) : (
+                                               ""
+                                              )}
+
+                                              {this.getDifferenceI(
+                                                this.state.todaydate,
+                                                moment(
+                                                  item.deal_st_date
+                                                ).format("YYYY-MM-DD")
+                                              ) ==0 ? (
                                                 <div className=" ">
-                                                  Closes in <br />
-                                                  <p className="per">
-                                                    {this.getDifferenceInDays(
+                                                Live in <br />
+                                                <p className="per">
+                                                  {this.getDifferencestart(
+                                                    this.state.todaydate,
+                                                    moment(
+                                                      item.deal_st_date
+                                                    ).format("YYYY-MM-DD")
+                                                  ) <= 0
+                                                    ? this.getDifferenceInDays(
+                                                      this.state.todaydate,
+                                                      moment(
+                                                        item.deal_end_date
+                                                      ).format("YYYY-MM-DD"))
+                                                    : this.getDifferencestart(
+                                                        this.state.todaydate,
+                                                        moment(
+                                                          item.deal_st_date
+                                                        ).format("YYYY-MM-DD")
+                                                      )}{" "}
+                                                  Days
+                                                </p>
+                                              </div>
+                                              ) : (
+                                                
+                                                    this.getDifferenceInDays(
                                                       this.state.todaydate,
                                                       moment(
                                                         item.deal_end_date
                                                       ).format("YYYY-MM-DD")
                                                     ) <= 0
                                                       ? " "
-                                                      : this.getDifferenceInDays(
+                                                      : <div className=" ">
+                                                      Closes in <br />
+                                                      <p className="per">
+                                                         {this.getDifferenceInDays(
                                                           this.state.todaydate,
                                                           moment(
                                                             item.deal_end_date
@@ -661,7 +750,12 @@ Compulsorily Convertible Preference Shares (CCPS) is a type of equity instrument
                                       key={index}
                                     >
                                       <a
-                                        href={item.page_link}
+                                       href={this.getDifferenceI(
+                                        this.state.todaydate,
+                                        moment(
+                                          item.deal_st_date
+                                        ).format("YYYY-MM-DD")
+                                      ) ==1 && item.page_link}
                                         // onClick={() => this.openpage(item)}
                                       >
                                         <div className="deal-item">
@@ -672,21 +766,23 @@ Compulsorily Convertible Preference Shares (CCPS) is a type of equity instrument
                                                   Private
                                                 </span>{" "}
                                                 &nbsp;&nbsp;
-                                                {/* <InfoCircleOutlined style={{
-                                          marginTop: -2,
-                                        }}/> */}
+                                                {/* <InfoCircleOutlined style={{marginTop:-2}}/> */}
                                               </div>
                                             )}
-                                            {/* <div className='new-tag'>
-                                      <span style={{ fontSize:12 }}>New</span>
-                                    </div>
-                                    <div className='funded-tag'>
-                                      <CheckCircleFilled style={{
-                                        position: 'relative',
-                                        top: -2,
-                                      }}/> &nbsp;&nbsp;
-                                      <span style={{ fontSize:12 }}>Funded</span>
-                                    </div>      */}
+                                            {this.getDifferenceI(
+                                                this.state.todaydate,
+                                                moment(
+                                                  item.deal_st_date
+                                                ).format("YYYY-MM-DD")
+                                              ) ==0 && (
+                                              <div className="private-tag">
+                                                <span style={{ fontSize: 12 }}>
+                                                  Coming Soon
+                                                </span>{" "}
+                                                &nbsp;&nbsp;
+                                                {/* <InfoCircleOutlined style={{marginTop:-2}}/> */}
+                                              </div>
+                                            )}
                                           </div>
                                           <div className="deal-item-img">
                                             <img
@@ -707,27 +803,112 @@ Compulsorily Convertible Preference Shares (CCPS) is a type of equity instrument
                                                   <h6>{item.deal_name}</h6>
                                                 </div>
                                               </div>
+                                              {/* - {item.deal_id} */}
                                               <div className="col-4 col-lg-4 p-0">
-                                                <Tooltip
-                                                  title={item.deal_tooltip}
-                                                >
-                                                  <div
-                                                    className="hero-tag"
-                                                    style={{
-                                                      display: "flex",
-                                                      justifyContent:
-                                                        "space-around",
-                                                      fontSize: 11,
-                                                      maxWidth: 100,
-                                                    }}
+                                                {item.deal_service ===
+                                                "CCPS" ? (
+                                                  <Tooltip
+                                                    title="
+Compulsorily Convertible Preference Shares (CCPS) is a type of equity instrument which usually has higher preference than common equity shares.  CCPS are converted to common equity shares by a specified date on the terms agreed at the time of issue.  Usually, CCPS holders have equal voting rights and appear on the captable.
+"
                                                   >
-                                                    {item.deal_service} &nbsp;
-                                                    <InfoCircleOutlined />
-                                                  </div>
-                                                </Tooltip>
+                                                    <div
+                                                      className="hero-tag"
+                                                      style={{
+                                                        display: "flex",
+                                                        justifyContent:
+                                                          "space-around",
+                                                        fontSize: 11,
+                                                        maxWidth: 100,
+                                                      }}
+                                                    >
+                                                      {item.deal_service} &nbsp;
+                                                      <InfoCircleOutlined />
+                                                    </div>
+                                                  </Tooltip>
+                                                ) : item.deal_service ===
+                                                  "CCD" ? (
+                                                  <Tooltip
+                                                    title="Compulsory Convertible Debenture (CCD) is a type of debt instrument, which is compulsorily converted into equity shares on specific terms agreed at the time of issue by a specified date, unless redeemed before this date. Usually, it does not have any voting rights, and till the time of conversion in the future, CCD holder name does not appear on the captable.
+"
+                                                  >
+                                                    <div
+                                                      className="hero-tag"
+                                                      style={{
+                                                        display: "flex",
+                                                        justifyContent:
+                                                          "space-around",
+                                                        fontSize: 11,
+                                                        maxWidth: 100,
+                                                      }}
+                                                    >
+                                                      {item.deal_service} &nbsp;
+                                                      <InfoCircleOutlined />
+                                                    </div>
+                                                  </Tooltip>
+                                                ) : (
+                                                  <Tooltip
+                                                    title={
+                                                      <>
+<div class="ant-tooltip-inner" role="tooltip">                                                        
+                                                          {" "}
+                                                          CCD Compulsory
+                                                          Convertible Debenture
+                                                          (CCD) is a type of
+                                                          debt instrument, which
+                                                          is compulsorily
+                                                          converted into equity
+                                                          shares on specific
+                                                          terms agreed at the
+                                                          time of issue by a
+                                                          specified date, unless
+                                                          redeemed before this
+                                                          date. Usually, it does
+                                                          not have any voting
+                                                          rights, and till the
+                                                          time of conversion in
+                                                          the future, CCD holder
+                                                          name does not appear
+                                                          on the captable.
+                                                        </div>
+                                                        <div class="ant-tooltip-inner" role="tooltip">                                                          CCPS Compulsorily
+                                                          Convertible Preference
+                                                          Shares (CCPS) is a
+                                                          type of equity
+                                                          instrument which
+                                                          usually has higher
+                                                          preference than common
+                                                          equity shares. CCPS
+                                                          are converted to
+                                                          common equity shares
+                                                          by a specified date on
+                                                          the terms agreed at
+                                                          the time of issue.
+                                                          Usually, CCPS holders
+                                                          have equal voting
+                                                          rights and appear on
+                                                          the captable.
+                                                                                                            </div></>
+                                                    }
+                                                  >
+                                                    <div
+                                                      className="hero-tag"
+                                                      style={{
+                                                        display: "flex",
+                                                        justifyContent:
+                                                          "space-around",
+                                                        fontSize: 11,
+                                                        maxWidth: 100,
+                                                      }}
+                                                    >
+                                                      {item.deal_service} &nbsp;
+                                                      <InfoCircleOutlined />
+                                                    </div>
+                                                  </Tooltip>
+                                                )}
                                               </div>
                                             </div>
-                                            <p>
+                                            <p style={{ textAlign: "justify" }}>
                                               {item.Muliples_of.length > 100
                                                 ? item.Muliples_of.substring(
                                                     0,
@@ -736,30 +917,100 @@ Compulsorily Convertible Preference Shares (CCPS) is a type of equity instrument
                                                 : item.Muliples_of}
                                             </p>
                                             <div className="d-flex raised-txt justify-content-between">
-                                              <div>
+                                            {this.getDifferenceI(
+                                                this.state.todaydate,
+                                                moment(
+                                                  item.deal_st_date
+                                                ).format("YYYY-MM-DD")
+                                              ) ==0 ? (""):(
+                                                <div>
                                                 Percent Raised <br />
+
                                                 <p className="per">
-                                                  {Math.floor(
+                                                  {parseFloat(
                                                     (item.total_invested_amount /
                                                       item.deal_fund_requested) *
                                                       100 +
                                                       parseInt(item.raiegap)
-                                                  ).toFixed(0)}{" "}
+                                                    ).toFixed(0)}
                                                   %
                                                 </p>
-                                              </div>
-                                              <div>
-                                                Closes in <br />
+                                              </div>)
+                                              }
+                                            
+                                             
+
+                                              {this.getDifferencestart(
+                                                this.state.todaydate,
+                                                moment(
+                                                  item.deal_st_date
+                                                ).format("YYYY-MM-DD")
+                                              ) <= 0 ? (
+                                                this.getDifferenceInDays(
+                                                  this.state.todaydate,
+                                                  moment(
+                                                    item.deal_end_date
+                                                  ).format("YYYY-MM-DD")
+                                                ) == 0 && (
+                                                  <div className="hero-tag">
+                                                    Closing today
+                                                  </div>
+                                                )
+                                              ) : (
+                                               ""
+                                              )}
+
+                                              {this.getDifferenceI(
+                                                this.state.todaydate,
+                                                moment(
+                                                  item.deal_st_date
+                                                ).format("YYYY-MM-DD")
+                                              ) ==0 ? (
+                                                <div className=" ">
+                                                Live in <br />
                                                 <p className="per">
-                                                  {this.getDifferenceInDays(
+                                                  {this.getDifferencestart(
                                                     this.state.todaydate,
                                                     moment(
-                                                      item.deal_end_date
+                                                      item.deal_st_date
                                                     ).format("YYYY-MM-DD")
-                                                  )}{" "}
+                                                  ) <= 0
+                                                    ? this.getDifferenceInDays(
+                                                      this.state.todaydate,
+                                                      moment(
+                                                        item.deal_end_date
+                                                      ).format("YYYY-MM-DD"))
+                                                    : this.getDifferencestart(
+                                                        this.state.todaydate,
+                                                        moment(
+                                                          item.deal_st_date
+                                                        ).format("YYYY-MM-DD")
+                                                      )}{" "}
                                                   Days
                                                 </p>
                                               </div>
+                                              ) : (
+                                                
+                                                    this.getDifferenceInDays(
+                                                      this.state.todaydate,
+                                                      moment(
+                                                        item.deal_end_date
+                                                      ).format("YYYY-MM-DD")
+                                                    ) <= 0
+                                                      ? " "
+                                                      : <div className=" ">
+                                                      Closes in <br />
+                                                      <p className="per">
+                                                         {this.getDifferenceInDays(
+                                                          this.state.todaydate,
+                                                          moment(
+                                                            item.deal_end_date
+                                                          ).format("YYYY-MM-DD")
+                                                        )}{" "}
+                                                    Days
+                                                  </p>
+                                                </div>
+                                              )}
                                             </div>
                                             <div className="d-flex tags">
                                               {categories.length > 0 &&
@@ -831,8 +1082,14 @@ Compulsorily Convertible Preference Shares (CCPS) is a type of equity instrument
                                       key={index}
                                     >
                                       <a
-                                        href={item.page_link}
-                                        // onClick={() => this.openpage(item)}
+                                         href={this.getDifferenceI(
+                                          this.state.todaydate,
+                                          moment(
+                                            item.deal_st_date
+                                          ).format("YYYY-MM-DD")
+                                        ) ==1 && item.page_link}
+                                        
+                                     
                                       >
                                         <div className="deal-item">
                                           <div className="d-flex tag-list">

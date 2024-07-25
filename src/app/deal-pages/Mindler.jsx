@@ -98,31 +98,30 @@ class Mindler extends Component {
       agreeCheck: false,
       Convenience: "",
       images: [
-        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0001.jpg",
-        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0002.jpg",
-        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0003.jpg",
-        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0004.jpg",
-        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0005.jpg",
-        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0006.jpg",
-        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0007.jpg",
-        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0008.jpg",
-        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0009.jpg",
-        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0010.jpg",
-        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0011.jpg",
-        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0012.jpg",
-        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0013.jpg",
-        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0014.jpg",
-        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0015.jpg",
-        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0016.jpg",
-        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0017.jpg",
-        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0018.jpg",
-        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0019.jpg",
-        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0020.jpg",
-        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0021.jpg",
-        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0022.jpg",
-        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0023.jpg",
-        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0024.jpg",
-        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck_page-0025.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck - Growth 91 Platform-images-0.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck - Growth 91 Platform-images-1.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck - Growth 91 Platform-images-2.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck - Growth 91 Platform-images-3.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck - Growth 91 Platform-images-4.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck - Growth 91 Platform-images-5.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck - Growth 91 Platform-images-6.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck - Growth 91 Platform-images-7.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck - Growth 91 Platform-images-8.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck - Growth 91 Platform-images-9.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck - Growth 91 Platform-images-10.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck - Growth 91 Platform-images-11.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck - Growth 91 Platform-images-12.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck - Growth 91 Platform-images-13.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck - Growth 91 Platform-images-14.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck - Growth 91 Platform-images-15.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck - Growth 91 Platform-images-16.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck - Growth 91 Platform-images-17.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck - Growth 91 Platform-images-18.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck - Growth 91 Platform-images-19.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck - Growth 91 Platform-images-20.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck - Growth 91 Platform-images-21.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck - Growth 91 Platform-images-22.jpg",
+        "./assets/images/deals-details/Mindler/Pitch/Mindler Pitch Deck - Growth 91 Platform-images-23.jpg",
       ],
       current: "",
     };
@@ -135,7 +134,7 @@ class Mindler extends Component {
     document.title = "Mindler - Growth91 - Startup Marketplace ";
   }
   componentDidMount() {
-    let deal_id = "125";
+    let deal_id = "35";
     this.setState({ deal_id: deal_id }, () => {
       this.get_pitch_list();
     });
@@ -1810,6 +1809,26 @@ The market opportunity for career guidance in India is substantial, with 66 mill
                           </p>
                         </div>
                       </div>
+                      <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
+                        <div className="single  Liaplus text-left" style={{}}>
+                          <div className="hightlights-images">
+                            <img src="./assets/images/deals-details/highlight5.png" />
+                          </div>
+                          <p style={{ paddingLeft: "0px !important" }}>
+                          Mindler has recently secured a remarkable ₹1 crore in their latest funding round, helping the startup to achieve new horizons and signaling strong growth. 
+
+</p>
+                        </div>
+                      </div>   <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
+                        <div className="single  Liaplus text-left" style={{}}>
+                          <div className="hightlights-images">
+                            <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
+                          </div>
+                          <p style={{ paddingLeft: "0px !important" }}>
+                          Mindler focuses on scalability and accessibility, reaching a broad audience including students in remote areas.
+                            </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
@@ -2031,7 +2050,8 @@ The market opportunity for career guidance in India is substantial, with 66 mill
                                           </div>
                                           <div className="info">
                                             <span>Founded</span>
-                                            <h4>4/18/2023</h4>
+                                            <h4>20-07-2015
+                                            </h4>
                                           </div>
                                           <div className="info">
                                             <span>Status</span>
@@ -2401,8 +2421,8 @@ The market opportunity for career guidance in India is substantial, with 66 mill
                                                           textAlign: "justify",
                                                         }}
                                                       >
-                                                       Mindler is a service that offers career guidance and counseling to individuals, particularly students and professionals seeking clarity on their career paths. It provides assessments, counseling sessions, and personalized recommendations based on psychometric tests and expert advice. Mindler aims to help users make informed decisions about their careers by matching their strengths, interests, and personality traits with suitable career options.
-                                                      </p>
+Mindler's approach is a strategic blend of both product and service, creating a holistic and comprehensive career guidance solution. Our core platform is B2B SaaS Product and we offer value added services on top of the same.
+</p>
                                                     </div>
                                                   </Panel>
                                                   <Panel
