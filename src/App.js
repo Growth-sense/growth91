@@ -206,6 +206,9 @@ import familyinvite from "./app/investor/family-invite.jsx";
 
 
 
+import LiaPlus from "./app/deal-pages/LiaPlus.jsx";
+import Mindler from "./app/deal-pages/Mindler.jsx";
+import CUR8 from "./app/deal-pages/CUR8.jsx";
 
 ReactGA.initialize(TRACKING_ID);
 
@@ -596,6 +599,9 @@ function App() {
           </Route>
           <Route path="/Nymbleup" >
             <ProtectDeals Component={Nymbleup} />
+          </Route>
+          <Route path="/CUR8" >
+            <ProtectDeals Component={CUR8} />
           </Route>
           <Route path="/TestDeal2" exact>
             <ProtectDeals Component={TestDeal2} />
