@@ -270,11 +270,13 @@ font-size: 14px;
 
 }
 .filteruser-dropdown{
-    width: 70% !important;
+    width: 50% !important;
 }
 .filteruser-dropdown select{
-    width: 100%;
-    border: none;
+    width: 105%;
+    margin: -7px -15px;
+    height: 60px;
+    /* border: none; */
 }
 .filteruser-dropdown select:focus{
     outline: none !important;

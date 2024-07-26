@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 class Sidebar extends Component {
   community() {
     if (localStorage.getItem("admin_user") == "1") {
@@ -21,49 +22,49 @@ class Sidebar extends Component {
         </div>
         <ul className="nav-links">
           <li>
-            <a href="/admin-dashboard">
+           <Link to="/admin-dashboard">
               <i className="bx bx-grid-alt"></i>
               <span className="link_name">Dashboard</span>
-            </a>
+           </Link>
             <ul className="sub-menu blank">
               <li>
-                <a className="link_name" href="/admin-dashboard">
+               <Link className="link_name" to="/admin-dashboard">
                   Dashboard
-                </a>
+               </Link>
               </li>
             </ul>
           </li>
           {/* <li>
             <div className="iocn-link">
-              <a href="/admin-blog">
+             <Link to="/admin-blog">
                 <i className="bx bx-collection"></i>
                 <span className="link_name">Blog Post</span>
-              </a>
+             </Link>
               <i className='bx bxs-chevron-down arrow' ></i>
             </div>
             <ul className="sub-menu blank">
               <li>
-                <a className="link_name" href="/admin-blog">
+               <Link className="link_name" to="/admin-blog">
                   Blog Post
-                </a>
+               </Link>
               </li>
               <li>
-                <a className="link_name" href="/admin-blog-category">
+               <Link className="link_name" to="/admin-blog-category">
                   Blog Category
-                </a>
+               </Link>
               </li> */}
 
-              {/* <li><a href="#">HTML & CSS</a></li>
-          <li><a href="#">JavaScript</a></li>
-          <li><a href="#">PHP & MySQL</a></li> */}
+              {/* <li><a to="#">HTML & CSS</Link></li>
+          <li><a to="#">JavaScript</Link></li>
+          <li><a to="#">PHP & MySQL</Link></li> */}
             {/* </ul> */}
           {/* </li> */}
           <li>
             <div className="iocn-link">
-              <a href="#">
+             <Link to="#">
                 <i className="bx bx-book-alt"></i>
                 <span className="link_name">Master Data</span>
-              </a>
+             </Link>
               <i
                 className="bx bxs-chevron-down arrow"
                 onClick={() =>
@@ -73,32 +74,32 @@ class Sidebar extends Component {
             </div>
             <ul id="md2" className="sub-menu hide">
               <li>
-                <a className="link_name" href="#">
+               <Link className="link_name" to="#">
                   Master Data
-                </a>
+               </Link>
               </li>
               
               <li>
-                <a href="/admin-startups  ">Startups</a>
+               <Link to="/admin-startups  ">Startups</Link>
               </li>
               <li>
-                <a href="/admin-investors">Investors</a>
+               <Link to="/admin-investors">Investors</Link>
               </li>
               <li>
-                <a href="/admin-founders">Founders</a>
+               <Link to="/admin-founders">Founders</Link>
               </li>
               <li>
-                <a href="/admin-investments">Investments</a>
+               <Link to="/admin-investments">Investments</Link>
               </li>
             </ul>
             
           </li>
           <li>
             <div className="iocn-link">
-              <a href="#">
+             <Link to="#">
                 <i className="bx bxs-folder-minus"></i>
                 <span className="link_name">Future Unicorn</span>
-              </a>
+             </Link>
               
            
               <i
@@ -110,43 +111,72 @@ class Sidebar extends Component {
             </div>
             <ul id="md-future" className="sub-menu hide">
               <li>
-                <a className="link_name" href="#">
+               <Link className="link_name" to="#">
                   Future Unicorn Data
-                </a>
+               </Link>
               </li>
               
               <li>
-                <a href="/future-unicorn-startups">Startups</a>
+               <Link to="/future-unicorn-startups">Startups</Link>
               </li>
               <li>
-                <a href="/future-unicorn-investors">Investors</a>
+               <Link to="/future-unicorn-investors">Investors</Link>
               </li>
               <li>
-                <a href="/future-unicorn-founders">Founders</a>
+               <Link to="/future-unicorn-founders">Founders</Link>
               </li>
              
             </ul>
             
           </li>
           <li>
-            <a href="/premium-members">
+            <div className="iocn-link">
+             <Link to="#">
+                <i className="bx bxs-folder-minus"></i>
+                <span className="link_name">Groups</span>
+             </Link>
+              
+           
+              <i
+                className="bx bxs-chevron-down arrow"
+                onClick={() =>
+                  document.getElementById("md-future").classList.toggle("hide")
+                }
+              ></i>
+            </div>
+            <ul id="md-future" className="sub-menu hide">
+              <li>
+               <Link className="link_name" to="#">
+                  Family Group Data
+               </Link>
+              </li>
+              
+              <li>
+               <Link to="/admin-family">Family</Link>
+              </li>
+            
+            </ul>
+            
+          </li>
+          <li>
+           <Link to="/premium-members">
               <i className="bx bx-user-pin"></i>
               <span className="link_name">Premium Members</span>
-            </a>
+           </Link>
             <ul className="sub-menu blank">
               <li>
-                <a className="link_name" href="/premium-members">
+               <Link className="link_name" to="/premium-members">
                   Premium Members
-                </a>
+               </Link>
               </li>
             </ul>
           </li>
           <li>
             <div className="iocn-link">
-              <a href="#">
+             <Link to="#">
                 <i class="bx bx-window-open"></i>
                 <span className="link_name">Deal Setup</span>
-              </a>
+             </Link>
               <i
                 className="bx bxs-chevron-down arrow "
                 onClick={() =>
@@ -156,26 +186,26 @@ class Sidebar extends Component {
             </div>
             <ul id="md4" className="sub-menu hide ">
               <li>
-                <a className="link_name" href="#">
+               <Link className="link_name" to="#">
                 Deal Setup
-                </a>
+               </Link>
               </li>
               <li>
-                <a href="/open-deals">Open Deal</a>
+               <Link to="/open-deals">Open Deal</Link>
               </li>
               <li>
-                <a href="/admin-deals">
+               <Link to="/admin-deals">
                 Completed Deal
-                </a>
+               </Link>
               </li>
             </ul>
           </li>
           <li>
             <div className="iocn-link">
-              <a href="#">
+             <Link to="#">
                 <i className="bx bx-transfer-alt"></i>
                 <span className="link_name">Referral</span>
-              </a>
+             </Link>
               <i
                 className="bx bxs-chevron-down arrow "
                 onClick={() =>
@@ -185,28 +215,28 @@ class Sidebar extends Component {
             </div>
             <ul id="md1" className="sub-menu hide ">
               <li>
-                <a className="link_name" href="#">
+               <Link className="link_name" to="#">
                   Referral
-                </a>
+               </Link>
               </li>
               <li>
-                <a href="/admin-retail-referral">Retail Referral</a>
+               <Link to="/admin-retail-referral">Retail Referral</Link>
               </li>
               <li>
-                <a href="/admin-institutional-referral">
+               <Link to="/admin-institutional-referral">
                   Institutional Referral
-                </a>
+               </Link>
               </li>
-              {/* <li><a href="#">Pigments</a></li>
-          <li><a href="#">Box Icons</a></li> */}
+              {/* <li><a to="#">Pigments</Link></li>
+          <li><a to="#">Box Icons</Link></li> */}
             </ul>
           </li>
           <li>
             <div className="iocn-link">
-              <a href="#">
+             <Link to="#">
                 <i className="bx bx-dollar-circle"></i>
                 <span className="link_name">Payments</span>
-              </a>
+             </Link>
               <i
                 className="bx bxs-chevron-down arrow "
                 onClick={() =>
@@ -216,72 +246,72 @@ class Sidebar extends Component {
             </div>
             <ul id="md3" className="sub-menu hide ">
               <li>
-                <a className="link_name" href="#">
+               <Link className="link_name" to="#">
                   Payments
-                </a>
+               </Link>
               </li>
               <li>
-                <a href="/admin-payments">Online Payments</a>
+               <Link to="/admin-payments">Online Payments</Link>
               </li>
               <li>
-                <a href="/admin-payments-offline">Offline Payments</a>
+               <Link to="/admin-payments-offline">Offline Payments</Link>
               </li>
               <li>
-                <a href="/pending-offline-payments">Pending Offline Payments</a>
+               <Link to="/pending-offline-payments">Pending Offline Payments</Link>
               </li>
               <li>
-                <a href="/online-document-payments">Document Payments</a>
+               <Link to="/online-document-payments">Document Payments</Link>
               </li>
 
-              {/* <li><a href="#">Pigments</a></li>
-          <li><a href="#">Box Icons</a></li> */}
+              {/* <li><a to="#">Pigments</Link></li>
+          <li><a to="#">Box Icons</Link></li> */}
             </ul>
           </li>
           <li>
-            <a href="/founder-documents">
+           <Link to="/founder-documents">
               <i className="bx bxs-file-doc"></i>
               <span className="link_name">Founder Documents</span>
-            </a>
+           </Link>
             <ul className="sub-menu blank">
               <li>
-                <a className="link_name" href="/founder-documents">
+               <Link className="link_name" to="/founder-documents">
                   Founder Documents
-                </a>
+               </Link>
               </li>
             </ul>
           </li>
           <li>
-            <a href="/documents">
+           <Link to="/documents">
               <i className="bx bxs-file-doc"></i>
               <span className="link_name">Documents</span>
-            </a>
+           </Link>
             <ul className="sub-menu blank">
               <li>
-                <a className="link_name" href="/documents">
+               <Link className="link_name" to="/documents">
                   Documents
-                </a>
+               </Link>
               </li>
             </ul>
           </li>
           <li>
-            <a href="/admin-settings">
+           <Link to="/admin-settings">
               <i className="bx bx-cog"></i>
               <span className="link_name">Setting</span>
-            </a>
+           </Link>
             <ul className="sub-menu blank">
               <li>
-                <a className="link_name" href="/admin-settings">
+               <Link className="link_name" to="/admin-settings">
                   Setting
-                </a>
+               </Link>
               </li>
             </ul>
           </li>
           <li>
             <div className="iocn-link">
-              <a href="#">
+             <Link to="#">
                 <i class="bx bx-window-open"></i>
                 <span className="link_name">Analytics</span>
-              </a>
+             </Link>
               <i
                 className="bx bxs-chevron-down arrow "
                 onClick={() =>
@@ -291,25 +321,25 @@ class Sidebar extends Component {
             </div>
             <ul id="md5" className="sub-menu hide ">
               <li>
-                <a className="link_name" href="#">
+               <Link className="link_name" to="#">
                 Analytics
-                </a>
+               </Link>
               </li>
               <li>
-                <a href="/analytic-interest">Dropoff</a>
+               <Link to="/analytic-interest">Dropoff</Link>
               </li>
             </ul>
           </li>
           <li>
-            <a href="#" onClick={this.community}>
+           <Link to="#" onClick={this.community}>
               <i className="bx bx-command"></i>
               <span className="link_name">Admin Community</span>
-            </a>
+           </Link>
             <ul className="sub-menu blank">
               <li>
-                <a className="link_name" href="#">
+               <Link className="link_name" to="#">
                   Admin Community
-                </a>
+               </Link>
               </li>
             </ul>
           </li>

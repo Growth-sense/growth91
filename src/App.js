@@ -196,6 +196,8 @@ import Nymbleup from "./app/deal-pages/Nymbleup.jsx";
 import IndusUnoTranche2 from "./app/deal-pages/IndusUnoTranche2";
 import { Newdeals } from "./app/Newdeals.jsx";
 import jqeryscript from "./jq.js"
+import FamilyAdmin from "./app/admin/FamilyAdmin.jsx";
+import Familymanage from "./app/admin/Familymanage.jsx";
 import FUnicornStartup from "./app/admin/FUnicornStartup.js";
 import FUnicornInvestors from "./app/admin/FUnicornInvestors.js";
 import FUnicornFounders from "./app/admin/FUnicornFounders.js";
@@ -206,7 +208,6 @@ import familyinvite from "./app/investor/family-invite.jsx";
 
 
 
-import LiaPlus from "./app/deal-pages/LiaPlus.jsx";
 import Mindler from "./app/deal-pages/Mindler.jsx";
 import CUR8 from "./app/deal-pages/CUR8.jsx";
 
@@ -352,6 +353,8 @@ function App() {
           <Route path="/admin-founders" exact component={adminfounders} />
           <Route path="/admin-investors" exact component={admininvestors} />
           <Route path="/admin-startups" exact component={adminstartups} />
+          <Route path="/admin-family" exact component={FamilyAdmin} />
+          <Route path="/admin-family-manage" exact component={Familymanage} />
           <Route path="/future-unicorn-startups" exact component={FUnicornStartup} />
           <Route path="/future-unicorn-investors" exact component={FUnicornInvestors} />
           <Route path="/future-unicorn-founders" exact component={FUnicornFounders} />
@@ -599,6 +602,9 @@ function App() {
           </Route>
           <Route path="/Nymbleup" >
             <ProtectDeals Component={Nymbleup} />
+          </Route>
+          <Route path="/Mindler" >
+            <ProtectDeals Component={Mindler} />
           </Route>
           <Route path="/CUR8" >
             <ProtectDeals Component={CUR8} />

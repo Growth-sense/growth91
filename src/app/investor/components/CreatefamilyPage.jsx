@@ -39,6 +39,7 @@ export default class CreatefamilyPage extends Component {
       {
         investor_id: this.props.investor_id,
       },
+      
       () => this.viewgroupall()
     );
     // this.get_referral_code();
@@ -114,6 +115,7 @@ export default class CreatefamilyPage extends Component {
 
   }
   viewgroupall=()=>{
+    
     let params = {
       userID: localStorage.getItem("Parent_investor_id") ,
 

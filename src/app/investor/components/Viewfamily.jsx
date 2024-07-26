@@ -4,7 +4,7 @@ import Bridge from "../../constants/Bridge";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { withRouter } from "react-router-dom";
-import Urldata from './Urldata.jsx';
+import Urldata from "./Urldata.jsx";
 
 const { TextArea } = Input;
 class Viewfamily extends Component {
@@ -42,8 +42,8 @@ class Viewfamily extends Component {
       familyotpmodal: false,
       SendreqEmail: "",
       Sendreqmobile: "",
-      selfaccount:"",
-      ids:""
+      selfaccount: "",
+      ids: "",
     };
   }
 
@@ -54,28 +54,53 @@ class Viewfamily extends Component {
   componentDidMount() {
     this.setState({ investor_id: this.props.investor_id });
     if (this.props.investor_id) {
-
       // this.getmember();
-      
     }
-    this.getbankdetails()
+    this.getbankdetails();
+    this.getInvestments();
   }
-  getbankdetails = () => {
+  test=()=>{
+
+  }
+  getInvestments = () => {
+    this.setState({ loading: true });
     let params = {
-      id: localStorage.getItem("Parent_investor_id"),
+      investor_id:  localStorage.getItem("investor_id"),
     };
+    Bridge.investor.getInvestments(params).then((result) => {
+      if (result.status == 1) {
+        let total = 0;
+        for (let d of result.data) {
+          total += Number(d.Investment_amt);
+        }
+        this.setState({
+          investments: result.data,
+          startinvestedcompanies: result.data.length,
+          startinvestedamount: total,
+          loading: false,
+        });
+      } else {
+        this.setState({
+          loading: false,
+        });
+      }
+    });
+  };
+  getbankdetails = (ids) => {
+    let params = {
+      id: ids||localStorage.getItem("investor_id"),
+    };
+    console.log(ids);
     Bridge.investor.getbankdetails(params).then((result) => {
       if (result.status == 1) {
         //checking user block status
         if (result.data[0].user_block_status == 0) {
-          
           // console.log('result',result);
           this.setState({
-            selfaccount: result.data[0]
+            selfaccount: result.data[0],
+            viewmemberdetail:result.data[0]
           });
-         
-        } 
-        
+        }
       }
     });
   };
@@ -98,10 +123,9 @@ class Viewfamily extends Component {
         if (result.status == "1") {
           this.sendinvite();
           this.setState({ addModalStatus: false });
-        }
-        else {
+        } else {
           toast.error("Invailid User detail");
-        } 
+        }
       });
     }
 
@@ -127,25 +151,51 @@ class Viewfamily extends Component {
           " Request has been sent to register E-mail id and Phone no"
         );
       } else {
-        
-          toast.info("Invitation already sent!");
-          this.setState({ addModalStatus: false });
-        
+        toast.info("Invitation already sent!");
+        this.setState({ addModalStatus: false });
       }
     });
   };
 
   getmember = (value) => {
-    this.setState({ids:value})
+    if(localStorage.getItem("investor_id"))
+    this.setState({ ids: value });
     let params = {
       parent_id: localStorage.getItem("Parent_investor_id"),
-      groupID:value,
-
+      groupID: value,
     };
     Bridge.investor.getfamilymember(params).then((result) => {
       console.log(result);
-      this.setState({ memberdetail: result.data });
+    const data =result.data.filter((item,index)=>{
+      console.log(item.investor_id );
+        return(
 
+          item.investor_id == localStorage.getItem("investor_id")    
+        )
+      })
+      console.log(data);
+      console.log(data.length,"0");
+      if(data.length !=0 ){
+        localStorage.setItem(
+          "investor_id",
+          localStorage.getItem("Parent_investor_id")
+        );
+        localStorage.setItem(
+          "investor_email",
+          localStorage.getItem("Parent_investor_email")
+        );
+        localStorage.setItem(
+          "investor_kycstatus",
+          localStorage.getItem("Parent_investor_kycstatus")
+        );
+        localStorage.setItem(
+          "investor_name",
+          localStorage.getItem("Parent_investor_name")
+        );
+    // window.location.reload();
+
+      }
+      this.setState({ memberdetail: result.data });
     });
   };
   submitfamilyotp = (e) => {
@@ -153,51 +203,68 @@ class Viewfamily extends Component {
     window.location.reload();
   };
   setmember = (e) => {
-    let id
-    if(!e){
-      id =localStorage.getItem("investor_id")
+    let id;
+    if (!e) {
+      id = localStorage.getItem("investor_id");
       this.setState({ memberdetailid: id });
-      
-    }
-    else{
+    } else {
       id = e.target.value;
       this.setState({ memberdetailid: id });
+    }
 
-}
-    const data = this.state.memberdetail && this.state.memberdetail.filter((item, index) => {
-      return item.investor_id === id;
-    });
+    const data =
+      this.state.memberdetail &&
+      this.state.memberdetail.filter((item, index) => {
+        return item.investor_id === id;
+      });
 
     console.log(data[0]);
     console.log(id);
-    console.log(localStorage.getItem("Parent_investor_id"));
-
-    
     if (id != localStorage.getItem("Parent_investor_id")) {
-      this.setState({ viewmemberdetail: data[0] });
+      
+      this.getbankdetails(id)
+
       localStorage.setItem("investor_id", id);
-      localStorage.setItem("investor_email",data[0].email);
-      localStorage.setItem("investor_kycstatus",data[0].kycstatus);
-      localStorage.setItem("investor_name",data[0].first_name +" " +data[0].last_name);
-      
-      this.setState({ familyotpmodal: true });
-      window.location.reload();
+      localStorage.setItem("investor_email", data[0].email);
+      localStorage.setItem("investor_kycstatus", data[0].kycstatus);
+      localStorage.setItem(
+        "investor_name",
+        data[0].first_name + " " + data[0].last_name
+      );
+
+      this.setState({ viewmemberdetail: data[0] });
+      // window.location.reload();
     } else {
-      this.setState({ viewmemberdetail: this.state.selfaccount });
-      console.log(this.state.selfaccount);
-      localStorage.setItem("investor_id",localStorage.getItem("Parent_investor_id"));
-      localStorage.setItem("investor_email",localStorage.getItem("Parent_investor_email"));
-      localStorage.setItem("investor_kycstatus",localStorage.getItem("Parent_investor_kycstatus"));
-      localStorage.setItem("investor_name",localStorage.getItem("Parent_investor_name"));
-      
-      window.location.reload();
+    //   alert("aadil")
+    //   this.setState({ viewmemberdetail: this.state.selfaccount });
+    //   console.log(this.state.selfaccount);
+      localStorage.setItem("investor_id",
+        localStorage.getItem("Parent_investor_id")
+      );
+      localStorage.setItem(
+        "investor_email",
+        localStorage.getItem("Parent_investor_email")
+      );
+      localStorage.setItem(
+        "investor_kycstatus",
+        localStorage.getItem("Parent_investor_kycstatus")
+      );
+      localStorage.setItem(
+        "investor_name",
+        localStorage.getItem("Parent_investor_name")
+      );
+      this.getbankdetails(id)
+
+
+
+      // window.location.reload();
     }
   };
   render() {
     console.log(this.state.viewmemberdetail);
     return (
       <div>
-         <Urldata setid={this.getmember}  />
+        <Urldata setid={this.getmember} />
         <div className="col-lg-10 pb-4 " style={{ marginTop: "160px" }}>
           <div>
             <section
@@ -208,11 +275,13 @@ class Viewfamily extends Component {
               <div>
                 <div className="row dashboard-items ">
                   <div className="col-lg-12 family-columns">
-                    <div className="filteruser-dropdown form-control">
+                    <div 
+                    className="filteruser-dropdown form-control d-flex"
+                    >
                       <select
                         name=""
                         id=""
-                        className="optionselect"
+                        className="optionselect form-select "
                         value={this.state.memberdetailid}
                         onChange={this.setmember}
                       >
@@ -250,12 +319,15 @@ class Viewfamily extends Component {
                     </div>
                   </div>
                 </div>
-                {this.state.viewmemberdetail && this.state.viewmemberdetail ? (
+                {this.state.viewmemberdetail &&(
                   <div className="row dashboard-items">
                     <div className="col-lg-12">
                       <div className="heads-names active">
                         <h2>
-                          Welcome {this.state.viewmemberdetail.first_name +  " " +this.state.viewmemberdetail.last_name}
+                          Welcome{" "}
+                          {this.state.viewmemberdetail.first_name +
+                            " " +
+                            this.state.viewmemberdetail.last_name}
                         </h2>{" "}
                         <div className="edit-contacts">
                           <h5>
@@ -264,33 +336,15 @@ class Viewfamily extends Component {
                           </h5>
                           <h5>
                             Registered Email id :{" "}
-                            {this.state.viewmemberdetail.email}
+                            {this.state.viewmemberdetail.email }
                           </h5>
                         </div>
                       </div>
                     </div>
                     <div className="row card-dashboard-rows"></div>
                   </div>
-                ) : (
-                  <div className="row dashboard-items">
-                    <div className="col-lg-12">
-                      <div className="heads-names active">
-                        <h2>Welcome {localStorage.getItem("investor_name")}</h2>{" "}
-                        <div className="edit-contacts">
-                          <h5>
-                            Registered Mobile Number :{" "}
-                            {this.state.viewmemberdetail.mobile}
-                          </h5>
-                          <h5>
-                            Registered Email id :{" "}
-                            {localStorage.getItem("investor_email")}
-                          </h5>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="row card-dashboard-rows"></div>
-                  </div>
-                )}
+                    )
+                  }
               </div>
             </section>
           </div>
