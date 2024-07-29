@@ -92,8 +92,7 @@ class Founders extends Component {
                   <div className="col-lg-7">
                     <div className="left-content">
                       <h1 className="wow fadeInUp founders-heads " data-wow-delay="0.3s">
-                      Access Opportunities with Premier Startup Funding Platforms in India
-
+                      Access Opportunities with Premier Startup Funding Platform in India
                       </h1>
                       <p
                         style={{ textAlign: "justify" }}

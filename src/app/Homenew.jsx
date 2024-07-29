@@ -50,7 +50,7 @@ class Homenew extends Component {
   componentWillMount() {
     // title
     document.getElementsByTagName("META")[4].content =
-    "Growth91: Invest in Startups India for Big Returns on Top Platforms";
+    "Growth91: Best Startup investment platform for Investing in startups in India";
     // title
 
     document.title =
@@ -59,8 +59,8 @@ class Homenew extends Component {
     document.getElementsByTagName("META")[5].content = "invest in startups invest in startups india "
 // description
     document.getElementsByTagName("META")[3].content =
-      " Maximize your returns with the best startup investing platforms. Learn how to invest in startups in India and find the top investment opportunities.";
-    window.removeEventListener("scroll", this.handleScroll);
+"Maximize your returns with the best startup investing platform. Learn how to invest in startups in India and find the top investment opportunities."; 
+   window.removeEventListener("scroll", this.handleScroll);
   }
   togglemsg() {
     // Toggle isActive state
@@ -563,7 +563,7 @@ class Homenew extends Component {
                       <div class="d-flex-banner fadding-bottom fadding-bottom-1">
                         <div class="banner-part banner-slidingpart">
                           <h1 class="">
-                          Looking to Invest in Startups India and 
+                          Looking to Invest in Startups in India and 
                             Tap Into High-Growth Ventures?
                           </h1>
                           <p class=" p-0">
@@ -694,8 +694,10 @@ class Homenew extends Component {
                           <h2 class="">
                             Private market <br /> investing made easy
                           </h2>
-                          <p class=" p-0" data-wow-delay="0.5s">
-                            RAISE FUND. INVEST IN STARTUPS. DRIVE GROWTH
+                          <p class=" p-0" data-wow-delay="0.5s" style={{textTransform:"uppercase"}}>
+                          Raise Fund. Invest in Indian Startups. Drive Growth.
+
+                            
                           </p>
                           <div className="banner-mobile-img d-sm-none">
                             <img
@@ -1540,7 +1542,7 @@ class Homenew extends Component {
           <div class="join-section join-sec-yellow join-sec-white undefined join-divide mobile-join">
             {/* <h4>Join us</h4> */}
             <div className="join-flex-one-us">
-              <h2>Join Us to Invest in Startups India and Support Breakthrough Ventures</h2>
+              <h2>Join Us to Invest in Startups in India and Support Breakthrough Ventures</h2>
               <p class="index_pitch">
                 Decades of banking, investing & startup success guide your investments. Invest confidently with us.
               </p>
