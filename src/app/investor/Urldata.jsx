@@ -2,8 +2,10 @@ import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 const Urldata = ({setid}) => {
   const search = useLocation().search;
-  const id=new URLSearchParams(search).get("id");
+  const id=atob(search.substring(1)).split('=')[1];
   useEffect(()=>{
+    console.log( atob(search.substring(1)).split('=')[1]);
+    
     // || !cid
     if(!id){
       window.location.assign('/');

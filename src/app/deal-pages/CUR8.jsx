@@ -162,7 +162,7 @@ class CUR8 extends Component {
     this.getordertoken();
     this.getGst();
     this.get_deal_doucments(deal_id);
-    console.log("hello");
+    // console.log("hello");
   }
   get_founder_details = () => {
     let params = {
@@ -401,7 +401,7 @@ class CUR8 extends Component {
   getDeals = () => {
     this.setState({ loading: true });
     Bridge.deal.list().then((result) => {
-      console.log(result.data, "data");
+      // console.log(result.data, "data");
       if (result.status == 1) {
         this.setState({
           deals: result.data,
@@ -452,7 +452,6 @@ class CUR8 extends Component {
           // }
         }
         for (let d of result.data) {
-          console.log(this.state.captable_threshold_amount);
 
           if (d.deal_id == this.state.deal_id) {
             if (d.show_status == "0") {
@@ -940,7 +939,7 @@ class CUR8 extends Component {
         }
       )
       .then((response) => {
-        console.log("invest_amt : ", response.data.data[0].totalamount);
+        // console.log("invest_amt : ", response.data.data[0].totalamount);
         this.setState({ invest_amt: response.data.data[0].totalamount });
       })
       .catch((error) => {
@@ -1695,8 +1694,7 @@ class CUR8 extends Component {
                             >
     {/* Technological Advancements:                  */}
                </span>{" "}
-               CUR8 Ventures Private Limited is a pioneering startup led by Ajay Sethi and Hanit Awal, offering a comprehensive Generative AI SaaS platform designed to enhance the performance and efficiency of sales teams. The platform includes features such as Sales Nudges, an AI Chatbot, Gamified Training, and a Pitch Analyzer, all aimed at improving sales effectiveness and Return on investments for clients. Targeting sectors like E-commerce, Healthcare, and BFSI, Cur8 has already onboarded over 30 clients, including notable names like PhysicsWallah and CarDekho. With plans to expand into the US and Middle eastern and northern america regions, Cur8 is poised for significant growth, leveraging its strong technical foundation and competitive pricing to disrupt the sales enablement market.                        
-               </p></div>
+               The market is segmented into two main areas: operational workflows and conversational workflows. Operational workflows involve using CRM systems and data analytics tools designed to improve sales process efficiency. In contrast, conversational workflows focus on optimizing sales conversations through tools such as conversational analytics, chatbots, and enablement platforms. The emergence of Generative AI (GenAI) is transforming this segment, offering real-time personalization and advanced analytics that significantly enhance the quality of sales interactions.               </p></div>
                       </div>
 
                       <div className="col-lg-4">
@@ -1767,8 +1765,8 @@ The competitive landscape is marked by a mix of established players and innovati
                           </div>
                           <p style={{ padding: "1px !important" }}>
 
-The platform has onboarded 30+ firms , engaging 4.5k monthly sales users, and is projected to reached 300k ARR in next 1.5 years, demonstrating early market validation and customer satisfaction
-</p>                        </div>
+                          The platform has onboarded 30+ firms, engaging 4,500 monthly sales users, and is projected to achieve $300,000 ARR in 1.5 years , demonstrating early market validation and customer satisfaction.
+                          </p>                        </div>
                       </div>
                       <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
                         <div className="single mindlerhighlight text-left" style={{}}>
@@ -2115,10 +2113,10 @@ The platform has onboarded 30+ firms , engaging 4.5k monthly sales users, and is
                                                   0 &&
                                                   this.state.documents.map(
                                                     (item, index) => {
-                                                      console.log(
-                                                        this.state.documents
-                                                          .length
-                                                      );
+                                                      // console.log(
+                                                      //   this.state.documents
+                                                      //     .length
+                                                      // );
                                                       let documentlink = `${process.env.REACT_APP_BASE_URL}api/uploads/docs/${item.documentid}/${item.document}`;
                                                       return (
                                                         <tr

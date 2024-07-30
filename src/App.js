@@ -648,7 +648,7 @@ function App() {
           />
           <Route path="/Create-family" exact component={Createfamily} />
           <Route path="/View-family-list" exact component={Viewfamilylist} />
-          <Route path="/family-invite"  component={familyinvite} />
+          <Route path="/FamilyInvite"  component={familyinvite} />
 
 
           <Route path="*" exact component={error} />

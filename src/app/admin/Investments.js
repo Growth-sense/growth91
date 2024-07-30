@@ -727,7 +727,7 @@ class Investments extends Component {
         },
       },
       {
-        title: "Invested Email",
+        title: "Invester Email",
         dataIndex: "InvestedEmail",
         key: "InvestedEmail",
         width: 180,

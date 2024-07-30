@@ -454,6 +454,7 @@ class FamilyAdmin extends Component {
     const dataSource =
       this.state.startups &&
       this.state.startups.map((item, index) => {
+        console.log(item);
         return {
           key: index,
           startupid: item.startupid,
@@ -463,7 +464,7 @@ class FamilyAdmin extends Component {
           status: item.status ? item.status : "---",
           documents: index+1,
           action: item,
-          founder_name: item.first_name + " " + item.last_name,
+          founder_name: "Aadil khan",
         };
       });
 
@@ -489,6 +490,13 @@ class FamilyAdmin extends Component {
         key: "documents",
         width: 280,
       
+      },
+      {
+        title: "Admin",
+        dataIndex: "founder_name",
+        key: "founder_name",
+        width: 280,
+
       },
       {
         title: "Status",
