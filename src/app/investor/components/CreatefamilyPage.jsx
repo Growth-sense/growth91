@@ -4,7 +4,7 @@ import { Table, message, Input, Spin, Modal, Menu, Dropdown } from "antd";
 import moment from "moment";
 import Apis from "../../constants/Apis";
 import Documents from "../../admin/components/modal/Documents";
-import { UserAddOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined, UserAddOutlined } from "@ant-design/icons";
 import { redirect } from "next/dist/server/api-utils";
 import { Link, Route } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
@@ -30,7 +30,9 @@ export default class CreatefamilyPage extends Component {
       addModalStatus:false,
       formloader:false,
       CreateModalStatus:false,
-      newgroupName:""
+      newgroupName:"",
+      memberlist:false,
+      memberlistloader:false
     };
   }
 
@@ -127,8 +129,33 @@ export default class CreatefamilyPage extends Component {
 
 
   }
+  getmember = (value) => {
+    if(localStorage.getItem("investor_id"))
+      
+      this.setState({ memberdetail:"",memberlistloader:true });
+    this.setState({ ids: value });
+    let params = {
+      parent_id: localStorage.getItem("Parent_investor_id"),
+      groupID: value,
+    };
+    Bridge.investor.getfamilymember(params).then((result) => {
+      console.log(result);
+    const data =result.data.filter((item,index)=>{
+      console.log(item.investor_id );
+        return(
+
+          item.investor_id == localStorage.getItem("investor_id")    
+        )
+      })
+      console.log(data);
+      console.log(data.length,"0");
+     
+      this.setState({ memberdetail: result.data,memberlistloader:false });
+    });
+  };
   render() {
     //for referral
+   
     const dataSource =
       this.state.group_list &&
       this.state.group_list.map((item, index) => {
@@ -175,47 +202,39 @@ export default class CreatefamilyPage extends Component {
                 style={{ width: 120 }}
               >
                 <Menu.Item  icon={<UserAddOutlined />}>
-                  <a
-                    href="#"
-                    onClick={() => this.showEditModal(text, records)}
-                    style={{ fontSize: 14 }}
-                    >
-                    &nbsp;&nbsp; User 1
-                  </a>
+                <Link to={`/View-family-list?id=${records.key}`} >
+                    <div className="menu-action">
+                      Manage
+                    </div>
+                  </Link>
                 </Menu.Item>
                 <Menu.Item  icon={<UserAddOutlined />}>
-
-
-                  <a
-                    href="#"
-                    onClick={() => this.showEditModal(text, records)}
-                    style={{ fontSize: 14 }}
-                  >
-                    &nbsp;&nbsp; User 2
-                  </a>
+                <>
+                    <div className="menu-action"  onClick={()=>{this.getmember(records.key)
+                      this.setState({memberlist:true})}}>
+                      View Member
+                    </div>
+                  </>
                 </Menu.Item>
-                <Menu.Item  icon={<UserAddOutlined />}>
+                <Menu.Item  icon={<DeleteOutlined />}>
 
 
-                  <a
-                    href="#"
-                    onClick={() => this.showEditModal(text, records)}
-                    style={{ fontSize: 14 }}
-                    >
-                    &nbsp;&nbsp; User 3
-                  </a>
+                <Link to={`/View-family-list?id=${records.key}`} >
+                    <div className="menu-action">
+                      Delete
+                    </div>
+                  </Link>
                 </Menu.Item>
-                <Menu.Item  icon={<UserAddOutlined />}>
+                <Menu.Item  icon={<EditOutlined />}>
 
 
-                  <a
-                    href="#"
-                    onClick={() => this.showEditModal(text, records)}
-                    style={{ fontSize: 14 }}
-                    >
-                    &nbsp;&nbsp; User 4
-                  </a>
+                <Link to={`/View-family-list?id=${records.key}`} >
+                    <div className="menu-action">
+                      Edit
+                    </div>
+                  </Link>
                 </Menu.Item>
+                
                 {/* <Menu.Item key={`Delete${record.key}`} icon={<DeleteOutlined/>}>
                     <a
                     href="#"
@@ -231,11 +250,95 @@ export default class CreatefamilyPage extends Component {
                 return (
                     <div className="d-flex ">
               <div style={{marginLeft:"10px" , color:"#1890ff"}}>
-                  <Link to={`/View-family-list?id=${records.key}`} >
+              <Dropdown overlay={menu} placement="bottom">
+              <a onClick={(e) => e.preventDefault()}>
+                  <div className="menu-action">
+                    <i className="bx bx-dots-vertical-rounded"></i>
+                  </div>
+                </a>
+              </Dropdown>
+               
+               
+
+              </div>
+             
+              </div>
+            );
+          },
+      },
+    ];
+    const MembersourceSource =
+    this.state.memberdetail &&
+    this.state.memberdetail.map((item, index) => {
+      console.log(item);
+      return {
+        key: item.groupID,
+        name: item.first_name + "" +item.last_name,
+          groupCreateDate: item.groupCreateDate
+          ? moment(item.groupCreateDate).format("DD MMM, YYYY")
+          : "---",
+        Status: item.groupStatus,
+      };
+    });
+    const Membercolumns = [
+      {
+        title: "Name",
+        dataIndex: "name",
+        key: "name",
+      },
+      
+    
+      {
+        title: "Action",
+        dataIndex: "Status",
+        key: "Status",
+        render: (text, records) => {
+            console.log(records);
+            const menu = (
+                <>
+              <Menu
+                mode="vertical"
+                defaultSelectedKeys={[this.state.path]}
+                style={{ width: 120 }}
+              >
+               
+             
+
+
+             
+                <Menu.Item  icon={<EditOutlined />}>
+
+
+                <Link to={`/View-family-list?id=${records.key}`} >
                     <div className="menu-action">
-                      Manage
+                      Delete
                     </div>
                   </Link>
+                </Menu.Item>
+                
+                {/* <Menu.Item key={`Delete${record.key}`} icon={<DeleteOutlined/>}>
+                    <a
+                    href="#"
+                    style={{ fontSize: 14 }}
+                    onClick={() => this.showDeleteModal(record.key)}
+                    >
+                    &nbsp;&nbsp;Delete
+                    </a>
+                    </Menu.Item> */}
+                    </Menu>
+                    </>
+                );
+                return (
+                    <div className="d-flex ">
+              <div style={{marginLeft:"10px" , color:"#1890ff"}}>
+              <Dropdown overlay={menu} placement="bottom">
+              <a onClick={(e) => e.preventDefault()}>
+                  <div className="menu-action">
+                    <i className="bx bx-dots-vertical-rounded"></i>
+                  </div>
+                </a>
+              </Dropdown>
+               
                
 
               </div>
@@ -275,6 +378,28 @@ export default class CreatefamilyPage extends Component {
     ];
     return (
       <div>
+          <Modal
+          title="List of Group Member"
+          visible={this.state.memberlist}
+          onOk={() => this.setState({ memberlist: false })}
+          okText="Submit"
+          // onCancel={this.cancel_addfounder}
+          onCancel={() => this.setState({ memberlist: false })}
+          width={550}
+        >
+          <Spin spinning={this.state.memberlistloader}>
+          <Table
+                    className="table-2"
+                    dataSource={MembersourceSource}
+                    columns={Membercolumns}
+                    bordered
+                    loading={this.state.loading}
+                  />
+         
+
+           
+          </Spin>
+        </Modal>
           <Modal
           title="Add New Member"
           visible={this.state.addModalStatus}
