@@ -2016,7 +2016,7 @@ The market opportunity for career guidance in India is substantial, with 66 mill
                                             <span> Min Investment</span>
                                             <h4>₹ {this.formatNumberWithCommas(
                               this.state.minamount
-                            )} for CCPS</h4>
+                            )} for CCD</h4>
                                           </div>
                                           <div className="info">
                                             <span>Valuation</span>
