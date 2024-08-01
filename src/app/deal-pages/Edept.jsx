@@ -25,7 +25,7 @@ import { NewWebFooter } from "../common/NewWebFooter";
 
 const { Panel } = Collapse;
 const { TabPane } = Tabs;
-class CUR8 extends Component {
+class Edept extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -97,25 +97,25 @@ class CUR8 extends Component {
       escrow_account_ifsc: "",
       agreeCheck: false,
       Convenience: "",
+      deal_service: "",
       images: [
-        "./assets/images/deals-details/CUR8/Pitch/CUR8 - Fuel Sales Teams-images-0.jpg",
-        "./assets/images/deals-details/CUR8/Pitch/CUR8 - Fuel Sales Teams-images-1.jpg",
-        "./assets/images/deals-details/CUR8/Pitch/CUR8 - Fuel Sales Teams-images-2.jpg",
-        "./assets/images/deals-details/CUR8/Pitch/CUR8 - Fuel Sales Teams-images-3.jpg",
-        "./assets/images/deals-details/CUR8/Pitch/CUR8 - Fuel Sales Teams-images-4.jpg",
-        "./assets/images/deals-details/CUR8/Pitch/CUR8 - Fuel Sales Teams-images-5.jpg",
-        "./assets/images/deals-details/CUR8/Pitch/CUR8 - Fuel Sales Teams-images-6.jpg",
-        "./assets/images/deals-details/CUR8/Pitch/CUR8 - Fuel Sales Teams-images-7.jpg",
-        "./assets/images/deals-details/CUR8/Pitch/CUR8 - Fuel Sales Teams-images-8.jpg",
-        "./assets/images/deals-details/CUR8/Pitch/CUR8 - Fuel Sales Teams-images-9.jpg",
-        "./assets/images/deals-details/CUR8/Pitch/CUR8 - Fuel Sales Teams-images-10.jpg",
-        "./assets/images/deals-details/CUR8/Pitch/CUR8 - Fuel Sales Teams-images-11.jpg",
-        "./assets/images/deals-details/CUR8/Pitch/CUR8 - Fuel Sales Teams-images-12.jpg",
-        "./assets/images/deals-details/CUR8/Pitch/CUR8 - Fuel Sales Teams-images-13.jpg",
-        "./assets/images/deals-details/CUR8/Pitch/CUR8 - Fuel Sales Teams-images-14.jpg",
-        "./assets/images/deals-details/CUR8/Pitch/CUR8 - Fuel Sales Teams-images-15.jpg",
-        "./assets/images/deals-details/CUR8/Pitch/CUR8 - Fuel Sales Teams-images-16.jpg",
-        "./assets/images/deals-details/CUR8/Pitch/CUR8 - Fuel Sales Teams-images-17.jpg",
+        "./assets/images/deals-details/Edept/Pitch/edept - Pitch deck.pptx-images-0.jpg",
+        "./assets/images/deals-details/Edept/Pitch/edept - Pitch deck.pptx-images-1.jpg",
+        "./assets/images/deals-details/Edept/Pitch/edept - Pitch deck.pptx-images-2.jpg",
+        "./assets/images/deals-details/Edept/Pitch/edept - Pitch deck.pptx-images-3.jpg",
+        "./assets/images/deals-details/Edept/Pitch/edept - Pitch deck.pptx-images-4.jpg",
+        "./assets/images/deals-details/Edept/Pitch/edept - Pitch deck.pptx-images-5.jpg",
+        "./assets/images/deals-details/Edept/Pitch/edept - Pitch deck.pptx-images-6.jpg",
+        "./assets/images/deals-details/Edept/Pitch/edept - Pitch deck.pptx-images-7.jpg",
+        "./assets/images/deals-details/Edept/Pitch/edept - Pitch deck.pptx-images-8.jpg",
+        "./assets/images/deals-details/Edept/Pitch/edept - Pitch deck.pptx-images-9.jpg",
+        "./assets/images/deals-details/Edept/Pitch/edept - Pitch deck.pptx-images-10.jpg",
+        "./assets/images/deals-details/Edept/Pitch/edept - Pitch deck.pptx-images-11.jpg",
+        "./assets/images/deals-details/Edept/Pitch/edept - Pitch deck.pptx-images-12.jpg",
+        "./assets/images/deals-details/Edept/Pitch/edept - Pitch deck.pptx-images-13.jpg",
+        "./assets/images/deals-details/Edept/Pitch/edept - Pitch deck.pptx-images-14.jpg",
+        "./assets/images/deals-details/Edept/Pitch/edept - Pitch deck.pptx-images-15.jpg",
+        "./assets/images/deals-details/Edept/Pitch/edept - Pitch deck.pptx-images-16.jpg",
       ],
       current: "",
     };
@@ -125,10 +125,10 @@ class CUR8 extends Component {
   callback3 = (key) => {};
 
   componentWillMount() {
-    document.title = "CUR8 - Growth91 - Startup Marketplace ";
+    document.title = "Edept - Growth91 - Startup Marketplace ";
   }
   componentDidMount() {
-    let deal_id = "126";
+    let deal_id = "127";
     this.setState({ deal_id: deal_id }, () => {
       this.get_pitch_list();
     });
@@ -449,7 +449,6 @@ class CUR8 extends Component {
           // }
         }
         for (let d of result.data) {
-
           if (d.deal_id == this.state.deal_id) {
             if (d.show_status == "0") {
               this.setState({ is_deal_visible: false });
@@ -607,6 +606,7 @@ class CUR8 extends Component {
                 button_show_status: button_show_status,
                 show_data: "block",
                 multiples_of: d.multiples_of,
+                deal_service: d.deal_service,
               },
               () => this.calculategst()
             );
@@ -1137,7 +1137,7 @@ class CUR8 extends Component {
                         <div className="d-flex align-items-center">
                           {/* Image is static */}
                           <img
-                            src="./assets/images/deals-details/CUR8/logo.svg"
+                            src="./assets/images/deals-details/Edept/logo.jpg"
                             alt=""
                             className="img-fluid"
                             style={{
@@ -1146,7 +1146,7 @@ class CUR8 extends Component {
                               objectFit: "contain",
                             }}
                           />
-                          <h5 className="ml-5 mt-4">CUR8</h5>
+                          <h5 className="ml-5 mt-4">Edept</h5>
                           {/* <h5>{this.state.logo}</h5> */}
                         </div>
                         {this.state.isPrivate == true && (
@@ -1175,9 +1175,18 @@ class CUR8 extends Component {
                             </div>
                           ))}
                       </div>
-
                       <p style={{ textAlign: "justify" }}>
-                      CUR8 Ventures Private Limited is a pioneering startup led by Ajay Sethi and Hanit Awal, offering a comprehensive Generative AI SaaS platform designed to enhance the performance and efficiency of sales teams. The platform includes features such as Sales Nudges, an AI Chatbot, Gamified Training, and a Pitch Analyzer, all aimed at improving sales effectiveness and Return on investments for clients. Targeting sectors like E-commerce, Healthcare, and BFSI, Cur8 has already onboarded over 30 clients, including notable names like Giva, Indiamart,mokabora. With plans to expand into the US and Middle eastern and northern america regions, Cur8 is poised for significant growth, leveraging its strong technical foundation and competitive pricing to disrupt the sales enablement market.                      </p>
+                        Edept is an EdTech company focused on higher education,
+                        providing innovative solutions to bridge the gap between
+                        academia and industry. The company aims to equip
+                        students with the necessary skills and certifications to
+                        meet the demands of the global job market. Edept
+                        provides a tech-enabled platform that connects industry
+                        and academia, their programs are designed for
+                        high-demand global careers, including nursing,
+                        blockchain, cyber security, construction management, AI
+                        ML , data science and more.
+                      </p>{" "}
                       <div className=" percentage-container">
                         <div className="percentage-values">
                           {this.state.coming_soon_days ? (
@@ -1595,7 +1604,7 @@ class CUR8 extends Component {
                     </div>
                   </Modal>
                   <div className="col-lg-7 deal-banner deals-video-banner liaplus ">
-                    
+                    {/*                     
                  <iframe
                       style={{
                         boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
@@ -1607,8 +1616,7 @@ class CUR8 extends Component {
                       src="https://www.youtube.com/embed/1flJB8uNG1o" title="Revolutionize Your Sales Team with CUR8 - The Future of Sales Enablement"  frameborder="10"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowfullscreen
-                    ></iframe> 
-                   
+                    ></iframe>  */}
 
                     {/* {!this.state.youtube_url && (
                       <>
@@ -1660,9 +1668,22 @@ class CUR8 extends Component {
                                 fontWeight: "800",
                               }}
                             >
-                               {/* Growing Demand for Career Guidance : */}
+                              India's Higher Education Market:
                             </span>{" "}
-                            The sales enablement market is vast, with a total market size of approximately $200 billion and an addressable market of around $50 billion. The primary drivers of growth include the increasing demand for sales efficiency and the rapid advancements in AI technology. Organizations are seeking solutions that can enhance productivity and streamline sales processes, leading to a burgeoning market for tools that address these needs.                          </p>
+                            Driven by improved accessibility and demand for
+                            quality learning, India's higher education sector is
+                            experiencing rapid growth. The Gross Enrollment
+                            Ratio (GER) is set to increase from 27% to 50% by
+                            2035. Since 2014, India has added over 5,700
+                            colleges and 320 universities. Additionally, over
+                            200 new universities are being established annually,
+                            presenting significant opportunities for
+                            partnerships and revenue generation. The total
+                            market size includes 41 million domestic students,
+                            contributing to an addressable market size exceeding
+                            $200 billion. This expansion reflects the growing
+                            need for enhanced education quality and innovation.
+                          </p>
                         </div>
                       </div>
                       <div className="col-lg-4">
@@ -1689,9 +1710,25 @@ class CUR8 extends Component {
                                 fontWeight: "800",
                               }}
                             >
-    {/* Technological Advancements:                  */}
-               </span>{" "}
-               The market is segmented into two main areas: operational workflows and conversational workflows. Operational workflows involve using CRM systems and data analytics tools designed to improve sales process efficiency. In contrast, conversational workflows focus on optimizing sales conversations through tools such as conversational analytics, chatbots, and enablement platforms. The emergence of Generative AI (GenAI) is transforming this segment, offering real-time personalization and advanced analytics that significantly enhance the quality of sales interactions.               </p></div>
+                              International Education and Skill Shortages:
+                            </span>{" "}
+                            In 2024, the trend of Indian students pursuing
+                            higher education abroad has continued to gain
+                            momentum, with a remarkable 1.5 million students
+                            having gone overseas in 2023. This movement
+                            addresses global skill shortages in sectors like
+                            healthcare and technology. For example, the US faced
+                            a shortage of 1.1 million nurses in 2022, and
+                            similar shortages exist across other industries. The
+                            international education segment, valued at $70
+                            billion, underscores the increasing demand for
+                            Indian professionals trained to international
+                            standards, driven by the pursuit of high-quality
+                            education and better career prospects. This market
+                            will require nimble players to effectively address
+                            these global shortfalls.{" "}
+                          </p>
+                        </div>
                       </div>
 
                       <div className="col-lg-4">
@@ -1718,11 +1755,17 @@ class CUR8 extends Component {
                                 fontWeight: "800",
                               }}
                             >
-{/* ⁠Expanding Market Opportunities:                    */}
-         </span>{" "}
-The competitive landscape is marked by a mix of established players and innovative newcomers. Traditional CRM providers and operational tools dominate the market, while new entrants leverage GenAI to drive conversational optimization. Key opportunities lie in expanding into new markets, such as India, MENA, the US, and LATAM, and integrating GenAI for deeper personalization and improved sales performance. The ability to adapt quickly to these evolving trends and technologies will be crucial for success in the sales enablement space.                  
-     
-     </p> </div>
+                              Government Focus on Upskilling:
+                            </span>{" "}
+                            Massive tailwinds from government initiatives aimed
+                            at upskilling the young population are expected to
+                            result in the establishment of many new institutions
+                            and a high demand for new-age programs as the nature
+                            of jobs evolves. This focus on education reform will
+                            drive significant changes in the market, catering to
+                            the increasing need for industry-relevant skills.
+                          </p>{" "}
+                        </div>
                       </div>
                     </div>
                     <div className="text-center fs-4">
@@ -1747,42 +1790,78 @@ The competitive landscape is marked by a mix of established players and innovati
 
                     <div className="row highlight-rows">
                       <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
-                        <div className="single  Liaplus text-left" style={{}}>
+                        <div
+                          className="single  mindlerhighlight text-left"
+                          style={{}}
+                        >
                           <div className="hightlights-images">
                             <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
                           </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                          CUR8 is India’s first revenue tech platform, utilizing UX and Generative AI to boost the productivity of sales, operations, and customer success teams through real-time coaching, scenario-based training, and AI-driven insights.                          </p>
+                            Edept has surpassed ₹3 crore in revenue, targeting
+                            ₹4 crore+ by March, reflecting a 400% revenue
+                            increase. Student and program expansion includes
+                            fully enrolled programs in Mumbai, Rishihood at 50%
+                            admissions, and a rise from 117 to 210 students at
+                            LRT - Mumbai University, with expansion from 1 to 3
+                            programs.{" "}
+                          </p>
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
-                        <div className="single Liaplus text-left" style={{}}>
+                        <div
+                          className="single mindlerhighlight text-left"
+                          style={{}}
+                        >
                           <div className="hightlights-images">
                             <img src="./assets/images/deals-details/Petmojo/highlight01.jpg" />
                           </div>
                           <p style={{ padding: "1px !important" }}>
-
-                          The platform has onboarded 30+ firms, engaging 4,500 monthly sales users, and has achieved $320K ARR, demonstrating early market validation and customer satisfaction.</p>                        </div>
+                            Edept has established partnerships with global
+                            recruiters and demand aggregators to enhance the
+                            employability of its students. The company's
+                            programs are designed to align with the needs of
+                            employers, ensuring that students are well-prepared
+                            for high-demand job roles​​.{" "}
+                          </p>{" "}
+                        </div>
                       </div>
                       <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
-                        <div className="single mindlerhighlight text-left" style={{}}>
+                        <div
+                          className="single mindlerhighlight text-left"
+                          style={{}}
+                        >
                           <div className="hightlights-images">
                             <img src="./assets/images/deals-details/highlight2.jfif" />
                           </div>
                           <p style={{ padding: "0px !important" }}>
-                          Founded by Ajay Sethi and Hanit Awal, who bring over 20 years of combined experience in revenue transformation, M&A, and operations within top Indian corporates and unicorns.                          </p>
+                            Edept's leadership team brings a wealth of
+                            experience from the SaaS tech industry, higher
+                            education, healthcare, and corporate relations. They
+                            have held significant roles at companies such as
+                            Google, Bloomberg, Nomura, and RISE, offering
+                            valuable expertise in building higher education and
+                            study abroad counseling startups.{" "}
+                          </p>
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
-                        <div className="single mindlerhighlight text-left" style={{}}>
+                        <div
+                          className="single mindlerhighlight text-left"
+                          style={{}}
+                        >
                           <div className="hightlights-images">
                             <img src="./assets/images/deals-details/highlight3.jpg" />
                           </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                          Positioned in a rapidly growing market segment with a 15% CAGR, CUR8 is aiming to raise 1 million to scale distribution, enhance product capabilities, and solidify its presence in the $90 billion global market for sales platform software and tools.                           </p>
+                            Within six months, Edept has partnered with six top
+                            institutions, reaching over 200k students. The
+                            company is poised to capitalize on growing higher
+                            education enrollment in India and expand into
+                            Bangladesh, Nepal, Indonesia, and the GCC region.{" "}
+                          </p>
                         </div>
                       </div>
-                     
                     </div>
                   </div>
 
@@ -1968,15 +2047,17 @@ The competitive landscape is marked by a mix of established players and innovati
                                           </div>
                                           <div className="info">
                                             <span> Min Investment</span>
-                                            <h4>₹ {this.formatNumberWithCommas(
-                              this.state.minamount
-                            )} for CCD</h4>
+                                            <h4>
+                                              ₹{" "}
+                                              {this.formatNumberWithCommas(
+                                                this.state.minamount
+                                              )}{" "}
+                                              for {this.state.deal_service}
+                                            </h4>
                                           </div>
                                           <div className="info">
                                             <span>Valuation</span>
-                                            <h4>
-                                            30 Cr.Pre Money
-                                            </h4>
+                                            <h4>20 Crores Pre Money</h4>
                                           </div>
                                         </div>
                                       </div>
@@ -1999,13 +2080,11 @@ The competitive landscape is marked by a mix of established players and innovati
                                         <div className="col-lg-12">
                                           <div className="info">
                                             <span>Legal Name</span>
-                                            <h4>
-                                            CUR8 VENTURES PRIVATE LIMITED                                         </h4>
+                                            <h4>Edept ventures pvt ltd </h4>
                                           </div>
                                           <div className="info">
                                             <span>Founded</span>
-                                            <h4>7/31/2021
-                                            </h4>
+                                            <h4>8/14/2023</h4>
                                           </div>
                                           <div className="info">
                                             <span>Status</span>
@@ -2013,7 +2092,7 @@ The competitive landscape is marked by a mix of established players and innovati
                                           </div>
                                           <div className="info">
                                             <span>Employees</span>
-                                            <h4>17</h4>
+                                            <h4>7</h4>
                                           </div>
                                           <div className="info">
                                             <span>Website</span>
@@ -2022,10 +2101,10 @@ The competitive landscape is marked by a mix of established players and innovati
                                                 style={{
                                                   color: "rgb(7, 211, 252)",
                                                 }}
-                                                href="https://www.cur8.in"
+                                                href="https://edept.co/"
                                                 target="_blank"
                                               >
-                                               www.cur8.in
+                                                edept.co
                                               </a>
                                             </h4>
                                           </div>
@@ -2035,22 +2114,25 @@ The competitive landscape is marked by a mix of established players and innovati
                                               {/* <a href="https://www.facebook.com/MindlerCareers/">
                                                 <i className="bx bxl-facebook fs-19"></i>
                                               </a> */}
-                                              <a href="https://www.linkedin.com/company/cur8-in">
+                                              <a href="https://www.linkedin.com/company/edept-co/">
                                                 <i className="bx bxl-linkedin fs-19"></i>
                                               </a>
-                                              {/* <a href="https://www.instagram.com/mindlercareers/">
+                                              <a href="https://www.instagram.com/edept.co/">
                                                 <i className="bx bxl-instagram fs-19"></i>
-                                              </a> */}
+                                              </a>
 
-                                              {/* <a href="https://www.youtube.com/@mindler2961">
+                                              <a href="https://www.youtube.com/channel/UCO1UvNI1Tg3Ese7YZ_Gc2gA">
                                                 <i className="bx bxl-youtube fs-19"></i>
-                                              </a> */}
+                                              </a>
                                             </div>
                                           </div>
                                           <div className="info">
                                             <span>Address</span>
                                             <h4>
-                                            11TH FLOOR, AWFIS PARAS TRINITY GOLF COURSE EXTENSION ROAD,  SECTOR 63, GURUGRAM,HARYANA, 122011                                            </h4>
+                                              Wework Galaxy, #43, Residency
+                                              Road, Richmond Town, Bangalore,
+                                              Bangalore North, Karnataka, India
+                                            </h4>
                                           </div>
                                         </div>
                                       </div>
@@ -2374,7 +2456,34 @@ The competitive landscape is marked by a mix of established players and innovati
                                                           textAlign: "justify",
                                                         }}
                                                       >
-Cur8 is building a Gen-AI powered product suite so the focus is a full product focussed approach which include Sales, Operations, and Customer Success, key features include UX and GenAI, Productivity Tracking, Scenario-Based Training, AI-Driven Pitch Practice, Real-Time Answers & GenAI Powered Nudges.</p>
+                                                        Edept focuses on
+                                                        providing a
+                                                        comprehensive service
+                                                        that bridges the gap
+                                                        between industry and
+                                                        academia. This includes
+                                                        developing
+                                                        industry-driven
+                                                        educational programs,
+                                                        integrating industry
+                                                        professionals for
+                                                        practical insights, and
+                                                        offering career support
+                                                        like internships and job
+                                                        placement assistance.
+                                                        Edept partners with
+                                                        universities to enhance
+                                                        their curriculum and
+                                                        uses technology to
+                                                        deliver personalized
+                                                        learning experiences.
+                                                        This service-centric
+                                                        approach aims to improve
+                                                        job outcomes for
+                                                        students and attract
+                                                        more students to partner
+                                                        universities.
+                                                      </p>
                                                     </div>
                                                   </Panel>
                                                   <Panel
@@ -2393,7 +2502,36 @@ Cur8 is building a Gen-AI powered product suite so the focus is a full product f
                                                           textAlign: "justify",
                                                         }}
                                                       >
-The biggest risks facing the CUR8 platform are competition from larger operational efficiency platforms entering the sales enablement and GenAI space, which could lead them to either compete directly or invest in existing players like CUR8. Additionally, the rapid evolution of core infrastructure on open AI stacks poses a challenge. CUR8 is mitigating this risk by assembling a high-caliber founding and execution team, becoming key developer partners for open stacks, and developing a robust multi-tenancy approach to offer protection from changes in AI technology.</p></div>
+                                                        The primary challenges
+                                                        for scaling up Edept
+                                                        include managing
+                                                        operations and ensuring
+                                                        student success at
+                                                        scale. To address these
+                                                        challenges, Edept is
+                                                        creating technology and
+                                                        internal structures to
+                                                        streamline operations
+                                                        and enhance efficiency.
+                                                        This includes developing
+                                                        robust technological
+                                                        solutions to handle
+                                                        increased operational
+                                                        demands and implementing
+                                                        effective processes to
+                                                        support student
+                                                        outcomes. By leveraging
+                                                        technology and
+                                                        well-defined internal
+                                                        structures, Edept aims
+                                                        to manage its growth
+                                                        effectively while
+                                                        maintaining high
+                                                        standards of education
+                                                        and support for its
+                                                        students.
+                                                      </p>
+                                                    </div>
                                                   </Panel>
 
                                                   <Panel
@@ -2412,7 +2550,33 @@ The biggest risks facing the CUR8 platform are competition from larger operation
                                                           textAlign: "justify",
                                                         }}
                                                       >
-The sales engagement platform market in India is already valued at $6 billion and represents the fastest-growing segment within the broader $90 billion sales platform software and tools market. A significant tailwind for this growth is the fact that brands like Salesforce have achieved revenues exceeding INR 6,000 crore in the last fiscal year, reflecting a maturing market where Indian brands are increasingly investing in enhancing their sales capabilities. In the US, the industry is also expanding rapidly, with large sales-focused platforms leading the way and evolving towards revenue operations (RevOps) platforms. This sector, comprising the largest formal workforce of both full-time and gig-based workers, is well-positioned for advanced interventions aimed at boosting productivity.                                                      </p>
+                                                        Yes, Edept is targeting
+                                                        a new untapped market.
+                                                        The justification for
+                                                        this is that Edept
+                                                        focuses on universities
+                                                        that are not currently
+                                                        equipped to offer
+                                                        new-age programs where
+                                                        there is significant job
+                                                        market demand. By
+                                                        addressing this gap,
+                                                        Edept can enhance the
+                                                        educational offerings of
+                                                        these universities,
+                                                        helping them provide
+                                                        better career and
+                                                        learning outcomes for
+                                                        their students. This
+                                                        approach opens up a new
+                                                        market segment that has
+                                                        been largely neglected
+                                                        and presents an
+                                                        opportunity to create
+                                                        value for both the
+                                                        educational institutions
+                                                        and the students.
+                                                      </p>
                                                     </div>
                                                   </Panel>
                                                   <Panel
@@ -2431,7 +2595,46 @@ The sales engagement platform market in India is already valued at $6 billion an
                                                           textAlign: "justify",
                                                         }}
                                                       >
-The company plans to deploy the raise in two key areas. First, they aim to build a deep tech moat by developing the first sales-trained meta LLM stack, which will provide high-accuracy nudges across consumer conversations in the right context and through key sales tools. This initiative is being led by Prakul, who has a decade of experience in building scalable tech and products. Second, they will focus on establishing strong inroads into both direct and indirect channels in Saudi Arabia, UAE, and the US markets. A robust roadmap for these markets is already in place, featuring a mix of on-site and remote interventions.                                                   </p> </div>
+                                                        Edept's competitive
+                                                        advantages include a
+                                                        wide range of suppliers
+                                                        on its network, a
+                                                        strategic focus on both
+                                                        domestic and
+                                                        international markets,
+                                                        and a strong integration
+                                                        of industry and academia
+                                                        to ensure programs meet
+                                                        industry needs, leading
+                                                        to superior job outcomes
+                                                        for students. The
+                                                        experienced core team,
+                                                        with over 15 years in
+                                                        the education sector and
+                                                        established
+                                                        relationships with top
+                                                        institutions and subject
+                                                        matter experts, further
+                                                        strengthens Edept's
+                                                        position. The platform
+                                                        approach provides a rich
+                                                        learning experience with
+                                                        support from day one,
+                                                        including internships.
+                                                        Strong partnerships with
+                                                        educational institutions
+                                                        and industry experts,
+                                                        combined with a focus on
+                                                        offline profitable
+                                                        programs, align with
+                                                        market demand and
+                                                        government initiatives,
+                                                        collectively
+                                                        contributing to Edept's
+                                                        differentiation and
+                                                        long-term growth.
+                                                      </p>{" "}
+                                                    </div>
                                                   </Panel>
                                                 </Collapse>
                                                 <h1 className="text-center mb-2 mt-4">
@@ -2618,13 +2821,14 @@ The company plans to deploy the raise in two key areas. First, they aim to build
                                 >
                                   <div className="d-flex">
                                     <img
-                                      src="./assets/images/deals-details/CUR8/Team/ajay.jpeg"
+                                      src="./assets/images/deals-details/Edept/Team/Gourav.jpg"
                                       alt=""
                                     />
                                     <div className="intro">
-                                      <h3>Ajay Pal Sethi</h3>
+                                      <h3>Gaurav Bhatia</h3>
                                       <span>
-                                      Co-Founder & CEO
+                                        CEO, General Management, India
+                                        Partnerships & Strategy
                                       </span>
                                       <div
                                         className="social-icons"
@@ -2634,7 +2838,7 @@ The company plans to deploy the raise in two key areas. First, they aim to build
                                         }}
                                       >
                                         <a
-                                          href="https://www.linkedin.com/in/ajaypalsinghsethi/"
+                                          href="https://www.linkedin.com/in/bhatiagp/"
                                           target="_blank"
                                         >
                                           <i className="bx bxl-linkedin"></i>
@@ -2647,15 +2851,22 @@ The company plans to deploy the raise in two key areas. First, they aim to build
                                   </div>
                                   <ul>
                                     <li>
-                                      <a>Over 12 years in revenue transformation
+                                      <a>
+                                        B.E in Computer Engineering, University
+                                        of Mumbai; MBA at INSEAD in 2011
                                       </a>
                                     </li>
                                     <li>
-                                      <a>Building, and scaling revenue teams at top Indian unicorns
+                                      <a>
+                                        Extensive experience in health care,
+                                        education, and information services
+                                        sectors; worked across APAC, Middle
+                                        East, and Europe{" "}
                                       </a>
                                     </li>
-                                    
-                                    
+                                    <li>
+                                      <a>CEO at RISE; CBO at Leverage Edu </a>
+                                    </li>
                                   </ul>
                                 </div>
                               </div>
@@ -2667,12 +2878,12 @@ The company plans to deploy the raise in two key areas. First, they aim to build
                                 >
                                   <div className="d-flex">
                                     <img
-                                      src="./assets/images/deals-details/CUR8/Team/hanit.jpg"
+                                      src="./assets/images/deals-details/Edept/Team/devendra.jpg"
                                       alt=""
                                     />
                                     <div className="intro">
-                                      <h3>Hanit Awal</h3>
-                                      <span>Co-Founder</span>
+                                      <h3>Devendra Nagle</h3>
+                                      <span>Acquisition and Marketing</span>
                                       <div
                                         className="social-icons"
                                         style={{
@@ -2681,7 +2892,7 @@ The company plans to deploy the raise in two key areas. First, they aim to build
                                         }}
                                       >
                                         <a
-                                          href="https://www.linkedin.com/in/hanitawal/"
+                                          href="https://www.linkedin.com/in/devendranagle/"
                                           target="_blank"
                                         >
                                           <i className="bx bxl-linkedin"></i>
@@ -2695,20 +2906,24 @@ The company plans to deploy the raise in two key areas. First, they aim to build
                                   <ul>
                                     <li>
                                       <a>
-                                      Over 10 years in leading mergers and acquisitions (M&A)
-
+                                        B.Tech in Computer Science; MBA from IIM
+                                        Bangalore
                                       </a>
                                     </li>
                                     <li>
                                       <a>
-                                      Business, and operations across top Indian corporates and unicorns.
-
+                                        More than a decade of experience with
+                                        stints at Google, India Today, and
+                                        Hindustan Times{" "}
                                       </a>
                                     </li>
-                                  
+                                    <li>
+                                      <a>VP Marketing at RISE </a>
+                                    </li>
                                   </ul>
                                 </div>
                               </div>
+
                           
                               <div className="col-lg-6">
                                 <div
@@ -2718,64 +2933,13 @@ The company plans to deploy the raise in two key areas. First, they aim to build
                                 >
                                   <div className="d-flex">
                                     <img
-                                      src="./assets/images/deals-details/CUR8/Team/Prakul Gupta.jpeg"
+                                      src="./assets/images/deals-details/Edept/Team/punnet.jpg"
                                       alt=""
                                     />
                                     <div className="intro">
-                                      <h3>Prakul Gupta
-                                      </h3>
-                                      <span> Co-founder and CPTO</span>
-                                      <div
-                                        className="social-icons"
-                                        style={{
-                                          marginTop: 4,
-                                          marginLeft: -6,
-                                        }}
-                                      >
-                                        <a
-                                          href="https://www.linkedin.com/in/prakul-gupta-84607132/
-"
-                                          target="_blank"
-                                        >
-                                          <i className="bx bxl-linkedin"></i>
-                                        </a>
-                                        {/* <a href="mailto:vaibhav.tambe@transbnk.co.in">
-                                        <i className="bx bxl-gmail"></i>
-                                        </a> */}
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <ul>
-                                    <li>
-                                      <a>11+ years of experience, with 8+ years of
-experience heading tech and product at Cars24,
-and an ex-startup founder
-
-
-
-                                      </a>
-                                    </li>
-                                  
-                                  
-                                  </ul>
-                                </div>
-                              </div>
-                              <div className="col-lg-6">
-                                <div
-                                  className="single"
-                                  style={{ paddingBottom: "0px !important" }}
-                                  // style={{  marginBottom: 0px !important}}
-                                >
-                                  <div className="d-flex">
-                                    <img
-                                      src="./assets/images/deals-details/CUR8/Team/Kushal Das.jpeg"
-                                      alt=""
-                                    />
-                                    <div className="intro">
-                                      <h3>Kushal Das
-
-                                      </h3>
-                                      <span>Co-founder & Business Unit head
+                                      <h3>Puneet Saxena</h3>
+                                      <span>
+                                        CFO,Product & International Partnerships
                                       </span>
                                       <div
                                         className="social-icons"
@@ -2785,7 +2949,7 @@ and an ex-startup founder
                                         }}
                                       >
                                         <a
-                                          href="https://www.linkedin.com/in/kushaldas?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                                          href="https://www.linkedin.com/in/puneet-saxena/"
                                           target="_blank"
                                         >
                                           <i className="bx bxl-linkedin"></i>
@@ -2799,64 +2963,36 @@ and an ex-startup founder
                                   <ul>
                                     <li>
                                       <a>
-                                      10+ years of experience of leading enterprise
-sales and building large sales ships to revenue
-success
-
-
+                                        MBA in Finance and Marketing from IIM
+                                        Lucknow; CFA charter holder
                                       </a>
                                     </li>
-                                  
+                                    <li>
+                                      <a>
+                                        15+ years in the SaaS tech industry,
+                                        spanning business development, PE
+                                        investment, corporate development, and
+                                        product management
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a>
+                                        Head of Investment & BD - Asia at Prytek
+                                      </a>
+                                    </li>
                                   </ul>
-                                </div>
-                              </div>
-                          
-
-                              {/* <div className="col-lg-6">
-                                <div className="single">
-                                  <div className="d-flex">
-                                    <img
-                                      src="./assets/images/deals-details/IndusUno/team/Lalit Chitkara.jpg"
-                                      alt=""
-                                    />
-                                    <div className="intro">
-                                      <h3>Lalit Chitkara</h3>
-                                      <span>
-                                        Head Operations and Supply Chain
-                                      </span>
-                                      <div
-                                        className="social-icons"
-                                        style={{
-                                          marginTop: 4,
-                                          marginLeft: -6,
-                                        }}
-                                      >
-                                        <a
-                                          href="https://www.linkedin.com/in/lalit-chitkara-7180637b/"
-                                          target="_blank"
-                                        >
-                                          <i className="bx bxl-linkedin"></i>
-                                        </a>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <p>
-                                    MBA Supply Chain Ex Industry Buying ,
-                                    <br />
-                                    15+ Years of Leadership Experience
-                                  </p>
                                 </div>
                               </div>
                               <div className="col-lg-6">
                                 <div className="single">
                                   <div className="d-flex">
                                     <img
-                                      src="./assets/images/deals-details/IndusUno/team/Ashish Jain.jpg"
+                                      src="./assets/images/deals-details/Edept/Team/kritiga.jpg"
                                       alt=""
                                     />
                                     <div className="intro">
-                                      <h3>Ashish Jain</h3>
-                                      <span>Head Key Account Management</span>
+                                      <h3>Kirtiga Kale Iyer</h3>
+                                      <span>Brands and events</span>
                                       <div
                                         className="social-icons"
                                         style={{
@@ -2865,7 +3001,7 @@ success
                                         }}
                                       >
                                         <a
-                                          href="https://www.linkedin.com/in/ashish-jain-189b1a9a/"
+                                          href="https://www.linkedin.com/in/kirtigaiyerkale/"
                                           target="_blank"
                                         >
                                           <i className="bx bxl-linkedin"></i>
@@ -2873,12 +3009,29 @@ success
                                       </div>
                                     </div>
                                   </div>
-                                  <p>
-                                    B.Tech Electronics Ex Industry Buying ,
-                                    <br />7 Years Experience
-                                  </p>
+                                  <ul>
+                                    <li>
+                                      <a>
+                                        Bachelor's in Mass Media (Advertising);
+                                        Masters in Management Studies
+                                        (Marketing) from Mumbai University
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a>
+                                        More than a decade of experience in the
+                                        FMCG sector with stints at HDFC Bank,
+                                        Sula Vineyards, and White Owl
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a>Heading events and brand at RISE</a>
+                                    </li>
+                                  </ul>
                                 </div>
                               </div>
+
+                              {/* 
                               <div className="col-lg-6">
                                 <div className="single">
                                   <div className="d-flex">
@@ -2933,4 +3086,4 @@ success
   }
 }
 
-export default CUR8;
+export default Edept;
