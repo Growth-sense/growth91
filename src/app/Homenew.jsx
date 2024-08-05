@@ -54,7 +54,7 @@ class Homenew extends Component {
     // title
 
     document.title =
-      "Growth91: Invest in Startups India for Big Returns on Top Platforms";
+      "Growth91: Best Startup investment platform for Investing in startups in India";
       // keyword
     document.getElementsByTagName("META")[5].content = "invest in startups invest in startups india "
 // description
