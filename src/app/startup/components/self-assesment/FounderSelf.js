@@ -505,6 +505,7 @@ class FounderSelf extends Component {
                         <input
                           type="text"
                           value={this.state.roleType}
+                          style={{textTransform:"capitalize"}}
                           onChange={(e) =>
                             this.setState({ roleType: e.target.value })
                           }

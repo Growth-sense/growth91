@@ -19,10 +19,14 @@ class Founders extends Component {
    
     document.getElementsByTagName("META")[4].content =
       "Growth91: Discover the Best Startup Funding Platform for Your Venture";
+      "Growth91: Discover the Best Startup Funding Platform for Your Venture";
       document.title  =
+      "Growth91: Discover the Best Startup Funding Platform for Your Venture";
       "Growth91: Discover the Best Startup Funding Platform for Your Venture";
 
     document.getElementsByTagName("META")[3].content =
+      "Growth91 is your premier fundraising website in India. Explore our startup funding platform to connect with investors, raise capital & boost your growth";
+      document.getElementsByTagName("META")[5].content ="fundraising websites in india, startup funding platform"
       "Growth91 is your premier fundraising website in India. Explore our startup funding platform to connect with investors, raise capital & boost your growth";
       document.getElementsByTagName("META")[5].content ="fundraising websites in india, startup funding platform"
 
@@ -90,6 +94,8 @@ class Founders extends Component {
               <div className="item">
                 <div className="row align-items-center founders-rows">
                   <div className="col-lg-7">
+                <div className="row align-items-center founders-rows">
+                  <div className="col-lg-7">
                     <div className="left-content">
                       <h1 className="wow fadeInUp founders-heads " data-wow-delay="0.3s">
                       Access Opportunities with Premier Startup Funding Platform in India
@@ -99,6 +105,8 @@ class Founders extends Component {
                         className="wow fadeInUp"
                         data-wow-delay="0.5s"
                       >
+                     You’ve already revolutionized your team’s contribution to your mission with ESOPs. Now, take it a step further by leveraging your community and well-wishers to fuel your growth. With Growth91, you can raise capital efficiently and effectively, transforming your supporters into investors.
+
                      You’ve already revolutionized your team’s contribution to your mission with ESOPs. Now, take it a step further by leveraging your community and well-wishers to fuel your growth. With Growth91, you can raise capital efficiently and effectively, transforming your supporters into investors.
 
                         <span className="">
@@ -122,7 +130,7 @@ class Founders extends Component {
                           {localStorage.getItem("investor_id") ? (
                             <div className="theme-btn">
                               <a
-                                href="/founder-registration"
+                                href="/Investor-founder-registration"
                                 className="theme-btn "
                                 type="button"
                               >
@@ -142,6 +150,7 @@ class Founders extends Component {
                       </form>
                     </div>
                   </div>
+                  <div className="col-lg-5">
                   <div className="col-lg-5">
                     <div
                       className="right-side-images wow fadeInRight"
@@ -163,6 +172,7 @@ class Founders extends Component {
     <div className="container">
       <div className="heading-title">
       <p><span></span> </p>
+        <h2>How Our Startup Funding Platform Works</h2>
         <h2>How Our Startup Funding Platform Works</h2>
       </div>
       <div className="row">
@@ -227,12 +237,17 @@ class Founders extends Component {
                 {" "}
                 Maximize Your Capital Raise with Our Startup Funding Platform
 
+                Maximize Your Capital Raise with Our Startup Funding Platform
+
               </h2>
               <p style={{ textAlign: "justify" }}>
               Growth91's powerful private deal management option enables Founders, Angel Networks, Syndicates, and VCs to carry out their fundraising process online, accessible only to their audience. As one of the top fundraising websites in India, Growth91 offers a secure and efficient platform tailored to your specific needs.
 
+              Growth91's powerful private deal management option enables Founders, Angel Networks, Syndicates, and VCs to carry out their fundraising process online, accessible only to their audience. As one of the top fundraising websites in India, Growth91 offers a secure and efficient platform tailored to your specific needs.
+
               </p>
             </div>
+            <a href="/resources" className="theme_btn">
             <a href="/resources" className="theme_btn">
               Learn More
             </a>

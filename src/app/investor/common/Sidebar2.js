@@ -171,6 +171,18 @@ export default class Sidebar2 extends Component {
                 <div className="col-md-4 col-12 side-text">Referral</div>
               </li>
             </a>
+            {/* <a
+              href="/Create-family"
+              className={
+                window.location.pathname == "/Create-family" ? "active" : ""
+              }
+            >
+              <li className="hiw-li row text-center">
+                <i className="bx bx-transfer-alt col-md-4" />
+                <div className="col-md-4 col-12 side-text">Family</div>
+              </li>
+            </a> */}
+           
           {/* <div>
             <a
               href="/founder-as-investor"

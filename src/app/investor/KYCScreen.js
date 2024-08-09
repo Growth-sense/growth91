@@ -43,6 +43,7 @@ class InvestorKYCScreen extends Component {
       adharimage2: "",
       checkimage: "",
       api_panimage: "",
+      api_panimagecheck: "",
       api_adharimage1: "",
       api_adharimage2: "",
       api_checkimage: "",
@@ -154,19 +155,39 @@ class InvestorKYCScreen extends Component {
           this.setState({
             panno: result.data[0].panno == "null" ? "" : result.data[0].panno,
 
-            adharno: result.data[0].adharno == "null" ? "" : result.data[0].adharno,
+            adharno:
+              result.data[0].adharno == "null" ? "" : result.data[0].adharno,
             accountno: result.data[0].bank_ac_no,
             ifsccode: result.data[0].ifsc_code,
             bank_submit:
               result.data[0].bank_ac_no && result.data[0].ifsc_code
                 ? true
                 : false,
-            adhar_submit: result.data[0].adharno && result.data[0].adharno != "null" ? true : false,
-            pan_submit: result.data[0].panno && result.data[0].panno != "null" ? true : false,
-            api_adharimage1: result.data[0].adharFront == "null" ? "" : result.data[0].adharFront,
-            api_adharimage2: result.data[0].adharBack == "null" ? "" : result.data[0].adharBack,
-            api_panimage: result.data[0].pan_image == "null" ? "" : result.data[0].pan_image,
-            api_checkimage: result.data[0].cheque_image == "null" ? "" : result.data[0].cheque_image,
+            adhar_submit:
+              result.data[0].adharno && result.data[0].adharno != "null"
+                ? true
+                : false,
+            pan_submit:
+              result.data[0].panno && result.data[0].panno != "null"
+                ? true
+                : false,
+            api_adharimage1:
+              result.data[0].adharFront == "null"
+                ? ""
+                : result.data[0].adharFront,
+            api_adharimage2:
+              result.data[0].adharBack == "null"
+                ? ""
+                : result.data[0].adharBack,
+            api_panimage:
+              result.data[0].pan_image == "null"
+                ? ""
+                : result.data[0].pan_image,
+            api_panimagecheck: result.data[0].pan_image != null ? true : false,
+            api_checkimage:
+              result.data[0].cheque_image == "null"
+                ? ""
+                : result.data[0].cheque_image,
             otp: result.data[0].adhar_otp,
           });
           this.setState({ loading: false });
@@ -184,12 +205,29 @@ class InvestorKYCScreen extends Component {
       if (result.status == 1) {
         if (result.data.length > 0) {
           this.setState({
-            legalname: result.data[0].legal_name == "null" ? "" : result.data[0].legal_name,
-            legal_address: result.data[0].address == "null" ? "" : result.data[0].address,
-            fathername: result.data[0].fathers_name == "null" ? "" : result.data[0].fathers_name,
-            legalname_submit: result.data[0].legal_name && result.data[0].legal_name != "null" ? true : false,
-            address_submit: result.data[0].address && result.data[0].address != "null" ? true : false,
-            fathername_submit: result.data[0].fathers_name && result.data[0].fathers_name != "null" ? true : false,
+            legalname:
+              result.data[0].legal_name == "null"
+                ? ""
+                : result.data[0].legal_name,
+            legal_address:
+              result.data[0].address == "null" ? "" : result.data[0].address,
+            fathername:
+              result.data[0].fathers_name == "null"
+                ? ""
+                : result.data[0].fathers_name,
+            legalname_submit:
+              result.data[0].legal_name && result.data[0].legal_name != "null"
+                ? true
+                : false,
+            address_submit:
+              result.data[0].address && result.data[0].address != "null"
+                ? true
+                : false,
+            fathername_submit:
+              result.data[0].fathers_name &&
+              result.data[0].fathers_name != "null"
+                ? true
+                : false,
           });
         }
       } else {
@@ -282,6 +320,7 @@ class InvestorKYCScreen extends Component {
   };
 
   verify_pan_no = () => {
+    // e.preventDefault()
     if (!this.state.panno || this.state.panno.length != 10) {
       notification.warning({
         message: `Invalid PAN number`,
@@ -291,6 +330,7 @@ class InvestorKYCScreen extends Component {
       });
       return;
     }
+    console.log(this.state.panimage);
     if (!this.state.panimage && !this.state.api_panimage) {
       notification.warning({
         message: `No Image Selected`,
@@ -300,7 +340,7 @@ class InvestorKYCScreen extends Component {
       });
       return;
     }
-    this.setState({ imgtype: "pan" })
+    this.setState({ imgtype: "pan" });
     let panstatus = this.checkforpanno(this.state.panno);
     if (panstatus == false) {
       notification.warning({
@@ -352,6 +392,101 @@ class InvestorKYCScreen extends Component {
             adharscreen: "0",
             pan_submit: true,
             imgtype: "",
+          },
+          () => {
+            this.update_pan_no();
+            this.setState({ loading: false });
+          }
+        );
+        $("html, body").animate(
+          {
+            scrollTop: 280,
+          },
+          1000
+        );
+      } else {
+        notification.warning({
+          message: response.data.message,
+          description: "Please enter the valid pan number.",
+          placement: "top",
+          duration: 5,
+        });
+        this.setState({ loading: false });
+      }
+    });
+  };
+  CHECK_pan_no = (e) => {
+    e.preventDefault();
+    if (!this.state.panno || this.state.panno.length != 10) {
+      notification.warning({
+        message: `Invalid PAN number`,
+        description: "Please enter the valid PAN number",
+        placement: "top",
+        duration: 5,
+      });
+      return;
+    }
+    // if (!this.state.panimage && !this.state.api_panimage) {
+    //   notification.warning({
+    //     message: `No Image Selected`,
+    //     description: "Please select",
+    //     placement: "top",
+    //     duration: 5,
+    //   });
+    //   return;
+    // }
+    // this.setState({ imgtype: "pan" })
+    let panstatus = this.checkforpanno(this.state.panno);
+    if (panstatus == false) {
+      notification.warning({
+        message: `Invalid format of PAN No`,
+        description: "Please enter valid PAN No.",
+        placement: "top",
+        duration: 5,
+      });
+      return;
+    }
+    this.setState({ loading: true });
+    axios({
+      method: "post",
+      url: `${process.env.REACT_APP_BASE_URL}verification/pan.php`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      data: {
+        pan_no: this.state.panno,
+      },
+    }).then((response) => {
+      if (response.data.valid === true) {
+        // this.uploadimg();
+        notification.success({
+          message: `Success`,
+          description: "PAN is Valid.",
+          placement: "top",
+          duration: 5,
+        });
+
+        ReactGA.event({
+          category: "KYC",
+          action: "PAN Verified",
+        });
+
+        this.setState(
+          {
+            // panVerifyStatus: true,
+            // legalname: response.data.registered_name,
+            // fathername: "",
+            // screen1: false,
+            // screen2: true,
+            // screen3: false,
+            // screen4: false,
+            // screen5: false,
+            // pan_details: response.data,
+            // selectedTab: "1",
+            // adharscreen: "0",
+            // pan_submit: true,
+            // imgtype: "",
           },
           () => {
             this.update_pan_no();
@@ -734,8 +869,9 @@ class InvestorKYCScreen extends Component {
         });
         this.setState({ loading: false });
         return;
-      }
-      else if (response.data.message === "Bank Account details verified successfully.") {
+      } else if (
+        response.data.message === "Bank Account details verified successfully."
+      ) {
         this.updatebank(response.data.data);
         this.uploadimg();
         this.setState({ loading: false, bank_submit: true, imgtype: "" });
@@ -957,6 +1093,8 @@ class InvestorKYCScreen extends Component {
   };
 
   render() {
+    console.log(this.state.api_panimagecheck);
+
     const props1 = {
       name: "images",
       multiple: false,
@@ -987,7 +1125,7 @@ class InvestorKYCScreen extends Component {
           });
         }
       },
-      onDrop(e) { },
+      onDrop(e) {},
     };
     const props2 = {
       name: "images",
@@ -1054,9 +1192,13 @@ class InvestorKYCScreen extends Component {
               <div className=" my-2 py-2">
                 <h5>Confirm Your Details</h5>
                 <p className="fs-6">
-                Please ensure that the details added below are match with your KYC.
+                  Please ensure that the details added below are match with your
+                  KYC.
                 </p>
-                <p className="fs-6">These details will be used for allocation of securities and private placement.</p>
+                <p className="fs-6">
+                  These details will be used for allocation of securities and
+                  private placement.
+                </p>
               </div>
               <div className="mx-auto">
                 {/* Start Steps for kyc  */}
@@ -1092,22 +1234,30 @@ class InvestorKYCScreen extends Component {
                         {/* Start 1 */}
                         {(this.state.selectedTab == "0" ||
                           this.state.selectedTab == "1") && (
-                            <div className="col-lg-8 col-12 m-auto">
-                              {this.state.selectedTab == "0" && (
-                                <div>
-                                  <div className="login">
-                                    <label>
-                                      Permanant Account Number (PAN)
-                                      <span className="text-danger">*</span>
-                                    </label>
+                          <div className="col-lg-8 col-12 m-auto">
+                            {this.state.selectedTab == "0" && (
+                              <div>
+                                <div className="login">
+                                  <label>
+                                    Permanant Account Number (PAN)
+                                    <span className="text-danger">*</span>
+                                  </label>
+                                  <div className="pandiv"
+                                    style={{
+                                      display: "flex",
+                                      alignItems: "baseline",
+                                    }}
+                                  >
                                     <input
                                       type="text"
                                       name="name"
-                                      className="form-input-field mt-3 mb-5"
+                                      className="form-input-field mt-3 mb-5 position-relative"
                                       placeholder="Eg. ABCDEF1234F"
                                       value={this.state.panno}
                                       onChange={(e) => {
-                                        this.setState({ panno: e.target.value });
+                                        this.setState({
+                                          panno: e.target.value,
+                                        });
                                       }}
                                       disabled={
                                         this.state.pan_submit == true
@@ -1115,7 +1265,21 @@ class InvestorKYCScreen extends Component {
                                           : false
                                       }
                                     />
-                                    {/* <label for="panname">
+                                    {this.state.pan_submit == true ? (
+                                      <div className="verifypan">
+                                        <i class="fa-solid fa-check"></i>
+                                      </div>
+                                    ) : (
+                                      <button
+                                        className="small-button-dark-okyc"
+                                       
+                                        onClick={this.CHECK_pan_no}
+                                      >
+                                      Check
+                                      </button>
+                                    )}
+                                  </div>
+                                  {/* <label for="panname">
                                     <b>Name on PAN</b>
                                     <span className="text-danger">*</span>
                                   </label>
@@ -1134,100 +1298,104 @@ class InvestorKYCScreen extends Component {
                                         : false
                                     }
                                   /> */}
-                                    {
-                                      this.state.api_panimage ?
-                                        <Image
-                                          width={200}
-                                          src={`${Apis.IMAGEURL}/pan/${this.state.investor_id}/${this.state.api_panimage}`}
-                                        />
-                                        :
-                                        <>
-                                          <label>
-                                            Upload PAN Card image
-                                            <span className="text-danger">*</span>
-                                          </label>
-                                          <div style={{ marginTop: "20px" }}>
-                                            <div className="form-group mb-3">
-                                              <label>Front Image </label>
-                                              <br />
-
-                                              <input
-                                                type="file"
-                                                className="form-control"
-                                                accept="image/*"
-                                                onChange={(e) => {
-                                                  this.setState({ panimage: e.target.files[0] })
-                                                }}
-                                              />
-                                            </div>
-                                          </div>
-                                        </>
-                                    }
-                                  </div>
-                                  {this.state.pan_submit == true ? (
-                                    <div className="d-flex justify-content-end">
-                                      <button
-                                        type="button"
-                                        onClick={() => {
-                                          this.setState({ selectedTab: "1" });
-                                        }}
-                                        className="small-button-dark-okyc"
-                                        style={{
-                                          width: "100px",
-                                          fontSize: "17px",
-                                          marginTop: "0px",
-                                        }}
-                                      >
-                                        Next
-                                      </button>
-                                    </div>
+                                  {this.state.api_panimage ? (
+                                    <Image
+                                      width={200}
+                                      src={`${Apis.IMAGEURL}/pan/${this.state.investor_id}/${this.state.api_panimage}`}
+                                    />
                                   ) : (
-                                    <div className="d-flex justify-content-end">
-                                      <button
-                                        type="button"
-                                        onClick={this.verify_pan_no}
-                                        className="small-button-dark-okyc"
-                                        style={{
-                                          width: "100px",
-                                          fontSize: "17px",
-                                          marginTop: "0px",
-                                        }}
-                                      >
-                                        Submit
-                                      </button>
-                                    </div>
+                                    <>
+                                      <label>
+                                        Upload PAN Card image
+                                        <span className="text-danger">*</span>
+                                      </label>
+                                      <div style={{ marginTop: "20px" }}>
+                                        <div className="form-group mb-3">
+                                          <label>Front Image </label>
+                                          <br />
+
+                                          <input
+                                            type="file"
+                                            className="form-control"
+                                            accept="image/*"
+                                            onChange={(e) => {
+                                              this.setState({
+                                                panimage: e.target.files[0],
+                                              });
+                                            }}
+                                          />
+                                        </div>
+                                      </div>
+                                    </>
                                   )}
                                 </div>
-                              )}
-                              {this.state.selectedTab == "1" && (
-                                <div>
-                                  {this.state.adharscreen == "0" && (
-                                    <>
-                                      <div className="login">
-                                        <label>
-                                          <b>
-                                            Aadhaar Number{" "}
-                                            <span className="text-danger">*</span>
-                                          </b>
-                                        </label>
-                                        <input
-                                          type="text"
-                                          name="name"
-                                          className="form-input-field mt-3 mb-5"
-                                          placeholder="12 Digit UID (1234/1234/1234)"
-                                          value={this.state.adharno}
-                                          onChange={(e) => {
-                                            this.setState({
-                                              adharno: e.target.value.replace(/\s+/g, ""),
-                                            });
-                                          }}
-                                          disabled={
-                                            this.state.adhar_submit == true
-                                              ? true
-                                              : false
-                                          }
-                                        />
-                                        {/* <label>
+                                {this.state.api_panimagecheck == true ? (
+                                  <div className="d-flex justify-content-end">
+                                    <button
+                                      type="button"
+                                      onClick={() => {
+                                        this.setState({ selectedTab: "1" });
+                                      }}
+                                      className="small-button-dark-okyc"
+                                      style={{
+                                        width: "100px",
+                                        fontSize: "17px",
+                                        marginTop: "0px",
+                                      }}
+                                    >
+                                      Next
+                                    </button>
+                                  </div>
+                                ) : (
+                                  <div className="d-flex justify-content-end">
+                                    <button
+                                      type="button"
+                                      onClick={this.verify_pan_no}
+                                      className="small-button-dark-okyc"
+                                      style={{
+                                        width: "100px",
+                                        fontSize: "17px",
+                                        marginTop: "0px",
+                                      }}
+                                    >
+                                      Submit
+                                    </button>
+                                  </div>
+                                )}
+                              </div>
+                            )}
+                            {this.state.selectedTab == "1" && (
+                              <div>
+                                {this.state.adharscreen == "0" && (
+                                  <>
+                                    <div className="login">
+                                      <label>
+                                        <b>
+                                          Aadhaar Number{" "}
+                                          <span className="text-danger">*</span>
+                                        </b>
+                                      </label>
+                                      <input
+                                        type="text"
+                                        name="name"
+                                        className="form-input-field mt-3 mb-5"
+                                        placeholder="12 Digit UID (1234/1234/1234)"
+                                        value={this.state.adharno}
+                                        onChange={(e) => {
+                                          this.setState({
+                                            adharno: e.target.value.replace(
+                                              /\s+/g,
+                                              ""
+                                            ),
+                                          });
+                                        }}
+                                        disabled={
+                                          this.state.adhar_submit == true
+                                            ? true
+                                            : false
+                                        }
+                                      />
+                                      {/* <label>
                                           <b>
                                             Name (As on Aadhar){" "}
                                             <span className="text-danger">*</span>
@@ -1250,7 +1418,7 @@ class InvestorKYCScreen extends Component {
                                               : false
                                           }
                                         /> */}
-                                        {/* <label>
+                                      {/* <label>
                                         <b>
                                         Father's Name{" "}
                                           <span className="text-danger">*</span>
@@ -1273,7 +1441,7 @@ class InvestorKYCScreen extends Component {
                                             : false
                                         }
                                       /> */}
-                                        {/* <label>
+                                      {/* <label>
                                           <b>
                                             Address (As on Aadhar){" "}
                                             <span className="text-danger">*</span>
@@ -1296,184 +1464,194 @@ class InvestorKYCScreen extends Component {
                                               : false
                                           }
                                         /> */}
+                                    </div>
 
-                                      </div>
-
-                                      {this.state.adhar_submit != true ? (
-                                        <div className="d-flex justify-content-end">
-                                          {this.state.istimerstarted == false ? (
-                                            <button
-                                              type="button"
-                                              onClick={this.verify_adhar}
-                                              className="small-button-dark-okyc"
-                                              style={{
-                                                width: "100px",
-                                                fontSize: "17px",
-                                                marginTop: "0px",
-                                              }}
-                                            // disabled={this.state.showInputOTP==true ? true : false}
-                                            >
-                                              Send OTP
-                                            </button>
-                                          ) : (
-                                            <button
-                                              type="button"
-                                              // onClick={this.verify_adhar}
-                                              className="small-button-dark-okyc"
-                                              style={{
-                                                width: "100px",
-                                                fontSize: "17px",
-                                                marginTop: "0px",
-                                                borderRadius: "6px",
-                                                opacity: "0.8",
-                                              }}
-                                              disabled={
-                                                this.state.istimerstarted == true
-                                                  ? true
-                                                  : false
-                                              }
-                                            >
-                                              Send OTP
-                                            </button>
-                                          )}
-                                          <div
-                                            className="text-center"
-                                            style={{ position: "relative" }}
-                                          >
-                                            {this.state.istimerstarted == true &&
-                                              this.state.adhar_submit != true && (
-                                                <div
-                                                  style={{
-                                                    position: "absolute",
-                                                    right: 20,
-                                                    top: 44,
-                                                    textAlign: "center",
-                                                    color: "black",
-                                                  }}
-                                                >
-                                                  {this.state.minutes}:
-                                                  {this.state.seconds < 10
-                                                    ? `0${this.state.seconds}`
-                                                    : this.state.seconds}
-                                                </div>
-                                              )}
-                                          </div>
-                                        </div>
-                                      ) : (
-                                        <div className="d-flex justify-content-end">
-                                          <button
-                                            type="button"
-                                            onClick={() => {
-                                              this.setState({ selectedTab: "2" });
-                                            }}
-                                            className="small-button-dark-okyc"
-                                            style={{
-                                              width: "100px",
-                                              fontSize: "17px",
-                                              marginTop: "0px",
-                                            }}
-                                          >
-                                            Next
-                                          </button>
-                                        </div>
-                                      )}
-
-                                      {
-                                        this.state.api_adharimage1 && this.state.api_adharimage2 ?
-                                          <>
-                                            <Image
-                                              width={200}
-                                              src={`${Apis.IMAGEURL}/adhar-front/${this.state.investor_id}/${this.state.api_adharimage1}`}
-                                            />
-                                            <Image
-                                              width={200}
-                                              src={`${Apis.IMAGEURL}/adhar-back/${this.state.investor_id}/${this.state.api_adharimage2}`}
-                                            />
-                                          </>
-                                          : this.state.showInputOTP == true &&
-                                          <>
-                                            <label>
-                                              Upload Adhaar Card front and back image
-                                              <span className="text-danger">*</span>
-                                            </label>
-                                            <div style={{ marginTop: "20px" }}>
-                                              <div className="form-group mb-3">
-                                                <label>Front Image </label>
-                                                <br />
-
-                                                <input
-                                                  type="file"
-                                                  className="form-control"
-                                                  accept="image/*"
-                                                  onChange={(e) => {
-                                                    this.setState({ adharimage1: e.target.files[0] })
-                                                  }}
-                                                />
-                                              </div>
-                                              <div className="form-group mb-3">
-                                                <label>Back Image </label>
-                                                <br />
-
-                                                <input
-                                                  type="file"
-                                                  className="form-control"
-                                                  accept="image/*"
-                                                  onChange={(e) => {
-                                                    this.setState({ adharimage2: e.target.files[0] })
-                                                  }}
-                                                />
-                                              </div>
-                                            </div>
-                                          </>
-                                      }
-
-                                      {this.state.showInputOTP == true &&
-                                        this.state.adhar_submit != true ? (
-                                        <div className="login">
-                                          <label>
-                                            <b>
-                                              OTP{" "}
-                                              <span className="text-danger">
-                                                *
-                                              </span>
-                                            </b>
-                                          </label>
-                                          <input
-                                            type="text"
-                                            name="name"
-                                            className="form-input-field mb-5"
-                                            placeholder="OTP"
-                                            onChange={(e) => {
-                                              this.setState({
-                                                otp: e.target.value,
-                                              });
-                                            }}
-                                            value={this.state.otp}
-                                          // disabled={this.state.adhar_submit==true ? true : false}
-                                          />
-                                        </div>
-                                      ) : (
-                                        <div></div>
-                                      )}
-
+                                    {this.state.adhar_submit != true ? (
                                       <div className="d-flex justify-content-end">
-                                        {this.state.showInputOTP == true && (
+                                        {this.state.istimerstarted == false ? (
                                           <button
                                             type="button"
-                                            onClick={this.save_otp}
+                                            onClick={this.verify_adhar}
                                             className="small-button-dark-okyc"
                                             style={{
                                               width: "100px",
                                               fontSize: "17px",
                                               marginTop: "0px",
                                             }}
+                                            // disabled={this.state.showInputOTP==true ? true : false}
                                           >
-                                            Submit
+                                            Send OTP
+                                          </button>
+                                        ) : (
+                                          <button
+                                            type="button"
+                                            // onClick={this.verify_adhar}
+                                            className="small-button-dark-okyc"
+                                            style={{
+                                              width: "100px",
+                                              fontSize: "17px",
+                                              marginTop: "0px",
+                                              borderRadius: "6px",
+                                              opacity: "0.8",
+                                            }}
+                                            disabled={
+                                              this.state.istimerstarted == true
+                                                ? true
+                                                : false
+                                            }
+                                          >
+                                            Send OTP
                                           </button>
                                         )}
+                                        <div
+                                          className="text-center"
+                                          style={{ position: "relative" }}
+                                        >
+                                          {this.state.istimerstarted == true &&
+                                            this.state.adhar_submit != true && (
+                                              <div
+                                                style={{
+                                                  position: "absolute",
+                                                  right: 20,
+                                                  top: 44,
+                                                  textAlign: "center",
+                                                  color: "black",
+                                                }}
+                                              >
+                                                {this.state.minutes}:
+                                                {this.state.seconds < 10
+                                                  ? `0${this.state.seconds}`
+                                                  : this.state.seconds}
+                                              </div>
+                                            )}
+                                        </div>
                                       </div>
+                                    ) : (
+                                      <div className="d-flex justify-content-end">
+                                        <button
+                                          type="button"
+                                          onClick={() => {
+                                            this.setState({ selectedTab: "2" });
+                                          }}
+                                          className="small-button-dark-okyc"
+                                          style={{
+                                            width: "100px",
+                                            fontSize: "17px",
+                                            marginTop: "0px",
+                                          }}
+                                        >
+                                          Next
+                                        </button>
+                                      </div>
+                                    )}
 
-                                      {/* <div className="login">
+                                    {this.state.api_adharimage1 &&
+                                    this.state.api_adharimage2 ? (
+                                      <>
+                                        <Image
+                                          width={200}
+                                          src={`${Apis.IMAGEURL}/adhar-front/${this.state.investor_id}/${this.state.api_adharimage1}`}
+                                        />
+                                        <Image
+                                          width={200}
+                                          src={`${Apis.IMAGEURL}/adhar-back/${this.state.investor_id}/${this.state.api_adharimage2}`}
+                                        />
+                                      </>
+                                    ) : (
+                                      this.state.showInputOTP == true && (
+                                        <>
+                                          <label>
+                                            Upload Adhaar Card front and back
+                                            image
+                                            <span className="text-danger">
+                                              *
+                                            </span>
+                                          </label>
+                                          <div style={{ marginTop: "20px" }}>
+                                            <div className="form-group mb-3">
+                                              <label>Front Image </label>
+                                              <br />
+
+                                              <input
+                                                type="file"
+                                                className="form-control"
+                                                accept="image/*"
+                                                onChange={(e) => {
+                                                  this.setState({
+                                                    adharimage1:
+                                                      e.target.files[0],
+                                                  });
+                                                }}
+                                              />
+                                            </div>
+                                            <div className="form-group mb-3">
+                                              <label>Back Image </label>
+                                              <br />
+
+                                              <input
+                                                type="file"
+                                                className="form-control"
+                                                accept="image/*"
+                                                onChange={(e) => {
+                                                  this.setState({
+                                                    adharimage2:
+                                                      e.target.files[0],
+                                                  });
+                                                }}
+                                              />
+                                            </div>
+                                          </div>
+                                        </>
+                                      )
+                                    )}
+
+                                    {this.state.showInputOTP == true &&
+                                    this.state.adhar_submit != true ? (
+                                      <div className="login">
+                                        <label>
+                                          <b>
+                                            OTP{" "}
+                                            <span className="text-danger">
+                                              *
+                                            </span>
+                                          </b>
+                                        </label>
+                                        <input
+                                          type="text"
+                                          name="name"
+                                          className="form-input-field mb-5"
+                                          placeholder="OTP"
+                                          onChange={(e) => {
+                                            this.setState({
+                                              otp: e.target.value,
+                                            });
+                                          }}
+                                          value={this.state.otp}
+                                          // disabled={this.state.adhar_submit==true ? true : false}
+                                        />
+                                      </div>
+                                    ) : (
+                                      <div></div>
+                                    )}
+
+                                    <div className="d-flex justify-content-end">
+                                      {this.state.showInputOTP == true && (
+                                        <button
+                                          type="button"
+                                          onClick={this.save_otp}
+                                          className="small-button-dark-okyc"
+                                          style={{
+                                            width: "100px",
+                                            fontSize: "17px",
+                                            marginTop: "0px",
+                                          }}
+                                        >
+                                          Submit
+                                        </button>
+                                      )}
+                                    </div>
+
+                                    {/* <div className="login">
                                                         <label className='mb-3'><b>Aadhaar card front <span className='text-danger'>*</span></b></label>
                                                         <Spin spinning={this.state.imgloader}>   
                                                             <div style={{pointerEvents:(this.state.adhar_submit==true?'none' :'auto')}}>
@@ -1519,9 +1697,9 @@ class InvestorKYCScreen extends Component {
                                                         })}
                                                         </Spin>
                                                     </div> */}
-                                    </>
-                                  )}
-                                  {/* {this.state.adharscreen=='1' && (
+                                  </>
+                                )}
+                                {/* {this.state.adharscreen=='1' && (
                                                 <div>
                                                     <div className="login" >
                                                         <label ><b>OTP <span className='text-danger'>*</span></b></label>
@@ -1546,10 +1724,10 @@ class InvestorKYCScreen extends Component {
                                                     </div>
                                                 </div>
                                             )} */}
-                                </div>
-                              )}
-                            </div>
-                          )}
+                              </div>
+                            )}
+                          </div>
+                        )}
                         {/* End 1 */}
                         {this.state.selectedTab == "2" && (
                           <div className="col-lg-8 col-12 m-auto">
@@ -1718,34 +1896,35 @@ class InvestorKYCScreen extends Component {
                                   this.state.bank_submit == true ? true : false
                                 }
                               />
-                              {
-                                this.state.api_checkimage ?
-                                  <Image
-                                    width={200}
-                                    src={`${Apis.IMAGEURL}/cheque_image/${this.state.investor_id}/${this.state.api_checkimage}`}
-                                  />
-                                  :
-                                  <>
-                                    <label>
-                                      Cancel Cheque Image Or Bank Statement
-                                      <span className="text-danger">*</span>
-                                    </label>
-                                    <div style={{ marginTop: "20px" }}>
-                                      <div className="form-group mb-3">
-                                        <label>Image </label>
-                                        <br />
-                                        <input
-                                          type="file"
-                                          className="form-control"
-                                          accept="image/*"
-                                          onChange={(e) => {
-                                            this.setState({ checkimage: e.target.files[0] })
-                                          }}
-                                        />
-                                      </div>
+                              {this.state.api_checkimage ? (
+                                <Image
+                                  width={200}
+                                  src={`${Apis.IMAGEURL}/cheque_image/${this.state.investor_id}/${this.state.api_checkimage}`}
+                                />
+                              ) : (
+                                <>
+                                  <label>
+                                    Cancel Cheque Image Or Bank Statement
+                                    <span className="text-danger">*</span>
+                                  </label>
+                                  <div style={{ marginTop: "20px" }}>
+                                    <div className="form-group mb-3">
+                                      <label>Image </label>
+                                      <br />
+                                      <input
+                                        type="file"
+                                        className="form-control"
+                                        accept="image/*"
+                                        onChange={(e) => {
+                                          this.setState({
+                                            checkimage: e.target.files[0],
+                                          });
+                                        }}
+                                      />
                                     </div>
-                                  </>
-                              }
+                                  </div>
+                                </>
+                              )}
                             </div>
                             {/* {(this.state.bank_submit==true)?
                                     (<div className='d-flex justify-content-end'>

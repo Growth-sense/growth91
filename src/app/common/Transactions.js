@@ -336,6 +336,7 @@ class Transactions extends Component {
   searchinput = (e) => {
     let text = e.target.value;
     this.setState({ loading: true, searchinput: text });
+    console.log(text);
     if (text) {
       let arr = [];
       for (let item of this.state.cpaymentlist) {
@@ -343,8 +344,10 @@ class Transactions extends Component {
           (item.deal_name && item.deal_name.toLowerCase().includes(text.toLowerCase())) ||
           (item.first_name && item.first_name.toLowerCase().includes(text.toLowerCase())) ||
           (item.last_name && item.last_name.toLowerCase().includes(text.toLowerCase())) ||
-          item.payment_date && item.payment_date.includes(text) ||
+          item.payment_date &&  moment(item.payment_date).format('DD MMM, YYYY').includes(text) ||
           item.paymentid && item.paymentid.includes(text) ||
+          item.payment_amount && item.payment_amount.includes(text) ||
+          item.total_paid_amount && item.total_paid_amount.includes(text) ||
           item.payment_ref && item.payment_ref.includes(text)
           // item.description && item.description.includes(text) ||
           // item.payment_ref && item.payment_ref.includes(text)

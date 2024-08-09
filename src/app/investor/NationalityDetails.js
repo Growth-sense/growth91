@@ -17,6 +17,7 @@ class NationalityDetails extends Component {
             companyName: "",
             nationality:'',
             riskstatus:false,
+            is_investor:"",
             limitedstatus:false,                  
             divesestatus :false,
             cancellationstatus :false,
@@ -60,6 +61,14 @@ class NationalityDetails extends Component {
       let params = {
           id: localStorage.getItem('investor_id'),
           is_founder:'1',
+          riskstatus:false,
+          limitedstatus:false,                  
+          divesestatus :false,
+          cancellationstatus :false,
+          researchstatus:false,
+          formloader:false,
+          typeofmember:'Indian Resident',
+          is_investor:"1"
       }
       Bridge.investor.updaterstatus(params).then((result) => {
           if (result.status == 1) {

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route,Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import "antd/dist/antd.css";
 import "react-image-lightbox/style.css";
 import "slick-carousel/slick/slick.css";
@@ -9,6 +9,33 @@ import ReactGA from "react-ga4";
 
 import Home from "./app/Home";
 import Homenew from "./app/Homenew.jsx";
+import { Aboutnew } from "./app/Aboutnew.jsx";
+import { FamilyDashboard } from "./app/FamilyDashboard.jsx"
+import { InformationList } from "./app/InformationList.jsx"
+import { LoginInvestor } from './app/LoginInvestor.jsx'
+import { LoginFounder } from './app/LoginFounder.jsx'
+import { MemberShip } from './app/MemberShip.jsx'
+
+import { FutureUnicornDescription } from './app/FutureUnicornDescription.jsx'
+import { Thankyou } from './app/Thankyou.jsx';
+import { CheckboxThank } from './app/CheckboxThank.jsx';
+import { FounderTransactionHistory } from './app/FounderTransactionHistory.jsx';
+import { FounderDashboardType } from './app/FounderDashboardType.jsx';
+import { FounderMyListing } from './app/FounderMyListing.jsx';
+import { FounderDraftList } from './app/FounderDraftList.jsx';
+import { FinishedEditPopup } from './app/FinishedEditPopup.jsx';
+import { RemainingEditPopup } from './app/RemainingEditPopup.jsx';
+import { FounderMyPlan } from './app/FounderMyPlan.jsx';
+import { FutureUnicornFormEdits } from './app/FutureUnicornFormEdits.jsx';
+
+import { FounderInterest } from './app/FounderInterest.jsx';
+
+import { DashboardType } from './app/DashboardType.jsx'
+import { FutureUnicornForm } from './app/FutureUnicornForm.jsx'
+import { FounderEdit } from './app/FounderEdit.jsx'
+import { WaitApproval } from './app/WaitApproval.jsx';
+import { FutureUnicornList } from './app/FutureUnicornList.jsx';
+import { PaymentMethods } from './app/PaymentMethods.jsx'
 import {Aboutnew} from "./app/Aboutnew.jsx";
 import {FamilyDashboard} from "./app/FamilyDashboard.jsx"
 import {InformationList} from "./app/InformationList.jsx"
@@ -27,7 +54,7 @@ import DealDetailsAutorobot from "./app/DealDetailsAutorobot";
 import Founders from "./app/Founders";
 import Investors from "./app/Investors";
 import Learn from "./app/Learn";
-import {Contact} from "./app/Contact_us.jsx";
+import { Contact } from "./app/Contact_us.jsx";
 import Login from "./app/Founder/Login";
 import Signup from "./app/Signup";
 import Howitworks from "./app/Howitworks";
@@ -87,6 +114,7 @@ import FounderformdetailsPdf from "./app/admin/FounderformdetailsPdf";
 import Founderformdetails from "./app/admin/Founderformdetails";
 import PremiumMembers from "./app/admin/PremiumMembers";
 import FounderFormStatus from "./app/Founder/FounderFormStatus";
+
 import AdminFormStatus from "./app/admin/AdminFormStatus";
 import Authenticate from "./app/startup/Login";
 import Form from "./app/startup/Form";
@@ -114,6 +142,7 @@ import TransBankPublic from "./app/deal-pages/TransBankPublic";
 import Test from "./app/components/Alerts/investment/Test";
 import Step1 from "./app/investor/register/Step1";
 import FounderRegistration from "./app/Founder/FounderRegistration";
+import InvestorFounderRegistration from "./app/Founder/InvestorFounderRegistration.jsx";
 import OfflinePayments from "./app/admin/OfflinePayment";
 import covertfoundertoinvestor from "./app/Founder/NationalityDetails";
 // foudner as investor
@@ -164,8 +193,8 @@ import PendingOfflinePayments from "./app/admin/PendingOfflinePayments";
 import UnderMaintenance from "./app/UnderMaintenance";
 import AdminDocuments from "./app/admin/AdminDocuments";
 import Newboo from "./app/deal-pages/Newboo";
-// import ORAI from "./app/deal-pages/ORAI.jsx";
-import ORAI from "./app/deal-pages/ORAI1.jsx";
+import ORAI from "./app/deal-pages/ORAI.jsx";
+import LiaPlus from "./app/deal-pages/LiaPlus.jsx";
 import EleFant from "./app/deal-pages/EleFant.jsx";
 import EcoRatings from "./app/deal-pages/EcoRatings.jsx";
 import Stroom from "./app/deal-pages/Stroom.jsx";
@@ -173,6 +202,21 @@ import Nymbleup from "./app/deal-pages/Nymbleup.jsx";
 import IndusUnoTranche2 from "./app/deal-pages/IndusUnoTranche2";
 import { Newdeals } from "./app/Newdeals.jsx";
 import jqeryscript from "./jq.js"
+import FamilyAdmin from "./app/admin/FamilyAdmin.jsx";
+import Familymanage from "./app/admin/Familymanage.jsx";
+import FUnicornStartup from "./app/admin/FUnicornStartup.js";
+import FUnicornInvestors from "./app/admin/FUnicornInvestors.js";
+import FUnicornFounders from "./app/admin/FUnicornFounders.js";
+import TableComponent from "./app/admin/pdfview/TableComponent.js";
+import Createfamily from "./app/investor/Create-Family.jsx";
+import Viewfamilylist from "./app/investor/View-family-list.jsx";
+import familyinvite from "./app/investor/family-invite.jsx";
+
+
+
+import Mindler from "./app/deal-pages/Mindler.jsx";
+import CUR8 from "./app/deal-pages/CUR8.jsx";
+import Edept from "./app/deal-pages/Edept.jsx";
 import TableComponent from "./app/admin/pdfview/TableComponent.js";
 import LiaPlus from "./app/deal-pages/LiaPlus.jsx";
 import Mindler from "./app/deal-pages/Mindler.jsx";
@@ -181,7 +225,7 @@ import CUR8 from "./app/deal-pages/CUR8.jsx";
 ReactGA.initialize(TRACKING_ID);
 
 function App() {
- 
+
   // GOOGLE ANALYTICS
 
   useEffect(() => {
@@ -196,13 +240,37 @@ function App() {
       <Router>
         <RouteChangeTracker />
         <Switch>
-        <Route exact path="/the EleFant">
-          <Redirect to="/theEleFant" />
-        </Route>
+          <Route exact path="/the EleFant">
+            <Redirect to="/theEleFant" />
+          </Route>
 
           {/* <Route path="/" exact component={Home} /> */}
           <Route path="/" exact component={Homenew} />
           <Route path="/about" exact component={Aboutnew} />
+          <Route path="/LoginInvestor" exact component={LoginInvestor} />
+          <Route path="/LoginFounder" exact component={LoginFounder} />
+          <Route path="/MemberShip" exact component={MemberShip} />
+          <Route path="/DashboardType" exact component={DashboardType} />
+          <Route path="/FounderEdit" exact component={FounderEdit} />
+          <Route path="/PaymentMethods" exact component={PaymentMethods} />
+          <Route path="/Thankyou" exact component={Thankyou} />
+          <Route path="/FounderTransactionHistory" exact component={FounderTransactionHistory} />
+          <Route path="/FounderDashboardType" exact component={FounderDashboardType} />
+          <Route path="/FounderMyListing" exact component={FounderMyListing} />
+          <Route path="/FounderMyPlan" exact component={FounderMyPlan} />
+          <Route path="/FounderInterest" exact component={FounderInterest} />
+          <Route path="/FounderDraftList" exact component={FounderDraftList} />
+          <Route path="/FinishedEditPopup" exact component={FinishedEditPopup} />
+          <Route path="/RemainingEditPopup" exact component={RemainingEditPopup} />
+          <Route path="/FutureUnicornFormEdits" exact component={FutureUnicornFormEdits} />
+          <Route path="/FutureUnicornList" exact component={FutureUnicornList} />
+          <Route path="/FutureUnicornDescription" exact component={FutureUnicornDescription} />
+          <Route path="/WaitApproval" exact component={WaitApproval} />
+          <Route path="/CheckboxThank" exact component={CheckboxThank} />
+
+          <Route path="/FamilyDashboard" exact component={FamilyDashboard} />
+          <Route path="/FutureUnicornForm" exact component={FutureUnicornForm} />
+          <Route path="/InformationList" exact component={InformationList} />
           <Route path="/FutureUnicornList" exact component={FutureUnicornList} />
             <Route path="/FutureUnicornDescription" exact component={FutureUnicornDescription} />
             <Route path="/FamilyDashboard" exact component={FamilyDashboard} />
@@ -231,6 +299,7 @@ function App() {
           <Route path="/Register" exact component={Register} />
           <Route path="/Signup" exact component={Step1} />
           <Route path="/resources" exact component={Howitworks} />
+          <Route path="/resources" exact component={Howitworks} />
           <Route path="/How-it-works2" exact component={Howitworks2} />
           <Route path="/How-it-works3" exact component={Howitworks3} />
           <Route path="/How-it-works4" exact component={Howitworks4} />
@@ -249,6 +318,11 @@ function App() {
             path="/founder-registration"
             exact
             component={FounderRegistration}
+          />
+          <Route
+            path="/Investor-founder-registration"
+            exact
+            component={InvestorFounderRegistration}
           />
           <Route
             path="/investor-dashboard"
@@ -295,6 +369,16 @@ function App() {
           <Route path="/admin-founders" exact component={adminfounders} />
           <Route path="/admin-investors" exact component={admininvestors} />
           <Route path="/admin-startups" exact component={adminstartups} />
+          <Route path="/admin-family" exact component={FamilyAdmin} />
+          <Route path="/admin-family-manage" exact component={Familymanage} />
+          <Route path="/future-unicorn-startups" exact component={FUnicornStartup} />
+          <Route path="/future-unicorn-investors" exact component={FUnicornInvestors} />
+          <Route path="/future-unicorn-founders" exact component={FUnicornFounders} />
+
+
+
+
+
           <Route path="/admin-investments" exact component={admininvestments} />
           <Route path="/admin-payments" exact component={adminpayments} />
           <Route
@@ -328,6 +412,11 @@ function App() {
             path="/founder-documents"
             exact
             component={Founderformdetails}
+          />
+          <Route
+            path="/admin-founder-dashboard"
+            exact
+            component={TableComponent}
           />
           <Route path="/documents" exact component={AdminDocuments} />
           <Route
@@ -512,6 +601,9 @@ function App() {
           <Route path="/ORAI" exact>
             <ProtectDeals Component={ORAI} />
           </Route>
+          <Route path="/LiaPlus" exact>
+            <ProtectDeals Component={LiaPlus} />
+          </Route>
           <Route path="/theEleFant" exact>
             <ProtectDeals Component={EleFant} />
           </Route>
@@ -535,6 +627,15 @@ function App() {
           </Route>
           <Route path="/Nymbleup" >
             <ProtectDeals Component={Nymbleup} />
+          </Route>
+          <Route path="/Mindler" >
+            <ProtectDeals Component={Mindler} />
+          </Route>
+          <Route path="/CUR8" >
+            <ProtectDeals Component={CUR8} />
+          </Route>
+          <Route path="/Edept" >
+            <ProtectDeals Component={Edept} />
           </Route>
           <Route path="/TestDeal2" exact>
             <ProtectDeals Component={TestDeal2} />
@@ -573,6 +674,10 @@ function App() {
             exact
             component={founderkycscreen}
           />
+          <Route path="/Create-family" exact component={Createfamily} />
+          <Route path="/View-family-list" exact component={Viewfamilylist} />
+          <Route path="/FamilyInvite"  component={familyinvite} />
+
 
           <Route path="*" exact component={error} />
         </Switch>

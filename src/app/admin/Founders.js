@@ -135,6 +135,7 @@ class Founders extends Component {
       edit_ifsc_code: "",
       edit_profile_image: "",
       isActiveValue: 0,
+      modes:"ass"
     };
   }
 
@@ -155,8 +156,8 @@ class Founders extends Component {
       if (result.status == 1) {
         this.setState({
           allFounders: result.data,
-          founderlist: result.data,
-          cfounderlist: result.data,
+          founderlist: result.data.map((el)=>{return {...el,name: el.first_name + " " + el.last_name}}),
+          cfounderlist: result.data.map((el)=>{return {...el,name: el.first_name + " " + el.last_name}}),
           loading: false,
         });
       } else {
@@ -384,10 +385,11 @@ class Founders extends Component {
     this.setState({ loading: true });
     if (text) {
       let arr = [];
+      console.log(this.state.cfounderlist);
       for (let item of this.state.cfounderlist) {
         if (
           (item.startup_name && item.startup_name.toLowerCase().includes(text.toLowerCase())) ||
-          (item.first_name && item.first_name.toLowerCase().includes(text.toLowerCase())) ||
+          (item.name && item.name.toLowerCase().includes(text.toLowerCase())) ||
           (item.last_name && item.last_name.toLowerCase().includes(text.toLowerCase())) ||
           (item.investor_id && item.investor_id.includes(text)) ||
           (item.email && item.email.includes(text)) ||
@@ -403,6 +405,8 @@ class Founders extends Component {
     } else {
       this.setState({
         loading: false,
+        founderlist: this.state.cfounderlist,
+
       });
     }
   };
@@ -663,14 +667,84 @@ class Founders extends Component {
   };
 
   render() {
+    const disdingid = (datas) => {
+      console.log(this.state.modes);
+      if(this.state.modes=="ass"){
+
+        const data = [...this.state.founderlist]
+          .map((el) => {
+            return { ...el, investor_id: Number(el.investor_id) };
+          }).sort((a, b) => {
+            console.log(datas);
+            return a.investor_id> b.investor_id ? 1 : -1;
+          });
+        this.setState({
+          founderlist: data,
+          modes:"dis"
+
+        });
+        console.log(data);
+      }
+      else if(this.state.modes=="dis"){
+        const data = [...this.state.founderlist]
+          .map((el) => {
+            return { ...el, investor_id: Number(el.investor_id) };
+          }).sort((a, b) => {
+            console.log(datas);
+            return a.investor_id> b.investor_id ? -1 : 1;
+          });
+        this.setState({
+          founderlist: data,
+          modes:"ass"
+        });
+        console.log(data);
+      }
+       
+       
+    };
+    const disdingname= (datas) => {
+      if(this.state.modes=="ass"){
+
+        const data = [...this.state.founderlist]
+          .map((el) => {
+            return { ...el, name: el.name.toLowerCase() };
+          }).sort((a, b) => {
+            console.log(datas);
+            return a.name> b.name ? 1 : -1;
+          });
+        this.setState({
+          founderlist: data,
+          modes:"dis"
+
+        });
+        console.log(data);
+      }
+      else if(this.state.modes=="dis"){
+        const data = [...this.state.founderlist]
+          .map((el) => {
+            return { ...el, name: el.name.toLowerCase() };
+          }).sort((a, b) => {
+            console.log(datas);
+            return a.name> b.name ? -1 : 1;
+          });
+        this.setState({
+          founderlist: data,
+          modes:"ass"
+        });
+        console.log(data);
+      }
+
+
+      
+    };
     const dataSource =
       this.state.founderlist &&
       this.state.founderlist.map((item, index) => {
         return {
           key: index,
           founderid: item.investor_id,
-          name: item.first_name + " " + item.last_name,
-          startupname: item.startup_name ? item.startup_name : "---",
+          name:item.name && (item.name).toLowerCase(),  
+                  startupname: item.startup_name ? item.startup_name : "---",
           contactno: item.mobile ? item.mobile : "---",
           email: item.email ? item.email : "---",
           isActive: item.user_block_status ? item.user_block_status : 0,
@@ -680,18 +754,29 @@ class Founders extends Component {
 
     const columns = [
       {
-        title: "Founder Id",
+        title:<span
+        onClick={() => {
+          disdingid();
+        }}
+      >Founder Id</span>,
         dataIndex: "founderid",
         key: "founderid",
         width: 160,
         fixed: "left",
       },
       {
-        title: "Name",
+        title:  <span
+        onClick={() => {
+          disdingname()
+        }}
+      >Name</span>,
         dataIndex: "name",
         key: "name",
         width: 100,
         fixed: "left",
+        render:(text,record)=>{
+          return <span style={{textTransform:"capitalize"}}>{text}</span>
+        }
       },
       {
         title: "Startup Name",

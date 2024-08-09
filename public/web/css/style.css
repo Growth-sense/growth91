@@ -3234,3 +3234,34 @@ body.search.search-results .content-area {
     width: 70%;
     margin: auto;
   }
+
+
+
+
+  .pandiv{
+    position: relative;
+    }
+    .pandiv button{
+          width: 100px;
+    font-size: 17px;
+    /* margin-top: 0px; */
+    position: absolute;
+    right: 0;
+    height: auto;
+    /* width: auto; */
+    padding: 8px 0px;
+    }
+    .pandiv .verifypan{
+      position: absolute;
+    top: 18px;
+    right: 5px;
+    background: green;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 30px;
+    }

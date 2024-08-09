@@ -243,7 +243,21 @@ const URLs = {
   submit_non_resident_form: "investors/kyc/submit_non_resident_form",
   get_non_resident: "investors/kyc/get_non_resident_form_details",
   upload_kyc_docs: "investors/kyc/storekycdetail",
-  contact_us_form:"Users/send_contact_email"
+  contact_us_form:"Users/send_contact_email",
+  // familt
+  addfamily:"investors/InvestorController/addfamilymember",
+  getfamilymember:"investors/InvestorController/getfamilymember",
+  creategroup:"investors/InvestorController/createGroup",
+  getGroupList:"investors/InvestorController/getGroupList",
+  checkFamilyMember:"investors/InvestorController/checkFamilyMember",
+  saveInvite:"investors/InvestorController/saveInvite",
+  familyInviteOTP:"investors/InvestorController/familyInviteOTP",
+  verifyFamilyInvite:"investors/InvestorController/verifyFamilyInvite",
+  editGroup:"investors/InvestorController/editGroup",
+  deleteGroupMember:"investors/InvestorController/deleteGroupMember",
+  deleteRequest:"investors/InvestorController/deleteRequest",
+  deleteRequestApprove:"investors/InvestorController/deleteRequestApprove",
+
 };
 
 export default URLs;

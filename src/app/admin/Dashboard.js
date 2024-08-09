@@ -16,7 +16,11 @@ class Dashboard extends React.Component {
       invested_amt: 0,
       total_convience_fees: 0,
       total_expected_amt: 0,
+      Total_commitment_amount: 0,
+      Total_completed_deal:0,
+      Total_open_deal:0,
       loading: false,
+
     };
   }
 
@@ -41,9 +45,22 @@ class Dashboard extends React.Component {
             parseFloat(
               result.Total_expected_deals_amount[0].Total_expected_deals_amount
             ),
+            Total_completed_deal:
+            result.Total_completed_deal[0].Total_completed_deal &&
+            parseFloat(
+              result.Total_completed_deal[0].Total_completed_deal
+            ),
+            Total_open_deal:
+            result.Total_open_deal[0].Total_open_deal &&
+            parseFloat(
+              result.Total_open_deal[0].Total_open_deal
+            ),
           total_convience_fees:
             result.Total_convience_amount[0].Total_convience_amount &&
             parseFloat(result.Total_convience_amount[0].Total_convience_amount),
+            Total_commitment_amount:
+            result.Total_commitment_amount[0].Total_commitment_amount &&
+            parseFloat(result.Total_commitment_amount[0].Total_commitment_amount),
         });
       } else {
         message.error(result.message);
@@ -59,6 +76,8 @@ class Dashboard extends React.Component {
   };
 
   render() {
+    var nf = new Intl.NumberFormat('en-IN');
+
     return (
       <Layout
         style={{ minHeight: "100vh", marginTop: 0 }}
@@ -91,30 +110,52 @@ class Dashboard extends React.Component {
                     <div className="item">
                       <div className="panel-heading">
                         <h3 className="panel-title">
-                          {this.state.investor_count}
+                          {nf.format(this.state.investor_count)}
                         </h3>
                       </div>
                       <div className="panel-body">Investors</div>
                     </div>
                   </div>
-                  <div className="col-lg-3">
+                  {/* <div className="col-lg-3">
                     <div className="item">
                       <div className="panel-heading">
                         <h3 className="panel-title">
-                          ₹ {this.state.invested_amt}
+                          ₹ {nf.format(this.state.invested_amt)}
                         </h3>
                       </div>
                       <div className="panel-body">Investments</div>
                     </div>
-                  </div>
+                  </div> */}
                   <div className="col-lg-3">
                     <div className="item">
                       <div className="panel-heading">
                         <h3 className="panel-title">
-                          {this.state.founder_count}
+                          {nf.format(this.state.founder_count)}
                         </h3>
                       </div>
                       <div className="panel-body">Founders</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="row dasboard-cards">
+                <div className="col-lg-3">
+                    <div className="item">
+                      <div className="panel-heading">
+                        <h3 className="panel-title">
+                          {nf.format(this.state.Total_completed_deal)}
+                        </h3>
+                      </div>
+                      <div className="panel-body">No of Completed Deals</div>
+                    </div>
+                  </div>
+                <div className="col-lg-3">
+                    <div className="item">
+                      <div className="panel-heading">
+                        <h3 className="panel-title">
+                          {nf.format(this.state.Total_open_deal)}
+                        </h3>
+                      </div>
+                      <div className="panel-body">No of open Deals </div>
                     </div>
                   </div>
                 </div>
@@ -123,22 +164,22 @@ class Dashboard extends React.Component {
                     <div className="item">
                       <div className="panel-heading">
                         <h3 className="panel-title">
-                          ₹ {parseInt(this.state.total_convience_fees)}
+                          ₹ {nf.format(parseInt(this.state.invested_amt))}
                         </h3>
                       </div>
-                      <div className="panel-body">Total Convenience Fees</div>
+                      <div className="panel-body">Total Investment</div>
                     </div>
+                    
                   </div>
                   <div className="col-lg-3">
                     <div className="item">
                       <div className="panel-heading">
                         <h3 className="panel-title">
-                          ₹ {this.state.total_expected_amt}
+                        ₹ {nf.format(parseInt(this.state.Total_commitment_amount))}
                         </h3>
                       </div>
                       <div className="panel-body">
-                        Total expected deal value
-                      </div>
+                      Total Commitment Amounts                      </div>
                     </div>
                   </div>
                 </div>

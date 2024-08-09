@@ -1284,6 +1284,12 @@ footer .left span {
   padding-right: 17px;
   width: 100px;
 }
+.sectionliaplus  {
+  height: auto !important;
+  object-fit: cover;
+  padding-right: 17px;
+  width: revert-layer !important;
+}
 .deals-details-page .main-section h5 {
   margin: 0;
   line-height: 1.2;
@@ -2401,6 +2407,11 @@ footer .left span {
     min-height: 260px !important;
     display: flex;
     align-items: center;
+  
+  }
+
+  .highlight-rows .Liaplus{
+    min-height: 180px !important;
   
   }
   .highlight-rows .oraihighlight{

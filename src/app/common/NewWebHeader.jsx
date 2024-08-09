@@ -930,7 +930,7 @@ class NewWebHeader extends Component {
                             Blog
                           </a>
                         </li>
-                        {/* <li>
+                        <li>
                           <a
                             rel="noreferrer" href="https://growth91.com/blog/"
                             className={
@@ -942,13 +942,13 @@ class NewWebHeader extends Component {
                           <div className="submenu-cards">
                             <div className="submenus">
                               <ul>
-                                <li><a href="">Login as Founder</a></li>
-                                <li><a href="">Login as Investor</a></li>
+                                <li><Link to="LoginFounder">Login as Founder</Link></li>
+                                <li><Link to="LoginInvestor">Login as Investor</Link></li>
                               </ul>
                             </div>
                           </div>
 
-                        </li> */}
+                        </li>
                         {this.state.loggedinstatus == true ? (
                           ""
                         ) : (

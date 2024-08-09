@@ -15,7 +15,7 @@ export const FounderTestomonial = () => {
           </div>
           <p>
             Normally, startup fund raise is quite a tedious process.
-            Knowing Growth91<sup style={{ fontSize: "0.6rem" }}>TM</sup>{" "}
+            Knowing Growth91<sup>®</sup>{" "}
             modus operandi gives great confidence that we can focus on our
             core activities
           </p>
@@ -42,9 +42,9 @@ export const FounderTestomonial = () => {
           <p>
             It is good to know that end to end work related to fund raise
             is taken care by Growth91
-            <sup style={{ fontSize: "0.6rem" }}>TM</sup>. Looking forward
+           <sup>®</sup>. Looking forward
             to list our deal at Growth91
-            <sup style={{ fontSize: "0.6rem" }}>TM</sup>
+           <sup>®</sup>
           </p>
           <div className="media">
             <div className="images">
@@ -69,10 +69,10 @@ export const FounderTestomonial = () => {
           </div>
           <p className="paradh">
             After knowing the details of modus operandi of Growth91
-            <sup style={{ fontSize: "0.6rem" }}>TM</sup>, it gives great
+           <sup>®</sup>, it gives great
             confidence as the deal terms are truly balanced for investors
             and startups. Will plan to raise our next round at Growth91
-            <sup style={{ fontSize: "0.6rem" }}>TM</sup>
+           <sup>®</sup>
           </p>
           <div className="media">
             <div className="images">
@@ -138,7 +138,7 @@ export const FounderTestomonial = () => {
             }}
           >
             Normally, startup fund raise is quite a tedious process.
-            Knowing Growth91<sup style={{ fontSize: "0.6rem" }}>TM</sup>{" "}
+            Knowing Growth91<sup>®</sup>{" "}
             modus operandi gives great confidence that we can focus on our
             core activities
           </p>
@@ -235,9 +235,9 @@ export const FounderTestomonial = () => {
           >
             It is good to know that end to end work related to fund raise
             is taken care by Growth91
-            <sup style={{ fontSize: "0.6rem" }}>TM</sup>. Looking forward
+           <sup>®</sup>. Looking forward
             to list our deal at Growth91
-            <sup style={{ fontSize: "0.6rem" }}>TM</sup>
+           <sup>®</sup>
           </p>
           <div
             style={{
@@ -334,10 +334,10 @@ export const FounderTestomonial = () => {
             }}
           >
             After knowing the details of modus operandi of Growth91
-            <sup style={{ fontSize: "0.6rem" }}>TM</sup>, it gives great
+           <sup>®</sup>, it gives great
             confidence as the deal terms are truly balanced for investors
             and startups. Will plan to raise our next round at Growth91
-            <sup style={{ fontSize: "0.6rem" }}>TM</sup>
+           <sup>®</sup>
           </p>
           <div
             style={{

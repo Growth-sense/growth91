@@ -445,7 +445,7 @@ class AssessmentForm extends Component {
                                     placeholder="Name"
                                     value={item.name}
                                     name="name"
-                                    onChange={(e) => this.setvalue(e, index)}
+                                    onChange={(e) => this.setvalue(e, index)} className="value-capitalize"
                                   />
                                 </div>
                                 <div className="form-group col-md-4">
@@ -456,7 +456,7 @@ class AssessmentForm extends Component {
                                   <input
                                     type="text"
                                     readonly={true}
-                                    value={item.role}
+                                    value={item.role} style={{textTransform:"capitalize"}}
                                   />
                                 </div>
                                 <div className="form-group col-md-4">
@@ -506,7 +506,7 @@ class AssessmentForm extends Component {
                                         name="name"
                                         onChange={(e) =>
                                           this.setvalue(e, index)
-                                        }
+                                        } className="value-capitalize"
                                       />
                                     </div>
                                     <div className="form-group col-md-4">
@@ -517,7 +517,7 @@ class AssessmentForm extends Component {
                                       <input
                                         type="text"
                                         readonly={true}
-                                        value={item.role}
+                                        value={item.role} style={{textTransform:"capitalize"}}
                                       />
                                     </div>
                                     <div className="form-group col-md-4">
@@ -578,7 +578,7 @@ class AssessmentForm extends Component {
                                         name="name"
                                         onChange={(e) =>
                                           this.setvalue(e, index)
-                                        }
+                                        } className="value-capitalize"
                                       />
                                     </div>
                                     <div className="form-group col-md-4">
@@ -589,7 +589,7 @@ class AssessmentForm extends Component {
                                       <input
                                         type="text"
                                         readonly={true}
-                                        value={item.role}
+                                        value={item.role} style={{textTransform:"capitalize"}}
                                       />
                                     </div>
                                     <div className="form-group col-md-4">

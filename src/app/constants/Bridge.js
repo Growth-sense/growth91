@@ -1,6 +1,8 @@
 import URLs from "./Apis";
 import api from "../api/api";
+import Urldata from "../startup/Urldata";
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   fundRaiseRegistration: (data) =>
     api.post(URLs.fundRaiseRegistration, data).then((response) => {
@@ -397,6 +399,14 @@ export default {
       api.post(URLs.sendsuccessmsg, data).then((response) => {
         return response.data;
       }),
+      addfamily:(data)=>
+        api.post(URLs.addfamily, data).then((res)=>{
+          return res.data
+        }),
+      getfamilymember:(data)=>
+        api.post(URLs.getfamilymember, data).then((res)=>{
+          return res.data
+        })
   },
 
   kyc: {
@@ -854,5 +864,40 @@ export default {
       let res= api.post(URLs.contact_us_form,data)
       return res
       
-    }
+    },
+    family:{
+      creategroup:(data)=>api.post(URLs.creategroup,data).then((response) => {
+          return response.data;
+        }),
+      getGroupList:(data)=>api.post(URLs.getGroupList,data).then((response) => {
+          return response.data;
+        }),
+        checkFamilyMember:(data)=>api.post(URLs.checkFamilyMember,data).then((response) => {
+          return response.data;
+        }),
+        saveInvite:(data)=>api.post(URLs.saveInvite,data).then((response) => {
+          return response.data;
+        }),
+        familyInviteOTP:(data)=>api.post(URLs.familyInviteOTP,data).then((response) => {
+          return response.data;
+        }),
+        verifyFamilyInvite:(data)=>api.post(URLs.verifyFamilyInvite,data).then((response) => {
+          return response.data;
+        }),
+        editGroup:(data)=>api.post(URLs.editGroup,data).then((response) => {
+          return response.data;
+        }),
+        deleteGroupMember:(data)=>api.post(URLs.deleteGroupMember,data).then((response) => {
+          return response.data;
+        }),
+        deleteRequest:(data)=>api.post(URLs.deleteRequest,data).then((response) => {
+          return response.data;
+        }),
+        deleteRequestApprove:(data)=>api.post(URLs.deleteRequestApprove,data).then((response) => {
+          return response.data;
+        }),
+      
+      }
+    
+    
   };

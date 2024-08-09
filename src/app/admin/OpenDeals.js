@@ -66,6 +66,7 @@ class Deals extends Component {
       ctype: "",
       editctype: "",
       youtubelink: "",
+      deal_service:"",
 
       // add input states
       startupname: "",
@@ -178,6 +179,7 @@ class Deals extends Component {
       editspecial_offer_text: "",
       editdefault_special_offer_text: "",
       editoffer_discount: "",
+      edit_deal_service:"",
 
       deal_id: "",
 
@@ -354,7 +356,7 @@ class Deals extends Component {
 
   // show edit modal
   showEditModal = (item) => {
-    // console.log('item',item);
+    console.log('item',item);
     let logourl = Apis.IMAGEURL + "deal/logo/" + item.deal_id + "/" + item.logo;
     let bannerimg =
       Apis.IMAGEURL + "deal/banner/" + item.deal_id + "/" + item.banner_img;
@@ -412,6 +414,7 @@ class Deals extends Component {
       edit_page_link: item.page_link,
       edit_signer_name: item.signer_name,
       edit_deal_name: item.deal_name,
+      edit_deal_service: item.deal_service,
       edit_signer_email: item.signer_email,
       edit_signer_mobile: item.signer_mobile,
       edit_vendor_id: item.vendor_id,
@@ -611,6 +614,7 @@ class Deals extends Component {
       signer_mobile: this.state.edit_signer_mobile,
       signer_email: this.state.edit_signer_email,
       vendor_id: this.state.edit_vendor_id,
+      deal_service:this.state.edit_deal_service
     };
     Bridge.deal.edit(params).then((result) => {
       if (result.status == 1) {
@@ -843,6 +847,10 @@ class Deals extends Component {
     } else if (this.state.deal_name == "") {
       message.warning("Deal Name is required");
       return false;
+    
+    } else if (this.state.deal_service == "") {
+      message.warning("Deal service is required");
+      return false;
     } else if (this.state.add_dealtype == "") {
       message.warning("Deal Type is required");
       return false;
@@ -958,6 +966,7 @@ class Deals extends Component {
         let params = {
           startupname: this.state.startupname,
           deal_name: this.state.deal_name,
+          deal_service: this.state.deal_service,
           dealstartdate: this.state.dealStartDtReg,
           dealStartDtPrem: this.state.dealStartDtPrem,
           dealenddate: this.state.dealEndDtReg,
@@ -998,6 +1007,7 @@ class Deals extends Component {
           eligibility_id: e_id,
           deal_type: this.state.add_dealtype,
           vendor_id: this.state.add_vendor_id,
+          automated_email:"No"
         };
         // console.log("params",params)
         Bridge.deal.add(params).then((result) => {
@@ -1605,6 +1615,7 @@ class Deals extends Component {
       email: this.state.investor_email,
     };
     Bridge.deal.get_investor_by_email(params).then((result) => {
+      console.log( result.data);
       if (result.status == "1") {
         this.setState({
           investor_name:
@@ -1778,6 +1789,56 @@ class Deals extends Component {
         "KYC PAN": item.kyc_pan,
         "KYC Address": item.kyc_address,
         "KYC Father Name": item.kyc_fathername,
+      };
+      arr = [...arr, obj];
+      count++;
+    }
+    const ws = XLSX.utils.json_to_sheet(arr);
+    const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+    const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+    const data = new Blob([excelBuffer], { type: fileType });
+    FileSaver.saveAs(data, fileName + fileExtension);
+    message.success("Commitment data exported successfully.");
+  };
+
+  exportToCSV_startupfounder = (fileName) => {
+    let arr = [];
+    console.log(this.state.commitment_investor_list);
+    let count = 1;
+    for (let item of this.state.commitment_investor_list) {
+      let obj = {
+        "Sr No": count,
+        "Investor ID": item.investor_id,
+        "Name": item.first_name + " " + item.last_name,
+        "Legal Name": item.pan_registered_name,
+        "Investment Amount": item.amount,
+        "Email": item.email,
+        "Phone": item.mobile,
+        "KYC PAN": item.kyc_pan,
+        "KYC Address": item.kyc_address,
+        "KYC Father Name": item.kyc_fathername,
+      };
+      arr = [...arr, obj];
+      count++;
+    }
+    const ws = XLSX.utils.json_to_sheet(arr);
+    const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+    const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+    const data = new Blob([excelBuffer], { type: fileType });
+    FileSaver.saveAs(data, fileName + fileExtension);
+    message.success("Commitment data exported successfully.");
+  };
+  exportToCSV_Reconcillation = (fileName) => {
+    let arr = [];
+    console.log(this.state.commitment_investor_list);
+    let count = 1;
+    for (let item of this.state.commitment_investor_list) {
+      let obj = {
+        "Sr No": count,
+        "Name": item.first_name + " " + item.last_name,
+        "Investment Amount": item.amount,
+        "Fees": item.processingfees,
+       
       };
       arr = [...arr, obj];
       count++;
@@ -3099,6 +3160,22 @@ class Deals extends Component {
                 onChange={(e) => this.setState({ signer_name: e.target.value })}
               />
             </div>
+            <div className="form-group-mt-3">
+              <label className="mb-2">
+                Deal Service<span className="text-danger">*</span>
+              </label>
+              <Select
+                value={this.state.deal_service}
+                style={{ width: "100%" }}
+                onChange={(value) => {
+                  this.setState({ deal_service: value });
+                }}
+              >
+                <Option value="CCD">CCD</Option>
+                <Option value="CCPS">CCPS</Option>
+                <Option value="CCD/CCPS">CCD/CCPS</Option>
+              </Select>
+            </div>
             <div className="form-group mt-3">
               <label className="mb-2">
                 Startup Founder Mobile Number{" "}
@@ -3207,7 +3284,7 @@ class Deals extends Component {
             </div>
             <div className="mt-4">
               <label className="mb-2">
-                Min Investment Amount <span className="text-danger">*</span>
+              Minimum Investment Amount Per CCD <span className="text-danger">*</span>
               </label>
               <Input
                 type="number"
@@ -3220,7 +3297,7 @@ class Deals extends Component {
             </div>
             <div className="mt-4">
               <label className="mb-2">
-                CAP Table Threshold Amount <span className="text-danger">*</span>
+              Minimum Amount Per CCPS <span className="text-danger">*</span>
               </label>
               <Input
                 type="number"
@@ -3233,7 +3310,7 @@ class Deals extends Component {
             </div>
             <div className="mt-4">
               <label className="mb-2">
-                Max Investment Amount <span className="text-danger">*</span>
+              Max Investment by Single Investor <span className="text-danger">*</span>
               </label>
               <Input
                 type="number"
@@ -3246,7 +3323,7 @@ class Deals extends Component {
             </div>
             <div className="mt-4">
               <label className="mb-2">
-                CAP Table Multiple <span className="text-danger">*</span>
+              Share Price Per CCPS<span className="text-danger">*</span>
               </label>
               <Input
                 type="number"
@@ -3259,7 +3336,7 @@ class Deals extends Component {
             </div>
             <div className="mt-4">
               <label className="mb-2">
-                Multiples Of <span className="text-danger">*</span>
+              Share Price Per CCD <span className="text-danger">*</span>
               </label>
               <Input
                 type="number"
@@ -3574,6 +3651,7 @@ class Deals extends Component {
           width={550}
         >
           <Spin spinning={this.state.formloader}>
+          
             <div className="form-group">
               <label className="mb-2">
                 Startup Name <span className="text-danger">*</span>
@@ -3602,6 +3680,7 @@ class Deals extends Component {
                   })}
               </Select>
             </div>
+            
             <div className="form-group mt-3">
               <label className="mb-2">
                 Deal Name <span className="text-danger">*</span>
@@ -3614,6 +3693,22 @@ class Deals extends Component {
                   this.setState({ edit_deal_name: e.target.value })
                 }
               />
+            </div>
+            <div className="form-group-mt-3">
+              <label className="mb-2">
+                Deal Service<span className="text-danger">*</span>
+              </label>
+              <Select
+                value={this.state.edit_deal_service}
+                style={{ width: "100%" }}
+                onChange={(value) => {
+                  this.setState({ edit_deal_service: value });
+                }}
+              >
+                <Option value="CCD">CCD</Option>
+                <Option value="CCPS">CCPS</Option>
+                <Option value="CCD/CCPS">CCD/CCPS</Option>
+              </Select>
             </div>
             <div className="form-group mt-3">
               <label className="mb-2">
@@ -3736,7 +3831,7 @@ class Deals extends Component {
             </div>
             <div className="mt-4">
               <label className="mb-2">
-                Min Investment Amount <span className="text-danger">*</span>
+                Minimum Investment Amount Per CCD<span className="text-danger">*</span>
               </label>
               <Input
                 type="number"
@@ -3749,7 +3844,7 @@ class Deals extends Component {
             </div>
             <div className="mt-4">
               <label className="mb-2">
-                CAP Table Threshold Amount <span className="text-danger">*</span>
+              Minimum Amount Per CCPS <span className="text-danger">*</span>
               </label>
               <Input
                 type="number"
@@ -3762,7 +3857,7 @@ class Deals extends Component {
             </div>
             <div className="mt-4">
               <label className="mb-2">
-                Max Investment Amount <span className="text-danger">*</span>
+              Max Investment by Single Investor <span className="text-danger">*</span>
               </label>
               <Input
                 type="number"
@@ -3775,7 +3870,7 @@ class Deals extends Component {
             </div>
             <div className="mt-4">
               <label className="mb-2">
-                CAP Table Multiple <span className="text-danger">*</span>
+                Share Price Per CCPS <span className="text-danger">*</span>
               </label>
               <Input
                 type="number"
@@ -3787,7 +3882,7 @@ class Deals extends Component {
               />
             </div>
             <div className="mt-4">
-              <label className="mb-2">Multiples Of</label>
+              <label className="mb-2"> Share Price Per CCD</label>
               <Input
                 type="number"
                 onWheel={() => document.activeElement.blur()}
@@ -4525,6 +4620,37 @@ class Deals extends Component {
                 ></i>{" "}
                 Add New Commitment
               </Button>
+              <Button
+              type="primary"
+              onClick={() => this.exportToCSV_CommitList("Commitment List")}
+            >
+              <i
+                className="bx bxs-cloud-download"
+                style={{
+                  color: "#fff",
+                  position: "relative",
+                  top: 3,
+                  left: -3,
+                }}
+              ></i>{" "}
+              Export For Startup Founder
+            </Button>
+          
+            <Button
+              type="primary"
+              onClick={() => this.exportToCSV_Reconcillation("ReconcillationList")}
+            >
+              <i
+                className="bx bxs-cloud-download"
+                style={{
+                  color: "#fff",
+                  position: "relative",
+                  top: 3,
+                  left: -3,
+                }}
+              ></i>{" "}
+              Export For Reconcillation
+            </Button>
             </div>
           }
           visible={this.state.Commitment_list_modal}
@@ -4542,21 +4668,7 @@ class Deals extends Component {
               onChange={(e) => this.searchinputc(e)}
               style={{ maxWidth: 300, marginBottom: 20, height: 40 }}
             />
-            <Button
-              type="primary"
-              onClick={() => this.exportToCSV_CommitList("Commitment List")}
-            >
-              <i
-                className="bx bxs-cloud-download"
-                style={{
-                  color: "#fff",
-                  position: "relative",
-                  top: 3,
-                  left: -3,
-                }}
-              ></i>{" "}
-              Export Data
-            </Button>
+           
           </div>
 
           <Table
@@ -4648,7 +4760,7 @@ class Deals extends Component {
             <label className="form-check-label">
               Use Your ₹ {this.state.ac_walletMoney} Growth91
               <sup style={{ fontSize: "0.6rem" }}>
-                TM
+              ®
               </sup> Money{" "}
             </label>
           </div>

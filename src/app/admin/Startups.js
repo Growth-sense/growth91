@@ -450,10 +450,20 @@ class Startups extends Component {
   };
 
   render() {
+   
+    const disdingid = (datas)=>{
+      const data = [...this.state.startups].sort((a, b) =>
+        a.datas > b.datas ? 1 : -1,
+      );
+      this.setState({
+        startups:data
+      })
+      console.log(data);
+    }
     const dataSource =
       this.state.startups &&
       this.state.startups.map((item, index) => {
-        return {
+        return {                    
           key: index,
           startupid: item.startupid,
           startupname: item.name ? item.name : "---",
@@ -468,14 +478,15 @@ class Startups extends Component {
 
     const columns = [
       {
-        title: "Startup Id",
+        title:<span onClick={()=>{disdingid("id")}}>Startup Id</span> ,
         dataIndex: "startupid",
         key: "startupid",
         width: 160,
         fixed: "left",
+        // onclick: assdingid()
       },
       {
-        title: "Startup Name",
+        title: <span onClick={()=>{disdingid("name")}}>Startup Name</span>,
         dataIndex: "startupname",
         key: "startupname",
         width: 180,
@@ -568,7 +579,7 @@ class Startups extends Component {
           <Layout className="site-layout">
             <Sidebar2 />
 
-            <Content className="home-section">
+            <Content className="home-section">'
               <Card
                 title="Startups"
                 extra={

@@ -6,106 +6,102 @@ import $ from "jquery";
 import { Link } from "react-router-dom";
 
 export const Aboutnew = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    // title
+    useEffect(() => {
+        window.scrollTo(0, 0)
+           // title
     document.getElementsByTagName("META")[4].content =
-      " About Growth91: Connecting Investors with Top Startups";
+    " About Growth91: Connecting Investors with Top Startups";
     // title
 
-    document.title = " About Growth91: Connecting Investors with Top Startups";
-    // keyword
-    document.getElementsByTagName("META")[5].content =
-      "invest in startups invest in startups india ";
-    // description
-    document.getElementsByTagName("META")[3].content =
-      " Learn about Growth91's culture of trust & growth. We connect investors with vetted startups and invest alongside you. Join us on this journey to success.";
-  }, []);
-
-  $(window).scroll(function () {
-    if ($(this).scrollTop() > 30) {
-      $("body").addClass("newClass");
-    } else {
-      $("body").removeClass("newClass");
-    }
-  });
-  function SimpleNextArrow(props) {
-    const { onClick } = props;
-    return (
-      <>
-        <div className="nextArrow" onClick={onClick}>
-          <span class="next-arrows slick-arrow">
-            <i class="fa fa-angle-right" aria-hidden="true"></i>
-          </span>
-        </div>
-      </>
-    );
-  }
-
-  function SimplePrevArrow(props) {
-    const { onClick } = props;
-    return (
-      <>
-        <div className="prevArrow" onClick={onClick}>
-          <span class="prev-arrows slick-arrow">
-            {" "}
-            <i class="fa fa-angle-left" aria-hidden="true"></i>{" "}
-          </span>
-        </div>
-      </>
-    );
-  }
-  const sliderSettings = {
-    dots: true,
-    infinite: true,
-    arrows: false,
-    speed: 2000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplaySpeed: 3000,
-    autoplay: true,
-
-    prevArrow: <SimplePrevArrow />,
-    nextArrow: <SimpleNextArrow />,
-
-    responsive: [
-      {
-        breakpoint: 1200,
-        settings: {
-          autoplay: true,
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 993,
-        settings: {
-          autoplay: true,
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          autoplay: false,
-          speed: 100,
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 400,
-        settings: {
-          arrows: false,
-          speed: 100,
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          autoplay: false,
-        },
-      },
-    ],
-  };
+    document.title =
+      " About Growth91: Connecting Investors with Top Startups";
+      // keyword
+    document.getElementsByTagName("META")[5].content = "invest in startups invest in startups india "
+// description
+    document.getElementsByTagName("META")[3].content =" Learn about Growth91's culture of trust & growth. We connect investors with vetted startups and invest alongside you. Join us on this journey to success."
+  
+    }, [])
+    
+    $(window).scroll(function() {
+        if ($(this).scrollTop() > 30) {
+          $('body').addClass('newClass');
+        } else {
+          $('body').removeClass('newClass');
+        }
+      });
+      function SimpleNextArrow(props) {
+        const { onClick } = props;
+        return (
+          <>
+            <div className="nextArrow" onClick={onClick}>
+              <span class="next-arrows slick-arrow">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </span>
+            </div>
+          </>
+        );
+      }
+  
+      function SimplePrevArrow(props) {
+        const { onClick } = props;
+        return (
+          <>
+            <div className="prevArrow" onClick={onClick}>
+              <span class="prev-arrows slick-arrow">
+                {" "}
+                <i class="fa fa-angle-left" aria-hidden="true"></i>{" "}
+              </span>
+            </div>
+          </>
+        );
+      }
+    const sliderSettings={
+        dots: true,
+        infinite: true,
+        arrows: false,
+        speed: 2000,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplaySpeed: 3000,
+        autoplay: true,
+  
+        prevArrow: <SimplePrevArrow />,
+        nextArrow: <SimpleNextArrow />,
+  
+  
+        responsive: [{
+          breakpoint: 1200,
+          settings: {
+            autoplay: true,
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }, {
+          breakpoint: 993,
+          settings: {
+            autoplay: true,
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }, {
+          breakpoint: 600,
+          settings: {
+            autoplay: false,
+            speed: 100,
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }, {
+          breakpoint: 400,
+          settings: {
+            arrows: false,
+            speed: 100,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: false,
+          }
+        }]
+      }
   return (
     <div>
       <div classname="newabout">

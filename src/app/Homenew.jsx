@@ -49,6 +49,7 @@ class Homenew extends Component {
 
   componentWillMount() {
     // title
+    // title
     document.getElementsByTagName("META")[4].content =
     "Growth91: Best Startup investment platform for Investing in startups in India";
     // title
@@ -305,7 +306,9 @@ class Homenew extends Component {
       fade: true,
 
       autoplay: true,
+      autoplay: true,
       pauseOnHover: false,
+      pauseOnfocus: false,
       pauseOnfocus: false,
       cssEase: "linear",
       prevArrow: <SimplePrevArrow />,
@@ -559,6 +562,7 @@ class Homenew extends Component {
                 <div class="banner-sliding">
                   <Slider {...sliderSettings}>
 
+
                     <div class="left-content">
                       <div class="d-flex-banner fadding-bottom fadding-bottom-1">
                         <div class="banner-part banner-slidingpart">
@@ -785,6 +789,7 @@ class Homenew extends Component {
                     />
                   </div>
 
+
                   <div class="client-logo">
                     <img
                       src="./assets/images/deal-images/EcoRatings/logo.png"
@@ -849,6 +854,7 @@ class Homenew extends Component {
                       srcset=""
                     />
                   </div>
+
 
                   <div class="client-logo">
                     <img
@@ -1049,6 +1055,7 @@ class Homenew extends Component {
                   <span></span>{" "}
                 </p>
                 <h3>Why Invest in Startups in India with Us</h3>
+                <h3>Why Invest in Startups in India with Us</h3>
               </div>
 
               <div class="main-business-card">
@@ -1107,6 +1114,7 @@ class Homenew extends Component {
                 <p>
                   <span></span>{" "}
                 </p>
+                <h3>Our Successful Startup Investors</h3>
                 <h3>Our Successful Startup Investors</h3>
               </div>
               <div class="col-12 col-xl-12 col-lg-12 col-md-12 ">
@@ -1227,7 +1235,7 @@ class Homenew extends Component {
                           I am a regular investor on Growth Sense and very happy
                           with kind of returns generated on my investments.
                           Looking forward to equally exciting opportunities at
-                          Growth91<sup style={{ fontSize: "0.6rem" }}>TM</sup>
+                          Growth91<sup>®</sup>
                         </p>
                         <div class="name-testi">
                           <div class="img-testiminal-card">
@@ -1538,12 +1546,15 @@ class Homenew extends Component {
           </div>
         </section>
       
+      
         <section class="custom-section">
           <div class="join-section join-sec-yellow join-sec-white undefined join-divide mobile-join">
             {/* <h4>Join us</h4> */}
             <div className="join-flex-one-us">
               <h2>Join Us to Invest in Startups in India and Support Breakthrough Ventures</h2>
               <p class="index_pitch">
+                Decades of banking, investing & startup success guide your investments. Invest confidently with us.
+              </p>
                 Decades of banking, investing & startup success guide your investments. Invest confidently with us.
               </p>
             </div>
@@ -1632,6 +1643,7 @@ class Homenew extends Component {
             :("")} */}
 
         <NewWebFooter />
+      </div >
       </div >
     );
   }

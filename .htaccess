@@ -1,3 +1,6 @@
+ErrorDocument  404 / 404.js
+ Header set Access-Control-Allow-Origin *
+ 
 <IfModule mod_rewrite.c>
 
   RewriteEngine On
@@ -7,5 +10,64 @@
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_FILENAME} !-l
   RewriteRule . /index.html [L]
+RewriteCond %{HTTP_HOST} ^www.growth91.com [NC]
+RewriteRule ^(.*)$ https://growth91.com/$1 [L,R=301]
+
+
+
+Redirect 301 /https://blog.growth91.com/index.php/2024/03/02/identifying-promising-startup-sectors-for-investment-in-india/ https://growth91.com/blog/identifying-promising-startup-sectors-for-investment-in-india/
+Redirect 301 https://blog.growth91.com/index.php/2024/03/07/investment-strategies-for-every-stage/	https://growth91.com/blog/invest-in-indian-startups-strategies-for-each-stage/									
+Redirect 301 https://blog.growth91.com/index.php/2024/03/15/pillars-of-success-before-you-invest-in-startups-india/	https://growth91.com/blog/evaluating-startup-founders-unveiling-the-pillars-of-success-before-you-invest-in-startups-in-india/									
+Redirect 301 https://blog.growth91.com/index.php/2024/03/15/top-strategies-to-attract-investors-to-your-startup/	https://growth91.com/blog/top-strategies-to-attract-investors-to-your-startup/									
+Redirect 301 https://blog.growth91.com/index.php/2024/03/22/understanding-exit-strategies-in-startup-investments/	https://growth91.com/blog/understanding-exit-strategies-in-startup-investments/									
+Redirect 301 https://blog.growth91.com/index.php/2024/03/23/investing-in-socially-responsible-startups/	https://growth91.com/blog/investing-in-socially-responsible-startups-opportunities-and-challenges/									
+Redirect 301 https://blog.growth91.com/index.php/2024/03/31/7-must-have-skills-for-successful-startup-investors-in-india/	https://growth91.com/blog/7-must-have-skills-for-successful-startup-investors-in-india/									
+Redirect 301 https://blog.growth91.com/index.php/2024/04/08/investment-strategies-for-every-stage-of-growth-in-india/	https://growth91.com/blog/how-to-invest-in-indian-startups-a-step-by-step-guide/									
+Redirect 301 https://blog.growth91.com/index.php/2024/04/04/insider-tips-for-investing-in-indian-startups/	https://growth91.com/blog/exclusive-insider-tips-for-investing-in-indian-startups/									
+Redirect 301 https://blog.growth91.com/index.php/2024/04/05/breaking-down-the-risks-investing-in-indian-startups/	https://growth91.com/blog/breaking-down-the-risks-investing-in-indian-startups-made-easy/									
+Redirect 301 https://blog.growth91.com/index.php/2024/04/14/expert-roundup-strategies-for-maximizing-returns-on-startup-investments-in-india/	https://growth91.com/blog/expert-roundup-strategies-for-maximizing-returns-on-startup-investments-in-india/								
+Redirect 301 https://blog.growth91.com/index.php/2024/04/17/investing-in-indias-tech-startup-scene/	https://growth91.com/blog/unlocking-the-potential-investing-in-indias-tech-startup-scene/									
+Redirect 301 https://blog.growth91.com/index.php/2024/04/20/top-10-promising-indian-startups-to-invest-in-right-now/	https://growth91.com/blog/top-10-promising-indian-startups-to-invest-in-right-now/									
+Redirect 301 https://blog.growth91.com/index.php/2024/04/22/investing-opportunities-in-indian-startups-with-growth91/	https://growth91.com/blog/unlocking-opportunities-investing-in-indian-startups-with-growth91/									
+Redirect 301 https://blog.growth91.com/index.php/2024/04/29/startup-funding-trends-and-predictions-in-india/	https://growth91.com/blog/the-future-of-startup-funding-trends-and-predictions-in-india/									
+Redirect 301 https://blog.growth91.com/index.php/2024/04/29/dos-and-donts-of-investing-in-startups-in-india/	https://growth91.com/blog/the-dos-and-donts-of-investing-in-startups-in-india/									
+Redirect 301 https://blog.growth91.com/index.php/2024/05/04/secrets-of-angel-investors-how-to-spot-winning-indian-startups/	https://growth91.com/blog/secrets-of-angel-investors-how-to-spot-winning-indian-startups/									
+Redirect 301 https://blog.growth91.com/index.php/2024/05/04/navigating-legalities-investment-regulations-for-startup-investors-in-india/	https://growth91.com/blog/navigating-legalities-investment-regulations-for-startup-investors-in-india/									
+Redirect 301 https://blog.growth91.com/index.php/2024/05/10/startups-investing-checklist/	https://growth91.com/blog/startups-investing-checklist/									
+Redirect 301 https://blog.growth91.com/index.php/2024/05/10/successful-startup-case-studies/	https://growth91.com/blog/successful-startup-case-studies/	
+
+Redirect 301 /blog/2024/03/identifying-promising-startup-sectors-for-investment-in-india/	https://growth91.com/blog/identifying-promising-startup-sectors-for-investment-in-india/																							
+Redirect 301 /blog/2024/03/investment-strategies-for-every-stage/	https://growth91.com/blog/invest-in-indian-startups-strategies-for-each-stage/																								
+Redirect 301 /blog/2024/03/pillars-of-success-before-you-invest-in-startups-india/	https://growth91.com/blog/evaluating-startup-founders-unveiling-the-pillars-of-success-before-you-invest-in-startups-in-india/
+Redirect 301 /blog/2024/03/top-strategies-to-attract-investors-to-your-startup/	https://growth91.com/blog/top-strategies-to-attract-investors-to-your-startup/																								
+Redirect 301 /blog/2024/03/understanding-exit-strategies-in-startup-investments/	https://growth91.com/blog/understanding-exit-strategies-in-startup-investments/																								
+Redirect 301 /blog/2024/03/investing-in-socially-responsible-startups/	https://growth91.com/blog/investing-in-socially-responsible-startups-opportunities-and-challenges/																								
+Redirect 301 /blog/2024/03/7-must-have-skills-for-successful-startup-investors-in-india/	https://growth91.com/blog/7-must-have-skills-for-successful-startup-investors-in-india/																								
+Redirect 301 /blog/2024/04/investment-strategies-for-every-stage-of-growth-in-india/	https://growth91.com/blog/how-to-invest-in-indian-startups-a-step-by-step-guide/																								
+Redirect 301 /blog/2024/04/insider-tips-for-investing-in-indian-startups/	https://growth91.com/blog/exclusive-insider-tips-for-investing-in-indian-startups/																								
+Redirect 301 /blog/2024/04/breaking-down-the-risks-investing-in-indian-startups/	https://growth91.com/blog/breaking-down-the-risks-investing-in-indian-startups-made-easy/																								
+Redirect 301 /blog/2024/04/expert-roundup-strategies-for-maximizing-returns-on-startup-investments-in-india/	https://growth91.com/blog/expert-roundup-strategies-for-maximizing-returns-on-startup-investments-in-india/
+Redirect 301 /blog/2024/04/investing-in-indias-tech-startup-scene/	https://growth91.com/blog/unlocking-the-potential-investing-in-indias-tech-startup-scene/																								
+Redirect 301 /blog/2024/04/top-10-promising-indian-startups-to-invest-in-right-now/	https://growth91.com/blog/top-10-promising-indian-startups-to-invest-in-right-now/																								
+Redirect 301 /blog/2024/04/investing-opportunities-in-indian-startups-with-growth91/	https://growth91.com/blog/unlocking-opportunities-investing-in-indian-startups-with-growth91/																								
+Redirect 301 /blog/2024/04/startup-funding-trends-and-predictions-in-india/	https://growth91.com/blog/the-future-of-startup-funding-trends-and-predictions-in-india/																								
+Redirect 301 /blog/2024/04/dos-and-donts-of-investing-in-startups-in-india/	https://growth91.com/blog/the-dos-and-donts-of-investing-in-startups-in-india/																								
+Redirect 301 /blog/2024/05/secrets-of-angel-investors-how-to-spot-winning-indian-startups/	https://growth91.com/blog/secrets-of-angel-investors-how-to-spot-winning-indian-startups/
+Redirect 301 /blog/2024/05/navigating-legalities-investment-regulations-for-startup-investors-in-india/	https://growth91.com/blog/navigating-legalities-investment-regulations-for-startup-investors-in-india/
+Redirect 301 /blog/2024/05/startups-investing-checklist/	https://growth91.com/blog/startups-investing-checklist/																								
+Redirect 301 /blog/2024/05/successful-startup-case-studies/	https://growth91.com/blog/successful-startup-case-studies/																								
+Redirect 301 /blog/2024/05/building-investment-portfolio-indian-startup-edition/	https://growth91.com/blog/building-investment-portfolio-indian-startup-edition/																								
+Redirect 301 /blog/2024/05/growth-vs-value-investing-strategies/	https://growth91.com/blog/growth-vs-value-investing-strategies/																								
+Redirect 301 /blog/2024/05/identify-profitable-startup-opportunities-in-india/	https://growth91.com/blog/identify-profitable-startup-opportunities-in-india/																								
+Redirect 301 /blog/2024/05/the-rise-of-social-impact-investing-in-india-opportunities-for-startup-investors/	https://growth91.com/blog/the-rise-of-social-impact-investing-in-india-opportunities-for-startup-investors/
+Redirect 301 /blog/2024/06/the-ultimate-guide-to-due-diligence-for-indian-startup-investors/	https://growth91.com/blog/the-ultimate-guide-to-due-diligence-for-indian-startup-investors/
+Redirect 301 /blog/2022/08/	https://growth91.com/blog/																								
+Redirect 301 /blog/2022/08/60-things-to-immediately-do-about-building/	https://growth91.com/blog/																								
+Redirect 301 /blog/2022/08/your-light-is-about-to-stop-being-relevant/	https://growth91.com/blog/																								
+Redirect 301 /Signup/Learn	https://growth91.com/Signup/																								
+Redirect 301 /Investors/	https://growth91.com/																								
 
 </IfModule>
+
+
+

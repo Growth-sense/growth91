@@ -21,7 +21,7 @@ const { Paragraph } = Typography;
 const refresh = () => window.location.reload(true)
 
 
-export default class InvestmentMembershipmodal extends Component {
+export default class EditInvestmentMembershipmodal extends Component {
   constructor(props) {
     super(props);
     this.state = {
