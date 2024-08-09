@@ -25,6 +25,8 @@ import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import Urldata from "../investor/components/Urldata";
+import { toast,ToastContainer } from "react-toastify";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -38,11 +40,12 @@ class Familymanage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      startups: [{id:1, name:"Aadil",status:"active"},{id:2, name:"Hamid",status:"active"},{id:3, name:"Kasyap",status:"active"},{id:4, name:"Sunny",status:"active"}],
+      memberdetail: [],
       cstartups: [],
       startupid: "",
       searchinput: "",
-
+      userID:"",
+      groupID:"",
       // add
       name: "",
       status: "",
@@ -201,34 +204,7 @@ class Familymanage extends Component {
   };
 
   deletestartup = () => {
-    if (this.state.startupid == "") {
-      message.warning("Please select the startup first.");
-      return false;
-    }
-
-    this.setState({ formloader: true });
-
-    let params = {
-      startupid: this.state.startupid,
-    };
-    Bridge.startups.delete(params).then((result) => {
-      if (result.status == 1) {
-        message.success(result.message);
-        this.setState(
-          {
-            formloader: false,
-            deleteModalStatus: false,
-            startupid: "",
-          },
-        //   () => this.getstartuplist()
-        );
-      } else {
-        message.error(result.message);
-        this.setState({
-          formloader: false,
-        });
-      }
-    });
+   
   };
 
   // actuall functionality
@@ -433,15 +409,82 @@ class Familymanage extends Component {
   editselectFounder = (value) => {
     this.setState({ editselectedfounder: value });
   };
+  getmember = (id,userid) => {
+    this.setState({ userID: userid });
+    this.setState({ groupID: id });
+    let params = {
+      parent_id:userid,
+      groupID: id,
+    };
+    Bridge.investor.getfamilymember(params).then((result) => {
+      console.log(result);
+    const data =result.data.filter((item,index)=>{
+      console.log(item.investor_id );
+      console.log(localStorage.getItem("investor_id") );
+        return(
 
+          item.investor_id == localStorage.getItem("investor_id")    
+        )
+      })
+      console.log(data);
+      console.log(data.length,"0");
+    //   if(data.length !=0 ){
+    //     localStorage.setItem(
+    //       "investor_id",
+    //       localStorage.getItem("Parent_investor_id")
+    //     );
+    //     localStorage.setItem(
+    //       "investor_email",
+    //       localStorage.getItem("Parent_investor_email")
+    //     );
+    //     localStorage.setItem(
+    //       "investor_kycstatus",
+    //       localStorage.getItem("Parent_investor_kycstatus")
+    //     );
+    //     localStorage.setItem(
+    //       "investor_name",
+    //       localStorage.getItem("Parent_investor_name")
+    //     );
+    // // window.location.reload();
+
+    //   }
+      this.setState({ memberdetail: result.data });
+    });
+  };
+ 
+  deletefamilymeber = (value,text) => {
+    console.log(value,"ads");
+    let params = {
+      userID:this.state.userID,
+      groupID: this.state.groupID,
+      invite_email: value.action.email,
+      invite_mobile: value.action.mobile,
+    };
+    console.log(params);
+    Bridge.family.deleteGroupMember(params).then((result) => {
+      console.log(result);
+      if (result.message == "Member deleted successfully.") {
+        this.setState({ view_change_group_name_modal: false });
+        this.viewgroupall();
+        this.viewgroupasmember();
+        this.getmember( this.state.userID);
+
+        toast.success("Member deleted successfully.");
+      } else {
+        toast.error("Error");
+      }
+    });
+  };
   render() {
     const dataSource =
-      this.state.startups &&
-      this.state.startups.map((item, index) => {
+      this.state.memberdetail &&
+      this.state.memberdetail.map((item, index) => {
+        console.log(item);
+        
         return {
           key: index+1,
-          name: item.name ? item.name : "---",
-        
+          name:  item.first_name+" "+ item.last_name ,
+        action:item,
           status: item.status ? item.status : "---",
          
         };
@@ -481,20 +524,15 @@ class Familymanage extends Component {
               defaultSelectedKeys={[this.state.path]}
               style={{ width: 200 }}
             >
-              {/* <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />}>
-                <a
-                  href="#"
-                  onClick={() => this.showEditModal(text)}
-                  style={{ fontSize: 14 }}
-                >
-                  &nbsp;&nbsp;Edit
-                </a>
-              </Menu.Item> */}
+             
               <Menu.Item key={`Delete${record.key}`} icon={<DeleteOutlined />}>
                 <a
                   href="#"
                   style={{ fontSize: 14 }}
-                  onClick={() => this.showDeleteModal(text)}
+                  onClick={
+    
+                    () =>{
+                       this.deletefamilymeber(record,text)}}
                 >
                   &nbsp;&nbsp;Remove
                 </a>
@@ -526,6 +564,7 @@ class Familymanage extends Component {
           <Navbar />
           <Layout className="site-layout">
             <Sidebar2 />
+            <Urldata setid={this.getmember} />
 
             <Content className="home-section">
               <Card
@@ -909,6 +948,7 @@ class Familymanage extends Component {
               </Select>
             </div>
           </Spin>
+          <ToastContainer/>
         </Modal>
         {/* End update status modal  */}
       </>

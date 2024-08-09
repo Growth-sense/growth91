@@ -884,6 +884,18 @@ export default {
         verifyFamilyInvite:(data)=>api.post(URLs.verifyFamilyInvite,data).then((response) => {
           return response.data;
         }),
+        editGroup:(data)=>api.post(URLs.editGroup,data).then((response) => {
+          return response.data;
+        }),
+        deleteGroupMember:(data)=>api.post(URLs.deleteGroupMember,data).then((response) => {
+          return response.data;
+        }),
+        deleteRequest:(data)=>api.post(URLs.deleteRequest,data).then((response) => {
+          return response.data;
+        }),
+        deleteRequestApprove:(data)=>api.post(URLs.deleteRequestApprove,data).then((response) => {
+          return response.data;
+        }),
       
       }
     

@@ -1,4 +1,36 @@
-# https://www.robotstxt.org/robotstxt.html
+# Allow all crawlers
 User-agent: *
+
+Allow: /
+Allow: /blog
+
+User-Agent: *
+
 Disallow:
+
+# Disallow
+Disallow: */login
+Disallow: /login
+Disallow: */login/
+Disallow: /login/
+Disallow: */Signup/
+Disallow: /Signup/
+Disallow: */Signup
+Disallow: /Signup
+Disallow: /thanks-page/
+Disallow: /my-account/
+Disallow: *?s=*
+Disallow: *?filter_
+Disallow: *?remove_item=*
+Disallow: *?orderby=*
+Disallow: *query_type*
+Disallow: */feed/
+Disallow: /feed/
+Disallow: *?srsltid=*
+Disallow: *?epik=*
+Disallow: *query_type*
+Allow: *?dfw_tracker=*
+Disallow: /cswp/wp-admin/
+
+# Website Sitemaps
 Sitemap: https://growth91.com/sitemap.xml

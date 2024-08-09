@@ -25,6 +25,7 @@ import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import Urldata from "../investor/components/Urldata";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -66,9 +67,10 @@ class FamilyAdmin extends Component {
   }
 
   componentDidMount() {
-    this.getstartuplist();
+    this.getgrouplist()
+    // this.getstartuplist();
     setTimeout(() => {
-      this.getfounderlist();
+      // this.getfounderlist();
     }, 1000);
   }
 
@@ -112,10 +114,31 @@ class FamilyAdmin extends Component {
   };
 
   // get post list
+  getgrouplist = () => {
+    this.setState({ loading: true });
+    Bridge.family.getGroupList({"userID":"-1"}).then((result) => {
+      if (result.status == 1) {
+        console.log(result);
+        
+        this.setState({
+          startups: result.data,
+          cstartups: result.data,
+          loading: false,
+        });
+      } else {
+        message.error(result.message);
+        this.setState({
+          loading: false,
+        });
+      }
+    });
+  };
   getstartuplist = () => {
     this.setState({ loading: true });
-    Bridge.startups.list().then((result) => {
+    Bridge.family.getGroupList({"userID":"-1"}).then((result) => {
       if (result.status == 1) {
+        console.log(result);
+        
         this.setState({
           startups: result.data,
           cstartups: result.data,
@@ -158,56 +181,7 @@ class FamilyAdmin extends Component {
   };
 
   // update post
-  updatestartup = () => {
-    if (this.state.editname == "") {
-      message.warning("Name is required");
-      return false;
-    } else if (this.state.editstatus == "") {
-      message.warning("Status is required");
-      return false;
-    } else if (this.state.editselectedfounder == "") {
-      message.warning("Founder is required");
-      return false;
-    } else if (this.state.edit_operational_founder.length == 0) {
-      message.warning("Please select operational founder.");
-      return false;
-    } else if (this.state.edit_authorised_founder.length == 0) {
-      message.warning("Please select authorized founder.");
-      return false;
-    }
 
-    this.setState({ formloader: true });
-
-    let params = {
-      name: this.state.editname,
-      status: this.state.editstatus,
-      startupid: this.state.startupid,
-      founder_id: this.state.editselectedfounder,
-      operational_founder: this.state.edit_operational_founder,
-      authorised_founder: this.state.edit_authorised_founder,
-    };
-    Bridge.startups.edit(params).then((result) => {
-      if (result.status == 1) {
-        message.success(result.message);
-        this.setState(
-          {
-            formloader: false,
-            editModalStatus: false,
-            name: "",
-            status: "",
-            startupid: "",
-            edit_selected_op_founder: "",
-          },
-          () => this.getstartuplist()
-        );
-      } else {
-        message.error(result.message);
-        this.setState({
-          formloader: false,
-        });
-      }
-    });
-  };
 
   showDeleteModal = (item) => {
     this.setState({
@@ -216,36 +190,6 @@ class FamilyAdmin extends Component {
     });
   };
 
-  deletestartup = () => {
-    if (this.state.startupid == "") {
-      message.warning("Please select the startup first.");
-      return false;
-    }
-
-    this.setState({ formloader: true });
-
-    let params = {
-      startupid: this.state.startupid,
-    };
-    Bridge.startups.delete(params).then((result) => {
-      if (result.status == 1) {
-        message.success(result.message);
-        this.setState(
-          {
-            formloader: false,
-            deleteModalStatus: false,
-            startupid: "",
-          },
-          () => this.getstartuplist()
-        );
-      } else {
-        message.error(result.message);
-        this.setState({
-          formloader: false,
-        });
-      }
-    });
-  };
 
   // actuall functionality
 
@@ -316,89 +260,8 @@ class FamilyAdmin extends Component {
     this.setState({ editcategory: value });
   };
 
-  // on change file
-  onChangeFile = (e) => {
-    this.setState({
-      profile_image: e.target.files[0],
-    });
-  };
 
-  // add new deal
-  addstartup = () => {
-    if (this.state.name == "") {
-      message.warning("Startup name is required");
-      return false;
-    } else if (this.state.status == "") {
-      message.warning("Status is required");
-      return false;
-    } else if (this.state.selectedfounder.length == 0) {
-      message.warning("Founder is required");
-      return false;
-    } else if (this.state.operational_founder.length == 0) {
-      message.warning("Please select operational founder.");
-      return false;
-    } else if (this.state.authorised_founder.length == 0) {
-      message.warning("Please select authorized founder.");
-      return false;
-    }
-    this.setState({ formloader: true });
-    let params = {
-      name: this.state.name,
-      status: this.state.status,
-      founder_id: this.state.selectedfounder,
-      operational_founder: this.state.operational_founder,
-      authorised_founder: this.state.authorised_founder,
-    };
-    Bridge.startups.add(params).then((result) => {
-      if (result.status == 1) {
-        message.success(result.message);
-        this.setState(
-          {
-            formloader: false,
-            addModalStatus: false,
-            name: "",
-            status: "",
-            selected_op_founder: "",
-            document_signer_founder: "",
-          },
-          () => this.getstartuplist()
-        );
-      } else {
-        message.error(result.message);
-        this.setState({
-          formloader: false,
-        });
-      }
-    });
-  };
-
-  updatestatus = () => {
-    let params = {
-      dealstatus: this.state.dealstatus,
-      approvestatus: this.state.approvestatus,
-      id: this.state.deal_id,
-    };
-    this.setState({ formloader: true });
-    Bridge.deal.updatestatus(params).then((result) => {
-      if (result.status == 1) {
-        message.success(result.message);
-        this.setState(
-          {
-            formloader: false,
-            dealstatus: "",
-            approvestatus: "",
-            updatemodalstatus: false,
-          },
-          () => this.getfounderlist()
-        );
-      } else {
-        message.error(result.message);
-        this.setState({
-          formloader: false,
-        });
-      }
-    });
-  };
+ 
 
   exportToCSV = (fileName) => {
     let arr = [];
@@ -449,52 +312,93 @@ class FamilyAdmin extends Component {
   editselectFounder = (value) => {
     this.setState({ editselectedfounder: value });
   };
+  getmember = (value,id) => {
+    this.setState({ ids: value });
+    let params = {
+      parent_id: localStorage.getItem("Parent_investor_id"),
+      groupID: value,
+    };
+    Bridge.investor.getfamilymember(params).then((result) => {
+      console.log(result);
+    const data =result.data.filter((item,index)=>{
+      console.log(item.investor_id );
+      console.log(localStorage.getItem("investor_id") );
+        return(
 
+          item.investor_id == localStorage.getItem("investor_id")    
+        )
+      })
+      console.log(data);
+      console.log(data.length,"0");
+    //   if(data.length !=0 ){
+    //     localStorage.setItem(
+    //       "investor_id",
+    //       localStorage.getItem("Parent_investor_id")
+    //     );
+    //     localStorage.setItem(
+    //       "investor_email",
+    //       localStorage.getItem("Parent_investor_email")
+    //     );
+    //     localStorage.setItem(
+    //       "investor_kycstatus",
+    //       localStorage.getItem("Parent_investor_kycstatus")
+    //     );
+    //     localStorage.setItem(
+    //       "investor_name",
+    //       localStorage.getItem("Parent_investor_name")
+    //     );
+    // // window.location.reload();
+
+    //   }
+      this.setState({ memberdetail: result.data });
+    });
+  };
   render() {
     const dataSource =
       this.state.startups &&
       this.state.startups.map((item, index) => {
         console.log(item);
         return {
-          key: index,
-          startupid: item.startupid,
-          startupname: item.name ? item.name : "---",
-          investors: item,
-          analytics: item,
-          status: item.status ? item.status : "---",
-          documents: index+1,
+          key: item.groupID,
+          groupName: item.groupName,
+          ownernumber: item.mobile,
+          email: item.email,
+          status: item.groupStatus,
+          mobile: item.mobile,
           action: item,
-          founder_name: "Aadil khan",
+          groupCreateDate: item.groupCreateDate,
+          ownername:item.first_name =" "+ item.last_name,
+          userId: item.userID
         };
       });
 
     const columns = [
       {
         title: "Group Id",
-        dataIndex: "startupid",
-        key: "startupid",
+        dataIndex: "key",
+        key: "key",
         width: 260,
         fixed: "left",
       },
       {
         title: "Group Name",
-        dataIndex: "startupname",
-        key: "startupname",
+        dataIndex: "groupName",
+        key: "groupName",
         width: 280,
       },
    
       
       {
-        title: "Member",
-        dataIndex: "documents",
-        key: "documents",
+        title: "Admin",
+        dataIndex: "ownername",
+        key: "ownername",
         width: 280,
       
       },
       {
-        title: "Admin",
-        dataIndex: "founder_name",
-        key: "founder_name",
+        title: "Owner Email",
+        dataIndex: "email",
+        key: "email",
         width: 280,
 
       },
@@ -512,6 +416,8 @@ class FamilyAdmin extends Component {
         fixed: "right",
         width: 100,
         render: (text, record) => {
+          console.log(record.userId);
+          
           const menu = (
             <Menu
               mode="vertical"
@@ -538,7 +444,7 @@ class FamilyAdmin extends Component {
               </Menu.Item>
               <Menu.Item key={`Delete${record.key}`} icon={<ManOutlined/>}>
                 <Link
-                  to="/admin-family-manage?id=1"
+                  to={`/admin-family-manage?id=${record.key}&userid=${record.userId} `}
                   style={{ fontSize: 14 }}
                 //   onClick={() => this.showDeleteModal(text)}
                 >
@@ -568,6 +474,7 @@ class FamilyAdmin extends Component {
           style={{ minHeight: "100vh", marginTop: 0 }}
           className="main-dashboard-container"
         >
+           <Urldata setid={this.getmember} />
           <Navbar />
           <Layout className="site-layout">
             <Sidebar2 />

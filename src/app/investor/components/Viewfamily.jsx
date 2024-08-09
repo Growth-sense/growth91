@@ -135,9 +135,8 @@ class Viewfamily extends Component {
     this.setState({ email: email });
   };
   sendinvite = () => {
-    const ids = this.props.match.params.id;
-    console.log(ids);
-
+   
+    console.log(this.state.ids);
     let params = {
       email: this.state.SendreqEmail,
       mobile: this.state.Sendreqmobile,
@@ -157,17 +156,19 @@ class Viewfamily extends Component {
     });
   };
 
-  getmember = (value) => {
-    if(localStorage.getItem("investor_id"))
-    this.setState({ ids: value });
+  getmember = (id,userid) => {
+    console.log(id);
+    
+    this.setState({ ids: id });
     let params = {
       parent_id: localStorage.getItem("Parent_investor_id"),
-      groupID: value,
+      groupID: id,
     };
     Bridge.investor.getfamilymember(params).then((result) => {
       console.log(result);
     const data =result.data.filter((item,index)=>{
       console.log(item.investor_id );
+      console.log(localStorage.getItem("investor_id") );
         return(
 
           item.investor_id == localStorage.getItem("investor_id")    
@@ -175,26 +176,26 @@ class Viewfamily extends Component {
       })
       console.log(data);
       console.log(data.length,"0");
-      if(data.length !=0 ){
-        localStorage.setItem(
-          "investor_id",
-          localStorage.getItem("Parent_investor_id")
-        );
-        localStorage.setItem(
-          "investor_email",
-          localStorage.getItem("Parent_investor_email")
-        );
-        localStorage.setItem(
-          "investor_kycstatus",
-          localStorage.getItem("Parent_investor_kycstatus")
-        );
-        localStorage.setItem(
-          "investor_name",
-          localStorage.getItem("Parent_investor_name")
-        );
-    // window.location.reload();
+    //   if(data.length !=0 ){
+    //     localStorage.setItem(
+    //       "investor_id",
+    //       localStorage.getItem("Parent_investor_id")
+    //     );
+    //     localStorage.setItem(
+    //       "investor_email",
+    //       localStorage.getItem("Parent_investor_email")
+    //     );
+    //     localStorage.setItem(
+    //       "investor_kycstatus",
+    //       localStorage.getItem("Parent_investor_kycstatus")
+    //     );
+    //     localStorage.setItem(
+    //       "investor_name",
+    //       localStorage.getItem("Parent_investor_name")
+    //     );
+    // // window.location.reload();
 
-      }
+    //   }
       this.setState({ memberdetail: result.data });
     });
   };
@@ -222,7 +223,6 @@ class Viewfamily extends Component {
     console.log(id);
     if (id != localStorage.getItem("Parent_investor_id")) {
       
-      this.getbankdetails(id)
 
       localStorage.setItem("investor_id", id);
       localStorage.setItem("investor_email", data[0].email);
@@ -233,7 +233,8 @@ class Viewfamily extends Component {
       );
 
       this.setState({ viewmemberdetail: data[0] });
-      // window.location.reload();
+      this.getbankdetails(id)
+      window.location.reload();
     } else {
     //   alert("aadil")
     //   this.setState({ viewmemberdetail: this.state.selfaccount });
@@ -257,7 +258,7 @@ class Viewfamily extends Component {
 
 
 
-      // window.location.reload();
+      window.location.reload();
     }
   };
   render() {

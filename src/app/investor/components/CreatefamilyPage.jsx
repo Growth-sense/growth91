@@ -4,7 +4,11 @@ import { Table, message, Input, Spin, Modal, Menu, Dropdown } from "antd";
 import moment from "moment";
 import Apis from "../../constants/Apis";
 import Documents from "../../admin/components/modal/Documents";
-import { DeleteOutlined, EditOutlined, UserAddOutlined } from "@ant-design/icons";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  UserAddOutlined,
+} from "@ant-design/icons";
 import { redirect } from "next/dist/server/api-utils";
 import { Link, Route } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
@@ -27,12 +31,15 @@ export default class CreatefamilyPage extends Component {
       referral_code: "",
       group_list: [],
       cuser_list: [],
-      addModalStatus:false,
-      formloader:false,
-      CreateModalStatus:false,
-      newgroupName:"",
-      memberlist:false,
-      memberlistloader:false
+      addModalStatus: false,
+      formloader: false,
+      CreateModalStatus: false,
+      newgroupName: "",
+      memberlist: false,
+      memberlistloader: false,
+      change_group_name: "",
+      view_change_group_name_modal: false,
+      chggroupID: "",
     };
   }
 
@@ -41,13 +48,13 @@ export default class CreatefamilyPage extends Component {
       {
         investor_id: this.props.investor_id,
       },
-      
-      () => this.viewgroupall()
+
+      () => this.viewgroupall(),
+      () => this.viewgroupasmember()
     );
     // this.get_referral_code();
   }
 
- 
   showModal = () => {
     this.setState({ documentmodalstatus: true });
   };
@@ -60,7 +67,6 @@ export default class CreatefamilyPage extends Component {
     this.setState({ documentmodalstatus: false });
   };
 
- 
   searchinput = (e) => {
     let text = e.target.value;
     this.setState({ loading: true, searchinput: text });
@@ -89,73 +95,125 @@ export default class CreatefamilyPage extends Component {
 
   onClickInvite = () => {
     // window.location.replace("/invite");
- this.setState({ CreateModalStatus: true })
+    this.setState({ CreateModalStatus: true });
   };
-  addmember  =(e)=>{
+  addmember = (e) => {
     e.preventDefault();
-                     this.setState({ addModalStatus: true }) 
-  }
-  Creategroup =()=>{
+    this.setState({ addModalStatus: true });
+  };
+  Creategroup = () => {
     let params = {
-      userID: localStorage.getItem("Parent_investor_id") ,
-      groupName:this.state.newgroupName
-
+      userID: localStorage.getItem("Parent_investor_id"),
+      groupName: this.state.newgroupName,
     };
     console.log(params.groupName);
-    if(params.groupName.length ==0 ){
-      toast.error("plz fill all fiels")
-    }
-    else{
-
+    if (params.groupName.length == 0) {
+      toast.error("plz fill all fiels");
+    } else {
       Bridge.family.creategroup(params).then((result) => {
         console.log(result);
-        this.setState({ CreateModalStatus: false })
-        this.viewgroupall()
-      })
+        this.setState({ CreateModalStatus: false });
+        this.viewgroupall();
+        this.viewgroupasmember();
+      });
     }
-
-
-  }
-  viewgroupall=()=>{
-    
+  };
+  viewgroupall = () => {
     let params = {
-      userID: localStorage.getItem("Parent_investor_id") ,
-
+      userID: localStorage.getItem("Parent_investor_id"),
     };
     Bridge.family.getGroupList(params).then((result) => {
       console.log(result.data);
-      this.setState({group_list:result.data})
-    })
-
-
-  }
+      this.setState({ group_list: result.data });
+    });
+  };
+  viewgroupasmember = () => {
+    let params = {
+      userID: localStorage.getItem("investor_id"),
+    };
+    Bridge.family.getGroupList(params).then((result) => {
+      console.log(result.data);
+      this.setState({ group_list: result.data });
+    });
+  };
   getmember = (value) => {
-    if(localStorage.getItem("investor_id"))
-      
-      this.setState({ memberdetail:"",memberlistloader:true });
+    if (localStorage.getItem("investor_id"))
+      this.setState({ memberdetail: "", memberlistloader: true });
     this.setState({ ids: value });
     let params = {
       parent_id: localStorage.getItem("Parent_investor_id"),
       groupID: value,
     };
+    this.setState({ chggroupID: value });
+
     Bridge.investor.getfamilymember(params).then((result) => {
       console.log(result);
-    const data =result.data.filter((item,index)=>{
-      console.log(item.investor_id );
-        return(
-
-          item.investor_id == localStorage.getItem("investor_id")    
-        )
-      })
+      const data = result.data.filter((item, index) => {
+        console.log(item.investor_id);
+        return item.investor_id == localStorage.getItem("investor_id");
+      });
       console.log(data);
-      console.log(data.length,"0");
-     
-      this.setState({ memberdetail: result.data,memberlistloader:false });
+      console.log(data.length, "0");
+
+      this.setState({ memberdetail: result.data, memberlistloader: false });
+    });
+  };
+  changegroupname = () => {
+    let params = {
+      userID: localStorage.getItem("Parent_investor_id"),
+      groupID: this.state.chggroupID,
+      groupName: this.state.change_group_name,
+    };
+    console.log(params);
+    Bridge.family.editGroup(params).then((result) => {
+      console.log(result);
+      if (result.message == "Group updated successfully.") {
+        this.setState({ view_change_group_name_modal: false });
+        this.viewgroupall();
+        this.viewgroupasmember();
+        toast.success("Group Name Change Successfully");
+      } else if (result.message == "Group is already exist.") {
+        toast.error("Plz Use another name");
+      } else {
+        toast.error("Error");
+      }
+    });
+  };
+  groupn_name_edit_modal = (records) => {
+    console.log(records);
+
+    this.setState({
+      change_group_name: records.name,
+      view_change_group_name_modal: true,
+      chggroupID: records.key,
+    });
+  };
+  deletefamilymeber = (value) => {
+    console.log(value,"ads");
+    let params = {
+      userID: localStorage.getItem("Parent_investor_id"),
+      groupID: this.state.chggroupID,
+      invite_email: value.data.email,
+      invite_mobile: value.data.mobile,
+    };
+    console.log(params);
+    Bridge.family.deleteGroupMember(params).then((result) => {
+      console.log(result);
+      if (result.message == "Member deleted successfully.") {
+        this.setState({ view_change_group_name_modal: false });
+        this.viewgroupall();
+        this.viewgroupasmember();
+        this.getmember( this.state.chggroupID);
+
+        toast.success("Member deleted successfully.");
+      } else {
+        toast.error("Error");
+      }
     });
   };
   render() {
     //for referral
-   
+
     const dataSource =
       this.state.group_list &&
       this.state.group_list.map((item, index) => {
@@ -163,7 +221,7 @@ export default class CreatefamilyPage extends Component {
         return {
           key: item.groupID,
           name: item.groupName,
-            groupCreateDate: item.groupCreateDate
+          groupCreateDate: item.groupCreateDate
             ? moment(item.groupCreateDate).format("DD MMM, YYYY")
             : "---",
           Status: item.groupStatus,
@@ -176,13 +234,13 @@ export default class CreatefamilyPage extends Component {
         dataIndex: "name",
         key: "name",
       },
-      
+
       {
         title: "Date of Creation",
         dataIndex: "groupCreateDate",
         key: "groupCreateDate",
       },
-    
+
       {
         title: "Status",
         dataIndex: "Status",
@@ -193,48 +251,50 @@ export default class CreatefamilyPage extends Component {
         dataIndex: "Status",
         key: "Status",
         render: (text, records) => {
-            console.log(records);
-            const menu = (
-                <>
+          console.log(records);
+          const menu = (
+            <>
               <Menu
                 mode="vertical"
                 defaultSelectedKeys={[this.state.path]}
                 style={{ width: 120 }}
               >
-                <Menu.Item  icon={<UserAddOutlined />}>
-                <Link to={`/View-family-list?id=${records.key}`} >
-                    <div className="menu-action">
-                      Manage
-                    </div>
+                <Menu.Item icon={<UserAddOutlined />}>
+                  <Link to={`/View-family-list?id=${records.key}`}>
+                    <div className="menu-action">Manage</div>
                   </Link>
                 </Menu.Item>
-                <Menu.Item  icon={<UserAddOutlined />}>
-                <>
-                    <div className="menu-action"  onClick={()=>{this.getmember(records.key)
-                      this.setState({memberlist:true})}}>
+                <Menu.Item icon={<UserAddOutlined />}>
+                  <>
+                    <div
+                      className="menu-action"
+                      onClick={() => {
+                        this.getmember(records.key);
+                        this.setState({ memberlist: true });
+                      }}
+                    >
                       View Member
                     </div>
                   </>
                 </Menu.Item>
-                <Menu.Item  icon={<DeleteOutlined />}>
-
-
-                <Link to={`/View-family-list?id=${records.key}`} >
-                    <div className="menu-action">
-                      Delete
-                    </div>
+                <Menu.Item icon={<DeleteOutlined />}>
+                  <Link to={`/View-family-list?id=${records.key}`}>
+                    <div className="menu-action">Delete</div>
                   </Link>
                 </Menu.Item>
-                <Menu.Item  icon={<EditOutlined />}>
-
-
-                <Link to={`/View-family-list?id=${records.key}`} >
-                    <div className="menu-action">
+                <Menu.Item icon={<EditOutlined />}>
+                  <>
+                    <div
+                      className="menu-action"
+                      onClick={() => {
+                        this.groupn_name_edit_modal(records);
+                      }}
+                    >
                       Edit
                     </div>
-                  </Link>
+                  </>
                 </Menu.Item>
-                
+
                 {/* <Menu.Item key={`Delete${record.key}`} icon={<DeleteOutlined/>}>
                     <a
                     href="#"
@@ -244,78 +304,72 @@ export default class CreatefamilyPage extends Component {
                     &nbsp;&nbsp;Delete
                     </a>
                     </Menu.Item> */}
-                    </Menu>
-                    </>
-                );
-                return (
-                    <div className="d-flex ">
-              <div style={{marginLeft:"10px" , color:"#1890ff"}}>
-              <Dropdown overlay={menu} placement="bottom">
-              <a onClick={(e) => e.preventDefault()}>
-                  <div className="menu-action">
-                    <i className="bx bx-dots-vertical-rounded"></i>
-                  </div>
-                </a>
-              </Dropdown>
-               
-               
-
+              </Menu>
+            </>
+          );
+          return (
+            <div className="d-flex ">
+              <div style={{ marginLeft: "10px", color: "#1890ff" }}>
+                <Dropdown overlay={menu} placement="bottom">
+                  <a onClick={(e) => e.preventDefault()}>
+                    <div className="menu-action">
+                      <i className="bx bx-dots-vertical-rounded"></i>
+                    </div>
+                  </a>
+                </Dropdown>
               </div>
-             
-              </div>
-            );
-          },
+            </div>
+          );
+        },
       },
     ];
     const MembersourceSource =
-    this.state.memberdetail &&
-    this.state.memberdetail.map((item, index) => {
-      console.log(item);
-      return {
-        key: item.groupID,
-        name: item.first_name + "" +item.last_name,
+      this.state.memberdetail &&
+      this.state.memberdetail.map((item, index) => {
+        console.log(item);
+        return {
+          key: item.groupID,
+          name: item.first_name + " " + item.last_name,
           groupCreateDate: item.groupCreateDate
-          ? moment(item.groupCreateDate).format("DD MMM, YYYY")
-          : "---",
-        Status: item.groupStatus,
-      };
-    });
+            ? moment(item.groupCreateDate).format("DD MMM, YYYY")
+            : "---",
+          Status: item.groupStatus,
+          data: item,
+        };
+      });
     const Membercolumns = [
       {
         title: "Name",
         dataIndex: "name",
         key: "name",
       },
-      
-    
+
       {
         title: "Action",
-        dataIndex: "Status",
-        key: "Status",
+        dataIndex: "data",
+        key: "data",
         render: (text, records) => {
-            console.log(records);
-            const menu = (
-                <>
+          console.log(records);
+          const menu = (
+            <>
               <Menu
                 mode="vertical"
                 defaultSelectedKeys={[this.state.path]}
                 style={{ width: 120 }}
               >
-               
-             
-
-
-             
-                <Menu.Item  icon={<EditOutlined />}>
-
-
-                <Link to={`/View-family-list?id=${records.key}`} >
-                    <div className="menu-action">
+                <Menu.Item icon={<DeleteOutlined />}>
+                  <>
+                    <div
+                      className="menu-action"
+                      onClick={() => {
+                        this.deletefamilymeber(records);
+                      }}
+                    >
                       Delete
                     </div>
-                  </Link>
+                  </>
                 </Menu.Item>
-                
+
                 {/* <Menu.Item key={`Delete${record.key}`} icon={<DeleteOutlined/>}>
                     <a
                     href="#"
@@ -325,27 +379,23 @@ export default class CreatefamilyPage extends Component {
                     &nbsp;&nbsp;Delete
                     </a>
                     </Menu.Item> */}
-                    </Menu>
-                    </>
-                );
-                return (
-                    <div className="d-flex ">
-              <div style={{marginLeft:"10px" , color:"#1890ff"}}>
-              <Dropdown overlay={menu} placement="bottom">
-              <a onClick={(e) => e.preventDefault()}>
-                  <div className="menu-action">
-                    <i className="bx bx-dots-vertical-rounded"></i>
-                  </div>
-                </a>
-              </Dropdown>
-               
-               
-
+              </Menu>
+            </>
+          );
+          return (
+            <div className="d-flex ">
+              <div style={{ marginLeft: "10px", color: "#1890ff" }}>
+                <Dropdown overlay={menu} placement="bottom">
+                  <a onClick={(e) => e.preventDefault()}>
+                    <div className="menu-action">
+                      <i className="bx bx-dots-vertical-rounded"></i>
+                    </div>
+                  </a>
+                </Dropdown>
               </div>
-             
-              </div>
-            );
-          },
+            </div>
+          );
+        },
       },
     ];
     //for wallet history
@@ -378,7 +428,7 @@ export default class CreatefamilyPage extends Component {
     ];
     return (
       <div>
-          <Modal
+        <Modal
           title="List of Group Member"
           visible={this.state.memberlist}
           onOk={() => this.setState({ memberlist: false })}
@@ -388,19 +438,16 @@ export default class CreatefamilyPage extends Component {
           width={550}
         >
           <Spin spinning={this.state.memberlistloader}>
-          <Table
-                    className="table-2"
-                    dataSource={MembersourceSource}
-                    columns={Membercolumns}
-                    bordered
-                    loading={this.state.loading}
-                  />
-         
-
-           
+            <Table
+              className="table-2"
+              dataSource={MembersourceSource}
+              columns={Membercolumns}
+              bordered
+              loading={this.state.loading}
+            />
           </Spin>
         </Modal>
-          <Modal
+        <Modal
           title="Add New Member"
           visible={this.state.addModalStatus}
           onOk={() => this.setState({ addModalStatus: false })}
@@ -426,13 +473,9 @@ export default class CreatefamilyPage extends Component {
                 onChange={(e) => this.setState({ mobile: e.target.value })}
               />
             </div>
-          
-         
-
-           
           </Spin>
         </Modal>
-          <Modal
+        <Modal
           title="Create New Group"
           visible={this.state.CreateModalStatus}
           onOk={() => this.Creategroup()}
@@ -442,34 +485,54 @@ export default class CreatefamilyPage extends Component {
           width={550}
         >
           <Spin spinning={this.state.formloader}>
-           
             <div className="form-group">
               <label className="mb-2">Name</label>
               <Input
                 value={this.state.newgroupName}
                 required
-                onChange={(e) => this.setState({ newgroupName: e.target.value })}
+                onChange={(e) =>
+                  this.setState({ newgroupName: e.target.value })
+                }
               />
             </div>
-          
-         
-
-           
+          </Spin>
+        </Modal>
+        <Modal
+          title="Change Group Name"
+          visible={this.state.view_change_group_name_modal}
+          onOk={() => this.changegroupname()}
+          okText="Submit"
+          // onCancel={this.cancel_addfounder}
+          onCancel={() =>
+            this.setState({ view_change_group_name_modal: false })
+          }
+          width={550}
+        >
+          <Spin spinning={this.state.formloader}>
+            <div className="form-group">
+              <label className="mb-2">Name</label>
+              <Input
+                value={this.state.change_group_name}
+                required
+                onChange={(e) =>
+                  this.setState({ change_group_name: e.target.value })
+                }
+              />
+            </div>
           </Spin>
         </Modal>
         <div>
           {/* referral Table */}
           {this.state.showreferral && (
+            <>
             <section id="hdii" style={{ minHeight: "70vh" }}>
               <div className="row">
                 <div
                   className="col-10 my-2"
                   style={{ marginTop: 50, marginLeft: 30 }}
                 >
-                 
-                    <h2 className="text-center mb-3">Family</h2>
-                  </div>
-                
+                  <h2 className="text-center mb-3">Family Admin</h2>
+                </div>
               </div>
 
               <div className="row m-md- ms-2 p-md-3 pt-3">
@@ -502,7 +565,7 @@ export default class CreatefamilyPage extends Component {
                 <div className="col offset-md-4">
                   <button
                     className="small-button-dark3"
-                       onClick={this.onClickInvite}
+                    onClick={this.onClickInvite}
                   >
                     Create Group
                   </button>
@@ -519,31 +582,89 @@ export default class CreatefamilyPage extends Component {
                 </div>
               </div>
             </section>
+            <section id="hdii" style={{ minHeight: "70vh" }}>
+              <div className="row">
+                <div
+                  className="col-10 my-2"
+                  style={{ marginTop: 50, marginLeft: 30 }}
+                >
+                  <h2 className="text-center mb-3">Family Member</h2>
+                </div>
+              </div>
+
+              <div className="row m-md- ms-2 p-md-3 pt-3">
+                {/* <div className='col-4 '>
+                            <div className="input-group ">
+                                <Input
+                                placeholder="Search.."
+                                type={"text"}
+                                style={{ width: "50%", height: 45 }}
+                                onChange={(e) => this.searchinput(e)}
+                                />
+                            </div>
+                        </div> */}
+                <div className="col-6">
+                  <i class="bx bx-wallet" style={{ fontSize: "23px" }}></i>
+                  <input
+                    className="mx-3 px-2 py-1"
+                    value={this.state.totalAmount}
+                    style={{ width: "60%" }}
+                  ></input>
+                  <a
+                    href="#"
+                    onClick={() => {
+                      this.setState({ showHistory: true, showreferral: false });
+                    }}
+                  >
+                    <i class="bx bx-history" style={{ fontSize: "23px" }}></i>
+                  </a>
+                </div>
+                <div className="col offset-md-4">
+                  <button
+                    className="small-button-dark3"
+                    onClick={this.onClickInvite}
+                  >
+                    Create Group
+                  </button>
+                </div>
+
+                <div className="row m-3 p-3">
+                  <Table
+                    className="table-2"
+                    dataSource={dataSource}
+                    columns={columns}
+                    bordered
+                    loading={this.state.loading}
+                  />
+                </div>
+              </div>
+            </section>
+            </>
           )}
           {/* history table */}
           {this.state.showHistory && (
             <section id="hdii">
-            <div className="row m-md-0 ms-2 p-md-3 pt-3">
-              <div className="col-8 mx-2 py-1">
-                <h2>Wallet History </h2>
+              <div className="row m-md-0 ms-2 p-md-3 pt-3">
+                <div className="col-8 mx-2 py-1">
+                  <h2>Wallet History </h2>
+                </div>
+                <div className="col offset-md-4">
+                  <button
+                    onClick={() =>
+                      this.setState({ showreferral: true, showHistory: false })
+                    }
+                    className="btn btn"
+                    style={{
+                      backgroundColor: "#29176F",
+                      color: "white",
+                      float: "right",
+                      marginRight: "10px",
+                    }}
+                  >
+                    Back
+                  </button>
+                </div>
               </div>
-              <div className="col offset-md-4">
-                <button
-                  onClick={() =>
-                    this.setState({ showreferral: true, showHistory: false })
-                  }
-                  className="btn btn"
-                  style={{
-                    backgroundColor: "#29176F",
-                    color: "white",
-                    float: "right",
-                    marginRight:"10px"
-                  }}
-                >
-                  Back
-                </button>
-              </div>
-            </div>
               {/* <div className='row'> */}
 
               {/* <div className='col-7 '>
@@ -570,13 +691,11 @@ export default class CreatefamilyPage extends Component {
                             </div>
                         </div> */}
               {/* </div> */}
-              <div className="row m-3 p-3">
-               
-              </div>
+              <div className="row m-3 p-3"></div>
             </section>
           )}
-   
-   <ToastContainer/>
+
+          <ToastContainer />
         </div>
       </div>
     );

@@ -253,6 +253,10 @@ const URLs = {
   saveInvite:"investors/InvestorController/saveInvite",
   familyInviteOTP:"investors/InvestorController/familyInviteOTP",
   verifyFamilyInvite:"investors/InvestorController/verifyFamilyInvite",
+  editGroup:"investors/InvestorController/editGroup",
+  deleteGroupMember:"investors/InvestorController/deleteGroupMember",
+  deleteRequest:"investors/InvestorController/deleteRequest",
+  deleteRequestApprove:"investors/InvestorController/deleteRequestApprove",
 
 };
 

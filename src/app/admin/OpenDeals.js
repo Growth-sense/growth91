@@ -66,6 +66,7 @@ class Deals extends Component {
       ctype: "",
       editctype: "",
       youtubelink: "",
+      deal_service:"",
 
       // add input states
       startupname: "",
@@ -178,6 +179,7 @@ class Deals extends Component {
       editspecial_offer_text: "",
       editdefault_special_offer_text: "",
       editoffer_discount: "",
+      edit_deal_service:"",
 
       deal_id: "",
 
@@ -354,7 +356,7 @@ class Deals extends Component {
 
   // show edit modal
   showEditModal = (item) => {
-    // console.log('item',item);
+    console.log('item',item);
     let logourl = Apis.IMAGEURL + "deal/logo/" + item.deal_id + "/" + item.logo;
     let bannerimg =
       Apis.IMAGEURL + "deal/banner/" + item.deal_id + "/" + item.banner_img;
@@ -412,6 +414,7 @@ class Deals extends Component {
       edit_page_link: item.page_link,
       edit_signer_name: item.signer_name,
       edit_deal_name: item.deal_name,
+      edit_deal_service: item.deal_service,
       edit_signer_email: item.signer_email,
       edit_signer_mobile: item.signer_mobile,
       edit_vendor_id: item.vendor_id,
@@ -611,6 +614,7 @@ class Deals extends Component {
       signer_mobile: this.state.edit_signer_mobile,
       signer_email: this.state.edit_signer_email,
       vendor_id: this.state.edit_vendor_id,
+      deal_service:this.state.edit_deal_service
     };
     Bridge.deal.edit(params).then((result) => {
       if (result.status == 1) {
@@ -843,6 +847,10 @@ class Deals extends Component {
     } else if (this.state.deal_name == "") {
       message.warning("Deal Name is required");
       return false;
+    
+    } else if (this.state.deal_service == "") {
+      message.warning("Deal service is required");
+      return false;
     } else if (this.state.add_dealtype == "") {
       message.warning("Deal Type is required");
       return false;
@@ -958,6 +966,7 @@ class Deals extends Component {
         let params = {
           startupname: this.state.startupname,
           deal_name: this.state.deal_name,
+          deal_service: this.state.deal_service,
           dealstartdate: this.state.dealStartDtReg,
           dealStartDtPrem: this.state.dealStartDtPrem,
           dealenddate: this.state.dealEndDtReg,
@@ -998,6 +1007,7 @@ class Deals extends Component {
           eligibility_id: e_id,
           deal_type: this.state.add_dealtype,
           vendor_id: this.state.add_vendor_id,
+          automated_email:"No"
         };
         // console.log("params",params)
         Bridge.deal.add(params).then((result) => {
@@ -3150,6 +3160,22 @@ class Deals extends Component {
                 onChange={(e) => this.setState({ signer_name: e.target.value })}
               />
             </div>
+            <div className="form-group-mt-3">
+              <label className="mb-2">
+                Deal Service<span className="text-danger">*</span>
+              </label>
+              <Select
+                value={this.state.deal_service}
+                style={{ width: "100%" }}
+                onChange={(value) => {
+                  this.setState({ deal_service: value });
+                }}
+              >
+                <Option value="CCD">CCD</Option>
+                <Option value="CCPS">CCPS</Option>
+                <Option value="CCD/CCPS">CCD/CCPS</Option>
+              </Select>
+            </div>
             <div className="form-group mt-3">
               <label className="mb-2">
                 Startup Founder Mobile Number{" "}
@@ -3625,6 +3651,7 @@ class Deals extends Component {
           width={550}
         >
           <Spin spinning={this.state.formloader}>
+          
             <div className="form-group">
               <label className="mb-2">
                 Startup Name <span className="text-danger">*</span>
@@ -3653,6 +3680,7 @@ class Deals extends Component {
                   })}
               </Select>
             </div>
+            
             <div className="form-group mt-3">
               <label className="mb-2">
                 Deal Name <span className="text-danger">*</span>
@@ -3665,6 +3693,22 @@ class Deals extends Component {
                   this.setState({ edit_deal_name: e.target.value })
                 }
               />
+            </div>
+            <div className="form-group-mt-3">
+              <label className="mb-2">
+                Deal Service<span className="text-danger">*</span>
+              </label>
+              <Select
+                value={this.state.edit_deal_service}
+                style={{ width: "100%" }}
+                onChange={(value) => {
+                  this.setState({ edit_deal_service: value });
+                }}
+              >
+                <Option value="CCD">CCD</Option>
+                <Option value="CCPS">CCPS</Option>
+                <Option value="CCD/CCPS">CCD/CCPS</Option>
+              </Select>
             </div>
             <div className="form-group mt-3">
               <label className="mb-2">

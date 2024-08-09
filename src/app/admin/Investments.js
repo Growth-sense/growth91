@@ -123,7 +123,6 @@ class Investments extends Component {
     let search = e.target.value;
     if (search) {
       investments = investments.filter((investment) => {
-        console.log(investment);
         return (
           (investment.name &&
             investment.name.toLowerCase().includes(search.toLowerCase())) ||
@@ -225,7 +224,6 @@ class Investments extends Component {
       }
     })
       .then((response) => {
-        console.log(response);
         this.setState({
           show_edit_commitment_modal: false,
         }, () => {
@@ -252,7 +250,7 @@ class Investments extends Component {
       });
   };
   showeditmodal = (item,record) => {
-    console.log(record);
+    // console.log(record);
     this.setState({
       ac_edit_deal_id: record.dealid,
       ac_edit_investor_id: record.action.investor_id,
@@ -573,7 +571,7 @@ class Investments extends Component {
           return { ...el, investment_id: Number(el.investment_id  ) };
         })
         .sort((a, b) => {
-          console.log(datas);
+          // console.log(datas);
           return a.investment_id > b.investment_id ? 1 : -1;
         });
       this.setState({
@@ -587,7 +585,7 @@ class Investments extends Component {
           return { ...el, investment_id: Number(el.investment_id  ) };
         })
         .sort((a, b) => {
-          console.log(datas);
+          // console.log(datas);
           return a.investment_id > b.investment_id ? -1 : 1;
         });
       this.setState({
@@ -600,7 +598,7 @@ class Investments extends Component {
       
     };
     const disdingcammitamt= (datas) => {
-      console.log(this.state.modes);
+      // console.log(this.state.modes);
             if (this.state.modes=="ass") {
 
         const data = [...this.state.investments]
@@ -608,14 +606,14 @@ class Investments extends Component {
             return { ...el, amount: Number(el.amount) };
           })
           .sort((a, b) => {
-            console.log(datas);
+            // console.log(datas);
             return a.amount> b.amount ? 1 : -1;
           });
         this.setState({
           investments: data,
             modes:"dis"
         });
-        console.log(data);
+        // console.log(data);
 
       } else if (this.state.modes=="dis"){
         const data = [...this.state.investments]
@@ -623,14 +621,14 @@ class Investments extends Component {
           return { ...el, amount: Number(el.amount) };
         })
         .sort((a, b) => {
-          console.log(datas);
+          // console.log(datas);
           return a.amount> b.amount ? -1 : 1;
         });
       this.setState({
         investments: data,
           modes:"ass"
       });
-      console.log(data);
+      // console.log(data);
     }
 
     
@@ -644,7 +642,7 @@ class Investments extends Component {
             return { ...el, processingfees: Number(el.processingfees) };
           })
           .sort((a, b) => {
-            console.log(datas);
+            // console.log(datas);
             return a.processingfees> b.processingfees ? 1 : -1;
           });
         this.setState({
@@ -652,7 +650,7 @@ class Investments extends Component {
           modes:"dis"
 
         });
-        console.log(data);
+        // console.log(data);
       } else if (this.state.modes=="dis"){
 
         const data = [...this.state.investments]
@@ -660,21 +658,20 @@ class Investments extends Component {
           return { ...el, processingfees: Number(el.processingfees) };
         })
         .sort((a, b) => {
-          console.log(datas);
+          // console.log(datas);
           return a.processingfees> b.processingfees ? 1 : -1;
         });
       this.setState({
         investments: data,
          modes:"ass"
       });
-      console.log(data);
+      // console.log(data);
     }
     
     };
     const dataSource =
       this.state.investments &&
       this.state.investments.map((item, index) => {
-        console.log(item);
         return {
           key: index,
           investmentno: item,

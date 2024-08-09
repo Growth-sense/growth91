@@ -1256,6 +1256,8 @@ console.log(  ac_captable_threshold_amount,
     this.setState({
       show_offline_payment_modal: true,
     });
+    this.setState({ formloader: false});
+
     this.state.getAllCommitData?.map((item, index) => {
       if (item.id === this.state.id) {
         this.setState({
@@ -1274,6 +1276,7 @@ console.log(  ac_captable_threshold_amount,
 
   //  for offline payment
   handleOfflinePayment = () => {
+
     if (
       this.state.investor_payment_type == "Select" ||
       this.state.investor_payment_type == ""
