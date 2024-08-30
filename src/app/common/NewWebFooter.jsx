@@ -14,7 +14,7 @@ export const NewWebFooter = () => {
         {/* <p><a href="/disclaimer">Disclaimer</a></p> */}
         <ul class="Footer_footerSocials__Dn41J">
           <li>
-            <a target="_blank" href="https://twitter.com/Ivygrowth">
+            <a target="_blank" href="https://x.com/Growth_91">
               <svg
                 stroke="currentColor"
                 fill="currentColor"

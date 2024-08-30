@@ -104,8 +104,14 @@ class Investments extends Component {
           }
         }
         this.setState({
-          investments: result.data.map((el)=>{return {...el,name: el.first_name + " " + el.last_name}}),
-          cinvestments:  arr.map((el)=>{return {...el,name: el.first_name + " " + el.last_name}}),
+          investments: result.data.filter((item,index)=>{ return item.investment_id!=null}).map((el)=>{return {...el,name: el.first_name + " " + el.last_name ,investment_id:Number(el.investment_id)}}).sort((a, b) => {
+            // console.log(datas);
+            return a.investment_id > b.investment_id ? -1 : 1;
+          }),
+          cinvestments:  arr.filter((item,index)=>{ return item.investment_id!=null}).map((el)=>{return {...el,name: el.first_name + " " + el.last_name }}).sort((a, b) => {
+            // console.log(datas);
+            return a.investment_id > b.investment_id ? 1 : -1;
+          }),
           loading: false,
         });
         // console.log('investment',result.data);
@@ -597,6 +603,71 @@ class Investments extends Component {
        
       
     };
+    const disdingname = (datas) => {
+      if (this.state.modes=="ass") {
+        const data = [...this.state.investments]
+        .map((el) => {
+          return { ...el, investment_id: Number(el.investment_id  ) };
+        })
+        .sort((a, b) => {
+          // console.log(datas);
+          return a.name > b.name ? 1 : -1;
+        });
+      this.setState({
+        investments: data,
+        modes:"dis"
+
+      });
+      } else if (this.state.modes=="dis"){
+        const data = [...this.state.investments]
+        .map((el) => {
+          return { ...el, investment_id: Number(el.investment_id  ) };
+        })
+        .sort((a, b) => {
+          // console.log(datas);
+          return a.name > b.name ? -1 : 1;
+        });
+      this.setState({
+        investments: data,
+        modes:"ass"
+
+      });
+      }
+       
+      
+    };
+    const disdingdate = () => {
+      if (this.state.modes=="ass") {
+        const data = [...this.state.investments]
+        .map((el) => {
+          return { ...el, investment_id: Number(el.investment_id  )  };
+        })
+        .sort((a, b) => {
+          return new Date (a.Invested_dt).toISOString() >new Date (b.Invested_dt).toISOString() ? 1 : -1;
+        });
+      this.setState({
+        investments: data,
+        modes:"dis"
+
+      });
+      } else if (this.state.modes=="dis"){
+        const data = [...this.state.investments]
+        .map((el) => {
+          return { ...el, investment_id: Number(el.investment_id)  };
+        })
+        .sort((a, b) => {
+          // console.log(datas);
+          return new Date (a.Invested_dt).toISOString() > new Date (b.Invested_dt).toISOString()? -1 : 1;
+        });
+      this.setState({
+        investments: data,
+        modes:"ass"
+
+      });
+      }
+       
+      
+    };
     const disdingcammitamt= (datas) => {
       // console.log(this.state.modes);
             if (this.state.modes=="ass") {
@@ -672,6 +743,7 @@ class Investments extends Component {
     const dataSource =
       this.state.investments &&
       this.state.investments.map((item, index) => {
+        
         return {
           key: index,
           investmentno: item,
@@ -715,7 +787,10 @@ class Investments extends Component {
         },
       },
       {
-        title: "Investor Name",
+        title: <span onClick={() => {
+          disdingname();
+        }}>Investor Name</span>,
+        
         dataIndex: "name",
         key: "name",
         width: 200,
@@ -727,6 +802,16 @@ class Investments extends Component {
         title: "Invester Email",
         dataIndex: "InvestedEmail",
         key: "InvestedEmail",
+        width: 180,
+      },
+      {
+        title: <span onClick={() => {
+          disdingid();
+
+        }}>Invested Date</span>,
+        
+        dataIndex: "investddate",
+        key: "investddate",
         width: 180,
       },
       // {
@@ -798,7 +883,11 @@ class Investments extends Component {
       //   key: "reference",
       // },
       {
-        title: "Investment Amount",
+        title: <span
+        onClick={() => {
+          disdingfee();
+        }}
+      >Investment Amount</span>,
         dataIndex: "investmentamount",
         key: "investmentamount",
         align:"right",

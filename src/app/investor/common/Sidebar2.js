@@ -171,17 +171,17 @@ export default class Sidebar2 extends Component {
                 <div className="col-md-4 col-12 side-text">Referral</div>
               </li>
             </a>
-            {/* <a
-              href="/Create-family"
+            <a
+              href="/Group-Investments"
               className={
-                window.location.pathname == "/Create-family" ? "active" : ""
+                window.location.pathname == "/Group-Investments" ? "active" : ""
               }
             >
               <li className="hiw-li row text-center">
                 <i className="bx bx-transfer-alt col-md-4" />
-                <div className="col-md-4 col-12 side-text">Family</div>
+                <div className="col-md-4 col-12 side-text">Group Investments</div>
               </li>
-            </a> */}
+            </a>
            
           {/* <div>
             <a

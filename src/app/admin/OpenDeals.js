@@ -1777,18 +1777,25 @@ class Deals extends Component {
     console.log(this.state.commitment_investor_list);
     let count = 1;
     for (let item of this.state.commitment_investor_list) {
+      console.log(item);
+      let params = {
+        id:item.investor_id,
+      };
+      Bridge.investor.getbankdetails(params).then((result) => {
+        console.log(result);
+        
+      })  
       let obj = {
         "Sr No": count,
-        "Investor ID": item.investor_id,
         "Name": item.first_name + " " + item.last_name,
         "Legal Name": item.pan_registered_name,
         "Investment Amount": item.amount,
-        "Fee Amount": item.processingfees,
         "Email": item.email,
         "Phone": item.mobile,
         "KYC PAN": item.kyc_pan,
         "KYC Address": item.kyc_address,
         "KYC Father Name": item.kyc_fathername,
+        "residential address": item.residential_address,
       };
       arr = [...arr, obj];
       count++;
@@ -1817,6 +1824,8 @@ class Deals extends Component {
         "KYC PAN": item.kyc_pan,
         "KYC Address": item.kyc_address,
         "KYC Father Name": item.kyc_fathername,
+        "residential address": item.residential_address,
+
       };
       arr = [...arr, obj];
       count++;
@@ -2318,7 +2327,7 @@ class Deals extends Component {
     formData.append('order_token', this.state.ac_edit_order_token);
     formData.append('tdsstatus', this.state.ac_edit_tdsstatus);
     formData.append('gst', this.state.ac_edit_gst);
-    formData.append('legalfee', this.state.ac_edit_legalfee);
+    formData.append('legalfee', this.state.ac_edit_processingfees);
     formData.append('walletDeductionMoney', this.state.ac_edit_walletDeductionMoney);
     formData.append('interested_id', this.state.ac_edit_interested_id);
     formData.append('commitment_id', this.state.ac_edit_commitment_id);
@@ -3162,7 +3171,7 @@ class Deals extends Component {
             </div>
             <div className="form-group-mt-3">
               <label className="mb-2">
-                Deal Service<span className="text-danger">*</span>
+              Instrument type<span className="text-danger">*</span>
               </label>
               <Select
                 value={this.state.deal_service}
@@ -3696,7 +3705,7 @@ class Deals extends Component {
             </div>
             <div className="form-group-mt-3">
               <label className="mb-2">
-                Deal Service<span className="text-danger">*</span>
+              Instrument type<span className="text-danger">*</span>
               </label>
               <Select
                 value={this.state.edit_deal_service}

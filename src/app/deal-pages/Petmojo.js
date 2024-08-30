@@ -90,7 +90,7 @@ class Petmojo extends Component {
     document.title = "Petmojo - Growth91 - Startup Marketplace ";
   }
   componentDidMount() {
-    let deal_id = "5";
+    let deal_id = "129";
     this.setState({ deal_id: deal_id }, () => {
       this.get_pitch_list();
     });
@@ -379,7 +379,7 @@ class Petmojo extends Component {
                 this.setState({ show_data: "block" });
               } else {
                 this.setState({ show_data: "none" });
-                window.location.assign("/deals");
+                // window.location.assign("/deals");
                 return;
               }
             } else if (this.state.check_membership_type == "regular") {
@@ -392,13 +392,13 @@ class Petmojo extends Component {
                 this.setState({ show_data: "block" });
               } else {
                 this.setState({ show_data: "none" });
-                window.location.assign("/deals");
+                // window.location.assign("/deals");
                 return;
               }
             }
           }
           else{
-            window.location.href = "/deals"
+            // window.location.href = "/deals"
           }
         }
         for (let d of result.data) {

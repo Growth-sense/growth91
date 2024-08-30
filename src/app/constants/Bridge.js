@@ -893,6 +893,9 @@ export default {
         deleteRequest:(data)=>api.post(URLs.deleteRequest,data).then((response) => {
           return response.data;
         }),
+        getDeleteRequest:(data)=>api.post(URLs.getDeleteRequest,data).then((response) => {
+          return response.data;
+        }),
         deleteRequestApprove:(data)=>api.post(URLs.deleteRequestApprove,data).then((response) => {
           return response.data;
         }),

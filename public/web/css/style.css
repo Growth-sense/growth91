@@ -1366,7 +1366,6 @@ body button:hover {
 .pricing-section .pracing-item:hover .top-left {
   background: green;
 }
-.MoneyPro-history,
 .calculate-section,
 .contact-info-section {
   padding: 100px 0;
@@ -1598,7 +1597,6 @@ body button:hover {
 .MoneyPro-history .item .media {
   display: flex;
   align-items: flex-start;
-  margin-left: 60px;
 }
 .MoneyPro-history .item .media .content h3 {
   font-size: 20px;

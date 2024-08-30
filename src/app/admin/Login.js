@@ -46,8 +46,13 @@ class Login extends Component {
       if (result.status == 1) {
         message.success(result.message);
         this.setState({loading:false});
-        localStorage.setItem('id', result.data[0].id);
-        localStorage.setItem('admin_user','1');
+        const data = {
+          value: result.data[0].id,
+          expiry: new Date().getTime() + 12 * 60 * 60 * 1000 // 12 hour in milliseconds
+        };
+        localStorage.setItem('admin_login', JSON.stringify(data))
+        localStorage.removeItem('admin_user');
+        localStorage.removeItem('id');
         window.location.href = '/admin-dashboard';
       } else {
         message.error(result.message);

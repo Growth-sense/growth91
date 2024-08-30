@@ -36,12 +36,7 @@ import { FounderEdit } from './app/FounderEdit.jsx'
 import { WaitApproval } from './app/WaitApproval.jsx';
 import { FutureUnicornList } from './app/FutureUnicornList.jsx';
 import { PaymentMethods } from './app/PaymentMethods.jsx'
-import {Aboutnew} from "./app/Aboutnew.jsx";
-import {FamilyDashboard} from "./app/FamilyDashboard.jsx"
-import {InformationList} from "./app/InformationList.jsx"
 
-import {FutureUnicornDescription} from './app/FutureUnicornDescription.jsx'
-import {FutureUnicornList} from './app/FutureUnicornList.jsx'
 import Content from "./Content/Content";
 import Deals from "./app/Deals";
 import Refer from "./app/ReferLogin";
@@ -159,7 +154,7 @@ import AdminBlogCategory from "./app/admin/AdminBlogCategory";
 import TemplatePublic from "./app/deal-pages/Template";
 import ISkillBoxPublic2 from "./app/deal-pages/ISkillboxPublic2";
 
-import Petmojo from "./app/deal-pages/Petmojo";
+// import Petmojo from "./app/deal-pages/Petmojo";
 import Targetpeak from "./app/deal-pages/Targetpeak";
 import TransBnkCCPS from "./app/deal-pages/TransBnkCCPS";
 import TransBnkCCD from "./app/deal-pages/TransBnkCCD";
@@ -203,6 +198,7 @@ import IndusUnoTranche2 from "./app/deal-pages/IndusUnoTranche2";
 import { Newdeals } from "./app/Newdeals.jsx";
 import jqeryscript from "./jq.js"
 import FamilyAdmin from "./app/admin/FamilyAdmin.jsx";
+import familyRemoveRequest from "./app/admin/familyRemoveRequest.jsx";
 import Familymanage from "./app/admin/Familymanage.jsx";
 import FUnicornStartup from "./app/admin/FUnicornStartup.js";
 import FUnicornInvestors from "./app/admin/FUnicornInvestors.js";
@@ -217,10 +213,8 @@ import familyinvite from "./app/investor/family-invite.jsx";
 import Mindler from "./app/deal-pages/Mindler.jsx";
 import CUR8 from "./app/deal-pages/CUR8.jsx";
 import Edept from "./app/deal-pages/Edept.jsx";
-import TableComponent from "./app/admin/pdfview/TableComponent.js";
-import LiaPlus from "./app/deal-pages/LiaPlus.jsx";
-import Mindler from "./app/deal-pages/Mindler.jsx";
-import CUR8 from "./app/deal-pages/CUR8.jsx";
+import Innoserv from "./app/deal-pages/Innoserv.jsx";
+import Petmojo from "./app/deal-pages/Petmojo(Pre Series A).jsx";
 
 ReactGA.initialize(TRACKING_ID);
 
@@ -264,17 +258,13 @@ function App() {
           <Route path="/RemainingEditPopup" exact component={RemainingEditPopup} />
           <Route path="/FutureUnicornFormEdits" exact component={FutureUnicornFormEdits} />
           <Route path="/FutureUnicornList" exact component={FutureUnicornList} />
-          <Route path="/FutureUnicornDescription" exact component={FutureUnicornDescription} />
           <Route path="/WaitApproval" exact component={WaitApproval} />
           <Route path="/CheckboxThank" exact component={CheckboxThank} />
 
           <Route path="/FamilyDashboard" exact component={FamilyDashboard} />
+          <Route path="/FutureUnicornDescription" exact component={FutureUnicornDescription} />
           <Route path="/FutureUnicornForm" exact component={FutureUnicornForm} />
           <Route path="/InformationList" exact component={InformationList} />
-          <Route path="/FutureUnicornList" exact component={FutureUnicornList} />
-            <Route path="/FutureUnicornDescription" exact component={FutureUnicornDescription} />
-            <Route path="/FamilyDashboard" exact component={FamilyDashboard} />
-            <Route path="/InformationList" exact component={InformationList} />
           <Route path="/UnderMaintenance" exact component={UnderMaintenance} />
           <Route path="/StartInvestment" exact component={Content} />
           <Route path="/deals" exact>
@@ -370,6 +360,7 @@ function App() {
           <Route path="/admin-investors" exact component={admininvestors} />
           <Route path="/admin-startups" exact component={adminstartups} />
           <Route path="/admin-family" exact component={FamilyAdmin} />
+          <Route path="/family-Remove-Request" exact component={familyRemoveRequest} />
           <Route path="/admin-family-manage" exact component={Familymanage} />
           <Route path="/future-unicorn-startups" exact component={FUnicornStartup} />
           <Route path="/future-unicorn-investors" exact component={FUnicornInvestors} />
@@ -544,9 +535,9 @@ function App() {
           <Route path="/iSkillBox" exact>
             <ProtectDeals Component={ISkillBoxPublic2} />
           </Route>
-          <Route path="/petmojo" exact>
+          {/* <Route path="/petmojo" exact>
             <ProtectDeals Component={Petmojo} />
-          </Route>
+          </Route> */}
           <Route path="/Targetpeak" exact>
             <ProtectDeals Component={Targetpeak} />
           </Route>
@@ -637,6 +628,12 @@ function App() {
           <Route path="/Edept" >
             <ProtectDeals Component={Edept} />
           </Route>
+          <Route path="/Petmojo" >
+            <ProtectDeals Component={Petmojo} />
+          </Route>
+          <Route path="/Innoserv" >
+            <ProtectDeals Component={Innoserv} />
+          </Route>
           <Route path="/TestDeal2" exact>
             <ProtectDeals Component={TestDeal2} />
           </Route>
@@ -674,9 +671,9 @@ function App() {
             exact
             component={founderkycscreen}
           />
-          <Route path="/Create-family" exact component={Createfamily} />
-          <Route path="/View-family-list" exact component={Viewfamilylist} />
-          <Route path="/FamilyInvite"  component={familyinvite} />
+          <Route path="/Group-Investments" exact component={Createfamily} />
+          <Route path="/View-Group-list" exact component={Viewfamilylist} />
+          <Route path="/Group-Invite"  component={familyinvite} />
 
 
           <Route path="*" exact component={error} />

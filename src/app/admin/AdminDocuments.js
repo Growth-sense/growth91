@@ -744,7 +744,7 @@ class AdminDocuments extends Component {
                     }
                   >
                     {this.state.dealinvestorlist &&
-                      this.state.dealinvestorlist.map((item, index) => {
+                      Object.values(this.state.dealinvestorlist.reduce((acc,cur)=>Object.assign(acc,{[cur.investor_id]:cur}),{})).map((item, index) => {
                         console.log(item);
                         return (
                           <Option
@@ -953,11 +953,14 @@ class AdminDocuments extends Component {
                   optionFilterProp="children"
                 >
                   {this.state.investorlist &&
-                    this.state.investorlist.map((item, index) => (
+                    this.state.investorlist.map((item, index) => {
+                      console.log(item);
+                      
+                      return(
                       <Option key={index} value={item.investor_id} data={item}>
                         {`${item.first_name} ${item.last_name}`}
                       </Option>
-                    ))}
+                    )})}
                 </Select>
               </div>
             )}

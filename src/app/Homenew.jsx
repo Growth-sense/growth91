@@ -51,17 +51,18 @@ class Homenew extends Component {
     // title
     // title
     document.getElementsByTagName("META")[4].content =
-    "Growth91: Best Startup investment platform for Investing in startups in India";
+      "Growth91: Best Startup investment platform for Investing in startups in India";
     // title
 
     document.title =
       "Growth91: Best Startup investment platform for Investing in startups in India";
-      // keyword
-    document.getElementsByTagName("META")[5].content = "invest in startups invest in startups india "
-// description
+    // keyword
+    document.getElementsByTagName("META")[5].content =
+      "invest in startups invest in startups india ";
+    // description
     document.getElementsByTagName("META")[3].content =
-"Maximize your returns with the best startup investing platform. Learn how to invest in startups in India and find the top investment opportunities."; 
-   window.removeEventListener("scroll", this.handleScroll);
+      "Maximize your returns with the best startup investing platform. Learn how to invest in startups in India and find the top investment opportunities.";
+    window.removeEventListener("scroll", this.handleScroll);
   }
   togglemsg() {
     // Toggle isActive state
@@ -69,9 +70,9 @@ class Homenew extends Component {
     this.setState((prevState) => ({
       isActivemsg: !prevState.isActivemsg,
     }));
-  };
+  }
   componentDidMount() {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
     this.handleScroll(); // Call initially to check visibility
     window.addEventListener("scroll", this.handleScroll);
 
@@ -331,7 +332,6 @@ class Homenew extends Component {
         {
           breakpoint: 600,
           settings: {
-
             slidesToShow: 1,
             dots: true,
 
@@ -346,7 +346,6 @@ class Homenew extends Component {
 
             slidesToShow: 1,
             slidesToScroll: 1,
-
           },
         },
       ],
@@ -435,7 +434,6 @@ class Homenew extends Component {
           settings: {
             slidesToShow: 1,
             slidesToScroll: 1,
-
           },
         },
         {
@@ -462,7 +460,6 @@ class Homenew extends Component {
             slidesToScroll: 1,
 
             cssEase: "linear",
-
           },
         },
       ],
@@ -537,11 +534,10 @@ class Homenew extends Component {
       });
     });
 
-
     const pointer = {
       pointerEvents: "none",
     };
-    const { loading } = this.state
+    const { loading } = this.state;
     console.log(loading);
     return (
       <div>
@@ -561,14 +557,12 @@ class Homenew extends Component {
               <div class="row banner-row">
                 <div class="banner-sliding">
                   <Slider {...sliderSettings}>
-
-
                     <div class="left-content">
                       <div class="d-flex-banner fadding-bottom fadding-bottom-1">
                         <div class="banner-part banner-slidingpart">
                           <h1 class="">
-                          Looking to Invest in Startups in India and 
-                            Tap Into High-Growth Ventures?
+                            Looking to Invest in Startups in India and Tap Into
+                            High-Growth Ventures?
                           </h1>
                           <p class=" p-0">
                             <span>
@@ -698,10 +692,12 @@ class Homenew extends Component {
                           <h2 class="">
                             Private market <br /> investing made easy
                           </h2>
-                          <p class=" p-0" data-wow-delay="0.5s" style={{textTransform:"uppercase"}}>
-                          Raise Fund. Invest in Indian Startups. Drive Growth.
-
-                            
+                          <p
+                            class=" p-0"
+                            data-wow-delay="0.5s"
+                            style={{ textTransform: "uppercase" }}
+                          >
+                            Raise Fund. Invest in Indian Startups. Drive Growth.
                           </p>
                           <div className="banner-mobile-img d-sm-none">
                             <img
@@ -759,8 +755,7 @@ class Homenew extends Component {
                 <p>
                   <span></span>{" "}
                 </p>
-                <h3>Startups liked by Marquee Angels
-</h3>
+                <h3>Startups liked by Marquee Angels</h3>
               </div>
             </div>
             <div class="position-rel">
@@ -788,7 +783,6 @@ class Homenew extends Component {
                       srcset=""
                     />
                   </div>
-
 
                   <div class="client-logo">
                     <img
@@ -854,7 +848,6 @@ class Homenew extends Component {
                       srcset=""
                     />
                   </div>
-
 
                   <div class="client-logo">
                     <img
@@ -1055,7 +1048,6 @@ class Homenew extends Component {
                   <span></span>{" "}
                 </p>
                 <h3>Why Invest in Startups in India with Us</h3>
-                <h3>Why Invest in Startups in India with Us</h3>
               </div>
 
               <div class="main-business-card">
@@ -1115,7 +1107,6 @@ class Homenew extends Component {
                   <span></span>{" "}
                 </p>
                 <h3>Our Successful Startup Investors</h3>
-                <h3>Our Successful Startup Investors</h3>
               </div>
               <div class="col-12 col-xl-12 col-lg-12 col-md-12 ">
                 <div class="slider-testimonials">
@@ -1157,11 +1148,7 @@ class Homenew extends Component {
                           <div class="contents-testimonials">
                             <h3>Hirish Shipurkar</h3>
                             <p> Head India </p>
-                            <p className="company-name">
-                              GPS FIG, HSBC Bank
-                            </p>
-
-
+                            <p className="company-name">GPS FIG, HSBC Bank</p>
                           </div>
                         </div>
                       </div>
@@ -1207,7 +1194,6 @@ class Homenew extends Component {
                             <p className="company-name">
                               Engineer Amazon AWS and Amazon Robotics,USA
                             </p>
-
                           </div>
                         </div>
                       </div>
@@ -1251,7 +1237,6 @@ class Homenew extends Component {
                             <p className="company-name">
                               Government Banking, Axis Bank
                             </p>
-
                           </div>
                         </div>
                       </div>
@@ -1290,12 +1275,7 @@ class Homenew extends Component {
                           <div class="contents-testimonials">
                             <h3>Mitul Jhaveri</h3>
                             <p>Director Finance</p>
-                            <p className="company-name">
-                              Regal Rexnord India
-                            </p>
-
-
-
+                            <p className="company-name">Regal Rexnord India</p>
                           </div>
                         </div>
                       </div>
@@ -1339,9 +1319,7 @@ class Homenew extends Component {
                           <div class="contents-testimonials">
                             <h3>KUSH SHRIVASTAVA</h3>
                             <p>Co Founder Quiklo</p>
-                            <p className="company-name">
-                              Fintech Expert
-                            </p>
+                            <p className="company-name">Fintech Expert</p>
                           </div>
                         </div>
                       </div>
@@ -1384,10 +1362,7 @@ class Homenew extends Component {
                           <div class="contents-testimonials">
                             <h3>PRAKASH ROHERA</h3>
                             <p>INTERNATIONAL Corporate </p>
-                            <p className="company-name">
-                              Trainer and Coach
-                            </p>
-
+                            <p className="company-name">Trainer and Coach</p>
                           </div>
                         </div>
                       </div>
@@ -1545,17 +1520,18 @@ class Homenew extends Component {
             </div>
           </div>
         </section>
-      
-      
+
         <section class="custom-section">
           <div class="join-section join-sec-yellow join-sec-white undefined join-divide mobile-join">
             {/* <h4>Join us</h4> */}
             <div className="join-flex-one-us">
-              <h2>Join Us to Invest in Startups in India and Support Breakthrough Ventures</h2>
+              <h2>
+                Join Us to Invest in Startups in India and Support Breakthrough
+                Ventures
+              </h2>
               <p class="index_pitch">
-                Decades of banking, investing & startup success guide your investments. Invest confidently with us.
-              </p>
-                Decades of banking, investing & startup success guide your investments. Invest confidently with us.
+                Decades of banking, investing & startup success guide your
+                investments. Invest confidently with us.
               </p>
             </div>
             <div class="index-button-1">
@@ -1581,10 +1557,14 @@ class Homenew extends Component {
             </div>
           </div>
         </section> */}
-        <div class={`social-widjet ${isActivemsg ? ("social-open") : ("")}`}>
+        <div class={`social-widjet ${isActivemsg ? "social-open" : ""}`}>
           <div class="widjet-link">
-            <div class="whatsapp " onClick={this.togglemsg} style={{ backgroundColor: "#29176f" }}>
-              <a >
+            <div
+              class="whatsapp "
+              onClick={this.togglemsg}
+              style={{ backgroundColor: "#29176f" }}
+            >
+              <a>
                 <img
                   src="/assets/images/cross.svg"
                   alt="img"
@@ -1594,8 +1574,10 @@ class Homenew extends Component {
               </a>
             </div>
             <div class="whatsapp">
-              <a href="https://www.facebook.com/MyGrowth91?mibextid=ZbWKwL"
-                target="_blank">
+              <a
+                href="https://www.facebook.com/MyGrowth91?mibextid=ZbWKwL"
+                target="_blank"
+              >
                 <img
                   src="/assets/images/messanger.svg"
                   alt="img"
@@ -1605,8 +1587,7 @@ class Homenew extends Component {
               </a>
             </div>
             <div class="whatsapp">
-              <a href="https://www.instagram.com/growth.91/"
-                target="_blank">
+              <a href="https://www.instagram.com/growth.91/" target="_blank">
                 <img
                   src="/assets/images/insta.png"
                   title="chat to us on Viber"
@@ -1616,8 +1597,10 @@ class Homenew extends Component {
               </a>
             </div>
             <div class="whatsapp">
-              <a href="https://api.whatsapp.com/send?phone=7588544442&text=welcome%20to%20Growth%2091"
-                target="_blank">
+              <a
+                href="https://api.whatsapp.com/send?phone=7588544442&text=welcome%20to%20Growth%2091"
+                target="_blank"
+              >
                 <img
                   src="/assets/images/Whatsapp.svg"
                   title="chat to us on Viber"
@@ -1643,8 +1626,7 @@ class Homenew extends Component {
             :("")} */}
 
         <NewWebFooter />
-      </div >
-      </div >
+      </div>
     );
   }
 }

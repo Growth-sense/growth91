@@ -191,10 +191,16 @@ class Investors extends Component {
         // } else {
         this.setState({
           investors: result.data.map((el) => {
-            return { ...el, name: el.first_name + " " + el.last_name };
+            return { ...el, name: el.first_name + " " + el.last_name, investor_id: Number(el.investor_id),investor_ids: el.investor_id,
+              total_invested_amount: Number(el.total_invested_amount) };
+          }).sort((a, b) => {
+            return a.investor_id > b.investor_id ? -1 : 1;
           }),
           cinvestors: result.data.map((el) => {
-            return { ...el, name: el.first_name + " " + el.last_name };
+            return { ...el, name: el.first_name + " " + el.last_name , investor_id: Number(el.investor_id),investor_ids: el.investor_id,
+              total_invested_amount: Number(el.total_invested_amount)};
+          }).sort((a, b) => {
+            return a.investor_id > b.investor_id ? -1 : 1;
           }),
           loading: false,
         });
@@ -424,14 +430,14 @@ class Investors extends Component {
       console.log(text);
       let arr = [];
       for (let item of this.state.cinvestors) {
-        console.log(item.name);
+        console.log(item);
         if (
           // (item.first_name && item.first_name.toLowerCase().includes(text.toLowerCase())) ||
           (item.name && item.name.toLowerCase().includes(text.toLowerCase())) ||
           // (item.last_name && item.last_name.toLowerCase().includes(text.toLowerCase())) ||
           (item.email && item.email.includes(text)) ||
           (item.mobile && item.mobile.includes(text)) ||
-          (item.investor_id && item.investor_id.includes(text)) ||
+          (item.investor_ids && (item.investor_ids).includes((text))) ||
           (item.referred_by && item.referred_by.includes(text))
         ) {
           arr = [...arr, item];
@@ -1089,7 +1095,7 @@ class Investors extends Component {
   };
 
   render() {
-    const disdingid = (datas) => {
+    const disdingid = () => {
       console.log(this.state.modes);
       if (this.state.modes == "ass") {
         const data = [...this.state.investors]
@@ -1101,7 +1107,6 @@ class Investors extends Component {
             };
           })
           .sort((a, b) => {
-            console.log(datas);
             return a.investor_id > b.investor_id ? 1 : -1;
           });
         this.setState({
@@ -1119,7 +1124,6 @@ class Investors extends Component {
             };
           })
           .sort((a, b) => {
-            console.log(datas);
             return a.investor_id > b.investor_id ? -1 : 1;
           });
         this.setState({

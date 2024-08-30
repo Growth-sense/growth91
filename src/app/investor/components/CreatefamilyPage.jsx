@@ -114,7 +114,6 @@ export default class CreatefamilyPage extends Component {
         console.log(result);
         this.setState({ CreateModalStatus: false });
         this.viewgroupall();
-        this.viewgroupasmember();
       });
     }
   };
@@ -127,15 +126,7 @@ export default class CreatefamilyPage extends Component {
       this.setState({ group_list: result.data });
     });
   };
-  viewgroupasmember = () => {
-    let params = {
-      userID: localStorage.getItem("investor_id"),
-    };
-    Bridge.family.getGroupList(params).then((result) => {
-      console.log(result.data);
-      this.setState({ group_list: result.data });
-    });
-  };
+ 
   getmember = (value) => {
     if (localStorage.getItem("investor_id"))
       this.setState({ memberdetail: "", memberlistloader: true });
@@ -211,12 +202,31 @@ export default class CreatefamilyPage extends Component {
       }
     });
   };
+  removerequest = (value) => {
+    console.log(value,"ads");
+    let params = {
+      userID: localStorage.getItem("Parent_investor_id"),
+      groupID: value.groupID,
+      invite_email: value.email,
+      invite_mobile: value.mobile,
+    };
+    console.log(params);
+    Bridge.family.deleteRequest(params).then((result) => {
+      console.log(result);
+      if (result.message == "Your request for delete is received by us successfully.") {
+
+        toast.success("Your request for delete is received by us successfully.");
+      } else {
+        toast.error("Error");
+      }
+    });
+  };
   render() {
     //for referral
 
     const dataSource =
       this.state.group_list &&
-      this.state.group_list.map((item, index) => {
+      this.state.group_list.filter(item=>item.userID== localStorage.getItem("Parent_investor_id")).map((item, index) => {
         console.log(item);
         return {
           key: item.groupID,
@@ -225,6 +235,20 @@ export default class CreatefamilyPage extends Component {
             ? moment(item.groupCreateDate).format("DD MMM, YYYY")
             : "---",
           Status: item.groupStatus,
+        };
+      });
+    const dataSource2 =
+      this.state.group_list &&
+      this.state.group_list.filter(item=>item.userID!== localStorage.getItem("Parent_investor_id")).map((item, index) => {
+        console.log(item);
+        return {
+          key: item.groupID,
+          name: item.groupName,
+          groupCreateDate: item.groupCreateDate
+            ? moment(item.groupCreateDate).format("DD MMM, YYYY")
+            : "---",
+          Status: item.groupStatus,
+          action: item,
         };
       });
 
@@ -260,7 +284,7 @@ export default class CreatefamilyPage extends Component {
                 style={{ width: 120 }}
               >
                 <Menu.Item icon={<UserAddOutlined />}>
-                  <Link to={`/View-family-list?id=${records.key}`}>
+                  <Link to={`/View-Group-list?id=${records.key}`}>
                     <div className="menu-action">Manage</div>
                   </Link>
                 </Menu.Item>
@@ -278,7 +302,7 @@ export default class CreatefamilyPage extends Component {
                   </>
                 </Menu.Item>
                 <Menu.Item icon={<DeleteOutlined />}>
-                  <Link to={`/View-family-list?id=${records.key}`}>
+                  <Link to={`/View-Group-list?id=${records.key}`}>
                     <div className="menu-action">Delete</div>
                   </Link>
                 </Menu.Item>
@@ -294,6 +318,74 @@ export default class CreatefamilyPage extends Component {
                     </div>
                   </>
                 </Menu.Item>
+
+                {/* <Menu.Item key={`Delete${record.key}`} icon={<DeleteOutlined/>}>
+                    <a
+                    href="#"
+                    style={{ fontSize: 14 }}
+                    onClick={() => this.showDeleteModal(record.key)}
+                    >
+                    &nbsp;&nbsp;Delete
+                    </a>
+                    </Menu.Item> */}
+              </Menu>
+            </>
+          );
+          return (
+            <div className="d-flex ">
+              <div style={{ marginLeft: "10px", color: "#1890ff" }}>
+                <Dropdown overlay={menu} placement="bottom">
+                  <a onClick={(e) => e.preventDefault()}>
+                    <div className="menu-action">
+                      <i className="bx bx-dots-vertical-rounded"></i>
+                    </div>
+                  </a>
+                </Dropdown>
+              </div>
+            </div>
+          );
+        },
+      },
+    ];
+    const columns2 = [
+      {
+        title: "Group Name",
+        dataIndex: "name",
+        key: "name",
+      },
+
+      {
+        title: "Date of Creation",
+        dataIndex: "groupCreateDate",
+        key: "groupCreateDate",
+      },
+
+      {
+        title: "Status",
+        dataIndex: "Status",
+        key: "Status",
+      },
+      {
+        title: "Actions",
+        dataIndex: "action",
+        key: "action",
+        render: (text, records) => {
+          console.log(text);
+          const menu = (
+            <>
+              <Menu
+                mode="vertical"
+                defaultSelectedKeys={[this.state.path]}
+                style={{ width: 120 }}
+              >
+                <Menu.Item icon={<UserAddOutlined />}>
+                  <Link to={`#`}
+                    onClick={() => this.removerequest(text)}>
+                    <div className="menu-action">Remove Request</div>
+                  </Link>
+                </Menu.Item>
+               
+              
 
                 {/* <Menu.Item key={`Delete${record.key}`} icon={<DeleteOutlined/>}>
                     <a
@@ -398,34 +490,7 @@ export default class CreatefamilyPage extends Component {
         },
       },
     ];
-    //for wallet history
-    const columns2 = [
-      {
-        title: "Wallet Id",
-        dataIndex: "wallet_id",
-        key: "wallet_id",
-      },
-      {
-        title: "Investor Id",
-        dataIndex: "investor_id",
-        key: "investor_id",
-      },
-      {
-        title: "Description",
-        dataIndex: "description",
-        key: "description",
-      },
-      {
-        title: "Type",
-        dataIndex: "type",
-        key: "type",
-      },
-      {
-        title: "Amount",
-        dataIndex: "amount",
-        key: "amount",
-      },
-    ];
+ 
     return (
       <div>
         <Modal
@@ -525,43 +590,21 @@ export default class CreatefamilyPage extends Component {
           {/* referral Table */}
           {this.state.showreferral && (
             <>
-            <section id="hdii" style={{ minHeight: "70vh" }}>
+            <section id="hdii" style={{ minHeight: "10vh" }}>
               <div className="row">
                 <div
                   className="col-10 my-2"
                   style={{ marginTop: 50, marginLeft: 30 }}
                 >
-                  <h2 className="text-center mb-3">Family Admin</h2>
+                  <h2 className="text-center mb-3">Group Admin</h2>
                 </div>
               </div>
 
               <div className="row m-md- ms-2 p-md-3 pt-3">
-                {/* <div className='col-4 '>
-                            <div className="input-group ">
-                                <Input
-                                placeholder="Search.."
-                                type={"text"}
-                                style={{ width: "50%", height: 45 }}
-                                onChange={(e) => this.searchinput(e)}
-                                />
-                            </div>
-                        </div> */}
-                <div className="col-6">
-                  <i class="bx bx-wallet" style={{ fontSize: "23px" }}></i>
-                  <input
-                    className="mx-3 px-2 py-1"
-                    value={this.state.totalAmount}
-                    style={{ width: "60%" }}
-                  ></input>
-                  <a
-                    href="#"
-                    onClick={() => {
-                      this.setState({ showHistory: true, showreferral: false });
-                    }}
-                  >
-                    <i class="bx bx-history" style={{ fontSize: "23px" }}></i>
-                  </a>
-                </div>
+                <div className='col-4 '>
+                            
+                        </div>
+              
                 <div className="col offset-md-4">
                   <button
                     className="small-button-dark3"
@@ -582,63 +625,38 @@ export default class CreatefamilyPage extends Component {
                 </div>
               </div>
             </section>
-            <section id="hdii" style={{ minHeight: "70vh" }}>
+            { dataSource2.length!=0  &&
+            <section id="hdii" style={{ minHeight: "10vh" ,marginTop:0}}>
               <div className="row">
                 <div
                   className="col-10 my-2"
                   style={{ marginTop: 50, marginLeft: 30 }}
                 >
-                  <h2 className="text-center mb-3">Family Member</h2>
+                  <h2 className="text-center mb-3">Group Member</h2>
                 </div>
               </div>
 
               <div className="row m-md- ms-2 p-md-3 pt-3">
-                {/* <div className='col-4 '>
-                            <div className="input-group ">
-                                <Input
-                                placeholder="Search.."
-                                type={"text"}
-                                style={{ width: "50%", height: 45 }}
-                                onChange={(e) => this.searchinput(e)}
-                                />
-                            </div>
-                        </div> */}
-                <div className="col-6">
-                  <i class="bx bx-wallet" style={{ fontSize: "23px" }}></i>
-                  <input
-                    className="mx-3 px-2 py-1"
-                    value={this.state.totalAmount}
-                    style={{ width: "60%" }}
-                  ></input>
-                  <a
-                    href="#"
-                    onClick={() => {
-                      this.setState({ showHistory: true, showreferral: false });
-                    }}
-                  >
-                    <i class="bx bx-history" style={{ fontSize: "23px" }}></i>
-                  </a>
-                </div>
+                <div className='col-4 '>
+                            
+                        </div>
+              
                 <div className="col offset-md-4">
-                  <button
-                    className="small-button-dark3"
-                    onClick={this.onClickInvite}
-                  >
-                    Create Group
-                  </button>
+                 
                 </div>
 
                 <div className="row m-3 p-3">
                   <Table
                     className="table-2"
-                    dataSource={dataSource}
-                    columns={columns}
+                    dataSource={dataSource2}
+                    columns={columns2}
                     bordered
                     loading={this.state.loading}
                   />
                 </div>
               </div>
             </section>
+      }
             </>
           )}
           {/* history table */}

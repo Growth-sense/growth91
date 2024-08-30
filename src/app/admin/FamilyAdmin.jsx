@@ -367,7 +367,7 @@ class FamilyAdmin extends Component {
           mobile: item.mobile,
           action: item,
           groupCreateDate: item.groupCreateDate,
-          ownername:item.first_name =" "+ item.last_name,
+          ownername:item.first_name +" "+ item.last_name,
           userId: item.userID
         };
       });
@@ -424,7 +424,7 @@ class FamilyAdmin extends Component {
               defaultSelectedKeys={[this.state.path]}
               style={{ width: 200 }}
             >
-              <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />}>
+              {/* <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />}>
                 <a
                   href="#"
                   onClick={() => this.showEditModal(text)}
@@ -432,8 +432,8 @@ class FamilyAdmin extends Component {
                 >
                   &nbsp;&nbsp;Edit
                 </a>
-              </Menu.Item>
-              <Menu.Item key={`Delete${record.key}`} icon={<DeleteOutlined />}>
+              </Menu.Item> */}
+              {/* <Menu.Item key={`Delete${record.key}`} icon={<DeleteOutlined />}>
                 <a
                   href="#"
                   style={{ fontSize: 14 }}
@@ -441,7 +441,7 @@ class FamilyAdmin extends Component {
                 >
                   &nbsp;&nbsp;Delete
                 </a>
-              </Menu.Item>
+              </Menu.Item> */}
               <Menu.Item key={`Delete${record.key}`} icon={<ManOutlined/>}>
                 <Link
                   to={`/admin-family-manage?id=${record.key}&userid=${record.userId} `}
@@ -504,7 +504,7 @@ class FamilyAdmin extends Component {
                   }}
                 >
                   <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
-                  <Breadcrumb.Item>Family Admin</Breadcrumb.Item>
+                  <Breadcrumb.Item>Group Investments</Breadcrumb.Item>
                 
                 </Breadcrumb>
                 <br />

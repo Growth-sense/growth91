@@ -256,6 +256,7 @@ const URLs = {
   editGroup:"investors/InvestorController/editGroup",
   deleteGroupMember:"investors/InvestorController/deleteGroupMember",
   deleteRequest:"investors/InvestorController/deleteRequest",
+  getDeleteRequest:"investors/InvestorController/getDeleteRequest",
   deleteRequestApprove:"investors/InvestorController/deleteRequestApprove",
 
 };

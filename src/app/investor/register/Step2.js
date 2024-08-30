@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Header from "../../common/Header";
 import { Switch, Spin, message, Checkbox } from "antd";
 import Bridge from "../../constants/Bridge";
-import WebFooter from "../../common/WebFooter";
+import { NewWebFooter } from "../../common/NewWebFooter";
 class Step2 extends Component {
   constructor(props) {
     super(props);
@@ -272,7 +272,7 @@ class Step2 extends Component {
             </div>
           </div>
         </section>
-        <WebFooter />
+        <NewWebFooter />
       </div>
     );
   }

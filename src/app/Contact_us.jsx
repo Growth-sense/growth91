@@ -109,7 +109,7 @@ useEffect(() => {
                         <li>
                           <a
                             target="_blank"
-                            href="https://twitter.com/Ivygrowth"
+                            href="https://x.com/Growth_91"
                           >
                             <i class="fab fa-twitter"></i>
                           </a>

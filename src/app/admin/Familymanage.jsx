@@ -591,7 +591,7 @@ class Familymanage extends Component {
                   }}
                 >
                   <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
-                  <Breadcrumb.Item>Family Admin</Breadcrumb.Item>
+                  <Breadcrumb.Item>Group Investments</Breadcrumb.Item>
                 
                 </Breadcrumb>
                 <br />

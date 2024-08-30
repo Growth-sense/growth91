@@ -376,6 +376,7 @@ class InvestorKYCScreen extends Component {
           category: "KYC",
           action: "PAN Verified",
         });
+console.log(response.data);
 
         this.setState(
           {
@@ -953,8 +954,8 @@ class InvestorKYCScreen extends Component {
       pan_name_match_score: this.state.pan_details.name_match_score
         ? this.state.pan_details.name_match_score
         : "",
-      pan_name_provided: this.state.pan_details.name_provided
-        ? this.state.pan_details.name_provided
+      pan_name_provided: this.state.pan_details.registered_name
+        ? this.state.pan_details.registered_name
         : "",
       pan: this.state.pan_details.pan ? this.state.pan_details.pan : "",
       pan_reference_id: this.state.pan_details.reference_id
@@ -966,6 +967,7 @@ class InvestorKYCScreen extends Component {
       pan_type: this.state.pan_details.type ? this.state.pan_details.type : "",
       pan_valid: this.state.pan_details.valid == true ? 1 : 0,
     };
+    console.log(params);
     Bridge.update_kyc_details(params).then((result) => {
       if (result.status == 1) {
         this.setState({ loading: false }, () => this.getbankdetails());

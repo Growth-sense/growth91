@@ -31,6 +31,7 @@ class OfflinePayment extends Component {
     super(props);
     this.state = {
       offline_list: [],
+      modes: "ass",
 
     };
   }
@@ -38,7 +39,11 @@ class OfflinePayment extends Component {
     Bridge.admin.get_all_offline_payment_history().then((result) => {
       if (result.status == "1") {
         this.setState({
-          offline_list: result.data,
+          offline_list: result.data.map((el)=>{
+            return{ ...el,investor_id :Number(el.investor_id)}
+          }).sort((a, b) => {
+            return new Date (a.payment_dt).toISOString() >new Date (b.payment_dt).toISOString()? -1 : 1;
+          }),
           coffline_list: result.data,
         });
       }
@@ -136,7 +141,7 @@ class OfflinePayment extends Component {
       });
       const disdingid = (datas) => {
         console.log(this.state.modes);
-        // if (this.state.modes == "ass") {
+        if (this.state.modes == "ass") {
           const data = [...this.state.offline_list]
             .map((el) => {
               return { ...el, investor_id: Number(el.investor_id  ),investment_amt:Number(el.investment_amt) };
@@ -148,7 +153,20 @@ class OfflinePayment extends Component {
           this.setState({
             offline_list: data,
           });
-          // }
+          }
+          else if(this.state.modes == "dis") {
+            const data = [...this.state.offline_list]
+            .map((el) => {
+              return { ...el, investor_id: Number(el.investor_id  ),investment_amt:Number(el.investment_amt) };
+            })
+            .sort((a, b) => {
+              console.log(datas);
+              return a.datas > b.datas ? -1 : 1;
+            });
+          this.setState({
+            offline_list: data,
+          });
+          }
       };
     const columns = [
       {

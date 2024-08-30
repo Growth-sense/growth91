@@ -387,6 +387,8 @@ class Founders extends Component {
       let arr = [];
       console.log(this.state.cfounderlist);
       for (let item of this.state.cfounderlist) {
+        console.log(item);
+
         if (
           (item.startup_name && item.startup_name.toLowerCase().includes(text.toLowerCase())) ||
           (item.name && item.name.toLowerCase().includes(text.toLowerCase())) ||

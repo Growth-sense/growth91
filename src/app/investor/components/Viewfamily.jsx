@@ -56,7 +56,6 @@ class Viewfamily extends Component {
     if (this.props.investor_id) {
       // this.getmember();
     }
-    this.getbankdetails();
     this.getInvestments();
   }
   test=()=>{
@@ -86,16 +85,15 @@ class Viewfamily extends Component {
       }
     });
   };
-  getbankdetails = (ids) => {
+  getbankdetails = () => {
     let params = {
-      id: ids||localStorage.getItem("investor_id"),
+      id: localStorage.getItem("investor_id"),
     };
-    console.log(ids);
     Bridge.investor.getbankdetails(params).then((result) => {
       if (result.status == 1) {
         //checking user block status
         if (result.data[0].user_block_status == 0) {
-          // console.log('result',result);
+          console.log('result',result.data);
           this.setState({
             selfaccount: result.data[0],
             viewmemberdetail:result.data[0]
@@ -176,6 +174,34 @@ class Viewfamily extends Component {
       })
       console.log(data);
       console.log(data.length,"0");
+     const newchanges= data.filter((item,index)=>{
+      return(
+
+        item.investor_id ==  localStorage.getItem("investor_id") 
+      )
+     })
+     console.log(newchanges);
+     if(newchanges.length==0){
+      localStorage.setItem(
+              "investor_id",
+              localStorage.getItem("Parent_investor_id")
+            );
+            localStorage.setItem(
+              "investor_email",
+              localStorage.getItem("Parent_investor_email")
+            );
+            localStorage.setItem(
+              "investor_kycstatus",
+              localStorage.getItem("Parent_investor_kycstatus")
+            );
+            localStorage.setItem(
+              "investor_name",
+              localStorage.getItem("Parent_investor_name")
+            );
+            
+          }
+          this.getbankdetails( localStorage.getItem("investor_id"));
+     
     //   if(data.length !=0 ){
     //     localStorage.setItem(
     //       "investor_id",
@@ -233,12 +259,10 @@ class Viewfamily extends Component {
       );
 
       this.setState({ viewmemberdetail: data[0] });
-      this.getbankdetails(id)
+      this.getbankdetails()
       window.location.reload();
     } else {
-    //   alert("aadil")
-    //   this.setState({ viewmemberdetail: this.state.selfaccount });
-    //   console.log(this.state.selfaccount);
+    
       localStorage.setItem("investor_id",
         localStorage.getItem("Parent_investor_id")
       );
@@ -254,7 +278,7 @@ class Viewfamily extends Component {
         "investor_name",
         localStorage.getItem("Parent_investor_name")
       );
-      this.getbankdetails(id)
+      this.getbankdetails()
 
 
 
