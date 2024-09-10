@@ -634,8 +634,9 @@ Compulsorily Convertible Preference Shares (CCPS) is a type of equity instrument
                                                 ).format("YYYY-MM-DD")
                                               ) ==0 ? (
                                                 <div className=" ">
-                                                Live in <br />
+                                                {/* Live in <br /> */}
                                                 <p className="per">
+                                                {/*
                                                   {this.getDifferencestart(
                                                     this.state.todaydate,
                                                     moment(
@@ -653,8 +654,9 @@ Compulsorily Convertible Preference Shares (CCPS) is a type of equity instrument
                                                           item.deal_st_date
                                                         ).format("YYYY-MM-DD")
                                                       )}{" "}
-                                                  Days
-                                                </p>
+                                                  Days 
+                                                  */}
+                                                </p> 
                                               </div>
                                               ) : (
                                                 

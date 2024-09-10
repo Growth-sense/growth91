@@ -693,6 +693,10 @@ export default {
         api.post(URLs.deleteinvestor, data, config).then((response) => {
           return response.data;
         }),
+      update_enable_status: (data) =>
+        api.post(URLs.update_enable_status, data).then((response) => {
+          return response.data;
+        }),
       getstartupinvestorlist: (data) =>
         api.post(URLs.getstartupinvestorlist, data).then((response) => {
           return response.data;
@@ -900,6 +904,14 @@ export default {
           return response.data;
         }),
       
+      },
+      Unicorn:{
+        createunicorndraft:(data)=>api.post(URLs.createunicorndraft,data).then((response) => {
+          return response.data;
+        }),
+        unicornListByFounders:(data)=>api.post(URLs.unicornListByFounders,data).then((response) => {
+          return response.data;
+        }),
       }
     
     

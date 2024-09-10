@@ -100,9 +100,46 @@ class Innoserv extends Component {
       deal_service: "",
       images: [
         "./assets/images/deals-details/Innoserv/Pitch/Innoserv pitch deck-images-0.jpg",
-        "./assets/images/deals-details/Innoserv/Pitch/Innoserv pitch deck-images-1.jpg"
+        "./assets/images/deals-details/Innoserv/Pitch/Innoserv pitch deck-images-1.jpg",
+      ],
+      images2: [
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-0.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-1.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-2.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-3.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-4.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-5.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-6.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-7.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-8.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-0.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-10.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-11.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-12.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-13.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-14.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-15.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-16.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-17.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-18.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-19.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-20.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-21.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-22.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-23.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-24.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-25.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-26.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-27.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-28.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-29.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-30.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-31.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-32.jpg",
+        "./assets/images/deals-details/Innoserv/Pitch1/Innoserv2.0-images-33.jpg",
       ],
       current: "",
+      current2: "",
     };
   }
   callback1 = (key) => {};
@@ -1078,10 +1115,16 @@ class Innoserv extends Component {
       current: image,
     });
   };
+  handleClickImage2 = (image) => {
+    this.setState({
+      current2: image,
+    });
+  };
 
   handleCloseModal = () => {
     this.setState({
       current: "",
+      current2: "",
     });
   };
 
@@ -1103,7 +1146,7 @@ class Innoserv extends Component {
       </>
     );
     const settings = this.getSliderSettings();
-    const { images, current } = this.state;
+    const { images, current, current2, images2 } = this.state;
 
     return (
       <>
@@ -1161,7 +1204,22 @@ class Innoserv extends Component {
                           ))}
                       </div>
                       <p style={{ textAlign: "justify" }}>
-                      Innoserv is a forward-thinking company specializing in AI-driven digital marketing and corporate training solutions. With over 11 years of market presence, InnoServ operates through its two primary business units: AiQ Brand Quotient (AiQ BQ), which focuses on innovative branding strategies that blend human creativity with advanced AI technology, and iSkillBox, which delivers personalized, AI-enabled e-learning and corporate training programs. By leveraging cutting-edge technologies, InnoServ provides businesses with tailored marketing and training solutions, enhancing brand engagement and workforce development. With a strong global client base and a strategic focus on operational efficiency, InnoServ is poised for significant growth and leadership in the rapidly evolving digital landscape.
+                        Innoserv is a forward-thinking company specializing in
+                        AI-driven digital marketing and corporate training
+                        solutions. With over 11 years of market presence,
+                        InnoServ operates through its two primary business
+                        units: AiQ Brand Quotient (AiQ BQ), which focuses on
+                        innovative branding strategies that blend human
+                        creativity with advanced AI technology, and iSkillBox,
+                        which delivers personalized, AI-enabled e-learning and
+                        corporate training programs. By leveraging cutting-edge
+                        technologies, InnoServ provides businesses with tailored
+                        marketing and training solutions, enhancing brand
+                        engagement and workforce development. With a strong
+                        global client base and a strategic focus on operational
+                        efficiency, InnoServ is poised for significant growth
+                        and leadership in the rapidly evolving digital
+                        landscape.
                       </p>{" "}
                       <div className=" percentage-container">
                         <div className="percentage-values">
@@ -1580,8 +1638,7 @@ class Innoserv extends Component {
                     </div>
                   </Modal>
                   <div className="col-lg-7 deal-banner deals-video-banner liaplus ">
-                                        
-                 <iframe
+                    <iframe
                       style={{
                         boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
                         borderRadius: 3,
@@ -1589,12 +1646,14 @@ class Innoserv extends Component {
                       }}
                       width="100%"
                       height="335"
-                      src="https://www.youtube.com/embed/TmBAlWCDF3Q"  title="Co buzz expo video"  frameborder="10"
+                      src="https://www.youtube.com/embed/TmBAlWCDF3Q"
+                      title="Co buzz expo video"
+                      frameborder="10"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowfullscreen
-                    ></iframe> 
-                                        
-                 <iframe
+                    ></iframe>
+
+                    <iframe
                       style={{
                         boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
                         borderRadius: 3,
@@ -1602,11 +1661,12 @@ class Innoserv extends Component {
                       }}
                       width="100%"
                       height="335"
-                      src="https://www.youtube.com/embed/cRxaZJ6c0gY" title="ISKILL BOX SHOWREEL HIGH RES"  frameborder="10"
+                      src="https://www.youtube.com/embed/cRxaZJ6c0gY"
+                      title="ISKILL BOX SHOWREEL HIGH RES"
+                      frameborder="10"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowfullscreen
-                    ></iframe> 
-                    
+                    ></iframe>
 
                     {/* {!this.state.youtube_url && (
                       <>
@@ -1658,9 +1718,14 @@ class Innoserv extends Component {
                                 fontWeight: "800",
                               }}
                             >
-                           
-                              Rapid Growth in Digital Marketing: </span>
-                              The global digital marketing market is projected to grow from $322.5 billion in 2020 to $640.2 billion by 2027, driven by technological advancements in AI, big data, and increasing internet penetration. In India, the market is expected to reach $55.37 billion by 2032, with a CAGR of 30.2%.
+                              Rapid Growth in Digital Marketing:{" "}
+                            </span>
+                            The global digital marketing market is projected to
+                            grow from $322.5 billion in 2020 to $640.2 billion
+                            by 2027, driven by technological advancements in AI,
+                            big data, and increasing internet penetration. In
+                            India, the market is expected to reach $55.37
+                            billion by 2032, with a CAGR of 30.2%.
                           </p>
                         </div>
                       </div>
@@ -1688,7 +1753,14 @@ class Innoserv extends Component {
                                 fontWeight: "800",
                               }}
                             >
-                             Expanding Corporate Training Market:</span> The global corporate training market is set to increase from $332.9 billion in 2019 to $487.3 billion by 2027, fueled by the demand for continuous learning, AI integration, and scalable e-learning solutions. The AI-driven e-learning market is a key growth area, with significant potential.
+                              Expanding Corporate Training Market:
+                            </span>{" "}
+                            The global corporate training market is set to
+                            increase from $332.9 billion in 2019 to $487.3
+                            billion by 2027, fueled by the demand for continuous
+                            learning, AI integration, and scalable e-learning
+                            solutions. The AI-driven e-learning market is a key
+                            growth area, with significant potential.
                           </p>
                         </div>
                       </div>
@@ -1717,7 +1789,14 @@ class Innoserv extends Component {
                                 fontWeight: "800",
                               }}
                             >
-                            Technological Transformation as a Key Driver:</span> Both industries are being revolutionized by AI, machine learning, and immersive technologies (e.g., VR, AR), enabling hyper-personalization, improved engagement, and more effective strategies, positioning them for sustained growth and innovation.
+                              Technological Transformation as a Key Driver:
+                            </span>{" "}
+                            Both industries are being revolutionized by AI,
+                            machine learning, and immersive technologies (e.g.,
+                            VR, AR), enabling hyper-personalization, improved
+                            engagement, and more effective strategies,
+                            positioning them for sustained growth and
+                            innovation.
                           </p>{" "}
                         </div>
                       </div>
@@ -1752,7 +1831,10 @@ class Innoserv extends Component {
                             <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
                           </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                          Innoserv’s advanced use of AI for personalized, data-driven services in branding, digital marketing, and corporate training sets gave them revenue of 13.4 Cr. In FY 2023-24
+                            Innoserv’s advanced use of AI for personalized,
+                            data-driven services in branding, digital marketing,
+                            and corporate training sets gave them revenue of
+                            13.4 Cr. In FY 2023-24
                           </p>
                         </div>
                       </div>
@@ -1765,7 +1847,9 @@ class Innoserv extends Component {
                             <img src="./assets/images/deals-details/Petmojo/highlight01.jpg" />
                           </div>
                           <p style={{ padding: "1px !important" }}>
-                          The company provides a full range of services under one roof, allowing for cohesive and integrated strategies tailored to client needs.
+                            The company provides a full range of services under
+                            one roof, allowing for cohesive and integrated
+                            strategies tailored to client needs.
                           </p>{" "}
                         </div>
                       </div>
@@ -1778,7 +1862,9 @@ class Innoserv extends Component {
                             <img src="./assets/images/deals-details/highlight2.jfif" />
                           </div>
                           <p style={{ padding: "0px !important" }}>
-                          Innoserv's dedication to building long-term partnerships and delivering exceptional service fosters high client retention and loyalty.
+                            Innoserv's dedication to building long-term
+                            partnerships and delivering exceptional service
+                            fosters high client retention and loyalty.
                           </p>
                         </div>
                       </div>
@@ -1791,7 +1877,9 @@ class Innoserv extends Component {
                             <img src="./assets/images/deals-details/highlight3.jpg" />
                           </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                          Continuous investment in research and development ensures that innoserv remains at the forefront of industry trends and technologies.
+                            Continuous investment in research and development
+                            ensures that innoserv remains at the forefront of
+                            industry trends and technologies.
                           </p>
                         </div>
                       </div>
@@ -1804,7 +1892,10 @@ class Innoserv extends Component {
                             <img src="./assets/images/deals-details/highlight3.jpg" />
                           </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                          InnoServ has over 200 global clients with a high retention rate of 85%, showcasing effective client management and satisfaction.                           </p>
+                            InnoServ has over 200 global clients with a high
+                            retention rate of 85%, showcasing effective client
+                            management and satisfaction.{" "}
+                          </p>
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
@@ -1816,7 +1907,11 @@ class Innoserv extends Component {
                             <img src="./assets/images/deals-details/highlight3.jpg" />
                           </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                          InnoServ offers investors a 12% annual return through a Compulsory Convertible Debenture (CCD) with monthly payments, plus 50% of the investment value in bonus shares at maturity over 3 years.                          </p>
+                            InnoServ offers investors a 12% annual return
+                            through a Compulsory Convertible Debenture (CCD)
+                            with monthly payments, plus 50% of the investment
+                            value in bonus shares at maturity over 3 years.{" "}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -1944,6 +2039,42 @@ class Innoserv extends Component {
                           )}
                         </div>
                       </div>
+                      <div className="deal-terms-section">
+                        {/* Investor Presentation */}
+                        <div
+                          className=""
+                          style={{
+                            backgroundColor: "white",
+                            marginTop: "1px !important",
+                          }}
+                        >
+                          <h1
+                            style={{
+                              fontSize: 32,
+                              marginBottom: 30,
+                              textAlign: "center",
+                              marginTop: "-10px !important",
+                            }}
+                          >
+                            Investor Presentation
+                          </h1>
+                          <Slider {...settings} className="mb-5 pitch-slider">
+                            {images2.map((image1, index) => (
+                              <img
+                                key={index}
+                                src={image1}
+                                onClick={() => this.handleClickImage2(image1)}
+                              />
+                            ))}
+                          </Slider>
+                          {current2 && (
+                            <Lightbox
+                              mainSrc={current2}
+                              onCloseRequest={this.handleCloseModal}
+                            />
+                          )}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -2014,7 +2145,15 @@ class Innoserv extends Component {
                                           </div>
                                           <div className="info">
                                             <span>Valuation</span>
-                                            <h4>20 Crores Pre Money</h4>
+                                            <h4>51 Cr. Pre Money</h4>
+                                          </div>
+                                          <div className="info">
+                                            <span>Interest on CCD</span>
+                                            <h4>
+                                              12% per annum, paid monthly and
+                                              conversion to equity with 50%
+                                              bonus share after three years
+                                            </h4>
                                           </div>
                                         </div>
                                       </div>
@@ -2037,7 +2176,9 @@ class Innoserv extends Component {
                                         <div className="col-lg-12">
                                           <div className="info">
                                             <span>Legal Name</span>
-                                            <h4>Innoserv Solutions Pvt. Ltd.</h4>
+                                            <h4>
+                                              Innoserv Solutions Pvt. Ltd.
+                                            </h4>
                                           </div>
                                           <div className="info">
                                             <span>Founded</span>
@@ -2071,9 +2212,9 @@ class Innoserv extends Component {
                                               <a href="https://www.facebook.com/share/gZMnLfVh7y1DZwjB/?mibextid=qi2Omg">
                                                 <i className="bx bxl-facebook fs-19"></i>
                                               </a>
-                                              {/* <a href="https://www.linkedin.com/company/edept-co/">
+                                              <a href="https://www.linkedin.com/company/aiqbq/">
                                                 <i className="bx bxl-linkedin fs-19"></i>
-                                              </a> */}
+                                              </a>
                                               <a href="https://www.instagram.com/aiq_brandquotient?igsh=emhnajhjbXB3M3ly">
                                                 <i className="bx bxl-instagram fs-19"></i>
                                               </a>
@@ -2086,9 +2227,8 @@ class Innoserv extends Component {
                                           <div className="info">
                                             <span>Address</span>
                                             <h4>
-                                              Wework Galaxy, #43, Residency
-                                              Road, Richmond Town, Bangalore,
-                                              Bangalore North, Karnataka, India
+                                              A-24, Harileela Society, Balewadi
+                                              Phata, Baner Road, Pune{" "}
                                             </h4>
                                           </div>
                                         </div>
@@ -2413,12 +2553,49 @@ class Innoserv extends Component {
                                                           textAlign: "justify",
                                                         }}
                                                       >
-                                                        Innoserv is primarily focused on delivering services rather than physical products. The company’s core offerings revolve around AI-driven branding, digital marketing, and corporate training solutions. These services include personalized branding strategies, digital marketing campaigns, corporate training programs, and AI-enabled learning platforms.
-
-innoserv’s approach emphasizes the integrating technologoes, particularly AI, with human creativity to provide customized and impactful services that address specific client needs. By focusing on service, the company delivers tailored solutions that help businesses grow, improve their brand presence, and enhance their workforce capabilities
-
-While innoserv may develop digital assets or learning modules as part of its service offerings, the primary emphasis is on providing comprehensive, technology-enhanced services that drive clients' success.
-
+                                                        Innoserv is primarily
+                                                        focused on delivering
+                                                        services rather than
+                                                        physical products. The
+                                                        company’s core offerings
+                                                        revolve around AI-driven
+                                                        branding, digital
+                                                        marketing, and corporate
+                                                        training solutions.
+                                                        These services include
+                                                        personalized branding
+                                                        strategies, digital
+                                                        marketing campaigns,
+                                                        corporate training
+                                                        programs, and AI-enabled
+                                                        learning platforms.
+                                                        innoserv’s approach
+                                                        emphasizes the
+                                                        integrating
+                                                        technologoes,
+                                                        particularly AI, with
+                                                        human creativity to
+                                                        provide customized and
+                                                        impactful services that
+                                                        address specific client
+                                                        needs. By focusing on
+                                                        service, the company
+                                                        delivers tailored
+                                                        solutions that help
+                                                        businesses grow, improve
+                                                        their brand presence,
+                                                        and enhance their
+                                                        workforce capabilities
+                                                        While innoserv may
+                                                        develop digital assets
+                                                        or learning modules as
+                                                        part of its service
+                                                        offerings, the primary
+                                                        emphasis is on providing
+                                                        comprehensive,
+                                                        technology-enhanced
+                                                        services that drive
+                                                        clients' success.
                                                       </p>
                                                     </div>
                                                   </Panel>
@@ -2438,7 +2615,56 @@ While innoserv may develop digital assets or learning modules as part of its ser
                                                           textAlign: "justify",
                                                         }}
                                                       >
-                                                       Scaling up presents challenges, but innoserv has strategies in place to manage them effectively. To maintain service quality, the company plans to invest in team training, automate routine tasks, and use AI tools for consistency and efficiency. Resource allocation will be carefully managed by hiring the right talent, investing in scalable technologies, and forming strategic partnerships. innoserv will ensure client and market diversification aligns with core competencies through thorough market research and gradual expansion. Operational efficiency will be maintained by continuously refining processes and leveraging technology. To preserve organizational culture during growth, innoserv will reinforce company values, maintain clear communication, and engage employees regularly. Financial health will be managed through strong working capital management, strategic financing, and careful monitoring of financial metrics. By addressing these challenges with proactive strategies, innoserv is confident in its ability to scale effectively and sustainably.
+                                                        Scaling up presents
+                                                        challenges, but innoserv
+                                                        has strategies in place
+                                                        to manage them
+                                                        effectively. To maintain
+                                                        service quality, the
+                                                        company plans to invest
+                                                        in team training,
+                                                        automate routine tasks,
+                                                        and use AI tools for
+                                                        consistency and
+                                                        efficiency. Resource
+                                                        allocation will be
+                                                        carefully managed by
+                                                        hiring the right talent,
+                                                        investing in scalable
+                                                        technologies, and
+                                                        forming strategic
+                                                        partnerships. innoserv
+                                                        will ensure client and
+                                                        market diversification
+                                                        aligns with core
+                                                        competencies through
+                                                        thorough market research
+                                                        and gradual expansion.
+                                                        Operational efficiency
+                                                        will be maintained by
+                                                        continuously refining
+                                                        processes and leveraging
+                                                        technology. To preserve
+                                                        organizational culture
+                                                        during growth, innoserv
+                                                        will reinforce company
+                                                        values, maintain clear
+                                                        communication, and
+                                                        engage employees
+                                                        regularly. Financial
+                                                        health will be managed
+                                                        through strong working
+                                                        capital management,
+                                                        strategic financing, and
+                                                        careful monitoring of
+                                                        financial metrics. By
+                                                        addressing these
+                                                        challenges with
+                                                        proactive strategies,
+                                                        innoserv is confident in
+                                                        its ability to scale
+                                                        effectively and
+                                                        sustainably.
                                                       </p>
                                                     </div>
                                                   </Panel>
@@ -2459,11 +2685,60 @@ While innoserv may develop digital assets or learning modules as part of its ser
                                                           textAlign: "justify",
                                                         }}
                                                       >
-                                                      Yes, InnoServ Group is targeting new, untapped markets through its innovative AI-driven solutions in branding, digital marketing, and corporate training. By integrating AI with human creativity, InnoServ addresses the increasing demand for personalized, data-driven strategies that go beyond traditional methods, appealing to businesses looking to stay competitive in the digital age.
-
-In the corporate training sector, InnoServ's subsidiary, iSkillBox, offers a unique AI-enabled B2B2C blended learning platform. This platform targets the skills gap in the workforce by providing personalized training solutions, tapping into a market that is underserved by conventional training approaches.
-
-Furthermore, InnoServ's strategic focus on AI-based learning platforms and plans for international expansion in the digital and skilling sectors allow them to enter emerging markets where advanced, technology-driven services are not yet widely available. This positions InnoServ as a leader in markets that are poised for significant growth, particularly in regions with a growing need for sophisticated digital and learning solutions.
+                                                        Yes, InnoServ Group is
+                                                        targeting new, untapped
+                                                        markets through its
+                                                        innovative AI-driven
+                                                        solutions in branding,
+                                                        digital marketing, and
+                                                        corporate training. By
+                                                        integrating AI with
+                                                        human creativity,
+                                                        InnoServ addresses the
+                                                        increasing demand for
+                                                        personalized,
+                                                        data-driven strategies
+                                                        that go beyond
+                                                        traditional methods,
+                                                        appealing to businesses
+                                                        looking to stay
+                                                        competitive in the
+                                                        digital age. In the
+                                                        corporate training
+                                                        sector, InnoServ's
+                                                        subsidiary, iSkillBox,
+                                                        offers a unique
+                                                        AI-enabled B2B2C blended
+                                                        learning platform. This
+                                                        platform targets the
+                                                        skills gap in the
+                                                        workforce by providing
+                                                        personalized training
+                                                        solutions, tapping into
+                                                        a market that is
+                                                        underserved by
+                                                        conventional training
+                                                        approaches. Furthermore,
+                                                        InnoServ's strategic
+                                                        focus on AI-based
+                                                        learning platforms and
+                                                        plans for international
+                                                        expansion in the digital
+                                                        and skilling sectors
+                                                        allow them to enter
+                                                        emerging markets where
+                                                        advanced,
+                                                        technology-driven
+                                                        services are not yet
+                                                        widely available. This
+                                                        positions InnoServ as a
+                                                        leader in markets that
+                                                        are poised for
+                                                        significant growth,
+                                                        particularly in regions
+                                                        with a growing need for
+                                                        sophisticated digital
+                                                        and learning solutions.
                                                       </p>
                                                     </div>
                                                   </Panel>
@@ -2482,7 +2757,45 @@ Furthermore, InnoServ's strategic focus on AI-based learning platforms and plans
                                                           color: "#7f7776",
                                                           textAlign: "justify",
                                                         }}
-                                                      >Innoserv maintains a strong market position through its AI-driven solutions, offering personalized, data-driven services in branding, digital marketing, and corporate training that set it apart from competitors. By providing a comprehensive range of services under one roof, innoserv delivers cohesive strategies tailored to client needs. The company’s strong client relationships, rooted in exceptional service and long-term partnerships, ensure high retention and loyalty. Led by an experienced team of industry veterans, innoserv leverages strategic insights to navigate market challenges. Continuous innovation and adaptability keep the company at the forefront of industry trends, while its reputation for delivering high-quality services further solidifies its market credibility and success.
+                                                      >
+                                                        Innoserv maintains a
+                                                        strong market position
+                                                        through its AI-driven
+                                                        solutions, offering
+                                                        personalized,
+                                                        data-driven services in
+                                                        branding, digital
+                                                        marketing, and corporate
+                                                        training that set it
+                                                        apart from competitors.
+                                                        By providing a
+                                                        comprehensive range of
+                                                        services under one roof,
+                                                        innoserv delivers
+                                                        cohesive strategies
+                                                        tailored to client
+                                                        needs. The company’s
+                                                        strong client
+                                                        relationships, rooted in
+                                                        exceptional service and
+                                                        long-term partnerships,
+                                                        ensure high retention
+                                                        and loyalty. Led by an
+                                                        experienced team of
+                                                        industry veterans,
+                                                        innoserv leverages
+                                                        strategic insights to
+                                                        navigate market
+                                                        challenges. Continuous
+                                                        innovation and
+                                                        adaptability keep the
+                                                        company at the forefront
+                                                        of industry trends,
+                                                        while its reputation for
+                                                        delivering high-quality
+                                                        services further
+                                                        solidifies its market
+                                                        credibility and success.
                                                       </p>{" "}
                                                     </div>
                                                   </Panel>
@@ -2676,9 +2989,7 @@ Furthermore, InnoServ's strategic focus on AI-based learning platforms and plans
                                     />
                                     <div className="intro">
                                       <h3>Ritesh D</h3>
-                                      <span>
-                                      Co-Founder & CEO 
-                                      </span>
+                                      <span>Co-Founder & CEO</span>
                                       <div
                                         className="social-icons"
                                         style={{
@@ -2701,8 +3012,15 @@ Furthermore, InnoServ's strategic focus on AI-based learning platforms and plans
                                   <ul>
                                     <li>
                                       <a>
-
-                                    As the CEO, Ritesh D is responsible for the overall strategic direction and leadership of the company. He focuses on driving growth, making high-level decisions, and overseeing the execution of the company's vision. Ritesh also plays a key role in building relationships with clients, investors, and partners.
+                                        As the CEO, Ritesh D is responsible for
+                                        the overall strategic direction and
+                                        leadership of the company. He focuses on
+                                        driving growth, making high-level
+                                        decisions, and overseeing the execution
+                                        of the company's vision. Ritesh also
+                                        plays a key role in building
+                                        relationships with clients, investors,
+                                        and partners.
                                       </a>
                                     </li>
                                   </ul>
@@ -2744,15 +3062,21 @@ Furthermore, InnoServ's strategic focus on AI-based learning platforms and plans
                                   <ul>
                                     <li>
                                       <a>
-
-                                    Nimil Tiwari, as the Chief Strategy Officer, is responsible for formulating and implementing the company’s strategic initiatives. He works closely with the CEO to align the company's goals with market opportunities and oversees business development, ensuring that the company’s services meet the evolving needs of the market.
+                                        Nimil Tiwari, as the Chief Strategy
+                                        Officer, is responsible for formulating
+                                        and implementing the company’s strategic
+                                        initiatives. He works closely with the
+                                        CEO to align the company's goals with
+                                        market opportunities and oversees
+                                        business development, ensuring that the
+                                        company’s services meet the evolving
+                                        needs of the market.
                                       </a>
                                     </li>
                                   </ul>
                                 </div>
                               </div>
 
-                          
                               <div className="col-lg-6">
                                 <div
                                   className="single"
@@ -2766,8 +3090,7 @@ Furthermore, InnoServ's strategic focus on AI-based learning platforms and plans
                                     />
                                     <div className="intro">
                                       <h3>Rahul Jain</h3>
-                                      <span>
-                                      Managing Director                                      </span>
+                                      <span>Managing Director </span>
                                       <div
                                         className="social-icons"
                                         style={{
@@ -2788,15 +3111,21 @@ Furthermore, InnoServ's strategic focus on AI-based learning platforms and plans
                                     </div>
                                   </div>
                                   <ul>
-                                    <li><a>
-
-                                    Rahul Jain, as the Managing Director, is responsible for overseeing the company’s financial performance, operational efficiency, and overall business health. He ensures that the company’s strategic goals are met and plays a critical role in decision-making and policy formulation.
-                                    </a>
+                                    <li>
+                                      <a>
+                                        Rahul Jain, as the Managing Director, is
+                                        responsible for overseeing the company’s
+                                        financial performance, operational
+                                        efficiency, and overall business health.
+                                        He ensures that the company’s strategic
+                                        goals are met and plays a critical role
+                                        in decision-making and policy
+                                        formulation.
+                                      </a>
                                     </li>
                                   </ul>
                                 </div>
                               </div>
-                             
 
                               {/* 
                               <div className="col-lg-6">

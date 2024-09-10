@@ -20,11 +20,11 @@ import {
   Tag,
   Alert,
 } from "antd";
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 import Sidebar2 from "./common/Sidebar2";
 import Navbar from "./common/Navbar";
 import BottomBar from "./common/BottomBar";
@@ -42,6 +42,7 @@ import DealPitches from "./DealPitches";
 import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
 import Invitation_list from "./common/Invitation_list";
+import { toast, ToastContainer } from "react-toastify";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -94,22 +95,22 @@ class Deals extends Component {
       add_dealtype: "",
       deal_name: "",
       particular_deal_name: "",
-        // edit commitment states
-        show_edit_commitment_modal: false,
-        ac_edit_deal_id: '',
-        ac_edit_investor_id: '',
-        ac_edit_amount: 0,
-        ac_edit_processingfees: 0,
-        ac_edit_totalamount: 0,
-        ac_edit_deduct: false,
-        ac_edit_agree: false,
-        ac_edit_order_token: '',
-        ac_edit_tdsstatus: false,
-        ac_edit_gst: 0,
-        ac_edit_legalfee: 0,
-        ac_edit_walletDeductionMoney: 0,
-        ac_edit_interested_id: 0,
-        ac_edit_commitment_id: 0,
+      // edit commitment states
+      show_edit_commitment_modal: false,
+      ac_edit_deal_id: "",
+      ac_edit_investor_id: "",
+      ac_edit_amount: 0,
+      ac_edit_processingfees: 0,
+      ac_edit_totalamount: 0,
+      ac_edit_deduct: false,
+      ac_edit_agree: false,
+      ac_edit_order_token: "",
+      ac_edit_tdsstatus: false,
+      ac_edit_gst: 0,
+      ac_edit_legalfee: 0,
+      ac_edit_walletDeductionMoney: 0,
+      ac_edit_interested_id: 0,
+      ac_edit_commitment_id: 0,
 
       // add commitment states
       show_add_commitment_modal: false,
@@ -262,6 +263,9 @@ class Deals extends Component {
       commitment_investor_listc: [],
       open: false,
       apost_id: "",
+      show_edit_commitment_status_modal: false,
+      Commitmentstatus: "",
+      commitmentstatusid: "",
     };
   }
 
@@ -281,8 +285,8 @@ class Deals extends Component {
           a.name.toLowerCase() > b.name.toLowerCase()
             ? 1
             : b.name.toLowerCase() > a.name.toLowerCase()
-              ? -1
-              : 0
+            ? -1
+            : 0
         );
         this.setState({
           startups: sorted,
@@ -335,45 +339,57 @@ class Deals extends Component {
   };
   ac_commit_value = () => {
     const formData = new FormData();
-    formData.append('deal_id', this.state.ac_deal_id);
-    formData.append('investor_id', this.state.ac_investor.investor_id);
-    formData.append('amount', this.state.ac_amount);
-    formData.append('processingfees', this.state.ac_processingfees);
-    formData.append('totalamount', this.state.ac_totalamount);
-    formData.append('deduct', this.state.ac_deduct);
-    formData.append('agree', this.state.ac_agree);
-    formData.append('order_token', this.state.ac_order_token);
-    formData.append('tdsstatus', this.state.ac_tdsstatus);
-    formData.append('gst', this.state.ac_gst);
-    formData.append('legalfee', this.state.ac_legalfee);
-    formData.append('interested_id', this.state.ac_interested_id);
-    formData.append('walletDeductionMoney', this.state.ac_walletDeductionMoney);
-    axios.post(`${process.env.REACT_APP_BASE_URL}api/admin/Deal/save_investor_commitment`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
+    formData.append("deal_id", this.state.ac_deal_id);
+    formData.append("investor_id", this.state.ac_investor.investor_id);
+    formData.append("amount", this.state.ac_amount);
+    formData.append("processingfees", this.state.ac_processingfees);
+    formData.append("totalamount", this.state.ac_totalamount);
+    formData.append("deduct", this.state.ac_deduct);
+    formData.append("agree", this.state.ac_agree);
+    formData.append("order_token", this.state.ac_order_token);
+    formData.append("tdsstatus", this.state.ac_tdsstatus);
+    formData.append("gst", this.state.ac_gst);
+    formData.append("legalfee", this.state.ac_legalfee);
+    formData.append("interested_id", this.state.ac_interested_id);
+    formData.append("walletDeductionMoney", this.state.ac_walletDeductionMoney);
+    axios
+      .post(
+        `${process.env.REACT_APP_BASE_URL}api/admin/Deal/save_investor_commitment`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
       .then((response) => {
-        this.setState({
-          show_add_commitment_modal: false,
-        }, () => {
-          axios.get(`${process.env.REACT_APP_BASE_URL}api/admin/Deal/display_investor_commitment_list`, {
-            params: {
-              deal_id: this.state.ac_deal_id,
-            }
-          })
-            .then(response => {
-              this.setState({
-                commitment_investor_list: response.data.data,
-                commitment_investor_listc: response.data.data,
-                loading: false,
+        this.setState(
+          {
+            show_add_commitment_modal: false,
+          },
+          () => {
+            axios
+              .get(
+                `${process.env.REACT_APP_BASE_URL}api/admin/Deal/display_investor_commitment_list`,
+                {
+                  params: {
+                    deal_id: this.state.ac_deal_id,
+                  },
+                }
+              )
+              .then((response) => {
+                this.setState({
+                  commitment_investor_list: response.data.data,
+                  commitment_investor_listc: response.data.data,
+                  loading: false,
+                });
+              })
+              .catch((error) => {
+                console.error(error);
               });
-            })
-            .catch(error => {
-              console.error(error);
-            });
-        });
-        message.success("Investor commitment saved successfully")
+          }
+        );
+        message.success("Investor commitment saved successfully");
       })
       .catch((error) => {
         console.log(error);
@@ -450,50 +466,64 @@ class Deals extends Component {
       ac_deal_id: item.deal_id,
       ac_deal_name: item.deal_name,
       ac_minamount: Number(item.Min_inv_amt),
-      ac_captable_threshold_amount: parseInt(parseFloat(item.captable_threshold_amount).toFixed(2), 10),
+      ac_captable_threshold_amount: parseInt(
+        parseFloat(item.captable_threshold_amount).toFixed(2),
+        10
+      ),
       ac_maxamount: item.Max_inv_amt,
-      ac_captable_multiple_amount: parseInt(parseFloat(item.captable_multiple_amount).toFixed(2), 10),
-      ac_enable_special_offer: item.enable_special_offer == 'Yes' ? true : false,
+      ac_captable_multiple_amount: parseInt(
+        parseFloat(item.captable_multiple_amount).toFixed(2),
+        10
+      ),
+      ac_enable_special_offer:
+        item.enable_special_offer == "Yes" ? true : false,
       ac_special_offer_text: item.special_offer_text,
       ac_default_special_offer_text: item.default_special_offer_text,
       ac_offer_discount: item.offer_discount,
       ac_multiples_of: item.multiples_of,
     });
-    axios.get(`${process.env.REACT_APP_BASE_URL}api/admin/Deal/display_investor_commitment_list`, {
-      params: {
-        deal_id: item.deal_id,
-      }
-    })
-      .then(response => {
+    axios
+      .get(
+        `${process.env.REACT_APP_BASE_URL}api/admin/Deal/display_investor_commitment_list`,
+        {
+          params: {
+            deal_id: item.deal_id,
+          },
+        }
+      )
+      .then((response) => {
         this.setState({
           commitment_investor_list: response.data.data,
           commitment_investor_listc: response.data.data,
           loading: false,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
 
   activePopup = (item) => {
-    this.setState({ open: true })
-    this.setState({ apost_id: item.deal_id })
-  }
+    this.setState({ open: true });
+    this.setState({ apost_id: item.deal_id });
+  };
 
   activePopupPost = () => {
     const formData = new FormData();
-    formData.append('deal_id', this.state.apost_id);
+    formData.append("deal_id", this.state.apost_id);
 
-    axios.post(`${process.env.REACT_APP_BASE_URL}api/admin/Deal/accept_payment_for_deal`, formData)
-      .then(response => {
-        console.log(response.data);
+    axios
+      .post(
+        `${process.env.REACT_APP_BASE_URL}api/admin/Deal/accept_payment_for_deal`,
+        formData
+      )
+      .then((response) => {
         this.setState({ open: false }, () => this.getdeallist());
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
-  }
+  };
   showupdatemodal = (item) => {
     this.setState({
       deal_id: item.deal_id,
@@ -753,14 +783,16 @@ class Deals extends Component {
       let arr = [];
       for (let item of this.state.cdeallist) {
         if (
-          (item.deal_name && item.deal_name.toLowerCase().includes(text.toLowerCase())) ||
+          (item.deal_name &&
+            item.deal_name.toLowerCase().includes(text.toLowerCase())) ||
           item.deal_fund_requested.includes(text) ||
           item.Min_inv_amt.includes(text) ||
           item.Max_inv_amt.includes(text) ||
           item.Muliples_of.includes(text) ||
           item.backed_by.includes(text) ||
           item.deal_category.includes(text) ||
-          (item.deal_id && item.deal_id.toLowerCase().includes(text.toLowerCase()))
+          (item.deal_id &&
+            item.deal_id.toLowerCase().includes(text.toLowerCase()))
         ) {
           arr = [...arr, item];
         }
@@ -782,9 +814,12 @@ class Deals extends Component {
       let arr = [];
       for (let item of this.state.commitment_investor_listc) {
         if (
-          (item.deal_name && item.deal_name.toLowerCase().includes(text.toLowerCase())) ||
-          (item.first_name && item.first_name.toLowerCase().includes(text.toLowerCase())) ||
-          (item.last_name && item.last_name.toLowerCase().includes(text.toLowerCase())) ||
+          (item.deal_name &&
+            item.deal_name.toLowerCase().includes(text.toLowerCase())) ||
+          (item.first_name &&
+            item.first_name.toLowerCase().includes(text.toLowerCase())) ||
+          (item.last_name &&
+            item.last_name.toLowerCase().includes(text.toLowerCase())) ||
           item.investor_id.includes(text)
         ) {
           arr = [...arr, item];
@@ -1590,8 +1625,6 @@ class Deals extends Component {
       email: this.state.investor_email,
     };
     Bridge.deal.get_investor_by_email(params).then((result) => {
-      console.log(result);
-      console.log( result.data[0].first_name);
       if (result.status == "1") {
         this.setState({
           investor_name:
@@ -1623,12 +1656,12 @@ class Deals extends Component {
     if (this.state.membership_type == "premium") {
       legalfee = parseFloat(
         (this.state.investor_investment_amount / 100) *
-        parseFloat(this.state.premium_percentage)
+          parseFloat(this.state.premium_percentage)
       );
     } else {
       legalfee = parseFloat(
         (this.state.investor_investment_amount / 100) *
-        parseFloat(this.state.regular_percentage)
+          parseFloat(this.state.regular_percentage)
       );
     }
     let processingfees = this.state.investor_investment_amount
@@ -1755,11 +1788,11 @@ class Deals extends Component {
       let obj = {
         "Sr No": count,
         "Investor ID": item.investor_id,
-        "Name": item.first_name + " " + item.last_name,
+        Name: item.first_name + " " + item.last_name,
         "Investment Amount": item.amount,
         "Fee Amount": item.processingfees,
-        "Email": item.email,
-        "Phone": item.mobile,
+        Email: item.email,
+        Phone: item.mobile,
         "KYC PAN": item.kyc_pan,
         "KYC Address": item.kyc_address,
         "KYC Father Name": item.kyc_fathername,
@@ -1804,89 +1837,140 @@ class Deals extends Component {
     }
 
     const formData = new FormData();
-    formData.append('deal_id', this.state.ac_edit_deal_id);
-    formData.append('investor_id', this.state.ac_edit_investor_id);
-    formData.append('amount', this.state.ac_edit_amount);
-    formData.append('processingfees', this.state.ac_edit_processingfees);
-    formData.append('totalamount', +this.state.ac_edit_amount + +this.state.ac_edit_processingfees);
-    formData.append('deduct', this.state.ac_edit_deduct);
-    formData.append('agree', this.state.ac_edit_agree);
-    formData.append('order_token', this.state.ac_edit_order_token);
-    formData.append('tdsstatus', this.state.ac_edit_tdsstatus);
-    formData.append('gst', this.state.ac_edit_gst);
-    formData.append('legalfee', this.state.ac_edit_processingfees);
-    formData.append('walletDeductionMoney', this.state.ac_edit_walletDeductionMoney);
-    formData.append('interested_id', this.state.ac_edit_interested_id);
-    formData.append('commitment_id', this.state.ac_edit_commitment_id);
-    axios.post(`${process.env.REACT_APP_BASE_URL}api/admin/Deal/edit_investor_commitment`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
+    formData.append("deal_id", this.state.ac_edit_deal_id);
+    formData.append("investor_id", this.state.ac_edit_investor_id);
+    formData.append("amount", this.state.ac_edit_amount);
+    formData.append("processingfees", this.state.ac_edit_processingfees);
+    formData.append(
+      "totalamount",
+      +this.state.ac_edit_amount + +this.state.ac_edit_processingfees
+    );
+    formData.append("deduct", this.state.ac_edit_deduct);
+    formData.append("agree", this.state.ac_edit_agree);
+    formData.append("order_token", this.state.ac_edit_order_token);
+    formData.append("tdsstatus", this.state.ac_edit_tdsstatus);
+    formData.append("gst", this.state.ac_edit_gst);
+    formData.append("legalfee", this.state.ac_edit_processingfees);
+    formData.append(
+      "walletDeductionMoney",
+      this.state.ac_edit_walletDeductionMoney
+    );
+    formData.append("interested_id", this.state.ac_edit_interested_id);
+    formData.append("commitment_id", this.state.ac_edit_commitment_id);
+    axios
+      .post(
+        `${process.env.REACT_APP_BASE_URL}api/admin/Deal/edit_investor_commitment`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
       .then((response) => {
-        console.log(response);
-        this.setState({
-          show_edit_commitment_modal: false,
-        }, () => {
-          axios.get(`${process.env.REACT_APP_BASE_URL}api/admin/Deal/display_investor_commitment_list`, {
-            params: {
-              deal_id: this.state.ac_edit_deal_id,
-            }
-          })
-            .then(response => {
-              this.setState({
-                commitment_investor_list: response.data.data,
-                commitment_investor_listc: response.data.data,
-                loading: false,
+        this.setState(
+          {
+            show_edit_commitment_modal: false,
+          },
+          () => {
+            axios
+              .get(
+                `${process.env.REACT_APP_BASE_URL}api/admin/Deal/display_investor_commitment_list`,
+                {
+                  params: {
+                    deal_id: this.state.ac_edit_deal_id,
+                  },
+                }
+              )
+              .then((response) => {
+                this.setState({
+                  commitment_investor_list: response.data.data,
+                  commitment_investor_listc: response.data.data,
+                  loading: false,
+                });
+              })
+              .catch((error) => {
+                console.error(error);
               });
-            })
-            .catch(error => {
-              console.error(error);
-            });
-        });
-        message.success("Investor commitment Updated successfully")
+          }
+        );
+        message.success("Investor commitment Updated successfully");
       })
       .catch((error) => {
         console.log(error);
       });
   };
+  ac_commit_status_update = () => {
+    if (this.state.Commitmentstatus == "") {
+      message.warning("Status is required");
+      return false;
+    }
+
+    let params = {
+     
+        id: this.state.commitmentstatusid,
+        isCommitmentEnabled: this.state.Commitmentstatus,
+    };
+
+    Bridge.admin.investor.update_enable_status(params).then((result) => {
+      console.log(result);
+      if(result.message=="Commitment status is updated successfully."){
+        this.setState({ show_edit_commitment_status_modal: false })
+        toast.success("Commitment status is updated successfully.")
+      }
+      else{
+        toast.error("error")
+      }
+    });
+  };
   formatNumberWithCommas = (number) => {
-    return number.toLocaleString('en-IN');
+    return number.toLocaleString("en-IN");
   };
   get_invest_amt = () => {
-    axios.get(`${process.env.REACT_APP_BASE_URL}api/investors/InvestorCommitment/get_investor_investment_for_deal`, {
-      params: {
-        deal_id: this.state.ac_deal_id,
-        investor_id: this.state.ac_investor.investor_id
-      }
-    })
+    axios
+      .get(
+        `${process.env.REACT_APP_BASE_URL}api/investors/InvestorCommitment/get_investor_investment_for_deal`,
+        {
+          params: {
+            deal_id: this.state.ac_deal_id,
+            investor_id: this.state.ac_investor.investor_id,
+          },
+        }
+      )
       .then((response) => {
         this.setState({ ac_invest_amt: response.data.data[0].totalamount });
       })
       .catch((error) => {
         console.log(error);
       });
-  }
+  };
   getInterestedID = () => {
     const formData = new FormData();
-    formData.append('deal_id', this.state.ac_deal_id);
-    formData.append('investor_id', this.state.ac_investor.investor_id);
-    axios.post(`${process.env.REACT_APP_BASE_URL}api/investors/InvestorCommitment/save_investor_interest_deal`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
+    formData.append("deal_id", this.state.ac_deal_id);
+    formData.append("investor_id", this.state.ac_investor.investor_id);
+    axios
+      .post(
+        `${process.env.REACT_APP_BASE_URL}api/investors/InvestorCommitment/save_investor_interest_deal`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
       .then((response) => {
         this.setState({
           ac_interested_id: response.data.data,
-        })
+        });
       })
       .catch((error) => {
         console.log(error);
       });
   };
   calculategst = () => {
-    let legalfee = parseFloat((this.state.ac_amount / 100) * parseFloat(this.state.ac_percentage));
+    let legalfee = parseFloat(
+      (this.state.ac_amount / 100) * parseFloat(this.state.ac_percentage)
+    );
     let gst = this.state.ac_gst;
     let amt = parseFloat(this.state.ac_amount);
     let walletDeductionMoney;
@@ -1907,7 +1991,8 @@ class Deals extends Component {
     }
 
     let gstValue = ((legalfee.toFixed(0) - walletDeductionMoney) * gst) / 100;
-    let totalAmount = (amt + parseFloat(legalfee)).toFixed(0) - walletDeductionMoney + gstValue;
+    let totalAmount =
+      (amt + parseFloat(legalfee)).toFixed(0) - walletDeductionMoney + gstValue;
 
     legalfee -= discountedMoney;
 
@@ -1919,7 +2004,7 @@ class Deals extends Component {
       ac_totalamount: this.state.ac_amount ? totalAmount.toFixed(0) : 0,
       ac_walletDeductionMoney: walletDeductionMoney,
       ac_gstValue: gstValue,
-      ac_DiscountedMoney: discountedMoney
+      ac_DiscountedMoney: discountedMoney,
     });
 
     return gst;
@@ -1934,18 +2019,42 @@ class Deals extends Component {
     } else if (Number(this.state.ac_amount) > Number(this.state.ac_maxamount)) {
       error = `Maximum investment amount is Rs. ${this.state.ac_maxamount}`;
       this.setState({ ac_amount_error: error, ac_amount_error_status: true });
-    } else if (Number(this.state.ac_amount) < Number(this.state.ac_captable_threshold_amount) && Number(this.state.ac_amount) % Number(this.state.ac_multiples_of) != 0) {
-      const roundedLowerAmount = Math.floor(Number(this.state.ac_amount) / Number(this.state.ac_multiples_of)) * Number(this.state.ac_multiples_of);
-      const roundedHigherAmount = Math.ceil(Number(this.state.ac_amount) / Number(this.state.ac_multiples_of)) * Number(this.state.ac_multiples_of);
+    } else if (
+      Number(this.state.ac_amount) <
+        Number(this.state.ac_captable_threshold_amount) &&
+      Number(this.state.ac_amount) % Number(this.state.ac_multiples_of) != 0
+    ) {
+      const roundedLowerAmount =
+        Math.floor(
+          Number(this.state.ac_amount) / Number(this.state.ac_multiples_of)
+        ) * Number(this.state.ac_multiples_of);
+      const roundedHigherAmount =
+        Math.ceil(
+          Number(this.state.ac_amount) / Number(this.state.ac_multiples_of)
+        ) * Number(this.state.ac_multiples_of);
 
       error = `Please enter an amount in multiples of ${this.state.ac_multiples_of}. You may choose Rs ${roundedLowerAmount}
       or Rs ${roundedHigherAmount}.
       If you would like to enter the Captable, commit an amount of Rs. ${this.state.ac_captable_threshold_amount} or more.`;
 
       this.setState({ ac_amount_error: error, ac_amount_error_status: true });
-    } else if (Number(this.state.ac_amount) > Number(this.state.ac_captable_threshold_amount) && Number(this.state.ac_amount) % Number(this.state.ac_captable_multiple_amount) != 0) {
-      const roundedLowerAmount = Math.floor(Number(this.state.ac_amount) / Number(this.state.ac_captable_multiple_amount)) * Number(this.state.ac_captable_multiple_amount);
-      const roundedHigherAmount = Math.ceil(Number(this.state.ac_amount) / Number(this.state.ac_captable_multiple_amount)) * Number(this.state.ac_captable_multiple_amount);
+    } else if (
+      Number(this.state.ac_amount) >
+        Number(this.state.ac_captable_threshold_amount) &&
+      Number(this.state.ac_amount) %
+        Number(this.state.ac_captable_multiple_amount) !=
+        0
+    ) {
+      const roundedLowerAmount =
+        Math.floor(
+          Number(this.state.ac_amount) /
+            Number(this.state.ac_captable_multiple_amount)
+        ) * Number(this.state.ac_captable_multiple_amount);
+      const roundedHigherAmount =
+        Math.ceil(
+          Number(this.state.ac_amount) /
+            Number(this.state.ac_captable_multiple_amount)
+        ) * Number(this.state.ac_captable_multiple_amount);
 
       error = `Please enter an amount in multiples of ${this.state.ac_captable_multiple_amount}. You may choose Rs ${roundedLowerAmount}
       or Rs ${roundedHigherAmount}.
@@ -1979,9 +2088,7 @@ class Deals extends Component {
 
   increase_commit = () => {
     if (this.state.ac_investor_name === "") {
-      message.warning(
-        "Please Select Investor"
-      );
+      message.warning("Please Select Investor");
       return;
     }
     const {
@@ -1990,7 +2097,7 @@ class Deals extends Component {
       ac_multiples_of,
       ac_maxamount,
       ac_captable_multiple_amount,
-      ac_minamount
+      ac_minamount,
     } = this.state;
 
     let newAmount = Number(ac_amount);
@@ -2001,7 +2108,8 @@ class Deals extends Component {
       newAmount % ac_multiples_of != 0
     ) {
       const roundedHigherAmount =
-        Math.ceil(newAmount / Number(ac_multiples_of)) * Number(ac_multiples_of);
+        Math.ceil(newAmount / Number(ac_multiples_of)) *
+        Number(ac_multiples_of);
       newAmount = roundedHigherAmount;
       changeAmount = 0;
     } else if (
@@ -2009,7 +2117,8 @@ class Deals extends Component {
       newAmount % ac_captable_multiple_amount != 0
     ) {
       const roundedHigherAmount =
-        Math.ceil(newAmount / Number(ac_captable_multiple_amount)) * Number(ac_captable_multiple_amount);
+        Math.ceil(newAmount / Number(ac_captable_multiple_amount)) *
+        Number(ac_captable_multiple_amount);
       newAmount = roundedHigherAmount;
       changeAmount = 0;
     } else if (newAmount < Number(ac_captable_threshold_amount)) {
@@ -2040,9 +2149,7 @@ class Deals extends Component {
 
   decrease_commit = () => {
     if (this.state.ac_investor_name === "") {
-      message.warning(
-        "Please Select Investor"
-      );
+      message.warning("Please Select Investor");
       return;
     }
     const {
@@ -2061,7 +2168,8 @@ class Deals extends Component {
       newAmount % ac_multiples_of != 0
     ) {
       const roundedHigherAmount =
-        Math.ceil(newAmount / Number(ac_multiples_of)) * Number(ac_multiples_of);
+        Math.ceil(newAmount / Number(ac_multiples_of)) *
+        Number(ac_multiples_of);
       newAmount = roundedHigherAmount;
       changeAmount = 0;
     } else if (
@@ -2069,7 +2177,8 @@ class Deals extends Component {
       newAmount % ac_multiples_of != 0
     ) {
       const roundedLowerAmount =
-        Math.floor(newAmount / Number(ac_multiples_of)) * Number(ac_multiples_of);
+        Math.floor(newAmount / Number(ac_multiples_of)) *
+        Number(ac_multiples_of);
       newAmount = roundedLowerAmount;
       changeAmount = 0;
     } else if (
@@ -2077,7 +2186,8 @@ class Deals extends Component {
       newAmount % ac_captable_multiple_amount != 0
     ) {
       const roundedLowerAmount =
-        Math.floor(newAmount / Number(ac_captable_multiple_amount)) * Number(ac_captable_multiple_amount);
+        Math.floor(newAmount / Number(ac_captable_multiple_amount)) *
+        Number(ac_captable_multiple_amount);
       newAmount = roundedLowerAmount;
       changeAmount = 0;
     } else if (newAmount <= Number(ac_captable_threshold_amount)) {
@@ -2104,7 +2214,6 @@ class Deals extends Component {
     );
   };
 
-
   getinvestorlist = () => {
     this.setState({ loading: true });
     Bridge.admin.investor.list().then((result) => {
@@ -2124,7 +2233,7 @@ class Deals extends Component {
     this.setState(
       {
         ac_investor: data,
-        ac_investor_name: fullName
+        ac_investor_name: fullName,
       },
       () => {
         this.get_invest_amt();
@@ -2144,7 +2253,7 @@ class Deals extends Component {
       ac_agree: targetValue,
     }));
 
-    if (targetName === 'deduct') {
+    if (targetName === "deduct") {
       if (targetValue) {
         let processingfees = parseFloat(
           (this.state.ac_amount / 100) * parseFloat(this.state.ac_percentage)
@@ -2167,11 +2276,19 @@ class Deals extends Component {
       }
     }
   };
+  showEditCommitmentstatusModal = (text, record) => {
+    console.log(record.item);
+
+    this.setState({
+      show_edit_commitment_status_modal: true,
+      Commitmentstatus: record.item.isCommitmentEnabled,
+      commitmentstatusid: record.item.id,
+    });
+  };
   render() {
     const dataSource =
       this.state.deallist &&
       this.state.deallist.map((item, index) => {
-        console.log(item, "item")
         return {
           key: index,
           srno: index + 1,
@@ -2229,14 +2346,22 @@ class Deals extends Component {
           key: index,
           child: item["0"],
           investor_id: item.investor_id,
-          amount: '₹' + item.amount,
-          fee: item.processingfees ? '₹' + item.processingfees : '₹0',
+          amount: "₹" + item.amount,
+          fee: item.processingfees ? "₹" + item.processingfees : "₹0",
           totalamount: item.totalamount,
-          commitment_satus: item.commitment_satus === "committed" ? <Tag color="green">Invested</Tag> : <Tag color="red">Pending</Tag>,
+          commitment_satus:
+            item.commitment_satus === "committed" ? (
+              <Tag color="green">Invested</Tag>
+            ) : (
+              <Tag color="red">Pending</Tag>
+            ),
           // created_at: item.created_at,
-          created_at: item.created_at ? moment(item.created_at).format('D-MMM-YYYY h:mm A') : '',
+          created_at: item.created_at
+            ? moment(item.created_at).format("D-MMM-YYYY h:mm A")
+            : "",
           name: item.first_name + " " + item.last_name,
           deal_name: item.deal_name,
+          item: item,
         };
       });
 
@@ -2262,14 +2387,14 @@ class Deals extends Component {
           dataIndex: "nestamount",
           key: "nestamount",
           width: 100,
-          align: 'right',
+          align: "right",
         },
         {
           title: "Fee",
           dataIndex: "nestfee",
           key: "nestfee",
           width: 100,
-          align: 'right',
+          align: "right",
         },
         // {
         //   dataIndex: "nestcommitment_satus",
@@ -2325,29 +2450,35 @@ class Deals extends Component {
         return {
           key: index,
           nestinvestor_id: item.investor_id,
-          nestamount: '₹' + item.amount,
-          nestfee: item.processingfees ? '₹' + item.processingfees : '₹0',
-          nestcommitment_satus: item.commitment_satus === "committed" ? <Tag color="green">Invested</Tag> : <Tag color="red">Pending</Tag>,
-          nestcreated_at: item.created_at ? moment(item.created_at).format('D-MMM-YYYY h:mm A') : '',
+          nestamount: "₹" + item.amount,
+          nestfee: item.processingfees ? "₹" + item.processingfees : "₹0",
+          nestcommitment_satus:
+            item.commitment_satus === "committed" ? (
+              <Tag color="green">Invested</Tag>
+            ) : (
+              <Tag color="red">Pending</Tag>
+            ),
+          nestcreated_at: item.created_at
+            ? moment(item.created_at).format("D-MMM-YYYY h:mm A")
+            : "",
           nestname: item.first_name + " " + item.last_name,
           nestdeal_name: item.deal_name,
           data: item,
-
-        }
+        };
       });
 
       return (
-        <Table className='table-2'
+        <Table
+          className="table-2"
           dataSource={nestDataSource}
           columns={nestColumns}
           loading={this.state.loading}
           bordered
-          scroll={{ x: 'max-content' }}
+          scroll={{ x: "max-content" }}
           pagination={false}
-        >
-        </Table>
-      )
-    }
+        ></Table>
+      );
+    };
 
     const invite_users_columns = [
       {
@@ -2409,7 +2540,7 @@ class Deals extends Component {
         width: 100,
       },
     ];
-   
+
     const columns = [
       {
         title: "Sr No",
@@ -2584,7 +2715,10 @@ class Deals extends Component {
                   &nbsp;&nbsp;Edit
                 </a>
               </Menu.Item>
-              <Menu.Item key={`ViewCommitment${record.key}`} icon={<EyeOutlined />}>
+              <Menu.Item
+                key={`ViewCommitment${record.key}`}
+                icon={<EyeOutlined />}
+              >
                 <a
                   href="#"
                   onClick={() => this.showCommitmentModal(text)}
@@ -2593,24 +2727,23 @@ class Deals extends Component {
                   &nbsp;&nbsp;View Commitments
                 </a>
               </Menu.Item>
-              <Menu.Item key={`ActivatePaymentLink${record.key}`} icon={<EyeOutlined />}>
-                {
-                  record.accept_payment === "yes" ?
-                    <a
-                      href="#"
-                      style={{ fontSize: 14 }}
-                    >
-                      &nbsp;&nbsp;Payment Link Activated
-                    </a>
-                    :
-                    <a
-                      href="#"
-                      onClick={() => this.activePopup(text)}
-                      style={{ fontSize: 14 }}
-                    >
-                      &nbsp;&nbsp;Activate Payment Link
-                    </a>
-                }
+              <Menu.Item
+                key={`ActivatePaymentLink${record.key}`}
+                icon={<EyeOutlined />}
+              >
+                {record.accept_payment === "yes" ? (
+                  <a href="#" style={{ fontSize: 14 }}>
+                    &nbsp;&nbsp;Payment Link Activated
+                  </a>
+                ) : (
+                  <a
+                    href="#"
+                    onClick={() => this.activePopup(text)}
+                    style={{ fontSize: 14 }}
+                  >
+                    &nbsp;&nbsp;Activate Payment Link
+                  </a>
+                )}
               </Menu.Item>
               {/* {text.deal_type == "Private" && ( */}
               <Menu.Item key={`invite_${record.key}`} icon={<UserOutlined />}>
@@ -2697,14 +2830,14 @@ class Deals extends Component {
         dataIndex: "amount",
         key: "amount",
         width: 100,
-        align: 'right',
+        align: "right",
       },
       {
         title: "Total Fees",
         dataIndex: "fee",
         key: "fee",
         width: 100,
-        align: 'right',
+        align: "right",
       },
       // {
       //   title: "Deal Name",
@@ -2717,6 +2850,45 @@ class Deals extends Component {
         dataIndex: "commitment_satus",
         key: "commitment_satus",
         width: 100,
+      },
+      {
+        title: "Edit Commitment status",
+        dataIndex: "item",
+        key: "item",
+        fixed: "right",
+        width: 100,
+        render: (text, record) => {
+          const menu = (
+            <Menu
+              mode="vertical"
+              defaultSelectedKeys={[this.state.path]}
+              style={{ width: 200 }}
+            >
+              <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />}>
+                <a
+                  href="#"
+                  onClick={() =>
+                    this.showEditCommitmentstatusModal(text, record)
+                  }
+                  style={{ fontSize: 14 }}
+                >
+                  &nbsp;&nbsp;Edit 
+                </a>
+              </Menu.Item>
+            </Menu>
+          );
+          return (
+            <div>
+              <Dropdown overlay={menu} placement="bottom">
+                <a onClick={(e) => e.preventDefault()}>
+                  <div className="menu-action">
+                    <i className="bx bx-dots-vertical-rounded"></i>
+                  </div>
+                </a>
+              </Dropdown>
+            </div>
+          );
+        },
       },
       // {
       //   title: "Commitment AT",
@@ -2867,8 +3039,8 @@ class Deals extends Component {
           </div>
         </Modal>
         {/* End Eligibility modal  */}
-             {/* Start Edit modal  */}
-             <Modal
+        {/* Start Edit modal  */}
+        <Modal
           title="Update Commitment"
           visible={this.state.show_edit_commitment_modal}
           onOk={this.ac_commit_update}
@@ -2904,6 +3076,45 @@ class Deals extends Component {
           </div>
         </Modal>
         {/* End Edit modal  */}
+        {/* Start Edit modal  */}
+        <Modal
+          title="Update Commitment status"
+          visible={this.state.show_edit_commitment_status_modal}
+          onOk={this.ac_commit_status_update}
+          okText="Update"
+          onCancel={() =>
+            this.setState({ show_edit_commitment_status_modal: false })
+          }
+          width={550}
+        >
+          <div className="mt-4 editor-field">
+            <label className="mb-2">
+              Status <span className="text-danger">*</span>
+            </label>
+            <br/>
+            <select class="form-select" aria-label="Default select example"
+              value={this.state.Commitmentstatus}
+              onChange={(e) =>
+                this.setState({ Commitmentstatus: e.target.value })
+              }
+            >
+              <option disabled selected value="">
+                Select any one
+              </option>
+              <option value="Enabled">Enabled</option>
+              <option value="Disabled">Disabled</option>
+            </select>
+            {/* <Input
+              type="select"
+              onWheel={() => document.activeElement.blur()}
+              value={this.state.Commitmentstatus}
+              onChange={(e) =>
+                this.setState({ Commitmentstatus: e.target.value })
+              }
+            /> */}
+          </div>
+        </Modal>
+        {/* End Edit modal  */}
         <Modal
           title={`Invest in ${this.state.ac_deal_name}`}
           visible={this.state.show_add_commitment_modal}
@@ -2914,14 +3125,13 @@ class Deals extends Component {
         >
           <div className="form-group">
             <label className="mb-2">
-              Select Investor{" "}
-              <span className="text-danger">*</span>
+              Select Investor <span className="text-danger">*</span>
             </label>
             <Select
               name="ac_investor"
               className="form-input-field"
               value={this.state.ac_investor_name}
-              style={{ width: '100%' }}
+              style={{ width: "100%" }}
               showSearch
               placeholder="Select an Investor"
               optionFilterProp="children"
@@ -2940,8 +3150,12 @@ class Deals extends Component {
             <label>
               <b>
                 Amount: <br />
-                Minimum investment Rs. {this.formatNumberWithCommas(this.state.ac_minamount)} <br />
-                Cap Table entry is Rs. {this.formatNumberWithCommas(this.state.ac_captable_threshold_amount)}
+                Minimum investment Rs.{" "}
+                {this.formatNumberWithCommas(this.state.ac_minamount)} <br />
+                Cap Table entry is Rs.{" "}
+                {this.formatNumberWithCommas(
+                  this.state.ac_captable_threshold_amount
+                )}
               </b>
             </label>
             <input
@@ -2951,18 +3165,31 @@ class Deals extends Component {
               autoFocus={true}
               placeholder="amount"
               style={{
-                border: this.state.ac_amount_error_status == true && this.state.ac_amount ? "1px solid red" : "1px solid transparent",
+                border:
+                  this.state.ac_amount_error_status == true &&
+                  this.state.ac_amount
+                    ? "1px solid red"
+                    : "1px solid transparent",
               }}
               id="selected-field"
               value={this.state.ac_commaAmount}
-              onChange={(e) => { this.handleCommitAmount(e.target.value) }}
+              onChange={(e) => {
+                this.handleCommitAmount(e.target.value);
+              }}
             />
             <div className="d-flex justify-content-between mb-3">
-              <button className="commit-plus" onClick={this.decrease_commit}>-</button>
-              <button className="commit-minus" onClick={this.increase_commit}>+</button>
+              <button className="commit-plus" onClick={this.decrease_commit}>
+                -
+              </button>
+              <button className="commit-minus" onClick={this.increase_commit}>
+                +
+              </button>
             </div>
             {this.state.ac_amount_error_status == true && (
-              <p className="text-danger pb-0" style={{ position: "relative", top: -19 }}>
+              <p
+                className="text-danger pb-0"
+                style={{ position: "relative", top: -19 }}
+              >
                 {this.state.ac_amount_error}
               </p>
             )}
@@ -2971,51 +3198,53 @@ class Deals extends Component {
             <Checkbox
               checked={this.state.ac_checkWallet}
               onChange={(e) => {
-                this.setState({ ac_checkWallet: e.target.checked }, () => this.calculategst());
+                this.setState({ ac_checkWallet: e.target.checked }, () =>
+                  this.calculategst()
+                );
               }}
             >
               {" "}
             </Checkbox>
             <label className="form-check-label">
               Use Your ₹ {this.state.ac_walletMoney} Growth91
-              <sup style={{ fontSize: "0.6rem" }}>
-              ®
-              </sup> Money{" "}
+              <sup style={{ fontSize: "0.6rem" }}>®</sup> Money{" "}
             </label>
           </div>
-          {
-            this.state.ac_enable_special_offer && this.state.ac_special_offer_text != null ? (
-              <>
-                <div className="form-group form-check d-flex">
-                  <Checkbox
-                    checked={this.state.ac_checkDiscount}
-                    onChange={(e) => {
-                      this.setState({ ac_checkDiscount: e.target.checked }, () => this.calculategst());
-                    }}
-                  >
-                    {" "}
-                  </Checkbox>
-                  <label className="form-check-label">
-                    {this.state.ac_special_offer_text}
-                  </label>
-                </div>
-              </>
-            ) : null
-          }
-          {
-            this.state.ac_checkDiscount ? (
-              <div className="login mt-3">
-                <input
-                  type="text"
-                  className="form-input-field mb-0"
-                  autoFocus={true}
-                  placeholder={this.state.ac_default_special_offer_text}
-                />
+          {this.state.ac_enable_special_offer &&
+          this.state.ac_special_offer_text != null ? (
+            <>
+              <div className="form-group form-check d-flex">
+                <Checkbox
+                  checked={this.state.ac_checkDiscount}
+                  onChange={(e) => {
+                    this.setState({ ac_checkDiscount: e.target.checked }, () =>
+                      this.calculategst()
+                    );
+                  }}
+                >
+                  {" "}
+                </Checkbox>
+                <label className="form-check-label">
+                  {this.state.ac_special_offer_text}
+                </label>
               </div>
-            ) : null
-          }
+            </>
+          ) : null}
+          {this.state.ac_checkDiscount ? (
+            <div className="login mt-3">
+              <input
+                type="text"
+                className="form-input-field mb-0"
+                autoFocus={true}
+                placeholder={this.state.ac_default_special_offer_text}
+              />
+            </div>
+          ) : null}
           <div className="d-flex justify-content-center modal-table">
-            <table className="col-12 m-5 investment-charge-table" cellPadding={4}>
+            <table
+              className="col-12 m-5 investment-charge-table"
+              cellPadding={4}
+            >
               <tr>
                 <th>
                   <strong>Particulars</strong>
@@ -3027,7 +3256,10 @@ class Deals extends Component {
               <tr>
                 <td>Investment Amount</td>
                 <td className="text-center">
-                  ₹ {this.state.ac_amountplusgst ? this.state.ac_amountplusgst : "0"}
+                  ₹{" "}
+                  {this.state.ac_amountplusgst
+                    ? this.state.ac_amountplusgst
+                    : "0"}
                 </td>
               </tr>
               <tr>
@@ -3040,16 +3272,17 @@ class Deals extends Component {
                   ₹ {this.state.ac_processingfees}
                 </td>
               </tr>
-              {
-                this.state.ac_checkDiscount ? (
-                  <tr>
-                    <td>Special Discount</td>
-                    <td className="text-center">
-                      - ₹ {this.state.ac_DiscountedMoney ? this.state.ac_DiscountedMoney : "0"}
-                    </td>
-                  </tr>
-                ) : null
-              }
+              {this.state.ac_checkDiscount ? (
+                <tr>
+                  <td>Special Discount</td>
+                  <td className="text-center">
+                    - ₹{" "}
+                    {this.state.ac_DiscountedMoney
+                      ? this.state.ac_DiscountedMoney
+                      : "0"}
+                  </td>
+                </tr>
+              ) : null}
               <tr>
                 <td>Wallet Money</td>
                 <td className="text-center">
@@ -3064,19 +3297,19 @@ class Deals extends Component {
               </tr>
             </table>
           </div>
-          {
-            this.state.ac_invest_amt !== null ? (
-              <div className="">
-                <Alert
-                  message={`You have committed Rs. ${this.state.ac_invest_amt} to this deal so far. (Including platform fees)`}
-                  type="info"
-                />
-              </div>
-            ) : null
-          }
+          {this.state.ac_invest_amt !== null ? (
+            <div className="">
+              <Alert
+                message={`You have committed Rs. ${this.state.ac_invest_amt} to this deal so far. (Including platform fees)`}
+                type="info"
+              />
+            </div>
+          ) : null}
           <div className="m-3">
             <label className="container-check">
-              I Agree to Terms and Conditions and have read the Privacy Policy. And, I understand that I will be required to pay the full amount committed after the deal is closed.
+              I Agree to Terms and Conditions and have read the Privacy Policy.
+              And, I understand that I will be required to pay the full amount
+              committed after the deal is closed.
               <input
                 type="checkbox"
                 name="agree"
@@ -3103,36 +3336,38 @@ class Deals extends Component {
               <button
                 type="button"
                 className="login-button prime-bg d-md-block mx-auto w-100"
-                onClick={
-                  () => {
-                    if (this.state.ac_investor_name === "") {
-                      message.warning(
-                        "Please Select Investor"
-                      );
-                      return;
-                    }
-                    if (Number(this.state.ac_amount) < Number(this.state.ac_minamount)) {
-                      message.warning(
-                        "Minimum investment amount is " + this.state.ac_minamount
-                      );
-                      return;
-                    }
-                    if (Number(this.state.ac_amount) > Number(this.state.ac_maxamount)) {
-                      message.warning(
-                        "Maximum investment amount is " + this.state.ac_maxamount,
-                        5
-                      );
-                      return;
-                    }
-                    if (this.state.ac_agree != true) {
-                      message.warning("Please agree to terms and conditions");
-                      return;
-                    }
-                    if (this.state.ac_amount) {
-                      this.ac_commit_value();
-                    }
-
-                  }}
+                onClick={() => {
+                  if (this.state.ac_investor_name === "") {
+                    message.warning("Please Select Investor");
+                    return;
+                  }
+                  if (
+                    Number(this.state.ac_amount) <
+                    Number(this.state.ac_minamount)
+                  ) {
+                    message.warning(
+                      "Minimum investment amount is " + this.state.ac_minamount
+                    );
+                    return;
+                  }
+                  if (
+                    Number(this.state.ac_amount) >
+                    Number(this.state.ac_maxamount)
+                  ) {
+                    message.warning(
+                      "Maximum investment amount is " + this.state.ac_maxamount,
+                      5
+                    );
+                    return;
+                  }
+                  if (this.state.ac_agree != true) {
+                    message.warning("Please agree to terms and conditions");
+                    return;
+                  }
+                  if (this.state.ac_amount) {
+                    this.ac_commit_value();
+                  }
+                }}
               >
                 Commit My Interest
               </button>
@@ -3336,7 +3571,8 @@ class Deals extends Component {
             </div>
             <div className="mt-4">
               <label className="mb-2">
-                CAP Table Threshold Amount <span className="text-danger">*</span>
+                CAP Table Threshold Amount{" "}
+                <span className="text-danger">*</span>
               </label>
               <Input
                 type="number"
@@ -3619,10 +3855,14 @@ class Deals extends Component {
                 <Option value="D2C">D2C</Option>
                 <Option value="Finance">Finance</Option>
                 <Option value="MediaTech">MediaTech</Option>
-                <Option value="News and Publication">News and Publication</Option>
+                <Option value="News and Publication">
+                  News and Publication
+                </Option>
                 <Option value="AYUSH">AYUSH</Option>
                 <Option value="Cyber Security">Cyber Security</Option>
-                <Option value="Industry Procurement">Industry Procurement</Option>
+                <Option value="Industry Procurement">
+                  Industry Procurement
+                </Option>
               </Select>
             </div>
             <div className="mt-4">
@@ -3853,14 +4093,17 @@ class Deals extends Component {
             </div>
             <div className="mt-4">
               <label className="mb-2">
-                CAP Table Threshold Amount <span className="text-danger">*</span>
+                CAP Table Threshold Amount{" "}
+                <span className="text-danger">*</span>
               </label>
               <Input
                 type="number"
                 onWheel={() => document.activeElement.blur()}
                 value={this.state.editcaptable_threshold_amount}
                 onChange={(e) =>
-                  this.setState({ editcaptable_threshold_amount: e.target.value })
+                  this.setState({
+                    editcaptable_threshold_amount: e.target.value,
+                  })
                 }
               />
             </div>
@@ -3886,7 +4129,9 @@ class Deals extends Component {
                 onWheel={() => document.activeElement.blur()}
                 value={this.state.editcaptable_multiple_amount}
                 onChange={(e) =>
-                  this.setState({ editcaptable_multiple_amount: e.target.value })
+                  this.setState({
+                    editcaptable_multiple_amount: e.target.value,
+                  })
                 }
               />
             </div>
@@ -4138,10 +4383,14 @@ class Deals extends Component {
                 <Option value="D2C">D2C</Option>
                 <Option value="Finance">Finance</Option>
                 <Option value="MediaTech">MediaTech</Option>
-                <Option value="News and Publication">News and Publication</Option>
+                <Option value="News and Publication">
+                  News and Publication
+                </Option>
                 <Option value="AYUSH">AYUSH</Option>
                 <Option value="Cyber Security">Cyber Security</Option>
-                <Option value="Industry Procurement">Industry Procurement</Option>
+                <Option value="Industry Procurement">
+                  Industry Procurement
+                </Option>
               </Select>
             </div>
             <div className="mt-4">
@@ -4512,7 +4761,7 @@ class Deals extends Component {
                 onChange={(e) =>
                   this.setState({ processing_fees: e.target.value })
                 }
-              // readOnly
+                // readOnly
               />
             </div>
             <div className="mt-4">
@@ -4590,35 +4839,37 @@ class Deals extends Component {
           visible={this.state.Commitment_list_modal}
           onOk={() => this.setState({ Commitment_list_modal: false })}
           onCancel={() => this.setState({ Commitment_list_modal: false })}
-          okText='ok'
+          okText="ok"
           width={1000}
         >
-          <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-          }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
             <Input
               placeholder="Search"
               onChange={(e) => this.searchinputc(e)}
               style={{ maxWidth: 300, marginBottom: 20, height: 40 }}
             />
-              <Button
-                type="primary"
-                onClick={() => {
-                  this.setState({ show_add_commitment_modal: true });
+            <Button
+              type="primary"
+              onClick={() => {
+                this.setState({ show_add_commitment_modal: true });
+              }}
+            >
+              <i
+                className="bx bxs-plus-circle"
+                style={{
+                  color: "#fff",
+                  position: "relative",
+                  top: 3,
+                  left: -3,
                 }}
-              >
-                <i
-                  className="bx bxs-plus-circle"
-                  style={{
-                    color: "#fff",
-                    position: "relative",
-                    top: 3,
-                    left: -3,
-                  }}
-                ></i>{" "}
-                Add New Commitment
-              </Button>
+              ></i>{" "}
+              Add New Commitment
+            </Button>
             <Button
               type="primary"
               onClick={() => this.exportToCSV_CommitList("Commitment List")}
@@ -4656,9 +4907,7 @@ class Deals extends Component {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id="alert-dialog-title">
-            {"Are You Sure?"}
-          </DialogTitle>
+          <DialogTitle id="alert-dialog-title">{"Are You Sure?"}</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               Is the deal agreement template uploaded on Digio?
@@ -4671,6 +4920,7 @@ class Deals extends Component {
             <Button onClick={() => this.setState({ open: false })}>No</Button>
           </DialogActions>
         </Dialog>
+        <ToastContainer/>
       </>
     );
   }

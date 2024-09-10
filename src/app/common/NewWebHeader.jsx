@@ -930,9 +930,9 @@ class NewWebHeader extends Component {
                             Blog
                           </a>
                         </li>
-                        {/* <li>
+                        <li>
                           <a
-                            rel="noreferrer" href="https://growth91.com/blog/"
+                            rel="noreferrer"
                             className={
                               window.location.pathname == "" && "active"
                             }
@@ -948,7 +948,7 @@ class NewWebHeader extends Component {
                             </div>
                           </div>
 
-                        </li> */}
+                        </li>
                         {this.state.loggedinstatus == true ? (
                           ""
                         ) : (

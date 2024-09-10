@@ -538,7 +538,7 @@ console.log(response.data);
       });
       return;
     }
-    this.setState({ loading: true, imgtype: "aadhar" });
+    this.setState({ loading: true, imgtype: "aadhaar" });
     axios({
       method: "post",
       url: `${process.env.REACT_APP_BASE_URL}api/Adharverification/verify_adhar_otp`,

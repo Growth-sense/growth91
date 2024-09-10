@@ -497,6 +497,7 @@ class AdminDocuments extends Component {
         forFounder: item.admindocForFounder,
         forPublic: item.admindocForAll,
         active: item.admindocActive,
+        action:item,
       };
     });
 
@@ -547,6 +548,8 @@ class AdminDocuments extends Component {
         key: "action",
         fixed: "right",
         render: (text, record) => {
+          console.log(record);
+          
           const menu = (
             <Menu
               mode="vertical"
@@ -569,6 +572,15 @@ class AdminDocuments extends Component {
                   onClick={() => this.showDeleteModal(record.key)}
                 >
                   &nbsp;&nbsp;Delete
+                </a>
+              </Menu.Item>
+              <Menu.Item key={`Delete${record.key}`} icon={<DeleteOutlined />}>
+                <a
+                  href="#"
+                  style={{ fontSize: 14 }}
+                  onClick={() => window.open(`${process.env.REACT_APP_BASE_URL}api/uploads/admindocs/${record.action.admindocID }/${record.action["admindocFile"]}`)}
+                >
+                  &nbsp;&nbsp;Download
                 </a>
               </Menu.Item>
             </Menu>
@@ -650,6 +662,11 @@ class AdminDocuments extends Component {
                   columns={columns}
                   loading={this.state.loading}
                   bordered
+                  // onRow={(r) => ({
+                      //  onClick: () =>window.open(`${process.env.REACT_APP_BASE_URL}api/uploads/admindocs/${r.admindocID }/${r["admindocFile"]}`)
+                  // onClick: () =>{ window.open(`${process.env.REACT_APP_BASE_URL}api/uploads/admindocs/${r.srno }/${r["admindocFile"]}`
+                  //   )}
+              //  })}
                   scroll={{ x: "max-content" }}
                 />
               </Card>

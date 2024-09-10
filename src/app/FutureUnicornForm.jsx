@@ -4,7 +4,7 @@ import Slider from 'react-slick'
 import NewWebHeader from "./common/NewWebHeader.jsx";
 import $ from "jquery";
 import { Link } from 'react-router-dom';
-import Founderadmindashboard from "./pdfview/forms/Founderadmindashboard";
+import Founderadmindashboard from "./Unicorn/forms/Founderadmindashboard";
 
 
 export const FutureUnicornForm = () => {
@@ -173,14 +173,7 @@ export const FutureUnicornForm = () => {
                                         </div> */}
                                 <Founderadmindashboard view={0} />
 
-                                     <div className="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto mt-3">
-                                            <div className="submit-draft-publish d-flex justify-content-center">
-                                                <Link to="FutureUnicornList" className='submit-future'>Save Draft</Link>
-                                                <Link to="MemberShip" className='submit-future'>Save Publish</Link>
-                                                <Link to="FutureUnicornDescription" className='submit-future'>Preview</Link>
-                                            </div>
-
-                                </div>
+                                  
                                 </section>
                                 {/* <section id="content2" class="tab-content">
                                     <h3>Startup Directory </h3>

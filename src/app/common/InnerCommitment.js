@@ -1451,14 +1451,14 @@ console.log(  ac_captable_threshold_amount,
     const dataSource =
       this.state.getAllCommitData &&
       this.state.getAllCommitData.map((item, index) => {
-        console.log(item);
 
         const buttonstatus = () => {
           if (
             item.accept_payment == "yes" &&
             item.kycstatus == "Pending" &&
+            item.isCommitmentEnabled== "Enabled" &&
             item.deal_status == "Closed"
-          ) {
+                    ) {
             // dceal close parameter
             return (
               <Button type="primary" onClick={() => this.openKycModal(item.id)}>
@@ -1469,6 +1469,7 @@ console.log(  ac_captable_threshold_amount,
             item.accept_payment == "yes" &&
             item.kycstatus == "admin_rejected" &&
             item.deal_status == "Closed"
+            
           ) {
             return (
               <>
@@ -1491,7 +1492,9 @@ console.log(  ac_captable_threshold_amount,
             item.accept_payment == "yes" &&
             item.kycstatus !== "Pending" &&
             item.kycstatus !== "admin_rejected" &&
+            
             item.deal_status == "Closed" &&
+
             item.offline_payment_id !== null
           ) {
             return (
@@ -1513,6 +1516,7 @@ console.log(  ac_captable_threshold_amount,
             item.accept_payment == "yes" &&
             item.kycstatus !== "Pending" &&
             item.kycstatus !== "admin_rejected" &&
+            item.isCommitmentEnabled== "Enabled" &&
             item.deal_status == "Closed"
           ) {
             return (

@@ -227,7 +227,13 @@ function App() {
       hitType: "pageview",
       page: window.location.pathname + window.location.search,
     });
+    if(localStorage.getItem("admin_user")||localStorage.getItem("admin_user")){
+      localStorage.removeItem('admin_user');
+      localStorage.removeItem('id');
+
+    }
   }, []);
+
 
   return (
     <div className="App">

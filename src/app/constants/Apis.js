@@ -81,6 +81,7 @@ const URLs = {
   sendsignrequest: "admin/DocumentSign/sendsignrequest",
 
   get_authorized_signatory: "admin/Deal/get_authorized_signatory",
+  update_enable_status: "admin/Deal/update_enable_status",
   // Founder
   fsendotp: "Founders/sendotp",
   analyticslist: "founder/Analytics/get_analytics_list",
@@ -244,7 +245,7 @@ const URLs = {
   get_non_resident: "investors/kyc/get_non_resident_form_details",
   upload_kyc_docs: "investors/kyc/storekycdetail",
   contact_us_form:"Users/send_contact_email",
-  // familt
+  // family
   addfamily:"investors/InvestorController/addfamilymember",
   getfamilymember:"investors/InvestorController/getfamilymember",
   creategroup:"investors/InvestorController/createGroup",
@@ -258,6 +259,10 @@ const URLs = {
   deleteRequest:"investors/InvestorController/deleteRequest",
   getDeleteRequest:"investors/InvestorController/getDeleteRequest",
   deleteRequestApprove:"investors/InvestorController/deleteRequestApprove",
+  
+  //future unicorn
+  createunicorndraft:"founder/Startup/createunicorndraft",
+  unicornListByFounders:"founder/Startup/unicornListByFounders",
 
 };
 

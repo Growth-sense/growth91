@@ -319,15 +319,15 @@ export default class CreatefamilyPage extends Component {
                   </>
                 </Menu.Item>
 
-                {/* <Menu.Item key={`Delete${record.key}`} icon={<DeleteOutlined/>}>
+                <Menu.Item key={`Delete${records.key}`} icon={<DeleteOutlined/>}>
                     <a
                     href="#"
                     style={{ fontSize: 14 }}
-                    onClick={() => this.showDeleteModal(record.key)}
+                    onClick={() => this.showDeleteModal(records.key)}
                     >
                     &nbsp;&nbsp;Delete
                     </a>
-                    </Menu.Item> */}
+                    </Menu.Item>
               </Menu>
             </>
           );
