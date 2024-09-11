@@ -369,8 +369,8 @@ class OtherImportantIndicators extends Component {
                               <textarea 
                                  cols="30" rows="6"
                                 id="selected-field"
-                                  name='what_valuation_will_safe'
-                                value={this.props.unicorn.what_valuation_will_safe}
+                                  name='tudSaleExitInfo'
+                                value={this.props.unicorn.tudSaleExitInfo}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -378,10 +378,10 @@ class OtherImportantIndicators extends Component {
                             </div>
                         <div className="form-group">
                               <label for="">Dependence on any specific Founder/Person? How it will be managed?<span className="text-danger">*</span></label>
-                              <textarea disabled 
+                              <textarea  
                                 cols={30} rows={6}
-                                name='dependence_on_any_specific_founder'
-                                value={this.props.unicorn.dependence_on_any_specific_founder}
+                                name='tudDepedencyPerson'
+                                value={this.props.unicorn.tudDepedencyPerson}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -389,10 +389,10 @@ class OtherImportantIndicators extends Component {
                             </div>                           
                             <div className="form-group">
                               <label for="">Regulatory Issues.<span className="text-danger">*</span></label>
-                              <textarea disabled 
+                              <textarea  
                                cols={30} rows={6}
-                                name='regulartory_issues'
-                                value={this.props.unicorn.regulartory_issues}
+                                name='tudReglarityIssue'
+                                value={this.props.unicorn.tudReglarityIssue}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -400,10 +400,10 @@ class OtherImportantIndicators extends Component {
                             </div>    
                             <div className="form-group">
                               <label for="">Licences and permissions required and status.<span className="text-danger">*</span></label>
-                              <textarea disabled 
+                              <textarea  
                                cols={30} rows={6}
-                                name='licences_and_permissions'
-                                value={this.props.unicorn.licences_and_permissions}
+                                name='tudLicPermissionStatus'
+                                value={this.props.unicorn.tudLicPermissionStatus}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -411,11 +411,11 @@ class OtherImportantIndicators extends Component {
                             </div> 
                             <div className="form-group">
                               <label for="">Team size (past, current and immediate future).<span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="number" 
                                 onWheel={() => document.activeElement.blur()}
-                                name='team_size'
-                                value={this.props.unicorn.team_size}
+                                name='tudTeamSize'
+                                value={this.props.unicorn.tudTeamSize}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -425,8 +425,8 @@ class OtherImportantIndicators extends Component {
                               <label for=""> Is the company paying (or paid in past) commission above 5% to any investment banker or funding platform? if yes, details?<span className="text-danger">*</span></label>
                               <textarea 
                                 rows={6} cols={30}
-                                name='is_company_paying_commision_above_5_per'
-                                value={this.props.unicorn.is_company_paying_commision_above_5_per}
+                                name='tud5perCommission'
+                                value={this.props.unicorn.tud5perCommission}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -434,10 +434,10 @@ class OtherImportantIndicators extends Component {
                             </div> 
                             <div className="form-group">
                               <label for=""> Is the company paying (or paid in past) commission above 10% to any investment banker or funding platform? if yes, details?<span className="text-danger">*</span></label>
-                              <textarea disabled 
+                              <textarea  
                                 cols={30} rows={6}
-                                name='is_company_paying_commision_above_10_per'
-                                value={this.props.unicorn.is_company_paying_commision_above_10_per}
+                                name='tud10perCommission'
+                                value={this.props.unicorn.tud10perCommission}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -445,10 +445,10 @@ class OtherImportantIndicators extends Component {
                             </div>  
                             <div className="form-group">
                               <label for="">What are possible / perceived exit opportunities and time line?<span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="text" 
-                                name='possible_exit_opportunities'
-                                value={this.props.unicorn.possible_exit_opportunities}
+                                name='tudExitTimeline'
+                                value={this.props.unicorn.tudExitTimeline}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -456,10 +456,10 @@ class OtherImportantIndicators extends Component {
                             </div> 
                             <div className="form-group">
                               <label for="">Subsidiaries<span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="text" 
-                                name='subsidiaries'
-                                value={this.props.unicorn.subsidiaries}
+                                name='tudSubsidiries'
+                                value={this.props.unicorn.tudSubsidiries}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -467,10 +467,10 @@ class OtherImportantIndicators extends Component {
                             </div>
                             <div className="form-group">
                               <label for="">Sister Concerns<span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="text" 
-                                name='subsidiaries'
-                                value={this.props.unicorn.sister_concerns}
+                                name='tudSisterConcerns'
+                                value={this.props.unicorn.tudSisterConcerns}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -480,8 +480,8 @@ class OtherImportantIndicators extends Component {
                               <label for="">Related party transactions (existing and proposed )<span className="text-danger">*</span></label>
                               <textarea 
                                 id="" cols="30" rows="6"
-                                name='related_party_transactions'
-                                value={this.props.unicorn.related_party_transactions}
+                                name='tudRelatedPartyTrans'
+                                value={this.props.unicorn.tudRelatedPartyTrans}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -491,8 +491,8 @@ class OtherImportantIndicators extends Component {
                               <label for="">Legal risks? Plans to mitigate risk?<span className="text-danger">*</span></label>
                               <textarea 
                                 id="" cols="30" rows="6"
-                                name='legal_risk_plan_to_migrate'
-                                value={this.props.unicorn.legal_risk_plan_to_migrate}
+                                name='tudLegalRisk'
+                                value={this.props.unicorn.tudLegalRisk}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -504,8 +504,8 @@ class OtherImportantIndicators extends Component {
                               <label for="">Any change/exit by founders earlier?<span className="text-danger">*</span></label>
                               <textarea 
                                 id="" cols="30" rows="6"
-                                name='amy_change_by_founders'
-                                value={this.props.unicorn.amy_change_by_founders}
+                                name='tudFounderExitEarlier'
+                                value={this.props.unicorn.tudFounderExitEarlier}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -513,10 +513,10 @@ class OtherImportantIndicators extends Component {
                             </div>  
                             <div className="form-group">
                               <label for="">Demo video (Link)</label>
-                              <input  disabled
+                              <input  
                                 type="text" 
-                                name='demo_video_link'
-                                value={this.props.unicorn.demo_video_link}
+                                name='tudDemoLink'
+                                value={this.props.unicorn.tudDemoLink}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -526,8 +526,8 @@ class OtherImportantIndicators extends Component {
                               <label for="">Any other supported documents(links)</label>
                               <textarea 
                                 id="" cols="30" rows="6"
-                                name='supported_documents'
-                                value={this.props.unicorn.supported_documents}
+                                name='tudOtherDocsLinks'
+                                value={this.props.unicorn.tudOtherDocsLinks}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -537,8 +537,8 @@ class OtherImportantIndicators extends Component {
                               <label for="">Media coverage (links)</label>
                               <textarea 
                                 id="" cols="30" rows="6"
-                                name='media_coverage'
-                                value={this.props.unicorn.media_coverage}
+                                name='tudMediaCoverLinks'
+                                value={this.props.unicorn.tudMediaCoverLinks}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -548,8 +548,8 @@ class OtherImportantIndicators extends Component {
                               <label for="">Awards and Recognitions</label>
                               <textarea 
                                 id="" cols="30" rows="6"
-                                name='awards_and_recognitions'
-                                value={this.props.unicorn.awards_and_recognitions}
+                                name='tudAwards'
+                                value={this.props.unicorn.tudAwards}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -559,8 +559,8 @@ class OtherImportantIndicators extends Component {
                               <label for="">Are you recognized as Startup by DPIIT, Govt of India? If yes give registration number.</label>
                               <textarea 
                                 id="" cols="30" rows="6"
-                                name='recognized_as_startup_by_dpiit'
-                                value={this.props.unicorn.recognized_as_startup_by_dpiit}
+                                name='tudStartupRecon'
+                                value={this.props.unicorn.tudStartupRecon}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -570,14 +570,14 @@ class OtherImportantIndicators extends Component {
                               <label for="">Any other specific information you like to share.</label>
                               <textarea 
                                 id="" cols="30" rows="6"
-                                name='any_specific_information_to_share'
-                                value={this.props.unicorn.any_specific_information_to_share}
+                                name='tudOtherInfo'
+                                value={this.props.unicorn.tudOtherInfo}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
                               ></textarea>
                             </div> 
-                            <div className="form-group d-none justify-content-between" style={{display:"none !important"}}>
+                            <div className="form-group  justify-content-between" style={{display:"none !important"}}>
                               <div className='arrow-buttons'>
                                 <button 
                                 style={{ 

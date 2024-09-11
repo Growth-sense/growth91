@@ -131,8 +131,8 @@ class References extends Component {
                               <label for="">References of Customers (Name, Designation, Company, Mobile, Email, Brief about association) </label>
                               <textarea 
                                 id="selected-field" cols="30" rows="6"
-                                name='reference_of_customers'
-                                value={this.props.unicorn.reference_of_customers }
+                                name='tudCustomerRef'
+                                value={this.props.unicorn.tudCustomerRef }
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -141,8 +141,8 @@ class References extends Component {
                               <label for="">References of Vendors(Name, Designation, Company, Mobile, Email, Brief about association) </label>
                               <textarea 
                                 id="" cols="30" rows="6"
-                                name='reference_of_vendors'
-                                value={this.props.unicorn.reference_of_vendors}
+                                name='tudVendorRef'
+                                value={this.props.unicorn.tudVendorRef}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -152,8 +152,8 @@ class References extends Component {
                               <label for="">References of Past Employer of Founders (Name, Designation, Company, Mobile, Email, Brief about association) </label>
                               <textarea 
                                 id="" cols="30" rows="6"
-                                name='reference_of_past_employer'
-                                value={this.props.unicorn.reference_of_past_employer}
+                                name='tudPastEmployerRef'
+                                value={this.props.unicorn.tudPastEmployerRef}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -164,15 +164,15 @@ class References extends Component {
                               <label for="">References of Teacher/Guide from college(Name, Designation, Company, Mobile, Email, Brief about association) </label>
                               <textarea 
                                 id="" cols="30" rows="6"
-                                name='reference_of_guide_from_college'
-                                value={this.props.unicorn.reference_of_guide_from_college}
+                                name='tudGuideRef'
+                                value={this.props.unicorn.tudGuideRef}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
                               ></textarea>
                             </div>          
 
-                            <div className="form-group d-none justify-content-between" style={{display:"none !important"}}>
+                            <div className="form-group  justify-content-between" style={{display:"none !important"}}>
                               <div className='arrow-buttons'>
                                 <button 
                                 style={{ 

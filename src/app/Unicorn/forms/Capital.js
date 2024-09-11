@@ -259,8 +259,8 @@ class FundRaiseRegistration extends Component {
                               <input  
                                 type="text" 
                                 id="selected-field"
-                                name='authorized_captial_of_company'
-                                value={this.props.unicorn.authorized_captial_of_company}
+                                name='tudAuthorisedCap'
+                                value={this.props.unicorn.tudAuthorisedCap}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -270,8 +270,8 @@ class FundRaiseRegistration extends Component {
                               <label for="">Paid-up capital of the company as on date<span className="text-danger">*</span></label>
                               <input  
                                 type="text" 
-                                name='paid_up_capital_company'
-                                value={this.props.unicorn.paid_up_capital_company}
+                                name='tudPaidupCapi'
+                                value={this.props.unicorn.tudPaidupCapi}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -281,8 +281,8 @@ class FundRaiseRegistration extends Component {
                               <label for="">Percentage holding by founders.<span className="text-danger">*</span></label>
                               <input  
                                 type="number" 
-                                name='percentage_holding_by_founders'
-                                value={this.props.unicorn.percentage_holding_by_founders}
+                                name='tudFounderPer'
+                                value={this.props.unicorn.tudFounderPer}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -292,9 +292,9 @@ class FundRaiseRegistration extends Component {
                               <label for="">Percentage holding by other core team members.<span className="text-danger">*</span></label>
                               <input  
                                 type="number" 
-                                name='percentage_holding_by_core_team'
+                                name='tudCorePer'
                                 onWheel={() => document.activeElement.blur()}
-                                value={this.props.unicorn.percentage_holding_by_core_team}
+                                value={this.props.unicorn.tudCorePer}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -305,8 +305,8 @@ class FundRaiseRegistration extends Component {
                               <input  
                                 type="number" 
                                 onWheel={() => document.activeElement.blur()}
-                                name='reserved_for_esop'
-                                value={this.props.unicorn.reserved_for_esop}
+                                name='tudEsopPer'
+                                value={this.props.unicorn.tudEsopPer}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -317,8 +317,8 @@ class FundRaiseRegistration extends Component {
                               <input  
                                 type="number" 
                                 onWheel={() => document.activeElement.blur()}
-                                name='percentage_holding_of_others'
-                                value={this.props.unicorn.percentage_holding_of_others}
+                                name='tudOtherPer'
+                                value={this.props.unicorn.tudOtherPer}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -329,8 +329,8 @@ class FundRaiseRegistration extends Component {
                               <input  
                                 type="number" 
                                 onWheel={() => document.activeElement.blur()}
-                                name='actual_amount_real_salaries_taken'
-                                value={this.props.unicorn.actual_amount_real_salaries_taken}
+                                name='tudAmountByFounder'
+                                value={this.props.unicorn.tudAmountByFounder}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -340,8 +340,8 @@ class FundRaiseRegistration extends Component {
                               <label for="">Unsecured loans received from founders? (Amount and term of repayment)<span className="text-danger">*</span></label>
                               <input  
                                 type="text" 
-                                name='usecure_loans_received_from_founders'
-                                value={this.props.unicorn.usecure_loans_received_from_founders}
+                                name='tudUnsecLoanFounder'
+                                value={this.props.unicorn.tudUnsecLoanFounder}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -351,8 +351,8 @@ class FundRaiseRegistration extends Component {
                               <label for="">Unsecured loans received from others? (Amount and terms of repayment)<span className="text-danger">*</span></label>
                               <input  
                                 type="text" 
-                                name='usecure_loans_received_from_other'
-                                value={this.props.unicorn.usecure_loans_received_from_other}
+                                name='tudUnsecLoanOthers'
+                                value={this.props.unicorn.tudUnsecLoanOthers}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -362,15 +362,15 @@ class FundRaiseRegistration extends Component {
                               <label for="">Any other secured or unsecured debt from bank or any others entity.<span className="text-danger">*</span></label>
                               <input  
                                 type="text" 
-                                name='any_other_secured_or_ddebt_from_bank'
-                                value={this.props.unicorn.any_other_secured_or_ddebt_from_bank}
+                                name='tudOtherLoan'
+                                value={this.props.unicorn.tudOtherLoan}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
                               />
                             </div>
  
-                            <div className="form-group d-none justify-content-between" style={{display:"none !important"}}>
+                            <div className="form-group  justify-content-between" style={{display:"none !important"}}>
                               <div className='arrow-buttons'>
                                 <button 
                                 style={{ 

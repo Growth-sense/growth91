@@ -173,11 +173,11 @@ class MobileApp extends Component {
                           <div className="form-group ">
                             <label for="">Do you have an android app for your Startup?<span className="text-danger">*</span></label>
                             <div className='button-grp'> 
-                              <button disabled 
+                              <button  
                               className={this.props.unicorn.tudAndroidMobileApp=='Yes' && 'active'} 
                               onClick={() => this.changeStatus('Yes')}
                               >Yes</button>
-                              <button disabled 
+                              <button  
                               className={this.props.unicorn.tudAndroidMobileApp=='No' && 'active'} 
                               onClick={() => this.changeStatus('No')}
                               >No</button>
@@ -185,7 +185,7 @@ class MobileApp extends Component {
                         </div>
                             <div className="form-group">
                               <label for="">Give details (App Name, Downloads, Rating, Active User, etc.)</label>
-                              <input  disabled
+                              <input  
                                 type="text" 
                                 name='tudAndroidMobileApp'
                                 value={this.props.unicorn.tudAndroidMobileApp}
@@ -197,11 +197,11 @@ class MobileApp extends Component {
                             <div className="form-group ">
                                 <label for="">Do you have an IOS app for your Startup?</label>
                                 <div className='button-grp'> 
-                                  <button disabled 
+                                  <button  
                                   className={this.props.unicorn.tudIphoneMobileApp=='Yes' && 'active'} 
                                   onClick={() => this.changeStatus1('Yes')}
                                   >Yes</button>
-                                  <button disabled 
+                                  <button  
                                   className={this.props.unicorn.tudIphoneMobileApp=='No' && 'active'} 
                                   onClick={() => this.changeStatus1('No')}
                                   >No</button>
@@ -209,7 +209,7 @@ class MobileApp extends Component {
                             </div> 
                             <div className="form-group">
                               <label for="">Give details (app name, downloads, rating, active user, ect.)</label>
-                              <input  disabled
+                              <input  
                                 type="text" 
                                 name='tudIphoneAppDetails'
                                 value={this.props.unicorn.tudIphoneAppDetails}
@@ -218,7 +218,7 @@ class MobileApp extends Component {
                           }
                               />
                             </div>
-                            <div className="form-group d-none justify-content-between" style={{display:"none !important"}}>
+                            <div className="form-group  justify-content-between" style={{display:"none !important"}}>
                               <div className='arrow-buttons'>
                                 <button 
                                 style={{ 

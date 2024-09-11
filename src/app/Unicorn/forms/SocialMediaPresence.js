@@ -136,11 +136,11 @@ class SocialMediaPresence extends Component {
                         <div className="col-lg-12">
                             <div className="form-group">
                               <label for="">LinkedIn</label>
-                              <input  disabled
+                              <input  
                                 type="text" 
-                                name='linkdin'
+                                name='tudSocialLinkedIn'
                                 id="selected-field"
-                                value={this.props.unicorn.linkdin}
+                                value={this.props.unicorn.tudSocialLinkedIn}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -148,10 +148,10 @@ class SocialMediaPresence extends Component {
                             </div>
                             <div className="form-group">
                               <label for="">Facebook</label>
-                              <input  disabled
+                              <input  
                                 type="text" 
-                                name='facebook'
-                                value={this.props.unicorn.facebook}
+                                name='tudSocialFacebook'
+                                value={this.props.unicorn.tudSocialFacebook}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -159,10 +159,10 @@ class SocialMediaPresence extends Component {
                             </div>
                             <div className="form-group">
                               <label for="">Instagram</label>
-                              <input  disabled
+                              <input  
                                 type="text" 
-                                name='instagram'
-                                value={this.props.unicorn.instagram}
+                                name='tudSocialInsta'
+                                value={this.props.unicorn.tudSocialInsta}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -170,26 +170,26 @@ class SocialMediaPresence extends Component {
                             </div>
                             <div className="form-group">
                               <label for="">Youtube</label>
-                              <input  disabled
+                              <input  
                                 type="text" 
-                                name='youtube'
-                                value={this.props.unicorn.youtube}
+                                name='tudSocialYouTube'
+                                value={this.props.unicorn.tudSocialYouTube}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
                               />
                             </div>                            <div className="form-group">
                               <label for="">Others</label>
-                              <input  disabled
+                              <input  
                                 type="text" 
-                                name='others'
-                                value={this.props.unicorn.others}
+                                name='tudSocialOthers'
+                                value={this.props.unicorn.tudSocialOthers}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
                               />
                             </div>
-                             <div className="form-group d-none justify-content-between" style={{display:"none !important"}}>
+                             <div className="form-group  justify-content-between" style={{display:"none !important"}}>
                               <div className='arrow-buttons'>
                                 <button 
                                 style={{ 

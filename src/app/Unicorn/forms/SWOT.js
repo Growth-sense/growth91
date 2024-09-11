@@ -171,7 +171,7 @@ class SWOT extends Component {
                              
                             <div className="form-group">
                               <label for="">What are the strengths of your startup?<span className="text-danger">*</span></label>
-                              <textarea disabled 
+                              <textarea  
                                 type="text" 
                                 name='tudStrength'
                                 cols={30}
@@ -185,7 +185,7 @@ class SWOT extends Component {
                             </div>
                             <div className="form-group">
                               <label for="">What are the weaknesses of your startup? <span className="text-danger">*</span></label>
-                              <textarea disabled 
+                              <textarea  
                                 type="text" 
                                 name='tudWeakness'
                                 cols={30}
@@ -211,18 +211,18 @@ class SWOT extends Component {
                             </div>
                             <div className="form-group">
                               <label for="">What are the threats for your startup? <span className="text-danger">*</span></label>
-                              <textarea disabled 
+                              <textarea  
                                 type="text" 
-                                name='threats_for_startup'
+                                name='tudThreats'
                                 cols={30}
                                 rows={6}
-                                value={this.props.unicorn.threats_for_startup}
+                                value={this.props.unicorn.tudThreats}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
                               />
                             </div>
-                            <div className="form-group d-none justify-content-between" style={{display:"none !important"}}>
+                            <div className="form-group  justify-content-between" style={{display:"none !important"}}>
                               <div className='arrow-buttons'>
                                 <button 
                                 style={{ 

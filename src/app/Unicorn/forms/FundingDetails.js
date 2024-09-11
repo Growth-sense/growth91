@@ -236,19 +236,19 @@ class FundingDetails extends Component {
                         <div className="form-group ">
                                 <label for="">Have you raised funds for your Startup previously?<span className="text-danger">*</span></label>
                                 <div className='button-grp'> 
-                                  <button disabled 
-                                  className={this.state.have_you_raised_fund_for_startup=='Yes' && 'active'} 
+                                  <button  
+                                  className={this.state.tudPreviousFundRaised=='Yes' && 'active'} 
                                   onClick={() => this.changeStatus('Yes')}
                                   >Yes</button>
-                                  <button disabled 
-                                  className={this.state.have_you_raised_fund_for_startup=='No' && 'active'} 
+                                  <button  
+                                  className={this.state.tudPreviousFundRaised=='No' && 'active'} 
                                   onClick={() => this.changeStatus('No')}
                                   >No</button>
                                 </div>
                             </div>
                           <div>
                           
-                          {this.state.have_you_raised_fund_for_startup=='Yes' && (
+                          {this.state.tudPreviousFundRaised=='Yes' && (
 
                           <>
                           <div className="form-group step-form-date-input">
@@ -262,7 +262,7 @@ class FundingDetails extends Component {
                             </div>
                             <div className="form-group ">
                                <label for="">Round - 1 (Pre-money valuation)</label>
-                                <input  disabled
+                                <input  
                                  type="text" 
                                  value={this.props.unicorn.round_1_pre_money_validation}
                                     onChange={(e) =>
@@ -272,7 +272,7 @@ class FundingDetails extends Component {
                             </div>
                             <div className="form-group ">
                                <label for="">Round - 1 (Amount raised)</label>
-                                <input  disabled
+                                <input  
                                  type="number" 
                                  value={this.props.unicorn.round_1_amount_raised}
                                  onWheel={() => document.activeElement.blur()}
@@ -284,7 +284,7 @@ class FundingDetails extends Component {
                             </div>
                             <div className="form-group ">
                                <label for="">Round - 1 (Name of investors)</label>
-                                <input  disabled
+                                <input  
                                  type="text" 
                                  value={this.props.unicorn.round_1_name_of_investor}
                                     onChange={(e) =>
@@ -295,7 +295,7 @@ class FundingDetails extends Component {
                             </div>
                             <div className="form-group ">
                                <label for="">Round - 1 (Other specific details)</label>
-                                <textarea disabled 
+                                <textarea  
                                  type="text" 
                                  cols={30}
                                  rows={6}
@@ -317,7 +317,7 @@ class FundingDetails extends Component {
                             </div>
                             <div className="form-group ">
                                <label for="">Round - 2 (Pre-money valuation)</label>
-                                <input  disabled
+                                <input  
                                  type="text" 
                                  value={this.props.unicorn.round_2_pre_money_validation}
                                     onChange={(e) =>
@@ -329,7 +329,7 @@ class FundingDetails extends Component {
                             </div>
                             <div className="form-group ">
                                <label for="">Round - 2 (Amount raised)</label>
-                                <input  disabled
+                                <input  
                                  type="number" 
                                  onWheel={() => document.activeElement.blur()}
                                  value={this.props.unicorn.round_2_amount_raised}
@@ -340,7 +340,7 @@ class FundingDetails extends Component {
                             </div>
                             <div className="form-group ">
                                <label for="">Round - 2 (Name of investors)</label>
-                                <input  disabled
+                                <input  
                                  type="text" 
                                  value={this.props.unicorn.round_2_name_of_investor}
                                     onChange={(e) =>
@@ -350,7 +350,7 @@ class FundingDetails extends Component {
                             </div>
                             <div className="form-group ">
                                <label for="">Round - 2 (Other specific details)</label>
-                                <textarea disabled 
+                                <textarea  
                                  type="text" 
                                  cols={30}
                                  rows={6}
@@ -371,7 +371,7 @@ class FundingDetails extends Component {
                             </div>
                             <div className="form-group ">
                                <label for="">Round - 3 (Pre-money valuation)</label>
-                                <input  disabled
+                                <input  
                                  type="text" 
                                  value={this.props.unicorn.round_3_pre_money_validation}
                                     onChange={(e) =>
@@ -381,7 +381,7 @@ class FundingDetails extends Component {
                             </div>
                             <div className="form-group ">
                                <label for="">Round - 3 (Amount raised)</label>
-                                <input  disabled
+                                <input  
                                  type="number" 
                                  onWheel={() => document.activeElement.blur()}
                                  value={this.props.unicorn.round_3_amount_raised}
@@ -392,7 +392,7 @@ class FundingDetails extends Component {
                             </div>
                             <div className="form-group ">
                                <label for="">Round - 3 (Name of investors)</label>
-                                <input  disabled
+                                <input  
                                  type="text" 
                                  value={this.props.unicorn.round_3_name_of_investor}
                                     onChange={(e) =>
@@ -402,7 +402,7 @@ class FundingDetails extends Component {
                             </div>
                             <div className="form-group ">
                                <label for="">Round - 3 (Other specific details)</label>
-                                <textarea disabled 
+                                <textarea  
                                  type="text" 
                                  cols={30}
                                  rows={6}
@@ -423,7 +423,7 @@ class FundingDetails extends Component {
                             </div>
                             <div className="form-group ">
                                <label for="">Round - 4 (Pre-money valuation)</label>
-                                <input  disabled
+                                <input  
                                  type="text" 
                                  value={this.props.unicorn.round_4_pre_money_validation}
                                     onChange={(e) =>
@@ -434,7 +434,7 @@ class FundingDetails extends Component {
                             </div>
                             <div className="form-group ">
                                <label for="">Round - 4 (Amount raised)</label>
-                                <input  disabled
+                                <input  
                                  type="number" 
                                  onWheel={() => document.activeElement.blur()}
                                  value={this.props.unicorn.round_4_amount_raised}
@@ -445,7 +445,7 @@ class FundingDetails extends Component {
                             </div>
                             <div className="form-group ">
                                <label for="">Round - 4 (Name of investors)</label>
-                                <input  disabled
+                                <input  
                                  type="text" 
                                  value={this.props.unicorn.round_4_name_of_investor}
                                     onChange={(e) =>
@@ -479,7 +479,7 @@ class FundingDetails extends Component {
                             </div>
                             <div className="form-group ">
                                <label for="">Are anyone of previous investors investing in current round? If yes give details of commitments.</label>
-                                <textarea disabled 
+                                <textarea  
                                  type="text" 
                                  cols={30}
                                  rows={6}
@@ -492,7 +492,7 @@ class FundingDetails extends Component {
                             </>
                           )}
                           </div>
-                            <div className="form-group d-none justify-content-between" style={{display:"none !important"}}>
+                            <div className="form-group  justify-content-between" style={{display:"none !important"}}>
                               <div className='arrow-buttons'>
                                 <button 
                                 style={{ 

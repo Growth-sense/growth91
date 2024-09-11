@@ -271,7 +271,7 @@ class IntellectualProperty extends Component {
                           }
                         ></textarea>
                       </div>
-                      <div className="form-group d-none justify-content-between process-options">
+                      <div className="form-group  justify-content-between process-options">
                         <div className="arrow-buttons">
                           <button
                             style={{

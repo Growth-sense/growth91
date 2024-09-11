@@ -187,7 +187,7 @@ class Declaration extends Component {
                                 </Checkbox> 
                               </div>
                             </div>
-                            <div className="form-group d-none justify-content-between" style={{display:"none !important"}}>
+                            <div className="form-group  justify-content-between" style={{display:"none !important"}}>
                               <div className='arrow-buttons'>
                                 <button 
                                 style={{ 

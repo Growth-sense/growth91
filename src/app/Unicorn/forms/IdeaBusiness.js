@@ -506,7 +506,7 @@ class IdeaBusiness extends Component {
                       </div>
 
                       <div
-                        className="form-group d-none justify-content-between"
+                        className="form-group  justify-content-between"
                         style={{ display: "none !important" }}
                       >
                         <div className="arrow-buttons">

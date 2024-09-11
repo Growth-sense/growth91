@@ -331,7 +331,7 @@ class BasicDetails extends Component {
                             <i className="bx bx-chevron-right"></i>
                           </button>
                         </div>
-                        <div>
+                        {/* <div>
                           <button
                             style={{ width: 116, marginRight: 13 }}
                             class="submit-button"
@@ -346,7 +346,7 @@ class BasicDetails extends Component {
                           >
                             Validate & Proceed
                           </button>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>

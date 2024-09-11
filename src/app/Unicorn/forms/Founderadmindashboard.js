@@ -27,6 +27,7 @@ import Bridge from "../../constants/Bridge";
 
 import $ from "jquery";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const { Step } = Steps;
 
@@ -252,7 +253,7 @@ class Founderadmindashboard extends Component {
         tudDoc1: "",
         tudDoc2: "",
         tudDoc3: "",
-        founderID: "1",
+        founderID:localStorage.getItem("founder_id"),
       },
     };
   }
@@ -274,9 +275,12 @@ class Founderadmindashboard extends Component {
 
   getData = (id) => {
     let params = {
-      founderID: localStorage.getItem("founder_id"),
+      // founderID: localStorage.getItem("founder_id")||58,
     };
-    Bridge.Unicorn.unicornListByFounders(params).then((result) => {
+    let headers= {
+      'content-type': 'application/json',
+  }
+    axios.post(`https://growth91.growthmetaverse.in/api/founder/Startup/unicornListByFounders`,params,headers).then((result) => {
       if (result.status == 1) {
         /// showing for done
         if (result.data[0].send_me_copy_of_response) {
@@ -505,9 +509,9 @@ class Founderadmindashboard extends Component {
   checkforvalidation = (ind) => {
     console.log(ind, this.class17);
     let params = {
-      founder_id: localStorage.getItem("founder_id"),
+      founderID: localStorage.getItem("founder_id"),
     };
-    Bridge.founder.getFounderDetails(params).then((result) => {
+    Bridge.Unicorn.unicornListByFounders(params).then((result) => {
       if (result.status == 1) {
         let validate = false;
 

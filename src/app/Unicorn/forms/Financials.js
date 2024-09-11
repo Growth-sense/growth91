@@ -224,11 +224,11 @@ class FundRaiseRegistration extends Component {
                               <label for="">Number of clients<span className="text-danger">*</span></label>
                               <textarea 
                                 type="text" 
-                                name='name_of_clients'
+                                name='tudNumberofClients'
                                 cols={30}
                                 id="selected-field"
                                 rows={6}
-                                value={this.props.unicorn.name_of_clients}
+                                value={this.props.unicorn.tudNumberofClients}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -238,10 +238,10 @@ class FundRaiseRegistration extends Component {
                               <label for="">Client retention?<span className="text-danger">*</span></label>
                               <textarea 
                                 type="text" 
-                                name='client_retention'
+                                name='tudClientRetentions'
                                 cols={30}
                                 rows={6}
-                                value={this.props.unicorn.client_retention}
+                                value={this.props.unicorn.tudClientRetentions}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -251,10 +251,10 @@ class FundRaiseRegistration extends Component {
                               <label for=""> Revenue from top 5-10% clients?<span className="text-danger">*</span></label>
                               <textarea disabled 
                                 type="text" 
-                                name='revenue_top_5_clients'
+                                name='tudRevenueTop10'
                                 cols={30}
                                 rows={6}
-                                value={this.props.unicorn.revenue_top_5_clients}
+                                value={this.props.unicorn.tudRevenueTop10}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -264,8 +264,8 @@ class FundRaiseRegistration extends Component {
                               <label for=""> Explain unit economics of your startup?<span className="text-danger">*</span></label>
                               <input  disabled
                                 type="text" 
-                                name='explaination_economics_of_startup'
-                                value={this.props.unicorn.explaination_economics_of_startup}
+                                name='tudUnitEconomics'
+                                value={this.props.unicorn.tudUnitEconomics}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -275,8 +275,8 @@ class FundRaiseRegistration extends Component {
                               <label for="">What is the total CapEx of your startup till date?<span className="text-danger">*</span></label>
                               <input  disabled
                                 type="text" 
-                                name='total_capex_of_startup'
-                                value={this.props.unicorn.total_capex_of_startup}
+                                name='tudTotalCapEx'
+                                value={this.props.unicorn.tudTotalCapEx}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -286,10 +286,10 @@ class FundRaiseRegistration extends Component {
                               <label for="">What is the total amount spent in product development?<span className="text-danger">*</span></label>
                               <textarea 
                                 type="text" 
-                                name='total_amount_spent_of_product'
+                                name='tudAmountSpentProdDev'
                                 cols={30}
                                 rows={6}
-                                value={this.props.unicorn.total_amount_spent_of_product}
+                                value={this.props.unicorn.tudAmountSpentProdDev}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -299,17 +299,17 @@ class FundRaiseRegistration extends Component {
                               <label for="">Other major expenses/investments till date.<span className="text-danger">*</span></label>
                               <textarea disabled 
                                 type="text" 
-                                name='major_expense_till_date'
+                                name='tudMajorExpInv'
                                 cols={30}
                                 rows={6}
-                                value={this.props.unicorn.major_expense_till_date}
+                                value={this.props.unicorn.tudMajorExpInv}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
                               />
                             </div>
 
-                            <div className="form-group d-none justify-content-between" style={{display:"none !important"}}>
+                            <div className="form-group  justify-content-between" style={{display:"none !important"}}>
                               <div className='arrow-buttons'>
                                 <button 
                                 style={{ 

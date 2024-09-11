@@ -190,12 +190,12 @@ class Salaries extends Component {
                         <div className="col-lg-12">
                             <div className="form-group">
                               <label for="">Founders' current salary (Total Rs per month)  for all founders.<span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="number" 
                                 id="selected-field"
                                 onWheel={() => document.activeElement.blur()}
-                                name='founders_current_salery'
-                                value={this.props.unicorn.founders_current_salery}
+                                name='tudFounderSalary'
+                                value={this.props.unicorn.tudFounderSalary}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -215,10 +215,10 @@ class Salaries extends Component {
                                   marginBottom:30,
                                 }}
                               /> */}
-                              <input  disabled
+                              <input  
                                 type="text" 
-                                name='date_of_last_increase_founders_salary'
-                                value={this.props.unicorn.date_of_last_increase_founders_salary}
+                                name='tudFounderSalaryPlan'
+                                value={this.props.unicorn.tudFounderSalaryPlan}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -226,11 +226,11 @@ class Salaries extends Component {
                             </div>
                             <div className="form-group">
                               <label for="">Core Team's current salary (Total Rs per month) <span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="number" 
                                 onWheel={() => document.activeElement.blur()}
-                                name='core_team_current_salary'
-                                value={this.props.unicorn.core_team_current_salary}
+                                name='tudCoreTeamSalary'
+                                value={this.props.unicorn.tudCoreTeamSalary}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -239,11 +239,11 @@ class Salaries extends Component {
                           
                             <div className="form-group">
                               <label for="">Total salary (all direct/indirect employees, Rs per month) - Including core team and all founders.<span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="number" 
                                 onWheel={() => document.activeElement.blur()}
-                                name='total_salary_including_core_team_salary'
-                                value={this.props.unicorn.total_salary_including_core_team_salary}
+                                name='tudTotalSalary'
+                                value={this.props.unicorn.tudTotalSalary}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -269,7 +269,7 @@ class Salaries extends Component {
                                   border: active==false ? '1px solid #29176f' : '1px solid #29176f',
                                   color: active==false ? '#29176f' : '#29176f',
                                 }} 
-                                // disabled={active}
+                                // ={active}
                                 onClick={this.next}
                                 class="submit-button">
                                   <i className='bx bx-chevron-right'></i>

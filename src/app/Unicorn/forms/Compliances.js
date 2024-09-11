@@ -275,12 +275,12 @@ class Compliances extends Component {
                       <div className="form-group ">
                                 <label for="">Are you registered for GST?<span className="text-danger">*</span></label>
                                 <div className='button-grp'> 
-                                  <button disabled 
-                                  className={this.state.are_you_registered_for_gst=='Yes' && 'active'} 
+                                  <button  
+                                  className={this.state.tudGstRegistered=='Yes' && 'active'} 
                                   onClick={() => this.changeStatus('Yes')}
                                   >Yes</button>
-                                  <button disabled 
-                                  className={this.state.are_you_registered_for_gst=='No' && 'active'} 
+                                  <button  
+                                  className={this.state.tudGstRegistered=='No' && 'active'} 
                                   onClick={() => this.changeStatus('No')}
                                   >No</button>
                                 </div>
@@ -290,8 +290,8 @@ class Compliances extends Component {
                               <label for="">Give detailed status of GST Compliance<span className="text-danger">*</span></label>
                               <textarea 
                                 id="" cols="30" rows="6"
-                                name='status_of_gst_compliance'
-                                value={this.props.unicorn.status_of_gst_compliance}
+                                name='tudGstDetails'
+                                value={this.props.unicorn.tudGstDetails}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -301,9 +301,9 @@ class Compliances extends Component {
                               <label for="">Date of audited balance sheet<span className="text-danger">*</span></label>
                              
                               <DatePicker
-                                value={this.props.unicorn.date_of_last_audited_balance_sheet}
+                                value={this.props.unicorn.tudAuditedBL}
                                 onChange={(date, dateString) => {
-                                  this.setState({ date_of_last_audited_balance_sheet:date }) 
+                                  this.setState({ tudAuditedBL:date }) 
                                 }}
                                 disabledDate={this.disabledDate}
                                 format={'DD-MM-YYYY'}
@@ -317,9 +317,9 @@ class Compliances extends Component {
                               <label for="">Date of filling last ITR<span className="text-danger">*</span></label>
                               
                               <DatePicker
-                                value={this.props.unicorn.date_of_filling_last_itr}
+                                value={this.props.unicorn.tudItrFilling}
                                 onChange={(date, dateString) => {
-                                  this.setState({ date_of_filling_last_itr:date }) 
+                                  this.setState({ tudItrFilling:date }) 
                                 }}
                                 disabledDate={this.disabledDate}
                                 format={'DD-MM-YYYY'}
@@ -333,9 +333,9 @@ class Compliances extends Component {
                               <label for="">Date of last AGM<span className="text-danger">*</span></label>
                              
                               <DatePicker
-                                value={this.props.unicorn.date_of_last_agm}
+                                value={this.props.unicorn.tudAgm}
                                 onChange={(date, dateString) => {
-                                  this.setState({ date_of_last_agm:date }) 
+                                  this.setState({ tudAgm:date }) 
                                 }}
                                 disabledDate={this.disabledDate}
                                 format={'DD-MM-YYYY'}
@@ -347,10 +347,10 @@ class Compliances extends Component {
                             </div> 
                             <div className="form-group">
                               <label for="">Any pending compliance related to ROC.<span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="text" 
-                                name='pending_complience_related_to_roc'
-                                value={this.props.unicorn.pending_complience_related_to_roc}
+                                name='tudPendingRoc'
+                                value={this.props.unicorn.tudPendingRoc}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -358,10 +358,10 @@ class Compliances extends Component {
                             </div>                           
                             <div className="form-group">
                               <label for="">Any past delays (which are in compliance now) in compliance and reasons reason for the same )<span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="text" 
-                                name='past_days'
-                                value={this.props.unicorn.past_days}
+                                name='tudPastDelays'
+                                value={this.props.unicorn.tudPastDelays}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -371,8 +371,8 @@ class Compliances extends Component {
                               <label for="">Give list of other statutory compliance applicable<span className="text-danger">*</span></label>
                               <textarea 
                                 id="" cols="30" rows="6"
-                                name='list_of_other_situatory'
-                                value={this.props.unicorn.list_of_other_situatory}
+                                name='tudOtherApplicableCompliance'
+                                value={this.props.unicorn.tudOtherApplicableCompliance}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -382,8 +382,8 @@ class Compliances extends Component {
                               <label for="">Name, email and mobile number of CA </label>
                               <textarea 
                                 id="" cols="30" rows="6"
-                                name='email_and_mobile_of_ca'
-                                value={this.props.unicorn.email_and_mobile_of_ca}
+                                name='tudCaInfo'
+                                value={this.props.unicorn.tudCaInfo}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -393,8 +393,8 @@ class Compliances extends Component {
                               <label for="">Name, email and mobile number of CS </label>
                               <textarea 
                                 id="" cols="30" rows="6"
-                                name='email_and_mobile_of_cs'
-                                value={this.props.unicorn.email_and_mobile_of_cs}
+                                name='tudCsInfo'
+                                value={this.props.unicorn.tudCsInfo}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -404,15 +404,15 @@ class Compliances extends Component {
                               <label for="">Name, email and mobile number of any other tax,legal or statutory consultants.</label>
                               <textarea 
                                 id="" cols="30" rows="6"
-                                name='name_email_and_mobile_of_any_other'
-                                value={this.props.unicorn.name_email_and_mobile_of_any_other}
+                                name='tudOtherLegalInfo'
+                                value={this.props.unicorn.tudOtherLegalInfo}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
                               ></textarea>
                             </div>  
 
-                           <div className="form-group d-none justify-content-between" style={{display:"none !important"}}>
+                           <div className="form-group  justify-content-between" style={{display:"none !important"}}>
                               <div className='arrow-buttons'>
                                 <button 
                                 style={{ 

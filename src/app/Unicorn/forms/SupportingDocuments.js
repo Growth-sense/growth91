@@ -344,7 +344,7 @@ class SupportingDocuments extends Component {
                                   </div>
                                 )}          
                                 <div className='d-flex'>
-                                  <Button disabled 
+                                  <Button  
                                     onClick={()=>this.openInputTypefile()}
                                     disabled={this.state.pitchpdffile ? true : false}
                                   >
@@ -352,7 +352,7 @@ class SupportingDocuments extends Component {
                                   </Button> 
                                   &nbsp;&nbsp;{this.state.pitch ? '(1 file is selected)' : ''}
                                 </div>                      
-                                <input  disabled
+                                <input  
                                   type='file'
                                   id="pitch_input_type_file"
                                   onChange={(e) => this.onChangeFile(e,'pdf')}
@@ -384,7 +384,7 @@ class SupportingDocuments extends Component {
                                       </div>
                                     )
                                   })}
-                                  <input  disabled
+                                  <input  
                                     type='file'
                                     multiple={true}
                                     id="document_input_type_file"
@@ -438,7 +438,7 @@ class SupportingDocuments extends Component {
                               <br/>
                             </div>  
                           </div>
-                          <div className="form-group d-none justify-content-between" style={{display:"none !important"}}>
+                          <div className="form-group  justify-content-between" style={{display:"none !important"}}>
                               <div className='arrow-buttons'>
                                 <button 
                                 style={{ 

@@ -709,7 +709,7 @@ class FounderNewRegister extends Component {
             />
 
             <center>
-              <button disabled
+              <button 
                 onClick={() => {
                   this.setState({ showInstruction: false });
                   ReactGA.event({
@@ -741,7 +741,7 @@ class FounderNewRegister extends Component {
 
             <center>
               <br />
-              <button disabled
+              <button 
                 onClick={() => {
                   this.setState({ showInstruction: false });
                   ReactGA.event({

@@ -325,11 +325,11 @@ class UseOfFunds extends Component {
                         <div className="col-lg-12">
                         <div className="form-group">
                               <label for="">Funds required<span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="text" 
                                 id="selected-field"
-                                name='funds_required'
-                                value={this.props.unicorn.funds_required}
+                                name='tudFundRequired'
+                                value={this.props.unicorn.tudFundRequired}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -337,10 +337,10 @@ class UseOfFunds extends Component {
                             </div>                           
                             <div className="form-group">
                               <label for="">Expected runway with current fund raise<span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="text" 
-                                name='expected_runway_with_current_fund_raise'
-                                value={this.props.unicorn.expected_runway_with_current_fund_raise}
+                                name='tudExpRunway'
+                                value={this.props.unicorn.tudExpRunway}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -348,10 +348,10 @@ class UseOfFunds extends Component {
                             </div>                           
                             <div className="form-group">
                               <label for="">Desired valuation of current fund raise<span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="text" 
-                                name='desired_valuation_for_current_fund_raise'
-                                value={this.props.unicorn.desired_valuation_for_current_fund_raise}
+                                name='tudValueFundRaise'
+                                value={this.props.unicorn.tudValueFundRaise}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -359,10 +359,10 @@ class UseOfFunds extends Component {
                             </div>                          
                              <div className="form-group">
                               <label for="">Logic / rational for your desired valuation <span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="text" 
-                                name='logic_for_desired_valuation'
-                                value={this.props.unicorn.logic_for_desired_valuation}
+                                name='tudLogicFundRaise'
+                                value={this.props.unicorn.tudLogicFundRaise}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -370,10 +370,10 @@ class UseOfFunds extends Component {
                             </div>                           
                             <div className="form-group">
                               <label for="">Are you open to consider logical and realistic lower valuation?<span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="text" 
-                                name='are_you_open_to_consider_logical_lower_valuation'
-                                value={this.props.unicorn.are_you_open_to_consider_logical_lower_valuation}
+                                name='tudOpentoLower'
+                                value={this.props.unicorn.tudOpentoLower}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -381,10 +381,10 @@ class UseOfFunds extends Component {
                             </div>                           
                             <div className="form-group">
                               <label for="">CapEx (immediately after current round )<span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="text" 
-                                name='capex_immediately'
-                                value={this.props.unicorn.capex_immediately}
+                                name='tudCapexImmidate'
+                                value={this.props.unicorn.tudCapexImmidate}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -392,10 +392,10 @@ class UseOfFunds extends Component {
                             </div>                           
                             <div className="form-group">
                               <label for="">CapEx (Future plans)<span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="text" 
-                                name='capex_future_plans'
-                                value={this.props.unicorn.capex_future_plans}
+                                name='tudCapexFuture'
+                                value={this.props.unicorn.tudCapexFuture}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -403,10 +403,10 @@ class UseOfFunds extends Component {
                             </div>                           
                             <div className="form-group">
                               <label for="">Use of funds (Product development %)<span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="text" 
-                                name='use_of_funds_product_development'
-                                value={this.props.unicorn.use_of_funds_product_development}
+                                name='tudProductFund'
+                                value={this.props.unicorn.tudProductFund}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -414,10 +414,10 @@ class UseOfFunds extends Component {
                             </div>                           
                             <div className="form-group">
                               <label for="">Use of funds (Marketing %)<span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="text" 
-                                name='use_of_funds_marketing'
-                                value={this.props.unicorn.use_of_funds_marketing}
+                                name='tudMarketingFund'
+                                value={this.props.unicorn.tudMarketingFund}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -425,7 +425,7 @@ class UseOfFunds extends Component {
                             </div>                          
                              <div className="form-group">
                               <label for="">Use of funds (Repayment of loans amount %)<span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="text" 
                                 name='use_of_funds_repayment'
                                 value={this.props.unicorn.use_of_funds_repayment}
@@ -436,10 +436,10 @@ class UseOfFunds extends Component {
                             </div>                           
                             <div className="form-group">
                               <label for="">Use of funds (Salaries %)<span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="text" 
-                                name='use_of_funds_salaries_in_per'
-                                value={this.props.unicorn.use_of_funds_salaries_in_per}
+                                name='tudSalaryFund'
+                                value={this.props.unicorn.tudSalaryFund}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -447,10 +447,10 @@ class UseOfFunds extends Component {
                             </div>                           
                             <div className="form-group">
                               <label for="">Use of funds (Fund raise cast and commission %)<span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="text" 
-                                name='use_of_funds_cost_and_commision'
-                                value={this.props.unicorn.use_of_funds_cost_and_commision}
+                                name='tudCastComFund'
+                                value={this.props.unicorn.tudCastComFund}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -458,17 +458,17 @@ class UseOfFunds extends Component {
                             </div>                           
                             <div className="form-group">
                               <label for="">Use of funds (Other %)<span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="text" 
-                                name='use_of_funds_other'
-                                value={this.props.unicorn.use_of_funds_other}
+                                name='tudOthersFund'
+                                value={this.props.unicorn.tudOthersFund}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
                               />
                             </div>    
 
-                            <div className="form-group d-none justify-content-between" style={{display:"none !important"}}>
+                            <div className="form-group  justify-content-between" style={{display:"none !important"}}>
                               <div className='arrow-buttons'>
                                 <button 
                                 style={{ 
@@ -488,7 +488,7 @@ class UseOfFunds extends Component {
                                   border: active==false ? '1px solid #29176f' : '1px solid #29176f',
                                   color: active==false ? '#29176f' : '#29176f',
                                 }} 
-                                // disabled={active}
+                                // ={active}
                                 onClick={this.next}
                                 class="submit-button">
                                   <i className='bx bx-chevron-right'></i>

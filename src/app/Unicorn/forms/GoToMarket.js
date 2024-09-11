@@ -242,8 +242,8 @@ render() {
                             <textarea 
                               type="text" 
                               id="selected-field"
-                              name='primary_gtm_strategy'
-                              value={this.props.unicorn.primary_gtm_strategy}
+                              name='tudGtmStratergy'
+                              value={this.props.unicorn.tudGtmStratergy}
                               cols={30}
                               rows={6}
    onChange={(e) =>
@@ -255,8 +255,8 @@ render() {
                             <label for="">What is your Backup plan for GTM?<span className="text-danger">*</span></label>
                             <textarea 
                               type="text" 
-                              name='backup_plan_for_strategy'
-                              value={this.props.unicorn.backup_plan_for_strategy}
+                              name='tudGtmBackup'
+                              value={this.props.unicorn.tudGtmBackup}
                               cols={30}
                               rows={6}
    onChange={(e) =>
@@ -266,10 +266,10 @@ render() {
                           </div>
                           <div className="form-group">
                             <label for="">What is your existing CAC?<span className="text-danger">*</span></label>
-                            <input  disabled
+                            <input  
                               type="text" 
-                              name='existing_cas'
-                              value={this.props.unicorn.existing_cas}
+                              name='tudExistingCac'
+                              value={this.props.unicorn.tudExistingCac}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -277,10 +277,10 @@ render() {
                           </div>
                           <div className="form-group">
                             <label for="">What is your expected CAC in future?<span className="text-danger">*</span></label>
-                            <input  disabled
+                            <input  
                               type="text" 
-                              name='expected_cac_in_future'
-                              value={this.props.unicorn.expected_cac_in_future}
+                              name='tudExpectedCac'
+                              value={this.props.unicorn.tudExpectedCac}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -288,10 +288,10 @@ render() {
                           </div>
                           <div className="form-group">
                             <label for="">Logic/rationale behind any change in CAC in future?<span className="text-danger">*</span></label>
-                            <input  disabled
+                            <input  
                               type="text" 
-                              name='rational_behinde_any_change_in_cac'
-                              value={this.props.unicorn.rational_behinde_any_change_in_cac}
+                              name='tudLogicCac'
+                              value={this.props.unicorn.tudLogicCac}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -299,10 +299,10 @@ render() {
                           </div>
                           <div className="form-group">
                             <label for="">What is your LTV of a customer?<span className="text-danger">*</span></label>
-                            <input  disabled
+                            <input  
                               type="text" 
-                              name='ltv_of_customer'
-                              value={this.props.unicorn.ltv_of_customer}
+                              name='tudLtvCustomer'
+                              value={this.props.unicorn.tudLtvCustomer}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -310,10 +310,10 @@ render() {
                           </div>
                           <div className="form-group">
                             <label for="">Logic/rationale behind LTV numbers?<span className="text-danger">*</span></label>
-                            <input  disabled
+                            <input  
                               type="text" 
-                              name='rational_behind_ltv_number'
-                              value={this.props.unicorn.rational_behind_ltv_number}
+                              name='tudLogicLtvNumber'
+                              value={this.props.unicorn.tudLogicLtvNumber}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -321,16 +321,16 @@ render() {
                           </div>
                           <div className="form-group">
                             <label for="">What is your LTV to CAC ratio?<span className="text-danger">*</span></label>
-                            <input  disabled
+                            <input  
                               type="text" 
-                              name='ltv_to_cac_ratio'
-                              value={this.props.unicorn.ltv_to_cac_ratio}
+                              name='tudLtvCacRatio'
+                              value={this.props.unicorn.tudLtvCacRatio}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
                             />
                           </div>
-                          <div className="form-group d-none justify-content-between" style={{display:"none !important"}}>
+                          <div className="form-group  justify-content-between" style={{display:"none !important"}}>
                               <div className='arrow-buttons'>
                                 <button 
                                 style={{ 
@@ -350,7 +350,7 @@ render() {
                                   border: active==false ? '1px solid #29176f' : '1px solid #29176f',
                                   color: active==false ? '#29176f' : '#29176f',
                                 }} 
-                                // disabled={active}
+                                // ={active}
                                 onClick={this.next}
                                 class="submit-button">
                                   <i className='bx bx-chevron-right'></i>

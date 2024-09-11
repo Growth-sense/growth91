@@ -267,6 +267,7 @@ class Deals extends Component {
       Commitmentstatus: "",
       commitmentstatusid: "",
     };
+    this.button = React.createRef()
   }
 
   componentDidMount() {
@@ -1912,11 +1913,37 @@ class Deals extends Component {
         isCommitmentEnabled: this.state.Commitmentstatus,
     };
 
+    console.log(this.state.ac_edit_deal_id);
+    
     Bridge.admin.investor.update_enable_status(params).then((result) => {
       console.log(result);
       if(result.message=="Commitment status is updated successfully."){
-        this.setState({ show_edit_commitment_status_modal: false })
+        this.setState({ show_edit_commitment_status_modal: false
+         
+         },
+         () => {
+          axios
+            .get(
+              `${process.env.REACT_APP_BASE_URL}api/admin/Deal/display_investor_commitment_list`,
+              {
+                params: {
+                  deal_id: this.state.ac_edit_deal_id,
+                },
+              }
+            )
+            .then((response) => {
+              this.setState({
+                commitment_investor_list: response.data.data,
+                commitment_investor_listc: response.data.data,
+                loading: false,
+              });
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        })
         toast.success("Commitment status is updated successfully.")
+       
       }
       else{
         toast.error("error")
@@ -2283,6 +2310,9 @@ class Deals extends Component {
       show_edit_commitment_status_modal: true,
       Commitmentstatus: record.item.isCommitmentEnabled,
       commitmentstatusid: record.item.id,
+      ac_edit_deal_id:record.item.deal_id
+    
+    
     });
   };
   render() {
@@ -2359,6 +2389,7 @@ class Deals extends Component {
           created_at: item.created_at
             ? moment(item.created_at).format("D-MMM-YYYY h:mm A")
             : "",
+            isCommitmentEnabled: item.isCommitmentEnabled,
           name: item.first_name + " " + item.last_name,
           deal_name: item.deal_name,
           item: item,
@@ -2716,6 +2747,7 @@ class Deals extends Component {
                 </a>
               </Menu.Item>
               <Menu.Item
+               ref={this.button}
                 key={`ViewCommitment${record.key}`}
                 icon={<EyeOutlined />}
               >
@@ -2849,6 +2881,12 @@ class Deals extends Component {
         title: "Commitment Status",
         dataIndex: "commitment_satus",
         key: "commitment_satus",
+        width: 100,
+      },
+      {
+        title: "Commitment Visible to user",
+        dataIndex: "isCommitmentEnabled",
+        key: "isCommitmentEnabled",
         width: 100,
       },
       {
@@ -3101,8 +3139,8 @@ class Deals extends Component {
               <option disabled selected value="">
                 Select any one
               </option>
-              <option value="Enabled">Enabled</option>
-              <option value="Disabled">Disabled</option>
+              <option value="Enabled">Enable</option>
+              <option value="Disabled">Disable</option>
             </select>
             {/* <Input
               type="select"

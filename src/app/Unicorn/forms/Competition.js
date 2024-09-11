@@ -228,7 +228,7 @@ class FundRaiseRegistration extends Component {
                         <div className="col-lg-12">
                             <div className="form-group">
                               <label for="">Local Competition(direct)<span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="text" 
                                 id="selected-field"
                                 placeholder="Enter your name"
@@ -241,7 +241,7 @@ class FundRaiseRegistration extends Component {
                             </div>
                             <div className="form-group">
                               <label for="">Local Competition(indirect)<span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="text" 
                                 name='tudLocalIndirectComp'
                                 value={this.props.unicorn.tudLocalIndirectComp}
@@ -251,7 +251,7 @@ class FundRaiseRegistration extends Component {
                               />
                             </div>                            <div className="form-group">
                               <label for="">Global Competition(direct)<span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="text" 
                                 name='tudGlobalDirectComp'
                                 value={this.props.unicorn.tudGlobalDirectComp}
@@ -261,7 +261,7 @@ class FundRaiseRegistration extends Component {
                               />
                             </div>                            <div className="form-group">
                               <label for="">Global Competition(indirect)<span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="text" 
                                 name='tudGlobalIndirectComp'
                                 value={this.props.unicorn.tudGlobalIndirectComp}
@@ -338,7 +338,7 @@ class FundRaiseRegistration extends Component {
                           }
                               ></textarea>
                             </div>
-                            <div className="form-group d-none justify-content-between" style={{display:"none !important"}}>
+                            <div className="form-group  justify-content-between" style={{display:"none !important"}}>
                               <div className='arrow-buttons'>
                                 <button 
                                 style={{ 

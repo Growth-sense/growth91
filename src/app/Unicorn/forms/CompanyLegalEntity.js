@@ -376,12 +376,11 @@ class FundRaiseRegistration extends Component {
                           Name of the legal entity.{" "}
                           <span className="text-danger">*</span>
                         </label>
-                        <input
-                          disabled
+                        <input  
                           type="text"
-                          name="name_of_legality_entity"
+                          name="tudLeagalName"
                           id="selected-field"
-                          value={this.props.unicorn.name_of_legality_entity}
+                          value={this.props.unicorn.tudLeagalName}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -389,11 +388,10 @@ class FundRaiseRegistration extends Component {
                       </div>
                       <div className="form-group">
                         <label for="">Website </label>
-                        <input
-                          disabled
+                        <input  
                           type="url"
-                          name="website"
-                          value={this.props.unicorn.website}
+                          name="tudWebsite"
+                          value={this.props.unicorn.tudWebsite}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -404,11 +402,10 @@ class FundRaiseRegistration extends Component {
                           Legal entity - CIN{" "}
                           <span className="text-danger">*</span>
                         </label>
-                        <input
-                          disabled
+                        <input  
                           type="text"
-                          name="cin_legality_entity"
-                          value={this.props.unicorn.cin_legality_entity}
+                          name="tudLegalCin"
+                          value={this.props.unicorn.tudLegalCin}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -419,11 +416,10 @@ class FundRaiseRegistration extends Component {
                           Legal entity - PAN{" "}
                           <span className="text-danger">*</span>
                         </label>
-                        <input
-                          disabled
+                        <input  
                           type="text"
-                          name="pan_legality_entity"
-                          value={this.props.unicorn.pan_legality_entity}
+                          name="tudLegalPan"
+                          value={this.props.unicorn.tudLegalPan}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -434,11 +430,10 @@ class FundRaiseRegistration extends Component {
                           Registered in (Country){" "}
                           <span className="text-danger">*</span>
                         </label>
-                        <input
-                          disabled
+                        <input  
                           type="text"
-                          name="registered_in_country"
-                          value={this.props.unicorn.registered_in_country}
+                          name="tudLegalCountry"
+                          value={this.props.unicorn.tudLegalCountry}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -451,9 +446,9 @@ class FundRaiseRegistration extends Component {
                         </label>
 
                         <DatePicker
-                          value={this.props.unicorn.formality_established_date}
+                          value={this.props.unicorn.tudEstablishedDate}
                           onChange={(date, dateString) => {
-                            this.setState({ formality_established_date: date });
+                            this.setState({ tudEstablishedDate: date });
                           }}
                           disabledDate={this.disabledDate}
                           format={"DD-MM-YYYY"}
@@ -471,11 +466,11 @@ class FundRaiseRegistration extends Component {
                         <DatePicker
                           value={
                             this.props.unicorn
-                              .activities_start_date_befire_formal
+                              .tudActivityStartedDate
                           }
                           onChange={(date, dateString) => {
                             this.setState({
-                              activities_start_date_befire_formal: date,
+                              tudActivityStartedDate: date,
                             });
                           }}
                           disabledDate={this.disabledDate}
@@ -491,11 +486,10 @@ class FundRaiseRegistration extends Component {
                           Address - Registered office
                           <span className="text-danger">*</span>
                         </label>
-                        <input
-                          disabled
+                        <input  
                           type="text"
-                          name="address_registered_office"
-                          value={this.props.unicorn.address_registered_office}
+                          name="tudRegisteredOffice"
+                          value={this.props.unicorn.tudRegisteredOffice}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -506,11 +500,10 @@ class FundRaiseRegistration extends Component {
                           Address - Corporate/Working office{" "}
                           <span className="text-danger">*</span>
                         </label>
-                        <input
-                          disabled
+                        <input  
                           type="text"
-                          name="address_corporate_office"
-                          value={this.props.unicorn.address_corporate_office}
+                          name="tudCorporateOffice"
+                          value={this.props.unicorn.tudCorporateOffice}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -521,11 +514,10 @@ class FundRaiseRegistration extends Component {
                           Director - 1(Name){" "}
                           <span className="text-danger">*</span>
                         </label>
-                        <input
-                          disabled
+                        <input  
                           type="text"
-                          name="director_1_name"
-                          value={this.props.unicorn.director_1_name}
+                          name="tudDirector1"
+                          value={this.props.unicorn.tudDirector1}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -536,12 +528,11 @@ class FundRaiseRegistration extends Component {
                           Director - 1 (DIN){" "}
                           <span className="text-danger">*</span>
                         </label>
-                        <input
-                          disabled
+                        <input  
                           type="number"
                           onWheel={() => document.activeElement.blur()}
-                          name="director_1_din"
-                          value={this.props.unicorn.director_1_din}
+                          name="tudDin1"
+                          value={this.props.unicorn.tudDin1}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -549,11 +540,10 @@ class FundRaiseRegistration extends Component {
                       </div>{" "}
                       <div className="form-group">
                         <label for="">Director - 2(Name) </label>
-                        <input
-                          disabled
+                        <input  
                           type="text"
-                          name="director_2_name"
-                          value={this.props.unicorn.director_2_name}
+                          name="tudDirector2"
+                          value={this.props.unicorn.tudDirector2}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -561,8 +551,7 @@ class FundRaiseRegistration extends Component {
                       </div>
                       <div className="form-group">
                         <label for="">Director - 2(DIN) </label>
-                        <input
-                          disabled
+                        <input  
                           type="number"
                           onWheel={() => document.activeElement.blur()}
                           name="director_2_din"
@@ -574,11 +563,10 @@ class FundRaiseRegistration extends Component {
                       </div>{" "}
                       <div className="form-group">
                         <label for="">Director - 3(Name)</label>
-                        <input
-                          disabled
+                        <input  
                           type="text"
-                          name="director_3_name"
-                          value={this.props.unicorn.director_3_name}
+                          name="tudDirector3"
+                          value={this.props.unicorn.tudDirector3}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -586,12 +574,11 @@ class FundRaiseRegistration extends Component {
                       </div>
                       <div className="form-group">
                         <label for="">Director - 3 (DIN) </label>
-                        <input
-                          disabled
+                        <input  
                           type="number"
                           onWheel={() => document.activeElement.blur()}
-                          name="director_3_din"
-                          value={this.props.unicorn.director_3_din}
+                          name="tudDin3"
+                          value={this.props.unicorn.tudDin3}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -599,11 +586,10 @@ class FundRaiseRegistration extends Component {
                       </div>{" "}
                       <div className="form-group">
                         <label for="">Director - 4(Name)</label>
-                        <input
-                          disabled
+                        <input  
                           type="text"
-                          name="director_4_name"
-                          value={this.props.unicorn.director_4_name}
+                          name="tudDirector4"
+                          value={this.props.unicorn.tudDirector4}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -611,19 +597,18 @@ class FundRaiseRegistration extends Component {
                       </div>
                       <div className="form-group">
                         <label for="">Director - 4 (DIN)</label>
-                        <input
-                          disabled
+                        <input  
                           type="number"
                           onWheel={() => document.activeElement.blur()}
-                          name="director_4_din"
-                          value={this.props.unicorn.director_4_din}
+                          name="tudDin4"
+                          value={this.props.unicorn.tudDin4}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
                         />
                       </div>
                       <div
-                        className="form-group d-none justify-content-between"
+                        className="form-group  justify-content-between"
                         style={{ display: "none !important" }}
                       >
                         <div className="arrow-buttons">

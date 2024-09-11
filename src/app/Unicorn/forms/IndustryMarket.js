@@ -196,7 +196,7 @@ class FundRaiseRegistration extends Component {
                             <div className="form-group">
                               <label for="">Which is most relevant industry classification for the startup?
                               <span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="text" 
                                 name='tudIndustryClassification'
                                 id="selected-field"
@@ -220,7 +220,7 @@ class FundRaiseRegistration extends Component {
                             <div className="form-group">
                               <label for="">Total Market size of the industry.
                               <span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="text" 
                                 name='tudIndustryMarketSize'
                                 value={this.props.unicorn.tudIndustryMarketSize}
@@ -232,7 +232,7 @@ class FundRaiseRegistration extends Component {
                             <div className="form-group">
                               <label for="">Supporting information and the logic/rational of market size.
                               <span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="text" 
                                 name='tudSupportingInfoMarketSize'
                                 value={this.props.unicorn.tudSupportingInfoMarketSize}
@@ -244,7 +244,7 @@ class FundRaiseRegistration extends Component {
                             <div className="form-group">
                               <label for="">Addressable Market size.
                               <span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="text" 
                                 name='tudAddressableMarketSize'
                                 value={this.props.unicorn.tudAddressableMarketSize}
@@ -256,7 +256,7 @@ class FundRaiseRegistration extends Component {
                             <div className="form-group">
                               <label for="">Supporting information and logic/rational of demarking addressable market size.
                               <span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="text" 
                                 name='tudSupportingInfoAddressableMarketSize'
                                 value={this.props.unicorn.tudSupportingInfoAddressableMarketSize}
@@ -265,7 +265,7 @@ class FundRaiseRegistration extends Component {
                           }
                               />
                             </div>
-                            <div className="form-group d-none justify-content-between" style={{display:"none !important"}}>
+                            <div className="form-group  justify-content-between" style={{display:"none !important"}}>
                               <div className='arrow-buttons'>
                                 <button 
                                 style={{ 
