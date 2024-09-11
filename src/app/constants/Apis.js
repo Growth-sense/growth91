@@ -259,6 +259,7 @@ const URLs = {
   deleteRequest:"investors/InvestorController/deleteRequest",
   getDeleteRequest:"investors/InvestorController/getDeleteRequest",
   deleteRequestApprove:"investors/InvestorController/deleteRequestApprove",
+  deleteGroup:"investors/InvestorController/deleteGroup",
   
   //future unicorn
   createunicorndraft:"founder/Startup/createunicorndraft",

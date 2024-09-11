@@ -198,9 +198,9 @@ class FundRaiseRegistration extends Component {
                               <span className="text-danger">*</span></label>
                               <input  disabled
                                 type="text" 
-                                name='relevant_industry'
+                                name='tudIndustryClassification'
                                 id="selected-field"
-                                value={this.props.unicorn.relevant_industry}
+                                value={this.props.unicorn.tudIndustryClassification}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -210,8 +210,8 @@ class FundRaiseRegistration extends Component {
                               <label for="">Your views on industry (Past, Present and Future) <span className="text-danger">*</span></label>
                               <textarea 
                                 id="" cols="30" rows="6"
-                                name='views_on_industry'
-                                value={this.props.unicorn.views_on_industry}
+                                name='tudIndustryViews'
+                                value={this.props.unicorn.tudIndustryViews}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -222,8 +222,8 @@ class FundRaiseRegistration extends Component {
                               <span className="text-danger">*</span></label>
                               <input  disabled
                                 type="text" 
-                                name='total_market_size_of_industry'
-                                value={this.props.unicorn.total_market_size_of_industry}
+                                name='tudIndustryMarketSize'
+                                value={this.props.unicorn.tudIndustryMarketSize}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -234,8 +234,8 @@ class FundRaiseRegistration extends Component {
                               <span className="text-danger">*</span></label>
                               <input  disabled
                                 type="text" 
-                                name='supporting_information_of_narket_size'
-                                value={this.props.unicorn.supporting_information_of_narket_size}
+                                name='tudSupportingInfoMarketSize'
+                                value={this.props.unicorn.tudSupportingInfoMarketSize}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -246,8 +246,8 @@ class FundRaiseRegistration extends Component {
                               <span className="text-danger">*</span></label>
                               <input  disabled
                                 type="text" 
-                                name='addressale_market_size'
-                                value={this.props.unicorn.addressale_market_size}
+                                name='tudAddressableMarketSize'
+                                value={this.props.unicorn.tudAddressableMarketSize}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -258,8 +258,8 @@ class FundRaiseRegistration extends Component {
                               <span className="text-danger">*</span></label>
                               <input  disabled
                                 type="text" 
-                                name='supporting_information_of_demarking_addressable_market'
-                                value={this.props.unicorn.supporting_information_of_demarking_addressable_market}
+                                name='tudSupportingInfoAddressableMarketSize'
+                                value={this.props.unicorn.tudSupportingInfoAddressableMarketSize}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }

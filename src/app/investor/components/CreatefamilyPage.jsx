@@ -39,6 +39,7 @@ export default class CreatefamilyPage extends Component {
       memberlistloader: false,
       change_group_name: "",
       view_change_group_name_modal: false,
+      view_delete_group_modal: false,
       chggroupID: "",
     };
   }
@@ -111,7 +112,6 @@ export default class CreatefamilyPage extends Component {
       toast.error("plz fill all fiels");
     } else {
       Bridge.family.creategroup(params).then((result) => {
-        console.log(result);
         this.setState({ CreateModalStatus: false });
         this.viewgroupall();
       });
@@ -122,11 +122,10 @@ export default class CreatefamilyPage extends Component {
       userID: localStorage.getItem("Parent_investor_id"),
     };
     Bridge.family.getGroupList(params).then((result) => {
-      console.log(result.data);
       this.setState({ group_list: result.data });
     });
   };
- 
+
   getmember = (value) => {
     if (localStorage.getItem("investor_id"))
       this.setState({ memberdetail: "", memberlistloader: true });
@@ -138,7 +137,6 @@ export default class CreatefamilyPage extends Component {
     this.setState({ chggroupID: value });
 
     Bridge.investor.getfamilymember(params).then((result) => {
-      console.log(result);
       const data = result.data.filter((item, index) => {
         console.log(item.investor_id);
         return item.investor_id == localStorage.getItem("investor_id");
@@ -149,15 +147,37 @@ export default class CreatefamilyPage extends Component {
       this.setState({ memberdetail: result.data, memberlistloader: false });
     });
   };
+  deleteGroup = () => {
+    let param = {
+      userID: localStorage.getItem("Parent_investor_id"),
+      groupID: this.state.chggroupID,
+    };
+    Bridge.family.deleteGroup(param).then((result) => {
+      this.setState({
+        view_delete_group_modal: false,
+      });
+      if (result.message == "Group deleted successfully.") {
+        toast.success("Group delete Successfully");
+      } else if (
+        result.message ==
+        "You can not delete this group, you have previously invited members in that."
+      ) {
+        toast.error(
+          "You can not delete this group, you have previously invited members in that."
+        );
+      } else {
+        toast.error("Error");
+      }
+    });
+  };
   changegroupname = () => {
     let params = {
       userID: localStorage.getItem("Parent_investor_id"),
-      groupID: this.state.chggroupID,
+      groupID: this.state.this.state.chggroupID,
       groupName: this.state.change_group_name,
     };
     console.log(params);
     Bridge.family.editGroup(params).then((result) => {
-      console.log(result);
       if (result.message == "Group updated successfully.") {
         this.setState({ view_change_group_name_modal: false });
         this.viewgroupall();
@@ -171,8 +191,6 @@ export default class CreatefamilyPage extends Component {
     });
   };
   groupn_name_edit_modal = (records) => {
-    console.log(records);
-
     this.setState({
       change_group_name: records.name,
       view_change_group_name_modal: true,
@@ -180,21 +198,20 @@ export default class CreatefamilyPage extends Component {
     });
   };
   deletefamilymeber = (value) => {
-    console.log(value,"ads");
+    console.log(value, "ads");
     let params = {
       userID: localStorage.getItem("Parent_investor_id"),
-      groupID: this.state.chggroupID,
+      groupID: this.state.this.state.chggroupID,
       invite_email: value.data.email,
       invite_mobile: value.data.mobile,
     };
     console.log(params);
     Bridge.family.deleteGroupMember(params).then((result) => {
-      console.log(result);
       if (result.message == "Member deleted successfully.") {
         this.setState({ view_change_group_name_modal: false });
         this.viewgroupall();
         this.viewgroupasmember();
-        this.getmember( this.state.chggroupID);
+        this.getmember(this.state.this.state.chggroupID);
 
         toast.success("Member deleted successfully.");
       } else {
@@ -203,7 +220,7 @@ export default class CreatefamilyPage extends Component {
     });
   };
   removerequest = (value) => {
-    console.log(value,"ads");
+    console.log(value, "ads");
     let params = {
       userID: localStorage.getItem("Parent_investor_id"),
       groupID: value.groupID,
@@ -212,45 +229,64 @@ export default class CreatefamilyPage extends Component {
     };
     console.log(params);
     Bridge.family.deleteRequest(params).then((result) => {
-      console.log(result);
-      if (result.message == "Your request for delete is received by us successfully.") {
-
-        toast.success("Your request for delete is received by us successfully.");
+      if (
+        result.message ==
+        "Your request for delete is received by us successfully."
+      ) {
+        toast.success(
+          "Your request for delete is received by us successfully."
+        );
       } else {
         toast.error("Error");
       }
     });
   };
+  showDeleteModal = (value) => {
+    console.log(value);
+
+    this.setState({
+      view_delete_group_modal: true,
+      chggroupID: value.key,
+    });
+  };
+
   render() {
     //for referral
 
     const dataSource =
       this.state.group_list &&
-      this.state.group_list.filter(item=>item.userID== localStorage.getItem("Parent_investor_id")).map((item, index) => {
-        console.log(item);
-        return {
-          key: item.groupID,
-          name: item.groupName,
-          groupCreateDate: item.groupCreateDate
-            ? moment(item.groupCreateDate).format("DD MMM, YYYY")
-            : "---",
-          Status: item.groupStatus,
-        };
-      });
+      this.state.group_list
+        .filter(
+          (item) => item.userID == localStorage.getItem("Parent_investor_id")
+        )
+        .map((item, index) => {
+          return {
+            key: item.groupID,
+            name: item.groupName,
+            groupCreateDate: item.groupCreateDate
+              ? moment(item.groupCreateDate).format("DD MMM, YYYY")
+              : "---",
+            Status: item.groupStatus,
+          };
+        });
     const dataSource2 =
       this.state.group_list &&
-      this.state.group_list.filter(item=>item.userID!== localStorage.getItem("Parent_investor_id")).map((item, index) => {
-        console.log(item);
-        return {
-          key: item.groupID,
-          name: item.groupName,
-          groupCreateDate: item.groupCreateDate
-            ? moment(item.groupCreateDate).format("DD MMM, YYYY")
-            : "---",
-          Status: item.groupStatus,
-          action: item,
-        };
-      });
+      this.state.group_list
+        .filter(
+          (item) => item.userID !== localStorage.getItem("Parent_investor_id")
+        )
+        .map((item, index) => {
+          console.log(item);
+          return {
+            key: item.groupID,
+            name: item.groupName,
+            groupCreateDate: item.groupCreateDate
+              ? moment(item.groupCreateDate).format("DD MMM, YYYY")
+              : "---",
+            Status: item.groupStatus,
+            action: item,
+          };
+        });
 
     const columns = [
       {
@@ -275,7 +311,6 @@ export default class CreatefamilyPage extends Component {
         dataIndex: "Status",
         key: "Status",
         render: (text, records) => {
-          console.log(records);
           const menu = (
             <>
               <Menu
@@ -301,11 +336,7 @@ export default class CreatefamilyPage extends Component {
                     </div>
                   </>
                 </Menu.Item>
-                <Menu.Item icon={<DeleteOutlined />}>
-                  <Link to={`/View-Group-list?id=${records.key}`}>
-                    <div className="menu-action">Delete</div>
-                  </Link>
-                </Menu.Item>
+               
                 <Menu.Item icon={<EditOutlined />}>
                   <>
                     <div
@@ -319,15 +350,19 @@ export default class CreatefamilyPage extends Component {
                   </>
                 </Menu.Item>
 
-                <Menu.Item key={`Delete${records.key}`} icon={<DeleteOutlined/>}>
-                    <a
+                <Menu.Item
+                  key={`Delete${records.key}`}
+                  icon={<DeleteOutlined />}
+                >
+                  <a
                     href="#"
                     style={{ fontSize: 14 }}
-                    onClick={() => this.showDeleteModal(records.key)}
-                    >
-                    &nbsp;&nbsp;Delete
-                    </a>
-                    </Menu.Item>
+                    onClick={() => this.showDeleteModal(records)}
+                  >
+                                        <div className="menu-action">Delete</div>
+
+                  </a>
+                </Menu.Item>
               </Menu>
             </>
           );
@@ -379,13 +414,10 @@ export default class CreatefamilyPage extends Component {
                 style={{ width: 120 }}
               >
                 <Menu.Item icon={<UserAddOutlined />}>
-                  <Link to={`#`}
-                    onClick={() => this.removerequest(text)}>
+                  <Link to={`#`} onClick={() => this.removerequest(text)}>
                     <div className="menu-action">Remove Request</div>
                   </Link>
                 </Menu.Item>
-               
-              
 
                 {/* <Menu.Item key={`Delete${record.key}`} icon={<DeleteOutlined/>}>
                     <a
@@ -441,7 +473,6 @@ export default class CreatefamilyPage extends Component {
         dataIndex: "data",
         key: "data",
         render: (text, records) => {
-          console.log(records);
           const menu = (
             <>
               <Menu
@@ -490,7 +521,7 @@ export default class CreatefamilyPage extends Component {
         },
       },
     ];
- 
+
     return (
       <div>
         <Modal
@@ -586,77 +617,83 @@ export default class CreatefamilyPage extends Component {
             </div>
           </Spin>
         </Modal>
+        <Modal
+          title="Delete Group"
+          visible={this.state.view_delete_group_modal}
+          onOk={() => this.deleteGroup()}
+          okText="Submit"
+          onCancel={() => this.setState({ view_delete_group_modal: false })}
+          width={550}
+        >
+          <Spin spinning={this.state.formloader}>
+            <h6>Are you sure you want to Delete Group?</h6>
+          </Spin>
+        </Modal>
         <div>
           {/* referral Table */}
           {this.state.showreferral && (
             <>
-            <section id="hdii" style={{ minHeight: "10vh" }}>
-              <div className="row">
-                <div
-                  className="col-10 my-2"
-                  style={{ marginTop: 50, marginLeft: 30 }}
-                >
-                  <h2 className="text-center mb-3">Group Admin</h2>
-                </div>
-              </div>
-
-              <div className="row m-md- ms-2 p-md-3 pt-3">
-                <div className='col-4 '>
-                            
-                        </div>
-              
-                <div className="col offset-md-4">
-                  <button
-                    className="small-button-dark3"
-                    onClick={this.onClickInvite}
+              <section id="hdii" style={{ minHeight: "10vh" }}>
+                <div className="row">
+                  <div
+                    className="col-10 my-2"
+                    style={{ marginTop: 50, marginLeft: 30 }}
                   >
-                    Create Group
-                  </button>
+                    <h2 className="text-center mb-3">Group Admin</h2>
+                  </div>
                 </div>
 
-                <div className="row m-3 p-3">
-                  <Table
-                    className="table-2"
-                    dataSource={dataSource}
-                    columns={columns}
-                    bordered
-                    loading={this.state.loading}
-                  />
-                </div>
-              </div>
-            </section>
-            { dataSource2.length!=0  &&
-            <section id="hdii" style={{ minHeight: "10vh" ,marginTop:0}}>
-              <div className="row">
-                <div
-                  className="col-10 my-2"
-                  style={{ marginTop: 50, marginLeft: 30 }}
-                >
-                  <h2 className="text-center mb-3">Group Member</h2>
-                </div>
-              </div>
+                <div className="row m-md- ms-2 p-md-3 pt-3">
+                  <div className="col-4 "></div>
 
-              <div className="row m-md- ms-2 p-md-3 pt-3">
-                <div className='col-4 '>
-                            
-                        </div>
-              
-                <div className="col offset-md-4">
-                 
-                </div>
+                  <div className="col offset-md-4">
+                    <button
+                      className="small-button-dark3"
+                      onClick={this.onClickInvite}
+                    >
+                      Create Group
+                    </button>
+                  </div>
 
-                <div className="row m-3 p-3">
-                  <Table
-                    className="table-2"
-                    dataSource={dataSource2}
-                    columns={columns2}
-                    bordered
-                    loading={this.state.loading}
-                  />
+                  <div className="row m-3 p-3">
+                    <Table
+                      className="table-2"
+                      dataSource={dataSource}
+                      columns={columns}
+                      bordered
+                      loading={this.state.loading}
+                    />
+                  </div>
                 </div>
-              </div>
-            </section>
-      }
+              </section>
+              {dataSource2.length != 0 && (
+                <section id="hdii" style={{ minHeight: "10vh", marginTop: 0 }}>
+                  <div className="row">
+                    <div
+                      className="col-10 my-2"
+                      style={{ marginTop: 50, marginLeft: 30 }}
+                    >
+                      <h2 className="text-center mb-3">Group Member</h2>
+                    </div>
+                  </div>
+
+                  <div className="row m-md- ms-2 p-md-3 pt-3">
+                    <div className="col-4 "></div>
+
+                    <div className="col offset-md-4"></div>
+
+                    <div className="row m-3 p-3">
+                      <Table
+                        className="table-2"
+                        dataSource={dataSource2}
+                        columns={columns2}
+                        bordered
+                        loading={this.state.loading}
+                      />
+                    </div>
+                  </div>
+                </section>
+              )}
             </>
           )}
           {/* history table */}

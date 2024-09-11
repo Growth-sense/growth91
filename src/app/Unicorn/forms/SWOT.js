@@ -173,11 +173,11 @@ class SWOT extends Component {
                               <label for="">What are the strengths of your startup?<span className="text-danger">*</span></label>
                               <textarea disabled 
                                 type="text" 
-                                name='strength_of_your_startup'
+                                name='tudStrength'
                                 cols={30}
                                 rows={6}
                                 id="selected-field"
-                                value={this.props.unicorn.strength_of_your_startup}
+                                value={this.props.unicorn.tudStrength}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -187,10 +187,10 @@ class SWOT extends Component {
                               <label for="">What are the weaknesses of your startup? <span className="text-danger">*</span></label>
                               <textarea disabled 
                                 type="text" 
-                                name='weakness_of_startup'
+                                name='tudWeakness'
                                 cols={30}
                                 rows={6}
-                                value={this.props.unicorn.weakness_of_startup}
+                                value={this.props.unicorn.tudWeakness}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -200,10 +200,10 @@ class SWOT extends Component {
                               <label for="">What are the opportunities for your startup? <span className="text-danger">*</span></label>
                               <textarea 
                                 type="text"
-                                name='opportunities_for_startup'
+                                name='tudOpportunities'
                                 cols={30}
                                 rows={6}
-                                value={this.props.unicorn.opportunities_for_startup}
+                                value={this.props.unicorn.tudOpportunities}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }

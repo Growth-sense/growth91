@@ -274,7 +274,7 @@ class Founderadmindashboard extends Component {
 
   getData = (id) => {
     let params = {
-      founder_id: localStorage.getItem("founder_id"),
+      founderID: localStorage.getItem("founder_id"),
     };
     Bridge.Unicorn.unicornListByFounders(params).then((result) => {
       if (result.status == 1) {

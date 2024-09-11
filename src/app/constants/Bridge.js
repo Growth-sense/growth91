@@ -399,14 +399,14 @@ export default {
       api.post(URLs.sendsuccessmsg, data).then((response) => {
         return response.data;
       }),
-      addfamily:(data)=>
-        api.post(URLs.addfamily, data).then((res)=>{
-          return res.data
-        }),
-      getfamilymember:(data)=>
-        api.post(URLs.getfamilymember, data).then((res)=>{
-          return res.data
-        })
+    addfamily: (data) =>
+      api.post(URLs.addfamily, data).then((res) => {
+        return res.data;
+      }),
+    getfamilymember: (data) =>
+      api.post(URLs.getfamilymember, data).then((res) => {
+        return res.data;
+      }),
   },
 
   kyc: {
@@ -483,7 +483,7 @@ export default {
       }),
     getFounderDetails: (data) =>
       api.post(URLs.getFounderDetails, data).then((response) => {
-        console.log(response.data)
+        console.log(response.data);
         return response.data;
       }),
     getstartupformdetails: (data) =>
@@ -864,55 +864,68 @@ export default {
     api.post(URLs.delete_pitch_file, data).then((response) => {
       return response.data;
     }),
-    contact_us_form:(data)=>{
-      let res= api.post(URLs.contact_us_form,data)
-      return res
-      
-    },
-    family:{
-      creategroup:(data)=>api.post(URLs.creategroup,data).then((response) => {
-          return response.data;
-        }),
-      getGroupList:(data)=>api.post(URLs.getGroupList,data).then((response) => {
-          return response.data;
-        }),
-        checkFamilyMember:(data)=>api.post(URLs.checkFamilyMember,data).then((response) => {
-          return response.data;
-        }),
-        saveInvite:(data)=>api.post(URLs.saveInvite,data).then((response) => {
-          return response.data;
-        }),
-        familyInviteOTP:(data)=>api.post(URLs.familyInviteOTP,data).then((response) => {
-          return response.data;
-        }),
-        verifyFamilyInvite:(data)=>api.post(URLs.verifyFamilyInvite,data).then((response) => {
-          return response.data;
-        }),
-        editGroup:(data)=>api.post(URLs.editGroup,data).then((response) => {
-          return response.data;
-        }),
-        deleteGroupMember:(data)=>api.post(URLs.deleteGroupMember,data).then((response) => {
-          return response.data;
-        }),
-        deleteRequest:(data)=>api.post(URLs.deleteRequest,data).then((response) => {
-          return response.data;
-        }),
-        getDeleteRequest:(data)=>api.post(URLs.getDeleteRequest,data).then((response) => {
-          return response.data;
-        }),
-        deleteRequestApprove:(data)=>api.post(URLs.deleteRequestApprove,data).then((response) => {
-          return response.data;
-        }),
-      
-      },
-      Unicorn:{
-        createunicorndraft:(data)=>api.post(URLs.createunicorndraft,data).then((response) => {
-          return response.data;
-        }),
-        unicornListByFounders:(data)=>api.post(URLs.unicornListByFounders,data).then((response) => {
-          return response.data;
-        }),
-      }
-    
-    
-  };
+  contact_us_form: (data) => {
+    let res = api.post(URLs.contact_us_form, data);
+    return res;
+  },
+  family: {
+    creategroup: (data) =>
+      api.post(URLs.creategroup, data).then((response) => {
+        return response.data;
+      }),
+    getGroupList: (data) =>
+      api.post(URLs.getGroupList, data).then((response) => {
+        return response.data;
+      }),
+    checkFamilyMember: (data) =>
+      api.post(URLs.checkFamilyMember, data).then((response) => {
+        return response.data;
+      }),
+    saveInvite: (data) =>
+      api.post(URLs.saveInvite, data).then((response) => {
+        return response.data;
+      }),
+    familyInviteOTP: (data) =>
+      api.post(URLs.familyInviteOTP, data).then((response) => {
+        return response.data;
+      }),
+    verifyFamilyInvite: (data) =>
+      api.post(URLs.verifyFamilyInvite, data).then((response) => {
+        return response.data;
+      }),
+    editGroup: (data) =>
+      api.post(URLs.editGroup, data).then((response) => {
+        return response.data;
+      }),
+    deleteGroupMember: (data) =>
+      api.post(URLs.deleteGroupMember, data).then((response) => {
+        return response.data;
+      }),
+    deleteRequest: (data) =>
+      api.post(URLs.deleteRequest, data).then((response) => {
+        return response.data;
+      }),
+    getDeleteRequest: (data) =>
+      api.post(URLs.getDeleteRequest, data).then((response) => {
+        return response.data;
+      }),
+    deleteRequestApprove: (data) =>
+      api.post(URLs.deleteRequestApprove, data).then((response) => {
+        return response.data;
+      }),
+    deleteGroup: (data) =>
+      api.post(URLs.deleteGroup, data).then((response) => {
+        return response.data;
+      }),
+  },
+  Unicorn: {
+    createunicorndraft: (data) =>
+      api.post(URLs.createunicorndraft, data).then((response) => {
+        return response.data;
+      }),
+    unicornListByFounders: (data) =>
+      api.post(URLs.unicornListByFounders, data).then((response) => {
+        return response.data;
+      }),
+  },
+};

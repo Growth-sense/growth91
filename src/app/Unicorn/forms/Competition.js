@@ -232,8 +232,8 @@ class FundRaiseRegistration extends Component {
                                 type="text" 
                                 id="selected-field"
                                 placeholder="Enter your name"
-                                name='direct_local_competition'
-                                value={this.props.unicorn.direct_local_competition}
+                                name='tudLocalDirectComp'
+                                value={this.props.unicorn.tudLocalDirectComp}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -243,8 +243,8 @@ class FundRaiseRegistration extends Component {
                               <label for="">Local Competition(indirect)<span className="text-danger">*</span></label>
                               <input  disabled
                                 type="text" 
-                                name='in_direct_local_competition'
-                                value={this.props.unicorn.in_direct_local_competition}
+                                name='tudLocalIndirectComp'
+                                value={this.props.unicorn.tudLocalIndirectComp}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -253,8 +253,8 @@ class FundRaiseRegistration extends Component {
                               <label for="">Global Competition(direct)<span className="text-danger">*</span></label>
                               <input  disabled
                                 type="text" 
-                                name='direct_global_competition'
-                                value={this.props.unicorn.direct_global_competition}
+                                name='tudGlobalDirectComp'
+                                value={this.props.unicorn.tudGlobalDirectComp}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -263,8 +263,8 @@ class FundRaiseRegistration extends Component {
                               <label for="">Global Competition(indirect)<span className="text-danger">*</span></label>
                               <input  disabled
                                 type="text" 
-                                name='indirect_global_competition'
-                                value={this.props.unicorn.indirect_global_competition}
+                                name='tudGlobalIndirectComp'
+                                value={this.props.unicorn.tudGlobalIndirectComp}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -274,8 +274,8 @@ class FundRaiseRegistration extends Component {
                               <label for="">How is your startup different from the Competition?<span className="text-danger">*</span></label>
                               <textarea 
                                 id="" cols="30" rows="6"
-                                name='how_different_startup_from_competition'
-                                value={this.props.unicorn.how_different_startup_from_competition}
+                                name='tudDiffCompetion'
+                                value={this.props.unicorn.tudDiffCompetion}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -285,8 +285,8 @@ class FundRaiseRegistration extends Component {
                               <label for="">Why it will be difficult for the competition to do the same thing?<span className="text-danger">*</span></label>
                               <textarea 
                                 id="" cols="30" rows="6"
-                                name='why_difficult_competition'
-                                value={this.props.unicorn.why_difficult_competition}
+                                name='tudWhyCompSame'
+                                value={this.props.unicorn.tudWhyCompSame}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -296,8 +296,8 @@ class FundRaiseRegistration extends Component {
                               <label for="">What is your unfair advantage?<span className="text-danger">*</span></label>
                               <textarea 
                                 id="" cols="30" rows="6"
-                                name='what_are_unfair_disadvantages'
-                                value={this.props.unicorn.what_are_unfair_disadvantages}
+                                name='tudUnfairAdv'
+                                value={this.props.unicorn.tudUnfairAdv}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -307,8 +307,8 @@ class FundRaiseRegistration extends Component {
                               <label for="">What you like the most about your competition?<span className="text-danger">*</span></label>
                               <textarea 
                                 id="" cols="30" rows="6"
-                                name='most_about_your_competition'
-                                value={this.props.unicorn.most_about_your_competition}
+                                name='tudLikeCompetion'
+                                value={this.props.unicorn.tudLikeCompetion}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -318,8 +318,8 @@ class FundRaiseRegistration extends Component {
                               <label for=""> Do you know any failed venture in same domain or doing similar activities?</label>
                               <textarea 
                                 id="" cols="30" rows="6"
-                                name='failed_venture_in_same_domain'
-                                value={this.props.unicorn.failed_venture_in_same_domain}
+                                name='tudFailVenture'
+                                value={this.props.unicorn.tudFailVenture}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -331,8 +331,8 @@ class FundRaiseRegistration extends Component {
                               <textarea 
                                 cols="30" 
                                 rows="6"
-                                name='resons_for_failure_after_analysing'
-                                value={this.props.unicorn.resons_for_failure_after_analysing}
+                                name='tudFailureReason'
+                                value={this.props.unicorn.tudFailureReason}
                                    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
