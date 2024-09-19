@@ -73,9 +73,10 @@ class FundRaiseRegistration extends Component {
     }
 
     this.setState({ loading: true });
-    Bridge.founder.updatefounder(params).then((result) => {
+        Bridge.Unicorn.editunicorndraft(this.props.unicorn).then((result) => {
+
       if (result.status == 1) {
-        this.setState({ loading: false,valueispresent:false, },() => this.getData(this.state.founder_id));
+        this.setState({ loading: false,valueispresent:false, },);
         if(this.state.processtype=='next'){
           this.props.next();
         } else if(this.state.processtype=='prev'){
@@ -249,7 +250,7 @@ class FundRaiseRegistration extends Component {
                             </div>
                             <div className="form-group">
                               <label for=""> Revenue from top 5-10% clients?<span className="text-danger">*</span></label>
-                              <textarea disabled 
+                              <textarea  
                                 type="text" 
                                 name='tudRevenueTop10'
                                 cols={30}
@@ -262,7 +263,7 @@ class FundRaiseRegistration extends Component {
                             </div>
                             <div className="form-group">
                               <label for=""> Explain unit economics of your startup?<span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="text" 
                                 name='tudUnitEconomics'
                                 value={this.props.unicorn.tudUnitEconomics}
@@ -273,7 +274,7 @@ class FundRaiseRegistration extends Component {
                             </div>
                             <div className="form-group">
                               <label for="">What is the total CapEx of your startup till date?<span className="text-danger">*</span></label>
-                              <input  disabled
+                              <input  
                                 type="text" 
                                 name='tudTotalCapEx'
                                 value={this.props.unicorn.tudTotalCapEx}
@@ -297,7 +298,7 @@ class FundRaiseRegistration extends Component {
                             </div>
                             <div className="form-group">
                               <label for="">Other major expenses/investments till date.<span className="text-danger">*</span></label>
-                              <textarea disabled 
+                              <textarea  
                                 type="text" 
                                 name='tudMajorExpInv'
                                 cols={30}

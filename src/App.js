@@ -17,6 +17,7 @@ import { LoginFounder } from './app/LoginFounder.jsx'
 import { MemberShip } from './app/MemberShip.jsx'
 
 import { FutureUnicornDescription } from './app/FutureUnicornDescription.jsx'
+import { FutureUnicornDescriptiondesgin } from './app/FutureUnicornDescriptiondesgin.jsx'
 import { Thankyou } from './app/Thankyou.jsx';
 import { CheckboxThank } from './app/CheckboxThank.jsx';
 import { FounderTransactionHistory } from './app/FounderTransactionHistory.jsx';
@@ -200,6 +201,7 @@ import jqeryscript from "./jq.js"
 import FamilyAdmin from "./app/admin/FamilyAdmin.jsx";
 import familyRemoveRequest from "./app/admin/familyRemoveRequest.jsx";
 import Familymanage from "./app/admin/Familymanage.jsx";
+import FutureUnicorn from "./app/admin/FutureUnicorn.jsx";
 import FUnicornStartup from "./app/admin/FUnicornStartup.js";
 import FUnicornInvestors from "./app/admin/FUnicornInvestors.js";
 import FUnicornFounders from "./app/admin/FUnicornFounders.js";
@@ -269,6 +271,7 @@ function App() {
 
           <Route path="/FamilyDashboard" exact component={FamilyDashboard} />
           <Route path="/FutureUnicornDescription" exact component={FutureUnicornDescription} />
+          <Route path="/FutureUnicornDescriptiondesgin" exact component={FutureUnicornDescriptiondesgin} />
           <Route path="/FutureUnicornForm" exact component={FutureUnicornForm} />
           <Route path="/InformationList" exact component={InformationList} />
           <Route path="/UnderMaintenance" exact component={UnderMaintenance} />
@@ -369,6 +372,9 @@ function App() {
           <Route path="/family-Remove-Request" exact component={familyRemoveRequest} />
           <Route path="/admin-family-manage" exact component={Familymanage} />
           <Route path="/future-unicorn-startups" exact component={FUnicornStartup} />
+          <Route path="/FutureUnicorn" exact  >
+            <ProtectDeals Component2={FutureUnicorn}   Conditon={true} />
+            </Route>
           <Route path="/future-unicorn-investors" exact component={FUnicornInvestors} />
           <Route path="/future-unicorn-founders" exact component={FUnicornFounders} />
 

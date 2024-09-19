@@ -936,17 +936,18 @@ class NewWebHeader extends Component {
                             className={
                               window.location.pathname == "" && "active"
                             }
+                              href="/FutureUnicorn"
                           >
-                            Future Unicorns <span className="angles-menus"><i class="fa-solid fa-angle-down"></i></span>
+                            Future Unicorns
                           </a>
-                          <div className="submenu-cards">
+                          {/* <div className="submenu-cards">
                             <div className="submenus">
                               <ul>
-                                <li><Link to="LoginFounder">Login as Founder</Link></li>
-                                <li><Link to="LoginInvestor">Login as Investor</Link></li>
+                                <li><Link to="InformationList">Login as Founder</Link></li>
+                                <li><Link to="FutureUnicornList">Login as Investor</Link></li>
                               </ul>
                             </div>
-                          </div>
+                          </div> */}
 
                         </li>
                         {this.state.loggedinstatus == true ? (

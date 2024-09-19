@@ -59,7 +59,7 @@ class IntellectualProperty extends Component {
       f3_status: this.state.processtype == "saveandproceed" ? "success" : "new",
     };
     this.setState({ loading: true });
-    Bridge.founder.updatefounder(params).then((result) => {
+    Bridge.Unicorn.editunicorndraft(this.props.unicorn).then((result) => {
       if (result.status == 1) {
         this.props.check();
         this.setState({ loading: false, valueispresent: true });

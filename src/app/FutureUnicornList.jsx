@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NewWebFooter } from './common/NewWebFooter'
 import Slider from 'react-slick'
 import NewWebHeader from "./common/NewWebHeader.jsx";
 import $ from "jquery";
 import { Link } from 'react-router-dom';
+import Bridge from './constants/Bridge.js';
+import { set } from 'react-ga';
 
 export const FutureUnicornList = () => {
   useEffect(() => {
+    getuniondata()
     window.scrollTo(0, 0)
   }, [])
-
+const [unicorn, setUnicorn] = useState()
   $(window).scroll(function () {
     if ($(this).scrollTop() > 30) {
       $('body').addClass('newClass');
@@ -43,6 +46,21 @@ export const FutureUnicornList = () => {
       </>
     );
   }
+  
+ 
+  function getuniondata(){
+    let params={
+        "page":0,
+       "pagesize":10
+    }
+    Bridge.Unicorn.unicorndealsByInvestors(params).then((result) => {
+      console.log(result);
+      setUnicorn(result.data)
+      
+    })
+  }
+  console.log(unicorn);
+  
   const sliderSettings = {
     dots: true,
     infinite: true,
@@ -90,6 +108,7 @@ export const FutureUnicornList = () => {
       }
     }]
   }
+  
   return (
     <div>
       <div classname="newabout">
@@ -167,6 +186,9 @@ export const FutureUnicornList = () => {
 
           </div>
           <div className="row justify-content-center">
+          {unicorn&&unicorn.map((item,index)=>{
+            console.log(item);
+            return(
             <div className="col-12 col-md-4 col-lg-4 col-xl-4 col-sm-12 col-xxl-4">
 
               <div className="community-all-contents">
@@ -177,19 +199,23 @@ export const FutureUnicornList = () => {
                   <ul>
                     <li>
                       <img src="https://growth91.com/api/uploads/deal/logo/34/1719999515.jpg" alt="" />
-                      <h6>LiaPlus AI</h6>
+                      <h6>{item.udStartupName}</h6>
                     </li>
                     <li>
                       <a href="">CCPS <span><i class="fa-solid fa-circle-info"></i></span></a>
                     </li>
                   </ul>
                   <p>LiaPlus is an advanced AI-powered customer support solution offering 24/7 service. Founded by Shaile...</p>
-                  <Link to="/FutureUnicornDescription" className="btn-com">View More </Link>
+                  <Link to={`/FutureUnicornDescription?id=${item.unicornDealID}`} className="btn-com">View More </Link>
 
                 </div>
               </div>
             </div>
-            <div className="col-12 col-md-4 col-lg-4 col-xl-4 col-sm-12 col-xxl-4">
+
+            )
+            
+          })}
+            {/* <div className="col-12 col-md-4 col-lg-4 col-xl-4 col-sm-12 col-xxl-4">
 
               <div className="community-all-contents">
                 <div className="img-community-box">
@@ -321,18 +347,18 @@ export const FutureUnicornList = () => {
 
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="row pagination-row">
 
             <div class="pagination">
-              <a href="#">&laquo;</a>
+              {/* <a href="#">&laquo;</a>
               <a href="#" className='active'>1</a>
               <a href="#">2</a>
               <a href="#">3</a>
               <a href="#">4</a>
               <a href="#">5</a>
-              <a href="#">6</a>
+              <a href="#">6</a> */}
               <a href="#">&raquo;</a>
             </div>
           </div>

@@ -4,6 +4,7 @@ import Bridge from "../../constants/Bridge";
 
 import $ from "jquery";
 import "./BasicDetais.css";
+import axios from "axios";
 class BasicDetails extends Component {
   constructor(props) {
     super(props);
@@ -40,35 +41,34 @@ class BasicDetails extends Component {
     this.props.check(1);
   }
   //get form data
-  getData = (id) => {
-    let params = {
-      founder_id: localStorage.getItem("founder_id"),
-    };
-    Bridge.Unicorn.unicornListByFounders(params).then((result) => {
-      if (result.status == 1) {
-        this.setState({
-          email: result.data[0].email,
-          startup_name: result.data[0].startup_name,
-          primary_contact_person_name:
-            result.data[0].primary_contact_person_name,
-          primary_contact_person_mobile:
-            result.data[0].primary_contact_person_mobile,
-          primary_contact_person_email:
-            result.data[0].primary_contact_person_email,
-        });
-        if (
-          result.data[0].email != "" &&
-          result.data[0].startup_name != "" &&
-          result.data[0].primary_contact_person_name != "" &&
-          result.data[0].primary_contact_person_mobile
-        ) {
-          this.setState({ valueispresent: true });
-        } else {
-          this.setState({ valueispresent: false });
-        }
-      }
-    });
-  };
+  // getData = (id) => {
+  //   let params = {
+  //     founder_id: localStorage.getItem("founder_id"),
+  //   };
+  //     if (result.status == 1) {
+  //       this.setState({
+  //         email: result.data[0].email,
+  //         startup_name: result.data[0].startup_name,
+  //         primary_contact_person_name:
+  //           result.data[0].primary_contact_person_name,
+  //         primary_contact_person_mobile:
+  //           result.data[0].primary_contact_person_mobile,
+  //         primary_contact_person_email:
+  //           result.data[0].primary_contact_person_email,
+  //       });
+  //       if (
+  //         result.data[0].email != "" &&
+  //         result.data[0].startup_name != "" &&
+  //         result.data[0].primary_contact_person_name != "" &&
+  //         result.data[0].primary_contact_person_mobile
+  //       ) {
+  //         this.setState({ valueispresent: true });
+  //       } else {
+  //         this.setState({ valueispresent: false });
+  //       }
+  //     }
+  //   });
+  // };
   checkEmail = (email) => {
     var filter =
       /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -91,7 +91,7 @@ class BasicDetails extends Component {
       // f1_status:this.state.processtype=='saveandproceed'?'success':'new',
     };
     this.setState({ loading: true });
-    Bridge.Unicorn.createunicorndraft(this.props.unicorn).then((result) => {
+    Bridge.Unicorn.editunicorndraft(this.props.unicorn).then((result) => {
       if (result.status == 1) {
         this.props.check();
         let id = localStorage.getItem("getData");
@@ -154,7 +154,6 @@ class BasicDetails extends Component {
   };
 
   render() {
-    console.log(this.state);
     return (
       <div>
         <section className="StepForm-section" style={{ display: "block" }}>

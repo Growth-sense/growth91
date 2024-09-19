@@ -264,6 +264,11 @@ const URLs = {
   //future unicorn
   createunicorndraft:"founder/Startup/createunicorndraft",
   unicornListByFounders:"founder/Startup/unicornListByFounders",
+  editunicorndraft:"founder/Startup/editunicorndraft",
+  publishunicorndeal:"founder/Startup/publishunicorndeal",
+  unicorndealsByInvestors:"founder/Startup/unicorndealsByInvestors",
+  uploadunicornFiles:"founder/Startup/uploadunicornFiles",
+  uploadFiles:"founder/Startup/uploadFiles",
 
 };
 

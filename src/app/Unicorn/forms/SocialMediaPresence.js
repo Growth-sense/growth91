@@ -64,9 +64,10 @@ class SocialMediaPresence extends Component {
       f9_status:this.state.processtype=='saveandproceed'?'success':'new',
     }
     this.setState({ loading: true });
-    Bridge.founder.updatefounder(params).then((result) => {
+    Bridge.Unicorn.editunicorndraft(this.props.unicorn).then((result) => {
+
       if (result.status == 1) {
-        this.setState({ loading: false,valueispresent:true },() => this.getData(this.state.founder_id));
+        this.setState({ loading: false,valueispresent:true },);
         if(this.state.processtype=='next'){
           this.props.next();
         } else if(this.state.processtype=='prev'){
@@ -136,7 +137,7 @@ class SocialMediaPresence extends Component {
                         <div className="col-lg-12">
                             <div className="form-group">
                               <label for="">LinkedIn</label>
-                              <input  
+                              <textarea  
                                 type="text" 
                                 name='tudSocialLinkedIn'
                                 id="selected-field"
@@ -144,50 +145,50 @@ class SocialMediaPresence extends Component {
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                              />
+                              ></textarea>
                             </div>
                             <div className="form-group">
                               <label for="">Facebook</label>
-                              <input  
+                              <textarea  
                                 type="text" 
                                 name='tudSocialFacebook'
                                 value={this.props.unicorn.tudSocialFacebook}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                              />
+                              ></textarea>
                             </div>
                             <div className="form-group">
                               <label for="">Instagram</label>
-                              <input  
+                              <textarea  
                                 type="text" 
                                 name='tudSocialInsta'
                                 value={this.props.unicorn.tudSocialInsta}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                              />
+                              ></textarea>
                             </div>
                             <div className="form-group">
                               <label for="">Youtube</label>
-                              <input  
+                              <textarea  
                                 type="text" 
                                 name='tudSocialYouTube'
                                 value={this.props.unicorn.tudSocialYouTube}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                              />
+                              ></textarea>
                             </div>                            <div className="form-group">
                               <label for="">Others</label>
-                              <input  
+                              <textarea  
                                 type="text" 
                                 name='tudSocialOthers'
                                 value={this.props.unicorn.tudSocialOthers}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                              />
+                              ></textarea>
                             </div>
                              <div className="form-group  justify-content-between" style={{display:"none !important"}}>
                               <div className='arrow-buttons'>

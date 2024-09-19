@@ -18,7 +18,7 @@ import Sidebar2 from "./common/Sidebar2";
 import Navbar from "./common/Navbar";
 import BottomBar from "./common/BottomBar";
 import Bridge from "../constants/Bridge";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { EditOutlined, DeleteOutlined, DownloadOutlined } from "@ant-design/icons";
 const { TextArea } = Input;
 const { Option } = Select;
 const { Content } = Layout;
@@ -574,7 +574,7 @@ class AdminDocuments extends Component {
                   &nbsp;&nbsp;Delete
                 </a>
               </Menu.Item>
-              <Menu.Item key={`Delete${record.key}`} icon={<DeleteOutlined />}>
+              <Menu.Item key={`Delete${record.key}`} icon={<DownloadOutlined />}>
                 <a
                   href="#"
                   style={{ fontSize: 14 }}

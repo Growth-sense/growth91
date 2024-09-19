@@ -62,7 +62,7 @@ class FundRaiseRegistration extends Component {
       f5_status:this.state.processtype=='saveandproceed'?'success':'new',
     }
     this.setState({loading:true});
-    Bridge.founder.updatefounder(params).then((result)=>{
+    Bridge.Unicorn.editunicorndraft(this.props.unicorn).then((result) => {
       if(result.status==1){
         this.setState({loading:false,valueispresent:true},()=>this.getData(this.state.founder_id));
         if(this.state.processtype=='next'){
@@ -196,7 +196,7 @@ class FundRaiseRegistration extends Component {
                             <div className="form-group">
                               <label for="">Which is most relevant industry classification for the startup?
                               <span className="text-danger">*</span></label>
-                              <input  
+                              <textarea  
                                 type="text" 
                                 name='tudIndustryClassification'
                                 id="selected-field"
@@ -204,7 +204,7 @@ class FundRaiseRegistration extends Component {
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                              />
+                             ></textarea> 
                             </div>
                             <div className="form-group">
                               <label for="">Your views on industry (Past, Present and Future) <span className="text-danger">*</span></label>
@@ -220,14 +220,14 @@ class FundRaiseRegistration extends Component {
                             <div className="form-group">
                               <label for="">Total Market size of the industry.
                               <span className="text-danger">*</span></label>
-                              <input  
+                              <textarea  
                                 type="text" 
                                 name='tudIndustryMarketSize'
                                 value={this.props.unicorn.tudIndustryMarketSize}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                              />
+                              ></textarea>
                             </div>
                             <div className="form-group">
                               <label for="">Supporting information and the logic/rational of market size.
@@ -244,26 +244,26 @@ class FundRaiseRegistration extends Component {
                             <div className="form-group">
                               <label for="">Addressable Market size.
                               <span className="text-danger">*</span></label>
-                              <input  
+                              <textarea  
                                 type="text" 
                                 name='tudAddressableMarketSize'
                                 value={this.props.unicorn.tudAddressableMarketSize}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                              />
+                            ></textarea>  
                             </div>
                             <div className="form-group">
                               <label for="">Supporting information and logic/rational of demarking addressable market size.
                               <span className="text-danger">*</span></label>
-                              <input  
+                              <textarea  
                                 type="text" 
                                 name='tudSupportingInfoAddressableMarketSize'
                                 value={this.props.unicorn.tudSupportingInfoAddressableMarketSize}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                              />
+                            ></textarea>  
                             </div>
                             <div className="form-group  justify-content-between" style={{display:"none !important"}}>
                               <div className='arrow-buttons'>

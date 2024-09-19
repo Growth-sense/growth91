@@ -98,9 +98,10 @@ class Compliances extends Component {
     }
 
     this.setState({ loading: true });
-    Bridge.founder.updatefounder(params).then((result) => {
+        Bridge.Unicorn.editunicorndraft(this.props.unicorn).then((result) => {
+
       if (result.status == 1) {
-        this.setState({ loading: false,valueispresent:true },() => this.getData(this.state.founder_id));
+        this.setState({ loading: false,valueispresent:true },);
         if(this.state.processtype=='next'){
           this.props.next();
         } else if(this.state.processtype=='prev'){
@@ -276,12 +277,20 @@ class Compliances extends Component {
                                 <label for="">Are you registered for GST?<span className="text-danger">*</span></label>
                                 <div className='button-grp'> 
                                   <button  
-                                  className={this.state.tudGstRegistered=='Yes' && 'active'} 
-                                  onClick={() => this.changeStatus('Yes')}
+                                  className={this.props.unicorn.tudGstRegistered=='Yes' && 'active'} 
+                                  name='tudGstRegistered'
+                                  value='Yes'
+                                  onClick={(e) =>
+                            this.props.onInput(e.target.name, e.target.value)
+                          }
                                   >Yes</button>
                                   <button  
-                                  className={this.state.tudGstRegistered=='No' && 'active'} 
-                                  onClick={() => this.changeStatus('No')}
+                                  className={this.props.unicorn.tudGstRegistered=='No' && 'active'} 
+                                     name='tudGstRegistered'
+                                  value='No'
+                                  onClick={(e) =>
+                            this.props.onInput(e.target.name, e.target.value)
+                          }
                                   >No</button>
                                 </div>
                             </div>
@@ -300,28 +309,31 @@ class Compliances extends Component {
                         <div className="form-group step-form-date-input">
                               <label for="">Date of audited balance sheet<span className="text-danger">*</span></label>
                              
-                              <DatePicker
+                              <input type='date'
                                 value={this.props.unicorn.tudAuditedBL}
-                                onChange={(date, dateString) => {
-                                  this.setState({ tudAuditedBL:date }) 
-                                }}
-                                disabledDate={this.disabledDate}
+                                name='tudAuditedBL'
+                                onChange={(e) =>
+                                  this.props.onInput(e.target.name, e.target.value)
+                                }
+                                // disabledDate={this.disabledDate}
                                 format={'DD-MM-YYYY'}
                                 style={{
                                   width:'100%', 
                                   marginBottom:30,
                                 }}
-                              />
+                                />
                             </div>                           
                             <div className="form-group step-form-date-input">
                               <label for="">Date of filling last ITR<span className="text-danger">*</span></label>
                               
-                              <DatePicker
+                              <input type='date'
                                 value={this.props.unicorn.tudItrFilling}
-                                onChange={(date, dateString) => {
-                                  this.setState({ tudItrFilling:date }) 
-                                }}
-                                disabledDate={this.disabledDate}
+                                name='tudItrFilling'
+                                onChange={(e) =>
+                                  this.props.onInput(e.target.name, e.target.value)
+                                }
+                                    
+                                // disabledDate={this.disabledDate}
                                 format={'DD-MM-YYYY'}
                                 style={{
                                   width:'100%', 
@@ -332,12 +344,13 @@ class Compliances extends Component {
                             <div className="form-group step-form-date-input">
                               <label for="">Date of last AGM<span className="text-danger">*</span></label>
                              
-                              <DatePicker
+                              <input type='date'
+                              name='tudAgm'
                                 value={this.props.unicorn.tudAgm}
-                                onChange={(date, dateString) => {
-                                  this.setState({ tudAgm:date }) 
-                                }}
-                                disabledDate={this.disabledDate}
+                                onChange={(e) =>
+                                  this.props.onInput(e.target.name, e.target.value)
+                                }
+                                // disabledDate={this.disabledDate}
                                 format={'DD-MM-YYYY'}
                                 style={{
                                   width:'100%', 

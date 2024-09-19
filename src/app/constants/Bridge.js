@@ -927,5 +927,26 @@ export default {
       api.post(URLs.unicornListByFounders, data).then((response) => {
         return response.data;
       }),
+    editunicorndraft: (data) =>
+      api.post(URLs.editunicorndraft, data).then((response) => {
+        return response.data;
+      }),
+    publishunicorndeal: (data) =>
+      api.post(URLs.publishunicorndeal, data).then((response) => {
+        return response.data;
+      }),
+    unicorndealsByInvestors: (data) =>
+      api.post(URLs.unicorndealsByInvestors
+        , data).then((response) => {
+        return response.data;
+      }),
+    uploadunicornFiles: (data) =>
+      api.post(URLs.uploadunicornFiles, data).then((response) => {
+        return response.data;
+      }),
+    uploadFiles: (data) =>
+      api.post(URLs.uploadFiles, data).then((response) => {
+        return response.data;
+      }),
   },
 };

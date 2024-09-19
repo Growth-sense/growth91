@@ -35,80 +35,21 @@ class FundRaiseRegistration extends Component {
   componentDidMount() {
     if (this.props.id) {
       let id = this.props.id;
-      this.getData(id);
+      // this.getData(id);
     }
     $("#selected-field").focus();
     this.props.check();
   }
 
-  getData = (id) => {
-    let params = {
-      founder_id: this.props.id,
-    };
-    Bridge.founder.getFounderDetails(params).then((result) => {
-      if (result.status == 1) {
-        this.setState({
-          name_of_legality_entity: result.data[0].name_of_legality_entity,
-          website: result.data[0].website,
-          cin_legality_entity: result.data[0].cin_legality_entity,
-          pan_legality_entity: result.data[0].pan_legality_entity,
-          registered_in_country: result.data[0].registered_in_country,
-          formality_established_date: result.data[0].formality_established_date
-            ? moment(result.data[0].formality_established_date)
-            : "",
-          activities_start_date_befire_formal: result.data[0]
-            .activities_start_date_befire_formal
-            ? moment(result.data[0].activities_start_date_befire_formal)
-            : "",
-          address_registered_office: result.data[0].address_registered_office,
-          address_corporate_office: result.data[0].address_corporate_office,
-          director_1_name: result.data[0].director_1_name,
-          director_1_din: result.data[0].director_1_din,
-          director_2_name: result.data[0].director_2_name,
-          director_2_din: result.data[0].director_2_din,
-          director_3_name: result.data[0].director_3_name,
-          director_3_din: result.data[0].director_3_din,
-          director_4_name: result.data[0].director_4_name,
-          director_4_din: result.data[0].director_4_din,
-        });
-        if (result.data[0].name_of_legality_entity) {
-          this.setState({ valueispresent: true });
-        }
-      }
-    });
-  };
+;
 
   updatefounder = () => {
-    let params = {
-      name_of_legality_entity: this.state.name_of_legality_entity,
-      website: this.state.website,
-      cin_legality_entity: this.state.cin_legality_entity,
-      pan_legality_entity: this.state.pan_legality_entity,
-      registered_in_country: this.state.registered_in_country,
-      formality_established_date: this.state.formality_established_date,
-      activities_start_date_befire_formal:
-        this.state.activities_start_date_befire_formal,
-      address_registered_office: this.state.address_registered_office,
-      address_corporate_office: this.state.address_corporate_office,
-      director_1_name: this.state.director_1_name,
-      director_1_din: this.state.director_1_din,
-      director_2_name: this.state.director_2_name,
-      director_2_din: this.state.director_2_din,
-      director_3_name: this.state.director_3_name,
-      director_3_din: this.state.director_3_din,
-      director_4_name: this.state.director_4_name,
-      director_4_din: this.state.director_4_din,
-      founder_id: this.state.founder_id,
-      no: 8,
-      main_founder_id: localStorage.getItem("founder_id"),
-      f8_status: this.state.processtype == "saveandproceed" ? "success" : "new",
-    };
+   ;
     this.setState({ loading: true });
-    Bridge.founder.updatefounder(params).then((result) => {
+    Bridge.Unicorn.editunicorndraft(this.props.unicorn).then((result) => {
+
       if (result.status == 1) {
-        this.setState({ loading: false, valueispresent: true }, () =>
-          this.getData(this.state.founder_id)
-        );
+        this.setState({ loading: false, valueispresent: true })
         if (this.state.processtype == "next") {
           this.props.next();
         } else if (this.state.processtype == "prev") {
@@ -136,7 +77,10 @@ class FundRaiseRegistration extends Component {
   };
   disabledDate = (current) => {
     // Can not select days before today and today
-    return current && current > moment().endOf("day");
+    return(
+
+      current && current > moment().endOf("day")
+    )
   };
   validateName(x) {
     var nameVal = x;
@@ -376,68 +320,70 @@ class FundRaiseRegistration extends Component {
                           Name of the legal entity.{" "}
                           <span className="text-danger">*</span>
                         </label>
-                        <input  
-                          type="text"
+                        <textarea  
+                         
                           name="tudLeagalName"
                           id="selected-field"
                           value={this.props.unicorn.tudLeagalName}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                        />
+                        ></textarea>
                       </div>
                       <div className="form-group">
                         <label for="">Website </label>
-                        <input  
-                          type="url"
+                        <textarea  
+                         
                           name="tudWebsite"
                           value={this.props.unicorn.tudWebsite}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                        />
+                          ></textarea>
+
                       </div>
                       <div className="form-group">
                         <label for="">
                           Legal entity - CIN{" "}
                           <span className="text-danger">*</span>
                         </label>
-                        <input  
-                          type="text"
+                        <textarea  
+                         
                           name="tudLegalCin"
                           value={this.props.unicorn.tudLegalCin}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                        />
+                          ></textarea>
                       </div>
                       <div className="form-group">
                         <label for="">
                           Legal entity - PAN{" "}
                           <span className="text-danger">*</span>
                         </label>
-                        <input  
-                          type="text"
+                        <textarea  
+                         
                           name="tudLegalPan"
                           value={this.props.unicorn.tudLegalPan}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                        />
+                          ></textarea>
                       </div>
                       <div className="form-group">
                         <label for="">
                           Registered in (Country){" "}
                           <span className="text-danger">*</span>
                         </label>
-                        <input  
-                          type="text"
+                        <textarea  
+                         
                           name="tudLegalCountry"
                           value={this.props.unicorn.tudLegalCountry}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                        />
+                          ></textarea>
+
                       </div>
                       <div className="form-group step-form-date-input">
                         <label for="">
@@ -445,12 +391,11 @@ class FundRaiseRegistration extends Component {
                           <span className="text-danger">*</span>
                         </label>
 
-                        <DatePicker
-                          value={this.props.unicorn.tudEstablishedDate}
-                          onChange={(date, dateString) => {
-                            this.setState({ tudEstablishedDate: date });
-                          }}
-                          disabledDate={this.disabledDate}
+                        <input type="date"
+                          value={(this.props.unicorn.tudEstablishedDate)}
+                          onChange={(e) => this.props.onInput(e.target.name, e.target.value)}
+                          name="tudEstablishedDate"
+                          // disabledDate={this.disabledDate}
                           format={"DD-MM-YYYY"}
                           style={{
                             width: "100%",
@@ -463,17 +408,14 @@ class FundRaiseRegistration extends Component {
                           Activities start date before formal establishment(if
                           any)
                         </label>
-                        <DatePicker
+                        <input type="date"
                           value={
-                            this.props.unicorn
-                              .tudActivityStartedDate
+                            ( this.props.unicorn
+                              .tudActivityStartedDate)
                           }
-                          onChange={(date, dateString) => {
-                            this.setState({
-                              tudActivityStartedDate: date,
-                            });
-                          }}
-                          disabledDate={this.disabledDate}
+                          name="tudActivityStartedDate"
+                          onChange={(e) => this.props.onInput(e.target.name, e.target.value)}
+                          // disabledDate={this.disabledDate}
                           format={"DD-MM-YYYY"}
                           style={{
                             width: "100%",
@@ -486,126 +428,126 @@ class FundRaiseRegistration extends Component {
                           Address - Registered office
                           <span className="text-danger">*</span>
                         </label>
-                        <input  
-                          type="text"
+                        <textarea  
+                         
                           name="tudRegisteredOffice"
                           value={this.props.unicorn.tudRegisteredOffice}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                        />
+                        ></textarea>
                       </div>
                       <div className="form-group">
                         <label for="">
                           Address - Corporate/Working office{" "}
                           <span className="text-danger">*</span>
                         </label>
-                        <input  
-                          type="text"
+                        <textarea
+                         
                           name="tudCorporateOffice"
                           value={this.props.unicorn.tudCorporateOffice}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                        />
+                        ></textarea>
                       </div>
                       <div className="form-group">
                         <label for="">
                           Director - 1(Name){" "}
                           <span className="text-danger">*</span>
                         </label>
-                        <input  
-                          type="text"
+                        <textarea
+                         
                           name="tudDirector1"
                           value={this.props.unicorn.tudDirector1}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                        />
+                        ></textarea>
                       </div>
                       <div className="form-group">
                         <label for="">
                           Director - 1 (DIN){" "}
                           <span className="text-danger">*</span>
                         </label>
-                        <input  
-                          type="number"
+                        <textarea
+                         
                           onWheel={() => document.activeElement.blur()}
                           name="tudDin1"
                           value={this.props.unicorn.tudDin1}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                        />
+                        ></textarea>
                       </div>{" "}
                       <div className="form-group">
                         <label for="">Director - 2(Name) </label>
-                        <input  
-                          type="text"
+                        <textarea
+                         
                           name="tudDirector2"
                           value={this.props.unicorn.tudDirector2}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                        />
+                        ></textarea>
                       </div>
                       <div className="form-group">
                         <label for="">Director - 2(DIN) </label>
-                        <input  
-                          type="number"
+                        <textarea
+                         
                           onWheel={() => document.activeElement.blur()}
                           name="director_2_din"
                           value={this.props.unicorn.director_2_din}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                        />
+                        ></textarea>
                       </div>{" "}
                       <div className="form-group">
                         <label for="">Director - 3(Name)</label>
-                        <input  
-                          type="text"
+                        <textarea
+                         
                           name="tudDirector3"
                           value={this.props.unicorn.tudDirector3}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                        />
+                        ></textarea>
                       </div>
                       <div className="form-group">
                         <label for="">Director - 3 (DIN) </label>
-                        <input  
-                          type="number"
+                        <textarea
+                         
                           onWheel={() => document.activeElement.blur()}
                           name="tudDin3"
                           value={this.props.unicorn.tudDin3}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                        />
+                        ></textarea>
                       </div>{" "}
                       <div className="form-group">
                         <label for="">Director - 4(Name)</label>
-                        <input  
-                          type="text"
+                        <textarea
+                         
                           name="tudDirector4"
                           value={this.props.unicorn.tudDirector4}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                        />
+                        ></textarea>
                       </div>
                       <div className="form-group">
                         <label for="">Director - 4 (DIN)</label>
-                        <input  
-                          type="number"
+                        <textarea
+                         
                           onWheel={() => document.activeElement.blur()}
                           name="tudDin4"
                           value={this.props.unicorn.tudDin4}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                        />
+                        ></textarea>
                       </div>
                       <div
                         className="form-group  justify-content-between"

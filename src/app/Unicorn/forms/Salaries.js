@@ -64,9 +64,10 @@ class Salaries extends Component {
       f13_status:this.state.processtype=='saveandproceed'?'success':'new',
     }
     this.setState({ loading: true });
-    Bridge.founder.updatefounder(params).then((result) => {
+        Bridge.Unicorn.editunicorndraft(this.props.unicorn).then((result) => {
+
       if (result.status == 1) {
-        this.setState({ loading: false,valueispresent:true },() => this.getData(this.state.founder_id));
+        this.setState({ loading: false,valueispresent:true },);
         if(this.state.processtype=='next'){
           this.props.next();
         } else if(this.state.processtype=='prev'){

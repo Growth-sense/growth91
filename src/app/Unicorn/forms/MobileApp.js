@@ -56,10 +56,11 @@ class MobileApp extends Component {
       main_founder_id:localStorage.getItem('founder_id'),
       f4_status:this.state.processtype=='saveandproceed'?'success':'new',
     }
-    this.setState({loading:true});
-    Bridge.founder.updatefounder(params).then((result) => {
+    this.setState({loading:true});    
+    Bridge.Unicorn.editunicorndraft(this.props.unicorn).then((result) => {
+
       if (result.status==1) {
-        this.setState({ loading: false,valueispresent:true },() => this.getData(this.state.founder_id));
+        this.setState({ loading: false,valueispresent:true },);
         if(this.state.processtype=='next'){
           this.props.next();
         } else if(this.state.processtype=='prev'){
@@ -174,12 +175,19 @@ class MobileApp extends Component {
                             <label for="">Do you have an android app for your Startup?<span className="text-danger">*</span></label>
                             <div className='button-grp'> 
                               <button  
-                              className={this.props.unicorn.tudAndroidMobileApp=='Yes' && 'active'} 
-                              onClick={() => this.changeStatus('Yes')}
+                              className={this.props.unicorn.tudAndroidMobileApp=='Yes' && 'active'
+                              } 
+                                name="tudAndroidMobileApp"
+                                value="Yes"
+                              onClick={(e) => {this.props.onInput(e.target.name, e.target.value)}}
                               >Yes</button>
                               <button  
                               className={this.props.unicorn.tudAndroidMobileApp=='No' && 'active'} 
-                              onClick={() => this.changeStatus('No')}
+                               name="tudAndroidMobileApp"
+                                value="No"
+                                onClick={(e) => {this.props.onInput(e.target.name, e.target.value)}}
+
+
                               >No</button>
                             </div>
                         </div>
@@ -187,8 +195,8 @@ class MobileApp extends Component {
                               <label for="">Give details (App Name, Downloads, Rating, Active User, etc.)</label>
                               <input  
                                 type="text" 
-                                name='tudAndroidMobileApp'
-                                value={this.props.unicorn.tudAndroidMobileApp}
+                                name='tudAndroidAppDetails'
+                                value={this.props.unicorn.tudAndroidAppDetails}
                                  onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }

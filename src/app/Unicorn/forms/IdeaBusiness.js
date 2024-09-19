@@ -36,7 +36,8 @@ class IdeaBusiness extends Component {
     let params = {
       founder_id: this.props.id,
     };
-    Bridge.founder.getFounderDetails(params).then((result) => {
+    Bridge.Unicorn.editunicorndraft(this.props.unicorn).then((result) => {
+
       if (result.status == 1) {
         console.log(result.data[0].is_disrupting_existing_market);
         this.setState({
@@ -84,7 +85,8 @@ class IdeaBusiness extends Component {
       f2_status: this.state.processtype == "saveandproceed" ? "success" : "new",
     };
     this.setState({ loading: true });
-    Bridge.founder.updatefounder(params).then((result) => {
+    Bridge.Unicorn.editunicorndraft(this.props.unicorn).then((result) => {
+ 
       if (result.status == 1) {
         this.props.check(2);
         this.setState({ loading: false, valueispresent: true });
