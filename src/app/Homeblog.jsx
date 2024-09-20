@@ -57,6 +57,8 @@ const [loading, setLoading] = useState()
                   <span></span>{" "}
                 </p>
                 <h2> Latest News and Trends in Indian Startup Investments</h2>
+                <p> Stay informed about the latest news, trends, and insights on investing in Indian startups through our expert-curated blog.
+                </p>
               </div>
             </div>
 
@@ -217,6 +219,7 @@ const [loading, setLoading] = useState()
                   </div>
                 </div>
               </div>
+              <button>View All Blogs</button>
             </div>
           </div>
         </section>
