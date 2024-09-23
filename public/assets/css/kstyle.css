@@ -6016,3 +6016,10 @@ a {
 .value-capitalize{
     text-transform: capitalize !important;
 }
+
+.future-main-accordians .accordion-item .default-Show span img{
+    width: 30px;
+    margin-right: 11px;
+
+
+}

@@ -275,124 +275,34 @@ export const FutureUnicornDescription = () => {
                                         </div>
                                     </div>
                                 </div> */}
-                                <div class="accordion-item">
+                                <div class="accordion-item" style={{border : "none"}}>
                                     <h3 class="accordion-header" id="flush-headingOne">
-                                        <button
-                                            class="accordion-button collapsed"
-                                            type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#flush-collapseOne"
-                                            aria-expanded="false"
-                                            aria-controls="flush-collapseOne"
-                                        >
+                                        <div class = "default-Show"  >
                                             <span><img src="./assets/images/information.png" alt="" /></span>
                                             About Us
-                                        </button>
+                                        </div>
                                     </h3>
-                                    <div
-                                        id="flush-collapseOne"
-                                        class="accordion-collapse collapse"
-                                        aria-labelledby="flush-headingOne"
-                                        data-bs-parent="#accordionFlushExample"
-                                    >
+                                  
                                         <div class="accordion-body about-us-p">
                                             <p>
                                                 Tulua Foods Pvt Ltd, established in 2020, specializes in providing high-quality, clean-label spice and masala products. With a mission to spotlight authentic Indian flavours, Tulua offers a diverse range of over 50 SKUs, including whole spices, powdered spices, and ready-to-cook (RTC) pastes. Their commitment to quality, transparency, and authenticity sets them apart in the market. Operating in both B2B and B2C segments, Tulua supplies branded spices to hospitality businesses and caters directly to individual consumers through various sales channels. Achieving rapid growth and significant milestones, Tulua has secured funding to support its expansion plans, including venturing into export markets and introducing new product lines.
 
                                             </p>
                                         </div>
-                                    </div>
+                                    
                                 </div>
-                                <div class="accordion-item">
-                                    <h3 class="accordion-header" id="flush-headingThree">
-                                        <button
-                                            class="accordion-button collapsed"
-                                            type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#flush-collapseThree"
-                                            aria-expanded="false"
-                                            aria-controls="flush-collapseThree"
-                                        >
-                                            <span><img src="./assets/images/market-research.png" alt="" /></span>
-
-                                            Market Overview
-                                        </button>
-                                    </h3>
-                                    <div
-                                        id="flush-collapseThree"
-                                        class="accordion-collapse collapse"
-                                        aria-labelledby="flush-headingThree"
-                                        data-bs-parent="#accordionFlushExample"
-                                    >
-                                        <div class="accordion-body">
-                                            <div className="row market-overreview-row">
-                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                                    <div className="membership-accordian">
-                                                        {/* <div className="img-member-accordian">
-                                                            <img src="https://www.trumanlittlewhitehouse.org/wp-content/uploads/2019/11/81DpN-lrJvL._SL1350.jpg" alt="" />
-                                                        </div> */}
-                                                        <div className="para-member-accordian">
-                                                            {/* <h3>
-                                                                charter president
-                                                            </h3> */}
-                                                            <p>
-                                                                The Indian spice market is experiencing robust growth, with a projected CAGR of 11.29% during 2021-2027, reaching INR 142,569.3 Crores in 2021 and expected to reach INR 270,928.4 Crores by 2027. This growth is driven by India's status as the largest producer, consumer, and exporter of spices globally, alongside increasing demand fueled by changing consumer preferences.
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                                    <div className="membership-accordian">
-
-                                                        <div className="para-member-accordian">
-                                                            <p>
-                                                                The total addressable market for spices in India was $42 billion in 2022, with an anticipated growth rate of 15.7% between 2021-2031. Similarly, the total addressable market for Ready-To-Cook (RTC) products in India was $460 million in 2022, forecasted to grow at a rate of 16.3% between 2021-2031, highlighting significant opportunities in both segments.
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                                    <div className="membership-accordian">
-                                                        {/* <div className="img-member-accordian">
-                                                            <img src="https://www.trumanlittlewhitehouse.org/wp-content/uploads/2019/11/81DpN-lrJvL._SL1350.jpg" alt="" />
-                                                        </div> */}
-                                                        <div className="para-member-accordian">
-                                                            {/* <h3>
-                                                                Member
-                                                            </h3> */}
-                                                            <p>
-                                                                The Ready to Cook market, valued at $18 billion, is witnessing rapid growth due to shifting consumer habits, increased health awareness, and the convenience of pre-packaged meal kits. This trend presents ample opportunities for smaller companies to enter the market and innovate with new product offerings, catering to the needs of busy individuals seeking healthy and convenient meal solutions.
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
+                                <div class="accordion-item" style={{border : "none"}}>
                                     <h3 class="accordion-header" id="flush-headingsixx">
-                                        <button
-                                            class="accordion-button collapsed"
-                                            type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#flush-headingsixxnew"
-                                            aria-expanded="false"
-                                            aria-controls="flush-headingsixx"
+                                        <div
+                                            class="default-Show"
+                                          
                                         >
                                             <span><img src="./assets/images/highluights.png" alt="" /></span>
 
                                             Highlights
-                                        </button>
+                                        </div>
                                     </h3>
-                                    <div
-                                        id="flush-headingsixxnew"
-                                        class="accordion-collapse collapse"
-                                        aria-labelledby="flush-headingsixx"
-                                        data-bs-parent="#accordionFlushExample"
-                                    >
-                                        <div class="accordion-body">
+                                    <div class="accordion-body">
                                             <div className="row row-bg-highlights" >
                                                 <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
                                                     <div className="highlights-accordian">
@@ -484,8 +394,172 @@ export const FutureUnicornDescription = () => {
 
                                             </div>
                                         </div>
+                                </div>
+                                <div class="accordion-item" style={{border : "none"}}>
+                                    <h3 class="accordion-header" id="flush-headingdetails">
+                                        <div
+                                            class="default-Show"
+                                           
+                                        >
+                                            <span><img src="./assets/images/group-chat.png" alt="" /></span>
+                                            Team
+                                        </div>
+                                    </h3>
+                                  
+                                        <div class="accordion-body ">
+                                            <div className="row row-box-linse">
+                                                <div className="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-12 col-sm-12 col-xs-12">
+                                                    <div className="main-card-of-teams">
+                                                        <div className="img-teams-of-cards">
+                                                            <img src="./assets/images/deals-details/Tulua new/Team/Richy.jpg" alt="" />
+                                                          
+                                                        </div>
+                                                        <div className="name-of-teams-card">
+                                                        <div className="head-deals-team">
+                                                                <h3>Richy Dave
+                                                                </h3>
+                                                                <p>Founder and CEO</p>
+                                                            </div>
+                                                            <ul>
+                                                                <li>
+                                                                    10+ years of experience in Marketing and Brand-building.
+                                                                </li>
+                                                                <li>
+                                                                    Ex-founder of Surge Digital, a boutique creative marketing agency.
+                                                                </li>
+                                                                <li>
+                                                                    looks after Marketing & Brand building, Supply chain.
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-12 col-sm-12 col-xs-12">
+                                                    <div className="main-card-of-teams">
+                                                        <div className="img-teams-of-cards">
+                                                            <img src="./assets/images/deals-details/Tulua new/Team/hitesh.jpg" alt="" />
+                                                    
+                                                        </div>
+                                                        <div className="name-of-teams-card">
+                                                        <div className="head-deals-team">
+                                                                <h3>Hitesh Dave
+                                                               
+                                                                </h3>
+                                                                <p> Director of Sales</p>
+                                                            </div>
+                                                            <ul>
+                                                                <li>
+                                                                35+ yrs experience in sales & distribution in markets across India and China.
+                                                                
+                                                                </li>
+                                                                <li>
+                                                                Formerly setup food service network for brands such as Sankalp.
+                                                                </li>
+                                                                
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-12 col-sm-12 col-xs-12">
+                                                    <div className="main-card-of-teams">
+                                                        <div className="img-teams-of-cards">
+                                                            <img src="./assets/images/deals-details/Tulua new/Team/arjunvaidya.jpg" alt="" />
+                                                            
+                                                        </div>
+                                                        <div className="name-of-teams-card">
+                                                        <div className="head-deals-team">
+                                                                <h3>Arjun Vaidya
+                                                             
+                                                                </h3>
+                                                                <p>   D2C founder & Investor.</p>
+                                                            </div>
+                                                            <ul>
+                                                              
+                                                                <li>
+                                                                With vast experience in sales and marketing,           
+                                                                                                                     </li>
+                                                                <li>
+                                                               
+                                                                She has a deep network and has closed strategic alliances worth US$ 200 million as part of Brand Capital, the strategic investment arm of Times Group.
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                 
+                                </div>
+                                <div class="accordion-item">
+                                    <h3 class="accordion-header" id="flush-headingThree">
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapseThree"
+                                            aria-expanded="false"
+                                            aria-controls="flush-collapseThree"
+                                        >
+                                            <span><img src="./assets/images/market-research.png" alt="" /></span>
+
+                                            Market Overview
+                                        </button>
+                                    </h3>
+                                    <div
+                                        id="flush-collapseThree"
+                                        class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingThree"
+                                        data-bs-parent="#accordionFlushExample"
+                                    >
+                                        <div class="accordion-body">
+                                            <div className="row market-overreview-row">
+                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                                    <div className="membership-accordian">
+                                                        {/* <div className="img-member-accordian">
+                                                            <img src="https://www.trumanlittlewhitehouse.org/wp-content/uploads/2019/11/81DpN-lrJvL._SL1350.jpg" alt="" />
+                                                        </div> */}
+                                                        <div className="para-member-accordian">
+                                                            {/* <h3>
+                                                                charter president
+                                                            </h3> */}
+                                                            <p>
+                                                                The Indian spice market is experiencing robust growth, with a projected CAGR of 11.29% during 2021-2027, reaching INR 142,569.3 Crores in 2021 and expected to reach INR 270,928.4 Crores by 2027. This growth is driven by India's status as the largest producer, consumer, and exporter of spices globally, alongside increasing demand fueled by changing consumer preferences.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                                    <div className="membership-accordian">
+
+                                                        <div className="para-member-accordian">
+                                                            <p>
+                                                                The total addressable market for spices in India was $42 billion in 2022, with an anticipated growth rate of 15.7% between 2021-2031. Similarly, the total addressable market for Ready-To-Cook (RTC) products in India was $460 million in 2022, forecasted to grow at a rate of 16.3% between 2021-2031, highlighting significant opportunities in both segments.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                                    <div className="membership-accordian">
+                                                        {/* <div className="img-member-accordian">
+                                                            <img src="https://www.trumanlittlewhitehouse.org/wp-content/uploads/2019/11/81DpN-lrJvL._SL1350.jpg" alt="" />
+                                                        </div> */}
+                                                        <div className="para-member-accordian">
+                                                            {/* <h3>
+                                                                Member
+                                                            </h3> */}
+                                                            <p>
+                                                                The Ready to Cook market, valued at $18 billion, is witnessing rapid growth due to shifting consumer habits, increased health awareness, and the convenience of pre-packaged meal kits. This trend presents ample opportunities for smaller companies to enter the market and innovate with new product offerings, catering to the needs of busy individuals seeking healthy and convenient meal solutions.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                             
                                 <div class="accordion-item">
                                     <h3 class="accordion-header" id="flush-headingfourees">
                                         <button
@@ -701,111 +775,7 @@ export const FutureUnicornDescription = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="accordion-item">
-                                    <h3 class="accordion-header" id="flush-headingdetails">
-                                        <button
-                                            class="accordion-button collapsed"
-                                            type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#flush-headingdetailsnew"
-                                            aria-expanded="false"
-                                            aria-controls="flush-headingdetails"
-                                        >
-                                            <span><img src="./assets/images/group-chat.png" alt="" /></span>
-                                            Team
-                                        </button>
-                                    </h3>
-                                    <div
-                                        id="flush-headingdetailsnew"
-                                        class="accordion-collapse collapse"
-                                        aria-labelledby="flush-headingdetails"
-                                        data-bs-parent="#accordionFlushExample"
-                                    >
-                                        <div class="accordion-body ">
-                                            <div className="row row-box-linse">
-                                                <div className="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-12 col-sm-12 col-xs-12">
-                                                    <div className="main-card-of-teams">
-                                                        <div className="img-teams-of-cards">
-                                                            <img src="./assets/images/deals-details/Tulua new/Team/Richy.jpg" alt="" />
-                                                          
-                                                        </div>
-                                                        <div className="name-of-teams-card">
-                                                        <div className="head-deals-team">
-                                                                <h3>Richy Dave
-                                                                </h3>
-                                                                <p>Founder and CEO</p>
-                                                            </div>
-                                                            <ul>
-                                                                <li>
-                                                                    10+ years of experience in Marketing and Brand-building.
-                                                                </li>
-                                                                <li>
-                                                                    Ex-founder of Surge Digital, a boutique creative marketing agency.
-                                                                </li>
-                                                                <li>
-                                                                    looks after Marketing & Brand building, Supply chain.
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-12 col-sm-12 col-xs-12">
-                                                    <div className="main-card-of-teams">
-                                                        <div className="img-teams-of-cards">
-                                                            <img src="./assets/images/deals-details/Tulua new/Team/hitesh.jpg" alt="" />
-                                                    
-                                                        </div>
-                                                        <div className="name-of-teams-card">
-                                                        <div className="head-deals-team">
-                                                                <h3>Hitesh Dave
-                                                               
-                                                                </h3>
-                                                                <p> Director of Sales</p>
-                                                            </div>
-                                                            <ul>
-                                                                <li>
-                                                                35+ yrs experience in sales & distribution in markets across India and China.
-                                                                
-                                                                </li>
-                                                                <li>
-                                                                Formerly setup food service network for brands such as Sankalp.
-                                                                </li>
-                                                                
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-12 col-sm-12 col-xs-12">
-                                                    <div className="main-card-of-teams">
-                                                        <div className="img-teams-of-cards">
-                                                            <img src="./assets/images/deals-details/Tulua new/Team/arjunvaidya.jpg" alt="" />
-                                                            
-                                                        </div>
-                                                        <div className="name-of-teams-card">
-                                                        <div className="head-deals-team">
-                                                                <h3>Arjun Vaidya
-                                                             
-                                                                </h3>
-                                                                <p>   D2C founder & Investor.</p>
-                                                            </div>
-                                                            <ul>
-                                                              
-                                                                <li>
-                                                                With vast experience in sales and marketing,           
-                                                                                                                     </li>
-                                                                <li>
-                                                               
-                                                                She has a deep network and has closed strategic alliances worth US$ 200 million as part of Brand Capital, the strategic investment arm of Times Group.
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                             
 
                                 {/* <div class="accordion-item">
                                     <h3 class="accordion-header" id="flush-headingTwo">
