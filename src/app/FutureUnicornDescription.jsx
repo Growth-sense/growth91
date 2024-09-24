@@ -145,10 +145,13 @@ export const FutureUnicornDescription = () => {
                     <div className="row row-imgdirects">
                         <div className="row-img-direct">
                             <div className="img-certified-directors">
-                                <img src="https://www.theidy.com/img/SanjaySarda/profile-pic/sanjay.jpg" alt="" />
+                                <img src="/assets/images/fevicon_new.jpg" alt="" />
                             </div>
                             <div className="content-certify-directors">
-                                <h3>Sanjay Sarda</h3>
+                                {/* <h3>Sanjay Sarda</h3>
+                                 */}
+                                <h3>Growth 91</h3>
+
                                 <p>
                                     <span></span>
                                     Certified Corporate Director - Business Management Consultant
@@ -173,8 +176,8 @@ export const FutureUnicornDescription = () => {
                         </div>
 
                     </div>
-                    <div className="row row-imgdirects bg-box-futures">
-                        <ul className='grid-box-futures'>
+                    <div className="row row-imgdirects bg-box-futures d-none">
+                        <ul className='grid-box-futures'> 
                             <li>
                                 <span><img src="./assets/images/telephone.png" alt="" /></span>
                                 <span>Call</span>
@@ -362,34 +365,8 @@ export const FutureUnicornDescription = () => {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
-                                                    <div className="highlights-accordian">
-                                                        <div className="para-highlights-accordian">
-                                                            <div className="img-highlights">
-                                                                <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" alt="" />
-
-                                                            </div>
-                                                            <div className="para-p-highlight">
-                                                                <p>
-                                                                    Tulua's enterprise products consist of a wide selection of high-quality spices, including 15 single spice powders, 8 blended spice powders, and 22 whole spices. Sourced directly from farms and mandis, these products ensure superior taste and freshness, making them the preferred choice for hotels, restaurants, cafes, and airlines.                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
-                                                    <div className="highlights-accordian">
-                                                        <div className="para-highlights-accordian">
-                                                            <div className="img-highlights">
-                                                                <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" alt="" />
-
-                                                            </div>
-                                                            <div className="para-p-highlight">
-                                                                <p>
-                                                                    Tulua prioritizes rigorous quality control measures and uses single-origin ingredients and chef-made recipes to ensure authentic Indian flavors in their products. Tulua's products are 100% natural with no added flavors or additives, appealing to health-conscious consumers. Additionally, the company operates as a plastic-neutral brand and sources locally to reduce environmental impact.                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                               
+                                               
 
 
                                             </div>
@@ -407,7 +384,7 @@ export const FutureUnicornDescription = () => {
                                     </h3>
                                   
                                         <div class="accordion-body ">
-                                            <div className="row row-box-linse">
+                                            <div className="row row-box-linse Grid-team">
                                                 <div className="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-12 col-sm-12 col-xs-12">
                                                     <div className="main-card-of-teams">
                                                         <div className="img-teams-of-cards">
@@ -420,7 +397,7 @@ export const FutureUnicornDescription = () => {
                                                                 </h3>
                                                                 <p>Founder and CEO</p>
                                                             </div>
-                                                            <ul>
+                                                            {/* <ul>
                                                                 <li>
                                                                     10+ years of experience in Marketing and Brand-building.
                                                                 </li>
@@ -430,7 +407,7 @@ export const FutureUnicornDescription = () => {
                                                                 <li>
                                                                     looks after Marketing & Brand building, Supply chain.
                                                                 </li>
-                                                            </ul>
+                                                            </ul> */}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -447,7 +424,7 @@ export const FutureUnicornDescription = () => {
                                                                 </h3>
                                                                 <p> Director of Sales</p>
                                                             </div>
-                                                            <ul>
+                                                            {/* <ul>
                                                                 <li>
                                                                 35+ yrs experience in sales & distribution in markets across India and China.
                                                                 
@@ -456,7 +433,7 @@ export const FutureUnicornDescription = () => {
                                                                 Formerly setup food service network for brands such as Sankalp.
                                                                 </li>
                                                                 
-                                                            </ul>
+                                                            </ul> */}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -473,7 +450,7 @@ export const FutureUnicornDescription = () => {
                                                                 </h3>
                                                                 <p>   D2C founder & Investor.</p>
                                                             </div>
-                                                            <ul>
+                                                            {/* <ul>
                                                               
                                                                 <li>
                                                                 With vast experience in sales and marketing,           
@@ -482,7 +459,7 @@ export const FutureUnicornDescription = () => {
                                                                
                                                                 She has a deep network and has closed strategic alliances worth US$ 200 million as part of Brand Capital, the strategic investment arm of Times Group.
                                                                 </li>
-                                                            </ul>
+                                                            </ul> */}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -692,7 +669,7 @@ export const FutureUnicornDescription = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="accordion-item">
+                                {/* <div class="accordion-item">
                                     <h3 class="accordion-header" id="flush-headingtearm">
                                         <button
                                             class="accordion-button collapsed"
@@ -774,7 +751,7 @@ export const FutureUnicornDescription = () => {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                              
 
                                 {/* <div class="accordion-item">
@@ -892,7 +869,7 @@ export const FutureUnicornDescription = () => {
                                         >
                                             <span><img src="./assets/images/mobile.png" alt="" /></span>
 
-                                            Connect Us
+                                            Contact Us
                                         </button>
                                     </h3>
                                     <div
