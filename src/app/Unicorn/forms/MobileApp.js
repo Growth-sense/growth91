@@ -207,11 +207,14 @@ class MobileApp extends Component {
                                 <div className='button-grp'> 
                                   <button  
                                   className={this.props.unicorn.tudIphoneMobileApp=='Yes' && 'active'} 
-                                  onClick={() => this.changeStatus1('Yes')}
+                                  value="Yes"
+                                  onClick={(e) => {this.props.onInput(e.target.name, e.target.value)}}
+
                                   >Yes</button>
                                   <button  
                                   className={this.props.unicorn.tudIphoneMobileApp=='No' && 'active'} 
-                                  onClick={() => this.changeStatus1('No')}
+                                  value="No"
+                                  onClick={(e) => {this.props.onInput(e.target.name, e.target.value)}}
                                   >No</button>
                                 </div>
                             </div> 

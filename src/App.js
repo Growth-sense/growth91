@@ -185,6 +185,7 @@ import Invidata from "./app/deal-pages/Invidata";
 import TestDeal1 from "./app/deal-pages/TestDeal1";
 import TestDeal2 from "./app/deal-pages/TestDeal2";
 import ProtectDeals from "./app/ProtectDeals";
+import ProtectUnicorn from "./app/ProtectUnicorn.js";
 import PendingOfflinePayments from "./app/admin/PendingOfflinePayments";
 import UnderMaintenance from "./app/UnderMaintenance";
 import AdminDocuments from "./app/admin/AdminDocuments";
@@ -264,16 +265,28 @@ function App() {
           <Route path="/FounderDraftList" exact component={FounderDraftList} />
           <Route path="/FinishedEditPopup" exact component={FinishedEditPopup} />
           <Route path="/RemainingEditPopup" exact component={RemainingEditPopup} />
-          <Route path="/FutureUnicornFormEdits" exact component={FutureUnicornFormEdits} />
-          <Route path="/FutureUnicornList" exact component={FutureUnicornList} />
+          {/* <Route path="/FutureUnicornFormEdits" exact component={FutureUnicornFormEdits} /> */}
+          {/* <Route path="/FutureUnicornList" exact component={FutureUnicornList} /> */}
           <Route path="/WaitApproval" exact component={WaitApproval} />
           <Route path="/CheckboxThank" exact component={CheckboxThank} />
 
           <Route path="/FamilyDashboard" exact component={FamilyDashboard} />
-          <Route path="/FutureUnicornDescription" exact component={FutureUnicornDescription} />
+          <Route path="/FutureUnicornList" exact  >
+            <ProtectUnicorn Component2={FutureUnicornList}   Conditon={true} />
+            </Route>
+          <Route path="/FutureUnicornDescription" exact  >
+            <ProtectUnicorn Component2={FutureUnicornDescription}   Conditon={true} />
+            </Route>
+          <Route path="/FutureUnicornForm" exact  >
+            <ProtectUnicorn Component2={FutureUnicornForm}   Conditon={true} />
+            </Route>
+          <Route path="/InformationList" exact  >
+            <ProtectUnicorn Component2={InformationList}   Conditon={true} />
+            </Route>
+          {/* <Route path="/FutureUnicornDescription" exact component={FutureUnicornDescription} /> */}
           <Route path="/FutureUnicornDescriptiondesgin" exact component={FutureUnicornDescriptiondesgin} />
-          <Route path="/FutureUnicornForm" exact component={FutureUnicornForm} />
-          <Route path="/InformationList" exact component={InformationList} />
+          {/* <Route path="/FutureUnicornForm" exact component={FutureUnicornForm} /> */}
+          {/* <Route path="/InformationList" exact component={InformationList} /> */}
           <Route path="/UnderMaintenance" exact component={UnderMaintenance} />
           <Route path="/StartInvestment" exact component={Content} />
           <Route path="/deals" exact>
@@ -373,7 +386,7 @@ function App() {
           <Route path="/admin-family-manage" exact component={Familymanage} />
           <Route path="/future-unicorn-startups" exact component={FUnicornStartup} />
           <Route path="/FutureUnicorn" exact  >
-            <ProtectDeals Component2={FutureUnicorn}   Conditon={true} />
+            <ProtectUnicorn Component2={FutureUnicorn}   Conditon={true} />
             </Route>
           <Route path="/future-unicorn-investors" exact component={FUnicornInvestors} />
           <Route path="/future-unicorn-founders" exact component={FUnicornFounders} />

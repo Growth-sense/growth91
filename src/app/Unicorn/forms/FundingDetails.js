@@ -238,12 +238,17 @@ class FundingDetails extends Component {
                                 <label for="">Have you raised funds for your Startup previously?<span className="text-danger">*</span></label>
                                 <div className='button-grp'> 
                                   <button  
-                                  className={this.state.tudPreviousFundRaised=='Yes' && 'active'} 
-                                  onClick={() => this.changeStatus('Yes')}
+                                  className={this.props.unicorn.tudPreviousFundRaised=='Yes' && 'active'} 
+                                  name="tudPreviousFundRaised"
+                                  value="Yes"
+                                  onClick={(e) =>  {this.props.onInput(e.target.name, e.target.value)}}
                                   >Yes</button>
                                   <button  
-                                  className={this.state.tudPreviousFundRaised=='No' && 'active'} 
-                                  onClick={() => this.changeStatus('No')}
+                                  name="tudPreviousFundRaised"
+
+                                  className={this.props.unicorn.tudPreviousFundRaised=='No' && 'active'} 
+                                  value="No"
+                                  onClick={(e) => {this.props.onInput(e.target.name, e.target.value)}}
                                   >No</button>
                                 </div>
                             </div>

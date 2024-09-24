@@ -181,7 +181,7 @@ class Declaration extends Component {
                               <div className='d-flex'>
                                 <Checkbox 
                                   onChange={this.onChange}
-                                  checked={this.state.send_me_copy_of_response=="Agree"?"true":"false"}
+                                  checked={this.state.checkedStatus=="true"?"true":"false"}
                                   style={{marginRight:13,textAlign:"justify"}}
                                 >
                                   All the information provided is true and correct to the best of our knowledge.   If at any time in future, it is found that information presented was incorrect or wrongly presented with specific intentions; we shall take sole responsibility of the consequences.  If funding decisions are made based on wrong information provided by us; we shall indemnify the investors up to total invested amount.<span className="text-danger">*</span>

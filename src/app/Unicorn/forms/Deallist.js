@@ -132,10 +132,9 @@ class Dellistinicorn extends Component {
                   </div>
                   <div className="row" style={{ maxWidth: 900 }}>
                     <div className="col-lg-12">
-                     
                       <div className="form-group">
                         <label for="">Startup Founder Name</label>
-                      <input
+                        <input
                           type="email"
                           onWheel={() => document.activeElement.blur()}
                           name="tudStartupFounderName"
@@ -147,7 +146,7 @@ class Dellistinicorn extends Component {
                       </div>{" "}
                       <div className="form-group">
                         <label for="">Legal Name</label>
-                      <input
+                        <input
                           type="text"
                           onWheel={() => document.activeElement.blur()}
                           name="tudLegalname"
@@ -163,12 +162,13 @@ class Dellistinicorn extends Component {
                           type="email"
                           onWheel={() => document.activeElement.blur()}
                           name="tudStartupFounderMobileNumber"
-                          value={this.props.unicorn.tudStartupFounderMobileNumber}
+                          value={
+                            this.props.unicorn.tudStartupFounderMobileNumber
+                          }
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
                         />
-                        
                       </div>{" "}
                       <div className="form-group">
                         <label for="">Startup Founder Email</label>
@@ -219,80 +219,8 @@ class Dellistinicorn extends Component {
                         />
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Deal Show Date For Regular Member</label>
-                        <input
-                          type="date"
-                          onWheel={() => document.activeElement.blur()}
-                          name="tudDealShowDateForRegularMember"
-                          value={this.props.unicorn.tudDealShowDateForRegularMember}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          }
-                        />
-                      </div>{" "}
-                      <div className="form-group">
-                        <label for="">Deal Show Date For Premium Membe</label>
-                      <input
-                          type="date"
-                          onWheel={() => document.activeElement.blur()}
-                          name="tudDealShowDateForPremiumMember"
-                          value={this.props.unicorn.tudDealShowDateForPremiumMember}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          }
-                        />
-                      </div>{" "}
-                      <div className="form-group">
-                        <label for="">Deal Start Date For Regular Member</label>
-                      <input
-                          type="date"
-                          onWheel={() => document.activeElement.blur()}
-                          name="tudDealStartDateForRegularMember"
-                          value={this.props.unicorn.tudDealStartDateForRegularMember}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          }
-                        />
-                      </div>{" "}
-                      <div className="form-group">
-                        <label for="">Deal Start Date For Premium Member</label>
-                      <input
-                          type="date"
-                          onWheel={() => document.activeElement.blur()}
-                          name="tudDealStartDateForPremiumMember"
-                          value={this.props.unicorn.tudDealStartDateForPremiumMember}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          }
-                        />
-                      </div>{" "}
-                      <div className="form-group">
-                        <label for="">Deal End Date For Regular Member</label>
-                      <input
-                          type="date"
-                          onWheel={() => document.activeElement.blur()}
-                          name="tudDealEndDateForRegularMember"
-                          value={this.props.unicorn.tudDealEndDateForRegularMember}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          }
-                        />
-                      </div>{" "}
-                      <div className="form-group">
-                        <label for="">Deal End Date For Premium Member</label>
-                      <input
-                          type="date"
-                          onWheel={() => document.activeElement.blur()}
-                          name="tudDealEndDateForPremiumMember"
-                          value={this.props.unicorn.tudDealEndDateForPremiumMember}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          }
-                        />
-                      </div>{" "}
-                      <div className="form-group">
                         <label for="">Valuation Amount</label>
-                      <input
+                        <input
                           type="text"
                           onWheel={() => document.activeElement.blur()}
                           name="tudValuation"
@@ -302,22 +230,9 @@ class Dellistinicorn extends Component {
                           }
                         />
                       </div>{" "}
-                     
-                      <div className="form-group">
-                        <label for="">Min Investment Amount</label>
-                      <input
-                          type="number"
-                          onWheel={() => document.activeElement.blur()}
-                          name="tudMinInvestmentAmount"
-                          value={this.props.unicorn.tudMinInvestmentAmount}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          }
-                        />
-                      </div>{" "}
                       <div className="form-group">
                         <label for="">CAP Table Threshold Amount</label>
-                      <input
+                        <input
                           type="number"
                           onWheel={() => document.activeElement.blur()}
                           name="tudCAPTableThresholdAmount"
@@ -328,184 +243,24 @@ class Dellistinicorn extends Component {
                         />
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Max Investment Amount</label>
-                      <input
-                          type="number"
-                          onWheel={() => document.activeElement.blur()}
-                          name="tudMaxInvestmentAmount"
-                          value={this.props.unicorn.tudMaxInvestmentAmount}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          }
-                        />
-                      </div>{" "}
-                      <div className="form-group">
-                        <label for="">CAP Table Multiple</label>
-                      <input
-                          type="number"
-                          onWheel={() => document.activeElement.blur()}
-                          name="tudCAPTableMultiple"
-                          value={this.props.unicorn.tudCAPTableMultiple}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          }
-                        />
-                      </div>{" "}
-                      <div className="form-group">
-                        <label for="">Multiples Of</label>
-                      <input
-                          type="number"
-                          onWheel={() => document.activeElement.blur()}
-                          name="tudRaiseGap"
-                          value={this.props.unicorn.tudRaiseGap}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          }
-                        />
-                      </div>{" "}
-                      <div className="form-group">
-                        <label for="">%Raise Gap(Starting Seed)</label>
-                      <input
-                          type="number"
-                          onWheel={() => document.activeElement.blur()}
-                          name="tudDealShowDateForRegularMember"
-                          value={this.props.unicorn.tudDealShowDateForRegularMember}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          }
-                        />
-                      </div>{" "}
-                     
-                      <div className="form-group">
                         <label for="">Special Offer Tex</label>
-                      <input
-                          type="text"
-                          onWheel={() => document.activeElement.blur()}
-                          name="tudDealShowDateForRegularMember"
-                          value={this.props.unicorn.tudDealShowDateForRegularMember}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          }
-                        />  </div>{" "}
-                      <div className="form-group">
-                        <label for="">Input Default Tex</label>
-                      <input
+                        <input
                           type="text"
                           onWheel={() => document.activeElement.blur()}
                           name="tudSpecialOfferText"
-value={this.props.unicorn.tudSpecialOfferText}
+                          value={this.props.unicorn.tudSpecialOfferText}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                        />
+                        />{" "}
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">%Discount</label>
-                      <input
-                          type="number"
-                          onWheel={() => document.activeElement.blur()}
-                          name="tudDealShowDateForRegularMember"
-                          value={this.props.unicorn.tudDealShowDateForRegularMember}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          }
-                        />
-                      </div>{" "}
-                      <div className="form-group">
-                        <label for="">Escrow Account Name</label>
-                      <input
+                        <label for="">Input Default Tex</label>
+                        <input
                           type="text"
                           onWheel={() => document.activeElement.blur()}
-                          name="tudEscrowAccountNumber"
-                          value={this.props.unicorn.tudEscrowAccountNumber}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          }
-                        />
-                      </div>{" "}
-                      <div className="form-group">
-                        <label for="">Escrow Account Number</label>
-                      <input
-                          type="number"
-                          onWheel={() => document.activeElement.blur()}
-                          name="tudEscrowAccountNumber"
-                          value={this.props.unicorn.tudEscrowAccountNumber}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          }
-                        />
-                      </div>{" "}
-                      <div className="form-group">
-                        <label for="">Escrow Account Bank</label>
-                      <input
-                          type="text"
-                          onWheel={() => document.activeElement.blur()}
-                          name="tudEscrowAccountBank"
-                          value={this.props.unicorn.tudEscrowAccountBank}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          }
-                        />
-                      </div>{" "}
-                      <div className="form-group">
-                        <label for="">Escrow Account Branch</label>
-                      <input
-                          type="text"
-                          onWheel={() => document.activeElement.blur()}
-                          name="tudEscrowAccountBranch"
-                          value={this.props.unicorn.tudEscrowAccountBranch}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          }
-                        />
-                      </div>{" "}
-                      <div className="form-group">
-                        <label for="">Escrow Account IFSC</label>
-                      <input
-                          type="text"
-                          onWheel={() => document.activeElement.blur()}
-                          name="tudEscrowAccountIFSC"
-                          value={this.props.unicorn.tudEscrowAccountIFSC}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          }
-                        />
-                      </div>{" "}
-                      <div className="form-group">
-                        <label for="">Digio Template Id</label>
-                      <input
-                          type="number"
-                          onWheel={() => document.activeElement.blur()}
-                          name="tudDigioTemplateId"
-                          value={this.props.unicorn.tudDigioTemplateId}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          }
-                        />
-                      </div>{" "}
-                      <div className="form-group">
-                        <label for="">
-                          Digio Sign Co-Ordinates for Investor
-                        </label>
-                      <input
-                          type="number"
-                          onWheel={() => document.activeElement.blur()}
-                          name="tudDigioSignforInvestor"
-                          value={this.props.unicorn.tudDigioSignforInvestor}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          }
-                        />
-                      </div>{" "}
-                      <div className="form-group">
-                        <label for="">
-                          Digio Sign Co-Ordinates for Founder
-                        </label>
-                      <input
-                          type="number"
-                          onWheel={() => document.activeElement.blur()}
-                          name="tudDigioSignforFounder"
-                          value={this.props.unicorn.tudDigioSignforFounder}
+                          name="tudInputDefaultText"
+                          value={this.props.unicorn.tudInputDefaultText}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -513,7 +268,7 @@ value={this.props.unicorn.tudSpecialOfferText}
                       </div>{" "}
                       <div className="form-group">
                         <label for="">Deal Description</label>
-                      <input
+                        <input
                           type="texttext"
                           onWheel={() => document.activeElement.blur()}
                           name="tudDealDescription"
@@ -524,20 +279,8 @@ value={this.props.unicorn.tudSpecialOfferText}
                         />
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Backed by</label>
-                      <input
-                          type="email"
-                          onWheel={() => document.activeElement.blur()}
-                          name="tudBackedBy"
-                          value={this.props.unicorn.tudBackedBy}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          }
-                        />
-                      </div>{" "}
-                      <div className="form-group">
                         <label for="">Youtube Link</label>
-                      <input
+                        <input
                           type="text"
                           onWheel={() => document.activeElement.blur()}
                           name="tudYoutubeLink"
@@ -549,7 +292,7 @@ value={this.props.unicorn.tudSpecialOfferText}
                       </div>{" "}
                       <div className="form-group">
                         <label for="">Category</label>
-                      <input
+                        <input
                           type="text"
                           onWheel={() => document.activeElement.blur()}
                           name="tudCategory"
@@ -559,23 +302,6 @@ value={this.props.unicorn.tudSpecialOfferText}
                           }
                         />
                       </div>{" "}
-                     
-                        {/* <div className="form-group">
-                        <label for="">vender id</label>
-                        <textarea
-                          id="selected-field"
-                          cols="30"
-                          rows="6"
-                          name="tudVendorId"
-                          value={this.props.unicorn.tudVendorId}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          }
-                        >
-                          Vendor Id
-                        </textarea>
-                        
-                      </div>{" "} */}
                       <div
                         className="form-group  justify-content-between"
                         style={{ display: "none !important" }}
