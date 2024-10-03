@@ -193,19 +193,27 @@ const [unicorn, setUnicorn] = useState()
 
               <div className="community-all-contents">
                 <div className="img-community-box">
-                  <img src="https://growth91.com/api/uploads/deal/banner/34/1719999515.jpg" alt="" />
+                  <img  src={item.udBannerImage&&`${
+                                process.env.REACT_APP_BASE_URL
+                              }api/uploads/unicorndeals/${
+                                item.tudTempUdID
+                              }/${JSON.parse(item.udBannerImage)}`||"https://growth91.com/api/uploads/deal/banner/34/1719999515.jpg"}  />
                 </div>
                 <div className="community-paragraph-box">
                   <ul>
                     <li>
-                      <img src="https://growth91.com/api/uploads/deal/logo/34/1719999515.jpg" alt="" />
+                      <img  src={item.udLogoImage&&`${
+                              process.env.REACT_APP_BASE_URL
+                            }api/uploads/unicorndeals/${
+                              item.tudTempUdID
+                            }/${JSON.parse(item.udLogoImage)}`||"https://growth91.com/api/uploads/deal/logo/34/1719999515.jpg"}  />
                       <h6>{item.udStartupName}</h6>
                     </li>
-                    <li>
+                    {/* <li>
                       <a href="">CCPS <span><i class="fa-solid fa-circle-info"></i></span></a>
-                    </li>
+                    </li> */}
                   </ul>
-                  <p>LiaPlus is an advanced AI-powered customer support solution offering 24/7 service. Founded by Shaile...</p>
+                  <p>{item.udDealDescription}</p>
                   <Link to={`/FutureUnicornDescription?id=${item.unicornDealID}`} className="btn-com">View More </Link>
 
                 </div>

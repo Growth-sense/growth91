@@ -363,18 +363,10 @@ class Familymanage extends Component {
   exportToCSV = (fileName) => {
     let arr = [];
     let count = 1;
-    for (let item of this.state.startups) {
+    for (let item of this.state.memberdetail) {
       let obj = {
-        "Sr No": count++,
-        "Startup ID": item.startupid ? item.startupid : "---",
-        "Startup Name": item.name ? item.name : "---",
-        "Founder Name": item.founder_name ? item.founder_name : "---",
-        "Founder Email": item.founder_email ? item.founder_email : "---",
-        "Founder Mobile": item.founder_mobile ? item.founder_mobile : "---",
-        "No of Investors": item.investors_count ? item.investors_count : "---",
-        "Total Investment": item.total_investment ? item.total_investment : "---",
-        "Total Fees": item.total_fees ? item.total_fees : "---",
-        Status: item.status,
+        "name":  item.first_name+" "+ item.last_name ,
+          "status": item.status ? item.status : "---",
         // 'Tax Type': item.payment_type,
         // 'KYC Status': item.isapproved,
         // 'Invested date': item.Invested_dt ? moment(item.Invested_dt).format('DD MMM, YYYY') : '---',
@@ -467,9 +459,9 @@ class Familymanage extends Component {
         this.setState({ view_change_group_name_modal: false });
         this.viewgroupall();
         this.viewgroupasmember();
-        this.getmember( this.state.userID);
-
+        
         toast.success("Member deleted successfully.");
+        this.getmember( this.state.userID);
       } else {
         toast.error("Error");
       }
@@ -568,22 +560,7 @@ class Familymanage extends Component {
 
             <Content className="home-section">
               <Card
-                title="Startups"
-                extra={
-                  <Button type="primary" onClick={this.showAddModal}>
-                    <i
-                      className="bx bxs-plus-circle"
-                      style={{
-                        color: "#fff",
-                        position: "relative",
-                        top: 3,
-                        left: -3,
-                      }}
-                    ></i>{" "}
-                    Add New Startup
-                  </Button>
-                }
-                style={{ margin: 16 }}
+               style={{ margin: 16 }}
               >
                 <Breadcrumb
                   style={{
@@ -591,7 +568,7 @@ class Familymanage extends Component {
                   }}
                 >
                   <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
-                  <Breadcrumb.Item>Group Investments</Breadcrumb.Item>
+                  <Breadcrumb.Item>Group Members</Breadcrumb.Item>
                 
                 </Breadcrumb>
                 <br />

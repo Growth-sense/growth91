@@ -158,6 +158,8 @@ export default class CreatefamilyPage extends Component {
       });
       if (result.message == "Group deleted successfully.") {
         toast.success("Group delete Successfully");
+      this.viewgroupall()
+
       } else if (
         result.message ==
         "You can not delete this group, you have previously invited members in that."

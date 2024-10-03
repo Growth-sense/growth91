@@ -32,7 +32,8 @@ class SupportingDocuments extends Component {
       formloader2: false,
       marketoverview: [{ content1: "" }],
       uploaded_document_list: [],
-      startuphighlight: [{ content1: "" }],
+      startuphighlight: [{ title:"Revenue Growth ",content1: "" },{ title:" New Initiatives, Operational Efficiency",content1: "" },{ title:"Performance and Achievements ",content1: "" },{ title:" Previous Funding/Future Funding and its Utilization",content1: "" }],
+      titlestartuphigh:["Revenue Growth "," New Initiatives, Operational Efficiency","Performance and Achievements "," Previous Funding/Future Funding and its Utilization"]
     };
   }
   componentDidMount() {
@@ -530,7 +531,7 @@ class SupportingDocuments extends Component {
                       {this.state.startuphighlight.map((item, index) => {
                         return (
                           <div className="form-group">
-                            <label for="">Startup Highlights {index + 1}</label>
+                            <label for=""> {this.state.titlestartuphigh[index]}</label>
                             <textarea
                               id="selected-field"
                               cols="30"
@@ -544,9 +545,9 @@ class SupportingDocuments extends Component {
                           </div>
                         );
                       })}
-                      <button onClick={this.addstartuphighlight}>
+                      {/* <button onClick={this.addstartuphighlight}>
                         Add new highlight
-                      </button>
+                      </button> */}
                       {this.state.marketoverview.map((item, index) => {
                         return (
                           <div className="form-group">

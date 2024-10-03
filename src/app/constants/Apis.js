@@ -142,6 +142,7 @@ const URLs = {
   get_image_list_of_pitch: "Deal/pitch_list",
   bulkapproveuser: "admin/Investors/bulkapproveuser",
   bulkrejectuser: "admin/Investors/bulkrejectuser",
+  send_email_to_investors: "admin/Investors/send_email_to_investors",
   getsettings: "admin/Settings/getsettings",
   updatesetting: "admin/Settings/updatesetting",
   updatetaxationsetting: "admin/Settings/updatetaxationsetting",

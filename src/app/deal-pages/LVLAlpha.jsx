@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import WebHeader from "../common/WebHeader";
 import WebFooter from "../common/WebFooter";
+import "./newboo.css";
 import {
   Tabs,
   Collapse,
@@ -11,34 +12,44 @@ import {
   Progress,
   Alert,
 } from "antd";
+import axios from "axios";
 import { ExclamationCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import Slider from "react-slick";
+import Lightbox from "react-image-lightbox";
 import Apis from "../constants/Apis";
 import moment from "moment";
 import Bridge from "../constants/Bridge";
 import InvestmentMembershipmodal from "../components/membership/InvestmentMembershipmodal";
-import $ from "jquery";
+import NewWebHeader from "../common/NewWebHeader";
+import { NewWebFooter } from "../common/NewWebFooter";
 
 const { Panel } = Collapse;
 const { TabPane } = Tabs;
-class Petmojo extends Component {
+class LVLAlpha extends Component {
   constructor(props) {
     super(props);
     this.state = {
       deal_id: "",
       investor_id: "",
+      interested_id: "",
       deal_name: "",
+      created_at: "",
       deal_description: "",
       isPrivate: false,
       isFunded: false,
+      isBlank: false,
       tags: [],
       logo: "",
       youtube_url: "",
       dealenddays: 0,
       kycstatus: false,
       bankstatus: false,
+      commaAmount: 0,
       amount: 0,
       minamount: 0,
+      captable_threshold_amount: 0,
       maxamount: 0,
+      captable_multiple_amount: 0,
       investmentmodal: false,
       confirmmodalstatus: false,
       deduct: false,
@@ -81,16 +92,53 @@ class Petmojo extends Component {
       deal_regular_end_date: "",
       is_deal_visible: true,
       deal_regular_end_date_status: 0,
+      invest_amt: "",
+      escrowact: "",
+      escrow_account_ifsc: "",
+      agreeCheck: false,
+      Convenience: "",
+      deal_service: "",
+      images: [
+        "./assets/images/deals-details/LVLAlpha/pitch/Pitch_Deck_SEPT_24_LVLALPHA┬« (3)-images-0.jpg",
+        "./assets/images/deals-details/LVLAlpha/pitch/Pitch_Deck_SEPT_24_LVLALPHA┬« (3)-images-1.jpg",
+        "./assets/images/deals-details/LVLAlpha/pitch/Pitch_Deck_SEPT_24_LVLALPHA┬« (3)-images-2.jpg",
+        "./assets/images/deals-details/LVLAlpha/pitch/Pitch_Deck_SEPT_24_LVLALPHA┬« (3)-images-3.jpg",
+        "./assets/images/deals-details/LVLAlpha/pitch/Pitch_Deck_SEPT_24_LVLALPHA┬« (3)-images-4.jpg",
+        "./assets/images/deals-details/LVLAlpha/pitch/Pitch_Deck_SEPT_24_LVLALPHA┬« (3)-images-5.jpg",
+        "./assets/images/deals-details/LVLAlpha/pitch/Pitch_Deck_SEPT_24_LVLALPHA┬« (3)-images-6.jpg",
+        "./assets/images/deals-details/LVLAlpha/pitch/Pitch_Deck_SEPT_24_LVLALPHA┬« (3)-images-7.jpg",
+        "./assets/images/deals-details/LVLAlpha/pitch/Pitch_Deck_SEPT_24_LVLALPHA┬« (3)-images-8.jpg",
+        "./assets/images/deals-details/LVLAlpha/pitch/Pitch_Deck_SEPT_24_LVLALPHA┬« (3)-images-0.jpg",
+        "./assets/images/deals-details/LVLAlpha/pitch/Pitch_Deck_SEPT_24_LVLALPHA┬« (3)-images-10.jpg",
+        "./assets/images/deals-details/LVLAlpha/pitch/Pitch_Deck_SEPT_24_LVLALPHA┬« (3)-images-11.jpg",
+        "./assets/images/deals-details/LVLAlpha/pitch/Pitch_Deck_SEPT_24_LVLALPHA┬« (3)-images-12.jpg",
+        "./assets/images/deals-details/LVLAlpha/pitch/Pitch_Deck_SEPT_24_LVLALPHA┬« (3)-images-13.jpg",
+        "./assets/images/deals-details/LVLAlpha/pitch/Pitch_Deck_SEPT_24_LVLALPHA┬« (3)-images-14.jpg",
+        "./assets/images/deals-details/LVLAlpha/pitch/Pitch_Deck_SEPT_24_LVLALPHA┬« (3)-images-15.jpg",
+        "./assets/images/deals-details/LVLAlpha/pitch/Pitch_Deck_SEPT_24_LVLALPHA┬« (3)-images-16.jpg",
+        "./assets/images/deals-details/LVLAlpha/pitch/Pitch_Deck_SEPT_24_LVLALPHA┬« (3)-images-17.jpg",
+        "./assets/images/deals-details/LVLAlpha/pitch/Pitch_Deck_SEPT_24_LVLALPHA┬« (3)-images-18.jpg",
+        "./assets/images/deals-details/LVLAlpha/pitch/Pitch_Deck_SEPT_24_LVLALPHA┬« (3)-images-19.jpg",
+        "./assets/images/deals-details/LVLAlpha/pitch/Pitch_Deck_SEPT_24_LVLALPHA┬« (3)-images-20.jpg",
+        "./assets/images/deals-details/LVLAlpha/pitch/Pitch_Deck_SEPT_24_LVLALPHA┬« (3)-images-21.jpg",
+        "./assets/images/deals-details/LVLAlpha/pitch/Pitch_Deck_SEPT_24_LVLALPHA┬« (3)-images-22.jpg",
+        "./assets/images/deals-details/LVLAlpha/pitch/Pitch_Deck_SEPT_24_LVLALPHA┬« (3)-images-23.jpg",
+        "./assets/images/deals-details/LVLAlpha/pitch/Pitch_Deck_SEPT_24_LVLALPHA┬« (3)-images-24.jpg",
+        "./assets/images/deals-details/LVLAlpha/pitch/Pitch_Deck_SEPT_24_LVLALPHA┬« (3)-images-25.jpg",
+      ],
+      current: "",
+      current2: "",
     };
   }
   callback1 = (key) => {};
   callback2 = (key) => {};
   callback3 = (key) => {};
+
   componentWillMount() {
-    document.title = "Petmojo - Growth91 - Startup Marketplace ";
+    document.title = "LVL Alpha - Growth91 - Startup Marketplace ";
   }
   componentDidMount() {
-    let deal_id = "129";
+    let deal_id = "38";
     this.setState({ deal_id: deal_id }, () => {
       this.get_pitch_list();
     });
@@ -108,6 +156,7 @@ class Petmojo extends Component {
             this.getinvestmentdetails();
             this.check_for_membership_type();
             this.getwallethistory();
+            this.get_invest_amt();
           }
         );
       } else if (localStorage.getItem("founder_id")) {
@@ -120,6 +169,7 @@ class Petmojo extends Component {
     this.getordertoken();
     this.getGst();
     this.get_deal_doucments(deal_id);
+    // console.log("hello");
   }
   get_founder_details = () => {
     let params = {
@@ -244,6 +294,7 @@ class Petmojo extends Component {
   getordertoken = () => {
     Bridge.getcashfreetoken().then((result) => {
       let orderToken = result.order_token;
+      // console.log(orderToken , "Order Token")
       this.setState({ order_token: orderToken });
     });
   };
@@ -357,6 +408,7 @@ class Petmojo extends Component {
   getDeals = () => {
     this.setState({ loading: true });
     Bridge.deal.list().then((result) => {
+      // console.log(result.data, "data");
       if (result.status == 1) {
         this.setState({
           deals: result.data,
@@ -364,7 +416,10 @@ class Petmojo extends Component {
         });
         let current_date = moment();
         for (let d of result.data) {
+          // console.log(d.deal_id , "id")
+          // console.log(this.state.deal_id , "sid")
           if (d.deal_id == this.state.deal_id) {
+            //  console.log(d.deal_status)
             let deal_regular_show_date = moment(d.regular_show_date);
             let deal_premium_show_date = moment(d.premium_show_date);
             let deal_start_dt_rg = moment(d.deal_st_date);
@@ -379,7 +434,7 @@ class Petmojo extends Component {
                 this.setState({ show_data: "block" });
               } else {
                 this.setState({ show_data: "none" });
-                // window.location.assign("/deals");
+                window.location.assign("/deals");
                 return;
               }
             } else if (this.state.check_membership_type == "regular") {
@@ -392,19 +447,22 @@ class Petmojo extends Component {
                 this.setState({ show_data: "block" });
               } else {
                 this.setState({ show_data: "none" });
-                // window.location.assign("/deals");
+                window.location.assign("/deals");
                 return;
               }
             }
           }
-          else{
-            // window.location.href = "/deals"
-          }
+          // else{
+          //   // window.location.href = ("/deals")
+          //   // return;
+          //   console.log(d.deal_id , this.state.deal_id);
+          // }
         }
         for (let d of result.data) {
           if (d.deal_id == this.state.deal_id) {
             if (d.show_status == "0") {
               this.setState({ is_deal_visible: false });
+              // window.location.assign("/deals")
             } else {
               this.setState({ is_deal_visible: true });
             }
@@ -533,21 +591,32 @@ class Petmojo extends Component {
               {
                 deal_name: d.name,
                 deal_description: d.Muliples_of,
+                // isBlank:d.deal_status == "Closed" ? window.location.href = "/" : "/",
                 isPrivate: d.deal_t_type == "Private" ? true : false,
                 isFunded: d.deal_status == "Closed" ? true : false,
                 tags: d.deal_category ? JSON.parse(d.deal_category) : [],
                 logo: logourl,
                 youtube_url: d.youtubelink,
                 dealenddays: differece > 0 ? differece : 0,
-                minamount: d.Min_inv_amt,
+                minamount: Number(d.Min_inv_amt),
+                captable_threshold_amount: parseInt(
+                  parseFloat(d.captable_threshold_amount).toFixed(2),
+                  10
+                ),
                 maxamount: d.Max_inv_amt,
+                captable_multiple_amount: parseInt(
+                  parseFloat(d.captable_multiple_amount).toFixed(2),
+                  10
+                ),
                 amount: "", //d.Min_inv_amt
+                commaAmount: "", //d.Min_inv_amt
                 pdffile: pdffile,
                 pitch_files: pitchImg,
                 percentage_raised: percetage_raised,
                 button_show_status: button_show_status,
                 show_data: "block",
                 multiples_of: d.multiples_of,
+                deal_service: d.deal_service,
               },
               () => this.calculategst()
             );
@@ -600,6 +669,31 @@ class Petmojo extends Component {
     );
   };
 
+  // post api hit on express
+  getpostData = () => {
+    const formData = new FormData();
+    formData.append("deal_id", this.state.deal_id);
+    formData.append("investor_id", this.state.investor_id);
+    axios
+      .post(
+        `${process.env.REACT_APP_BASE_URL}api/investors/InvestorCommitment/save_investor_interest_deal`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      .then((response) => {
+        this.setState({
+          interested_id: response.data.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   handleOk1 = () => {
     this.setState({
       investmentmodal: false,
@@ -629,10 +723,16 @@ class Petmojo extends Component {
       confirmmodalstatus: false,
     });
   };
-
+  onChangeConvenience = (e) => {
+    this.setState({
+      [e.target.name]: e.target.checked,
+      Convenience: e.target.checked,
+    });
+  };
   onChangeCheckbox = (e) => {
     this.setState({
       [e.target.name]: e.target.checked,
+      agreeCheck: e.target.checked,
     });
 
     if (e.target.name == "deduct") {
@@ -790,13 +890,232 @@ class Petmojo extends Component {
     } else if (Number(this.state.amount) > Number(this.state.maxamount)) {
       error = `Maximum investment amount is Rs. ${this.state.maxamount}`;
       this.setState({ amount_error: error, amount_error_status: true });
-    } else if (Number.isInteger(multiple_of) == false) {
-      error = `Amount should be in multiple of Rs. ${this.state.multiples_of}`;
+    } else if (
+      Number(this.state.amount) <
+        Number(this.state.captable_threshold_amount) &&
+      Number(this.state.amount) % Number(this.state.multiples_of) != 0
+    ) {
+      const roundedLowerAmount =
+        Math.floor(
+          Number(this.state.amount) / Number(this.state.multiples_of)
+        ) * Number(this.state.multiples_of);
+      const roundedHigherAmount =
+        Math.ceil(Number(this.state.amount) / Number(this.state.multiples_of)) *
+        Number(this.state.multiples_of);
+
+      error = `Please enter an amount in multiples of ${this.state.multiples_of}. You may choose Rs ${roundedLowerAmount}
+      or Rs ${roundedHigherAmount}.`;
+      // If you would like to enter the Captable, commit an amount of Rs. ${this.state.captable_threshold_amount} or more.`;
+
+      this.setState({ amount_error: error, amount_error_status: true });
+    } else if (
+      Number(this.state.amount) >
+        Number(this.state.captable_threshold_amount) &&
+      Number(this.state.amount) % Number(this.state.captable_multiple_amount) !=
+        0
+    ) {
+      const roundedLowerAmount =
+        Math.floor(
+          Number(this.state.amount) /
+            Number(this.state.captable_multiple_amount)
+        ) * Number(this.state.captable_multiple_amount);
+      const roundedHigherAmount =
+        Math.ceil(
+          Number(this.state.amount) /
+            Number(this.state.captable_multiple_amount)
+        ) * Number(this.state.captable_multiple_amount);
+
+      error = `Please enter an amount in multiples of ${this.state.captable_multiple_amount}. You may choose Rs ${roundedLowerAmount}
+      or Rs ${roundedHigherAmount}.`;
+      // If you would like to enter the Captable, commit an amount of Rs. ${this.state.captable_threshold_amount} or more.`;
+
       this.setState({ amount_error: error, amount_error_status: true });
     } else {
       this.setState({ amount_error: "", amount_error_status: false });
     }
   };
+  get_invest_amt = () => {
+    axios
+      .get(
+        `${process.env.REACT_APP_BASE_URL}api/investors/InvestorCommitment/get_investor_investment_for_deal`,
+        {
+          params: {
+            deal_id: this.state.deal_id,
+            investor_id: this.state.investor_id,
+          },
+        }
+      )
+      .then((response) => {
+        // console.log("invest_amt : ", response.data.data[0].totalamount);
+        this.setState({ invest_amt: response.data.data[0].totalamount });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  increase_commit = () => {
+    const {
+      amount,
+      captable_threshold_amount,
+      multiples_of,
+      maxamount,
+      captable_multiple_amount,
+      minamount,
+    } = this.state;
+
+    let newAmount = Number(amount);
+    let changeAmount;
+
+    if (
+      newAmount < captable_threshold_amount &&
+      newAmount % multiples_of != 0
+    ) {
+      const roundedHigherAmount =
+        Math.ceil(newAmount / Number(multiples_of)) * Number(multiples_of);
+      newAmount = roundedHigherAmount;
+      changeAmount = 0;
+    } else if (
+      newAmount > captable_threshold_amount &&
+      newAmount % captable_multiple_amount != 0
+    ) {
+      const roundedHigherAmount =
+        Math.ceil(newAmount / Number(captable_multiple_amount)) *
+        Number(captable_multiple_amount);
+      newAmount = roundedHigherAmount;
+      changeAmount = 0;
+    } else if (newAmount < Number(captable_threshold_amount)) {
+      changeAmount = Number(multiples_of);
+    } else {
+      changeAmount = Number(captable_multiple_amount);
+    }
+
+    newAmount += changeAmount;
+
+    if (newAmount > maxamount) {
+      newAmount = maxamount;
+    } else if (newAmount < minamount) {
+      newAmount = Number(minamount);
+    }
+
+    this.setState(
+      {
+        amount: newAmount,
+        commaAmount: this.formatNumberWithCommas(newAmount),
+      },
+      () => {
+        this.calculategst();
+        this.check_for_error();
+      }
+    );
+  };
+
+  decrease_commit = () => {
+    const {
+      amount,
+      captable_threshold_amount,
+      multiples_of,
+      minamount,
+      captable_multiple_amount,
+    } = this.state;
+
+    let newAmount = Number(amount);
+    let changeAmount;
+
+    if (
+      newAmount == captable_threshold_amount &&
+      newAmount % multiples_of != 0
+    ) {
+      const roundedHigherAmount =
+        Math.ceil(newAmount / Number(multiples_of)) * Number(multiples_of);
+      newAmount = roundedHigherAmount;
+      changeAmount = 0;
+    } else if (
+      newAmount < captable_threshold_amount &&
+      newAmount % multiples_of != 0
+    ) {
+      const roundedLowerAmount =
+        Math.floor(newAmount / Number(multiples_of)) * Number(multiples_of);
+      newAmount = roundedLowerAmount;
+      changeAmount = 0;
+    } else if (
+      newAmount > captable_threshold_amount &&
+      newAmount % captable_multiple_amount != 0
+    ) {
+      const roundedLowerAmount =
+        Math.floor(newAmount / Number(captable_multiple_amount)) *
+        Number(captable_multiple_amount);
+      newAmount = roundedLowerAmount;
+      changeAmount = 0;
+    } else if (newAmount <= Number(captable_threshold_amount)) {
+      changeAmount = Number(multiples_of);
+    } else {
+      changeAmount = Number(captable_multiple_amount);
+    }
+
+    newAmount -= changeAmount;
+
+    if (newAmount < minamount) {
+      newAmount = minamount;
+    }
+
+    this.setState(
+      {
+        amount: newAmount,
+        commaAmount: this.formatNumberWithCommas(newAmount),
+      },
+      () => {
+        this.calculategst();
+        this.check_for_error();
+      }
+    );
+  };
+
+  handleCommitAmount = (value) => {
+    this.setState(
+      {
+        amount: value.replace(/,/g, ""),
+        commaAmount: this.formatNumberWithCommas(value),
+      },
+      () => {
+        this.calculategst();
+        this.check_for_error();
+      }
+    );
+  };
+
+  formatNumberWithCommas = (number) => {
+    return number.toLocaleString("en-IN");
+  };
+
+  getSliderSettings() {
+    return {
+      dots: false,
+      infinite: false,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+    };
+  }
+
+  handleClickImage = (image) => {
+    this.setState({
+      current: image,
+    });
+  };
+  handleClickImage2 = (image) => {
+    this.setState({
+      current2: image,
+    });
+  };
+
+  handleCloseModal = () => {
+    this.setState({
+      current: "",
+      current2: "",
+    });
+  };
+
   render() {
     const myStyle = {
       color: "white",
@@ -808,18 +1127,20 @@ class Petmojo extends Component {
       <>
         {/* <PlusOutlined
         onClick={event => {
-          // If you don't want click extra trigger collapse, you can prevent this:
+          If you don't want click extra trigger collapse, you can prevent this:
           event.stopPropagation();
         }}
       /> */}
       </>
     );
+    const settings = this.getSliderSettings();
+    const { images, current } = this.state;
 
     return (
       <>
         {this.state.is_deal_visible == true ? (
           <div style={{ display: this.state.show_data }}>
-            <WebHeader />
+            <NewWebHeader newabout={"newabout"} />
             <section
               className="deals-details-page"
               style={{ marginBottom: "-50px" }}
@@ -832,12 +1153,16 @@ class Petmojo extends Component {
                         <div className="d-flex align-items-center">
                           {/* Image is static */}
                           <img
-                            src="./assets/images/deals-details/Petmojo/logo.jpg"
+                            src="./assets/images/deals-details/LVLAlpha/Team/logo.jpg"
                             alt=""
                             className="img-fluid"
-                            style={{ marginRight: "20px" }}
+                            style={{
+                              marginRight: "20px",
+                              width: "50%",
+                              objectFit: "contain",
+                            }}
                           />
-                          <h5 className="ml-5">Petmojo</h5>
+                          <h5 className="ml-5 mt-4">LVL Alpha</h5>
                           {/* <h5>{this.state.logo}</h5> */}
                         </div>
                         {this.state.isPrivate == true && (
@@ -866,19 +1191,9 @@ class Petmojo extends Component {
                             </div>
                           ))}
                       </div>
-
                       <p style={{ textAlign: "justify" }}>
-                        PetMojo is one of India’s leading and fastest-growing
-                        PetCare Service Aggregators and Community based
-                        Platforms. They have achieved a significant brand
-                        monopoly in Delhi NCR and have activated 4 key care
-                        services namely, exercise and walking, training,
-                        grooming, and boarding. They have developed a curriculum
-                        with internationally acclaimed techniques to understand
-                        animal behavior to match the needs of India’s pet
-                        parents, fostering a strong and healthy relationship
-                        between the parent and their pet for life.
-                      </p>
+                      LVL Alpha is a technology company specializing in wearable trackers and hybrid communication systems for defense and high-risk industries. Their key products, like the ArchEON® and HadEON® series, provide real-time tracking and health monitoring in low/no network environments. Aligned with the “Make in India” initiative, LVL Alpha delivers indigenous solutions for sectors such as oil & gas, mining, shipyards, and the Indian military.
+                      </p>{" "}
                       <div className=" percentage-container">
                         <div className="percentage-values">
                           {this.state.coming_soon_days ? (
@@ -935,23 +1250,32 @@ class Petmojo extends Component {
                                   >
                                     Deal is closed
                                   </a>
-                                ) : this.state.isInvested == true &&
-                                  this.state.user_type != "founder" ? (
-                                  <a
-                                    href="#!"
-                                    style={{ padding: "13px 0" }}
-                                    onClick={() => this.showModal1()}
-                                    className="black-button prime-bg text-center"
-                                    id="btn-invest"
-                                  >
-                                    Add more
-                                  </a>
+                                ) : this.state.user_type != "founder" &&
+                                  this.state.invest_amt !== null ? (
+                                  <div className="button-group">
+                                    <p>{`You have committed Rs. ${this.state.invest_amt} to this deal so far. (Including platform fees)`}</p>
+                                    <a
+                                      href="#!"
+                                      style={{ padding: "13px 0" }}
+                                      onClick={() => {
+                                        this.getpostData();
+                                        this.showModal1();
+                                      }}
+                                      className="black-button prime-bg text-center"
+                                      id="btn-invest"
+                                    >
+                                      Add more
+                                    </a>
+                                  </div>
                                 ) : this.state.isPrivate == true &&
                                   this.state.user_type != "founder" ? (
                                   <a
                                     style={{ padding: "13px 0" }}
                                     href="#"
-                                    onClick={() => this.showModal1()}
+                                    onClick={() => {
+                                      this.getpostData();
+                                      this.showModal1();
+                                    }}
                                     className="black-button prime-bg text-center"
                                   >
                                     Express Your Interest
@@ -964,7 +1288,10 @@ class Petmojo extends Component {
                                         href="#"
                                         style={{ padding: "15px 0" }}
                                         className="black-button prime-bg text-center"
-                                        onClick={() => this.showModal1()}
+                                        onClick={() => {
+                                          this.getpostData();
+                                          this.showModal1();
+                                        }}
                                       >
                                         Express Your Interest
                                       </a>
@@ -979,16 +1306,20 @@ class Petmojo extends Component {
                                   </div>
                                 ) : (
                                   <div>
-                                    {this.state.user_type == "investor" && (
+                                    {this.state.user_type == "investor" &&
+                                    this.state.invest_amt === null ? (
                                       <a
                                         href="#"
                                         className="black-button prime-bg text-center"
-                                        onClick={() => this.showModal1()}
+                                        onClick={() => {
+                                          this.getpostData();
+                                          this.showModal1();
+                                        }}
                                         style={{ padding: "13px 0" }}
                                       >
                                         Express Your Interest
                                       </a>
-                                    )}
+                                    ) : null}
                                   </div>
                                 )}
                                 {/* <button className='share-button'>
@@ -1040,8 +1371,16 @@ class Petmojo extends Component {
                       <div className="login mt-3">
                         <label>
                           <b>
-                            Amount: (Minimum investment amount should be Rs.{" "}
-                            {this.state.minamount})
+                            Amount: <br />
+                            Minimum investment Rs.{" "}
+                            {this.formatNumberWithCommas(
+                              this.state.minamount
+                            )}{" "}
+                            <br />
+                            Cap Table entry is Rs.
+                            {this.formatNumberWithCommas(
+                              this.state.captable_threshold_amount
+                            )}
                           </b>
                         </label>
                         <input
@@ -1058,19 +1397,25 @@ class Petmojo extends Component {
                                 : "1px solid transparent",
                           }}
                           id="selected-field"
-                          value={this.state.amount}
+                          value={this.state.commaAmount}
                           onChange={(e) => {
-                            this.setState(
-                              {
-                                amount: e.target.value,
-                              },
-                              () => {
-                                this.calculategst();
-                                this.check_for_error();
-                              }
-                            );
+                            this.handleCommitAmount(e.target.value);
                           }}
                         />
+                        <div className="d-flex justify-content-between mb-3">
+                          <button
+                            className="commit-plus"
+                            onClick={this.decrease_commit}
+                          >
+                            -
+                          </button>
+                          <button
+                            className="commit-minus"
+                            onClick={this.increase_commit}
+                          >
+                            +
+                          </button>
+                        </div>
                         {this.state.amount_error_status == true && (
                           <p
                             className="text-danger pb-0"
@@ -1146,15 +1491,20 @@ class Petmojo extends Component {
                           </tr>
                         </table>
                       </div>
-                      <Alert
-                        message="Note: The UPI transaction limit is Rs. 1 lakh per transaction,
-                        as set by NPCI. The UPI transaction limit per day varies
-                        from bank to bank."
-                        type="info"
-                      />
+                      {this.state.invest_amt !== null ? (
+                        <div className="">
+                          <Alert
+                            message={`You have committed Rs. ${this.state.invest_amt} to this deal so far. (Including platform fees)`}
+                            type="info"
+                          />
+                        </div>
+                      ) : null}
                       <div className="m-3">
                         <label className="container-check">
-                        I Agree to Terms and Conditions and have read the Privacy Policy. And, I understand that I will be required to pay the full amount committed after the deal is closed.
+                          I Agree to Terms and Conditions and have read the
+                          Privacy Policy. And, I understand that I will be
+                          required to pay the full amount committed after the
+                          deal is closed.
                           <input
                             type="checkbox"
                             name="agree"
@@ -1163,10 +1513,14 @@ class Petmojo extends Component {
                           <span className="checkmark"></span>
                         </label>
 
-                        <label className="container-check">I will deduct TDS on service charges and deposit to Income tax on time
-                      <input type="checkbox" name="deduct" onChange={this.onChangeCheckbox}  />
-                      <span className="checkmark"></span>
-                    </label>
+                        <label
+                          className="container-check"
+                          style={{ fontSize: "10px" }}
+                        >
+                          Convenience Fee of 2% on the investment amount at the
+                          time of investment and 2% on the sale proceeds at the
+                          time of exit is applicable.
+                        </label>
                       </div>
 
                       <div className="col-12">
@@ -1190,11 +1544,27 @@ class Petmojo extends Component {
                             membership_type={this.state.check_membership_type}
                             invest={this.invest}
                             amount={this.state.amount}
+                            agreecheck={this.state.agreeCheck}
+                            totalamount={this.state.totalamount}
+                            fee={this.state.legalfee}
                             minamount={this.state.minamount}
                             maxamount={this.state.maxamount}
                             agree={this.state.agree}
                             error_status={this.state.amount_error_status}
                             investor_id={this.state.investor_id}
+                            deduct={this.state.deduct}
+                            tdsstatus={this.state.tdsstatus}
+                            gst={this.state.gst}
+                            order_token={this.state.order_token}
+                            legalfee={this.state.legalfee}
+                            walletDeductionMoney={
+                              this.state.walletDeductionMoney
+                            }
+                            user_id={this.state.investor_id}
+                            escrow_account_ifsc={this.state.escrow_account_ifsc}
+                            escrowact={this.state.escrowact}
+                            interested_id={this.state.interested_id}
+                            invest_amt={this.state.invest_amt}
                           />
                         )}
                       </div>
@@ -1240,33 +1610,139 @@ class Petmojo extends Component {
                       </div>
                     </div>
                   </Modal>
-                  <div className="col-lg-7">
-                    {this.state.youtube_url && (
-                      <iframe
-                        style={{
-                          boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
-                          borderRadius: 3,
-                          // marginLeft: 65,
-                        }}
-                        width="100%"
-                        height="335"
-                        src={this.state.youtube_url}
-                        title="YouTube video player"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      ></iframe>
-                    )}
+                  <div className="col-lg-7 deal-banner deals-video-banner liaplus ">
+                    <iframe
+                      style={{
+                        boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
+                        borderRadius: 3,
+                        // marginLeft: 65,
+                      }}
+                      width="100%"
+                      height="335"
+                      src="https://player.vimeo.com/video/734787711"
+                      title="LVLAlpha Product Video"
+                      frameborder="10"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowfullscreen
+                    ></iframe>
+                   
                   </div>
+                  {/* Market Overview */}
+                  <div
+                    className="container home-decor-section mt-0"
+                    style={{ marginTop: "3px !important" }}
+                  >
+                    <h1
+                      className="text-center"
+                      style={{
+                        marginBottom: "20px",
+                        marginTop: "0px !important",
+                      }}
+                    >
+                      Market Overview
+                    </h1>
+                    <div className="row">
+                      <div className="col-lg-4">
+                        <div className="single text-center h-lg market-boxes">
+                          {/* <h2 style={{paddingBottom:"20px"}}>$1 Tn </h2> */}
+                          <p
+                            style={{
+                              color: "white",
+                              fontSize: "21px",
+                              padding: "2px",
+                              margin: "48px 0px",
+                              opacity: "1",
+                              lineHeight: "1.5",
+                            }}
+                          >
+                            <span
+                              style={{
+                                color: "white",
+                                fontSize: "21px",
+                                padding: "2px",
+                                margin: "48px 0px",
+                                opacity: "1",
+                                lineHeight: "1.5",
+                                fontWeight: "800",
+                              }}
+                            >
+                              Large Defense Budget & Modernization:
+                            </span>{" "}
+                           India’s defense budget is the 4th largest globally (~INR 5.94 lakh crore), focusing on modernization and procurement of advanced electronic systems, communication networks, and tracking technologies.
+                          </p>
+                        </div>
+                      </div>
+                      <div className="col-lg-4">
+                        <div className="single text-center h-lg market-boxes">
+                          {/* <h2 style={{paddingBottom:"20px"}}>$200 Bn</h2> */}
+                          <p
+                            style={{
+                              color: "white",
+                              fontSize: "21px",
+                              padding: "2px",
+                              margin: "48px 0px",
+                              opacity: "1",
+                              lineHeight: "1.5",
+                            }}
+                          >
+                            <span
+                              style={{
+                                color: "white",
+                                fontSize: "21px",
+                                padding: "2px",
+                                margin: "48px 0px",
+                                opacity: "1",
+                                lineHeight: "1.5",
+                                fontWeight: "800",
+                              }}
+                            >
+                              Demand for Indigenous Solutions:
+                            </span>{" "}
+                            The “Make in India” initiative promotes the use of domestic defense technologies, creating a significant opportunity for companies like LVL Alpha to offer innovative, indigenous solutions that operate in low/no network environments.
+                          </p>
+                        </div>
+                      </div>
 
-                  {/* <div className="col-lg-7">
-                <img 
-                  src='./assets/images/deals-details/TransBank/main-img.jpg'
-                  width="100%"
-                  style={{height:'auto'}}
-                />
-              </div> */}
+                      <div className="col-lg-4">
+                        <div className="single text-center h-lg market-boxes">
+                          {/* <h2 style={{paddingBottom:"20px"}}>$200 Bn</h2> */}
+                          <p
+                            style={{
+                              color: "white",
+                              fontSize: "21px",
+                              padding: "2px",
+                              margin: "48px 0px",
+                              opacity: "1",
+                              lineHeight: "1.5",
+                            }}
+                          >
+                            <span
+                              style={{
+                                color: "white",
+                                fontSize: "21px",
+                                padding: "2px",
+                                margin: "48px 0px",
+                                opacity: "1",
+                                lineHeight: "1.5",
+                                fontWeight: "800",
+                              }}
+                            >
+                             Addressable Market: 
 
+                            </span>{" "}
+                            LVL Alpha targets the active personnel in the Indian Army, Navy, and Air Force and industries such as Indian Oil, Ministry of Mines and Jindal Mining who require wearable trackers, health monitoring, and communication systems.                          </p>{" "}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-center fs-4">
+                      <span style={{ color: "#000" }}>Source: </span>
+                      <span style={{ color: "rgb(127, 119, 118)" }}>
+                        Multiple publicly available research and survey reports
+                      </span>
+                    </div>
+                    <p className=""> </p>
+                    <div className="text-center fluid-container"></div>
+                  </div>
                   <div
                     className="container highlight-section"
                     style={{
@@ -1277,54 +1753,215 @@ class Petmojo extends Component {
                     <h1 style={{ fontSize: "2rem", marginBottom: "30px" }}>
                       Highlights
                     </h1>
-                    <div className="row">
-                      <div className="col-lg-6 col-md-6 col-sm-6">
-                        <div className="single text-left">
-                          <img src="./assets/images/deals-details/Petmojo/highlight01.jpg" />
+
+                    <div className="row highlight-rows">
+                      <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
+                        <div
+                          className="single  mindlerhighlight text-left"
+                          style={{}}
+                        >
+                          <div className="hightlights-images">
+                            <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
+                          </div>
+                          <p style={{ paddingLeft: "0px !important" }}>
+                          LVL Alpha offers real-time tracking, health monitoring, and casualty management in network dark zones, differentiating from competitors reliant on network availability.
+                          </p>
+                        </div>
+                      </div>
+                      <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
+                        <div
+                          className="single mindlerhighlight text-left"
+                          style={{}}
+                        >
+                          <div className="hightlights-images">
+                            <img src="./assets/images/deals-details/Petmojo/highlight01.jpg" />
+                          </div>
                           <p style={{ padding: "1px !important" }}>
-                            Cross service line growth (recovery of CAC through
-                            Customer retention and LTV across service lines)
-                          </p>
+                          Products include ArchEON® and HadEON® wearables at TRL IV, and the CBRN Patient Isolation Capsule® at TRL VIII, ready for deployment.
+                          </p>{" "}
                         </div>
                       </div>
-                      <div className="col-lg-6 col-md-6 col-sm-6">
-                        <div className="single text-left">
-                          <img src="./assets/images/deals-details/highlight2.jfif" />
+                      <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
+                        <div
+                          className="single mindlerhighlight text-left"
+                          style={{}}
+                        >
+                          <div className="hightlights-images">
+                            <img src="./assets/images/deals-details/highlight2.jfif" />
+                          </div>
                           <p style={{ padding: "0px !important" }}>
-                            Irrefutable business model powered by technology
+                          EOIs and ongoing discussions with major players like IOCL (development order for pilots), Southern Command Medical Team, Indian Navy, Ministry of Mines, and JSW Mining.
                           </p>
                         </div>
                       </div>
-                      <div className="col-lg-6 col-md-6 col-sm-6">
-                        <div className="single text-left">
-                          <img src="./assets/images/deals-details/highlight3.jpg" />
+                      <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
+                        <div
+                          className="single mindlerhighlight text-left"
+                          style={{}}
+                        >
+                          <div className="hightlights-images">
+                            <img src="./assets/images/deals-details/highlight3.jpg" />
+                          </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                            Community and lifestyle driven approach for brand
-                            building
+                          Their revenue is projected to experience significant growth in upcoming years, highlighting strong growth potential                          </p>
+                        </div>
+                      </div>
+                      <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
+                        <div
+                          className="single mindlerhighlight text-left"
+                          style={{}}
+                        >
+                          <div className="hightlights-images">
+                            <img src="./assets/images/deals-details/highlight3.jpg" />
+                          </div>
+                          <p style={{ paddingLeft: "0px !important" }}>
+                          LVL Alpha has secured a development NCNC order from the Indian Air Force 11BRD Team for a custom solution, marking a significant milestone as the first-of-its-kind product delivery in India. The solution will be showcased during the 15th August Parade, highlighting their innovative contributions to the defense sector and strengthening their position as a leader in indigenous tech solutions.
                           </p>
                         </div>
                       </div>
-                      <div className="col-lg-6 col-md-6 col-sm-6">
-                        <div className="single text-left">
-                          <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
+                      <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
+                        <div
+                          className="single mindlerhighlight text-left"
+                          style={{}}
+                        >
+                          <div className="hightlights-images">
+                            <img src="./assets/images/deals-details/highlight3.jpg" />
+                          </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                            Net profitable in first 6 months of growth
+                          LVL Alpha offers commercial versions at USD 300 and military-grade versions at USD 500, with complete turnkey deployments costing USD 1.2 million for 10,000-user setups and USD 1.5 million for each 1,000 military units, ensuring a 40% net profit margin over a 3-year lifecycle
                           </p>
                         </div>
                       </div>
-                      <div className="col-lg-6 col-md-6 col-sm-6">
-                        <div className="single text-left">
-                          <img src="./assets/images/deals-details/Petmojo/highlight5.png" />
-                          <p style={{ paddingLeft: "0px !important" }}>
-                            Incubated and backed by BITS Pilani
-                          </p>
+                    </div>
+                  </div>
+
+                  {/* media */}
+                </div>
+              </div>
+              <section
+                className="deals-details-page"
+                style={{ marginBottom: "-50px", marginTop: "40px " }}
+              >
+                <div>
+                  <div>
+                    {/* media */}
+
+                    {/* <div
+                      className="container highlight-section"
+                      style={{
+                        marginBottom: "-80px !important",
+                        padding: "0px !important",
+                      }}
+                    >
+                      <h1 style={{ fontSize: "2rem", marginBottom: "30px" }}>
+                        Media Coverage
+                      </h1>
+                      <div className="row">
+                        <div className="col-lg-6 col-md-6 col-sm-6">
+                          <div className="single medialink text-left d-flex flex-column  ">
+                            <img src="./assets/images/deals-details/Mindler/Articles/1.jpg" />
+
+                            <p style={{ padding: "1px !important" }}>
+                            THIS PLATFORM PROVIDES A ONE-STOP SOLUTION TO EVERY STUDENT’S CAREER GUIDANCE NEEDS
+                              <a
+                                href="https://yourstory.com/weekender/this-platform-provides-a-one-stop-solution-to-career-guidance-mindler"
+                                target="_blank"
+                              >
+                                {" "}
+                                Readmore
+                              </a>
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="col-lg-6 col-md-6 col-sm-6">
+                          <div className="single medialink text-left d-flex flex-column  ">
+                            <img src="./assets/images/deals-details/Mindler/Articles/2.jpg" />
+                            <p style={{ padding: "1px !important" }}>
+                            Mindler: The platform ‘minds’ your career
+                              <a
+                                href="https://economictimes.indiatimes.com/small-biz/startups/mindler-the-platform-minds-your-career/articleshow/54473145.cms?from=mdr"
+                                target="_blank"
+                              >
+                                {" "}
+                                Readmore
+                              </a>
+                            </p>
+                          </div>
+                        </div>
+                        <div className="col-lg-6 col-md-6 col-sm-6">
+                          <div className="single medialink text-left d-flex flex-column  ">
+                            <img src="./assets/images/deals-details/Mindler/Articles/3.jpg" />
+                            <p style={{ padding: "1px !important" }}>
+                            Comprehensive Analysis of the Career Guidance Landscape in India
+
+                              <a    
+                                href ="https://www.edtechreview.in/research/comprehensive-analysis-career-guidance-landscape-in-india/"
+                                target="_blank"
+                              >
+                                Readmore
+                              </a>
+                            </p>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div> */}
+                  </div>
+                </div>
+              </section>
+            </section>
+            <div className="deals-page">
+              <div className="tab-wrapper">
+                <div className="container">
+                  <div className="row">
+                    <div
+                      className="col-lg-12 col-md-12 col-sm-12"
+                      style={{
+                        marginTop: 110,
+                      }}
+                    >
+                      <div className="deal-terms-section">
+                        {/* Investor Presentation */}
+                        <div
+                          className=""
+                          style={{
+                            backgroundColor: "white",
+                            marginTop: "1px !important",
+                          }}
+                        >
+                          <h1
+                            style={{
+                              fontSize: 32,
+                              marginBottom: 30,
+                              textAlign: "center",
+                              marginTop: "-10px !important",
+                            }}
+                          >
+                            Investor Presentation
+                          </h1>
+                          <Slider {...settings} className="mb-5 pitch-slider">
+                            {images.map((image, index) => (
+                              <img
+                                key={index}
+                                src={image}
+                                onClick={() => this.handleClickImage(image)}
+                              />
+                            ))}
+                          </Slider>
+                          {current && (
+                            <Lightbox
+                              mainSrc={current}
+                              onCloseRequest={this.handleCloseModal}
+                            />
+                          )}
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </section>
+            </div>
             <div className="deals-page">
               <div className="tab-wrapper">
                 <div className="container">
@@ -1348,45 +1985,192 @@ class Petmojo extends Component {
                             >
                               <div className="row">
                                 <div className="col-lg-10 m-auto">
-                                  <h1>Documents</h1>
-                                  <div className="row document-section">
-                                    <div className="col-lg-2"></div>
-                                    <div className="col-lg-8">
-                                      <div
-                                        className="download-section"
-                                        style={{
-                                          backgroundColor: "white",
-                                          padding: "4rem 19px",
-                                        }}
-                                      >
-                                        <>
-                                          <div>
-                                            <table
-                                              className="download-document-table"
-                                              style={{ width: "100%" }}
+                                  <h1
+                                    style={{
+                                      paddingBottom: "-30px !important",
+                                      marginTop: "30px",
+                                    }}
+                                  >
+                                    Deal Terms
+                                  </h1>
+                                  <div
+                                    className=""
+                                    style={{ marginTop: "0px !important" }}
+                                  >
+                                    <div className="container">
+                                      <div className="row">
+                                        <div className="col-lg-12">
+                                          <div className="info">
+                                            <span>End Date</span>
+                                            <h4
+                                              style={{
+                                                textTransform: "Capitalize",
+                                              }}
                                             >
-                                              <tr
+                                              {this.state.deal_regular_end_date
+                                                ? moment(
+                                                    this.state
+                                                      .deal_regular_end_date
+                                                  ).format("MMM DD, YYYY")
+                                                : ""}
+                                            </h4>
+                                          </div>
+                                          <div className="info">
+                                            <span> Min Investment</span>
+                                            <h4>
+                                              ₹{" "}
+                                              {this.formatNumberWithCommas(
+                                                this.state.minamount
+                                              )}{" "}
+                                              for {this.state.deal_service}
+                                            </h4>
+                                          </div>
+                                          <div className="info">
+                                            <span>Valuation</span>
+                                            <h4>16.5 Cr</h4>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <h1
+                                    style={{
+                                      paddingBottom: "0px",
+                                      marginTop: "20px",
+                                    }}
+                                  >
+                                    Company Details
+                                  </h1>
+                                  <section
+                                    className="deal-about-artment-section"
+                                    style={{ marginTop: "50px" }}
+                                  >
+                                    <div className="container">
+                                      <div className="row">
+                                        <div className="col-lg-12">
+                                          <div className="info">
+                                            <span>Legal Name</span>
+                                            <h4>LVL ALPHA PVT LTD</h4>
+                                          </div>
+                                          <div className="info">
+                                            <span>Founded</span>
+                                            <h4>30/05/2019</h4>
+                                          </div>
+                                          <div className="info">
+                                            <span>Status</span>
+                                            <h4>Private Limited Company</h4>
+                                          </div>
+                                          <div className="info">
+                                            <span>Employees</span>
+                                            <h4>18</h4>
+                                          </div>
+                                          {/* <div className="info">
+                                            <span>Website</span>
+                                            <h4>
+                                              <a
                                                 style={{
-                                                  background: "#29176f",
-                                                  color: "#fff",
+                                                  color: "rgb(7, 211, 252)",
                                                 }}
+                                                href="https://edept.co/"
+                                                target="_blank"
                                               >
-                                                <th></th>
-                                                <th>Document</th>
-                                                <th>Type</th>
-                                                <th>Download</th>
-                                              </tr>
-                                              {this.state.documents.length >
-                                                0 &&
-                                                this.state.documents.map(
-                                                  (item, index) => {
-                                                    let documentlink = `${process.env.REACT_APP_BASE_URL}api/uploads/docs/${item.documentid}/${item.document}`;
-                                                    return (
-                                                      <tr
-                                                        key={index}
-                                                        style={{ height: 70 }}
-                                                      >
-                                                        <td
+                                                edept.co
+                                              </a>
+                                            </h4>
+                                          </div> */}
+                                          {/* <div className="info"> */}
+                                          {/* <span>Social Links</span> */}
+                                          {/* <div className="social-icons"> */}
+                                          {/* <a href="https://www.facebook.com/share/gZMnLfVh7y1DZwjB/?mibextid=qi2Omg">
+                                                <i className="bx bxl-facebook fs-19"></i>
+                                              </a>
+                                              <a href="https://www.linkedin.com/company/aiqbq/">
+                                                <i className="bx bxl-linkedin fs-19"></i>
+                                              </a>
+                                              <a href="https://www.instagram.com/aiq_brandquotient?igsh=emhnajhjbXB3M3ly">
+                                                <i className="bx bxl-instagram fs-19"></i>
+                                              </a> */}
+
+                                          {/* <a href="https://www.youtube.com/channel/UCO1UvNI1Tg3Ese7YZ_Gc2gA">
+                                                <i className="bx bxl-youtube fs-19"></i>
+                                              </a> */}
+                                          {/* </div> */}
+                                          {/* </div> */}
+                                          <div className="info">
+                                            <span>Address</span>
+                                            <h4>
+                                              Flat No. A1-404, Gold Coast,
+                                              Dhanori, Pune, MH, 411015
+                                            </h4>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </section>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Investor Presentation */}
+                          </div>
+                          {/* start */}
+
+                          <div
+                            className="deals-page"
+                            style={{
+                              marginTop: "50px !important",
+                            }}
+                          >
+                            <div className="deal-terms-section">
+                              <div
+                                className="container"
+                                style={{ marginTop: "1px !important" }}
+                              >
+                                <div className="row">
+                                  <div className="col-lg-10 m-auto">
+                                    <h1>Documents</h1>
+                                    <div className="row document-section">
+                                      <div className="col-lg-2"></div>
+                                      <div className="col-lg-8">
+                                        <div
+                                          className="download-section"
+                                          style={{
+                                            backgroundColor: "white",
+                                            padding: "4rem 19px",
+                                          }}
+                                        >
+                                          <>
+                                            <div>
+                                              <table
+                                                className="download-document-table"
+                                                style={{ width: "100%" }}
+                                              >
+                                                <tr
+                                                  style={{
+                                                    background: "#29176f",
+                                                    color: "#fff",
+                                                  }}
+                                                >
+                                                  <th>Sr no</th>
+                                                  <th>Document</th>
+                                                  <th>Type</th>
+                                                  <th>Download</th>
+                                                </tr>
+                                                {this.state.documents.length >
+                                                  0 &&
+                                                  this.state.documents.map(
+                                                    (item, index) => {
+                                                      // console.log(
+                                                      //   this.state.documents
+                                                      //     .length
+                                                      // );
+                                                      let documentlink = `${process.env.REACT_APP_BASE_URL}api/uploads/docs/${item.documentid}/${item.document}`;
+                                                      return (
+                                                        <tr
+                                                          key={index}
+                                                          style={{ height: 70 }}
+                                                        >
+                                                          {/* <td
                                                           style={{ width: 40 }}
                                                         >
                                                           {item.paid ==
@@ -1452,65 +2236,54 @@ class Petmojo extends Component {
                                                               )}
                                                             </>
                                                           )}
-                                                        </td>
-                                                        <td
-                                                          style={{ width: 140 }}
-                                                        >
-                                                          {item.docname}
-                                                        </td>
-                                                        <td
-                                                          style={{ width: 40 }}
-                                                        >
-                                                          {item.paid == "Paid"
-                                                            ? this.state
-                                                                .check_membership_type ==
-                                                              "premium"
-                                                              ? item.premium_price ==
-                                                                "0"
+                                                        </td> */}
+                                                          <td
+                                                            style={{
+                                                              width: 40,
+                                                            }}
+                                                          >
+                                                            {index + 1}
+                                                          </td>
+                                                          <td
+                                                            style={{
+                                                              width: 140,
+                                                            }}
+                                                          >
+                                                            {item.docname}
+                                                          </td>
+                                                          <td
+                                                            style={{
+                                                              width: 40,
+                                                            }}
+                                                          >
+                                                            {item.paid == "Paid"
+                                                              ? this.state
+                                                                  .check_membership_type ==
+                                                                "premium"
+                                                                ? item.premium_price ==
+                                                                  "0"
+                                                                  ? "Free"
+                                                                  : "₹" +
+                                                                    item.premium_price
+                                                                : item.regular_price ==
+                                                                  "0"
                                                                 ? "Free"
                                                                 : "₹" +
-                                                                  item.premium_price
-                                                              : item.regular_price ==
-                                                                "0"
-                                                              ? "Free"
-                                                              : "₹" +
-                                                                item.regular_price
-                                                            : "Free"}
-                                                        </td>
-                                                        <td
-                                                          style={{ width: 50 }}
-                                                        >
-                                                          {this.state
-                                                            .investor_id && (
-                                                            <center>
-                                                              {(item.user_paid ==
-                                                                true ||
-                                                                item.paid ==
-                                                                  "Free") && (
-                                                                <a
-                                                                  href={
-                                                                    documentlink
-                                                                  }
-                                                                  target="_blank"
-                                                                  style={{
-                                                                    width: 80,
-                                                                  }}
-                                                                >
-                                                                  <img
-                                                                    src="./download.ico"
-                                                                    style={{
-                                                                      maxWidth: 50,
-                                                                    }}
-                                                                  />
-                                                                </a>
-                                                              )}
-                                                              {item.paid ==
-                                                                "Paid" &&
-                                                                this.state
-                                                                  .check_membership_type ==
-                                                                  "premium" &&
-                                                                (item.premium_price ==
-                                                                "0" ? (
+                                                                  item.regular_price
+                                                              : "Free"}
+                                                          </td>
+                                                          <td
+                                                            style={{
+                                                              width: 50,
+                                                            }}
+                                                          >
+                                                            {this.state
+                                                              .investor_id && (
+                                                              <center>
+                                                                {(item.user_paid ==
+                                                                  true ||
+                                                                  item.paid ==
+                                                                    "Free") && (
                                                                   <a
                                                                     href={
                                                                       documentlink
@@ -1527,41 +2300,68 @@ class Petmojo extends Component {
                                                                       }}
                                                                     />
                                                                   </a>
-                                                                ) : (
-                                                                  ""
-                                                                ))}
-                                                            </center>
-                                                          )}
-                                                        </td>
-                                                      </tr>
-                                                    );
-                                                  }
-                                                )}
-                                            </table>
-                                          </div>
-                                        </>
-                                        {this.state.button_status == false && (
-                                          <button
-                                            className="download-button"
-                                            onClick={() => this.documentPay()}
-                                          >
-                                            Pay
-                                          </button>
-                                        )}
-                                        {!this.state.investor_id && (
-                                          <>
+                                                                )}
+                                                                {item.paid ==
+                                                                  "Paid" &&
+                                                                  this.state
+                                                                    .check_membership_type ==
+                                                                    "premium" &&
+                                                                  (item.premium_price ==
+                                                                  "0" ? (
+                                                                    <a
+                                                                      href={
+                                                                        documentlink
+                                                                      }
+                                                                      target="_blank"
+                                                                      style={{
+                                                                        width: 80,
+                                                                      }}
+                                                                    >
+                                                                      <img
+                                                                        src="./download.ico"
+                                                                        style={{
+                                                                          maxWidth: 50,
+                                                                        }}
+                                                                      />
+                                                                    </a>
+                                                                  ) : (
+                                                                    ""
+                                                                  ))}
+                                                              </center>
+                                                            )}
+                                                          </td>
+                                                        </tr>
+                                                      );
+                                                    }
+                                                  )}
+                                              </table>
+                                            </div>
+                                          </>
+                                          {this.state.button_status ==
+                                            false && (
                                             <button
                                               className="download-button"
-                                              style={{
-                                                background: "rgb(41 23 111)",
-                                              }}
-                                              onClick={() =>
-                                                window.location.assign("/login")
-                                              }
+                                              onClick={() => this.documentPay()}
                                             >
-                                              Login to View
+                                              Pay
                                             </button>
-                                            {/* <em
+                                          )}
+                                          {!this.state.investor_id && (
+                                            <>
+                                              <button
+                                                className="download-button"
+                                                style={{
+                                                  background: "rgb(41 23 111)",
+                                                }}
+                                                onClick={() =>
+                                                  window.location.assign(
+                                                    "/login"
+                                                  )
+                                                }
+                                              >
+                                                Login to View
+                                              </button>
+                                              {/* <em
                                             style={{
                                               fontSize: 14,
                                               fontWeight: "700",
@@ -1573,461 +2373,16 @@ class Petmojo extends Component {
                                             </sup>{" "}
                                             member to access the document{" "}
                                           </em> */}
-                                          </>
-                                        )}
-                                      </div>
-                                    </div>
-                                    <div className="col-lg-2"></div>
-                                  </div>
-
-                                  <h1
-                                    style={{
-                                      paddingBottom: "-30px !important",
-                                      marginTop: "30px",
-                                    }}
-                                  >
-                                    Deal Terms
-                                  </h1>
-                                  <div
-                                    className=""
-                                    style={{ marginTop: "0px !important" }}
-                                  >
-                                    <div className="container">
-                                      <div className="row">
-                                        <div className="col-lg-12">
-                                          <div className="info">
-                                            <span>End Date</span>
-                                            <h4
-                                              style={{
-                                                textTransform: "Capitalize",
-                                              }}
-                                            >
-                                              {this.state.deal_regular_end_date
-                                                ? moment(
-                                                    this.state
-                                                      .deal_regular_end_date
-                                                  ).format("MMM DD, YYYY")
-                                                : ""}
-                                            </h4>
-                                          </div>
-                                          <div className="info">
-                                            <span> Min Investment</span>
-                                            <h4>₹ 5,000</h4>
-                                          </div>
-                                          <div className="info">
-                                            <span>Valuation</span>
-                                            <h4>
-                                              Floor: 20 Cr <br></br> Cap: 25 Cr
-                                            </h4>
-                                          </div>
+                                            </>
+                                          )}
                                         </div>
                                       </div>
+                                      <div className="col-lg-2"></div>
                                     </div>
                                   </div>
-                                  <h1
-                                    style={{
-                                      paddingBottom: "0px",
-                                      marginTop: "20px",
-                                    }}
-                                  >
-                                    Company Details
-                                  </h1>
-                                  <section
-                                    className="deal-about-artment-section"
-                                    style={{ marginTop: "50px" }}
-                                  >
-                                    <div className="container">
-                                      <div className="row">
-                                        <div className="col-lg-12">
-                                          <div className="info">
-                                            <span>Legal Name</span>
-                                            <h4>
-                                              Mangopaw Technologies and
-                                              Solutions PVT LTD
-                                            </h4>
-                                          </div>
-                                          <div className="info">
-                                            <span>Founded</span>
-                                            <h4> April 01, 2022</h4>
-                                          </div>
-                                          <div className="info">
-                                            <span>Status</span>
-                                            <h4>Active Private Ltd.</h4>
-                                          </div>
-                                          <div className="info">
-                                            <span>Employees</span>
-                                            <h4>9</h4>
-                                          </div>
-                                          <div className="info">
-                                            <span>Website</span>
-                                            <h4>
-                                              <a
-                                                style={{
-                                                  color: "rgb(7, 211, 252)",
-                                                }}
-                                                href="https://www.petmojo.in/
-                                            "
-                                                target="_blank"
-                                              >
-                                                www.petmojo.in
-                                              </a>
-                                            </h4>
-                                          </div>
-                                          <div className="info">
-                                            <span>Social Links</span>
-                                            <div className="social-icons">
-                                              <a href="https://m.facebook.com/petmojo.in/">
-                                                <i className="bx bxl-facebook fs-19"></i>
-                                              </a>
-                                              <a
-                                                href="https://www.linkedin.com/company/75046062/
-"
-                                              >
-                                                <i className="bx bxl-linkedin fs-19"></i>
-                                              </a>
-                                              <a
-                                                href="https://www.instagram.com/PetMojo.in
-"
-                                              >
-                                                <i className="bx bxl-instagram fs-19"></i>
-                                              </a>
-                                              {/* <a href="https://www.youtube.com/channel/UCGSO5fKYSUCBtiDpc2lSoLA">
-                                              <i className="bx bxl-youtube fs-19"></i>
-                                            </a> */}
-                                            </div>
-                                          </div>
-                                          <div className="info">
-                                            <span>Address</span>
-                                            <h4>UU182 Pitampura, Delhi</h4>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </section>
                                 </div>
                               </div>
                             </div>
-
-                            <div
-                              className="container home-decor-section mt-0"
-                              style={{ marginTop: "3px !important" }}
-                            >
-                              <h1
-                                className="text-center"
-                                style={{
-                                  marginBottom: "20px",
-                                  marginTop: "0px !important",
-                                }}
-                              >
-                                Indian Petcare Market Overview
-                              </h1>
-                              <div className="row">
-                                <div className="col-lg-4">
-                                  <div className="single text-center">
-                                    {/* <h2 style={{paddingBottom:"20px"}}>$1 Tn </h2> */}
-                                    <p
-                                      style={{
-                                        color: "white",
-                                        fontSize: "21px",
-                                        padding: "2px",
-                                        margin: "48px 0px",
-                                      }}
-                                    >
-                                      One of the fastest growing market with a
-                                      CAGR of 27%
-                                    </p>
-                                  </div>
-                                </div>
-                                <div className="col-lg-4">
-                                  <div className="single text-center">
-                                    {/* <h2 style={{paddingBottom:"20px"}}> 75% +</h2> */}
-                                    <p
-                                      style={{
-                                        color: "white",
-                                        fontSize: "21px",
-                                        padding: "2px",
-                                        margin: "35px 0px",
-                                      }}
-                                    >
-                                      {" "}
-                                      Total Market Size <br></br> $10 Billion by
-                                      2022 <br></br>$30 Billion by 2032
-                                    </p>
-                                  </div>
-                                </div>
-
-                                <div className="col-lg-4">
-                                  <div className="single text-center">
-                                    {/* <h2 style={{paddingBottom:"20px"}}>$200 Bn</h2> */}
-                                    <p
-                                      style={{
-                                        color: "white",
-                                        fontSize: "21px",
-                                        padding: "2px",
-                                        margin: "51px 0px",
-                                      }}
-                                    >
-                                      {" "}
-                                      The product driven sector of the Pet Care
-                                      space saw a boom
-                                    </p>
-                                  </div>
-                                </div>
-
-                                {/* <div className="col-lg-4">
-                                <div className="single text-center">
-                                  <h2 style={{paddingBottom:"20px"}}>21 </h2>
-                                  
-                                  <p style={myStyle}>
-                                  fintech unicorns in 2022
-                                  </p>
-                                </div>
-                              </div>
-                              <div className="col-lg-4">
-                                <div className="single text-center">
-                                  <h2 style={{paddingBottom:"20px"}}>5X </h2>
-                                  <p style={myStyle}>
-                                  growth in digital tech talent
-                                  </p>
-                                </div>
-                              </div>
-                              <div className="col-lg-4">
-                                <div className="single text-center">
-                                  <h2 style={{paddingBottom:"20px"}}></h2>
-                                  <p style={myStyle}>
-                                  Regulators actively encouraging innovation
-                                  </p>
-                                </div>
-                              </div> */}
-                              </div>
-                              <div className="text-center fs-4">
-                                <span style={{ color: "#000" }}>Source: </span>
-                                <span style={{ color: "rgb(127, 119, 118)" }}>
-                                  Multiple publicly available research and
-                                  survey reports
-                                </span>
-                              </div>
-                              <p className=""> </p>
-                              <div className="text-center fluid-container"></div>
-                            </div>
-
-                            <div
-                              className=""
-                              style={{
-                                backgroundColor: "white",
-                                marginTop: "1px !important",
-                              }}
-                            >
-                              <h1
-                                style={{
-                                  fontSize: 32,
-                                  marginBottom: 30,
-                                  textAlign: "center",
-                                  marginTop: "-10px !important",
-                                }}
-                              >
-                                Investor Presentation
-                              </h1>
-                              <img
-                                src="./assets/images/deals-details/Petmojo/pitch/1.jpg"
-                                style={{
-                                  width: "100%",
-                                  marginBottom: "40px",
-                                  maxWidth: "837px",
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  margin: "0 auto 40px auto",
-                                }}
-                              />
-                              <img
-                                src="./assets/images/deals-details/Petmojo/pitch/2.jpg"
-                                style={{
-                                  width: "100%",
-                                  marginBottom: "40px",
-                                  maxWidth: "837px",
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  margin: "0 auto 40px auto",
-                                }}
-                              />
-                              <img
-                                src="./assets/images/deals-details/Petmojo/pitch/3.jpg"
-                                style={{
-                                  width: "100%",
-                                  marginBottom: "40px",
-                                  maxWidth: "837px",
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  margin: "0 auto 40px auto",
-                                }}
-                              />
-                              <img
-                                src="./assets/images/deals-details/Petmojo/pitch/4.jpg"
-                                style={{
-                                  width: "100%",
-                                  marginBottom: "40px",
-                                  maxWidth: "837px",
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  margin: "0 auto 40px auto",
-                                }}
-                              />
-                              <img
-                                src="./assets/images/deals-details/Petmojo/pitch/5.jpg"
-                                style={{
-                                  width: "100%",
-                                  marginBottom: "40px",
-                                  maxWidth: "837px",
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  margin: "0 auto 40px auto",
-                                }}
-                              />
-                              <img
-                                src="./assets/images/deals-details/Petmojo/pitch/6.jpg"
-                                style={{
-                                  width: "100%",
-                                  marginBottom: "40px",
-                                  maxWidth: "837px",
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  margin: "0 auto 40px auto",
-                                }}
-                              />
-                              <img
-                                src="./assets/images/deals-details/Petmojo/pitch/7.jpg"
-                                style={{
-                                  width: "100%",
-                                  marginBottom: "40px",
-                                  maxWidth: "837px",
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  margin: "0 auto 40px auto",
-                                }}
-                              />
-                              <img
-                                src="./assets/images/deals-details/Petmojo/pitch/8.jpg"
-                                style={{
-                                  width: "100%",
-                                  marginBottom: "40px",
-                                  maxWidth: "837px",
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  margin: "0 auto 40px auto",
-                                }}
-                              />
-                              <img
-                                src="./assets/images/deals-details/Petmojo/pitch/9.jpg"
-                                style={{
-                                  width: "100%",
-                                  marginBottom: "40px",
-                                  maxWidth: "837px",
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  margin: "0 auto 40px auto",
-                                }}
-                              />
-                              <img
-                                src="./assets/images/deals-details/Petmojo/pitch/10.jpg"
-                                style={{
-                                  width: "100%",
-                                  marginBottom: "40px",
-                                  maxWidth: "837px",
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  margin: "0 auto 40px auto",
-                                }}
-                              />
-                              <img
-                                src="./assets/images/deals-details/Petmojo/pitch/11.jpg"
-                                style={{
-                                  width: "100%",
-                                  marginBottom: "40px",
-                                  maxWidth: "837px",
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  margin: "0 auto 40px auto",
-                                }}
-                              />
-                              <img
-                                src="./assets/images/deals-details/Petmojo/pitch/12.jpg"
-                                style={{
-                                  width: "100%",
-                                  marginBottom: "40px",
-                                  maxWidth: "837px",
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  margin: "0 auto 40px auto",
-                                }}
-                              />
-                              <img
-                                src="./assets/images/deals-details/Petmojo/pitch/13.jpg"
-                                style={{
-                                  width: "100%",
-                                  marginBottom: "40px",
-                                  maxWidth: "837px",
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  margin: "0 auto 40px auto",
-                                }}
-                              />
-                              <img
-                                src="./assets/images/deals-details/Petmojo/pitch/14.jpg"
-                                style={{
-                                  width: "100%",
-                                  marginBottom: "40px",
-                                  maxWidth: "837px",
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  margin: "0 auto 40px auto",
-                                }}
-                              />
-                              {/* <img
-                              src="./assets/images/deals-details/TransBank/pitch/15.jpg"
-                              style={{ width: "100%", marginBottom: "40px" }}
-                            />
-                            <img
-                              src="./assets/images/deals-details/TransBank/pitch/16.jpg"
-                              style={{ width: "100%", marginBottom: "40px" }}
-                            />
-                            <img
-                              src="./assets/images/deals-details/TransBank/pitch/17.jpg"
-                              style={{ width: "100%", marginBottom: "40px" }}
-                            />
-                            <img
-                              src="./assets/images/deals-details/TransBank/pitch/18.jpg"
-                              style={{ width: "100%", marginBottom: "40px" }}
-                            />
-                            <img
-                              src="./assets/images/deals-details/TransBank/pitch/19.jpg"
-                              style={{ width: "100%", marginBottom: "40px" }}
-                            />
-                            <img
-                              src="./assets/images/deals-details/TransBank/pitch/20.jpg"
-                              style={{ width: "100%", marginBottom: "40px" }}
-                            />
-                            <img
-                              src="./assets/images/deals-details/TransBank/pitch/21.jpg"
-                              style={{ width: "100%", marginBottom: "40px" }}
-                            />
-                            <img
-                              src="./assets/images/deals-details/TransBank/pitch/22.jpg"
-                              style={{ width: "100%", marginBottom: "40px" }}
-                            />
-                            <img
-                              src="./assets/images/deals-details/TransBank/pitch/23.jpg"
-                              style={{ width: "100%", marginBottom: "40px" }}
-                            /> */}
-                            </div>
-                          </div>
-                          {/* start */}
-
-                          <div
-                            className="deals-page"
-                            style={{
-                              marginTop: "50px !important",
-                            }}
-                          >
                             <div className="tab-wrapper">
                               <div className="container">
                                 <div className="row">
@@ -2055,7 +2410,7 @@ class Petmojo extends Component {
                                                   accordion
                                                 >
                                                   <Panel
-                                                    header="What is the Petmojo's value proposition?"
+                                                    header="Are you focused on product or service?"
                                                     key="1"
                                                     extra={genExtra()}
                                                   >
@@ -2064,29 +2419,22 @@ class Petmojo extends Component {
                                                         color: "#7f7776",
                                                       }}
                                                     >
-                                                      Petmojo provides its
-                                                      customer with performance
-                                                      and outcome-oriented
-                                                      training from certified
-                                                      trainers addressing canine
-                                                      behaviour, socialization
-                                                      and personality
-                                                      development. It provides
-                                                      quality trainers and
-                                                      certified counsellors,
-                                                      coaches who help address
-                                                      concerns and work on
-                                                      creating healthy relations
-                                                      between pets and parents.
-                                                      Convenience driven service
-                                                      provision such as that
-                                                      through daily walking,
-                                                      lodge and boarding
-                                                      facilities.
+                                                      <p
+                                                        style={{
+                                                          color: "#7f7776",
+                                                          textAlign: "justify",
+                                                        }}
+                                                      >
+                                                      LVL Alpha is primarily product-based with a strong focus on developing wearable trackers and hybrid communication systems for defense and high-risk industries. Their key products include:
+ArchEON® and HadEON® Wearable Trackers: These wrist-worn devices provide health, injury, ambient environment, and location tracking for personnel in low/no network areas.
+Hybrid Communication Systems: Portable network devices that enable scaled data and voice communication in off-grid and remote environments through mesh and long-distance communication.
+
+While LVL Alpha offers end-to-end solutions for personnel tracking and communication, the company's core offering revolves around its proprietary products, supported by services like network setup and integration.
+                                                      </p>
                                                     </div>
                                                   </Panel>
                                                   <Panel
-                                                    header="What is primary GTM strategy of Petmojo?"
+                                                    header="What are the challenges for scale up and how these will be managed?"
                                                     key="2"
                                                     extra={genExtra()}
                                                   >
@@ -2095,29 +2443,20 @@ class Petmojo extends Component {
                                                         color: "#7f7776",
                                                       }}
                                                     >
-                                                      Petmojo target young
-                                                      couples, nuclear families
-                                                      and senior citizens with
-                                                      animals in their
-                                                      households across Delhi
-                                                      NCR through a strong
-                                                      robust marketing campaign.
-                                                      It provide best in class
-                                                      training and assured
-                                                      results to our clients
-                                                      (pet parents) through our
-                                                      trained team on ground.
-                                                      After initial diagnosis
-                                                      and trial of our services
-                                                      on a freemium basis, we
-                                                      begin subscription of the
-                                                      service based on the
-                                                      assessment done and needs
-                                                      realized.
+                                                      <p
+                                                        style={{
+                                                          color: "#7f7776",
+                                                          textAlign: "justify",
+                                                        }}
+                                                      >
+                                                       LVL Alpha faces two primary challenges in scaling up: the high costs associated with manufacturing and engineering, particularly for Design for Manufacturing (DFM), and the need for continuous iterative development to incorporate new features and technologies. To manage these, the company plans to partner with a well-established EMS company for fabrication, allowing them to reduce costs, efficiently fulfill orders, and focus on building a customer base. Additionally, LVL Alpha will outsource the development of its network and communication technologies to external design companies, enabling them to generate revenue through network technology integration while avoiding direct competition in wearable development. This approach helps balance innovation with cost management and scalability.
+
+                                                      </p>
                                                     </div>
                                                   </Panel>
+
                                                   <Panel
-                                                    header="What are your moats?"
+                                                    header="Are you targeting new untapped market? Justify"
                                                     key="7"
                                                     extra={genExtra()}
                                                   >
@@ -2126,26 +2465,21 @@ class Petmojo extends Component {
                                                         color: "#7f7776",
                                                       }}
                                                     >
-                                                      1. Cross service line
-                                                      growth (recovery of CAC
-                                                      through Customer retention
-                                                      and LTV across service
-                                                      lines). 2. Irrefutable
-                                                      curriculum, business model
-                                                      powered by technology. 3.
-                                                      Community and lifestyle
-                                                      driven approach for brand
-                                                      building. 4. Opportunity
-                                                      cost of being the first
-                                                      entrants to have cracked a
-                                                      sustainable, successful
-                                                      and scalable model early
-                                                      on.
+                                                      <p
+                                                        style={{
+                                                          color: "#7f7776",
+                                                          textAlign: "justify",
+                                                        }}
+                                                      >
+                                                       LVL Alpha is indeed disrupting existing markets through its innovative solutions like the ArchEON® and HadEON® series of wearable trackers, which are the first PESO and MIL-compliant devices that combine health, injury, ambient environment, and active location tracking specifically designed for high-risk industries, defense, and manufacturing sectors, particularly in low/no network and satellite environments. These solutions address critical challenges in environments where traditional tracking and communication systems fail, making them a game changer for safety and operational efficiency. Additionally, LVL Alpha's hybrid communication systems enable scalable data and voice communication through mesh and long-distance networks, filling a gap where existing systems cannot operate effectively, especially in remote areas.
+
+LVL Alpha is indeed disrupting existing markets through its innovative solutions like the ArchEON® and HadEON® series of wearable trackers, which are the first PESO and MIL-compliant devices that combine health, injury, ambient environment, and active location tracking specifically designed for high-risk industries, defense, and manufacturing sectors, particularly in low/no network and satellite environments. These solutions address critical challenges in environments where traditional tracking and communication systems fail, making them a game changer for safety and operational efficiency. Additionally, LVL Alpha's hybrid communication systems enable scalable data and voice communication through mesh and long-distance networks, filling a gap where existing systems cannot operate effectively, especially in remote areas.
+                                                      </p>
                                                     </div>
                                                   </Panel>
                                                   <Panel
-                                                    header="How's Petmojo different from competition?"
-                                                    key="8"
+                                                    header="What are your moats?"
+                                                    key="4"
                                                     extra={genExtra()}
                                                   >
                                                     <div
@@ -2153,24 +2487,14 @@ class Petmojo extends Component {
                                                         color: "#7f7776",
                                                       }}
                                                     >
-                                                      Petmojo provide all 4/5
-                                                      essential services and
-                                                      they are active across 5
-                                                      cities in Delhi NCR (Vet.
-                                                      has been consciously kept
-                                                      aside for the time being).
-                                                      Focused work on training
-                                                      the partners, deliver
-                                                      quality training and
-                                                      maintaining 85% customer
-                                                      retention and
-                                                      satisfaction. Intelligent
-                                                      and dynamic packages which
-                                                      have developed from the
-                                                      needs of our pet parents.
-                                                      Robust business model
-                                                      managing local partners
-                                                      through technology
+                                                      <p
+                                                        style={{
+                                                          color: "#7f7776",
+                                                          textAlign: "justify",
+                                                        }}
+                                                      >
+                                                     LVL Alpha’s key moats include its technology-relevant IPs and a customer-centric development approach. By working closely with customers who act as the development agencies for their technologies, LVL Alpha ensures that its solutions are tailored to meet specific customer requirements, giving them a direct path to market post-deployment. Additionally, their complete turnkey deployment cost remains highly competitive, even when incorporating proprietary technology, providing an advantage in pricing while maintaining high-value offerings for end users. These factors create strong differentiation and market positioning, securing a long-term competitive edge.
+                                                      </p>{" "}
                                                     </div>
                                                   </Panel>
                                                 </Collapse>
@@ -2349,7 +2673,7 @@ class Petmojo extends Component {
                             style={{ maxWidth: 921 }}
                           >
                             <h2 className="text-center">Meet the Team</h2>
-                            <div className="row">
+                            <div className="row elefantteam">
                               <div className="col-lg-6">
                                 <div
                                   className="single"
@@ -2358,13 +2682,13 @@ class Petmojo extends Component {
                                 >
                                   <div className="d-flex">
                                     <img
-                                      src="./assets/images/deals-details/Petmojo/team/Jiten_kakar.jpg"
+                                      src="./assets/images/deals-details/LVLAlpha/Team/Aditya.jpg"
                                       alt=""
                                     />
                                     <div className="intro">
-                                      <h3>Jiten Kakar</h3>
+                                      <h3>Aditya Mishra</h3>
                                       <span>
-                                        Founder and Chief of Operations
+                                        Managing Director & Engineering Head:
                                       </span>
                                       <div
                                         className="social-icons"
@@ -2373,38 +2697,104 @@ class Petmojo extends Component {
                                           marginLeft: -6,
                                         }}
                                       >
-                                        <a
-                                          href="https://www.linkedin.com/in/jitenkakar/"
+                                        {/* <a
+                                          href="https://www.linkedin.com/in/ritesh-d-15b7a215/"
                                           target="_blank"
                                         >
                                           <i className="bx bxl-linkedin"></i>
-                                        </a>
+                                        </a> */}
                                         {/* <a href="mailto:vaibhav.tambe@transbnk.co.in">
                                         <i className="bx bxl-gmail"></i>
                                         </a> */}
                                       </div>
                                     </div>
                                   </div>
-                                  <p>
-                                    He looks after business operations at
-                                    Petmojo. | He as 6+ years of corporate
-                                    experience with various firms, holds an MBA
-                                    degree from MDI, Gurgaon.
-                                  </p>
+                                  <ul>
+                                    <li>
+                                      <a>
+                                        Experience - Ex-GoI (PSU) Official with
+                                        Successful High Value Product Deliveries
+                                        to Indian Navy, Indian Airforce, NPCIL,
+                                        EIL, Indian Army and Apollo Munich.
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a>
+                                        Leads the company’s vision, product
+                                        development, and engineering efforts.
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                              <div className="col-lg-6">
+                                <div
+                                  className="single"
+                                  style={{ paddingBottom: "0px !important" }}
+                                  // style={{  marginBottom: 0px !important}}
+                                >
+                                  <div className="d-flex">
+                                    <img
+                                      src="./assets/images/deals-details/LVLAlpha/Team/Kshama.jpg"
+                                      alt=""
+                                    />
+                                    <div className="intro">
+                                      <h3>Kshama Rajpurohit</h3>
+                                      <span>
+                                        Head of Operations, HR & Operations:
+                                      </span>
+                                      <div
+                                        className="social-icons"
+                                        style={{
+                                          marginTop: 4,
+                                          marginLeft: -6,
+                                        }}
+                                      >
+                                        {/* <a
+                                          href="https://www.linkedin.com/in/nimil-tiwari-13677318/"
+                                          target="_blank"
+                                        >
+                                          <i className="bx bxl-linkedin"></i>
+                                        </a> */}
+                                        {/* <a href="mailto:vaibhav.tambe@transbnk.co.in">
+                                        <i className="bx bxl-gmail"></i>
+                                        </a> */}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <ul>
+                                    <li>
+                                      <a>
+                                        15+ Years of experience in sales teams
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a>
+                                        Manages day-to-day operations, human
+                                        resources, and organizational
+                                        development.
+                                      </a>
+                                    </li>
+                                  </ul>
                                 </div>
                               </div>
 
                               <div className="col-lg-6">
-                                <div className="single">
+                                <div
+                                  className="single"
+                                  style={{ paddingBottom: "0px !important" }}
+                                  // style={{  marginBottom: 0px !important}}
+                                >
                                   <div className="d-flex">
                                     <img
-                                      src="./assets/images/deals-details/Petmojo/team/Konika_kakar.png"
+                                      src="./assets/images/deals-details/LVLAlpha/Team/NIkhil.jpg"
                                       alt=""
                                     />
                                     <div className="intro">
-                                      <h3>Konika Kakar</h3>
+                                      <h3>Nikhil Anil Mane</h3>
                                       <span>
-                                        Co-founder and Chief of Product{" "}
+                                        Head of Manufacturing, Production & New
+                                        Sensor Development
                                       </span>
                                       <div
                                         className="social-icons"
@@ -2413,34 +2803,48 @@ class Petmojo extends Component {
                                           marginLeft: -6,
                                         }}
                                       >
-                                        <a
-                                          href="https://www.linkedin.com/in/konikakakar/"
+                                        {/* <a
+                                          href="https://www.linkedin.com/in/jainrahul2211/"
                                           target="_blank"
                                         >
                                           <i className="bx bxl-linkedin"></i>
-                                        </a>
+                                        </a> */}
+                                        {/* <a href="mailto:vaibhav.tambe@transbnk.co.in">
+                                        <i className="bx bxl-gmail"></i>
+                                        </a> */}
                                       </div>
                                     </div>
                                   </div>
-                                  <p>
-                                    She looks after the product and services at
-                                    Petmojo | She has 8+ years of experience
-                                    across various domains. Also, a founder of
-                                    Swar Clinic.{" "}
-                                  </p>
+                                  <ul>
+                                    <li>
+                                      <a>
+                                        Head of Manufacturing, Production & New
+                                        Sensor Development
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a>
+                                        Oversees manufacturing, production, and
+                                        the development of new sensors to
+                                        enhance the company's product offerings.
+                                      </a>
+                                    </li>
+                                  </ul>
                                 </div>
                               </div>
+
+                              {/* 
                               <div className="col-lg-6">
                                 <div className="single">
                                   <div className="d-flex">
                                     <img
-                                      src="./assets/images/deals-details/Petmojo/team/Ishan_khare.jpg"
+                                      src="./assets/images/deals-details/IndusUno/team/Kushal Gupta.jpg"
                                       alt=""
                                     />
                                     <div className="intro">
-                                      <h3>Ishan Khare</h3>
+                                      <h3>Kushal Gupta</h3>
                                       <span>
-                                        Co-founder and Chief of Technology{" "}
+                                        Head Engineering and Technology
                                       </span>
                                       <div
                                         className="social-icons"
@@ -2450,7 +2854,7 @@ class Petmojo extends Component {
                                         }}
                                       >
                                         <a
-                                          href="https://www.linkedin.com/in/ishaan-khare-83a708147/"
+                                          href="https://www.linkedin.com/in/logical-kushal-gupta/"
                                           target="_blank"
                                         >
                                           <i className="bx bxl-linkedin"></i>
@@ -2459,13 +2863,12 @@ class Petmojo extends Component {
                                     </div>
                                   </div>
                                   <p>
-                                    He is responsible for the technology and
-                                    platform of Petmojo | He is BITS Pilani
-                                    graduate, he was among top 1% in JEE and
-                                    BITSAT
+                                    M.Tech (Computer Science)
+                                    <br />
+                                    10+ Years Experience
                                   </p>
                                 </div>
-                              </div>
+                              </div> */}
                             </div>
                           </div>
                         </TabPane>
@@ -2475,7 +2878,7 @@ class Petmojo extends Component {
                 </div>
               </div>
             </div>
-            <WebFooter />
+            <NewWebFooter />
           </div>
         ) : (
           window.location.assign("/Deals")
@@ -2485,4 +2888,4 @@ class Petmojo extends Component {
   }
 }
 
-export default Petmojo;
+export default LVLAlpha;

@@ -86,6 +86,12 @@ class Deals extends Component {
       captable_multiple_amount: "",
       multipleofdescription: "",
       escrowAct: "",
+      bank_acc_name: "",
+      bank_acc_num: "",
+      bank_name: "",
+      bank_acc_type: "",
+      bank_acc_ifsc: "",
+      bank_branch: "",
       raiseGap: "",
       backedby: "",
       category: "",
@@ -167,6 +173,12 @@ class Deals extends Component {
       editcaptable_multiple_amount: "",
       editmultipleofdescription: "",
       editescrowAct: "",
+      editbank_acc_name: "",
+      editbank_acc_num: "",
+      editbank_name: "",
+      editbank_acc_type: "",
+      editbank_acc_ifsc: "",
+      editbank_branch: "",
       editraiseGap: "",
       editbackedby: "",
       editcategory: "",
@@ -267,7 +279,7 @@ class Deals extends Component {
       Commitmentstatus: "",
       commitmentstatusid: "",
     };
-    this.button = React.createRef()
+    this.button = React.createRef();
   }
 
   componentDidMount() {
@@ -425,6 +437,12 @@ class Deals extends Component {
       edit_escrow_account_bank: item.escrow_account_bank,
       edit_escrow_account_branch: item.escrow_account_branch,
       editraiseGap: item.raiegap,
+      editbank_acc_name: item.bank_acc_name,
+      editbank_acc_num: item.bank_acc_num,
+      editbank_name: item.bank_name,
+      editbank_acc_type: item.bank_acc_type,
+      editbank_acc_ifsc: item.bank_acc_ifsc,
+      editbank_branch: item.bank_branch,
       edittargetamount: item.deal_fund_requested,
       editmintargetamount: item.Min_inv_amt,
       editcaptable_threshold_amount: item.captable_threshold_amount,
@@ -654,6 +672,12 @@ class Deals extends Component {
       escrow_account_bank: this.state.edit_escrow_account_bank,
       escrow_account_branch: this.state.edit_escrow_account_branch,
       raiseGap: this.state.editraiseGap,
+      bank_acc_name:this.state.editbank_acc_name,
+      bank_acc_num:this.state.editbank_acc_num,
+      bank_name:this.state.editbank_name,
+      bank_acc_type:this.state.editbank_acc_type,
+      bank_acc_ifsc:this.state.editbank_acc_ifsc,
+      bank_branch:this.state.editbank_branch,
       backedby: this.state.editbackedby,
       category: this.state.editcategory,
       id: this.state.deal_id,
@@ -695,6 +719,12 @@ class Deals extends Component {
             editmultipleofdescription: "",
             editbackedby: "",
             editcategory: "",
+            editbank_acc_name: "",
+            editbank_acc_num: "",
+            editbank_name: "",
+            editbank_acc_type: "",
+            editbank_acc_ifsc: "",
+            editbank_branch: "",
             editraiseGap: "",
             editescrowAct: "",
             editdigioTemplateId: "",
@@ -1036,6 +1066,12 @@ class Deals extends Component {
           escrow_account_bank: this.state.escrow_account_bank,
           escrow_account_branch: this.state.escrow_account_branch,
           raiseGap: this.state.raiseGap,
+          bank_acc_name:this.state.editbank_acc_name,
+          bank_acc_num:this.state.editbank_acc_num,
+          bank_name:this.state.editbank_name,
+          bank_acc_type:this.state.editbank_acc_type,
+          bank_acc_ifsc:this.state.editbank_acc_ifsc,
+          bank_branch:this.state.editbank_branch,
           digioTemplateId: this.state.digioTemplateId,
           investor_sign_coordinate: this.state.investor_sign_coordinate,
           founder_sign_coordinate: this.state.founder_sign_coordinate,
@@ -1076,6 +1112,12 @@ class Deals extends Component {
                 backedby: "",
                 category: "",
                 raiseGap: "",
+                bank_acc_name:"",
+                bank_acc_num:"",
+                bank_name:"",
+                bank_acc_type:"",
+                bank_acc_ifsc:"",
+                bank_branch:"",
                 escrowAct: "",
                 signer_name: "",
                 signer_mobile: "",
@@ -1808,6 +1850,24 @@ class Deals extends Component {
     FileSaver.saveAs(data, fileName + fileExtension);
     message.success("Commitment data exported successfully.");
   };
+  Emailtoinvestors=()=>{
+    let arr = [];
+
+    console.log(this.state.commitment_investor_list);
+    for (let item of this.state.commitment_investor_list) {
+      let obj=Number(item.investor_id)
+      
+      arr = [...arr, obj]
+      console.log(obj)
+    }
+    console.log(arr);
+    
+    Bridge.admin.investor.send_email_to_investors({"investor_ids":arr,deal_id:this.state.commitment_investor_list[0].deal_id}).then((result) => {
+      console.log(result);
+      
+    })
+
+  }
   showEditCommitmentModal = (item, record) => {
     this.setState({
       ac_edit_deal_id: record.data.deal_id,
@@ -1908,20 +1968,16 @@ class Deals extends Component {
     }
 
     let params = {
-     
-        id: this.state.commitmentstatusid,
-        isCommitmentEnabled: this.state.Commitmentstatus,
+      id: this.state.commitmentstatusid,
+      isCommitmentEnabled: this.state.Commitmentstatus,
     };
 
     console.log(this.state.ac_edit_deal_id);
-    
+
     Bridge.admin.investor.update_enable_status(params).then((result) => {
       console.log(result);
-      if(result.message=="Commitment status is updated successfully."){
-        this.setState({ show_edit_commitment_status_modal: false
-         
-         },
-         () => {
+      if (result.message == "Commitment status is updated successfully.") {
+        this.setState({ show_edit_commitment_status_modal: false }, () => {
           axios
             .get(
               `${process.env.REACT_APP_BASE_URL}api/admin/Deal/display_investor_commitment_list`,
@@ -1941,12 +1997,10 @@ class Deals extends Component {
             .catch((error) => {
               console.error(error);
             });
-        })
-        toast.success("Commitment status is updated successfully.")
-       
-      }
-      else{
-        toast.error("error")
+        });
+        toast.success("Commitment status is updated successfully.");
+      } else {
+        toast.error("error");
       }
     });
   };
@@ -2310,9 +2364,7 @@ class Deals extends Component {
       show_edit_commitment_status_modal: true,
       Commitmentstatus: record.item.isCommitmentEnabled,
       commitmentstatusid: record.item.id,
-      ac_edit_deal_id:record.item.deal_id
-    
-    
+      ac_edit_deal_id: record.item.deal_id,
     });
   };
   render() {
@@ -2389,7 +2441,7 @@ class Deals extends Component {
           created_at: item.created_at
             ? moment(item.created_at).format("D-MMM-YYYY h:mm A")
             : "",
-            isCommitmentEnabled: item.isCommitmentEnabled,
+          isCommitmentEnabled: item.isCommitmentEnabled,
           name: item.first_name + " " + item.last_name,
           deal_name: item.deal_name,
           item: item,
@@ -2747,7 +2799,7 @@ class Deals extends Component {
                 </a>
               </Menu.Item>
               <Menu.Item
-               ref={this.button}
+                ref={this.button}
                 key={`ViewCommitment${record.key}`}
                 icon={<EyeOutlined />}
               >
@@ -2910,7 +2962,7 @@ class Deals extends Component {
                   }
                   style={{ fontSize: 14 }}
                 >
-                  &nbsp;&nbsp;Edit 
+                  &nbsp;&nbsp;Edit
                 </a>
               </Menu.Item>
             </Menu>
@@ -3129,8 +3181,10 @@ class Deals extends Component {
             <label className="mb-2">
               Status <span className="text-danger">*</span>
             </label>
-            <br/>
-            <select class="form-select" aria-label="Default select example"
+            <br />
+            <select
+              class="form-select"
+              aria-label="Default select example"
               value={this.state.Commitmentstatus}
               onChange={(e) =>
                 this.setState({ Commitmentstatus: e.target.value })
@@ -3671,6 +3725,72 @@ class Deals extends Component {
                 onChange={(e) => this.setState({ raiseGap: e.target.value })}
               />
             </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank account Name <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.bank_acc_name}
+                onChange={(e) => this.setState({ bank_acc_name: e.target.value })}
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank Account NUmber <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="number"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.bank_acc_num}
+                onChange={(e) => this.setState({ bank_acc_num: e.target.value })}
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank Name<span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.bank_name}
+                onChange={(e) => this.setState({ bank_name: e.target.value })}
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank account Type <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.bank_acc_type}
+                onChange={(e) => this.setState({ bank_acc_type: e.target.value })}
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank IFSC <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.bank_acc_ifsc}
+                onChange={(e) => this.setState({ bank_acc_ifsc: e.target.value })}
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank Branch <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.bank_branch}
+                onChange={(e) => this.setState({ bank_branch: e.target.value })}
+              />
+            </div>
             {/* <div className="mt-4 d-flex flex-row-reverse justify-content-end">
               <label className="mx-2" for="SpecialOffer" >
                 Enable Special Offer
@@ -4192,6 +4312,84 @@ class Deals extends Component {
                 value={this.state.editraiseGap}
                 onChange={(e) =>
                   this.setState({ editraiseGap: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank account Name <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.editbank_acc_name}
+                onChange={(e) =>
+                  this.setState({ editbank_acc_name: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank Account NUmber <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="number"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.editbank_acc_num}
+                onChange={(e) =>
+                  this.setState({ editbank_acc_num: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank Name<span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.editbank_name}
+                onChange={(e) =>
+                  this.setState({ editbank_name: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank account Type <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.editbank_acc_type}
+                onChange={(e) =>
+                  this.setState({ editbank_acc_type: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank IFSC <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.editbank_acc_ifsc}
+                onChange={(e) =>
+                  this.setState({ editbank_acc_ifsc: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank Branch <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.editbank_branch}
+                onChange={(e) =>
+                  this.setState({ editbank_branch: e.target.value })
                 }
               />
             </div>
@@ -4908,6 +5106,21 @@ class Deals extends Component {
               ></i>{" "}
               Add New Commitment
             </Button>
+            {/* <Button
+              type="primary"
+              onClick={() => this.Emailtoinvestors()}
+            >
+              <i
+                className="bx bxs-cloud-download"
+                style={{
+                  color: "#fff",
+                  position: "relative",
+                  top: 3,
+                  left: -3,
+                }}
+              ></i>{" "}
+             Email to Investor
+            </Button> */}
             <Button
               type="primary"
               onClick={() => this.exportToCSV_CommitList("Commitment List")}
@@ -4958,7 +5171,7 @@ class Deals extends Component {
             <Button onClick={() => this.setState({ open: false })}>No</Button>
           </DialogActions>
         </Dialog>
-        <ToastContainer/>
+        <ToastContainer />
       </>
     );
   }

@@ -701,6 +701,11 @@ export default {
         api.post(URLs.getstartupinvestorlist, data).then((response) => {
           return response.data;
         }),
+      send_email_to_investors: (data) =>
+        api.post(URLs.send_email_to_investors, data).then((response) => {
+          return response.data;
+        }),
+        
     },
 
     document: {

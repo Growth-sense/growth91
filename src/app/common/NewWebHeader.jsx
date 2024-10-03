@@ -940,14 +940,7 @@ class NewWebHeader extends Component {
                           >
                             Future Unicorns
                           </a>
-                          {/* <div className="submenu-cards">
-                            <div className="submenus">
-                              <ul>
-                                <li><Link to="InformationList">Login as Founder</Link></li>
-                                <li><Link to="FutureUnicornList">Login as Investor</Link></li>
-                              </ul>
-                            </div>
-                          </div> */}
+                       
 
                         </li>
                         {this.state.loggedinstatus == true ? (

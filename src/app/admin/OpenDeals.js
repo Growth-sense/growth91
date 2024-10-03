@@ -66,7 +66,13 @@ class Deals extends Component {
       ctype: "",
       editctype: "",
       youtubelink: "",
-      deal_service:"",
+      deal_service: "",
+      bank_acc_name: "",
+      bank_acc_num: "",
+      bank_name: "",
+      bank_acc_type: "",
+      bank_acc_ifsc: "",
+      bank_branch: "",
 
       // add input states
       startupname: "",
@@ -140,14 +146,14 @@ class Deals extends Component {
 
       // edit commitment states
       show_edit_commitment_modal: false,
-      ac_edit_deal_id: '',
-      ac_edit_investor_id: '',
+      ac_edit_deal_id: "",
+      ac_edit_investor_id: "",
       ac_edit_amount: 0,
       ac_edit_processingfees: 0,
       ac_edit_totalamount: 0,
       ac_edit_deduct: false,
       ac_edit_agree: false,
-      ac_edit_order_token: '',
+      ac_edit_order_token: "",
       ac_edit_tdsstatus: false,
       ac_edit_gst: 0,
       ac_edit_legalfee: 0,
@@ -168,6 +174,12 @@ class Deals extends Component {
       editcaptable_multiple_amount: "",
       editmultipleofdescription: "",
       editescrowAct: "",
+      editbank_acc_name: "",
+      editbank_acc_num: "",
+      editbank_name: "",
+      editbank_acc_type: "",
+      editbank_acc_ifsc: "",
+      editbank_branch: "",
       editraiseGap: "",
       editbackedby: "",
       editcategory: "",
@@ -179,7 +191,7 @@ class Deals extends Component {
       editspecial_offer_text: "",
       editdefault_special_offer_text: "",
       editoffer_discount: "",
-      edit_deal_service:"",
+      edit_deal_service: "",
 
       deal_id: "",
 
@@ -302,8 +314,8 @@ class Deals extends Component {
           a.name.toLowerCase() > b.name.toLowerCase()
             ? 1
             : b.name.toLowerCase() > a.name.toLowerCase()
-              ? -1
-              : 0
+            ? -1
+            : 0
         );
         this.setState({
           startups: sorted,
@@ -356,7 +368,7 @@ class Deals extends Component {
 
   // show edit modal
   showEditModal = (item) => {
-    console.log('item',item);
+    console.log("item", item);
     let logourl = Apis.IMAGEURL + "deal/logo/" + item.deal_id + "/" + item.logo;
     let bannerimg =
       Apis.IMAGEURL + "deal/banner/" + item.deal_id + "/" + item.banner_img;
@@ -381,8 +393,15 @@ class Deals extends Component {
       edit_escrow_account_name: item.escrow_account_name,
       edit_escrow_account_bank: item.escrow_account_bank,
       edit_escrow_account_branch: item.escrow_account_branch,
+      editbank_acc_name: item.bank_acc_name,
+      editbank_acc_num: item.bank_acc_num,
+      editbank_name: item.bank_name,
+      editbank_acc_type: item.bank_acc_type,
+      editbank_acc_ifsc: item.bank_acc_ifsc,
+      editbank_branch: item.bank_branch,
       editraiseGap: item.raiegap,
-      editenable_special_offer: item.enable_special_offer == 'Yes' ? true : false,
+      editenable_special_offer:
+        item.enable_special_offer == "Yes" ? true : false,
       editspecial_offer_text: item.special_offer_text,
       editdefault_special_offer_text: item.default_special_offer_text,
       editoffer_discount: item.offer_discount,
@@ -429,28 +448,39 @@ class Deals extends Component {
       ac_deal_id: item.deal_id,
       ac_deal_name: item.deal_name,
       ac_minamount: Number(item.Min_inv_amt),
-      ac_captable_threshold_amount: parseInt(parseFloat(item.captable_threshold_amount).toFixed(2), 10),
+      ac_captable_threshold_amount: parseInt(
+        parseFloat(item.captable_threshold_amount).toFixed(2),
+        10
+      ),
       ac_maxamount: item.Max_inv_amt,
-      ac_captable_multiple_amount: parseInt(parseFloat(item.captable_multiple_amount).toFixed(2), 10),
-      ac_enable_special_offer: item.enable_special_offer == 'Yes' ? true : false,
+      ac_captable_multiple_amount: parseInt(
+        parseFloat(item.captable_multiple_amount).toFixed(2),
+        10
+      ),
+      ac_enable_special_offer:
+        item.enable_special_offer == "Yes" ? true : false,
       ac_special_offer_text: item.special_offer_text,
       ac_default_special_offer_text: item.default_special_offer_text,
       ac_offer_discount: item.offer_discount,
       ac_multiples_of: item.multiples_of,
     });
-    axios.get(`${process.env.REACT_APP_BASE_URL}api/admin/Deal/display_investor_commitment_list`, {
-      params: {
-        deal_id: item.deal_id,
-      }
-    })
-      .then(response => {
+    axios
+      .get(
+        `${process.env.REACT_APP_BASE_URL}api/admin/Deal/display_investor_commitment_list`,
+        {
+          params: {
+            deal_id: item.deal_id,
+          },
+        }
+      )
+      .then((response) => {
         this.setState({
           commitment_investor_list: response.data.data,
           commitment_investor_listc: response.data.data,
           loading: false,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
@@ -516,10 +546,16 @@ class Deals extends Component {
     } else if (this.state.editcaptable_threshold_amount == "") {
       message.warning("Captable threshold amount value is required.");
       return false;
-    } else if (this.state.editenable_special_offer == true && this.state.editspecial_offer_text == null) {
+    } else if (
+      this.state.editenable_special_offer == true &&
+      this.state.editspecial_offer_text == null
+    ) {
       message.warning("Special offer text value is required.");
       return false;
-    } else if (this.state.editenable_special_offer == true && this.state.editdefault_special_offer_text == null) {
+    } else if (
+      this.state.editenable_special_offer == true &&
+      this.state.editdefault_special_offer_text == null
+    ) {
       message.warning("Default special offer text value is required.");
       return false;
     } else if (this.state.editmaxtargetamount == "") {
@@ -583,7 +619,13 @@ class Deals extends Component {
       captable_threshold_amount: this.state.editcaptable_threshold_amount,
       maxtargetamount: this.state.editmaxtargetamount,
       captable_multiple_amount: this.state.editcaptable_multiple_amount,
-      enable_special_offer: this.state.editenable_special_offer ? 'Yes' : 'No',
+      bank_acc_name:this.state.editbank_acc_name,
+bank_acc_num:this.state.editbank_acc_num,
+bank_name:this.state.editbank_name,
+bank_acc_type:this.state.editbank_acc_type,
+bank_acc_ifsc:this.state.editbank_acc_ifsc,
+bank_branch:this.state.editbank_branch,
+      enable_special_offer: this.state.editenable_special_offer ? "Yes" : "No",
       special_offer_text: this.state.editspecial_offer_text,
       default_special_offer_text: this.state.editdefault_special_offer_text,
       offer_discount: this.state.editoffer_discount,
@@ -614,7 +656,7 @@ class Deals extends Component {
       signer_mobile: this.state.edit_signer_mobile,
       signer_email: this.state.edit_signer_email,
       vendor_id: this.state.edit_vendor_id,
-      deal_service:this.state.edit_deal_service
+      deal_service: this.state.edit_deal_service,
     };
     Bridge.deal.edit(params).then((result) => {
       if (result.status == 1) {
@@ -632,6 +674,12 @@ class Deals extends Component {
             editmintargetamount: "",
             editcaptable_threshold_amount: "",
             editmaxtargetamount: "",
+            editbank_acc_name: "",
+            editbank_acc_num: "",
+            editbank_name: "",
+            editbank_acc_type: "",
+            editbank_acc_ifsc: "",
+            editbank_branch: "",
             editcaptable_multiple_amount: "",
             editenable_special_offer: false,
             editspecial_offer_text: "",
@@ -729,14 +777,18 @@ class Deals extends Component {
       let arr = [];
       for (let item of this.state.cdeallist) {
         if (
-          (item.deal_name && item.deal_name.toLowerCase().includes(text.toLowerCase())) ||
+          (item.deal_name &&
+            item.deal_name.toLowerCase().includes(text.toLowerCase())) ||
           item.deal_fund_requested.includes(text) ||
           item.Min_inv_amt.includes(text) ||
           item.Max_inv_amt.includes(text) ||
           item.Muliples_of.includes(text) ||
-          (item.backed_by && item.backed_by.toLowerCase().includes(text.toLowerCase())) ||
-          (item.deal_category && item.deal_category.toLowerCase().includes(text.toLowerCase())) ||
-          (item.deal_id && item.deal_id.toLowerCase().includes(text.toLowerCase()))
+          (item.backed_by &&
+            item.backed_by.toLowerCase().includes(text.toLowerCase())) ||
+          (item.deal_category &&
+            item.deal_category.toLowerCase().includes(text.toLowerCase())) ||
+          (item.deal_id &&
+            item.deal_id.toLowerCase().includes(text.toLowerCase()))
         ) {
           arr = [...arr, item];
         }
@@ -758,9 +810,12 @@ class Deals extends Component {
       let arr = [];
       for (let item of this.state.commitment_investor_listc) {
         if (
-          (item.deal_name && item.deal_name.toLowerCase().includes(text.toLowerCase())) ||
-          (item.first_name && item.first_name.toLowerCase().includes(text.toLowerCase())) ||
-          (item.last_name && item.last_name.toLowerCase().includes(text.toLowerCase())) ||
+          (item.deal_name &&
+            item.deal_name.toLowerCase().includes(text.toLowerCase())) ||
+          (item.first_name &&
+            item.first_name.toLowerCase().includes(text.toLowerCase())) ||
+          (item.last_name &&
+            item.last_name.toLowerCase().includes(text.toLowerCase())) ||
           item.investor_id.includes(text)
         ) {
           arr = [...arr, item];
@@ -847,7 +902,6 @@ class Deals extends Component {
     } else if (this.state.deal_name == "") {
       message.warning("Deal Name is required");
       return false;
-    
     } else if (this.state.deal_service == "") {
       message.warning("Deal service is required");
       return false;
@@ -893,10 +947,16 @@ class Deals extends Component {
     } else if (this.state.captable_multiple_amount == "") {
       message.warning("Captable multiple amount value is required.");
       return false;
-    } else if (this.state.enable_special_offer == true && this.state.special_offer_text == null) {
+    } else if (
+      this.state.enable_special_offer == true &&
+      this.state.special_offer_text == null
+    ) {
       message.warning("Special offer text value is required.");
       return false;
-    } else if (this.state.enable_special_offer == true && this.state.default_special_offer_text == null) {
+    } else if (
+      this.state.enable_special_offer == true &&
+      this.state.default_special_offer_text == null
+    ) {
       message.warning("Default special offer text value is required.");
       return false;
     } else if (this.state.multipleofdescription == "") {
@@ -976,7 +1036,7 @@ class Deals extends Component {
           captable_threshold_amount: this.state.captable_threshold_amount,
           maxtargetamount: this.state.maxtargetamount,
           captable_multiple_amount: this.state.captable_multiple_amount,
-          enable_special_offer: this.state.enable_special_offer ? 'Yes' : 'No',
+          enable_special_offer: this.state.enable_special_offer ? "Yes" : "No",
           special_offer_text: this.state.special_offer_text,
           default_special_offer_text: this.state.default_special_offer_text,
           offer_discount: this.state.offer_discount,
@@ -990,6 +1050,12 @@ class Deals extends Component {
           escrow_account_name: this.state.escrow_account_name,
           escrow_account_bank: this.state.escrow_account_bank,
           escrow_account_branch: this.state.escrow_account_branch,
+          bank_acc_name:this.state.bank_acc_name,
+          bank_acc_num:this.state.bank_acc_num,
+          bank_name:this.state.bank_name,
+          bank_acc_type:this.state.bank_acc_type,
+          bank_acc_ifsc:this.state.bank_acc_ifsc,
+          bank_branch:this.state.bank_branch,
           raiseGap: this.state.raiseGap,
           digioTemplateId: this.state.digioTemplateId,
           investor_sign_coordinate: this.state.investor_sign_coordinate,
@@ -1007,7 +1073,7 @@ class Deals extends Component {
           eligibility_id: e_id,
           deal_type: this.state.add_dealtype,
           vendor_id: this.state.add_vendor_id,
-          automated_email:"No"
+          automated_email: "No",
         };
         // console.log("params",params)
         Bridge.deal.add(params).then((result) => {
@@ -1035,6 +1101,12 @@ class Deals extends Component {
                 multipleofdescription: "",
                 backedby: "",
                 category: "",
+                bank_acc_name:"",
+                bank_acc_num:"",
+                bank_name:"",
+                bank_acc_type:"",
+                bank_acc_ifsc:"",
+                bank_branch:"",
                 raiseGap: "",
                 escrowAct: "",
                 signer_name: "",
@@ -1191,7 +1263,6 @@ class Deals extends Component {
       invite_form_loader: false,
       invited_user_list: [],
       invite_deal_titile: item.deal_name,
-     
     });
   };
   close_invite_modal = () => {
@@ -1308,23 +1379,19 @@ class Deals extends Component {
   };
   togglecc = (event) => {
     console.log(event.target.checked);
-    if(event.target.checked === true){
+    if (event.target.checked === true) {
       this.setState({
-        [event.target.name]: 'Yes',
+        [event.target.name]: "Yes",
+        input_status: false,
+        input_file_status: true,
+      });
+    } else {
+      this.setState({
+        [event.target.name]: "No",
         input_status: false,
         input_file_status: true,
       });
     }
-    else{
-        this.setState({
-          [event.target.name]: 'No',
-          input_status: false,
-          input_file_status: true,
-        });
-
-
-      }
-
   };
 
   onInviteChangeEmail = (email) => {
@@ -1379,7 +1446,7 @@ class Deals extends Component {
           fun_founder_id: this.state.invite_details.operational_founder,
           bannerimg: this.state.bannerimg,
           deal_name: this.state.invite_details.name,
-          cc_to_fouder:this.state.cc_to_fouder
+          cc_to_fouder: this.state.cc_to_fouder,
 
           // deal_email:this.state.invite_details.email,
         };
@@ -1435,7 +1502,7 @@ class Deals extends Component {
           founder_id: this.state.invite_details.operational_founder,
           bannerimg: this.state.bannerimg,
           deal_name: this.state.invite_details.name,
-          cc_to_fouder:this.state.cc_to_fouder
+          cc_to_fouder: this.state.cc_to_fouder,
 
           // deal_email:this.state.invite_details.email,
         };
@@ -1499,8 +1566,7 @@ class Deals extends Component {
       fun_founder_id: this.state.invite_details.operational_founder,
       bannerimg: this.state.bannerimg,
       deal_name: this.state.invite_details.name,
-      cc_to_fouder:this.state.cc_to_fouder
-
+      cc_to_fouder: this.state.cc_to_fouder,
     };
     Bridge.deal.invite_investors_for_private_deal(obj).then((result) => {
       if (result.status == 1) {
@@ -1615,7 +1681,7 @@ class Deals extends Component {
       email: this.state.investor_email,
     };
     Bridge.deal.get_investor_by_email(params).then((result) => {
-      console.log( result.data);
+      console.log(result.data);
       if (result.status == "1") {
         this.setState({
           investor_name:
@@ -1647,12 +1713,12 @@ class Deals extends Component {
     if (this.state.membership_type == "premium") {
       legalfee = parseFloat(
         (this.state.investor_investment_amount / 100) *
-        parseFloat(this.state.premium_percentage)
+          parseFloat(this.state.premium_percentage)
       );
     } else {
       legalfee = parseFloat(
         (this.state.investor_investment_amount / 100) *
-        parseFloat(this.state.regular_percentage)
+          parseFloat(this.state.regular_percentage)
       );
     }
     let processingfees = this.state.investor_investment_amount
@@ -1779,19 +1845,18 @@ class Deals extends Component {
     for (let item of this.state.commitment_investor_list) {
       console.log(item);
       let params = {
-        id:item.investor_id,
+        id: item.investor_id,
       };
       Bridge.investor.getbankdetails(params).then((result) => {
         console.log(result);
-        
-      })  
+      });
       let obj = {
         "Sr No": count,
-        "Name": item.first_name + " " + item.last_name,
+        Name: item.first_name + " " + item.last_name,
         "Legal Name": item.pan_registered_name,
         "Investment Amount": item.amount,
-        "Email": item.email,
-        "Phone": item.mobile,
+        Email: item.email,
+        Phone: item.mobile,
         "KYC PAN": item.kyc_pan,
         "KYC Address": item.kyc_address,
         "KYC Father Name": item.kyc_fathername,
@@ -1816,16 +1881,15 @@ class Deals extends Component {
       let obj = {
         "Sr No": count,
         "Investor ID": item.investor_id,
-        "Name": item.first_name + " " + item.last_name,
+        Name: item.first_name + " " + item.last_name,
         "Legal Name": item.pan_registered_name,
         "Investment Amount": item.amount,
-        "Email": item.email,
-        "Phone": item.mobile,
+        Email: item.email,
+        Phone: item.mobile,
         "KYC PAN": item.kyc_pan,
         "KYC Address": item.kyc_address,
         "KYC Father Name": item.kyc_fathername,
         "residential address": item.residential_address,
-
       };
       arr = [...arr, obj];
       count++;
@@ -1844,10 +1908,9 @@ class Deals extends Component {
     for (let item of this.state.commitment_investor_list) {
       let obj = {
         "Sr No": count,
-        "Name": item.first_name + " " + item.last_name,
+        Name: item.first_name + " " + item.last_name,
         "Investment Amount": item.amount,
-        "Fees": item.processingfees,
-       
+        Fees: item.processingfees,
       };
       arr = [...arr, obj];
       count++;
@@ -1861,7 +1924,9 @@ class Deals extends Component {
   };
 
   calculategst = () => {
-    let legalfee = parseFloat((this.state.ac_amount / 100) * parseFloat(this.state.ac_percentage));
+    let legalfee = parseFloat(
+      (this.state.ac_amount / 100) * parseFloat(this.state.ac_percentage)
+    );
     let gst = this.state.ac_gst;
     let amt = parseFloat(this.state.ac_amount);
     let walletDeductionMoney;
@@ -1882,7 +1947,8 @@ class Deals extends Component {
     }
 
     let gstValue = ((legalfee.toFixed(0) - walletDeductionMoney) * gst) / 100;
-    let totalAmount = (amt + parseFloat(legalfee)).toFixed(0) - walletDeductionMoney + gstValue;
+    let totalAmount =
+      (amt + parseFloat(legalfee)).toFixed(0) - walletDeductionMoney + gstValue;
 
     legalfee -= discountedMoney;
 
@@ -1894,7 +1960,7 @@ class Deals extends Component {
       ac_totalamount: this.state.ac_amount ? totalAmount.toFixed(0) : 0,
       ac_walletDeductionMoney: walletDeductionMoney,
       ac_gstValue: gstValue,
-      ac_DiscountedMoney: discountedMoney
+      ac_DiscountedMoney: discountedMoney,
     });
 
     return gst;
@@ -1910,18 +1976,42 @@ class Deals extends Component {
     } else if (Number(this.state.ac_amount) > Number(this.state.ac_maxamount)) {
       error = `Maximum investment amount is Rs. ${this.state.ac_maxamount}`;
       this.setState({ ac_amount_error: error, ac_amount_error_status: true });
-    } else if (Number(this.state.ac_amount) < Number(this.state.ac_captable_threshold_amount) && Number(this.state.ac_amount) % Number(this.state.ac_multiples_of) != 0) {
-      const roundedLowerAmount = Math.floor(Number(this.state.ac_amount) / Number(this.state.ac_multiples_of)) * Number(this.state.ac_multiples_of);
-      const roundedHigherAmount = Math.ceil(Number(this.state.ac_amount) / Number(this.state.ac_multiples_of)) * Number(this.state.ac_multiples_of);
+    } else if (
+      Number(this.state.ac_amount) <
+        Number(this.state.ac_captable_threshold_amount) &&
+      Number(this.state.ac_amount) % Number(this.state.ac_multiples_of) != 0
+    ) {
+      const roundedLowerAmount =
+        Math.floor(
+          Number(this.state.ac_amount) / Number(this.state.ac_multiples_of)
+        ) * Number(this.state.ac_multiples_of);
+      const roundedHigherAmount =
+        Math.ceil(
+          Number(this.state.ac_amount) / Number(this.state.ac_multiples_of)
+        ) * Number(this.state.ac_multiples_of);
 
       error = `Please enter an amount in multiples of ${this.state.ac_multiples_of}. You may choose Rs ${roundedLowerAmount}
       or Rs ${roundedHigherAmount}.
       If you would like to enter the Captable, commit an amount of Rs. ${this.state.ac_captable_threshold_amount} or more.`;
 
       this.setState({ ac_amount_error: error, ac_amount_error_status: true });
-    } else if (Number(this.state.ac_amount) > Number(this.state.ac_captable_threshold_amount) && Number(this.state.ac_amount) % Number(this.state.ac_captable_multiple_amount) != 0) {
-      const roundedLowerAmount = Math.floor(Number(this.state.ac_amount) / Number(this.state.ac_captable_multiple_amount)) * Number(this.state.ac_captable_multiple_amount);
-      const roundedHigherAmount = Math.ceil(Number(this.state.ac_amount) / Number(this.state.ac_captable_multiple_amount)) * Number(this.state.ac_captable_multiple_amount);
+    } else if (
+      Number(this.state.ac_amount) >
+        Number(this.state.ac_captable_threshold_amount) &&
+      Number(this.state.ac_amount) %
+        Number(this.state.ac_captable_multiple_amount) !=
+        0
+    ) {
+      const roundedLowerAmount =
+        Math.floor(
+          Number(this.state.ac_amount) /
+            Number(this.state.ac_captable_multiple_amount)
+        ) * Number(this.state.ac_captable_multiple_amount);
+      const roundedHigherAmount =
+        Math.ceil(
+          Number(this.state.ac_amount) /
+            Number(this.state.ac_captable_multiple_amount)
+        ) * Number(this.state.ac_captable_multiple_amount);
 
       error = `Please enter an amount in multiples of ${this.state.ac_captable_multiple_amount}. You may choose Rs ${roundedLowerAmount}
       or Rs ${roundedHigherAmount}.
@@ -1933,25 +2023,27 @@ class Deals extends Component {
     }
   };
   get_invest_amt = () => {
-    axios.get(`${process.env.REACT_APP_BASE_URL}api/investors/InvestorCommitment/get_investor_investment_for_deal`, {
-      params: {
-        deal_id: this.state.ac_deal_id,
-        investor_id: this.state.ac_investor.investor_id
-      }
-    })
+    axios
+      .get(
+        `${process.env.REACT_APP_BASE_URL}api/investors/InvestorCommitment/get_investor_investment_for_deal`,
+        {
+          params: {
+            deal_id: this.state.ac_deal_id,
+            investor_id: this.state.ac_investor.investor_id,
+          },
+        }
+      )
       .then((response) => {
         this.setState({ ac_invest_amt: response.data.data[0].totalamount });
       })
       .catch((error) => {
         console.log(error);
       });
-  }
+  };
 
   increase_commit = () => {
     if (this.state.ac_investor_name === "") {
-      message.warning(
-        "Please Select Investor"
-      );
+      message.warning("Please Select Investor");
       return;
     }
     const {
@@ -1960,7 +2052,7 @@ class Deals extends Component {
       ac_multiples_of,
       ac_maxamount,
       ac_captable_multiple_amount,
-      ac_minamount
+      ac_minamount,
     } = this.state;
 
     let newAmount = Number(ac_amount);
@@ -1971,7 +2063,8 @@ class Deals extends Component {
       newAmount % ac_multiples_of != 0
     ) {
       const roundedHigherAmount =
-        Math.ceil(newAmount / Number(ac_multiples_of)) * Number(ac_multiples_of);
+        Math.ceil(newAmount / Number(ac_multiples_of)) *
+        Number(ac_multiples_of);
       newAmount = roundedHigherAmount;
       changeAmount = 0;
     } else if (
@@ -1979,7 +2072,8 @@ class Deals extends Component {
       newAmount % ac_captable_multiple_amount != 0
     ) {
       const roundedHigherAmount =
-        Math.ceil(newAmount / Number(ac_captable_multiple_amount)) * Number(ac_captable_multiple_amount);
+        Math.ceil(newAmount / Number(ac_captable_multiple_amount)) *
+        Number(ac_captable_multiple_amount);
       newAmount = roundedHigherAmount;
       changeAmount = 0;
     } else if (newAmount < Number(ac_captable_threshold_amount)) {
@@ -2010,9 +2104,7 @@ class Deals extends Component {
 
   decrease_commit = () => {
     if (this.state.ac_investor_name === "") {
-      message.warning(
-        "Please Select Investor"
-      );
+      message.warning("Please Select Investor");
       return;
     }
     const {
@@ -2031,7 +2123,8 @@ class Deals extends Component {
       newAmount % ac_multiples_of != 0
     ) {
       const roundedHigherAmount =
-        Math.ceil(newAmount / Number(ac_multiples_of)) * Number(ac_multiples_of);
+        Math.ceil(newAmount / Number(ac_multiples_of)) *
+        Number(ac_multiples_of);
       newAmount = roundedHigherAmount;
       changeAmount = 0;
     } else if (
@@ -2039,7 +2132,8 @@ class Deals extends Component {
       newAmount % ac_multiples_of != 0
     ) {
       const roundedLowerAmount =
-        Math.floor(newAmount / Number(ac_multiples_of)) * Number(ac_multiples_of);
+        Math.floor(newAmount / Number(ac_multiples_of)) *
+        Number(ac_multiples_of);
       newAmount = roundedLowerAmount;
       changeAmount = 0;
     } else if (
@@ -2047,7 +2141,8 @@ class Deals extends Component {
       newAmount % ac_captable_multiple_amount != 0
     ) {
       const roundedLowerAmount =
-        Math.floor(newAmount / Number(ac_captable_multiple_amount)) * Number(ac_captable_multiple_amount);
+        Math.floor(newAmount / Number(ac_captable_multiple_amount)) *
+        Number(ac_captable_multiple_amount);
       newAmount = roundedLowerAmount;
       changeAmount = 0;
     } else if (newAmount <= Number(ac_captable_threshold_amount)) {
@@ -2076,25 +2171,23 @@ class Deals extends Component {
 
   handleCommitAmount = (value) => {
     if (this.state.ac_investor_name === "") {
-      message.warning(
-        "Please Select Investor"
-      );
+      message.warning("Please Select Investor");
       return;
     }
     this.setState(
       {
-        ac_amount: value.replace(/,/g, ''),
-        ac_commaAmount: this.formatNumberWithCommas(value)
+        ac_amount: value.replace(/,/g, ""),
+        ac_commaAmount: this.formatNumberWithCommas(value),
       },
       () => {
         this.calculategst();
         this.check_for_error();
       }
     );
-  }
+  };
 
   formatNumberWithCommas = (number) => {
-    return number.toLocaleString('en-IN');
+    return number.toLocaleString("en-IN");
   };
 
   onChangeInvestorSelect = (value, option) => {
@@ -2104,7 +2197,7 @@ class Deals extends Component {
     this.setState(
       {
         ac_investor: data,
-        ac_investor_name: fullName
+        ac_investor_name: fullName,
       },
       () => {
         this.get_invest_amt();
@@ -2113,7 +2206,6 @@ class Deals extends Component {
       }
     );
   };
-
 
   filterOptionInvestorSelect = (input, option) => {
     return option.props.children.toLowerCase().includes(input.toLowerCase());
@@ -2130,7 +2222,7 @@ class Deals extends Component {
       ac_agree: targetValue,
     }));
 
-    if (targetName === 'deduct') {
+    if (targetName === "deduct") {
       if (targetValue) {
         let processingfees = parseFloat(
           (this.state.ac_amount / 100) * parseFloat(this.state.ac_percentage)
@@ -2223,17 +2315,22 @@ class Deals extends Component {
 
   getInterestedID = () => {
     const formData = new FormData();
-    formData.append('deal_id', this.state.ac_deal_id);
-    formData.append('investor_id', this.state.ac_investor.investor_id);
-    axios.post(`${process.env.REACT_APP_BASE_URL}api/investors/InvestorCommitment/save_investor_interest_deal`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
+    formData.append("deal_id", this.state.ac_deal_id);
+    formData.append("investor_id", this.state.ac_investor.investor_id);
+    axios
+      .post(
+        `${process.env.REACT_APP_BASE_URL}api/investors/InvestorCommitment/save_investor_interest_deal`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
       .then((response) => {
         this.setState({
           ac_interested_id: response.data.data,
-        })
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -2242,45 +2339,57 @@ class Deals extends Component {
 
   ac_commit_value = () => {
     const formData = new FormData();
-    formData.append('deal_id', this.state.ac_deal_id);
-    formData.append('investor_id', this.state.ac_investor.investor_id);
-    formData.append('amount', this.state.ac_amount);
-    formData.append('processingfees', this.state.ac_processingfees);
-    formData.append('totalamount', this.state.ac_totalamount);
-    formData.append('deduct', this.state.ac_deduct);
-    formData.append('agree', this.state.ac_agree);
-    formData.append('order_token', this.state.ac_order_token);
-    formData.append('tdsstatus', this.state.ac_tdsstatus);
-    formData.append('gst', this.state.ac_gst);
-    formData.append('legalfee', this.state.ac_legalfee);
-    formData.append('interested_id', this.state.ac_interested_id);
-    formData.append('walletDeductionMoney', this.state.ac_walletDeductionMoney);
-    axios.post(`${process.env.REACT_APP_BASE_URL}api/admin/Deal/save_investor_commitment`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
+    formData.append("deal_id", this.state.ac_deal_id);
+    formData.append("investor_id", this.state.ac_investor.investor_id);
+    formData.append("amount", this.state.ac_amount);
+    formData.append("processingfees", this.state.ac_processingfees);
+    formData.append("totalamount", this.state.ac_totalamount);
+    formData.append("deduct", this.state.ac_deduct);
+    formData.append("agree", this.state.ac_agree);
+    formData.append("order_token", this.state.ac_order_token);
+    formData.append("tdsstatus", this.state.ac_tdsstatus);
+    formData.append("gst", this.state.ac_gst);
+    formData.append("legalfee", this.state.ac_legalfee);
+    formData.append("interested_id", this.state.ac_interested_id);
+    formData.append("walletDeductionMoney", this.state.ac_walletDeductionMoney);
+    axios
+      .post(
+        `${process.env.REACT_APP_BASE_URL}api/admin/Deal/save_investor_commitment`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
       .then((response) => {
-        this.setState({
-          show_add_commitment_modal: false,
-        }, () => {
-          axios.get(`${process.env.REACT_APP_BASE_URL}api/admin/Deal/display_investor_commitment_list`, {
-            params: {
-              deal_id: this.state.ac_deal_id,
-            }
-          })
-            .then(response => {
-              this.setState({
-                commitment_investor_list: response.data.data,
-                commitment_investor_listc: response.data.data,
-                loading: false,
+        this.setState(
+          {
+            show_add_commitment_modal: false,
+          },
+          () => {
+            axios
+              .get(
+                `${process.env.REACT_APP_BASE_URL}api/admin/Deal/display_investor_commitment_list`,
+                {
+                  params: {
+                    deal_id: this.state.ac_deal_id,
+                  },
+                }
+              )
+              .then((response) => {
+                this.setState({
+                  commitment_investor_list: response.data.data,
+                  commitment_investor_listc: response.data.data,
+                  loading: false,
+                });
+              })
+              .catch((error) => {
+                console.error(error);
               });
-            })
-            .catch(error => {
-              console.error(error);
-            });
-        });
-        message.success("Investor commitment saved successfully")
+          }
+        );
+        message.success("Investor commitment saved successfully");
       })
       .catch((error) => {
         console.log(error);
@@ -2317,47 +2426,65 @@ class Deals extends Component {
     }
 
     const formData = new FormData();
-    formData.append('deal_id', this.state.ac_edit_deal_id);
-    formData.append('investor_id', this.state.ac_edit_investor_id);
-    formData.append('amount', this.state.ac_edit_amount);
-    formData.append('processingfees', this.state.ac_edit_processingfees);
-    formData.append('totalamount', +this.state.ac_edit_amount + +this.state.ac_edit_processingfees);
-    formData.append('deduct', this.state.ac_edit_deduct);
-    formData.append('agree', this.state.ac_edit_agree);
-    formData.append('order_token', this.state.ac_edit_order_token);
-    formData.append('tdsstatus', this.state.ac_edit_tdsstatus);
-    formData.append('gst', this.state.ac_edit_gst);
-    formData.append('legalfee', this.state.ac_edit_processingfees);
-    formData.append('walletDeductionMoney', this.state.ac_edit_walletDeductionMoney);
-    formData.append('interested_id', this.state.ac_edit_interested_id);
-    formData.append('commitment_id', this.state.ac_edit_commitment_id);
-    axios.post(`${process.env.REACT_APP_BASE_URL}api/admin/Deal/edit_investor_commitment`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
+    formData.append("deal_id", this.state.ac_edit_deal_id);
+    formData.append("investor_id", this.state.ac_edit_investor_id);
+    formData.append("amount", this.state.ac_edit_amount);
+    formData.append("processingfees", this.state.ac_edit_processingfees);
+    formData.append(
+      "totalamount",
+      +this.state.ac_edit_amount + +this.state.ac_edit_processingfees
+    );
+    formData.append("deduct", this.state.ac_edit_deduct);
+    formData.append("agree", this.state.ac_edit_agree);
+    formData.append("order_token", this.state.ac_edit_order_token);
+    formData.append("tdsstatus", this.state.ac_edit_tdsstatus);
+    formData.append("gst", this.state.ac_edit_gst);
+    formData.append("legalfee", this.state.ac_edit_processingfees);
+    formData.append(
+      "walletDeductionMoney",
+      this.state.ac_edit_walletDeductionMoney
+    );
+    formData.append("interested_id", this.state.ac_edit_interested_id);
+    formData.append("commitment_id", this.state.ac_edit_commitment_id);
+    axios
+      .post(
+        `${process.env.REACT_APP_BASE_URL}api/admin/Deal/edit_investor_commitment`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
       .then((response) => {
         console.log(response);
-        this.setState({
-          show_edit_commitment_modal: false,
-        }, () => {
-          axios.get(`${process.env.REACT_APP_BASE_URL}api/admin/Deal/display_investor_commitment_list`, {
-            params: {
-              deal_id: this.state.ac_deal_id,
-            }
-          })
-            .then(response => {
-              this.setState({
-                commitment_investor_list: response.data.data,
-                commitment_investor_listc: response.data.data,
-                loading: false,
+        this.setState(
+          {
+            show_edit_commitment_modal: false,
+          },
+          () => {
+            axios
+              .get(
+                `${process.env.REACT_APP_BASE_URL}api/admin/Deal/display_investor_commitment_list`,
+                {
+                  params: {
+                    deal_id: this.state.ac_deal_id,
+                  },
+                }
+              )
+              .then((response) => {
+                this.setState({
+                  commitment_investor_list: response.data.data,
+                  commitment_investor_listc: response.data.data,
+                  loading: false,
+                });
+              })
+              .catch((error) => {
+                console.error(error);
               });
-            })
-            .catch(error => {
-              console.error(error);
-            });
-        });
-        message.success("Investor commitment Updated successfully")
+          }
+        );
+        message.success("Investor commitment Updated successfully");
       })
       .catch((error) => {
         console.log(error);
@@ -2365,12 +2492,12 @@ class Deals extends Component {
   };
 
   render() {
-    const filterDealList = this.state.deallist &&
+    const filterDealList =
+      this.state.deallist &&
       this.state.deallist.filter((item, index) => {
         // console.log(item)
-        return item.deal_status == "Open"
-
-      })
+        return item.deal_status == "Open";
+      });
     const dataSource = filterDealList.map((item, index) => {
       return {
         key: index,
@@ -2424,16 +2551,21 @@ class Deals extends Component {
     const CommitmentdataSource =
       this.state.commitment_investor_list &&
       this.state.commitment_investor_list.map((item, index) => {
-
-
         return {
           key: index,
           child: item["0"],
           investor_id: item.investor_id,
-          amount: '₹' + item.amount,
-          fee: item.processingfees ? '₹' + item.processingfees : '₹0',
-          commitment_satus: item.commitment_satus === "committed" ? <Tag color="green">Invested</Tag> : <Tag color="red">Pending</Tag>,
-          created_at: item.created_at ? moment(item.created_at).format('D-MMM-YYYY h:mm A') : '',
+          amount: "₹" + item.amount,
+          fee: item.processingfees ? "₹" + item.processingfees : "₹0",
+          commitment_satus:
+            item.commitment_satus === "committed" ? (
+              <Tag color="green">Invested</Tag>
+            ) : (
+              <Tag color="red">Pending</Tag>
+            ),
+          created_at: item.created_at
+            ? moment(item.created_at).format("D-MMM-YYYY h:mm A")
+            : "",
           name: item.first_name + " " + item.last_name,
           legalname: item.pan_registered_name,
           deal_name: item.deal_name,
@@ -2464,14 +2596,14 @@ class Deals extends Component {
           dataIndex: "nestamount",
           key: "nestamount",
           width: 100,
-          align: 'right',
+          align: "right",
         },
         {
           title: "Fee",
           dataIndex: "nestfee",
           key: "nestfee",
           width: 100,
-          align: 'right',
+          align: "right",
         },
         // {
         //   dataIndex: "nestcommitment_satus",
@@ -2527,28 +2659,35 @@ class Deals extends Component {
         return {
           key: index,
           nestinvestor_id: item.investor_id,
-          nestamount: '₹' + item.amount,
-          nestfee: item.processingfees ? '₹' + item.processingfees : '₹0',
-          nestcommitment_satus: item.commitment_satus === "committed" ? <Tag color="green">Invested</Tag> : <Tag color="red">Pending</Tag>,
-          nestcreated_at: item.created_at ? moment(item.created_at).format('D-MMM-YYYY h:mm A') : '',
+          nestamount: "₹" + item.amount,
+          nestfee: item.processingfees ? "₹" + item.processingfees : "₹0",
+          nestcommitment_satus:
+            item.commitment_satus === "committed" ? (
+              <Tag color="green">Invested</Tag>
+            ) : (
+              <Tag color="red">Pending</Tag>
+            ),
+          nestcreated_at: item.created_at
+            ? moment(item.created_at).format("D-MMM-YYYY h:mm A")
+            : "",
           nestname: item.first_name + " " + item.last_name,
           nestdeal_name: item.deal_name,
           data: item,
-        }
+        };
       });
 
       return (
-        <Table className='table-2'
+        <Table
+          className="table-2"
           dataSource={nestDataSource}
           columns={nestColumns}
           loading={this.state.loading}
           bordered
           pagination={false}
-          scroll={{ x: 'max-content' }}
-        >
-        </Table>
-      )
-    }
+          scroll={{ x: "max-content" }}
+        ></Table>
+      );
+    };
 
     const invite_users_columns = [
       {
@@ -2785,7 +2924,10 @@ class Deals extends Component {
                   &nbsp;&nbsp;Edit
                 </a>
               </Menu.Item>
-              <Menu.Item key={`ViewCommitment${record.key}`} icon={<EyeOutlined />}>
+              <Menu.Item
+                key={`ViewCommitment${record.key}`}
+                icon={<EyeOutlined />}
+              >
                 <a
                   href="#"
                   onClick={() => this.showCommitmentModal(text)}
@@ -2885,14 +3027,14 @@ class Deals extends Component {
         dataIndex: "amount",
         key: "amount",
         width: 100,
-        align: 'right',
+        align: "right",
       },
       {
         title: "Total Fees",
         dataIndex: "fee",
         key: "fee",
         width: 100,
-        align: 'right',
+        align: "right",
       },
       // {
       //   title: "Deal Name",
@@ -3171,7 +3313,7 @@ class Deals extends Component {
             </div>
             <div className="form-group-mt-3">
               <label className="mb-2">
-              Instrument type<span className="text-danger">*</span>
+                Instrument type<span className="text-danger">*</span>
               </label>
               <Select
                 value={this.state.deal_service}
@@ -3293,7 +3435,8 @@ class Deals extends Component {
             </div>
             <div className="mt-4">
               <label className="mb-2">
-              Minimum Investment Amount Per CCD <span className="text-danger">*</span>
+                Minimum Investment Amount Per CCD{" "}
+                <span className="text-danger">*</span>
               </label>
               <Input
                 type="number"
@@ -3306,7 +3449,7 @@ class Deals extends Component {
             </div>
             <div className="mt-4">
               <label className="mb-2">
-              Minimum Amount Per CCPS <span className="text-danger">*</span>
+                Minimum Amount Per CCPS <span className="text-danger">*</span>
               </label>
               <Input
                 type="number"
@@ -3319,7 +3462,8 @@ class Deals extends Component {
             </div>
             <div className="mt-4">
               <label className="mb-2">
-              Max Investment by Single Investor <span className="text-danger">*</span>
+                Max Investment by Single Investor{" "}
+                <span className="text-danger">*</span>
               </label>
               <Input
                 type="number"
@@ -3332,7 +3476,7 @@ class Deals extends Component {
             </div>
             <div className="mt-4">
               <label className="mb-2">
-              Share Price Per CCPS<span className="text-danger">*</span>
+                Share Price Per CCPS<span className="text-danger">*</span>
               </label>
               <Input
                 type="number"
@@ -3345,7 +3489,7 @@ class Deals extends Component {
             </div>
             <div className="mt-4">
               <label className="mb-2">
-              Share Price Per CCD <span className="text-danger">*</span>
+                Share Price Per CCD <span className="text-danger">*</span>
               </label>
               <Input
                 type="number"
@@ -3367,8 +3511,84 @@ class Deals extends Component {
                 onChange={(e) => this.setState({ raiseGap: e.target.value })}
               />
             </div>
+            <>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank account Name <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.bank_acc_name}
+                onChange={(e) =>
+                  this.setState({ bank_acc_name: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank Account NUmber <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="number"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.bank_acc_num}
+                onChange={(e) =>
+                  this.setState({ bank_acc_num: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank Name<span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.bank_name}
+                onChange={(e) => this.setState({ bank_name: e.target.value })}
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank account Type <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.bank_acc_type}
+                onChange={(e) =>
+                  this.setState({ bank_acc_type: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank IFSC <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.bank_acc_ifsc}
+                onChange={(e) =>
+                  this.setState({ bank_acc_ifsc: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank Branch <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.bank_branch}
+                onChange={(e) => this.setState({ bank_branch: e.target.value })}
+              />
+            </div>
+            </>
             <div className="mt-4 d-flex flex-row-reverse justify-content-end">
-              <label className="mx-2" for="SpecialOffer" >
+              <label className="mx-2" for="SpecialOffer">
                 Enable Special Offer
               </label>
               <input
@@ -3381,9 +3601,7 @@ class Deals extends Component {
               />
             </div>
             <div className="mt-4">
-              <label className="mb-2">
-                Special Offer Text
-              </label>
+              <label className="mb-2">Special Offer Text</label>
               <Input
                 type="text"
                 name="special_offer_text"
@@ -3394,9 +3612,7 @@ class Deals extends Component {
               />
             </div>
             <div className="mt-4">
-              <label className="mb-2">
-                Input Default Text
-              </label>
+              <label className="mb-2">Input Default Text</label>
               <Input
                 type="text"
                 name="default_special_offer_text"
@@ -3412,7 +3628,9 @@ class Deals extends Component {
                 type="number"
                 value={this.state.offer_discount}
                 onWheel={() => document.activeElement.blur()}
-                onChange={(e) => this.setState({ offer_discount: e.target.value })}
+                onChange={(e) =>
+                  this.setState({ offer_discount: e.target.value })
+                }
               />
             </div>
             <div className="mt-4">
@@ -3601,10 +3819,17 @@ class Deals extends Component {
                 <Option value="D2C">D2C</Option>
                 <Option value="Finance">Finance</Option>
                 <Option value="MediaTech">MediaTech</Option>
-                <Option value="News and Publication">News and Publication</Option>
+                <Option value="News and Publication">
+                  News and Publication
+                </Option>
                 <Option value="AYUSH">AYUSH</Option>
                 <Option value="Cyber Security">Cyber Security</Option>
-                <Option value="Industry Procurement">Industry Procurement</Option>
+                <Option value="Industry Procurement">
+                  Industry Procurement
+                </Option>
+                <Option value="Wearable technology and wireless network sector">
+                  Wearable technology and wireless network sector
+                </Option>
               </Select>
             </div>
             <div className="mt-4">
@@ -3660,7 +3885,6 @@ class Deals extends Component {
           width={550}
         >
           <Spin spinning={this.state.formloader}>
-          
             <div className="form-group">
               <label className="mb-2">
                 Startup Name <span className="text-danger">*</span>
@@ -3689,7 +3913,7 @@ class Deals extends Component {
                   })}
               </Select>
             </div>
-            
+
             <div className="form-group mt-3">
               <label className="mb-2">
                 Deal Name <span className="text-danger">*</span>
@@ -3705,7 +3929,7 @@ class Deals extends Component {
             </div>
             <div className="form-group-mt-3">
               <label className="mb-2">
-              Instrument type<span className="text-danger">*</span>
+                Instrument type<span className="text-danger">*</span>
               </label>
               <Select
                 value={this.state.edit_deal_service}
@@ -3840,7 +4064,8 @@ class Deals extends Component {
             </div>
             <div className="mt-4">
               <label className="mb-2">
-                Minimum Investment Amount Per CCD<span className="text-danger">*</span>
+                Minimum Investment Amount Per CCD
+                <span className="text-danger">*</span>
               </label>
               <Input
                 type="number"
@@ -3853,20 +4078,23 @@ class Deals extends Component {
             </div>
             <div className="mt-4">
               <label className="mb-2">
-              Minimum Amount Per CCPS <span className="text-danger">*</span>
+                Minimum Amount Per CCPS <span className="text-danger">*</span>
               </label>
               <Input
                 type="number"
                 onWheel={() => document.activeElement.blur()}
                 value={this.state.editcaptable_threshold_amount}
                 onChange={(e) =>
-                  this.setState({ editcaptable_threshold_amount: e.target.value })
+                  this.setState({
+                    editcaptable_threshold_amount: e.target.value,
+                  })
                 }
               />
             </div>
             <div className="mt-4">
               <label className="mb-2">
-              Max Investment by Single Investor <span className="text-danger">*</span>
+                Max Investment by Single Investor{" "}
+                <span className="text-danger">*</span>
               </label>
               <Input
                 type="number"
@@ -3886,7 +4114,9 @@ class Deals extends Component {
                 onWheel={() => document.activeElement.blur()}
                 value={this.state.editcaptable_multiple_amount}
                 onChange={(e) =>
-                  this.setState({ editcaptable_multiple_amount: e.target.value })
+                  this.setState({
+                    editcaptable_multiple_amount: e.target.value,
+                  })
                 }
               />
             </div>
@@ -3912,8 +4142,88 @@ class Deals extends Component {
                 }
               />
             </div>
+            <>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank account Name <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.editbank_acc_name}
+                onChange={(e) =>
+                  this.setState({ editbank_acc_name: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank Account NUmber <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="number"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.editbank_acc_num}
+                onChange={(e) =>  
+                  this.setState({ editbank_acc_num: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank Name<span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.editbank_name}
+                onChange={(e) =>
+                  this.setState({ editbank_name: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank account Type <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.editbank_acc_type}
+                onChange={(e) =>
+                  this.setState({ editbank_acc_type: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank IFSC <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.editbank_acc_ifsc}
+                onChange={(e) =>
+                  this.setState({ editbank_acc_ifsc: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank Branch <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.editbank_branch}
+                onChange={(e) =>
+                  this.setState({ editbank_branch: e.target.value })
+                }
+              />
+            </div>
+            </>
             <div className="mt-4 d-flex flex-row-reverse justify-content-end">
-              <label className="mx-2" for="SpecialOffer" >
+              <label className="mx-2" for="SpecialOffer">
                 Enable Special Offer
               </label>
               <input
@@ -3926,9 +4236,7 @@ class Deals extends Component {
               />
             </div>
             <div className="mt-4">
-              <label className="mb-2">
-                Special Offer Text
-              </label>
+              <label className="mb-2">Special Offer Text</label>
               <Input
                 type="text"
                 name="special_offer_text"
@@ -3939,15 +4247,15 @@ class Deals extends Component {
               />
             </div>
             <div className="mt-4">
-              <label className="mb-2">
-                Input Default Text
-              </label>
+              <label className="mb-2">Input Default Text</label>
               <Input
                 type="text"
                 name="default_special_offer_text"
                 value={this.state.editdefault_special_offer_text}
                 onChange={(e) =>
-                  this.setState({ editdefault_special_offer_text: e.target.value })
+                  this.setState({
+                    editdefault_special_offer_text: e.target.value,
+                  })
                 }
               />
             </div>
@@ -3957,7 +4265,9 @@ class Deals extends Component {
                 type="number"
                 value={this.state.editoffer_discount}
                 onWheel={() => document.activeElement.blur()}
-                onChange={(e) => this.setState({ editoffer_discount: e.target.value })}
+                onChange={(e) =>
+                  this.setState({ editoffer_discount: e.target.value })
+                }
               />
             </div>
             <div className="mt-4">
@@ -4150,10 +4460,17 @@ class Deals extends Component {
                 <Option value="D2C">D2C</Option>
                 <Option value="Finance">Finance</Option>
                 <Option value="MediaTech">MediaTech</Option>
-                <Option value="News and Publication">News and Publication</Option>
+                <Option value="News and Publication">
+                  News and Publication
+                </Option>
                 <Option value="AYUSH">AYUSH</Option>
                 <Option value="Cyber Security">Cyber Security</Option>
-                <Option value="Industry Procurement">Industry Procurement</Option>
+                <Option value="Industry Procurement">
+                  Industry Procurement
+                </Option>
+                <Option value="Wearable technology and wireless network sector">
+                  Wearable technology and wireless network sector
+                </Option>
               </Select>
             </div>
             <div className="mt-4">
@@ -4337,7 +4654,6 @@ class Deals extends Component {
                   disabled={this.state.input_status == true ? true : false}
                 />
               </div>
-      
             </div>
             <div
               style={{
@@ -4421,7 +4737,7 @@ class Deals extends Component {
                   </div>
                 )}
               </Card>
-                  <div className="mt-4 editor-field d-flex align-items-center">
+              <div className="mt-4 editor-field d-flex align-items-center">
                 <label className="mb-2">CC to founder</label>
                 <input
                   type="checkbox"
@@ -4535,7 +4851,7 @@ class Deals extends Component {
                 onChange={(e) =>
                   this.setState({ processing_fees: e.target.value })
                 }
-              // readOnly
+                // readOnly
               />
             </div>
             <div className="mt-4">
@@ -4630,54 +4946,57 @@ class Deals extends Component {
                 Add New Commitment
               </Button>
               <Button
-              type="primary"
-              onClick={() => this.exportToCSV_CommitList("Commitment List")}
-            >
-              <i
-                className="bx bxs-cloud-download"
-                style={{
-                  color: "#fff",
-                  position: "relative",
-                  top: 3,
-                  left: -3,
-                }}
-              ></i>{" "}
-              Export For Startup Founder
-            </Button>
-          
-            <Button
-              type="primary"
-              onClick={() => this.exportToCSV_Reconcillation("ReconcillationList")}
-            >
-              <i
-                className="bx bxs-cloud-download"
-                style={{
-                  color: "#fff",
-                  position: "relative",
-                  top: 3,
-                  left: -3,
-                }}
-              ></i>{" "}
-              Export For Reconcillation
-            </Button>
+                type="primary"
+                onClick={() => this.exportToCSV_CommitList("Commitment List")}
+              >
+                <i
+                  className="bx bxs-cloud-download"
+                  style={{
+                    color: "#fff",
+                    position: "relative",
+                    top: 3,
+                    left: -3,
+                  }}
+                ></i>{" "}
+                Export For Startup Founder
+              </Button>
+
+              <Button
+                type="primary"
+                onClick={() =>
+                  this.exportToCSV_Reconcillation("ReconcillationList")
+                }
+              >
+                <i
+                  className="bx bxs-cloud-download"
+                  style={{
+                    color: "#fff",
+                    position: "relative",
+                    top: 3,
+                    left: -3,
+                  }}
+                ></i>{" "}
+                Export For Reconcillation
+              </Button>
             </div>
           }
           visible={this.state.Commitment_list_modal}
           onOk={() => this.setState({ Commitment_list_modal: false })}
           onCancel={() => this.setState({ Commitment_list_modal: false })}
-          okText='ok'
+          okText="ok"
           width={1000}
         >
-          <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-          }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
             <Input
               placeholder="Search"
               onChange={(e) => this.searchinputc(e)}
               style={{ maxWidth: 300, marginBottom: 20, height: 40 }}
             />
-           
           </div>
 
           <Table
@@ -4704,14 +5023,13 @@ class Deals extends Component {
         >
           <div className="form-group">
             <label className="mb-2">
-              Select Investor{" "}
-              <span className="text-danger">*</span>
+              Select Investor <span className="text-danger">*</span>
             </label>
             <Select
               name="ac_investor"
               className="form-input-field"
               value={this.state.ac_investor_name}
-              style={{ width: '100%' }}
+              style={{ width: "100%" }}
               showSearch
               placeholder="Select an Investor"
               optionFilterProp="children"
@@ -4730,8 +5048,12 @@ class Deals extends Component {
             <label>
               <b>
                 Amount: <br />
-                Minimum investment Rs. {this.formatNumberWithCommas(this.state.ac_minamount)} <br />
-                Cap Table entry is Rs. {this.formatNumberWithCommas(this.state.ac_captable_threshold_amount)}
+                Minimum investment Rs.{" "}
+                {this.formatNumberWithCommas(this.state.ac_minamount)} <br />
+                Cap Table entry is Rs.{" "}
+                {this.formatNumberWithCommas(
+                  this.state.ac_captable_threshold_amount
+                )}
               </b>
             </label>
             <input
@@ -4741,18 +5063,31 @@ class Deals extends Component {
               autoFocus={true}
               placeholder="amount"
               style={{
-                border: this.state.ac_amount_error_status == true && this.state.ac_amount ? "1px solid red" : "1px solid transparent",
+                border:
+                  this.state.ac_amount_error_status == true &&
+                  this.state.ac_amount
+                    ? "1px solid red"
+                    : "1px solid transparent",
               }}
               id="selected-field"
               value={this.state.ac_commaAmount}
-              onChange={(e) => { this.handleCommitAmount(e.target.value) }}
+              onChange={(e) => {
+                this.handleCommitAmount(e.target.value);
+              }}
             />
             <div className="d-flex justify-content-between mb-3">
-              <button className="commit-plus" onClick={this.decrease_commit}>-</button>
-              <button className="commit-minus" onClick={this.increase_commit}>+</button>
+              <button className="commit-plus" onClick={this.decrease_commit}>
+                -
+              </button>
+              <button className="commit-minus" onClick={this.increase_commit}>
+                +
+              </button>
             </div>
             {this.state.ac_amount_error_status == true && (
-              <p className="text-danger pb-0" style={{ position: "relative", top: -19 }}>
+              <p
+                className="text-danger pb-0"
+                style={{ position: "relative", top: -19 }}
+              >
                 {this.state.ac_amount_error}
               </p>
             )}
@@ -4761,51 +5096,53 @@ class Deals extends Component {
             <Checkbox
               checked={this.state.ac_checkWallet}
               onChange={(e) => {
-                this.setState({ ac_checkWallet: e.target.checked }, () => this.calculategst());
+                this.setState({ ac_checkWallet: e.target.checked }, () =>
+                  this.calculategst()
+                );
               }}
             >
               {" "}
             </Checkbox>
             <label className="form-check-label">
               Use Your ₹ {this.state.ac_walletMoney} Growth91
-              <sup style={{ fontSize: "0.6rem" }}>
-              ®
-              </sup> Money{" "}
+              <sup style={{ fontSize: "0.6rem" }}>®</sup> Money{" "}
             </label>
           </div>
-          {
-            this.state.ac_enable_special_offer && this.state.ac_special_offer_text != null ? (
-              <>
-                <div className="form-group form-check d-flex">
-                  <Checkbox
-                    checked={this.state.ac_checkDiscount}
-                    onChange={(e) => {
-                      this.setState({ ac_checkDiscount: e.target.checked }, () => this.calculategst());
-                    }}
-                  >
-                    {" "}
-                  </Checkbox>
-                  <label className="form-check-label">
-                    {this.state.ac_special_offer_text}
-                  </label>
-                </div>
-              </>
-            ) : null
-          }
-          {
-            this.state.ac_checkDiscount ? (
-              <div className="login mt-3">
-                <input
-                  type="text"
-                  className="form-input-field mb-0"
-                  autoFocus={true}
-                  placeholder={this.state.ac_default_special_offer_text}
-                />
+          {this.state.ac_enable_special_offer &&
+          this.state.ac_special_offer_text != null ? (
+            <>
+              <div className="form-group form-check d-flex">
+                <Checkbox
+                  checked={this.state.ac_checkDiscount}
+                  onChange={(e) => {
+                    this.setState({ ac_checkDiscount: e.target.checked }, () =>
+                      this.calculategst()
+                    );
+                  }}
+                >
+                  {" "}
+                </Checkbox>
+                <label className="form-check-label">
+                  {this.state.ac_special_offer_text}
+                </label>
               </div>
-            ) : null
-          }
+            </>
+          ) : null}
+          {this.state.ac_checkDiscount ? (
+            <div className="login mt-3">
+              <input
+                type="text"
+                className="form-input-field mb-0"
+                autoFocus={true}
+                placeholder={this.state.ac_default_special_offer_text}
+              />
+            </div>
+          ) : null}
           <div className="d-flex justify-content-center modal-table">
-            <table className="col-12 m-5 investment-charge-table" cellPadding={4}>
+            <table
+              className="col-12 m-5 investment-charge-table"
+              cellPadding={4}
+            >
               <tr>
                 <th>
                   <strong>Particulars</strong>
@@ -4817,7 +5154,10 @@ class Deals extends Component {
               <tr>
                 <td>Investment Amount</td>
                 <td className="text-center">
-                  ₹ {this.state.ac_amountplusgst ? this.state.ac_amountplusgst : "0"}
+                  ₹{" "}
+                  {this.state.ac_amountplusgst
+                    ? this.state.ac_amountplusgst
+                    : "0"}
                 </td>
               </tr>
               <tr>
@@ -4830,16 +5170,17 @@ class Deals extends Component {
                   ₹ {this.state.ac_processingfees}
                 </td>
               </tr>
-              {
-                this.state.ac_checkDiscount ? (
-                  <tr>
-                    <td>Special Discount</td>
-                    <td className="text-center">
-                      - ₹ {this.state.ac_DiscountedMoney ? this.state.ac_DiscountedMoney : "0"}
-                    </td>
-                  </tr>
-                ) : null
-              }
+              {this.state.ac_checkDiscount ? (
+                <tr>
+                  <td>Special Discount</td>
+                  <td className="text-center">
+                    - ₹{" "}
+                    {this.state.ac_DiscountedMoney
+                      ? this.state.ac_DiscountedMoney
+                      : "0"}
+                  </td>
+                </tr>
+              ) : null}
               <tr>
                 <td>Wallet Money</td>
                 <td className="text-center">
@@ -4854,19 +5195,19 @@ class Deals extends Component {
               </tr>
             </table>
           </div>
-          {
-            this.state.ac_invest_amt !== null ? (
-              <div className="">
-                <Alert
-                  message={`You have committed Rs. ${this.state.ac_invest_amt} to this deal so far. (Including platform fees)`}
-                  type="info"
-                />
-              </div>
-            ) : null
-          }
+          {this.state.ac_invest_amt !== null ? (
+            <div className="">
+              <Alert
+                message={`You have committed Rs. ${this.state.ac_invest_amt} to this deal so far. (Including platform fees)`}
+                type="info"
+              />
+            </div>
+          ) : null}
           <div className="m-3">
             <label className="container-check">
-              I Agree to Terms and Conditions and have read the Privacy Policy. And, I understand that I will be required to pay the full amount committed after the deal is closed.
+              I Agree to Terms and Conditions and have read the Privacy Policy.
+              And, I understand that I will be required to pay the full amount
+              committed after the deal is closed.
               <input
                 type="checkbox"
                 name="agree"
@@ -4893,36 +5234,38 @@ class Deals extends Component {
               <button
                 type="button"
                 className="login-button prime-bg d-md-block mx-auto w-100"
-                onClick={
-                  () => {
-                    if (this.state.ac_investor_name === "") {
-                      message.warning(
-                        "Please Select Investor"
-                      );
-                      return;
-                    }
-                    if (Number(this.state.ac_amount) < Number(this.state.ac_minamount)) {
-                      message.warning(
-                        "Minimum investment amount is " + this.state.ac_minamount
-                      );
-                      return;
-                    }
-                    if (Number(this.state.ac_amount) > Number(this.state.ac_maxamount)) {
-                      message.warning(
-                        "Maximum investment amount is " + this.state.ac_maxamount,
-                        5
-                      );
-                      return;
-                    }
-                    if (this.state.ac_agree != true) {
-                      message.warning("Please agree to terms and conditions");
-                      return;
-                    }
-                    if (this.state.ac_amount) {
-                      this.ac_commit_value();
-                    }
-
-                  }}
+                onClick={() => {
+                  if (this.state.ac_investor_name === "") {
+                    message.warning("Please Select Investor");
+                    return;
+                  }
+                  if (
+                    Number(this.state.ac_amount) <
+                    Number(this.state.ac_minamount)
+                  ) {
+                    message.warning(
+                      "Minimum investment amount is " + this.state.ac_minamount
+                    );
+                    return;
+                  }
+                  if (
+                    Number(this.state.ac_amount) >
+                    Number(this.state.ac_maxamount)
+                  ) {
+                    message.warning(
+                      "Maximum investment amount is " + this.state.ac_maxamount,
+                      5
+                    );
+                    return;
+                  }
+                  if (this.state.ac_agree != true) {
+                    message.warning("Please agree to terms and conditions");
+                    return;
+                  }
+                  if (this.state.ac_amount) {
+                    this.ac_commit_value();
+                  }
+                }}
               >
                 Commit My Interest
               </button>

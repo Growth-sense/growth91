@@ -732,18 +732,25 @@ class Edept extends Component {
         );
         let tdsamount = parseFloat(processingfees / 100) * 10;
         let minusamt = parseFloat(processingfees - tdsamount);
+        
 
         this.setState({
+          tdsstatus:true,
           processingfees: minusamt,
           tdsdeductedamount: tdsamount,
+          totalamount: Number(this.state.amountplusgst) +Number(this.state.gstValue)+Number(minusamt)
+          
         });
       } else {
         let processingfees = parseFloat(
           (this.state.amount / 100) * parseFloat(this.state.percentage)
         );
         this.setState({
+          tdsstatus:false,
           processingfees: processingfees,
           tdsdeductedamount: 0,
+          totalamount: Number(this.state.amountplusgst) +Number(this.state.gstValue)+Number(processingfees)
+
         });
       }
     }
@@ -792,6 +799,7 @@ class Edept extends Component {
     let legalfee = parseFloat(
       (this.state.amount / 100) * parseFloat(this.state.percentage)
     );
+    let minusamt=0
     let gst = this.state.gst;
     let amt = parseFloat(this.state.amount);
     let walletDeductionMoney;
@@ -804,13 +812,28 @@ class Edept extends Component {
           : this.state.walletMoney;
     }
     let gstValue = ((legalfee.toFixed(0) - walletDeductionMoney) * gst) / 100;
+    console.log(gst);
+    console.log(legalfee);
+    console.log(gstValue);
+    let tdsamount =0
+    if(this.state.tdsstatus=== true){
+       tdsamount = parseFloat(legalfee / 100) * 10;
+      minusamt = parseFloat(legalfee - tdsamount);
+
+    }
+
+    console.log(legalfee);
+    console.log(tdsamount);
+    console.log(minusamt);
+    
+
     this.setState({
       gst: gst,
       legalfee: this.state.amount ? legalfee.toFixed(0) : 0,
       amountplusgst: this.state.amount ? amt.toFixed(0) : 0,
-      processingfees: this.state.amount ? legalfee.toFixed(0) : 0,
+      processingfees: this.state.amount ? legalfee.toFixed(0)-Number(tdsamount) : 0,
       totalamount: this.state.amount
-        ? (amt + parseFloat(legalfee)).toFixed(0) -
+        ? (amt + parseFloat(legalfee.toFixed(0)-Number(tdsamount))).toFixed(0) -
           walletDeductionMoney +
           gstValue
         : 0,
@@ -998,6 +1021,8 @@ class Edept extends Component {
         this.check_for_error();
       }
     );
+    console.log(newAmount);
+    
   };
 
   decrease_commit = () => {
@@ -1271,7 +1296,7 @@ class Edept extends Component {
                                     }}
                                     className="black-button prime-bg text-center"
                                   >
-                                    Express Your Interest
+                                    I Agree to Terms and ss Your Interest
                                   </a>
                                 ) : this.state.user_type == "founder" ? (
                                   <div>
@@ -1461,6 +1486,12 @@ class Edept extends Component {
                             </td>
                           </tr>
                           <tr>
+                            <td>GST {this.state.gst} %</td>
+                            <td lassName="text-center">
+                              ₹ {this.state.gstValue}
+                            </td>
+                          </tr>
+                          <tr>
                             <td>
                               Convenience Fees
                               <br />
@@ -1501,6 +1532,17 @@ class Edept extends Component {
                           <input
                             type="checkbox"
                             name="agree"
+                            onChange={this.onChangeCheckbox}
+                          />
+                          <span className="checkmark"></span>
+                        </label>
+
+                        <label className="container-check">
+                          I will deduct TDS on service charges and deposit to
+                          Income tax on time
+                          <input
+                            type="checkbox"
+                            name="deduct"
                             onChange={this.onChangeCheckbox}
                           />
                           <span className="checkmark"></span>
@@ -2924,7 +2966,6 @@ class Edept extends Component {
                                 </div>
                               </div>
 
-                          
                               <div className="col-lg-6">
                                 <div
                                   className="single"

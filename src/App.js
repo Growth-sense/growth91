@@ -155,7 +155,7 @@ import AdminBlogCategory from "./app/admin/AdminBlogCategory";
 import TemplatePublic from "./app/deal-pages/Template";
 import ISkillBoxPublic2 from "./app/deal-pages/ISkillboxPublic2";
 
-// import Petmojo from "./app/deal-pages/Petmojo";
+import Petmojoold from "./app/deal-pages/Petmojo";
 import Targetpeak from "./app/deal-pages/Targetpeak";
 import TransBnkCCPS from "./app/deal-pages/TransBnkCCPS";
 import TransBnkCCD from "./app/deal-pages/TransBnkCCD";
@@ -217,6 +217,7 @@ import Mindler from "./app/deal-pages/Mindler.jsx";
 import CUR8 from "./app/deal-pages/CUR8.jsx";
 import Edept from "./app/deal-pages/Edept.jsx";
 import Innoserv from "./app/deal-pages/Innoserv.jsx";
+import LVLAlpha from "./app/deal-pages/LVLAlpha.jsx";
 import Petmojo from "./app/deal-pages/Petmojo(Pre Series A).jsx";
 
 ReactGA.initialize(TRACKING_ID);
@@ -560,9 +561,9 @@ function App() {
           <Route path="/iSkillBox" exact>
             <ProtectDeals Component={ISkillBoxPublic2} />
           </Route>
-          {/* <Route path="/petmojo" exact>
-            <ProtectDeals Component={Petmojo} />
-          </Route> */}
+          <Route path="/Petmojoold" exact>
+            <ProtectDeals Component={Petmojoold} />
+          </Route>
           <Route path="/Targetpeak" exact>
             <ProtectDeals Component={Targetpeak} />
           </Route>
@@ -658,6 +659,9 @@ function App() {
           </Route>
           <Route path="/Innoserv" >
             <ProtectDeals Component={Innoserv} />
+          </Route>
+          <Route path="/LVLAlpha" >
+            <ProtectDeals Component={LVLAlpha} />
           </Route>
           <Route path="/TestDeal2" exact>
             <ProtectDeals Component={TestDeal2} />
