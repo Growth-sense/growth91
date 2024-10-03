@@ -470,25 +470,16 @@ export const FutureUnicornDescription = () => {
                                 </div>
                                 <div class="accordion-item">
                                     <h3 class="accordion-header" id="flush-headingThree">
-                                        <button
-                                            class="accordion-button collapsed"
-                                            type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#flush-collapseThree"
-                                            aria-expanded="false"
-                                            aria-controls="flush-collapseThree"
+                                        <div
+                                            class="default-Show"
+                                           
                                         >
                                             <span><img src="./assets/images/market-research.png" alt="" /></span>
 
                                             Market Overview
-                                        </button>
+                                        </div>
                                     </h3>
-                                    <div
-                                        id="flush-collapseThree"
-                                        class="accordion-collapse collapse"
-                                        aria-labelledby="flush-headingThree"
-                                        data-bs-parent="#accordionFlushExample"
-                                    >
+                                    
                                         <div class="accordion-body">
                                             <div className="row market-overreview-row">
                                                 <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
@@ -534,7 +525,7 @@ export const FutureUnicornDescription = () => {
 
                                             </div>
                                         </div>
-                                    </div>
+                                  
                                 </div>
                              
                                 <div class="accordion-item">
@@ -857,27 +848,62 @@ export const FutureUnicornDescription = () => {
                                         </div>
                                     </div>
                                 </div>
+                               
                                 <div class="accordion-item">
-                                    <h3 class="accordion-header" id="flush-headingfive">
+                                    <h3 class="accordion-header" id="flush-headingWait">
                                         <button
                                             class="accordion-button collapsed"
                                             type="button"
                                             data-bs-toggle="collapse"
-                                            data-bs-target="#flush-headingfivenew"
+                                            data-bs-target="#flush-headingWaitnew"
                                             aria-expanded="false"
-                                            aria-controls="flush-headingfive"
+                                            aria-controls="flush-headingWait"
+                                        >
+                                            <span><img src="./assets/images/mobile.png" alt="" /></span>
+
+                                            Videos
+                                        </button>
+                                    </h3>
+                                    <div
+                                        id="flush-headingWaitnew"
+                                        class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingWait"
+                                        data-bs-parent="#accordionFlushExample"
+                                    >
+                                        <div class="accordion-body connect-acc-us">
+                                            <div className="row justify-content-center">
+                                                <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
+                                                    <div className="img-future-gallery">
+                                                        <video controls>
+                                                            <source src="/media/cc0-videos/flower.webm" type="video/webm" />
+
+                                                            <source src="/media/cc0-videos/flower.mp4" type="video/mp4" />
+
+                                                            Download the
+                                                            <a href="/media/cc0-videos/flower.webm">WEBM</a>
+                                                            or
+                                                            <a href="/media/cc0-videos/flower.mp4">MP4</a>
+                                                            video.
+                                                        </video>
+                                                    </div>
+                                                </div>
+                                       
+                                             
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h3 class="accordion-header" id="flush-headingfive">
+                                        <div class="default-Show"
+                                           
                                         >
                                             <span><img src="./assets/images/mobile.png" alt="" /></span>
 
                                             Contact Us
-                                        </button>
+                                        </div>
                                     </h3>
-                                    <div
-                                        id="flush-headingfivenew"
-                                        class="accordion-collapse collapse"
-                                        aria-labelledby="flush-headingfive"
-                                        data-bs-parent="#accordionFlushExample"
-                                    >
+                                 
                                         <div class="accordion-body connect-acc-us">
                                             <div className="row row-box-line">
                                                 <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
@@ -993,51 +1019,7 @@ export const FutureUnicornDescription = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h3 class="accordion-header" id="flush-headingWait">
-                                        <button
-                                            class="accordion-button collapsed"
-                                            type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#flush-headingWaitnew"
-                                            aria-expanded="false"
-                                            aria-controls="flush-headingWait"
-                                        >
-                                            <span><img src="./assets/images/mobile.png" alt="" /></span>
-
-                                            Videos
-                                        </button>
-                                    </h3>
-                                    <div
-                                        id="flush-headingWaitnew"
-                                        class="accordion-collapse collapse"
-                                        aria-labelledby="flush-headingWait"
-                                        data-bs-parent="#accordionFlushExample"
-                                    >
-                                        <div class="accordion-body connect-acc-us">
-                                            <div className="row justify-content-center">
-                                                <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
-                                                    <div className="img-future-gallery">
-                                                        <video controls>
-                                                            <source src="/media/cc0-videos/flower.webm" type="video/webm" />
-
-                                                            <source src="/media/cc0-videos/flower.mp4" type="video/mp4" />
-
-                                                            Download the
-                                                            <a href="/media/cc0-videos/flower.webm">WEBM</a>
-                                                            or
-                                                            <a href="/media/cc0-videos/flower.mp4">MP4</a>
-                                                            video.
-                                                        </video>
-                                                    </div>
-                                                </div>
-                                       
-                                             
-                                            </div>
-                                        </div>
-                                    </div>
+                                   
                                 </div>
 
 {/* 

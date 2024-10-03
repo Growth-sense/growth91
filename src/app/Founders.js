@@ -92,7 +92,8 @@ class Founders extends Component {
                   <div className="col-lg-7">
                     <div className="left-content">
                       <h1 className="wow fadeInUp founders-heads " data-wow-delay="0.3s">
-                      Access Opportunities with Premier Startup Funding Platforms in India
+                      Unleash Your Startup’s Potential with Growth91
+
 
                       </h1>
                       <p
@@ -100,8 +101,10 @@ class Founders extends Component {
                         className="wow fadeInUp"
                         data-wow-delay="0.5s"
                       >
-                     You’ve already revolutionized your team’s contribution to your mission with ESOPs. Now, take it a step further by leveraging your community and well-wishers to fuel your growth. With Growth91, you can raise capital efficiently and effectively, transforming your supporters into investors.
-
+At Growth91, we empower founders to unlock top-Ɵer startup investment opportunities in
+India. Our plaƞorm is designed to connect innovative startups with investors who are eager
+to fuel the next wave of entrepreneurial success. We don’t just provide capital; we offer a
+comprehensive support system to help you scale efficiently and sustainably. 
                         <span className="">
                           <br />
                           {/* Are you a founder?{" "} */}
@@ -164,7 +167,8 @@ class Founders extends Component {
     <div className="container">
       <div className="heading-title">
       <p><span></span> </p>
-        <h2>How Our Startup Funding Platform Works</h2>
+        <h2>Why raise capital through Growth91
+        </h2>
       </div>
       <div className="row">
         <div className="col-md-4">
@@ -173,9 +177,10 @@ class Founders extends Component {
               <img src="./web/images/icon3.svg" alt="img" />
               <span>1</span>
             </div>
-            <h3>Raise Growth Capital</h3>
+            <h3>Connect with Leading Investors</h3>
             <p style={{ textAlign: "justify" }}>
-              Raise founder-friendly growth capital to scale your business
+            Our network includes top investors who are acƟvely
+            seeking startup investments in India. We facilitate connections that matter
             </p>
             <div className="arrow-img">
               <img src="./web/images/arrow1.svg" alt="img" />
@@ -188,9 +193,11 @@ class Founders extends Component {
               <img src="./web/images/icon4.svg" alt="img" />
               <span>2</span>
             </div>
-            <h3>Seamless and Smooth</h3>
+            <h3>Expert Guidance 
+</h3>
             <p style={{ textAlign: "justify" }}>
-              Raise capital with ease and confidence
+            We provide end-to-end support, from refining your pitch to ensuring
+            you're fully prepared for investment opportunities.
             </p>
             <div className="arrow-img" style={{ top: 60 }}>
               <img src="./web/images/arrow2.svg" alt="img" />
@@ -203,10 +210,10 @@ class Founders extends Component {
               <img src="./web/images/icon5.svg" alt="img" />
               <span>3</span>
             </div>
-            <h3>Leverage established Network</h3>
+            <h3>Efficient Fundraising</h3>
             <p style={{ textAlign: "justify" }}>
-              Tap the expertise of SME network for long term growth
-              proposition
+            Streamline your fundraising process with Growth91, allowing
+            you to secure the capital you need to drive growth and innovation
             </p>
           </div>
         </div>
@@ -226,11 +233,15 @@ class Founders extends Component {
               </h6>
               <h2 className="text-white">
                 {" "}
-                Maximize Your Capital Raise with Our Startup Funding Platform
+                Elevate Your Capital Raising with Our Funding Plaƞorm
 
               </h2>
               <p style={{ textAlign: "justify" }}>
-              Growth91's powerful private deal management option enables Founders, Angel Networks, Syndicates, and VCs to carry out their fundraising process online, accessible only to their audience. As one of the top fundraising websites in India, Growth91 offers a secure and efficient platform tailored to your specific needs.
+              Growth91's advanced private deal management soluƟon empowers Founders, Angel
+Networks, Syndicates, and Venture Capitalists to conduct their fundraising processes
+online, ensuring exclusivity for their designated audience. Recognized as a leading
+fundraising and startup investment plaƞorm in India, Growth91 provides a secure and
+efficient environment meƟculously designed to meet your unique requirements. 
 
               </p>
             </div>
