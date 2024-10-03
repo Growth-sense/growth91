@@ -983,7 +983,7 @@ class Investments extends Component {
                       &nbsp;&nbsp;Approve Status
                     </a>
                   </Menu.Item>
-                  <Menu.Item
+                  {localStorage.getItem("super_admin") === "1" && <Menu.Item
                     key={`Edits${record.key}`}
                     icon={<WindowsOutlined />}
                   >
@@ -994,7 +994,7 @@ class Investments extends Component {
                     >
                       &nbsp;&nbsp;Edit
                     </a>
-                  </Menu.Item>
+                  </Menu.Item>}
                     </>
                 )}
               {text.founder_document_sign_status == "fndr_sign_success" &&

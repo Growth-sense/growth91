@@ -4,6 +4,7 @@ import Bridge from "../../constants/Bridge";
 
 import $ from "jquery";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 class Mediacoverager extends Component {
   constructor(props) {
     super(props);
@@ -21,7 +22,7 @@ class Mediacoverager extends Component {
       ],
       teammem: [
         // Array to handle multiple sets of input fields
-        { name: "", img: "", detail: "", imgname: "",Role:"" },
+        {  name: "", img: "", description1: "", description2: "",imgname: "" ,Role:"" },
     ],
 };
 }
@@ -69,7 +70,7 @@ addcoverger = () => {
     this.setState((prevState) => ({
         teammem: [
             ...prevState.teammem,
-            { name: "", img: "", description: "", imgname: "" ,Role:""},
+            { name: "", img: "", description1: "", description2: "",imgname: "" ,Role:""},
       ],
     }));
   };
@@ -373,7 +374,7 @@ addcoverger = () => {
                               <div className="form-group ">
                                 <div className="mt-4">
                                   <label className="mb-2">
-                                    Name {index + 1}
+                                    Name 
                                     <span className="text-danger">*</span>
                                   </label>
 
@@ -394,7 +395,7 @@ addcoverger = () => {
                               <div className="form-group ">
                                 <div className="mt-4">
                                   <label className="mb-2">
-                                    Role {index + 1}
+                                    Role
                                     <span className="text-danger">*</span>
                                   </label>
 
@@ -415,7 +416,7 @@ addcoverger = () => {
                               <div className="form-group ">
                                 <div className="mt-4">
                                   <label className="mb-2">
-                                    Description {index + 1}
+                                    Description 1
                                     <span className="text-danger">*</span>
                                   </label>
                                   <input
@@ -424,10 +425,15 @@ addcoverger = () => {
                                     onWheel={() =>
                                       document.activeElement.blur()
                                     }
-                                    name="description"
-                                    value={item.description}
+                                    maxlength="100"
+                                    name="description1"
+                                    value={item.description1}
                                     onChange={(e) =>
-                                      this.handleteamChange(index, e)
+                                      {this.handleteamChange(index, e);
+                                        if (e.target.value.length == 100) {
+                                          toast.error("only 100 chart");
+                                        }
+                                      }
                                     }
                                   />
                                 </div>
@@ -435,7 +441,32 @@ addcoverger = () => {
                               <div className="form-group ">
                                 <div className="mt-4">
                                   <label className="mb-2">
-                                     img{index + 1}
+                                    Description 2
+                                    <span className="text-danger">*</span>
+                                  </label>
+                                  <input
+                                    key={index}
+                                    type="text"
+                                    onWheel={() =>
+                                      document.activeElement.blur()
+                                    }
+                                    name="description2"
+                                    value={item.description2}
+                                    maxlength="100"
+                                    onChange={(e) =>
+                                      {this.handleteamChange(index, e);
+                                        if (e.target.value.length == 100) {
+                                          toast.error("only 100 chart");
+                                        }
+                                      }
+                                    }
+                                  />
+                                </div>
+                              </div>
+                              <div className="form-group ">
+                                <div className="mt-4">
+                                  <label className="mb-2">
+                                     Img
                                     <span className="text-danger">*</span>
                                   </label>
                                   <input
@@ -457,9 +488,9 @@ addcoverger = () => {
                         })}
                         <button
                           className="btn btn-primary"
-                          onClick={this.addcoverger}
+                          onClick={this.addteam}
                         >
-                          Add media
+                          Add Team
                         </button>
                       </div>
                       <div
@@ -505,6 +536,7 @@ addcoverger = () => {
               </div>
             </div>
           </Spin>
+          <ToastContainer/>
         </section>
       </div>
     );

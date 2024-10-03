@@ -672,12 +672,12 @@ class Deals extends Component {
       escrow_account_bank: this.state.edit_escrow_account_bank,
       escrow_account_branch: this.state.edit_escrow_account_branch,
       raiseGap: this.state.editraiseGap,
-      bank_acc_name:this.state.editbank_acc_name,
-      bank_acc_num:this.state.editbank_acc_num,
-      bank_name:this.state.editbank_name,
-      bank_acc_type:this.state.editbank_acc_type,
-      bank_acc_ifsc:this.state.editbank_acc_ifsc,
-      bank_branch:this.state.editbank_branch,
+      bank_acc_name: this.state.editbank_acc_name,
+      bank_acc_num: this.state.editbank_acc_num,
+      bank_name: this.state.editbank_name,
+      bank_acc_type: this.state.editbank_acc_type,
+      bank_acc_ifsc: this.state.editbank_acc_ifsc,
+      bank_branch: this.state.editbank_branch,
       backedby: this.state.editbackedby,
       category: this.state.editcategory,
       id: this.state.deal_id,
@@ -1066,12 +1066,12 @@ class Deals extends Component {
           escrow_account_bank: this.state.escrow_account_bank,
           escrow_account_branch: this.state.escrow_account_branch,
           raiseGap: this.state.raiseGap,
-          bank_acc_name:this.state.editbank_acc_name,
-          bank_acc_num:this.state.editbank_acc_num,
-          bank_name:this.state.editbank_name,
-          bank_acc_type:this.state.editbank_acc_type,
-          bank_acc_ifsc:this.state.editbank_acc_ifsc,
-          bank_branch:this.state.editbank_branch,
+          bank_acc_name: this.state.editbank_acc_name,
+          bank_acc_num: this.state.editbank_acc_num,
+          bank_name: this.state.editbank_name,
+          bank_acc_type: this.state.editbank_acc_type,
+          bank_acc_ifsc: this.state.editbank_acc_ifsc,
+          bank_branch: this.state.editbank_branch,
           digioTemplateId: this.state.digioTemplateId,
           investor_sign_coordinate: this.state.investor_sign_coordinate,
           founder_sign_coordinate: this.state.founder_sign_coordinate,
@@ -1112,12 +1112,12 @@ class Deals extends Component {
                 backedby: "",
                 category: "",
                 raiseGap: "",
-                bank_acc_name:"",
-                bank_acc_num:"",
-                bank_name:"",
-                bank_acc_type:"",
-                bank_acc_ifsc:"",
-                bank_branch:"",
+                bank_acc_name: "",
+                bank_acc_num: "",
+                bank_name: "",
+                bank_acc_type: "",
+                bank_acc_ifsc: "",
+                bank_branch: "",
                 escrowAct: "",
                 signer_name: "",
                 signer_mobile: "",
@@ -1850,24 +1850,27 @@ class Deals extends Component {
     FileSaver.saveAs(data, fileName + fileExtension);
     message.success("Commitment data exported successfully.");
   };
-  Emailtoinvestors=()=>{
+  Emailtoinvestors = () => {
     let arr = [];
 
     console.log(this.state.commitment_investor_list);
     for (let item of this.state.commitment_investor_list) {
-      let obj=Number(item.investor_id)
-      
-      arr = [...arr, obj]
-      console.log(obj)
+      let obj = Number(item.investor_id);
+
+      arr = [...arr, obj];
+      console.log(obj);
     }
     console.log(arr);
-    
-    Bridge.admin.investor.send_email_to_investors({"investor_ids":arr,deal_id:this.state.commitment_investor_list[0].deal_id}).then((result) => {
-      console.log(result);
-      
-    })
 
-  }
+    Bridge.admin.investor
+      .send_email_to_investors({
+        investor_ids: arr,
+        deal_id: this.state.commitment_investor_list[0].deal_id,
+      })
+      .then((result) => {
+        console.log(result);
+      });
+  };
   showEditCommitmentModal = (item, record) => {
     this.setState({
       ac_edit_deal_id: record.data.deal_id,
@@ -2490,7 +2493,9 @@ class Deals extends Component {
           key: "nestcreated_at",
           width: 110,
         },
-        {
+      ];
+      localStorage.getItem("super_admin") === "1" &&
+        nestColumns.push({
           title: "Action",
           dataIndex: "action",
           key: "action",
@@ -2526,9 +2531,7 @@ class Deals extends Component {
               </div>
             );
           },
-        },
-      ];
-
+        });
       const nestDataSource = record.child.map((item, index) => {
         return {
           key: index,
@@ -3733,7 +3736,9 @@ class Deals extends Component {
                 type="text"
                 onWheel={() => document.activeElement.blur()}
                 value={this.state.bank_acc_name}
-                onChange={(e) => this.setState({ bank_acc_name: e.target.value })}
+                onChange={(e) =>
+                  this.setState({ bank_acc_name: e.target.value })
+                }
               />
             </div>
             <div className="mt-4">
@@ -3744,7 +3749,9 @@ class Deals extends Component {
                 type="number"
                 onWheel={() => document.activeElement.blur()}
                 value={this.state.bank_acc_num}
-                onChange={(e) => this.setState({ bank_acc_num: e.target.value })}
+                onChange={(e) =>
+                  this.setState({ bank_acc_num: e.target.value })
+                }
               />
             </div>
             <div className="mt-4">
@@ -3766,7 +3773,9 @@ class Deals extends Component {
                 type="text"
                 onWheel={() => document.activeElement.blur()}
                 value={this.state.bank_acc_type}
-                onChange={(e) => this.setState({ bank_acc_type: e.target.value })}
+                onChange={(e) =>
+                  this.setState({ bank_acc_type: e.target.value })
+                }
               />
             </div>
             <div className="mt-4">
@@ -3777,7 +3786,9 @@ class Deals extends Component {
                 type="text"
                 onWheel={() => document.activeElement.blur()}
                 value={this.state.bank_acc_ifsc}
-                onChange={(e) => this.setState({ bank_acc_ifsc: e.target.value })}
+                onChange={(e) =>
+                  this.setState({ bank_acc_ifsc: e.target.value })
+                }
               />
             </div>
             <div className="mt-4">

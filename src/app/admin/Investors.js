@@ -371,15 +371,19 @@ class Investors extends Component {
     }
     this.setState({ formloader: true });
     let params = "";
+    let admin= JSON.parse(localStorage.getItem("admin_login"))
+
     if (this.state.isActiveValue == 0) {
       params = {
         investor_id: this.state.investor_id,
         user_block_status: 1,
+        user_id:admin.value
       };
     } else {
       params = {
         investor_id: this.state.investor_id,
         user_block_status: 0,
+        user_id:admin.value
       };
     }
     Bridge.admin.block_disable_investor(params).then((result) => {
@@ -398,12 +402,12 @@ class Investors extends Component {
           { disableModalStatus: false, formloader: false, investor_id: "" },
           () => this.getinvestorlist()
         );
-        if (this.state.isActiveValue == 0) {
+        if (result.status == "0") {
           message.warning(
-            "User is Already Disabled/Something Went Wrong!, Pls Try later",
+            result.message,
             5
           );
-        } else {
+        }else {
           message.warning(
             "User is Already Unblocked/Something Went Wrong!, Pls Try later",
             5
@@ -1215,8 +1219,8 @@ class Investors extends Component {
         return {
           key: index,
           investorid: item.investor_id,
+          contactno: item.mobile ?( item.country_code ? (item.country_code +" "+item.mobile):(item.mobile)) : "---",
           name: (item.name).toLowerCase(),
-          contactno: item.mobile ? item.mobile : "---",
           email: item.email ? item.email : "---",
           investment_amt: item.email ? item.email : "---",
           isActive: item.user_block_status ? item.user_block_status : 0,
@@ -1370,7 +1374,7 @@ class Investors extends Component {
                   &nbsp;&nbsp;Edit
                 </a>
               </Menu.Item>
-              {text.user_block_status == 0 ? (
+              { localStorage.getItem("super_admin") === "1" &&(text.user_block_status == 0 ? (
                 <Menu.Item
                   key={`disable_${record.key}`}
                   icon={<EyeInvisibleFilled />}
@@ -1393,7 +1397,7 @@ class Investors extends Component {
                     &nbsp;&nbsp;Unblock Investor
                   </a>
                 </Menu.Item>
-              )}
+              ))}
             </Menu>
           );
           return (

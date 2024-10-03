@@ -2615,44 +2615,44 @@ bank_branch:this.state.editbank_branch,
           dataIndex: "nestcreated_at",
           key: "nestcreated_at",
           width: 110,
-        },
-        {
-          title: "Action",
-          dataIndex: "action",
-          key: "action",
-          fixed: "right",
-          width: 100,
-          render: (text, record) => {
-            const menu = (
-              <Menu
-                mode="vertical"
-                defaultSelectedKeys={[this.state.path]}
-                style={{ width: 200 }}
-              >
-                <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />}>
-                  <a
-                    href="#"
-                    onClick={() => this.showEditCommitmentModal(text, record)}
-                    style={{ fontSize: 14 }}
-                  >
-                    &nbsp;&nbsp;Edit
-                  </a>
-                </Menu.Item>
-              </Menu>
-            );
-            return (
-              <div>
-                <Dropdown overlay={menu} placement="bottom">
-                  <a onClick={(e) => e.preventDefault()}>
-                    <div className="menu-action">
-                      <i className="bx bx-dots-vertical-rounded"></i>
-                    </div>
-                  </a>
-                </Dropdown>
-              </div>
-            );
-          },
-        },
+        }
+        // {
+        //   title: "Action",
+        //   dataIndex: "action",
+        //   key: "action",
+        //   fixed: "right",
+        //   width: 100,
+        //   render: (text, record) => {
+        //     const menu = (
+        //       <Menu
+        //         mode="vertical"
+        //         defaultSelectedKeys={[this.state.path]}
+        //         style={{ width: 200 }}
+        //       >
+        //         <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />}>
+        //           <a
+        //             href="#"
+        //             onClick={() => this.showEditCommitmentModal(text, record)}
+        //             style={{ fontSize: 14 }}
+        //           >
+        //             &nbsp;&nbsp;Edit
+        //           </a>
+        //         </Menu.Item>
+        //       </Menu>
+        //     );
+        //     return (
+        //       <div>
+        //         <Dropdown overlay={menu} placement="bottom">
+        //           <a onClick={(e) => e.preventDefault()}>
+        //             <div className="menu-action">
+        //               <i className="bx bx-dots-vertical-rounded"></i>
+        //             </div>
+        //           </a>
+        //         </Dropdown>
+        //       </div>
+        //     );
+        //   },
+        // },
       ];
 
       const nestDataSource = record.child.map((item, index) => {
@@ -3054,19 +3054,24 @@ bank_branch:this.state.editbank_branch,
       //   key: "created_at",
       //   width: 100,
       // },
-      {
-        title: "Action",
-        dataIndex: "action",
-        key: "action",
-        fixed: "right",
-        width: 100,
-        render: (text, record) => {
-          const menu = (
-            <Menu
-              mode="vertical"
-              defaultSelectedKeys={[this.state.path]}
-              style={{ width: 200 }}
-            >
+     
+    ];
+    (localStorage.getItem("super_admin") === "1" &&
+    Commitmentcolumns.push( 
+       {
+      title: "Action",
+      dataIndex: "action",
+      key: "action",
+      fixed: "right",
+      width: 100,
+      render: (text, record) => {
+        const menu = (
+          <Menu
+            mode="vertical"
+            defaultSelectedKeys={[this.state.path]}
+            style={{ width: 200 }}
+          >
+            {localStorage.getItem("super_admin") === "1" ? (
               <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />}>
                 <a
                   href="#"
@@ -3076,22 +3081,24 @@ bank_branch:this.state.editbank_branch,
                   &nbsp;&nbsp;Edit
                 </a>
               </Menu.Item>
-            </Menu>
-          );
-          return (
-            <div>
-              <Dropdown overlay={menu} placement="bottom">
-                <a onClick={(e) => e.preventDefault()}>
-                  <div className="menu-action">
-                    <i className="bx bx-dots-vertical-rounded"></i>
-                  </div>
-                </a>
-              </Dropdown>
-            </div>
-          );
-        },
+            ) : (
+              ""
+            )}
+          </Menu>
+        );
+        return (
+          <div>
+            <Dropdown overlay={menu} placement="bottom">
+              <a onClick={(e) => e.preventDefault()}>
+                <div className="menu-action">
+                  <i className="bx bx-dots-vertical-rounded"></i>
+                </div>
+              </a>
+            </Dropdown>
+          </div>
+        );
       },
-    ];
+    } ))
 
     return (
       <>
