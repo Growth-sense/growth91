@@ -800,6 +800,7 @@ const highlightimages=["./assets/images/deals-details/Petmojo/highlight4.jpg",".
                                     alt=""
                                   />
                                 </span>
+                                
                                 Contact Us
                               </div>
                             </h3>
