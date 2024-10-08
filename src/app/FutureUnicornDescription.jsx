@@ -735,15 +735,64 @@ const highlightimages=["./assets/images/deals-details/Petmojo/highlight4.jpg",".
                               </div>
                             </div>
                           </div>
+                      
                           <div class="accordion-item">
-                            <h3 class="accordion-header" id="flush-headingfive">
+                            <h3 class="accordion-header" id="flush-headingWait">
                               <button
                                 class="accordion-button collapsed"
                                 type="button"
                                 data-bs-toggle="collapse"
-                                data-bs-target="#flush-headingfivenew"
+                                data-bs-target="#flush-headingWaitnew"
                                 aria-expanded="false"
-                                aria-controls="flush-headingfive"
+                                aria-controls="flush-headingWait"
+                              >
+                                <span>
+                                  <img
+                                    src="./assets/images/mobile.png"
+                                    alt=""
+                                  />
+                                </span>
+                                Videos
+                              </button>
+                            </h3>
+                            <div
+                              id="flush-headingWaitnew"
+                              class="accordion-collapse collapse"
+                              aria-labelledby="flush-headingWait"
+                              data-bs-parent="#accordionFlushExample"
+                            >
+                              <div class="accordion-body connect-acc-us">
+                                <div className="row justify-content-center">
+                                  <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
+                                    <div className="img-future-gallery">
+                                      <iframe
+                                        style={{
+                                          boxShadow:
+                                            "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
+                                          borderRadius: 3,
+                                          // marginLeft: 65,
+                                        }}
+                                        width="100%"
+                                        height="335"
+                                        src={`https://www.youtube.com/embed/${item.udYoutubeLink
+                                          .split("=")
+                                          .pop()}`}
+                                        title="YouTube video player"
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                      ></iframe>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="accordion-item">
+                            <h3 class="accordion-header" id="flush-headingfive">
+                              <div
+                                class="default-Show"
+                              
                               >
                                 <span>
                                   <img
@@ -752,14 +801,9 @@ const highlightimages=["./assets/images/deals-details/Petmojo/highlight4.jpg",".
                                   />
                                 </span>
                                 Contact Us
-                              </button>
+                              </div>
                             </h3>
-                            <div
-                              id="flush-headingfivenew"
-                              class="accordion-collapse collapse"
-                              aria-labelledby="flush-headingfive"
-                              data-bs-parent="#accordionFlushExample"
-                            >
+                           
                               <div class="accordion-body connect-acc-us">
                                 <div className="row row-box-line">
                                   <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
@@ -862,59 +906,7 @@ const highlightimages=["./assets/images/deals-details/Petmojo/highlight4.jpg",".
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                          </div>
-                          <div class="accordion-item">
-                            <h3 class="accordion-header" id="flush-headingWait">
-                              <button
-                                class="accordion-button collapsed"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#flush-headingWaitnew"
-                                aria-expanded="false"
-                                aria-controls="flush-headingWait"
-                              >
-                                <span>
-                                  <img
-                                    src="./assets/images/mobile.png"
-                                    alt=""
-                                  />
-                                </span>
-                                Videos
-                              </button>
-                            </h3>
-                            <div
-                              id="flush-headingWaitnew"
-                              class="accordion-collapse collapse"
-                              aria-labelledby="flush-headingWait"
-                              data-bs-parent="#accordionFlushExample"
-                            >
-                              <div class="accordion-body connect-acc-us">
-                                <div className="row justify-content-center">
-                                  <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
-                                    <div className="img-future-gallery">
-                                      <iframe
-                                        style={{
-                                          boxShadow:
-                                            "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
-                                          borderRadius: 3,
-                                          // marginLeft: 65,
-                                        }}
-                                        width="100%"
-                                        height="335"
-                                        src={`https://www.youtube.com/embed/${item.udYoutubeLink
-                                          .split("=")
-                                          .pop()}`}
-                                        title="YouTube video player"
-                                        frameBorder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowFullScreen
-                                      ></iframe>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
+                            
                           </div>
 
                           {/* 
