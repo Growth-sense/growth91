@@ -35,8 +35,8 @@
   }
   
   .tabs button.active {
-    background-color: #fff; /* Active tab background color */
-    color: #29176f; /* Active tab text color */
+    background-color: #fff;
+    color: #4b0082; 
   }
   
   .tabs button:hover {
@@ -46,12 +46,10 @@
   
   .content {
     display: flex;
-    /* flex-direction: column; */
-    gap: 20px; /* Space between cards */
-  }
+    gap: 20px; }
   
   .card {
-    background-color: #fff;/* Card background color */
+    background-color: #fff;
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -85,4 +83,4 @@
     font-size: 1.1rem;
     line-height: 1.6;
   }
-  
+
