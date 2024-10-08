@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import NewWebHeader from "../common/NewWebHeader";
 import { NewWebFooter } from "../common/NewWebFooter";
-import "./home-css/newhome.css"; 
+import "./home-css/NewHome2.css"; // Import the new CSS file
 
 const NewHome = () => {
   const [activeTab, setActiveTab] = useState("what-is-growth91");
@@ -35,34 +35,34 @@ const NewHome = () => {
   const secondrenderContent = () => {
     return (
       <div>
-        <div className="content third-content">
-          <div className="card">
-            <h2>Discover</h2>
-            <p>
-              We connect you with the most exciting startups poised for
-              explosive growth. It's your chance to invest in groundbreaking
-              companies that could be the next Google or Amazon.
-            </p>
-          </div>
-          <div className="card">
-            <h2>Trust</h2>
-            <p>
-              We rigorously vet every startup on our platform, ensuring we
-              feature only those with strong potential. To build your trust, we
-              invest alongside you in each startup, aligning our success with
-              yours.
-            </p>
-          </div>
-          <div className="card">
-            <h2>Invest</h2>
-            <p>
-              Join us on this exciting journey! Explore and invest in
-              high-potential startups on our platform, and be a part of shaping
-              the future.
-            </p>
-          </div>
+      <div className="content third-content">
+        <div className="card">
+          <h2>Discover</h2>
+          <p>
+            We connect you with the most exciting startups poised for
+            explosive growth. It's your chance to invest in groundbreaking
+            companies that could be the next Google or Amazon.
+          </p>
+        </div>
+        <div className="card">
+          <h2>Trust</h2>
+          <p>
+            We rigorously vet every startup on our platform, ensuring we
+            feature only those with strong potential. To build your trust, we
+            invest alongside you in each startup, aligning our success with
+            yours.
+          </p>
+        </div>
+        <div className="card">
+          <h2>Invest</h2>
+          <p>
+            Join us on this exciting journey! Explore and invest in
+            high-potential startups on our platform, and be a part of shaping
+            the future.
+          </p>
         </div>
       </div>
+    </div>
     );
   };
 
@@ -107,46 +107,42 @@ const NewHome = () => {
         </div>
       </div>
     </div>
-     
     );
   };
 
   return (
-    <div
-      className="deals-page"
-      style={{
-        marginTop: 171,
-      }}
-    >
+    <div className="new-homepage-2">
       <NewWebHeader newabout={"newabout"} />
-      <div className="new-homepage">
-        <header className="header">
-          <h1>Growth91</h1>
-          <p>
-            Platform for startup investment in India for fuelling the future.
-          </p>
-        </header>
-        <div className="tabs card-tab">
-          <button
-            className={activeTab === "what-is-growth91" ? "active" : ""}
-            onClick={() => setActiveTab("what-is-growth91")}
-          >
-            What is Growth91?
+      <div className="main-container-2">
+        <div className="sidebar">
+          <div className="tabs">
+            <button
+              className={activeTab === "what-is-growth91" ? "active" : ""}
+              onClick={() => setActiveTab("what-is-growth91")}
+            >
+              What is Growth91?
+            </button>
+            <button
+              className={activeTab === "why-growth91" ? "active" : ""}
+              onClick={() => setActiveTab("why-growth91")}
+            >
+              Why Growth91?
+            </button>
+            <button
+              className={activeTab === "why-invest" ? "active" : ""}
+              onClick={() => setActiveTab("why-invest")}
+            >
+              Why Invest in Startups?
+            </button>
+          </div>
+          <button className="investment-btn">
+            start investing now
           </button>
-          <button
-            className={activeTab === "why-growth91" ? "active" : ""}
-            onClick={() => setActiveTab("why-growth91")}
-          >
-            Why Growth91?
-          </button>
-          <button
-            className={activeTab === "why-invest" ? "active" : ""}
-            onClick={() => setActiveTab("why-invest")}
-          >
-            Why Invest in Startups?
-          </button>
+          
         </div>
-        {renderContent()}
+        <div className="content-container">
+          {renderContent()}
+        </div>
       </div>
       <NewWebFooter />
     </div>

@@ -23,7 +23,7 @@
   }
   
   .tabs button {
-    background-color: #4b0082; /* Tab background color */
+    background-color: #29176f; /* Tab background color */
     border: none;
     padding: 10px 20px;
     margin: 0 5px;
@@ -36,11 +36,12 @@
   
   .tabs button.active {
     background-color: #fff; /* Active tab background color */
-    color: #4b0082; /* Active tab text color */
+    color: #29176f; /* Active tab text color */
   }
   
   .tabs button:hover {
-    background-color: #9370db;
+    background-color: #ffffff;
+    color: #29176f;
   }
   
   .content {
@@ -50,12 +51,31 @@
   }
   
   .card {
-    background-color: #4b0082; /* Card background color */
+    background-color: #fff;/* Card background color */
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
-  
+  .card-tab{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    min-width: 0;
+    word-wrap: break-word;
+   
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: .25rem;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color:#29176f;
+  }
+.first-card{
+  width: 100%;
+}
+.second-content{
+  flex-direction: column;
+}
   .card h2 {
     font-size: 2rem;
     margin-bottom: 10px;

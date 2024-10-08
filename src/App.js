@@ -16,6 +16,8 @@ import { LoginInvestor } from './app/LoginInvestor.jsx'
 import { LoginFounder } from './app/LoginFounder.jsx'
 import { MemberShip } from './app/MemberShip.jsx'
 import NewHome from "./app/admin/NewHome.js";
+import NewHome2 from "./app/admin/NewHome2.js";
+
 
 import { FutureUnicornDescription } from './app/FutureUnicornDescription.jsx'
 import { DashboardType } from './app/DashboardType.jsx'
@@ -215,6 +217,8 @@ function App() {
           {/* <Route path="/" exact component={Home} /> */}
           <Route path="/" exact component={Homenew} />
           <Route path="/NewHome" exact component = {NewHome} />
+          <Route path="/NewHome2" exact component = {NewHome2} />
+
 
           <Route path="/about" exact component={Aboutnew} />
           <Route path="/LoginInvestor" exact component={LoginInvestor} />
