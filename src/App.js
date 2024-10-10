@@ -17,6 +17,8 @@ import { LoginFounder } from './app/LoginFounder.jsx'
 import { MemberShip } from './app/MemberShip.jsx'
 import NewHome from "./app/admin/NewHome.js";
 import NewHome2 from "./app/admin/NewHome2.js";
+import NewHome3 from "./app/admin/NewHome3.js";
+
 
 
 
@@ -220,6 +222,8 @@ function App() {
           <Route path="/" exact component={Homenew} />
           <Route path="/NewHome" exact component = {NewHome} />
           <Route path="/NewHome2" exact component = {NewHome2} />
+          <Route path="/NewHome3" exact component = {NewHome3} />
+
 
 
           <Route path="/about" exact component={Aboutnew} />

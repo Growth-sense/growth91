@@ -22,6 +22,11 @@ import { Slide } from "react-awesome-reveal";
 import CountUp from "react-countup";
 import { Link } from "react-router-dom";
 import { Homeblog } from "./Homeblog.jsx";
+import NewHome from "./admin/NewHome.js";
+import NewHome2 from "./admin/NewHome2.js";
+import NewHome3 from "./admin/NewHome3.js";
+
+
 class Homenew extends Component {
   constructor(props) {
     super(props);
@@ -744,6 +749,12 @@ class Homenew extends Component {
             </div>
           </section>
         </div>
+        <NewHome/>
+        {/* <NewHome2/> */}
+        <NewHome3/>
+
+
+
         <Homenewrxtra />
 
         <section class="business-crowd logo-sections ">

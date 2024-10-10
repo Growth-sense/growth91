@@ -112,7 +112,7 @@ const NewHome = () => {
 
   return (
     <div className="new-homepage-2">
-      <NewWebHeader newabout={"newabout"} />
+      {/* <NewWebHeader newabout={"newabout"} /> */}
       <div className="main-container-2">
         <div className="sidebar">
           <div className="tabs">
@@ -144,7 +144,7 @@ const NewHome = () => {
           {renderContent()}
         </div>
       </div>
-      <NewWebFooter />
+      {/* <NewWebFooter /> */}
     </div>
   );
 };

@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import NewWebHeader from "../common/NewWebHeader";
 import { NewWebFooter } from "../common/NewWebFooter";
+import "./home-css/newhome3.css"
 
 const CardView = () => {
   return (
     
-    <div className="card-view-container">
+    <div className="card-view-container newhome-3">
+        {/* <NewWebHeader newabout={"newabout"} /> */}
       <header className="header">
         <h1>Growth91</h1>
         <p>Platform for startup investment in India for fueling the future.</p>
@@ -15,12 +17,12 @@ const CardView = () => {
         {/* First Card: What is Growth91 */}
         <div className="card card-left">
           <h2>What is Growth91?</h2>
-          <p>
+          <li>
             Growth91 is a cutting-edge platform connecting investors with
             high-potential startups in India. We're dedicated to fueling
             innovation and driving the future of entrepreneurship in one of the
             world's most dynamic markets.
-          </p>
+          </li>
           <button className="learn-more-btn">Learn More</button>
         </div>
 
@@ -63,9 +65,9 @@ const CardView = () => {
         </div>
       </div>
 
-      <div className="scroll-instruction">
-        <p>Scroll horizontally to explore →</p>
-      </div>
+      
+      {/* <NewWebFooter /> */}
+
     </div>
     
   );

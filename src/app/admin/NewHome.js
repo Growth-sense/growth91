@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import NewWebHeader from "../common/NewWebHeader";
-import { NewWebFooter } from "../common/NewWebFooter";
-import "./home-css/NewHome2.css"; // Import the new CSS file
+import React, { useState } from 'react';
+import NewWebHeader from '../common/NewWebHeader';
+import { NewWebFooter } from '../common/NewWebFooter';
+import "./home-css/newhome.css"
 
 const NewHome = () => {
-  const [activeTab, setActiveTab] = useState("what-is-growth91");
+  const [activeTab, setActiveTab] = useState('why-growth91');
 
+  
   const renderContent = () => {
     if (activeTab === "what-is-growth91") {
       return firstrenderContent();
@@ -109,42 +110,38 @@ const NewHome = () => {
     </div>
     );
   };
-
   return (
-    <div className="new-homepage-2">
-      <NewWebHeader newabout={"newabout"} />
-      <div className="main-container-2">
-        <div className="sidebar">
-          <div className="tabs">
-            <button
-              className={activeTab === "what-is-growth91" ? "active" : ""}
-              onClick={() => setActiveTab("what-is-growth91")}
-            >
-              What is Growth91?
-            </button>
-            <button
-              className={activeTab === "why-growth91" ? "active" : ""}
-              onClick={() => setActiveTab("why-growth91")}
-            >
-              Why Growth91?
-            </button>
-            <button
-              className={activeTab === "why-invest" ? "active" : ""}
-              onClick={() => setActiveTab("why-invest")}
-            >
-              Why Invest in Startups?
-            </button>
-          </div>
-          <button className="investment-btn">
-            start investing now
-          </button>
-          
-        </div>
-        <div className="content-container">
-          {renderContent()}
-        </div>
+    <div
+    className="deals-page"
+    style={{
+      marginTop: 171,
+    }}
+  >
+    {/* <WebHeader /> */}
+    {/* <NewWebHeader newabout={"newabout"}/> */}
+
+   
+    <div className="new-homepage">
+      <header className="header">
+        <h1>Growth91</h1>
+        <p>Platform for startup investment in India for fuelling the future.</p>
+      </header>
+      <div className="tabs">
+        <button className={activeTab === 'what-is-growth91' ? 'active' : ''} onClick={() => setActiveTab('what-is-growth91')}>
+          What is Growth91?
+        </button>
+        <button className={activeTab === 'why-growth91' ? 'active' : ''} onClick={() => setActiveTab('why-growth91')}>
+          Why Growth91?
+        </button>
+        <button className={activeTab === 'why-invest' ? 'active' : ''} onClick={() => setActiveTab('why-invest')}>
+          Why Invest in Startups?
+        </button>
       </div>
-      <NewWebFooter />
+      {renderContent()}
+   
+    </div>
+    
+    {/* <NewWebFooter /> */}
     </div>
   );
 };
