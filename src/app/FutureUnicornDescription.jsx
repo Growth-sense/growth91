@@ -58,7 +58,12 @@ export const FutureUnicornDescription = () => {
       </>
     );
   }
-const highlightimages=["./assets/images/deals-details/Petmojo/highlight4.jpg","./assets/images/deals-details/Petmojo/highlight01.jpg","./assets/images/deals-details/highlight2.jfif","./assets/images/deals-details/highlight3.jpg" ]
+  const highlightimages = [
+    "./assets/images/deals-details/Petmojo/highlight4.jpg",
+    "./assets/images/deals-details/Petmojo/highlight01.jpg",
+    "./assets/images/deals-details/highlight2.jfif",
+    "./assets/images/deals-details/highlight3.jpg",
+  ];
   const sliderSettings = {
     dots: true,
     infinite: true,
@@ -120,6 +125,8 @@ const highlightimages=["./assets/images/deals-details/Petmojo/highlight4.jpg",".
         unicorn
           .filter((item) => item.unicornDealID == id)
           .map((item, index) => {
+           
+
             return (
               <>
                 <section class="futureunicorn-slider-sections">
@@ -358,14 +365,25 @@ const highlightimages=["./assets/images/deals-details/Petmojo/highlight4.jpg",".
                                       itemstartuphighlight,
                                       indexstartuphighlight
                                     ) => {
-                                      
+                                      console.log(itemstartuphighlight);
+
                                       return (
-                                        <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
+                                        <div
+                                          className={`col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12  ${
+                                            itemstartuphighlight.content1 == ""
+                                              ? `d-none`
+                                              : ""
+                                          }`}
+                                        >
                                           <div className="highlights-accordian">
                                             <div className="para-highlights-accordian">
                                               <div className="img-highlights">
                                                 <img
-                                                  src={highlightimages[indexstartuphighlight]}
+                                                  src={
+                                                    highlightimages[
+                                                      indexstartuphighlight
+                                                    ]
+                                                  }
                                                   alt=""
                                                 />
                                               </div>
@@ -385,76 +403,79 @@ const highlightimages=["./assets/images/deals-details/Petmojo/highlight4.jpg",".
                               </div>
                             </div>
                           </div>
-                          <div class="accordion-item" style={{ border: "none" }}>
-                          <h3
-                            class="accordion-header"
-                            id="flush-headingdetails"
+                          <div
+                            class="accordion-item"
+                            style={{ border: "none" }}
                           >
-                            <div class="default-Show">
-                              <span>
-                                <img
-                                  src="./assets/images/group-chat.png"
-                                  alt=""
-                                />
-                              </span>
-                              Team
-                            </div>
-                          </h3>
+                            <h3
+                              class="accordion-header"
+                              id="flush-headingdetails"
+                            >
+                              <div class="default-Show">
+                                <span>
+                                  <img
+                                    src="./assets/images/group-chat.png"
+                                    alt=""
+                                  />
+                                </span>
+                                Team
+                              </div>
+                            </h3>
 
-                          <div class="accordion-body ">
-                            <div className="row row-box-linse Grid-team">
-                              {item.udVendorId &&
-                                JSON.parse(item.udVendorId).map(
-                                  (itemudVendorId, indexudVendorId) => {
-                                    return (
-                                      <div className="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-12 col-sm-12 col-xs-12">
-                                        <div className="main-card-of-teams">
-                                          <div className="img-teams-of-cards">
-                                            <img
-                                              src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${itemudVendorId.imgname}`}
-                                              alt=""
-                                            />
-                                          </div>
-                                          <div className="name-of-teams-card">
-                                            <div className="head-deals-team">
-                                              <h3
-                                                style={{
-                                                  textTransform: "capitalize",
-                                                }}
-                                              >
-                                                {itemudVendorId.name}
-                                              </h3>
-                                              <p
-                                                style={{
-                                                  textTransform: "capitalize",
-                                                }}
-                                              >
-                                                {itemudVendorId.Role}
-                                              </p>
+                            <div class="accordion-body ">
+                              <div className="row row-box-linse Grid-team">
+                                {item.udVendorId &&
+                                  JSON.parse(item.udVendorId).map(
+                                    (itemudVendorId, indexudVendorId) => {
+                                      return (
+                                        <div className="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-12 col-sm-12 col-xs-12">
+                                          <div className="main-card-of-teams">
+                                            <div className="img-teams-of-cards">
+                                              <img
+                                                src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${itemudVendorId.imgname}`}
+                                                alt=""
+                                              />
                                             </div>
-                                            {/* <ul>
-                                                  <li>
-                                                    {itemudVendorId.description}
-                                                  </li>
-                                                </ul> */}
+                                            <div className="name-of-teams-card">
+                                              <div className="head-deals-team">
+                                                <h3
+                                                  style={{
+                                                    textTransform: "capitalize",
+                                                  }}
+                                                >
+                                                  {itemudVendorId.name}
+                                                </h3>
+                                                <p
+                                                  style={{
+                                                    textTransform: "capitalize",
+                                                  }}
+                                                >
+                                                  {itemudVendorId.Role}
+                                                </p>
+                                              </div>
+                                              <ul>
+                                                <li>
+                                                  {itemudVendorId.description1}
+                                                </li>
+                                                <li>
+                                                  {itemudVendorId.description2}
+                                                </li>
+                                              </ul>
+                                            </div>
                                           </div>
                                         </div>
-                                      </div>
-                                    );
-                                  }
-                                )}
+                                      );
+                                    }
+                                  )}
+                              </div>
                             </div>
                           </div>
-                        </div>
                           <div class="accordion-item">
                             <h3
                               class="accordion-header"
                               id="flush-headingThree"
                             >
-                              <div
-                                class="default-Show"
-                                
-                              >
+                              <div class="default-Show">
                                 <span>
                                   <img
                                     src="./assets/images/market-research.png"
@@ -464,25 +485,25 @@ const highlightimages=["./assets/images/deals-details/Petmojo/highlight4.jpg",".
                                 Market Overview
                               </div>
                             </h3>
-                          
-                              <div class="accordion-body">
-                                <div className="row market-overreview-row">
-                                  {item.udMark &&
-                                    JSON.parse(item.udMark).map(
-                                      (itemudamrk, indexudmark) => {
-                                        return (
-                                          <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                            <div className="membership-accordian">
-                                              <div className="para-member-accordian">
-                                                <p>{itemudamrk.content1} </p>
-                                              </div>
+
+                            <div class="accordion-body">
+                              <div className="row market-overreview-row">
+                                {item.udMark &&
+                                  JSON.parse(item.udMark).map(
+                                    (itemudamrk, indexudmark) => {
+                                      return (
+                                        <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                          <div className="membership-accordian">
+                                            <div className="para-member-accordian">
+                                              <p>{itemudamrk.content1} </p>
                                             </div>
                                           </div>
-                                        );
-                                      }
-                                    )}
+                                        </div>
+                                      );
+                                    }
+                                  )}
 
-                                  {/* <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                {/* <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
                                                     <div className="membership-accordian">
 
                                                         <div className="para-member-accordian">
@@ -497,21 +518,20 @@ const highlightimages=["./assets/images/deals-details/Petmojo/highlight4.jpg",".
                                                         {/* <div className="img-member-accordian">
                                                             <img src="https://www.trumanlittlewhitehouse.org/wp-content/uploads/2019/11/81DpN-lrJvL._SL1350.jpg" alt="" />
                                                         </div> */}
-                                  {/* <div className="para-member-accordian"> */}
-                                  {/* <h3>
+                                {/* <div className="para-member-accordian"> */}
+                                {/* <h3>
                                                                 Member
                                                             </h3> */}
-                                  {/*      <p>
+                                {/*      <p>
                                                                 The Ready to Cook market, valued at $18 billion, is witnessing rapid growth due to shifting consumer habits, increased health awareness, and the convenience of pre-packaged meal kits. This trend presents ample opportunities for smaller companies to enter the market and innovate with new product offerings, catering to the needs of busy individuals seeking healthy and convenient meal solutions.
                                                             </p>
                                                         </div>
                                                     </div>
                                                 </div> */}
-                                </div>
                               </div>
-                           
+                            </div>
                           </div>
-                        
+
                           <div class="accordion-item">
                             <h3
                               class="accordion-header"
@@ -582,8 +602,6 @@ const highlightimages=["./assets/images/deals-details/Petmojo/highlight4.jpg",".
                               </div>
                             </div>
                           </div>
-                       
-                       
 
                           {/* <div class="accordion-item">
                                     <h3 class="accordion-header" id="flush-headingTwo">
@@ -726,7 +744,7 @@ const highlightimages=["./assets/images/deals-details/Petmojo/highlight4.jpg",".
                               </div>
                             </div>
                           </div>
-                      
+
                           <div class="accordion-item">
                             <h3 class="accordion-header" id="flush-headingWait">
                               <button
@@ -781,124 +799,119 @@ const highlightimages=["./assets/images/deals-details/Petmojo/highlight4.jpg",".
                           </div>
                           <div class="accordion-item">
                             <h3 class="accordion-header" id="flush-headingfive">
-                              <div
-                                class="default-Show"
-                              
-                              >
+                              <div class="default-Show">
                                 <span>
                                   <img
                                     src="./assets/images/mobile.png"
                                     alt=""
                                   />
                                 </span>
-                                
                                 Contact Us
                               </div>
                             </h3>
-                           
-                              <div class="accordion-body connect-acc-us">
-                                <div className="row row-box-line">
-                                  <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                    <div className="lets-talks-div">
-                                      <h3>Legal Name</h3>
-                                      <ul>
-                                        <li>
-                                          <span>{item.udLegalname}</span>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                  <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                    <div className="lets-talks-div">
-                                      <h3>Founded</h3>
-                                      <ul>
-                                        <li>
-                                          <span>{item.udFoundedon}</span>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                  <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                    <div className="lets-talks-div">
-                                      <h3>Let's Meet</h3>
-                                      <ul>
-                                        <li>
-                                          <span>Corporate Office :</span>
-                                          <span>{item.udAddress}</span>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                  <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                    <div className="lets-talks-div">
-                                      <h3>Employees</h3>
-                                      <ul>
-                                        <li>
-                                          <span>{item.udEmployees}</span>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                  <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                    <div className="lets-talks-div">
-                                      <h3>Visit Us</h3>
-                                      <ul>
-                                        <li>
-                                          <Link
-                                            to={`//${item.udWebsite}`}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                          >
-                                            <span
-                                              style={{
-                                                textTransform: "lowercase",
-                                              }}
-                                            >
-                                              {item.udWebsite}
-                                            </span>
-                                          </Link>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                  <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                    <div className="lets-talks-div">
-                                      <h3>Follow Us</h3>
-                                      <ul>
-                                        <li>
-                                          <Link
-                                            to={`//${item.udSocialInsta}`}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                          >
-                                            <i class="fa-brands fa-instagram"></i>
-                                          </Link>
-                                        </li>
-                                        <li>
-                                          <Link
-                                            to={`//${item.udSocialYouTube}`}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                          >
-                                            <i class="fa-brands fa-youtube"></i>
-                                          </Link>
-                                        </li>
 
-                                        <li>
-                                          <Link
-                                            to={`//${item.udSocialFacebook}`}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
+                            <div class="accordion-body connect-acc-us">
+                              <div className="row row-box-line">
+                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                  <div className="lets-talks-div">
+                                    <h3>Legal Name</h3>
+                                    <ul>
+                                      <li>
+                                        <span>{item.udLegalname}</span>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                  <div className="lets-talks-div">
+                                    <h3>Founded</h3>
+                                    <ul>
+                                      <li>
+                                        <span>{item.udFoundedon}</span>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                  <div className="lets-talks-div">
+                                    <h3>Let's Meet</h3>
+                                    <ul>
+                                      <li>
+                                        <span>Corporate Office :</span>
+                                        <span>{item.udAddress}</span>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                  <div className="lets-talks-div">
+                                    <h3>Employees</h3>
+                                    <ul>
+                                      <li>
+                                        <span>{item.udEmployees}</span>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                  <div className="lets-talks-div">
+                                    <h3>Visit Us</h3>
+                                    <ul>
+                                      <li>
+                                        <Link
+                                          to={`//${item.udWebsite}`}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                        >
+                                          <span
+                                            style={{
+                                              textTransform: "lowercase",
+                                            }}
                                           >
-                                            <i class="fa-brands fa-facebook"></i>
-                                          </Link>
-                                        </li>
-                                      </ul>
-                                    </div>
+                                            {item.udWebsite}
+                                          </span>
+                                        </Link>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                  <div className="lets-talks-div">
+                                    <h3>Follow Us</h3>
+                                    <ul>
+                                      <li>
+                                        <Link
+                                          to={`//${item.udSocialInsta}`}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                        >
+                                          <i class="fa-brands fa-instagram"></i>
+                                        </Link>
+                                      </li>
+                                      <li>
+                                        <Link
+                                          to={`//${item.udSocialYouTube}`}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                        >
+                                          <i class="fa-brands fa-youtube"></i>
+                                        </Link>
+                                      </li>
+
+                                      <li>
+                                        <Link
+                                          to={`//${item.udSocialFacebook}`}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                        >
+                                          <i class="fa-brands fa-facebook"></i>
+                                        </Link>
+                                      </li>
+                                    </ul>
                                   </div>
                                 </div>
                               </div>
-                            
+                            </div>
                           </div>
 
                           {/* 

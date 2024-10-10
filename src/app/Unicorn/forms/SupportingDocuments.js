@@ -57,11 +57,15 @@ class SupportingDocuments extends Component {
     if (this.props.unicorn.tudMark) {
       this.setState({ marketoverview: JSON.parse(this.props.unicorn.tudMark) });
     }
+    console.log((this.props.unicorn.tudStartupHighlights));
+    
     if (this.props.unicorn.tudStartupHighlights) {
       this.setState({
         startuphighlight: JSON.parse(this.props.unicorn.tudStartupHighlights),
       });
     }
+    console.log(this.state.startuphighlight);
+    
     $("#selected-field").focus();
     this.props.check();
     // console.log('validated', this.props.validated);

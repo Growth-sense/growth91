@@ -87,6 +87,8 @@ class InvestorKYCScreen extends Component {
       legalname_submit: false,
       address_submit: false,
       fathername_submit: false,
+      postalcode_submit: false,
+      state_submit: false,
       showInputOTP: false,
       aadhar_valid: "",
       gender: "",
@@ -99,6 +101,8 @@ class InvestorKYCScreen extends Component {
       minutes: "",
       istimerstarted: false,
       legal_address: "",
+      state: "",
+      postalcode: "",
     };
   }
 
@@ -211,6 +215,10 @@ class InvestorKYCScreen extends Component {
                 : result.data[0].legal_name,
             legal_address:
               result.data[0].address == "null" ? "" : result.data[0].address,
+              state:
+              result.data[0].state == "null" ? "" : result.data[0].state,
+              postalcode:
+              result.data[0].postalcode == "null" ? "" : result.data[0].postalcode,
             fathername:
               result.data[0].fathers_name == "null"
                 ? ""
@@ -376,7 +384,7 @@ class InvestorKYCScreen extends Component {
           category: "KYC",
           action: "PAN Verified",
         });
-console.log(response.data);
+        console.log(response.data);
 
         this.setState(
           {
@@ -1051,7 +1059,7 @@ console.log(response.data);
         placement: "top",
         duration: 5,
       });
-      return;
+      return; 
     }
     this.setState({ loading: true });
     const formData = new FormData();
@@ -1060,6 +1068,8 @@ console.log(response.data);
     formData.append("legal_name", this.state.legalname);
     formData.append("fathers_name", this.state.fathername);
     formData.append("address", this.state.legal_address);
+    // formData.append("state", this.state.state);
+    // formData.append("postalcode", this.state.postalcode);
 
     Bridge.kyc.update_kyc_docs(formData).then((result) => {
       this.setState({ loading: false, selectedTab: "3" });
@@ -1244,7 +1254,8 @@ console.log(response.data);
                                     Permanant Account Number (PAN)
                                     <span className="text-danger">*</span>
                                   </label>
-                                  <div className="pandiv"
+                                  <div
+                                    className="pandiv"
                                     style={{
                                       display: "flex",
                                       alignItems: "baseline",
@@ -1274,10 +1285,9 @@ console.log(response.data);
                                     ) : (
                                       <button
                                         className="small-button-dark-okyc"
-                                       
                                         onClick={this.CHECK_pan_no}
                                       >
-                                      Check
+                                        Check
                                       </button>
                                     )}
                                   </div>
@@ -1787,11 +1797,107 @@ console.log(response.data);
                                   });
                                 }}
                                 disabled={
-                                  this.state.address_submit == true
+                                  this.state.legal_address_submit == true
                                     ? true
                                     : false
                                 }
                               ></textarea>
+                              {/* <label>
+                                State
+                                <span className="text-danger">*</span>
+                              </label>
+                              <select id="inputState" value={this.state.state}  onChange={(e) => {
+                                  this.setState({
+                                    state: e.target.value,
+                                  });
+                                }}
+                                disabled={
+                                  this.state.state_submit == true
+                                    ? true
+                                    : false
+                                } className="form-select">
+                                <option value="">Select State</option>
+                                <option value="Andhra Pradesh">
+                                  Andhra Pradesh
+                                </option>
+                                <option value="Arunachal Pradesh">
+                                  Arunachal Pradesh
+                                </option>
+                                <option value="Assam">Assam</option>
+                                <option value="Bihar">Bihar</option>
+                                <option value="Chhattisgarh">
+                                  Chhattisgarh
+                                </option>
+                                <option value="Goa">Goa</option>
+                                <option value="Gujarat">Gujarat</option>
+                                <option value="Haryana">Haryana</option>
+                                <option value="Himachal Pradesh">
+                                  Himachal Pradesh
+                                </option>
+                                <option value="Jammu and Kashmir">
+                                  Jammu and Kashmir
+                                </option>
+                                <option value="Jharkhand">Jharkhand</option>
+                                <option value="Karnataka">Karnataka</option>
+                                <option value="Kerala">Kerala</option>
+                                <option value="Madhya Pradesh">
+                                  Madhya Pradesh
+                                </option>
+                                <option value="Maharashtra">Maharashtra</option>
+                                <option value="Manipur">Manipur</option>
+                                <option value="Meghalaya">Meghalaya</option>
+                                <option value="Mizoram">Mizoram</option>
+                                <option value="Nagaland">Nagaland</option>
+                                <option value="Odisha">Odisha</option>
+                                <option value="Punjab">Punjab</option>
+                                <option value="Rajasthan">Rajasthan</option>
+                                <option value="Sikkim">Sikkim</option>
+                                <option value="Tamil Nadu">Tamil Nadu</option>
+                                <option value="Telangana">Telangana</option>
+                                <option value="Tripura">Tripura</option>
+                                <option value="Uttar Pradesh">
+                                  Uttar Pradesh
+                                </option>
+                                <option value="Uttarakhand">Uttarakhand</option>
+                                <option value="West Bengal">West Bengal</option>
+                                <option value="Andaman and Nicobar Islands">
+                                  Andaman and Nicobar Islands
+                                </option>
+                                <option value="Chandigarh">Chandigarh</option>
+                                <option value="Dadar and Nagar Haveli">
+                                  Dadar and Nagar Haveli
+                                </option>
+                                <option value="Daman and Diu">
+                                  Daman and Diu
+                                </option>
+                                <option value="Delhi">Delhi</option>
+                                <option value="Ladakh">Ladakh</option>
+                                <option value="Lakshadweep">Lakshadweep</option>
+                                <option value="Puducherry">Puducherry</option>
+                              </select>
+                              <br></br>
+
+                              <label>
+                                Pincode
+                                <span className="text-danger">*</span>
+                              </label>
+                              <input
+                                className="form-input-field mt-3"
+                                name=""
+                                id=""
+                                type="number"
+                                value={this.state.postalcode}
+                                onChange={(e) => {
+                                  this.setState({
+                                    postalcode: e.target.value,
+                                  });
+                                }}
+                                disabled={
+                                  this.state.postalcode_submit == true
+                                    ? true
+                                    : false
+                                }
+                              /> */}
                             </div>
 
                             <div className="d-flex justify-content-end">

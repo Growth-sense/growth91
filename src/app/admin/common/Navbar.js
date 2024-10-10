@@ -19,7 +19,6 @@ class Navbar extends Component {
   
     const getSessionData = (key) => {
       const dataString = localStorage.getItem(key);
-      console.log(dataString );
       
       if (!dataString) return null;
     
@@ -35,7 +34,6 @@ class Navbar extends Component {
       return data.value;
     };
     const storedValue = getSessionData('admin_login');
-    console.log(storedValue);
     
     if (storedValue == null) {
       window.location.assign('/admin');

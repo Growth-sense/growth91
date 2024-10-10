@@ -175,7 +175,7 @@ export default class CreatefamilyPage extends Component {
   changegroupname = () => {
     let params = {
       userID: localStorage.getItem("Parent_investor_id"),
-      groupID: this.state.this.state.chggroupID,
+      groupID: this.state.chggroupID,
       groupName: this.state.change_group_name,
     };
     console.log(params);

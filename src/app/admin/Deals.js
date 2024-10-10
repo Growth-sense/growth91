@@ -2493,9 +2493,10 @@ class Deals extends Component {
           key: "nestcreated_at",
           width: 110,
         },
-      ];
-      localStorage.getItem("super_admin") === "1" &&
-        nestColumns.push({
+      // ];
+      // localStorage.getItem("super_admin") === "1" &&
+        // nestColumns.push(
+          {
           title: "Action",
           dataIndex: "action",
           key: "action",
@@ -2531,7 +2532,9 @@ class Deals extends Component {
               </div>
             );
           },
-        });
+        }
+      ]
+      // );
       const nestDataSource = record.child.map((item, index) => {
         return {
           key: index,

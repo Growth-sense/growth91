@@ -133,10 +133,26 @@ const GoogleAuth = ({ type = "investor" }) => {
           switch (result.data[0].user_type) {
             case "investor":
               localStorage.setItem("investor_id", result.data[0].investor_id);
+              localStorage.setItem(
+                "Parent_investor_id",
+                result.data[0].investor_id
+              );
               localStorage.setItem("investor_email", result.data[0].email);
+          localStorage.setItem("Parent_investor_email", result.data[0].email);
+
               localStorage.setItem(
                 "investor_kycstatus",
                 result.data[0].kycstatus
+              );
+              localStorage.setItem(
+                "Parent_investor_kycstatus",
+                result.data[0].kycstatus
+              );
+              localStorage.setItem(
+                "Parent_investor_name",
+                result.data[0].first_name +
+                " " +
+                result.data[0].last_name
               );
               localStorage.setItem(
                 "investor_name",

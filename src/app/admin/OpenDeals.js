@@ -3055,9 +3055,9 @@ bank_branch:this.state.editbank_branch,
       //   width: 100,
       // },
      
-    ];
-    (localStorage.getItem("super_admin") === "1" &&
-    Commitmentcolumns.push( 
+    // ];
+    // (localStorage.getItem("super_admin") === "1" &&
+    // Commitmentcolumns.push( 
        {
       title: "Action",
       dataIndex: "action",
@@ -3071,7 +3071,7 @@ bank_branch:this.state.editbank_branch,
             defaultSelectedKeys={[this.state.path]}
             style={{ width: 200 }}
           >
-            {localStorage.getItem("super_admin") === "1" ? (
+            {/* {localStorage.getItem("super_admin") === "1" ? ( */}
               <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />}>
                 <a
                   href="#"
@@ -3081,9 +3081,11 @@ bank_branch:this.state.editbank_branch,
                   &nbsp;&nbsp;Edit
                 </a>
               </Menu.Item>
-            ) : (
+            {/* )  */}
+            {/* : (
               ""
-            )}
+            ) */}
+            {/* } */}
           </Menu>
         );
         return (
@@ -3098,7 +3100,8 @@ bank_branch:this.state.editbank_branch,
           </div>
         );
       },
-    } ))
+    } ]
+  // ))
 
     return (
       <>

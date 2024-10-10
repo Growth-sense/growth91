@@ -45,6 +45,7 @@ class Mediacoverager extends Component {
       });
     }
 
+
     $("#selected-field").focus();
     this.props.check();
 }
@@ -106,7 +107,7 @@ addcoverger = () => {
   }, 1000);
     this.props.onInput(
       "tudVendorId",
-      JSON.stringify(this.state.teammem)
+       JSON.stringify(this.state.teammem)
     );
     let params = {
       no: 18,
