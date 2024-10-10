@@ -86,8 +86,15 @@ class MembershipPlan extends Component {
     Bridge.investor.getinvestordetails(params).then((result) => {
       if (result.status == "1") {
         localStorage.setItem("investor_id", result.data[0].investor_id);
+        localStorage.setItem("Parent_investor_id", result.data[0].investor_id);
         localStorage.setItem("investor_email", result.data[0].email);
+        localStorage.setItem("Parent_investor_email", result.data[0].email);
+        localStorage.setItem("Parent_investor_kycstatus", result.data[0].kycstatus);
         localStorage.setItem("investor_kycstatus", result.data[0].kycstatus);
+        localStorage.setItem(
+          "Parent_investor_name",
+          result.data[0].first_name + " " + result.data[0].last_name
+        );
         localStorage.setItem(
           "investor_name",
           result.data[0].first_name + " " + result.data[0].last_name

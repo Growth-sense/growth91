@@ -1771,8 +1771,48 @@ class Deals extends Component {
           key: "nestcreated_at",
           width: 110,
         },
-      ];
-
+      // ];
+      // localStorage.getItem("super_admin") === "1" &&
+        // nestColumns.push(
+          {
+          title: "Action",
+          dataIndex: "action",
+          key: "action",
+          fixed: "right",
+          width: 100,
+          render: (text, record) => {
+            const menu = (
+              <Menu
+                mode="vertical"
+                defaultSelectedKeys={[this.state.path]}
+                style={{ width: 200 }}
+              >
+                <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />}>
+                  <a
+                    href="#"
+                    onClick={() => this.showEditCommitmentModal(text, record)}
+                    style={{ fontSize: 14 }}
+                  >
+                    &nbsp;&nbsp;Edit
+                  </a>
+                </Menu.Item>
+              </Menu>
+            );
+            return (
+              <div>
+                <Dropdown overlay={menu} placement="bottom">
+                  <a onClick={(e) => e.preventDefault()}>
+                    <div className="menu-action">
+                      <i className="bx bx-dots-vertical-rounded"></i>
+                    </div>
+                  </a>
+                </Dropdown>
+              </div>
+            );
+          },
+        }
+      ]
+      // );
       const nestDataSource = record.child.map((item, index) => {
         return {
           key: index,

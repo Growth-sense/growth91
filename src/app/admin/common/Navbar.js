@@ -16,7 +16,26 @@ class Navbar extends Component {
   }
 
   componentDidMount() {
-    if (!localStorage.getItem('id')) {
+  
+    const getSessionData = (key) => {
+      const dataString = localStorage.getItem(key);
+      
+      if (!dataString) return null;
+    
+      const data = JSON.parse(dataString);
+      const now = new Date().getTime();
+    
+      if (now > data.expiry) {
+        // Data has expired
+        localStorage.removeItem(key);
+        return null;
+      }
+    
+      return data.value;
+    };
+    const storedValue = getSessionData('admin_login');
+    
+    if (storedValue == null) {
       window.location.assign('/admin');
       return;
     }

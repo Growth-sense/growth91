@@ -680,7 +680,23 @@ class Investments extends Component {
                       &nbsp;&nbsp;Approve Status
                     </a>
                   </Menu.Item>
-                )}
+                  {/* {localStorage.getItem("super_admin") === "1" &&  */}
+                  <Menu.Item
+                    key={`Edits${record.key}`}
+                    icon={<WindowsOutlined />}
+                  >
+                    <a
+                      href="#"
+                      onClick={() => this.showeditmodal(text, record)}
+                      style={{ fontSize: 14 }}
+                    >
+                      &nbsp;&nbsp;Edit
+                    </a>
+                  </Menu.Item>
+                  {/* } */}
+                    </>
+                )
+                }
               {text.founder_document_sign_status == "fndr_sign_success" &&
                 text.fund_raise_status != "success" && (
                   <Menu.Item
