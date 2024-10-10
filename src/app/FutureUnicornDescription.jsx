@@ -452,8 +452,7 @@ export const FutureUnicornDescription = () => {
                                                 >
                                                   {itemudVendorId.Role}
                                                 </p>
-                                              </div>
-                                              <ul>
+                                                <ul>
                                                 <li>
                                                   {itemudVendorId.description1}
                                                 </li>
@@ -461,6 +460,8 @@ export const FutureUnicornDescription = () => {
                                                   {itemudVendorId.description2}
                                                 </li>
                                               </ul>
+                                              </div>
+                                            
                                             </div>
                                           </div>
                                         </div>
