@@ -5557,8 +5557,9 @@ a {
     border: 1px solid #29176f0a;
     padding: 0;
     box-shadow: rgb(50 50 93 / 15%) 0px 50px 100px -20px, rgb(0 0 0 / 0%) 0px 30px 60px -30px, rgb(10 37 64 / 9%) 0px -2px 6px 0px inset;
-    height: auto;
+    height: 500px;
     padding-top: 20px;
+
 
 
 }
