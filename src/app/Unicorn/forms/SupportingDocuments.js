@@ -5,7 +5,7 @@ import ProgressBar from "@ramonak/react-progress-bar";
 import { DownloadOutlined, DeleteOutlined } from "@ant-design/icons";
 import $ from "jquery";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 class SupportingDocuments extends Component {
   constructor(props) {
     super(props);
@@ -561,7 +561,7 @@ class SupportingDocuments extends Component {
                               onChange={(e) => {
                                 this.handleInputhighlightChange(index, e);
 
-                                if (e.target.value.length == 100) {
+                                if (e.target.value.length >= 100) {
                                   toast.error("only 100 chart");
                                 }
                               }}
@@ -583,13 +583,13 @@ class SupportingDocuments extends Component {
                               id="selected-field"
                               cols="30"
                               rows="6"
-                              maxLength="500"
+                              maxLength="200"
                               name="content1"
                               value={item.content1}
                               onChange={(e) => {
                                 this.handleInputChange(index, e);
-                                if (e.target.value.length == 500) {
-                                  toast.error("only 500 chart");
+                                if (e.target.value.length >= 200) {
+                                  toast.error("only 200 chart");
                                 }
                               }}
                             >
@@ -644,6 +644,7 @@ class SupportingDocuments extends Component {
               </div>
             </div>
           </Spin>
+          <ToastContainer/>
         </section>
       </div>
     );

@@ -2126,21 +2126,21 @@ class Founderadmindashboard extends Component {
             </div>
             <div className="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto mt-3">
               <div className="submit-draft-publish d-flex justify-content-center">
-                <Link to="FutureUnicornList" className="submit-future">
-                  Save Draft
+                <Link to="FutureUnicornDescription" className="submit-future">
+                  Preview
                 </Link>
-                <Link
+                <Link to="FutureUnicornList" className="submit-future">
+                  Save as Draft
+                </Link>
+                <a
                   onClick={() => {
                     this.publishunicorn();
                   }}
                   // to="MemberShip"
                   className="submit-future"
                 >
-                  Save Publish
-                </Link>
-                <Link to="FutureUnicornDescription" className="submit-future">
-                  Preview
-                </Link>
+                 Publish
+                </a>
               </div>
             </div>
           </div>
