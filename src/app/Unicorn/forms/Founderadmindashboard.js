@@ -22,6 +22,7 @@ import Step19 from "./Declaration";
 import Dellistinicorn from "./Deallist.js";
 import Mediacoverager from "./Mediacoverager.js";
 import Step20 from "./SupportingDocuments";
+import { Preview } from "./Preview.jsx";
 
 import ReactGA from "react-ga4";
 
@@ -308,7 +309,7 @@ class Founderadmindashboard extends Component {
         tudLogoImage: "",
         tudAddress: "",
         tudTempUdID: "",
-        
+
         founderID: localStorage.getItem("founder_id"),
       },
     };
@@ -930,188 +931,188 @@ class Founderadmindashboard extends Component {
   publishunicorn = () => {
     this.setState({ loading: true });
     console.log(this.state.unicorn);
-//     if (
-//       !this.state.unicorn.tudEmail &&
-//       !this.state.unicorn.tudStartupName &&
-//       !this.state.unicorn.tudPrimaryContactName &&
-//       !this.state.unicorn.tudPrimaryContactMobile &&
-//       !this.state.unicorn.tudPrimaryContactEmail
-//     ) {
-//       toast.error("Plz fill all Basic Details");
-//       return;
-//     }
-//     if (
-//       !this.state.unicorn.tudDisruptingMarket &&
-//       !this.state.unicorn.tudTappingNew &&
-//       !this.state.unicorn.tudCustomerBenifit &&
-//       !this.state.unicorn.tudSuppliersBenifit &&
-//       !this.state.unicorn.focused_on_product &&
-//       !this.state.unicorn.tudDirectSubstitueAvailable &&
-//       !this.state.unicorn.tudIndirectSubstitueAvailable &&
-//       !this.state.unicorn.tudRiskPerceived &&
-//       !this.state.unicorn.tudMoats &&
-//       !this.state.unicorn.tudScaleupChallenges
-//     ) {
-//       toast.error("Plz fill all Ideal/Business Details");
-//       return;
-//     }
-//     if (
-//       !this.state.unicorn.tudAndroidMobileApp &&
-//       !this.state.unicorn.tudAndroidAppDetails &&
-//       !this.state.unicorn.tudIphoneMobileApp &&
-//       !this.state.unicorn.tudIphoneAppDetails
-//     ) {
-//       toast.error("Plz fill all Mobile app Details");
-//       return;
-//     }
-//     if (
-//       !this.state.unicorn.tudIndustryClassification &&
-//       !this.state.unicorn.tudIndustryViews &&
-//       !this.state.unicorn.tudIndustryMarketSize &&
-//       !this.state.unicorn.tudSupportingInfoMarketSize &&
-//       !this.state.unicorn.tudAddressableMarketSize &&
-//       !this.state.unicorn.tudSupportingInfoAddressableMarketSize
-//     ) {
-//       toast.error("Plz fill all Industry Market Details");
-//       return;
-//     }
-//     if (
-//       !this.state.unicorn.tudLocalDirectComp &&
-//       !this.state.unicorn.tudLocalIndirectComp &&
-//       !this.state.unicorn.tudGlobalDirectComp &&
-//       !this.state.unicorn.tudGlobalIndirectComp &&
-//       !this.state.unicorn.tudDiffCompetion &&
-//       !this.state.unicorn.tudWhyCompSame &&
-//       !this.state.unicorn.tudUnfairAdv &&
-//       !this.state.unicorn.tudLikeCompetion &&
-//       !this.state.unicorn.tudFailVenture &&
-//       !this.state.unicorn.tudFailureReason
-//     ) {
-//       toast.error("Plz fill all Comepetition Details");
-//       return;
-//     }
-//     if (
-//       !this.state.unicorn.tudStrength &&
-//       !this.state.unicorn.tudWeakness &&
-//       !this.state.unicorn.tudOpportunities &&
-//       !this.state.unicorn.tudThreats
-//     ) {
-//       toast.error("Plz fill all SWOT Details");
-//       return;
-//     }
-//     if (
-//       !this.state.unicorn.tudStrength &&
-//       !this.state.unicorn.tudWeakness &&
-//       !this.state.unicorn.tudOpportunities &&
-//       !this.state.unicorn.tudThreats
-//     ) {
-//       toast.error("Plz fill all SWOT Details");
-//       return;
-//     }
-//     if (
-//       !this.state.unicorn.tudGtmStratergy&&
-//       !this.state.unicorn.tudGtmBackup&&
-//       !this.state.unicorn.tudExistingCac&&
-//       !this.state.unicorn.tudExpectedCac&&
-//       !this.state.unicorn.tudLogicCac&&
-//       !this.state.unicorn.tudLtvCustomer&&
-//       !this.state.unicorn.tudLogicLtvNumber&&
-//       !this.state.unicorn.tudLtvCacRatio
+    //     if (
+    //       !this.state.unicorn.tudEmail &&
+    //       !this.state.unicorn.tudStartupName &&
+    //       !this.state.unicorn.tudPrimaryContactName &&
+    //       !this.state.unicorn.tudPrimaryContactMobile &&
+    //       !this.state.unicorn.tudPrimaryContactEmail
+    //     ) {
+    //       toast.error("Plz fill all Basic Details");
+    //       return;
+    //     }
+    //     if (
+    //       !this.state.unicorn.tudDisruptingMarket &&
+    //       !this.state.unicorn.tudTappingNew &&
+    //       !this.state.unicorn.tudCustomerBenifit &&
+    //       !this.state.unicorn.tudSuppliersBenifit &&
+    //       !this.state.unicorn.focused_on_product &&
+    //       !this.state.unicorn.tudDirectSubstitueAvailable &&
+    //       !this.state.unicorn.tudIndirectSubstitueAvailable &&
+    //       !this.state.unicorn.tudRiskPerceived &&
+    //       !this.state.unicorn.tudMoats &&
+    //       !this.state.unicorn.tudScaleupChallenges
+    //     ) {
+    //       toast.error("Plz fill all Ideal/Business Details");
+    //       return;
+    //     }
+    //     if (
+    //       !this.state.unicorn.tudAndroidMobileApp &&
+    //       !this.state.unicorn.tudAndroidAppDetails &&
+    //       !this.state.unicorn.tudIphoneMobileApp &&
+    //       !this.state.unicorn.tudIphoneAppDetails
+    //     ) {
+    //       toast.error("Plz fill all Mobile app Details");
+    //       return;
+    //     }
+    //     if (
+    //       !this.state.unicorn.tudIndustryClassification &&
+    //       !this.state.unicorn.tudIndustryViews &&
+    //       !this.state.unicorn.tudIndustryMarketSize &&
+    //       !this.state.unicorn.tudSupportingInfoMarketSize &&
+    //       !this.state.unicorn.tudAddressableMarketSize &&
+    //       !this.state.unicorn.tudSupportingInfoAddressableMarketSize
+    //     ) {
+    //       toast.error("Plz fill all Industry Market Details");
+    //       return;
+    //     }
+    //     if (
+    //       !this.state.unicorn.tudLocalDirectComp &&
+    //       !this.state.unicorn.tudLocalIndirectComp &&
+    //       !this.state.unicorn.tudGlobalDirectComp &&
+    //       !this.state.unicorn.tudGlobalIndirectComp &&
+    //       !this.state.unicorn.tudDiffCompetion &&
+    //       !this.state.unicorn.tudWhyCompSame &&
+    //       !this.state.unicorn.tudUnfairAdv &&
+    //       !this.state.unicorn.tudLikeCompetion &&
+    //       !this.state.unicorn.tudFailVenture &&
+    //       !this.state.unicorn.tudFailureReason
+    //     ) {
+    //       toast.error("Plz fill all Comepetition Details");
+    //       return;
+    //     }
+    //     if (
+    //       !this.state.unicorn.tudStrength &&
+    //       !this.state.unicorn.tudWeakness &&
+    //       !this.state.unicorn.tudOpportunities &&
+    //       !this.state.unicorn.tudThreats
+    //     ) {
+    //       toast.error("Plz fill all SWOT Details");
+    //       return;
+    //     }
+    //     if (
+    //       !this.state.unicorn.tudStrength &&
+    //       !this.state.unicorn.tudWeakness &&
+    //       !this.state.unicorn.tudOpportunities &&
+    //       !this.state.unicorn.tudThreats
+    //     ) {
+    //       toast.error("Plz fill all SWOT Details");
+    //       return;
+    //     }
+    //     if (
+    //       !this.state.unicorn.tudGtmStratergy&&
+    //       !this.state.unicorn.tudGtmBackup&&
+    //       !this.state.unicorn.tudExistingCac&&
+    //       !this.state.unicorn.tudExpectedCac&&
+    //       !this.state.unicorn.tudLogicCac&&
+    //       !this.state.unicorn.tudLtvCustomer&&
+    //       !this.state.unicorn.tudLogicLtvNumber&&
+    //       !this.state.unicorn.tudLtvCacRatio
 
-//     ) {
-//       toast.error("Plz fill all Go to market Details");
-//       return;
-//     }
-//     if (
-//       !this.state.unicorn.tudPreviousFundRaised
+    //     ) {
+    //       toast.error("Plz fill all Go to market Details");
+    //       return;
+    //     }
+    //     if (
+    //       !this.state.unicorn.tudPreviousFundRaised
 
-//     ) {
-//       toast.error("Plz fill all Go to Funding Detail Details");
-//       return;
-//     }
-//     if (
-//       !this.state.unicorn.tudFundRequired&&
-// !this.state.unicorn.tudExpRunway&&
-// !this.state.unicorn.tudValueFundRaise&&
-// !this.state.unicorn.tudLogicFundRaise&&
-// !this.state.unicorn.tudOpentoLower&&
-// !this.state.unicorn.tudCapexImmidate&&
-// !this.state.unicorn.tudCapexFuture&&
-// !this.state.unicorn.tudProductFund&&
-// !this.state.unicorn.tudMarketingFund&&
-// !this.state.unicorn.use_of_funds_repayment&&
-// !this.state.unicorn.tudSalaryFund&&
-// !this.state.unicorn.tudCastComFund&&
-// !this.state.unicorn.tudOthersFund
-//     ) {
-//       toast.error("Plz fill all Use of funds Details");
-//       return;
-//     }
-//     if (
-//      !this.state.unicorn.tudSaleExitInfo&&
-//      !this.state.unicorn.tudDepedencyPerson&&
-//      !this.state.unicorn.tudReglarityIssue&&
-//      !this.state.unicorn.tudLicPermissionStatus&&
-//      !this.state.unicorn.tudTeamSize&&
-//      !this.state.unicorn.tud5perCommission&&
-//      !this.state.unicorn.tud10perCommission&&
-//      !this.state.unicorn.tudExitTimeline&&
-//      !this.state.unicorn.tudSubsidiries&&
-//      !this.state.unicorn.tudSisterConcerns&&
-//      !this.state.unicorn.tudRelatedPartyTrans&&
-//      !this.state.unicorn.tudLegalRisk&&
-//      !this.state.unicorn.tudFounderExitEarlier&&
-//      !this.state.unicorn.tudDemoLink&&
-//      !this.state.unicorn.tudOtherDocsLinks&&
-//      !this.state.unicorn.tudMediaCoverLinks&&
-//      !this.state.unicorn.tudAwards&&
-//      !this.state.unicorn.tudStartupRecon&&
-//      !this.state.unicorn.tudOtherInfo
-//     ) {
-//       toast.error("Plz fill all Important indicators Details");
-//       return;
-//     }
-//     if (
-//       !this.props.unicorn.tudMark&&
-//       !this.props.unicorn.tudStartupHighlights&&
-//       !this.props.unicorn.tudLogoImage&&
-//       !this.props.unicorn.tudBannerImage&&
-//       !this.props.unicorn.tudPitchDeck
-      
-//     ) {
-//       toast.error("Plz fill all Supporting Documents Details");
-//       return;
-//     }
-//     if (
-//       !this.props.unicorn.tudMark&&
-//       !this.props.unicorn.tudStartupHighlights&&
-//       !this.props.unicorn.tudLogoImage&&
-//       !this.props.unicorn.tudBannerImage&&
-//       !this.props.unicorn.tudPitchDeck
-      
-//     ) {
-//       toast.error("Plz fill all Supporting Documents Details");
-//       return;
-//     }
-//     if (
-//       this.state.unicorn.tudStartupFounderName&&
-// this.state.unicorn.tudLegalname&&
-// this.state.unicorn.tudStartupFounderMobileNumber&&
-// this.state.unicorn.tudStartupFounderEmail&&
-// this.state.unicorn.tudFoundedon&&
-// this.state.unicorn.tudAddress&&
-// this.state.unicorn.tudEmployees&&
-// this.state.unicorn.tudCAPTableThresholdAmount&&
-// this.state.unicorn.tudSpecialOfferText&&
-// this.state.unicorn.tudInputDefaultText&&
-// this.state.unicorn.tudDealDescription&&
-// this.state.unicorn.tudYoutubeLink&&
-// this.state.unicorn.tudCategory
-      
-//     ) {
-//       toast.error("Plz fill all Deals Details");
-//       return;
-//     }
+    //     ) {
+    //       toast.error("Plz fill all Go to Funding Detail Details");
+    //       return;
+    //     }
+    //     if (
+    //       !this.state.unicorn.tudFundRequired&&
+    // !this.state.unicorn.tudExpRunway&&
+    // !this.state.unicorn.tudValueFundRaise&&
+    // !this.state.unicorn.tudLogicFundRaise&&
+    // !this.state.unicorn.tudOpentoLower&&
+    // !this.state.unicorn.tudCapexImmidate&&
+    // !this.state.unicorn.tudCapexFuture&&
+    // !this.state.unicorn.tudProductFund&&
+    // !this.state.unicorn.tudMarketingFund&&
+    // !this.state.unicorn.use_of_funds_repayment&&
+    // !this.state.unicorn.tudSalaryFund&&
+    // !this.state.unicorn.tudCastComFund&&
+    // !this.state.unicorn.tudOthersFund
+    //     ) {
+    //       toast.error("Plz fill all Use of funds Details");
+    //       return;
+    //     }
+    //     if (
+    //      !this.state.unicorn.tudSaleExitInfo&&
+    //      !this.state.unicorn.tudDepedencyPerson&&
+    //      !this.state.unicorn.tudReglarityIssue&&
+    //      !this.state.unicorn.tudLicPermissionStatus&&
+    //      !this.state.unicorn.tudTeamSize&&
+    //      !this.state.unicorn.tud5perCommission&&
+    //      !this.state.unicorn.tud10perCommission&&
+    //      !this.state.unicorn.tudExitTimeline&&
+    //      !this.state.unicorn.tudSubsidiries&&
+    //      !this.state.unicorn.tudSisterConcerns&&
+    //      !this.state.unicorn.tudRelatedPartyTrans&&
+    //      !this.state.unicorn.tudLegalRisk&&
+    //      !this.state.unicorn.tudFounderExitEarlier&&
+    //      !this.state.unicorn.tudDemoLink&&
+    //      !this.state.unicorn.tudOtherDocsLinks&&
+    //      !this.state.unicorn.tudMediaCoverLinks&&
+    //      !this.state.unicorn.tudAwards&&
+    //      !this.state.unicorn.tudStartupRecon&&
+    //      !this.state.unicorn.tudOtherInfo
+    //     ) {
+    //       toast.error("Plz fill all Important indicators Details");
+    //       return;
+    //     }
+    //     if (
+    //       !this.props.unicorn.tudMark&&
+    //       !this.props.unicorn.tudStartupHighlights&&
+    //       !this.props.unicorn.tudLogoImage&&
+    //       !this.props.unicorn.tudBannerImage&&
+    //       !this.props.unicorn.tudPitchDeck
+
+    //     ) {
+    //       toast.error("Plz fill all Supporting Documents Details");
+    //       return;
+    //     }
+    //     if (
+    //       !this.props.unicorn.tudMark&&
+    //       !this.props.unicorn.tudStartupHighlights&&
+    //       !this.props.unicorn.tudLogoImage&&
+    //       !this.props.unicorn.tudBannerImage&&
+    //       !this.props.unicorn.tudPitchDeck
+
+    //     ) {
+    //       toast.error("Plz fill all Supporting Documents Details");
+    //       return;
+    //     }
+    //     if (
+    //       this.state.unicorn.tudStartupFounderName&&
+    // this.state.unicorn.tudLegalname&&
+    // this.state.unicorn.tudStartupFounderMobileNumber&&
+    // this.state.unicorn.tudStartupFounderEmail&&
+    // this.state.unicorn.tudFoundedon&&
+    // this.state.unicorn.tudAddress&&
+    // this.state.unicorn.tudEmployees&&
+    // this.state.unicorn.tudCAPTableThresholdAmount&&
+    // this.state.unicorn.tudSpecialOfferText&&
+    // this.state.unicorn.tudInputDefaultText&&
+    // this.state.unicorn.tudDealDescription&&
+    // this.state.unicorn.tudYoutubeLink&&
+    // this.state.unicorn.tudCategory
+
+    //     ) {
+    //       toast.error("Plz fill all Deals Details");
+    //       return;
+    //     }
     let params = {
       tudTempUdID: this.state.unicorn.tudTempUdID,
       founderID: this.state.unicorn.founderID,
@@ -1817,7 +1818,6 @@ class Founderadmindashboard extends Component {
                         </div>
                         <span>Media Coverages</span>
                         <div className="line"></div>
-
                       </div>
                     </li>
                     <li onClick={() => this.activethistab(21)}>
@@ -2126,7 +2126,13 @@ class Founderadmindashboard extends Component {
             </div>
             <div className="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto mt-3">
               <div className="submit-draft-publish d-flex justify-content-center">
-                <Link to="FutureUnicornDescription" className="submit-future">
+                <Link
+                  to={{
+                    pathname: "/PreviewUnicorn",
+                    state: this.state.unicorn,
+                  }}
+                  className="submit-future"
+                >
                   Preview
                 </Link>
                 <Link to="FutureUnicornList" className="submit-future">
@@ -2139,7 +2145,7 @@ class Founderadmindashboard extends Component {
                   // to="MemberShip"
                   className="submit-future"
                 >
-                 Publish
+                  Publish
                 </a>
               </div>
             </div>

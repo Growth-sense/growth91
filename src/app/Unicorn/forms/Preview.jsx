@@ -6,58 +6,22 @@ import $ from "jquery";
 import { Link } from "react-router-dom";
 import Bridge from "./constants/Bridge.js";
 import { useLocation } from "react-router-dom";
-import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
-import { Document, Page } from 'react-pdf';
-import { pdfjs } from 'react-pdf';
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
+import { Button, Modal } from "antd";
+import { toast, ToastContainer } from "react-toastify";
 
-
-
-export const FutureUnicornDescription = ({item}) => {
-  const search = useLocation().search;
-  const id = new URLSearchParams(search).get("id");
+export const FutureUnicornDescription = (props) => {
+  const location = useLocation();
   useEffect(() => {
-    getuniondata();
     window.scrollTo(0, 0);
+    if(location.state.unicorn){
+        setunicorn(location.state.unicorn)
+    }
+      console.log();
+      
   }, []);
 
-  const [unicorn, setUnicorn] = useState(null); // Handle unicorn data
-  const [numPages, setNumPages] = useState(null); // State for total pages
-  const [pageNumber, setPageNumber] = useState(1); // State for current page
-  const [pdfUrl, setPdfUrl] = useState('https://pdfobject.com/pdf/sample.pdf'); // State for the PDF URL
-  const [pdfError, setPdfError] = useState(null); // Handle PDF load errors
-  useEffect(() => {
-    getuniondata();
-    window.scrollTo(0, 0);
-  }, []);
 
-  // Handle the document load success
-  const onDocumentLoadSuccess = ({ numPages }) => {
-    setNumPages(numPages);
-    setPageNumber(1);
-    setPdfError(null); // Clear error on successful load
-  };
-
-  // Handle document load errors
-  const onDocumentLoadError = (error) => {
-    console.error("PDF loading error: ", error);
-    setPdfError("Failed to load PDF file. Please check the file or try again later.");
-  };
-
-
-  
-  const getuniondata = () => {
-    // Replace this with actual logic to get data
-    let params = {
-      page: 0,
-      pagesize: 10,
-    };
-    // Assuming Bridge.Unicorn.unicorndealsByInvestors is a promise-based function
-    Bridge.Unicorn.unicorndealsByInvestors(params).then((result) => {
-      setUnicorn(result.data.filter((item) => item.unicornDealID == id));
-    });
-  };
-
+const [unicorn, setunicorn] = useState()
   $(window).scroll(function () {
     if ($(this).scrollTop() > 30) {
       $("body").addClass("newClass");
@@ -65,26 +29,30 @@ export const FutureUnicornDescription = ({item}) => {
       $("body").removeClass("newClass");
     }
   });
-
   function SimpleNextArrow(props) {
     const { onClick } = props;
     return (
-      <div className="nextArrow" onClick={onClick}>
-        <span className="next-arrows slick-arrow">
-          <i className="fa fa-angle-right" aria-hidden="true"></i>
-        </span>
-      </div>
+      <>
+        <div className="nextArrow" onClick={onClick}>
+          <span class="next-arrows slick-arrow">
+            <i class="fa fa-angle-right" aria-hidden="true"></i>
+          </span>
+        </div>
+      </>
     );
   }
 
   function SimplePrevArrow(props) {
     const { onClick } = props;
     return (
-      <div className="prevArrow" onClick={onClick}>
-        <span className="prev-arrows slick-arrow">
-          <i className="fa fa-angle-left" aria-hidden="true"></i>
-        </span>
-      </div>
+      <>
+        <div className="prevArrow" onClick={onClick}>
+          <span class="prev-arrows slick-arrow">
+            {" "}
+            <i class="fa fa-angle-left" aria-hidden="true"></i>{" "}
+          </span>
+        </div>
+      </>
     );
   }
 
@@ -145,42 +113,7 @@ export const FutureUnicornDescription = ({item}) => {
       },
     ],
   };
-  const openiamintrest = () => {
-    setiamintrestmodal(true);
-  };
-  const adddata = (e) => {
-    if (e.target.name == "message") {
-      setdata({ ...data, [e.target.name]: [e.target.value] });
-    } else {
-      setdata({ ...data, [e.target.name]: !data[e.target.name] });
-    }
-  };
-  const submitintrest = () => {
-    console.log(unicorn[0]);
-
-    let params = {
-      unicornDealID: unicorn[0].unicornDealID,
-      udFounderID: unicorn[0].udFounderID,
-      investor_id: localStorage.getItem("investor_id"),
-      interestKnowMore: data["I Want to know more about it"],
-      interestWorkwithYou: data["I want to work with you"],
-      interestInvestinStartup: data["I am excited to invest in your startups"],
-      interestMessage: data["message"][0],
-    };
-    Bridge.Unicorn.add_unicorn_interest(params).then((result) => {
-      console.log(result);
-      if(result.message== "Details are updated successfully.")
-      {
-        toast.success("Details shared with Founder")
-        setiamintrestmodal(false)
-      }
-      else if( result.message=="Please enter values of all fields."){
-        toast.error("Plz fill all feild")
-      }
-    });
-
-  };
-  console.log(data);
+ 
 
   return (
     <div>
@@ -193,28 +126,46 @@ export const FutureUnicornDescription = ({item}) => {
         unicorn.map((item, index) => {
           console.log(item);
 
-            return (
-              <>
-                <section class="futureunicorn-slider-sections futureunicorn-only">
-                  <div class="container-flex">
-                   
-                    <div className="row row-imgdirects">
-                      <div className="row-img-direct">
-                        <div className="img-certified-directors">
+          return (
+            <>
+              <section class="futureunicorn-slider-sections">
+                <div class="container-flex">
+                  <div class="row">
+                    <div class="futureslider-card">
+                      <Slider {...sliderSettings}>
+                        <div class="img-future">
                           <img
                             src={`${
                               process.env.REACT_APP_BASE_URL
                             }api/uploads/unicorndeals/${
                               item.tudTempUdID
-                            }/${JSON.parse(item.udLogoImage)}`}
+                            }/${JSON.parse(item.udBannerImage)}`}
                             alt=""
                           />
+                          <div className="content-img-futureunicorn">
+                            {/* <h3>Business Management consultant</h3> */}
+                          </div>
                         </div>
-                        <div className="content-certify-directors">
-                          <h3>{item.udPrimaryContactName}</h3>
-                          <p>
-                            <span></span>
-                            {/* Certified Corporate Director - Business Management
+                      </Slider>
+                    </div>
+                  </div>
+                  <div className="row row-imgdirects">
+                    <div className="row-img-direct">
+                      <div className="img-certified-directors">
+                        <img
+                          src={`${
+                            process.env.REACT_APP_BASE_URL
+                          }api/uploads/unicorndeals/${
+                            item.tudTempUdID
+                          }/${JSON.parse(item.udLogoImage)}`}
+                          alt=""
+                        />
+                      </div>
+                      <div className="content-certify-directors">
+                        <h3>{item.udPrimaryContactName}</h3>
+                        <p>
+                          <span></span>
+                          {/* Certified Corporate Director - Business Management
                             Consultant */}
                         </p>
                       </div>
@@ -665,132 +616,167 @@ export const FutureUnicornDescription = ({item}) => {
                                     </div>
                                 </div> */}
 
-<div className="accordion-item">
-      <h3 className="accordion-header" id="flush-headingfour">
-        <button
-          className="accordion-button collapsed"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#flush-headingfournew"
-          aria-expanded="false"
-          aria-controls="flush-headingfour"
-        >
-          <span>
-            <img src="./assets/images/gallery.png" alt="Gallery" />
-          </span>
-          Investor Presentation
-        </button>
-      </h3>
-      <div
-        id="flush-headingfournew"
-        className="accordion-collapse collapse"
-        aria-labelledby="flush-headingfour"
-        data-bs-parent="#accordionFlushExample"
-      >
-        <div className="accordion-body">
-          {pdfUrl ? (
-            <div>
-              {/* PDF Viewer */}
-              <Document
-                file={pdfUrl}
-                onLoadSuccess={onDocumentLoadSuccess}
-                onLoadError={onDocumentLoadError} // Handle load errors
-                loading="Loading PDF..."
-              >
-                <Page pageNumber={pageNumber} />
-              </Document>
-
-              {/* Pagination */}
-              <div className="pagination">
-                <button
-                  disabled={pageNumber <= 1}
-                  onClick={() => setPageNumber(pageNumber - 1)}
-                >
-                  Previous
-                </button>
-                <span>
-                  Page {pageNumber} of {numPages}
-                </span>
-                <button
-                  disabled={pageNumber >= numPages}
-                  onClick={() => setPageNumber(pageNumber + 1)}
-                >
-                  Next
-                </button>
-              </div>
-            </div>
-          ) : (
-            <p>Loading PDF...</p>
-          )}
-
-          {pdfError && <p className="error-message">{pdfError}</p>} {/* Display error */}
-        </div>
-      </div>
-    </div>
-                          <div class="accordion-item">
-                            <h3 class="accordion-header" id="flush-headingWait">
-                              <button
-                                class="accordion-button collapsed"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#flush-headingWaitnew"
-                                aria-expanded="false"
-                                aria-controls="flush-headingWait"
-                              >
-                                <span>
-                                  <img
-                                    src="./assets/images/mobile.png"
-                                    alt=""
-                                  />
-                                </span>
-                                Videos
-                              </button>
-                            </h3>
-                            <div
-                              id="flush-headingWaitnew"
-                              class="accordion-collapse collapse"
-                              aria-labelledby="flush-headingWait"
-                              data-bs-parent="#accordionFlushExample"
+                        <div class="accordion-item">
+                          <h3 class="accordion-header" id="flush-headingfour">
+                            <button
+                              class="accordion-button collapsed"
+                              type="button"
+                              data-bs-toggle="collapse"
+                              data-bs-target="#flush-headingfournew"
+                              aria-expanded="false"
+                              aria-controls="flush-headingfour"
                             >
-                              <div class="accordion-body connect-acc-us">
-                                <div className="row justify-content-center">
-                                  <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
+                              <span>
+                                <img src="./assets/images/gallery.png" alt="" />
+                              </span>
+                              Investor Presentation
+                            </button>
+                          </h3>
+                          <div
+                            id="flush-headingfournew"
+                            class="accordion-collapse collapse"
+                            aria-labelledby="flush-headingfour"
+                            data-bs-parent="#accordionFlushExample"
+                          >
+                            <div class="accordion-body">
+                              <iframe
+                                src={`${
+                                  process.env.REACT_APP_BASE_URL
+                                }api/uploads/unicorndeals/${
+                                  item.tudTempUdID
+                                }/${JSON.parse(item.udPitchDeck)}`}
+                                frameborder="0"
+                                height={"500px"}
+                                width={"100%"}
+                              ></iframe>
+                              {/* <div className="row justify-content-center">
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
                                     <div className="img-future-gallery">
-                                      <iframe
-                                        style={{
-                                          boxShadow:
-                                            "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
-                                          borderRadius: 3,
-                                          // marginLeft: 65,
-                                        }}
-                                        width="100%"
-                                        height="335"
-                                        src={`https://www.youtube.com/embed/${item.udYoutubeLink
-                                          .split("=")
-                                          .pop()}`}
-                                        title="YouTube video player"
-                                        frameBorder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowFullScreen
-                                      ></iframe>
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
                                     </div>
+                                  </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                </div> */}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="accordion-item">
+                          <h3 class="accordion-header" id="flush-headingWait">
+                            <button
+                              class="accordion-button collapsed"
+                              type="button"
+                              data-bs-toggle="collapse"
+                              data-bs-target="#flush-headingWaitnew"
+                              aria-expanded="false"
+                              aria-controls="flush-headingWait"
+                            >
+                              <span>
+                                <img src="./assets/images/mobile.png" alt="" />
+                              </span>
+                              Videos
+                            </button>
+                          </h3>
+                          <div
+                            id="flush-headingWaitnew"
+                            class="accordion-collapse collapse"
+                            aria-labelledby="flush-headingWait"
+                            data-bs-parent="#accordionFlushExample"
+                          >
+                            <div class="accordion-body connect-acc-us">
+                              <div className="row justify-content-center">
+                                <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
+                                  <div className="img-future-gallery">
+                                    <iframe
+                                      style={{
+                                        boxShadow:
+                                          "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
+                                        borderRadius: 3,
+                                        // marginLeft: 65,
+                                      }}
+                                      width="100%"
+                                      height="335"
+                                      src={`https://www.youtube.com/embed/${item.udYoutubeLink
+                                        .split("=")
+                                        .pop()}`}
+                                      title="YouTube video player"
+                                      frameBorder="0"
+                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                      allowFullScreen
+                                    ></iframe>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                          <div class="accordion-item">
-                            <h3 class="accordion-header" id="flush-headingfive">
-                              <div class="default-Show">
-                                <span>
-                                  <img
-                                    src="./assets/images/mobile.png"
-                                    alt=""
-                                  />
-                                </span>
-                                Contact Us
-                              </div>
-                            </h3>
+                        </div>
+                        <div class="accordion-item">
+                          <h3 class="accordion-header" id="flush-headingfive">
+                            <div class="default-Show">
+                              <span>
+                                <img src="./assets/images/mobile.png" alt="" />
+                              </span>
+                              Contact Us
+                            </div>
+                          </h3>
 
                           <div class="accordion-body connect-acc-us">
                             <div className="row row-box-line">

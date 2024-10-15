@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 export const FounderMyPlan = () => {
     useEffect(() => {
+        // 
         window.scrollTo(0, 0)
     }, [])
 

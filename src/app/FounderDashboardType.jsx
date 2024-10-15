@@ -1,15 +1,28 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NewWebFooter } from './common/NewWebFooter'
 import Slider from 'react-slick'
 import NewWebHeader from "./common/NewWebHeader.jsx";
 import $ from "jquery";
 import { Link } from 'react-router-dom';
+import Bridge from './constants/Bridge.js';
 
 export const FounderDashboardType = () => {
     useEffect(() => {
+        // 
         window.scrollTo(0, 0)
+        getfounderdetails()
     }, [])
+    const [data, setdata] = useState()
+const getfounderdetails=()=>{
+    let params = {
+        investor_id: localStorage.getItem("founder_id"),
+      };
+      Bridge.check_for_membership_type(params).then((result) => {
+        setdata(result.data[0])
 
+
+      })
+}
     $(window).scroll(function () {
         if ($(this).scrollTop() > 30) {
             $('body').addClass('newClass');
@@ -17,6 +30,8 @@ export const FounderDashboardType = () => {
             $('body').removeClass('newClass');
         }
     });
+    console.log(data);
+    
     function SimpleNextArrow(props) {
         const { onClick } = props;
         return (
@@ -122,53 +137,55 @@ export const FounderDashboardType = () => {
                             <div class="tab-content">
                                 <input type="radio" name="tab-index" id="tab-index1" checked />
                                 <div class="content">
+                                    {data&&
                                     <div className="row">
                                         <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
                                             <div className="input-dashboard-acc">
                                                 <label htmlFor="">First Name *</label>
-                                                <input type="text" value="khushboo " className='form-control' enable />
+                                                <input type="text" value={data.first_name} className='form-control' enable />
                                             </div>
                                         </div>
+                                        {data.middle_name&&
                                         <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
                                             <div className="input-dashboard-acc">
                                                 <label htmlFor="">Middle Name (Optional)</label>
-                                                <input type="text" value="Satyendra" className='form-control' />                                            </div>
-                                        </div>
+                                                <input type="text" value={data.middle_name} className='form-control' />                                            </div>
+                                    </div>}
 
                                         <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
                                             <div className="input-dashboard-acc">
                                                 <label htmlFor="">Last Name *</label>
-                                                <input type="text" value=" bharati" className='form-control' />
+                                                <input type="text" value={data.last_name}  className='form-control' />
                                             </div>
                                         </div>
 
                                         <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
                                             <div className="input-dashboard-acc">
                                                 <label htmlFor="">Mobile No *</label>
-                                                <input type="text" value="8806234772" className='form-control' />
+                                                <input type="text" value={data.mobile} className='form-control' />
                                             </div>
                                         </div>
 
                                         <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
                                             <div className="input-dashboard-acc">
                                                 <label htmlFor="">Email *</label>
-                                                <input type="text" value="khushbharati124@gmail.com" className='form-control' />
+                                                <input type="text" value={data.email} className='form-control' />
                                             </div>
                                         </div>
-
+                                        {data.referral_code&&
                                         <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
                                             <div className="input-dashboard-acc">
                                                 <label htmlFor="">Referral Code</label>
-                                                <input type="text" value="13572" className='form-control' />
+                                                <input type="text" value={data.referral_code} className='form-control' />
                                             </div>
-                                        </div>
+                                        </div>}
 
                                         {/* <div className="col-md-6 col-12 col-xl-6 col-xxl-6 col-sm-6 col-lg-6 mb-4">
                                             <div className="input-dashboard-acc">
                                                 <input type="text" value="khushboo bharati" className='form-control' />
                                             </div>
                                         </div> */}
-                                    </div>
+                                    </div>}
                                 </div>
                             </div>
 
