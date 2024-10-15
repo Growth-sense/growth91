@@ -1100,6 +1100,7 @@ class Edept extends Component {
   };
 
   formatNumberWithCommas = (number) => {
+
     return number.toLocaleString("en-IN");
   };
 
@@ -1481,14 +1482,14 @@ class Edept extends Component {
                             <td lassName="text-center">
                               ₹{" "}
                               {this.state.amountplusgst
-                                ? this.state.amountplusgst
+                                ?this.formatNumberWithCommas( Number(this.state.amountplusgst))
                                 : "0"}
                             </td>
                           </tr>
                           <tr>
                             <td>GST {this.state.gst} %</td>
                             <td lassName="text-center">
-                              ₹ {this.state.gstValue}
+                              ₹ {this.formatNumberWithCommas(Number(this.state.gstValue))}
                             </td>
                           </tr>
                           <tr>
@@ -1498,7 +1499,7 @@ class Edept extends Component {
                               <span>{this.state.label}</span>
                             </td>
                             <td lassName="text-center">
-                              ₹ {this.state.processingfees}
+                              ₹ {this.formatNumberWithCommas(Number(this.state.processingfees))}
                             </td>
                           </tr>
                           <tr>
@@ -1510,7 +1511,7 @@ class Edept extends Component {
                           <tr>
                             <td>Total</td>
                             <td>
-                              ₹ {parseFloat(this.state.totalamount).toFixed(0)}
+                              ₹ {this.formatNumberWithCommas(Number(parseFloat(this.state.totalamount).toFixed(0)))}
                             </td>
                           </tr>
                         </table>
@@ -1602,6 +1603,14 @@ class Edept extends Component {
                             invest_amt={this.state.invest_amt}
                           />
                         )}
+                          <button type="button"
+                            className="login-button text-center  btn-secondary"
+                            style={{
+                              border: "1px solid #f3f3f",
+                              padding: "0.9em 0 ",
+                              marginTop:"10px",
+                            }}  value="" onClick={(e)=>{this.handleCommitAmount(e.target.value);}}>Clear</button>
+
                       </div>
                     </div>
                   </Modal>

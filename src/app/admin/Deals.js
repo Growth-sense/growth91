@@ -5089,7 +5089,7 @@ class Deals extends Component {
           visible={this.state.Commitment_list_modal}
           onOk={() => this.setState({ Commitment_list_modal: false })}
           onCancel={() => this.setState({ Commitment_list_modal: false })}
-          okText="ok"
+          okText="OK"
           width={1000}
         >
           <div
@@ -5120,7 +5120,7 @@ class Deals extends Component {
               ></i>{" "}
               Add New Commitment
             </Button>
-            {/* <Button
+            <Button
               type="primary"
               onClick={() => this.Emailtoinvestors()}
             >
@@ -5134,7 +5134,7 @@ class Deals extends Component {
                 }}
               ></i>{" "}
              Email to Investor
-            </Button> */}
+            </Button>
             <Button
               type="primary"
               onClick={() => this.exportToCSV_CommitList("Commitment List")}

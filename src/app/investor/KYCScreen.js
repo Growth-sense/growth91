@@ -1802,7 +1802,7 @@ class InvestorKYCScreen extends Component {
                                     : false
                                 }
                               ></textarea>
-                              {/* <label>
+                              <label>
                                 State
                                 <span className="text-danger">*</span>
                               </label>
@@ -1897,7 +1897,7 @@ class InvestorKYCScreen extends Component {
                                     ? true
                                     : false
                                 }
-                              /> */}
+                              />
                             </div>
 
                             <div className="d-flex justify-content-end">
