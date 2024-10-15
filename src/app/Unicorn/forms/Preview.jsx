@@ -9,39 +9,19 @@ import { useLocation } from "react-router-dom";
 import { Button, Modal } from "antd";
 import { toast, ToastContainer } from "react-toastify";
 
-export const FutureUnicornDescription = () => {
-  const search = useLocation().search;
-  const id = new URLSearchParams(search).get("id");
+export const FutureUnicornDescription = (props) => {
+  const location = useLocation();
   useEffect(() => {
-    getuniondata();
     window.scrollTo(0, 0);
+    if(location.state.unicorn){
+        setunicorn(location.state.unicorn)
+    }
+      console.log();
+      
   }, []);
 
-  const [unicorn, setUnicorn] = useState();
-  const [memberdata, setmemberdata] = useState();
-  const [iamintrestmodal, setiamintrestmodal] = useState(false);
-  const [data, setdata] = useState({
-    "I Want to know more about it": false,
-    "I want to work with you": false,
-    "I am excited to invest in your startups": false,
-    message: "",
-  });
 
-  function getuniondata() {
-    let param = {
-      investor_id: localStorage.getItem("investor_id"),
-    };
-    Bridge.check_for_membership_type(param).then((result) => {
-      setmemberdata(result.data[0]);
-    });
-    let params = {
-      page: 0,
-      pagesize: 10,
-    };
-    Bridge.Unicorn.unicorndealsByInvestors(params).then((result) => {
-      setUnicorn(result.data.filter((item) => item.unicornDealID == id));
-    });
-  }
+const [unicorn, setunicorn] = useState()
   $(window).scroll(function () {
     if ($(this).scrollTop() > 30) {
       $("body").addClass("newClass");
@@ -75,6 +55,7 @@ export const FutureUnicornDescription = () => {
       </>
     );
   }
+
   const highlightimages = [
     "./assets/images/deals-details/Petmojo/highlight4.jpg",
     "./assets/images/deals-details/Petmojo/highlight01.jpg",
@@ -132,42 +113,7 @@ export const FutureUnicornDescription = () => {
       },
     ],
   };
-  const openiamintrest = () => {
-    setiamintrestmodal(true);
-  };
-  const adddata = (e) => {
-    if (e.target.name == "message") {
-      setdata({ ...data, [e.target.name]: [e.target.value] });
-    } else {
-      setdata({ ...data, [e.target.name]: !data[e.target.name] });
-    }
-  };
-  const submitintrest = () => {
-    console.log(unicorn[0]);
-
-    let params = {
-      unicornDealID: unicorn[0].unicornDealID,
-      udFounderID: unicorn[0].udFounderID,
-      investor_id: localStorage.getItem("investor_id"),
-      interestKnowMore: data["I Want to know more about it"],
-      interestWorkwithYou: data["I want to work with you"],
-      interestInvestinStartup: data["I am excited to invest in your startups"],
-      interestMessage: data["message"][0],
-    };
-    Bridge.Unicorn.add_unicorn_interest(params).then((result) => {
-      console.log(result);
-      if(result.message== "Details are updated successfully.")
-      {
-        toast.success("Details shared with Founder")
-        setiamintrestmodal(false)
-      }
-      else if( result.message=="Please enter values of all fields."){
-        toast.error("Plz fill all feild")
-      }
-    });
-
-  };
-  console.log(data);
+ 
 
   return (
     <div>

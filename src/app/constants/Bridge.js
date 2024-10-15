@@ -953,5 +953,13 @@ export default {
       api.post(URLs.uploadFiles, data).then((response) => {
         return response.data;
       }),
+    add_unicorn_interest: (data) =>
+      api.post(URLs.add_unicorn_interest, data).then((response) => {
+        return response.data;
+      }),
+    unicorn_interested_list: (data) =>
+      api.post(URLs.unicorn_interested_list, data).then((response) => {
+        return response.data;
+      }),
   },
 };
