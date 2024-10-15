@@ -180,46 +180,28 @@ export const FutureUnicornDescription = () => {
         unicorn.map((item, index) => {
           console.log(item);
 
-          return (
-            <>
-              <section class="futureunicorn-slider-sections">
-                <div class="container-flex">
-                  <div class="row">
-                    <div class="futureslider-card">
-                      <Slider {...sliderSettings}>
-                        <div class="img-future">
+            return (
+              <>
+                <section class="futureunicorn-slider-sections futureunicorn-only">
+                  <div class="container-flex">
+                   
+                    <div className="row row-imgdirects">
+                      <div className="row-img-direct">
+                        <div className="img-certified-directors">
                           <img
                             src={`${
                               process.env.REACT_APP_BASE_URL
                             }api/uploads/unicorndeals/${
                               item.tudTempUdID
-                            }/${JSON.parse(item.udBannerImage)}`}
+                            }/${JSON.parse(item.udLogoImage)}`}
                             alt=""
                           />
-                          <div className="content-img-futureunicorn">
-                            {/* <h3>Business Management consultant</h3> */}
-                          </div>
                         </div>
-                      </Slider>
-                    </div>
-                  </div>
-                  <div className="row row-imgdirects">
-                    <div className="row-img-direct">
-                      <div className="img-certified-directors">
-                        <img
-                          src={`${
-                            process.env.REACT_APP_BASE_URL
-                          }api/uploads/unicorndeals/${
-                            item.tudTempUdID
-                          }/${JSON.parse(item.udLogoImage)}`}
-                          alt=""
-                        />
-                      </div>
-                      <div className="content-certify-directors">
-                        <h3>{item.udPrimaryContactName}</h3>
-                        <p>
-                          <span></span>
-                          {/* Certified Corporate Director - Business Management
+                        <div className="content-certify-directors">
+                          <h3>{item.udPrimaryContactName}</h3>
+                          <p>
+                            <span></span>
+                            {/* Certified Corporate Director - Business Management
                             Consultant */}
                         </p>
                       </div>

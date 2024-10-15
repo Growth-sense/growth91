@@ -4935,7 +4935,7 @@ transition: max-height 0.45s ease-in; */
     border-bottom: 10px solid #c1b1ff;
     border-left: 10px solid #8869ff33;
     border-right: 1px solid #dcd3ff;
-    height: auto;
+    height: 100%;
     box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgb(17 17 26 / 0%) 0px 16px 56px, rgb(17 17 26 / 4%) 0px 24px 80px;
     background: #f7f5ff;
     margin-bottom: 29px;
@@ -5557,7 +5557,7 @@ a {
     border: 1px solid #29176f0a;
     padding: 0;
     box-shadow: rgb(50 50 93 / 15%) 0px 50px 100px -20px, rgb(0 0 0 / 0%) 0px 30px 60px -30px, rgb(10 37 64 / 9%) 0px -2px 6px 0px inset;
-    height: 500px;
+    height: 100%;
     padding-top: 20px;
 
 
@@ -6423,4 +6423,10 @@ a {
     margin-right: 11px;
    
 
+}
+
+
+.futureunicorn-only{
+
+	margin-top: 14rem;
 }
