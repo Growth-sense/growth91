@@ -129,27 +129,9 @@ export const FutureUnicornDescription = () => {
 
             return (
               <>
-                <section class="futureunicorn-slider-sections">
+                <section class="futureunicorn-slider-sections futureunicorn-only">
                   <div class="container-flex">
-                    <div class="row">
-                      <div class="futureslider-card">
-                        <Slider {...sliderSettings}>
-                          <div class="img-future">
-                            <img
-                              src={`${
-                                process.env.REACT_APP_BASE_URL
-                              }api/uploads/unicorndeals/${
-                                item.tudTempUdID
-                              }/${JSON.parse(item.udBannerImage)}`}
-                              alt=""
-                            />
-                            <div className="content-img-futureunicorn">
-                              {/* <h3>Business Management consultant</h3> */}
-                            </div>
-                          </div>
-                        </Slider>
-                      </div>
-                    </div>
+                   
                     <div className="row row-imgdirects">
                       <div className="row-img-direct">
                         <div className="img-certified-directors">
