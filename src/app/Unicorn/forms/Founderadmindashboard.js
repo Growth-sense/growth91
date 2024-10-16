@@ -23,6 +23,7 @@ import Dellistinicorn from "./Deallist.js";
 import Mediacoverager from "./Mediacoverager.js";
 import Step20 from "./SupportingDocuments";
 import { Preview } from "./Preview.jsx";
+import { Previewbutton } from "./Previewbutton.jsx";
 
 import ReactGA from "react-ga4";
 
@@ -2126,15 +2127,8 @@ class Founderadmindashboard extends Component {
             </div>
             <div className="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto mt-3">
               <div className="submit-draft-publish d-flex justify-content-center">
-                <Link
-                  to={{
-                    pathname: "/PreviewUnicorn",
-                    state: this.state.unicorn,
-                  }}
-                  className="submit-future"
-                >
-                  Preview
-                </Link>
+                
+                  <Previewbutton unicorn={this.state.unicorn}/>
                 <Link to="FutureUnicornList" className="submit-future">
                   Save as Draft
                 </Link>

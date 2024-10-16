@@ -58,6 +58,7 @@ class Deals extends Component {
       posts: [],
       loading: false,
       addModalStatus: false,
+      addDocModalStatus: false,
       title: "",
       description: "",
       filename: "",
@@ -278,6 +279,14 @@ class Deals extends Component {
       show_edit_commitment_status_modal: false,
       Commitmentstatus: "",
       commitmentstatusid: "",
+      documentType: "Investor",
+      selectedDeals: "",
+      selectedInvestors: "",
+      selectedFounders: "",
+      admindocDescription: "",
+      admindocActive: "",
+      admindocName: "",
+      documentFile: "",
     };
     this.button = React.createRef();
   }
@@ -2370,6 +2379,82 @@ class Deals extends Component {
       ac_edit_deal_id: record.item.deal_id,
     });
   };
+  handleSubmit = () => {
+    const {
+      documentType,
+      ac_deal_id,
+      selectedInvestors,
+      // selectedFounders,
+      admindocDescription,
+      admindocActive,
+      admindocName,
+      documentFile,
+    } = this.state;
+
+    console.log(  documentType,
+      ac_deal_id,
+      selectedInvestors,
+      // selectedFounders,
+      admindocDescription,
+      admindocActive,
+      admindocName,
+      documentFile)
+      // return
+    if (!admindocName) {
+      message.warning("Document Name is required");
+      return;
+    }
+
+    if (!documentType) {
+      message.warning("Document Type is required");
+      return;
+    }
+
+    if (!admindocDescription) {
+      message.warning("Description is required");
+      return;
+    }
+
+    let formData = new FormData();
+    formData.append("admindocName", admindocName);
+    formData.append("admindocDescription", admindocDescription);
+    formData.append("admindocActive", admindocActive);
+    formData.append("document", documentFile);
+
+    let deal_id = "0";
+    let investor_id = "0";
+
+    formData.append("deal_id", ac_deal_id);
+    formData.append("investor_id", selectedInvestors);
+
+    axios
+      .post(
+        `${process.env.REACT_APP_BASE_URL}api/admin/Documents/addadmindocs`,
+        formData
+      )
+      .then((response) => {
+        console.log("API Response:", response.data);
+        this.setState(
+          {
+            admindocName: "",
+            admindocActive: "",
+            admindocDescription: "",
+            documentType: "",
+            documentFile: null,
+            selectedDeals: [],
+            selectedInvestors: [],
+            selectedFounders: [],
+            addDocModalStatus: false,
+          },
+          // () => this.getDocumentList()
+        );
+        message.success("Document Added Successfully");
+        // window.location.reload();
+      })
+      .catch((error) => {
+        console.error("API Error:", error);
+      });
+  };
   render() {
     const dataSource =
       this.state.deallist &&
@@ -2493,10 +2578,10 @@ class Deals extends Component {
           key: "nestcreated_at",
           width: 110,
         },
-      // ];
-      // localStorage.getItem("super_admin") === "1" &&
+        // ];
+        // localStorage.getItem("super_admin") === "1" &&
         // nestColumns.push(
-          {
+        {
           title: "Action",
           dataIndex: "action",
           key: "action",
@@ -2532,8 +2617,8 @@ class Deals extends Component {
               </div>
             );
           },
-        }
-      ]
+        },
+      ];
       // );
       const nestDataSource = record.child.map((item, index) => {
         return {
@@ -2948,6 +3033,15 @@ class Deals extends Component {
         width: 100,
       },
       {
+        title: "Document",
+        dataIndex: "item",
+        key: "item",
+        width: 100,
+        render: (text, record) => {
+          return <button onClick={()=>{adddoc(text)}}>Add Document</button>;
+        },
+      },
+      {
         title: "Edit Commitment status",
         dataIndex: "item",
         key: "item",
@@ -2993,6 +3087,15 @@ class Deals extends Component {
       //   width: 100,
       // },
     ];
+    const adddoc=(text)=>{
+      console.log(text)
+      this.setState({
+        selectedDeals:text.deal_id,
+        selectedInvestors:text.investor_id,
+        addDocModalStatus:  true
+
+      })
+    }
 
     return (
       <>
@@ -5120,10 +5223,7 @@ class Deals extends Component {
               ></i>{" "}
               Add New Commitment
             </Button>
-            <Button
-              type="primary"
-              onClick={() => this.Emailtoinvestors()}
-            >
+            <Button type="primary" onClick={() => this.Emailtoinvestors()}>
               <i
                 className="bx bxs-cloud-download"
                 style={{
@@ -5133,7 +5233,7 @@ class Deals extends Component {
                   left: -3,
                 }}
               ></i>{" "}
-             Email to Investor
+              Email to Investor
             </Button>
             <Button
               type="primary"
@@ -5165,6 +5265,79 @@ class Deals extends Component {
           />
         </Modal>
         {/* End commitment list modal  */}
+        {/* Start Add  Document modal  */}
+        <Modal
+          title="Add New Document"
+          visible={this.state.addDocModalStatus}
+          onOk={this.handleSubmit}
+          okText="Submit"
+          onCancel={() => this.setState({ addDocModalStatus: false })}
+          width={550}
+        >
+          <Spin spinning={this.state.formloader}>
+            <div className="mt-4">
+              <label className="mb-2">
+                Name <span className="text-danger">*</span>
+              </label>
+              <Input
+                accept=".pdf, .ppt, .pptx"
+                type="file"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  const fileName = file.name.replace(/\.[^/.]+$/, "");
+                  this.setState({
+                    admindocName: fileName,
+                    documentFile: file,
+                  });
+                }}
+              />
+            </div>
+
+            <div className="mt-4">
+              <label className="mb-2">
+                Document Type <span className="text-danger">*</span>
+              </label>
+              <Select
+                value={this.state.documentType}
+                style={{ width: "100%" }}
+                onChange={(value) =>
+                  this.setState({ documentType: "Investor" })
+                }
+              >
+                <Option value="Investor">Investor</Option>
+              </Select>
+            </div>
+
+        
+            <div className="mt-4 editor-field">
+              <label className="mb-2">
+                Description <span className="text-danger">*</span>
+              </label>
+              <TextArea
+                rows={4}
+                value={this.state.admindocDescription}
+                onChange={(e) =>
+                  this.setState({ admindocDescription: e.target.value })
+                }
+              />
+            </div>
+
+            <div className="mt-4">
+              <label className="mb-2">Active</label>
+              <Select
+                value={this.state.admindocActive}
+                style={{ width: "100%" }}
+                allowClear
+                onChange={(value) => this.setState({ admindocActive: value })}
+              >
+                <Option value="">--Select--</Option>
+                <Option value="Yes">Yes</Option>
+                <Option value="No">No</Option>
+              </Select>
+            </div>
+          </Spin>
+        </Modal>
+        {/* End Add modal  */}
 
         <Dialog
           open={this.state.open}

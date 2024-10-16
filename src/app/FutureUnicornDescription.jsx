@@ -9,7 +9,8 @@ import { useLocation } from "react-router-dom";
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import { Document, Page } from 'react-pdf';
 import { pdfjs } from 'react-pdf';
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
+import { toast, ToastContainer } from "react-toastify";
+import { Button, Modal } from "antd";
 
 
 
@@ -43,9 +44,14 @@ export const FutureUnicornDescription = ({item}) => {
     console.error("PDF loading error: ", error);
     setPdfError("Failed to load PDF file. Please check the file or try again later.");
   };
+  const [iamintrestmodal, setiamintrestmodal] = useState(false);
 
-
-  
+  const [data, setdata] = useState({
+    "I Want to know more about it": false,
+    "I want to work with you": false,
+    "I am excited to invest in your startups": false,
+    message: "",
+  });
   const getuniondata = () => {
     // Replace this with actual logic to get data
     let params = {

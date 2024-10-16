@@ -1,27 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { NewWebFooter } from "./common/NewWebFooter";
 import Slider from "react-slick";
-import NewWebHeader from "./common/NewWebHeader.jsx";
 import $ from "jquery";
 import { Link } from "react-router-dom";
-import Bridge from "./constants/Bridge.js";
 import { useLocation } from "react-router-dom";
 import { Button, Modal } from "antd";
 import { toast, ToastContainer } from "react-toastify";
+import NewWebHeader from "../../common/NewWebHeader.jsx";
+import { NewWebFooter } from "../../common/NewWebFooter.jsx";
 
-export const FutureUnicornDescription = (props) => {
+export const Preview = (props) => {
   const location = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
-    if(location.state.unicorn){
-        setunicorn(location.state.unicorn)
-    }
-      console.log();
+    if(location.state){
+        setunicorn(location.state)
+        
+      }
       
+      console.log(location);
   }, []);
-
-
-const [unicorn, setunicorn] = useState()
+  
+  
+  const [unicorn, setunicorn] = useState()
+  console.log(unicorn);
   $(window).scroll(function () {
     if ($(this).scrollTop() > 30) {
       $("body").addClass("newClass");
@@ -123,32 +124,14 @@ const [unicorn, setunicorn] = useState()
       
 
       {unicorn &&
-        unicorn.map((item, index) => {
+        [unicorn].map((item, index) => {
           console.log(item);
 
           return (
             <>
               <section class="futureunicorn-slider-sections">
                 <div class="container-flex">
-                  <div class="row">
-                    <div class="futureslider-card">
-                      <Slider {...sliderSettings}>
-                        <div class="img-future">
-                          <img
-                            src={`${
-                              process.env.REACT_APP_BASE_URL
-                            }api/uploads/unicorndeals/${
-                              item.tudTempUdID
-                            }/${JSON.parse(item.udBannerImage)}`}
-                            alt=""
-                          />
-                          <div className="content-img-futureunicorn">
-                            {/* <h3>Business Management consultant</h3> */}
-                          </div>
-                        </div>
-                      </Slider>
-                    </div>
-                  </div>
+                
                   <div className="row row-imgdirects">
                     <div className="row-img-direct">
                       <div className="img-certified-directors">
@@ -157,12 +140,12 @@ const [unicorn, setunicorn] = useState()
                             process.env.REACT_APP_BASE_URL
                           }api/uploads/unicorndeals/${
                             item.tudTempUdID
-                          }/${JSON.parse(item.udLogoImage)}`}
+                          }/${JSON.parse(item.tudLogoImage)}`}
                           alt=""
                         />
                       </div>
                       <div className="content-certify-directors">
-                        <h3>{item.udPrimaryContactName}</h3>
+                        <h3>{item.tudPrimaryContactName}</h3>
                         <p>
                           <span></span>
                           {/* Certified Corporate Director - Business Management
@@ -191,45 +174,45 @@ const [unicorn, setunicorn] = useState()
                     <ul className="grid-box-futures">
                       <li>
                         <span>
-                          <a href={`tel:${item.udPrimaryContactMobile}`}>
+                          <a href={`tel:${item.tudPrimaryContactMobile}`}>
                             <img src="./assets/images/telephone.png" alt="" />
                           </a>
                         </span>
-                        <span value={item.udPrimaryContactMobile}>Call</span>
+                        <span value={item.tudPrimaryContactMobile}>Call</span>
                       </li>
                       <li>
                         <span>
-                          <a href={`sms:${item.udPrimaryContactMobile}`}>
+                          <a href={`sms:${item.tudPrimaryContactMobile}`}>
                             <img src="./assets/images/chat.png" alt="" />
                           </a>
                         </span>
-                        <span value={item.udPrimaryContactMobile}>Message</span>
+                        <span value={item.tudPrimaryContactMobile}>Message</span>
                       </li>
                       <li>
                         <span>
-                          <a href={`mailto:${item.udPrimaryContactEmail}`}>
+                          <a href={`mailto:${item.tudPrimaryContactEmail}`}>
                             <img src="./assets/images/email.png" alt="" />
                           </a>
                         </span>
-                        <span value={item.udPrimaryContactEmail}>Email</span>
+                        <span value={item.tudPrimaryContactEmail}>Email</span>
                       </li>
                       <li>
                         <span>
                           <img src="./assets/images/phone.png" alt="" />
                         </span>
-                        <span value={item.udPrimaryContactEmail}>Whatsapp</span>
+                        <span value={item.tudPrimaryContactEmail}>Whatsapp</span>
                       </li>
                       <li>
                         <span>
                           <Link
-                            to={`//${item.udSocialFacebook}`}
+                            to={`//${item.tudSocialFacebook}`}
                             target="_blank"
                             rel="noopener noreferrer"
                           >
                             <img src="./assets/images/messenger.png" alt="" />
                           </Link>
                         </span>
-                        <span value={item.udSocialFacebook}>Messanger</span>
+                        <span value={item.tudSocialFacebook}>Messanger</span>
                       </li>
                       <li>
                         <span>
@@ -242,7 +225,7 @@ const [unicorn, setunicorn] = useState()
                           <img src="./assets/images/web.png" alt="" />
                         </span>
 
-                        <span value={item.udSocialOthers}>Website</span>
+                        <span value={item.tudSocialOthers}>Website</span>
                       </li>
                       <li>
                         <span>
@@ -331,7 +314,7 @@ const [unicorn, setunicorn] = useState()
                           </h3>
 
                           <div class="accordion-body about-us-p">
-                            <p>{item.udDealDescription}</p>
+                            <p>{item.tudDealDescription}</p>
                           </div>
                         </div>
                         <div class="accordion-item" style={{ border: "none" }}>
@@ -348,8 +331,8 @@ const [unicorn, setunicorn] = useState()
                           </h3>
                           <div class="accordion-body">
                             <div className="row row-bg-highlights">
-                              {item.udStartupHighlights &&
-                                JSON.parse(item.udStartupHighlights).map(
+                              {item.tudStartupHighlights &&
+                                JSON.parse(item.tudStartupHighlights).map(
                                   (
                                     itemstartuphighlight,
                                     indexstartuphighlight
@@ -406,8 +389,8 @@ const [unicorn, setunicorn] = useState()
 
                           <div class="accordion-body ">
                             <div className="row row-box-linse Grid-team">
-                              {item.udVendorId &&
-                                JSON.parse(item.udVendorId).map(
+                              {item.tudVendorId &&
+                                JSON.parse(item.tudVendorId).map(
                                   (itemudVendorId, indexudVendorId) => {
                                     return (
                                       <div className="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-12 col-sm-12 col-xs-12">
@@ -467,8 +450,8 @@ const [unicorn, setunicorn] = useState()
 
                           <div class="accordion-body">
                             <div className="row market-overreview-row">
-                              {item.udMark &&
-                                JSON.parse(item.udMark).map(
+                              {item.tudMark &&
+                                JSON.parse(item.tudMark).map(
                                   (itemudamrk, indexudmark) => {
                                     return (
                                       <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
@@ -541,8 +524,8 @@ const [unicorn, setunicorn] = useState()
                           >
                             <div class="accordion-body">
                               <div className="row row-bg-media-coverage">
-                                {item.udMediaCoverageFiles &&
-                                  JSON.parse(item.udMediaCoverageFiles).map(
+                                {item.tudMediaCoverageFiles &&
+                                  JSON.parse(item.tudMediaCoverageFiles).map(
                                     (
                                       itemudMediaCoverageFiles,
                                       indexudMediaCoverageFiles
@@ -644,7 +627,7 @@ const [unicorn, setunicorn] = useState()
                                   process.env.REACT_APP_BASE_URL
                                 }api/uploads/unicorndeals/${
                                   item.tudTempUdID
-                                }/${JSON.parse(item.udPitchDeck)}`}
+                                }/${JSON.parse(item.tudPitchDeck)}`}
                                 frameborder="0"
                                 height={"500px"}
                                 width={"100%"}
@@ -754,7 +737,7 @@ const [unicorn, setunicorn] = useState()
                                       }}
                                       width="100%"
                                       height="335"
-                                      src={`https://www.youtube.com/embed/${item.udYoutubeLink
+                                      src={`https://www.youtube.com/embed/${item.tudYoutubeLink
                                         .split("=")
                                         .pop()}`}
                                       title="YouTube video player"
@@ -785,7 +768,7 @@ const [unicorn, setunicorn] = useState()
                                   <h3>Legal Name</h3>
                                   <ul>
                                     <li>
-                                      <span>{item.udLegalname}</span>
+                                      <span>{item.tudLegalname}</span>
                                     </li>
                                   </ul>
                                 </div>
@@ -795,7 +778,7 @@ const [unicorn, setunicorn] = useState()
                                   <h3>Founded</h3>
                                   <ul>
                                     <li>
-                                      <span>{item.udFoundedon}</span>
+                                      <span>{item.tudFoundedon}</span>
                                     </li>
                                   </ul>
                                 </div>
@@ -806,7 +789,7 @@ const [unicorn, setunicorn] = useState()
                                   <ul>
                                     <li>
                                       <span>Corporate Office :</span>
-                                      <span>{item.udAddress}</span>
+                                      <span>{item.tudAddress}</span>
                                     </li>
                                   </ul>
                                 </div>
@@ -816,7 +799,7 @@ const [unicorn, setunicorn] = useState()
                                   <h3>Employees</h3>
                                   <ul>
                                     <li>
-                                      <span>{item.udEmployees}</span>
+                                      <span>{item.tudEmployees}</span>
                                     </li>
                                   </ul>
                                 </div>
@@ -827,7 +810,7 @@ const [unicorn, setunicorn] = useState()
                                   <ul>
                                     <li>
                                       <Link
-                                        to={`//${item.udWebsite}`}
+                                        to={`//${item.tudWebsite}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                       >
@@ -836,7 +819,7 @@ const [unicorn, setunicorn] = useState()
                                             textTransform: "lowercase",
                                           }}
                                         >
-                                          {item.udWebsite}
+                                          {item.tudWebsite}
                                         </span>
                                       </Link>
                                     </li>
@@ -849,7 +832,7 @@ const [unicorn, setunicorn] = useState()
                                   <ul>
                                     <li>
                                       <Link
-                                        to={`//${item.udSocialInsta}`}
+                                        to={`//${item.tudSocialInsta}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                       >
@@ -858,7 +841,7 @@ const [unicorn, setunicorn] = useState()
                                     </li>
                                     <li>
                                       <Link
-                                        to={`//${item.udSocialYouTube}`}
+                                        to={`//${item.tudSocialYouTube}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                       >
@@ -868,7 +851,7 @@ const [unicorn, setunicorn] = useState()
 
                                     <li>
                                       <Link
-                                        to={`//${item.udSocialFacebook}`}
+                                        to={`//${item.tudSocialFacebook}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                       >
@@ -973,117 +956,13 @@ const [unicorn, setunicorn] = useState()
                       </div>
                     </div>
                   </div>
-                  <div className="row">
-                    <div className="col-12">
-                      <div className="investor-amounts">
-                        <Button onClick={openiamintrest}>
-                          <a>I am Interested</a>
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
+                 
                 </div>
               </section>
             </>
           );
         })}
-      <Modal
-        // title={`Invest in ${this.state.deal_name}`}
-        visible={iamintrestmodal}
-        onOk={() => {
-          setiamintrestmodal(false);
-        }}
-        onCancel={() => {
-          setiamintrestmodal(false);
-        }}
-        width={900}
-        footer={false}
-      >
-        <section
-          class="about-page-section blog-section payment-sec pb-0"
-          style={{ paddingBottom: "0px !important" }}
-        >
-          <div class="container">
-            <div class="row">
-              <div
-                class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center align-items-center"
-                style={{ pointerEvents: "none" }}
-              ></div>
-            </div>
-            <div className="row  justify-content-center ">
-              <div className="col-md-8 col-12 col-sm-12 col-xl-8 col-xxl-8">
-                <div className="card-payment-methods">
-                  <div class="heading-title m-sm-0">
-                    <p>
-                      <span></span>{" "}
-                    </p>
-                    <h2>Fill The Form</h2>
-                  </div>
-                  <div className="para-proceed">
-                    <form action="" className="form-checkbox">
-                      <div className="row">
-                        <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
-                          <input
-                            type="checkbox"
-                            name="I Want to know more about it"
-                            value={data["I Want to know more about it"]}
-                            checked={
-                              data["I Want to know more about it"] == true
-                            }
-                            onClick={adddata}
-                          />
-                          <label htmlFor="">I Want to know more about it</label>
-                        </div>
-                        <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
-                          <input
-                            type="checkbox"
-                            name="I want to work with you"
-                            value={data["I want to work with you"]}
-                            checked={data["I want to work with you"] == true}
-                            onClick={adddata}
-                          />
-                          <label htmlFor="">I want to work with you</label>
-                        </div>
-                        <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
-                          <input
-                            type="checkbox"
-                            name="I am excited to invest in your startups"
-                            value={
-                              data["I am excited to invest in your startups"]
-                            }
-                            checked={
-                              data["I am excited to invest in your startups"] ==
-                              true
-                            }
-                            onClick={adddata}
-                          />
-                          <label htmlFor="">
-                            I am excited to invest in your startups
-                          </label>
-                        </div>
-                        <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mt-2">
-                          <textarea
-                            value={data.message}
-                            name="message"
-                            onChange={adddata}
-                            id="w3review"
-                            rows="4"
-                            className="w100"
-                            placeholder="Message"
-                          />
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                  <div className="button-proceed-online">
-                    <a onClick={submitintrest}>Submit</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </Modal>
+    
 <ToastContainer/>
       <NewWebFooter />
     </div>

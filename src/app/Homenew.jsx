@@ -538,7 +538,6 @@ class Homenew extends Component {
       pointerEvents: "none",
     };
     const { loading } = this.state;
-    console.log(loading);
     return (
       <div>
         {/*  <NewWebHeader  newabout={"newabout"} /> */}

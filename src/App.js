@@ -219,6 +219,7 @@ import Edept from "./app/deal-pages/Edept.jsx";
 import Innoserv from "./app/deal-pages/Innoserv.jsx";
 import LVLAlpha from "./app/deal-pages/LVLAlpha.jsx";
 import Petmojo from "./app/deal-pages/Petmojo(Pre Series A).jsx";
+import  {Preview} from "./app/Unicorn/forms/Preview.jsx";
 
 ReactGA.initialize(TRACKING_ID);
 
@@ -272,6 +273,7 @@ function App() {
           <Route path="/CheckboxThank" exact component={CheckboxThank} />
 
           <Route path="/FamilyDashboard" exact component={FamilyDashboard} />
+          <Route path="/Preview" exact component={Preview} />
           <Route path="/FutureUnicornList" exact  >
             <ProtectUnicorn Component2={FutureUnicornList}   Conditon={true} />
             </Route>
