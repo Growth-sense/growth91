@@ -6,15 +6,10 @@ import $ from "jquery";
 import { Link } from "react-router-dom";
 import Bridge from "./constants/Bridge.js";
 import { useLocation } from "react-router-dom";
-import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
-import { Document, Page } from 'react-pdf';
-import { pdfjs } from 'react-pdf';
-import { toast, ToastContainer } from "react-toastify";
-import { Button, Modal } from "antd";
 
 
 
-export const FutureUnicornDescription = ({item}) => {
+export const FutureUnicornDescription = () => {
   const search = useLocation().search;
   const id = new URLSearchParams(search).get("id");
   useEffect(() => {
@@ -22,48 +17,16 @@ export const FutureUnicornDescription = ({item}) => {
     window.scrollTo(0, 0);
   }, []);
 
-  const [unicorn, setUnicorn] = useState(null); // Handle unicorn data
-  const [numPages, setNumPages] = useState(null); // State for total pages
-  const [pageNumber, setPageNumber] = useState(1); // State for current page
-  const [pdfUrl, setPdfUrl] = useState('https://pdfobject.com/pdf/sample.pdf'); // State for the PDF URL
-  const [pdfError, setPdfError] = useState(null); // Handle PDF load errors
-  useEffect(() => {
-    getuniondata();
-    window.scrollTo(0, 0);
-  }, []);
-
-  // Handle the document load success
-  const onDocumentLoadSuccess = ({ numPages }) => {
-    setNumPages(numPages);
-    setPageNumber(1);
-    setPdfError(null); // Clear error on successful load
-  };
-
-  // Handle document load errors
-  const onDocumentLoadError = (error) => {
-    console.error("PDF loading error: ", error);
-    setPdfError("Failed to load PDF file. Please check the file or try again later.");
-  };
-  const [iamintrestmodal, setiamintrestmodal] = useState(false);
-
-  const [data, setdata] = useState({
-    "I Want to know more about it": false,
-    "I want to work with you": false,
-    "I am excited to invest in your startups": false,
-    message: "",
-  });
-  const getuniondata = () => {
-    // Replace this with actual logic to get data
+  const [unicorn, setUnicorn] = useState();
+  function getuniondata() {
     let params = {
       page: 0,
       pagesize: 10,
     };
-    // Assuming Bridge.Unicorn.unicorndealsByInvestors is a promise-based function
     Bridge.Unicorn.unicorndealsByInvestors(params).then((result) => {
-      setUnicorn(result.data.filter((item) => item.unicornDealID == id));
+      setUnicorn(result.data);
     });
-  };
-
+  }
   $(window).scroll(function () {
     if ($(this).scrollTop() > 30) {
       $("body").addClass("newClass");
@@ -71,29 +34,33 @@ export const FutureUnicornDescription = ({item}) => {
       $("body").removeClass("newClass");
     }
   });
-
   function SimpleNextArrow(props) {
     const { onClick } = props;
     return (
-      <div className="nextArrow" onClick={onClick}>
-        <span className="next-arrows slick-arrow">
-          <i className="fa fa-angle-right" aria-hidden="true"></i>
-        </span>
-      </div>
+      <>
+        <div className="nextArrow" onClick={onClick}>
+          <span class="next-arrows slick-arrow">
+            <i class="fa fa-angle-right" aria-hidden="true"></i>
+          </span>
+        </div>
+      </>
     );
   }
+  
 
   function SimplePrevArrow(props) {
     const { onClick } = props;
     return (
-      <div className="prevArrow" onClick={onClick}>
-        <span className="prev-arrows slick-arrow">
-          <i className="fa fa-angle-left" aria-hidden="true"></i>
-        </span>
-      </div>
+      <>
+        <div className="prevArrow" onClick={onClick}>
+          <span class="prev-arrows slick-arrow">
+            {" "}
+            <i class="fa fa-angle-left" aria-hidden="true"></i>{" "}
+          </span>
+        </div>
+      </>
     );
   }
-
   const highlightimages = [
     "./assets/images/deals-details/Petmojo/highlight4.jpg",
     "./assets/images/deals-details/Petmojo/highlight01.jpg",
@@ -151,53 +118,17 @@ export const FutureUnicornDescription = ({item}) => {
       },
     ],
   };
-  const openiamintrest = () => {
-    setiamintrestmodal(true);
-  };
-  const adddata = (e) => {
-    if (e.target.name == "message") {
-      setdata({ ...data, [e.target.name]: [e.target.value] });
-    } else {
-      setdata({ ...data, [e.target.name]: !data[e.target.name] });
-    }
-  };
-  const submitintrest = () => {
-    console.log(unicorn[0]);
-
-    let params = {
-      unicornDealID: unicorn[0].unicornDealID,
-      udFounderID: unicorn[0].udFounderID,
-      investor_id: localStorage.getItem("investor_id"),
-      interestKnowMore: data["I Want to know more about it"],
-      interestWorkwithYou: data["I want to work with you"],
-      interestInvestinStartup: data["I am excited to invest in your startups"],
-      interestMessage: data["message"][0],
-    };
-    Bridge.Unicorn.add_unicorn_interest(params).then((result) => {
-      console.log(result);
-      if(result.message== "Details are updated successfully.")
-      {
-        toast.success("Details shared with Founder")
-        setiamintrestmodal(false)
-      }
-      else if( result.message=="Please enter values of all fields."){
-        toast.error("Plz fill all feild")
-      }
-    });
-
-  };
-  console.log(data);
-
   return (
     <div>
       <div classname="newabout">
         <NewWebHeader newabout={"newabout"} />
       </div>
-      
 
       {unicorn &&
-        unicorn.map((item, index) => {
-          console.log(item);
+        unicorn
+          .filter((item) => item.unicornDealID == id)
+          .map((item, index) => {
+           
 
             return (
               <>
@@ -222,9 +153,9 @@ export const FutureUnicornDescription = ({item}) => {
                             <span></span>
                             {/* Certified Corporate Director - Business Management
                             Consultant */}
-                        </p>
-                      </div>
-                      {/* <div className="meet-icon-future">
+                          </p>
+                        </div>
+                        {/* <div className="meet-icon-future">
                                                 <ul>
                                                     <li className='img-handshake'>
                                                         <span><img src="./assets/images/hand-shake.png" alt="" /></span>
@@ -240,77 +171,81 @@ export const FutureUnicornDescription = ({item}) => {
                                                     </li>
                                                 </ul>
                                             </div> */}
+                      </div>
+                    </div>
+                    <div className="row row-imgdirects bg-box-futures d-none">
+                      <ul className="grid-box-futures">
+                        <li>
+                          <span>
+                            <a href={`tel:${item.udPrimaryContactMobile}`}>
+                              <img src="./assets/images/telephone.png" alt="" />
+                            </a>
+                          </span>
+                          <span value={item.udPrimaryContactMobile}>Call</span>
+                        </li>
+                        <li>
+                          <span>
+                            <a href={`sms:${item.udPrimaryContactMobile}`}>
+                              <img src="./assets/images/chat.png" alt="" />
+                            </a>
+                          </span>
+                          <span value={item.udPrimaryContactMobile}>
+                            Message
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <a href={`mailto:${item.udPrimaryContactEmail}`}>
+                              <img src="./assets/images/email.png" alt="" />
+                            </a>
+                          </span>
+                          <span value={item.udPrimaryContactEmail}>Email</span>
+                        </li>
+                        <li>
+                          <span>
+                            <img src="./assets/images/phone.png" alt="" />
+                          </span>
+                          <span value={item.udPrimaryContactEmail}>
+                            Whatsapp
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <Link
+                              to={`//${item.udSocialFacebook}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <img src="./assets/images/messenger.png" alt="" />
+                            </Link>
+                          </span>
+                          <span value={item.udSocialFacebook}>Messanger</span>
+                        </li>
+                        <li>
+                          <span>
+                            <img src="./assets/images/location.png" alt="" />
+                          </span>
+                          <span>Navigate</span>
+                        </li>
+                        <li>
+                          <span>
+                            <img src="./assets/images/web.png" alt="" />
+                          </span>
+
+                          <span value={item.udSocialOthers}>Website</span>
+                        </li>
+                        <li>
+                          <span>
+                            <img src="./assets/images/thumb-up.png" alt="" />
+                          </span>
+                          <span>Social</span>
+                        </li>
+                      </ul>
                     </div>
                   </div>
-                  <div className="row row-imgdirects bg-box-futures d-none">
-                    <ul className="grid-box-futures">
-                      <li>
-                        <span>
-                          <a href={`tel:${item.udPrimaryContactMobile}`}>
-                            <img src="./assets/images/telephone.png" alt="" />
-                          </a>
-                        </span>
-                        <span value={item.udPrimaryContactMobile}>Call</span>
-                      </li>
-                      <li>
-                        <span>
-                          <a href={`sms:${item.udPrimaryContactMobile}`}>
-                            <img src="./assets/images/chat.png" alt="" />
-                          </a>
-                        </span>
-                        <span value={item.udPrimaryContactMobile}>Message</span>
-                      </li>
-                      <li>
-                        <span>
-                          <a href={`mailto:${item.udPrimaryContactEmail}`}>
-                            <img src="./assets/images/email.png" alt="" />
-                          </a>
-                        </span>
-                        <span value={item.udPrimaryContactEmail}>Email</span>
-                      </li>
-                      <li>
-                        <span>
-                          <img src="./assets/images/phone.png" alt="" />
-                        </span>
-                        <span value={item.udPrimaryContactEmail}>Whatsapp</span>
-                      </li>
-                      <li>
-                        <span>
-                          <Link
-                            to={`//${item.udSocialFacebook}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <img src="./assets/images/messenger.png" alt="" />
-                          </Link>
-                        </span>
-                        <span value={item.udSocialFacebook}>Messanger</span>
-                      </li>
-                      <li>
-                        <span>
-                          <img src="./assets/images/location.png" alt="" />
-                        </span>
-                        <span>Navigate</span>
-                      </li>
-                      <li>
-                        <span>
-                          <img src="./assets/images/web.png" alt="" />
-                        </span>
+                </section>
 
-                        <span value={item.udSocialOthers}>Website</span>
-                      </li>
-                      <li>
-                        <span>
-                          <img src="./assets/images/thumb-up.png" alt="" />
-                        </span>
-                        <span>Social</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </section>
-
-              {/* <section className="services-section-future">
+                {/* <section className="services-section-future">
                 <div className="container">
                     <div className="row">
                         <div className="col-md-4">
@@ -326,15 +261,15 @@ export const FutureUnicornDescription = ({item}) => {
                     </div>
                 </div>
             </section> */}
-              <section class="faq-sections future-main-accordians ">
-                <div class="container">
-                  <div class="row">
-                    <div class="main-accordain-all">
-                      <div
-                        class="accordion accordion-flush"
-                        id="accordionFlushExample"
-                      >
-                        {/* <div class="accordion-item">
+                <section class="faq-sections future-main-accordians ">
+                  <div class="container">
+                    <div class="row">
+                      <div class="main-accordain-all">
+                        <div
+                          class="accordion accordion-flush"
+                          id="accordionFlushExample"
+                        >
+                          {/* <div class="accordion-item">
                                     <h3 class="accordion-header" id="flush-headingOness">
                                         <button
                                             class="accordion-button collapsed"
@@ -372,124 +307,137 @@ export const FutureUnicornDescription = ({item}) => {
                                         </div>
                                     </div>
                                 </div> */}
-                        <div class="accordion-item" style={{ border: "none" }}>
-                          <h3 class="accordion-header" id="flush-headingOne">
-                            <div class="default-Show">
-                              <span>
-                                <img
-                                  src="./assets/images/information.png"
-                                  alt=""
-                                />
-                              </span>
-                              About Us
-                            </div>
-                          </h3>
+                          <div
+                            class="accordion-item"
+                            style={{ border: "none" }}
+                          >
+                            <h3 class="accordion-header" id="flush-headingOne">
+                              <div class="default-Show">
+                                <span>
+                                  <img
+                                    src="./assets/images/information.png"
+                                    alt=""
+                                  />
+                                </span>
+                                About Us
+                              </div>
+                            </h3>
 
-                          <div class="accordion-body about-us-p">
-                            <p>{item.udDealDescription}</p>
-                          </div>
-                        </div>
-                        <div class="accordion-item" style={{ border: "none" }}>
-                          <h3 class="accordion-header" id="flush-headingsixx">
-                            <div class="default-Show">
-                              <span>
-                                <img
-                                  src="./assets/images/highluights.png"
-                                  alt=""
-                                />
-                              </span>
-                              Highlights
+                            <div class="accordion-body about-us-p">
+                              <p>{item.udDealDescription}</p>
                             </div>
-                          </h3>
-                          <div class="accordion-body">
-                            <div className="row row-bg-highlights">
-                              {item.udStartupHighlights &&
-                                JSON.parse(item.udStartupHighlights).map(
-                                  (
-                                    itemstartuphighlight,
-                                    indexstartuphighlight
-                                  ) => {
-                                    return (
-                                      <div
-                                        className={`col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12  ${
-                                          itemstartuphighlight.content1 == ""
-                                            ? `d-none`
-                                            : ""
-                                        }`}
-                                      >
-                                        <div className="highlights-accordian">
-                                          <div className="para-highlights-accordian">
-                                            <div className="img-highlights">
-                                              <img
-                                                src={
-                                                  highlightimages[
-                                                    indexstartuphighlight
-                                                  ]
-                                                }
-                                                alt=""
-                                              />
-                                            </div>
-                                            <div className="para-p-highlight">
-                                              <p>
-                                                {itemstartuphighlight.content1}
-                                              </p>
+                          </div>
+                          <div
+                            class="accordion-item"
+                            style={{ border: "none" }}
+                          >
+                            <h3 class="accordion-header" id="flush-headingsixx">
+                              <div class="default-Show">
+                                <span>
+                                  <img
+                                    src="./assets/images/highluights.png"
+                                    alt=""
+                                  />
+                                </span>
+                                Highlights
+                              </div>
+                            </h3>
+                            <div class="accordion-body">
+                              <div className="row row-bg-highlights">
+                                {item.udStartupHighlights &&
+                                  JSON.parse(item.udStartupHighlights).map(
+                                    (
+                                      itemstartuphighlight,
+                                      indexstartuphighlight
+                                    ) => {
+                                      console.log(itemstartuphighlight);
+
+                                      return (
+                                        <div
+                                          className={`col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12  ${
+                                            itemstartuphighlight.content1 == ""
+                                              ? `d-none`
+                                              : ""
+                                          }`}
+                                        >
+                                          <div className="highlights-accordian">
+                                            <div className="para-highlights-accordian">
+                                              <div className="img-highlights">
+                                                <img
+                                                  src={
+                                                    highlightimages[
+                                                      indexstartuphighlight
+                                                    ]
+                                                  }
+                                                  alt=""
+                                                />
+                                              </div>
+                                              <div className="para-p-highlight">
+                                                <p>
+                                                  {
+                                                    itemstartuphighlight.content1
+                                                  }
+                                                </p>
+                                              </div>
                                             </div>
                                           </div>
                                         </div>
-                                      </div>
-                                    );
-                                  }
-                                )}
+                                      );
+                                    }
+                                  )}
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="accordion-item" style={{ border: "none" }}>
-                          <h3
-                            class="accordion-header"
-                            id="flush-headingdetails"
+                          <div
+                            class="accordion-item"
+                            style={{ border: "none" }}
                           >
-                            <div class="default-Show">
-                              <span>
-                                <img
-                                  src="./assets/images/group-chat.png"
-                                  alt=""
-                                />
-                              </span>
-                              Team
-                            </div>
-                          </h3>
+                            <h3
+                              class="accordion-header"
+                              id="flush-headingdetails"
+                            >
+                              <div class="default-Show">
+                                <span>
+                                  <img
+                                    src="./assets/images/group-chat.png"
+                                    alt=""
+                                  />
+                                </span>
+                                Team
+                              </div>
+                            </h3>
 
-                          <div class="accordion-body ">
-                            <div className="row row-box-linse Grid-team">
-                              {item.udVendorId &&
-                                JSON.parse(item.udVendorId).map(
-                                  (itemudVendorId, indexudVendorId) => {
-                                    return (
-                                      <div className="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-12 col-sm-12 col-xs-12">
-                                        <div className="main-card-of-teams">
-                                          <div className="img-teams-of-cards">
-                                            <img
-                                              src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${itemudVendorId.imgname}`}
-                                              alt=""
-                                            />
-                                          </div>
-                                          <div className="name-of-teams-card">
-                                            <div className="head-deals-team">
-                                              <h3
-                                                style={{
-                                                  textTransform: "capitalize",
-                                                }}
-                                              >
-                                                {itemudVendorId.name}
-                                              </h3>
-                                              <p
-                                                style={{
-                                                  textTransform: "capitalize",
-                                                }}
-                                              >
-                                                {itemudVendorId.Role}
-                                              </p>
-                                              <ul>
+                            <div class="accordion-body ">
+                              <div className="row row-box-linse Grid-team">
+                                {item.udVendorId &&
+                                  JSON.parse(item.udVendorId).map(
+                                    (itemudVendorId, indexudVendorId) => {
+                                      return (
+                                        <div className="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-12 col-sm-12 col-xs-12">
+                                          <div className="main-card-of-teams">
+                                            <div className="img-teams-of-cards">
+                                              <img
+                                                src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${itemudVendorId.imgname}`}
+                                                alt=""
+                                              />
+                                            </div>
+                                            <div className="name-of-teams-card">
+                                              <div className="head-deals-team">
+                                                <h3
+                                                  style={{
+                                                    textTransform: "capitalize",
+                                                  }}
+                                                >
+                                                  {itemudVendorId.name}
+                                                </h3>
+                                                <p
+                                                  style={{
+                                                    textTransform: "capitalize",
+                                                  }}
+                                                >
+                                                  {itemudVendorId.Role}
+                                                </p>
+                                                <ul>
                                                 <li>
                                                   {itemudVendorId.description1}
                                                 </li>
@@ -497,47 +445,51 @@ export const FutureUnicornDescription = ({item}) => {
                                                   {itemudVendorId.description2}
                                                 </li>
                                               </ul>
+                                              </div>
+                                            
                                             </div>
                                           </div>
                                         </div>
-                                      </div>
-                                    );
-                                  }
-                                )}
+                                      );
+                                    }
+                                  )}
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="accordion-item">
-                          <h3 class="accordion-header" id="flush-headingThree">
-                            <div class="default-Show">
-                              <span>
-                                <img
-                                  src="./assets/images/market-research.png"
-                                  alt=""
-                                />
-                              </span>
-                              Market Overview
-                            </div>
-                          </h3>
+                          <div class="accordion-item">
+                            <h3
+                              class="accordion-header"
+                              id="flush-headingThree"
+                            >
+                              <div class="default-Show">
+                                <span>
+                                  <img
+                                    src="./assets/images/market-research.png"
+                                    alt=""
+                                  />
+                                </span>
+                                Market Overview
+                              </div>
+                            </h3>
 
-                          <div class="accordion-body">
-                            <div className="row market-overreview-row">
-                              {item.udMark &&
-                                JSON.parse(item.udMark).map(
-                                  (itemudamrk, indexudmark) => {
-                                    return (
-                                      <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                        <div className="membership-accordian">
-                                          <div className="para-member-accordian">
-                                            <p>{itemudamrk.content1} </p>
+                            <div class="accordion-body">
+                              <div className="row market-overreview-row">
+                                {item.udMark &&
+                                  JSON.parse(item.udMark).map(
+                                    (itemudamrk, indexudmark) => {
+                                      return (
+                                        <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                          <div className="membership-accordian">
+                                            <div className="para-member-accordian">
+                                              <p>{itemudamrk.content1} </p>
+                                            </div>
                                           </div>
                                         </div>
-                                      </div>
-                                    );
-                                  }
-                                )}
+                                      );
+                                    }
+                                  )}
 
-                              {/* <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                {/* <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
                                                     <div className="membership-accordian">
 
                                                         <div className="para-member-accordian">
@@ -552,90 +504,92 @@ export const FutureUnicornDescription = ({item}) => {
                                                         {/* <div className="img-member-accordian">
                                                             <img src="https://www.trumanlittlewhitehouse.org/wp-content/uploads/2019/11/81DpN-lrJvL._SL1350.jpg" alt="" />
                                                         </div> */}
-                              {/* <div className="para-member-accordian"> */}
-                              {/* <h3>
+                                {/* <div className="para-member-accordian"> */}
+                                {/* <h3>
                                                                 Member
                                                             </h3> */}
-                              {/*      <p>
+                                {/*      <p>
                                                                 The Ready to Cook market, valued at $18 billion, is witnessing rapid growth due to shifting consumer habits, increased health awareness, and the convenience of pre-packaged meal kits. This trend presents ample opportunities for smaller companies to enter the market and innovate with new product offerings, catering to the needs of busy individuals seeking healthy and convenient meal solutions.
                                                             </p>
                                                         </div>
                                                     </div>
                                                 </div> */}
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="accordion-item">
-                          <h3
-                            class="accordion-header"
-                            id="flush-headingfourees"
-                          >
-                            <button
-                              class="accordion-button collapsed"
-                              type="button"
-                              data-bs-toggle="collapse"
-                              data-bs-target="#flush-headingfoureesnew"
-                              aria-expanded="false"
-                              aria-controls="flush-headingfourees"
-                            >
-                              <span>
-                                <img
-                                  src="./assets/images/live-streaming.png"
-                                  alt=""
-                                />
-                              </span>
-                              Media Coverage
-                            </button>
-                          </h3>
-                          <div
-                            id="flush-headingfoureesnew"
-                            class="accordion-collapse collapse"
-                            aria-labelledby="flush-headingfourees"
-                            data-bs-parent="#accordionFlushExample"
-                          >
-                            <div class="accordion-body">
-                              <div className="row row-bg-media-coverage">
-                                {item.udMediaCoverageFiles &&
-                                  JSON.parse(item.udMediaCoverageFiles).map(
-                                    (
-                                      itemudMediaCoverageFiles,
-                                      indexudMediaCoverageFiles
-                                    ) => {
-                                      return (
-                                        <div className="col-md-4 col-lg-4 col-xxl-4  col-12 col-sm-12 col-xxl-4">
-                                          <div className="para-media-coverage-accordian">
-                                            <div className="img-media-coverage">
-                                              <img
-                                                src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${itemudMediaCoverageFiles.imgname}`}
-                                                alt=""
-                                              />
-                                            </div>
-                                            <div className="para-p-media-coverage">
-                                              <p>
-                                                {itemudMediaCoverageFiles.title}
-                                              </p>
-                                            </div>
-                                            <div className="button-media-coverage">
-                                              <a
-                                                href={
-                                                  itemudMediaCoverageFiles.content
-                                                }
-                                              >
-                                                View More
-                                              </a>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      );
-                                    }
-                                  )}
                               </div>
                             </div>
                           </div>
-                        </div>
 
-                        {/* <div class="accordion-item">
+                          <div class="accordion-item">
+                            <h3
+                              class="accordion-header"
+                              id="flush-headingfourees"
+                            >
+                              <button
+                                class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#flush-headingfoureesnew"
+                                aria-expanded="false"
+                                aria-controls="flush-headingfourees"
+                              >
+                                <span>
+                                  <img
+                                    src="./assets/images/live-streaming.png"
+                                    alt=""
+                                  />
+                                </span>
+                                Media Coverage
+                              </button>
+                            </h3>
+                            <div
+                              id="flush-headingfoureesnew"
+                              class="accordion-collapse collapse"
+                              aria-labelledby="flush-headingfourees"
+                              data-bs-parent="#accordionFlushExample"
+                            >
+                              <div class="accordion-body">
+                                <div className="row row-bg-media-coverage">
+                                  {item.udMediaCoverageFiles &&
+                                    JSON.parse(item.udMediaCoverageFiles).map(
+                                      (
+                                        itemudMediaCoverageFiles,
+                                        indexudMediaCoverageFiles
+                                      ) => {
+                                        return (
+                                          <div className="col-md-4 col-lg-4 col-xxl-4  col-12 col-sm-12 col-xxl-4">
+                                            <div className="para-media-coverage-accordian">
+                                              <div className="img-media-coverage">
+                                                <img
+                                                  src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${itemudMediaCoverageFiles.imgname}`}
+                                                  alt=""
+                                                />
+                                              </div>
+                                              <div className="para-p-media-coverage">
+                                                <p>
+                                                  {
+                                                    itemudMediaCoverageFiles.title
+                                                  }
+                                                </p>
+                                              </div>
+                                              <div className="button-media-coverage">
+                                                <a
+                                                  href={
+                                                    itemudMediaCoverageFiles.content
+                                                  }
+                                                >
+                                                  View More
+                                                </a>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        );
+                                      }
+                                    )}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* <div class="accordion-item">
                                     <h3 class="accordion-header" id="flush-headingTwo">
                                         <button
                                             class="accordion-button collapsed"
@@ -671,68 +625,108 @@ export const FutureUnicornDescription = ({item}) => {
                                     </div>
                                 </div> */}
 
-<div className="accordion-item">
-      <h3 className="accordion-header" id="flush-headingfour">
-        <button
-          className="accordion-button collapsed"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#flush-headingfournew"
-          aria-expanded="false"
-          aria-controls="flush-headingfour"
-        >
-          <span>
-            <img src="./assets/images/gallery.png" alt="Gallery" />
-          </span>
-          Investor Presentation
-        </button>
-      </h3>
-      <div
-        id="flush-headingfournew"
-        className="accordion-collapse collapse"
-        aria-labelledby="flush-headingfour"
-        data-bs-parent="#accordionFlushExample"
-      >
-        <div className="accordion-body">
-          {pdfUrl ? (
-            <div>
-              {/* PDF Viewer */}
-              <Document
-                file={pdfUrl}
-                onLoadSuccess={onDocumentLoadSuccess}
-                onLoadError={onDocumentLoadError} // Handle load errors
-                loading="Loading PDF..."
-              >
-                <Page pageNumber={pageNumber} />
-              </Document>
+                          <div class="accordion-item">
+                            <h3 class="accordion-header" id="flush-headingfour">
+                              <button
+                                class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#flush-headingfournew"
+                                aria-expanded="false"
+                                aria-controls="flush-headingfour"
+                              >
+                                <span>
+                                  <img
+                                    src="./assets/images/gallery.png"
+                                    alt=""
+                                  />
+                                </span>
+                                Investor Presentation
+                              </button>
+                            </h3>
+                            <div
+                              id="flush-headingfournew"
+                              class="accordion-collapse collapse"
+                              aria-labelledby="flush-headingfour"
+                              data-bs-parent="#accordionFlushExample"
+                            >
+                              <div class="accordion-body">
+                                <iframe
+                                  src={`https://docs.google.com/presentation/d/1bx0pZ88zJCa9bPS2ybg-23aM56aE5OJqRdFEI6Anq68/edit#slide=id.gcb9a0b074_1_0`}
+                                  frameborder="0"
+                                  height={"500px"}
+                                  width={"100%"}
+                                ></iframe>
+                                {/* <div className="row justify-content-center">
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                </div> */}
+                              </div>
+                            </div>
+                          </div>
 
-              {/* Pagination */}
-              <div className="pagination">
-                <button
-                  disabled={pageNumber <= 1}
-                  onClick={() => setPageNumber(pageNumber - 1)}
-                >
-                  Previous
-                </button>
-                <span>
-                  Page {pageNumber} of {numPages}
-                </span>
-                <button
-                  disabled={pageNumber >= numPages}
-                  onClick={() => setPageNumber(pageNumber + 1)}
-                >
-                  Next
-                </button>
-              </div>
-            </div>
-          ) : (
-            <p>Loading PDF...</p>
-          )}
-
-          {pdfError && <p className="error-message">{pdfError}</p>} {/* Display error */}
-        </div>
-      </div>
-    </div>
                           <div class="accordion-item">
                             <h3 class="accordion-header" id="flush-headingWait">
                               <button
@@ -798,111 +792,111 @@ export const FutureUnicornDescription = ({item}) => {
                               </div>
                             </h3>
 
-                          <div class="accordion-body connect-acc-us">
-                            <div className="row row-box-line">
-                              <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                <div className="lets-talks-div">
-                                  <h3>Legal Name</h3>
-                                  <ul>
-                                    <li>
-                                      <span>{item.udLegalname}</span>
-                                    </li>
-                                  </ul>
+                            <div class="accordion-body connect-acc-us">
+                              <div className="row row-box-line">
+                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                  <div className="lets-talks-div">
+                                    <h3>Legal Name</h3>
+                                    <ul>
+                                      <li>
+                                        <span>{item.udLegalname}</span>
+                                      </li>
+                                    </ul>
+                                  </div>
                                 </div>
-                              </div>
-                              <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                <div className="lets-talks-div">
-                                  <h3>Founded</h3>
-                                  <ul>
-                                    <li>
-                                      <span>{item.udFoundedon}</span>
-                                    </li>
-                                  </ul>
+                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                  <div className="lets-talks-div">
+                                    <h3>Founded</h3>
+                                    <ul>
+                                      <li>
+                                        <span>{item.udFoundedon}</span>
+                                      </li>
+                                    </ul>
+                                  </div>
                                 </div>
-                              </div>
-                              <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                <div className="lets-talks-div">
-                                  <h3>Let's Meet</h3>
-                                  <ul>
-                                    <li>
-                                      <span>Corporate Office :</span>
-                                      <span>{item.udAddress}</span>
-                                    </li>
-                                  </ul>
+                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                  <div className="lets-talks-div">
+                                    <h3>Let's Meet</h3>
+                                    <ul>
+                                      <li>
+                                        <span>Corporate Office :</span>
+                                        <span>{item.udAddress}</span>
+                                      </li>
+                                    </ul>
+                                  </div>
                                 </div>
-                              </div>
-                              <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                <div className="lets-talks-div">
-                                  <h3>Employees</h3>
-                                  <ul>
-                                    <li>
-                                      <span>{item.udEmployees}</span>
-                                    </li>
-                                  </ul>
+                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                  <div className="lets-talks-div">
+                                    <h3>Employees</h3>
+                                    <ul>
+                                      <li>
+                                        <span>{item.udEmployees}</span>
+                                      </li>
+                                    </ul>
+                                  </div>
                                 </div>
-                              </div>
-                              <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                <div className="lets-talks-div">
-                                  <h3>Visit Us</h3>
-                                  <ul>
-                                    <li>
-                                      <Link
-                                        to={`//${item.udWebsite}`}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                      >
-                                        <span
-                                          style={{
-                                            textTransform: "lowercase",
-                                          }}
+                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                  <div className="lets-talks-div">
+                                    <h3>Visit Us</h3>
+                                    <ul>
+                                      <li>
+                                        <Link
+                                          to={`//${item.udWebsite}`}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
                                         >
-                                          {item.udWebsite}
-                                        </span>
-                                      </Link>
-                                    </li>
-                                  </ul>
+                                          <span
+                                            style={{
+                                              textTransform: "lowercase",
+                                            }}
+                                          >
+                                            {item.udWebsite}
+                                          </span>
+                                        </Link>
+                                      </li>
+                                    </ul>
+                                  </div>
                                 </div>
-                              </div>
-                              <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                <div className="lets-talks-div">
-                                  <h3>Follow Us</h3>
-                                  <ul>
-                                    <li>
-                                      <Link
-                                        to={`//${item.udSocialInsta}`}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                      >
-                                        <i class="fa-brands fa-instagram"></i>
-                                      </Link>
-                                    </li>
-                                    <li>
-                                      <Link
-                                        to={`//${item.udSocialYouTube}`}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                      >
-                                        <i class="fa-brands fa-youtube"></i>
-                                      </Link>
-                                    </li>
+                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                  <div className="lets-talks-div">
+                                    <h3>Follow Us</h3>
+                                    <ul>
+                                      <li>
+                                        <Link
+                                          to={`//${item.udSocialInsta}`}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                        >
+                                          <i class="fa-brands fa-instagram"></i>
+                                        </Link>
+                                      </li>
+                                      <li>
+                                        <Link
+                                          to={`//${item.udSocialYouTube}`}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                        >
+                                          <i class="fa-brands fa-youtube"></i>
+                                        </Link>
+                                      </li>
 
-                                    <li>
-                                      <Link
-                                        to={`//${item.udSocialFacebook}`}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                      >
-                                        <i class="fa-brands fa-facebook"></i>
-                                      </Link>
-                                    </li>
-                                  </ul>
+                                      <li>
+                                        <Link
+                                          to={`//${item.udSocialFacebook}`}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                        >
+                                          <i class="fa-brands fa-facebook"></i>
+                                        </Link>
+                                      </li>
+                                    </ul>
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
 
-                        {/* 
+                          {/* 
                                 <div class="accordion-item">
                                     <h3 class="accordion-header" id="flush-headingseven">
                                         <button
@@ -990,121 +984,22 @@ export const FutureUnicornDescription = ({item}) => {
                                         </div>
                                     </div>
                                 </div> */}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-12">
+                        <div className="investor-amounts">
+                          <Link to="/CheckboxThank">I am Interested</Link>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div className="row">
-                    <div className="col-12">
-                      <div className="investor-amounts">
-                        <Button onClick={openiamintrest}>
-                          <a>I am Interested</a>
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-            </>
-          );
-        })}
-      <Modal
-        // title={`Invest in ${this.state.deal_name}`}
-        visible={iamintrestmodal}
-        onOk={() => {
-          setiamintrestmodal(false);
-        }}
-        onCancel={() => {
-          setiamintrestmodal(false);
-        }}
-        width={900}
-        footer={false}
-      >
-        <section
-          class="about-page-section blog-section payment-sec pb-0"
-          style={{ paddingBottom: "0px !important" }}
-        >
-          <div class="container">
-            <div class="row">
-              <div
-                class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center align-items-center"
-                style={{ pointerEvents: "none" }}
-              ></div>
-            </div>
-            <div className="row  justify-content-center ">
-              <div className="col-md-8 col-12 col-sm-12 col-xl-8 col-xxl-8">
-                <div className="card-payment-methods">
-                  <div class="heading-title m-sm-0">
-                    <p>
-                      <span></span>{" "}
-                    </p>
-                    <h2>Fill The Form</h2>
-                  </div>
-                  <div className="para-proceed">
-                    <form action="" className="form-checkbox">
-                      <div className="row">
-                        <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
-                          <input
-                            type="checkbox"
-                            name="I Want to know more about it"
-                            value={data["I Want to know more about it"]}
-                            checked={
-                              data["I Want to know more about it"] == true
-                            }
-                            onClick={adddata}
-                          />
-                          <label htmlFor="">I Want to know more about it</label>
-                        </div>
-                        <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
-                          <input
-                            type="checkbox"
-                            name="I want to work with you"
-                            value={data["I want to work with you"]}
-                            checked={data["I want to work with you"] == true}
-                            onClick={adddata}
-                          />
-                          <label htmlFor="">I want to work with you</label>
-                        </div>
-                        <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
-                          <input
-                            type="checkbox"
-                            name="I am excited to invest in your startups"
-                            value={
-                              data["I am excited to invest in your startups"]
-                            }
-                            checked={
-                              data["I am excited to invest in your startups"] ==
-                              true
-                            }
-                            onClick={adddata}
-                          />
-                          <label htmlFor="">
-                            I am excited to invest in your startups
-                          </label>
-                        </div>
-                        <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mt-2">
-                          <textarea
-                            value={data.message}
-                            name="message"
-                            onChange={adddata}
-                            id="w3review"
-                            rows="4"
-                            className="w100"
-                            placeholder="Message"
-                          />
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                  <div className="button-proceed-online">
-                    <a onClick={submitintrest}>Submit</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </Modal>
-<ToastContainer/>
+                </section>
+              </>
+            );
+          })}
+
       <NewWebFooter />
     </div>
   );
