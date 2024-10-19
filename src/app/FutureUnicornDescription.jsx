@@ -8,7 +8,6 @@ import Bridge from "./constants/Bridge.js";
 import { useLocation } from "react-router-dom";
 
 
-
 export const FutureUnicornDescription = () => {
   const search = useLocation().search;
   const id = new URLSearchParams(search).get("id");
