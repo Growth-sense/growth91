@@ -6,9 +6,7 @@ import $ from "jquery";
 import { Link } from "react-router-dom";
 import Bridge from "./constants/Bridge.js";
 import { useLocation } from "react-router-dom";
-import FileViewer from 'react-file-viewer'; // Ensure you have installed this package
-import DocViewer,{DocViewerRenderers} from "react-doc-viewer";
-import PdfViewerComponent from "./PdfViewerComponent.jsx";
+
 
 
 export const FutureUnicornDescription = () => {
@@ -18,17 +16,8 @@ export const FutureUnicornDescription = () => {
     getuniondata();
     window.scrollTo(0, 0);
   }, []);
-  const [error, setError] = useState(null);
+
   const [unicorn, setUnicorn] = useState();
-
-  const [fileType, setFileType] = useState('pptx');
-  const [filePath, setFilePath] = useState(require("./ppt1.pptx"));
-
-const docs =[{
-  uri : require("./ppt1.pptx"),
-  fileType : "pptx",
-  filename : "ppt1.pptx"
-}]
   function getuniondata() {
     let params = {
       page: 0,
@@ -635,37 +624,108 @@ const docs =[{
                                         </div>
                                     </div>
                                 </div> */}
-  <div className="accordion-item">
-      <h3 className="accordion-header" id="flush-headingfour">
-        <button
-          className="accordion-button collapsed"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#flush-headingfournew"
-          aria-expanded="false"
-          aria-controls="flush-headingfour"
-        >
-          <span>
-            <img src="./assets/images/gallery.png" alt="" />
-          </span>
-          Investor Presentation
-        </button>
-      </h3>
-      <div
-        id="flush-headingfournew"
-        className="accordion-collapse collapse"
-        aria-labelledby="flush-headingfour"
-        data-bs-parent="#accordionFlushExample"
-      >
-        <div className="accordion-body">
-          {/* Use FileViewer to display PPTX */}
-          <PdfViewerComponent
-           document={'ppt1.pptx'}
-          />
-          {error && <div>Error: {error}</div>}
-        </div>
-      </div>
-    </div>
+
+                          <div class="accordion-item">
+                            <h3 class="accordion-header" id="flush-headingfour">
+                              <button
+                                class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#flush-headingfournew"
+                                aria-expanded="false"
+                                aria-controls="flush-headingfour"
+                              >
+                                <span>
+                                  <img
+                                    src="./assets/images/gallery.png"
+                                    alt=""
+                                  />
+                                </span>
+                                Investor Presentation
+                              </button>
+                            </h3>
+                            <div
+                              id="flush-headingfournew"
+                              class="accordion-collapse collapse"
+                              aria-labelledby="flush-headingfour"
+                              data-bs-parent="#accordionFlushExample"
+                            >
+                              <div class="accordion-body">
+                                <iframe
+                                  src={`https://css4.pub/2015/icelandic/dictionary.pdf`}
+                                  height={"500px"}
+                                  width={"100%"}
+                                ></iframe>
+                                {/* <div className="row justify-content-center">
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                </div> */}
+                              </div>
+                            </div>
+                          </div>
+
                           <div class="accordion-item">
                             <h3 class="accordion-header" id="flush-headingWait">
                               <button
