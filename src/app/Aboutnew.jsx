@@ -107,7 +107,7 @@ export const Aboutnew = () => {
     <div classname="newabout">
         <NewWebHeader newabout={"newabout"}/>
     </div>
-        <section class="about-page-section blog-section pb-0" style={{paddingBottom: "0px !important"}}>
+  <section class="about-page-section blog-section pb-0" >
 
     <div class="container">
         <div class="row">

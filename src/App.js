@@ -193,6 +193,7 @@ import FUnicornStartup from "./app/admin/FUnicornStartup.js";
 import FUnicornInvestors from "./app/admin/FUnicornInvestors.js";
 import FUnicornFounders from "./app/admin/FUnicornFounders.js";
 import TableComponent from "./app/admin/pdfview/TableComponent.js";
+import { Synergy } from "./app/Synergy.jsx";
 
 
 
@@ -227,6 +228,8 @@ function App() {
 
 
           <Route path="/about" exact component={Aboutnew} />
+          <Route path="/synergy-partner" exact component={Synergy} />
+
           <Route path="/LoginInvestor" exact component={LoginInvestor} />
           <Route path="/LoginFounder" exact component={LoginFounder} />
           <Route path="/MemberShip" exact component={MemberShip} />
