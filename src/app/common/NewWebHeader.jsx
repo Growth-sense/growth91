@@ -59,94 +59,94 @@ class NewWebHeader extends Component {
     this.toggleMenu = this.toggleMenu.bind(this);
     // this.handleScroll = this.handleScroll.bind(this);
   }
-  componentDidMount() {
-    // window.addEventListener("scroll", this.handleScroll);
-    var scroll_pos = 0;
-    var scroll_time;
+  // componentDidMount() {
+  //   // window.addEventListener("scroll", this.handleScroll);
+  //   var scroll_pos = 0;
+  //   var scroll_time;
 
-    $(window).scroll(function () {
-      clearTimeout(scroll_time);
-      var current_scroll = $(window).scrollTop();
+  //   $(window).scroll(function () {
+  //     clearTimeout(scroll_time);
+  //     var current_scroll = $(window).scrollTop();
 
-      if (current_scroll >= $("#topNav").outerHeight()) {
-        if (current_scroll <= scroll_pos) {
-          $("#topNav").removeClass("hidden");
-        } else {
-          $("#topNav").addClass("hidden");
-        }
-      }
+  //     if (current_scroll >= $("#topNav").outerHeight()) {
+  //       if (current_scroll <= scroll_pos) {
+  //         $("#topNav").removeClass("hidden");
+  //       } else {
+  //         $("#topNav").addClass("hidden");
+  //       }
+  //     }
 
-      scroll_time = setTimeout(function () {
-        scroll_pos = $(window).scrollTop();
-      }, 100);
-    });
-    let lastScroll = 0;
-    $(document).ready(function ($) {
-      $(window).scroll(function () {
-        setTimeout(function () {
-          //gives 100ms to finish scrolling before doing a check
-          var scroll = $(window).scrollTop();
-          if (scroll > lastScroll) {
-            $(".selector").addClass("shift");
-          } else if (scroll < lastScroll) {
-            $(".selector").removeClass("shift");
-          }
-          lastScroll = scroll;
-        }, 100);
-      });
-      $(document).ready(function () {
-        var s = $(".main-header");
-        var pos = s.position();
-        $(window).scroll(function () {
-          var windowpos = $(window).scrollTop();
-          if ((windowpos >= pos.top) & (windowpos <= 100)) {
-            s.removeClass("bgheaders");
-          } else {
-            s.addClass("bgheaders");
-          }
-        });
-      });
-    });
+  //     scroll_time = setTimeout(function () {
+  //       scroll_pos = $(window).scrollTop();
+  //     }, 100);
+  //   });
+  //   let lastScroll = 0;
+  //   $(document).ready(function ($) {
+  //     $(window).scroll(function () {
+  //       setTimeout(function () {
+  //         //gives 100ms to finish scrolling before doing a check
+  //         var scroll = $(window).scrollTop();
+  //         if (scroll > lastScroll) {
+  //           $(".selector").addClass("shift");
+  //         } else if (scroll < lastScroll) {
+  //           $(".selector").removeClass("shift");
+  //         }
+  //         lastScroll = scroll;
+  //       }, 100);
+  //     });
+  //     $(document).ready(function () {
+  //       var s = $(".main-header");
+  //       var pos = s.position();
+  //       $(window).scroll(function () {
+  //         var windowpos = $(window).scrollTop();
+  //         if ((windowpos >= pos.top) & (windowpos <= 100)) {
+  //           s.removeClass("bgheaders");
+  //         } else {
+  //           s.addClass("bgheaders");
+  //         }
+  //       });
+  //     });
+  //   });
 
-    $(".main-header").hover(
-      function () {
-        $(this).addClass("bgheaders");
-      },
-      function () {
-        $(this).removeClass("bgheaders");
-      }
-    );
+  //   $(".main-header").hover(
+  //     function () {
+  //       $(this).addClass("bgheaders");
+  //     },
+  //     function () {
+  //       $(this).removeClass("bgheaders");
+  //     }
+  //   );
 
-    // const expand
-    // this.isLogin();
+  //   // const expand
+  //   // this.isLogin();
 
-    if (localStorage.getItem("investor_id")) {
-      this.setState(
-        {
-          name: localStorage.getItem("investor_name"),
-          loggedinstatus: true,
-          loggedinuser: "investor",
-          investor_id: localStorage.getItem("investor_id"),
-        },
-        () => this.getbankdetails()
-      );
-    } else if (localStorage.getItem("founder_id")) {
-      this.setState(
-        {
-          loggedinstatus: true,
-          loggedinuser: "founder",
-          name: localStorage.getItem("founder_name"),
-        },
-        () => this.get_founder_details()
-      );
-    } else {
-      this.setState({
-        name: "",
-        loggedinstatus: false,
-      });
-    }
-    this.getsettings();
-  }
+  //   if (localStorage.getItem("investor_id")) {
+  //     this.setState(
+  //       {
+  //         name: localStorage.getItem("investor_name"),
+  //         loggedinstatus: true,
+  //         loggedinuser: "investor",
+  //         investor_id: localStorage.getItem("investor_id"),
+  //       },
+  //       () => this.getbankdetails()
+  //     );
+  //   } else if (localStorage.getItem("founder_id")) {
+  //     this.setState(
+  //       {
+  //         loggedinstatus: true,
+  //         loggedinuser: "founder",
+  //         name: localStorage.getItem("founder_name"),
+  //       },
+  //       () => this.get_founder_details()
+  //     );
+  //   } else {
+  //     this.setState({
+  //       name: "",
+  //       loggedinstatus: false,
+  //     });
+  //   }
+  //   this.getsettings();
+  // }
   componentWillUnmount() {
     // window.removeEventListener("scroll", this.handleScroll);
   }

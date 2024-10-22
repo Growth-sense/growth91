@@ -574,13 +574,12 @@ class Homenew extends Component {
                       <div class="d-flex-banner fadding-bottom fadding-bottom-1">
                         <div class="banner-part banner-slidingpart">
                           <h1 class="">
-                            Invest in Startups in India with Ease and Access
-                            High-Growth Opportunities
+                          Invest in Startups in India with Ease by 
+                          Accessing High-Growth Opportunities
                           </h1>
                           <p class=" p-0">
                             <span>
-                              Growth91 simplifies private market investment,
-                              connecting you to India's most promising startups.
+                            Growth91 simplifies private market investment, connecting you to India's most promising startups.
                             </span>
                           </p>
 
@@ -1050,7 +1049,7 @@ class Homenew extends Component {
                 <p>
                   <span></span>{" "}
                 </p>
-                <h3>Why Invest in Startups in India with Us</h3>
+                <h3>Why Invest in Startups in India with Growth91</h3>
               </div>
 
               <div class="main-business-card">
