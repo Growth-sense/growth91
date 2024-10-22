@@ -158,6 +158,8 @@ export default class CreatefamilyPage extends Component {
       });
       if (result.message == "Group deleted successfully.") {
         toast.success("Group delete Successfully");
+      this.viewgroupall()
+
       } else if (
         result.message ==
         "You can not delete this group, you have previously invited members in that."
@@ -173,7 +175,7 @@ export default class CreatefamilyPage extends Component {
   changegroupname = () => {
     let params = {
       userID: localStorage.getItem("Parent_investor_id"),
-      groupID: this.state.this.state.chggroupID,
+      groupID: this.state.chggroupID,
       groupName: this.state.change_group_name,
     };
     console.log(params);

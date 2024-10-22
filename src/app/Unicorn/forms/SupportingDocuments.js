@@ -5,6 +5,7 @@ import ProgressBar from "@ramonak/react-progress-bar";
 import { DownloadOutlined, DeleteOutlined } from "@ant-design/icons";
 import $ from "jquery";
 import axios from "axios";
+import { toast } from "react-toastify";
 class SupportingDocuments extends Component {
   constructor(props) {
     super(props);
@@ -30,9 +31,23 @@ class SupportingDocuments extends Component {
       upload_progres3_no: 0,
       formloader: false,
       formloader2: false,
-      marketoverview: [{ content1: "" }],
+      marketoverview: [{ content1: "" }, { content1: "" }, { content1: "" }],
       uploaded_document_list: [],
-      startuphighlight: [{ content1: "" }],
+      startuphighlight: [
+        { title: "Revenue Growth ", content1: "" },
+        { title: " New Initiatives, Operational Efficiency", content1: "" },
+        { title: "Performance and Achievements ", content1: "" },
+        {
+          title: " Previous Funding/Future Funding and its Utilization",
+          content1: "",
+        },
+      ],
+      titlestartuphigh: [
+        "Revenue Growth ",
+        " New Initiatives, Operational Efficiency",
+        "Performance and Achievements ",
+        " Previous Funding/Future Funding and its Utilization",
+      ],
     };
   }
   componentDidMount() {
@@ -42,11 +57,15 @@ class SupportingDocuments extends Component {
     if (this.props.unicorn.tudMark) {
       this.setState({ marketoverview: JSON.parse(this.props.unicorn.tudMark) });
     }
+    console.log((this.props.unicorn.tudStartupHighlights));
+    
     if (this.props.unicorn.tudStartupHighlights) {
       this.setState({
         startuphighlight: JSON.parse(this.props.unicorn.tudStartupHighlights),
       });
     }
+    console.log(this.state.startuphighlight);
+    
     $("#selected-field").focus();
     this.props.check();
     // console.log('validated', this.props.validated);
@@ -349,7 +368,7 @@ class SupportingDocuments extends Component {
         // this.setState({ BannerImage: response.data.data.upfile });
         this.props.onInput(
           "tudBannerImage",
-          JSON.stringify(response.data.data.upfile )
+          JSON.stringify(response.data.data.upfile)
         );
       }
     } else if (e.target.name == "tudLogoImage") {
@@ -373,10 +392,10 @@ class SupportingDocuments extends Component {
         // this.setState({ BannerImage: response.data.data.upfile });
         this.props.onInput(
           "tudLogoImage",
-          JSON.stringify(response.data.data.upfile )
+          JSON.stringify(response.data.data.upfile)
         );
       }
-    } 
+    }
   };
 
   render() {
@@ -530,23 +549,29 @@ class SupportingDocuments extends Component {
                       {this.state.startuphighlight.map((item, index) => {
                         return (
                           <div className="form-group">
-                            <label for="">Startup Highlights {index + 1}</label>
+                            <label for=""> Highlight {index + 1}</label>
                             <textarea
                               id="selected-field"
                               cols="30"
                               rows="6"
+                              maxLength="100"
+                              placeholder={this.state.titlestartuphigh[index]}
                               name="content1"
                               value={item.content1}
-                              onChange={(e) =>
-                                this.handleInputhighlightChange(index, e)
-                              }
+                              onChange={(e) => {
+                                this.handleInputhighlightChange(index, e);
+
+                                if (e.target.value.length == 100) {
+                                  toast.error("only 100 chart");
+                                }
+                              }}
                             ></textarea>
                           </div>
                         );
                       })}
-                      <button onClick={this.addstartuphighlight}>
+                      {/* <button onClick={this.addstartuphighlight}>
                         Add new highlight
-                      </button>
+                      </button> */}
                       {this.state.marketoverview.map((item, index) => {
                         return (
                           <div className="form-group">
@@ -558,18 +583,24 @@ class SupportingDocuments extends Component {
                               id="selected-field"
                               cols="30"
                               rows="6"
+                              maxLength="500"
                               name="content1"
                               value={item.content1}
-                              onChange={(e) => this.handleInputChange(index, e)}
+                              onChange={(e) => {
+                                this.handleInputChange(index, e);
+                                if (e.target.value.length == 500) {
+                                  toast.error("only 500 chart");
+                                }
+                              }}
                             >
                               {" "}
                             </textarea>
                           </div>
                         );
                       })}
-                      <button onClick={this.addmarketcv}>
+                      {/* <button onClick={this.addmarketcv}>
                         Add new market Overview
-                      </button>
+                      </button> */}
                       <div
                         className="form-group  justify-content-between"
                         style={{ display: "none !important" }}

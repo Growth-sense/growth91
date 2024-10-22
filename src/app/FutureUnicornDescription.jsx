@@ -60,7 +60,12 @@ export const FutureUnicornDescription = () => {
       </>
     );
   }
-
+  const highlightimages = [
+    "./assets/images/deals-details/Petmojo/highlight4.jpg",
+    "./assets/images/deals-details/Petmojo/highlight01.jpg",
+    "./assets/images/deals-details/highlight2.jfif",
+    "./assets/images/deals-details/highlight3.jpg",
+  ];
   const sliderSettings = {
     dots: true,
     infinite: true,
@@ -122,6 +127,8 @@ export const FutureUnicornDescription = () => {
         unicorn
           .filter((item) => item.unicornDealID == id)
           .map((item, index) => {
+           
+
             return (
               <>
                 <section class="futureunicorn-slider-sections">
@@ -183,7 +190,7 @@ export const FutureUnicornDescription = () => {
                                             </div> */}
                       </div>
                     </div>
-                    <div className="row row-imgdirects bg-box-futures">
+                    <div className="row row-imgdirects bg-box-futures d-none">
                       <ul className="grid-box-futures">
                         <li>
                           <span>
@@ -241,8 +248,7 @@ export const FutureUnicornDescription = () => {
                           <span>
                             <img src="./assets/images/web.png" alt="" />
                           </span>
-                          
-                          
+
                           <span value={item.udSocialOthers}>Website</span>
                         </li>
                         <li>
@@ -318,16 +324,12 @@ export const FutureUnicornDescription = () => {
                                         </div>
                                     </div>
                                 </div> */}
-                          <div class="accordion-item">
+                          <div
+                            class="accordion-item"
+                            style={{ border: "none" }}
+                          >
                             <h3 class="accordion-header" id="flush-headingOne">
-                              <button
-                                class="accordion-button collapsed"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#flush-collapseOne"
-                                aria-expanded="false"
-                                aria-controls="flush-collapseOne"
-                              >
+                              <div class="default-Show">
                                 <span>
                                   <img
                                     src="./assets/images/information.png"
@@ -335,16 +337,138 @@ export const FutureUnicornDescription = () => {
                                   />
                                 </span>
                                 About Us
-                              </button>
+                              </div>
                             </h3>
-                            <div
-                              id="flush-collapseOne"
-                              class="accordion-collapse collapse"
-                              aria-labelledby="flush-headingOne"
-                              data-bs-parent="#accordionFlushExample"
+
+                            <div class="accordion-body about-us-p">
+                              <p>{item.udDealDescription}</p>
+                            </div>
+                          </div>
+                          <div
+                            class="accordion-item"
+                            style={{ border: "none" }}
+                          >
+                            <h3 class="accordion-header" id="flush-headingsixx">
+                              <div class="default-Show">
+                                <span>
+                                  <img
+                                    src="./assets/images/highluights.png"
+                                    alt=""
+                                  />
+                                </span>
+                                Highlights
+                              </div>
+                            </h3>
+                            <div class="accordion-body">
+                              <div className="row row-bg-highlights">
+                                {item.udStartupHighlights &&
+                                  JSON.parse(item.udStartupHighlights).map(
+                                    (
+                                      itemstartuphighlight,
+                                      indexstartuphighlight
+                                    ) => {
+                                      console.log(itemstartuphighlight);
+
+                                      return (
+                                        <div
+                                          className={`col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12  ${
+                                            itemstartuphighlight.content1 == ""
+                                              ? `d-none`
+                                              : ""
+                                          }`}
+                                        >
+                                          <div className="highlights-accordian">
+                                            <div className="para-highlights-accordian">
+                                              <div className="img-highlights">
+                                                <img
+                                                  src={
+                                                    highlightimages[
+                                                      indexstartuphighlight
+                                                    ]
+                                                  }
+                                                  alt=""
+                                                />
+                                              </div>
+                                              <div className="para-p-highlight">
+                                                <p>
+                                                  {
+                                                    itemstartuphighlight.content1
+                                                  }
+                                                </p>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      );
+                                    }
+                                  )}
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="accordion-item"
+                            style={{ border: "none" }}
+                          >
+                            <h3
+                              class="accordion-header"
+                              id="flush-headingdetails"
                             >
-                              <div class="accordion-body about-us-p">
-                                <p>{item.udDealDescription}</p>
+                              <div class="default-Show">
+                                <span>
+                                  <img
+                                    src="./assets/images/group-chat.png"
+                                    alt=""
+                                  />
+                                </span>
+                                Team
+                              </div>
+                            </h3>
+
+                            <div class="accordion-body ">
+                              <div className="row row-box-linse Grid-team">
+                                {item.udVendorId &&
+                                  JSON.parse(item.udVendorId).map(
+                                    (itemudVendorId, indexudVendorId) => {
+                                      return (
+                                        <div className="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-12 col-sm-12 col-xs-12">
+                                          <div className="main-card-of-teams">
+                                            <div className="img-teams-of-cards">
+                                              <img
+                                                src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${itemudVendorId.imgname}`}
+                                                alt=""
+                                              />
+                                            </div>
+                                            <div className="name-of-teams-card">
+                                              <div className="head-deals-team">
+                                                <h3
+                                                  style={{
+                                                    textTransform: "capitalize",
+                                                  }}
+                                                >
+                                                  {itemudVendorId.name}
+                                                </h3>
+                                                <p
+                                                  style={{
+                                                    textTransform: "capitalize",
+                                                  }}
+                                                >
+                                                  {itemudVendorId.Role}
+                                                </p>
+                                              </div>
+                                              <ul>
+                                                <li>
+                                                  {itemudVendorId.description1}
+                                                </li>
+                                                <li>
+                                                  {itemudVendorId.description2}
+                                                </li>
+                                              </ul>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      );
+                                    }
+                                  )}
                               </div>
                             </div>
                           </div>
@@ -353,14 +477,7 @@ export const FutureUnicornDescription = () => {
                               class="accordion-header"
                               id="flush-headingThree"
                             >
-                              <button
-                                class="accordion-button collapsed"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#flush-collapseThree"
-                                aria-expanded="false"
-                                aria-controls="flush-collapseThree"
-                              >
+                              <div class="default-Show">
                                 <span>
                                   <img
                                     src="./assets/images/market-research.png"
@@ -368,32 +485,27 @@ export const FutureUnicornDescription = () => {
                                   />
                                 </span>
                                 Market Overview
-                              </button>
+                              </div>
                             </h3>
-                            <div
-                              id="flush-collapseThree"
-                              class="accordion-collapse collapse"
-                              aria-labelledby="flush-headingThree"
-                              data-bs-parent="#accordionFlushExample"
-                            >
-                              <div class="accordion-body">
-                                <div className="row market-overreview-row">
-                                  {item.udMark &&
-                                    JSON.parse(item.udMark).map(
-                                      (itemudamrk, indexudmark) => {
-                                        return (
-                                          <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                            <div className="membership-accordian">
-                                              <div className="para-member-accordian">
-                                                <p>{itemudamrk.content1} </p>
-                                              </div>
+
+                            <div class="accordion-body">
+                              <div className="row market-overreview-row">
+                                {item.udMark &&
+                                  JSON.parse(item.udMark).map(
+                                    (itemudamrk, indexudmark) => {
+                                      return (
+                                        <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                          <div className="membership-accordian">
+                                            <div className="para-member-accordian">
+                                              <p>{itemudamrk.content1} </p>
                                             </div>
                                           </div>
-                                        );
-                                      }
-                                    )}
+                                        </div>
+                                      );
+                                    }
+                                  )}
 
-                                  {/* <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                {/* <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
                                                     <div className="membership-accordian">
 
                                                         <div className="para-member-accordian">
@@ -408,80 +520,20 @@ export const FutureUnicornDescription = () => {
                                                         {/* <div className="img-member-accordian">
                                                             <img src="https://www.trumanlittlewhitehouse.org/wp-content/uploads/2019/11/81DpN-lrJvL._SL1350.jpg" alt="" />
                                                         </div> */}
-                                  {/* <div className="para-member-accordian"> */}
-                                  {/* <h3>
+                                {/* <div className="para-member-accordian"> */}
+                                {/* <h3>
                                                                 Member
                                                             </h3> */}
-                                  {/*      <p>
+                                {/*      <p>
                                                                 The Ready to Cook market, valued at $18 billion, is witnessing rapid growth due to shifting consumer habits, increased health awareness, and the convenience of pre-packaged meal kits. This trend presents ample opportunities for smaller companies to enter the market and innovate with new product offerings, catering to the needs of busy individuals seeking healthy and convenient meal solutions.
                                                             </p>
                                                         </div>
                                                     </div>
                                                 </div> */}
-                                </div>
                               </div>
                             </div>
                           </div>
-                          <div class="accordion-item">
-                            <h3 class="accordion-header" id="flush-headingsixx">
-                              <button
-                                class="accordion-button collapsed"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#flush-headingsixxnew"
-                                aria-expanded="false"
-                                aria-controls="flush-headingsixx"
-                              >
-                                <span>
-                                  <img
-                                    src="./assets/images/highluights.png"
-                                    alt=""
-                                  />
-                                </span>
-                                Highlights
-                              </button>
-                            </h3>
-                            <div
-                              id="flush-headingsixxnew"
-                              class="accordion-collapse collapse"
-                              aria-labelledby="flush-headingsixx"
-                              data-bs-parent="#accordionFlushExample"
-                            >
-                              <div class="accordion-body">
-                                <div className="row row-bg-highlights">
-                                  {item.udStartupHighlights &&
-                                    JSON.parse(item.udStartupHighlights).map(
-                                      (
-                                        itemstartuphighlight,
-                                        indexstartuphighlight
-                                      ) => {
-                                        return (
-                                          <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
-                                            <div className="highlights-accordian">
-                                              <div className="para-highlights-accordian">
-                                                <div className="img-highlights">
-                                                  <img
-                                                    src="./assets/images/deals-details/highlight3.jpg"
-                                                    alt=""
-                                                  />
-                                                </div>
-                                                <div className="para-p-highlight">
-                                                  <p>
-                                                    {
-                                                      itemstartuphighlight.content1
-                                                    }
-                                                  </p>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        );
-                                      }
-                                    )}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+
                           <div class="accordion-item">
                             <h3
                               class="accordion-header"
@@ -542,148 +594,6 @@ export const FutureUnicornDescription = () => {
                                                 >
                                                   View More
                                                 </a>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        );
-                                      }
-                                    )}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="accordion-item">
-                            <h3
-                              class="accordion-header"
-                              id="flush-headingtearm"
-                            >
-                              <button
-                                class="accordion-button collapsed"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#flush-headingtearmnew"
-                                aria-expanded="false"
-                                aria-controls="flush-headingtearm"
-                              >
-                                <span>
-                                  <img
-                                    src="./assets/images/contract-negotiation.png"
-                                    alt=""
-                                  />
-                                </span>
-                                Deal Term
-                              </button>
-                            </h3>
-                            <div
-                              id="flush-headingtearmnew"
-                              class="accordion-collapse collapse"
-                              aria-labelledby="flush-headingtearm"
-                              data-bs-parent="#accordionFlushExample"
-                            >
-                              <div class="accordion-body connect-acc-us">
-                                <div className="row row-box-line">
-                                  {/* <div className="col-md-4 col-lg-4 col-xl-4 col-xxl-4 col-12 col-sm-12 col-xs-12">
-                                    <div className="lets-talks-div">
-                                      <h3>End Date</h3>
-                                      <ul>
-                                        <li>
-                                          <span>Jun 24, 2024</span>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  </div> */}
-                                  <div className="col-md-4 col-lg-4 col-xl-4 col-xxl-4 col-12 col-sm-12 col-xs-12">
-                                    <div className="lets-talks-div">
-                                      <h3>Min Investment</h3>
-                                      <ul>
-                                        <li>
-                                          <span>
-                                            {item.udMinInvestmentAmount}
-                                          </span>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                  <div className="col-md-4 col-lg-4 col-xl-4 col-xxl-4 col-12 col-sm-12 col-xs-12">
-                                    <div className="lets-talks-div">
-                                      <h3>Valuation</h3>
-                                      <ul>
-                                        <li>
-                                          <span>₹{item.udValuation} Cr</span>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="accordion-item">
-                            <h3
-                              class="accordion-header"
-                              id="flush-headingdetails"
-                            >
-                              <button
-                                class="accordion-button collapsed"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#flush-headingdetailsnew"
-                                aria-expanded="false"
-                                aria-controls="flush-headingdetails"
-                              >
-                                <span>
-                                  <img
-                                    src="./assets/images/group-chat.png"
-                                    alt=""
-                                  />
-                                </span>
-                                Team
-                              </button>
-                            </h3>
-                            <div
-                              id="flush-headingdetailsnew"
-                              class="accordion-collapse collapse"
-                              aria-labelledby="flush-headingdetails"
-                              data-bs-parent="#accordionFlushExample"
-                            >
-                              <div class="accordion-body ">
-                                <div className="row row-box-linse">
-                                  {item.udVendorId &&
-                                    JSON.parse(item.udVendorId).map(
-                                      (itemudVendorId, indexudVendorId) => {
-                                        return (
-                                          <div className="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-12 col-sm-12 col-xs-12">
-                                            <div className="main-card-of-teams">
-                                              <div className="img-teams-of-cards">
-                                                <img
-                                                  src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${itemudVendorId.imgname}`}
-                                                  alt=""
-                                                />
-                                              </div>
-                                              <div className="name-of-teams-card">
-                                                <div className="head-deals-team">
-                                                  <h3
-                                                    style={{
-                                                      textTransform:
-                                                        "capitalize",
-                                                    }}
-                                                  >
-                                                    {itemudVendorId.name}
-                                                  </h3>
-                                                  <p
-                                                    style={{
-                                                      textTransform:
-                                                        "capitalize",
-                                                    }}
-                                                  >
-                                                    {itemudVendorId.Role}
-                                                  </p>
-                                                </div>
-                                                <ul>
-                                                  <li>
-                                                    {itemudVendorId.description}
-                                                  </li>
-                                                </ul>
                                               </div>
                                             </div>
                                           </div>
@@ -828,134 +738,19 @@ export const FutureUnicornDescription = () => {
                                       />
                                     </div>
                                   </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
                                 </div> */}
                               </div>
                             </div>
                           </div>
-                          <div class="accordion-item">
-                            <h3 class="accordion-header" id="flush-headingfive">
-                              <button
-                                class="accordion-button collapsed"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#flush-headingfivenew"
-                                aria-expanded="false"
-                                aria-controls="flush-headingfive"
-                              >
-                                <span>
-                                  <img
-                                    src="./assets/images/mobile.png"
-                                    alt=""
-                                  />
-                                </span>
-                                Connect Us
-                              </button>
-                            </h3>
-                            <div
-                              id="flush-headingfivenew"
-                              class="accordion-collapse collapse"
-                              aria-labelledby="flush-headingfive"
-                              data-bs-parent="#accordionFlushExample"
-                            >
-                              <div class="accordion-body connect-acc-us">
-                                <div className="row row-box-line">
-                                  <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                    <div className="lets-talks-div">
-                                      <h3>Legal Name</h3>
-                                      <ul>
-                                        <li>
-                                          <span>{item.udLegalname}</span>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                  <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                    <div className="lets-talks-div">
-                                      <h3>Founded</h3>
-                                      <ul>
-                                        <li>
-                                          <span>{item.udFoundedon}</span>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                  <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                    <div className="lets-talks-div">
-                                      <h3>Let's Meet</h3>
-                                      <ul>
-                                        <li>
-                                          <span>Corporate Office :</span>
-                                          <span>{item.udAddress}</span>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                  <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                    <div className="lets-talks-div">
-                                      <h3>Employees</h3>
-                                      <ul>
-                                        <li>
-                                          <span>{item.udEmployees}</span>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                  <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                    <div className="lets-talks-div">
-                                      <h3>Visit Us</h3>
-                                      <ul>
-                                        <li>
-                                      <Link
-                                            to={`//${item.udWebsite}`}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            >
-                                            <span style={{textTransform:"lowercase"}}>{item.udWebsite}</span>
-                                           
-                                          </Link>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                  <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                    <div className="lets-talks-div">
-                                      <h3>Follow Us</h3>
-                                      <ul>
-                                        <li>
-                                          <Link
-                                            to={`//${item.udSocialInsta}`}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                          >
-                                            <i class="fa-brands fa-instagram"></i>
-                                          </Link>
-                                        </li>
-                                        <li>
-                                          <Link
-                                            to={`//${item.udSocialYouTube}`}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                          >
-                                            <i class="fa-brands fa-youtube"></i>
-                                          </Link>
-                                        </li>
 
-                                        <li>
-                                          <Link
-                                            to={`//${item.udSocialFacebook}`}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                          >
-                                            <i class="fa-brands fa-facebook"></i>
-                                          </Link>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
                           <div class="accordion-item">
                             <h3 class="accordion-header" id="flush-headingWait">
                               <button
@@ -1003,6 +798,122 @@ export const FutureUnicornDescription = () => {
                                         allowFullScreen
                                       ></iframe>
                                     </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="accordion-item">
+                            <h3 class="accordion-header" id="flush-headingfive">
+                              <div class="default-Show">
+                                <span>
+                                  <img
+                                    src="./assets/images/mobile.png"
+                                    alt=""
+                                  />
+                                </span>
+                                Contact Us
+                              </div>
+                            </h3>
+
+                            <div class="accordion-body connect-acc-us">
+                              <div className="row row-box-line">
+                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                  <div className="lets-talks-div">
+                                    <h3>Legal Name</h3>
+                                    <ul>
+                                      <li>
+                                        <span>{item.udLegalname}</span>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                  <div className="lets-talks-div">
+                                    <h3>Founded</h3>
+                                    <ul>
+                                      <li>
+                                        <span>{item.udFoundedon}</span>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                  <div className="lets-talks-div">
+                                    <h3>Let's Meet</h3>
+                                    <ul>
+                                      <li>
+                                        <span>Corporate Office :</span>
+                                        <span>{item.udAddress}</span>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                  <div className="lets-talks-div">
+                                    <h3>Employees</h3>
+                                    <ul>
+                                      <li>
+                                        <span>{item.udEmployees}</span>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                  <div className="lets-talks-div">
+                                    <h3>Visit Us</h3>
+                                    <ul>
+                                      <li>
+                                        <Link
+                                          to={`//${item.udWebsite}`}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                        >
+                                          <span
+                                            style={{
+                                              textTransform: "lowercase",
+                                            }}
+                                          >
+                                            {item.udWebsite}
+                                          </span>
+                                        </Link>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                  <div className="lets-talks-div">
+                                    <h3>Follow Us</h3>
+                                    <ul>
+                                      <li>
+                                        <Link
+                                          to={`//${item.udSocialInsta}`}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                        >
+                                          <i class="fa-brands fa-instagram"></i>
+                                        </Link>
+                                      </li>
+                                      <li>
+                                        <Link
+                                          to={`//${item.udSocialYouTube}`}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                        >
+                                          <i class="fa-brands fa-youtube"></i>
+                                        </Link>
+                                      </li>
+
+                                      <li>
+                                        <Link
+                                          to={`//${item.udSocialFacebook}`}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                        >
+                                          <i class="fa-brands fa-facebook"></i>
+                                        </Link>
+                                      </li>
+                                    </ul>
                                   </div>
                                 </div>
                               </div>

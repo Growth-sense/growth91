@@ -983,6 +983,7 @@ class Investments extends Component {
                       &nbsp;&nbsp;Approve Status
                     </a>
                   </Menu.Item>
+                  {/* {localStorage.getItem("super_admin") === "1" &&  */}
                   <Menu.Item
                     key={`Edits${record.key}`}
                     icon={<WindowsOutlined />}
@@ -995,8 +996,10 @@ class Investments extends Component {
                       &nbsp;&nbsp;Edit
                     </a>
                   </Menu.Item>
+                  {/* } */}
                     </>
-                )}
+                )
+                }
               {text.founder_document_sign_status == "fndr_sign_success" &&
                 text.fund_raise_status != "success" && (
                   <Menu.Item

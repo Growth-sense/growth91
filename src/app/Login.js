@@ -129,8 +129,20 @@ class Login extends Component {
       return;
     }
     if (this.state.otp == SUMOFOTP) {
-      localStorage.setItem("investor_id", this.state.otpoutput[0].investor_id);
+      localStorage.setItem(
+        "investor_id",
+        this.state.otpoutput[0].investor_id
+      );
+      localStorage.setItem(
+        "Parent_investor_id",
+        this.state.otpoutput[0].investor_id
+      );
       localStorage.setItem("investor_email", this.state.otpoutput[0].email);
+      localStorage.setItem("Parent_investor_email", this.state.otpoutput[0].email);
+      localStorage.setItem(
+        "Parent_investor_kycstatus",
+        this.state.otpoutput[0].kycstatus
+      );
       localStorage.setItem(
         "investor_kycstatus",
         this.state.otpoutput[0].kycstatus
@@ -138,8 +150,14 @@ class Login extends Component {
       localStorage.setItem(
         "investor_name",
         this.state.otpoutput[0].first_name +
-          " " +
-          this.state.otpoutput[0].last_name
+        " " +
+        this.state.otpoutput[0].last_name
+      );
+      localStorage.setItem(
+        "Parent_investor_name",
+        this.state.otpoutput[0].first_name +
+        " " +
+        this.state.otpoutput[0].last_name
       );
       window.location.assign("/investor-dashboard");
       message.success("OTP verified succesfully.");
