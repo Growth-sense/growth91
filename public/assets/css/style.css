@@ -2427,7 +2427,9 @@ footer .left span {
   
   }
   .highlight-rows .Ecoratings{
-    min-height: 330px !important;
+    min-height: 400px !important;
+  align-items: center;
+
   
   }
 }

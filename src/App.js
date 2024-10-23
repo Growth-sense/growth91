@@ -217,6 +217,7 @@ import CUR8 from "./app/deal-pages/CUR8.jsx";
 import Edept from "./app/deal-pages/Edept.jsx";
 import Innoserv from "./app/deal-pages/Innoserv.jsx";
 import Petmojo from "./app/deal-pages/Petmojo(Pre Series A).jsx";
+import LVLAlpha from "./app/deal-pages/LVLAlpha.jsx";
 
 ReactGA.initialize(TRACKING_ID);
 
@@ -645,6 +646,9 @@ function App() {
           </Route>
           <Route path="/Innoserv" >
             <ProtectDeals Component={Innoserv} />
+          </Route>
+          <Route path="/LVLAlpha" >
+            <ProtectDeals Component={LVLAlpha} />
           </Route>
           <Route path="/TestDeal2" exact>
             <ProtectDeals Component={TestDeal2} />
