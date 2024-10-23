@@ -44,7 +44,7 @@ import * as XLSX from "xlsx";
 import Invitation_list from "./common/Invitation_list";
 import { toast, ToastContainer } from "react-toastify";
 import Item from "antd/lib/list/Item";
-
+import ReactRTE from "react-rte";
 const { TextArea } = Input;
 const { Option } = Select;
 const { Content } = Layout;
@@ -57,6 +57,7 @@ class Deals extends Component {
     super(props);
     this.state = {
       posts: [],
+      editorvalue: ReactRTE.createEmptyValue(),
       loading: false,
       addModalStatus: false,
       addDocModalStatus: false,
@@ -296,6 +297,11 @@ class Deals extends Component {
       admindocActive: "",
       admindocName: "",
       documentFile: "",
+      // for email editor
+      specificemailcontant: "",
+      specificemailcontantkey: "",
+      showeditormodal: false,
+      dataemailtoinvestorlist: "",
     };
     this.button = React.createRef();
   }
@@ -331,7 +337,18 @@ class Deals extends Component {
       }
     });
   };
+  editoronChange = (value) => {
+    console.log(value.toString("html"));
 
+    this.setState({ editorvalue: value.toString("html") });
+    this.setState({ specificemailcontant: value });
+    // if (this.props.onChange) {
+    //   // Send the changes up to the parent component as an HTML string.
+    //   // This is here to demonstrate using `.toString()` but in a real app it
+    //   // would be better to avoid generating a string on each change.
+    //   this.props.onChange(value.toString("html"));
+    // }
+  };
   // get post list
   getdeallist = () => {
     this.setState({ loading: true });
@@ -1877,31 +1894,93 @@ class Deals extends Component {
     message.success("Commitment data exported successfully.");
   };
   Emailtoinvestorsmodal = () => {
+    const datas = this.state.commitment_investor_list
+      .filter((data) => data.isCommitmentEnabled == "Enabled")
+      .map((item, index) => {
+        console.log(item);
+        const emaildata = `
+      <p>&nbsp;</p>
+<p>Dear <strong>aadil</strong>,<br>
+</p>
+<p>Thank you for committing your interest in the ${item.deal_name} Deal. We are pleased to inform you that we have initiated the Call for Money.<br>
+</p>
+<p>The investment amount is ₹${item.total_invested_amount}. Please find the bank details for transferring the funds below:<br>
+</p>
+<p>${item.deal_name} Bank Details:<br>
+Account Name: ${this.state.Viewcommit_bank_acc_name}<br>
+Account Number:${this.state.Viewcommit_bank_acc_num}<br>
+Bank:${this.state.Viewcommit_bank_name} <br>
+Account Type:${this.state.Viewcommit_bank_acc_type} <br>
+IFSC Code: ${this.state.Viewcommit_bank_acc_type} <br>
+Branch:<br>
+</p>
+<p>Also, we request you to pay investment facilitation charges of ₹${item.processingfees}. Kindly transfer this amount to the following account:<br>
+</p>
+<p>Growth91 Advisors Private Limited Bank Details:<br>
+Account Name: Growth91 Advisors Private Limited<br>
+Account Number: 50200066360849<br>
+Bank: HDFC Bank<br>
+Branch: Akola, Maharashtra<br>
+IFSC Code: HDFC0000221<br>
+Account Type: Current Account<br>
+</p>
+<p>You can transfer the amounts either by adding the bank details as a beneficiary in your bank and sending the payment directly, or alternatively, we will send you a follow-up email containing a payment link, so you can transfer the amount<br>
+</p>
+<p>We have attached required documents for your reference.<br>
+</p>
+<p>Feel free to reach out if you have any questions.<br>
+</p>
+<p>Best regards,<br>
+Team Growth91<br>
+Growth91 Advisors Private Limited<br>
+</p>
+<p>PS: This is an automated email. Please do not reply.</p>
+`;
+
+        return {
+          key: index,
+          investor_id: item.investor_id,
+          isCommitmentEnabled: item.isCommitmentEnabled,
+          name: item.first_name + " " + item.last_name,
+          deal_name: item.deal_name,
+          item: item,
+          emailcontent: emaildata,
+        };
+      });
+
     this.setState({
       Emailtoinvestsmodal: true,
     });
-    // console.log(this.state.CommitmentdataSource);
+    setTimeout(() => {
+      console.log(this.dataemailtoinvestorlist);
+      this.setState({
+        dataemailtoinvestorlist: datas,
+      });
+    }, 3000);
   };
   Emailtoinvestors = () => {
     let arr = [];
 
-    // console.log(this.state.commitment_investor_list);
-    for (let item of this.state.commitment_investor_list) {
-      let obj = Number(item.investor_id);
+   // console.log(this.state.commitment_investor_list);
+   for (let item of this.state.dataemailtoinvestorlist) {
+    let obj = Number(item.investor_id);
 
-      arr = [...arr, obj];
-      // console.log(obj);
-    }
-    // console.log(arr);
-
-    Bridge.admin.investor
-      .send_email_to_investors({
-        investor_ids: arr,
-        deal_id: this.state.commitment_investor_list[0].deal_id,
-      })
-      .then((result) => {
-        console.log(result);
-      });
+    arr = [...arr, obj];
+    // console.log(obj);
+  }
+  console.log(this.state.dataemailtoinvestorlist);
+  // return
+  Bridge.admin.investor
+    .send_email_to_investors({
+      investor_ids: arr,
+      deal_id: this.state.dataemailtoinvestorlist[0].item.deal_id,
+      emailBody:this.state.specificemailcontant.toString("html") 
+    })
+    .then((result) => {
+      console.log(result);
+      this.setState({ Emailtoinvestsmodal: false })
+      toast.success("Email sent success fully")
+    });
   };
   Adddoctodeal = () => {
     this.setState({ addDocdealModalStatus: true, documentType: "Deal" });
@@ -2408,12 +2487,15 @@ class Deals extends Component {
   };
   show_Editor_for_email_contant = (text, record) => {
     console.log(record);
-return
+    this.setState({});
+    console.log(this.emailtoinvestorlist);
     this.setState({
-      show_edit_commitment_status_modal: true,
-      Commitmentstatus: record.item.isCommitmentEnabled,
-      commitmentstatusid: record.item.id,
-      ac_edit_deal_id: record.item.deal_id,
+      specificemailcontant: ReactRTE.createValueFromString(
+        record.emailcontent,
+        "html"
+      ),
+      specificemailcontantkey: record.id,
+      showeditormodal: true,
     });
   };
   handleSubmit = () => {
@@ -2571,6 +2653,24 @@ return
         console.error("API Error:", error);
       });
   };
+  handle_email_changes = () => {
+    let arr = [];
+    console.log(this.state.editorvalue,
+      this.state.specificemailcontant);
+    this.setState(prevState => ({
+      dataemailtoinvestorlist: prevState.dataemailtoinvestorlist.map(investor => investor.id === this.state.specificemailcontantkey ? { ...investor, emailcontent: this.state.specificemailcontant.toString("html") } : investor
+      ),
+      showeditormodal:false
+    }));
+
+   
+
+
+
+
+    
+  };
+  
   render() {
     const dataSource =
       this.state.deallist &&
@@ -2625,22 +2725,7 @@ return
           isExists: item,
         };
       });
-    const emailtoinvestorlist =
-      this.state.commitment_investor_list &&
-      this.state.commitment_investor_list
-        .filter((data) => data.isCommitmentEnabled == "Enabled")
-        .map((item, index) => {
-          console.log(item);
-
-          return {
-            key: index,
-            investor_id: item.investor_id,
-            isCommitmentEnabled: item.isCommitmentEnabled,
-            name: item.first_name + " " + item.last_name,
-            deal_name: item.deal_name,
-            item: item,
-          };
-        });
+    const emailtoinvestorlist =this.state.dataemailtoinvestorlist
     const emailtoinvestorlistcolumns = [
       {
         title: "Investor ID",
@@ -2742,38 +2827,6 @@ return
     const CommitmentdataSource =
       this.state.commitment_investor_list &&
       this.state.commitment_investor_list.map((item, index) => {
-        console.log(item);
-
-        const emaildata = `Dear Investor,
-Thank you for committing your interest in the ${item.deal_name} Deal. We are 
-pleased to inform you that we have initiated the Call for Money. 
-The investment amount is ₹ ${item.total_invested_amount}. Please find the bank details 
-for transferring the funds below: 
-${item.deal_name} Bank Details: 
-Account Name: ${item.bank_acc_name}. 
-Account Number: ${item.bank_acc_name} 
-Bank: ${item.bank_acc_name}
-Account Type: ${item.bank_acc_name} 
-IFSC Code: ${item.bank_acc_name} 
-Branch: ${item.bank_acc_name} 
-Also, we request you to pay investment facilitation charges of ₹ ${item.processingfees}.
- Kindly transfer this amount to the following account: 
-Growth91 Advisors Private Limited Bank Details: 
-Account Name: Growth91 Advisors Private Limited 
-Account Number: 50200066360849 
-Bank: HDFC Bank 
-Branch: Akola, Maharashtra 
-IFSC Code: HDFC0000221 
-Account Type: Current Account 
-You can transfer the amounts either by adding the bank details as a beneficiary 
-in your bank and sending the payment directly, or alternatively, we will send you 
-a follow-up email containing a payment link, so you can transfer the amount. 
-We have attached required documents for your reference. 
-Feel free to reach out if you have any questions. 
-Best regards, 
-Team Growth91 
-Growth91 Advisors Private Limited 
-`;
         return {
           key: index,
           child: item["0"],
@@ -2795,7 +2848,7 @@ Growth91 Advisors Private Limited
           name: item.first_name + " " + item.last_name,
           deal_name: item.deal_name,
           item: item,
-          emailcontent:emaildata
+          // emailcontent: emaildata,
         };
       });
 
@@ -3295,7 +3348,7 @@ Growth91 Advisors Private Limited
         key: "isCommitmentEnabled",
         width: 100,
       },
-      
+
       {
         title: "Document",
         dataIndex: "item",
@@ -3321,8 +3374,6 @@ Growth91 Advisors Private Limited
         fixed: "right",
         width: 100,
         render: (text, record) => {
-          console.log(record);
-          
           const menu = (
             <Menu
               mode="vertical"
@@ -5722,7 +5773,7 @@ Growth91 Advisors Private Limited
         <Modal
           title="Email to investor list"
           visible={this.state.Emailtoinvestsmodal}
-          onOk={this.handleSubmitdeal}
+          onOk={this.Emailtoinvestors}
           okText="Submit"
           onCancel={() => this.setState({ Emailtoinvestsmodal: false })}
           width={550}
@@ -5734,6 +5785,21 @@ Growth91 Advisors Private Limited
               loading={this.state.loading}
               bordered
               scroll={{ x: "max-content" }}
+            />
+          </Spin>
+        </Modal>
+        <Modal
+          title="Email edior"
+          visible={this.state.showeditormodal}
+          onOk={this.handle_email_changes}
+          okText="Submit"
+          onCancel={() => this.setState({ showeditormodal: false })}
+          width={850}
+        >
+          <Spin spinning={this.state.formloader}>
+            <ReactRTE
+              value={this.state.specificemailcontant}
+              onChange={this.editoronChange}
             />
           </Spin>
         </Modal>

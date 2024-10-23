@@ -6,8 +6,6 @@ import $ from "jquery";
 import { Link } from "react-router-dom";
 import Bridge from "./constants/Bridge.js";
 import { useLocation } from "react-router-dom";
-import FileViewer from 'react-file-viewer'; // Ensure you have installed this package
-import DocViewer,{DocViewerRenderers} from "react-doc-viewer";
 import PdfViewerComponent from "./PdfViewerComponent.jsx";
 
 export const FutureUnicornDescription = () => {

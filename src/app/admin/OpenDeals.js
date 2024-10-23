@@ -3113,7 +3113,6 @@ bank_branch:this.state.editbank_branch,
 
           <Layout className="site-layout">
             <Sidebar2 />
-
             <Content className="home-section">
               <Card
                 title="Open Deals"

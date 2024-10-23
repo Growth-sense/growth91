@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import FileViewer from 'react-file-viewer'; // Ensure this is installed
 
 export default function PdfViewerComponent(props) {
   const containerRef = useRef(null);
@@ -41,11 +40,7 @@ export default function PdfViewerComponent(props) {
       {props.document.split('.').pop().toLowerCase() === 'pdf' ? (
         <div ref={containerRef} style={{ width: '100%', height: '100vh' }} />
       ) : (
-        <FileViewer
-          fileType={props.document.split('.').pop().toLowerCase()} // Extract the file type from the extension
-          filePath={props.document} // Use the document prop (URL or file path)
-          onError={(e) => setError('Failed to load document: ' + e)}
-        />
+       ""
       )}
       {error && <div>Error: {error}</div>}
     </div>
