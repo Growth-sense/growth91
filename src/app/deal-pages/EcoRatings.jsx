@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import WebHeader from "../common/WebHeader";
-import WebFooter from "../common/WebFooter";
+
 import "./newboo.css";
 import {
   Tabs,
@@ -20,6 +19,8 @@ import Apis from "../constants/Apis";
 import moment from "moment";
 import Bridge from "../constants/Bridge";
 import InvestmentMembershipmodal from "../components/membership/InvestmentMembershipmodal";
+import NewWebHeader from "../common/NewWebHeader";
+import { NewWebFooter } from "../common/NewWebFooter";
 
 const { Panel } = Collapse;
 const { TabPane } = Tabs;
@@ -1123,7 +1124,7 @@ class EcoRatings extends Component {
       <>
         {this.state.is_deal_visible == true ? (
           <div style={{ display: this.state.show_data }}>
-            <WebHeader />
+            <NewWebHeader  newabout={"newabout"}/>
             <section
               className="deals-details-page"
               style={{ marginBottom: "-50px" }}
@@ -3053,7 +3054,7 @@ Yes, EcoRatings is targeting a relatively new and untapped market in India, and 
                 </div>
               </div>
             </div>
-            <WebFooter />
+            <NewWebFooter />
           </div>
         ) : (
           window.location.assign("/Deals")

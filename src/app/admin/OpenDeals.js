@@ -257,6 +257,7 @@ class Deals extends Component {
       attachment_preview: "",
       add_vendor_id: "",
       edit_vendor_id: "",
+      edit_deal_type: "",
       allPrivateDealInvestor: [],
       selectallstatus: false,
       count: 0,
@@ -418,6 +419,8 @@ class Deals extends Component {
       edit_signer_email: item.signer_email,
       edit_signer_mobile: item.signer_mobile,
       edit_vendor_id: item.vendor_id,
+      edit_deal_type: item.deal_type,
+
     });
     // console.log(this.state.edit_founder_sign_coordinate)
   };
@@ -614,7 +617,8 @@ class Deals extends Component {
       signer_mobile: this.state.edit_signer_mobile,
       signer_email: this.state.edit_signer_email,
       vendor_id: this.state.edit_vendor_id,
-      deal_service:this.state.edit_deal_service
+      deal_service:this.state.edit_deal_service,
+      deal_type:this.state.edit_deal_type
     };
     Bridge.deal.edit(params).then((result) => {
       if (result.status == 1) {
@@ -652,6 +656,7 @@ class Deals extends Component {
             edit_escrow_account_name: "",
             edit_escrow_account_bank: "",
             edit_escrow_account_branch: "",
+            edit_deal_type: "",
           },
           () => this.getdeallist()
         );
@@ -3712,6 +3717,21 @@ class Deals extends Component {
                   this.setState({ edit_deal_name: e.target.value })
                 }
               />
+            </div>
+            <div className="form-group-mt-3">
+              <label className="mb-2">
+                Deal Type<span className="text-danger">*</span>
+              </label>
+              <Select
+                value={this.state.add_dealtype}
+                style={{ width: "100%" }}
+                onChange={(value) => {
+                  this.setState({ edit_deal_type: value });
+                }}
+              >
+                <Option value="Public">Public</Option>
+                <Option value="Private">Private</Option>
+              </Select>
             </div>
             <div className="form-group-mt-3">
               <label className="mb-2">

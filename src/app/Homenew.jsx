@@ -22,6 +22,7 @@ import { Slide } from "react-awesome-reveal";
 import CountUp from "react-countup";
 import { Link } from "react-router-dom";
 import { Homeblog } from "./Homeblog.jsx";
+import { Helmet } from "react-helmet-async";
 class Homenew extends Component {
   constructor(props) {
     super(props);
@@ -50,17 +51,18 @@ class Homenew extends Component {
   componentWillMount() {
     // title
     document.getElementsByTagName("META")[4].content =
-    "Growth91: Best Startup investment platform for Investing in startups in India";
+      "Growth91: Leading Platform for Investing in Indian Startups";
     // title
 
     document.title =
-      "Growth91: Best Startup investment platform for Investing in startups in India";
-      // keyword
-    document.getElementsByTagName("META")[5].content = "invest in startups invest in startups india "
-// description
+      "Growth91: Leading Platform for Investing in Indian Startups";
+    // keyword
+    document.getElementsByTagName("META")[5].content =
+      "invest in startups invest in startups india ";
+    // description
     document.getElementsByTagName("META")[3].content =
-"Maximize your returns with the best startup investing platform. Learn how to invest in startups in India and find the top investment opportunities."; 
-   window.removeEventListener("scroll", this.handleScroll);
+      "Invest in Indian startups easily on Growth91, a trusted startup investing platform. Learn how to invest in startups in India & find investment opportunities.";
+    window.removeEventListener("scroll", this.handleScroll);
   }
   togglemsg() {
     // Toggle isActive state
@@ -68,9 +70,9 @@ class Homenew extends Component {
     this.setState((prevState) => ({
       isActivemsg: !prevState.isActivemsg,
     }));
-  };
+  }
   componentDidMount() {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
     this.handleScroll(); // Call initially to check visibility
     window.addEventListener("scroll", this.handleScroll);
 
@@ -328,7 +330,6 @@ class Homenew extends Component {
         {
           breakpoint: 600,
           settings: {
-
             slidesToShow: 1,
             dots: true,
 
@@ -343,7 +344,6 @@ class Homenew extends Component {
 
             slidesToShow: 1,
             slidesToScroll: 1,
-
           },
         },
       ],
@@ -432,7 +432,6 @@ class Homenew extends Component {
           settings: {
             slidesToShow: 1,
             slidesToScroll: 1,
-
           },
         },
         {
@@ -459,7 +458,6 @@ class Homenew extends Component {
             slidesToScroll: 1,
 
             cssEase: "linear",
-
           },
         },
       ],
@@ -534,14 +532,48 @@ class Homenew extends Component {
       });
     });
 
-
     const pointer = {
       pointerEvents: "none",
     };
-    const { loading } = this.state
+    let productJsonLd = {
+      "@context": "http://schema.org",
+      "@type": "Product",
+      name: "Growth91: Leading Platform for Investing in Indian Startups",
+      aggregateRating: {
+        "@type": "AggregateRating",
+        bestRating: "5",
+        ratingCount: "6",
+        ratingValue: "4.8",
+      },
+    };
+    const { loading } = this.state;
     console.log(loading);
+    const breedcrumb=
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://growth91.com/"
+        }
+      ]
+    }
+
     return (
       <div>
+        {/* <WebHeader /> */}
+        <Helmet>
+          <script type="application/ld+json">
+            {JSON.stringify(productJsonLd)}
+          </script>
+          <script type="application/ld+json">
+          
+          {JSON.stringify(breedcrumb)}
+          </script>
+        </Helmet>
         {/*  <NewWebHeader  newabout={"newabout"} /> */}
         <NewWebHeader />
         <div
@@ -558,18 +590,17 @@ class Homenew extends Component {
               <div class="row banner-row">
                 <div class="banner-sliding">
                   <Slider {...sliderSettings}>
-
                     <div class="left-content">
                       <div class="d-flex-banner fadding-bottom fadding-bottom-1">
                         <div class="banner-part banner-slidingpart">
                           <h1 class="">
-                          Invest in Startups in India with Ease by 
-Accessing High-Growth Opportunities
-
+                            Invest in Startups in India with Ease by Accessing
+                            High-Growth Opportunities
                           </h1>
                           <p class=" p-0">
                             <span>
-                            Growth91 simplifies private market investment, connecting you to India's most promising startups
+                              Growth91 simplifies private market investment,
+                              connecting you to India's most promising startups
                             </span>
                           </p>
 
@@ -624,16 +655,18 @@ Accessing High-Growth Opportunities
                               animationName: "fadeInUp",
                             }}
                           >
-                            Entrepreneurs: Find the Investors You Need on Growth91
-                            
+                            Entrepreneurs: Find the Investors You Need on
+                            Growth91
                           </h2>
                           <div class="banner-listes">
-                          <p class=" p-0">
-                            <span>
-                            Simplify fundraising for your startup by connecting with investors on our startup investing platform. List your startup and raise funds faster.
-
-                            </span>
-                          </p>
+                            <p class=" p-0">
+                              <span>
+                                Simplify fundraising for your startup by
+                                connecting with investors on our startup
+                                investing platform. List your startup and raise
+                                funds faster.
+                              </span>
+                            </p>
 
                             <ul>
                               <li>
@@ -680,7 +713,7 @@ Accessing High-Growth Opportunities
                                 class="white-btns"
                                 type="button"
                               >
-                               Get Started - List Your Startu
+                                Get Started - List Your Startu
                               </Link>
                             </div>
                           </form>
@@ -699,13 +732,16 @@ Accessing High-Growth Opportunities
                       <div class="d-flex-banner banner1 fadding-bottom fadding-bottom-3">
                         <div class="banner-part banner-slidingpart">
                           <h3 class="seo-tag">
-                          Making Private Market Investment Easy and Accessible
-
+                            Making Private Market Investment Easy and Accessible
                           </h3>
-                          <p class=" p-0" data-wow-delay="0.5s" style={{textTransform:"uppercase"}}>
-                          Whether you're raising funds or looking to invest in Indian startups, Growth91 empowers you to drive growth in India's vibrant startup ecosystem.
-
-                            
+                          <p
+                            class=" p-0"
+                            data-wow-delay="0.5s"
+                            style={{ textTransform: "uppercase" }}
+                          >
+                            Whether you're raising funds or looking to invest in
+                            Indian startups, Growth91 empowers you to drive
+                            growth in India's vibrant startup ecosystem.
                           </p>
                           <div className="banner-mobile-img d-sm-none">
                             <img
@@ -755,12 +791,10 @@ Accessing High-Growth Opportunities
           </section>
         </div>
         <section className="home-new-section">
-        <Homenewrxtra />
-        <div className="home-buttons">
-          <button>Join the Platform</button>
-        </div>
-
-
+          <Homenewrxtra />
+          <div className="home-buttons">
+            <button>Join the Platform</button>
+          </div>
         </section>
 
         <section class="business-crowd logo-sections ">
@@ -770,8 +804,7 @@ Accessing High-Growth Opportunities
                 <p>
                   <span></span>{" "}
                 </p>
-                <h3>Startups liked by Marquee Angels
-</h3>
+                <h3>Startups liked by Marquee Angels</h3>
               </div>
             </div>
             <div class="position-rel">
@@ -1074,7 +1107,9 @@ Accessing High-Growth Opportunities
                   <div class="card-business-crowd">
                     <h4>Transparency at Every Step </h4>
                     <p>
-                    Our detailed vetting process ensures you get in-depth startup profiles with transparent communication, empowering you to make informed investment decisions.
+                      Our detailed vetting process ensures you get in-depth
+                      startup profiles with transparent communication,
+                      empowering you to make informed investment decisions.
                     </p>
                   </div>
                 </div>
@@ -1085,8 +1120,9 @@ Accessing High-Growth Opportunities
                   <div class="card-business-crowd">
                     <h4>Handpicked Deals for Explosive Growth </h4>
                     <p>
-                    We carefully select startups with the highest growth potential, ensuring that every deal aligns with your investment goals.
-
+                      We carefully select startups with the highest growth
+                      potential, ensuring that every deal aligns with your
+                      investment goals.
                     </p>
                   </div>
                 </div>
@@ -1098,8 +1134,8 @@ Accessing High-Growth Opportunities
                     <h4>Aligned Interests, Shared Success</h4>
                     <p>
                       {" "}
-                      We invest alongside you, so when you succeed, we succeed too. Together, we drive startup success.
-
+                      We invest alongside you, so when you succeed, we succeed
+                      too. Together, we drive startup success.
                     </p>
                   </div>
                 </div>
@@ -1107,10 +1143,8 @@ Accessing High-Growth Opportunities
             </div>
           </div>
           <div className="home-buttons">
-          <button>See Our Latest Startup Listings</button>
-        </div>
-
-
+            <button>See Our Latest Startup Listings</button>
+          </div>
         </section>
 
         <section class="testimonial-section">
@@ -1122,8 +1156,8 @@ Accessing High-Growth Opportunities
                 </p>
                 <h3>Our Successful Startup Investors</h3>
                 <p>
-                Hear from the investors who have trusted Growth91 to grow their portfolios with Indian startups.
-
+                  Hear from the investors who have trusted Growth91 to grow
+                  their portfolios with Indian startups.
                 </p>
               </div>
               <div class="col-12 col-xl-12 col-lg-12 col-md-12 ">
@@ -1166,11 +1200,7 @@ Accessing High-Growth Opportunities
                           <div class="contents-testimonials">
                             <h3>Hirish Shipurkar</h3>
                             <p> Head India </p>
-                            <p className="company-name">
-                              GPS FIG, HSBC Bank
-                            </p>
-
-
+                            <p className="company-name">GPS FIG, HSBC Bank</p>
                           </div>
                         </div>
                       </div>
@@ -1216,7 +1246,6 @@ Accessing High-Growth Opportunities
                             <p className="company-name">
                               Engineer Amazon AWS and Amazon Robotics,USA
                             </p>
-
                           </div>
                         </div>
                       </div>
@@ -1260,7 +1289,6 @@ Accessing High-Growth Opportunities
                             <p className="company-name">
                               Government Banking, Axis Bank
                             </p>
-
                           </div>
                         </div>
                       </div>
@@ -1299,12 +1327,7 @@ Accessing High-Growth Opportunities
                           <div class="contents-testimonials">
                             <h3>Mitul Jhaveri</h3>
                             <p>Director Finance</p>
-                            <p className="company-name">
-                              Regal Rexnord India
-                            </p>
-
-
-
+                            <p className="company-name">Regal Rexnord India</p>
                           </div>
                         </div>
                       </div>
@@ -1348,9 +1371,7 @@ Accessing High-Growth Opportunities
                           <div class="contents-testimonials">
                             <h3>KUSH SHRIVASTAVA</h3>
                             <p>Co Founder Quiklo</p>
-                            <p className="company-name">
-                              Fintech Expert
-                            </p>
+                            <p className="company-name">Fintech Expert</p>
                           </div>
                         </div>
                       </div>
@@ -1393,10 +1414,7 @@ Accessing High-Growth Opportunities
                           <div class="contents-testimonials">
                             <h3>PRAKASH ROHERA</h3>
                             <p>INTERNATIONAL Corporate </p>
-                            <p className="company-name">
-                              Trainer and Coach
-                            </p>
-
+                            <p className="company-name">Trainer and Coach</p>
                           </div>
                         </div>
                       </div>
@@ -1407,17 +1425,16 @@ Accessing High-Growth Opportunities
             </div>
           </div>
           <div className="home-buttons">
-          <button>Join Them and Start Investing</button>
-        </div>
+            <button>Join Them and Start Investing</button>
+          </div>
         </section>
         {/* blog section */}
-       
-        <section className="blog-section">
-        <Homeblog />
-        <div className="home-buttons">
-          <button>View All Blogs</button>
-        </div>
 
+        <section className="blog-section">
+          <Homeblog />
+          <div className="home-buttons">
+            <button>View All Blogs</button>
+          </div>
         </section>
 
         <section class="faq-sections">
@@ -1564,14 +1581,18 @@ Accessing High-Growth Opportunities
             </div>
           </div>
         </section>
-      
+
         <section class="custom-section">
           <div class="join-section join-sec-yellow join-sec-white undefined join-divide mobile-join">
             {/* <h4>Join us</h4> */}
             <div className="join-flex-one-us">
-              <h2>Join Us to Invest in Startups in India and Support Breakthrough Ventures</h2>
+              <h2>
+                Join Us to Invest in Startups in India and Support Breakthrough
+                Ventures
+              </h2>
               <p class="index_pitch">
-                Decades of banking, investing & startup success guide your investments. Invest confidently with us.
+                Decades of banking, investing & startup success guide your
+                investments. Invest confidently with us.
               </p>
             </div>
             <div class="index-button-1">
@@ -1597,10 +1618,14 @@ Accessing High-Growth Opportunities
             </div>
           </div>
         </section> */}
-        <div class={`social-widjet ${isActivemsg ? ("social-open") : ("")}`}>
+        <div class={`social-widjet ${isActivemsg ? "social-open" : ""}`}>
           <div class="widjet-link">
-            <div class="whatsapp " onClick={this.togglemsg} style={{ backgroundColor: "#29176f" }}>
-              <a >
+            <div
+              class="whatsapp "
+              onClick={this.togglemsg}
+              style={{ backgroundColor: "#29176f" }}
+            >
+              <a>
                 <img
                   src="/assets/images/cross.svg"
                   alt="img"
@@ -1610,8 +1635,10 @@ Accessing High-Growth Opportunities
               </a>
             </div>
             <div class="whatsapp">
-              <a href="https://www.facebook.com/MyGrowth91?mibextid=ZbWKwL"
-                target="_blank">
+              <a
+                href="https://www.facebook.com/MyGrowth91?mibextid=ZbWKwL"
+                target="_blank"
+              >
                 <img
                   src="/assets/images/messanger.svg"
                   alt="img"
@@ -1621,8 +1648,7 @@ Accessing High-Growth Opportunities
               </a>
             </div>
             <div class="whatsapp">
-              <a href="https://www.instagram.com/growth.91/"
-                target="_blank">
+              <a href="https://www.instagram.com/growth.91/" target="_blank">
                 <img
                   src="/assets/images/insta.png"
                   title="chat to us on Viber"
@@ -1632,8 +1658,10 @@ Accessing High-Growth Opportunities
               </a>
             </div>
             <div class="whatsapp">
-              <a href="https://api.whatsapp.com/send?phone=7588544442&text=welcome%20to%20Growth%2091"
-                target="_blank">
+              <a
+                href="https://api.whatsapp.com/send?phone=7588544442&text=welcome%20to%20Growth%2091"
+                target="_blank"
+              >
                 <img
                   src="/assets/images/Whatsapp.svg"
                   title="chat to us on Viber"
@@ -1659,7 +1687,7 @@ Accessing High-Growth Opportunities
             :("")} */}
 
         <NewWebFooter />
-      </div >
+      </div>
     );
   }
 }

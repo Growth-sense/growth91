@@ -7,6 +7,7 @@ import { Foundercurosel } from "./Foundercurosel.jsx";
 import { Founderextra } from "./Founderextra.jsx";
 import NewWebHeader from "./common/NewWebHeader.jsx";
 import { NewWebFooter } from "./common/NewWebFooter.jsx";
+import { Helmet } from "react-helmet-async";
 
 class Founders extends Component {
   constructor(props) {
@@ -67,10 +68,50 @@ class Founders extends Component {
       slidesToScroll: 1,
     };
     console.log(testtime);
+    const productJsonLd = {
+      "@context": "http://schema.org",
+      "@type": "Product",
+      "name": "Growth91: Leading Platform for Investing in Indian Startups",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "bestRating": "5",
+        "ratingCount": "6",
+        "ratingValue": "4.8"
+      }
+    };
+
+    const breedcrumb=
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://growth91.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Founders",
+          "item": "https://growth91.com/Founders"
+        }
+      ]
+    }
 
     return (
       <div>
         {/* <WebHeader /> */}
+        <Helmet>
+          <script type="application/ld+json">
+            {JSON.stringify(productJsonLd)}
+          </script>
+          <script type="application/ld+json">
+          
+          {JSON.stringify(breedcrumb)}
+          </script>
+        </Helmet>
         <NewWebHeader newabout={"newabout"} />
 
         <section className="banner_section removemargin">
