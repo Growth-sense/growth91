@@ -219,7 +219,7 @@ const [loading, setLoading] = useState()
                   </div>
                 </div>
               </div>
-              <button>View All Blogs</button>
+              {/* <button>View All Blogs</button> */}
             </div>
           </div>
         </section>

@@ -95,6 +95,7 @@ class EcoRatings extends Component {
       escrowact: "",
       escrow_account_ifsc: "",
       agreeCheck: false,
+      deal_service: "",
       images: [
         "./assets/images/deals-details/EcoRatings/Pitch/ER_DECK_India-images-0.jpg",
         "./assets/images/deals-details/EcoRatings/Pitch/ER_DECK_India-images-1.jpg",
@@ -613,6 +614,8 @@ class EcoRatings extends Component {
                 button_show_status: button_show_status,
                 show_data: "block",
                 multiples_of: d.multiples_of,
+                deal_service: d.deal_service,
+
               },
               () => this.calculategst()
             );
@@ -2100,7 +2103,12 @@ class EcoRatings extends Component {
                                           </div>
                                           <div className="info">
                                             <span> Min Investment</span>
-                                            <h4>₹ 307800 for CCPS</h4>
+                                            <h4>
+                                              ₹{" "}
+                                              {this.formatNumberWithCommas(
+                                                this.state.minamount
+                                              )}{" "}
+                                              for {this.state.deal_service}</h4>
                                           </div>
                                           <div className="info">
                                             <span>Valuation</span>
