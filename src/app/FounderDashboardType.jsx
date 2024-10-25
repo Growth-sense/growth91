@@ -169,7 +169,7 @@ const getfounderdetails=()=>{
                                         <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
                                             <div className="input-dashboard-acc">
                                                 <label htmlFor="">Email *</label>
-                                                <input type="text" value={data.email} className='form-control' />
+                                                <input type="text" value={localStorage.getItem("founder_email")} className='form-control' />
                                             </div>
                                         </div>
                                         {data.referral_code&&
