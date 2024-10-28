@@ -102,9 +102,9 @@ export const Synergy = () => {
                     <div className="row margin-about synergy-form">
                         <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                             <div className="let-grow-together">
-
+                            <h4>Elevate Your Business Success with Growth91</h4>
                                 <div class="input_box">
-                                    <div class="form-wraper new-form-wrapper">
+                                    <div class="form-wraper new-form-wrapper mt-0">
                                         <Link to="/Synergy-form" class="theme-btn text-left" type="button">Let's connect . . . </Link>
                                     </div>
 
