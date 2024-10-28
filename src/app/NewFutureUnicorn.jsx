@@ -132,22 +132,23 @@ const NewFutureUnicorn = () => {
                         color: #666;
                     }
                         .investor-benifit{
-                        background : #100050;
+                        background : #ffffff;
 
                         }
                            .investor-benifit h2{
-                        color: #ffffff !important;
+    color: #333;
+
 
                            }
                         /* Benefits for Founders Section */
 .founder-benefit {
-    background: #ffffff;
+    background: #100050;
     padding: 50px 20px;
     text-align: center;
 }
 
 .founder-benefit h2 {
-    color: #333;
+    color: #ffffff !important;
     font-size: 2.5em;
     margin-bottom: 40px;
 }
@@ -168,7 +169,8 @@ const NewFutureUnicorn = () => {
 .founder-benefit .feature-box h3 {
     font-size: 1.2em;
     margin-bottom: 10px;
-    color: #333;
+                        color: ##100050 !important;
+
 }
 
 .founder-benefit .feature-box p {
