@@ -18,33 +18,33 @@ export const Synergy = () => {
         document.getElementsByTagName("META")[3].content = "Partner with Growth91 and elevate your business by connecting with curated high-potential startups, gain mutual growth, and build a successful partnership ecosystem.";
     }, []);
 
-    $(window).scroll(function () {
+    $(window).scroll(function() {
         if ($(this).scrollTop() > 30) {
-            $('body').addClass('newClass');
+          $('body').addClass('newClass');
         } else {
-            $('body').removeClass('newClass');
+          $('body').removeClass('newClass');
         }
     });
 
     function SimpleNextArrow(props) {
         const { onClick } = props;
         return (
-            <div className="nextArrow" onClick={onClick}>
-                <span className="next-arrows slick-arrow">
-                    <i className="fa fa-angle-right" aria-hidden="true"></i>
-                </span>
-            </div>
+          <div className="nextArrow" onClick={onClick}>
+            <span className="next-arrows slick-arrow">
+              <i className="fa fa-angle-right" aria-hidden="true"></i>
+            </span>
+          </div>
         );
     }
-
+  
     function SimplePrevArrow(props) {
         const { onClick } = props;
         return (
-            <div className="prevArrow" onClick={onClick}>
-                <span className="prev-arrows slick-arrow">
-                    <i className="fa fa-angle-left" aria-hidden="true"></i>
-                </span>
-            </div>
+          <div className="prevArrow" onClick={onClick}>
+            <span className="prev-arrows slick-arrow">
+              <i className="fa fa-angle-left" aria-hidden="true"></i>
+            </span>
+          </div>
         );
     }
 
@@ -74,47 +74,73 @@ export const Synergy = () => {
             </div>
 
             {/* Synergy Partner Section */}
-            <section className="about-page-section blog-section pb-0 mt-0" >
+          
+            <section className="banner_section">
+          <div
+            id="carouselExampleIndicators"
+            className="carousel slide"
+            data-bs-ride="carousel"
+          >
+            <div className="carousel-inner">
+              <div className="carousel-item active">
                 <div className="container">
-                    <div className="row">
-                        <div className="col-lg-12 d-flex justify-content-center align-items-center" style={{ pointerEvents: "none" }}>
-                            <div className="heading-title m-sm-0">
-                                <p>
-                                    <span></span>{" "}
-                                </p>
-                                <h2>Synergy Partner</h2>
-                            </div>
+                  <div className="slider-area">
+                    <div className="item">
+                      <div className="row align-items-center">
+                        <div className="col-lg-6 col-xl-24 col-sm-24">
+                          <div className="left-content">
+                            <h2 className="wow fadeInUp " data-wow-delay="0.3s">
+                            Synergy Partner
+
+                            </h2>
+                            <span className="text-white ">
+                            Elevate Your Business Success with Growth91
+
+                            </span>
+                            {/* <ul className="text-white">
+                                                    <li><a href="Howitworks.html" className=""><span><img src="./web/images/hand-index.svg" width="24" alt="img"/> </span><u>How do i invest?</u></a></li>
+                                                    <li><a href="Howitworks2.html" className=""><span></span><span><img src="./web/images/hand-index.svg" width="24"  alt="img"/> </span>What are the risks?</a></li>
+                                                    <li><a href="Howitworks3.html" className=""><span></span><span><img src="./web/images/hand-index.svg" width="24"  alt="img"/> </span>What is T-SAFE?</a></li>
+                                                    <li><a href="Howitworks4.html" className=""><span></span><span><img src="./web/images/hand-index.svg" width="24"  alt="img"/> </span>What are Growth91's fees?</a></li>
+                                                    <span className="">
+                                                      </span>
+                                                </ul>                                                    --> */}
+
+                            <form
+                              className="input_box wow fadeInUp mt-4"
+                              data-wow-delay="0.7s"
+                            >
+                              <div className="form-wraper">
+                               
+                                  <a
+                                    href="/synergy-form"
+                                    className="theme-btn "
+                                    type="button"
+                                  >
+                                    Let's Connect
+                                  </a>
+                            
+                              </div>
+                            </form>
+                          </div>
                         </div>
-                    </div>
-
-                    {/* <div className="row margin-about synergy-form  ">
-                        <div className=" col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                            <div className="let-grow-together">
-                                <h4>Elevate Your Business Success with Growth91</h4>
-                                <h1 class="text-left">Let's connect</h1>
-
-                            </div>
+                        <div className="col-lg-6">
+                          <div
+                            className="right-side-images wow fadeInRight"
+                            data-wow-delay="0.6s"
+                          >
+                            <img src="./web/images/left.png" alt="img" />
+                          </div>
                         </div>
-                        
+                      </div>
                     </div>
-                </div> */}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-                    <div className="row margin-about synergy-form">
-                        <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                            <div className="let-grow-together">
-                            <h4>Elevate Your Business Success with Growth91</h4>
-                                <div class="input_box">
-                                    <div class="form-wraper new-form-wrapper mt-0">
-                                        <Link to="/Synergy-form" class="theme-btn text-left" type="button">Let's connect . . . </Link>
-                                    </div>
-
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-            </section>
 
         {/* Why Partner with Growth91 */}
 <section className="about-page-section common-padding custom-section synergy-why">
@@ -183,21 +209,21 @@ export const Synergy = () => {
               
             </div>
 
-                        <div className="row partner-type">
-                            <div className="col-md-6">
-                                <h3>Wealth Advisors</h3>
-                                <h4>Why partner?</h4>
-                                <p>Wealth Advisors play a critical role in helping high-net-worth individuals (HNIs) and family offices make informed investment decisions. Our partnership aims to offer your clients access to exclusive startup investment opportunities, allowing them to diversify their portfolios with well-researched, high-growth startups.</p>
-                                <h4>Benefits</h4>
-                                <p>Partnering with Growth91 enables Wealth Advisors to provide their clients with unique opportunities in the high-risk, high-reward startup space. This not only enhances your value proposition but also helps your clients achieve diversification in emerging markets, positioning them for significant long-term returns.</p>
-                            </div>
-                            <div className="col-md-6">
-                                <div className="image-placeholder">
-                                    {/* Replace with actual image */}
-                                    <img src="assets/images/wealth.webp" alt="Wealth Advisors" />
-                                </div>
-                            </div>
-                        </div>
+            <div className="row partner-type">
+                <div className="col-md-6">
+                    <h3>Wealth Advisors</h3>
+                    <h4>Why partner?</h4>
+                    <p>Wealth Advisors play a critical role in helping high-net-worth individuals (HNIs) and family offices make informed investment decisions. Our partnership aims to offer your clients access to exclusive startup investment opportunities, allowing them to diversify their portfolios with well-researched, high-growth startups.</p>
+                    <h4>Benefits</h4>
+                    <p>Partnering with Growth91 enables Wealth Advisors to provide their clients with unique opportunities in the high-risk, high-reward startup space. This not only enhances your value proposition but also helps your clients achieve diversification in emerging markets, positioning them for significant long-term returns.</p>
+                </div>
+                <div className="col-md-6">
+                    <div className="image-placeholder">
+                        {/* Replace with actual image */}
+                        <img src="assets/images/wealth.webp" alt="Wealth Advisors" />
+                    </div>
+                </div>
+            </div>
 
             <div className="row partner-type">
             <div className="col-md-6">
@@ -216,26 +242,26 @@ export const Synergy = () => {
                 
             </div>
 
-                        <div className="row partner-type">
-                            <div className="col-md-6">
-                                <h3>Investment Banks</h3>
-                                <h4>Why partner?</h4>
-                                <p>Investment Banks are pivotal in structuring and facilitating larger capital raises and mergers. Our partnership seeks to leverage your expertise in financial advisory, IPOs, and strategic exits to ensure that high-growth startups get the necessary capital infusion at critical stages of their journey.</p>
-                                <h4>Benefits</h4>
-                                <p>By collaborating with Growth91, you gain access to a network of startups primed for exponential growth. Your role in larger funding rounds or exit strategies (e.g., M&A or IPOs) will contribute to fostering a more dynamic and liquid startup ecosystem. Together, we can streamline the path from startup to scalable enterprise, benefiting all stakeholders involved.</p>
-                            </div>
-                            <div className="col-md-6">
-                                <div className="image-placeholder">
-                                    {/* Replace with actual image */}
-                                    <img src="assets/images/bank.jpg" alt="Investment Banks" />
-                                </div>
-                            </div>
-                        </div>
+            <div className="row partner-type">
+                <div className="col-md-6">
+                    <h3>Investment Banks</h3>
+                    <h4>Why partner?</h4>
+                    <p>Investment Banks are pivotal in structuring and facilitating larger capital raises and mergers. Our partnership seeks to leverage your expertise in financial advisory, IPOs, and strategic exits to ensure that high-growth startups get the necessary capital infusion at critical stages of their journey.</p>
+                    <h4>Benefits</h4>
+                    <p>By collaborating with Growth91, you gain access to a network of startups primed for exponential growth. Your role in larger funding rounds or exit strategies (e.g., M&A or IPOs) will contribute to fostering a more dynamic and liquid startup ecosystem. Together, we can streamline the path from startup to scalable enterprise, benefiting all stakeholders involved.</p>
+                </div>
+                <div className="col-md-6">
+                    <div className="image-placeholder">
+                        {/* Replace with actual image */}
+                        <img src="assets/images/bank.jpg" alt="Investment Banks" />
                     </div>
                 </div>
-            </section>
+            </div>
+        </div>
+    </div>
+</section>
 
-            <NewWebFooter />
+<NewWebFooter />
 
         </div>
     );
