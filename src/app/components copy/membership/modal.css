@@ -1,0 +1,92 @@
+.modal-confirm .modal-title h4 {
+	text-align: center;
+	font-size: 35px;
+	margin: 50px 0;
+	margin-bottom: -15px;
+}
+
+.modal-confirm .modal-content {
+	border-radius: 5px;
+	border: none;
+}
+
+.modal-confirm .modal-header {
+	display: block;
+	border-bottom: none;
+	position: relative;
+}
+
+.modal-confirm .form-control,
+.modal-confirm .btn {
+	min-height: 40px;
+	border-radius: 3px;
+}
+
+.modal-confirm .close {
+	position: absolute;
+	top: -5px;
+	right: -5px;
+}
+
+.modal-confirm .modal-footer {
+	border: none;
+	text-align: center;
+	border-radius: 5px;
+	font-size: 13px;
+}
+
+.modal-confirm .icon-box {
+	color: #fff;
+	margin: 0 auto;
+	width: 70px;
+	height: 70px;
+	border-radius: 50%;
+	background: #82ce34;
+	text-align: center;
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: -70px;
+}
+
+.modal-confirm .icon-box i {
+	font-size: 40px;
+	color: #fff;
+}
+
+.modal-confirm.modal-dialog {
+	margin-top: 80px;
+}
+
+.thankumodal .btn {
+	color: #fff;
+	border-radius: 4px;
+	background: rgb(41, 23, 111);
+	text-decoration: none;
+	transition: all 0.4s;
+	line-height: normal;
+	border: none;
+	margin: 0 5px;
+}
+
+.thankumodal .btn:hover,
+.thankumodal .btn:focus {
+	background: rgb(41, 23, 111);
+	outline: none;
+}
+
+.modal-confirm .trigger-btn {
+	display: inline-block;
+	margin: 100px auto;
+}
+
+.thankumodal .ant-modal-close-x {
+	display: none;
+}
+
+.thankumodal .ant-modal-footer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

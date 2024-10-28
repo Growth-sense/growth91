@@ -15,6 +15,14 @@ import { InformationList } from "./app/InformationList.jsx"
 import { LoginInvestor } from './app/LoginInvestor.jsx'
 import { LoginFounder } from './app/LoginFounder.jsx'
 import { MemberShip } from './app/MemberShip.jsx'
+import NewHome from "./app/admin/NewHome.js";
+import NewHome2 from "./app/admin/NewHome2.js";
+import NewHome3 from "./app/admin/NewHome3.js";
+import NewFutureUnicorn from "./app/NewFutureUnicorn.jsx";
+
+
+
+
 
 import { FutureUnicornDescription } from './app/FutureUnicornDescription.jsx'
 import { FutureUnicornDescriptiondesgin } from './app/FutureUnicornDescriptiondesgin.jsx'
@@ -207,6 +215,10 @@ import FUnicornStartup from "./app/admin/FUnicornStartup.js";
 import FUnicornInvestors from "./app/admin/FUnicornInvestors.js";
 import FUnicornFounders from "./app/admin/FUnicornFounders.js";
 import TableComponent from "./app/admin/pdfview/TableComponent.js";
+import { Synergy } from "./app/Synergy.jsx";
+import { Synergypartner } from "./app/Synergy-partner.jsx";
+
+
 import Createfamily from "./app/investor/Create-Family.jsx";
 import Viewfamilylist from "./app/investor/View-family-list.jsx";
 import familyinvite from "./app/investor/family-invite.jsx";
@@ -251,7 +263,20 @@ function App() {
 
           {/* <Route path="/" exact component={Home} /> */}
           <Route path="/" exact component={Homenew} />
+          <Route path="/NewHome" exact component = {NewHome} />
+          <Route path="/NewHome2" exact component = {NewHome2} />
+          <Route path="/NewHome3" exact component = {NewHome3} />
+       
+          <Route path="/NewFutureUnicorn" exact component = {NewFutureUnicorn} />
+
+
+
+
           <Route path="/about" exact component={Aboutnew} />
+          <Route path="/synergy-partner" exact component={Synergy} />
+          <Route path="/synergy-form" exact component={Synergypartner} />
+
+
           <Route path="/LoginInvestor" exact component={LoginInvestor} />
           <Route path="/LoginFounder" exact component={LoginFounder} />
           <Route path="/MemberShip" exact component={MemberShip} />
