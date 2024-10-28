@@ -139,6 +139,43 @@ const NewFutureUnicorn = () => {
                         color: #ffffff !important;
 
                            }
+                        /* Benefits for Founders Section */
+.founder-benefit {
+    background: #ffffff;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.founder-benefit h2 {
+    color: #333;
+    font-size: 2.5em;
+    margin-bottom: 40px;
+}
+
+.founder-benefit .features {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.founder-benefit .feature-box {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+}
+
+.founder-benefit .feature-box h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.founder-benefit .feature-box p {
+    font-size: 1em;
+    color: #666;
+}
+
                 `}
             </style>
         <NewWebHeader />
@@ -208,6 +245,25 @@ const NewFutureUnicorn = () => {
                     </div>
                 </div>
             </div>
+
+            <div className="why-to-list founder-benefit">
+    <h2>Benefits for Founders</h2>
+    <div className="features">
+        <div className="feature-box">
+            <h3>Simplified Listing</h3>
+            <p>Easy process to showcase startups to potential investors.</p>
+        </div>
+        <div className="feature-box">
+            <h3>Increased Visibility</h3>
+            <p>Access to a diverse investor base for greater exposure.</p>
+        </div>
+        <div className="feature-box">
+            <h3>Global Reach</h3>
+            <p>Potential for both domestic and international investments.</p>
+        </div>
+    </div>
+</div>
+
 
             <div className="why-to-list investor-benifit">
                 <h2>Benefits for Investors</h2>
