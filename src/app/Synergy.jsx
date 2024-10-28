@@ -18,33 +18,33 @@ export const Synergy = () => {
         document.getElementsByTagName("META")[3].content = "Partner with Growth91 and elevate your business by connecting with curated high-potential startups, gain mutual growth, and build a successful partnership ecosystem.";
     }, []);
 
-    $(window).scroll(function() {
+    $(window).scroll(function () {
         if ($(this).scrollTop() > 30) {
-          $('body').addClass('newClass');
+            $('body').addClass('newClass');
         } else {
-          $('body').removeClass('newClass');
+            $('body').removeClass('newClass');
         }
     });
 
     function SimpleNextArrow(props) {
         const { onClick } = props;
         return (
-          <div className="nextArrow" onClick={onClick}>
-            <span className="next-arrows slick-arrow">
-              <i className="fa fa-angle-right" aria-hidden="true"></i>
-            </span>
-          </div>
+            <div className="nextArrow" onClick={onClick}>
+                <span className="next-arrows slick-arrow">
+                    <i className="fa fa-angle-right" aria-hidden="true"></i>
+                </span>
+            </div>
         );
     }
-  
+
     function SimplePrevArrow(props) {
         const { onClick } = props;
         return (
-          <div className="prevArrow" onClick={onClick}>
-            <span className="prev-arrows slick-arrow">
-              <i className="fa fa-angle-left" aria-hidden="true"></i>
-            </span>
-          </div>
+            <div className="prevArrow" onClick={onClick}>
+                <span className="prev-arrows slick-arrow">
+                    <i className="fa fa-angle-left" aria-hidden="true"></i>
+                </span>
+            </div>
         );
     }
 
@@ -74,145 +74,148 @@ export const Synergy = () => {
             </div>
 
             {/* Synergy Partner Section */}
-            <section className="about-page-section blog-section pb-0">
+            <section className="about-page-section blog-section pb-0 mt-0" >
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12 d-flex justify-content-center align-items-center" style={{ pointerEvents: "none" }}>
                             <div className="heading-title m-sm-0">
-                            <p>
-                  <span></span>{" "}
-                </p>
+                                <p>
+                                    <span></span>{" "}
+                                </p>
                                 <h2>Synergy Partner</h2>
                             </div>
                         </div>
                     </div>
 
-                    <div className="row margin-about synergy-form  ">
+                    {/* <div className="row margin-about synergy-form  ">
                         <div className=" col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                             <div className="let-grow-together">
                                 <h4>Elevate Your Business Success with Growth91</h4>
                                 <h1 class="text-left">Let's connect</h1>
-                                <form>
-                                    <label>Firm Name:</label>
-                                    <input type="text" name="firm" placeholder="Enter your firm name" />
-                                    <label>Email:</label>
-                                    <input type="email" name="email" placeholder="Enter your email" />
-                                    <label>Mobile:</label>
-                                    <input type="text" name="mobile" placeholder="Enter your mobile number" />
-                                    <label>Location:</label>
-                                    <input type="text" name="location" placeholder="Enter your location" />
-                                </form>
+
                             </div>
                         </div>
+                        
+                    </div>
+                </div> */}
+
+                    <div className="row margin-about synergy-form">
                         <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                            <div className="about-page-img">
-                                <img src="/assets/images/synergy.jpg" alt="about us" />
+                            <div className="let-grow-together">
+
+                                <div class="input_box">
+                                    <div class="form-wraper new-form-wrapper">
+                                        <Link to="/Synergy-form" class="theme-btn text-left" type="button">Let's connect . . . </Link>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+            </section>
+
+            {/* Why Partner with Growth91 */}
+            <section className="about-page-section common-padding custom-section synergy-why">
+                <div className="container">
+                    <div className="row border-10">
+                        <div className="main-p-relative p-0">
+                            <div className="story-main">
+                                <div className="heading-title m-sm-0 our-story-title">
+                                    <h2>Why Partner with Growth91?</h2>
+                                </div>
+                                <div className="story-paragraph">
+                                    <p>Collaborating with Growth91 allows you to play a pivotal role in shaping the future of the startup ecosystem in India while gaining substantial benefits.</p>
+                                    <ul className="synergy-benefits">
+                                        <li>
+                                            Exclusive Investment Access : Gain priority access to a curated selection of high-potential startups that align with your industry focus and investment goals.
+                                        </li>
+                                        <li>
+                                            Cultivate Mutual Growth : Become part of a robust ecosystem where startups, investors, and partners work together to drive innovation and achieve collective advancement.
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Why Partner with Growth91 */}
-          <section className="about-page-section common-padding custom-section synergy-why"> 
-  <div className="container">
-    <div className="row border-10">
-      <div className="main-p-relative p-0">
-        <div className="story-main">
-          <div className="heading-title m-sm-0 our-story-title">
-            <h2>Why Partner with Growth91?</h2>
-          </div>
-          <div className="story-paragraph">
-            <p>Collaborating with Growth91 allows you to play a pivotal role in shaping the future of the startup ecosystem in India while gaining substantial benefits.</p>
-            <ul className="synergy-benefits">
-              <li>
-                Exclusive Investment Access : Gain priority access to a curated selection of high-potential startups that align with your industry focus and investment goals.
-              </li>
-              <li>
-                Cultivate Mutual Growth : Become part of a robust ecosystem where startups, investors, and partners work together to drive innovation and achieve collective advancement.
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 
             {/* Partner Types Section */}
-         <section className="about-partner-types partner-cards">
-    <div className="">
-        <div className="container main-bg-story">
-           
-            <div className="row partner-type">
-                <div className="col-md-6">
-                    <h3>Venture Capital Firms</h3>
-                    <h4>Why partner?</h4>
-                    <p>Our partnership with Venture Capital firms aims to enhance the startup investment landscape by offering curated opportunities that align with your strategic investment goals. We provide a pipeline of vetted startups, allowing you to co-invest in promising ventures at various stages of growth.</p>
-                    <h4>Benefits</h4>
-                    <p>By partnering with Growth91, you can diversify your portfolio with high-potential startups across different sectors. In return, startups benefit from your expertise, network, and financial backing, accelerating their growth and market entry. Together, we can amplify the success rate of innovative ventures, driving greater value for both investors and founders.</p>
-                </div>
-                <div className="col-md-6">
-                    <div className="image-placeholder">
-                        {/* Replace with actual image */}
-                        <img src="assets/images/venture.jpg" alt="Venture Capital Firms" />
+            <section className="about-partner-types partner-cards">
+                <div className="">
+                    <div className="container main-bg-story">
+
+                        <div className="row partner-type">
+                            <div className="col-md-6">
+                                <h3>Venture Capital Firms</h3>
+                                <h4>Why partner?</h4>
+                                <p>Our partnership with Venture Capital firms aims to enhance the startup investment landscape by offering curated opportunities that align with your strategic investment goals. We provide a pipeline of vetted startups, allowing you to co-invest in promising ventures at various stages of growth.</p>
+                                <h4>Benefits</h4>
+                                <p>By partnering with Growth91, you can diversify your portfolio with high-potential startups across different sectors. In return, startups benefit from your expertise, network, and financial backing, accelerating their growth and market entry. Together, we can amplify the success rate of innovative ventures, driving greater value for both investors and founders.</p>
+                            </div>
+                            <div className="col-md-6">
+                                <div className="image-placeholder">
+                                    {/* Replace with actual image */}
+                                    <img src="assets/images/venture.jpg" alt="Venture Capital Firms" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="row partner-type">
+                            <div className="col-md-6">
+                                <h3>Wealth Advisors</h3>
+                                <h4>Why partner?</h4>
+                                <p>Wealth Advisors play a critical role in helping high-net-worth individuals (HNIs) and family offices make informed investment decisions. Our partnership aims to offer your clients access to exclusive startup investment opportunities, allowing them to diversify their portfolios with well-researched, high-growth startups.</p>
+                                <h4>Benefits</h4>
+                                <p>Partnering with Growth91 enables Wealth Advisors to provide their clients with unique opportunities in the high-risk, high-reward startup space. This not only enhances your value proposition but also helps your clients achieve diversification in emerging markets, positioning them for significant long-term returns.</p>
+                            </div>
+                            <div className="col-md-6">
+                                <div className="image-placeholder">
+                                    {/* Replace with actual image */}
+                                    <img src="assets/images/wealth.webp" alt="Wealth Advisors" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="row partner-type">
+                            <div className="col-md-6">
+                                <h3>Chartered Accountants</h3>
+                                <h4>Why partner?</h4>
+                                <p>Partnering with Growth91 offers Chartered Accountants a unique opportunity to enhance their service offerings and client base. By collaborating with us, you can connect your clients with valuable investment opportunities while accessing startups that may need your expert services.</p>
+                                <h4>Benefits</h4>
+                                <p>Connect with high-growth startups through Growth91, providing them with essential financial and compliance services. Enhance your advisory offerings by integrating startup investment opportunities and specialized services for emerging businesses. Build a mutually beneficial relationship that supports investor engagement and startup success, strengthening your professional network and impact.</p>
+                            </div>
+                            <div className="col-md-6">
+                                <div className="image-placeholder">
+                                    {/* Replace with actual image */}
+                                    <img src="assets/images/ca.jpg" alt="Chartered Accountants" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="row partner-type">
+                            <div className="col-md-6">
+                                <h3>Investment Banks</h3>
+                                <h4>Why partner?</h4>
+                                <p>Investment Banks are pivotal in structuring and facilitating larger capital raises and mergers. Our partnership seeks to leverage your expertise in financial advisory, IPOs, and strategic exits to ensure that high-growth startups get the necessary capital infusion at critical stages of their journey.</p>
+                                <h4>Benefits</h4>
+                                <p>By collaborating with Growth91, you gain access to a network of startups primed for exponential growth. Your role in larger funding rounds or exit strategies (e.g., M&A or IPOs) will contribute to fostering a more dynamic and liquid startup ecosystem. Together, we can streamline the path from startup to scalable enterprise, benefiting all stakeholders involved.</p>
+                            </div>
+                            <div className="col-md-6">
+                                <div className="image-placeholder">
+                                    {/* Replace with actual image */}
+                                    <img src="assets/images/bank.jpg" alt="Investment Banks" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <div className="row partner-type">
-                <div className="col-md-6">
-                    <h3>Wealth Advisors</h3>
-                    <h4>Why partner?</h4>
-                    <p>Wealth Advisors play a critical role in helping high-net-worth individuals (HNIs) and family offices make informed investment decisions. Our partnership aims to offer your clients access to exclusive startup investment opportunities, allowing them to diversify their portfolios with well-researched, high-growth startups.</p>
-                    <h4>Benefits</h4>
-                    <p>Partnering with Growth91 enables Wealth Advisors to provide their clients with unique opportunities in the high-risk, high-reward startup space. This not only enhances your value proposition but also helps your clients achieve diversification in emerging markets, positioning them for significant long-term returns.</p>
-                </div>
-                <div className="col-md-6">
-                    <div className="image-placeholder">
-                        {/* Replace with actual image */}
-                        <img src="assets/images/wealth.webp" alt="Wealth Advisors" />
-                    </div>
-                </div>
-            </div>
-
-            <div className="row partner-type">
-                <div className="col-md-6">
-                    <h3>Chartered Accountants</h3>
-                    <h4>Why partner?</h4>
-                    <p>Partnering with Growth91 offers Chartered Accountants a unique opportunity to enhance their service offerings and client base. By collaborating with us, you can connect your clients with valuable investment opportunities while accessing startups that may need your expert services.</p>
-                    <h4>Benefits</h4>
-                    <p>Connect with high-growth startups through Growth91, providing them with essential financial and compliance services. Enhance your advisory offerings by integrating startup investment opportunities and specialized services for emerging businesses. Build a mutually beneficial relationship that supports investor engagement and startup success, strengthening your professional network and impact.</p>
-                </div>
-                <div className="col-md-6">
-                    <div className="image-placeholder">
-                        {/* Replace with actual image */}
-                        <img src="assets/images/ca.jpg" alt="Chartered Accountants" />
-                    </div>
-                </div>
-            </div>
-
-            <div className="row partner-type">
-                <div className="col-md-6">
-                    <h3>Investment Banks</h3>
-                    <h4>Why partner?</h4>
-                    <p>Investment Banks are pivotal in structuring and facilitating larger capital raises and mergers. Our partnership seeks to leverage your expertise in financial advisory, IPOs, and strategic exits to ensure that high-growth startups get the necessary capital infusion at critical stages of their journey.</p>
-                    <h4>Benefits</h4>
-                    <p>By collaborating with Growth91, you gain access to a network of startups primed for exponential growth. Your role in larger funding rounds or exit strategies (e.g., M&A or IPOs) will contribute to fostering a more dynamic and liquid startup ecosystem. Together, we can streamline the path from startup to scalable enterprise, benefiting all stakeholders involved.</p>
-                </div>
-                <div className="col-md-6">
-                    <div className="image-placeholder">
-                        {/* Replace with actual image */}
-                        <img src="assets/images/bank.jpg" alt="Investment Banks" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<NewWebFooter />
+            <NewWebFooter />
 
         </div>
     );

@@ -366,4 +366,25 @@
       flex-direction: column; /* Responsive even row fix */
     }
   }
-  
+  .connect-button {
+    display: inline-block;
+    background-color: #29176f;
+    color: #fff;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 10%;
+    /*For30%border-radius*/font-size: inherit;
+    /*Keepsthesamefontsizeasthesurroundingtext*/text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    -webkit-border-radius: 10%;
+    -moz-border-radius: 10%;
+    -ms-border-radius: 10%;
+    -o-border-radius: 10%;
+    font-size: 26px;
+}
+
+.connect-button:hover {
+    color: #fe7; /* Slightly lighter shade for hover effect */
+}
