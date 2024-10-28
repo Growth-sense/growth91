@@ -571,10 +571,10 @@ class Homenew extends Component {
                           Looking to Invest in Startups India and 
                             Tap Into High-Growth Ventures?
                           </h1>
-                          <p class=" p-0">
-                            <span>
+                          <p class="p-0">
+                   
                               Growth 91 connects you with the next big thing
-                            </span>
+                           
                           </p>
 
                           <div className="banner-mobile-img d-sm-none">
@@ -749,9 +749,12 @@ class Homenew extends Component {
             </div>
           </section>
         </div>
-        <NewHome/>
+        {/* <NewHome/> */}
         {/* <NewHome2/> */}
+        
         <NewHome3/>
+       
+
 
 
 

@@ -113,26 +113,43 @@ export const Synergy = () => {
                 </div>
             </section>
 
-            {/* Why Partner with Growth91 */}
-          <section className="about-page-section common-padding custom-section synergy-why"> 
+        {/* Why Partner with Growth91 */}
+<section className="about-page-section common-padding custom-section synergy-why">
   <div className="container">
-    <div className="row border-10">
-      <div className="main-p-relative p-0">
-        <div className="story-main">
-          <div className="heading-title m-sm-0 our-story-title">
-            <h2>Why Partner with Growth91?</h2>
-          </div>
-          <div className="story-paragraph">
-            <p>Collaborating with Growth91 allows you to play a pivotal role in shaping the future of the startup ecosystem in India while gaining substantial benefits.</p>
-            <ul className="synergy-benefits">
-              <li>
-                Exclusive Investment Access : Gain priority access to a curated selection of high-potential startups that align with your industry focus and investment goals.
-              </li>
-              <li>
-                Cultivate Mutual Growth : Become part of a robust ecosystem where startups, investors, and partners work together to drive innovation and achieve collective advancement.
-              </li>
-            </ul>
-          </div>
+  <div className="row">
+                        <div className="col-lg-12 d-flex justify-content-center align-items-center" style={{ pointerEvents: "none" }}>
+                            <div className="heading-title m-sm-0">
+                            <p>
+                  <span></span>{" "}
+                </p>
+                                <h2>Why Partner with Growth91?</h2>
+                            </div>
+
+                        </div>
+                    </div>
+
+    <div className="row synergy-why__content">
+  
+    <div className="card synergy-why__card">
+         
+          <p className="card-text">
+          Collaborating with Growth91 allows you to play a pivotal role in shaping the future of the startup ecosystem in India while gaining substantial benefits.
+          </p>
+        </div>
+     
+      <div className="col-12 synergy-why__cards">
+
+        <div className="card synergy-why__card">
+          <h3 className="card-title">Exclusive Investment Access</h3>
+          <p className="card-text">
+            Gain priority access to a curated selection of high-potential startups that align with your industry focus and investment goals.
+          </p>
+        </div>
+        <div className="card synergy-why__card">
+          <h3 className="card-title">Cultivate Mutual Growth</h3>
+          <p className="card-text">
+            Become part of a robust ecosystem where startups, investors, and partners work together to drive innovation and achieve collective advancement.
+          </p>
         </div>
       </div>
     </div>
@@ -140,12 +157,19 @@ export const Synergy = () => {
 </section>
 
 
+
             {/* Partner Types Section */}
-         <section className="about-partner-types partner-cards">
+         <section className="about-partner-types partner-cards venture-only">
     <div className="">
         <div className="container main-bg-story">
            
             <div className="row partner-type">
+            <div className="col-md-6">
+                    <div className="image-placeholder">
+                        {/* Replace with actual image */}
+                        <img src="assets/images/venture.jpg" alt="Venture Capital Firms" />
+                    </div>
+                </div>
                 <div className="col-md-6">
                     <h3>Venture Capital Firms</h3>
                     <h4>Why partner?</h4>
@@ -153,12 +177,7 @@ export const Synergy = () => {
                     <h4>Benefits</h4>
                     <p>By partnering with Growth91, you can diversify your portfolio with high-potential startups across different sectors. In return, startups benefit from your expertise, network, and financial backing, accelerating their growth and market entry. Together, we can amplify the success rate of innovative ventures, driving greater value for both investors and founders.</p>
                 </div>
-                <div className="col-md-6">
-                    <div className="image-placeholder">
-                        {/* Replace with actual image */}
-                        <img src="assets/images/venture.jpg" alt="Venture Capital Firms" />
-                    </div>
-                </div>
+              
             </div>
 
             <div className="row partner-type">
@@ -178,6 +197,12 @@ export const Synergy = () => {
             </div>
 
             <div className="row partner-type">
+            <div className="col-md-6">
+                    <div className="image-placeholder">
+                        {/* Replace with actual image */}
+                        <img src="assets/images/ca.jpg" alt="Chartered Accountants" />
+                    </div>
+                </div>
                 <div className="col-md-6">
                     <h3>Chartered Accountants</h3>
                     <h4>Why partner?</h4>
@@ -185,12 +210,7 @@ export const Synergy = () => {
                     <h4>Benefits</h4>
                     <p>Connect with high-growth startups through Growth91, providing them with essential financial and compliance services. Enhance your advisory offerings by integrating startup investment opportunities and specialized services for emerging businesses. Build a mutually beneficial relationship that supports investor engagement and startup success, strengthening your professional network and impact.</p>
                 </div>
-                <div className="col-md-6">
-                    <div className="image-placeholder">
-                        {/* Replace with actual image */}
-                        <img src="assets/images/ca.jpg" alt="Chartered Accountants" />
-                    </div>
-                </div>
+                
             </div>
 
             <div className="row partner-type">
