@@ -1904,7 +1904,7 @@ class Deals extends Component {
 </p>
 <p>Thank you for committing your interest in the ${item.deal_name} Deal. We are pleased to inform you that we have initiated the Call for Money.<br>
 </p>
-<p>The investment amount is ₹${item.total_invested_amount}. Please find the bank details for transferring the funds below:<br>
+<p>The investment amount is ₹${item.amount}. Please find the bank details for transferring the funds below:<br>
 </p>
 <p>${item.deal_name} Bank Details:<br>
 Account Name: ${this.state.Viewcommit_bank_acc_name}<br>

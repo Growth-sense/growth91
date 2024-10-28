@@ -146,6 +146,8 @@ export default class EditInvestmentMembershipmodal extends Component {
   };
 
   getpostData = () => {
+    console.log(this.props);
+    // return
     const formData = new FormData();
     formData.append('deal_id', this.props.deal_id);
     formData.append('investor_id', this.props.investor_id);
@@ -157,6 +159,7 @@ export default class EditInvestmentMembershipmodal extends Component {
     formData.append('order_token', this.props.order_token);
     formData.append('tdsstatus', this.props.tdsstatus);
     formData.append('gst', this.props.gst);
+    formData.append('gstValue', this.props.gstvalue);
     formData.append('legalfee', this.props.legalfee);
     formData.append('interested_id', this.props.interested_id);
     formData.append('walletDeductionMoney', this.props.walletDeductionMoney);
@@ -215,7 +218,7 @@ export default class EditInvestmentMembershipmodal extends Component {
                 this.setState({getModalData:true});
                 this.getpostData();
                 this.setState({
-                  show_thankyou_modal: true,
+                  // show_thankyou_modal: true,
                 });
               }
               

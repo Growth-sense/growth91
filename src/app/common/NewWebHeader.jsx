@@ -45,7 +45,7 @@ class NewWebHeader extends Component {
       discounted_amount: 0,
       membership_amount: 0,
       investor_kyc_status: "",
-
+      member_detail:"",
       //for founder data
       founder_profileimagetoshow: "",
       founder_profile: "",
@@ -54,12 +54,15 @@ class NewWebHeader extends Component {
       founder_middlename: "",
       founder_firstname: "",
       premium_button_show_status: false,
+      gstBusinessName:"",
+      gstNo:""
       // founder_membership_type:'',
     };
     this.toggleMenu = this.toggleMenu.bind(this);
     // this.handleScroll = this.handleScroll.bind(this);
   }
   componentDidMount() {
+    this.check_for_membership_type()
     // window.addEventListener("scroll", this.handleScroll);
     var scroll_pos = 0;
     var scroll_time;
@@ -446,6 +449,8 @@ class NewWebHeader extends Component {
     formData.append("membership_type", this.state.membership_type);
     formData.append("user_profile_picture", this.state.profile);
     formData.append("investor_id", this.state.investor_id);
+    formData.append("gstBusinessName", this.state.gstBusinessName);
+    formData.append("gstNo", this.state.gstNo);
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -518,6 +523,8 @@ class NewWebHeader extends Component {
     formData.append("founder_last_name", this.state.founder_lastname);
     formData.append("founder_mobile", this.state.founder_contactno);
     formData.append("founder_user_profile_picture", this.state.founder_profile);
+    formData.append("gstBusinessName", this.state.gstBusinessName);
+    formData.append("gstNo", this.state.gstNo);
     console.log(this.state.founder_profile);
     formData.append("founder_id", localStorage.getItem("founder_id"));
 
@@ -592,8 +599,31 @@ class NewWebHeader extends Component {
     $(".menu-icon .close-menu").addClass("d-none").removeClass("d-block");
     // alert('menu closed');
   };
-
+  check_for_membership_type = () => {
+    this.setState({ formloader: true });
+    let params = {
+      investor_id:localStorage.getItem("investor_id"),
+    };
+    Bridge.check_for_membership_type(params).then((result) => {
+      if (result.status == 1) {
+        if (result.data.length > 0) {
+          this.setState({
+            member_detail:result.data[0],
+            gstBusinessName:result.data[0].gstBusinessName,
+            gstNo:result.data[0].gstNo,
+            // check_membership_type: result.data[0].membership_type,
+          });
+        
+        }
+      } else {
+        this.setState({ formloader: false });
+      }
+    });
+   
+  };
+  
   render() {
+    console.log(this.state.member_detail);
     const { newabout } = this.props;
 
     // Add a click event listener to the expandMenu element
@@ -1177,6 +1207,30 @@ class NewWebHeader extends Component {
               // onChange={(e) => this.setState({ contactno:e.target.value })}
               />
             </div>
+            {this.state.member_detail!=="" && 
+            <>
+            <div className="form-group mb-3">
+              <label>GSt Bussiness Name</label>
+              <input
+                type="text"
+                className="form-control"
+                value={this.state.gstBusinessName}
+                // readOnly
+              onChange={(e) => this.setState({ gstBusinessName:e.target.value })}
+              />
+            </div>
+            <div className="form-group mb-3">
+              <label>Gst No</label>
+              <input
+                type="text"
+                className="form-control"
+                value={this.state.gstNo}
+                // readOnly
+              onChange={(e) => this.setState({ gstNo:e.target.value })}
+              />
+            </div>
+            </>
+            }
 
             <div className="form-group mb-3">
               <label>Profile Image</label>
@@ -1345,6 +1399,30 @@ class NewWebHeader extends Component {
               />
             </div>
 
+   {this.state.member_detail && 
+            <>
+            <div className="form-group mb-3">
+              <label>GSt Bussiness Name</label>
+              <input
+                type="text"
+                className="form-control"
+                value={this.state.member_detail.gstBusinessName}
+                // readOnly
+              onChange={(e) => this.setState({ gstBusinessName:e.target.value })}
+              />
+            </div>
+            <div className="form-group mb-3">
+              <label>Gst No</label>
+              <input
+                type="text"
+                className="form-control"
+                value={this.state.member_detail.gstNo}
+                // readOnly
+              onChange={(e) => this.setState({ gstNo:e.target.value })}
+              />
+            </div>
+            </>
+            }
             <div className="form-group mb-3">
               <label>Profile Image</label>
               <br />

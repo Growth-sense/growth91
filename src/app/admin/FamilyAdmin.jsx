@@ -52,6 +52,7 @@ class FamilyAdmin extends Component {
       // edit
       editname: "",
       editstatus: "",
+      editModalStatus: false,
 
       addModalStatus: false,
       loading: false,
@@ -171,7 +172,7 @@ class FamilyAdmin extends Component {
     this.setState({
       editname: item.name,
       editstatus: item.status,
-      editModalStatus: true,
+      editModalStatus: false,
       startupid: item.startupid,
       editselectedfounder:
         item.founder_id.length > 0 ? JSON.parse(item.founder_id) : [],
@@ -678,7 +679,7 @@ class FamilyAdmin extends Component {
         <Modal
           title="Edit Group"
           visible={this.state.editModalStatus}
-          onOk={this.updatestartup}
+falsek={this.updatestartup}
           okText="Update"
           onCancel={() => this.setState({ editModalStatus: false })}
           width={550}

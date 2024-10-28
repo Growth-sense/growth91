@@ -69,6 +69,7 @@ class Edept extends Component {
       label: "",
       percentage: 0,
       check_membership_type: "",
+      member_detail: "",
       tdsdeductedamount: 0,
       order_token: "",
       pdffile: "",
@@ -97,6 +98,9 @@ class Edept extends Component {
       escrow_account_ifsc: "",
       agreeCheck: false,
       Convenience: "",
+      gstBusinessName: "",
+      gstNo: "",
+      gstmodal: false,
       deal_service: "",
       images: [
         "./assets/images/deals-details/Edept/Pitch/edept - Pitch deck.pptx-images-0.jpg",
@@ -267,6 +271,7 @@ class Edept extends Component {
       if (result.status == 1) {
         if (result.data.length > 0) {
           this.setState({
+            member_detail: result.data[0],
             check_membership_type: result.data[0].membership_type,
           });
           setTimeout(() => {
@@ -649,6 +654,7 @@ class Edept extends Component {
       );
       return;
     }
+
     this.setState(
       {
         investmentmodal: true,
@@ -695,6 +701,65 @@ class Edept extends Component {
       investmentmodal: false,
     });
   };
+  handleCancelgstmodal = () => {
+    this.setState({
+      gstmodal: false,
+    });
+  };
+  founder_updateprofiledetails = () => {
+    if (this.state.gstBusinessName == "") {
+      message.warning("Gst business nameis required");
+      return false;
+    } else if (this.state.gstNo == "") {
+      message.warning("gst no is required");
+      return false;
+    }
+    this.setState({ formloader: true });
+
+    let formData = new FormData(); //formdata object
+    console.log(this.state.gstBusinessName, this.state.gstNo);
+
+    formData.append("gstBusinessName", this.state.gstBusinessName); //append the values with key, value pair
+    formData.append("gstNo", this.state.gstNo);
+    formData.append("first_name", this.state.member_detail.firstname); //append the values with key, value pair
+    formData.append("middle_name", this.state.member_detail.middlename);
+    formData.append("last_name", this.state.member_detail.lastname);
+    formData.append("mobile", this.state.member_detail.contactno);
+    formData.append(
+      "membership_type",
+      this.state.member_detail.membership_type
+    );
+    formData.append("user_profile_picture", this.state.member_detail.profile);
+    formData.append("investor_id", this.state.member_detail.investor_id);
+    formData.append("investor_id", localStorage.getItem("investor_id"));
+    console.log(formData.getAll);
+
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    };
+
+    if (localStorage.getItem("investor_id")) {
+      Bridge.investor.updateprofiledetails(formData, config).then((result) => {
+        if (result.status == 1) {
+          message.success(result.message);
+          this.setState(
+            {
+              formloader: false,
+              gstmodal: false,
+            },
+            () => this.check_for_membership_type()
+          );
+        } else {
+          message.error(result.message);
+          this.setState({
+            formloader: false,
+          });
+        }
+      });
+    }
+  };
 
   showModal2 = () => {
     this.setState({
@@ -720,10 +785,27 @@ class Edept extends Component {
     });
   };
   onChangeCheckbox = (e) => {
+    console.log(this.state.member_detail.gstBusinessName);
+    console.log(this.state.member_detail.gstNo);
+
     this.setState({
       [e.target.name]: e.target.checked,
       agreeCheck: e.target.checked,
     });
+
+    if (e.target.name === "agree") {
+      console.log(e.target.name);
+      if (
+        this.state.member_detail.gstBusinessName == null ||
+        this.state.member_detail.gstNo == null
+      ) {
+        this.setState({
+          gstmodal: true,
+          formloader: false,
+        });
+        // return
+      }
+    }
 
     if (e.target.name == "deduct") {
       if (e.target.checked == true) {
@@ -732,25 +814,30 @@ class Edept extends Component {
         );
         let tdsamount = parseFloat(processingfees / 100) * 10;
         let minusamt = parseFloat(processingfees - tdsamount);
-        
 
         this.setState({
-          tdsstatus:true,
+          tdsstatus: true,
           processingfees: minusamt,
           tdsdeductedamount: tdsamount,
-          totalamount: Number(this.state.amountplusgst) +Number(this.state.gstValue)+Number(minusamt)
-          
+          totalamount:
+            Number(this.state.amountplusgst) +
+            Number(this.state.gstValue) +
+            Number(minusamt),
         });
       } else {
+        console.log(e.target.name);
+
         let processingfees = parseFloat(
           (this.state.amount / 100) * parseFloat(this.state.percentage)
         );
         this.setState({
-          tdsstatus:false,
+          tdsstatus: false,
           processingfees: processingfees,
           tdsdeductedamount: 0,
-          totalamount: Number(this.state.amountplusgst) +Number(this.state.gstValue)+Number(processingfees)
-
+          totalamount:
+            Number(this.state.amountplusgst) +
+            Number(this.state.gstValue) +
+            Number(processingfees),
         });
       }
     }
@@ -799,7 +886,7 @@ class Edept extends Component {
     let legalfee = parseFloat(
       (this.state.amount / 100) * parseFloat(this.state.percentage)
     );
-    let minusamt=0
+    let minusamt = 0;
     let gst = this.state.gst;
     let amt = parseFloat(this.state.amount);
     let walletDeductionMoney;
@@ -815,25 +902,27 @@ class Edept extends Component {
     console.log(gst);
     console.log(legalfee);
     console.log(gstValue);
-    let tdsamount =0
-    if(this.state.tdsstatus=== true){
-       tdsamount = parseFloat(legalfee / 100) * 10;
+    let tdsamount = 0;
+    if (this.state.tdsstatus === true) {
+      tdsamount = parseFloat(legalfee / 100) * 10;
       minusamt = parseFloat(legalfee - tdsamount);
-
     }
 
     console.log(legalfee);
     console.log(tdsamount);
     console.log(minusamt);
-    
 
     this.setState({
       gst: gst,
       legalfee: this.state.amount ? legalfee.toFixed(0) : 0,
       amountplusgst: this.state.amount ? amt.toFixed(0) : 0,
-      processingfees: this.state.amount ? legalfee.toFixed(0)-Number(tdsamount) : 0,
+      processingfees: this.state.amount
+        ? legalfee.toFixed(0) - Number(tdsamount)
+        : 0,
       totalamount: this.state.amount
-        ? (amt + parseFloat(legalfee.toFixed(0)-Number(tdsamount))).toFixed(0) -
+        ? (amt + parseFloat(legalfee.toFixed(0) - Number(tdsamount))).toFixed(
+            0
+          ) -
           walletDeductionMoney +
           gstValue
         : 0,
@@ -1022,7 +1111,6 @@ class Edept extends Component {
       }
     );
     console.log(newAmount);
-    
   };
 
   decrease_commit = () => {
@@ -1100,7 +1188,6 @@ class Edept extends Component {
   };
 
   formatNumberWithCommas = (number) => {
-
     return number.toLocaleString("en-IN");
   };
 
@@ -1482,14 +1569,19 @@ class Edept extends Component {
                             <td lassName="text-center">
                               ₹{" "}
                               {this.state.amountplusgst
-                                ?this.formatNumberWithCommas( Number(this.state.amountplusgst))
+                                ? this.formatNumberWithCommas(
+                                    Number(this.state.amountplusgst)
+                                  )
                                 : "0"}
                             </td>
                           </tr>
                           <tr>
                             <td>GST {this.state.gst} %</td>
                             <td lassName="text-center">
-                              ₹ {this.formatNumberWithCommas(Number(this.state.gstValue))}
+                              ₹{" "}
+                              {this.formatNumberWithCommas(
+                                Number(this.state.gstValue)
+                              )}
                             </td>
                           </tr>
                           <tr>
@@ -1499,7 +1591,10 @@ class Edept extends Component {
                               <span>{this.state.label}</span>
                             </td>
                             <td lassName="text-center">
-                              ₹ {this.formatNumberWithCommas(Number(this.state.processingfees))}
+                              ₹{" "}
+                              {this.formatNumberWithCommas(
+                                Number(this.state.processingfees)
+                              )}
                             </td>
                           </tr>
                           <tr>
@@ -1511,7 +1606,12 @@ class Edept extends Component {
                           <tr>
                             <td>Total</td>
                             <td>
-                              ₹ {this.formatNumberWithCommas(Number(parseFloat(this.state.totalamount).toFixed(0)))}
+                              ₹{" "}
+                              {this.formatNumberWithCommas(
+                                Number(
+                                  parseFloat(this.state.totalamount).toFixed(0)
+                                )
+                              )}
                             </td>
                           </tr>
                         </table>
@@ -1591,6 +1691,7 @@ class Edept extends Component {
                             deduct={this.state.deduct}
                             tdsstatus={this.state.tdsstatus}
                             gst={this.state.gst}
+                            gstvalue={this.state.gstValue}
                             order_token={this.state.order_token}
                             legalfee={this.state.legalfee}
                             walletDeductionMoney={
@@ -1603,22 +1704,78 @@ class Edept extends Component {
                             invest_amt={this.state.invest_amt}
                           />
                         )}
-                          <button type="button"
-                            className="login-button text-center  btn-secondary"
-                            style={{
-                              border: "1px solid #f3f3f",
-                              padding: "0.9em 0 ",
-                              marginTop:"10px",
-                            }}  value="" onClick={(e)=>{this.handleCommitAmount(e.target.value);}}>Clear</button>
-
+                        <button
+                          type="button"
+                          className="login-button text-center  btn-secondary"
+                          style={{
+                            border: "1px solid #f3f3f",
+                            padding: "0.9em 0 ",
+                            marginTop: "10px",
+                          }}
+                          value=""
+                          onClick={(e) => {
+                            this.handleCommitAmount(e.target.value);
+                          }}
+                        >
+                          Clear
+                        </button>
                       </div>
                     </div>
+                  </Modal>
+                  <Modal
+                    title={`Edit Gst`}
+                    okText={"Update"}
+                    visible={this.state.gstmodal}
+                    onOk={this.founder_updateprofiledetails}
+                    onCancel={this.handleCancelgstmodal}
+                    cancelText="Cancel"
+                    width={600}
+                    footer={false}
+                  >
+                    <Spin spinning={this.state.formloader}>
+                      <div className="form-group">
+                        <label>Gst Business Name</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Gst Business Name"
+                          value={this.state.gstBusinessName}
+                          onChange={(e) =>
+                            this.setState({ gstBusinessName: e.target.value })
+                          }
+                        />
+                      </div>
+                      <br />
+
+                      <div className="form-group">
+                        <label>Gst NO</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="GST No"
+                          value={this.state.gstNo}
+                          onChange={(e) =>
+                            this.setState({ gstNo: e.target.value })
+                          }
+                        />
+                      </div>
+
+                      <button
+                        type="button"
+                        className="login-button prime-bg d-md-block mx-auto w-100 mt-1"
+                        onClick={() => this.founder_updateprofiledetails()}
+                      >
+                        Update
+                      </button>
+                    </Spin>
                   </Modal>
                   <Modal
                     title="Deduct TDS"
                     visible={this.state.confirmmodalstatus}
                     onOk={this.handleOk2}
                     onCancel={this.handleCancel2}
+                    okText="Update"
+                    cancelText="Cancel"
                     width={700}
                     footer={false}
                   >
