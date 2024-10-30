@@ -605,6 +605,8 @@ class NewWebHeader extends Component {
       investor_id:localStorage.getItem("investor_id"),
     };
     Bridge.check_for_membership_type(params).then((result) => {
+      this.setState({ formloader: false });
+
       if (result.status == 1) {
         if (result.data.length > 0) {
           this.setState({
