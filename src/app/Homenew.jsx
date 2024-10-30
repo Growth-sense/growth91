@@ -767,9 +767,14 @@ Accessing High-Growth Opportunities
        
 
 
+<section>
+<Homenewrxtra />
 
+  <div className="join-button">
+    <button>Join the Platform</button>
+  </div>
+</section>
 
-        <Homenewrxtra />
 
         <section class="business-crowd logo-sections ">
           <div class="container">
@@ -1121,6 +1126,9 @@ Accessing High-Growth Opportunities
               </div>
             </div>
           </div>
+          <div className="join-button">
+    <button>See Our Latest Startup Listings</button>
+  </div>
         </section>
 
         <section class="testimonial-section">
@@ -1548,7 +1556,7 @@ you and aligns with your vision.
             </div>
             <div class="index-button-1">
               <Link to="/Deals" style={{ color: "white" }}>
-                Join Us
+              Sign Up and Start Investing
               </Link>
             </div>
           </div>
