@@ -1563,7 +1563,7 @@
 .banner-slidingpart .banner-btns .new-form-wrapper .white-btns {
   visibility: hidden;
   display: block;
-  max-width: 245px;
+  max-width: 315px;
   line-height: 60px;
   border-radius: 30px;
   /* position: relative;
@@ -6403,4 +6403,42 @@ border: none;
     height: 150px;
     display: flex;
     align-items: center;
+}
+
+.seo-tag{
+
+  font-size: 50px;
+  font-weight: 700;
+  color: #fff !important;
+  line-height: 72px;
+  font-family: Nunito, serif;
+  padding: 0 0 30px 0;
+  margin: 0 0 !important;
+  width: 100%;
+  text-align: left;
+}
+
+.join-button{
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.join-button button{
+  padding: 23px 50px;
+    color: #fff;
+    border-radius: 56px;
+    font-size: 1rem;
+    display: inline-block;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    letter-spacing: normal;
+    font-weight: 400;
+    line-height: 1;
+    text-transform: capitalize;
+    cursor: pointer;
+    background-color: rgb(41, 23, 111);
 }

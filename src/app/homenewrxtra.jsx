@@ -13,8 +13,8 @@ export const Homenewrxtra = () => {
                   Discover, Trust, Invest
                 </h3>
                 <p class="MuiTypography-root MuiTypography-body2 css-o2di0e">
-                  Invest in the future you believe in. Start your growth journey
-                  here.
+                nvest in the Future of Indian Startups
+
                 </p>
               </div>
               <div class="MuiStepper-root MuiStepper-vertical css-jcksi0">
@@ -61,11 +61,8 @@ export const Homenewrxtra = () => {
                         <div class="MuiCollapse-wrapper MuiCollapse-vertical css-hboir5">
                           <div class="MuiCollapse-wrapperInner MuiCollapse-vertical css-8atqhb">
                             <span class="MuiTypography-root MuiTypography-subtitle css-f58h4c">
-                              We are a startup investment platform fueling the
-                              future. We connect you with the most exciting
-                              startups poised for explosive growth. It's your
-                              chance to invest in groundbreaking companies that
-                              could be the next Google or Amazon.
+                            We are India's leading startup investing platform, connecting you with high-potential startups. Invest in startups with potential for growth like the next Google or Amazon.
+
                             </span>
                           </div>
                         </div>
@@ -119,12 +116,8 @@ export const Homenewrxtra = () => {
                         <div class="MuiCollapse-wrapper MuiCollapse-vertical css-hboir5">
                           <div class="MuiCollapse-wrapperInner MuiCollapse-vertical css-8atqhb">
                             <span class="MuiTypography-root MuiTypography-subtitle css-f58h4c">
-                              Every startup on our platform goes through a
-                              rigorous vetting process. This ensures we only
-                              feature promising companies with strong potential.
-                              To further solidify your trust, we invest
-                              alongside you in every startup we showcase. Our
-                              success is tied to yours.&nbsp;
+                            Growth91's startups undergo a rigorous vetting process. We invest alongside you, ensuring shared success.
+&nbsp;
                             </span>
                           </div>
                         </div>
@@ -180,9 +173,8 @@ export const Homenewrxtra = () => {
                         <div class="MuiCollapse-wrapper MuiCollapse-vertical css-hboir5">
                           <div class="MuiCollapse-wrapperInner MuiCollapse-vertical css-8atqhb">
                             <span class="MuiTypography-root MuiTypography-subtitle css-f58h4c">
-                              Let's embark on this exciting journey together!
-                              Explore the high-potential startups on our
-                              platform and become part of the future.
+                            Join us to explore the latest startups. Invest in Indian startups that could shape the future and grow with us.
+
                             </span>
                           </div>
                         </div>
