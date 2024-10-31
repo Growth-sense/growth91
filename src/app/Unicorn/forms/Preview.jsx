@@ -134,6 +134,7 @@ export const Preview = (props) => {
                 
                   <div className="row row-imgdirects">
                     <div className="row-img-direct">
+                      {item.tudLogoImage &&
                       <div className="img-certified-directors">
                         <img
                           src={`${
@@ -144,6 +145,8 @@ export const Preview = (props) => {
                           alt=""
                         />
                       </div>
+        }
+        {item.tudPrimaryContactName&&
                       <div className="content-certify-directors">
                         <h3>{item.tudPrimaryContactName}</h3>
                         <p>
@@ -152,6 +155,7 @@ export const Preview = (props) => {
                             Consultant */}
                         </p>
                       </div>
+                      }
                       {/* <div className="meet-icon-future">
                                                 <ul>
                                                     <li className='img-handshake'>
@@ -170,6 +174,7 @@ export const Preview = (props) => {
                                             </div> */}
                     </div>
                   </div>
+                  {item.tudPrimaryContactMobile&&
                   <div className="row row-imgdirects bg-box-futures d-none">
                     <ul className="grid-box-futures">
                       <li>
@@ -234,7 +239,7 @@ export const Preview = (props) => {
                         <span>Social</span>
                       </li>
                     </ul>
-                  </div>
+                  </div>}
                 </div>
               </section>
 
@@ -312,10 +317,10 @@ export const Preview = (props) => {
                               About Us
                             </div>
                           </h3>
-
+                          {item.tudDealDescription&&
                           <div class="accordion-body about-us-p">
                             <p>{item.tudDealDescription}</p>
-                          </div>
+                          </div>}
                         </div>
                         <div class="accordion-item" style={{ border: "none" }}>
                           <h3 class="accordion-header" id="flush-headingsixx">
@@ -621,6 +626,7 @@ export const Preview = (props) => {
                             aria-labelledby="flush-headingfour"
                             data-bs-parent="#accordionFlushExample"
                           >
+                            {item.tudPitchDeck&&
                             <div class="accordion-body">
                               <iframe
                                 src={`${
@@ -698,7 +704,7 @@ export const Preview = (props) => {
                                     </div>
                                   </div>
                                 </div> */}
-                            </div>
+                            </div>}
                           </div>
                         </div>
 
@@ -727,6 +733,7 @@ export const Preview = (props) => {
                             <div class="accordion-body connect-acc-us">
                               <div className="row justify-content-center">
                                 <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
+                                {item.tudYoutubeLink&&
                                   <div className="img-future-gallery">
                                     <iframe
                                       style={{
@@ -745,7 +752,7 @@ export const Preview = (props) => {
                                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                       allowFullScreen
                                     ></iframe>
-                                  </div>
+                                  </div>}
                                 </div>
                               </div>
                             </div>
@@ -764,6 +771,7 @@ export const Preview = (props) => {
                           <div class="accordion-body connect-acc-us">
                             <div className="row row-box-line">
                               <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                              {item.tudLegalname&&
                                 <div className="lets-talks-div">
                                   <h3>Legal Name</h3>
                                   <ul>
@@ -771,9 +779,10 @@ export const Preview = (props) => {
                                       <span>{item.tudLegalname}</span>
                                     </li>
                                   </ul>
-                                </div>
+                                </div>}
                               </div>
                               <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                              {item.tudLegalname&&
                                 <div className="lets-talks-div">
                                   <h3>Founded</h3>
                                   <ul>
@@ -781,9 +790,10 @@ export const Preview = (props) => {
                                       <span>{item.tudFoundedon}</span>
                                     </li>
                                   </ul>
-                                </div>
+                                </div>}
                               </div>
                               <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                              {item.tudAddress&&
                                 <div className="lets-talks-div">
                                   <h3>Let's Meet</h3>
                                   <ul>
@@ -793,8 +803,10 @@ export const Preview = (props) => {
                                     </li>
                                   </ul>
                                 </div>
+        }
                               </div>
                               <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                {item.tudEmployees&&
                                 <div className="lets-talks-div">
                                   <h3>Employees</h3>
                                   <ul>
@@ -802,9 +814,10 @@ export const Preview = (props) => {
                                       <span>{item.tudEmployees}</span>
                                     </li>
                                   </ul>
-                                </div>
+                                </div>}
                               </div>
                               <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                {item.tudWebsite&&
                                 <div className="lets-talks-div">
                                   <h3>Visit Us</h3>
                                   <ul>
@@ -825,8 +838,10 @@ export const Preview = (props) => {
                                     </li>
                                   </ul>
                                 </div>
+        }
                               </div>
                               <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                {item.tudSocialInsta&&
                                 <div className="lets-talks-div">
                                   <h3>Follow Us</h3>
                                   <ul>
@@ -860,6 +875,7 @@ export const Preview = (props) => {
                                     </li>
                                   </ul>
                                 </div>
+        }
                               </div>
                             </div>
                           </div>

@@ -5,6 +5,7 @@ import NewWebHeader from "./common/NewWebHeader.jsx";
 import $ from "jquery";
 import { Link } from 'react-router-dom';
 import Bridge from './constants/Bridge.js';
+import Foundermylistnew from './foundermylistnew.js';
 
 export const FounderDashboardType = () => {
     useEffect(() => {
@@ -107,11 +108,32 @@ const getfounderdetails=()=>{
     }
     return (
         <div>
-            <div classname="newabout">
-                <NewWebHeader newabout={"newabout"} />
-            </div>
-            <section class="about-page-section blog-section pb-0" style={{ paddingBottom: "0px !important" }}>
-
+        <div classname="newabout">
+          <NewWebHeader newabout={"newabout"} />
+        </div>
+        <section></section>
+        <div className="row">
+          {/* <div className="collapse navbar-collapse" id="navbarSupportedContent"
+              style={{ width:'fit-content' }}> */}
+          <div
+            className="hiw-nav col-md-2 col-12 py-3 px-0 sidebar2 collapse navbar-collapse"
+            id="navbarSupportedContent"
+          >
+            {/* <section></section> */}
+            <Foundermylistnew />
+          </div>
+          <div className="hiw-nav col-md-2 col-12 py-3 px-0 d-lg-block d-none ">
+            {/* <section></section> */}
+            <Foundermylistnew />
+          </div>
+  
+          <div className="  col col-lg-8 pb-4 ">
+            {/* How do i invest? */}
+            <section
+              id="hdii"
+              className="m-lg-0  m-3"
+              style={{ marginTop: 25, minHeight: "75vh" }}
+            >
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center align-items-center" style={{ pointerEvents: "none" }}>
@@ -125,13 +147,7 @@ const getfounderdetails=()=>{
 
                     </div>
                     <div class="tabs-dashboard">
-                        <div class="tabs-nav">
-                            <label class="tab-nav active"><Link to="FounderDashboardType">My Account</Link></label>
-                            <label class="tab-nav"><Link to="FounderMyListing">My Startups</Link></label>
-                            <label class="tab-nav"><Link to="FounderMyPlan">My Plan</Link></label>
-                            <label class="tab-nav"><Link to="FounderInterest">Enquiry/Lead</Link></label>
-                          
-                        </div>
+                       
                         <div class="tab-contents">
 
                             <div class="tab-content">
@@ -195,6 +211,8 @@ const getfounderdetails=()=>{
                 </div>
 
             </section>
+            </div>
+            </div>
 
 
 
