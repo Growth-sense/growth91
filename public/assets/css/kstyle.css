@@ -5744,7 +5744,7 @@ a {
   display: flex;
   box-sizing: border-box;
   flex-direction: row;
-  height: 100dvh;
+  height: 65dvh;
   width: 100%;
 }
 

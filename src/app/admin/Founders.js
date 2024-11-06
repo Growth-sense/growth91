@@ -836,7 +836,7 @@ class Founders extends Component {
                   &nbsp;&nbsp;Edit
                 </a>
               </Menu.Item>
-             {/* { localStorage.getItem("super_admin") === "1" &&( */}
+             { JSON.parse(localStorage.getItem("super_admin")) === "1" &&(
               text.user_block_status == 0 ? (
                 <Menu.Item
                   key={`disable${record.key}`}
@@ -861,7 +861,7 @@ class Founders extends Component {
                   </a>
                 </Menu.Item>
               )
-              {/* )} */}
+              )} 
             </Menu>
           );
           return (

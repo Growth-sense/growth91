@@ -256,8 +256,16 @@ class Edept extends Component {
   getGst = () => {
     Bridge.admin.settings.getsettings().then((result) => {
       if (result.status == "1") {
+        if(this.state.member_detail.state=="Maharashtra"){
+        this.setState({ gst: result.data[0].taxation_percentage_cgst+result.data[0].taxation_percentage_sgst });
+
+        }
+        else if(this.state.member_detail.nationality=="Non Resident"){
         this.setState({ gst: result.data[0].taxation_percentage });
+
+        }
       } else {
+        this.setState({ gst: result.data[0].taxation_percentage });
         // console.log("gst can not be able to fetch")
       }
     });
@@ -792,20 +800,24 @@ class Edept extends Component {
       [e.target.name]: e.target.checked,
       agreeCheck: e.target.checked,
     });
+// logic for update gst no and gst bussiness name
+    // if (e.target.name === "agree") {
+    //   if(e.target.checked == true){
 
-    if (e.target.name === "agree") {
-      console.log(e.target.name);
-      if (
-        this.state.member_detail.gstBusinessName == null ||
-        this.state.member_detail.gstNo == null
-      ) {
-        this.setState({
-          gstmodal: true,
-          formloader: false,
-        });
-        // return
-      }
-    }
+      
+    //   console.log(e.target.name);
+    //   if (
+    //     this.state.member_detail.gstBusinessName == null ||
+    //     this.state.member_detail.gstNo == null
+    //   ) {
+    //     this.setState({
+    //       gstmodal: true,
+    //       formloader: false,
+    //     });
+    //     // return
+    //   }
+    // }
+    // }
 
     if (e.target.name == "deduct") {
       if (e.target.checked == true) {
@@ -1575,15 +1587,7 @@ class Edept extends Component {
                                 : "0"}
                             </td>
                           </tr>
-                          <tr>
-                            <td>GST {this.state.gst} %</td>
-                            <td lassName="text-center">
-                              ₹{" "}
-                              {this.formatNumberWithCommas(
-                                Number(this.state.gstValue)
-                              )}
-                            </td>
-                          </tr>
+                        
                           <tr>
                             <td>
                               Convenience Fees
@@ -1601,6 +1605,15 @@ class Edept extends Component {
                             <td>Wallet Money</td>
                             <td lassName="text-center">
                               - ₹ {this.state.walletDeductionMoney}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>GST {this.state.gst} %</td>
+                            <td lassName="text-center">
+                              ₹{" "}
+                              {this.formatNumberWithCommas(
+                                Number(this.state.gstValue)
+                              )}
                             </td>
                           </tr>
                           <tr>

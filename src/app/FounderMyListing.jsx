@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import Bridge from "./constants/Bridge.js";
 import axios from "axios";
 import Foundermylistnew from "./foundermylistnew.js";
+import { Spin } from "antd";
 
 export const FounderMyListing = () => {
   useEffect(() => {
@@ -16,8 +17,10 @@ export const FounderMyListing = () => {
   }, []);
   const [unideatils, setunideatils] = useState();
   const [unicorn, setUnicorn] = useState();
+  const [loading, setloading] = useState(false);
 
   const unicorndetails = async () => {
+    setloading(true)
     let params = {
       founderID: localStorage.getItem("founder_id"),
     };
@@ -49,8 +52,10 @@ export const FounderMyListing = () => {
               result.data.filter(
                 (item) => item.tudTempUdID == res.data.data[0].tudTempUdID
               )
+
             );
           });
+          setloading(false)
         }, 3000);
       });
   };
@@ -145,6 +150,8 @@ export const FounderMyListing = () => {
       <NewWebHeader newabout={"newabout"} />
     </div>
     <section></section>
+    <Spin spinning={loading}>
+
     <div className="row">
       {/* <div className="collapse navbar-collapse" id="navbarSupportedContent"
           style={{ width:'fit-content' }}> */}
@@ -261,7 +268,7 @@ export const FounderMyListing = () => {
         </section>
         </div>
         </div>
-
+</Spin>
 
 
 

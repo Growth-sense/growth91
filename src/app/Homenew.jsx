@@ -515,7 +515,6 @@ class Homenew extends Component {
             arrows: true,
             slidesToShow: 1,
             slidesToScroll: 1,
-            arrows: true,
             autoplay: false,
           },
         },
@@ -939,7 +938,7 @@ Accessing High-Growth Opportunities
                   </p>
                 </div>
 
-                {document.body.clientWidth < 600 ? (
+                {document.body.clientWidth < 200 ? (
                   <Slider
                     className="flex-counters sliderdriven"
                     {...countersettting}
