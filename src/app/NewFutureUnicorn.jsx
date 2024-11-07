@@ -1,6 +1,7 @@
 import React from 'react';
 import { NewWebFooter } from './common/NewWebFooter';
 import NewWebHeader from './common/NewWebHeader';
+import { Link } from '@material-ui/core';
 
 const NewFutureUnicorn = () => {
     return (
@@ -196,7 +197,13 @@ const NewFutureUnicorn = () => {
 
             {/* Why to list section */}
             <div className="why-to-list">
-                <h2>Why to list?</h2>
+                {/* <h2>Why to list?</h2> */}
+                <div class="heading-title founder-text">
+                <p>
+                  <span></span>{" "}
+                </p>
+                <h3>Why to list?</h3>
+              </div>
                 <div className="features">
                     <div className="feature-box">
                         <h3>Dedicated Platform</h3>
@@ -215,7 +222,13 @@ const NewFutureUnicorn = () => {
 
             {/* Key Features Section */}
             <div className="key-features ">
-                <h2>Key Features</h2>
+                {/* <h2>Key Features</h2> */}
+                <div class="heading-title founder-text">
+                <p>
+                  <span></span>{" "}
+                </p>
+                <h3>Key Features</h3>
+              </div>
                 <div className="features-list">
                     <div className="feature-item">
                         <div className="feature-item-number">1</div>
@@ -249,7 +262,13 @@ const NewFutureUnicorn = () => {
             </div>
 
             <div className="why-to-list founder-benefit">
-    <h2>Benefits for Founders</h2>
+    {/* <h2>Benefits for</h2> */}
+    <div class="heading-title founder-text">
+                <p>
+                  <span></span>{" "}
+                </p>
+                <h2 style={{color:"white", fontSize : "37px"}}>Benefits for Founders</h2>
+              </div>
     <div className="features">
         <div className="feature-box">
             <h3>Simplified Listing</h3>
@@ -268,7 +287,12 @@ const NewFutureUnicorn = () => {
 
 
             <div className="why-to-list investor-benifit">
-                <h2>Benefits for Investors</h2>
+            <div class="heading-title founder-text">
+                <p>
+                  <span></span>{" "}
+                </p>
+                <h3>Benefits for Investors</h3>
+              </div>
                 <div className="features">
                     <div className="feature-box">
                         <h3>Vetted Opportunities</h3>
@@ -284,6 +308,26 @@ const NewFutureUnicorn = () => {
                     </div>
                 </div>
             </div>
+        <section class="custom-section">
+          <div class="join-section join-sec-yellow join-sec-white undefined join-divide mobile-join">
+            {/* <h4>Join us</h4> */}
+            <div className="join-flex-one-us">
+              <h2>
+                Join Us to Invest in Startups in India and Support Breakthrough
+                Ventures
+              </h2>
+              <p class="index_pitch">
+                Decades of banking, investing & startup success guide your
+                investments. Invest confidently with us.
+              </p>
+            </div>
+            <div class="index-button-1">
+              <Link to="/Deals" style={{ color: "white" }}>
+              Sign Up and Start Investing
+              </Link>
+            </div>
+          </div>
+        </section>
         <NewWebFooter />
 
         </div>

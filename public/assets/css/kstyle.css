@@ -5786,8 +5786,8 @@ a {
   display: block;
   position: relative;
   height: 100%;
-  margin: 0 16px;
-  width: 70%;
+  /* margin: 0 16px; */
+  width: 100%;
   background-color: inherit;
   overflow: hidden;
 }

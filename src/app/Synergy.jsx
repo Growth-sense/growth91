@@ -166,7 +166,7 @@ export const Synergy = () => {
           </p>
         </div>
      
-      <div className="col-12 synergy-why__cards">
+      <div className="col-12 synergy-why__cards" style={{padding : "0px"}}>
 
         <div className="card synergy-why__card">
           <h3 className="card-title">Exclusive Investment Access</h3>
