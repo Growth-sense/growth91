@@ -23,6 +23,8 @@ class Settings extends Component {
         setting_id:0,
         amountloader:false,
         taxation_percentage:'',
+        taxation_percentage_cgst:'',
+        taxation_percentage_sgst:'',
         taxationLoader:false,
         regular_member_deal_percentage:0,
         premium_member_deal_percentage:0,
@@ -137,6 +139,8 @@ class Settings extends Component {
             ramount: result.data[0].amount,
             setting_id: result.data[0].setting_id ,
             taxation_percentage:result.data[0].taxation_percentage,
+            taxation_percentage_cgst:result.data[0].taxation_percentage_cgst,
+            taxation_percentage_sgst:result.data[0].taxation_percentage_sgst,
             amountloader: false,
             register_discount:result.data[0].discount,
             discount_for_old_member: result.data[0].discount_for_old_member ,
@@ -309,12 +313,22 @@ class Settings extends Component {
 
     updateTaxation=()=>{
       if(!this.state.taxation_percentage){
-        message.warning('Taxation percentage is required.');
+        message.warning('Taxation GST percentage is required.');
+        return;
+      }
+      if(!this.state.taxation_percentage_cgst){
+        message.warning('Taxation CGST percentage is required.');
+        return;
+      }
+      if(!this.state.taxation_percentage_sgst){
+        message.warning('Taxation SGST percentage is required.');
         return;
       }
       this.setState({taxationLoader:true})
       let params = {
         taxation_percentage:this.state.taxation_percentage,
+        taxation_percentage_cgst:this.state.taxation_percentage_cgst,
+        taxation_percentage_sgst:this.state.taxation_percentage_sgst,
         id: this.state.setting_id,
       }
      Bridge.admin.settings.updatetaxationsetting(params).then((result)=>{
@@ -494,12 +508,38 @@ class Settings extends Component {
                       <div className='row'>
                         <div className='col-md-12'>
                           <div className='form-group'>
-                            <label className='mb-2 w-100'>Percentage <span className='text-danger'>*</span></label>
+                            <label className='mb-2 w-100'>Gst Percentage <span className='text-danger'>*</span></label>
                             <Input 
                               type="number"
                               onWheel={() => document.activeElement.blur()}
                               value={this.state.taxation_percentage}
                               onChange={(e) => this.setState({taxation_percentage: e.target.value })}
+                              style={{ maxWidth:'100%',marginBottom:20,height:40 }}
+                            />
+                          </div>
+                          {/* <Button type="primary" onClick={this.updateTaxation}>Update</Button> */}
+                        </div>
+                        <div className='col-md-12'>
+                          <div className='form-group'>
+                            <label className='mb-2 w-100'>CGST Percentage <span className='text-danger'>*</span></label>
+                            <Input 
+                              type="number"
+                              onWheel={() => document.activeElement.blur()}
+                              value={this.state.taxation_percentage_cgst}
+                              onChange={(e) => this.setState({taxation_percentage_cgst: e.target.value })}
+                              style={{ maxWidth:'100%',marginBottom:20,height:40 }}
+                            />
+                          </div>
+                          {/* <Button type="primary" onClick={this.updateTaxation}>Update</Button> */}
+                        </div>
+                        <div className='col-md-12'>
+                          <div className='form-group'>
+                            <label className='mb-2 w-100'>SGST Percentage <span className='text-danger'>*</span></label>
+                            <Input 
+                              type="number"
+                              onWheel={() => document.activeElement.blur()}
+                              value={this.state.taxation_percentage_sgst}
+                              onChange={(e) => this.setState({taxation_percentage_sgst: e.target.value })}
                               style={{ maxWidth:'100%',marginBottom:20,height:40 }}
                             />
                           </div>

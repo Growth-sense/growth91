@@ -6,7 +6,8 @@ import $ from "jquery";
 import { Link } from "react-router-dom";
 import Bridge from "./constants/Bridge.js";
 import { useLocation } from "react-router-dom";
-import PdfViewerComponent from "./PdfViewerComponent.jsx";
+import { toast, ToastContainer } from "react-toastify";
+import { Modal } from "antd";
 
 export const FutureUnicornDescription = () => {
   const search = useLocation().search;
@@ -15,23 +16,24 @@ export const FutureUnicornDescription = () => {
     getuniondata();
     window.scrollTo(0, 0);
   }, []);
-  const [error, setError] = useState(null);
+  console.log(id);
+
   const [unicorn, setUnicorn] = useState();
-
-  const [fileType, setFileType] = useState('pptx');
-  const [filePath, setFilePath] = useState(require("./ppt1.pptx"));
-
-const docs =[{
-  uri : require("./ppt1.pptx"),
-  fileType : "pptx",
-  filename : "ppt1.pptx"
-}]
+  const [memberdata, setmemberdata] = useState();
+  const [iamintrestmodal, setiamintrestmodal] = useState(false);
+  const [data, setdata] = useState({
+    "I Want to know more about it": false,
+    "I want to work with you": false,
+    "I am excited to invest in your startups": false,
+    message: "",
+  });
   function getuniondata() {
     let params = {
       page: 0,
       pagesize: 10,
     };
     Bridge.Unicorn.unicorndealsByInvestors(params).then((result) => {
+      console.log(result);
       setUnicorn(result.data);
     });
   }
@@ -54,7 +56,6 @@ const docs =[{
       </>
     );
   }
-  
 
   function SimplePrevArrow(props) {
     const { onClick } = props;
@@ -126,6 +127,41 @@ const docs =[{
       },
     ],
   };
+  const openiamintrest = () => {
+    setiamintrestmodal(true);
+  };
+  const adddata = (e) => {
+    if (e.target.name == "message") {
+      setdata({ ...data, [e.target.name]: [e.target.value] });
+    } else {
+      setdata({ ...data, [e.target.name]: !data[e.target.name] });
+    }
+  };
+  const submitintrest = () => {
+    console.log(unicorn[0]);
+
+    let params = {
+      unicornDealID: unicorn[0].unicornDealID,
+      udFounderID: unicorn[0].udFounderID,
+      investor_id: localStorage.getItem("investor_id"),
+      interestKnowMore: data["I Want to know more about it"],
+      interestWorkwithYou: data["I want to work with you"],
+      interestInvestinStartup: data["I am excited to invest in your startups"],
+      interestMessage: data["message"][0],
+    };
+    Bridge.Unicorn.add_unicorn_interest(params).then((result) => {
+      console.log(result);
+      if(result.message== "Details are updated successfully.")
+      {
+        toast.success("Details shared with Founder")
+        setiamintrestmodal(false)
+      }
+      else if( result.message=="Please enter values of all fields."){
+        toast.error("Plz fill all feild")
+      }
+    });
+
+  };
   return (
     <div>
       <div classname="newabout">
@@ -140,9 +176,9 @@ const docs =[{
 
             return (
               <>
-                <section class="futureunicorn-slider-sections futureunicorn-only">
+                <section class="futureunicorn-slider-sections">
                   <div class="container-flex">
-                   
+            
                     <div className="row row-imgdirects">
                       <div className="row-img-direct">
                         <div className="img-certified-directors">
@@ -445,7 +481,8 @@ const docs =[{
                                                 >
                                                   {itemudVendorId.Role}
                                                 </p>
-                                                <ul>
+                                              </div>
+                                              <ul>
                                                 <li>
                                                   {itemudVendorId.description1}
                                                 </li>
@@ -453,8 +490,6 @@ const docs =[{
                                                   {itemudVendorId.description2}
                                                 </li>
                                               </ul>
-                                              </div>
-                                            
                                             </div>
                                           </div>
                                         </div>
@@ -632,37 +667,117 @@ const docs =[{
                                         </div>
                                     </div>
                                 </div> */}
-  <div className="accordion-item">
-      <h3 className="accordion-header" id="flush-headingfour">
-        <button
-          className="accordion-button collapsed"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#flush-headingfournew"
-          aria-expanded="false"
-          aria-controls="flush-headingfour"
-        >
-          <span>
-            <img src="./assets/images/gallery.png" alt="" />
-          </span>
-          Investor Presentation
-        </button>
-      </h3>
-      <div
-        id="flush-headingfournew"
-        className="accordion-collapse collapse"
-        aria-labelledby="flush-headingfour"
-        data-bs-parent="#accordionFlushExample"
-      >
-        <div className="accordion-body">
-          {/* Use FileViewer to display PPTX */}
-          <PdfViewerComponent
-           document={'ppt1.pptx'}
-          />
-          {error && <div>Error: {error}</div>}
-        </div>
-      </div>
-    </div>
+
+                          <div class="accordion-item">
+                            <h3 class="accordion-header" id="flush-headingfour">
+                              <button
+                                class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#flush-headingfournew"
+                                aria-expanded="false"
+                                aria-controls="flush-headingfour"
+                              >
+                                <span>
+                                  <img
+                                    src="./assets/images/gallery.png"
+                                    alt=""
+                                  />
+                                </span>
+                                Investor Presentation
+                              </button>
+                            </h3>
+                            <div
+                              id="flush-headingfournew"
+                              class="accordion-collapse collapse"
+                              aria-labelledby="flush-headingfour"
+                              data-bs-parent="#accordionFlushExample"
+                            >
+                              <div class="accordion-body">
+                                <iframe
+                                  src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.udPitchDeck)}`}
+                                  frameborder="0"
+                                  height={"500px"}
+                                  width={"100%"}
+                                ></iframe>
+                                {/* <div className="row justify-content-center">
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                    <div className="img-future-gallery">
+                                      <img
+                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                </div> */}
+                              </div>
+                            </div>
+                          </div>
+
                           <div class="accordion-item">
                             <h3 class="accordion-header" id="flush-headingWait">
                               <button
@@ -926,7 +1041,7 @@ const docs =[{
                     <div className="row">
                       <div className="col-12">
                         <div className="investor-amounts">
-                          <Link to="/CheckboxThank">I am Interested</Link>
+                          <a  onClick={openiamintrest}>I am Interested</a>
                         </div>
                       </div>
                     </div>
@@ -935,7 +1050,104 @@ const docs =[{
               </>
             );
           })}
-
+   <Modal
+        // title={`Invest in ${this.state.deal_name}`}
+        visible={iamintrestmodal}
+        onOk={() => {
+          setiamintrestmodal(false);
+        }}
+        onCancel={() => {
+          setiamintrestmodal(false);
+        }}
+        width={900}
+        footer={false}
+      >
+        <section
+          class="about-page-section blog-section payment-sec pb-0"
+          style={{ paddingBottom: "0px !important" }}
+        >
+          <div class="container">
+            <div class="row">
+              <div
+                class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center align-items-center"
+                style={{ pointerEvents: "none" }}
+              ></div>
+            </div>
+            <div className="row  justify-content-center ">
+              <div className="col-md-8 col-12 col-sm-12 col-xl-8 col-xxl-8">
+                <div className="card-payment-methods">
+                  <div class="heading-title m-sm-0">
+                    <p>
+                      <span></span>{" "}
+                    </p>
+                    <h2>Fill The Form</h2>
+                  </div>
+                  <div className="para-proceed">
+                    <form action="" className="form-checkbox">
+                      <div className="row">
+                        <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
+                          <input
+                            type="checkbox"
+                            name="I Want to know more about it"
+                            value={data["I Want to know more about it"]}
+                            checked={
+                              data["I Want to know more about it"] == true
+                            }
+                            onClick={adddata}
+                          />
+                          <label htmlFor="">I Want to know more about it</label>
+                        </div>
+                        <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
+                          <input
+                            type="checkbox"
+                            name="I want to work with you"
+                            value={data["I want to work with you"]}
+                            checked={data["I want to work with you"] == true}
+                            onClick={adddata}
+                          />
+                          <label htmlFor="">I want to work with you</label>
+                        </div>
+                        <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
+                          <input
+                            type="checkbox"
+                            name="I am excited to invest in your startups"
+                            value={
+                              data["I am excited to invest in your startups"]
+                            }
+                            checked={
+                              data["I am excited to invest in your startups"] ==
+                              true
+                            }
+                            onClick={adddata}
+                          />
+                          <label htmlFor="">
+                            I am excited to invest in your startups
+                          </label>
+                        </div>
+                        <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mt-2">
+                          <textarea
+                            value={data.message}
+                            name="message"
+                            onChange={adddata}
+                            id="w3review"
+                            rows="4"
+                            className="w100"
+                            placeholder="Message"
+                          />
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div className="button-proceed-online">
+                    <a onClick={submitintrest}>Submit</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </Modal>
+<ToastContainer/>
       <NewWebFooter />
     </div>
   );

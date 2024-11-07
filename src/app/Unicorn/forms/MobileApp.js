@@ -208,10 +208,12 @@ class MobileApp extends Component {
                                   <button  
                                   className={this.props.unicorn.tudIphoneMobileApp=='Yes' && 'active'} 
                                   value="Yes"
+                                  name='tudIphoneMobileApp'
                                   onClick={(e) => {this.props.onInput(e.target.name, e.target.value)}}
 
                                   >Yes</button>
                                   <button  
+                                  name='tudIphoneMobileApp'
                                   className={this.props.unicorn.tudIphoneMobileApp=='No' && 'active'} 
                                   value="No"
                                   onClick={(e) => {this.props.onInput(e.target.name, e.target.value)}}

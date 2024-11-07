@@ -1099,6 +1099,8 @@ class Investors extends Component {
   };
 
   render() {
+   
+    
     const disdingid = () => {
       console.log(this.state.modes);
       if (this.state.modes == "ass") {
@@ -1374,7 +1376,7 @@ class Investors extends Component {
                   &nbsp;&nbsp;Edit
                 </a>
               </Menu.Item>
-              { localStorage.getItem("super_admin") === "1" &&(text.user_block_status == 0 ? (
+              { JSON.parse(localStorage.getItem("super_admin")) == "1" &&(text.user_block_status == 0 ? (
                 <Menu.Item
                   key={`disable_${record.key}`}
                   icon={<EyeInvisibleFilled />}

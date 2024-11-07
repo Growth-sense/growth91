@@ -2894,9 +2894,9 @@ Growth91 Advisors Private Limited<br>
           key: "nestcreated_at",
           width: 110,
         },
-        // ];
-        // localStorage.getItem("super_admin") === "1" &&
-        // nestColumns.push(
+        ];
+        JSON.parse(localStorage.getItem("super_admin")) === "1" &&
+        nestColumns.push(
         {
           title: "Action",
           dataIndex: "action",
@@ -2934,8 +2934,8 @@ Growth91 Advisors Private Limited<br>
             );
           },
         },
-      ];
-      // );
+      // ];
+      );
       const nestDataSource = record.child.map((item, index) => {
         return {
           key: index,
