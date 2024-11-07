@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import Bridge from "./constants/Bridge.js";
 import axios from "axios";
 import Foundermylistnew from "./foundermylistnew.js";
+import Sidebar from "./Founder/common/Sidebar.js";
+import Header from "./common/Header.js";
 
 export const FounderInterest = () => {
   //
@@ -113,33 +115,39 @@ export const FounderInterest = () => {
     ],
   };
   return (
-    <div>
-    <div classname="newabout">
-      <NewWebHeader newabout={"newabout"} />
-    </div>
-    <section></section>
-    <div className="row">
-      {/* <div className="collapse navbar-collapse" id="navbarSupportedContent"
-          style={{ width:'fit-content' }}> */}
-      <div
-        className="hiw-nav col-md-2 col-12 py-3 px-0 sidebar2 collapse navbar-collapse"
-        id="navbarSupportedContent"
-      >
-        {/* <section></section> */}
-        <Foundermylistnew />
-      </div>
-      <div className="hiw-nav col-md-2 col-12 py-3 px-0 d-lg-block d-none ">
-        {/* <section></section> */}
-        <Foundermylistnew />
-      </div>
+    <div
+      style={{
+        background: "rgba(0, 0, 0, 0.036)",
+        paddingBottom: "0",
+        margin: "1px",
+        height: "100%",
+      }}
+    >
+      <Header />
+      <section></section>
 
-      <div className="  col col-lg-8 pb-4 ">
-        {/* How do i invest? */}
-        <section
-          id="hdii"
-          className="m-lg-0  m-3"
-          style={{ marginTop: 25, minHeight: "75vh" }}
+      <div className="row">
+        {/* <div className="collapse navbar-collapse" id="navbarSupportedContent"
+          style={{ width:'fit-content' }}> */}
+        <div
+          className="hiw-nav col-md-2 col-12 py-3 px-0 sidebar2 collapse navbar-collapse"
+          id="navbarSupportedContent"
         >
+          {/* <section></section> */}
+          <Sidebar />
+        </div>
+        <div className="hiw-nav col-md-2 col-12 py-3 px-0 d-lg-block d-none ">
+          {/* <section></section> */}
+          <Sidebar />
+        </div>
+
+        <div className="  col col-lg-8 pb-4 ">
+          {/* How do i invest? */}
+          <section
+            id="hdii"
+            className="m-lg-0  m-3"
+            style={{ marginTop: 25, minHeight: "75vh" }}
+          >
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center align-items-center" style={{ pointerEvents: "none" }}>
