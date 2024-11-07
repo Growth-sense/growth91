@@ -95,6 +95,7 @@ export const FounderMyPlan = () => {
         }]
     }
     return (
+        <>
         <div
         style={{
           background: "rgba(0, 0, 0, 0.036)",
@@ -212,8 +213,9 @@ export const FounderMyPlan = () => {
 
 
 
-            <NewWebFooter />
 
         </div>
+            <NewWebFooter />
+            </>
     )
 }

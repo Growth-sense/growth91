@@ -20,6 +20,7 @@ export const FutureUnicornDescription = () => {
 
   const [unicorn, setUnicorn] = useState();
   const [memberdata, setmemberdata] = useState();
+  const [message, setmessage] = useState();
   const [iamintrestmodal, setiamintrestmodal] = useState(false);
   const [data, setdata] = useState({
     "I Want to know more about it": false,
@@ -132,22 +133,25 @@ export const FutureUnicornDescription = () => {
   };
   const adddata = (e) => {
     if (e.target.name == "message") {
-      setdata({ ...data, [e.target.name]: [e.target.value] });
+      // setdata({ ...data, [e.target.name]: [e.target.value] });
     } else {
-      setdata({ ...data, [e.target.name]: !data[e.target.name] });
+      setdata({  [e.target.name]: true });
     }
   };
   const submitintrest = () => {
-    console.log(unicorn[0]);
+    console.log(unicorn);
+let datas= unicorn
+.filter((item) => item.unicornDealID == id)
+console.log(data);
 
     let params = {
-      unicornDealID: unicorn[0].unicornDealID,
-      udFounderID: unicorn[0].udFounderID,
+      unicornDealID: datas[0].unicornDealID,
+      udFounderID: datas[0].udFounderID,
       investor_id: localStorage.getItem("investor_id"),
-      interestKnowMore: data["I Want to know more about it"],
-      interestWorkwithYou: data["I want to work with you"],
-      interestInvestinStartup: data["I am excited to invest in your startups"],
-      interestMessage: data["message"][0],
+      interestKnowMore: data["I Want to know more about it"] == true||false,
+      interestWorkwithYou: data["I want to work with you"]== true||false,
+      interestInvestinStartup: data["I am excited to invest in your startups"]== true||false,
+      interestMessage: message,
     };
     Bridge.Unicorn.add_unicorn_interest(params).then((result) => {
       console.log(result);
@@ -1041,8 +1045,11 @@ export const FutureUnicornDescription = () => {
                     <div className="row">
                       <div className="col-12">
                         <div className="investor-amounts">
-                          <a  onClick={openiamintrest}>I am Interested</a>
+                          <a style={{color:"white"}} onClick={openiamintrest}>I am Interested</a>
                         </div>
+                        <div className="investor-amounts button">
+                          <a  href="/FutureUnicornList">Unicorn List page</a>
+                      </div>
                       </div>
                     </div>
                   </div>
@@ -1087,7 +1094,7 @@ export const FutureUnicornDescription = () => {
                       <div className="row">
                         <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
                           <input
-                            type="checkbox"
+                            type="radio"
                             name="I Want to know more about it"
                             value={data["I Want to know more about it"]}
                             checked={
@@ -1099,7 +1106,7 @@ export const FutureUnicornDescription = () => {
                         </div>
                         <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
                           <input
-                            type="checkbox"
+                            type="radio"
                             name="I want to work with you"
                             value={data["I want to work with you"]}
                             checked={data["I want to work with you"] == true}
@@ -1109,7 +1116,7 @@ export const FutureUnicornDescription = () => {
                         </div>
                         <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
                           <input
-                            type="checkbox"
+                            type="radio"
                             name="I am excited to invest in your startups"
                             value={
                               data["I am excited to invest in your startups"]
@@ -1126,9 +1133,9 @@ export const FutureUnicornDescription = () => {
                         </div>
                         <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mt-2">
                           <textarea
-                            value={data.message}
+                            value={message}
                             name="message"
-                            onChange={adddata}
+                            onChange={(e)=>{setmessage(e.target.value)}}
                             id="w3review"
                             rows="4"
                             className="w100"

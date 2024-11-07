@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Modal, Spin, Steps,message } from "antd";
+import { Modal, Spin, Steps, message } from "antd";
 import BasicDetails from "./BasicDetails";
 import Step2 from "./IdeaBusiness";
 import Step3 from "./IntellectualProperty";
@@ -310,7 +310,9 @@ class Founderadmindashboard extends Component {
         tudLogoImage: "",
         tudAddress: "",
         tudTempUdID: "",
-        show_thankyou_modal:"",
+        show_thankyou_modal: "",
+        unicornid: "",
+        tudDeclare: false,
 
         founderID: localStorage.getItem("founder_id"),
       },
@@ -934,201 +936,304 @@ class Founderadmindashboard extends Component {
     this.setState({ loading: true });
     console.log(this.state.unicorn);
     if (
-      !this.state.unicorn.tudEmail ||this.state.unicorn.tudEmail==""||
-      !this.state.unicorn.tudStartupName ||this.state.unicorn.tudStartupName==""||
-      !this.state.unicorn.tudPrimaryContactName ||this.state.unicorn.tudPrimaryContactName==""||
-      !this.state.unicorn.tudPrimaryContactMobile ||this.state.unicorn.tudPrimaryContactMobile==""||
-      !this.state.unicorn.tudPrimaryContactEmail||this.state.unicorn.tudPrimaryContactEmail==""
+      !this.state.unicorn.tudEmail ||
+      this.state.unicorn.tudEmail == "" ||
+      !this.state.unicorn.tudStartupName ||
+      this.state.unicorn.tudStartupName == "" ||
+      !this.state.unicorn.tudPrimaryContactName ||
+      this.state.unicorn.tudPrimaryContactName == "" ||
+      !this.state.unicorn.tudPrimaryContactMobile ||
+      this.state.unicorn.tudPrimaryContactMobile == "" ||
+      !this.state.unicorn.tudPrimaryContactEmail ||
+      this.state.unicorn.tudPrimaryContactEmail == ""
     ) {
       this.setState({ loading: false });
-      this.activeform(0)
-      toast.error("Please fill all Basic Details");
+      this.activeform(0);
+      toast.error("Please fill Basic Section");
       return;
     }
-    console.log(this.state.unicorn.tudRolesCoreTeam,this.state.unicorn.tudDisruptingMarket
-      ,this.state.unicorn.tudTappingNew
-      ,this.state.unicorn.tudCustomerBenifit
-      ,this.state.unicorn.tudSuppliersBenifit
-      ,this.state.unicorn.focused_on_product
-      ,this.state.unicorn.tudDirectSubstitueAvailable
-      ,this.state.unicorn.tudIndirectSubstitueAvailable
-      ,this.state.unicorn.tudRiskPerceived
-      ,this.state.unicorn.tudMoats
-      ,this.state.unicorn.tudScaleupChallenges);
-    
+    console.log(
+      this.state.unicorn.tudRolesCoreTeam,
+      this.state.unicorn.tudDisruptingMarket,
+      this.state.unicorn.tudTappingNew,
+      this.state.unicorn.tudCustomerBenifit,
+      this.state.unicorn.tudSuppliersBenifit,
+      this.state.unicorn.focused_on_product,
+      this.state.unicorn.tudDirectSubstitueAvailable,
+      this.state.unicorn.tudIndirectSubstitueAvailable,
+      this.state.unicorn.tudRiskPerceived,
+      this.state.unicorn.tudMoats,
+      this.state.unicorn.tudScaleupChallenges
+    );
+
     if (
-      !this.state.unicorn.tudDisruptingMarket ||this.state.unicorn.tudDisruptingMarket==""||
-      !this.state.unicorn.tudTappingNew ||this.state.unicorn.tudTappingNew==""||
-      !this.state.unicorn.tudCustomerBenifit ||this.state.unicorn.tudCustomerBenifit==""||
-      !this.state.unicorn.tudSuppliersBenifit ||this.state.unicorn.tudSuppliersBenifit==""||
+      !this.state.unicorn.tudDisruptingMarket ||
+      this.state.unicorn.tudDisruptingMarket == "" ||
+      !this.state.unicorn.tudTappingNew ||
+      this.state.unicorn.tudTappingNew == "" ||
+      !this.state.unicorn.tudCustomerBenifit ||
+      this.state.unicorn.tudCustomerBenifit == "" ||
+      !this.state.unicorn.tudSuppliersBenifit ||
+      this.state.unicorn.tudSuppliersBenifit == "" ||
       // !this.state.unicorn.focused_on_product ||this.state.unicorn.focused_on_product==""||
-      !this.state.unicorn.tudDirectSubstitueAvailable ||this.state.unicorn.tudDirectSubstitueAvailable==""||
-      !this.state.unicorn.tudIndirectSubstitueAvailable ||this.state.unicorn.tudIndirectSubstitueAvailable==""||
-      !this.state.unicorn.tudRiskPerceived ||this.state.unicorn.tudRiskPerceived==""||
-      !this.state.unicorn.tudMoats ||this.state.unicorn.tudMoats==""||
-      !this.state.unicorn.tudScaleupChallenges ||this.state.unicorn.tudScaleupChallenges==""
+      !this.state.unicorn.tudDirectSubstitueAvailable ||
+      this.state.unicorn.tudDirectSubstitueAvailable == "" ||
+      !this.state.unicorn.tudIndirectSubstitueAvailable ||
+      this.state.unicorn.tudIndirectSubstitueAvailable == "" ||
+      !this.state.unicorn.tudRiskPerceived ||
+      this.state.unicorn.tudRiskPerceived == "" ||
+      !this.state.unicorn.tudMoats ||
+      this.state.unicorn.tudMoats == "" ||
+      !this.state.unicorn.tudScaleupChallenges ||
+      this.state.unicorn.tudScaleupChallenges == ""
     ) {
       this.setState({ loading: false });
-      this.activeform(1)
-      toast.error("Please fill all Ideal/Business Details");
+      this.activeform(1);
+      toast.error("Please fill Ideal/Business Section");
       return;
     }
     if (
-      !this.state.unicorn.tudAndroidMobileApp ||this.state.unicorn.tudAndroidMobileApp==""||
-      !this.state.unicorn.tudAndroidAppDetails ||this.state.unicorn.tudAndroidAppDetails==""||
-      !this.state.unicorn.tudIphoneMobileApp ||this.state.unicorn.tudIphoneMobileApp==""||
-      !this.state.unicorn.tudIphoneAppDetails ||this.state.unicorn.tudIphoneAppDetails==""
+      !this.state.unicorn.tudAndroidMobileApp ||
+      this.state.unicorn.tudAndroidMobileApp == "" ||
+      !this.state.unicorn.tudAndroidAppDetails ||
+      this.state.unicorn.tudAndroidAppDetails == "" ||
+      !this.state.unicorn.tudIphoneMobileApp ||
+      this.state.unicorn.tudIphoneMobileApp == "" ||
+      !this.state.unicorn.tudIphoneAppDetails ||
+      this.state.unicorn.tudIphoneAppDetails == ""
     ) {
       this.setState({ loading: false });
-      this.activeform(3)
+      this.activeform(3);
 
-      toast.error("Please fill all Mobile app Details");
+      toast.error("Please fill Mobile app Section");
       return;
     }
     if (
-      !this.state.unicorn.tudIndustryClassification ||this.state.unicorn.tudIndustryClassification==""||
-      !this.state.unicorn.tudIndustryViews ||this.state.unicorn.tudIndustryViews==""||
-      !this.state.unicorn.tudIndustryMarketSize ||this.state.unicorn.tudIndustryMarketSize==""||
-      !this.state.unicorn.tudSupportingInfoMarketSize ||this.state.unicorn.tudSupportingInfoMarketSize==""||
-      !this.state.unicorn.tudAddressableMarketSize ||this.state.unicorn.tudAddressableMarketSize==""||
-      !this.state.unicorn.tudSupportingInfoAddressableMarketSize||this.state.unicorn.tudSupportingInfoAddressableMarketSize==""
+      !this.state.unicorn.tudIndustryClassification ||
+      this.state.unicorn.tudIndustryClassification == "" ||
+      !this.state.unicorn.tudIndustryViews ||
+      this.state.unicorn.tudIndustryViews == "" ||
+      !this.state.unicorn.tudIndustryMarketSize ||
+      this.state.unicorn.tudIndustryMarketSize == "" ||
+      !this.state.unicorn.tudSupportingInfoMarketSize ||
+      this.state.unicorn.tudSupportingInfoMarketSize == "" ||
+      !this.state.unicorn.tudAddressableMarketSize ||
+      this.state.unicorn.tudAddressableMarketSize == "" ||
+      !this.state.unicorn.tudSupportingInfoAddressableMarketSize ||
+      this.state.unicorn.tudSupportingInfoAddressableMarketSize == ""
     ) {
       this.setState({ loading: false });
-      this.activeform(4)
+      this.activeform(4);
 
-      toast.error("Please fill all Industry Market Details");
+      toast.error("Please fill Industry Market Section");
       return;
     }
     if (
-      !this.state.unicorn.tudLocalDirectComp ||this.state.unicorn.tudLocalDirectComp==""||
-      !this.state.unicorn.tudLocalIndirectComp ||this.state.unicorn.tudLocalIndirectComp==""||
-      !this.state.unicorn.tudGlobalDirectComp ||this.state.unicorn.tudGlobalDirectComp==""||
-      !this.state.unicorn.tudGlobalIndirectComp ||this.state.unicorn.tudGlobalIndirectComp==""||
-      !this.state.unicorn.tudDiffCompetion ||this.state.unicorn.tudDiffCompetion==""||
-      !this.state.unicorn.tudWhyCompSame ||this.state.unicorn.tudWhyCompSame==""||
-      !this.state.unicorn.tudUnfairAdv ||this.state.unicorn.tudUnfairAdv==""||
-      !this.state.unicorn.tudLikeCompetion ||this.state.unicorn.tudLikeCompetion==""||
-      !this.state.unicorn.tudFailVenture ||this.state.unicorn.tudFailVenture==""||
-      !this.state.unicorn.tudFailureReason||this.state.unicorn.tudFailureReason==""
+      !this.state.unicorn.tudLocalDirectComp ||
+      this.state.unicorn.tudLocalDirectComp == "" ||
+      !this.state.unicorn.tudLocalIndirectComp ||
+      this.state.unicorn.tudLocalIndirectComp == "" ||
+      !this.state.unicorn.tudGlobalDirectComp ||
+      this.state.unicorn.tudGlobalDirectComp == "" ||
+      !this.state.unicorn.tudGlobalIndirectComp ||
+      this.state.unicorn.tudGlobalIndirectComp == "" ||
+      !this.state.unicorn.tudDiffCompetion ||
+      this.state.unicorn.tudDiffCompetion == "" ||
+      !this.state.unicorn.tudWhyCompSame ||
+      this.state.unicorn.tudWhyCompSame == "" ||
+      !this.state.unicorn.tudUnfairAdv ||
+      this.state.unicorn.tudUnfairAdv == "" ||
+      !this.state.unicorn.tudLikeCompetion ||
+      this.state.unicorn.tudLikeCompetion == "" ||
+      !this.state.unicorn.tudFailVenture ||
+      this.state.unicorn.tudFailVenture == "" ||
+      !this.state.unicorn.tudFailureReason ||
+      this.state.unicorn.tudFailureReason == ""
     ) {
       this.setState({ loading: false });
-      this.activeform(5)
+      this.activeform(5);
 
-      toast.error("Please fill all Comepetition Details");
+      toast.error("Please fill Comepetition Section");
       return;
     }
     if (
-      !this.state.unicorn.tudStrength ||this.state.unicorn.tudStrength==""||
-      !this.state.unicorn.tudWeakness ||this.state.unicorn.tudWeakness==""||
-      !this.state.unicorn.tudOpportunities ||this.state.unicorn.tudOpportunities==""||
-      !this.state.unicorn.tudThreats||this.state.unicorn.tudThreats==""
+      !this.state.unicorn.tudStrength ||
+      this.state.unicorn.tudStrength == "" ||
+      !this.state.unicorn.tudWeakness ||
+      this.state.unicorn.tudWeakness == "" ||
+      !this.state.unicorn.tudOpportunities ||
+      this.state.unicorn.tudOpportunities == "" ||
+      !this.state.unicorn.tudThreats ||
+      this.state.unicorn.tudThreats == ""
     ) {
       this.setState({ loading: false });
-      this.activeform(6)
-      toast.error("Please fill all SWOT Details");
+      this.activeform(6);
+      toast.error("Please fill SWOT Section");
       return;
     }
-    
+
     if (
-      !this.state.unicorn.tudGtmStratergy ||this.state.unicorn.tudGtmStratergy==""||
-      !this.state.unicorn.tudGtmBackup ||this.state.unicorn.tudGtmBackup==""||
-      !this.state.unicorn.tudExistingCac ||this.state.unicorn.tudExistingCac==""||
-      !this.state.unicorn.tudExpectedCac ||this.state.unicorn.tudExpectedCac==""||
-      !this.state.unicorn.tudLogicCac ||this.state.unicorn.tudLogicCac==""||
-      !this.state.unicorn.tudLtvCustomer ||this.state.unicorn.tudLtvCustomer==""||
-      !this.state.unicorn.tudLogicLtvNumber ||this.state.unicorn.tudLogicLtvNumber==""||
-      !this.state.unicorn.tudLtvCacRatio||this.state.unicorn.tudLtvCacRatio==""
+      !this.state.unicorn.tudGtmStratergy ||
+      this.state.unicorn.tudGtmStratergy == "" ||
+      !this.state.unicorn.tudGtmBackup ||
+      this.state.unicorn.tudGtmBackup == "" ||
+      !this.state.unicorn.tudExistingCac ||
+      this.state.unicorn.tudExistingCac == "" ||
+      !this.state.unicorn.tudExpectedCac ||
+      this.state.unicorn.tudExpectedCac == "" ||
+      !this.state.unicorn.tudLogicCac ||
+      this.state.unicorn.tudLogicCac == "" ||
+      !this.state.unicorn.tudLtvCustomer ||
+      this.state.unicorn.tudLtvCustomer == "" ||
+      !this.state.unicorn.tudLogicLtvNumber ||
+      this.state.unicorn.tudLogicLtvNumber == "" ||
+      !this.state.unicorn.tudLtvCacRatio ||
+      this.state.unicorn.tudLtvCacRatio == ""
     ) {
       this.setState({ loading: false });
-      this.activeform(9)
-      toast.error("Please fill all Go to market Details");
+      this.activeform(9);
+      toast.error("Please fill Go to market Section");
       return;
     }
-    if (!this.state.unicorn.tudPreviousFundRaised) {!this.state.unicorn.tudPreviousFundRaised==""||
-      this.setState({ loading: false });
-      this.activeform(13)
-      toast.error("Please fill all Go to Funding Detail Details");
+    if (!this.state.unicorn.tudPreviousFundRaised) {
+      !this.state.unicorn.tudPreviousFundRaised == "" ||
+        this.setState({ loading: false });
+      this.activeform(13);
+      toast.error("Please fill Go to Funding Detail Section");
       return;
     }
     if (
-      !this.state.unicorn.tudFundRequired ||this.state.unicorn.tudFundRequired==""||
-      !this.state.unicorn.tudExpRunway ||this.state.unicorn.tudExpRunway==""||
-      !this.state.unicorn.tudValueFundRaise ||this.state.unicorn.tudValueFundRaise==""||
-      !this.state.unicorn.tudLogicFundRaise ||this.state.unicorn.tudLogicFundRaise==""||
-      !this.state.unicorn.tudOpentoLower ||this.state.unicorn.tudOpentoLower==""||
-      !this.state.unicorn.tudCapexImmidate ||this.state.unicorn.tudCapexImmidate==""||
-      !this.state.unicorn.tudCapexFuture ||this.state.unicorn.tudCapexFuture==""||
-      !this.state.unicorn.tudProductFund ||this.state.unicorn.tudProductFund==""||
-      !this.state.unicorn.tudMarketingFund ||this.state.unicorn.tudMarketingFund==""||
+      !this.state.unicorn.tudFundRequired ||
+      this.state.unicorn.tudFundRequired == "" ||
+      !this.state.unicorn.tudExpRunway ||
+      this.state.unicorn.tudExpRunway == "" ||
+      !this.state.unicorn.tudValueFundRaise ||
+      this.state.unicorn.tudValueFundRaise == "" ||
+      !this.state.unicorn.tudLogicFundRaise ||
+      this.state.unicorn.tudLogicFundRaise == "" ||
+      !this.state.unicorn.tudOpentoLower ||
+      this.state.unicorn.tudOpentoLower == "" ||
+      !this.state.unicorn.tudCapexImmidate ||
+      this.state.unicorn.tudCapexImmidate == "" ||
+      !this.state.unicorn.tudCapexFuture ||
+      this.state.unicorn.tudCapexFuture == "" ||
+      !this.state.unicorn.tudProductFund ||
+      this.state.unicorn.tudProductFund == "" ||
+      !this.state.unicorn.tudMarketingFund ||
+      this.state.unicorn.tudMarketingFund == "" ||
       // !this.state.unicorn.use_of_funds_repayment ||this.state.unicorn.use_of_funds_repayment==""||
-      !this.state.unicorn.tudSalaryFund ||this.state.unicorn.tudSalaryFund==""||
-      !this.state.unicorn.tudCastComFund ||this.state.unicorn.tudCastComFund==""||
-      !this.state.unicorn.tudOthersFund||this.state.unicorn.tudOthersFund==""
+      !this.state.unicorn.tudSalaryFund ||
+      this.state.unicorn.tudSalaryFund == "" ||
+      !this.state.unicorn.tudCastComFund ||
+      this.state.unicorn.tudCastComFund == "" ||
+      !this.state.unicorn.tudOthersFund ||
+      this.state.unicorn.tudOthersFund == ""
     ) {
       this.setState({ loading: false });
-      this.activeform(14)
-      toast.error("Please fill all Use of funds Details");
+      this.activeform(14);
+      toast.error("Please fill Use of funds Section");
       return;
     }
     if (
-      !this.state.unicorn.tudSaleExitInfo ||this.state.unicorn.tudSaleExitInfo==""||
-      !this.state.unicorn.tudDepedencyPerson ||this.state.unicorn.tudDepedencyPerson==""||
-      !this.state.unicorn.tudReglarityIssue ||this.state.unicorn.tudReglarityIssue==""||
-      !this.state.unicorn.tudLicPermissionStatus ||this.state.unicorn.tudLicPermissionStatus==""||
-      !this.state.unicorn.tudTeamSize ||this.state.unicorn.tudTeamSize==""||
-      !this.state.unicorn.tud5perCommission ||this.state.unicorn.tud5perCommission==""||
-      !this.state.unicorn.tud10perCommission ||this.state.unicorn.tud10perCommission==""||
-      !this.state.unicorn.tudExitTimeline ||this.state.unicorn.tudExitTimeline==""||
-      !this.state.unicorn.tudSubsidiries ||this.state.unicorn.tudSubsidiries==""||
-      !this.state.unicorn.tudSisterConcerns ||this.state.unicorn.tudSisterConcerns==""||
-      !this.state.unicorn.tudRelatedPartyTrans ||this.state.unicorn.tudRelatedPartyTrans==""||
-      !this.state.unicorn.tudLegalRisk ||this.state.unicorn.tudLegalRisk==""||
-      !this.state.unicorn.tudFounderExitEarlier ||this.state.unicorn.tudFounderExitEarlier==""||
-      !this.state.unicorn.tudDemoLink ||this.state.unicorn.tudDemoLink==""||
-      !this.state.unicorn.tudOtherDocsLinks ||this.state.unicorn.tudOtherDocsLinks==""||
-      !this.state.unicorn.tudMediaCoverLinks ||this.state.unicorn.tudMediaCoverLinks==""||
-      !this.state.unicorn.tudAwards ||this.state.unicorn.tudAwards==""||
-      !this.state.unicorn.tudStartupRecon ||this.state.unicorn.tudStartupRecon==""||
-      !this.state.unicorn.tudOtherInfo||this.state.unicorn.tudOtherInfo==""
+      !this.state.unicorn.tudSaleExitInfo ||
+      this.state.unicorn.tudSaleExitInfo == "" ||
+      !this.state.unicorn.tudDepedencyPerson ||
+      this.state.unicorn.tudDepedencyPerson == "" ||
+      !this.state.unicorn.tudReglarityIssue ||
+      this.state.unicorn.tudReglarityIssue == "" ||
+      !this.state.unicorn.tudLicPermissionStatus ||
+      this.state.unicorn.tudLicPermissionStatus == "" ||
+      !this.state.unicorn.tudTeamSize ||
+      this.state.unicorn.tudTeamSize == "" ||
+      !this.state.unicorn.tud5perCommission ||
+      this.state.unicorn.tud5perCommission == "" ||
+      !this.state.unicorn.tud10perCommission ||
+      this.state.unicorn.tud10perCommission == "" ||
+      !this.state.unicorn.tudExitTimeline ||
+      this.state.unicorn.tudExitTimeline == "" ||
+      !this.state.unicorn.tudSubsidiries ||
+      this.state.unicorn.tudSubsidiries == "" ||
+      !this.state.unicorn.tudSisterConcerns ||
+      this.state.unicorn.tudSisterConcerns == "" ||
+      !this.state.unicorn.tudRelatedPartyTrans ||
+      this.state.unicorn.tudRelatedPartyTrans == "" ||
+      !this.state.unicorn.tudLegalRisk ||
+      this.state.unicorn.tudLegalRisk == "" ||
+      !this.state.unicorn.tudFounderExitEarlier ||
+      this.state.unicorn.tudFounderExitEarlier == "" ||
+      !this.state.unicorn.tudDemoLink ||
+      this.state.unicorn.tudDemoLink == "" ||
+      !this.state.unicorn.tudOtherDocsLinks ||
+      this.state.unicorn.tudOtherDocsLinks == "" ||
+      !this.state.unicorn.tudMediaCoverLinks ||
+      this.state.unicorn.tudMediaCoverLinks == "" ||
+      !this.state.unicorn.tudAwards ||
+      this.state.unicorn.tudAwards == "" ||
+      !this.state.unicorn.tudStartupRecon ||
+      this.state.unicorn.tudStartupRecon == "" ||
+      !this.state.unicorn.tudOtherInfo ||
+      this.state.unicorn.tudOtherInfo == ""
     ) {
       this.setState({ loading: false });
-      this.activeform(16)
-      toast.error("Please fill all Important indicators Details");
+      this.activeform(16);
+      toast.error("Please fill Important indicators Section");
       return;
     }
     if (
-      !this.state.unicorn.tudMark ||this.state.unicorn.tudMark==""||
-      !this.state.unicorn.tudStartupHighlights ||this.state.unicorn.tudStartupHighlights==""||
-      !this.state.unicorn.tudLogoImage ||this.state.unicorn.tudLogoImage==""||
-      !this.state.unicorn.tudBannerImage ||this.state.unicorn.tudBannerImage==""||
-      !this.state.unicorn.tudPitchDeck||this.state.unicorn.tudPitchDeck==""
+      !this.state.unicorn.tudMark ||
+      this.state.unicorn.tudMark == "" ||
+      !this.state.unicorn.tudStartupHighlights ||
+      this.state.unicorn.tudStartupHighlights == "" ||
+      !this.state.unicorn.tudLogoImage ||
+      this.state.unicorn.tudLogoImage == "" ||
+      !this.state.unicorn.tudBannerImage ||
+      this.state.unicorn.tudBannerImage == "" ||
+      !this.state.unicorn.tudPitchDeck ||
+      this.state.unicorn.tudPitchDeck == ""
     ) {
       this.setState({ loading: false });
-      this.activeform(18)
-      toast.error("Please fill all Supporting Documents Details");
+      this.activeform(18);
+      toast.error("Please fill Supporting Documents Section");
       return;
     }
-  
 
-
     if (
-      !this.state.unicorn.tudStartupFounderName ||this.state.unicorn.tudStartupFounderName==""||
-      !this.state.unicorn.tudLegalname ||this.state.unicorn.tudLegalname==""||
-      !this.state.unicorn.tudStartupFounderMobileNumber ||this.state.unicorn.tudStartupFounderMobileNumber==""||
-      !this.state.unicorn.tudStartupFounderEmail ||this.state.unicorn.tudStartupFounderEmail==""||
-      !this.state.unicorn.tudFoundedon ||this.state.unicorn.tudFoundedon==""||
-      !this.state.unicorn.tudAddress ||this.state.unicorn.tudAddress==""||
-      !this.state.unicorn.tudEmployees ||this.state.unicorn.tudEmployees==""||
-      !this.state.unicorn.tudCAPTableThresholdAmount ||this.state.unicorn.tudCAPTableThresholdAmount==""||
-      !this.state.unicorn.tudSpecialOfferText ||this.state.unicorn.tudSpecialOfferText==""||
-      !this.state.unicorn.tudInputDefaultText ||this.state.unicorn.tudInputDefaultText==""||
-      !this.state.unicorn.tudDealDescription ||this.state.unicorn.tudDealDescription==""||
-      !this.state.unicorn.tudYoutubeLink ||this.state.unicorn.tudYoutubeLink==""||
-      !this.state.unicorn.tudCategory||this.state.unicorn.tudCategory==""
+      !this.state.unicorn.tudStartupFounderName ||
+      this.state.unicorn.tudStartupFounderName == "" ||
+      !this.state.unicorn.tudLegalname ||
+      this.state.unicorn.tudLegalname == "" ||
+      !this.state.unicorn.tudStartupFounderMobileNumber ||
+      this.state.unicorn.tudStartupFounderMobileNumber == "" ||
+      !this.state.unicorn.tudStartupFounderEmail ||
+      this.state.unicorn.tudStartupFounderEmail == "" ||
+      !this.state.unicorn.tudFoundedon ||
+      this.state.unicorn.tudFoundedon == "" ||
+      !this.state.unicorn.tudAddress ||
+      this.state.unicorn.tudAddress == "" ||
+      !this.state.unicorn.tudEmployees ||
+      this.state.unicorn.tudEmployees == "" ||
+      !this.state.unicorn.tudCAPTableThresholdAmount ||
+      this.state.unicorn.tudCAPTableThresholdAmount == "" ||
+      !this.state.unicorn.tudSpecialOfferText ||
+      this.state.unicorn.tudSpecialOfferText == "" ||
+      !this.state.unicorn.tudInputDefaultText ||
+      this.state.unicorn.tudInputDefaultText == "" ||
+      !this.state.unicorn.tudDealDescription ||
+      this.state.unicorn.tudDealDescription == "" ||
+      !this.state.unicorn.tudYoutubeLink ||
+      this.state.unicorn.tudYoutubeLink == "" ||
+      !this.state.unicorn.tudCategory ||
+      this.state.unicorn.tudCategory == ""
     ) {
       this.setState({ loading: false });
-      this.activeform(19)
-      toast.error("Please fill all Deals Details");
+      this.activeform(19);
+      toast.error("Please fill Deals Section");
+      return;
+    }
+    if (!this.state.unicorn.tudDeclare || this.state.unicorn.tudDeclare == "") {
+      this.setState({ loading: false });
+      this.activeform(21);
+      toast.error("Please Declara ");
       return;
     }
     let params = {
@@ -1137,14 +1242,17 @@ class Founderadmindashboard extends Component {
     };
     Bridge.Unicorn.publishunicorndeal(params).then((result) => {
       console.log(result);
-      this.setState({ loading: false,show_thankyou_modal:true });
+      this.setState({
+        loading: false,
+        show_thankyou_modal: true,
+        unicornid: result.id,
+      });
       toast.success("Unicorn Publish Success fully");
     });
   };
-  updatefounder = async() => {
+  updatefounder = async (data) => {
     // console.log(this.state.mediacoverager);
- 
-   
+
     // let params = {
     //   no: 18,
     //   main_founder_id: localStorage.getItem("founder_id"),
@@ -1155,15 +1263,22 @@ class Founderadmindashboard extends Component {
     setTimeout(() => {
       // console.log(this.props.unicorn.tudMediaCoverageFiles);
 
-      Bridge.Unicorn.editunicorndraft(this.props.unicorn).then((result) => {
+      Bridge.Unicorn.editunicorndraft(this.state.unicorn).then((result) => {
         if (result.status == 1) {
-          this.setState({ loading: false }, );
-        
+          this.setState({ loading: false });
+          if (data === "save as draft") {
+            toast.success("Unicorn save as draft")
+            setTimeout(() => {
+              window.location.assign("/FounderMyListing");
+              
+            }, 1000);
+          } else {
+            this.publishunicorn();
+          }
         } else {
           message.warning(result.message);
           this.setState({ loading: false });
         }
-        console.log(this.state.mediacoverager);
       });
     }, 3000);
   };
@@ -2171,16 +2286,18 @@ class Founderadmindashboard extends Component {
             <div className="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto mt-3">
               <div className="submit-draft-publish d-flex justify-content-center">
                 <Previewbutton unicorn={this.state.unicorn} />
-                <Link to="FounderDashboardType" 
-                // onClick={()=>{
-                //   this.updatefounder()
-                //                   }} 
-                className="submit-future">
+                <a
+                  
+                  onClick={() => {
+                    this.updatefounder("save as draft");
+                  }}
+                  className="submit-future"
+                >
                   Save as Draft
-                </Link>
+                </a>
                 <a
                   onClick={() => {
-                    this.publishunicorn();
+                    this.updatefounder();
                   }}
                   // to="MemberShip"
                   className="submit-future"
@@ -2191,41 +2308,45 @@ class Founderadmindashboard extends Component {
             </div>
           </div>
           <Modal
-        // title="Thank You"
-        centered
-        open={this.state.show_thankyou_modal}
-        className="thankumodal"
-        // onCancel={this.cancelThankyou}
-        iconType="SmileOutlined"
-        maskClosable={false}
-        cancelText={"Cancel"}
-        footer={[
-          <>
-          <Link to="/futureUnicornList">
-            <button className="btn btn-block">View Startup</button>
-          </Link>
-          <Link to="/founder-dashboard">
-            <button className="btn btn-block">Go to Dashboard</button>
-          </Link>
-          </>
-        ]}
-        >
-          <div className="modal-confirm">
-          <div className="modal-content">
-			<div className="modal-header">
-				<div className="icon-box">
-          <i class="far fa-check-circle"></i>
-				</div>		
-        <div className="modal-title">
-				  <h4>Thankyou</h4>	
-        </div>		
-			</div>
-			<div className="modal-body">
-				<p className="text-center">We received your commitment. Payment link will be activated once deal is closed.</p>
-			</div>
-		</div>
-    </div>
-        </Modal>
+            // title="Thank You"
+            centered
+            open={this.state.show_thankyou_modal}
+            className="thankumodal"
+            // onCancel={this.cancelThankyou}
+            iconType="SmileOutlined"
+            maskClosable={false}
+            cancelText={"Cancel"}
+            footer={[
+              <>
+                <Link
+                  to={`/FutureUnicornDescription?id=${this.state.unicornid}`}
+                >
+                  <button className="btn btn-block">View Startup</button>
+                </Link>
+                <Link to="/founder-dashboard">
+                  <button className="btn btn-block">Go to Dashboard</button>
+                </Link>
+              </>,
+            ]}
+          >
+            <div className="modal-confirm">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <div className="icon-box">
+                    <i class="far fa-check-circle"></i>
+                  </div>
+                  <div className="modal-title">
+                    <h4>Thankyou</h4>
+                  </div>
+                </div>
+                <div className="modal-body">
+                  <p className="text-center">
+                    Future Unicorn is published successfully.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Modal>
         </Spin>
         <ToastContainer />
       </div>
