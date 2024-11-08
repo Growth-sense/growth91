@@ -52,6 +52,7 @@ class FamilyAdmin extends Component {
       // edit
       editname: "",
       editstatus: "",
+      editModalStatus: false,
 
       addModalStatus: false,
       loading: false,
@@ -171,7 +172,7 @@ class FamilyAdmin extends Component {
     this.setState({
       editname: item.name,
       editstatus: item.status,
-      editModalStatus: true,
+      editModalStatus: false,
       startupid: item.startupid,
       editselectedfounder:
         item.founder_id.length > 0 ? JSON.parse(item.founder_id) : [],
@@ -199,12 +200,14 @@ class FamilyAdmin extends Component {
     this.setState({ loading: true, searchinput: text });
     if (text) {
       let arr = [];
-      for (let item of this.state.cstartups) {
+      for (let item of this.state.startups) {
         if (
-          (item.name && item.name.toLowerCase().includes(text.toLowerCase())) ||
+          (item.first_name && item.first_name.toLowerCase().includes(text.toLowerCase())) ||
+          (item.groupName && item.groupName.toLowerCase().includes(text.toLowerCase())) ||
+          (item.email && item.email.toLowerCase().includes(text.toLowerCase())) ||
           (item.status &&
             item.status.toLowerCase().includes(text.toLowerCase())) ||
-          (item.startupid && item.startupid.includes(text.toLowerCase()))
+          (item.groupID && item.groupID.includes(text.toLowerCase()))
         ) {
           arr = [...arr, item];
         }
@@ -267,16 +270,18 @@ class FamilyAdmin extends Component {
     let arr = [];
     let count = 1;
     for (let item of this.state.startups) {
+  
+      
       let obj = {
         "Sr No": count++,
-        "Startup ID": item.startupid ? item.startupid : "---",
-        "Startup Name": item.name ? item.name : "---",
-        "Founder Name": item.founder_name ? item.founder_name : "---",
-        "Founder Email": item.founder_email ? item.founder_email : "---",
-        "Founder Mobile": item.founder_mobile ? item.founder_mobile : "---",
-        "No of Investors": item.investors_count ? item.investors_count : "---",
-        "Total Investment": item.total_investment ? item.total_investment : "---",
-        "Total Fees": item.total_fees ? item.total_fees : "---",
+        "Group ID": item.groupID ? item.groupID : "---",
+        "Group Name": item.groupName ? item.groupName : "---",
+        "Email": item.email ? item.email : "---",
+        "Group Status": item.groupStatus ? item.groupStatus : "---",
+        "Admin Name": item.first_name ? item.first_name +""+item.last_name: "---",
+        "Admin Mobile": item.mobile ? item.mobile : "---",
+        "Admin Id": item.userID ? item.userID : "---",
+        
         Status: item.status,
         // 'Tax Type': item.payment_type,
         // 'KYC Status': item.isapproved,
@@ -481,21 +486,8 @@ class FamilyAdmin extends Component {
 
             <Content className="home-section">
               <Card
-                title="Startups"
-                extra={
-                  <Button type="primary" onClick={this.showAddModal}>
-                    <i
-                      className="bx bxs-plus-circle"
-                      style={{
-                        color: "#fff",
-                        position: "relative",
-                        top: 3,
-                        left: -3,
-                      }}
-                    ></i>{" "}
-                    Add New Startup
-                  </Button>
-                }
+                title="Groups"
+                
                 style={{ margin: 16 }}
               >
                 <Breadcrumb
@@ -687,7 +679,7 @@ class FamilyAdmin extends Component {
         <Modal
           title="Edit Group"
           visible={this.state.editModalStatus}
-          onOk={this.updatestartup}
+falsek={this.updatestartup}
           okText="Update"
           onCancel={() => this.setState({ editModalStatus: false })}
           width={550}

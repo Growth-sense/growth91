@@ -130,6 +130,39 @@ export default class Sidebar extends Component {
               &nbsp;&nbsp;Deals
             </li>
           </a>
+          <a
+            href="/FounderInterest"
+            className={
+              window.location.pathname == "/FounderInterest" ? "active" : ""
+            }
+          >
+            <li className="hiw-li">
+              <i className="bx bx-calendar-star" style={{ fontSize: 20 }}></i>{" "}
+              &nbsp;&nbsp;Enquiry/Lead
+            </li>
+          </a>
+          <a
+            href="/FounderMyPlan"
+            className={
+              window.location.pathname == "/FounderMyPlan" ? "active" : ""
+            }
+          >
+            <li className="hiw-li">
+              <i className="bx bx-calendar-star" style={{ fontSize: 20 }}></i>{" "}
+              &nbsp;&nbsp;My Plan
+            </li>
+          </a>
+          <a
+            href="/FounderMyListing"
+            className={
+              window.location.pathname == "/FounderMyListing" ? "active" : ""
+            }
+          >
+            <li className="hiw-li">
+              <i className="bx bx-calendar-star" style={{ fontSize: 20 }}></i>{" "}
+              &nbsp;&nbsp;My Future Unicorn
+            </li>
+          </a>
         </div>
         {this.state.is_investor == "1" ? (
           <div className="founder-side-extra-role">

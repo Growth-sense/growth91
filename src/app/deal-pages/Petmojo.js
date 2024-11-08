@@ -1163,10 +1163,10 @@ class Petmojo extends Component {
                           <span className="checkmark"></span>
                         </label>
 
-                        {/* <label className="container-check">I will deduct TDS on service charges and deposit to Income tax on time
+                        <label className="container-check">I will deduct TDS on service charges and deposit to Income tax on time
                       <input type="checkbox" name="deduct" onChange={this.onChangeCheckbox}  />
                       <span className="checkmark"></span>
-                    </label> */}
+                    </label>
                       </div>
 
                       <div className="col-12">

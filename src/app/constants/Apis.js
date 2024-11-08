@@ -142,6 +142,7 @@ const URLs = {
   get_image_list_of_pitch: "Deal/pitch_list",
   bulkapproveuser: "admin/Investors/bulkapproveuser",
   bulkrejectuser: "admin/Investors/bulkrejectuser",
+  send_email_to_investors: "admin/Investors/send_email_to_investors",
   getsettings: "admin/Settings/getsettings",
   updatesetting: "admin/Settings/updatesetting",
   updatetaxationsetting: "admin/Settings/updatetaxationsetting",
@@ -269,6 +270,8 @@ const URLs = {
   unicorndealsByInvestors:"founder/Startup/unicorndealsByInvestors",
   uploadunicornFiles:"founder/Startup/uploadunicornFiles",
   uploadFiles:"founder/Startup/uploadFiles",
+  add_unicorn_interest:"founder/Startup/add_unicorn_interest",
+  unicorn_interested_list:"founder/Startup/unicorn_interested_list",
 
 };
 

@@ -508,7 +508,6 @@ class Homenew extends Component {
             arrows: true,
             slidesToShow: 1,
             slidesToScroll: 1,
-            arrows: true,
             autoplay: false,
           },
         },
@@ -597,10 +596,11 @@ class Homenew extends Component {
                           Looking to Invest in Startups in India and 
                             Tap Into High-Growth Ventures?
                           </h1>
-                          <p class=" p-0">
-                            <span>
-                              Growth 91 connects you with the next big thing
-                            </span>
+                          <p class="p-0">
+                   
+                          Growth91 simplifies private market investment, connecting you to India's most promising startups.
+
+                           
                           </p>
 
                           <div className="banner-mobile-img d-sm-none">
@@ -627,8 +627,8 @@ class Homenew extends Component {
                                 }
                                 class="white-btns"
                                 type="button"
-                              >
-                                Get Started
+                              >Start Investing Now
+
                               </Link>
                             </div>
                           </form>
@@ -654,10 +654,16 @@ class Homenew extends Component {
                               animationName: "fadeInUp",
                             }}
                           >
-                            Don't Let Funding Hold You Back.
-                            <br />
-                            Find Investor for Your Startup on Growth91.
+                          Entrepreneurs: Find the Investors You Need on Growth91
+
                           </h2>
+                          <p class="p-0">
+                   
+                          Simplify fundraising for your startup by connecting with investors on our startup investing platform. List your startup and raise funds faster.
+
+
+                    
+                   </p>
                           <div class="banner-listes">
                             <ul>
                               <li>
@@ -704,7 +710,7 @@ class Homenew extends Component {
                                 class="white-btns"
                                 type="button"
                               >
-                                Raise Funds
+                                Get Started - List Your Startup
                               </Link>
                             </div>
                           </form>
@@ -755,7 +761,7 @@ class Homenew extends Component {
                                 class="white-btns"
                                 type=""
                               >
-                                Explore Deals{" "}
+                               Explore Startups{" "}
                                 {this.state.loggedinstatus == true
                                   ? ""
                                   : "(Sign Up)"}
@@ -777,7 +783,21 @@ class Homenew extends Component {
             </div>
           </section>
         </div>
-        <Homenewrxtra />
+        {/* <NewHome/> */}
+        {/* <NewHome2/> */}
+        
+        <NewHome3/>
+       
+
+
+<section>
+<Homenewrxtra />
+
+  <div className="join-button">
+    <button>Join the Platform</button>
+  </div>
+</section>
+
 
         <section class="business-crowd logo-sections ">
           <div class="container">
@@ -942,7 +962,7 @@ class Homenew extends Component {
                   </p>
                 </div>
 
-                {document.body.clientWidth < 600 ? (
+                {document.body.clientWidth < 200 ? (
                   <Slider
                     className="flex-counters sliderdriven"
                     {...countersettting}
@@ -1078,7 +1098,8 @@ class Homenew extends Component {
                 <p>
                   <span></span>{" "}
                 </p>
-                <h3>Why Invest in Startups in India with Us</h3>
+                <h3>Why Invest in Startups in India with Growth91
+                </h3>
               </div>
 
               <div class="main-business-card">
@@ -1128,6 +1149,9 @@ class Homenew extends Component {
               </div>
             </div>
           </div>
+          <div className="join-button">
+    <button>See Our Latest Startup Listings</button>
+  </div>
         </section>
 
         <section class="testimonial-section">
@@ -1137,7 +1161,7 @@ class Homenew extends Component {
                 <p>
                   <span></span>{" "}
                 </p>
-                <h3>Our Successful Startup Investors</h3>
+                <h3>Shining Endorsements</h3>
               </div>
               <div class="col-12 col-xl-12 col-lg-12 col-md-12 ">
                 <div class="slider-testimonials">
@@ -1438,12 +1462,9 @@ class Homenew extends Component {
                       data-bs-parent="#accordionFlushExample"
                     >
                       <div class="accordion-body">
-                        At Growth91, your investment is in safe hands. We
-                        utilize a secure escrow account to hold your funds
-                        throughout the fundraising process. If the startup
-                        reaches its goal, your investment is seamlessly
-                        transferred. If not, you receive a full refund
-                        automatically.
+                      With Growth91, your investment is securely guarded. Your funds rest in a protected 
+escrow account, ensuring that when a startup succeeds, your investment flows 
+smoothly—and if it doesn’t, your money comes right back to you.
                       </div>
                     </div>
                   </div>
@@ -1467,16 +1488,12 @@ class Homenew extends Component {
                       data-bs-parent="#accordionFlushExample"
                     >
                       <div class="accordion-body">
-                        Unlike shares traded on stock exchanges like the Bombay
-                        Stock Exchange (BSE), private startup investments don't
-                        have a constantly changing market value. To estimate
-                        your investment's worth, we can compare the company's
-                        valuation during your investment round with its latest
-                        valuation.
+                      Unlike BSE-listed stocks, private startup investments don't fluctuate daily. To gauge 
+your investment's value, compare the company’s valuation at the time of your 
+investment to its latest worth. When the company goes public, tracking your shares 
+will be as easy as checking stock prices.
                         <br /> <br />
-                        If the company goes through an Initial Offering (IPO),
-                        you'll be able to track your shares' value just likely
-                        traded stocks.
+                       
                       </div>
                     </div>
                   </div>
@@ -1500,16 +1517,13 @@ class Homenew extends Component {
                       data-bs-parent="#accordionFlushExample"
                     >
                       <div class="accordion-body">
-                        While there's no guaranteed timeframe, industry reports
-                        suggest an average wait time of 5-7 years for Indian
-                        startups to deliver returns to investors. This is just a
-                        ballpark figure, and your specific investment could see
-                        returns sooner or later.
+                      While exact tmelines can vary, industry insights indicate that Indian startups typically take 5-
+7 years to generate returns for investors. This is an esƟ mate—your investment might yield 
+returns sooner or later. 
+
                         <br />
                         <br />
-                        Remember: Patience is crucial! Successful startups
-                        require time to develop, scale, and potentially reach an
-                        exit event.
+                        Patience is key! Thriving startups need time to grow, scale, and achieve successful exit events
                       </div>
                     </div>
                   </div>
@@ -1533,16 +1547,14 @@ class Homenew extends Component {
                       data-bs-parent="#accordionFlushExample"
                     >
                       <div class="accordion-body">
-                        We've done the groundwork. We carefully vet all deals
-                        before featuring them, and only invest in those we truly
-                        believe in.
+                      We've done the groundwork. Every deal is rigorously veƩ ed, and we only back opportunities 
+we genuinely believe in—investing alongside you in each one. 
+
                         <br />
                         <br />
-                        Your investment journey starts here. Browse through
-                        curated deals, do your own research using the provided
-                        financials, pitch decks, and market sentiment. Leverage
-                        your unique insights and invest in what excites you and
-                        aligns with your understanding.
+                        Your investment journey begins now. Explore our curated deals, dive into the provided 
+financials, pitch decks, and market analysis. Harness your insights, and invest in what excites 
+you and aligns with your vision.
                       </div>
                     </div>
                   </div>
@@ -1567,7 +1579,7 @@ class Homenew extends Component {
             </div>
             <div class="index-button-1">
               <Link to="/Deals" style={{ color: "white" }}>
-                Join Us
+              Sign Up and Start Investing
               </Link>
             </div>
           </div>

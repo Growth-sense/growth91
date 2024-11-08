@@ -6,6 +6,8 @@ import $ from "jquery";
 import { Link } from "react-router-dom";
 import Bridge from "./constants/Bridge.js";
 import { useLocation } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import { Modal } from "antd";
 
 export const FutureUnicornDescription = () => {
   const search = useLocation().search;
@@ -17,6 +19,15 @@ export const FutureUnicornDescription = () => {
   console.log(id);
 
   const [unicorn, setUnicorn] = useState();
+  const [memberdata, setmemberdata] = useState();
+  const [message, setmessage] = useState();
+  const [iamintrestmodal, setiamintrestmodal] = useState(false);
+  const [data, setdata] = useState({
+    "I Want to know more about it": false,
+    "I want to work with you": false,
+    "I am excited to invest in your startups": false,
+    message: "",
+  });
   function getuniondata() {
     let params = {
       page: 0,
@@ -117,6 +128,44 @@ export const FutureUnicornDescription = () => {
       },
     ],
   };
+  const openiamintrest = () => {
+    setiamintrestmodal(true);
+  };
+  const adddata = (e) => {
+    if (e.target.name == "message") {
+      // setdata({ ...data, [e.target.name]: [e.target.value] });
+    } else {
+      setdata({  [e.target.name]: true });
+    }
+  };
+  const submitintrest = () => {
+    console.log(unicorn);
+let datas= unicorn
+.filter((item) => item.unicornDealID == id)
+console.log(data);
+
+    let params = {
+      unicornDealID: datas[0].unicornDealID,
+      udFounderID: datas[0].udFounderID,
+      investor_id: localStorage.getItem("investor_id"),
+      interestKnowMore: data["I Want to know more about it"] == true||false,
+      interestWorkwithYou: data["I want to work with you"]== true||false,
+      interestInvestinStartup: data["I am excited to invest in your startups"]== true||false,
+      interestMessage: message,
+    };
+    Bridge.Unicorn.add_unicorn_interest(params).then((result) => {
+      console.log(result);
+      if(result.message== "Details are updated successfully.")
+      {
+        toast.success("Details shared with Founder")
+        setiamintrestmodal(false)
+      }
+      else if( result.message=="Please enter values of all fields."){
+        toast.error("Plz fill all feild")
+      }
+    });
+
+  };
   return (
     <div>
       <div classname="newabout">
@@ -133,25 +182,7 @@ export const FutureUnicornDescription = () => {
               <>
                 <section class="futureunicorn-slider-sections">
                   <div class="container-flex">
-                    <div class="row">
-                      <div class="futureslider-card">
-                        <Slider {...sliderSettings}>
-                          <div class="img-future">
-                            <img
-                              src={`${
-                                process.env.REACT_APP_BASE_URL
-                              }api/uploads/unicorndeals/${
-                                item.tudTempUdID
-                              }/${JSON.parse(item.udBannerImage)}`}
-                              alt=""
-                            />
-                            <div className="content-img-futureunicorn">
-                              {/* <h3>Business Management consultant</h3> */}
-                            </div>
-                          </div>
-                        </Slider>
-                      </div>
-                    </div>
+            
                     <div className="row row-imgdirects">
                       <div className="row-img-direct">
                         <div className="img-certified-directors">
@@ -1014,8 +1045,11 @@ export const FutureUnicornDescription = () => {
                     <div className="row">
                       <div className="col-12">
                         <div className="investor-amounts">
-                          <Link to="/CheckboxThank">I am Interested</Link>
+                          <a style={{color:"white"}} onClick={openiamintrest}>I am Interested</a>
                         </div>
+                        <div className="investor-amounts button">
+                          <a  href="/FutureUnicornList">Unicorn List page</a>
+                      </div>
                       </div>
                     </div>
                   </div>
@@ -1023,7 +1057,104 @@ export const FutureUnicornDescription = () => {
               </>
             );
           })}
-
+   <Modal
+        // title={`Invest in ${this.state.deal_name}`}
+        visible={iamintrestmodal}
+        onOk={() => {
+          setiamintrestmodal(false);
+        }}
+        onCancel={() => {
+          setiamintrestmodal(false);
+        }}
+        width={900}
+        footer={false}
+      >
+        <section
+          class="about-page-section blog-section payment-sec pb-0"
+          style={{ paddingBottom: "0px !important" }}
+        >
+          <div class="container">
+            <div class="row">
+              <div
+                class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center align-items-center"
+                style={{ pointerEvents: "none" }}
+              ></div>
+            </div>
+            <div className="row  justify-content-center ">
+              <div className="col-md-8 col-12 col-sm-12 col-xl-8 col-xxl-8">
+                <div className="card-payment-methods">
+                  <div class="heading-title m-sm-0">
+                    <p>
+                      <span></span>{" "}
+                    </p>
+                    <h2>Fill The Form</h2>
+                  </div>
+                  <div className="para-proceed">
+                    <form action="" className="form-checkbox">
+                      <div className="row">
+                        <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
+                          <input
+                            type="radio"
+                            name="I Want to know more about it"
+                            value={data["I Want to know more about it"]}
+                            checked={
+                              data["I Want to know more about it"] == true
+                            }
+                            onClick={adddata}
+                          />
+                          <label htmlFor="">I Want to know more about it</label>
+                        </div>
+                        <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
+                          <input
+                            type="radio"
+                            name="I want to work with you"
+                            value={data["I want to work with you"]}
+                            checked={data["I want to work with you"] == true}
+                            onClick={adddata}
+                          />
+                          <label htmlFor="">I want to work with you</label>
+                        </div>
+                        <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
+                          <input
+                            type="radio"
+                            name="I am excited to invest in your startups"
+                            value={
+                              data["I am excited to invest in your startups"]
+                            }
+                            checked={
+                              data["I am excited to invest in your startups"] ==
+                              true
+                            }
+                            onClick={adddata}
+                          />
+                          <label htmlFor="">
+                            I am excited to invest in your startups
+                          </label>
+                        </div>
+                        <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mt-2">
+                          <textarea
+                            value={message}
+                            name="message"
+                            onChange={(e)=>{setmessage(e.target.value)}}
+                            id="w3review"
+                            rows="4"
+                            className="w100"
+                            placeholder="Message"
+                          />
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div className="button-proceed-online">
+                    <a onClick={submitintrest}>Submit</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </Modal>
+<ToastContainer/>
       <NewWebFooter />
     </div>
   );

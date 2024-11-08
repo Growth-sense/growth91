@@ -89,7 +89,6 @@ class familyRemoveReq extends Component {
     };
     Bridge.family.getDeleteRequest(params).then((result) => {
       if (result.status == 1) {
-        console.log(result);
 
         this.setState({
           startups: result.data,
@@ -97,7 +96,7 @@ class familyRemoveReq extends Component {
           loading: false,
         });
       } else {
-        message.error(result.message);
+        // message.error(result.message);
         this.setState({
           loading: false,
         });
@@ -145,6 +144,13 @@ class familyRemoveReq extends Component {
       for (let item of this.state.cstartups) {
         if (
           (item.name && item.name.toLowerCase().includes(text.toLowerCase())) ||
+          (item.groupName && item.groupName.toLowerCase().includes(text.toLowerCase())) ||
+          (item.mobile && item.mobile.toLowerCase().includes(text.toLowerCase())) ||
+          (item.email && item.email.toLowerCase().includes(text.toLowerCase())) ||
+          (item.groupCreateDate && item.groupCreateDate.toLowerCase().includes(text.toLowerCase())) ||
+          (item.invite_email && item.invite_email.toLowerCase().includes(text.toLowerCase())) ||
+          (item.userID && item.userID.toLowerCase().includes(text.toLowerCase())) ||
+
           (item.status &&
             item.status.toLowerCase().includes(text.toLowerCase())) ||
           (item.startupid && item.startupid.includes(text.toLowerCase()))
@@ -208,18 +214,14 @@ class familyRemoveReq extends Component {
     let count = 1;
     for (let item of this.state.startups) {
       let obj = {
-        "Sr No": count++,
-        "Startup ID": item.startupid ? item.startupid : "---",
-        "Startup Name": item.name ? item.name : "---",
-        "Founder Name": item.founder_name ? item.founder_name : "---",
-        "Founder Email": item.founder_email ? item.founder_email : "---",
-        "Founder Mobile": item.founder_mobile ? item.founder_mobile : "---",
-        "No of Investors": item.investors_count ? item.investors_count : "---",
-        "Total Investment": item.total_investment
-          ? item.total_investment
-          : "---",
-        "Total Fees": item.total_fees ? item.total_fees : "---",
-        Status: item.status,
+        Groupid: item.groupID&&item.groupID,
+          groupName: item.groupName&&item.groupName,
+          ownernumber: item.mobile&&item.mobile,
+          email: item.email&&item.email,
+          mobile: item.mobile&&item.mobile,
+          groupCreateDate: item.groupCreateDate&&item.groupCreateDate,
+          ownername: item.invite_email&&item.invite_email,
+          userId: item.userID&&item.userID,
         // 'Tax Type': item.payment_type,
         // 'KYC Status': item.isapproved,
         // 'Invested date': item.Invested_dt ? moment(item.Invested_dt).format('DD MMM, YYYY') : '---',
@@ -405,21 +407,7 @@ class familyRemoveReq extends Component {
 
             <Content className="home-section">
               <Card
-                title="Startups"
-                extra={
-                  <Button type="primary" onClick={this.showAddModal}>
-                    <i
-                      className="bx bxs-plus-circle"
-                      style={{
-                        color: "#fff",
-                        position: "relative",
-                        top: 3,
-                        left: -3,
-                      }}
-                    ></i>{" "}
-                    Add New Startup
-                  </Button>
-                }
+               
                 style={{ margin: 16 }}
               >
                 <Breadcrumb

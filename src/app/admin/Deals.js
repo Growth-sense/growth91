@@ -43,7 +43,8 @@ import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
 import Invitation_list from "./common/Invitation_list";
 import { toast, ToastContainer } from "react-toastify";
-
+import Item from "antd/lib/list/Item";
+import ReactRTE from "react-rte";
 const { TextArea } = Input;
 const { Option } = Select;
 const { Content } = Layout;
@@ -56,8 +57,12 @@ class Deals extends Component {
     super(props);
     this.state = {
       posts: [],
+      editorvalue: ReactRTE.createEmptyValue(),
       loading: false,
       addModalStatus: false,
+      addDocModalStatus: false,
+      addDocdealModalStatus: false,
+      Emailtoinvestsmodal: false,
       title: "",
       description: "",
       filename: "",
@@ -86,6 +91,18 @@ class Deals extends Component {
       captable_multiple_amount: "",
       multipleofdescription: "",
       escrowAct: "",
+      bank_acc_name: "",
+      bank_acc_num: "",
+      bank_name: "",
+      bank_acc_type: "",
+      bank_acc_ifsc: "",
+      bank_branch: "",
+      Viewcommit_bank_acc_ifsc: "",
+      Viewcommit_bank_acc_name: "",
+      Viewcommit_bank_acc_num: "",
+      Viewcommit_bank_acc_type: "",
+      Viewcommit_bank_branch: "",
+      Viewcommit_bank_name: "",
       raiseGap: "",
       backedby: "",
       category: "",
@@ -167,6 +184,12 @@ class Deals extends Component {
       editcaptable_multiple_amount: "",
       editmultipleofdescription: "",
       editescrowAct: "",
+      editbank_acc_name: "",
+      editbank_acc_num: "",
+      editbank_name: "",
+      editbank_acc_type: "",
+      editbank_acc_ifsc: "",
+      editbank_branch: "",
       editraiseGap: "",
       editbackedby: "",
       editcategory: "",
@@ -266,8 +289,21 @@ class Deals extends Component {
       show_edit_commitment_status_modal: false,
       Commitmentstatus: "",
       commitmentstatusid: "",
+      documentType: "Investor",
+      selectedDeals: "",
+      selectedInvestors: "",
+      selectedFounders: "",
+      admindocDescription: "",
+      admindocActive: "",
+      admindocName: "",
+      documentFile: "",
+      // for email editor
+      specificemailcontant: "",
+      specificemailcontantkey: "",
+      showeditormodal: false,
+      dataemailtoinvestorlist: "",
     };
-    this.button = React.createRef()
+    this.button = React.createRef();
   }
 
   componentDidMount() {
@@ -301,7 +337,18 @@ class Deals extends Component {
       }
     });
   };
+  editoronChange = (value) => {
+    console.log(value.toString("html"));
 
+    this.setState({ editorvalue: value.toString("html") });
+    this.setState({ specificemailcontant: value });
+    // if (this.props.onChange) {
+    //   // Send the changes up to the parent component as an HTML string.
+    //   // This is here to demonstrate using `.toString()` but in a real app it
+    //   // would be better to avoid generating a string on each change.
+    //   this.props.onChange(value.toString("html"));
+    // }
+  };
   // get post list
   getdeallist = () => {
     this.setState({ loading: true });
@@ -425,6 +472,12 @@ class Deals extends Component {
       edit_escrow_account_bank: item.escrow_account_bank,
       edit_escrow_account_branch: item.escrow_account_branch,
       editraiseGap: item.raiegap,
+      editbank_acc_name: item.bank_acc_name,
+      editbank_acc_num: item.bank_acc_num,
+      editbank_name: item.bank_name,
+      editbank_acc_type: item.bank_acc_type,
+      editbank_acc_ifsc: item.bank_acc_ifsc,
+      editbank_branch: item.bank_branch,
       edittargetamount: item.deal_fund_requested,
       editmintargetamount: item.Min_inv_amt,
       editcaptable_threshold_amount: item.captable_threshold_amount,
@@ -462,9 +515,17 @@ class Deals extends Component {
 
   // show Commitment modal
   showCommitmentModal = (item) => {
+    console.log(item);
+
     this.setState({
       Commitment_list_modal: true,
       ac_deal_id: item.deal_id,
+      Viewcommit_bank_acc_ifsc: item.bank_acc_ifsc,
+      Viewcommit_bank_acc_name: item.bank_acc_name,
+      Viewcommit_bank_acc_num: item.bank_acc_num,
+      Viewcommit_bank_acc_type: item.bank_acc_type,
+      Viewcommit_bank_branch: item.bank_branch,
+      Viewcommit_bank_name: item.bank_name,
       ac_deal_name: item.deal_name,
       ac_minamount: Number(item.Min_inv_amt),
       ac_captable_threshold_amount: parseInt(
@@ -654,6 +715,12 @@ class Deals extends Component {
       escrow_account_bank: this.state.edit_escrow_account_bank,
       escrow_account_branch: this.state.edit_escrow_account_branch,
       raiseGap: this.state.editraiseGap,
+      bank_acc_name: this.state.editbank_acc_name,
+      bank_acc_num: this.state.editbank_acc_num,
+      bank_name: this.state.editbank_name,
+      bank_acc_type: this.state.editbank_acc_type,
+      bank_acc_ifsc: this.state.editbank_acc_ifsc,
+      bank_branch: this.state.editbank_branch,
       backedby: this.state.editbackedby,
       category: this.state.editcategory,
       id: this.state.deal_id,
@@ -695,6 +762,12 @@ class Deals extends Component {
             editmultipleofdescription: "",
             editbackedby: "",
             editcategory: "",
+            editbank_acc_name: "",
+            editbank_acc_num: "",
+            editbank_name: "",
+            editbank_acc_type: "",
+            editbank_acc_ifsc: "",
+            editbank_branch: "",
             editraiseGap: "",
             editescrowAct: "",
             editdigioTemplateId: "",
@@ -1036,6 +1109,12 @@ class Deals extends Component {
           escrow_account_bank: this.state.escrow_account_bank,
           escrow_account_branch: this.state.escrow_account_branch,
           raiseGap: this.state.raiseGap,
+          bank_acc_name: this.state.editbank_acc_name,
+          bank_acc_num: this.state.editbank_acc_num,
+          bank_name: this.state.editbank_name,
+          bank_acc_type: this.state.editbank_acc_type,
+          bank_acc_ifsc: this.state.editbank_acc_ifsc,
+          bank_branch: this.state.editbank_branch,
           digioTemplateId: this.state.digioTemplateId,
           investor_sign_coordinate: this.state.investor_sign_coordinate,
           founder_sign_coordinate: this.state.founder_sign_coordinate,
@@ -1076,6 +1155,12 @@ class Deals extends Component {
                 backedby: "",
                 category: "",
                 raiseGap: "",
+                bank_acc_name: "",
+                bank_acc_num: "",
+                bank_name: "",
+                bank_acc_type: "",
+                bank_acc_ifsc: "",
+                bank_branch: "",
                 escrowAct: "",
                 signer_name: "",
                 signer_mobile: "",
@@ -1808,6 +1893,99 @@ class Deals extends Component {
     FileSaver.saveAs(data, fileName + fileExtension);
     message.success("Commitment data exported successfully.");
   };
+  Emailtoinvestorsmodal = () => {
+    const datas = this.state.commitment_investor_list
+      .filter((data) => data.isCommitmentEnabled == "Enabled")
+      .map((item, index) => {
+        console.log(item);
+        const emaildata = `
+      <p>&nbsp;</p>
+<p>Dear <strong>aadil</strong>,<br>
+</p>
+<p>Thank you for committing your interest in the ${item.deal_name} Deal. We are pleased to inform you that we have initiated the Call for Money.<br>
+</p>
+<p>The investment amount is ₹${item.amount}. Please find the bank details for transferring the funds below:<br>
+</p>
+<p>${item.deal_name} Bank Details:<br>
+Account Name: ${this.state.Viewcommit_bank_acc_name}<br>
+Account Number:${this.state.Viewcommit_bank_acc_num}<br>
+Bank:${this.state.Viewcommit_bank_name} <br>
+Account Type:${this.state.Viewcommit_bank_acc_type} <br>
+IFSC Code: ${this.state.Viewcommit_bank_acc_type} <br>
+Branch:<br>
+</p>
+<p>Also, we request you to pay investment facilitation charges of ₹${item.processingfees}. Kindly transfer this amount to the following account:<br>
+</p>
+<p>Growth91 Advisors Private Limited Bank Details:<br>
+Account Name: Growth91 Advisors Private Limited<br>
+Account Number: 50200066360849<br>
+Bank: HDFC Bank<br>
+Branch: Akola, Maharashtra<br>
+IFSC Code: HDFC0000221<br>
+Account Type: Current Account<br>
+</p>
+<p>You can transfer the amounts either by adding the bank details as a beneficiary in your bank and sending the payment directly, or alternatively, we will send you a follow-up email containing a payment link, so you can transfer the amount<br>
+</p>
+<p>We have attached required documents for your reference.<br>
+</p>
+<p>Feel free to reach out if you have any questions.<br>
+</p>
+<p>Best regards,<br>
+Team Growth91<br>
+Growth91 Advisors Private Limited<br>
+</p>
+<p>PS: This is an automated email. Please do not reply.</p>
+`;
+
+        return {
+          key: index,
+          investor_id: item.investor_id,
+          isCommitmentEnabled: item.isCommitmentEnabled,
+          name: item.first_name + " " + item.last_name,
+          deal_name: item.deal_name,
+          item: item,
+          emailcontent: emaildata,
+        };
+      });
+
+    this.setState({
+      Emailtoinvestsmodal: true,
+    });
+    setTimeout(() => {
+      console.log(this.dataemailtoinvestorlist);
+      this.setState({
+        dataemailtoinvestorlist: datas,
+      });
+    }, 3000);
+  };
+  Emailtoinvestors = () => {
+    let arr = [];
+
+   // console.log(this.state.commitment_investor_list);
+   for (let item of this.state.dataemailtoinvestorlist) {
+    let obj = Number(item.investor_id);
+
+    arr = [...arr, obj];
+    // console.log(obj);
+  }
+  console.log(this.state.dataemailtoinvestorlist);
+  // return
+  Bridge.admin.investor
+    .send_email_to_investors({
+      investor_ids: arr,
+      deal_id: this.state.dataemailtoinvestorlist[0].item.deal_id,
+      emailBody:this.state.specificemailcontant.toString("html") 
+    })
+    .then((result) => {
+      console.log(result);
+      this.setState({ Emailtoinvestsmodal: false })
+      toast.success("Email sent success fully")
+    });
+  };
+  Adddoctodeal = () => {
+    this.setState({ addDocdealModalStatus: true, documentType: "Deal" });
+  };
+
   showEditCommitmentModal = (item, record) => {
     this.setState({
       ac_edit_deal_id: record.data.deal_id,
@@ -1908,20 +2086,16 @@ class Deals extends Component {
     }
 
     let params = {
-     
-        id: this.state.commitmentstatusid,
-        isCommitmentEnabled: this.state.Commitmentstatus,
+      id: this.state.commitmentstatusid,
+      isCommitmentEnabled: this.state.Commitmentstatus,
     };
 
     console.log(this.state.ac_edit_deal_id);
-    
+
     Bridge.admin.investor.update_enable_status(params).then((result) => {
       console.log(result);
-      if(result.message=="Commitment status is updated successfully."){
-        this.setState({ show_edit_commitment_status_modal: false
-         
-         },
-         () => {
+      if (result.message == "Commitment status is updated successfully.") {
+        this.setState({ show_edit_commitment_status_modal: false }, () => {
           axios
             .get(
               `${process.env.REACT_APP_BASE_URL}api/admin/Deal/display_investor_commitment_list`,
@@ -1941,12 +2115,10 @@ class Deals extends Component {
             .catch((error) => {
               console.error(error);
             });
-        })
-        toast.success("Commitment status is updated successfully.")
-       
-      }
-      else{
-        toast.error("error")
+        });
+        toast.success("Commitment status is updated successfully.");
+      } else {
+        toast.error("error");
       }
     });
   };
@@ -2304,17 +2476,201 @@ class Deals extends Component {
     }
   };
   showEditCommitmentstatusModal = (text, record) => {
-    console.log(record.item);
+    console.log(record);
 
     this.setState({
       show_edit_commitment_status_modal: true,
       Commitmentstatus: record.item.isCommitmentEnabled,
       commitmentstatusid: record.item.id,
-      ac_edit_deal_id:record.item.deal_id
-    
-    
+      ac_edit_deal_id: record.item.deal_id,
     });
   };
+  show_Editor_for_email_contant = (text, record) => {
+    console.log(record);
+    this.setState({});
+    console.log(this.emailtoinvestorlist);
+    this.setState({
+      specificemailcontant: ReactRTE.createValueFromString(
+        record.emailcontent,
+        "html"
+      ),
+      specificemailcontantkey: record.id,
+      showeditormodal: true,
+    });
+  };
+  handleSubmit = () => {
+    const {
+      documentType,
+      ac_deal_id,
+      selectedInvestors,
+      // selectedFounders,
+      admindocDescription,
+      admindocActive,
+      admindocName,
+      documentFile,
+    } = this.state;
+
+    console.log(
+      documentType,
+      ac_deal_id,
+      selectedInvestors,
+      // selectedFounders,
+      admindocDescription,
+      admindocActive,
+      admindocName,
+      documentFile
+    );
+    // return
+    if (!admindocName) {
+      message.warning("Document Name is required");
+      return;
+    }
+
+    if (!documentType) {
+      message.warning("Document Type is required");
+      return;
+    }
+
+    if (!admindocDescription) {
+      message.warning("Description is required");
+      return;
+    }
+
+    let formData = new FormData();
+    formData.append("admindocName", admindocName);
+    formData.append("admindocDescription", admindocDescription);
+    formData.append("admindocActive", admindocActive);
+    formData.append("document", documentFile);
+
+    let deal_id = "0";
+    let investor_id = "0";
+
+    formData.append("deal_id", ac_deal_id);
+    formData.append("investor_id", selectedInvestors);
+
+    axios
+      .post(
+        `${process.env.REACT_APP_BASE_URL}api/admin/Documents/addadmindocs`,
+        formData
+      )
+      .then((response) => {
+        console.log("API Response:", response.data);
+        this.setState(
+          {
+            admindocName: "",
+            admindocActive: "",
+            admindocDescription: "",
+            documentType: "",
+            documentFile: null,
+            selectedDeals: [],
+            selectedInvestors: [],
+            selectedFounders: [],
+            addDocModalStatus: false,
+          }
+          // () => this.getDocumentList()
+        );
+        message.success("Document Added Successfully");
+        // window.location.reload();
+      })
+      .catch((error) => {
+        console.error("API Error:", error);
+      });
+  };
+  handleSubmitdeal = () => {
+    const {
+      documentType,
+      ac_deal_id,
+      selectedInvestors,
+      // selectedFounders,
+      admindocDescription,
+      admindocActive,
+      admindocName,
+      documentFile,
+    } = this.state;
+
+    console.log(
+      documentType,
+      ac_deal_id,
+      selectedInvestors,
+      // selectedFounders,
+      admindocDescription,
+      admindocActive,
+      admindocName,
+      documentFile
+    );
+    // return
+    if (!admindocName) {
+      message.warning("Document Name is required");
+      return;
+    }
+
+    if (!documentType) {
+      message.warning("Document Type is required");
+      return;
+    }
+
+    if (!admindocDescription) {
+      message.warning("Description is required");
+      return;
+    }
+
+    let formData = new FormData();
+    formData.append("admindocName", admindocName);
+    formData.append("admindocDescription", admindocDescription);
+    formData.append("admindocActive", admindocActive);
+    formData.append("document", documentFile);
+
+    formData.append("deal_id", ac_deal_id);
+    formData.append("investor_id", -1);
+    formData.append("founder_id", 0);
+    formData.append("forAlll", "No");
+
+    axios
+      .post(
+        `${process.env.REACT_APP_BASE_URL}api/admin/Documents/addadmindocs`,
+        formData
+      )
+      .then((response) => {
+        console.log("API Response:", response.data);
+        this.setState(
+          {
+            admindocName: "",
+            admindocActive: "",
+            admindocDescription: "",
+            documentType: "",
+            documentFile: null,
+            selectedDeals: [],
+            selectedInvestors: [],
+            selectedFounders: [],
+            addDocModalStatus: false,
+          }
+          // () => this.getDocumentList()
+        );
+        message.success("Document Added Successfully");
+        // window.location.reload();
+      })
+      .catch((error) => {
+        console.error("API Error:", error);
+      });
+  };
+  handle_email_changes = () => {
+    let arr = [];
+    console.log(this.state.editorvalue,
+      this.state.specificemailcontant);
+    this.setState(prevState => ({
+      dataemailtoinvestorlist: prevState.dataemailtoinvestorlist.map(investor => investor.id === this.state.specificemailcontantkey ? { ...investor, emailcontent: this.state.specificemailcontant.toString("html") } : investor
+      ),
+      showeditormodal:false
+    }));
+
+   
+
+
+
+
+    
+  };
+  
   render() {
     const dataSource =
       this.state.deallist &&
@@ -2369,6 +2725,105 @@ class Deals extends Component {
           isExists: item,
         };
       });
+    const emailtoinvestorlist =this.state.dataemailtoinvestorlist
+    const emailtoinvestorlistcolumns = [
+      {
+        title: "Investor ID",
+        dataIndex: "investor_id",
+        key: "investor_id",
+        width: 100,
+      },
+      {
+        title: "Name",
+        dataIndex: "name",
+        key: "name",
+        width: 100,
+      },
+      {
+        title: "Status",
+        dataIndex: "isCommitmentEnabled",
+        key: "isCommitmentEnabled",
+        width: 100,
+      },
+      {
+        title: "Edit Commitment status",
+        dataIndex: "item",
+        key: "item",
+        fixed: "right",
+        width: 100,
+        render: (text, record) => {
+          const menu = (
+            <Menu
+              mode="vertical"
+              defaultSelectedKeys={[this.state.path]}
+              style={{ width: 200 }}
+            >
+              <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />}>
+                <a
+                  href="#"
+                  onClick={() =>
+                    this.showEditCommitmentstatusModal(text, record)
+                  }
+                  style={{ fontSize: 14 }}
+                >
+                  &nbsp;&nbsp;Edit
+                </a>
+              </Menu.Item>
+            </Menu>
+          );
+          return (
+            <div>
+              <Dropdown overlay={menu} placement="bottom">
+                <a onClick={(e) => e.preventDefault()}>
+                  <div className="menu-action">
+                    <i className="bx bx-dots-vertical-rounded"></i>
+                  </div>
+                </a>
+              </Dropdown>
+            </div>
+          );
+        },
+      },
+      {
+        title: "Edit Email Contant",
+        dataIndex: "item",
+        key: "item",
+        fixed: "right",
+        width: 100,
+        render: (text, record) => {
+          const menu = (
+            <Menu
+              mode="vertical"
+              defaultSelectedKeys={[this.state.path]}
+              style={{ width: 200 }}
+            >
+              <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />}>
+                <a
+                  href="#"
+                  onClick={() =>
+                    this.show_Editor_for_email_contant(text, record)
+                  }
+                  style={{ fontSize: 14 }}
+                >
+                  &nbsp;&nbsp;Edit
+                </a>
+              </Menu.Item>
+            </Menu>
+          );
+          return (
+            <div>
+              <Dropdown overlay={menu} placement="bottom">
+                <a onClick={(e) => e.preventDefault()}>
+                  <div className="menu-action">
+                    <i className="bx bx-dots-vertical-rounded"></i>
+                  </div>
+                </a>
+              </Dropdown>
+            </div>
+          );
+        },
+      },
+    ];
     const CommitmentdataSource =
       this.state.commitment_investor_list &&
       this.state.commitment_investor_list.map((item, index) => {
@@ -2389,10 +2844,11 @@ class Deals extends Component {
           created_at: item.created_at
             ? moment(item.created_at).format("D-MMM-YYYY h:mm A")
             : "",
-            isCommitmentEnabled: item.isCommitmentEnabled,
+          isCommitmentEnabled: item.isCommitmentEnabled,
           name: item.first_name + " " + item.last_name,
           deal_name: item.deal_name,
           item: item,
+          // emailcontent: emaildata,
         };
       });
 
@@ -2438,10 +2894,10 @@ class Deals extends Component {
           key: "nestcreated_at",
           width: 110,
         },
-      // ];
-      // localStorage.getItem("super_admin") === "1" &&
-        // nestColumns.push(
-          {
+        ];
+        JSON.parse(localStorage.getItem("super_admin")) === "1" &&
+        nestColumns.push(
+        {
           title: "Action",
           dataIndex: "action",
           key: "action",
@@ -2477,9 +2933,9 @@ class Deals extends Component {
               </div>
             );
           },
-        }
-      ]
-      // );
+        },
+      // ];
+      );
       const nestDataSource = record.child.map((item, index) => {
         return {
           key: index,
@@ -2750,7 +3206,7 @@ class Deals extends Component {
                 </a>
               </Menu.Item>
               <Menu.Item
-               ref={this.button}
+                ref={this.button}
                 key={`ViewCommitment${record.key}`}
                 icon={<EyeOutlined />}
               >
@@ -2892,6 +3348,25 @@ class Deals extends Component {
         key: "isCommitmentEnabled",
         width: 100,
       },
+
+      {
+        title: "Document",
+        dataIndex: "item",
+        key: "item",
+        width: 100,
+        render: (text, record) => {
+          return (
+            <button
+              class="btn "
+              onClick={() => {
+                adddoc(text);
+              }}
+            >
+              Add Document
+            </button>
+          );
+        },
+      },
       {
         title: "Edit Commitment status",
         dataIndex: "item",
@@ -2913,7 +3388,7 @@ class Deals extends Component {
                   }
                   style={{ fontSize: 14 }}
                 >
-                  &nbsp;&nbsp;Edit 
+                  &nbsp;&nbsp;Edit
                 </a>
               </Menu.Item>
             </Menu>
@@ -2938,6 +3413,15 @@ class Deals extends Component {
       //   width: 100,
       // },
     ];
+    const adddoc = (text) => {
+      console.log(text);
+      this.setState({
+        selectedDeals: text.deal_id,
+        selectedInvestors: text.investor_id,
+        addDocModalStatus: true,
+        documentType: "Investor",
+      });
+    };
 
     return (
       <>
@@ -3132,8 +3616,10 @@ class Deals extends Component {
             <label className="mb-2">
               Status <span className="text-danger">*</span>
             </label>
-            <br/>
-            <select class="form-select" aria-label="Default select example"
+            <br />
+            <select
+              class="form-select"
+              aria-label="Default select example"
               value={this.state.Commitmentstatus}
               onChange={(e) =>
                 this.setState({ Commitmentstatus: e.target.value })
@@ -3674,6 +4160,80 @@ class Deals extends Component {
                 onChange={(e) => this.setState({ raiseGap: e.target.value })}
               />
             </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank account Name <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.bank_acc_name}
+                onChange={(e) =>
+                  this.setState({ bank_acc_name: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank Account NUmber <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="number"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.bank_acc_num}
+                onChange={(e) =>
+                  this.setState({ bank_acc_num: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank Name<span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.bank_name}
+                onChange={(e) => this.setState({ bank_name: e.target.value })}
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank account Type <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.bank_acc_type}
+                onChange={(e) =>
+                  this.setState({ bank_acc_type: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank IFSC <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.bank_acc_ifsc}
+                onChange={(e) =>
+                  this.setState({ bank_acc_ifsc: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank Branch <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.bank_branch}
+                onChange={(e) => this.setState({ bank_branch: e.target.value })}
+              />
+            </div>
             {/* <div className="mt-4 d-flex flex-row-reverse justify-content-end">
               <label className="mx-2" for="SpecialOffer" >
                 Enable Special Offer
@@ -4195,6 +4755,84 @@ class Deals extends Component {
                 value={this.state.editraiseGap}
                 onChange={(e) =>
                   this.setState({ editraiseGap: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank account Name <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.editbank_acc_name}
+                onChange={(e) =>
+                  this.setState({ editbank_acc_name: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank Account NUmber <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="number"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.editbank_acc_num}
+                onChange={(e) =>
+                  this.setState({ editbank_acc_num: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank Name<span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.editbank_name}
+                onChange={(e) =>
+                  this.setState({ editbank_name: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank account Type <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.editbank_acc_type}
+                onChange={(e) =>
+                  this.setState({ editbank_acc_type: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank IFSC <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.editbank_acc_ifsc}
+                onChange={(e) =>
+                  this.setState({ editbank_acc_ifsc: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                Bank Branch <span className="text-danger">*</span>
+              </label>
+              <Input
+                type="text"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.editbank_branch}
+                onChange={(e) =>
+                  this.setState({ editbank_branch: e.target.value })
                 }
               />
             </div>
@@ -4880,7 +5518,7 @@ class Deals extends Component {
           visible={this.state.Commitment_list_modal}
           onOk={() => this.setState({ Commitment_list_modal: false })}
           onCancel={() => this.setState({ Commitment_list_modal: false })}
-          okText="ok"
+          okText="OK"
           width={1000}
         >
           <div
@@ -4910,6 +5548,42 @@ class Deals extends Component {
                 }}
               ></i>{" "}
               Add New Commitment
+            </Button>
+            {/* <Select
+              onChange={() => {
+                console.log(CommitmentdataSource);
+              }}
+            >
+              <Option value="">--All--</Option>
+              {CommitmentdataSource.filter(
+                (data) => data.isCommitmentEnabled == "Enabled"
+              ).map((item, index) => {
+                return <Option value={item.name}>{item.name}</Option>;
+              })}
+            </Select> */}
+            <Button type="primary" onClick={() => this.Emailtoinvestorsmodal()}>
+              <i
+                className="bx bxs-cloud-download"
+                style={{
+                  color: "#fff",
+                  position: "relative",
+                  top: 3,
+                  left: -3,
+                }}
+              ></i>{" "}
+              Email to Investor
+            </Button>
+            <Button type="primary" onClick={() => this.Adddoctodeal()}>
+              <i
+                className="bx bxs-cloud-download"
+                style={{
+                  color: "#fff",
+                  position: "relative",
+                  top: 3,
+                  left: -3,
+                }}
+              ></i>{" "}
+              Add document
             </Button>
             <Button
               type="primary"
@@ -4941,6 +5615,195 @@ class Deals extends Component {
           />
         </Modal>
         {/* End commitment list modal  */}
+        {/* Start Add  Document modal  */}
+        <Modal
+          title="Add New Document"
+          visible={this.state.addDocModalStatus}
+          onOk={this.handleSubmit}
+          okText="Submit"
+          onCancel={() => this.setState({ addDocModalStatus: false })}
+          width={550}
+        >
+          <Spin spinning={this.state.formloader}>
+            <div className="mt-4">
+              <label className="mb-2">
+                Name <span className="text-danger">*</span>
+              </label>
+              <Input
+                accept=".pdf, .ppt, .pptx"
+                type="file"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  const fileName = file.name.replace(/\.[^/.]+$/, "");
+                  this.setState({
+                    admindocName: fileName,
+                    documentFile: file,
+                  });
+                }}
+              />
+            </div>
+
+            <div className="mt-4">
+              <label className="mb-2">
+                Document Type <span className="text-danger">*</span>
+              </label>
+              <Select
+                value={this.state.documentType}
+                style={{ width: "100%" }}
+                onChange={(value) =>
+                  this.setState({ documentType: "Investor" })
+                }
+              >
+                <Option value="Investor">Investor</Option>
+              </Select>
+            </div>
+
+            <div className="mt-4 editor-field">
+              <label className="mb-2">
+                Description <span className="text-danger">*</span>
+              </label>
+              <TextArea
+                rows={4}
+                value={this.state.admindocDescription}
+                onChange={(e) =>
+                  this.setState({ admindocDescription: e.target.value })
+                }
+              />
+            </div>
+
+            <div className="mt-4">
+              <label className="mb-2">Active</label>
+              <Select
+                value={this.state.admindocActive}
+                style={{ width: "100%" }}
+                allowClear
+                onChange={(value) => this.setState({ admindocActive: value })}
+              >
+                <Option value="">--Select--</Option>
+                <Option value="Yes">Yes</Option>
+                <Option value="No">No</Option>
+              </Select>
+            </div>
+          </Spin>
+        </Modal>
+        <Modal
+          title="Add New Document for deal"
+          visible={this.state.addDocdealModalStatus}
+          onOk={this.handleSubmitdeal}
+          okText="Submit"
+          onCancel={() => this.setState({ addDocdealModalStatus: false })}
+          width={550}
+        >
+          <Spin spinning={this.state.formloader}>
+            <div className="mt-4">
+              <label className="mb-2">
+                Name <span className="text-danger">*</span>
+              </label>
+              <Input
+                accept=".pdf, .ppt, .pptx"
+                type="file"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  const fileName = file.name.replace(/\.[^/.]+$/, "");
+                  this.setState({
+                    admindocName: fileName,
+                    documentFile: file,
+                  });
+                }}
+              />
+            </div>
+
+            <div className="mt-4">
+              <label className="mb-2">
+                Document Type <span className="text-danger">*</span>
+              </label>
+              <Select
+                value={this.state.documentType}
+                style={{ width: "100%" }}
+                onChange={(value) => this.setState({ documentType: "Deal" })}
+              >
+                <Option value="Deal">Deal</Option>
+              </Select>
+            </div>
+            <>
+              <div className="mt-4 editor-field">
+                <label className="mb-2">Deal</label>
+                <Select
+                  mode="Sindle"
+                  style={{ width: "100%" }}
+                  placeholder="Select deals"
+                >
+                  <Option value={this.state.ac_deal_name}>
+                    {`${this.state.ac_deal_name}`}
+                  </Option>
+                </Select>
+              </div>
+            </>
+
+            <div className="mt-4 editor-field">
+              <label className="mb-2">
+                Description <span className="text-danger">*</span>
+              </label>
+              <TextArea
+                rows={4}
+                value={this.state.admindocDescription}
+                onChange={(e) =>
+                  this.setState({ admindocDescription: e.target.value })
+                }
+              />
+            </div>
+
+            <div className="mt-4">
+              <label className="mb-2">Active</label>
+              <Select
+                value={this.state.admindocActive}
+                style={{ width: "100%" }}
+                allowClear
+                onChange={(value) => this.setState({ admindocActive: value })}
+              >
+                <Option value="">--Select--</Option>
+                <Option value="Yes">Yes</Option>
+                <Option value="No">No</Option>
+              </Select>
+            </div>
+          </Spin>
+        </Modal>
+        {/* End Add modal  */}
+        {/* Email to investor list modal  */}
+        <Modal
+          title="Email to investor list"
+          visible={this.state.Emailtoinvestsmodal}
+          onOk={this.Emailtoinvestors}
+          okText="Submit"
+          onCancel={() => this.setState({ Emailtoinvestsmodal: false })}
+          width={550}
+        >
+          <Spin spinning={this.state.formloader}>
+            <Table
+              dataSource={emailtoinvestorlist}
+              columns={emailtoinvestorlistcolumns}
+              loading={this.state.loading}
+              bordered
+              scroll={{ x: "max-content" }}
+            />
+          </Spin>
+        </Modal>
+        <Modal
+          title="Email edior"
+          visible={this.state.showeditormodal}
+          onOk={this.handle_email_changes}
+          okText="Submit"
+          onCancel={() => this.setState({ showeditormodal: false })}
+          width={850}
+        >
+          <Spin spinning={this.state.formloader}>
+            <ReactRTE
+              value={this.state.specificemailcontant}
+              onChange={this.editoronChange}
+            />
+          </Spin>
+        </Modal>
+        {/* End Add modal  */}
 
         <Dialog
           open={this.state.open}
@@ -4961,7 +5824,7 @@ class Deals extends Component {
             <Button onClick={() => this.setState({ open: false })}>No</Button>
           </DialogActions>
         </Dialog>
-        <ToastContainer/>
+        <ToastContainer />
       </>
     );
   }

@@ -13,10 +13,10 @@ export const Homenewrxtra = () => {
                 Discover, Trust, Invest in the Future of Indian Startups
 
                 </h3>
-                {/* <p class="MuiTypography-root MuiTypography-body2 css-o2di0e">
-                  Invest in the future you believe in. Start your growth journey
-                  here.
-                </p> */}
+                <p class="MuiTypography-root MuiTypography-body2 css-o2di0e">
+                nvest in the Future of Indian Startups
+
+                </p>
               </div>
               <div class="MuiStepper-root MuiStepper-vertical css-jcksi0">
                 <div class="stepss">

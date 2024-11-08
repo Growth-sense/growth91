@@ -253,13 +253,14 @@ h1 {
   float: right;
   transition: 0.2s;
 }
-input:checked ~ label,
+/* input:checked ~ label,
 input:not(:checked) ~ label:hover,
 input:not(:checked) ~ label:hover ~ label {
   color: #fd4;
-}
+} */
+
 input#rate-10:checked ~ label {
-  color: #fe7;
+  color: #fd4;
   text-shadow: 0 0 3px #952;
 }
 .progressbar {

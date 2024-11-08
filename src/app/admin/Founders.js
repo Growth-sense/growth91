@@ -330,15 +330,20 @@ class Founders extends Component {
     }
     this.setState({ formloader: true });
     let params = "";
+    let admin= JSON.parse(localStorage.getItem("admin_login"))
+
     if (this.state.isActiveValue == 0) {
       params = {
         investor_id: this.state.founder_id,
         user_block_status: 1,
+        user_id:admin.value
+
       };
     } else {
       params = {
         investor_id: this.state.founder_id,
         user_block_status: 0,
+        user_id:admin.value
       };
     }
     Bridge.admin.block_disable_investor(params).then((result) => {
@@ -357,9 +362,9 @@ class Founders extends Component {
           { disableModelStatus: false, formloader: false, founder_id: "" },
           () => this.getfounderlist()
         );
-        if (this.state.isActiveValue == 0) {
+        if (result.status == "0") {
           message.warning(
-            "User is Already Disabled/Something Went Wrong!, Pls Try later",
+            result.message,
             5
           );
         } else {
@@ -831,7 +836,7 @@ class Founders extends Component {
                   &nbsp;&nbsp;Edit
                 </a>
               </Menu.Item>
-             {/* { localStorage.getItem("super_admin") === "1" &&( */}
+             { JSON.parse(localStorage.getItem("super_admin")) === "1" &&(
               text.user_block_status == 0 ? (
                 <Menu.Item
                   key={`disable${record.key}`}
@@ -856,7 +861,7 @@ class Founders extends Component {
                   </a>
                 </Menu.Item>
               )
-              {/* )} */}
+              )} 
             </Menu>
           );
           return (
