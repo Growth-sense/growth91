@@ -159,7 +159,13 @@ console.log(data);
       {
         toast.success("Details shared with Founder")
         setiamintrestmodal(false)
-      }
+        setdata({
+          "I Want to know more about it": false,
+          "I want to work with you": false,
+          "I am excited to invest in your startups": false,
+          message: "",
+        });
+        setmessage("")      }
       else if( result.message=="Please enter values of all fields."){
         toast.error("Plz fill all feild")
       }

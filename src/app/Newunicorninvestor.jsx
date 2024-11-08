@@ -2,6 +2,7 @@ import React from 'react';
 import { NewWebFooter } from './common/NewWebFooter';
 import NewWebHeader from './common/NewWebHeader';
 import { Link } from '@material-ui/core';
+import { Link as NewLINK } from 'react-router-dom/cjs/react-router-dom.min';
 
 const NewFutureUnicorn = () => {
     return (
@@ -189,8 +190,8 @@ const NewFutureUnicorn = () => {
                     <h1>Future Unicorns</h1>
                     <p>Connecting innovative startups with visionary investors on Growth91 platform.</p>
                     <div className="buttons">
-                        <a href="#">List Your Startup</a>
-                        <a href="#">Explore Investments</a>
+                        {/* <a href="#">List Your Startup</a> */}
+                        <NewLINK to="FutureUnicornList">Explore Investments</NewLINK>
                     </div>
                 </div>
             </div>

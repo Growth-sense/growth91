@@ -30,6 +30,8 @@ import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
 import { InformationList } from "../InformationList";
 import { FutureUnicornList } from "../FutureUnicornList";
+import Newunicornfounder from "../Newunicornfounder";
+import Newunicorninvestor from "../Newunicorninvestor";
 
 
 const { TextArea } = Input;
@@ -148,7 +150,7 @@ class FutureUnicorn extends Component {
 
     return (
    <>
-   {localStorage.getItem("founder_id")?(<InformationList/>):(<FutureUnicornList/>)}
+   {localStorage.getItem("founder_id")?(<Newunicornfounder/>):(<Newunicorninvestor/>)}
    </>
     );
   }

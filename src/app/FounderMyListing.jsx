@@ -263,6 +263,13 @@ export const FounderMyListing = () => {
                                     Edit Startup
                                   </Link>
                                 </div>
+                                <div className="performs-btns">
+                                  <Link to="FounderInterest">
+                                    {" "}
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    Enquires
+                                  </Link>
+                                </div>
                               </td>
                             </div>
                           </div>

@@ -208,6 +208,7 @@ import IndusUnoTranche2 from "./app/deal-pages/IndusUnoTranche2";
 import { Newdeals } from "./app/Newdeals.jsx";
 import jqeryscript from "./jq.js"
 import FamilyAdmin from "./app/admin/FamilyAdmin.jsx";
+import UnicornAdmin from "./app/admin/UnicornAdmin.jsx";
 import familyRemoveRequest from "./app/admin/familyRemoveRequest.jsx";
 import Familymanage from "./app/admin/Familymanage.jsx";
 import FutureUnicorn from "./app/admin/FutureUnicorn.jsx";
@@ -412,6 +413,7 @@ function App() {
           <Route path="/admin-investors" exact component={admininvestors} />
           <Route path="/admin-startups" exact component={adminstartups} />
           <Route path="/admin-family" exact component={FamilyAdmin} />
+          <Route path="/admin-unicorn" exact component={UnicornAdmin} />
           <Route path="/family-Remove-Request" exact component={familyRemoveRequest} />
           <Route path="/admin-family-manage" exact component={Familymanage} />
           <Route path="/future-unicorn-startups" exact component={FUnicornStartup} />

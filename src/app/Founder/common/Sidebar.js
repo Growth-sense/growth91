@@ -130,7 +130,7 @@ export default class Sidebar extends Component {
               &nbsp;&nbsp;Deals
             </li>
           </a>
-          <a
+          {/* <a
             href="/FounderInterest"
             className={
               window.location.pathname == "/FounderInterest" ? "active" : ""
@@ -140,7 +140,7 @@ export default class Sidebar extends Component {
               <i className="bx bx-calendar-star" style={{ fontSize: 20 }}></i>{" "}
               &nbsp;&nbsp;Enquiry/Lead
             </li>
-          </a>
+          </a> */}
           <a
             href="/FounderMyPlan"
             className={
