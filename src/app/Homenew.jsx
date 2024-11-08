@@ -22,11 +22,7 @@ import { Slide } from "react-awesome-reveal";
 import CountUp from "react-countup";
 import { Link } from "react-router-dom";
 import { Homeblog } from "./Homeblog.jsx";
-import NewHome from "./admin/NewHome.js";
-import NewHome2 from "./admin/NewHome2.js";
-import NewHome3 from "./admin/NewHome3.js";
-
-
+import { Helmet } from "react-helmet-async";
 class Homenew extends Component {
   constructor(props) {
     super(props);
@@ -54,19 +50,18 @@ class Homenew extends Component {
 
   componentWillMount() {
     // title
-    // title
     document.getElementsByTagName("META")[4].content =
-      "Growth91: Best Startup investment platform for Investing in startups in India";
+      "Growth91: Leading Platform for Investing in Indian Startups";
     // title
 
     document.title =
-      "Growth91: Best Startup investment platform for Investing in startups in India";
+      "Growth91: Leading Platform for Investing in Indian Startups";
     // keyword
     document.getElementsByTagName("META")[5].content =
       "invest in startups invest in startups india ";
     // description
     document.getElementsByTagName("META")[3].content =
-      "Maximize your returns with the best startup investing platform. Learn how to invest in startups in India and find the top investment opportunities.";
+      "Invest in Indian startups easily on Growth91, a trusted startup investing platform. Learn how to invest in startups in India & find investment opportunities.";
     window.removeEventListener("scroll", this.handleScroll);
   }
   togglemsg() {
@@ -312,9 +307,7 @@ class Homenew extends Component {
       fade: true,
 
       autoplay: true,
-      autoplay: true,
       pauseOnHover: false,
-      pauseOnfocus: false,
       pauseOnfocus: false,
       cssEase: "linear",
       prevArrow: <SimplePrevArrow />,
@@ -541,9 +534,45 @@ class Homenew extends Component {
     const pointer = {
       pointerEvents: "none",
     };
+    let productJsonLd = {
+      "@context": "http://schema.org",
+      "@type": "Product",
+      name: "Growth91: Leading Platform for Investing in Indian Startups",
+      aggregateRating: {
+        "@type": "AggregateRating",
+        bestRating: "5",
+        ratingCount: "6",
+        ratingValue: "4.8",
+      },
+    };
     const { loading } = this.state;
+    console.log(loading);
+    const breedcrumb=
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://growth91.com/"
+        }
+      ]
+    }
+
     return (
       <div>
+        {/* <WebHeader /> */}
+        <Helmet>
+          <script type="application/ld+json">
+            {JSON.stringify(productJsonLd)}
+          </script>
+          <script type="application/ld+json">
+          
+          {JSON.stringify(breedcrumb)}
+          </script>
+        </Helmet>
         {/*  <NewWebHeader  newabout={"newabout"} /> */}
         <NewWebHeader />
         <div
@@ -564,9 +593,8 @@ class Homenew extends Component {
                       <div class="d-flex-banner fadding-bottom fadding-bottom-1">
                         <div class="banner-part banner-slidingpart">
                           <h1 class="">
-                          Invest in Startups in India with Ease by 
-Accessing High-Growth Opportunities
-
+                          Looking to Invest in Startups in India and 
+                            Tap Into High-Growth Ventures?
                           </h1>
                           <p class="p-0">
                    
@@ -700,17 +728,13 @@ Accessing High-Growth Opportunities
                     <div class="left-content">
                       <div class="d-flex-banner banner1 fadding-bottom fadding-bottom-3">
                         <div class="banner-part banner-slidingpart">
-                          <h3 class="seo-tag">
-                          Making Private Market Investment Easy and Accessible
+                          <h2 class="">
+                            Private market <br /> investing made easy
+                          </h2>
+                          <p class=" p-0" data-wow-delay="0.5s" style={{textTransform:"uppercase"}}>
+                          Raise Fund. Invest in Indian Startups. Drive Growth.
 
-                          </h3>
-                          <p
-                            class=" p-0"
-                            data-wow-delay="0.5s"
-                            style={{ textTransform: "uppercase" }}
-                          >
-                           Whether you're raising funds or looking to invest in Indian startups, Growth91 empowers you to drive growth in India's vibrant startup ecosystem.
-
+                            
                           </p>
                           <div className="banner-mobile-img d-sm-none">
                             <img
@@ -1252,7 +1276,7 @@ Accessing High-Growth Opportunities
                           I am a regular investor on Growth Sense and very happy
                           with kind of returns generated on my investments.
                           Looking forward to equally exciting opportunities at
-                          Growth91<sup>®</sup>
+                          Growth91<sup style={{ fontSize: "0.6rem" }}>TM</sup>
                         </p>
                         <div class="name-testi">
                           <div class="img-testiminal-card">

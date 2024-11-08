@@ -5,6 +5,7 @@ import Footer from "./common/Footer";
 import Slider from "react-slick";
 import { NewWebFooter } from "./common/NewWebFooter";
 import NewWebHeader from "./common/NewWebHeader";
+import { Helmet } from "react-helmet-async";
 
 class Howitworks extends Component {
   componentDidMount() {
@@ -29,9 +30,34 @@ class Howitworks extends Component {
       slidesToShow: 1,
       slidesToScroll: 1,
     };
-
+    const breedcrumb=
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://growth91.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Resources",
+          "item": "https://growth91.com/Resources"
+        }
+      ]
+    }
     return (
       <div>
+          <Helmet>
+         
+          <script type="application/ld+json">
+          
+          {JSON.stringify(breedcrumb)}
+          </script>
+        </Helmet>
         <NewWebHeader newabout={"newabout"}/>
 
         <section className="banner_section">

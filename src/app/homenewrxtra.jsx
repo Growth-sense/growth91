@@ -10,7 +10,8 @@ export const Homenewrxtra = () => {
             <div class="MuiBox-root css-2tc2s4">
               <div class="css-uj36w1">
                 <h3 class="MuiTypography-root MuiTypography-h3 css-1j7pxlf">
-                  Discover, Trust, Invest
+                Discover, Trust, Invest in the Future of Indian Startups
+
                 </h3>
                 <p class="MuiTypography-root MuiTypography-body2 css-o2di0e">
                 nvest in the Future of Indian Startups
@@ -45,7 +46,8 @@ export const Homenewrxtra = () => {
                           class="MuiStepLabel-label Mui-active css-1nuxy1d "
                           data-colors="black"
                         >
-                          Who are we and what do we do?
+                          Who Are We and What Do We Do?
+
                         </span>
                       </span>
                     </span>

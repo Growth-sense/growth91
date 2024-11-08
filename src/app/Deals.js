@@ -11,6 +11,7 @@ import ReactGA from "react-ga4";
 import { TRACKING_ID } from "./constants/data";
 import NewWebHeader from "./common/NewWebHeader";
 import { NewWebFooter } from "./common/NewWebFooter";
+import { Helmet } from "react-helmet-async";
 ReactGA.initialize(TRACKING_ID);
 const { Option } = Select;
 const { TabPane } = Tabs;
@@ -309,7 +310,27 @@ class Deals extends Component {
     const PrivateOpenDeals = this.state.deals?.filter(
       (item) => item.deal_type == "Private" && item.show_status == 1
     );
+    const breedcrumb=
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://growth91.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Deals",
+          "item": "https://growth91.com/Deals"
+        }
+      ]
+    }
     return (
+   
       <div
         className="deals-page"
         style={{
@@ -318,6 +339,13 @@ class Deals extends Component {
       >
         {/* <WebHeader /> */}
         <NewWebHeader newabout={"newabout"}/>
+        <Helmet>
+     
+      <script type="application/ld+json">
+      
+      {JSON.stringify(breedcrumb)}
+      </script>
+    </Helmet>
 
         <div>
           <div className="container">
