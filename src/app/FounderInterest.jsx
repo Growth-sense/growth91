@@ -9,7 +9,9 @@ import axios from "axios";
 import Foundermylistnew from "./foundermylistnew.js";
 import Sidebar from "./Founder/common/Sidebar.js";
 import Header from "./common/Header.js";
-
+import * as FileSaver from "file-saver";
+import * as XLSX from "xlsx";
+import { message } from "antd";
 export const FounderInterest = () => {
   //
   const [unideatils, setunideatils] = useState();
@@ -33,9 +35,9 @@ export const FounderInterest = () => {
     };
     Bridge.Unicorn.unicorn_interested_list(params).then((result) => {
       setintrestdata(result.data);
+      console.log(result.data);
     });
   };
-  console.log(unicorn);
 
   function SimpleNextArrow(props) {
     const { onClick } = props;
@@ -114,6 +116,35 @@ export const FounderInterest = () => {
       },
     ],
   };
+  const fileType =
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+const fileExtension = ".xlsx";
+    const  exportToCSV = (fileName) => {
+        let arr = [];
+        let count = 1;
+        for (let item of intrestdata) {
+          console.log(intrestdata);
+          // return
+          let obj = {
+            "Sr No": count,
+            "Name": item.first_name +item.last_name,
+            "E-mail":item.email,
+            "Interest Shown Date": item.interestDate,
+            "Mobile Number":item.mobile,
+            "Comments from Visitor":item.interestMessage,
+            "Type of Interest Shown":item.interestKnowMore==1 &&"I Want to know more about it" ||item.interestWorkwithYou==1 &&"I want to work with you"||item.interestInvestinStartup==1 &&"I am excited to invest in your startups",
+           
+          };
+          arr = [...arr, obj];
+          count++;
+        }
+        const ws = XLSX.utils.json_to_sheet(arr);
+        const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+        const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+        const data = new Blob([excelBuffer], { type: fileType });
+        FileSaver.saveAs(data, "Intrested List" + fileExtension);
+        message.success("Founders data exported successfully.");
+      };
   return (
     <div
       style={{
@@ -168,7 +199,7 @@ export const FounderInterest = () => {
               <div class="tab-content my-table-row  my-table-row-es">
                 <input type="radio" name="tab-index" id="tab-index4" checked />
                 <div className="import-export community-paragraph-box">
-                  <a href="" className="mt-0">
+                  <a onClick={exportToCSV} className="mt-0">
                     Import Data
                   </a>
                 </div>
@@ -209,7 +240,7 @@ export const FounderInterest = () => {
                                   <span>{item.mobile}</span>
                                 </td>
                                 <td>
-                                  <span>{item.interestInvestinStartup==1 && "   I am excited to invest in your startups"}</span>
+                                  <span>{item.interestInvestinStartup==1 && "I am excited to invest in your startups"}</span>
                                   <span>{item.interestKnowMore==1 && "I Want to know more about it"}</span>
                                   <span>{item.interestWorkwithYou==1 && "I want to work with you"}</span>
                                 </td>

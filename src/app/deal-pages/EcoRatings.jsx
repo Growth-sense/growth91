@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import WebHeader from "../common/WebHeader";
-import WebFooter from "../common/WebFooter";
+
 import "./newboo.css";
 import {
   Tabs,
@@ -20,6 +19,8 @@ import Apis from "../constants/Apis";
 import moment from "moment";
 import Bridge from "../constants/Bridge";
 import InvestmentMembershipmodal from "../components/membership/InvestmentMembershipmodal";
+import NewWebHeader from "../common/NewWebHeader";
+import { NewWebFooter } from "../common/NewWebFooter";
 
 const { Panel } = Collapse;
 const { TabPane } = Tabs;
@@ -94,23 +95,32 @@ class EcoRatings extends Component {
       escrowact: "",
       escrow_account_ifsc: "",
       agreeCheck: false,
+      deal_service: "",
       images: [
-        "./assets/images/deals-details/EcoRatings/Pitch/0001.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0002.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0003.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0004.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0005.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0006.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0007.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0008.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0009.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0010.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0011.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0012.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0013.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0014.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0015.jpg",
-        "./assets/images/deals-details/EcoRatings/Pitch/0016.jpg",
+        "./assets/images/deals-details/EcoRatings/Pitch/ER_DECK_India-images-0.jpg",
+        "./assets/images/deals-details/EcoRatings/Pitch/ER_DECK_India-images-1.jpg",
+        "./assets/images/deals-details/EcoRatings/Pitch/ER_DECK_India-images-2.jpg",
+        "./assets/images/deals-details/EcoRatings/Pitch/ER_DECK_India-images-3.jpg",
+        "./assets/images/deals-details/EcoRatings/Pitch/ER_DECK_India-images-4.jpg",
+        "./assets/images/deals-details/EcoRatings/Pitch/ER_DECK_India-images-5.jpg",
+        "./assets/images/deals-details/EcoRatings/Pitch/ER_DECK_India-images-6.jpg",
+        "./assets/images/deals-details/EcoRatings/Pitch/ER_DECK_India-images-7.jpg",
+        "./assets/images/deals-details/EcoRatings/Pitch/ER_DECK_India-images-8.jpg",
+        "./assets/images/deals-details/EcoRatings/Pitch/ER_DECK_India-images-9.jpg",
+        "./assets/images/deals-details/EcoRatings/Pitch/ER_DECK_India-images-10.jpg",
+        "./assets/images/deals-details/EcoRatings/Pitch/ER_DECK_India-images-11.jpg",
+        "./assets/images/deals-details/EcoRatings/Pitch/ER_DECK_India-images-12.jpg",
+        "./assets/images/deals-details/EcoRatings/Pitch/ER_DECK_India-images-13.jpg",
+        "./assets/images/deals-details/EcoRatings/Pitch/ER_DECK_India-images-14.jpg",
+        "./assets/images/deals-details/EcoRatings/Pitch/ER_DECK_India-images-15.jpg",
+        "./assets/images/deals-details/EcoRatings/Pitch/ER_DECK_India-images-16.jpg",
+        "./assets/images/deals-details/EcoRatings/Pitch/ER_DECK_India-images-17.jpg",
+        "./assets/images/deals-details/EcoRatings/Pitch/ER_DECK_India-images-18.jpg",
+        "./assets/images/deals-details/EcoRatings/Pitch/ER_DECK_India-images-19.jpg",
+        "./assets/images/deals-details/EcoRatings/Pitch/ER_DECK_India-images-20.jpg",
+        "./assets/images/deals-details/EcoRatings/Pitch/ER_DECK_India-images-21.jpg",
+        "./assets/images/deals-details/EcoRatings/Pitch/ER_DECK_India-images-22.jpg",
+        "./assets/images/deals-details/EcoRatings/Pitch/ER_DECK_India-images-23.jpg",
        
       ],
       current: "",
@@ -124,7 +134,7 @@ class EcoRatings extends Component {
     document.title = "EcoRatings - Growth91 - Startup Marketplace ";
   }
   componentDidMount() {
-    let deal_id = "118";
+    let deal_id = "39";
     this.setState({ deal_id: deal_id }, () => {
       this.get_pitch_list();
     });
@@ -604,6 +614,8 @@ class EcoRatings extends Component {
                 button_show_status: button_show_status,
                 show_data: "block",
                 multiples_of: d.multiples_of,
+                deal_service: d.deal_service,
+
               },
               () => this.calculategst()
             );
@@ -1115,7 +1127,7 @@ class EcoRatings extends Component {
       <>
         {this.state.is_deal_visible == true ? (
           <div style={{ display: this.state.show_data }}>
-            <WebHeader />
+            <NewWebHeader  newabout={"newabout"}/>
             <section
               className="deals-details-page"
               style={{ marginBottom: "-50px" }}
@@ -1785,14 +1797,8 @@ class EcoRatings extends Component {
                             <img src="./assets/images/deals-details/highlight2.jfif" />
                           </div>
                           <p style={{ padding: "0px !important" }}>
-                            EcoRatings has secured 50 clients with a remarkable
-                            100% retention rate, generating Rs. 5,00,000 in
-                            revenue from the top 5 clients. The startup's UNEP
-                            validation and proprietary AI model, based on a 30
-                            billion-parameter autoregressive transformer
-                            architecture, position it as a leader in the
-                            sustainability-focused AI sector, showcasing strong
-                            market traction
+                          This proprietary AI model  of EcoRatings is initially trained on 10 billion tokens, with a goal of reaching 20 trillion tokens, specifically designed for sustainability analysis. It offers real-time insights by allowing users to query both internal and external data sources in plain language (e.g., "What are the scope 3 emissions of Air Jordans?"). Utilising a Retrieval-Augmented Generation (RAG) architecture, it seamlessly integrates large language models with enterprise systems to extract and analyze data in real time, empowering organizations to make informed sustainability decisions.
+
                           </p>
                         </div>
                       </div>
@@ -1869,14 +1875,8 @@ class EcoRatings extends Component {
                             <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
                           </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                            EcoRatings generates revenue through diversified
-                            channels, including Audited ESG Ratings (potential
-                            $1.5 billion annually with a 10% SKU penetration),
-                            LLM EcoRating.ai subscription model (estimated $1.08
-                            billion annually with a 20% Accenture client
-                            penetration), and Ecosystem Development (projected
-                            $18 billion annually from 300,000 third-party
-                            developers using the foundational model).
+                          EcoRatings generates revenue through diversified channels, having earned $75,000 over the last three months, with projected revenues of $100,000 in 2025, $2 million in 2026, and $10 million in 2027. Its revenue streams include Audited ESG Ratings (potential $1.5 billion annually with 10% SKU penetration), the LLM EcoRating.ai subscription model (estimated $1.08 billion annually with 20% Accenture client penetration), and Ecosystem Development (projected $18 billion annually from 300,000 third-party developers using the foundational model). EcoRatings has also received SEBI approval as an ESG Rating provider for listed companies under SEBI.
+
                           </p>
                         </div>
                       </div>
@@ -2103,11 +2103,16 @@ class EcoRatings extends Component {
                                           </div>
                                           <div className="info">
                                             <span> Min Investment</span>
-                                            <h4>₹ 307800 for CCPS</h4>
+                                            <h4>
+                                              ₹{" "}
+                                              {this.formatNumberWithCommas(
+                                                this.state.minamount
+                                              )}{" "}
+                                              for {this.state.deal_service}</h4>
                                           </div>
                                           <div className="info">
                                             <span>Valuation</span>
-                                            <h4>₹ 36 Cr</h4>
+                                            <h4>₹ 50 Cr</h4>
                                           </div>
                                         </div>
                                       </div>
@@ -3057,7 +3062,7 @@ Yes, EcoRatings is targeting a relatively new and untapped market in India, and 
                 </div>
               </div>
             </div>
-            <WebFooter />
+            <NewWebFooter />
           </div>
         ) : (
           window.location.assign("/Deals")

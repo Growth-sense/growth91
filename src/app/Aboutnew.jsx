@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import NewWebHeader from "./common/NewWebHeader.jsx";
 import $ from "jquery";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 export const Aboutnew = () => {
     useEffect(() => {
@@ -102,8 +103,34 @@ export const Aboutnew = () => {
           }
         }]
       }
+      const breedcrumb=
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://growth91.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "about",
+            "item": "https://growth91.com/about"
+          }
+        ]
+      }
   return (
     <div>
+        <Helmet>
+         
+         <script type="application/ld+json">
+         
+         {JSON.stringify(breedcrumb)}
+         </script>
+       </Helmet>
       <div classname="newabout">
         <NewWebHeader newabout={"newabout"} />
       </div>

@@ -269,6 +269,7 @@ class Deals extends Component {
       attachment_preview: "",
       add_vendor_id: "",
       edit_vendor_id: "",
+      edit_deal_type: "",
       allPrivateDealInvestor: [],
       selectallstatus: false,
       count: 0,
@@ -437,6 +438,8 @@ class Deals extends Component {
       edit_signer_email: item.signer_email,
       edit_signer_mobile: item.signer_mobile,
       edit_vendor_id: item.vendor_id,
+      edit_deal_type: item.deal_type,
+
     });
     // console.log(this.state.edit_founder_sign_coordinate)
   };
@@ -700,6 +703,7 @@ bank_branch:this.state.editbank_branch,
             edit_escrow_account_name: "",
             edit_escrow_account_bank: "",
             edit_escrow_account_branch: "",
+            edit_deal_type: "",
           },
           () => this.getdeallist()
         );

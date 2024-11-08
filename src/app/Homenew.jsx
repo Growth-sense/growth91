@@ -25,6 +25,7 @@ import { Homeblog } from "./Homeblog.jsx";
 import NewHome from "./admin/NewHome.js";
 import NewHome2 from "./admin/NewHome2.js";
 import NewHome3 from "./admin/NewHome3.js";
+import { Helmet } from "react-helmet-async";
 
 
 class Homenew extends Component {
@@ -67,6 +68,29 @@ class Homenew extends Component {
     // description
     document.getElementsByTagName("META")[3].content =
       "Maximize your returns with the best startup investing platform. Learn how to invest in startups in India and find the top investment opportunities.";
+    window.removeEventListener("scroll", this.handleScroll);
+  }
+  togglemsg() {
+    // Toggle isActive state
+
+    this.setState((prevState) => ({
+      isActivemsg: !prevState.isActivemsg,
+    }));
+  }
+  componentWillMount() {
+    // title
+    document.getElementsByTagName("META")[4].content =
+      "Growth91: Leading Platform for Investing in Indian Startups";
+    // title
+
+    document.title =
+      "Growth91: Leading Platform for Investing in Indian Startups";
+    // keyword
+    document.getElementsByTagName("META")[5].content =
+      "invest in startups invest in startups india ";
+    // description
+    document.getElementsByTagName("META")[3].content =
+      "Invest in Indian startups easily on Growth91, a trusted startup investing platform. Learn how to invest in startups in India & find investment opportunities.";
     window.removeEventListener("scroll", this.handleScroll);
   }
   togglemsg() {
@@ -312,9 +336,7 @@ class Homenew extends Component {
       fade: true,
 
       autoplay: true,
-      autoplay: true,
       pauseOnHover: false,
-      pauseOnfocus: false,
       pauseOnfocus: false,
       cssEase: "linear",
       prevArrow: <SimplePrevArrow />,
@@ -515,6 +537,7 @@ class Homenew extends Component {
             arrows: true,
             slidesToShow: 1,
             slidesToScroll: 1,
+            arrows: true,
             autoplay: false,
           },
         },
@@ -541,9 +564,45 @@ class Homenew extends Component {
     const pointer = {
       pointerEvents: "none",
     };
+    let productJsonLd = {
+      "@context": "http://schema.org",
+      "@type": "Product",
+      name: "Growth91: Leading Platform for Investing in Indian Startups",
+      aggregateRating: {
+        "@type": "AggregateRating",
+        bestRating: "5",
+        ratingCount: "6",
+        ratingValue: "4.8",
+      },
+    };
     const { loading } = this.state;
+    console.log(loading);
+    const breedcrumb=
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://growth91.com/"
+        }
+      ]
+    }
+
     return (
       <div>
+        {/* <WebHeader /> */}
+        <Helmet>
+          <script type="application/ld+json">
+            {JSON.stringify(productJsonLd)}
+          </script>
+          <script type="application/ld+json">
+          
+          {JSON.stringify(breedcrumb)}
+          </script>
+        </Helmet>
         {/*  <NewWebHeader  newabout={"newabout"} /> */}
         <NewWebHeader />
         <div
