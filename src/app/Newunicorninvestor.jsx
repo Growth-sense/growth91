@@ -221,6 +221,38 @@ const NewFutureUnicorn = () => {
             </div>
 
             {/* Key Features Section */}
+      
+                
+                <div className="why-to-list founder-benefit">
+        {/* <h2>Benefits for</h2> */}
+        <div class="heading-title founder-text">
+                    <p>
+                      <span></span>{" "}
+                    </p>
+                    <h2>Benefits for Investors</h2>
+                  </div>
+                    <div className="features">
+                        <div className="feature-box">
+                            <h3>Vetted Opportunities</h3>
+                            <p>Access to a broad range of thoroughly vetted startups.</p>
+                        </div>
+                        <div className="feature-box">
+                            <h3>Informed Decisions</h3>
+                            <p>Detailed information and insights to support investment choices.</p>
+                        </div>
+                        <div className="feature-box">
+                            <h3>Easy Management</h3>
+                            <p>Tools to track and manage investments efficiently.</p>
+                        </div>
+                    </div>
+    </div>
+    
+    
+    
+            
+                
+              
+    
             <div className="key-features ">
                 {/* <h2>Key Features</h2> */}
                 <div class="heading-title founder-text">
@@ -260,54 +292,9 @@ const NewFutureUnicorn = () => {
                     </div>
                 </div>
             </div>
+         
 
-            <div className="why-to-list founder-benefit">
-    {/* <h2>Benefits for</h2> */}
-    <div class="heading-title founder-text">
-                <p>
-                  <span></span>{" "}
-                </p>
-                <h2 style={{color:"white", fontSize : "37px"}}>Benefits for Founders</h2>
-              </div>
-    <div className="features">
-        <div className="feature-box">
-            <h3>Simplified Listing</h3>
-            <p>Easy process to showcase startups to potential investors.</p>
-        </div>
-        <div className="feature-box">
-            <h3>Increased Visibility</h3>
-            <p>Access to a diverse investor base for greater exposure.</p>
-        </div>
-        <div className="feature-box">
-            <h3>Global Reach</h3>
-            <p>Potential for both domestic and international investments.</p>
-        </div>
-    </div>
-</div>
-
-
-            <div className="why-to-list investor-benifit">
-            <div class="heading-title founder-text">
-                <p>
-                  <span></span>{" "}
-                </p>
-                <h3>Benefits for Investors</h3>
-              </div>
-                <div className="features">
-                    <div className="feature-box">
-                        <h3>Vetted Opportunities</h3>
-                        <p>Access to a broad range of thoroughly vetted startups.</p>
-                    </div>
-                    <div className="feature-box">
-                        <h3>Informed Decisions</h3>
-                        <p>Detailed information and insights to support investment choices.</p>
-                    </div>
-                    <div className="feature-box">
-                        <h3>Easy Management</h3>
-                        <p>Tools to track and manage investments efficiently.</p>
-                    </div>
-                </div>
-            </div>
+         
         <section class="custom-section">
           <div class="join-section join-sec-yellow join-sec-white undefined join-divide mobile-join">
             {/* <h4>Join us</h4> */}

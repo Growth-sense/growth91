@@ -18,8 +18,8 @@ import { MemberShip } from './app/MemberShip.jsx'
 import NewHome from "./app/admin/NewHome.js";
 import NewHome2 from "./app/admin/NewHome2.js";
 import NewHome3 from "./app/admin/NewHome3.js";
-import NewFutureUnicorn from "./app/NewFutureUnicorn.jsx";
-
+import Newunicorninvestor from "./app/Newunicorninvestor.jsx";
+import Newunicornfounder from "./app/Newunicornfounder.jsx";
 
 
 
@@ -267,7 +267,9 @@ function App() {
           <Route path="/NewHome2" exact component = {NewHome2} />
           <Route path="/NewHome3" exact component = {NewHome3} />
        
-          <Route path="/NewFutureUnicorn" exact component = {NewFutureUnicorn} />
+          <Route path="/unicornfounder" exact component = {Newunicornfounder} />
+          <Route path="/unicorninvestor" exact component = {Newunicorninvestor} />
+
 
 
 
