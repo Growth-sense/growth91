@@ -18,6 +18,11 @@ export const FutureUnicornDescription = () => {
   }, []);
   console.log(id);
 
+  const [showModal, setShowModal] = useState(false);
+
+  const handleShow = () => setShowModal(true);
+  const handleClose = () => setShowModal(false);
+
   const [unicorn, setUnicorn] = useState();
   const [memberdata, setmemberdata] = useState();
   const [message, setmessage] = useState();
@@ -173,7 +178,7 @@ console.log(data);
 
   };
   return (
-    <div>
+      <div>
       <div classname="newabout">
         <NewWebHeader newabout={"newabout"} />
       </div>
@@ -190,7 +195,7 @@ console.log(data);
                   <div class="container-flex">
             
                     <div className="row row-imgdirects">
-                      <div className="row-img-direct">
+                      <div className="row-img-direct " style={{alignItems : "center"}}>
                         <div className="img-certified-directors">
                           <img
                             src={`${
@@ -677,116 +682,88 @@ console.log(data);
                                         </div>
                                     </div>
                                 </div> */}
+ <div className="accordion-item">
+        <h3 className="accordion-header" id="flush-headingfour">
+          <button
+            style={{
+              padding: "1rem 1.25rem",
+              cursor: "pointer",
+            }}
+            className="btn"
+            type="button"
+            onClick={handleShow}
+          >
+            <span style={{ marginRight: "0.5rem" }}>
+              <img src="./assets/images/gallery.png" alt="gallery icon" />
+            </span>
+            Investor Presentation
+          </button>
+        </h3>
+      </div>
 
-                          <div class="accordion-item">
-                            <h3 class="accordion-header" id="flush-headingfour">
-                              <button
-                                class="accordion-button collapsed"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#flush-headingfournew"
-                                aria-expanded="false"
-                                aria-controls="flush-headingfour"
-                              >
-                                <span>
-                                  <img
-                                    src="./assets/images/gallery.png"
-                                    alt=""
-                                  />
-                                </span>
-                                Investor Presentation
-                              </button>
-                            </h3>
-                            <div
-                              id="flush-headingfournew"
-                              class="accordion-collapse collapse"
-                              aria-labelledby="flush-headingfour"
-                              data-bs-parent="#accordionFlushExample"
-                            >
-                              <div class="accordion-body">
-                                <iframe
-                                  src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.udPitchDeck)}`}
-                                  frameborder="0"
-                                  height={"500px"}
-                                  width={"100%"}
-                                ></iframe>
-                                {/* <div className="row justify-content-center">
-                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                    <div className="img-future-gallery">
-                                      <img
-                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
-                                        alt=""
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                    <div className="img-future-gallery">
-                                      <img
-                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
-                                        alt=""
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                    <div className="img-future-gallery">
-                                      <img
-                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
-                                        alt=""
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                    <div className="img-future-gallery">
-                                      <img
-                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
-                                        alt=""
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                    <div className="img-future-gallery">
-                                      <img
-                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
-                                        alt=""
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                    <div className="img-future-gallery">
-                                      <img
-                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
-                                        alt=""
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                    <div className="img-future-gallery">
-                                      <img
-                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
-                                        alt=""
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                    <div className="img-future-gallery">
-                                      <img
-                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
-                                        alt=""
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                    <div className="img-future-gallery">
-                                      <img
-                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
-                                        alt=""
-                                      />
-                                    </div>
-                                  </div>
-                                </div> */}
-                              </div>
-                            </div>
-                          </div>
+      {/* Dialog-style Modal */}
+      {showModal && (
+        <>
+          <div
+            className="modal show fade fadein"
+            tabIndex="-1"
+            style={{
+              display: 'block',
+              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+              zIndex: 1050,
+              transition: 'all 0.5s ease',
+              
+            }}
+            aria-labelledby="investorModalLabel"
+            aria-hidden="true"
+          >
+            <div
+              className="modal-dialog"
+              style={{
+                maxWidth: '1300px', // Adjusted width for dialog style
+                margin: '1% auto', // Centers the modal
+                transition: 'all 0.5s ease',
+              
+              }}
+            >
+              <div className="modal-content" style={{ borderRadius: '8px', overflow: 'hidden' }}>
+                <div className="modal-header">
+                  <h5 className="modal-title" id="investorModalLabel">Investor Presentation</h5>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    onClick={handleClose}
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div className="modal-body">
+                  <iframe
+                    src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.udPitchDeck)}`}
+                    frameBorder="0"
+                    height="600px" // Adjusted height for a dialog style
+                    width="100%"
+                    title="Investor Presentation"
+                    style={{
+                      borderRadius: '8px',
+                      boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.1)',
+                    }}
+                  ></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Overlay effect to close the modal when clicked outside */}
+          <div
+            className="modal-backdrop fade show"
+            onClick={handleClose}
+            style={{
+              zIndex: 1040,
+              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            }}
+          ></div>
+        </>
+      )}
 
                           <div class="accordion-item">
                             <h3 class="accordion-header" id="flush-headingWait">
@@ -1049,7 +1026,7 @@ console.log(data);
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-12">
+                      <div className="col-12" style={{display : "flex", alignItems : "center" , justifyContent :"center", gap:"30px"}}>
                         <div className="investor-amounts">
                           <a style={{color:"white"}} onClick={openiamintrest}>I am Interested</a>
                         </div>
