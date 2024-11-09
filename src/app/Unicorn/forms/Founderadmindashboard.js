@@ -949,7 +949,7 @@ class Founderadmindashboard extends Component {
     ) {
       this.setState({ loading: false });
       this.activeform(0);
-      toast.error("Please fill Basic Section");
+      toast.error("Please fill Basic Details Section");
       return;
     }
     console.log(
@@ -975,7 +975,7 @@ class Founderadmindashboard extends Component {
       this.state.unicorn.tudCustomerBenifit == "" ||
       !this.state.unicorn.tudSuppliersBenifit ||
       this.state.unicorn.tudSuppliersBenifit == "" ||
-      // !this.state.unicorn.focused_on_product ||this.state.unicorn.focused_on_product==""||
+      !this.state.unicorn.tudFocusedOnProduct ||this.state.unicorn.tudFocusedOnProduct==""||
       !this.state.unicorn.tudDirectSubstitueAvailable ||
       this.state.unicorn.tudDirectSubstitueAvailable == "" ||
       !this.state.unicorn.tudIndirectSubstitueAvailable ||
@@ -989,7 +989,7 @@ class Founderadmindashboard extends Component {
     ) {
       this.setState({ loading: false });
       this.activeform(1);
-      toast.error("Please fill Ideal/Business Section");
+      toast.error("Please fill Idea/Business Section");
       return;
     }
     if (
@@ -1005,7 +1005,7 @@ class Founderadmindashboard extends Component {
       this.setState({ loading: false });
       this.activeform(3);
 
-      toast.error("Please fill Mobile app Section");
+      toast.error("Please fill Mobile App Section");
       return;
     }
     if (
@@ -1121,7 +1121,7 @@ class Founderadmindashboard extends Component {
       this.state.unicorn.tudProductFund == "" ||
       !this.state.unicorn.tudMarketingFund ||
       this.state.unicorn.tudMarketingFund == "" ||
-      // !this.state.unicorn.use_of_funds_repayment ||this.state.unicorn.use_of_funds_repayment==""||
+      !this.state.unicorn.tudUseofFundRepayment ||this.state.unicorn.tudUseofFundRepayment==""||
       !this.state.unicorn.tudSalaryFund ||
       this.state.unicorn.tudSalaryFund == "" ||
       !this.state.unicorn.tudCastComFund ||
@@ -1176,7 +1176,7 @@ class Founderadmindashboard extends Component {
     ) {
       this.setState({ loading: false });
       this.activeform(16);
-      toast.error("Please fill Important indicators Section");
+      toast.error("Please fill Other Important indicators Section");
       return;
     }
     if (
@@ -1233,7 +1233,7 @@ class Founderadmindashboard extends Component {
     if (!this.state.unicorn.tudDeclare || this.state.unicorn.tudDeclare == "") {
       this.setState({ loading: false });
       this.activeform(21);
-      toast.error("Please Declara ");
+      toast.error("Please Declaration Section");
       return;
     }
     let params = {

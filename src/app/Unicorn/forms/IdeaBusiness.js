@@ -399,8 +399,8 @@ class IdeaBusiness extends Component {
                           id=""
                           cols="30"
                           rows="6"
-                          name="focused_on_product"
-                          value={this.props.unicorn.focused_on_product}
+                          name="tudFocusedOnProduct"
+                          value={this.props.unicorn.tudFocusedOnProduct}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
