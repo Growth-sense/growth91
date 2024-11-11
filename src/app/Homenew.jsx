@@ -546,7 +546,6 @@ class Homenew extends Component {
       },
     };
     const { loading } = this.state;
-    console.log(loading);
     const breedcrumb=
     {
       "@context": "https://schema.org",
@@ -786,7 +785,7 @@ class Homenew extends Component {
         {/* <NewHome/> */}
         {/* <NewHome2/> */}
         
-        <NewHome3/>
+        {/* <NewHome3/> */}
        
 
 

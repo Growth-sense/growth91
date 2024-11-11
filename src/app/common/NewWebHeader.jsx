@@ -625,7 +625,6 @@ class NewWebHeader extends Component {
   };
   
   render() {
-    console.log(this.state.member_detail);
     const { newabout } = this.props;
 
     // Add a click event listener to the expandMenu element
