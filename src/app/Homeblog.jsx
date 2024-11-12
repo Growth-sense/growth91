@@ -219,7 +219,7 @@ const [loading, setLoading] = useState()
                   </div>
                 </div>
               </div>
-              {/* <button>View All Blogs</button> */}
+              <button ><a  rel="noreferrer" href="https://growth91.com/blog/"style={{color:"white"}}> View All Blogs</a></button>
             </div>
           </div>
         </section>

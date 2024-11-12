@@ -1150,11 +1150,8 @@ Accessing High-Growth Opportunities
                   <div class="card-business-crowd">
                     <h4>Transparency at Every Step </h4>
                     <p>
-                      We offer a clear view into our rigorous vetting process,
-                      detailed startup profiles with in-depth information, and
-                      open communication. Invest with confidence, knowing you
-                      have all the information you need to make informed
-                      decisions.
+                    Our detailed vetting process ensures you get in-depth startup profiles with transparent communication, empowering you to make informed investment decisions.
+
                     </p>
                   </div>
                 </div>
@@ -1165,9 +1162,7 @@ Accessing High-Growth Opportunities
                   <div class="card-business-crowd">
                     <h4>Handpicked Deals for Explosive Growth </h4>
                     <p>
-                      We meticulously select high-growth potential startups from
-                      diverse industries, saving you time and research while
-                      offering a range of exciting investment opportunities.
+                    We carefully select startups with the highest growth potential, ensuring that every deal aligns with your investment goals.
                     </p>
                   </div>
                 </div>
@@ -1179,10 +1174,8 @@ Accessing High-Growth Opportunities
                     <h4>Aligned Interests, Shared Success</h4>
                     <p>
                       {" "}
-                      We invest alongside you in every startup featured on our
-                      platform. This "skin in the game" approach ensures our
-                      goals are perfectly aligned with yours – we're all rooting
-                      for the next big thing!
+                      We invest alongside you, so when you succeed, we succeed too. Together, we drive startup success.
+
                     </p>
                   </div>
                 </div>
@@ -1190,7 +1183,7 @@ Accessing High-Growth Opportunities
             </div>
           </div>
           <div className="join-button">
-    <button>See Our Latest Startup Listings</button>
+    <button><a rel="noreferrer" href="/deals" style={{color:"white"}}> See Our Latest Startup Listings</a></button>
   </div>
         </section>
 
@@ -1614,8 +1607,7 @@ you and aligns with your vision.
             {/* <h4>Join us</h4> */}
             <div className="join-flex-one-us">
               <h2>
-                Join Us to Invest in Startups in India and Support Breakthrough
-                Ventures
+                Join Us to Invest in Startups in India and Support Breakthrough Ventures
               </h2>
               <p class="index_pitch">
                 Decades of banking, investing & startup success guide your

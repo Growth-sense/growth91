@@ -10,11 +10,11 @@ export const Homenewrxtra = () => {
             <div class="MuiBox-root css-2tc2s4">
               <div class="css-uj36w1">
                 <h3 class="MuiTypography-root MuiTypography-h3 css-1j7pxlf">
-                Discover, Trust, Invest in the Future of Indian Startups
+                Discover, Trust, Invest 
 
                 </h3>
                 <p class="MuiTypography-root MuiTypography-body2 css-o2di0e">
-                nvest in the Future of Indian Startups
+                Invest in the Future of Indian Startups
 
                 </p>
               </div>
@@ -102,7 +102,7 @@ export const Homenewrxtra = () => {
                           class="MuiStepLabel-label Mui-active css-1nuxy1d"
                           data-colors="blue"
                         >
-                          Why should you trust us?
+                          Why Should You Trust Us?
                         </span>
                       </span>
                     </span>
@@ -119,7 +119,7 @@ export const Homenewrxtra = () => {
                           <div class="MuiCollapse-wrapperInner MuiCollapse-vertical css-8atqhb">
                             <span class="MuiTypography-root MuiTypography-subtitle css-f58h4c">
                             Growth91's startups undergo a rigorous vetting process. We invest alongside you, ensuring shared success.
-&nbsp;
+                            &nbsp;
                             </span>
                           </div>
                         </div>
