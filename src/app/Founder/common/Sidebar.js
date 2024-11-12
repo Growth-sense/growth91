@@ -137,7 +137,7 @@ export default class Sidebar extends Component {
               &nbsp;&nbsp;Deals
             </li>
           </a>
-          <a
+          {/* <a
             href="/FounderInterest"
             className={
               window.location.pathname === "/FounderInterest" ? "active" : ""

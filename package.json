@@ -83,6 +83,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "postbuild":"react-snap",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -105,13 +106,8 @@
   },
   "reactSnap": {
     "include": [
-      "/",
-      "/Founders",
-      "/resources",
-      "/Investors",
-      "/Learn",
-      "/TermsConditions",
-      "/PrivacyPolicy"
+     
+      "/Founders"
     ],
     "minifyHtml": {
       "collapseWhitespace": false,

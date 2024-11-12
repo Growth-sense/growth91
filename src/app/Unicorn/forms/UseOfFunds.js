@@ -428,8 +428,8 @@ class UseOfFunds extends Component {
                               <label for="">Use of funds (Repayment of loans amount %)<span className="text-danger">*</span></label>
                               <input  
                                 type="text" 
-                                name='use_of_funds_repayment'
-                                value={this.props.unicorn.use_of_funds_repayment}
+                                name='tudUseofFundRepayment'
+                                value={this.props.unicorn.tudUseofFundRepayment}
    onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
