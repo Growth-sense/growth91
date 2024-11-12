@@ -1350,11 +1350,16 @@
 
 @media screen and (min-width: 768px) {
   .menu-logo a img:nth-child(1) {
-    position: absolute;
+    sition: absolute;
     left: 0px;
     height: 60px;
     width: 40px;
+    top: 0px;
 
+
+  }
+  span.expandMenu i {
+    display: block !important;
   }
 
   .menu-logo a img:nth-child(2) {
@@ -1387,6 +1392,7 @@
 
   .bgheaders .main-navbar .logo-menus .menu-logo a img:nth-child(2) {
     display: block;
+    top: -25px;
   }
 
   .bgheaders .headers-btn a:nth-child(1) {
@@ -4111,7 +4117,9 @@ transition: max-height 0.45s ease-in; */
   }
 
   .menu-logo img {
-    margin-left: -15px !important;
+    margin-left: 5px !important;
+    height: 50px;
+    width: 36px;
   }
 
   .new.main-header .main-navbar .nav-inner ul li a {

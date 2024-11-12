@@ -530,18 +530,18 @@ console.log(data);
         </>
       )}
         <div class="accordion-item">
-        <h3 class="accordion-header" id="flush-headingWait">
+        <h3 class="accordion-header" id="flush-headingMarket">
                               <button
                                 class="accordion-button collapsed"
                                 type="button"
                                 data-bs-toggle="collapse"
-                                data-bs-target="#flush-headingWaitnew"
+                                data-bs-target="#flush-collapseMarket"
                                 aria-expanded="false"
-                                aria-controls="flush-headingWait"
+                                aria-controls="flush-collapseMarket"
                               >
                                 <span>
                                   <img
-                                    src="./assets/images/mobile.png"
+                                    src="./assets/images/market-research.png"
                                     alt=""
                                   />
                                 </span>
@@ -549,9 +549,9 @@ console.log(data);
                               </button>
                             </h3>
                             <div
-                              id="flush-headingWaitnew"
+                              id="flush-collapseMarket"
                               class="accordion-collapse collapse"
-                              aria-labelledby="flush-headingWait"
+                              aria-labelledby="flush-headingMarket"
                               data-bs-parent="#accordionFlushExample"
                             >
                                 <div class="accordion-body">
@@ -606,18 +606,18 @@ console.log(data);
                             class="accordion-item"
                             style={{ border: "none" }}
                           >
- <h3 class="accordion-header" id="flush-headingWait">
+ <h3 class="accordion-header" id="flush-headingTeam">
                               <button
-                                class="accordion-button collapsed"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#flush-headingWaitnew"
-                                aria-expanded="false"
-                                aria-controls="flush-headingWait"
+                               class="accordion-button collapsed"
+                               type="button"
+                               data-bs-toggle="collapse"
+                               data-bs-target="#flush-collapseTeam"
+                               aria-expanded="false"
+                               aria-controls="flush-collapseTeam"
                               >
                                 <span>
                                   <img
-                                    src="./assets/images/mobile.png"
+                                    src="./assets/images/group-chat.png"
                                     alt=""
                                   />
                                 </span>
@@ -625,10 +625,10 @@ console.log(data);
                               </button>
                             </h3>
                             <div
-                              id="flush-headingWaitnew"
-                              class="accordion-collapse collapse"
-                              aria-labelledby="flush-headingWait"
-                              data-bs-parent="#accordionFlushExample"
+                             id="flush-collapseTeam"
+                             class="accordion-collapse collapse"
+                             aria-labelledby="flush-headingTeam"
+                             data-bs-parent="#accordionFlushExample"
                             >
                                  <div class="accordion-body ">
                               <div className="row row-box-linse Grid-team">
@@ -685,18 +685,18 @@ console.log(data);
                         
 
                           <div class="accordion-item">
-                            <h3 class="accordion-header" id="flush-headingWait">
+                            <h3 class="accordion-header" id="flush-headingVideos">
                               <button
-                                class="accordion-button collapsed"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#flush-headingWaitnew"
-                                aria-expanded="false"
-                                aria-controls="flush-headingWait"
+                               class="accordion-button collapsed"
+                               type="button"
+                               data-bs-toggle="collapse"
+                               data-bs-target="#flush-collapseVideos"
+                               aria-expanded="false"
+                               aria-controls="flush-collapseVideos"
                               >
                                 <span>
                                   <img
-                                    src="./assets/images/mobile.png"
+                                    src="./assets/images/gallery.png"
                                     alt=""
                                   />
                                 </span>
@@ -704,10 +704,10 @@ console.log(data);
                               </button>
                             </h3>
                             <div
-                              id="flush-headingWaitnew"
-                              class="accordion-collapse collapse"
-                              aria-labelledby="flush-headingWait"
-                              data-bs-parent="#accordionFlushExample"
+                                 id="flush-collapseVideos"
+                                 class="accordion-collapse collapse"
+                                 aria-labelledby="flush-headingVideos"
+                                 data-bs-parent="#accordionFlushExample"
                             >
                               <div class="accordion-body connect-acc-us">
                                 <div className="row justify-content-center">

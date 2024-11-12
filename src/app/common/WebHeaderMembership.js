@@ -589,7 +589,7 @@ class WebHeaderMembership extends Component {
                   className="brand h3 prime-purple"
                   style={{ cursor: "default" }}
                 >
-                  <img src="/web/growth91LOGO (4).png" width="116" alt="img" />
+                  <img src="/logo192.png" width="116" alt="img" />
                 </a>
                 <ul
                   className="desktop-menu "
