@@ -783,9 +783,9 @@ class NewWebHeader extends Component {
                       }
                     >
                       <Link to="/">
-                        <img src="/web/white-logo.png" width="116" alt="img" />
+                        <img src="/logo.png" width="116" alt="img" />
                         <img
-                          src="/web/growth91LOGO (4).png"
+                          src="/logo.png"
                           width="116"
                           alt="img"
                         />

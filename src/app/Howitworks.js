@@ -279,7 +279,7 @@ on the Growth91 Investor dashboard
               <div className="col-lg-7">
                 <div className="content-side">
                   <div className="heading-title">
-                    <h6>
+                    <h6 style={{width:"22%"}}>
                       <span></span>{" "}
                     </h6>
                     <h2>FAQs</h2>
@@ -480,7 +480,7 @@ a deal.
               <div className="col-lg-7">
                 <div className="content-side">
                   <div className="heading-title">
-                    <h6>
+                    <h6 style={{width:"80%"}}> 
                       <span></span>{" "}
                     </h6>
                     <h2>

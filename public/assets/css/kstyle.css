@@ -1352,12 +1352,17 @@
   .menu-logo a img:nth-child(1) {
     position: absolute;
     left: 0px;
+    height: 60px;
+    width: 40px;
+
   }
 
   .menu-logo a img:nth-child(2) {
     position: absolute;
     left: 0px;
     display: none;
+    height: 60px;
+    width: 40px;
   }
 
   .desktop-menu {
@@ -1633,10 +1638,11 @@
   align-items: center;
 
   height: 100vh;
-  background-image: url(https://www.infeedo.ai/hubfs/inFeedo_theme_2024/Images/Header.png) !important;
+  background-image: url(/assets/BG2.jpg) !important;
   background-size: cover !important;
   /* background-position: center center !important; */
   background-repeat: no-repeat !important;
+
 }
 
 .menu-bar {
@@ -3196,7 +3202,7 @@ transition: max-height 0.45s ease-in; */
   }
 
   .banner-listes ul li span i {
-    background: #2566ce;
+    background: orange;
     width: 18px;
     height: 18px;
     display: inline-block;
@@ -6470,4 +6476,12 @@ border: none;
 .modal-fade.show {
   opacity: 1;
   transform: translateY(0);
+}
+
+.seo-tag p {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: center !important;
+
 }

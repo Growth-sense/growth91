@@ -757,16 +757,15 @@ Accessing High-Growth Opportunities
                       </div>
                     </div>
                     <div class="left-content">
-                      <div class="d-flex-banner banner1 fadding-bottom fadding-bottom-3">
+                      <div class="d-flex-banner fadding-bottom fadding-bottom-3">
                         <div class="banner-part banner-slidingpart">
                           <h3 class="seo-tag">
                           Making Private Market Investment Easy and Accessible
 
                           </h3>
-                          <p
-                            class=" p-0"
+                          <p class="p-0"
                             data-wow-delay="0.5s"
-                            style={{ textTransform: "uppercase" }}
+                            // style={{ textTransform: "uppercase" }}
                           >
                            Whether you're raising funds or looking to invest in Indian startups, Growth91 empowers you to drive growth in India's vibrant startup ecosystem.
 
@@ -820,17 +819,22 @@ Accessing High-Growth Opportunities
         </div>
         {/* <NewHome/> */}
         {/* <NewHome2/> */}
+<section>
+<NewHome3/>
+        <div className="join-button">
+    <button>Call to Action</button>
+  </div>
+
+</section>
+
         
-        <NewHome3/>
        
 
 
 <section>
 <Homenewrxtra />
 
-  <div className="join-button">
-    <button>Join the Platform</button>
-  </div>
+
 </section>
 
 

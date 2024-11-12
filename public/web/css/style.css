@@ -1819,7 +1819,7 @@ body button:hover {
   margin-left: 0;
 }
 .faq-section .content-side .heading-title h6 {
-  justify-content: start;
+  justify-content: center;
 }
 .faq-section .content-side .accordion .accordion-item {
   margin-bottom: 10px;

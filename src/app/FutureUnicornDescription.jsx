@@ -441,26 +441,190 @@ console.log(data);
                               </div>
                             </div>
                           </div>
+                          <div className="accordion-item">
+        <h3 className="accordion-header" id="flush-headingfour">
+          <button
+            style={{
+              padding: "1rem 1.25rem",
+              cursor: "pointer",
+            }}
+            className="btn"
+            type="button"
+            onClick={handleShow}
+          >
+            <span style={{ marginRight: "0.5rem" }}>
+              <img src="./assets/images/gallery.png" alt="gallery icon" />
+            </span>
+            Investor Presentation
+          </button>
+        </h3>
+      </div>
+
+      {/* Dialog-style Modal */}
+      {showModal && (
+        <>
+          <div
+            className="modal show fade fadein"
+            tabIndex="-1"
+            style={{
+              display: 'block',
+              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+              zIndex: 1050,
+              transition: 'all 0.5s ease',
+              
+            }}
+            aria-labelledby="investorModalLabel"
+            aria-hidden="true"
+          >
+            <div
+              className="modal-dialog"
+              style={{
+                maxWidth: '1300px', // Adjusted width for dialog style
+                margin: '1% auto', // Centers the modal
+                transition: 'all 0.5s ease',
+              
+              }}
+            >
+              <div className="modal-content" style={{ borderRadius: '8px', overflow: 'hidden' }}>
+                <div className="modal-header">
+                  <h5 className="modal-title" id="investorModalLabel">Investor Presentation</h5>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    onClick={handleClose}
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div className="modal-body">
+                  <iframe
+                    src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.udPitchDeck)}`}
+                    frameBorder="0"
+                    height="600px" // Adjusted height for a dialog style
+                    width="100%"
+                    title="Investor Presentation"
+                    style={{
+                      borderRadius: '8px',
+                      boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.1)',
+                    }}
+                  ></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Overlay effect to close the modal when clicked outside */}
+          <div
+            className="modal-backdrop fade show"
+            onClick={handleClose}
+            style={{
+              zIndex: 1040,
+              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            }}
+          ></div>
+        </>
+      )}
+        <div class="accordion-item">
+        <h3 class="accordion-header" id="flush-headingWait">
+                              <button
+                                class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#flush-headingWaitnew"
+                                aria-expanded="false"
+                                aria-controls="flush-headingWait"
+                              >
+                                <span>
+                                  <img
+                                    src="./assets/images/mobile.png"
+                                    alt=""
+                                  />
+                                </span>
+                                Market Overview
+                              </button>
+                            </h3>
+                            <div
+                              id="flush-headingWaitnew"
+                              class="accordion-collapse collapse"
+                              aria-labelledby="flush-headingWait"
+                              data-bs-parent="#accordionFlushExample"
+                            >
+                                <div class="accordion-body">
+                              <div className="row market-overreview-row">
+                                {item.udMark &&
+                                  JSON.parse(item.udMark).map(
+                                    (itemudamrk, indexudmark) => {
+                                      return (
+                                        <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                          <div className="membership-accordian">
+                                            <div className="para-member-accordian">
+                                              <p>{itemudamrk.content1} </p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      );
+                                    }
+                                  )}
+
+                                {/* <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                                    <div className="membership-accordian">
+
+                                                        <div className="para-member-accordian">
+                                                            <p>
+                                                                The total addressable market for spices in India was $42 billion in 2022, with an anticipated growth rate of 15.7% between 2021-2031. Similarly, the total addressable market for Ready-To-Cook (RTC) products in India was $460 million in 2022, forecasted to grow at a rate of 16.3% between 2021-2031, highlighting significant opportunities in both segments.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                                    <div className="membership-accordian">
+                                                        {/* <div className="img-member-accordian">
+                                                            <img src="https://www.trumanlittlewhitehouse.org/wp-content/uploads/2019/11/81DpN-lrJvL._SL1350.jpg" alt="" />
+                                                        </div> */}
+                                {/* <div className="para-member-accordian"> */}
+                                {/* <h3>
+                                                                Member
+                                                            </h3> */}
+                                {/*      <p>
+                                                                The Ready to Cook market, valued at $18 billion, is witnessing rapid growth due to shifting consumer habits, increased health awareness, and the convenience of pre-packaged meal kits. This trend presents ample opportunities for smaller companies to enter the market and innovate with new product offerings, catering to the needs of busy individuals seeking healthy and convenient meal solutions.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div> */}
+                              </div>
+                            </div>
+                            </div>
+
+                          
+                          </div>
                           <div
                             class="accordion-item"
                             style={{ border: "none" }}
                           >
-                            <h3
-                              class="accordion-header"
-                              id="flush-headingdetails"
-                            >
-                              <div class="default-Show">
+ <h3 class="accordion-header" id="flush-headingWait">
+                              <button
+                                class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#flush-headingWaitnew"
+                                aria-expanded="false"
+                                aria-controls="flush-headingWait"
+                              >
                                 <span>
                                   <img
-                                    src="./assets/images/group-chat.png"
+                                    src="./assets/images/mobile.png"
                                     alt=""
                                   />
                                 </span>
                                 Team
-                              </div>
+                              </button>
                             </h3>
-
-                            <div class="accordion-body ">
+                            <div
+                              id="flush-headingWaitnew"
+                              class="accordion-collapse collapse"
+                              aria-labelledby="flush-headingWait"
+                              data-bs-parent="#accordionFlushExample"
+                            >
+                                 <div class="accordion-body ">
                               <div className="row row-box-linse Grid-team">
                                 {item.udVendorId &&
                                   JSON.parse(item.udVendorId).map(
@@ -507,69 +671,65 @@ console.log(data);
                                   )}
                               </div>
                             </div>
+
+                            </div>
+
+                         
                           </div>
+                        
+
                           <div class="accordion-item">
-                            <h3
-                              class="accordion-header"
-                              id="flush-headingThree"
-                            >
-                              <div class="default-Show">
+                            <h3 class="accordion-header" id="flush-headingWait">
+                              <button
+                                class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#flush-headingWaitnew"
+                                aria-expanded="false"
+                                aria-controls="flush-headingWait"
+                              >
                                 <span>
                                   <img
-                                    src="./assets/images/market-research.png"
+                                    src="./assets/images/mobile.png"
                                     alt=""
                                   />
                                 </span>
-                                Market Overview
-                              </div>
+                                Videos
+                              </button>
                             </h3>
-
-                            <div class="accordion-body">
-                              <div className="row market-overreview-row">
-                                {item.udMark &&
-                                  JSON.parse(item.udMark).map(
-                                    (itemudamrk, indexudmark) => {
-                                      return (
-                                        <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                          <div className="membership-accordian">
-                                            <div className="para-member-accordian">
-                                              <p>{itemudamrk.content1} </p>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      );
-                                    }
-                                  )}
-
-                                {/* <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                                    <div className="membership-accordian">
-
-                                                        <div className="para-member-accordian">
-                                                            <p>
-                                                                The total addressable market for spices in India was $42 billion in 2022, with an anticipated growth rate of 15.7% between 2021-2031. Similarly, the total addressable market for Ready-To-Cook (RTC) products in India was $460 million in 2022, forecasted to grow at a rate of 16.3% between 2021-2031, highlighting significant opportunities in both segments.
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                                    <div className="membership-accordian">
-                                                        {/* <div className="img-member-accordian">
-                                                            <img src="https://www.trumanlittlewhitehouse.org/wp-content/uploads/2019/11/81DpN-lrJvL._SL1350.jpg" alt="" />
-                                                        </div> */}
-                                {/* <div className="para-member-accordian"> */}
-                                {/* <h3>
-                                                                Member
-                                                            </h3> */}
-                                {/*      <p>
-                                                                The Ready to Cook market, valued at $18 billion, is witnessing rapid growth due to shifting consumer habits, increased health awareness, and the convenience of pre-packaged meal kits. This trend presents ample opportunities for smaller companies to enter the market and innovate with new product offerings, catering to the needs of busy individuals seeking healthy and convenient meal solutions.
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div> */}
+                            <div
+                              id="flush-headingWaitnew"
+                              class="accordion-collapse collapse"
+                              aria-labelledby="flush-headingWait"
+                              data-bs-parent="#accordionFlushExample"
+                            >
+                              <div class="accordion-body connect-acc-us">
+                                <div className="row justify-content-center">
+                                  <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
+                                    <div className="img-future-gallery">
+                                      <iframe
+                                        style={{
+                                          boxShadow:
+                                            "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
+                                          borderRadius: 3,
+                                          // marginLeft: 65,
+                                        }}
+                                        width="100%"
+                                        height="335"
+                                        src={`https://www.youtube.com/embed/${item.udYoutubeLink
+                                          .split("=")
+                                          .pop()}`}
+                                        title="YouTube video player"
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                      ></iframe>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
-
                           <div class="accordion-item">
                             <h3
                               class="accordion-header"
@@ -676,91 +836,10 @@ console.log(data);
                                         </div>
                                     </div>
                                 </div> */}
- <div className="accordion-item">
-        <h3 className="accordion-header" id="flush-headingfour">
-          <button
-            style={{
-              padding: "1rem 1.25rem",
-              cursor: "pointer",
-            }}
-            className="btn"
-            type="button"
-            onClick={handleShow}
-          >
-            <span style={{ marginRight: "0.5rem" }}>
-              <img src="./assets/images/gallery.png" alt="gallery icon" />
-            </span>
-            Investor Presentation
-          </button>
-        </h3>
-      </div>
-
-      {/* Dialog-style Modal */}
-      {showModal && (
-        <>
-          <div
-            className="modal show fade fadein"
-            tabIndex="-1"
-            style={{
-              display: 'block',
-              backgroundColor: 'rgba(0, 0, 0, 0.5)',
-              zIndex: 1050,
-              transition: 'all 0.5s ease',
-              
-            }}
-            aria-labelledby="investorModalLabel"
-            aria-hidden="true"
-          >
-            <div
-              className="modal-dialog"
-              style={{
-                maxWidth: '1300px', // Adjusted width for dialog style
-                margin: '1% auto', // Centers the modal
-                transition: 'all 0.5s ease',
-              
-              }}
-            >
-              <div className="modal-content" style={{ borderRadius: '8px', overflow: 'hidden' }}>
-                <div className="modal-header">
-                  <h5 className="modal-title" id="investorModalLabel">Investor Presentation</h5>
-                  <button
-                    type="button"
-                    className="btn-close"
-                    onClick={handleClose}
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div className="modal-body">
-                  <iframe
-                    src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.udPitchDeck)}`}
-                    frameBorder="0"
-                    height="600px" // Adjusted height for a dialog style
-                    width="100%"
-                    title="Investor Presentation"
-                    style={{
-                      borderRadius: '8px',
-                      boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.1)',
-                    }}
-                  ></iframe>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Overlay effect to close the modal when clicked outside */}
-          <div
-            className="modal-backdrop fade show"
-            onClick={handleClose}
-            style={{
-              zIndex: 1040,
-              backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            }}
-          ></div>
-        </>
-      )}
+ 
 
                           <div class="accordion-item">
-                            <h3 class="accordion-header" id="flush-headingWait">
+                          <h3 class="accordion-header" id="flush-headingWait">
                               <button
                                 class="accordion-button collapsed"
                                 type="button"
@@ -775,7 +854,7 @@ console.log(data);
                                     alt=""
                                   />
                                 </span>
-                                Videos
+                                Contact us
                               </button>
                             </h3>
                             <div
@@ -784,47 +863,7 @@ console.log(data);
                               aria-labelledby="flush-headingWait"
                               data-bs-parent="#accordionFlushExample"
                             >
-                              <div class="accordion-body connect-acc-us">
-                                <div className="row justify-content-center">
-                                  <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
-                                    <div className="img-future-gallery">
-                                      <iframe
-                                        style={{
-                                          boxShadow:
-                                            "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
-                                          borderRadius: 3,
-                                          // marginLeft: 65,
-                                        }}
-                                        width="100%"
-                                        height="335"
-                                        src={`https://www.youtube.com/embed/${item.udYoutubeLink
-                                          .split("=")
-                                          .pop()}`}
-                                        title="YouTube video player"
-                                        frameBorder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowFullScreen
-                                      ></iframe>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="accordion-item">
-                            <h3 class="accordion-header" id="flush-headingfive">
-                              <div class="default-Show">
-                                <span>
-                                  <img
-                                    src="./assets/images/mobile.png"
-                                    alt=""
-                                  />
-                                </span>
-                                Contact Us
-                              </div>
-                            </h3>
-
-                            <div class="accordion-body connect-acc-us">
+                               <div class="accordion-body connect-acc-us">
                               <div className="row row-box-line">
                                 <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
                                   <div className="lets-talks-div">
@@ -926,6 +965,8 @@ console.log(data);
                                 </div>
                               </div>
                             </div>
+                            </div>
+                           
                           </div>
 
                           {/* 
