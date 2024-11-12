@@ -822,7 +822,7 @@ Accessing High-Growth Opportunities
 <section>
 <NewHome3/>
         <div className="join-button">
-    <button>Call to Action</button>
+    <button>Join the Platform</button>
   </div>
 
 </section>
