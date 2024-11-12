@@ -783,19 +783,12 @@ class NewWebHeader extends Component {
                       }
                     >
                       <Link to="/">
-                      <div className="white-logo">
-                      <img
-                          src="/old-white2.png"
-                          width="140"
+                      <img src="/web/white-logo.png" width="116" alt="img" />
+                        <img
+                          src="/web/growth91LOGO (4).png"
+                          width="116"
                           alt="img"
-                        />
-                        {/* <span>Growth91</span> */}
-
-                      </div>
-                    
-                        <img src="/old.png" width="116" alt="img" />
-                      
-                      </Link>
+                        />      </Link>
                       <div
                         class="menu-bar open-menu mobileuser"
                         style={
