@@ -150,125 +150,87 @@ class Howitworks extends Component {
         <section className="MoneyPro-history hiw-li" id="hiw" style={{marginTop:"0"}}>
           <div className="container ">
            
-            <div className="row d-flex align-content-around flex-wrap flex-column">
+            <div className="row d-flex align-content-around flex-wrap flex-column mobile-issue">
               <div></div>
               <div className="col-lg-12">
-                <div className="item">
-                  <div className="media">
-                    <div className="content">
-                      <h3 style={{ textAlign: "start" }}>
-                        {" "}
-                        1. Create a Profile
-                      </h3>
-                      <p style={{ textAlign: "justify" }}>
-                      Create a profile on Growth91 portal by signing up "Investor Signup Link" in less than a minute.
+  <div className="item">
+    <div className="media">
+      <div className="content">
+        <h3 style={{ textAlign: "start" }}>1. Create a Profile</h3>
+        <p style={{ textAlign: "justify" }}>
+          Create a profile on Growth91 portal by signing up "Investor Signup Link" in less than a minute.
+        </p>
+      </div>
+    </div>
+  </div>
 
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="item">
-                  <div className="media  justify-content-start">
-                    <div className="content ">
-                      <h3 style={{ textAlign: "start" }}>
-                        02. Accept Risks, Platform T&C
-                      </h3>
-                      <p style={{ textAlign: "justify" }}>
-                      Acknowledge the Investment Risks and review the platform’s terms and conditions.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="item ">
-                  <div className="media">
-                    <div className="content">
-                      <h3 style={{ textAlign: "start" }}>03. Select the deal of your choice</h3>
-                      <p style={{ textAlign: "justify" }}>
-                      Understand the startup, go through the documents presented by startup on the platform for 
-better understanding of the deal terms and also the investment opinion.
+  <div className="item">
+    <div className="media justify-content-start">
+      <div className="content">
+        <h3 style={{ textAlign: "start" }}>02. Accept Risks, Platform T&C</h3>
+        <p style={{ textAlign: "justify" }}>
+          Acknowledge the Investment Risks and review the platform’s terms and conditions.
+        </p>
+      </div>
+    </div>
+  </div>
 
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+  <div className="item">
+    <div className="media">
+      <div className="content">
+        <h3 style={{ textAlign: "start" }}>03. Select the deal of your choice</h3>
+        <p style={{ textAlign: "justify" }}>
+          Understand the startup, go through the documents presented by startup on the platform for better understanding of the deal terms and also the investment opinion.
+        </p>
+      </div>
+    </div>
+  </div>
 
-              <div className="col-lg-12 ">
-                <div className="item right_item">
-                  <div className="media">
-                    <div className="media justify-content-start">
-                      <div className="content">
-                        <h3 style={{ textAlign: "start" }}>
-                          {" "}
-                          04. Invest
-                        </h3>
-                        <p style={{ textAlign: "justify" }}>
-                        Commit your interest to invest, and accept the terms and conditions  to move further.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="item right_item">
-                  <div className="media">
-                    <div className="media justify-content-start">
-                      <div className="content">
-                        <h3>05. Complete KYC</h3>
-                        <p style={{ textAlign: "justify" }}>
-                          Before investing in the deal, you need to complete the e-KYC process. Sign the Consent 
-Agreement, verify the bank details and deal specific Terms and conditions .
+  <div className="item">
+    <div className="media justify-content-start">
+      <div className="content">
+        <h3 style={{ textAlign: "start" }}>04. Invest</h3>
+        <p style={{ textAlign: "justify" }}>
+          Commit your interest to invest, and accept the terms and conditions to move further.
+        </p>
+      </div>
+    </div>
+  </div>
 
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+  <div className="item">
+    <div className="media justify-content-start">
+      <div className="content">
+        <h3>05. Complete KYC</h3>
+        <p style={{ textAlign: "justify" }}>
+          Before investing in the deal, you need to complete the e-KYC process. Sign the Consent Agreement, verify the bank details and deal-specific Terms and conditions.
+        </p>
+      </div>
+    </div>
+  </div>
 
-                <div className="item right_item">
-                  <div className="media">
-                    <div className="media justify-content-start">
-                      <div className="content">
-                        <h3>06. Convenience Fees</h3>
-                        <p style={{ textAlign: "justify" }}>
-                        Convenience Fee of 2% on the investment amount at the time of investment and 2% on the 
-sale proceeds at the time of exit is applicable. For any specific investment, if fee is different, it 
-will be mentioned at the time of commitment (GST if any, shall be added at applicable rates).
+  <div className="item">
+    <div className="media justify-content-start">
+      <div className="content">
+        <h3>06. Convenience Fees</h3>
+        <p style={{ textAlign: "justify" }}>
+          Convenience Fee of 2% on the investment amount at the time of investment and 2% on the sale proceeds at the time of exit is applicable. For any specific investment, if the fee is different, it will be mentioned at the time of commitment (GST if any, shall be added at applicable rates).
+        </p>
+      </div>
+    </div>
+  </div>
 
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-12"  id="fee">
-                <div
-                  className="item right_item right_item07"
-                  style={{
-                    textAlign: "start",
-                    display: "flex",
-                    justifyContent: "center",
-                    flexDirection: "row",
-                    alignContent: "center",
-                    alignItems: "center",
-                    width: "80%",
-                  }}
-                >
-                  <div className="media">
-                    <div className="media justify-content-start">
-                      <div className="content">
-                        <h3 style={{ textAlign: "start" }}>
-                          07. Post Deal Campaign Outcome
+  <div className="item">
+    <div className="media justify-content-start">
+      <div className="content">
+        <h3 style={{ textAlign: "start" }}>07. Post Deal Campaign Outcome</h3>
+        <p style={{ textAlign: "justify" }}>
+          Startups will sign and share the certificates. You can monitor the progress of your investment on the Growth91 Investor dashboard.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
 
-                        </h3>
-                        <p style={{ textAlign: "justify" }}>
-                        Startups will sign and share the certificates. You can monitor the progress of your investment 
-on the Growth91 Investor dashboard
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </section>

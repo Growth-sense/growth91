@@ -3126,6 +3126,31 @@ option {
   }
 
 
+  @media screen and (min-width: 767px){
+ .mobile-issue .item {
+
+  width: 100%;
+ }
+ .mobile-issue .content {
+
+  width: 100%;
+ }
+ .mobile-issue h3 {
+
+  width: 40%;
+  text-align: start;
+ }
+ .mobile-issue p {
+
+  width:58%;
+ }
+
+  }
+
+
+
+
+
 
 
 

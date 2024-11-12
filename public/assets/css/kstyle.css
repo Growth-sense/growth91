@@ -1350,10 +1350,10 @@
 
 @media screen and (min-width: 768px) {
   .menu-logo a img:nth-child(1) {
-    sition: absolute;
+    position: absolute;
     left: 0px;
-    height: 60px;
-    width: 40px;
+    /* height: 60px; */
+    /* width: 40px; */
     top: 0px;
 
 
@@ -1366,8 +1366,13 @@
     position: absolute;
     left: 0px;
     display: none;
-    height: 60px;
-    width: 40px;
+    /* height: 60px;
+    width: 60px; */
+  }
+
+  .menu-logo span{
+
+    margin-top: 30px;
   }
 
   .desktop-menu {
@@ -1392,7 +1397,8 @@
 
   .bgheaders .main-navbar .logo-menus .menu-logo a img:nth-child(2) {
     display: block;
-    top: -25px;
+    /* top: -25px; */
+    top: 0px;
   }
 
   .bgheaders .headers-btn a:nth-child(1) {
