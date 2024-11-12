@@ -507,7 +507,7 @@ console.log(data);
                 </div>
                 <div className="modal-body">
                   <iframe
-                    src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.udPitchDeck)}`}
+                    src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.udPitchDeck)}#toolbar=0`}
                     frameBorder="0"
                     height="600px" // Adjusted height for a dialog style
                     width="100%"

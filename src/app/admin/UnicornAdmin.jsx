@@ -143,7 +143,7 @@ class UnicornAdmin extends Component {
   getintrestedlist = (data) => {
     this.setState({ loading: true });
     console.log(data);
-    
+
     let params = {
       udFounderID: data,
     };
@@ -272,18 +272,18 @@ class UnicornAdmin extends Component {
       let obj = {
         "Sr No": count++,
         "Unicorn ID": item.unicornDealID ? item.unicornDealID : "---",
+        "Founder Id": item.udFounderID ? item.udFounderID : "---",
         "Unicorn Name": item.udStartupName ? item.udStartupName : "---",
         Email: item.udEmail ? item.udEmail : "---",
         "Unicorn Status": item.groupStatus ? item.groupStatus : "Published",
-        "Admin Name": item.udPrimaryContactName
+        "Founder Name": item.udPrimaryContactName
           ? item.udPrimaryContactName
           : "---",
-        "Admin Mobile": item.udPrimaryContactMobile
+        "Founder Mobile": item.udPrimaryContactMobile
           ? item.udPrimaryContactMobile
           : "---",
-        AdminId: item.udFounderID ? item.udFounderID : "---",
 
-        Status: item.status,
+        // Status: item.status,
         // 'Tax Type': item.payment_type,
         // 'KYC Status': item.isapproved,
         // 'Invested date': item.Invested_dt ? moment(item.Invested_dt).format('DD MMM, YYYY') : '---',
@@ -518,43 +518,40 @@ class UnicornAdmin extends Component {
           // emailcontent: emaildata,
         };
       });
-      const columnsintr = [
-        {
-          title: "Name",
-          dataIndex: "first_name",
-          key: "first_name",
-          width: 260,
-          fixed: "left",
-        },
-        {
-          title: "Email",
-          dataIndex: "email",
-          key: "email",
-          width: 280,
-        },
-        {
-          title: "Mobile",
-          dataIndex: "mobile",
-          key: "mobile",
-          width: 280,
-        },
-  
-        {
-          title: "Type of Interest Shown",
-          dataIndex: "Intrested",
-          key: "Intrested",
-          width: 280,
-        },
-        {
-          title: "Comments from Visitor",
-          dataIndex: "Comments",
-          key: "Comments",
-          width: 280,
-        },
-       
-  
-     
-      ];
+    const columnsintr = [
+      {
+        title: "Name",
+        dataIndex: "first_name",
+        key: "first_name",
+        width: 260,
+        fixed: "left",
+      },
+      {
+        title: "Email",
+        dataIndex: "email",
+        key: "email",
+        width: 280,
+      },
+      {
+        title: "Mobile",
+        dataIndex: "mobile",
+        key: "mobile",
+        width: 280,
+      },
+
+      {
+        title: "Type of Interest Shown",
+        dataIndex: "Intrested",
+        key: "Intrested",
+        width: 280,
+      },
+      {
+        title: "Comments from Visitor",
+        dataIndex: "Comments",
+        key: "Comments",
+        width: 280,
+      },
+    ];
     return (
       <>
         <Layout
@@ -681,7 +678,6 @@ class UnicornAdmin extends Component {
             loading={this.state.loading}
             bordered
             scroll={{ x: "max-content" }}
-            
           />
         </Modal>
         {/* End Add modal  */}
