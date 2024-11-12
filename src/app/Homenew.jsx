@@ -22,7 +22,12 @@ import { Slide } from "react-awesome-reveal";
 import CountUp from "react-countup";
 import { Link } from "react-router-dom";
 import { Homeblog } from "./Homeblog.jsx";
+import NewHome from "./admin/NewHome.js";
+import NewHome2 from "./admin/NewHome2.js";
+import NewHome3 from "./admin/NewHome3.js";
 import { Helmet } from "react-helmet-async";
+
+
 class Homenew extends Component {
   constructor(props) {
     super(props);
@@ -48,6 +53,30 @@ class Homenew extends Component {
     this.togglemsg = this.togglemsg.bind(this);
   }
 
+  componentWillMount() {
+    // title
+    // title
+    document.getElementsByTagName("META")[4].content =
+      "Growth91: Best Startup investment platform for Investing in startups in India";
+    // title
+
+    document.title =
+      "Growth91: Best Startup investment platform for Investing in startups in India";
+    // keyword
+    document.getElementsByTagName("META")[5].content =
+      "invest in startups invest in startups india ";
+    // description
+    document.getElementsByTagName("META")[3].content =
+      "Maximize your returns with the best startup investing platform. Learn how to invest in startups in India and find the top investment opportunities.";
+    window.removeEventListener("scroll", this.handleScroll);
+  }
+  togglemsg() {
+    // Toggle isActive state
+
+    this.setState((prevState) => ({
+      isActivemsg: !prevState.isActivemsg,
+    }));
+  }
   componentWillMount() {
     // title
     document.getElementsByTagName("META")[4].content =
@@ -508,6 +537,7 @@ class Homenew extends Component {
             arrows: true,
             slidesToShow: 1,
             slidesToScroll: 1,
+            arrows: true,
             autoplay: false,
           },
         },
@@ -546,6 +576,7 @@ class Homenew extends Component {
       },
     };
     const { loading } = this.state;
+    console.log(loading);
     const breedcrumb=
     {
       "@context": "https://schema.org",
@@ -592,8 +623,9 @@ class Homenew extends Component {
                       <div class="d-flex-banner fadding-bottom fadding-bottom-1">
                         <div class="banner-part banner-slidingpart">
                           <h1 class="">
-                          Looking to Invest in Startups in India and 
-                            Tap Into High-Growth Ventures?
+                          Invest in Startups in India with Ease by 
+Accessing High-Growth Opportunities
+
                           </h1>
                           <p class="p-0">
                    
@@ -725,15 +757,18 @@ class Homenew extends Component {
                       </div>
                     </div>
                     <div class="left-content">
-                      <div class="d-flex-banner banner1 fadding-bottom fadding-bottom-3">
+                      <div class="d-flex-banner fadding-bottom fadding-bottom-3">
                         <div class="banner-part banner-slidingpart">
-                          <h2 class="">
-                            Private market <br /> investing made easy
-                          </h2>
-                          <p class=" p-0" data-wow-delay="0.5s" style={{textTransform:"uppercase"}}>
-                          Raise Fund. Invest in Indian Startups. Drive Growth.
+                          <h3 class="seo-tag">
+                          Making Private Market Investment Easy and Accessible
 
-                            
+                          </h3>
+                          <p class="p-0"
+                            data-wow-delay="0.5s"
+                            // style={{ textTransform: "uppercase" }}
+                          >
+                           Whether you're raising funds or looking to invest in Indian startups, Growth91 empowers you to drive growth in India's vibrant startup ecosystem.
+
                           </p>
                           <div className="banner-mobile-img d-sm-none">
                             <img
@@ -784,17 +819,19 @@ class Homenew extends Component {
         </div>
         {/* <NewHome/> */}
         {/* <NewHome2/> */}
+<section>
+{/* <NewHome3/> */}
+       
+</section>
+
         
-        {/* <NewHome3/> */}
        
 
 
 <section>
 <Homenewrxtra />
 
-  <div className="join-button">
-    <button>Join the Platform</button>
-  </div>
+
 </section>
 
 
@@ -945,6 +982,10 @@ class Homenew extends Component {
               </div>
             </div>
           </div>
+          <div className="join-button">
+    <button>Join The Platform</button>
+  </div>
+
         </section>
 
         <section class="counter-sections">
@@ -1160,7 +1201,12 @@ class Homenew extends Component {
                 <p>
                   <span></span>{" "}
                 </p>
-                <h3>Shining Endorsements</h3>
+                <h3 style={{paddingBottom : "0px"}}>Our Successful Startup Investors
+                </h3>
+                <p style={{paddingBottom : "30px"}}>
+                Hear from the investors who have trusted Growth91 to grow their portfolios with Indian startups.
+
+                </p>
               </div>
               <div class="col-12 col-xl-12 col-lg-12 col-md-12 ">
                 <div class="slider-testimonials">
@@ -1275,7 +1321,7 @@ class Homenew extends Component {
                           I am a regular investor on Growth Sense and very happy
                           with kind of returns generated on my investments.
                           Looking forward to equally exciting opportunities at
-                          Growth91<sup style={{ fontSize: "0.6rem" }}>TM</sup>
+                          Growth91<sup>®</sup>
                         </p>
                         <div class="name-testi">
                           <div class="img-testiminal-card">

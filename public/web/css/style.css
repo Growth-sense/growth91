@@ -125,7 +125,8 @@ footer h4 {
   }
 }
 .heading-title {
-  max-width: 670px;
+  /* max-width: 670px; */
+  max-width: 762px;
   margin: 0 auto;
   padding-bottom: 0;
 }
