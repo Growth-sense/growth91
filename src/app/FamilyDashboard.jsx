@@ -95,7 +95,7 @@ export const FamilyDashboard = () => {
             <nav class="navbar navbar-expand-lg navbar-light fixed-top">
                 <div class="container-fluid">
                     <div class="d-flex align-items-center">
-                        <button class="navbar-toggler px-1 py-0 mt-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="height: 36px;"><span class="navbar-toggler-icon"></span></button><a class="navbar-brand" href="/deals"><img src="/web/growth91LOGO (4).png" width="120" class="d-inline-block align-top" alt="Growth91" style="position: relative; top: -8px;" /></a>
+                        <button class="navbar-toggler px-1 py-0 mt-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="height: 36px;"><span class="navbar-toggler-icon"></span></button><a class="navbar-brand" href="/deals"><img src="/logo192.png" width="120" class="d-inline-block align-top" alt="Growth91" style="position: relative; top: -8px;" /></a>
                         <div class="d-lg-block d-none">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
                                 <li class="nav-item"><a class="nav-link" href="/">Home</a></li>

@@ -465,7 +465,7 @@ class HeaderForAssement extends Component {
         <nav className="navbar navbar-expand-lg navbar-light fixed-top">
           <div className="container-fluid">
             <a className="navbar-brand" href="/">
-              <img src="/web/growth91LOGO (4).png" width="120"
+              <img src="/logo192.png" width="120"
               style={{
                 position:'relative',
                 top:-8,
