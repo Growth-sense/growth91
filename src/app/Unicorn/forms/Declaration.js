@@ -182,11 +182,19 @@ class Declaration extends Component {
                         <div className="d-flex">
                           <input
                             type="checkbox"
-                            onClick={(e) =>
-                              this.props.onInput(e.target.name, !e.target.value)
+                            onClick={(e) =>{
+                              if(e.target.value==1){
+                                this.props.onInput(e.target.name, 0)
+
+                              }else{
+                                this.props.onInput(e.target.name, 1)
+
+                              }
+                            }
                             }
                             name="tudDeclare"
-                            value={this.props.unicorn.tudDeclare}
+                            checked={this.props.unicorn.tudDeclare == 1}
+                            value={this.props.unicorn.tudDeclare== true ?(1):(0)}
                             style={{
                               marginRight: 13,
                               textAlign: "justify",

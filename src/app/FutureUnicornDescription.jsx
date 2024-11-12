@@ -144,7 +144,7 @@ export const FutureUnicornDescription = () => {
     }
   };
   const submitintrest = () => {
-    console.log(unicorn);
+    // console.log(unicorn);
 let datas= unicorn
 .filter((item) => item.unicornDealID == id)
 console.log(data);
@@ -173,6 +173,10 @@ console.log(data);
         setmessage("")      }
       else if( result.message=="Please enter values of all fields."){
         toast.error("Plz fill all feild")
+      }
+      else if( result.message=="You already have shown interest to this Startup."){
+        setiamintrestmodal(false)
+        toast.warning("You already have shown interest to this Startup.")
       }
     });
 
@@ -1170,7 +1174,7 @@ console.log(data);
                     </form>
                   </div>
                   <div className="button-proceed-online">
-                    <a onClick={submitintrest}>Submit</a>
+                    <a style={{color:"white"}}onClick={submitintrest}>Submit</a>
                   </div>
                 </div>
               </div>

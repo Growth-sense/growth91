@@ -312,7 +312,7 @@ class Founderadmindashboard extends Component {
         tudTempUdID: "",
         show_thankyou_modal: "",
         unicornid: "",
-        tudDeclare: false,
+        tudDeclare: 0,
 
         founderID: localStorage.getItem("founder_id"),
       },
@@ -1230,10 +1230,10 @@ class Founderadmindashboard extends Component {
       toast.error("Please fill Deals Section");
       return;
     }
-    if (!this.state.unicorn.tudDeclare || this.state.unicorn.tudDeclare == "") {
+    if (!this.state.unicorn.tudDeclare || this.state.unicorn.tudDeclare == 0) {
       this.setState({ loading: false });
       this.activeform(21);
-      toast.error("Please Declaration Section");
+      toast.error("Please fill Declaration Section");
       return;
     }
     let params = {
