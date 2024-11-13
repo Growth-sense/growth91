@@ -148,6 +148,7 @@ export const FounderMyListing = () => {
   };
   return (
     <>
+ 
     <Spin spinning={loading}>
  <div
         style={{
@@ -175,7 +176,7 @@ export const FounderMyListing = () => {
             <Sidebar />
           </div>
   
-          <div className="  col col-lg-8 pb-4 ">
+          <div className="  col col-lg-16 pb-4 ">
             {/* How do i invest? */}
             <section
               id="hdii"
@@ -206,6 +207,7 @@ export const FounderMyListing = () => {
                             <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
                               <div className="input-dashboard-acc">
                                 <label htmlFor="">Founder Name </label>
+                                <label htmlFor="">:</label>
                                 <label htmlFor="">
                                   {unideatils.tudPrimaryContactName}
                                 </label>
@@ -216,6 +218,8 @@ export const FounderMyListing = () => {
                             <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
                               <div className="input-dashboard-acc">
                                 <label htmlFor="">Startup Name </label>
+                                <label htmlFor="">:</label>
+
                                 <label htmlFor="">
                                   {unideatils.tudStartupName}
                                 </label>{" "}
@@ -226,7 +230,9 @@ export const FounderMyListing = () => {
                           {unideatils && unideatils.tudEmail && (
                             <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
                               <div className="input-dashboard-acc">
-                                <label htmlFor="">Email </label>
+                                <label htmlFor="">Email Id</label>
+                                <label htmlFor="">:</label>
+
                                 <label htmlFor="">{unideatils.tudEmail}</label>
                               </div>
                             </div>
@@ -235,7 +241,9 @@ export const FounderMyListing = () => {
                           {unideatils && unideatils.tudPrimaryContactMobile && (
                             <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
                               <div className="input-dashboard-acc">
-                                <label htmlFor="">Mobile no </label>
+                                <label htmlFor="">Mobile No. </label>
+                                <label htmlFor="">:</label>
+
                                 <label htmlFor="">
                                   {unideatils.tudPrimaryContactMobile}
                                 </label>
@@ -244,7 +252,7 @@ export const FounderMyListing = () => {
                           )}
                           <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
                             <div className="btns-performs mt-3">
-                              <td className="flex-action">
+                              <td className="flex-action center-button">
                                 {unicorn && unicorn.length !== 0 && (
                                   <div className="performs-btns">
                                     <Link

@@ -5868,6 +5868,8 @@ a {
 
 .input-dashboard-acc {
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .input-dashboard-acc label {
@@ -6009,8 +6011,12 @@ a {
 }
 
 .flex-plans-dashboard ul li span:nth-child(1) {
-    font-size: 12px;
+    font-size: 20px;
 }
+.flex-plans-dashboard ul li span:nth-child(2) {
+  font-size: 16px;
+}
+
 
 .card-payment-methods {
     border: 1px solid #00000012;
@@ -6095,7 +6101,9 @@ a {
 
 .d-flex-active {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    justify-content: center;
+    gap: 20px;
     align-items: center;
 }
 
@@ -6107,7 +6115,7 @@ a {
     padding: 0 0 0 0;
     display: flex;
     justify-content: center;
-    align-items: end;
+    align-items: center;
 }
 
 .text-green {
@@ -6263,6 +6271,7 @@ a {
 .expiring-dates p{
     text-transform: capitalize;
     font-size: 18px;
+    text-align: center;
 }
 .expiring-dates p span{
     color: red;
@@ -6371,7 +6380,7 @@ a {
     text-align: justify;
 }
 .btns-performs .flex-action{
-    justify-content: flex-start !important;
+    justify-content: flex-start;
 }
 .btns-performs .flex-action .performs-btns{
     background: #29176f;
@@ -6514,4 +6523,32 @@ border: none;
   line-height: 24px;
   text-align: center !important;
 
+}
+
+
+.center-button{
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.input-dashboard-acc label{
+
+  width: 17%;
+  font-size: 1.3em;
+}
+
+.input-dashboard-acc label:nth-child(2){
+
+  width: 6%;
+}
+
+.btns-performs .flex-action .performs-btns a{
+
+  font-size: 1.3em;
+}
+
+.tabs-dashboard .content{
+
+  align-items: center;
+  justify-content: center;
 }

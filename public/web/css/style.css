@@ -223,12 +223,12 @@ footer h4 {
 }
 .input_box .form-wraper .theme-btn {
   display: block;
-  max-width: 245px;
+  max-width: 260px;
   line-height: 60px;
   border-radius: 30px;
   background: #29176f;
   border: 1px solid #fff !important;
-  font-size: 20px;
+  font-size: 23px;
   font-weight: 600;
   color: #fff;
   text-align: center;

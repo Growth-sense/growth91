@@ -152,7 +152,7 @@ export default class Sidebar extends Component {
           {/* Future Unicorn Menu with My Plan as a Submenu */}
           <li className="hiw-li" style={{ cursor: "pointer" }} onClick={this.toggleFutureUnicorn}>
             <i className="bx bx-calendar-star" style={{ fontSize: 20 }}></i>{" "}
-            &nbsp;&nbsp;Future Unicorn
+            &nbsp;&nbsp;My Future Unicorn
             <i
               className={`bx ${this.state.isFutureUnicornOpen ? "bx-chevron-up" : "bx-chevron-down"}`}
               style={{ float: "right" }}
@@ -180,18 +180,31 @@ export default class Sidebar extends Component {
               </li>
             </a>
           </ol>
-          
-          <a
+          <ol
+            className="submenu"
+            style={{
+              listStyle: "none",
+              paddingLeft: "20px",
+              maxHeight: this.state.isFutureUnicornOpen ? "100px" : "0",
+              overflow: "hidden",
+              transition: "max-height 0.5s ease-out", // Adjusting transition effect here
+            }}
+          >
+             <a
             href="/FounderMyListing"
             className={
               window.location.pathname === "/FounderMyListing" ? "active" : ""
             }
           >
-            <li className="hiw-li">
-              <i className="bx bx-calendar-star" style={{ fontSize: 20 }}></i>{" "}
-              &nbsp;&nbsp;My Future Unicorn
-            </li>
-          </a>
+              <li className="hiw-li">
+                <i className="bx bx-calendar-star" style={{ fontSize: 20 }}></i>{" "}
+                &nbsp;&nbsp;Account Details
+              </li>
+            </a>
+          </ol>
+          
+          
+         
         </div>
 
         {this.state.is_investor === "1" ? (
@@ -283,6 +296,7 @@ export default class Sidebar extends Component {
                 position: "relative",
                 left: 32,
                 top: 20,
+                borderRadius: "20px"
               }}
             >
               Apply As Investor

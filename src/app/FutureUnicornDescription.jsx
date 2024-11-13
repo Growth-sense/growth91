@@ -1123,7 +1123,7 @@ export const FutureUnicornDescription = () => {
                           </div>
                         )}
                         <div className="investor-amounts button">
-                          <a href="/FutureUnicornList">Unicorn List page</a>
+                          <a href="/FutureUnicornList">View other future unicorns</a>
                         </div>
                       </div>
                     </div>

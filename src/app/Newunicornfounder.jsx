@@ -198,12 +198,12 @@ const Newunicornfounder = () => {
                     <div className="item">
                       <div className="row align-items-center">
                         <div className="col-lg-6 col-xl-24 col-sm-24">
-                          <div className="left-content">
+                          <div className="left-content"style={{textAlign : "center"}}>
                             <h2 className="wow fadeInUp " data-wow-delay="0.3s">
-                            Future Unicorn
+                            Future Unicorns
 
                             </h2>
-                            <span className="text-white ">
+                            <span className="text-white " style={{fontSize : "1.5em"}}>
                     Connecting innovative startups with visionary investors on Growth91 platform.
                             
 
@@ -223,13 +223,15 @@ const Newunicornfounder = () => {
                             >
                               <div className="form-wraper">
                                
-                                  <a
+                                  {/* <a
                                     href="/synergy-form"
                                     className="theme-btn "
                                     type="button"
                                   >
                                     Let's Connect
-                                  </a>
+                                  </a> */}
+                                  <NavLink to="FutureUnicornForm"  className="theme-btn " >List Your Startup</NavLink>
+                                  <NavLink to="FutureUnicornList"  className="theme-btn " >Explore Investments</NavLink>
                             
                               </div>
                             </form>
@@ -252,7 +254,7 @@ const Newunicornfounder = () => {
           </div>
         </section>
 
-
+{/* 
             <div className="hero">
                 <div>
                     <h1>Future Unicorns</h1>
@@ -262,7 +264,7 @@ const Newunicornfounder = () => {
                         <NavLink to="FutureUnicornList">Explore Investments</NavLink>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             {/* Why to list section */}
             <div className="why-to-list">

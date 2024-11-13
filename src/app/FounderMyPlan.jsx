@@ -122,7 +122,7 @@ export const FounderMyPlan = () => {
             <Sidebar />
           </div>
   
-          <div className="  col col-lg-8 pb-4 ">
+          <div className="  col col-lg-16 pb-4 ">
             {/* How do i invest? */}
             <section
               id="hdii"
@@ -136,7 +136,7 @@ export const FounderMyPlan = () => {
                                 <p>
                                     <span></span>{" "}
                                 </p>
-                                <h2>Account Details</h2>
+                                <h2>My Plan</h2>
                             </div>
                         </div>
 
@@ -148,16 +148,13 @@ export const FounderMyPlan = () => {
 <div class="tab-content">
     <input type="radio" name="tab-index" id="tab-index3" checked />
     <div class="content">
-        <div className="row">
+        <div className="row w-100">
             <div className="plans-main-dashboard">
                 <div className="d-flex-active">
                     <h3>
                         Active Plan
                     </h3>
-                    <div className="view-history community-paragraph-box">
-                        <Link to="FounderTransactionHistory" className='mt-0'>Transaction History</Link>
-
-                    </div>
+                   
                 </div>
                 <div className="expiring-dates">
                     <p>Your plan validity is upto <span>24-01-2025</span></p>
@@ -196,6 +193,10 @@ export const FounderMyPlan = () => {
                     
                     </ul>
                 </div>
+                <div className="view-history community-paragraph-box">
+                        <Link to="FounderTransactionHistory" className='mt-0'>Transaction History</Link>
+
+                    </div>
             </div>
         </div>
     </div>
