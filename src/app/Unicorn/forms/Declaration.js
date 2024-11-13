@@ -211,7 +211,7 @@ class Declaration extends Component {
                             If funding decisions are made based on wrong
                             information provided by us; we shall indemnify the
                             investors up to total invested amount.
-                            <span className="text-danger">*</span>
+                           
                           </label>
                         </div>
                       </div>

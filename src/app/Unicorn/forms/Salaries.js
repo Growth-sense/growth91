@@ -190,7 +190,7 @@ class Salaries extends Component {
                       <div className="row" style={{ maxWidth: 900 }}>
                         <div className="col-lg-12">
                             <div className="form-group">
-                              <label for="">Founders' current salary (Total Rs per month)  for all founders.<span className="text-danger">*</span></label>
+                              <label for="">Founders' current salary (Total Rs per month)  for all founders.</label>
                               <input  
                                 type="number" 
                                 id="selected-field"
@@ -203,7 +203,7 @@ class Salaries extends Component {
                               />
                             </div>
                             <div className="form-group step-form-date-input">
-                              <label for="">Founder's salary (Plans in next 12 to 24 months)- For all founders.<span className="text-danger">*</span></label>
+                              <label for="">Founder's salary (Plans in next 12 to 24 months)- For all founders.</label>
                               {/* <DatePicker
                                 value={this.props.unicorn.date_of_last_increase_founders_salary}
                                 onChange={(date, dateString) => {
@@ -226,7 +226,7 @@ class Salaries extends Component {
                               />
                             </div>
                             <div className="form-group">
-                              <label for="">Core Team's current salary (Total Rs per month) <span className="text-danger">*</span></label>
+                              <label for="">Core Team's current salary (Total Rs per month)</label>
                               <input  
                                 type="number" 
                                 onWheel={() => document.activeElement.blur()}
@@ -239,7 +239,7 @@ class Salaries extends Component {
                             </div>
                           
                             <div className="form-group">
-                              <label for="">Total salary (all direct/indirect employees, Rs per month) - Including core team and all founders.<span className="text-danger">*</span></label>
+                              <label for="">Total salary (all direct/indirect employees, Rs per month) - Including core team and all founders.</label>
                               <input  
                                 type="number" 
                                 onWheel={() => document.activeElement.blur()}

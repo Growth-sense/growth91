@@ -274,7 +274,7 @@ class Compliances extends Component {
                         <div className="col-lg-12">
                           
                       <div className="form-group ">
-                                <label for="">Are you registered for GST?<span className="text-danger">*</span></label>
+                                <label for="">Are you registered for GST?</label>
                                 <div className='button-grp'> 
                                   <button  
                                   className={this.props.unicorn.tudGstRegistered=='Yes' && 'active'} 
@@ -296,7 +296,7 @@ class Compliances extends Component {
                             </div>
                             
                             <div className="form-group">
-                              <label for="">Give detailed status of GST Compliance<span className="text-danger">*</span></label>
+                              <label for="">Give detailed status of GST Compliance</label>
                               <textarea 
                                 id="" cols="30" rows="6"
                                 name='tudGstDetails'
@@ -307,7 +307,7 @@ class Compliances extends Component {
                               ></textarea>
                             </div>
                         <div className="form-group step-form-date-input">
-                              <label for="">Date of audited balance sheet<span className="text-danger">*</span></label>
+                              <label for="">Date of audited balance sheet</label>
                              
                               <input type='date'
                                 value={this.props.unicorn.tudAuditedBL}
@@ -324,7 +324,7 @@ class Compliances extends Component {
                                 />
                             </div>                           
                             <div className="form-group step-form-date-input">
-                              <label for="">Date of filling last ITR<span className="text-danger">*</span></label>
+                              <label for="">Date of filling last ITR</label>
                               
                               <input type='date'
                                 value={this.props.unicorn.tudItrFilling}
@@ -342,7 +342,7 @@ class Compliances extends Component {
                               />
                             </div>    
                             <div className="form-group step-form-date-input">
-                              <label for="">Date of last AGM<span className="text-danger">*</span></label>
+                              <label for="">Date of last AGM</label>
                              
                               <input type='date'
                               name='tudAgm'
@@ -359,7 +359,7 @@ class Compliances extends Component {
                               />
                             </div> 
                             <div className="form-group">
-                              <label for="">Any pending compliance related to ROC.<span className="text-danger">*</span></label>
+                              <label for="">Any pending compliance related to ROC.</label>
                               <input  
                                 type="text" 
                                 name='tudPendingRoc'
@@ -370,7 +370,7 @@ class Compliances extends Component {
                               />
                             </div>                           
                             <div className="form-group">
-                              <label for="">Any past delays (which are in compliance now) in compliance and reasons reason for the same )<span className="text-danger">*</span></label>
+                              <label for="">Any past delays (which are in compliance now) in compliance and reasons reason for the same )</label>
                               <input  
                                 type="text" 
                                 name='tudPastDelays'
@@ -381,7 +381,7 @@ class Compliances extends Component {
                               />
                             </div>       
                             <div className="form-group">
-                              <label for="">Give list of other statutory compliance applicable<span className="text-danger">*</span></label>
+                              <label for="">Give list of other statutory compliance applicable</label>
                               <textarea 
                                 id="" cols="30" rows="6"
                                 name='tudOtherApplicableCompliance'

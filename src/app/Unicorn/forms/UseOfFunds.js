@@ -359,7 +359,7 @@ class UseOfFunds extends Component {
                               />
                             </div>                          
                              <div className="form-group">
-                              <label for="">Logic / rational for your desired valuation <span className="text-danger">*</span></label>
+                              <label for="">Logic / rational for your desired valuation<span className="text-danger">*</span></label>
                               <input  
                                 type="text" 
                                 name='tudLogicFundRaise'

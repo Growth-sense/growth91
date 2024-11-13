@@ -318,7 +318,7 @@ class FundRaiseRegistration extends Component {
                       <div className="form-group">
                         <label for="">
                           Name of the legal entity.{" "}
-                          <span className="text-danger">*</span>
+                         
                         </label>
                         <textarea  
                          
@@ -345,7 +345,7 @@ class FundRaiseRegistration extends Component {
                       <div className="form-group">
                         <label for="">
                           Legal entity - CIN{" "}
-                          <span className="text-danger">*</span>
+                         
                         </label>
                         <textarea  
                          
@@ -359,7 +359,7 @@ class FundRaiseRegistration extends Component {
                       <div className="form-group">
                         <label for="">
                           Legal entity - PAN{" "}
-                          <span className="text-danger">*</span>
+                         
                         </label>
                         <textarea  
                          
@@ -373,7 +373,7 @@ class FundRaiseRegistration extends Component {
                       <div className="form-group">
                         <label for="">
                           Registered in (Country){" "}
-                          <span className="text-danger">*</span>
+                         
                         </label>
                         <textarea  
                          
@@ -388,7 +388,7 @@ class FundRaiseRegistration extends Component {
                       <div className="form-group step-form-date-input">
                         <label for="">
                           Formally established on(date){" "}
-                          <span className="text-danger">*</span>
+                         
                         </label>
 
                         <input type="date"
@@ -426,7 +426,7 @@ class FundRaiseRegistration extends Component {
                       <div className="form-group">
                         <label for="">
                           Address - Registered office
-                          <span className="text-danger">*</span>
+                         
                         </label>
                         <textarea  
                          
@@ -440,7 +440,7 @@ class FundRaiseRegistration extends Component {
                       <div className="form-group">
                         <label for="">
                           Address - Corporate/Working office{" "}
-                          <span className="text-danger">*</span>
+                         
                         </label>
                         <textarea
                          
@@ -454,7 +454,7 @@ class FundRaiseRegistration extends Component {
                       <div className="form-group">
                         <label for="">
                           Director - 1(Name){" "}
-                          <span className="text-danger">*</span>
+                         
                         </label>
                         <textarea
                          
@@ -468,7 +468,7 @@ class FundRaiseRegistration extends Component {
                       <div className="form-group">
                         <label for="">
                           Director - 1 (DIN){" "}
-                          <span className="text-danger">*</span>
+                         
                         </label>
                         <textarea
                          

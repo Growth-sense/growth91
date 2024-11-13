@@ -195,7 +195,7 @@ class IntellectualProperty extends Component {
                     <div className="col-lg-12">
                       <div className="form-group mt-3">
                         <label for="">
-                          Trademark<span className="text-danger">*</span>
+                          Trademark
                         </label>
                         <textarea
                           id=""
@@ -211,7 +211,7 @@ class IntellectualProperty extends Component {
                       </div>
                       <div className="form-group">
                         <label for="">
-                          Patents<span className="text-danger">*</span>
+                          Patents
                         </label>
                         <textarea
                           id=""
@@ -226,7 +226,7 @@ class IntellectualProperty extends Component {
                       </div>
                       <div className="form-group">
                         <label for="">
-                          Other IPs<span className="text-danger">*</span>
+                          Other IPs
                         </label>
                         <textarea
                           id=""
@@ -256,7 +256,7 @@ class IntellectualProperty extends Component {
                         <label for="">
                           Are all IPRs registered in Company's name (And not
                           Founder's or other name). If not, please give details.
-                          <span className="text-danger">*</span>
+                         
                         </label>
                         <textarea
                           id=""

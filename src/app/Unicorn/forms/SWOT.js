@@ -185,7 +185,7 @@ class SWOT extends Component {
                               />
                             </div>
                             <div className="form-group">
-                              <label for="">What are the weaknesses of your startup? <span className="text-danger">*</span></label>
+                              <label for="">What are the weaknesses of your startup?<span className="text-danger">*</span></label>
                               <textarea  
                                 type="text" 
                                 name='tudWeakness'
@@ -198,7 +198,7 @@ class SWOT extends Component {
                               />
                             </div>
                             <div className="form-group">
-                              <label for="">What are the opportunities for your startup? <span className="text-danger">*</span></label>
+                              <label for="">What are the opportunities for your startup?<span className="text-danger">*</span></label>
                               <textarea 
                                 type="text"
                                 name='tudOpportunities'
@@ -211,7 +211,7 @@ class SWOT extends Component {
                               />
                             </div>
                             <div className="form-group">
-                              <label for="">What are the threats for your startup? <span className="text-danger">*</span></label>
+                              <label for="">What are the threats for your startup?<span className="text-danger">*</span></label>
                               <textarea  
                                 type="text" 
                                 name='tudThreats'

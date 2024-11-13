@@ -460,8 +460,8 @@ class SupportingDocuments extends Component {
                         <div className="form-group ">
                           <div className="mt-4">
                             <label className="mb-2">
-                              Select Pitch PDF (Max file size should be 10MB)
-                              <span className="text-danger">*</span>
+                              Select Pitch PDF (Max file size should be 10MB)<span className="text-danger">*</span>
+                             
                             </label>
 
                             <input
@@ -527,7 +527,7 @@ class SupportingDocuments extends Component {
                         </div>
                       </div> */}
                       <div className="form-group">
-                        <label for="">Banner Image</label>
+                        <label for="">Banner Image<span className="text-danger">*</span></label>
                         <input
                           type="file"
                           onWheel={() => document.activeElement.blur()}
@@ -537,7 +537,7 @@ class SupportingDocuments extends Component {
                         />
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Select Logo</label>
+                        <label for="">Select Logo<span className="text-danger">*</span></label>
                         <input
                           type="file"
                           onWheel={() => document.activeElement.blur()}
@@ -549,7 +549,7 @@ class SupportingDocuments extends Component {
                       {this.state.startuphighlight.map((item, index) => {
                         return (
                           <div className="form-group">
-                            <label for=""> Highlight {index + 1}</label>
+                            <label for=""> Highlight {index + 1}<span className="text-danger">*</span></label>
                             <textarea
                               id="selected-field"
                               cols="30"
@@ -577,7 +577,7 @@ class SupportingDocuments extends Component {
                           <div className="form-group">
                             <label for="">
                               {" "}
-                              Market Overview of the product {index + 1}
+                              Market Overview of the product {index + 1}<span className="text-danger">*</span>
                             </label>
                             <textarea
                               id="selected-field"
