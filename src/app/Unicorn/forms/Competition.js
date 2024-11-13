@@ -315,7 +315,7 @@ class FundRaiseRegistration extends Component {
                               ></textarea>
                             </div>                            
                             <div className="form-group">
-                              <label for=""> Do you know any failed venture in same domain or doing similar activities?</label>
+                              <label for=""> Do you know any failed venture in same domain or doing similar activities?<span className="text-danger">*</span></label>
                               <textarea 
                                 id="" cols="30" rows="6"
                                 name='tudFailVenture'
@@ -326,7 +326,7 @@ class FundRaiseRegistration extends Component {
                               ></textarea>
                             </div>
                             <div className="form-group">
-                              <label for="">What are the reasons for failure as analyzed by you?
+                              <label for="">What are the reasons for failure as analyzed by you?<span className="text-danger">*</span>
                               </label>
                               <textarea 
                                 cols="30" 

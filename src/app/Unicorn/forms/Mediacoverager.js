@@ -319,7 +319,7 @@ addcoverger = () => {
                                 <div className="mt-4">
                                   <label className="mb-2">
                                     Media link{index + 1}
-                                    <span className="text-danger">*</span>
+                                   
                                   </label>
                                   <input
                                     key={index}
@@ -339,7 +339,7 @@ addcoverger = () => {
                                 <div className="mt-4">
                                   <label className="mb-2">
                                     Media img{index + 1}
-                                    <span className="text-danger">*</span>
+                                   
                                   </label>
                                   <input
                                     key={index}
@@ -376,7 +376,7 @@ addcoverger = () => {
                                 <div className="mt-4">
                                   <label className="mb-2">
                                     Name 
-                                    <span className="text-danger">*</span>
+                                   
                                   </label>
 
                                   <input
@@ -397,7 +397,7 @@ addcoverger = () => {
                                 <div className="mt-4">
                                   <label className="mb-2">
                                     Role
-                                    <span className="text-danger">*</span>
+                                   
                                   </label>
 
                                   <input
@@ -418,7 +418,7 @@ addcoverger = () => {
                                 <div className="mt-4">
                                   <label className="mb-2">
                                     Description 1
-                                    <span className="text-danger">*</span>
+                                   
                                   </label>
                                   <input
                                     key={index}
@@ -443,7 +443,7 @@ addcoverger = () => {
                                 <div className="mt-4">
                                   <label className="mb-2">
                                     Description 2
-                                    <span className="text-danger">*</span>
+                                   
                                   </label>
                                   <input
                                     key={index}
@@ -468,7 +468,7 @@ addcoverger = () => {
                                 <div className="mt-4">
                                   <label className="mb-2">
                                      Img
-                                    <span className="text-danger">*</span>
+                                   
                                   </label>
                                   <input
                                     key={index}

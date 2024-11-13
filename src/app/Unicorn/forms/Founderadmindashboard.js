@@ -952,19 +952,7 @@ class Founderadmindashboard extends Component {
       toast.error("Please fill Basic Details Section");
       return;
     }
-    console.log(
-      this.state.unicorn.tudRolesCoreTeam,
-      this.state.unicorn.tudDisruptingMarket,
-      this.state.unicorn.tudTappingNew,
-      this.state.unicorn.tudCustomerBenifit,
-      this.state.unicorn.tudSuppliersBenifit,
-      this.state.unicorn.focused_on_product,
-      this.state.unicorn.tudDirectSubstitueAvailable,
-      this.state.unicorn.tudIndirectSubstitueAvailable,
-      this.state.unicorn.tudRiskPerceived,
-      this.state.unicorn.tudMoats,
-      this.state.unicorn.tudScaleupChallenges
-    );
+  
 
     if (
       !this.state.unicorn.tudDisruptingMarket ||

@@ -243,7 +243,7 @@ class BasicDetails extends Component {
                       </div>
                       <div className="form-group input-rezized">
                         <label for="">
-                          Name Of Startup <span className="text-danger">*</span>
+                          Name Of Startup<span className="text-danger">*</span>
                         </label>
                         <input
                           type="text"
@@ -257,8 +257,8 @@ class BasicDetails extends Component {
                       </div>
                       <div className="form-group input-rezized">
                         <label for="">
-                          Primary Contact Person(Name)
-                          <span className="text-danger">*</span>
+                          Primary Contact Person(Name)<span className="text-danger">*</span>
+                         
                         </label>
                         <input
                           type="text"
@@ -272,8 +272,8 @@ class BasicDetails extends Component {
                       </div>
                       <div className="form-group input-rezized">
                         <label for="">
-                          Primary Contact Person (Mobile)
-                          <span className="text-danger">*</span>
+                          Primary Contact Person (Mobile)<span className="text-danger">*</span>
+                         
                         </label>
                         <input
                           type="number"
@@ -288,8 +288,8 @@ class BasicDetails extends Component {
                       </div>
                       <div className="form-group input-rezized">
                         <label for="">
-                          Primary Contact Person (Email){" "}
-                          <span className="text-danger">*</span>
+                          Primary Contact Person (Email){" "}<span className="text-danger">*</span>
+                         
                         </label>
                         <input
                           type="email"

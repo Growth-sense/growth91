@@ -194,8 +194,8 @@ class FundRaiseRegistration extends Component {
                       <div className="row" style={{ maxWidth: 900 }}>
                         <div className="col-lg-12">
                             <div className="form-group">
-                              <label for="">Which is most relevant industry classification for the startup?
-                              <span className="text-danger">*</span></label>
+                              <label for="">Which is most relevant industry classification for the startup?<span className="text-danger">*</span>
+                             </label>
                               <textarea  
                                 type="text" 
                                 name='tudIndustryClassification'
@@ -207,7 +207,7 @@ class FundRaiseRegistration extends Component {
                              ></textarea> 
                             </div>
                             <div className="form-group">
-                              <label for="">Your views on industry (Past, Present and Future) <span className="text-danger">*</span></label>
+                              <label for="">Your views on industry (Past, Present and Future)<span className="text-danger">*</span></label>
                               <textarea 
                                 id="" cols="30" rows="6"
                                 name='tudIndustryViews'
@@ -218,8 +218,8 @@ class FundRaiseRegistration extends Component {
                               ></textarea>
                             </div>
                             <div className="form-group">
-                              <label for="">Total Market size of the industry.
-                              <span className="text-danger">*</span></label>
+                              <label for="">Total Market size of the industry.<span className="text-danger">*</span>
+                             </label>
                               <textarea  
                                 type="text" 
                                 name='tudIndustryMarketSize'
@@ -230,8 +230,8 @@ class FundRaiseRegistration extends Component {
                               ></textarea>
                             </div>
                             <div className="form-group">
-                              <label for="">Supporting information and the logic/rational of market size.
-                              <span className="text-danger">*</span></label>
+                              <label for="">Supporting information and the logic/rational of market size.<span className="text-danger">*</span>
+                             </label>
                               <input  
                                 type="text" 
                                 name='tudSupportingInfoMarketSize'
@@ -242,8 +242,8 @@ class FundRaiseRegistration extends Component {
                               />
                             </div>
                             <div className="form-group">
-                              <label for="">Addressable Market size.
-                              <span className="text-danger">*</span></label>
+                              <label for="">Addressable Market size.<span className="text-danger">*</span>
+                             </label>
                               <textarea  
                                 type="text" 
                                 name='tudAddressableMarketSize'
@@ -254,8 +254,8 @@ class FundRaiseRegistration extends Component {
                             ></textarea>  
                             </div>
                             <div className="form-group">
-                              <label for="">Supporting information and logic/rational of demarking addressable market size.
-                              <span className="text-danger">*</span></label>
+                              <label for="">Supporting information and logic/rational of demarking addressable market size.<span className="text-danger">*</span>
+                             </label>
                               <textarea  
                                 type="text" 
                                 name='tudSupportingInfoAddressableMarketSize'
