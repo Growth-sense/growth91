@@ -105,8 +105,9 @@
   },
   "reactSnap": {
     "include": [
-    
-      "/PrivacyPolicy"
+      "/Learn",
+      "/",
+      "/TermsConditions"
     ],
     "minifyHtml": {
       "collapseWhitespace": false,
