@@ -164,28 +164,27 @@ export const FutureUnicornDescription = () => {
         data["I Want to know more about it"] == false ||
         data["I want to work with you"] == false ||
         data["I am excited to invest in your startups"] == false
-      ){
+      ) {
         mess.error("Please Select any one option ");
-return
-
+        return;
       }
-        if (result.message == "Details are updated successfully.") {
-          toast.success("Details shared with Founder");
-          setiamintrestmodal(false);
-          setdata({
-            "I Want to know more about it": false,
-            "I want to work with you": false,
-            "I am excited to invest in your startups": false,
-            message: "",
-          });
-          setmessage("");
-        } else if (result.message == "Please enter values of all fields.") {
-          toast.error("Plz fill all feild");
-        } else if (
-          result.message == "You already have shown interest to this Startup."
-        ) {
-          mess.warning("You already have shown interest to this Startup.");
-        }
+      if (result.message == "Details are updated successfully.") {
+        toast.success("Details shared with Founder");
+        setiamintrestmodal(false);
+        setdata({
+          "I Want to know more about it": false,
+          "I want to work with you": false,
+          "I am excited to invest in your startups": false,
+          message: "",
+        });
+        setmessage("");
+      } else if (result.message == "Please enter values of all fields.") {
+        toast.error("Plz fill all feild");
+      } else if (
+        result.message == "You already have shown interest to this Startup."
+      ) {
+        mess.warning("You already have shown interest to this Startup.");
+      }
     });
   };
   return (
@@ -1113,14 +1112,16 @@ return
                           gap: "30px",
                         }}
                       >
-                        <div className="investor-amounts">
-                          <a
-                            style={{ color: "white" }}
-                            onClick={openiamintrest}
-                          >
-                            I am Interested
-                          </a>
-                        </div>
+                        {!JSON.stringify(localStorage.getItem("investor_id"))  && (
+                          <div className="investor-amounts">
+                            <a
+                              style={{ color: "white" }}
+                              onClick={openiamintrest}
+                            >
+                              I am Interested
+                            </a>
+                          </div>
+                        )}
                         <div className="investor-amounts button">
                           <a href="/FutureUnicornList">Unicorn List page</a>
                         </div>
