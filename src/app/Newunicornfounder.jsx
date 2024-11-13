@@ -28,7 +28,7 @@ const Newunicornfounder = () => {
 
                     }
                     .hero p {
-                        font-size: 1.2em;
+                        font-size: 1.5em;
                         margin-bottom: 30px;
                         color: white;
                     }
@@ -43,7 +43,7 @@ const Newunicornfounder = () => {
                         background-color: #6c63ff;
                         padding: 15px 30px;
                         border-radius: 5px;
-                        font-size: 1em;
+                        font-size: 1.3em;
                         transition: background-color 0.3s;
                     }
                     .buttons a:hover {
@@ -70,15 +70,15 @@ const Newunicornfounder = () => {
                         background-color: #f5f5f5;
                         padding: 20px;
                         border-radius: 10px;
-                        width: 300px;
+                        width: 400px;
                     }
                     .feature-box h3 {
-                        font-size: 1.2em;
+                        font-size: 1.5em;
                         margin-bottom: 10px;
                         color: #333;
                     }
                     .feature-box p {
-                        font-size: 1em;
+                        font-size: 1.3em;
                         color: #666;
                     }
 
@@ -100,14 +100,16 @@ const Newunicornfounder = () => {
                         color: #333;
                     }
                     .features-list {
-                        display: flex;
-                        flex-direction: column;
-                        gap: 30px;
+                        // display: flex;
+                        // flex-direction: column;
+                        display: grid;
+                        grid-template-columns: repeat(2, 1fr);
+                        gap: 50px;
                         align-items: flex-start;
                     }
                     .feature-item {
                         display: flex;
-                        align-items: center;
+                        // align-items: center;
                     }
                     .feature-item-number {
                         width: 30px;
@@ -117,7 +119,7 @@ const Newunicornfounder = () => {
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        font-size: 1.2em;
+                        font-size: 1.5em;
                         margin-right: 20px;
                         color: #333;
                     }
@@ -130,7 +132,7 @@ const Newunicornfounder = () => {
                         color: #333;
                     }
                     .feature-description p {
-                        font-size: 1em;
+                        font-size: 1.3em;
                         color: #666;
                     }
                         .investor-benifit{
@@ -165,24 +167,90 @@ const Newunicornfounder = () => {
     background-color: #f5f5f5;
     padding: 20px;
     border-radius: 10px;
-    width: 300px;
+    width: 400px;
 }
 
 .founder-benefit .feature-box h3 {
-    font-size: 1.2em;
+    font-size: 1.5em;
     margin-bottom: 10px;
                         color: ##100050 !important;
 
 }
 
 .founder-benefit .feature-box p {
-    font-size: 1em;
+    font-size: 1.3em;
     color: #666;
 }
 
                 `}
             </style>
         <NewWebHeader />
+        <section className="banner_section">
+          <div
+            id="carouselExampleIndicators"
+            className="carousel slide"
+            data-bs-ride="carousel"
+          >
+            <div className="carousel-inner">
+              <div className="carousel-item active">
+                <div className="container">
+                  <div className="slider-area">
+                    <div className="item">
+                      <div className="row align-items-center">
+                        <div className="col-lg-6 col-xl-24 col-sm-24">
+                          <div className="left-content">
+                            <h2 className="wow fadeInUp " data-wow-delay="0.3s">
+                            Future Unicorn
+
+                            </h2>
+                            <span className="text-white ">
+                    Connecting innovative startups with visionary investors on Growth91 platform.
+                            
+
+                            </span>
+                            {/* <ul className="text-white">
+                                                    <li><a href="Howitworks.html" className=""><span><img src="./web/images/hand-index.svg" width="24" alt="img"/> </span><u>How do i invest?</u></a></li>
+                                                    <li><a href="Howitworks2.html" className=""><span></span><span><img src="./web/images/hand-index.svg" width="24"  alt="img"/> </span>What are the risks?</a></li>
+                                                    <li><a href="Howitworks3.html" className=""><span></span><span><img src="./web/images/hand-index.svg" width="24"  alt="img"/> </span>What is T-SAFE?</a></li>
+                                                    <li><a href="Howitworks4.html" className=""><span></span><span><img src="./web/images/hand-index.svg" width="24"  alt="img"/> </span>What are Growth91's fees?</a></li>
+                                                    <span className="">
+                                                      </span>
+                                                </ul>                                                    --> */}
+
+                            <form
+                              className="input_box wow fadeInUp mt-4"
+                              data-wow-delay="0.7s"
+                            >
+                              <div className="form-wraper">
+                               
+                                  <a
+                                    href="/synergy-form"
+                                    className="theme-btn "
+                                    type="button"
+                                  >
+                                    Let's Connect
+                                  </a>
+                            
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                        <div className="col-lg-6">
+                          <div
+                            className="right-side-images wow fadeInRight"
+                            data-wow-delay="0.6s"
+                          >
+                            <img src="./web/images/left.png" alt="img" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
 
             <div className="hero">
@@ -203,7 +271,7 @@ const Newunicornfounder = () => {
                 <p>
                   <span></span>{" "}
                 </p>
-                <h3>Why to list?</h3>
+                <h2>Why to list?</h2>
               </div>
                 <div className="features">
                     <div className="feature-box">
@@ -226,7 +294,7 @@ const Newunicornfounder = () => {
                 <p>
                   <span></span>{" "}
                 </p>
-                <h2 style={{color:"white", fontSize : "37px"}}>Benefits for Founders</h2>
+                <h2 style={{color:"white"}}>Benefits for Founders</h2>
               </div>
     <div className="features">
         <div className="feature-box">
@@ -239,7 +307,7 @@ const Newunicornfounder = () => {
         </div>
         <div className="feature-box">
             <h3>Global Reach</h3>
-            <p>Potential for both domestic and international investments.</p>
+            <p>Potential for both domestic and international investments and connections.</p>
         </div>
     </div>
 </div>
@@ -251,14 +319,14 @@ const Newunicornfounder = () => {
                 <p>
                   <span></span>{" "}
                 </p>
-                <h3>Key Features</h3>
+                <h2>Key Features</h2>
               </div>
                 <div className="features-list">
                     <div className="feature-item">
                         <div className="feature-item-number">1</div>
                         <div className="feature-description">
                             <h3>Startup Submission Form</h3>
-                            <p>Intuitive interface for founders to submit company details and documentation.</p>
+                            <p>Intuitive interface for founders to submit startup details.</p>
                         </div>
                     </div>
                     <div className="feature-item">
@@ -290,21 +358,22 @@ const Newunicornfounder = () => {
 
           
         <section class="custom-section">
-          <div class="join-section join-sec-yellow join-sec-white undefined join-divide mobile-join">
+          <div class="join-section join-sec-yellow join-sec-white undefined join-divide mobile-join" style={{
+            justifyContent :"center", gap :"35px"
+          }}>
             {/* <h4>Join us</h4> */}
-            <div className="join-flex-one-us">
-              <h2>
-                Join Us to Invest in Startups in India and Support Breakthrough
-                Ventures
+            <div className="join-flex-one-us" style={{justifyContent : "center"}}>
+              <h2 style={{fontSize : "45px"}}>
+                List your future unicorn with us
               </h2>
-              <p class="index_pitch">
+              {/* <p class="index_pitch">
                 Decades of banking, investing & startup success guide your
                 investments. Invest confidently with us.
-              </p>
+              </p> */}
             </div>
-            <div class="index-button-1">
-              <Link to="/Deals" style={{ color: "white" }}>
-              Sign Up and Start Investing
+            <div class="index-button-1" style={{fontSize : "2rem"}}>
+              <Link to="/Deals" style={{ color: "white", fontSize:"2rem" }}>
+              List now
               </Link>
             </div>
           </div>

@@ -128,7 +128,7 @@ class SocialMediaPresence extends Component {
                             position: 'relative',
                             paddingRight: 10,
                           }}
-                          >Application</span>
+                          >Social Media Presence</span>
                         </div>
                         <hr/>
                       </div>

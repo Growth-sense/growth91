@@ -125,7 +125,7 @@ class Dellistinicorn extends Component {
                           paddingRight: 10,
                         }}
                       >
-                        Reference{" "}
+                        Other info{" "}
                       </span>
                     </div>
                     <hr />

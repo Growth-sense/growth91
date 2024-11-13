@@ -105,7 +105,7 @@ export const FutureUnicornForm = () => {
                                 <p>
                                     <span></span>{" "}
                                 </p>
-                                <h2>List yourself in the startup list
+                                <h2>List your future unicorn
                                 </h2>
                             </div>
                         </div>

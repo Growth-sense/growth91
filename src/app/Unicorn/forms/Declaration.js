@@ -201,7 +201,7 @@ class Declaration extends Component {
                               width: "20px",
                             }}
                           />
-                          <label>
+                          <label style={{textAlign :"justify"}}>
                             {" "}
                             All the information provided is true and correct to
                             the best of our knowledge. If at any time in future,

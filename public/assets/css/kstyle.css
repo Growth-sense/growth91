@@ -1223,6 +1223,8 @@
 .accordion .accordion-header .accordion-button {
   background: transparent;
   color: #111;
+  font-size: 0.8em;
+
 }
 
 .accordion .accordion-header .accordion-button:focus {
@@ -4943,8 +4945,9 @@ transition: max-height 0.45s ease-in; */
   font-size: 14px;
   font-weight: 100;
   padding: 0 31px;
-  line-height: 28px;
+  line-height: 35px;
   margin-top: 4px;
+  font-size: 1.3em;
 }
 
 .img-future-gallery img {
@@ -4962,7 +4965,7 @@ transition: max-height 0.45s ease-in; */
 }
 
 .lets-talks-div h3 {
-  font-size: 16px;
+  font-size: 20px;
   background: #29176f;
   padding: 10px 25px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
@@ -5001,14 +5004,15 @@ transition: max-height 0.45s ease-in; */
 }
 
 .future-main-accordians .lets-talks-div ul li span:nth-child(1) {
-  color: #525252;
+  color: #000000;
   text-transform: capitalize;
-  font-size: 17px;
+  font-size: 19px;
 }
 
 .future-main-accordians .lets-talks-div ul li span:nth-child(2) {
   padding-left: 10px;
   color: #000000;
+  font-size: 19px;
 }
 
 .row-box-line {
@@ -5303,6 +5307,7 @@ a {
   color: black;
   border-radius: 12px;
   margin: 10px 38px 29px 38px;
+  font-size: 1.3em;
 }
 
 .lets-talks-div ul li i {
@@ -5358,6 +5363,8 @@ a {
   text-align: justify;
   color: black;
   padding: 0 59px;
+  font-size: 1.3em;
+
 }
 
 .img-highlights {
@@ -5566,6 +5573,11 @@ a {
     /* padding-left: 36px; */
 
 }
+.name-of-teams-card li{
+
+  color: black !important;
+
+}
 
 .head-deals-team h3 {
   font-size: 18px;
@@ -5675,6 +5687,7 @@ a {
   text-decoration: none;
   box-shadow: rgb(197 197 255 / 0%) 0px 8px 24px, rgb(160 160 160) 0px 16px 56px,
     rgb(255 255 255 / 64%) 0px 24px 80px;
+    font-size: 1.3em;
 }
 
 .submit-draft-publish a:hover {
@@ -5870,6 +5883,7 @@ a {
   border-radius: 48px;
   padding: 10px 33px;
   text-decoration: none;
+  font-size: 1.5em;
 
   color: white;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
@@ -6394,6 +6408,8 @@ a {
 }
 .future-main-accordians .accordion-item .default-Show {
     padding: 1rem 1.25rem;
+    font-size: 0.8em;
+    color: black;
 
 }
 .future-main-accordians .accordion-item .default-Show span img{

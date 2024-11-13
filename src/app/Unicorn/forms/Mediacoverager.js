@@ -280,7 +280,7 @@ addcoverger = () => {
                           paddingRight: 10,
                         }}
                       >
-                        Reference{" "}
+                        Media Coverages{" "}
                       </span>
                     </div>
                     <hr />
@@ -288,7 +288,7 @@ addcoverger = () => {
                   <div className="row" style={{ maxWidth: 900 }}>
                     <div className="col-lg-12">
                       <div className="form-group">
-                        <label for="">mediacoverager</label>
+                        {/* <label for="">mediacoverager</label> */}
                         {this.state.mediacoverager.map((item, index) => {
                           console.log(item);
 
@@ -298,7 +298,7 @@ addcoverger = () => {
                                 <div className="mt-4">
                                   <label className="mb-2">
                                     Media title{index + 1}
-                                    <span className="text-danger">*</span>
+                                    {/* <span className="text-danger">*</span> */}
                                   </label>
 
                                   <input

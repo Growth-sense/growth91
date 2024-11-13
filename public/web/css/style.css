@@ -275,6 +275,7 @@ body p {
   color: #513e75;
   margin: 0;
   font: 400 16px/32px Nunito, sans-serif;
+  line-height: 2;
 }
 .hiw a,
 .hiw a span {

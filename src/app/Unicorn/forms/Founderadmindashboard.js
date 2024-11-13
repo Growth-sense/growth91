@@ -1286,15 +1286,40 @@ class Founderadmindashboard extends Component {
   render() {
     return (
       <div>
+        <style>
+          {
+            `
+            .multistep-form-icons span{
+                color: black;
+    font-size: 1.3em !important;
+            }
+    .line-seperator span{
+     color: black;
+    // font-size: 1.2em;
+    
+    }
+     .form-group label{
+     color: black;
+    // font-size: 1.2em;
+    
+    }
+      .form-group input{
+     color: black;
+    // font-size: 1.2em;
+    
+    }
+            
+            `
+          }
+        </style>
         <Spin spinning={this.state.loading}>
           <div className="container">
             <div className="row">
               <div className="col-lg-12 text-center mb-5">
                 {/* <h1>Information about Startup</h1> */}
                 <br />
-                <p>
-                  Tell us a little about your company. This will help us
-                  understand your business better.
+                <p style={{fontSize:"1.7em"}}>
+                  Tell us about your startup 
                   <br />
                   {/* <span style={{ color: "red" }}>
                       ( Instruction: Startup form and Assessment Forms are best
@@ -1943,7 +1968,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Deallist</span>
+                        <span>Other info</span>
                         <div className="line"></div>
                       </div>
                     </li>

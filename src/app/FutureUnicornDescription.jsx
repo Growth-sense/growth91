@@ -194,7 +194,12 @@ console.log(data);
            
 
             return (
+              
               <>
+
+              
+
+            
                 <section class="futureunicorn-slider-sections">
                   <div class="container-flex">
             
@@ -457,12 +462,13 @@ console.log(data);
             style={{
               padding: "1rem 1.25rem",
               cursor: "pointer",
+              fontSize : "0.82em"
             }}
             className="btn"
             type="button"
             onClick={handleShow}
           >
-            <span style={{ marginRight: "0.5rem" }}>
+            <span style={{ marginRight: "0rem" }}>
               <img src="./assets/images/gallery.png" alt="gallery icon" />
             </span>
             Investor Presentation
@@ -1076,7 +1082,7 @@ console.log(data);
                           <a style={{color:"white"}} onClick={openiamintrest}>I am Interested</a>
                         </div>
                         <div className="investor-amounts button">
-                          <a  href="/FutureUnicornList">Unicorn List page</a>
+                          <a  href="/FutureUnicornList">View other future unicorns</a>
                       </div>
                       </div>
                     </div>
