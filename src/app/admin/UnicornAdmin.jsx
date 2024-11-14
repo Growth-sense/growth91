@@ -65,6 +65,8 @@ class UnicornAdmin extends Component {
       edit_authorised_founder: "",
       edit_operational_founder: "",
       enquireModalStatus: false,
+      commitexport:"",
+      intrestedlist:""
     };
   }
 
@@ -155,7 +157,25 @@ class UnicornAdmin extends Component {
           intrestedlist: result.data,
 
           loading: false,
+          commitexport:
+          result.data.map((item, index) => {
+            return {
+              key: index,
+              first_name: item.first_name + " " + item.last_name,
+              email: item.email,
+              mobile: item.mobile,
+              interestDate: item.interestDate,
+              Intrested:
+                (item.interestKnowMore == 1 && "I Want to know more about it") ||
+                (item.interestWorkwithYou == 1 && "I want to work with you") ||
+                (item.interestInvestinStartup == 1 &&
+                  "I am excited to invest in your startups"),
+              Comments: item.interestMessage,
+              // emailcontent: emaildata,
+            };
+          })
         });
+      
       } else {
         message.error(result.message);
         this.setState({
@@ -199,17 +219,19 @@ class UnicornAdmin extends Component {
     this.setState({ loading: true, searchinput: text });
     if (text) {
       let arr = [];
+      console.log(this.state.startups);
+      
       for (let item of this.state.startups) {
         if (
-          (item.first_name &&
-            item.first_name.toLowerCase().includes(text.toLowerCase())) ||
-          (item.groupName &&
-            item.groupName.toLowerCase().includes(text.toLowerCase())) ||
-          (item.email &&
-            item.email.toLowerCase().includes(text.toLowerCase())) ||
-          (item.status &&
-            item.status.toLowerCase().includes(text.toLowerCase())) ||
-          (item.groupID && item.groupID.includes(text.toLowerCase()))
+          (item.udPrimaryContactName &&
+            item.udPrimaryContactName.toLowerCase().includes(text.toLowerCase())) ||
+          (item.udStartupName &&
+            item.udStartupName.toLowerCase().includes(text.toLowerCase())) ||
+          (item.udEmail &&
+            item.udEmail.toLowerCase().includes(text.toLowerCase())) ||
+          // (item.status &&
+          //   item.status.toLowerCase().includes(text.toLowerCase())) ||
+          (item.unicornDealID && item.unicornDealID.includes(text.toLowerCase()))
         ) {
           arr = [...arr, item];
         }
@@ -282,6 +304,37 @@ class UnicornAdmin extends Component {
         "Founder Mobile": item.udPrimaryContactMobile
           ? item.udPrimaryContactMobile
           : "---",
+
+        // Status: item.status,
+        // 'Tax Type': item.payment_type,
+        // 'KYC Status': item.isapproved,
+        // 'Invested date': item.Invested_dt ? moment(item.Invested_dt).format('DD MMM, YYYY') : '---',
+      };
+      arr = [...arr, obj];
+      // count++;
+    }
+    const ws = XLSX.utils.json_to_sheet(arr);
+    const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+    const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+    const data = new Blob([excelBuffer], { type: fileType });
+    FileSaver.saveAs(data, fileName + fileExtension);
+    message.success("Investment data exported successfully.");
+  };
+  exportToCSV_CommitList = (fileName) => {
+    let arr = [];
+    let count = 1;
+    console.log( this.state.commitexport);
+    
+    for (let item of this.state.commitexport) {
+      let obj = {
+        "Sr No": count++,
+        "Name": item.first_name ,
+        "E-mail":item.email,
+        "Interest Shown Date": item.interestDate,
+        "Mobile Number":item.mobile,
+        "Comments from Visitor":item.Comments,
+        "Type of Interest Shown":item.Intrested==false?("---"):(item.Intrested),
+       
 
         // Status: item.status,
         // 'Tax Type': item.payment_type,
