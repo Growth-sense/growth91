@@ -201,6 +201,22 @@ export const FutureUnicornDescription = () => {
               
               <>
 
+              <style>
+{
+`
+.form-checkbox label{
+
+text-transform : none;
+
+}
+
+`
+
+
+}
+
+              </style>
+
               
 
             
@@ -1112,18 +1128,19 @@ export const FutureUnicornDescription = () => {
                           gap: "30px",
                         }}
                       >
-                        {!JSON.stringify(localStorage.getItem("investor_id"))  && (
+                        {/* {!JSON.stringify(localStorage.getItem("investor_id"))  && ( */}
                           <div className="investor-amounts">
                             <a
-                              style={{ color: "white" }}
+                              style={{ color: "white", fontSize : "1.5em" }}
                               onClick={openiamintrest}
+                              
                             >
-                              I am Interested
+                              Express Interest
                             </a>
                           </div>
-                        )}
+                        {/* )} */}
                         <div className="investor-amounts button">
-                          <a href="/FutureUnicornList">View other future unicorns</a>
+                          <a href="/FutureUnicornList">View other Future Unicorns</a>
                         </div>
                       </div>
                     </div>
@@ -1169,7 +1186,7 @@ export const FutureUnicornDescription = () => {
                     <p>
                       <span></span>{" "}
                     </p>
-                    <h2>Fill The Form</h2>
+                    <h2>Type of Interest</h2>
                   </div>
                   <div className="para-proceed">
                     <form action="" className="form-checkbox">
@@ -1184,7 +1201,7 @@ export const FutureUnicornDescription = () => {
                             }
                             onClick={adddata}
                           />
-                          <label htmlFor="">I Want to know more about it</label>
+                          <label htmlFor="">I want to know more about your startup</label>
                         </div>
                         <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
                           <input
@@ -1194,7 +1211,7 @@ export const FutureUnicornDescription = () => {
                             checked={data["I want to work with you"] == true}
                             onClick={adddata}
                           />
-                          <label htmlFor="">I want to work with you</label>
+                          <label htmlFor="">I want to explore collaboration </label>
                         </div>
                         <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
                           <input
@@ -1210,7 +1227,7 @@ export const FutureUnicornDescription = () => {
                             onClick={adddata}
                           />
                           <label htmlFor="">
-                            I am excited to invest in your startups
+                            I am interested to invest in your startup
                           </label>
                         </div>
                         <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mt-2">
