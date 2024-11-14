@@ -309,6 +309,9 @@ class Founderadmindashboard extends Component {
         tudFoundedon: "",
         tudLogoImage: "",
         tudAddress: "",
+        tudEmployees: "",
+        tudFocusedOnProduct: "",
+        tudUseofFundRepayment: "",
         tudTempUdID: "",
         show_thankyou_modal: "",
         unicornid: "",
@@ -319,11 +322,11 @@ class Founderadmindashboard extends Component {
     };
   }
 
-  componentDidMount() {
+  componentWillUnmount() {
     // this.setState("");
     this.setState({ activeform: 0 });
 
-    this.getData(this.props.id);
+    this.getData();
     if (this.props.id) {
       let id = this.props.id;
     }
@@ -963,6 +966,8 @@ class Founderadmindashboard extends Component {
       this.state.unicorn.tudCustomerBenifit == "" ||
       !this.state.unicorn.tudSuppliersBenifit ||
       this.state.unicorn.tudSuppliersBenifit == "" ||
+      !this.state.unicorn.tudFocusedOnProduct ||this.state.unicorn.tudFocusedOnProduct==""||
+      !this.state.unicorn.tudUseofFundRepayment ||this.state.unicorn.tudUseofFundRepayment==""||
       !this.state.unicorn.tudFocusedOnProduct ||this.state.unicorn.tudFocusedOnProduct==""||
       !this.state.unicorn.tudDirectSubstitueAvailable ||
       this.state.unicorn.tudDirectSubstitueAvailable == "" ||

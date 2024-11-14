@@ -187,6 +187,8 @@ export const FutureUnicornDescription = () => {
       }
     });
   };
+  const dat=JSON.stringify(localStorage.getItem("investor_id")) 
+  
   return (
     <div>
       <div classname="newabout">
@@ -1112,7 +1114,7 @@ export const FutureUnicornDescription = () => {
                           gap: "30px",
                         }}
                       >
-                        {!JSON.stringify(localStorage.getItem("investor_id"))  && (
+                        {dat== "null" ?("") :(
                           <div className="investor-amounts">
                             <a
                               style={{ color: "white" }}
