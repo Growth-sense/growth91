@@ -236,6 +236,7 @@ footer h4 {
   outline: 0;
   width: 100%;
   transition: 0.4s;
+  margin-left: 150px;
 }
 @media only screen and (max-width: 251px) {
   .input_box .form-wraper .theme-btn {

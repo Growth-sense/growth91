@@ -294,10 +294,12 @@ class UnicornAdmin extends Component {
       let obj = {
         "Sr No": count++,
         "Unicorn ID": item.unicornDealID ? item.unicornDealID : "---",
-        "Founder Id": item.udFounderID ? item.udFounderID : "---",
         "Unicorn Name": item.udStartupName ? item.udStartupName : "---",
-        Email: item.udEmail ? item.udEmail : "---",
         "Unicorn Status": item.groupStatus ? item.groupStatus : "Published",
+
+
+        "Founder Id": item.udFounderID ? item.udFounderID : "---",
+        Email: item.udEmail ? item.udEmail : "---",
         "Founder Name": item.udPrimaryContactName
           ? item.udPrimaryContactName
           : "---",
@@ -432,29 +434,16 @@ class UnicornAdmin extends Component {
 
     const columns = [
       {
-        title: "Unicorn Id",
+        title: "Unicorn ID",
         dataIndex: "UnicornID",
         key: "UnicornID",
         width: 260,
         fixed: "left",
       },
       {
-        title: "Founder Id",
-        dataIndex: "AdminId",
-        key: "AdminId",
-        width: 280,
-      },
-      {
         title: "Unicorn Name",
         dataIndex: "Unicorn Name",
         key: "Unicorn Name",
-        width: 280,
-      },
-
-      {
-        title: "Email",
-        dataIndex: "Email",
-        key: "Email",
         width: 280,
       },
       {
@@ -463,15 +452,31 @@ class UnicornAdmin extends Component {
         key: "Unicorn Status",
         width: 280,
       },
+
+      {
+        title: "Founder ID",
+        dataIndex: "AdminId",
+        key: "AdminId",
+        width: 280,
+      },
       {
         title: "Founder Name",
         dataIndex: "Admin Name",
         key: "Admin Name",
         width: 280,
       },
+    
+      {
+        title: "Founder Email ID",
+        dataIndex: "Email",
+        key: "Email",
+        width: 280,
+      },
+    
+    
 
       {
-        title: "Founder Mobile",
+        title: "Founder Mobile No.",
         dataIndex: "Admin Mobile",
         key: "Admin Mobile",
         width: 280,
@@ -580,26 +585,26 @@ class UnicornAdmin extends Component {
         fixed: "left",
       },
       {
-        title: "Email",
+        title: "Email ID",
         dataIndex: "email",
         key: "email",
         width: 280,
       },
       {
-        title: "Mobile",
+        title: "Mobile No.",
         dataIndex: "mobile",
         key: "mobile",
         width: 280,
       },
 
       {
-        title: "Type of Interest Shown",
+        title: "Type of Interest Expressed",
         dataIndex: "Intrested",
         key: "Intrested",
         width: 280,
       },
       {
-        title: "Comments from Visitor",
+        title: "Comments from User",
         dataIndex: "Comments",
         key: "Comments",
         width: 280,
@@ -638,7 +643,7 @@ class UnicornAdmin extends Component {
                 <div
                   style={{
                     display: "flex",
-                    justifyContent: "space-between",
+                    justifyContent: "end",
                   }}
                 >
                   <Input
@@ -705,7 +710,7 @@ class UnicornAdmin extends Component {
           <div
             style={{
               display: "flex",
-              justifyContent: "space-between",
+              justifyContent: "end",
             }}
           >
             <Button
