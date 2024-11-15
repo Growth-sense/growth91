@@ -6023,7 +6023,7 @@ a {
     border: 1px solid #00000012;
     background: white;
     padding: 50px 84px 60px 84px;
-    margin-bottom: 100px;
+    /* margin-bottom: 100px; */
     box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
     border-radius: 30px;
 }
@@ -6588,8 +6588,39 @@ border: none;
             flex-direction: column;
             gap: 30px;
           }
-          
-          .unicorn-list-container{
 
-            max-width: 1600px !important;
+          @media (min-width: 1400px){
+
+            .unicorn-list-container{
+
+              max-width: 1400px !important;
+            }
+
+
+
+          }
+          
+
+         .description-only .ant-modal-content button{
+
+            position: absolute !important;
+            top: 20px;
+            right: 20px;
+          }
+
+          .description-only .ant-modal-content {
+
+            border-radius: 40px !important;
+          }
+          .description-only .ant-modal-body {
+
+            padding: 0px !important;
+          }
+
+          .dashboard-form-flex{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+
           }

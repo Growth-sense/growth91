@@ -100,12 +100,11 @@ const NewFutureUnicorn = () => {
                         color: #333;
                     }
                     .features-list {
-                        // display: flex;
-                        // flex-direction: column;
+                    
                         display: grid;
                         grid-template-columns: repeat(2, 1fr);
-                        gap: 50px;
-                        align-items: flex-start;
+                        grid-gap: 30px;
+                        margin : 20px 90px;
                     }
                     .feature-item {
                         display: flex;
@@ -186,7 +185,10 @@ const NewFutureUnicorn = () => {
 }
                 `}
             </style>
-        <NewWebHeader />
+            <div classname="newabout">
+        <NewWebHeader newabout={"newabout"} />
+      </div>
+        {/* <NewWebHeader /> */}
         <section className="banner_section">
           <div
             id="carouselExampleIndicators"
@@ -232,7 +234,7 @@ const NewFutureUnicorn = () => {
                                   >
                                     Let's Connect
                                   </a> */}
-                        <NewLINK to="FutureUnicornList" class = "theme-btn "  >Explore Investments</NewLINK>
+                        <NewLINK to="FutureUnicornList" class = "theme-btn center-btn"  >Explore Investments</NewLINK>
                                
                               </div>
                             </form>

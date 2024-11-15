@@ -987,7 +987,7 @@ text-transform : none;
                                       </ul>
                                     </div>
                                   </div>
-                                  <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                  <div className="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-16 col-sm-16 col-xs-16">
                                     <div className="lets-talks-div">
                                       <h3>Follow Us</h3>
                                       <ul>
@@ -1129,7 +1129,8 @@ text-transform : none;
                         }}
                       >
                         {/* {!JSON.stringify(localStorage.getItem("investor_id"))  && ( */}
-                          <div className="investor-amounts">
+          <div className="descriptoin-only"></div>
+                          <div className="investor-amounts ">
                             <a
                               style={{ color: "white", fontSize : "1.5em" }}
                               onClick={openiamintrest}
@@ -1168,11 +1169,11 @@ text-transform : none;
         width={900}
         footer={false}
       >
-        <section
+        {/* <section
           class="about-page-section blog-section payment-sec pb-0"
           style={{ paddingBottom: "0px !important" }}
-        >
-          <div class="container">
+        > */}
+          {/* <div class="container"> */}
             <div class="row">
               <div
                 class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center align-items-center"
@@ -1180,7 +1181,7 @@ text-transform : none;
               ></div>
             </div>
             <div className="row  justify-content-center ">
-              <div className="col-md-8 col-12 col-sm-12 col-xl-8 col-xxl-8">
+              <div className="col-md-8 col-12 col-sm-12 col-xl-8 col-xxl-12">
                 <div className="card-payment-methods">
                   <div class="heading-title m-sm-0">
                     <p>
@@ -1254,8 +1255,8 @@ text-transform : none;
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          {/* </div> */}
+        {/* </section> */}
       </Modal>
       <ToastContainer />
       <NewWebFooter />

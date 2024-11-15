@@ -648,7 +648,7 @@ export default class CreatefamilyPage extends Component {
                 <div className="row m-md- ms-2 p-md-3 pt-3">
                   <div className="col-4 "></div>
 
-                  <div className="col offset-md-4">
+                  <div className="col offset-md-10">
                     <button
                       className="small-button-dark3"
                       onClick={this.onClickInvite}

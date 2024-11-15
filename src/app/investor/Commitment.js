@@ -38,7 +38,7 @@ class Commitment extends Component {
             />
             <br />
             <br />
-            <div className=""  style={{textAlign: "center", fontSize:"10px"}}>
+            <div className=""  style={{textAlign: "center", fontSize:"16px"}}>
    
 Convenience Fee of 2% on the investment amount at the time of investment and 2% on the sale proceeds at the time of exit is applicable.
 For any specific investment, if fee is different, it will be mentioned at the time of commitment (GST if any, shall be added at applicable rates).
