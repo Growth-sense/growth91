@@ -187,6 +187,8 @@ export const FutureUnicornDescription = () => {
       }
     });
   };
+  const dat=JSON.stringify(localStorage.getItem("investor_id")) 
+  
   return (
     <div>
       <div classname="newabout">
@@ -1128,9 +1130,8 @@ text-transform : none;
                           gap: "30px",
                         }}
                       >
-                        {/* {!JSON.stringify(localStorage.getItem("investor_id"))  && ( */}
-          <div className="descriptoin-only"></div>
-                          <div className="investor-amounts ">
+                        {dat== "null" ?("") :(
+                          <div className="investor-amounts">
                             <a
                               style={{ color: "white", fontSize : "1.5em" }}
                               onClick={openiamintrest}

@@ -20,6 +20,7 @@ export const FounderMyListing = () => {
   const [unideatils, setunideatils] = useState();
   const [unicorn, setUnicorn] = useState();
   const [loading, setloading] = useState(false);
+console.log(unicorn);
 
   const unicorndetails = async () => {
     setloading(true)
@@ -43,19 +44,21 @@ export const FounderMyListing = () => {
             pagesize: 10,
           };
           Bridge.Unicorn.unicorndealsByInvestors(par).then((result) => {
-            console.log(result);
-            console.log(
-              result.data.filter(
-                (item) => item.tudTempUdID == res.data.data[0].tudTempUdID
-              )
-            );
-            console.log(res.data.data[0].tudTempUdID);
-            setUnicorn(
-              result.data.filter(
-                (item) => item.tudTempUdID == res.data.data[0].tudTempUdID
-              )
-
-            );
+          try {
+            if (res.data.data) {
+              
+              setUnicorn(
+                result.data.filter(
+                  (item) => item.tudTempUdID == res.data.data[0].tudTempUdID
+                )
+                
+              );
+            }
+          } catch (error) {
+            console.log(error);
+            
+            
+          }
           });
           setloading(false)
         }, 3000);
@@ -263,6 +266,7 @@ export const FounderMyListing = () => {
                                     </Link>
                                   </div>
                                 )}
+                                {unideatils && unideatils.length !== 0 ? (
 
                                 <div className="performs-btns">
                                   <Link to="FutureUnicornForm">
@@ -270,7 +274,16 @@ export const FounderMyListing = () => {
                                     <i class="fa-solid fa-pen-to-square"></i>
                                     Edit Startup
                                   </Link>
-                                </div>
+                                </div>):( <div className="performs-btns">
+                                  <Link to="FutureUnicornForm">
+                                    {" "}
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    Create Startup
+                                  </Link>
+                                </div>)}
+
+                                {unicorn && unicorn.length !== 0 && (
+
                                 <div className="performs-btns">
                                   <Link to="FounderInterest">
                                     {" "}
@@ -278,6 +291,7 @@ export const FounderMyListing = () => {
                                     Enquires
                                   </Link>
                                 </div>
+                               ) }
                               </td>
                             </div>
                           </div>
