@@ -441,6 +441,7 @@ class FounderInvstors extends Component {
                 </Breadcrumb>
                 <br />
                 <br />
+              
                 <Input
                   value={this.state.searchinput}
                   placeholder="Search"
@@ -449,7 +450,7 @@ class FounderInvstors extends Component {
                 />
                 <Button
                   type="primary"
-                  style={{ left: 30 }}
+                  style={{ float:"right" }}
                   onClick={() => this.exportToCSV("Investor List")}
                 >
                   <i

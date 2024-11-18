@@ -99,13 +99,12 @@ const Newunicornfounder = () => {
                         margin-bottom: 40px;
                         color: #333;
                     }
-                    .features-list {
-                        // display: flex;
-                        // flex-direction: column;
+                      .features-list {
+                    
                         display: grid;
                         grid-template-columns: repeat(2, 1fr);
-                        gap: 50px;
-                        align-items: flex-start;
+                        grid-gap: 30px;
+                        margin : 20px 90px;
                     }
                     .feature-item {
                         display: flex;
@@ -184,7 +183,10 @@ const Newunicornfounder = () => {
 
                 `}
             </style>
-        <NewWebHeader newabout={"newabout"}/>
+        {/* <NewWebHeader /> */}
+        <div classname="newabout">
+        <NewWebHeader newabout={"newabout"} />
+      </div>
         <section className="banner_section">
           <div
             id="carouselExampleIndicators"
