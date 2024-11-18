@@ -182,6 +182,17 @@ export default class Sidebar2 extends Component {
                 <div className="col-md-4 col-12 side-text">Group Investments</div>
               </li>
             </a>
+            <a
+              href="/My-Future-unicorn"
+              className={
+                window.location.pathname == "/My-Future-unicorn" ? "active" : ""
+              }
+            >
+              <li className="hiw-li row text-center">
+                <i className="bx bx-transfer-alt col-md-4" />
+                <div className="col-md-4 col-12 side-text">My Future unicorn</div>
+              </li>
+            </a>
            
           {/* <div>
             <a

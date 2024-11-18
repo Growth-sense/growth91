@@ -186,7 +186,7 @@ const NewFutureUnicorn = () => {
 }
                 `}
             </style>
-        <NewWebHeader />
+        <NewWebHeader newabout={"newabout"} />
         <section className="banner_section">
           <div
             id="carouselExampleIndicators"

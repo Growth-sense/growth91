@@ -322,10 +322,13 @@ class Founderadmindashboard extends Component {
     };
   }
 
-  componentWillUnmount() {
-    // this.setState("");
+  componentDidMount() {
     this.setState({ activeform: 0 });
+// if(localStorage.getItem("founder_id")){
+if(this.props.adminview !==""){
+  this.getData();
 
+}
     this.getData();
     if (this.props.id) {
       let id = this.props.id;
@@ -338,8 +341,10 @@ class Founderadmindashboard extends Component {
   }
 
   getData = async (id) => {
+    console.log(this.props.adminview);
+    
     let params = {
-      founderID: localStorage.getItem("founder_id"),
+      founderID: localStorage.getItem("founder_id")||this.props.adminview,
     };
     let headers = {
       "content-type": "application/json",
@@ -351,6 +356,8 @@ class Founderadmindashboard extends Component {
         { headers }
       )
       .then(async (result) => {
+        console.log(result);
+        
         if (result.data.data.length == 0) {
           const datas = await axios.post(
             `https://cors-anywhere.herokuapp.com/https://growth91.growthmetaverse.in/api/founder/Startup/createunicorndraft`,
@@ -359,6 +366,8 @@ class Founderadmindashboard extends Component {
           this.setState({ tudTempUdID: datas.data.id });
           // console.log(datas.data.id);
         } else {
+          console.log(result.data.data[0]);
+          
           const data = Object.keys(result.data.data[0]).reduce(
             (acc, key, index) => {
               // Collect the values from the object
@@ -2035,7 +2044,7 @@ class Founderadmindashboard extends Component {
                   <BasicDetails
                     activate={() => this.activeform(1)}
                     next={() => this.activeform(1)}
-                    // id={this.props.id}
+                    adminnext={ this.props.adminview }
                     data={this.props.tab}
                     onInput={(name, value) => this.onInput(name, value)}
                     unicorn={this.state.unicorn}
@@ -2291,6 +2300,7 @@ class Founderadmindashboard extends Component {
                     activate={() => this.activeform(21)}
                     prev={() => this.activeform(20)}
                     next={() => this.activeform(21)}
+
                     onInput={(name, value) => this.onInput(name, value)}
                     unicorn={this.state.unicorn}
                     id={this.props.id}
@@ -2301,6 +2311,7 @@ class Founderadmindashboard extends Component {
                 )}
               </div>
             </div>
+            {!this.props.adminview &&
             <div className="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto mt-3">
               <div className="submit-draft-publish d-flex justify-content-center">
                 <Previewbutton unicorn={this.state.unicorn} />
@@ -2324,6 +2335,7 @@ class Founderadmindashboard extends Component {
                 </a>
               </div>
             </div>
+            }
           </div>
           <Modal
             // title="Thank You"
