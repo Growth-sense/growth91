@@ -1,0 +1,120 @@
+.investor-sidebar a {
+    color: #7e7e7e;
+}
+
+.investor-sidebar a li:hover {
+    /* color: var(--heading-color) !important; */
+    background-color: #1d1b31 !important;
+    border-radius: 10px;
+    /* background: #d5d5d5; */
+    /* padding: 10 !important; */
+}
+
+.investor-sidebar a.active li {
+    /* color: var(--heading-color) !important; */
+    background-color: #1d1b31 !important;
+    border-radius: 10px;
+    /* background: #d5d5d5; */
+    /* padding: 10 !important; */
+    /* border-bottom: 2px solid black; */
+}
+
+.investor-sidebar {
+    padding-left: 0;
+}
+
+.investor-sidebar i {
+    position: relative;
+    top: 2px;
+
+}
+
+/* #hdii {
+    padding-left: 30px;
+} */
+
+li {
+    list-style: none;
+}
+
+.dashboard-items .single {
+    background: linear-gradient(85deg, #fafeff, #e7fafe);
+    padding: 14px 27px;
+    /* margin-top: 200px !important; */
+}
+
+.dashboard-items .single h2 {
+    font-size: 35px;
+    font-weight: 800;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.dashboard-items .single small {
+    font-size: 11px;
+    position: relative;
+    top: -8px;
+}
+
+.dashboard-items .view-all-comments {
+    background: #f7f7f7;
+    padding: 13px 15px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 97px;
+    border-radius: 10px;
+}
+
+.dashboard-items .view-all-comments p {
+    margin-bottom: 0;
+    font-weight: 700;
+    line-height: 16px;
+    font-size: 13px;
+    text-align: center;
+}
+
+.dashboard-items .view-all-comments i {
+    font-size: 25px;
+}
+
+.kyc-cards .single {
+    background: #fff;
+    padding: 17px 19px;
+    border-radius: 6px;
+    min-height: 110px;
+    transition: all 500ms;
+    border: 1px solid #ddd;
+}
+
+.kyc-cards .single:hover {
+    background: #fff;
+    box-shadow: 27px 11px 30px #ddd;
+}
+
+.kyc-cards .single span {
+    font-weight: 400;
+
+
+    font-size: 13px;
+    padding: 2px 13px;
+    border-radius: 3px;
+}
+
+.kyc-cards .single p {
+    font-size: 12px;
+    margin-bottom: 0;
+    line-height: 19px;
+    margin-top: 10px;
+    color: #000;
+}
+
+.disc-list {
+    padding-left: 20px;
+    margin: 20px 0;
+}
+
+.disc-list li {
+    list-style: disc;
+    font-size: 16px;
+}

@@ -1,0 +1,5 @@
+
+Points:
+1. Home page mein hamburger menu. 
+
+1. Removing animation.

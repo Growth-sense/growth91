@@ -1,0 +1,108 @@
+
+ /* admin login  */
+
+ .admin-login-form{
+  margin-top: 70px;
+  background: #fff;
+  box-shadow:  27px 27px 54px #acacac,
+              -27px -27px 54px #ffffff;
+  padding: 30px;
+}
+
+.admin-login-form h1 {
+  font-size: 31px;
+  font-weight: 600;
+}
+
+.admin-login-form label {
+  margin-bottom: 5px;
+  font-size: 16px;
+  margin-top: 25px;
+}
+
+.admin-login-form input {
+  outline: none !important;
+}
+
+.admin-login-form button {
+  padding: 15px 19px;
+  outline: none !important;
+  margin-top: 32px;
+  height: 54px;
+}
+
+/* Admin dashboard  */
+
+#components-layout-demo-top-side-2 .logo {
+  float: left;
+  width: 120px;
+  height: 31px;
+  margin: 16px 24px 16px 0;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.ant-row-rtl #components-layout-demo-top-side-2 .logo {
+  float: right;
+  margin: 16px 0 16px 24px;
+}
+
+.site-layout-background {
+  background: #fff;
+}
+
+.ant-layout-sider{
+  background: #fff !important;
+}
+
+.dashboard-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 0;
+}
+
+.site-layout-background .ant-menu-submenu-horizontal {
+  margin-left: auto;
+}
+
+.ant-btn .anticon {
+  position: relative;
+  top: -2px;
+}
+
+.editor-field .ck.ck-editor:nth-child(2n){
+  display: none;
+}
+.main-dashboard-container .ant-layout.site-layout {
+  margin-top: 0px !important;
+}
+.ant-btn > span {
+  font-size: 13px;
+}
+.main-dashboard-container th, .main-dashboard-container td {
+  font-size: 15px !important;
+}
+.dasboard-cards .item {
+  background: #fff;
+  padding: 14px 15px;
+  border-radius: 7px;
+  margin-bottom: 31px;
+  transition: all 700ms;
+}
+.dasboard-cards .item .panel-title {
+  margin-bottom: 0;
+}
+.dasboard-cards .item .panel-body {
+  font-size: 14px;
+}
+.dasboard-cards .item:hover {
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  box-shadow: 10px 10px 0px #565656;
+}
+.dasboard-cards .item:hover .panel-title {
+  color: #fff !important;
+}
+.dashboard-page .ant-card {
+  max-width: 500px;
+}

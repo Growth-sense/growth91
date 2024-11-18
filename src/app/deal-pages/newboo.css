@@ -1,0 +1,8 @@
+.medialink{
+    height: 320px !important;
+    max-height: 400px !important;
+} 
+.medialink img{
+    height: 190px !important;
+    max-height: 400px !important;
+} 

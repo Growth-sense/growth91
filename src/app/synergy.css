@@ -1,0 +1,514 @@
+
+
+
+
+  .synergy-only .intro-text {
+    font-size: 18px;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #666;
+  }
+  
+  .synergy-only .form-section {
+    text-align: center;
+    background-color: #fff;
+    padding: 30px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+    border-radius: 8px;
+  }
+  
+  .synergy-only .form-section input, .synergy-only .form-section select, 
+  .synergy-only .form-section textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .synergy-only .form-section button {
+    background-color: #0056b3;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .synergy-only .form-section button:hover {
+    background-color: #004494;
+  }
+  
+  .synergy-only .section-heading {
+    font-size: 24px;
+    color: #0056b3;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  
+  .synergy-only .section-content {
+    margin-bottom: 40px;
+  }
+  
+  .synergy-only .section-content ul {
+    list-style-type: disc;
+    margin-left: 20px;
+    color: #333;
+  }
+  
+  .synergy-only .section-content ul li {
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+  
+  .synergy-only .highlight {
+    font-weight: bold;
+    color: #0056b3;
+  }
+  
+  .synergy-only .partner-sections {
+    margin-bottom: 50px;
+  }
+  
+  .synergy-only .partner-sections .partner-heading {
+    font-size: 22px;
+    color: #0056b3;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  
+  .synergy-only .partner-sections .partner-description {
+    font-size: 16px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .synergy-only .partner-sections .benefits {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .synergy-only .partner-sections .benefits h4 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .synergy-only .partner-sections .benefits ul {
+    list-style-type: square;
+    padding-left: 20px;
+  }
+  
+  .synergy-only .partner-sections .benefits ul li {
+    margin-bottom: 10px;
+  }
+  
+  .synergy-only .contact-section {
+    background-color: #eef5ff;
+    padding: 30px;
+    text-align: center;
+    border-radius: 8px;
+  }
+  
+  .synergy-only .contact-section h4 {
+    font-size: 24px;
+    color: #0056b3;
+    margin-bottom: 15px;
+  }
+  
+  .synergy-only .contact-section p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #666;
+  }
+  
+
+  
+  .synergy-form form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .synergy-form form label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  .synergy-form form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+  
+  .synergy-form form input::placeholder {
+    color: #aaa;
+  }
+  
+  .synergy-form form input:focus {
+    border-color: #0056b3;
+    outline: none;
+  }
+  
+  .synergy-form .about-page-img {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .synergy-form .about-page-img img {
+    width: 100% !important;
+    border-radius: 12px;
+    /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); */
+  }
+
+  .synergic-slider {
+
+    color: white !important;
+  }
+
+  .synergic-slider .bg-abt{
+
+    padding-bottom: 30px;
+  }
+
+
+  .synergic-slider .bg-abt span{
+
+    color: white;
+
+  }
+  .synergy-form .text-left{
+
+    text-align: left;
+  }
+
+
+
+/* -------------------------------- */
+
+
+.synergic-slider .content-abt-slider {
+
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+
+.synergic-slider h3 {
+    color: #ff9c1a !important;
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.synergic-slider span {
+    display: block;
+    color: #d1d1d1; /* Slightly dimmer text for description */
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.synergic-slider ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.synergic-slider ul li {
+    color: #f1f1f1; /* Light text color for bullet points */
+    font-size: 16px;
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 25px;
+}
+
+
+
+.synergic-slider .slick-arrow {
+    background-color: #00c3ff; /* Bright blue arrows */
+    color: #ffffff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    z-index: 10;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.synergic-slider .slick-arrow:hover {
+    background-color: #0088cc; /* Darker blue on hover */
+}
+
+.synergic-slider .slick-prev {
+    left: -50px;
+}
+
+.synergic-slider .slick-next {
+    right: -50px;
+}
+
+/* Make the slider responsive */
+@media (max-width: 768px) {
+    .synergic-slider .content-abt-slider {
+        padding: 20px;
+    }
+
+    .synergic-slider h3 {
+        font-size: 24px;
+    }
+
+    .synergic-slider span, .synergic-slider ul li {
+        font-size: 14px;
+    }
+
+    .synergic-slider .slick-arrow {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+    }
+}
+
+
+/* -------------------------------------- */
+
+/* General Styles for the Partner Cards Section */
+.partner-cards {
+    /* background-color: #f8f9fa;  */
+    padding: 50px 0;
+  }
+
+  .partner-cards h3{
+    /* background-color: #f8f9fa;  */
+     color: #ff9c1a !important;
+  }
+
+  
+  .our-story-title {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .our-story-title h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #343a40;
+  }
+  
+  /* Partner Type Card Styles */
+  .partner-type {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 50px;
+    background-color: #fff;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for a modern look */
+    border-radius: 8px;
+  }
+  
+  .partner-type:nth-child(even) {
+    flex-direction: row-reverse; /* Alternate layout for better visual flow */
+  }
+  
+  .partner-type h3 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #007bff; /* Accent color */
+    margin-bottom: 10px;
+  }
+  
+  .partner-type h4 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #495057;
+  }
+  
+  .partner-type p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #6c757d;
+  }
+  
+  .partner-type img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+
+    max-height: 450px; /* Limit height for consistent design */
+  }
+  
+  .image-placeholder {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  @media (max-width: 768px) {
+    .partner-type {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .partner-type:nth-child(even) {
+      flex-direction: column; /* Responsive even row fix */
+    }
+  }
+  
+
+
+
+/* Header Section */
+
+
+.synergy-why__description {
+  font-size: 1.1rem;
+  color: #555;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Cards Section */
+.synergy-why__cards {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.synergy-why__card {
+  background: white;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 12px;
+  flex: 1 1 calc(50% - 20px);
+  min-width: 280px;
+  transition: transform 0.3s ease;
+}
+
+.synergy-why__card:hover {
+  transform: translateY(-5px);
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2a2a2a;
+  margin-bottom: 10px;
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .synergy-why__cards {
+    flex-direction: column;
+  }
+
+  .synergy-why__card {
+    min-width: 100%;
+    margin-bottom: 20px;
+  }
+}
+
+
+/* Container and General Styling */
+
+
+.venture-only .partner-type {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.venture-only .partner-type:nth-child(odd) {
+  flex-direction: row-reverse;
+}
+
+.venture-only .partner-type:nth-child(odd) .image-placeholder {
+  order: -1;
+}
+
+.venture-only .col-md-6 {
+  flex: 1;
+}
+
+.venture-only .image-placeholder {
+  width: 100%;
+  text-align: center;
+}
+
+.venture-only .image-placeholder img {
+  width: 90%;
+  height: auto;
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.venture-only .image-placeholder img:hover {
+  transform: scale(1.05);
+}
+
+/* Text Content Styling */
+.venture-only h3 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.venture-only h4 {
+  font-size: 1.4rem;
+  color: #666;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.venture-only p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .venture-only .partner-type {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .venture-only .partner-type:nth-child(odd) {
+    flex-direction: column;
+  }
+
+  .venture-only .partner-type .col-md-6 {
+    width: 100%;
+  }
+
+  .venture-only .image-placeholder img {
+    width: 100%;
+  }
+}
