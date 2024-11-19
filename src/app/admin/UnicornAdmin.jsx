@@ -134,7 +134,7 @@ class UnicornAdmin extends Component {
     };
     Bridge.Unicorn.unicorndealsByInvestors(params).then((result) => {
       if (result.status == 1) {
-        console.log(result);
+        // console.log(result);
 
         this.setState({
           startups: result.data,
@@ -152,14 +152,14 @@ class UnicornAdmin extends Component {
 
   getintrestedlist = (data) => {
     this.setState({ loading: true });
-    console.log(data);
+    // console.log(data);
 
     let params = {
       udFounderID: data,
     };
     Bridge.Unicorn.unicorn_interested_list(params).then((result) => {
       if (result.status == 1) {
-        console.log(result);
+        // console.log(result);
 
         this.setState({
           intrestedlist: result.data,
@@ -210,7 +210,7 @@ class UnicornAdmin extends Component {
   // update post
 
   showenquiremodal = (item) => {
-    console.log(item);
+    // console.log(item);
     this.getintrestedlist(item.udFounderID);
     this.setState({
       enquireModalStatus: true,
@@ -226,7 +226,7 @@ class UnicornAdmin extends Component {
     this.setState({ loading: true, searchinput: text });
     if (text) {
       let arr = [];
-      console.log(this.state.startups);
+      // console.log(this.state.startups);
 
       for (let item of this.state.startups) {
         if (
@@ -334,7 +334,7 @@ class UnicornAdmin extends Component {
   exportToCSV_CommitList = (fileName) => {
     let arr = [];
     let count = 1;
-    console.log(this.state.commitexport);
+    // console.log(this.state.commitexport);
 
     for (let item of this.state.commitexport) {
       let obj = {
@@ -389,14 +389,14 @@ class UnicornAdmin extends Component {
       groupID: value,
     };
     Bridge.investor.getfamilymember(params).then((result) => {
-      console.log(result);
+      // console.log(result);
       const data = result.data.filter((item, index) => {
-        console.log(item.investor_id);
-        console.log(localStorage.getItem("investor_id"));
+        // console.log(item.investor_id);
+        // console.log(localStorage.getItem("investor_id"));
         return item.investor_id == localStorage.getItem("investor_id");
       });
-      console.log(data);
-      console.log(data.length, "0");
+      // console.log(data);
+      // console.log(data.length, "0");
       //   if(data.length !=0 ){
       //     localStorage.setItem(
       //       "investor_id",
@@ -421,7 +421,7 @@ class UnicornAdmin extends Component {
     });
   };
   render() {
-    console.log(this.state.formpreviewid);
+    // console.log(this.state.formpreviewid);
     
     const highlightimages = [
       "./assets/images/deals-details/Petmojo/highlight4.jpg",
@@ -432,7 +432,7 @@ class UnicornAdmin extends Component {
     const dataSource =
       this.state.startups &&
       this.state.startups.map((item, index) => {
-        console.log(item);
+        // console.log(item);
         return {
           UnicornID: item.unicornDealID ? item.unicornDealID : "---",
           "Unicorn Name": item.udStartupName ? item.udStartupName : "---",
@@ -504,7 +504,7 @@ class UnicornAdmin extends Component {
         fixed: "right",
         width: 100,
         render: (text, record) => {
-          console.log(record);
+          // console.log(record);
 
           const menu = (
             <Menu
@@ -540,7 +540,7 @@ class UnicornAdmin extends Component {
                     })
                   }
                 >
-                  &nbsp;&nbsp;Preview
+                  &nbsp;&nbsp;Unicorn Preview
                 </a>
               </Menu.Item>
               <Menu.Item icon={<ManOutlined />}>
@@ -553,7 +553,7 @@ class UnicornAdmin extends Component {
                     })
                   }
                 >
-                  &nbsp;&nbsp;Preview
+                  &nbsp;&nbsp;Unicorn Form Preview
                 </a>
               </Menu.Item>
               <Menu.Item icon={<ManOutlined />}>
@@ -562,7 +562,7 @@ class UnicornAdmin extends Component {
                   style={{ fontSize: 14 }}
                   //   onClick={() => this.showDeleteModal(text)}
                 >
-                  &nbsp;&nbsp;View Enquires
+                  &nbsp;&nbsp;View Enquires for Unicorn
                 </a>
               </Menu.Item>
               {/* <Menu.Item key={`Delete${record.key}`} icon={<ManOutlined />}>
@@ -1557,10 +1557,13 @@ text-transform : none;
         <Modal
           title={"Unicorn form Preview"}
           visible={this.state.formpreviewmodal}
-          onOk={() => this.setState({ formpreviewmodal: false, formpreviewid: "" })}
+          onOk={() => {this.setState({ formpreviewmodal: false, formpreviewid: "" }) ;
+          window.location.reload();}
+      }
           onCancel={() =>
-            this.setState({ formpreviewmodal: false, formpreviewid: "" })
-          }
+{            this.setState({ formpreviewmodal: false, formpreviewid: "" })
+window.location.reload();
+}          }
           okText="OK"
           width={1000}
         >

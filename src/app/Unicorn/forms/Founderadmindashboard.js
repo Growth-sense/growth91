@@ -341,7 +341,7 @@ if(this.props.adminview !==""){
   }
 
   getData = async (id) => {
-    console.log(this.props.adminview);
+    console.log(this.props.adminview,"hello");
     
     let params = {
       founderID: localStorage.getItem("founder_id")||this.props.adminview,
