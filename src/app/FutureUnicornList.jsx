@@ -51,6 +51,7 @@ export const FutureUnicornList = () => {
   function getuniondata() {
     let params = {
       page: 0,
+      udPublished: "Published",
       pagesize: 10,
     };
     Bridge.Unicorn.unicorndealsByInvestors(params).then((result) => {
@@ -164,7 +165,15 @@ export const FutureUnicornList = () => {
               <div className="col-lg-12">
                 <div className="col align-items-center">
                   <div className="col-lg-11">
-                    <div className="search-input-unicorn1 search-input-unicorn1-filter" style={{display :"flex" , alignItems : "center", justifyContent : "space-between",marginBottom  :"20px"}}>
+                    <div
+                      className="search-input-unicorn1 search-input-unicorn1-filter"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        marginBottom: "20px",
+                      }}
+                    >
                       {/* <input type="search" name="" id="" className='form-control' placeholder='' /> */}
                       <h2>Filters</h2>
                       <span>

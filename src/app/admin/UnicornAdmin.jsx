@@ -45,6 +45,7 @@ class UnicornAdmin extends Component {
       startups: [],
       cstartups: [],
       startupid: "",
+      unicornDealID: "",
       searchinput: "",
 
       // add
@@ -68,7 +69,9 @@ class UnicornAdmin extends Component {
       edit_authorised_founder: "",
       edit_operational_founder: "",
       enquireModalStatus: false,
+      publishModalStatus: false,
       commitexport: "",
+      unicornstatus: "",
       intrestedlist: "",
       show_investor_presentation_modal: false,
       previewid: "",
@@ -217,6 +220,15 @@ class UnicornAdmin extends Component {
       startupid: item.startupid,
     });
   };
+  showpublishmodal = (item) => {
+    console.log(item);
+    // this.getintrestedlist(item.udFounderID);
+    this.setState({
+      publishModalStatus: true,
+      unicornDealID: item.unicornDealID,
+      unicornstatus: item.udPublished,
+    });
+  };
 
   // actuall functionality
 
@@ -362,16 +374,32 @@ class UnicornAdmin extends Component {
     FileSaver.saveAs(data, fileName + fileExtension);
     message.success("Investment data exported successfully.");
   };
+  changesstatus = (e) => {
+    let params = {
+      "unicornDealID":this.state.unicornDealID,
+    "udPublished":this.state.unicornstatus
+
+    };
+    Bridge.Unicorn.unicorn_Publish_unpublish(params).then((result) => {
+      if (result.status == 1) {
+        // console.log(result);
+        message.success(result.message);
+        this.getgrouplist();
+
+      
+      } else {
+        message.error(result.message);
+        this.setState({
+        });
+      }
+    });
+  };
+   
+  
 
   handleChangeSelect = (e) => {
     this.setState({
       nationality: e.target.value,
-    });
-  };
-
-  handleChangeSelectedit = (e) => {
-    this.setState({
-      edit_nationality: e.target.value,
     });
   };
 
@@ -422,7 +450,7 @@ class UnicornAdmin extends Component {
   };
   render() {
     // console.log(this.state.formpreviewid);
-    
+
     const highlightimages = [
       "./assets/images/deals-details/Petmojo/highlight4.jpg",
       "./assets/images/deals-details/Petmojo/highlight01.jpg",
@@ -437,7 +465,7 @@ class UnicornAdmin extends Component {
           UnicornID: item.unicornDealID ? item.unicornDealID : "---",
           "Unicorn Name": item.udStartupName ? item.udStartupName : "---",
           Email: item.udEmail ? item.udEmail : "---",
-          "Unicorn Status": item.groupStatus ? item.groupStatus : "Published",
+          "Unicorn Status": item.udPublished && item.udPublished,
           "Admin Name": item.udPrimaryContactName
             ? item.udPrimaryContactName
             : "---",
@@ -565,6 +593,15 @@ class UnicornAdmin extends Component {
                   &nbsp;&nbsp;View Enquires for Unicorn
                 </a>
               </Menu.Item>
+              <Menu.Item icon={<ManOutlined />}>
+                <a
+                  onClick={() => this.showpublishmodal(text)}
+                  style={{ fontSize: 14 }}
+                  //   onClick={() => this.showDeleteModal(text)}
+                >
+                  &nbsp;&nbsp;Publish unicorn
+                </a>
+              </Menu.Item>
               {/* <Menu.Item key={`Delete${record.key}`} icon={<ManOutlined />}>
                 <Link
                   to={`/FutureUnicornDescription?id=3${record.unicornDealID}`}
@@ -668,7 +705,7 @@ class UnicornAdmin extends Component {
                 {/* <Input 
                   value={this.state.searchinput}
                   placeholder="Search" 
-                  onChange={(e) => this.searchinput(e)}
+                  onChange={(ee) => this.searchinput(e)}
                   style={{ maxWidth:300,marginBottom:20,height:40 }}
                 /> */}
 
@@ -769,6 +806,44 @@ class UnicornAdmin extends Component {
             bordered
             scroll={{ x: "max-content" }}
           />
+        </Modal>
+        <Modal
+          title={"Edit Status"}
+          visible={this.state.publishModalStatus}
+          onOk={() =>{
+            this.changesstatus()
+            this.setState({
+              publishModalStatus: false,
+              unicornDealID: "",
+              udPublished: "",
+            })}
+          }
+          onCancel={() =>
+            this.setState({
+              publishModalStatus: false,
+              unicornDealID: "",
+              udPublished: "",
+            })
+          }
+          okText="OK"
+          width={1000}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "end",
+            }}
+          >
+            <select
+              name=""
+              id=""
+              value={this.state.unicornstatus}
+              onChange={(e)=>{ this.setState({ unicornstatus: e.target.value });}}
+            >
+              <option value="Published">Publish</option>
+              <option value="Unpublished">UnPublish</option>
+            </select>
+          </div>
         </Modal>
         {/* End Add modal  */}
         {/* Start enquire modal  */}
@@ -1557,19 +1632,20 @@ text-transform : none;
         <Modal
           title={"Unicorn form Preview"}
           visible={this.state.formpreviewmodal}
-          onOk={() => {this.setState({ formpreviewmodal: false, formpreviewid: "" }) ;
-          window.location.reload();}
-      }
-          onCancel={() =>
-{            this.setState({ formpreviewmodal: false, formpreviewid: "" })
-window.location.reload();
-}          }
+          onOk={() => {
+            this.setState({ formpreviewmodal: false, formpreviewid: "" });
+            window.location.reload();
+          }}
+          onCancel={() => {
+            this.setState({ formpreviewmodal: false, formpreviewid: "" });
+            window.location.reload();
+          }}
           okText="OK"
           width={1000}
         >
-         {this.state.formpreviewid!=="" &&
-          <Founderadmindashboard adminview={this.state.formpreviewid}/>
-         }
+          {this.state.formpreviewid !== "" && (
+            <Founderadmindashboard adminview={this.state.formpreviewid} />
+          )}
         </Modal>
       </>
     );
