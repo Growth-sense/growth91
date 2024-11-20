@@ -274,13 +274,13 @@ console.log(unicorn);
                                     <i class="fa-solid fa-pen-to-square"></i>
                                     Edit Startup
                                   </Link>
-                                </div>):(<><div>You haven't listed your future unicorn</div> <div className="performs-btns">
+                                </div>):(<div style={{display : "flex" , flexDirection :"column", gap :"30px", alignItems: "center", justifyContent :"center" }}><div style={{fontSize :"1.5em"}}>You haven't listed your future unicorn</div> <div className="performs-btns">
                                   <Link to="FutureUnicornForm">
                                     {" "}
                                     <i class="fa-solid fa-pen-to-square"></i>
                                     Create Startup
                                   </Link>
-                                </div></>)}
+                                </div></div>)}
 
                                 {unicorn && unicorn.length !== 0 && (
 

@@ -152,7 +152,7 @@ export default class Sidebar extends Component {
           {/* Future Unicorn Menu with My Plan as a Submenu */}
           <li className="hiw-li" style={{ cursor: "pointer" }} onClick={this.toggleFutureUnicorn}>
             <i className="bx bx-calendar-star" style={{ fontSize: 20 }}></i>{" "}
-            &nbsp;&nbsp;My Future Unicorn
+            &nbsp;&nbsp; Future Unicorn
             <i
               className={`bx ${this.state.isFutureUnicornOpen ? "bx-chevron-up" : "bx-chevron-down"}`}
               style={{ float: "right" }}
