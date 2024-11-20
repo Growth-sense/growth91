@@ -1130,7 +1130,7 @@ text-transform : none;
                           gap: "30px",
                         }}
                       >
-                        {dat== "null" ?("") :(
+                        {/* {!JSON.stringify(localStorage.getItem("investor_id"))  && ( */}
                           <div className="investor-amounts">
                             <a
                               style={{ color: "white", fontSize : "1.5em" }}

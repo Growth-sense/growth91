@@ -245,7 +245,7 @@ const NewFutureUnicorn = () => {
                             className="right-side-images wow fadeInRight"
                             data-wow-delay="0.6s"
                           >
-                            <img src="./web/images/left.png" alt="img" />
+                            <img src="./web/images/unicorn.webp" class="unicorn-img" alt="img" />
                           </div>
                         </div>
                       </div>
