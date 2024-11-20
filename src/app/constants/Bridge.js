@@ -961,5 +961,9 @@ export default {
       api.post(URLs.unicorn_interested_list, data).then((response) => {
         return response.data;
       }),
+    unicorn_Publish_unpublish: (data) =>
+      api.post(URLs.unicorn_Publish_unpublish, data).then((response) => {
+        return response.data;
+      }),
   },
 };

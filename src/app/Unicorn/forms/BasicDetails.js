@@ -81,6 +81,10 @@ class BasicDetails extends Component {
   };
   // register
   register = () => {
+    if(this.props.adminnext){
+      this.props.next();
+      return
+    }
     let params = {
       tudEmail: this.state.email,
       tudStartupName: this.state.startup_name,
@@ -91,6 +95,7 @@ class BasicDetails extends Component {
       // f1_status:this.state.processtype=='saveandproceed'?'success':'new',
     };
     this.setState({ loading: true });
+   
     Bridge.Unicorn.editunicorndraft(this.props.unicorn).then((result) => {
       if (result.status == 1) {
         this.props.check();

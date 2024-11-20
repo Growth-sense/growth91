@@ -221,6 +221,7 @@ import { Synergypartner } from "./app/Synergy-partner.jsx";
 
 
 import Createfamily from "./app/investor/Create-Family.jsx";
+import InvestorFutureunicorn from "./app/investor/InvestorFutureunicorn.jsx";
 import Viewfamilylist from "./app/investor/View-family-list.jsx";
 import familyinvite from "./app/investor/family-invite.jsx";
 
@@ -734,6 +735,7 @@ function App() {
           <Route path="/Group-Investments" exact component={Createfamily} />
           <Route path="/View-Group-list" exact component={Viewfamilylist} />
           <Route path="/Group-Invite"  component={familyinvite} />
+          <Route path="/My-Future-unicorn" exact component={InvestorFutureunicorn} />
 
 
           <Route path="*" exact component={error} />
