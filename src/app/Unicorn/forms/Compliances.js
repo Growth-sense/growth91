@@ -63,7 +63,16 @@ class Compliances extends Component {
     });
   }
 
-  updatefounder = () => {
+   updatefounder = () => {
+ if (this.props.adminnext) {
+      if (this.state.processtype == "next") {
+        this.props.next();
+        return;
+      } else if (this.state.processtype == "prev") {
+        this.props.prev();
+        return;
+      }
+    }
     let {
       are_you_registered_for_gst,
       status_of_gst_compliance,

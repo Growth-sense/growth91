@@ -60,7 +60,16 @@ class FundRaiseRegistration extends Component {
     });
   }
 
-  updatefounder = () => {
+   updatefounder = () => {
+ if (this.props.adminnext) {
+      if (this.state.processtype == "next") {
+        this.props.next();
+        return;
+      } else if (this.state.processtype == "prev") {
+        this.props.prev();
+        return;
+      }
+    }
     let params={
       authorized_captial_of_company: this.state.authorized_captial_of_company,
       paid_up_capital_company: this.state.paid_up_capital_company,

@@ -48,7 +48,16 @@ class FundRaiseRegistration extends Component {
       } 
     });
   }
-  updatefounder = () => {
+   updatefounder = () => {
+ if (this.props.adminnext) {
+      if (this.state.processtype == "next") {
+        this.props.next();
+        return;
+      } else if (this.state.processtype == "prev") {
+        this.props.prev();
+        return;
+      }
+    }
     let params={
       relevant_industry:this.state.relevant_industry,
       views_on_industry:this.state.views_on_industry,

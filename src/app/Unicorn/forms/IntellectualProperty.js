@@ -46,7 +46,16 @@ class IntellectualProperty extends Component {
       }
     });
   };
-  updatefounder = () => {
+   updatefounder = () => {
+ if (this.props.adminnext) {
+      if (this.state.processtype == "next") {
+        this.props.next();
+        return;
+      } else if (this.state.processtype == "prev") {
+        this.props.prev();
+        return;
+      }
+    }
     let params = {
       trademark: this.state.trademark,
       patents: this.state.patents,

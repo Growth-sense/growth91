@@ -116,6 +116,7 @@ class Founderadmindashboard extends Component {
         tudStartupName: "",
         tudEmail: "",
         tudPrimaryContactName: "",
+        tudCountryCode: "",
         tudPrimaryContactMobile: "",
         tudPrimaryContactEmail: "",
         tudDisruptingMarket: "",
@@ -324,11 +325,10 @@ class Founderadmindashboard extends Component {
 
   componentDidMount() {
     this.setState({ activeform: 0 });
-// if(localStorage.getItem("founder_id")){
-if(this.props.adminview !==""){
-  this.getData();
-
-}
+    // if(localStorage.getItem("founder_id")){
+    if (this.props.adminview !== "") {
+      this.getData();
+    }
     this.getData();
     if (this.props.id) {
       let id = this.props.id;
@@ -341,10 +341,10 @@ if(this.props.adminview !==""){
   }
 
   getData = async (id) => {
-    console.log(this.props.adminview,"hello");
-    
+    console.log(this.props.adminview, "hello");
+
     let params = {
-      founderID: localStorage.getItem("founder_id")||this.props.adminview,
+      founderID: localStorage.getItem("founder_id") || this.props.adminview,
     };
     let headers = {
       "content-type": "application/json",
@@ -357,7 +357,7 @@ if(this.props.adminview !==""){
       )
       .then(async (result) => {
         console.log(result);
-        
+
         if (result.data.data.length == 0) {
           const datas = await axios.post(
             `https://cors-anywhere.herokuapp.com/https://growth91.growthmetaverse.in/api/founder/Startup/createunicorndraft`,
@@ -367,7 +367,7 @@ if(this.props.adminview !==""){
           // console.log(datas.data.id);
         } else {
           console.log(result.data.data[0]);
-          
+
           const data = Object.keys(result.data.data[0]).reduce(
             (acc, key, index) => {
               // Collect the values from the object
@@ -954,6 +954,8 @@ if(this.props.adminview !==""){
       this.state.unicorn.tudStartupName == "" ||
       !this.state.unicorn.tudPrimaryContactName ||
       this.state.unicorn.tudPrimaryContactName == "" ||
+      !this.state.unicorn.tudCountryCode ||
+      this.state.unicorn.tudCountryCode == "" ||
       !this.state.unicorn.tudPrimaryContactMobile ||
       this.state.unicorn.tudPrimaryContactMobile == "" ||
       !this.state.unicorn.tudPrimaryContactEmail ||
@@ -964,7 +966,6 @@ if(this.props.adminview !==""){
       toast.error("Please fill Basic Details Section");
       return;
     }
-  
 
     if (
       !this.state.unicorn.tudDisruptingMarket ||
@@ -975,9 +976,12 @@ if(this.props.adminview !==""){
       this.state.unicorn.tudCustomerBenifit == "" ||
       !this.state.unicorn.tudSuppliersBenifit ||
       this.state.unicorn.tudSuppliersBenifit == "" ||
-      !this.state.unicorn.tudFocusedOnProduct ||this.state.unicorn.tudFocusedOnProduct==""||
-      !this.state.unicorn.tudUseofFundRepayment ||this.state.unicorn.tudUseofFundRepayment==""||
-      !this.state.unicorn.tudFocusedOnProduct ||this.state.unicorn.tudFocusedOnProduct==""||
+      !this.state.unicorn.tudFocusedOnProduct ||
+      this.state.unicorn.tudFocusedOnProduct == "" ||
+      !this.state.unicorn.tudUseofFundRepayment ||
+      this.state.unicorn.tudUseofFundRepayment == "" ||
+      !this.state.unicorn.tudFocusedOnProduct ||
+      this.state.unicorn.tudFocusedOnProduct == "" ||
       !this.state.unicorn.tudDirectSubstitueAvailable ||
       this.state.unicorn.tudDirectSubstitueAvailable == "" ||
       !this.state.unicorn.tudIndirectSubstitueAvailable ||
@@ -1123,7 +1127,8 @@ if(this.props.adminview !==""){
       this.state.unicorn.tudProductFund == "" ||
       !this.state.unicorn.tudMarketingFund ||
       this.state.unicorn.tudMarketingFund == "" ||
-      !this.state.unicorn.tudUseofFundRepayment ||this.state.unicorn.tudUseofFundRepayment==""||
+      !this.state.unicorn.tudUseofFundRepayment ||
+      this.state.unicorn.tudUseofFundRepayment == "" ||
       !this.state.unicorn.tudSalaryFund ||
       this.state.unicorn.tudSalaryFund == "" ||
       !this.state.unicorn.tudCastComFund ||
@@ -1269,10 +1274,9 @@ if(this.props.adminview !==""){
         if (result.status == 1) {
           this.setState({ loading: false });
           if (data === "save as draft") {
-            toast.success("Unicorn save as draft")
+            toast.success("Unicorn save as draft");
             setTimeout(() => {
               window.location.assign("/FounderMyListing");
-              
             }, 1000);
           } else {
             this.publishunicorn();
@@ -1289,8 +1293,7 @@ if(this.props.adminview !==""){
     return (
       <div>
         <style>
-          {
-            `
+          {`
             .multistep-form-icons span{
                 color: black;
     font-size: 1.3em !important;
@@ -1311,8 +1314,7 @@ if(this.props.adminview !==""){
     
     }
             
-            `
-          }
+            `}
         </style>
         <Spin spinning={this.state.loading}>
           <div className="container">
@@ -1320,8 +1322,8 @@ if(this.props.adminview !==""){
               <div className="col-lg-12 text-center mb-5">
                 {/* <h1>Information about Startup</h1> */}
                 <br />
-                <p style={{fontSize:"1.7em"}}>
-                  Tell us about your startup 
+                <p style={{ fontSize: "1.7em" }}>
+                  Tell us about your startup
                   <br />
                   {/* <span style={{ color: "red" }}>
                       ( Instruction: Startup form and Assessment Forms are best
@@ -2044,7 +2046,7 @@ if(this.props.adminview !==""){
                   <BasicDetails
                     activate={() => this.activeform(1)}
                     next={() => this.activeform(1)}
-                    adminnext={ this.props.adminview }
+                    adminnext={this.props.adminview}
                     data={this.props.tab}
                     onInput={(name, value) => this.onInput(name, value)}
                     unicorn={this.state.unicorn}
@@ -2054,6 +2056,7 @@ if(this.props.adminview !==""){
                 )}
                 {this.state.activeform == "1" && (
                   <Step2
+                    adminnext={this.props.adminview}
                     activate={() => this.activeform(2)}
                     prev={() => this.activeform(0)}
                     next={() => this.activeform(2)}
@@ -2067,6 +2070,7 @@ if(this.props.adminview !==""){
                 )}
                 {this.state.activeform == "2" && (
                   <Step3
+                    adminnext={this.props.adminview}
                     activate={() => this.activeform(3)}
                     prev={() => this.activeform(1)}
                     next={() => this.activeform(3)}
@@ -2079,6 +2083,7 @@ if(this.props.adminview !==""){
                 )}
                 {this.state.activeform == "3" && (
                   <Step4
+                    adminnext={this.props.adminview}
                     activate={() => this.activeform(4)}
                     prev={() => this.activeform(2)}
                     next={() => this.activeform(4)}
@@ -2091,6 +2096,7 @@ if(this.props.adminview !==""){
                 )}
                 {this.state.activeform == "4" && (
                   <Step5
+                    adminnext={this.props.adminview}
                     activate={() => this.activeform(5)}
                     prev={() => this.activeform(3)}
                     next={() => this.activeform(5)}
@@ -2103,6 +2109,7 @@ if(this.props.adminview !==""){
                 )}
                 {this.state.activeform == "5" && (
                   <Step6
+                    adminnext={this.props.adminview}
                     activate={() => this.activeform(6)}
                     prev={() => this.activeform(4)}
                     next={() => this.activeform(6)}
@@ -2115,6 +2122,7 @@ if(this.props.adminview !==""){
                 )}
                 {this.state.activeform == "6" && (
                   <Step7
+                    adminnext={this.props.adminview}
                     activate={() => this.activeform(7)}
                     prev={() => this.activeform(5)}
                     next={() => this.activeform(7)}
@@ -2127,6 +2135,7 @@ if(this.props.adminview !==""){
                 )}
                 {this.state.activeform == "7" && (
                   <Step8
+                    adminnext={this.props.adminview}
                     activate={() => this.activeform(8)}
                     prev={() => this.activeform(6)}
                     next={() => this.activeform(8)}
@@ -2139,6 +2148,7 @@ if(this.props.adminview !==""){
                 )}
                 {this.state.activeform == "8" && (
                   <Step9
+                    adminnext={this.props.adminview}
                     activate={() => this.activeform(9)}
                     prev={() => this.activeform(7)}
                     next={() => this.activeform(9)}
@@ -2151,6 +2161,7 @@ if(this.props.adminview !==""){
                 )}
                 {this.state.activeform == "9" && (
                   <Step10
+                    adminnext={this.props.adminview}
                     activate={() => this.activeform(10)}
                     prev={() => this.activeform(8)}
                     next={() => this.activeform(10)}
@@ -2163,6 +2174,7 @@ if(this.props.adminview !==""){
                 )}
                 {this.state.activeform == "10" && (
                   <Step11
+                    adminnext={this.props.adminview}
                     activate={() => this.activeform(11)}
                     prev={() => this.activeform(9)}
                     next={() => this.activeform(11)}
@@ -2175,6 +2187,7 @@ if(this.props.adminview !==""){
                 )}
                 {this.state.activeform == "11" && (
                   <Step12
+                    adminnext={this.props.adminview}
                     activate={() => this.activeform(12)}
                     prev={() => this.activeform(10)}
                     next={() => this.activeform(12)}
@@ -2187,6 +2200,7 @@ if(this.props.adminview !==""){
                 )}
                 {this.state.activeform == "12" && (
                   <Step13
+                    adminnext={this.props.adminview}
                     activate={() => this.activeform(13)}
                     prev={() => this.activeform(11)}
                     next={() => this.activeform(13)}
@@ -2199,6 +2213,7 @@ if(this.props.adminview !==""){
                 )}
                 {this.state.activeform == "13" && (
                   <Step14
+                    adminnext={this.props.adminview}
                     activate={() => this.activeform(14)}
                     prev={() => this.activeform(12)}
                     next={() => this.activeform(14)}
@@ -2211,6 +2226,7 @@ if(this.props.adminview !==""){
                 )}
                 {this.state.activeform == "14" && (
                   <Step15
+                    adminnext={this.props.adminview}
                     activate={() => this.activeform(15)}
                     prev={() => this.activeform(13)}
                     next={() => this.activeform(15)}
@@ -2223,6 +2239,7 @@ if(this.props.adminview !==""){
                 )}
                 {this.state.activeform == "15" && (
                   <Step16
+                    adminnext={this.props.adminview}
                     activate={() => this.activeform(16)}
                     prev={() => this.activeform(14)}
                     next={() => this.activeform(16)}
@@ -2235,6 +2252,7 @@ if(this.props.adminview !==""){
                 )}
                 {this.state.activeform == "16" && (
                   <Step17
+                    adminnext={this.props.adminview}
                     activate={() => this.activeform(17)}
                     prev={() => this.activeform(16)}
                     next={() => this.activeform(17)}
@@ -2247,6 +2265,7 @@ if(this.props.adminview !==""){
                 )}
                 {this.state.activeform == "17" && (
                   <Step18
+                    adminnext={this.props.adminview}
                     activate={() => this.activeform(18)}
                     prev={() => this.activeform(17)}
                     next={() => this.activeform(18)}
@@ -2259,6 +2278,7 @@ if(this.props.adminview !==""){
                 )}
                 {this.state.activeform == "18" && (
                   <Step20
+                    adminnext={this.props.adminview}
                     activate={() => this.activeform(19)}
                     prev={() => this.activeform(17)}
                     next={() => this.activeform(19)}
@@ -2271,6 +2291,7 @@ if(this.props.adminview !==""){
                 )}
                 {this.state.activeform == "19" && (
                   <Dellistinicorn
+                    adminnext={this.props.adminview}
                     activate={() => this.activeform(19)}
                     prev={() => this.activeform(18)}
                     next={() => this.activeform(20)}
@@ -2284,6 +2305,7 @@ if(this.props.adminview !==""){
                 )}
                 {this.state.activeform == "20" && (
                   <Mediacoverager
+                    adminnext={this.props.adminview}
                     activate={() => this.activeform(20)}
                     prev={() => this.activeform(19)}
                     next={() => this.activeform(21)}
@@ -2297,10 +2319,10 @@ if(this.props.adminview !==""){
                 )}
                 {this.state.activeform == "21" && (
                   <Step19
+                    adminnext={this.props.adminview}
                     activate={() => this.activeform(21)}
                     prev={() => this.activeform(20)}
                     next={() => this.activeform(21)}
-
                     onInput={(name, value) => this.onInput(name, value)}
                     unicorn={this.state.unicorn}
                     id={this.props.id}
@@ -2311,31 +2333,30 @@ if(this.props.adminview !==""){
                 )}
               </div>
             </div>
-            {!this.props.adminview &&
-            <div className="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto mt-3">
-              <div className="submit-draft-publish d-flex justify-content-center">
-                <Previewbutton unicorn={this.state.unicorn} />
-                <a
-                  
-                  onClick={() => {
-                    this.updatefounder("save as draft");
-                  }}
-                  className="submit-future"
-                >
-                  Save as Draft
-                </a>
-                <a
-                  onClick={() => {
-                    this.updatefounder();
-                  }}
-                  // to="MemberShip"
-                  className="submit-future"
-                >
-                  Publish
-                </a>
+            {!this.props.adminview && (
+              <div className="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto mt-3">
+                <div className="submit-draft-publish d-flex justify-content-center">
+                  <Previewbutton unicorn={this.state.unicorn} />
+                  <a
+                    onClick={() => {
+                      this.updatefounder("save as draft");
+                    }}
+                    className="submit-future"
+                  >
+                    Save as Draft
+                  </a>
+                  <a
+                    onClick={() => {
+                      this.updatefounder();
+                    }}
+                    // to="MemberShip"
+                    className="submit-future"
+                  >
+                    Publish
+                  </a>
+                </div>
               </div>
-            </div>
-            }
+            )}
           </div>
           <Modal
             // title="Thank You"

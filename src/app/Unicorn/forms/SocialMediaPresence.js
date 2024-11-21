@@ -50,7 +50,16 @@ class SocialMediaPresence extends Component {
       } 
     });
   }
-  updatefounder = () => {
+   updatefounder = () => {
+ if (this.props.adminnext) {
+      if (this.state.processtype == "next") {
+        this.props.next();
+        return;
+      } else if (this.state.processtype == "prev") {
+        this.props.prev();
+        return;
+      }
+    }
    
     let params={
       linkdin:this.state.linkdin,

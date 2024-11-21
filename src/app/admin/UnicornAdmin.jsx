@@ -317,8 +317,7 @@ class UnicornAdmin extends Component {
         "Sr No": count++,
         "Unicorn ID": item.unicornDealID ? item.unicornDealID : "---",
         "Unicorn Name": item.udStartupName ? item.udStartupName : "---",
-        "Unicorn Status": item.groupStatus ? item.groupStatus : "Published",
-
+        "Unicorn Status": item.udPublished =="Published"? "Enable":"Disable",
         "Founder Id": item.udFounderID ? item.udFounderID : "---",
         Email: item.udEmail ? item.udEmail : "---",
         "Founder Name": item.udPrimaryContactName
@@ -465,7 +464,7 @@ class UnicornAdmin extends Component {
           UnicornID: item.unicornDealID ? item.unicornDealID : "---",
           "Unicorn Name": item.udStartupName ? item.udStartupName : "---",
           Email: item.udEmail ? item.udEmail : "---",
-          "Unicorn Status": item.udPublished && item.udPublished,
+          "Unicorn Status": item.udPublished =="Published"? "Enable":"Disable",
           "Admin Name": item.udPrimaryContactName
             ? item.udPrimaryContactName
             : "---",
@@ -538,7 +537,7 @@ class UnicornAdmin extends Component {
             <Menu
               mode="vertical"
               defaultSelectedKeys={[this.state.path]}
-              style={{ width: 200 }}
+              style={{ width: 250 }}
             >
               {/* <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />}>
                 <a
@@ -599,7 +598,7 @@ class UnicornAdmin extends Component {
                   style={{ fontSize: 14 }}
                   //   onClick={() => this.showDeleteModal(text)}
                 >
-                  &nbsp;&nbsp;Publish unicorn
+                  &nbsp;&nbsp;Edit Status
                 </a>
               </Menu.Item>
               {/* <Menu.Item key={`Delete${record.key}`} icon={<ManOutlined />}>
@@ -826,24 +825,25 @@ class UnicornAdmin extends Component {
             })
           }
           okText="OK"
-          width={1000}
+          width={400}
         >
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "end",
-            }}
-          >
-            <select
-              name=""
-              id=""
-              value={this.state.unicornstatus}
-              onChange={(e)=>{ this.setState({ unicornstatus: e.target.value });}}
-            >
-              <option value="Published">Publish</option>
-              <option value="Unpublished">UnPublish</option>
-            </select>
-          </div>
+          
+         
+           
+            <div className="mt-4">
+              <label className="mb-2">Active</label>
+              <Select
+                style={{ width: "100%" }}
+                allowClear
+                value={this.state.unicornstatus}
+                onChange={(value)=>{ this.setState({ unicornstatus: value });}}
+                          >
+                <Option value="">--Select--</Option>
+                <Option value="Published">Enable</Option>
+                <Option value="Unpublished">Disable</Option>
+              </Select>
+            </div>
+          
         </Modal>
         {/* End Add modal  */}
         {/* Start enquire modal  */}

@@ -45,7 +45,16 @@ class Dellistinicorn extends Component {
     });
   };
 
-  updatefounder = () => {
+   updatefounder = () => {
+ if (this.props.adminnext) {
+      if (this.state.processtype == "next") {
+        this.props.next();
+        return;
+      } else if (this.state.processtype == "prev") {
+        this.props.prev();
+        return;
+      }
+    }
     let params = {
       reference_of_customers: this.state.reference_of_customers,
       reference_of_vendors: this.state.reference_of_vendors,

@@ -256,17 +256,22 @@ class Edept extends Component {
   getGst = () => {
     Bridge.admin.settings.getsettings().then((result) => {
       if (result.status == "1") {
+        console.log(result.data[0]);
         if(this.state.member_detail.state=="Maharashtra"){
-        this.setState({ gst: result.data[0].taxation_percentage_cgst+result.data[0].taxation_percentage_sgst });
-
+          console.log(result.data[0]);
+          
+          this.setState({ gst: result.data[0].taxation_percentage_cgst+result.data[0].taxation_percentage_sgst });
+          
         }
         else if(this.state.member_detail.nationality=="Non Resident"){
-        this.setState({ gst: result.data[0].taxation_percentage });
-
+          console.log(result.data[0]);
+          this.setState({ gst: result.data[0].taxation_percentage });
+          
+        } else {
+          console.log(result.data[0],"asa")
+          this.setState({ gst: result.data[0].taxation_percentage });
+          // console.log("gst can not be able to fetch")
         }
-      } else {
-        this.setState({ gst: result.data[0].taxation_percentage });
-        // console.log("gst can not be able to fetch")
       }
     });
   };

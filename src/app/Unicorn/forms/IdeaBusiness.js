@@ -64,7 +64,16 @@ class IdeaBusiness extends Component {
       }
     });
   };
-  updatefounder = () => {
+   updatefounder = () => {
+ if (this.props.adminnext) {
+      if (this.state.processtype == "next") {
+        this.props.next();
+        return;
+      } else if (this.state.processtype == "prev") {
+        this.props.prev();
+        return;
+      }
+    }
     let params = {
       is_disrupting_existing_market: this.state.is_disrupting_existing_market,
       is_targeting_new_untabed_market:
@@ -494,7 +503,7 @@ class IdeaBusiness extends Component {
                         <label for="">
                           what are the challanges for scale up and how these
                           will be managed?<span className="text-danger">*</span>
-                       <span className="text-danger">*</span> </label>
+                      </label>
                         <textarea
                           id=""
                           cols="30"

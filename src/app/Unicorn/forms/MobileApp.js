@@ -45,7 +45,16 @@ class MobileApp extends Component {
       } 
     });
   }
-  updatefounder = () => {
+   updatefounder = () => {
+ if (this.props.adminnext) {
+      if (this.state.processtype == "next") {
+        this.props.next();
+        return;
+      } else if (this.state.processtype == "prev") {
+        this.props.prev();
+        return;
+      }
+    }
     let params={
       have_any_android_app_startup:this.state.have_any_android_app_startup,
       app_name_details:this.state.app_name_details,

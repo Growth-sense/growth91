@@ -1140,7 +1140,7 @@ text-transform : none;
                               Express Interest
                             </a>
                           </div>
-                        )} 
+                        {/* )}  */}
                         <div className="investor-amounts button">
                           <a href="/FutureUnicornList">View other Future Unicorns</a>
                         </div>
