@@ -1711,7 +1711,6 @@ class Deals extends Component {
       email: this.state.investor_email,
     };
     Bridge.deal.get_investor_by_email(params).then((result) => {
-
       if (result.data.length !== 0) {
         this.setState({
           investor_name:
@@ -1901,7 +1900,7 @@ class Deals extends Component {
         console.log(item);
         const emaildata = `
       <p>&nbsp;</p>
-<p>Dear <strong>aadil</strong>,<br>
+<p>Dear <strong>${item.first_name +" "+item.last_name}</strong>,<br>
 </p>
 <p>Thank you for committing your interest in the ${item.deal_name} Deal. We are pleased to inform you that we have initiated the Call for Money.<br>
 </p>
@@ -1962,26 +1961,26 @@ Growth91 Advisors Private Limited<br>
   Emailtoinvestors = () => {
     let arr = [];
 
-   // console.log(this.state.commitment_investor_list);
-   for (let item of this.state.dataemailtoinvestorlist) {
-    let obj = Number(item.investor_id);
+    // console.log(this.state.commitment_investor_list);
+    for (let item of this.state.dataemailtoinvestorlist) {
+      let obj = Number(item.investor_id);
 
-    arr = [...arr, obj];
-    // console.log(obj);
-  }
-  console.log(this.state.dataemailtoinvestorlist);
-  // return
-  Bridge.admin.investor
-    .send_email_to_investors({
-      investor_ids: arr,
-      deal_id: this.state.dataemailtoinvestorlist[0].item.deal_id,
-      emailBody:this.state.specificemailcontant.toString("html") 
-    })
-    .then((result) => {
-      console.log(result);
-      this.setState({ Emailtoinvestsmodal: false })
-      toast.success("Email sent success fully")
-    });
+      arr = [...arr, obj];
+      // console.log(obj);
+    }
+    console.log(this.state.dataemailtoinvestorlist);
+    // return
+    Bridge.admin.investor
+      .send_email_to_investors({
+        investor_ids: arr,
+        deal_id: this.state.dataemailtoinvestorlist[0].item.deal_id,
+        emailBody: this.state.specificemailcontant.toString("html"),
+      })
+      .then((result) => {
+        console.log(result);
+        this.setState({ Emailtoinvestsmodal: false });
+        toast.success("Email sent success fully");
+      });
   };
   Adddoctodeal = () => {
     this.setState({ addDocdealModalStatus: true, documentType: "Deal" });
@@ -2488,14 +2487,13 @@ Growth91 Advisors Private Limited<br>
   };
   show_Editor_for_email_contant = (text, record) => {
     console.log(record);
-    this.setState({});
     console.log(this.emailtoinvestorlist);
     this.setState({
       specificemailcontant: ReactRTE.createValueFromString(
         record.emailcontent,
         "html"
       ),
-      specificemailcontantkey: record.id,
+      specificemailcontantkey: record.investor_id,
       showeditormodal: true,
     });
   };
@@ -2656,22 +2654,33 @@ Growth91 Advisors Private Limited<br>
   };
   handle_email_changes = () => {
     let arr = [];
-    console.log(this.state.editorvalue,
-      this.state.specificemailcontant);
-    this.setState(prevState => ({
-      dataemailtoinvestorlist: prevState.dataemailtoinvestorlist.map(investor => investor.id === this.state.specificemailcontantkey ? { ...investor, emailcontent: this.state.specificemailcontant.toString("html") } : investor
-      ),
-      showeditormodal:false
-    }));
 
-   
+    console.log(this.state.editorvalue, this.state.specificemailcontant);
+    console.log(this.state.dataemailtoinvestorlist);
+    console.log(this.state.specificemailcontantkey);
+    const data= this.state.dataemailtoinvestorlist.filter((item,index)=>{
+      return(
+      item.investor_id == this.state.specificemailcontantkey
 
+      )
 
-
-
+    })
+    console.log(data);
     
+    this.setState((prevState) => ({
+      dataemailtoinvestorlist: prevState.dataemailtoinvestorlist.map(
+        (investor) =>
+          investor.investor_id === this.state.specificemailcontantkey
+            ? {
+                ...investor,
+                emailcontent: this.state.specificemailcontant.toString("html"),
+              }
+            : investor
+      ),
+      // showeditormodal: false,
+    }));
   };
-  
+
   render() {
     const dataSource =
       this.state.deallist &&
@@ -2726,7 +2735,59 @@ Growth91 Advisors Private Limited<br>
           isExists: item,
         };
       });
-    const emailtoinvestorlist =this.state.dataemailtoinvestorlist
+  const emailtoinvestorlist = this.state.dataemailtoinvestorlist && this.state.dataemailtoinvestorlist
+      .filter((data) => data.isCommitmentEnabled == "Enabled")
+      .map((item, index) => {
+        console.log(item);
+//         const emaildata = `
+//     <p>&nbsp;</p>
+// <p>Dear <strong>aadil</strong>,<br>
+// </p>
+// <p>Thank you for committing your interest in the ${item.deal_name} Deal. We are pleased to inform you that we have initiated the Call for Money.<br>
+// </p>
+// <p>The investment amount is ₹${item.amount}. Please find the bank details for transferring the funds below:<br>
+// </p>
+// <p>${item.deal_name} Bank Details:<br>
+// Account Name: ${this.state.Viewcommit_bank_acc_name}<br>
+// Account Number:${this.state.Viewcommit_bank_acc_num}<br>
+// Bank:${this.state.Viewcommit_bank_name} <br>
+// Account Type:${this.state.Viewcommit_bank_acc_type} <br>
+// IFSC Code: ${this.state.Viewcommit_bank_acc_type} <br>
+// Branch:<br>
+// </p>
+// <p>Also, we request you to pay investment facilitation charges of ₹${item.processingfees}. Kindly transfer this amount to the following account:<br>
+// </p>
+// <p>Growth91 Advisors Private Limited Bank Details:<br>
+// Account Name: Growth91 Advisors Private Limited<br>
+// Account Number: 50200066360849<br>
+// Bank: HDFC Bank<br>
+// Branch: Akola, Maharashtra<br>
+// IFSC Code: HDFC0000221<br>
+// Account Type: Current Account<br>
+// </p>
+// <p>You can transfer the amounts either by adding the bank details as a beneficiary in your bank and sending the payment directly, or alternatively, we will send you a follow-up email containing a payment link, so you can transfer the amount<br>
+// </p>
+// <p>We have attached required documents for your reference.<br>
+// </p>
+// <p>Feel free to reach out if you have any questions.<br>
+// </p>
+// <p>Best regards,<br>
+// Team Growth91<br>
+// Growth91 Advisors Private Limited<br>
+// </p>
+// <p>PS: This is an automated email. Please do not reply.</p>
+// `;
+
+        return {
+          key: index,
+          investor_id: item.investor_id,
+          isCommitmentEnabled: item.isCommitmentEnabled,
+          name: item.name,
+          deal_name: item.deal_name,
+          item: item,
+          emailcontent: item.emailcontent,
+        };
+      });
     const emailtoinvestorlistcolumns = [
       {
         title: "Investor ID",
@@ -2825,6 +2886,7 @@ Growth91 Advisors Private Limited<br>
         },
       },
     ];
+    
     const CommitmentdataSource =
       this.state.commitment_investor_list &&
       this.state.commitment_investor_list.map((item, index) => {
@@ -2895,48 +2957,48 @@ Growth91 Advisors Private Limited<br>
           key: "nestcreated_at",
           width: 110,
         },
-        ];
-        JSON.parse(localStorage.getItem("super_admin")) === "1" &&
+      ];
+      JSON.parse(localStorage.getItem("super_admin")) === "1" &&
         nestColumns.push(
-        {
-          title: "Action",
-          dataIndex: "action",
-          key: "action",
-          fixed: "right",
-          width: 100,
-          render: (text, record) => {
-            const menu = (
-              <Menu
-                mode="vertical"
-                defaultSelectedKeys={[this.state.path]}
-                style={{ width: 200 }}
-              >
-                <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />}>
-                  <a
-                    href="#"
-                    onClick={() => this.showEditCommitmentModal(text, record)}
-                    style={{ fontSize: 14 }}
-                  >
-                    &nbsp;&nbsp;Edit
-                  </a>
-                </Menu.Item>
-              </Menu>
-            );
-            return (
-              <div>
-                <Dropdown overlay={menu} placement="bottom">
-                  <a onClick={(e) => e.preventDefault()}>
-                    <div className="menu-action">
-                      <i className="bx bx-dots-vertical-rounded"></i>
-                    </div>
-                  </a>
-                </Dropdown>
-              </div>
-            );
-          },
-        },
-      // ];
-      );
+          {
+            title: "Action",
+            dataIndex: "action",
+            key: "action",
+            fixed: "right",
+            width: 100,
+            render: (text, record) => {
+              const menu = (
+                <Menu
+                  mode="vertical"
+                  defaultSelectedKeys={[this.state.path]}
+                  style={{ width: 200 }}
+                >
+                  <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />}>
+                    <a
+                      href="#"
+                      onClick={() => this.showEditCommitmentModal(text, record)}
+                      style={{ fontSize: 14 }}
+                    >
+                      &nbsp;&nbsp;Edit
+                    </a>
+                  </Menu.Item>
+                </Menu>
+              );
+              return (
+                <div>
+                  <Dropdown overlay={menu} placement="bottom">
+                    <a onClick={(e) => e.preventDefault()}>
+                      <div className="menu-action">
+                        <i className="bx bx-dots-vertical-rounded"></i>
+                      </div>
+                    </a>
+                  </Dropdown>
+                </div>
+              );
+            },
+          }
+          // ];
+        );
       const nestDataSource = record.child.map((item, index) => {
         return {
           key: index,
