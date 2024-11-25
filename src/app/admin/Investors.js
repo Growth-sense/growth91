@@ -33,6 +33,14 @@ import Apis from "../constants/Apis";
 import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
 import Sidebar2 from "./common/Sidebar2";
+import Innerdasboard from "../investor/components/Dashboard";
+import Portfolio from "../investor/components/Portfolio";
+import Analytics from "../investor/components/Analytics";
+import Innerreferral from "../investor/components/Referral";
+import Transactions from "../common/Transactions";
+import InnerCommitment from "../common/InnerCommitment";
+import CreatefamilyPage from "../investor/components/CreatefamilyPage";
+import InvestorFutureunicornpage from "../investor/components/InvestorFutureunicornpage";
 
 const { TextArea } = Input;
 
@@ -97,6 +105,8 @@ class Investors extends Component {
       edit_email: "",
       edit_mobile: "",
       edit_nationality: "",
+      edit_pincode: "",
+      edit_state: "",
       edit_dob: "",
       edit_legal_name: "",
       edit_father_name: "",
@@ -146,6 +156,8 @@ class Investors extends Component {
         input8: true,
       },
       modes: "ass",
+      modal_investordashboard: false,
+      activeform: 0,
     };
   }
 
@@ -190,18 +202,32 @@ class Investors extends Component {
         //   });
         // } else {
         this.setState({
-          investors: result.data.map((el) => {
-            return { ...el, name: el.first_name + " " + el.last_name, investor_id: Number(el.investor_id),investor_ids: el.investor_id,
-              total_invested_amount: Number(el.total_invested_amount) };
-          }).sort((a, b) => {
-            return a.investor_id > b.investor_id ? -1 : 1;
-          }),
-          cinvestors: result.data.map((el) => {
-            return { ...el, name: el.first_name + " " + el.last_name , investor_id: Number(el.investor_id),investor_ids: el.investor_id,
-              total_invested_amount: Number(el.total_invested_amount)};
-          }).sort((a, b) => {
-            return a.investor_id > b.investor_id ? -1 : 1;
-          }),
+          investors: result.data
+            .map((el) => {
+              return {
+                ...el,
+                name: el.first_name + " " + el.last_name,
+                investor_id: Number(el.investor_id),
+                investor_ids: el.investor_id,
+                total_invested_amount: Number(el.total_invested_amount),
+              };
+            })
+            .sort((a, b) => {
+              return a.investor_id > b.investor_id ? -1 : 1;
+            }),
+          cinvestors: result.data
+            .map((el) => {
+              return {
+                ...el,
+                name: el.first_name + " " + el.last_name,
+                investor_id: Number(el.investor_id),
+                investor_ids: el.investor_id,
+                total_invested_amount: Number(el.total_invested_amount),
+              };
+            })
+            .sort((a, b) => {
+              return a.investor_id > b.investor_id ? -1 : 1;
+            }),
           loading: false,
         });
         // }
@@ -241,6 +267,8 @@ class Investors extends Component {
       edit_mobile: item.mobile,
       edit_email: item.email,
       edit_nationality: item.nationality,
+      edit_pincode: item.postalcode,
+      edit_state: item.state,
       edit_dob: item.date_of_birth ? moment(item.date_of_birth) : "",
       edit_legal_name: item.legal_name,
       edit_father_name: item.fathers_name,
@@ -302,6 +330,8 @@ class Investors extends Component {
     someData.append("last_name", this.state.edit_last_name);
     someData.append("mobile", this.state.edit_mobile);
     someData.append("email", this.state.edit_email);
+    someData.append("postalcode", this.state.edit_pincode);
+    someData.append("state", this.state.edit_state);
     someData.append("nationality", this.state.edit_nationality);
     someData.append("dob", this.state.edit_dob);
     someData.append("legal_name", this.state.edit_legal_name);
@@ -329,6 +359,8 @@ class Investors extends Component {
             edit_last_name: "",
             edit_mobile: "",
             edit_email: "",
+            edit_pincode: "",
+            edit_state: "",
             edit_nationality: "",
             edit_dob: "",
             edit_legal_name: "",
@@ -371,19 +403,19 @@ class Investors extends Component {
     }
     this.setState({ formloader: true });
     let params = "";
-    let admin= JSON.parse(localStorage.getItem("admin_login"))
+    let admin = JSON.parse(localStorage.getItem("admin_login"));
 
     if (this.state.isActiveValue == 0) {
       params = {
         investor_id: this.state.investor_id,
         user_block_status: 1,
-        user_id:admin.value
+        user_id: admin.value,
       };
     } else {
       params = {
         investor_id: this.state.investor_id,
         user_block_status: 0,
-        user_id:admin.value
+        user_id: admin.value,
       };
     }
     Bridge.admin.block_disable_investor(params).then((result) => {
@@ -403,11 +435,8 @@ class Investors extends Component {
           () => this.getinvestorlist()
         );
         if (result.status == "0") {
-          message.warning(
-            result.message,
-            5
-          );
-        }else {
+          message.warning(result.message, 5);
+        } else {
           message.warning(
             "User is Already Unblocked/Something Went Wrong!, Pls Try later",
             5
@@ -441,7 +470,7 @@ class Investors extends Component {
           // (item.last_name && item.last_name.toLowerCase().includes(text.toLowerCase())) ||
           (item.email && item.email.includes(text)) ||
           (item.mobile && item.mobile.includes(text)) ||
-          (item.investor_ids && (item.investor_ids).includes((text))) ||
+          (item.investor_ids && item.investor_ids.includes(text)) ||
           (item.referred_by && item.referred_by.includes(text))
         ) {
           arr = [...arr, item];
@@ -1098,9 +1127,13 @@ class Investors extends Component {
     this.setState({ panValid: isValidPan });
   };
 
+  show_modal_investordashboard = () => {
+    this.setState({ modal_investordashboard: true });
+  };
+  activethistab = (num) => {
+    this.setState({ activeform: num });
+  };
   render() {
-   
-    
     const disdingid = () => {
       console.log(this.state.modes);
       if (this.state.modes == "ass") {
@@ -1156,7 +1189,7 @@ class Investors extends Component {
           });
         this.setState({
           investors: data,
-          modes:"dis"
+          modes: "dis",
         });
         console.log(data);
       } else if (this.state.modes == "dis") {
@@ -1174,8 +1207,7 @@ class Investors extends Component {
           });
         this.setState({
           investors: data,
-          modes:"ass"
-
+          modes: "ass",
         });
         console.log(data);
       }
@@ -1221,8 +1253,12 @@ class Investors extends Component {
         return {
           key: index,
           investorid: item.investor_id,
-          contactno: item.mobile ?( item.country_code ? (item.country_code +" "+item.mobile):(item.mobile)) : "---",
-          name: (item.name).toLowerCase(),
+          contactno: item.mobile
+            ? item.country_code
+              ? item.country_code + " " + item.mobile
+              : item.mobile
+            : "---",
+          name: item.name.toLowerCase(),
           email: item.email ? item.email : "---",
           investment_amt: item.email ? item.email : "---",
           isActive: item.user_block_status ? item.user_block_status : 0,
@@ -1265,9 +1301,9 @@ class Investors extends Component {
         key: "name",
         width: 180,
         fixed: "left",
-        render:(text,record)=>{
-          return <span style={{textTransform:"capitalize"}}>{text}</span>
-        }
+        render: (text, record) => {
+          return <span style={{ textTransform: "capitalize" }}>{text}</span>;
+        },
       },
 
       {
@@ -1304,6 +1340,18 @@ class Investors extends Component {
             status = "---";
           }
           return <div>{status}</div>;
+        },
+      },
+      {
+        title: "ShowDashboard",
+        dataIndex: "contactno",
+        key: "contactno",
+        render: (text) => {
+          return (
+            <button onClick={this.show_modal_investordashboard}>
+              Show Dashboard
+            </button>
+          );
         },
       },
       {
@@ -1376,30 +1424,34 @@ class Investors extends Component {
                   &nbsp;&nbsp;Edit
                 </a>
               </Menu.Item>
-              { JSON.parse(localStorage.getItem("super_admin")) == "1" &&(text.user_block_status == 0 ? (
-                <Menu.Item
-                  key={`disable_${record.key}`}
-                  icon={<EyeInvisibleFilled />}
-                >
-                  <a
-                    href="#"
-                    style={{ fontSize: 14 }}
-                    onClick={() => this.showDesableModel(text)}
+              {JSON.parse(localStorage.getItem("super_admin")) == "1" &&
+                (text.user_block_status == 0 ? (
+                  <Menu.Item
+                    key={`disable_${record.key}`}
+                    icon={<EyeInvisibleFilled />}
                   >
-                    &nbsp;&nbsp;Block/Disable
-                  </a>
-                </Menu.Item>
-              ) : (
-                <Menu.Item key={`unblock${record.key}`} icon={<EyeOutlined />}>
-                  <a
-                    href="#"
-                    style={{ fontSize: 14 }}
-                    onClick={() => this.showDesableModel(text)}
+                    <a
+                      href="#"
+                      style={{ fontSize: 14 }}
+                      onClick={() => this.showDesableModel(text)}
+                    >
+                      &nbsp;&nbsp;Block/Disable
+                    </a>
+                  </Menu.Item>
+                ) : (
+                  <Menu.Item
+                    key={`unblock${record.key}`}
+                    icon={<EyeOutlined />}
                   >
-                    &nbsp;&nbsp;Unblock Investor
-                  </a>
-                </Menu.Item>
-              ))}
+                    <a
+                      href="#"
+                      style={{ fontSize: 14 }}
+                      onClick={() => this.showDesableModel(text)}
+                    >
+                      &nbsp;&nbsp;Unblock Investor
+                    </a>
+                  </Menu.Item>
+                ))}
             </Menu>
           );
           return (
@@ -1702,6 +1754,72 @@ class Investors extends Component {
               <Input
                 value={this.state.edit_mobile}
                 onChange={(e) => this.setState({ edit_mobile: e.target.value })}
+              />
+            </div>
+            <div className="form-group">
+              <label className="mb-2">
+                State <span className="text-danger">*</span>
+              </label>
+              <select
+                id="inputState"
+                value={this.state.edit_state}
+                onChange={(e) => this.setState({ edit_state: e.target.value })}
+                className="form-select"
+              >
+                <option value="">Select State</option>
+                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                <option value="Assam">Assam</option>
+                <option value="Bihar">Bihar</option>
+                <option value="Chhattisgarh">Chhattisgarh</option>
+                <option value="Goa">Goa</option>
+                <option value="Gujarat">Gujarat</option>
+                <option value="Haryana">Haryana</option>
+                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                <option value="Jharkhand">Jharkhand</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Manipur">Manipur</option>
+                <option value="Meghalaya">Meghalaya</option>
+                <option value="Mizoram">Mizoram</option>
+                <option value="Nagaland">Nagaland</option>
+                <option value="Odisha">Odisha</option>
+                <option value="Punjab">Punjab</option>
+                <option value="Rajasthan">Rajasthan</option>
+                <option value="Sikkim">Sikkim</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Telangana">Telangana</option>
+                <option value="Tripura">Tripura</option>
+                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                <option value="Uttarakhand">Uttarakhand</option>
+                <option value="West Bengal">West Bengal</option>
+                <option value="Andaman and Nicobar Islands">
+                  Andaman and Nicobar Islands
+                </option>
+                <option value="Chandigarh">Chandigarh</option>
+                <option value="Dadar and Nagar Haveli">
+                  Dadar and Nagar Haveli
+                </option>
+                <option value="Daman and Diu">Daman and Diu</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Ladakh">Ladakh</option>
+                <option value="Lakshadweep">Lakshadweep</option>
+                <option value="Puducherry">Puducherry</option>
+              </select>
+              <Input />
+            </div>
+            <div className="form-group">
+              <label className="mb-2">
+                Pincode <span className="text-danger">*</span>
+              </label>
+              <Input
+                value={this.state.edit_pincode}
+                onChange={(e) =>
+                  this.setState({ edit_pincode: e.target.value })
+                }
               />
             </div>
             <div className="form-group mt-3">
@@ -2713,6 +2831,299 @@ class Investors extends Component {
             </label>
             <br />
             <Input />
+          </div>
+        </Modal>
+        <Modal
+          title="Add G91 Money"
+          visible={this.state.modal_investordashboard}
+          onOk={() => this.setState({ modal_investordashboard: false })}
+          onCancel={() => this.setState({ modal_investordashboard: false })}
+          width={1850}
+          okText={"Submit"}
+        >
+          <div>
+            <div className="row">
+              <div
+                className="hiw-nav col-md-2 col-12 py-3 px-0 sidebar2 collapse navbar-collapse"
+                id="navbarSupportedContent"
+              >
+                <section></section>
+              </div>
+              <div className="hiw-nav col-md-2 col-12 py-3 px-0 d-lg-block d-none ">
+                <section></section>
+                <div className="investor-sidebar container">
+                  <div className="row row-cols-4">
+                    {this.state.is_founder == "1" && (
+                      <div
+                        className="founder-role-heading"
+                        style={{ width: "100%", padding: "0" }}
+                      >
+                        <p
+                          style={{
+                            padding: "20px 10px 20px 20px",
+                            borderRadius: "10px",
+                          }}
+                        >
+                          Investor
+                        </p>
+                      </div>
+                    )}
+
+                    <div className="col-md-12 col-2">
+                      <a
+                        href="#"
+                        onClick={() => {
+                          this.activethistab(0);
+                        }}
+                        className={
+                          window.location.pathname ==
+                          "/admin-investor-dashboard"
+                            ? "active"
+                            : ""
+                        }
+                      >
+                        <li className="hiw-li row  text-center">
+                          <i className="bx bxs-pie-chart-alt-2 font-weight-500 ps-md-0 ps-4 col-md-4"></i>
+                          <div className="col-md-4 col-12 side-text">
+                            Dashboard
+                          </div>
+                        </li>
+                      </a>
+                    </div>
+                    <div className="col-md-12 col-2">
+                      <a
+                        href="#"
+                        onClick={() => {
+                          this.activethistab(1);
+                        }}
+                        className={
+                          window.location.pathname ==
+                          "/admin-investor-portfolio"
+                            ? "active"
+                            : ""
+                        }
+                      >
+                        <li className="hiw-li row text-center">
+                          <i className="bx bxs-user-circle col-md-4 ps-md-0 ps-3"></i>
+                          <div className="col-md-4 col-12 side-text">
+                            Portfolio
+                          </div>
+                        </li>
+                      </a>
+                    </div>
+                    <div className="col-md-12 col-2">
+                      {" "}
+                      <a
+                        href="#"
+                        onClick={() => {
+                          this.activethistab(2);
+                        }}
+                        className={
+                          window.location.pathname ==
+                          "/admin-investor-analytics"
+                            ? "active"
+                            : ""
+                        }
+                      >
+                        <li className="hiw-li row text-center">
+                          <i className="bx bx-signal-5 col-md-4 ps-md-0 ps-3  "></i>
+                          <div className="col-md-4 col-12 side-text">
+                            Analytics
+                          </div>
+                        </li>
+                      </a>
+                    </div>
+                    <div className="col-md-12 col-2">
+                      {" "}
+                      <a
+                        href="#"
+                        onClick={() => {
+                          this.activethistab(3);
+                        }}
+                        className={
+                          window.location.pathname ==
+                          "/admin-investor-transactions"
+                            ? "active"
+                            : ""
+                        }
+                      >
+                        <li className="hiw-li row text-center">
+                          {/* <img className='col-md-4 col-12 ' src='icon/transaction.png' style={{width : '50px'}} alt=""/> */}
+                          {/* <i className='bi bi-cash-coin col-md-4' ></i> */}
+                          <i className="bx bx-transfer col-md-4" />
+                          <div className="col-md-4 col-12 side-text">
+                            Transactions
+                          </div>
+                        </li>
+                      </a>
+                    </div>
+                    <div className="col-md-12 col-2">
+                      {" "}
+                      <a
+                        href="#"
+                        onClick={() => {
+                          this.activethistab(4);
+                        }}
+                        className={
+                          window.location.pathname ==
+                          "/admin-investor-commitment"
+                            ? "active"
+                            : ""
+                        }
+                      >
+                        <li className="hiw-li row text-center">
+                          {/* <img className='col-md-4 col-12 ' src='icon/transaction.png' style={{width : '50px'}} alt=""/> */}
+                          {/* <i className='bi bi-cash-coin col-md-4' ></i> */}
+                          <i className="fas fa-handshake col-md-4" />
+                          <div className="col-md-4 col-12 side-text">
+                            Commitments
+                          </div>
+                        </li>
+                      </a>
+                    </div>
+                    <div className="col-md-12 col-2">
+                      {" "}
+                      <a
+                        href="#"
+                        onClick={() => {
+                          this.activethistab(5);
+                        }}
+                        className={
+                          window.location.pathname ==
+                          "/admin-investor-documents"
+                            ? "active"
+                            : ""
+                        }
+                      >
+                        <li className="hiw-li row text-center">
+                          {/* <img className='col-md-4 col-12 ' src='icon/transaction.png' style={{width : '50px'}} alt=""/> */}
+                          {/* <i className='bi bi-cash-coin col-md-4' ></i> */}
+                          <i className="bx bxs-file-doc col-md-4" />
+                          <div className="col-md-4 col-12 side-text">
+                            Documents
+                          </div>
+                        </li>
+                      </a>
+                    </div>
+                    <div className="col-md-12 col-2">
+                      {" "}
+                      <a
+                        href="#"
+                        onClick={() => {
+                          this.activethistab(6);
+                        }}
+                        className={
+                          window.location.pathname == "/Referral"
+                            ? "active"
+                            : ""
+                        }
+                      >
+                        <li className="hiw-li row text-center">
+                          {/* <img className='col-md-4 col-12 ' src='icon/transaction.png' style={{width : '50px'}} alt=""/> */}
+                          {/* <i className='bi bi-cash-coin col-md-4' ></i> */}
+                          <i className="bx bx-transfer-alt col-md-4" />
+                          <div className="col-md-4 col-12 side-text">
+                            Referral
+                          </div>
+                        </li>
+                      </a>
+                      <a
+                        href="#"
+                        onClick={() => {
+                          this.activethistab(7);
+                        }}
+                        className={
+                          window.location.pathname == "/Group-Investments"
+                            ? "active"
+                            : ""
+                        }
+                      >
+                        <li className="hiw-li row text-center">
+                          <i className="bx bx-transfer-alt col-md-4" />
+                          <div className="col-md-4 col-12 side-text">
+                            Group Investments
+                          </div>
+                        </li>
+                      </a>
+                      <a
+                        href="#"
+                        onClick={() => {
+                          this.activethistab(8);
+                        }}
+                        className={
+                          window.location.pathname == "/My-Future-unicorn"
+                            ? "active"
+                            : ""
+                        }
+                      >
+                        <li className="hiw-li row text-center">
+                          <i className="bx bx-transfer-alt col-md-4" />
+                          <div className="col-md-4 col-12 side-text">
+                            Future unicorn
+                          </div>
+                        </li>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-9 col-12 my-5" style={{ marginTop: 50 }}>
+              
+
+                <br />
+                <br />
+                {this.state.activeform == "0" && (
+                  <Innerdasboard
+                    investor_id={localStorage.getItem("investor_id")}
+                  />
+                )}
+                {this.state.activeform == "1" && (
+                  <Portfolio
+                    investor_id={localStorage.getItem("investor_id")}
+                  />
+                )}
+                {this.state.activeform == "2" && (
+                  <Analytics
+                    investor_id={localStorage.getItem("investor_id")}
+                  />
+                )}
+                {this.state.activeform == "3" && (
+                  <Transactions
+                    type="investor"
+                    className="my-5"
+                    investor_id={localStorage.getItem("investor_id")}
+                  />
+                )}
+                {this.state.activeform == "4" && (
+                  <InnerCommitment
+                    type="investor"
+                    className="my-5"
+                    investor_id={localStorage.getItem("investor_id")}
+                  />
+                )}
+                {this.state.activeform == "6" && (
+                   <Innerreferral
+                   investor_id={localStorage.getItem('investor_id')}
+               />
+                )}
+                {this.state.activeform == "7" && (
+                  <CreatefamilyPage
+                    investor_id={localStorage.getItem("investor_id")}
+                  />
+                )}
+                {this.state.activeform == "8" && (
+                  <InvestorFutureunicornpage
+                    investor_id={localStorage.getItem("investor_id")}
+                  />
+                )}
+
+                <div
+                  className=""
+                  style={{ textAlign: "center", fontSize: "16px" }}
+                ></div>
+              </div>
+              <div className="col-2"></div>
+            </div>
           </div>
         </Modal>
       </>

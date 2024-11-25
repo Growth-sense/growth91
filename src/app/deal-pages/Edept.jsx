@@ -257,18 +257,19 @@ class Edept extends Component {
     Bridge.admin.settings.getsettings().then((result) => {
       if (result.status == "1") {
         console.log(result.data[0]);
-        if(this.state.member_detail.state=="Maharashtra"){
+        if (this.state.member_detail.state == "Maharashtra") {
           console.log(result.data[0]);
-          
-          this.setState({ gst: result.data[0].taxation_percentage_cgst+result.data[0].taxation_percentage_sgst });
-          
-        }
-        else if(this.state.member_detail.nationality=="Non Resident"){
+
+          this.setState({
+            gst:
+              result.data[0].taxation_percentage_cgst +
+              result.data[0].taxation_percentage_sgst,
+          });
+        } else if (this.state.member_detail.nationality == "Non Resident") {
           console.log(result.data[0]);
           this.setState({ gst: result.data[0].taxation_percentage });
-          
         } else {
-          console.log(result.data[0],"asa")
+          console.log(result.data[0], "asa");
           this.setState({ gst: result.data[0].taxation_percentage });
           // console.log("gst can not be able to fetch")
         }
@@ -805,11 +806,10 @@ class Edept extends Component {
       [e.target.name]: e.target.checked,
       agreeCheck: e.target.checked,
     });
-// logic for update gst no and gst bussiness name
+    // logic for update gst no and gst bussiness name
     // if (e.target.name === "agree") {
     //   if(e.target.checked == true){
 
-      
     //   console.log(e.target.name);
     //   if (
     //     this.state.member_detail.gstBusinessName == null ||
@@ -916,9 +916,9 @@ class Edept extends Component {
           : this.state.walletMoney;
     }
     let gstValue = ((legalfee.toFixed(0) - walletDeductionMoney) * gst) / 100;
-    console.log(gst);
-    console.log(legalfee);
-    console.log(gstValue);
+    // console.log(gst);
+    // console.log(legalfee);
+    // console.log(gstValue);
     let tdsamount = 0;
     if (this.state.tdsstatus === true) {
       tdsamount = parseFloat(legalfee / 100) * 10;
@@ -944,7 +944,7 @@ class Edept extends Component {
           gstValue
         : 0,
       walletDeductionMoney: walletDeductionMoney,
-      gstValue: gstValue,
+      gstValue: Number(gstValue).toFixed(0),
     });
     return gst;
   };
@@ -1583,7 +1583,10 @@ class Edept extends Component {
                           </tr>
                           <tr>
                             <td>Investment Amount</td>
-                            <td lassName="text-center">
+                            <td
+                              className="text-end"
+                              style={{ textAlign: "right!important" }}
+                            >
                               ₹{" "}
                               {this.state.amountplusgst
                                 ? this.formatNumberWithCommas(
@@ -1592,14 +1595,17 @@ class Edept extends Component {
                                 : "0"}
                             </td>
                           </tr>
-                        
+
                           <tr>
                             <td>
                               Convenience Fees
                               <br />
                               <span>{this.state.label}</span>
                             </td>
-                            <td lassName="text-center">
+                            <td
+                              className="text-end"
+                              style={{ textAlign: "right!important" }}
+                            >
                               ₹{" "}
                               {this.formatNumberWithCommas(
                                 Number(this.state.processingfees)
@@ -1608,22 +1614,28 @@ class Edept extends Component {
                           </tr>
                           <tr>
                             <td>Wallet Money</td>
-                            <td lassName="text-center">
+                            <td
+                              className="text-end"
+                              style={{ textAlign: "right!important" }}
+                            >
                               - ₹ {this.state.walletDeductionMoney}
                             </td>
                           </tr>
                           <tr>
                             <td>GST {this.state.gst} %</td>
-                            <td lassName="text-center">
+                            <td
+                              className="text-end"
+                              style={{ textAlign: "right!important" }}
+                            >
                               ₹{" "}
                               {this.formatNumberWithCommas(
-                                Number(this.state.gstValue)
+                                Number(this.state.gstValue).toFixed(0)
                               )}
                             </td>
                           </tr>
                           <tr>
                             <td>Total</td>
-                            <td>
+                            <td  className="text-end">
                               ₹{" "}
                               {this.formatNumberWithCommas(
                                 Number(
