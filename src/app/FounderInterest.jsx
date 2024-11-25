@@ -200,7 +200,7 @@ const fileExtension = ".xlsx";
                 <input type="radio" name="tab-index" id="tab-index4" checked />
                 <div className="import-export community-paragraph-box">
                   <a onClick={exportToCSV} className="mt-0">
-                    Import Data
+                    Export Data
                   </a>
                 </div>
                 <div class="content table-responsive ">

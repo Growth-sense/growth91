@@ -224,12 +224,12 @@ footer h4 {
 }
 .input_box .form-wraper .theme-btn {
   display: block;
-  max-width: 245px;
+  max-width: 260px;
   line-height: 60px;
   border-radius: 30px;
   background: #29176f;
   border: 1px solid #fff !important;
-  font-size: 20px;
+  font-size: 23px;
   font-weight: 600;
   color: #fff;
   text-align: center;
@@ -238,6 +238,17 @@ footer h4 {
   width: 100%;
   transition: 0.4s;
 }
+
+.input_box .form-wraper .center-btn {
+  margin-left: 150px;
+
+
+
+
+}
+
+
+
 @media only screen and (max-width: 251px) {
   .input_box .form-wraper .theme-btn {
     line-height: 29px;
@@ -276,6 +287,7 @@ body p {
   color: #513e75;
   margin: 0;
   font: 400 16px/32px Nunito, sans-serif;
+  line-height: 2;
 }
 .hiw a,
 .hiw a span {
@@ -1820,7 +1832,7 @@ body button:hover {
   margin-left: 0;
 }
 .faq-section .content-side .heading-title h6 {
-  justify-content: start;
+  justify-content: center;
 }
 .faq-section .content-side .accordion .accordion-item {
   margin-bottom: 10px;
@@ -2765,6 +2777,7 @@ body.search.search-results .content-area {
   .banner_section .right-side-images img {
     max-width: 100%;
   }
+
   .faq-section .images-side {
     margin: 0;
   }

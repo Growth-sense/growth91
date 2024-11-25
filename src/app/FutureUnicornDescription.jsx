@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import Bridge from "./constants/Bridge.js";
 import { useLocation } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import { Modal } from "antd";
+import { Modal, message as mess, Spin } from "antd";
 
 export const FutureUnicornDescription = () => {
   const search = useLocation().search;
@@ -17,6 +17,11 @@ export const FutureUnicornDescription = () => {
     window.scrollTo(0, 0);
   }, []);
   console.log(id);
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleShow = () => setShowModal(true);
+  const handleClose = () => setShowModal(false);
 
   const [unicorn, setUnicorn] = useState();
   const [memberdata, setmemberdata] = useState();
@@ -135,37 +140,55 @@ export const FutureUnicornDescription = () => {
     if (e.target.name == "message") {
       // setdata({ ...data, [e.target.name]: [e.target.value] });
     } else {
-      setdata({  [e.target.name]: true });
+      setdata({ [e.target.name]: true });
     }
   };
   const submitintrest = () => {
-    console.log(unicorn);
-let datas= unicorn
-.filter((item) => item.unicornDealID == id)
-console.log(data);
+    // console.log(unicorn);
+    let datas = unicorn.filter((item) => item.unicornDealID == id);
+    console.log(data);
 
     let params = {
       unicornDealID: datas[0].unicornDealID,
       udFounderID: datas[0].udFounderID,
       investor_id: localStorage.getItem("investor_id"),
-      interestKnowMore: data["I Want to know more about it"] == true||false,
-      interestWorkwithYou: data["I want to work with you"]== true||false,
-      interestInvestinStartup: data["I am excited to invest in your startups"]== true||false,
+      interestKnowMore: data["I Want to know more about it"] == true || false,
+      interestWorkwithYou: data["I want to work with you"] == true || false,
+      interestInvestinStartup:
+        data["I am excited to invest in your startups"] == true || false,
       interestMessage: message,
     };
     Bridge.Unicorn.add_unicorn_interest(params).then((result) => {
       console.log(result);
-      if(result.message== "Details are updated successfully.")
-      {
-        toast.success("Details shared with Founder")
-        setiamintrestmodal(false)
+      if (
+        data["I Want to know more about it"] == false ||
+        data["I want to work with you"] == false ||
+        data["I am excited to invest in your startups"] == false
+      ) {
+        mess.error("Please Select any one option ");
+        return;
       }
-      else if( result.message=="Please enter values of all fields."){
-        toast.error("Plz fill all feild")
+      if (result.message == "Details are updated successfully.") {
+        toast.success("Details shared with Founder");
+        setiamintrestmodal(false);
+        setdata({
+          "I Want to know more about it": false,
+          "I want to work with you": false,
+          "I am excited to invest in your startups": false,
+          message: "",
+        });
+        setmessage("");
+      } else if (result.message == "Please enter values of all fields.") {
+        toast.error("Plz fill all feild");
+      } else if (
+        result.message == "You already have shown interest to this Startup."
+      ) {
+        mess.warning("You already have shown interest to this Startup.");
       }
     });
-
   };
+  const dat=JSON.stringify(localStorage.getItem("investor_id")) 
+  
   return (
     <div>
       <div classname="newabout">
@@ -176,15 +199,36 @@ console.log(data);
         unicorn
           .filter((item) => item.unicornDealID == id)
           .map((item, index) => {
-           
-
             return (
+              
               <>
+
+              <style>
+{
+`
+.form-checkbox label{
+
+text-transform : none;
+
+}
+
+`
+
+
+}
+
+              </style>
+
+              
+
+            
                 <section class="futureunicorn-slider-sections">
                   <div class="container-flex">
-            
                     <div className="row row-imgdirects">
-                      <div className="row-img-direct">
+                      <div
+                        className="row-img-direct "
+                        style={{ alignItems: "center" }}
+                      >
                         <div className="img-certified-directors">
                           <img
                             src={`${
@@ -436,79 +480,118 @@ console.log(data);
                               </div>
                             </div>
                           </div>
-                          <div
-                            class="accordion-item"
-                            style={{ border: "none" }}
-                          >
-                            <h3
-                              class="accordion-header"
-                              id="flush-headingdetails"
-                            >
-                              <div class="default-Show">
-                                <span>
-                                  <img
-                                    src="./assets/images/group-chat.png"
-                                    alt=""
-                                  />
-                                </span>
-                                Team
-                              </div>
-                            </h3>
+                          <div className="accordion-item">
+        <h3 className="accordion-header" id="flush-headingfour">
+          <button
+            style={{
+              padding: "1rem 1.25rem",
+              cursor: "pointer",
+              fontSize : "0.82em"
+            }}
+            className="btn"
+            type="button"
+            onClick={handleShow}
+          >
+            <span style={{ marginRight: "0rem" }}>
+              <img src="./assets/images/gallery.png" alt="gallery icon" />
+            </span>
+            Investor Presentation
+          </button>
+        </h3>
+      </div>
 
-                            <div class="accordion-body ">
-                              <div className="row row-box-linse Grid-team">
-                                {item.udVendorId &&
-                                  JSON.parse(item.udVendorId).map(
-                                    (itemudVendorId, indexudVendorId) => {
-                                      return (
-                                        <div className="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-12 col-sm-12 col-xs-12">
-                                          <div className="main-card-of-teams">
-                                            <div className="img-teams-of-cards">
-                                              <img
-                                                src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${itemudVendorId.imgname}`}
-                                                alt=""
-                                              />
-                                            </div>
-                                            <div className="name-of-teams-card">
-                                              <div className="head-deals-team">
-                                                <h3
-                                                  style={{
-                                                    textTransform: "capitalize",
-                                                  }}
-                                                >
-                                                  {itemudVendorId.name}
-                                                </h3>
-                                                <p
-                                                  style={{
-                                                    textTransform: "capitalize",
-                                                  }}
-                                                >
-                                                  {itemudVendorId.Role}
-                                                </p>
-                                              </div>
-                                              <ul>
-                                                <li>
-                                                  {itemudVendorId.description1}
-                                                </li>
-                                                <li>
-                                                  {itemudVendorId.description2}
-                                                </li>
-                                              </ul>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      );
-                                    }
-                                  )}
+                          {/* Dialog-style Modal */}
+                          {showModal && (
+                            <>
+                              <div
+                                className="modal show fade fadein"
+                                tabIndex="-1"
+                                style={{
+                                  display: "block",
+                                  backgroundColor: "rgba(0, 0, 0, 0.5)",
+                                  zIndex: 1050,
+                                  transition: "all 0.5s ease",
+                                }}
+                                aria-labelledby="investorModalLabel"
+                                aria-hidden="true"
+                              >
+                                <div
+                                  className="modal-dialog"
+                                  style={{
+                                    maxWidth: "1300px", // Adjusted width for dialog style
+                                    margin: "1% auto", // Centers the modal
+                                    transition: "all 0.5s ease",
+                                  }}
+                                >
+                                  <div
+                                    className="modal-content"
+                                    style={{
+                                      borderRadius: "8px",
+                                      overflow: "hidden",
+                                    }}
+                                  >
+                                    <div className="modal-header">
+                                      <h5
+                                        className="modal-title"
+                                        id="investorModalLabel"
+                                      >
+                                        Investor Presentation
+                                      </h5>
+                                      <button
+                                        type="button"
+                                        className="btn-close"
+                                        onClick={handleClose}
+                                        aria-label="Close"
+                                      ></button>
+                                    </div>
+                                    <div className="modal-body">
+                                      <iframe
+                                        src={`${
+                                          process.env.REACT_APP_BASE_URL
+                                        }api/uploads/unicorndeals/${
+                                          item.tudTempUdID
+                                        }/${JSON.parse(
+                                          item.udPitchDeck
+                                        )}#toolbar=1&navpanes=0`}
+                                        frameBorder="0"
+                                        height="600px" // Adjusted height for a dialog style
+                                        width="100%"
+                                        title="Investor Presentation"
+                                        style={{
+                                          borderRadius: "8px",
+                                          boxShadow:
+                                            "0px 0px 15px rgba(0, 0, 0, 0.1)",
+                                        }}
+                                      ></iframe>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
-                            </div>
-                          </div>
+
+                              {/* Overlay effect to close the modal when clicked outside */}
+                              <div
+                                className="modal-backdrop fade show"
+                                onClick={handleClose}
+                                style={{
+                                  zIndex: 1040,
+                                  backgroundColor: "rgba(0, 0, 0, 0.5)",
+                                }}
+                              ></div>
+                            </>
+                          )}
                           <div class="accordion-item">
                             <h3
                               class="accordion-header"
-                              id="flush-headingThree"
+                              id="flush-headingMarket"
                             >
-                              <div class="default-Show">
+                              <button
+                                class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseMarket"
+                                aria-expanded="false"
+                                aria-controls="flush-collapseMarket"
+                              >
                                 <span>
                                   <img
                                     src="./assets/images/market-research.png"
@@ -516,27 +599,32 @@ console.log(data);
                                   />
                                 </span>
                                 Market Overview
-                              </div>
+                              </button>
                             </h3>
-
-                            <div class="accordion-body">
-                              <div className="row market-overreview-row">
-                                {item.udMark &&
-                                  JSON.parse(item.udMark).map(
-                                    (itemudamrk, indexudmark) => {
-                                      return (
-                                        <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                          <div className="membership-accordian">
-                                            <div className="para-member-accordian">
-                                              <p>{itemudamrk.content1} </p>
+                            <div
+                              id="flush-collapseMarket"
+                              class="accordion-collapse collapse"
+                              aria-labelledby="flush-headingMarket"
+                              data-bs-parent="#accordionFlushExample"
+                            >
+                              <div class="accordion-body">
+                                <div className="row market-overreview-row">
+                                  {item.udMark &&
+                                    JSON.parse(item.udMark).map(
+                                      (itemudamrk, indexudmark) => {
+                                        return (
+                                          <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                            <div className="membership-accordian">
+                                              <div className="para-member-accordian">
+                                                <p>{itemudamrk.content1} </p>
+                                              </div>
                                             </div>
                                           </div>
-                                        </div>
-                                      );
-                                    }
-                                  )}
+                                        );
+                                      }
+                                    )}
 
-                                {/* <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
+                                  {/* <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
                                                     <div className="membership-accordian">
 
                                                         <div className="para-member-accordian">
@@ -551,20 +639,159 @@ console.log(data);
                                                         {/* <div className="img-member-accordian">
                                                             <img src="https://www.trumanlittlewhitehouse.org/wp-content/uploads/2019/11/81DpN-lrJvL._SL1350.jpg" alt="" />
                                                         </div> */}
-                                {/* <div className="para-member-accordian"> */}
-                                {/* <h3>
+                                  {/* <div className="para-member-accordian"> */}
+                                  {/* <h3>
                                                                 Member
                                                             </h3> */}
-                                {/*      <p>
+                                  {/*      <p>
                                                                 The Ready to Cook market, valued at $18 billion, is witnessing rapid growth due to shifting consumer habits, increased health awareness, and the convenience of pre-packaged meal kits. This trend presents ample opportunities for smaller companies to enter the market and innovate with new product offerings, catering to the needs of busy individuals seeking healthy and convenient meal solutions.
                                                             </p>
                                                         </div>
                                                     </div>
                                                 </div> */}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="accordion-item"
+                            style={{ border: "none" }}
+                          >
+                            <h3 class="accordion-header" id="flush-headingTeam">
+                              <button
+                                class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseTeam"
+                                aria-expanded="false"
+                                aria-controls="flush-collapseTeam"
+                              >
+                                <span>
+                                  <img
+                                    src="./assets/images/group-chat.png"
+                                    alt=""
+                                  />
+                                </span>
+                                Team
+                              </button>
+                            </h3>
+                            <div
+                              id="flush-collapseTeam"
+                              class="accordion-collapse collapse"
+                              aria-labelledby="flush-headingTeam"
+                              data-bs-parent="#accordionFlushExample"
+                            >
+                              <div class="accordion-body ">
+                                <div className="row row-box-linse Grid-team">
+                                  {item.udVendorId &&
+                                    JSON.parse(item.udVendorId).map(
+                                      (itemudVendorId, indexudVendorId) => {
+                                        return (
+                                          <div className="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-12 col-sm-12 col-xs-12">
+                                            <div className="main-card-of-teams">
+                                              <div className="img-teams-of-cards">
+                                                <img
+                                                  src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${itemudVendorId.imgname}`}
+                                                  alt=""
+                                                />
+                                              </div>
+                                              <div className="name-of-teams-card">
+                                                <div className="head-deals-team">
+                                                  <h3
+                                                    style={{
+                                                      textTransform:
+                                                        "capitalize",
+                                                    }}
+                                                  >
+                                                    {itemudVendorId.name}
+                                                  </h3>
+                                                  <p
+                                                    style={{
+                                                      textTransform:
+                                                        "capitalize",
+                                                    }}
+                                                  >
+                                                    {itemudVendorId.Role}
+                                                  </p>
+                                                </div>
+                                                <ul>
+                                                  <li>
+                                                    {
+                                                      itemudVendorId.description1
+                                                    }
+                                                  </li>
+                                                  <li>
+                                                    {
+                                                      itemudVendorId.description2
+                                                    }
+                                                  </li>
+                                                </ul>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        );
+                                      }
+                                    )}
+                                </div>
                               </div>
                             </div>
                           </div>
 
+                          <div class="accordion-item">
+                            <h3
+                              class="accordion-header"
+                              id="flush-headingVideos"
+                            >
+                              <button
+                                class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseVideos"
+                                aria-expanded="false"
+                                aria-controls="flush-collapseVideos"
+                              >
+                                <span>
+                                  <img
+                                    src="./assets/images/gallery.png"
+                                    alt=""
+                                  />
+                                </span>
+                                Videos
+                              </button>
+                            </h3>
+                            <div
+                              id="flush-collapseVideos"
+                              class="accordion-collapse collapse"
+                              aria-labelledby="flush-headingVideos"
+                              data-bs-parent="#accordionFlushExample"
+                            >
+                              <div class="accordion-body connect-acc-us">
+                                <div className="row justify-content-center">
+                                  <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
+                                    <div className="img-future-gallery">
+                                      <iframe
+                                        style={{
+                                          boxShadow:
+                                            "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
+                                          borderRadius: 3,
+                                          // marginLeft: 65,
+                                        }}
+                                        width="100%"
+                                        height="335"
+                                        src={`https://www.youtube.com/embed/${item.udYoutubeLink
+                                          .split("=")
+                                          .pop()}`}
+                                        title="YouTube video player"
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                      ></iframe>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                           <div class="accordion-item">
                             <h3
                               class="accordion-header"
@@ -673,116 +900,6 @@ console.log(data);
                                 </div> */}
 
                           <div class="accordion-item">
-                            <h3 class="accordion-header" id="flush-headingfour">
-                              <button
-                                class="accordion-button collapsed"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#flush-headingfournew"
-                                aria-expanded="false"
-                                aria-controls="flush-headingfour"
-                              >
-                                <span>
-                                  <img
-                                    src="./assets/images/gallery.png"
-                                    alt=""
-                                  />
-                                </span>
-                                Investor Presentation
-                              </button>
-                            </h3>
-                            <div
-                              id="flush-headingfournew"
-                              class="accordion-collapse collapse"
-                              aria-labelledby="flush-headingfour"
-                              data-bs-parent="#accordionFlushExample"
-                            >
-                              <div class="accordion-body">
-                                <iframe
-                                  src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.udPitchDeck)}`}
-                                  frameborder="0"
-                                  height={"500px"}
-                                  width={"100%"}
-                                ></iframe>
-                                {/* <div className="row justify-content-center">
-                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                    <div className="img-future-gallery">
-                                      <img
-                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
-                                        alt=""
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                    <div className="img-future-gallery">
-                                      <img
-                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
-                                        alt=""
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                    <div className="img-future-gallery">
-                                      <img
-                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
-                                        alt=""
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                    <div className="img-future-gallery">
-                                      <img
-                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
-                                        alt=""
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                    <div className="img-future-gallery">
-                                      <img
-                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
-                                        alt=""
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                    <div className="img-future-gallery">
-                                      <img
-                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
-                                        alt=""
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                    <div className="img-future-gallery">
-                                      <img
-                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
-                                        alt=""
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                    <div className="img-future-gallery">
-                                      <img
-                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
-                                        alt=""
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="col-md-4 col-lg-4 col-xxl-4 col-12 col-sm-12 col-xxl-4">
-                                    <div className="img-future-gallery">
-                                      <img
-                                        src="https://wallpapers.com/images/hd/certificate-background-1920-x-1358-ytgp20iwjhgm112h.jpg"
-                                        alt=""
-                                      />
-                                    </div>
-                                  </div>
-                                </div> */}
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="accordion-item">
                             <h3 class="accordion-header" id="flush-headingWait">
                               <button
                                 class="accordion-button collapsed"
@@ -798,7 +915,7 @@ console.log(data);
                                     alt=""
                                   />
                                 </span>
-                                Videos
+                                Contact us
                               </button>
                             </h3>
                             <div
@@ -808,143 +925,104 @@ console.log(data);
                               data-bs-parent="#accordionFlushExample"
                             >
                               <div class="accordion-body connect-acc-us">
-                                <div className="row justify-content-center">
-                                  <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
-                                    <div className="img-future-gallery">
-                                      <iframe
-                                        style={{
-                                          boxShadow:
-                                            "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
-                                          borderRadius: 3,
-                                          // marginLeft: 65,
-                                        }}
-                                        width="100%"
-                                        height="335"
-                                        src={`https://www.youtube.com/embed/${item.udYoutubeLink
-                                          .split("=")
-                                          .pop()}`}
-                                        title="YouTube video player"
-                                        frameBorder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowFullScreen
-                                      ></iframe>
+                                <div className="row row-box-line">
+                                  <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                    <div className="lets-talks-div">
+                                      <h3>Legal Name</h3>
+                                      <ul>
+                                        <li>
+                                          <span>{item.udLegalname}</span>
+                                        </li>
+                                      </ul>
                                     </div>
                                   </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="accordion-item">
-                            <h3 class="accordion-header" id="flush-headingfive">
-                              <div class="default-Show">
-                                <span>
-                                  <img
-                                    src="./assets/images/mobile.png"
-                                    alt=""
-                                  />
-                                </span>
-                                Contact Us
-                              </div>
-                            </h3>
-
-                            <div class="accordion-body connect-acc-us">
-                              <div className="row row-box-line">
-                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                  <div className="lets-talks-div">
-                                    <h3>Legal Name</h3>
-                                    <ul>
-                                      <li>
-                                        <span>{item.udLegalname}</span>
-                                      </li>
-                                    </ul>
+                                  <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                    <div className="lets-talks-div">
+                                      <h3>Founded</h3>
+                                      <ul>
+                                        <li>
+                                          <span>{item.udFoundedon}</span>
+                                        </li>
+                                      </ul>
+                                    </div>
                                   </div>
-                                </div>
-                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                  <div className="lets-talks-div">
-                                    <h3>Founded</h3>
-                                    <ul>
-                                      <li>
-                                        <span>{item.udFoundedon}</span>
-                                      </li>
-                                    </ul>
+                                  <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                    <div className="lets-talks-div">
+                                      <h3>Let's Meet</h3>
+                                      <ul>
+                                        <li>
+                                          <span>Corporate Office :</span>
+                                          <span>{item.udAddress}</span>
+                                        </li>
+                                      </ul>
+                                    </div>
                                   </div>
-                                </div>
-                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                  <div className="lets-talks-div">
-                                    <h3>Let's Meet</h3>
-                                    <ul>
-                                      <li>
-                                        <span>Corporate Office :</span>
-                                        <span>{item.udAddress}</span>
-                                      </li>
-                                    </ul>
+                                  <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                    <div className="lets-talks-div">
+                                      <h3>Employees</h3>
+                                      <ul>
+                                        <li>
+                                          <span>{item.udEmployees}</span>
+                                        </li>
+                                      </ul>
+                                    </div>
                                   </div>
-                                </div>
-                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                  <div className="lets-talks-div">
-                                    <h3>Employees</h3>
-                                    <ul>
-                                      <li>
-                                        <span>{item.udEmployees}</span>
-                                      </li>
-                                    </ul>
-                                  </div>
-                                </div>
-                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                  <div className="lets-talks-div">
-                                    <h3>Visit Us</h3>
-                                    <ul>
-                                      <li>
-                                        <Link
-                                          to={`//${item.udWebsite}`}
-                                          target="_blank"
-                                          rel="noopener noreferrer"
-                                        >
-                                          <span
-                                            style={{
-                                              textTransform: "lowercase",
-                                            }}
+                                  <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
+                                    <div className="lets-talks-div">
+                                      <h3>Visit Us</h3>
+                                      <ul>
+                                        <li>
+                                          <Link
+                                            to={`//${item.udWebsite}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
                                           >
-                                            {item.udWebsite}
-                                          </span>
-                                        </Link>
-                                      </li>
-                                    </ul>
+                                            <span
+                                              style={{
+                                                textTransform: "lowercase",
+                                              }}
+                                            >
+                                              {item.udWebsite}
+                                            </span>
+                                          </Link>
+                                        </li>
+                                      </ul>
+                                    </div>
                                   </div>
-                                </div>
-                                <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-6 col-12 col-sm-12 col-xs-12">
-                                  <div className="lets-talks-div">
-                                    <h3>Follow Us</h3>
-                                    <ul>
-                                      <li>
-                                        <Link
-                                          to={`//${item.udSocialInsta}`}
-                                          target="_blank"
-                                          rel="noopener noreferrer"
-                                        >
-                                          <i class="fa-brands fa-instagram"></i>
-                                        </Link>
-                                      </li>
-                                      <li>
-                                        <Link
-                                          to={`//${item.udSocialYouTube}`}
-                                          target="_blank"
-                                          rel="noopener noreferrer"
-                                        >
-                                          <i class="fa-brands fa-youtube"></i>
-                                        </Link>
-                                      </li>
+                                  <div className="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-16 col-sm-16 col-xs-16">
+                                    <div className="lets-talks-div">
+                                      <h3>Follow Us</h3>
+                                      <ul>
+                                        <li>
+                                          <Link
+                                            to={`//${item.udSocialInsta}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                          >
+                                            <i class="fa-brands fa-instagram"></i>
+                                          </Link>
+                                        </li>
+                                        <li>
+                                          <Link
+                                            to={`//${item.udSocialYouTube}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                          >
+                                            <i class="fa-brands fa-youtube"></i>
+                                          </Link>
+                                        </li>
 
-                                      <li>
-                                        <Link
-                                          to={`//${item.udSocialFacebook}`}
-                                          target="_blank"
-                                          rel="noopener noreferrer"
-                                        >
-                                          <i class="fa-brands fa-facebook"></i>
-                                        </Link>
-                                      </li>
-                                    </ul>
+                                        <li>
+                                          <Link
+                                            to={`//${item.udSocialFacebook}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                          >
+                                            <i class="fa-brands fa-facebook"></i>
+                                          </Link>
+                                        </li>
+                                      </ul>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -1043,13 +1121,29 @@ console.log(data);
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-12">
-                        <div className="investor-amounts">
-                          <a style={{color:"white"}} onClick={openiamintrest}>I am Interested</a>
-                        </div>
+                      <div
+                        className="col-12"
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          gap: "30px",
+                        }}
+                      >
+                        {/* {!JSON.stringify(localStorage.getItem("investor_id"))  && ( */}
+                          <div className="investor-amounts">
+                            <a
+                              style={{ color: "white", fontSize : "1.5em" }}
+                              onClick={openiamintrest}
+                              
+                            >
+                              Express Interest
+                            </a>
+                          </div>
+                        {/* )}  */}
                         <div className="investor-amounts button">
-                          <a  href="/FutureUnicornList">Unicorn List page</a>
-                      </div>
+                          <a href="/FutureUnicornList">View other Future Unicorns</a>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1057,7 +1151,7 @@ console.log(data);
               </>
             );
           })}
-   <Modal
+      <Modal
         // title={`Invest in ${this.state.deal_name}`}
         visible={iamintrestmodal}
         onOk={() => {
@@ -1065,15 +1159,22 @@ console.log(data);
         }}
         onCancel={() => {
           setiamintrestmodal(false);
+          setdata({
+            "I Want to know more about it": false,
+            "I want to work with you": false,
+            "I am excited to invest in your startups": false,
+            message: "",
+          });
+          setmessage("");
         }}
         width={900}
         footer={false}
       >
-        <section
+        {/* <section
           class="about-page-section blog-section payment-sec pb-0"
           style={{ paddingBottom: "0px !important" }}
-        >
-          <div class="container">
+        > */}
+          {/* <div class="container"> */}
             <div class="row">
               <div
                 class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center align-items-center"
@@ -1081,13 +1182,13 @@ console.log(data);
               ></div>
             </div>
             <div className="row  justify-content-center ">
-              <div className="col-md-8 col-12 col-sm-12 col-xl-8 col-xxl-8">
+              <div className="col-md-8 col-12 col-sm-12 col-xl-8 col-xxl-12">
                 <div className="card-payment-methods">
                   <div class="heading-title m-sm-0">
                     <p>
                       <span></span>{" "}
                     </p>
-                    <h2>Fill The Form</h2>
+                    <h2>Type of Interest</h2>
                   </div>
                   <div className="para-proceed">
                     <form action="" className="form-checkbox">
@@ -1102,7 +1203,7 @@ console.log(data);
                             }
                             onClick={adddata}
                           />
-                          <label htmlFor="">I Want to know more about it</label>
+                          <label htmlFor="">I want to know more about your startup</label>
                         </div>
                         <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
                           <input
@@ -1112,7 +1213,7 @@ console.log(data);
                             checked={data["I want to work with you"] == true}
                             onClick={adddata}
                           />
-                          <label htmlFor="">I want to work with you</label>
+                          <label htmlFor="">I want to explore collaboration </label>
                         </div>
                         <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
                           <input
@@ -1128,14 +1229,16 @@ console.log(data);
                             onClick={adddata}
                           />
                           <label htmlFor="">
-                            I am excited to invest in your startups
+                            I am interested to invest in your startup
                           </label>
                         </div>
                         <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mt-2">
                           <textarea
                             value={message}
                             name="message"
-                            onChange={(e)=>{setmessage(e.target.value)}}
+                            onChange={(e) => {
+                              setmessage(e.target.value);
+                            }}
                             id="w3review"
                             rows="4"
                             className="w100"
@@ -1146,15 +1249,17 @@ console.log(data);
                     </form>
                   </div>
                   <div className="button-proceed-online">
-                    <a onClick={submitintrest}>Submit</a>
+                    <a style={{ color: "white" }} onClick={submitintrest}>
+                      Submit
+                    </a>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          {/* </div> */}
+        {/* </section> */}
       </Modal>
-<ToastContainer/>
+      <ToastContainer />
       <NewWebFooter />
     </div>
   );

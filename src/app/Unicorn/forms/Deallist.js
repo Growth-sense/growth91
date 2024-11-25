@@ -45,7 +45,16 @@ class Dellistinicorn extends Component {
     });
   };
 
-  updatefounder = () => {
+   updatefounder = () => {
+ if (this.props.adminnext) {
+      if (this.state.processtype == "next") {
+        this.props.next();
+        return;
+      } else if (this.state.processtype == "prev") {
+        this.props.prev();
+        return;
+      }
+    }
     let params = {
       reference_of_customers: this.state.reference_of_customers,
       reference_of_vendors: this.state.reference_of_vendors,
@@ -125,7 +134,7 @@ class Dellistinicorn extends Component {
                           paddingRight: 10,
                         }}
                       >
-                        Reference{" "}
+                        Other info{" "}
                       </span>
                     </div>
                     <hr />
@@ -133,7 +142,7 @@ class Dellistinicorn extends Component {
                   <div className="row" style={{ maxWidth: 900 }}>
                     <div className="col-lg-12">
                       <div className="form-group">
-                        <label for="">Startup Founder Name</label>
+                        <label for="">Startup Founder Name<span className="text-danger">*</span></label>
                         <input
                           type="email"
                           onWheel={() => document.activeElement.blur()}
@@ -145,7 +154,7 @@ class Dellistinicorn extends Component {
                         />
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Legal Name</label>
+                        <label for="">Legal Name<span className="text-danger">*</span></label>
                         <input
                           type="text"
                           onWheel={() => document.activeElement.blur()}
@@ -157,7 +166,7 @@ class Dellistinicorn extends Component {
                         />
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Startup Founder Mobile Number</label>
+                        <label for="">Startup Founder Mobile Number<span className="text-danger">*</span></label>
                         <input
                           type="email"
                           onWheel={() => document.activeElement.blur()}
@@ -171,7 +180,7 @@ class Dellistinicorn extends Component {
                         />
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Startup Founder Email</label>
+                        <label for="">Startup Founder Email<span className="text-danger">*</span></label>
                         <input
                           type="email"
                           onWheel={() => document.activeElement.blur()}
@@ -183,7 +192,7 @@ class Dellistinicorn extends Component {
                         />
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Founded</label>
+                        <label for="">Founded<span className="text-danger">*</span></label>
                         <input
                           type="date"
                           onWheel={() => document.activeElement.blur()}
@@ -195,7 +204,7 @@ class Dellistinicorn extends Component {
                         />
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Address</label>
+                        <label for="">Address<span className="text-danger">*</span></label>
                         <input
                           type="text"
                           onWheel={() => document.activeElement.blur()}
@@ -207,7 +216,7 @@ class Dellistinicorn extends Component {
                         />
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Employees </label>
+                        <label for="">Employees <span className="text-danger">*</span></label>
                         <input
                           type="text"
                           onWheel={() => document.activeElement.blur()}
@@ -231,7 +240,7 @@ class Dellistinicorn extends Component {
                         />
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">CAP Table Threshold Amount</label>
+                        <label for="">CAP Table Threshold Amount<span className="text-danger">*</span></label>
                         <input
                           type="number"
                           onWheel={() => document.activeElement.blur()}
@@ -243,7 +252,7 @@ class Dellistinicorn extends Component {
                         />
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Special Offer Tex</label>
+                        <label for="">Special Offer Tex<span className="text-danger">*</span></label>
                         <input
                           type="text"
                           onWheel={() => document.activeElement.blur()}
@@ -255,7 +264,7 @@ class Dellistinicorn extends Component {
                         />{" "}
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Input Default Tex</label>
+                        <label for="">Input Default Tex<span className="text-danger">*</span></label>
                         <input
                           type="text"
                           onWheel={() => document.activeElement.blur()}
@@ -267,7 +276,7 @@ class Dellistinicorn extends Component {
                         />
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Deal Description</label>
+                        <label for="">Deal Description<span className="text-danger">*</span></label>
                         <input
                           type="texttext"
                           onWheel={() => document.activeElement.blur()}
@@ -279,7 +288,7 @@ class Dellistinicorn extends Component {
                         />
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Youtube Link</label>
+                        <label for="">Youtube Link<span className="text-danger">*</span></label>
                         <input
                           type="text"
                           onWheel={() => document.activeElement.blur()}
@@ -291,7 +300,7 @@ class Dellistinicorn extends Component {
                         />
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Category</label>
+                        <label for="">Category<span className="text-danger">*</span></label>
                         <input
                           type="text"
                           onWheel={() => document.activeElement.blur()}

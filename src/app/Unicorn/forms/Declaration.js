@@ -43,7 +43,16 @@ class Declaration extends Component {
   };
 
   // register
-  updatefounder = () => {
+   updatefounder = () => {
+ if (this.props.adminnext) {
+      if (this.state.processtype == "next") {
+        this.props.next();
+        return;
+      } else if (this.state.processtype == "prev") {
+        this.props.prev();
+        return;
+      }
+    }
     let params = {
       send_me_copy_of_response:
         this.state.checkedStatus == true ? "agreed" : "Not Agreed",
@@ -182,18 +191,26 @@ class Declaration extends Component {
                         <div className="d-flex">
                           <input
                             type="checkbox"
-                            onClick={(e) =>
-                              this.props.onInput(e.target.name, !e.target.value)
+                            onClick={(e) =>{
+                              if(e.target.value==1){
+                                this.props.onInput(e.target.name, 0)
+
+                              }else{
+                                this.props.onInput(e.target.name, 1)
+
+                              }
+                            }
                             }
                             name="tudDeclare"
-                            value={this.props.unicorn.tudDeclare}
+                            checked={this.props.unicorn.tudDeclare == 1}
+                            value={this.props.unicorn.tudDeclare== true ?(1):(0)}
                             style={{
                               marginRight: 13,
                               textAlign: "justify",
                               width: "20px",
                             }}
                           />
-                          <label>
+                          <label style={{textAlign :"justify"}}>
                             {" "}
                             All the information provided is true and correct to
                             the best of our knowledge. If at any time in future,
@@ -203,7 +220,7 @@ class Declaration extends Component {
                             If funding decisions are made based on wrong
                             information provided by us; we shall indemnify the
                             investors up to total invested amount.
-                            <span className="text-danger">*</span>
+                           
                           </label>
                         </div>
                       </div>

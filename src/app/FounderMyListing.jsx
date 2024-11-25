@@ -20,6 +20,7 @@ export const FounderMyListing = () => {
   const [unideatils, setunideatils] = useState();
   const [unicorn, setUnicorn] = useState();
   const [loading, setloading] = useState(false);
+console.log(unicorn);
 
   const unicorndetails = async () => {
     setloading(true)
@@ -43,19 +44,21 @@ export const FounderMyListing = () => {
             pagesize: 10,
           };
           Bridge.Unicorn.unicorndealsByInvestors(par).then((result) => {
-            console.log(result);
-            console.log(
-              result.data.filter(
-                (item) => item.tudTempUdID == res.data.data[0].tudTempUdID
-              )
-            );
-            console.log(res.data.data[0].tudTempUdID);
-            setUnicorn(
-              result.data.filter(
-                (item) => item.tudTempUdID == res.data.data[0].tudTempUdID
-              )
-
-            );
+          try {
+            if (res.data.data) {
+              
+              setUnicorn(
+                result.data.filter(
+                  (item) => item.tudTempUdID == res.data.data[0].tudTempUdID
+                )
+                
+              );
+            }
+          } catch (error) {
+            console.log(error);
+            
+            
+          }
           });
           setloading(false)
         }, 3000);
@@ -148,6 +151,7 @@ export const FounderMyListing = () => {
   };
   return (
     <>
+ 
     <Spin spinning={loading}>
  <div
         style={{
@@ -175,7 +179,7 @@ export const FounderMyListing = () => {
             <Sidebar />
           </div>
   
-          <div className="  col col-lg-8 pb-4 ">
+          <div className="  col col-lg-16 pb-4 ">
             {/* How do i invest? */}
             <section
               id="hdii"
@@ -190,7 +194,7 @@ export const FounderMyListing = () => {
                             <p>
                                 <span></span>{" "}
                             </p>
-                            <h2>Account Details</h2>
+                            <h2>Unicorn Details</h2>
                         </div>
                     </div>
 
@@ -206,6 +210,7 @@ export const FounderMyListing = () => {
                             <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
                               <div className="input-dashboard-acc">
                                 <label htmlFor="">Founder Name </label>
+                                <label htmlFor="">:</label>
                                 <label htmlFor="">
                                   {unideatils.tudPrimaryContactName}
                                 </label>
@@ -216,6 +221,8 @@ export const FounderMyListing = () => {
                             <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
                               <div className="input-dashboard-acc">
                                 <label htmlFor="">Startup Name </label>
+                                <label htmlFor="">:</label>
+
                                 <label htmlFor="">
                                   {unideatils.tudStartupName}
                                 </label>{" "}
@@ -226,7 +233,9 @@ export const FounderMyListing = () => {
                           {unideatils && unideatils.tudEmail && (
                             <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
                               <div className="input-dashboard-acc">
-                                <label htmlFor="">Email </label>
+                                <label htmlFor="">Email Id</label>
+                                <label htmlFor="">:</label>
+
                                 <label htmlFor="">{unideatils.tudEmail}</label>
                               </div>
                             </div>
@@ -235,16 +244,18 @@ export const FounderMyListing = () => {
                           {unideatils && unideatils.tudPrimaryContactMobile && (
                             <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
                               <div className="input-dashboard-acc">
-                                <label htmlFor="">Mobile no </label>
+                                <label htmlFor="">Mobile No. </label>
+                                <label htmlFor="">:</label>
+
                                 <label htmlFor="">
-                                  {unideatils.tudPrimaryContactMobile}
+                                +{unideatils.tudCountryCode} {unideatils.tudPrimaryContactMobile}
                                 </label>
                               </div>
                             </div>
                           )}
                           <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
                             <div className="btns-performs mt-3">
-                              <td className="flex-action">
+                              <td className="flex-action center-button">
                                 {unicorn && unicorn.length !== 0 && (
                                   <div className="performs-btns">
                                     <Link
@@ -255,6 +266,7 @@ export const FounderMyListing = () => {
                                     </Link>
                                   </div>
                                 )}
+                                {unideatils && unideatils.length !== 0 ? (
 
                                 <div className="performs-btns">
                                   <Link to="FutureUnicornForm">
@@ -262,7 +274,24 @@ export const FounderMyListing = () => {
                                     <i class="fa-solid fa-pen-to-square"></i>
                                     Edit Startup
                                   </Link>
+                                </div>):(<div style={{display : "flex" , flexDirection :"column", gap :"30px", alignItems: "center", justifyContent :"center" }}><div style={{fontSize :"1.5em"}}>You haven't listed your future unicorn</div> <div className="performs-btns">
+                                  <Link to="FutureUnicornForm">
+                                    {" "}
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    Create Startup
+                                  </Link>
+                                </div></div>)}
+
+                                {unicorn && unicorn.length !== 0 && (
+
+                                <div className="performs-btns">
+                                  <Link to="FounderInterest">
+                                    {" "}
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    Enquires
+                                  </Link>
                                 </div>
+                               ) }
                               </td>
                             </div>
                           </div>

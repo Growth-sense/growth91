@@ -99,7 +99,16 @@ class FundingDetails extends Component {
   }
 
 
-  updatefounder = () => {
+   updatefounder = () => {
+ if (this.props.adminnext) {
+      if (this.state.processtype == "next") {
+        this.props.next();
+        return;
+      } else if (this.state.processtype == "prev") {
+        this.props.prev();
+        return;
+      }
+    }
     let data=this.state.have_you_raised_fund_for_startup;
     let params={
       have_you_raised_fund_for_startup:data,

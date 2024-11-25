@@ -851,7 +851,7 @@ class WebHeadernew extends Component {
                     className="navbar-brand h3 prime-purple mt-2"
                   >
                     <img
-                      src="/web/growth91LOGO (4).png"
+                      src="/logo192.png"
                       width="116"
                       alt="img"
                       style={{ marginLeft: "26px" }}
@@ -871,7 +871,7 @@ class WebHeadernew extends Component {
                                 <div class="menu-logo">
                                     <a href="index.php">
                                         <img src="/web/white-logo.png" width="116" alt="img"/>
-                                        <img src="/web/growth91LOGO (4).png" width="116" alt="img"/>
+                                        <img src="/logo192.png" width="116" alt="img"/>
                                     </a>
                                     <div class="menu-bar open-menu">
                                         {/* <!-- <i class="fa-solid fa-bars"></i> --> */}

@@ -599,11 +599,13 @@ class Header extends Component {
 
               <Link className="navbar-brand" to="/deals">
                 <img
-                  src="/web/growth91LOGO (4).png"
+                  src="/logo192.png"
                   width="120"
                   style={{
                     position: "relative",
-                    top: -8,
+                    top: 0,
+                    height : "55px",
+                    width : "65px"
                   }}
                   className="d-inline-block align-top"
                   alt="Growth91"

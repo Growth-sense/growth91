@@ -2,6 +2,7 @@ import React from 'react';
 import { NewWebFooter } from './common/NewWebFooter';
 import NewWebHeader from './common/NewWebHeader';
 import { Link } from '@material-ui/core';
+import { Link as NewLINK } from 'react-router-dom/cjs/react-router-dom.min';
 
 const NewFutureUnicorn = () => {
     return (
@@ -27,7 +28,7 @@ const NewFutureUnicorn = () => {
 
                     }
                     .hero p {
-                        font-size: 1.2em;
+                        font-size: 1.5em;
                         margin-bottom: 30px;
                         color: white;
                     }
@@ -42,7 +43,7 @@ const NewFutureUnicorn = () => {
                         background-color: #6c63ff;
                         padding: 15px 30px;
                         border-radius: 5px;
-                        font-size: 1em;
+                        font-size: 1.3em;
                         transition: background-color 0.3s;
                     }
                     .buttons a:hover {
@@ -69,15 +70,15 @@ const NewFutureUnicorn = () => {
                         background-color: #f5f5f5;
                         padding: 20px;
                         border-radius: 10px;
-                        width: 300px;
+                        width: 400px;
                     }
                     .feature-box h3 {
-                        font-size: 1.2em;
+                        font-size: 1.5em;
                         margin-bottom: 10px;
                         color: #333;
                     }
                     .feature-box p {
-                        font-size: 1em;
+                        font-size: 1.3em;
                         color: #666;
                     }
 
@@ -99,14 +100,15 @@ const NewFutureUnicorn = () => {
                         color: #333;
                     }
                     .features-list {
-                        display: flex;
-                        flex-direction: column;
-                        gap: 30px;
-                        align-items: flex-start;
+                    
+                        display: grid;
+                        grid-template-columns: repeat(2, 1fr);
+                        grid-gap: 30px;
+                        margin : 20px 90px;
                     }
                     .feature-item {
                         display: flex;
-                        align-items: center;
+                        // align-items: center;
                     }
                     .feature-item-number {
                         width: 30px;
@@ -116,7 +118,7 @@ const NewFutureUnicorn = () => {
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        font-size: 1.2em;
+                        font-size: 1.5em;
                         margin-right: 20px;
                         color: #333;
                     }
@@ -129,7 +131,7 @@ const NewFutureUnicorn = () => {
                         color: #333;
                     }
                     .feature-description p {
-                        font-size: 1em;
+                        font-size: 1.3em;
                         color: #666;
                     }
                         .investor-benifit{
@@ -143,13 +145,13 @@ const NewFutureUnicorn = () => {
                            }
                         /* Benefits for Founders Section */
 .founder-benefit {
-    background: #100050;
+    background: #ffffff;
     padding: 50px 20px;
     text-align: center;
 }
 
 .founder-benefit h2 {
-    color: #ffffff !important;
+    // color: #ffffff !important;
     font-size: 2.5em;
     margin-bottom: 40px;
 }
@@ -164,63 +166,136 @@ const NewFutureUnicorn = () => {
     background-color: #f5f5f5;
     padding: 20px;
     border-radius: 10px;
-    width: 300px;
+    width: 400px;
 }
 
 .founder-benefit .feature-box h3 {
-    font-size: 1.2em;
+    font-size: 1.5em;
     margin-bottom: 10px;
                         color: ##100050 !important;
 
 }
 
 .founder-benefit .feature-box p {
-    font-size: 1em;
+    font-size: 1.3em;
     color: #666;
 }
-
+.theme-btn{
+ justify-content  : center !important;
+}
                 `}
             </style>
-        <NewWebHeader />
+            <div classname="newabout">
+        <NewWebHeader newabout={"newabout"} />
+      </div>
+        {/* <NewWebHeader /> */}
+        <section className="banner_section">
+          <div
+            id="carouselExampleIndicators"
+            className="carousel slide"
+            data-bs-ride="carousel"
+          >
+            <div className="carousel-inner">
+              <div className="carousel-item active">
+                <div className="container">
+                  <div className="slider-area">
+                    <div className="item">
+                      <div className="row align-items-center">
+                        <div className="col-lg-6 col-xl-24 col-sm-24">
+                          <div className="left-content"style={{textAlign : "center"}}>
+                            <h2 className="wow fadeInUp " data-wow-delay="0.3s">
+                            Future Unicorns
 
+                            </h2>
+                            <span className="text-white " style={{fontSize : "1.5em"}}>
+                    Connecting innovative startups with visionary investors on Growth91 platform.
+                            
 
-            <div className="hero">
-                <div>
-                    <h1>Future Unicorns</h1>
-                    <p>Connecting innovative startups with visionary investors on Growth91 platform.</p>
-                    <div className="buttons">
-                        <a href="#">List Your Startup</a>
-                        <a href="#">Explore Investments</a>
+                            </span>
+                            {/* <ul className="text-white">
+                                                    <li><a href="Howitworks.html" className=""><span><img src="./web/images/hand-index.svg" width="24" alt="img"/> </span><u>How do i invest?</u></a></li>
+                                                    <li><a href="Howitworks2.html" className=""><span></span><span><img src="./web/images/hand-index.svg" width="24"  alt="img"/> </span>What are the risks?</a></li>
+                                                    <li><a href="Howitworks3.html" className=""><span></span><span><img src="./web/images/hand-index.svg" width="24"  alt="img"/> </span>What is T-SAFE?</a></li>
+                                                    <li><a href="Howitworks4.html" className=""><span></span><span><img src="./web/images/hand-index.svg" width="24"  alt="img"/> </span>What are Growth91's fees?</a></li>
+                                                    <span className="">
+                                                      </span>
+                                                </ul>                                                    --> */}
+
+                            <form
+                              className="input_box wow fadeInUp mt-4"
+                              data-wow-delay="0.7s"
+                            >
+                              <div className="form-wraper" style={{justifyContent : "center!important"}}>
+                               
+                                  {/* <a
+                                    href="/synergy-form"
+                                    className="theme-btn "
+                                    type="button"
+                                  >
+                                    Let's Connect
+                                  </a> */}
+                        <NewLINK to="FutureUnicornList" class = "theme-btn center-btn"  >Explore Investments</NewLINK>
+                               
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                        <div className="col-lg-6">
+                          <div
+                            className="right-side-images wow fadeInRight"
+                            data-wow-delay="0.6s"
+                          >
+                            <img src="./web/images/unicorn.webp" class="unicorn-img" alt="img" />
+                          </div>
+                        </div>
+                      </div>
                     </div>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
+        </section>
+
+
+         
 
             {/* Why to list section */}
-            <div className="why-to-list">
-                {/* <h2>Why to list?</h2> */}
-                <div class="heading-title founder-text">
-                <p>
-                  <span></span>{" "}
-                </p>
-                <h3>Why to list?</h3>
-              </div>
-                <div className="features">
-                    <div className="feature-box">
-                        <h3>Dedicated Platform</h3>
-                        <p>Future Unicorns streamlines startup listings and investor decision-making.</p>
-                    </div>
-                    <div className="feature-box">
-                        <h3>Comprehensive Information</h3>
-                        <p>Provides detailed startup profiles, pitch decks.</p>
-                    </div>
-                    <div className="feature-box">
-                        <h3>Investment Flexibility</h3>
-                        <p>Allows investments from NRO/Indian and NRE/overseas accounts with founder consent.</p>
-                    </div>
-                </div>
-            </div>
+           
 
             {/* Key Features Section */}
+      
+                
+                <div className="why-to-list founder-benefit">
+        {/* <h2>Benefits for</h2> */}
+        <div class="heading-title founder-text">
+                    <p>
+                      <span></span>{" "}
+                    </p>
+                    <h2>Benefits for Investors</h2>
+                  </div>
+                    <div className="features">
+                        <div className="feature-box">
+                            <h3>Vetted Opportunities</h3>
+                            <p>Access to a broad range of thoroughly vetted startups.</p>
+                        </div>
+                        <div className="feature-box">
+                            <h3>Informed Decisions</h3>
+                            <p>Detailed information and insights to support investment choices.</p>
+                        </div>
+                        <div className="feature-box">
+                            <h3>Easy Management</h3>
+                            <p>Tools to track and manage investments efficiently.</p>
+                        </div>
+                    </div>
+    </div>
+    
+    
+    
+            
+                
+              
+    
             <div className="key-features ">
                 {/* <h2>Key Features</h2> */}
                 <div class="heading-title founder-text">
@@ -260,54 +335,9 @@ const NewFutureUnicorn = () => {
                     </div>
                 </div>
             </div>
+         
 
-            <div className="why-to-list founder-benefit">
-    {/* <h2>Benefits for</h2> */}
-    <div class="heading-title founder-text">
-                <p>
-                  <span></span>{" "}
-                </p>
-                <h2 style={{color:"white", fontSize : "37px"}}>Benefits for Founders</h2>
-              </div>
-    <div className="features">
-        <div className="feature-box">
-            <h3>Simplified Listing</h3>
-            <p>Easy process to showcase startups to potential investors.</p>
-        </div>
-        <div className="feature-box">
-            <h3>Increased Visibility</h3>
-            <p>Access to a diverse investor base for greater exposure.</p>
-        </div>
-        <div className="feature-box">
-            <h3>Global Reach</h3>
-            <p>Potential for both domestic and international investments.</p>
-        </div>
-    </div>
-</div>
-
-
-            <div className="why-to-list investor-benifit">
-            <div class="heading-title founder-text">
-                <p>
-                  <span></span>{" "}
-                </p>
-                <h3>Benefits for Investors</h3>
-              </div>
-                <div className="features">
-                    <div className="feature-box">
-                        <h3>Vetted Opportunities</h3>
-                        <p>Access to a broad range of thoroughly vetted startups.</p>
-                    </div>
-                    <div className="feature-box">
-                        <h3>Informed Decisions</h3>
-                        <p>Detailed information and insights to support investment choices.</p>
-                    </div>
-                    <div className="feature-box">
-                        <h3>Easy Management</h3>
-                        <p>Tools to track and manage investments efficiently.</p>
-                    </div>
-                </div>
-            </div>
+         
         <section class="custom-section">
           <div class="join-section join-sec-yellow join-sec-white undefined join-divide mobile-join">
             {/* <h4>Join us</h4> */}

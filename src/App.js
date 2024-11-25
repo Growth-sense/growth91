@@ -18,8 +18,8 @@ import { MemberShip } from './app/MemberShip.jsx'
 import NewHome from "./app/admin/NewHome.js";
 import NewHome2 from "./app/admin/NewHome2.js";
 import NewHome3 from "./app/admin/NewHome3.js";
-import NewFutureUnicorn from "./app/NewFutureUnicorn.jsx";
-
+import Newunicorninvestor from "./app/Newunicorninvestor.jsx";
+import Newunicornfounder from "./app/Newunicornfounder.jsx";
 
 
 
@@ -208,6 +208,7 @@ import IndusUnoTranche2 from "./app/deal-pages/IndusUnoTranche2";
 import { Newdeals } from "./app/Newdeals.jsx";
 import jqeryscript from "./jq.js"
 import FamilyAdmin from "./app/admin/FamilyAdmin.jsx";
+import UnicornAdmin from "./app/admin/UnicornAdmin.jsx";
 import familyRemoveRequest from "./app/admin/familyRemoveRequest.jsx";
 import Familymanage from "./app/admin/Familymanage.jsx";
 import FutureUnicorn from "./app/admin/FutureUnicorn.jsx";
@@ -220,6 +221,7 @@ import { Synergypartner } from "./app/Synergy-partner.jsx";
 
 
 import Createfamily from "./app/investor/Create-Family.jsx";
+import InvestorFutureunicorn from "./app/investor/InvestorFutureunicorn.jsx";
 import Viewfamilylist from "./app/investor/View-family-list.jsx";
 import familyinvite from "./app/investor/family-invite.jsx";
 
@@ -267,7 +269,9 @@ function App() {
           <Route path="/NewHome2" exact component = {NewHome2} />
           <Route path="/NewHome3" exact component = {NewHome3} />
        
-          <Route path="/NewFutureUnicorn" exact component = {NewFutureUnicorn} />
+          <Route path="/unicornfounder" exact component = {Newunicornfounder} />
+          <Route path="/unicorninvestor" exact component = {Newunicorninvestor} />
+
 
 
 
@@ -410,6 +414,7 @@ function App() {
           <Route path="/admin-investors" exact component={admininvestors} />
           <Route path="/admin-startups" exact component={adminstartups} />
           <Route path="/admin-family" exact component={FamilyAdmin} />
+          <Route path="/admin-unicorn" exact component={UnicornAdmin} />
           <Route path="/family-Remove-Request" exact component={familyRemoveRequest} />
           <Route path="/admin-family-manage" exact component={Familymanage} />
           <Route path="/future-unicorn-startups" exact component={FUnicornStartup} />
@@ -730,6 +735,7 @@ function App() {
           <Route path="/Group-Investments" exact component={Createfamily} />
           <Route path="/View-Group-list" exact component={Viewfamilylist} />
           <Route path="/Group-Invite"  component={familyinvite} />
+          <Route path="/My-Future-unicorn" exact component={InvestorFutureunicorn} />
 
 
           <Route path="*" exact component={error} />

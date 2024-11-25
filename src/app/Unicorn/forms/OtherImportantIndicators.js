@@ -77,7 +77,16 @@ class OtherImportantIndicators extends Component {
     });
   }
   
-  updatefounder = () => {
+   updatefounder = () => {
+ if (this.props.adminnext) {
+      if (this.state.processtype == "next") {
+        this.props.next();
+        return;
+      } else if (this.state.processtype == "prev") {
+        this.props.prev();
+        return;
+      }
+    }
   
    
     let params={
@@ -513,7 +522,7 @@ class OtherImportantIndicators extends Component {
                               ></textarea>
                             </div>  
                             <div className="form-group">
-                              <label for="">Demo video (Link)</label>
+                              <label for="">Demo video (Link)<span className="text-danger">*</span></label>
                               <input  
                                 type="text" 
                                 name='tudDemoLink'
@@ -524,7 +533,7 @@ class OtherImportantIndicators extends Component {
                               />
                             </div>
                             <div className="form-group">
-                              <label for="">Any other supported documents(links)</label>
+                              <label for="">Any other supported documents(links)<span className="text-danger">*</span></label>
                               <textarea 
                                 id="" cols="30" rows="6"
                                 name='tudOtherDocsLinks'
@@ -535,7 +544,7 @@ class OtherImportantIndicators extends Component {
                               ></textarea>
                             </div>
                             <div className="form-group">
-                              <label for="">Media coverage (links)</label>
+                              <label for="">Media coverage (links)<span className="text-danger">*</span></label>
                               <textarea 
                                 id="" cols="30" rows="6"
                                 name='tudMediaCoverLinks'
@@ -546,7 +555,7 @@ class OtherImportantIndicators extends Component {
                               ></textarea>
                             </div> 
                             <div className="form-group">
-                              <label for="">Awards and Recognitions</label>
+                              <label for="">Awards and Recognitions<span className="text-danger">*</span></label>
                               <textarea 
                                 id="" cols="30" rows="6"
                                 name='tudAwards'
@@ -557,7 +566,7 @@ class OtherImportantIndicators extends Component {
                               ></textarea>
                             </div> 
                             <div className="form-group">
-                              <label for="">Are you recognized as Startup by DPIIT, Govt of India? If yes give registration number.</label>
+                              <label for="">Are you recognized as Startup by DPIIT, Govt of India? If yes give registration number.<span className="text-danger">*</span></label>
                               <textarea 
                                 id="" cols="30" rows="6"
                                 name='tudStartupRecon'
@@ -568,7 +577,7 @@ class OtherImportantIndicators extends Component {
                               ></textarea>
                             </div> 
                             <div className="form-group">
-                              <label for="">Any other specific information you like to share.</label>
+                              <label for="">Any other specific information you like to share.<span className="text-danger">*</span></label>
                               <textarea 
                                 id="" cols="30" rows="6"
                                 name='tudOtherInfo'

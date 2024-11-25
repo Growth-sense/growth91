@@ -6,7 +6,6 @@ import $ from "jquery";
 import { Link } from "react-router-dom";
 import Bridge from "./constants/Bridge.js";
 import { set } from "react-ga";
-import { Button, Modal } from "antd";
 
 export const FutureUnicornList = () => {
   useEffect(() => {
@@ -22,22 +21,6 @@ export const FutureUnicornList = () => {
       $("body").removeClass("newClass");
     }
   });
-
-  const [showModal, setShowModal] = useState(false); // State to toggle the modal
-  // const [filters, setFilters] = useState({
-  //   startupName: '',
-  //   category: '',
-  //   founder: '',
-  // });
-
-  const handleApplyFilters = () => {
-    setShowModal(false); // Close modal after applying filters
-    // Logic to apply filters can be added here
-  };
-
-
-
-
   function SimpleNextArrow(props) {
     const { onClick } = props;
     return (
@@ -68,7 +51,6 @@ export const FutureUnicornList = () => {
   function getuniondata() {
     let params = {
       page: 0,
-      udPublished: "Published",
       pagesize: 10,
     };
     Bridge.Unicorn.unicorndealsByInvestors(params).then((result) => {
@@ -177,154 +159,12 @@ export const FutureUnicornList = () => {
               <h3>List of Future Unicorns</h3>
             </div>
           </div>
-          
-    <div className="list-container list-mobile-only">
-      {/* Filter Icon */}
-      <div className="row justify-content-end d-flex filter-box">
-        <div className="col-lg-12">
-          
-          <div className="search-input-unicorn1-filter" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "20px" }}>
-            <h2>Filters</h2>
-            <span onClick={() => setShowModal(true)} style={{ cursor: "pointer" }} className="filter-span">
-              <i className="fa-solid fa-filter"></i>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* Filter Modal */}
-     {/* Filter Modal */}
-<Modal
-  visible={showModal} // Use `visible` instead of `show`
-  onCancel={() => setShowModal(false)} // Use `onCancel` to close the modal
-  centered
-  footer={[
-    <Button key="back" onClick={() => setShowModal(false)}>
-      Close
-    </Button>,
-    <Button key="submit" type="primary" onClick={handleApplyFilters}>
-      Apply Filters
-    </Button>,
-  ]}
->
-  <div className="inside-filter">
-    <div className="mb-3">
-      <label htmlFor="startupName">View by Future Unicorn Name:</label>
-      <select
-        id="startupName"
-        value={filters.startupName}
-        onChange={(e) => setFilters({ ...filters, startupName: e.target.value })}
-        className="form-control"
-      >
-        <option value="">--Select--</option>
-        {filterdata &&
-          filterdata.map((item, index) => (
-            item.udStartupName && (
-              <option key={index} value={item.udStartupName}>
-                {item.udStartupName}
-              </option>
-            )
-          ))}
-      </select>
-    </div>
-    <div className="mb-3">
-      <label htmlFor="category">View by Sector:</label>
-      <select
-        id="category"
-        value={filters.category}
-        onChange={(e) => setFilters({ ...filters, category: e.target.value })}
-        className="form-control"
-      >
-        <option value="">--Select--</option>
-        {filterdata &&
-          filterdata.map((item, index) => (
-            item.udCategory && (
-              <option key={index} value={item.udCategory}>
-                {item.udCategory}
-              </option>
-            )
-          ))}
-      </select>
-    </div>
-    <div className="mb-3">
-      <label htmlFor="founder">View by Founder Name:</label>
-      <select
-        id="founder"
-        value={filters.founder}
-        onChange={(e) => setFilters({ ...filters, founder: e.target.value })}
-        className="form-control"
-      >
-        <option value="">--Select--</option>
-        {filterdata &&
-          filterdata.map((item, index) => (
-            item.udPrimaryContactName && (
-              <option key={index} value={item.udPrimaryContactName}>
-                {item.udPrimaryContactName}
-              </option>
-            )
-          ))}
-      </select>
-    </div>
-  </div>
-</Modal>
-
-      {/* Filtered Cards */}
-      <div className="row justify-content-center card-box">
-        {filteredData &&
-          filteredData.map((item, index) => (
-            <div key={index} className="grid-cards">
-              <div className="community-all-contents">
-                <div className="img-community-box">
-                  <img
-                    src={
-                      (item.udBannerImage &&
-                        `${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.udBannerImage)}`) ||
-                      "https://growth91.com/api/uploads/deal/banner/34/1719999515.jpg"
-                    }
-                    alt="Banner"
-                  />
-                </div>
-                <div className="community-paragraph-box">
-                  <ul>
-                    <li>
-                      <img
-                        src={
-                          (item.udLogoImage &&
-                            `${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.udLogoImage)}`) ||
-                          "https://growth91.com/api/uploads/deal/logo/34/1719999515.jpg"
-                        }
-                        alt="Logo"
-                      />
-                      <h5>{item.udStartupName}</h5>
-                    </li>
-                  </ul>
-                  <p>{item.udDealDescription}</p>
-                  <Link
-                    to={`/FutureUnicornDescription?id=${item.unicornDealID}`}
-                    className="btn-com"
-                  >
-                    View More
-                  </Link>
-                </div>
-              </div>
-            </div>
-          ))}
-      </div>
-    </div>
-          <div className="list-container list-laptop-only">
+          <div className="list-container">
             <div className="row justify-content-end d-flex filter-box">
               <div className="col-lg-12">
                 <div className="col align-items-center">
                   <div className="col-lg-11">
-                    <div
-                      className="search-input-unicorn1 search-input-unicorn1-filter"
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        marginBottom: "20px",
-                      }}
-                    >
+                    <div className="search-input-unicorn1 search-input-unicorn1-filter" style={{display :"flex" , alignItems : "center", justifyContent : "space-between",marginBottom  :"20px"}}>
                       {/* <input type="search" name="" id="" className='form-control' placeholder='' /> */}
                       <h2>Filters</h2>
                       <span>
@@ -617,7 +457,6 @@ export const FutureUnicornList = () => {
             </div> */}
             </div>
           </div>
-
 
           <div className="row pagination-row">
             <div class="pagination">

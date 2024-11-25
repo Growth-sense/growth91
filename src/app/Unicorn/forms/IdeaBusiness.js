@@ -64,7 +64,16 @@ class IdeaBusiness extends Component {
       }
     });
   };
-  updatefounder = () => {
+   updatefounder = () => {
+ if (this.props.adminnext) {
+      if (this.state.processtype == "next") {
+        this.props.next();
+        return;
+      } else if (this.state.processtype == "prev") {
+        this.props.prev();
+        return;
+      }
+    }
     let params = {
       is_disrupting_existing_market: this.state.is_disrupting_existing_market,
       is_targeting_new_untabed_market:
@@ -329,8 +338,8 @@ class IdeaBusiness extends Component {
                       <div className="form-group">
                         <label for="">
                           Are you Disrupting existing market?How?
-                          <span className="text-danger">*</span>
-                        </label>
+                         
+                       <span className="text-danger">*</span> </label>
                         <textarea
                           cols="30"
                           rows="6"
@@ -345,8 +354,8 @@ class IdeaBusiness extends Component {
                       <div className="form-group">
                         <label for="">
                           Are you targeting new untapped market?Justify?
-                          <span className="text-danger">*</span>
-                        </label>
+                         
+                       <span className="text-danger">*</span> </label>
                         <textarea
                           id=""
                           cols="30"
@@ -361,8 +370,8 @@ class IdeaBusiness extends Component {
                       <div className="form-group">
                         <label for="">
                           How will the customer benefit?
-                          <span className="text-danger">*</span>
-                        </label>
+                         
+                       <span className="text-danger">*</span> </label>
                         <textarea
                           id=""
                           cols="30"
@@ -377,8 +386,8 @@ class IdeaBusiness extends Component {
                       <div className="form-group">
                         <label for="">
                           How will your suppliers benefit?
-                          <span className="text-danger">*</span>
-                        </label>
+                         
+                       <span className="text-danger">*</span> </label>
                         <textarea
                           id=""
                           cols="30"
@@ -393,14 +402,14 @@ class IdeaBusiness extends Component {
                       <div className="form-group">
                         <label for="">
                           Are you focused on product or service?
-                          <span className="text-danger">*</span>
-                        </label>
+                         
+                       <span className="text-danger">*</span> </label>
                         <textarea
                           id=""
                           cols="30"
                           rows="6"
-                          name="focused_on_product"
-                          value={this.props.unicorn.focused_on_product}
+                          name="tudFocusedOnProduct"
+                          value={this.props.unicorn.tudFocusedOnProduct}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -409,8 +418,8 @@ class IdeaBusiness extends Component {
                       <div className="form-group">
                         <label for="">
                           What are the direct substitute available in the
-                          market?<span className="text-danger">*</span>
-                        </label>
+                          market?
+                       <span className="text-danger">*</span> </label>
                         <textarea
                           id=""
                           cols="30"
@@ -425,8 +434,8 @@ class IdeaBusiness extends Component {
                       <div className="form-group">
                         <label for="">
                           What are the indirect substitute available in the
-                          market?<span className="text-danger">*</span>
-                        </label>
+                          market?
+                       <span className="text-danger">*</span> </label>
                         <textarea
                           id=""
                           cols="30"
@@ -441,8 +450,8 @@ class IdeaBusiness extends Component {
                       <div className="form-group">
                         <label for="">
                           What are the risks perceived by you?
-                          <span className="text-danger">*</span>
-                        </label>
+                         
+                       <span className="text-danger">*</span> </label>
                         <textarea
                           id=""
                           cols="30"
@@ -459,8 +468,8 @@ class IdeaBusiness extends Component {
                         <label for="">
                           How roles and responsibilities are distributed between
                           core team members?
-                          <span className="text-danger">*</span>
-                        </label>
+                         
+                      </label>
                         <textarea
                           id=""
                           cols="30"
@@ -477,8 +486,8 @@ class IdeaBusiness extends Component {
                       <div className="form-group">
                         <label for="">
                           what are your moats?
-                          <span className="text-danger">*</span>
-                        </label>
+                         
+                       <span className="text-danger">*</span> </label>
                         <textarea
                           id=""
                           cols="30"
@@ -494,7 +503,7 @@ class IdeaBusiness extends Component {
                         <label for="">
                           what are the challanges for scale up and how these
                           will be managed?<span className="text-danger">*</span>
-                        </label>
+                      </label>
                         <textarea
                           id=""
                           cols="30"

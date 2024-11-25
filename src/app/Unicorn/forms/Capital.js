@@ -60,7 +60,16 @@ class FundRaiseRegistration extends Component {
     });
   }
 
-  updatefounder = () => {
+   updatefounder = () => {
+ if (this.props.adminnext) {
+      if (this.state.processtype == "next") {
+        this.props.next();
+        return;
+      } else if (this.state.processtype == "prev") {
+        this.props.prev();
+        return;
+      }
+    }
     let params={
       authorized_captial_of_company: this.state.authorized_captial_of_company,
       paid_up_capital_company: this.state.paid_up_capital_company,
@@ -256,7 +265,7 @@ class FundRaiseRegistration extends Component {
                       <div className="row" style={{ maxWidth: 900 }}>
                         <div className="col-lg-12">
                             <div className="form-group">
-                              <label for="">Authorized capital of the company as on date<span className="text-danger">*</span></label>
+                              <label for="">Authorized capital of the company as on date</label>
                               <input  
                                 type="text" 
                                 id="selected-field"
@@ -268,7 +277,7 @@ class FundRaiseRegistration extends Component {
                               />
                             </div>
                             <div className="form-group">
-                              <label for="">Paid-up capital of the company as on date<span className="text-danger">*</span></label>
+                              <label for="">Paid-up capital of the company as on date</label>
                               <input  
                                 type="text" 
                                 name='tudPaidupCapi'
@@ -279,7 +288,7 @@ class FundRaiseRegistration extends Component {
                               />
                             </div>
                             <div className="form-group">
-                              <label for="">Percentage holding by founders.<span className="text-danger">*</span></label>
+                              <label for="">Percentage holding by founders.</label>
                               <input  
                                 type="number" 
                                 name='tudFounderPer'
@@ -290,7 +299,7 @@ class FundRaiseRegistration extends Component {
                               />
                             </div>
                             <div className="form-group">
-                              <label for="">Percentage holding by other core team members.<span className="text-danger">*</span></label>
+                              <label for="">Percentage holding by other core team members.</label>
                               <input  
                                 type="number" 
                                 name='tudCorePer'
@@ -302,7 +311,7 @@ class FundRaiseRegistration extends Component {
                               />
                             </div>
                             <div className="form-group">
-                              <label for="">Percentage reserved for ESOP.<span className="text-danger">*</span></label>
+                              <label for="">Percentage reserved for ESOP.</label>
                               <input  
                                 type="number" 
                                 onWheel={() => document.activeElement.blur()}
@@ -314,7 +323,7 @@ class FundRaiseRegistration extends Component {
                               />
                             </div>
                             <div className="form-group">
-                              <label for="">Percentage holding of others (holding 1% and above)<span className="text-danger">*</span></label>
+                              <label for="">Percentage holding of others (holding 1% and above)</label>
                               <input  
                                 type="number" 
                                 onWheel={() => document.activeElement.blur()}
@@ -326,7 +335,7 @@ class FundRaiseRegistration extends Component {
                               />
                             </div>
                             <div className="form-group">
-                              <label for="">Actual amount (real cash, less salaries taken) invested by the founders?<span className="text-danger">*</span></label>
+                              <label for="">Actual amount (real cash, less salaries taken) invested by the founders?</label>
                               <input  
                                 type="number" 
                                 onWheel={() => document.activeElement.blur()}
@@ -338,7 +347,7 @@ class FundRaiseRegistration extends Component {
                               />
                             </div>
                             <div className="form-group">
-                              <label for="">Unsecured loans received from founders? (Amount and term of repayment)<span className="text-danger">*</span></label>
+                              <label for="">Unsecured loans received from founders? (Amount and term of repayment)</label>
                               <input  
                                 type="text" 
                                 name='tudUnsecLoanFounder'
@@ -349,7 +358,7 @@ class FundRaiseRegistration extends Component {
                               />
                             </div>
                             <div className="form-group">
-                              <label for="">Unsecured loans received from others? (Amount and terms of repayment)<span className="text-danger">*</span></label>
+                              <label for="">Unsecured loans received from others? (Amount and terms of repayment)</label>
                               <input  
                                 type="text" 
                                 name='tudUnsecLoanOthers'
@@ -360,7 +369,7 @@ class FundRaiseRegistration extends Component {
                               />
                             </div>
                             <div className="form-group">
-                              <label for="">Any other secured or unsecured debt from bank or any others entity.<span className="text-danger">*</span></label>
+                              <label for="">Any other secured or unsecured debt from bank or any others entity.</label>
                               <input  
                                 type="text" 
                                 name='tudOtherLoan'

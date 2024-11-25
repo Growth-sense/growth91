@@ -290,9 +290,9 @@ class AssessmentForm extends Component {
             <>
               {this.state.activeTab == 0 && (
                 <Spin spinning={this.state.loading}>
-                  <div className="container">
+                  <div className="container dashboard-form-flex">
                     <br />
-                    <h2> Assessment Form</h2>
+                    <h2 style={{textAlign  : "center" }}> Assessment Form</h2>
                     <br />
                     <p>
                       Founders, Advisors and the core team collectively drive
@@ -309,6 +309,7 @@ class AssessmentForm extends Component {
                       </span>
                     </p>
                     <br />
+
                     <button
                       className="submit-button"
                       onClick={() => this.show2tab()}

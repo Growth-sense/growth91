@@ -387,7 +387,6 @@ class Founderformdetails extends Component {
   };
   downloadpdf = (item) => {
     this.setState({ modalstatus: true, item: item });
-    console.log(item);
 
   };
   get_assesment_form_details = (item) => {

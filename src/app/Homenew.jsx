@@ -820,8 +820,11 @@ Accessing High-Growth Opportunities
         {/* <NewHome/> */}
         {/* <NewHome2/> */}
 <section>
-{/* <NewHome3/> */}
-       
+<NewHome3/>
+        <div className="join-button">
+    <button>Join the Platform</button>
+  </div>
+
 </section>
 
         

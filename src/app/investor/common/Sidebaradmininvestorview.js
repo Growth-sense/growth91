@@ -4,7 +4,7 @@ import Bridge from "../../constants/Bridge";
 import Apis from "../../constants/Apis";
 import ReactGA from "react-ga4";
 
-export default class Sidebar2 extends Component {
+export default class Sidebaradmininvestorview extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -58,9 +58,9 @@ export default class Sidebar2 extends Component {
 
           <div className="col-md-12 col-2">
             <a
-              href="/investor-dashboard"
+              href="/admin-investor-dashboard"
               className={
-                window.location.pathname == "/investor-dashboard"
+                window.location.pathname == "/admin-investor-dashboard"
                   ? "active"
                   : ""
               }
@@ -73,9 +73,9 @@ export default class Sidebar2 extends Component {
           </div>
           <div className="col-md-12 col-2">
             <a
-              href="/investor-portfolio"
+              href="/admin-investor-portfolio"
               className={
-                window.location.pathname == "/investor-portfolio"
+                window.location.pathname == "/admin-investor-portfolio"
                   ? "active"
                   : ""
               }
@@ -89,9 +89,9 @@ export default class Sidebar2 extends Component {
           <div className="col-md-12 col-2">
             {" "}
             <a
-              href="/investor-analytics"
+              href="/admin-investor-analytics"
               className={
-                window.location.pathname == "/investor-analytics"
+                window.location.pathname == "/admin-investor-analytics"
                   ? "active"
                   : ""
               }
@@ -105,9 +105,9 @@ export default class Sidebar2 extends Component {
           <div className="col-md-12 col-2">
             {" "}
             <a
-              href="/investor-transactions"
+              href="/admin-investor-transactions"
               className={
-                window.location.pathname == "/investor-transactions"
+                window.location.pathname == "/admin-investor-transactions"
                   ? "active"
                   : ""
               }
@@ -123,9 +123,9 @@ export default class Sidebar2 extends Component {
           <div className="col-md-12 col-2">
             {" "}
             <a
-              href="/investor-commitment"
+              href="/admin-investor-commitment"
               className={
-                window.location.pathname == "/investor-commitment"
+                window.location.pathname == "/admin-investor-commitment"
                   ? "active"
                   : ""
               }
@@ -141,9 +141,9 @@ export default class Sidebar2 extends Component {
           <div className="col-md-12 col-2">
             {" "}
             <a
-              href="/investor-documents"
+              href="/admin-investor-documents"
               className={
-                window.location.pathname == "/investor-documents"
+                window.location.pathname == "/admin-investor-documents"
                   ? "active"
                   : ""
               }
@@ -214,9 +214,9 @@ export default class Sidebar2 extends Component {
               <p>Founder</p>
             </div>
             <a
-            href="/investor-as-founder-dashboard"
+            href="/admin-investor-as-founder-dashboard"
             className={
-              window.location.pathname == "/investor-as-founder-dashboard" ? "active" : ""
+              window.location.pathname == "/admin-investor-as-founder-dashboard" ? "active" : ""
             }
           >
             <li className="hiw-li ">
@@ -224,9 +224,9 @@ export default class Sidebar2 extends Component {
             </li>
           </a>
             <a
-              href="/investor-as-founder-investors"
+              href="/admin-investor-as-founder-investors"
               className={
-                window.location.pathname == "/investor-as-founder-investors"
+                window.location.pathname == "/admin-investor-as-founder-investors"
                   ? "active"
                   : ""
               }
@@ -237,9 +237,9 @@ export default class Sidebar2 extends Component {
               </li>
             </a>
             <a
-              href="/investor-as-founder-analytics"
+              href="/admin-investor-as-founder-analytics"
               className={
-                window.location.pathname == "/investor-as-founder-analytics"
+                window.location.pathname == "/admin-investor-as-founder-analytics"
                   ? "active"
                   : ""
               }
@@ -249,9 +249,9 @@ export default class Sidebar2 extends Component {
             </li>
             </a>
             <a
-              href="/investor-as-founder-startup-form"
+              href="/admin-investor-as-founder-startup-form"
               className={
-                window.location.pathname == "/investor-as-founder-startup-form"
+                window.location.pathname == "/admin-investor-as-founder-startup-form"
                   ? "active"
                   : ""
               }
@@ -298,7 +298,7 @@ export default class Sidebar2 extends Component {
             }}
           >
             <a
-              href="/investor-as-founder"
+              href="/admin-investor-as-founder"
               style={{
                 background: "#fff",
                 padding: "7px 14px",

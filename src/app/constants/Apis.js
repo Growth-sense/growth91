@@ -272,6 +272,8 @@ const URLs = {
   uploadFiles:"founder/Startup/uploadFiles",
   add_unicorn_interest:"founder/Startup/add_unicorn_interest",
   unicorn_interested_list:"founder/Startup/unicorn_interested_list",
+  unicorn_Publish_unpublish:"founder/Startup/unicorn_Publish_unpublish",
+
 
 };
 
