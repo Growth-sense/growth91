@@ -219,12 +219,194 @@ const [loading, setLoading] = useState()
                   </div>
                 </div>
               </div>
-              <button>View All Blogs</button>
+              <button ><a  rel="noreferrer" href="https://growth91.com/blog/"style={{color:"white"}}> View All Blogs</a></button>
             </div>
           </div>
         </section>
       ) : (
-        ""
+        
+        <section class="business-crowd">
+        <div class="container">
+          <div class="row">
+            <div class="heading-title founder-text">
+              <p>
+                <span></span>{" "}
+              </p>
+              <h2> Latest News and Trends in Indian Startup Investments</h2>
+              <p> Stay informed about the latest news, trends, and insights on investing in Indian startups through our expert-curated blog.
+              </p>
+            </div>
+          </div>
+
+            <div class="row blog-rows">
+              <div class="col-lg-4 col-md-6 col-sm-6">
+                <div
+                  class="single-following-post aos-init aos-animate"
+                  data-aos="fade-up"
+                >
+                  <a href="#" class="following-post-thum">
+                    <img
+                      src="./web/Invest-in-startups-india-980x668.jpg"
+                      alt=""
+                    />
+                  </a>
+                  <div class="following-post-content">
+                    <div class="following-blog-post-top">
+                      <div class="trending-blog-post-category">
+                        <a href="#" class="business">
+                          Investment Guide
+                        </a>
+                      </div>
+                      <div class="following-blog-post-author">
+                        By <a href="#">Admin</a>
+                      </div>
+                    </div>
+                    <h5 class="following-blog-post-title">
+                      <a href="#">
+                        Evaluating Startup Founders: Unveiling the Pillars of
+                        Success Before You Invest in Startups in India.
+                      </a>
+                    </h5>
+                    <div class="following-blog-post-meta">
+                      <div class="post-meta-left-side">
+                        <span class="post-date">
+                          <i class="fa-regular fa-calendar"></i>
+                          <a href="#">Mar 15, 2024</a>
+                        </span>
+                        <span>10 min read</span>
+                      </div>
+                      <div class="post-meta-right-side">
+                        <a href="#">
+                          <img
+                            src="https://htmldemo.net/bunzo/bunzo/assets/images/icons/small-bookmark.png"
+                            alt=""
+                          />
+                        </a>
+                        <a href="#">
+                          <img
+                            src="https://htmldemo.net/bunzo/bunzo/assets/images/icons/heart.png"
+                            alt=""
+                          />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6 col-sm-6">
+                <div
+                  class="single-following-post aos-init aos-animate"
+                  data-aos="fade-up"
+                >
+                  <a href="#" class="following-post-thum">
+                    <img src="./web/Investment-Strategies-980x653.jpg" alt="" />
+                  </a>
+                  <div class="following-post-content">
+                    <div class="following-blog-post-top">
+                      <div class="trending-blog-post-category">
+                        <a href="#" class="business">
+                          Investment Guide
+                        </a>
+                      </div>
+                      <div class="following-blog-post-author">
+                        By <a href="#">Admin</a>
+                      </div>
+                    </div>
+                    <h5 class="following-blog-post-title">
+                      <a href="#">
+                        {" "}
+                        Invest in Indian Startups: Strategies for Each Stage
+                      </a>
+                    </h5>
+                    <div class="following-blog-post-meta">
+                      <div class="post-meta-left-side">
+                        <span class="post-date">
+                          <i class="fa-regular fa-calendar"></i>
+                          <a href="#">Mar 07, 2024</a>
+                        </span>
+                        <span>2 Comments</span>
+                      </div>
+                      <div class="post-meta-right-side">
+                        <a href="#">
+                          <img
+                            src="https://htmldemo.net/bunzo/bunzo/assets/images/icons/small-bookmark.png"
+                            alt=""
+                          />
+                        </a>
+                        <a href="#">
+                          <img
+                            src="https://htmldemo.net/bunzo/bunzo/assets/images/icons/heart.png"
+                            alt=""
+                          />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6 col-sm-6">
+                <div
+                  class="single-following-post aos-init aos-animate"
+                  data-aos="fade-up"
+                >
+                  <a href="#" class="following-post-thum">
+                    <img
+                      src="./web/invest-in-startup-india-980x637.jpg"
+                      alt=""
+                    />
+                  </a>
+                  <div class="following-post-content">
+                    <div class="following-blog-post-top">
+                      <div class="trending-blog-post-category">
+                        <a href="#" class="business">
+                          Investment Guide
+                        </a>
+                      </div>
+                      <div class="following-blog-post-author">
+                        By <a href="#">Admin</a>
+                      </div>
+                    </div>
+                    <h5 class="following-blog-post-title">
+                      <a href="#">
+                        {" "}
+                        Identifying Promising Startup Sectors for Investment in
+                        India
+                      </a>
+                    </h5>
+                    <div class="following-blog-post-meta">
+                      <div class="post-meta-left-side">
+                        <span class="post-date">
+                          <i class="fa-regular fa-calendar"></i>
+                          <a href="#">Mar 02, 2024</a>
+                        </span>
+                        <span>7 Comments</span>
+                      </div>
+                      <div class="post-meta-right-side">
+                        <a href="#">
+                          <img
+                            src="https://htmldemo.net/bunzo/bunzo/assets/images/icons/small-bookmark.png"
+                            alt=""
+                          />
+                        </a>
+                        <a href="#">
+                          <img
+                            src="https://htmldemo.net/bunzo/bunzo/assets/images/icons/heart.png"
+                            alt=""
+                          />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="join-button">
+
+              <button style={{marginTop:"30px"}} ><a  rel="noreferrer" href="https://growth91.com/blog/"style={{color:"white"}}> View All Blogs</a></button>
+              </div>
+
+            </div>
+          </div>
+        </section> 
       )}
     </>
   );
