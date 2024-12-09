@@ -238,7 +238,7 @@ export default class Dashboard extends Component {
                 </div>
               </div>
               <div className="col-lg-3">
-                <a href="/investor-portfolio" style={{ color: "#000" }}>
+                <a href={!this.props.adminview?("/investor-portfolio"):("#")}  style={{ color: "#000" }}>
                   <div className="view-all-comments">
                     <p>
                       View All
@@ -303,7 +303,7 @@ export default class Dashboard extends Component {
                       {(this.state.kycstatus == "" ||
                         this.state.kycstatus == "Pending") &&
                         this.state.nationality == "Indian Resident" && (
-                          <a href="/kyc-instructions">
+                          <a href={!this.props.adminview?("/kyc-instructions"):("#")} >
                             <div className="single">
                               <div className="d-flex flex-row justify-content-between ">
                                 <h5>KYC </h5>
@@ -378,12 +378,12 @@ export default class Dashboard extends Component {
                 <div className="row kyc-cards" style={{ marginTop: 100 }}>
                   <div className="col-lg-4">
                     <>
-                      <a
-                        href={
-                          this.state.kycstatus == "Pending"
+                          <a href={!this.props.adminview?(  this.state.kycstatus == "Pending"
                             ? "/non-resident-form"
                             : "#"
-                        }
+                        ):("#")} 
+                     
+                        
                       >
                         <div className="single">
                           <div className="d-flex flex-row justify-content-between ">

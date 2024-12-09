@@ -55,7 +55,7 @@ export default class InvestorFutureunicornpage extends Component {
   }
   intrestedlist = async () => {
     let params = {
-      investor_id: localStorage.getItem("investor_id"),
+      investor_id:this.props.investor_id|| localStorage.getItem("investor_id"),
     };
     Bridge.Unicorn.unicorn_interested_list(params).then((result) => {
       this.setState({ showintrestedlist: result.data ,cshowintrestedlist: result.data });
@@ -255,7 +255,8 @@ export default class InvestorFutureunicornpage extends Component {
             <div className="text-center mt-5">
               <h4>
                 You have not show any Intrest on Future Unicorn.<br></br>
-                <a href="/FutureUnicornList" style={{ fontSize: "1.5rem" }}>
+              <a href={!this.props.adminview?("/FutureUnicornList"):("#")}style={{ fontSize: "1.5rem" }}>
+
                   Start Today{" "}
                 </a>
               </h4>

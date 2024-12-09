@@ -3597,7 +3597,7 @@ export default class Analytics extends Component {
             <div className='text-center mt-5'>
 
               <h4>You have not made any investment on Growth91 Platform.<br></br>
-                <a href='/deals' style={{ fontSize: '1.5rem' }}>Start Today </a>
+              <a href={!this.props.adminview?("/deals"):("#")}style={{ fontSize: "1.5rem" }}>Start Today</a>
               </h4>
               <img src='No_data_rafiki.png' width={200} />
             </div>
