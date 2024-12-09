@@ -332,6 +332,8 @@ console.log(  ac_captable_threshold_amount,
     } else if (newAmount < ac_minamount) {
       newAmount = Number(ac_minamount);
     }
+    console.log(ac_maxamount, ac_minamount,);
+    
     this.setState(
       {
         amount: newAmount,
@@ -546,8 +548,8 @@ console.log(  ac_captable_threshold_amount,
       
         let current_date = moment();
         for (let d of result.data) {
-          if (d.deal_id == record.actions[0].action.deal_id) {
-            console.log(record.actions[0].action.deal_id, "sid");
+          if (d.deal_id == record.action.deal_id) {
+            console.log(record.action, "sid");
             let deal_regular_show_date = moment(d.regular_show_date);
             let deal_premium_show_date = moment(d.premium_show_date);
             let deal_start_dt_rg = moment(d.deal_st_date);
@@ -587,7 +589,7 @@ console.log(  ac_captable_threshold_amount,
           // }
         }
         for (let d of result.data) {
-          if (d.deal_id == record.actions[0].action.deal_id) {
+          if (d.deal_id == record.action.deal_id) {
             let investor_id = this.state.investor_id;
 
             let percetage_raised = parseFloat(
@@ -723,27 +725,27 @@ console.log(  ac_captable_threshold_amount,
     console.log(record, "aaa");
     this.setState({
       edit_deal_name: record.deal_name,
-      ac_edit_investor_id: record.actions[0].action.investor_id,
+      ac_edit_investor_id: record.action.investor_id,
       ac_edit_amount: record.amount,
       ac_edit_processingfees: record.fee,
       ac_edit_totalamount: record.totalamount,
-      ac_edit_deduct: record.actions[0].deduct,
+      ac_edit_deduct: record.deduct,
       ac_edit_agree: record.agree,
-      ac_edit_order_token: record.actions[0].order_token,
-      ac_edit_tdsstatus: record.actions[0].tdsstatus,
-      ac_edit_gst: record.actions[0].action.gst,
+      ac_edit_order_token: record.order_token,
+      ac_edit_tdsstatus: record.tdsstatus,
+      ac_edit_gst: record.action.gst,
       ac_edit_legalfee: record.legalfee,
-      ac_edit_walletDeductionMoney: record.actions[0].action.walletDeductionMoney,
+      ac_edit_walletDeductionMoney: record.action.walletDeductionMoney,
       // ac_edit_interested_id: record.actions[0].action.id,
-      parent_id: record.parent_id,
-      ac_edit_interested_id: record.interested_id,
+      parent_id: record.action[0][0].parent_id,
+      ac_edit_interested_id: record.action[0][0].id,
       show_edit_commitment_modal: true,
       ac_commaAmount: record.totalamount - record.fee,
       ac_processingfees: record.fee,
       ac_amountplusgst: record.amount,
       ac_totalamount: record.totalamount,
-      ac_edit_escrowact: record.actions[0].escrowact,
-      ac_edit_escrow_account_ifsc: record.actions[0].escrow_account_ifsc,
+      ac_edit_escrowact: record.escrowact,
+      ac_edit_escrow_account_ifsc: record.escrow_account_ifsc,
     });
     this.setState({
       show_edit_commitment_modal: true,
@@ -1461,7 +1463,9 @@ console.log(  ac_captable_threshold_amount,
                     ) {
             // dceal close parameter
             return (
-              <Button type="primary" onClick={() => this.openKycModal(item.id)}>
+              <Button type="primary" 
+                  onClick={() => {!this.props.adminview?(this.openKycModal(item.id)):(console.log(""))}}
+                >
                 Payment
               </Button>
             );
@@ -1553,8 +1557,8 @@ console.log(  ac_captable_threshold_amount,
           child: item["0"],
           action: item,
           dealname: item.deal_name ? item.deal_name : "---",
-          amount: "₹" + item.amount,
-          fee: item.processingfees ? "₹" + item.processingfees : "₹0",
+          amount:  item.amount,
+          fee: item.processingfees ?  item.processingfees : "0",
           dealview:
             item.deal_status == "Open" ? (
               <Link to={item.page_link}>
@@ -1577,7 +1581,7 @@ console.log(  ac_captable_threshold_amount,
           deal_status: item.deal_status,
           payment_type: item.payment_type ? item.payment_type : "---",
           // totalamount: item.total_paid_amount ? '₹' + item.total_paid_amount : "---",
-          wallet: item.wallet ? "₹" + item.wallet : "₹0",
+          wallet: item.wallet ?  + item.wallet : "0",
           // created_at: item.created_at,
           totalamount: item.totalamount,
           // status: item.commitment_satus=="committed" ? <Tag color="green">{item.commitment_satus}</Tag> : <Tag color="red">{item.commitment_satus}</Tag>
@@ -1668,8 +1672,8 @@ console.log(  ac_captable_threshold_amount,
           key: index,
           actions:[record].map((itemx,index)=>{return itemx}),
           // nestdealname: item.deal_name ? item.deal_name : '---',
-          nestamount: "₹" + item.amount,
-          nestfee: item.processingfees ? "₹" + item.processingfees : "₹0",
+          nestamount:  + item.amount,
+          nestfee: item.processingfees ?  + item.processingfees : "0",
           // nestcreated_at: item.created_at,
           parent_id:item.parent_id,
           interested_id:item.id,
@@ -1754,7 +1758,7 @@ console.log(  ac_captable_threshold_amount,
               <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />}>
                 <a
                   href="#"
-                  onClick={() => this.showEditModal(text, record)}
+                  onClick={() => {!this.props.adminview?(this.showEditModal(text, record)):(console.log(""))}}
                   style={{ fontSize: 14 }}
                 >
                   &nbsp;&nbsp;Edit
@@ -1842,7 +1846,8 @@ console.log(  ac_captable_threshold_amount,
             <div className="text-center mt-5">
               <h4>
                 Commitments made on Growth91 will be visible here.<br></br>
-                <a href="/deals" style={{ fontSize: "1.5rem" }}>
+                <a href={!this.props.adminview?("/deals"):("#")}style={{ fontSize: "1.5rem" }}>
+
                   View our active deals
                 </a>
               </h4>

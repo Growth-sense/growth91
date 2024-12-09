@@ -17,6 +17,7 @@ import {
   Image,
   Checkbox,
   notification,
+  
 } from "antd";
 import Navbar from "./common/Navbar";
 import BottomBar from "./common/BottomBar";
@@ -41,6 +42,7 @@ import Transactions from "../common/Transactions";
 import InnerCommitment from "../common/InnerCommitment";
 import CreatefamilyPage from "../investor/components/CreatefamilyPage";
 import InvestorFutureunicornpage from "../investor/components/InvestorFutureunicornpage";
+import InnerDocument from "../common/InnerDocument";
 
 const { TextArea } = Input;
 
@@ -157,6 +159,7 @@ class Investors extends Component {
       },
       modes: "ass",
       modal_investordashboard: false,
+      investorid_dashboard: "",
       activeform: 0,
     };
   }
@@ -1127,8 +1130,11 @@ class Investors extends Component {
     this.setState({ panValid: isValidPan });
   };
 
-  show_modal_investordashboard = () => {
-    this.setState({ modal_investordashboard: true });
+  show_modal_investordashboard = (rec) => {
+    console.log(rec.investorid);
+    this.setState({investorid_dashboard:rec.investorid})
+    
+    this.setState({ modal_investordashboard: true,activeform:0 });
   };
   activethistab = (num) => {
     this.setState({ activeform: num });
@@ -1343,14 +1349,14 @@ class Investors extends Component {
         },
       },
       {
-        title: "ShowDashboard",
-        dataIndex: "contactno",
-        key: "contactno",
-        render: (text) => {
+        title: "Dashboard",
+        dataIndex: "investorid",
+        key: "investorid",
+        render: (text , record) => {
           return (
-            <button onClick={this.show_modal_investordashboard}>
-              Show Dashboard
-            </button>
+            <Button type="primary" onClick={()=>{this.show_modal_investordashboard(record)}}>
+              View Dashboard
+            </Button>
           );
         },
       },
@@ -2834,10 +2840,10 @@ class Investors extends Component {
           </div>
         </Modal>
         <Modal
-          title="Add G91 Money"
+          title="Investor Dashboard"
           visible={this.state.modal_investordashboard}
-          onOk={() => this.setState({ modal_investordashboard: false })}
-          onCancel={() => this.setState({ modal_investordashboard: false })}
+          onOk={() => this.setState({ modal_investordashboard: false,investorid_dashboard:"" })}
+          onCancel={() => this.setState({ modal_investordashboard: false,investorid_dashboard:"" })}
           width={1850}
           okText={"Submit"}
         >
@@ -2849,7 +2855,7 @@ class Investors extends Component {
               >
                 <section></section>
               </div>
-              <div className="hiw-nav col-md-2 col-12 py-3 px-0 d-lg-block d-none ">
+              <div className="hiw-nav col-md-3 col-12 py-3 px-0 d-lg-block d-none ">
                 <section></section>
                 <div className="investor-sidebar container">
                   <div className="row row-cols-4">
@@ -3068,53 +3074,106 @@ class Investors extends Component {
                 </div>
               </div>
               <div className="col-md-9 col-12 my-5" style={{ marginTop: 50 }}>
-              
-
                 <br />
                 <br />
                 {this.state.activeform == "0" && (
-                  <Innerdasboard
-                    investor_id={localStorage.getItem("investor_id")}
-                  />
+                  <>
+                   <div className="" style={{ marginTop: 65 }}>
+              <h2 className="text-center mb-5">Dashboard</h2>
+            </div>
+                    <Innerdasboard
+                      investor_id={this.state.investorid_dashboard}
+                      adminview={true}
+                      
+                      />
+                  </>
                 )}
                 {this.state.activeform == "1" && (
-                  <Portfolio
-                    investor_id={localStorage.getItem("investor_id")}
+                  <>
+                  
+                    <Portfolio
+                  adminview={true}
+                  investor_id={this.state.investorid_dashboard}
                   />
+                  </>
                 )}
                 {this.state.activeform == "2" && (
-                  <Analytics
-                    investor_id={localStorage.getItem("investor_id")}
-                  />
+                  <>
+                  
+                    <Analytics
+                  adminview={true}
+                      investor_id={this.state.investorid_dashboard}
+                    />
+                  </>
                 )}
                 {this.state.activeform == "3" && (
-                  <Transactions
-                    type="investor"
-                    className="my-5"
-                    investor_id={localStorage.getItem("investor_id")}
-                  />
+                  <>
+                   <div className="" style={{ marginTop: 65 }}>
+              <h2 className="text-center mb-5">Transactions</h2>
+            </div>
+                    <Transactions
+                      type="investor"
+                  adminview={true}
+                      className="my-5"
+                      investor_id={this.state.investorid_dashboard}
+                    />
+                  </>
                 )}
                 {this.state.activeform == "4" && (
-                  <InnerCommitment
-                    type="investor"
-                    className="my-5"
-                    investor_id={localStorage.getItem("investor_id")}
-                  />
+                  <>
+                   <div className="" style={{ marginTop: 65 }}>
+              <h2 className="text-center mb-5">Commitments</h2>
+            </div>
+                    <InnerCommitment
+                      type="investor"
+                  adminview={true}
+                      className="my-5"
+                      investor_id={this.state.investorid_dashboard}
+                    />
+                  </>
+                )}
+                {this.state.activeform == "5" && (
+                  <>
+                   <div className="" style={{ marginTop: 65 }}>
+              <h2 className="text-center mb-5">Documents</h2>
+            </div>
+                    <InnerDocument
+                      type="investor"
+                      className="my-5"
+                      investor_id={this.state.investorid_dashboard}
+                    />
+                  </>
                 )}
                 {this.state.activeform == "6" && (
-                   <Innerreferral
-                   investor_id={localStorage.getItem('investor_id')}
-               />
+                  <>
+                  
+                    <Innerreferral
+                  adminview={true}
+
+                      investor_id={this.state.investorid_dashboard}
+                    />
+                  </>
                 )}
                 {this.state.activeform == "7" && (
-                  <CreatefamilyPage
-                    investor_id={localStorage.getItem("investor_id")}
-                  />
+                  <>
+                  
+                    <CreatefamilyPage
+                      investor_id={this.state.investorid_dashboard}
+                      adminview={true}
+                    />
+                  </>
                 )}
                 {this.state.activeform == "8" && (
-                  <InvestorFutureunicornpage
-                    investor_id={localStorage.getItem("investor_id")}
-                  />
+                  <>
+                   <div className="" style={{ marginTop: 65 }}>
+              <h2 className="text-center mb-5">Future Unicorn</h2>
+            </div>
+                    <InvestorFutureunicornpage
+                      adminview={true}
+
+                      investor_id={this.state.investorid_dashboard}
+                    />
+                  </>
                 )}
 
                 <div

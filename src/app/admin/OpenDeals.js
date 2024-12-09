@@ -67,6 +67,7 @@ class Deals extends Component {
       editctype: "",
       youtubelink: "",
       deal_service: "",
+      valuation: "",
       bank_acc_name: "",
       bank_acc_num: "",
       bank_name: "",
@@ -192,6 +193,7 @@ class Deals extends Component {
       editdefault_special_offer_text: "",
       editoffer_discount: "",
       edit_deal_service: "",
+      edit_valuation: "",
 
       deal_id: "",
 
@@ -435,6 +437,7 @@ class Deals extends Component {
       edit_signer_name: item.signer_name,
       edit_deal_name: item.deal_name,
       edit_deal_service: item.deal_service,
+      edit_valuation: item.valuation,
       edit_signer_email: item.signer_email,
       edit_signer_mobile: item.signer_mobile,
       edit_vendor_id: item.vendor_id,
@@ -660,6 +663,7 @@ bank_branch:this.state.editbank_branch,
       signer_email: this.state.edit_signer_email,
       vendor_id: this.state.edit_vendor_id,
       deal_service: this.state.edit_deal_service,
+      valuation: this.state.edit_valuation,
     };
     Bridge.deal.edit(params).then((result) => {
       if (result.status == 1) {
@@ -1031,6 +1035,7 @@ bank_branch:this.state.editbank_branch,
           startupname: this.state.startupname,
           deal_name: this.state.deal_name,
           deal_service: this.state.deal_service,
+          valuation: this.state.valuation,
           dealstartdate: this.state.dealStartDtReg,
           dealStartDtPrem: this.state.dealStartDtPrem,
           dealenddate: this.state.dealEndDtReg,
@@ -1077,7 +1082,7 @@ bank_branch:this.state.editbank_branch,
           eligibility_id: e_id,
           deal_type: this.state.add_dealtype,
           vendor_id: this.state.add_vendor_id,
-          automated_email: "No",
+"automated _email": "No",
         };
         // console.log("params",params)
         Bridge.deal.add(params).then((result) => {
@@ -1819,6 +1824,7 @@ bank_branch:this.state.editbank_branch,
         "Deal Name": item.deal_name,
         "Deal Type": item.deal_type,
         "Deal Service": item.deal_service,
+        "valuation": item.valuation,
         "Deal Show Date(Regular)": item.regular_show_date,
         "Deal Show Date(Premium)": item.premium_show_date,
         "Deal Start Date(Regular)": item.deal_st_date,
@@ -2534,6 +2540,7 @@ bank_branch:this.state.editbank_branch,
         action: item,
         deal_type: item.deal_type,
         deal_service: item.deal_service,
+        valuation: item.valuation,
         deal_name: item.deal_name,
         noofinvitations: item,
         operational_founder: item,
@@ -2791,6 +2798,12 @@ bank_branch:this.state.editbank_branch,
         title: "Deal Service",
         dataIndex: "deal_service",
         key: "deal_service",
+        width: 100,
+      },
+      {
+        title: "Valuation",
+        dataIndex: "valuation",
+        key: "valuation",
         width: 100,
       },
       {
@@ -3340,6 +3353,20 @@ bank_branch:this.state.editbank_branch,
                 <Option value="CCPS">CCPS</Option>
                 <Option value="CCD/CCPS">CCD/CCPS</Option>
               </Select>
+            </div>
+            <div className="form-group-mt-3">
+              <label className="mb-2">
+                Valuation <span className="text-danger">*</span>
+              </label>
+              <Input
+                value={this.state.valuation}
+                style={{ width: "100%" }}
+                onChange={(e) => {
+                  this.setState({ valuation: e.target.value });
+
+                }}
+              />
+               
             </div>
             <div className="form-group mt-3">
               <label className="mb-2">
@@ -3957,6 +3984,18 @@ bank_branch:this.state.editbank_branch,
                 <Option value="CCD/CCPS">CCD/CCPS</Option>
               </Select>
             </div>
+            <div className="form-group-mt-3">
+              <label className="mb-2">
+              Valuation<span className="text-danger">*</span>
+              </label>
+              <Input
+                value={this.state.edit_valuation}
+                style={{ width: "100%" }}
+                onChange={(e) => {
+                  this.setState({ edit_valuation: e.target.value });
+                }}
+              />
+            </div>
             <div className="form-group mt-3">
               <label className="mb-2">
                 Startup Founder Name <span className="text-danger">*</span>
@@ -4460,6 +4499,10 @@ bank_branch:this.state.editbank_branch,
                 <Option value="Artificial Intelligence">
                   Artificial Intelligence
                 </Option>
+                <Option value="Digital Content Creation and Photography industry,
+">
+Digital Content Creation and Photography industry,
+</Option>
                 <Option value="Augumented Reality">Augumented Reality</Option>
                 <Option value="Virtual Reality">Virtual Reality</Option>
                 <Option value="Blockchain">Blockchain</Option>

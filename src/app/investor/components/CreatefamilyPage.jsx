@@ -51,7 +51,7 @@ export default class CreatefamilyPage extends Component {
       },
 
       () => this.viewgroupall(),
-      () => this.viewgroupasmember()
+      
     );
     // this.get_referral_code();
   }
@@ -107,7 +107,7 @@ export default class CreatefamilyPage extends Component {
       userID: localStorage.getItem("Parent_investor_id"),
       groupName: this.state.newgroupName,
     };
-    console.log(params.groupName);
+
     if (params.groupName.length == 0) {
       toast.error("plz fill all fiels");
     } else {
@@ -118,9 +118,11 @@ export default class CreatefamilyPage extends Component {
     }
   };
   viewgroupall = () => {
+    let values
     let params = {
-      userID: localStorage.getItem("Parent_investor_id"),
-    };
+      userID:!this.props.adminview?localStorage.getItem("Parent_investor_id"):this.props.investor_id,
+    }
+
     Bridge.family.getGroupList(params).then((result) => {
       this.setState({ group_list: result.data });
     });
@@ -131,18 +133,16 @@ export default class CreatefamilyPage extends Component {
       this.setState({ memberdetail: "", memberlistloader: true });
     this.setState({ ids: value });
     let params = {
-      parent_id: localStorage.getItem("Parent_investor_id"),
+      parent_id: !this.props.adminview?localStorage.getItem("Parent_investor_id"):this.props.investor_id,
       groupID: value,
     };
     this.setState({ chggroupID: value });
 
     Bridge.investor.getfamilymember(params).then((result) => {
       const data = result.data.filter((item, index) => {
-        console.log(item.investor_id);
-        return item.investor_id == localStorage.getItem("investor_id");
+        return item.investor_id == !this.props.adminview?localStorage.getItem("investor_id"):this.props.investor_id
       });
-      console.log(data);
-      console.log(data.length, "0");
+     
 
       this.setState({ memberdetail: result.data, memberlistloader: false });
     });
@@ -178,12 +178,12 @@ export default class CreatefamilyPage extends Component {
       groupID: this.state.chggroupID,
       groupName: this.state.change_group_name,
     };
-    console.log(params);
+
     Bridge.family.editGroup(params).then((result) => {
       if (result.message == "Group updated successfully.") {
         this.setState({ view_change_group_name_modal: false });
         this.viewgroupall();
-        this.viewgroupasmember();
+        
         toast.success("Group Name Change Successfully");
       } else if (result.message == "Group is already exist.") {
         toast.error("Plz Use another name");
@@ -200,19 +200,19 @@ export default class CreatefamilyPage extends Component {
     });
   };
   deletefamilymeber = (value) => {
-    console.log(value, "ads");
+
     let params = {
       userID: localStorage.getItem("Parent_investor_id"),
       groupID: this.state.this.state.chggroupID,
       invite_email: value.data.email,
       invite_mobile: value.data.mobile,
     };
-    console.log(params);
+
     Bridge.family.deleteGroupMember(params).then((result) => {
       if (result.message == "Member deleted successfully.") {
         this.setState({ view_change_group_name_modal: false });
         this.viewgroupall();
-        this.viewgroupasmember();
+        
         this.getmember(this.state.this.state.chggroupID);
 
         toast.success("Member deleted successfully.");
@@ -222,14 +222,14 @@ export default class CreatefamilyPage extends Component {
     });
   };
   removerequest = (value) => {
-    console.log(value, "ads");
+
     let params = {
       userID: localStorage.getItem("Parent_investor_id"),
       groupID: value.groupID,
       invite_email: value.email,
       invite_mobile: value.mobile,
     };
-    console.log(params);
+
     Bridge.family.deleteRequest(params).then((result) => {
       if (
         result.message ==
@@ -244,7 +244,7 @@ export default class CreatefamilyPage extends Component {
     });
   };
   showDeleteModal = (value) => {
-    console.log(value);
+
 
     this.setState({
       view_delete_group_modal: true,
@@ -259,9 +259,12 @@ export default class CreatefamilyPage extends Component {
       this.state.group_list &&
       this.state.group_list
         .filter(
-          (item) => item.userID == localStorage.getItem("Parent_investor_id")
+          (item) => item.userID == !this.props.adminview?localStorage.getItem("Parent_investor_id"):this.props.investor_id,
         )
         .map((item, index) => {
+
+
+          
           return {
             key: item.groupID,
             name: item.groupName,
@@ -275,10 +278,11 @@ export default class CreatefamilyPage extends Component {
       this.state.group_list &&
       this.state.group_list
         .filter(
-          (item) => item.userID !== localStorage.getItem("Parent_investor_id")
+          (item) => item.userID != (this.props.adminview?this.props.investor_id:localStorage.getItem("Parent_investor_id")),
         )
         .map((item, index) => {
-          console.log(item);
+
+
           return {
             key: item.groupID,
             name: item.groupName,
@@ -321,7 +325,8 @@ export default class CreatefamilyPage extends Component {
                 style={{ width: 120 }}
               >
                 <Menu.Item icon={<UserAddOutlined />}>
-                  <Link to={`/View-Group-list?id=${records.key}`}>
+                  <Link to={!this.props.adminview?(`/View-Group-list?id=${records.key}`):("#")}>
+                  
                     <div className="menu-action">Manage</div>
                   </Link>
                 </Menu.Item>
@@ -329,6 +334,7 @@ export default class CreatefamilyPage extends Component {
                   <>
                     <div
                       className="menu-action"
+                      
                       onClick={() => {
                         this.getmember(records.key);
                         this.setState({ memberlist: true });
@@ -343,9 +349,9 @@ export default class CreatefamilyPage extends Component {
                   <>
                     <div
                       className="menu-action"
-                      onClick={() => {
-                        this.groupn_name_edit_modal(records);
-                      }}
+                  onClick={() => {!this.props.adminview?(this.groupn_name_edit_modal(records)):(console.log(""))}}
+                      
+                    
                     >
                       Edit
                     </div>
@@ -359,7 +365,8 @@ export default class CreatefamilyPage extends Component {
                   <a
                     href="#"
                     style={{ fontSize: 14 }}
-                    onClick={() => this.showDeleteModal(records)}
+                  onClick={() => {!this.props.adminview?(this.showDeleteModal(records)):(console.log(""))}}
+
                   >
                                         <div className="menu-action">Delete</div>
 
@@ -407,7 +414,7 @@ export default class CreatefamilyPage extends Component {
         dataIndex: "action",
         key: "action",
         render: (text, records) => {
-          console.log(text);
+
           const menu = (
             <>
               <Menu
@@ -452,7 +459,6 @@ export default class CreatefamilyPage extends Component {
     const MembersourceSource =
       this.state.memberdetail &&
       this.state.memberdetail.map((item, index) => {
-        console.log(item);
         return {
           key: item.groupID,
           name: item.first_name + " " + item.last_name,
@@ -651,7 +657,8 @@ export default class CreatefamilyPage extends Component {
                   <div className="col offset-md-10">
                     <button
                       className="small-button-dark3"
-                      onClick={this.onClickInvite}
+                  onClick={() => {!this.props.adminview?(this.onClickInvite()):(console.log(""))}}
+
                     >
                       Create Group
                     </button>
