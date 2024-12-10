@@ -1838,7 +1838,36 @@ class VsnapU extends Component {
                     </div>
                   </Modal>
                   <div className="col-lg-7 deal-banner deals-video-banner liaplus ">
-                     {this.state.youtube_url && (
+                  <iframe
+                      style={{
+                        boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
+                        borderRadius: 3,
+                        // marginLeft: 65,
+                      }}
+                      
+                      width="100%"
+                      height="335"
+                      src="https://www.youtube.com/embed/rjII1rEeals"
+                      // title="RTC Range Product Application"
+                      frameborder="10"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowfullscreen
+                    ></iframe>
+                    <iframe
+                      style={{
+                        boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
+                        borderRadius: 3,
+                        // marginLeft: 65,
+                      }}
+                      width="100%"
+                      height="335"
+                      src="https://www.youtube.com/embed/Glkd2FE-M4I"
+                      // title="Spice Range Introduction Video"
+                      frameborder="10"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowfullscreen
+                    ></iframe>
+                     {/* {this.state.youtube_url && (
                                         
                  <iframe
                       style={{
@@ -1851,7 +1880,7 @@ class VsnapU extends Component {
                       src={this.state.youtube_url}   frameborder="10"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowfullscreen
-                    ></iframe> )}
+                    ></iframe> )} */}
 
                     {/* {!this.state.youtube_url && (
                       <>
@@ -2001,7 +2030,7 @@ class VsnapU extends Component {
                             <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
                           </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                          VsnapU started as a B2B e-commerce photography provider, working with well-known brands like Zomato, MakeMyTrip, and OYO. Post-COVID, the company pivoted to premium B2C photography services, catering to travelers at luxury resorts. This shift, supported by a Shark Tank advertisement and funding, has resulted in over 60,000 completed shoots and an impressive ₹8.5 crore ARR, with a strong 47.5% gross margin.
+                          VsnapU started as a B2B e-commerce photography provider, working with well-known brands like Zomato, MakeMyTrip, and OYO. Post-COVID, the company pivoted to premium B2C photography services, catering to travelers at luxury resorts. This shift, supported by a Shark Tank feature and funding, has resulted in over 60,000 completed shoots and an impressive ₹8.5 crore ARR, with a strong 47.5% gross margin.
                           </p>
                         </div>
                       </div>
@@ -2053,7 +2082,8 @@ class VsnapU extends Component {
                             <img src="./assets/images/deals-details/highlight3.jpg" />
                           </div>
                           <p style={{ paddingLeft: "0px !important" }}>
-                          VsnapU has raised ₹2 crore from the Startup India scheme and received funding from Inflection Point Ventures. The company now seeks ₹16 crore in funding, with plans to allocate resources to technology (35%), marketing (30%), manpower (25%), and equipment (10%). These investments aim to strengthen its operations and support its scaling initiatives.                          </p>
+                          VsnapU earned the prestigious TripAdvisor “Traveller’s” Choice award in 2022 highlighting its excellence in delivering top-quality photography services and customer satisfaction.
+                          </p>
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
@@ -2291,7 +2321,7 @@ class VsnapU extends Component {
                                           </div>
                                           <div className="info">
                                             <span>Valuation</span>
-                                            <h4>60 Crores</h4>
+                                            <h4>55-60 Cr Pre Money</h4>
                                           </div>
                                         </div>
                                       </div>
@@ -2708,27 +2738,7 @@ class VsnapU extends Component {
                                                           textAlign: "justify",
                                                         }}
                                                       >
-                                                      Scaling up a service-oriented startup like VsnapU presents several challenges. Operational complexities increase as the company expands to new regions, requiring efficient management of a growing team of photographers, equipment logistics, and quality control. Ensuring consistent service quality across diverse locations is particularly difficult, as photography heavily relies on individual skills. Additionally, the cost of acquiring new customers in untested markets can escalate, especially when entering competitive regions with established players.
-</p>
-<p
-                                                        style={{
-                                                          color: "#7f7776",
-                                                          textAlign: "justify",
-                                                          marginTop:"10px"
-
-                                                        }}
-                                                      >
-caling up a service-oriented startup like VsnapU presents several challenges. Operational complexities increase as the company expands to new regions, requiring efficient management of a growing team of photographers, equipment logistics, and quality control. Ensuring consistent service quality across diverse locations is particularly difficult, as photography heavily relies on individual skills. Additionally, the cost of acquiring new customers in untested markets can escalate, especially when entering competitive regions with established players.
-</p>
-<p
-                                                        style={{
-                                                          color: "#7f7776",
-                                                          textAlign: "justify",
-                                                          marginTop:"10px"
-
-                                                        }}
-                                                      >
-Finally, maintaining service quality at scale requires a combination of decentralized operations and continuous training. Regional managers can oversee local operations, supported by a centralized branding and quality assurance system. Regular training programs for photographers, paired with periodic audits, can ensure consistency in customer experience. Leveraging data analytics to identify high-demand regions and customer preferences will help optimize resource allocation and ensure sustainable growth. VsnapU can overcome scaling challenges through these strategies while maintaining high-quality services and customer satisfaction.
+                                                        The challenge for scale can be the supply side of Photographers. Which will be handled by having training institutes where Photographers can come by paying a decent fees and then be employed with VsnapU in case they are good at art and serious about the profession. This way VsnapU will be creating their own supply in addition to the Photographers already present in the market.
                                                       </p>
                                                     </div>
                                                   </Panel>
@@ -2758,16 +2768,7 @@ Finally, maintaining service quality at scale requires a combination of decentra
                                                         }}
                                                       >
 This market remains relatively untapped because traditional photography often relies on fragmented, offline service providers with inconsistent quality and outdated processes. By addressing gaps in accessibility, standardization, and customer convenience, VsnapU positions itself to attract a wide customer base, including individuals and businesses seeking efficient and high-quality photography solutions.
-</p><p
-                                                        style={{
-                                                          color: "#7f7776",
-                                                          textAlign: "justify",
-                                                          marginTop:"10px"
-
-                                                        }}
-                                                      >
-This market remains relatively untapped because traditional photography often relies on fragmented, offline service providers with inconsistent quality and outdated processes. By addressing gaps in accessibility, standardization, and customer convenience, VsnapU positions itself to attract a wide customer base, including individuals and businesses seeking efficient and high-quality photography solutions.
-                                                      </p>
+</p>
                                                     </div>
                                                   </Panel>
                                                   <Panel
