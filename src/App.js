@@ -691,6 +691,7 @@ function App() {
           <Route path="/VsnapU" >
             <ProtectDeals Component={VsnapU} />
           </Route>
+        
           <Route path="/Petmojo" >
             <ProtectDeals Component={Petmojo} />
           </Route>

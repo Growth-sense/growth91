@@ -831,9 +831,18 @@ class VsnapU extends Component {
 
     if (e.target.name == "deduct") {
       if (e.target.checked == true) {
+
+
         let processingfees = parseFloat(
           (this.state.amount / 100) * parseFloat(this.state.percentage)
         );
+
+        // Adjust processingFees based on the fractional part
+        processingfees = Math.floor(processingfees) +
+          (processingfees % 1 > 0.5 ? 1 : 0);
+
+
+
         let tdsamount = parseFloat(processingfees / 100) * 10;
         let minusamt = parseFloat(processingfees - tdsamount);
 
@@ -921,6 +930,8 @@ class VsnapU extends Component {
           : this.state.walletMoney;
     }
     let gstValue = ((legalfee.toFixed(0) - walletDeductionMoney) * gst) / 100;
+    // ceil gst value
+    gstValue = Math.ceil(gstValue);
     // console.log(gst);
     // console.log(legalfee);
     // console.log(gstValue);
@@ -1664,7 +1675,7 @@ class VsnapU extends Component {
                           <span className="checkmark"></span>
                         </label>
 
-                        <label className="container-check">
+                        {/* <label className="container-check">
                           I will deduct TDS on service charges and deposit to
                           Income tax on time
                           <input
@@ -1673,7 +1684,7 @@ class VsnapU extends Component {
                             onChange={this.onChangeCheckbox}
                           />
                           <span className="checkmark"></span>
-                        </label>
+                        </label> */}
 
                         <label
                           className="container-check"
@@ -2184,7 +2195,7 @@ class VsnapU extends Component {
                             </p>
                           </div>
                         </div>
-                        <div className="col-lg-6 col-md-6 col-sm-6">
+                        {/* <div className="col-lg-6 col-md-6 col-sm-6">
                           <div className="single medialink text-left d-flex flex-column  ">
                           <img src="./assets/images/deals-details/Vsnap/Media/media4.webp" />
                           <p style={{ padding: "1px !important" }}>
@@ -2197,7 +2208,7 @@ class VsnapU extends Component {
                               </a>
                             </p>
                           </div>
-                        </div>
+                        </div> */}
 
                       </div>
                     </div> 

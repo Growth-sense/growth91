@@ -81,6 +81,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:no-debug": "react-scripts start --no-debug",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "postbuild":"react-snap",
