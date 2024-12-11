@@ -137,7 +137,7 @@ class VsnapU extends Component {
     document.title = "Vsnapu - Growth91 - Startup Marketplace ";
   }
   componentDidMount() {
-    let deal_id = "133";
+    let deal_id = "40";
     this.setState({ deal_id: deal_id }, () => {
       this.get_pitch_list();
     });
