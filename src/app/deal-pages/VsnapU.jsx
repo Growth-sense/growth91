@@ -1307,7 +1307,7 @@ class VsnapU extends Component {
                         )}
                       </div>
                       <div className="d-flex tags">
-                        {this.state.tags.length > 0 &&
+                        {/* {this.state.tags.length > 0 &&
                           this.state.tags.map((tag, index) => (
                             <div
                               className="hero-tag"
@@ -1319,7 +1319,19 @@ class VsnapU extends Component {
                             >
                               {tag}
                             </div>
-                          ))}
+                          ))} */}
+
+
+<div
+                              className="hero-tag"
+                             
+                              style={{
+                                background: "rgb(41 23 111)",
+                                color: "#fff",
+                              }}
+                            >
+                             Digital Content Generation and Photography Industry
+                            </div>
                       </div>
                       <p style={{ textAlign: "justify" }}>
                       VsnapU is a photography and content generation startup transforming the traditional photography industry through innovative, tech-driven solutions. The platform offers professional photography services with a focus on seamless customer experiences, utilizing technology for booking, editing, and delivery. Its future roadmap includes diversifying into MSMEs, government projects, and SaaS-based tools for photographers, supported by investments in AI and proprietary technologies for advanced image and video processing. Backed by a seasoned core team, VsnapU has secured funding from Startup India and Inflection Point Ventures and is currently seeking ₹16 crore to scale its operations. The company is targeting ₹234 crore in revenue over the next three years.
@@ -2150,7 +2162,7 @@ class VsnapU extends Component {
                           </div>
                         </div>
 
-                        <div className="col-lg-6 col-md-6 col-sm-6">
+                        {/* <div className="col-lg-6 col-md-6 col-sm-6">
                           <div className="single medialink text-left d-flex flex-column  ">
                             <img src="./assets/images/deals-details/Vsnap/Media/media2.webp" />
                             <p style={{ padding: "1px !important" }}>
@@ -2163,22 +2175,10 @@ class VsnapU extends Component {
                               </a>
                             </p>
                           </div>
-                        </div>
-                        <div className="col-lg-6 col-md-6 col-sm-6">
-                          <div className="single medialink text-left d-flex flex-column  ">
-                          <img src="./assets/images/deals-details/Vsnap/Media/media3.webp" />
-                          <p style={{ padding: "1px !important" }}>
-                            VsnapU raises Rs 2 Cr in the seed round of funding
+                        </div> */}
 
-                              <a    
-                                href ="https://startupstorymedia.com/insights-vsnapu-raises-rs-2-cr-in-the-seed-round-of-funding/"
-                                target="_blank"
-                              >
-                                Readmore
-                              </a>
-                            </p>
-                          </div>
-                        </div>
+
+
                         <div className="col-lg-6 col-md-6 col-sm-6">
                           <div className="single medialink text-left d-flex flex-column  ">
                           <img src="./assets/images/deals-details/Vsnap/Media/media2.webp" />
@@ -2195,6 +2195,23 @@ class VsnapU extends Component {
                             </p>
                           </div>
                         </div>
+
+                        <div className="col-lg-6 col-md-6 col-sm-6">
+                          <div className="single medialink text-left d-flex flex-column  ">
+                          <img src="./assets/images/deals-details/Vsnap/Media/media3.webp" />
+                          <p style={{ padding: "1px !important" }}>
+                            VsnapU raises Rs 2 Cr in the seed round of funding
+
+                              <a    
+                                href ="https://startupstorymedia.com/insights-vsnapu-raises-rs-2-cr-in-the-seed-round-of-funding/"
+                                target="_blank"
+                              >
+                                Readmore
+                              </a>
+                            </p>
+                          </div>
+                        </div>
+                    
                         {/* <div className="col-lg-6 col-md-6 col-sm-6">
                           <div className="single medialink text-left d-flex flex-column  ">
                           <img src="./assets/images/deals-details/Vsnap/Media/media4.webp" />
