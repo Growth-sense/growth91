@@ -961,7 +961,7 @@ class NewWebHeader extends Component {
                             Blog
                           </a>
                         </li>
-                        <li>
+                        {/* <li>
                           <a
                             rel="noreferrer"
                             className={
@@ -973,7 +973,7 @@ class NewWebHeader extends Component {
                           </a>
                        
 
-                        </li>
+                        </li> */}
                         {this.state.loggedinstatus == true ? (
                           ""
                         ) : (
