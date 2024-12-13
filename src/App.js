@@ -215,6 +215,7 @@ import familyinvite from "./app/investor/family-invite.jsx";
 import Mindler from "./app/deal-pages/Mindler.jsx";
 import CUR8 from "./app/deal-pages/CUR8.jsx";
 import Edept from "./app/deal-pages/Edept.jsx";
+import VsnapU from "./app/deal-pages/vsnapU.jsx";
 import Innoserv from "./app/deal-pages/Innoserv.jsx";
 import Petmojo from "./app/deal-pages/Petmojo(Pre Series A).jsx";
 import LVLAlpha from "./app/deal-pages/LVLAlpha.jsx";
@@ -640,6 +641,9 @@ function App() {
           </Route>
           <Route path="/Edept" >
             <ProtectDeals Component={Edept} />
+          </Route>
+          <Route path="/VsnapU" >
+            <ProtectDeals Component={VsnapU} />
           </Route>
           <Route path="/Petmojo" >
             <ProtectDeals Component={Petmojo} />
