@@ -25,7 +25,7 @@ import { NewWebFooter } from "../common/NewWebFooter";
 
 const { Panel } = Collapse;
 const { TabPane } = Tabs;
-class VsnapU extends Component {
+class uknowaHRMS extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -1292,7 +1292,7 @@ class VsnapU extends Component {
                                                             objectFit: "contain",
                                                         }}
                                                     />
-                                                    <h5 className="ml-5 mt-4">Vsnapu</h5>
+                                                    <h5 className="ml-5 mt-4">uknowva HRMS</h5>
                                                     {/* <h5>{this.state.logo}</h5> */}
                                                 </div>
                                                 {this.state.isPrivate == true && (
@@ -1330,7 +1330,7 @@ class VsnapU extends Component {
                                                         color: "#fff",
                                                     }}
                                                 >
-                                                    Digital Content Generation and Photography Industry
+                                                    HR Tech Industry
                                                 </div>
                                             </div>
                                             <p style={{ textAlign: "justify" }}>
@@ -1861,35 +1861,13 @@ class VsnapU extends Component {
                                         </div>
                                     </Modal>
                                     <div className="col-lg-7 deal-banner deals-video-banner liaplus ">
-                                        <iframe
-                                            style={{
+                                       <iframe width="560" height="315"
+                                       style={{
                                                 boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
                                                 borderRadius: 3,
                                                 // marginLeft: 65,
-                                            }}
-
-                                            width="100%"
-                                            height="335"
-                                            src="https://www.youtube.com/embed/rjII1rEeals"
-                                            // title="RTC Range Product Application"
-                                            frameborder="10"
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                            allowfullscreen
-                                        ></iframe>
-                                        <iframe
-                                            style={{
-                                                boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
-                                                borderRadius: 3,
-                                                // marginLeft: 65,
-                                            }}
-                                            width="100%"
-                                            height="335"
-                                            src="https://www.youtube.com/embed/Glkd2FE-M4I"
-                                            // title="Spice Range Introduction Video"
-                                            frameborder="10"
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                            allowfullscreen
-                                        ></iframe>
+                                            }} src="https://www.youtube.com/embed/5TkGBxxAG4Y?si=83FF3G4dUKfH_vEy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                    
                                         {/* {this.state.youtube_url && (
                                         
                  <iframe
@@ -1957,8 +1935,7 @@ class VsnapU extends Component {
                             >
                               India's Higher Education Market:
                             </span>{" "} */}
-                                                        The digital content and photography industry is witnessing a major shift, fueled by the growing need for organized, professional services that cater to evolving consumer expectations. Traditionally, this market has been fragmented, with challenges such as inconsistent pricing, unpredictable delivery timelines, and varying quality levels. Customers have often relied on freelancers, leading to dissatisfaction due to the lack of standardization. However, technological advancements and the introduction of scalable platforms are addressing these issues, transforming the sector into a more structured and accessible space. These innovations are streamlining workflows, reducing inefficiencies, and providing reliable services to both consumers and professionals.
-                                                    </p>
+The global HR Tech market, valued at $23 billion in 2023, is projected to reach $91.8 billion by 2032, growing at a CAGR of 10%. This expansion is fueled by the increasing adoption of AI-powered tools and cloud-based solutions that streamline payroll, recruitment, and workforce management. Emerging markets in Asia-Pacific, the Middle East, and Africa are driving growth as businesses in these regions prioritize digital transformation and scalable, cost-effective HR systems.                                                    </p>
                                                 </div>
                                             </div>
                                             <div className="col-lg-4">
@@ -1987,8 +1964,7 @@ class VsnapU extends Component {
                             >
                               International Education and Skill Shortages:
                             </span>{" "} */}
-                                                        Globally, the digital content creation market is valued at over $15 billion, with an anticipated CAGR of 20% in the coming years. This growth is fueled by industries such as e-commerce, entertainment, advertising, and education, which increasingly depend on digital content to engage their audiences and enhance brand visibility. Similarly, the global photography market, estimated at $50 billion, is also experiencing significant growth, driven by commercial photography. As businesses adopt digital-first strategies, the demand for personalized, high-quality content is accelerating, creating immense opportunities for companies offering innovative solutions in this space.
-                                                    </p>
+Key trends include the rise of AI and predictive analytics for employee retention and performance, along with a focus on enhancing the employee experience through tools like mood trackers and engagement platforms. Hybrid work models and gig economy management are also shaping demand for flexible HR solutions. Cloud-based platforms dominate due to their affordability and scalability, with additional opportunities emerging in DE&I analytics and tools designed for workforce upskilling.                                                    </p>
                                                 </div>
                                             </div>
 
@@ -2018,8 +1994,7 @@ class VsnapU extends Component {
                             >
                               Government Focus on Upskilling:
                             </span>{" "} */}
-                                                        In this evolving landscape, platforms that combine technology with customer-first principles are well-positioned to lead the market transformation. By addressing pain points like undefined costs, long editing cycles, and operational inefficiencies, these platforms provide seamless, scalable solutions that cater to modern consumer needs. Additionally, they empower photographers by relieving them of ancillary tasks such as marketing and post-production, allowing them to focus on creativity. This integration of convenience, quality, and technology is redefining the way content and photography services are delivered, paving the way for sustainable growth and innovation in the industry.
-                                                    </p>{" "}
+The competitive landscape features global players like SAP SuccessFactors and Workday, alongside regional providers such as Darwinbox and Keka HR. To stand out, modern HR platforms emphasize user-friendly design, customization, and employee-centric features like emotional intelligence tools. The future of HR Tech lies in targeting underserved SME markets, leveraging AI-driven innovation, and offering integrated ecosystems that balance operational efficiency with employee well-being.                                                    </p>{" "}
                                                 </div>
                                             </div>
                                         </div>
@@ -2053,8 +2028,7 @@ class VsnapU extends Component {
                                                         <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
                                                     </div>
                                                     <p style={{ paddingLeft: "0px !important" }}>
-                                                        VsnapU started as a B2B e-commerce photography provider, working with well-known brands like Zomato, MakeMyTrip, and OYO. Post-COVID, the company pivoted to premium B2C photography services, catering to travelers at luxury resorts. This shift, supported by a Shark Tank feature and funding, has resulted in over 60,000 completed shoots and an impressive ₹8.5 crore ARR, with a strong 47.5% gross margin.
-                                                    </p>
+uknowva provides AI-enabled HR solutions for mid-sized and growing organizations (200–5,000 employees), covering payroll, recruitment, onboarding, performance management, and employee engagement. With a 350,000+ user base, 150+ paying customers, and a 93% retention rate, it delivers strong product-market fit.                                                    </p>
                                                 </div>
                                             </div>
                                             <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
@@ -2066,8 +2040,7 @@ class VsnapU extends Component {
                                                         <img src="./assets/images/deals-details/Petmojo/highlight01.jpg" />
                                                     </div>
                                                     <p style={{ padding: "1px !important" }}>
-                                                        The company’s monthly B2C revenue has reached ₹32 lakh, with plans to scale it to ₹1 crore in the next year. VsnapU has diversified its revenue streams, with B2C contributing 40.8%, followed by travel (19.7%) and resort services (19.1%). Long-term, VsnapU aims to achieve a revenue target of ₹234 crore within three years, leveraging its growing market presence.
-                                                    </p>{" "}
+uknowva stands out with AI and Emotional Intelligence (EI) features like sentiment analysis, stress detection, and attrition prediction, fostering employee well-being alongside productivity. Customizable and user-friendly, it surpasses competitors like Darwinbox and SAP SuccessFactors.                                                    </p>{" "}
                                                 </div>
                                             </div>
                                             <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
@@ -2079,8 +2052,7 @@ class VsnapU extends Component {
                                                         <img src="./assets/images/deals-details/highlight2.jfif" />
                                                     </div>
                                                     <p style={{ padding: "0px !important" }}>
-                                                        VsnapU effectively uses digital marketing channels like Instagram, Google, JustDial, and WedMeGood for customer acquisition, with a customer acquisition cost (CAC) of ₹2,500. The company handles around 100 transactions monthly, with an average transaction value of ₹37,500, indicating strong demand and high customer spending on photography services.
-                                                    </p>
+uknowva projects revenue growth from INR 9.2 Cr to INR 74 Cr in five years, with an 85% gross margin. Its affordable subscription model ensures accessibility for businesses of all sizes.                                                    </p>
                                                 </div>
                                             </div>
                                             <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
@@ -2092,35 +2064,10 @@ class VsnapU extends Component {
                                                         <img src="./assets/images/deals-details/highlight3.jpg" />
                                                     </div>
                                                     <p style={{ paddingLeft: "0px !important" }}>
-                                                        The company’s roadmap includes scaling B2C wedding and event photography, entering the MSME and government sectors, and launching SaaS solutions for individual photographers. Plans also involve establishing franchise studios for local photographers and developing AI-driven tools for image and video processing, along with owning intellectual property for content creation.
-                                                    </p>
+uknowva has improved HR processes for companies like Kotak Mahindra Bank, Delhivery and Indostar, showcasing results in onboarding efficiency, engagement, and performance management. Its tailored solutions drive measurable value for clients.                                                    </p>
                                                 </div>
                                             </div>
-                                            <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
-                                                <div
-                                                    className="single mindlerhighlight text-left"
-                                                    style={{}}
-                                                >
-                                                    <div className="hightlights-images">
-                                                        <img src="./assets/images/deals-details/highlight3.jpg" />
-                                                    </div>
-                                                    <p style={{ paddingLeft: "0px !important" }}>
-                                                        VsnapU earned the prestigious TripAdvisor “Traveller’s” Choice award in 2022 highlighting its excellence in delivering top-quality photography services and customer satisfaction.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
-                                                <div
-                                                    className="single mindlerhighlight text-left"
-                                                    style={{}}
-                                                >
-                                                    <div className="hightlights-images">
-                                                        <img src="./assets/images/deals-details/highlight5.png" />
-                                                    </div>
-                                                    <p style={{ paddingLeft: "0px !important" }}>
-                                                        With on-roll teams in 8 cities and projects executed in over 100 cities, VsnapU has built a strong geographical footprint. Its leadership team, including CEO Parminder Sahni, COO Taranbir Singh, and CMO Harneh Sachdeva, brings diverse expertise in scaling businesses, marketing, and project management. This experienced core team is driving the company’s success and expansion.                          </p>
-                                                </div>
-                                            </div>
+                                           
                                         </div>
                                     </div>
 
@@ -2349,7 +2296,7 @@ class VsnapU extends Component {
                                                                                     </div>
                                                                                     <div className="info">
                                                                                         <span>Valuation</span>
-                                                                                        <h4>55-60 Cr Pre Money</h4>
+                                                                                        <h4>36 Cr Pre Money</h4>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -2372,11 +2319,11 @@ class VsnapU extends Component {
                                                                                 <div className="col-lg-12">
                                                                                     <div className="info">
                                                                                         <span>Legal Name</span>
-                                                                                        <h4>Affinique Media services Private Limited</h4>
+                                                                                        <h4>CONVERGENCE IT SERVICES PVT LTD</h4>
                                                                                     </div>
                                                                                     <div className="info">
                                                                                         <span>Founded</span>
-                                                                                        <h4>11/16/2017</h4>
+                                                                                        <h4>16-08-2010</h4>
                                                                                     </div>
                                                                                     <div className="info">
                                                                                         <span>Status</span>
@@ -2384,7 +2331,7 @@ class VsnapU extends Component {
                                                                                     </div>
                                                                                     <div className="info">
                                                                                         <span>Employees</span>
-                                                                                        <h4>80</h4>
+                                                                                        <h4>75</h4>
                                                                                     </div>
                                                                                     <div className="info">
                                                                                         <span>Website</span>
@@ -2393,27 +2340,27 @@ class VsnapU extends Component {
                                                                                                 style={{
                                                                                                     color: "rgb(7, 211, 252)",
                                                                                                 }}
-                                                                                                href="https://www.vsnapu.com/"
+                                                                                                href="https://www.uknowva.com/"
                                                                                                 target="_blank"
                                                                                             >
-                                                                                                www.vsnapu.com
+                                                                                                www.uknowva.com
                                                                                             </a>
                                                                                         </h4>
                                                                                     </div>
                                                                                     <div className="info">
                                                                                         <span>Social Links</span>
                                                                                         <div className="social-icons">
-                                                                                            <a href="https://www.facebook.com/share/1AaAxw1Bct/?mibextid=LQQJ4d">
+                                                                                            <a href="https://www.facebook.com/uknowva">
                                                                                                 <i className="bx bxl-facebook fs-19"></i>
                                                                                             </a>
-                                                                                            <a href="https://www.linkedin.com/company/vsnapu/">
+                                                                                            <a href="https://www.linkedin.com/company/uknowvaplatform">
                                                                                                 <i className="bx bxl-linkedin fs-19"></i>
                                                                                             </a>
-                                                                                            <a href="https://www.instagram.com/vsnapu/profilecard/?igsh=NTR1cjV4NzQzMm9o">
+                                                                                            <a href="https://www.instagram.com/uknowva/">
                                                                                                 <i className="bx bxl-instagram fs-19"></i>
                                                                                             </a>
 
-                                                                                            <a href="https://youtube.com/@vsnapu?si=tND31-j4xWyLwq4U">
+                                                                                            <a href="https://www.youtube.com/@uknowva">
                                                                                                 <i className="bx bxl-youtube fs-19"></i>
                                                                                             </a>
                                                                                         </div>
@@ -2421,7 +2368,7 @@ class VsnapU extends Component {
                                                                                     <div className="info">
                                                                                         <span>Address</span>
                                                                                         <h4>
-                                                                                            Govind niwas ,ward no 43, Near Guru Nanak Hall, Shyam Nagar , Raipur , Chhattisgarh, India,492001
+                                                                                            316 Neelkanth Corporate Park, Kirol Village, Vidya Vihar West Mumbai - 400086
                                                                                         </h4>
                                                                                     </div>
                                                                                 </div>
@@ -2722,7 +2669,7 @@ class VsnapU extends Component {
                                                                                         <div className="row">
                                                                                             <div className="col-lg-12 col-md-12 col-sm-12 m-auto">
                                                                                                 <h1 className="text-center mb-4">
-                                                                                                    About {this.state.deal_name}
+                                                                                                    About uknowaHRMS
                                                                                                 </h1>
                                                                                                 <Collapse
                                                                                                     // defaultActiveKey={['1']}
@@ -2746,8 +2693,7 @@ class VsnapU extends Component {
                                                                                                                     textAlign: "justify",
                                                                                                                 }}
                                                                                                             >
-                                                                                                                VsnapU is a  service-oriented startup, as it focuses on disrupting the content generation market in photography. This likely involves offering professional photography and related services rather than selling a standalone product. The emphasis on market disruption suggests innovation in how these services are delivered, potentially leveraging technology to enhance customer experiences.
-                                                                                                            </p>
+uknowva HRMS combines a product-focused strategy with a service-oriented approach to deliver maximum value to clients. At its core is a robust, scalable platform, continuously enhanced with upgrades and innovative features. This is complemented by exceptional customer support, comprehensive training, and tailored customization services, ensuring businesses can fully leverage the platform to meet their unique needs.                                                                                                            </p>
                                                                                                         </div>
                                                                                                     </Panel>
                                                                                                     <Panel
@@ -2766,8 +2712,8 @@ class VsnapU extends Component {
                                                                                                                     textAlign: "justify",
                                                                                                                 }}
                                                                                                             >
-                                                                                                                The challenge for scale can be the supply side of Photographers. Which will be handled by having training institutes where Photographers can come by paying a decent fees and then be employed with VsnapU in case they are good at art and serious about the profession. This way VsnapU will be creating their own supply in addition to the Photographers already present in the market.
-                                                                                                            </p>
+The primary challenges for scaling uknowva HRMS include: Global Expansion: Penetrating international markets requires adapting to region-specific compliance, cultural nuances, and competition. Support Scalability: As our client base grows, ensuring consistent, high-quality support across regions is critical. R&D Investment: To stay ahead, continuous investment in AI and product innovation is necessary. 
+To manage these challenges: We plan to establish regional partnerships for localized support and market entry. Our automation-driven customer service tools, such as chatbots and self-service portals, will ensure scalable and efficient support. Increased investment in our research and development teams will drive innovation to address market-specific challenges effectively.                                                                                                            </p>
                                                                                                         </div>
                                                                                                     </Panel>
 
@@ -2787,7 +2733,11 @@ class VsnapU extends Component {
                                                                                                                     textAlign: "justify",
                                                                                                                 }}
                                                                                                             >
-                                                                                                                Yes, VsnapU appears to be targeting a new, untapped market in the content generation space for photography. The startup aims to disrupt traditional photography services by likely offering innovative, tech-enabled solutions that cater to modern customer needs, such as on-demand professional photography, streamlined booking systems, or value-added features like instant photo sharing or post-processing.
+Yes, uknowva HRMS is disrupting the HRMS market by:
+Offering affordable, flexible, and scalable solutions that cater to both SMEs and large enterprises across 10+ industries in 5+ countries and serving 300K active users daily in 150+ business organizations. 
+Introducing EI-driven features like mood meters, happiness tracking, and AI-driven analytics that focus on people rather than processes.
+Building a strong community ecosystem with our Partner Portal and Extension Store, allowing stakeholders to collaborate and innovate.
+These disruptions challenge traditional HRMS platforms that focus on operational efficiency rather than holistic employee engagement and well-being.
                                                                                                             </p><p
                                                                                                                 style={{
                                                                                                                     color: "#7f7776",
@@ -2795,7 +2745,6 @@ class VsnapU extends Component {
                                                                                                                     marginTop: "10px"
                                                                                                                 }}
                                                                                                             >
-                                                                                                                This market remains relatively untapped because traditional photography often relies on fragmented, offline service providers with inconsistent quality and outdated processes. By addressing gaps in accessibility, standardization, and customer convenience, VsnapU positions itself to attract a wide customer base, including individuals and businesses seeking efficient and high-quality photography solutions.
                                                                                                             </p>
                                                                                                         </div>
                                                                                                     </Panel>
@@ -2815,7 +2764,12 @@ class VsnapU extends Component {
                                                                                                                     textAlign: "justify",
                                                                                                                 }}
                                                                                                             >
-                                                                                                                VsnapU’s moats include technology-driven differentiation, such as AI-based tools for editing and seamless booking systems, which enhance efficiency and customer experience. Its focus on consistent service quality builds trust and loyalty, creating a strong brand reputation. A scalable operational model with decentralized management allows for rapid expansion while maintaining quality. Strategic partnerships with event organizers and businesses provide steady demand and entry barriers for competitors. Finally, its first-mover advantage in an untapped, tech-enabled photography market solidifies its position, making it difficult for others to replicate.
+primary moats include:
+Extension Store: Over 100+ customizable apps integrated within our ecosystem, offering unmatched flexibility.
+Emotional Intelligence (EI) & AI-driven Tools: Features like the Happiness Meter and AI chatbots enhance engagement uniquely.
+Partner Portal: A community-driven model fosters collaboration and expands our ecosystem organically.
+Affordability and Flexibility: A scalable pricing model accessible to SMEs and enterprises alike.
+Customer-Centric Approach: With intuitive UI/UX, compared to "Amul Butter," and people-focused tools, our retention rates remain high.
                                                                                                             </p>{" "}
                                                                                                         </div>
                                                                                                     </Panel>
@@ -3008,9 +2962,9 @@ class VsnapU extends Component {
                                                                             alt=""
                                                                         />
                                                                         <div className="intro">
-                                                                            <h3>PARMINDER SAHNI</h3>
+                                                                            <h3>Vicky Jain</h3>
                                                                             <span>
-                                                                                CEO
+                                                                                Co-founder & CEO/CTO
                                                                             </span>
                                                                             <div
                                                                                 className="social-icons"
@@ -3020,7 +2974,7 @@ class VsnapU extends Component {
                                                                                 }}
                                                                             >
                                                                                 <a
-                                                                                    href="https://www.linkedin.com/in/parminderssahni/"
+                                                                                    href="https://www.linkedin.com/in/vicky-jain-09062227?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
                                                                                     target="_blank"
                                                                                 >
                                                                                     <i className="bx bxl-linkedin"></i>
@@ -3034,8 +2988,9 @@ class VsnapU extends Component {
                                                                     <ul>
                                                                         <li>
                                                                             <a>
-                                                                                Parminder holds 14 years of experience in entrepreneurship which started with his previous venture in travel domain. Leads the product line creation and strategy in VsnapU with his convincing skills and PR!
-                                                                            </a>
+Vicky drives uknowva’s technology vision, overseeing product development and strategy.
+He holds a BE from Mumbai University and an MBA from IBS.A recipient of the prestigious Bharat Gaurav Award (2009) by IEDRA, 
+he has been recognized for his significant contributions to innovation and technology.                                                                            </a>
                                                                         </li>
 
                                                                     </ul>
@@ -3053,8 +3008,8 @@ class VsnapU extends Component {
                                                                             alt=""
                                                                         />
                                                                         <div className="intro">
-                                                                            <h3>TARANBIR SINGH </h3>
-                                                                            <span>COO</span>
+                                                                            <h3>Abhay Talekar </h3>
+                                                                            <span>Co-founder & CBO</span>
                                                                             <div
                                                                                 className="social-icons"
                                                                                 style={{
@@ -3063,7 +3018,7 @@ class VsnapU extends Component {
                                                                                 }}
                                                                             >
                                                                                 <a
-                                                                                    href="https://www.linkedin.com/in/taranbir-sahni-1176a8b3/"
+                                                                                    href="https://www.linkedin.com/in/vicky-jain-09062227?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
                                                                                     target="_blank"
                                                                                 >
                                                                                     <i className="bx bxl-linkedin"></i>
@@ -3077,8 +3032,52 @@ class VsnapU extends Component {
                                                                     <ul>
                                                                         <li>
                                                                             <a>
-                                                                                Taranbir has been executing the products and strategies of VsnapU while leading key stakeholder management! Which reflects his previous experience in Project Management for Real Estate with a total of 8 years of experience!
+                                                                                Abhay focuses on scaling uknowva’s market presence and driving business growth.He holds an MBA from ITM and has extensive experience in business development and strategic partnerships.
                                                                             </a>
+                                                                        </li>
+
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                              <div className="col-lg-6">
+                                                                <div
+                                                                    className="single"
+                                                                    style={{ paddingBottom: "0px !important" }}
+                                                                // style={{  marginBottom: 0px !important}}
+                                                                >
+                                                                    <div className="d-flex">
+                                                                        <img
+                                                                            src="./assets/images/deals-details/Vsnap/Team/taranbirjpeg.jpeg"
+                                                                            alt=""
+                                                                        />
+                                                                        <div className="intro">
+                                                                            <h3>Priyanka Bhor </h3>
+                                                                            <span>Co-founder & CEO/CTO</span>
+                                                                            <div
+                                                                                className="social-icons"
+                                                                                style={{
+                                                                                    marginTop: 4,
+                                                                                    marginLeft: -6,
+                                                                                }}
+                                                                            >
+                                                                                <a
+                                                                                    href="https://www.linkedin.com/in/priyanka-bhor-01906225/"
+                                                                                    target="_blank"
+                                                                                >
+                                                                                    <i className="bx bxl-linkedin"></i>
+                                                                                </a>
+                                                                                {/* <a href="mailto:vaibhav.tambe@transbnk.co.in">
+                                        <i className="bx bxl-gmail"></i>
+                                        </a> */}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a>
+Priyanka brings extensive expertise in product design and user experience, ensuring uknowva's platform is intuitive and user-friendly.
+She holds a BE from Mumbai University and an MBA from Welingkar Institute.
+Recognized for her leadership and innovation, she was featured among the "50 Most Empowering Women in Business 2016" by Insights Success and named one of the "Top 50 Women HR Tech Influencers 2023."                                                                            </a>
                                                                         </li>
 
                                                                     </ul>
@@ -3105,4 +3104,4 @@ class VsnapU extends Component {
     }
 }
 
-export default VsnapU;
+export default uknowaHRMS;

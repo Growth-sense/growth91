@@ -216,6 +216,7 @@ import Mindler from "./app/deal-pages/Mindler.jsx";
 import CUR8 from "./app/deal-pages/CUR8.jsx";
 import Edept from "./app/deal-pages/Edept.jsx";
 import VsnapU from "./app/deal-pages/vsnapU.jsx";
+import uknowaHRMS from "./app/deal-pages/uknowaHRMS.jsx";
 import Innoserv from "./app/deal-pages/Innoserv.jsx";
 import Petmojo from "./app/deal-pages/Petmojo(Pre Series A).jsx";
 import LVLAlpha from "./app/deal-pages/LVLAlpha.jsx";
@@ -645,6 +646,10 @@ function App() {
           <Route path="/VsnapU" >
             <ProtectDeals Component={VsnapU} />
           </Route>
+          <Route path="/uknowaHRMS" >
+            <ProtectDeals Component={uknowaHRMS} />
+          </Route>
+
           <Route path="/Petmojo" >
             <ProtectDeals Component={Petmojo} />
           </Route>
