@@ -4184,6 +4184,8 @@ class Deals extends Component {
                 <Option value="AYUSH">AYUSH</Option>
                 <Option value="Cyber Security">Cyber Security</Option>
                 <Option value="Industry Procurement">Industry Procurement</Option>
+                <Option value="Digital Content Generation and Photography Industry">Digital Content Generation and Photography Industry</Option>
+                <Option value="HR Tech">HR Tech</Option>
               </Select>
             </div>
             <div className="mt-4">

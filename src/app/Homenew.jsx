@@ -1424,12 +1424,11 @@ class Homenew extends Component {
                       data-bs-parent="#accordionFlushExample"
                     >
                       <div class="accordion-body">
-                        At Growth91, your investment is in safe hands. We
-                        utilize a secure escrow account to hold your funds
-                        throughout the fundraising process. If the startup
-                        reaches its goal, your investment is seamlessly
-                        transferred. If not, you receive a full refund
-                        automatically.
+                      Your Investment is in safe hands, After all 
+                      the required fund raising formalities are completed 
+                      by the Startup, we advise investors to directly 
+                      transfer funds to the account of respective Startup, 
+                      dedicated for receiving Securities Application Money.
                       </div>
                     </div>
                   </div>
