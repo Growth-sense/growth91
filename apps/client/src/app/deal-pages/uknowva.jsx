@@ -1283,7 +1283,7 @@ class uknowaHRMS extends Component {
                                                 <div className="d-flex align-items-center">
                                                     {/* Image is static */}
                                                     <img
-                                                        src="./assets/images/deals-details/Vsnap/VsnapU logo.jpg"
+                                                        src="./assets/images/deals-details/uknowva/Uknowva-logo.jpeg"
                                                         alt=""
                                                         className="img-fluid"
                                                         style={{
