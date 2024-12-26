@@ -1,0 +1,9 @@
+node_modules
+.git
+.dockerignore
+api
+cashfree
+commumity
+data
+for build
+verification

@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  client:
+    build:
+      context: ../apps/client
+      dockerfile: Dockerfile
+    image: 061051225511.dkr.ecr.ap-south-1.amazonaws.com/client:latest
+    ports:
+      - "80:80"
+    environment:
+      - VITE_API_URL=http://localhost:5000/api/v1/
+    networks:
+      - growth91
+
+  server:
+    build:
+      context: ../apps/server
+      dockerfile: Dockerfile
+    image: 061051225511.dkr.ecr.ap-south-1.amazonaws.com/server:latest
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/growth91
+      - NODE_ENV=production
+    networks:
+      - growth91
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:7
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    networks:
+      - growth91
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
+
+networks:
+  growth91:
+    driver: bridge
