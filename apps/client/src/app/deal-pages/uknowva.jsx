@@ -103,31 +103,32 @@ class uknowaHRMS extends Component {
             gstmodal: false,
             deal_service: "",
             images: [
-                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-0001",
-                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-0002",
-                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-0003",
-                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-0004",
-                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-0005",
-                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-0006",
-                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-0007",
-                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-0008",
-                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-0009",
-                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00010",
-                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00011",
-                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00012",
-                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00013",
-                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00014",
-                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00015",
-                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00016",
-                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00017",
-                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00018",
-                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00019",
-                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00020",
-                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00021",
-                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00022",
-                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00023",
-                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00024",
-                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00025",
+                                                            
+                "./assets/images/deals-details/uknowva/Pitch/02.jpg",
+                "./assets/images/deals-details/uknowva/Pitch/03.jpg",
+                "./assets/images/deals-details/uknowva/Pitch/01.jpg",
+                "./assets/images/deals-details/uknowva/Pitch/04.jpg",
+                "./assets/images/deals-details/uknowva/Pitch/05.jpg",
+                "./assets/images/deals-details/uknowva/Pitch/06.jpg",
+                "./assets/images/deals-details/uknowva/Pitch/07.jpg",
+                "./assets/images/deals-details/uknowva/Pitch/08.jpg",
+                "./assets/images/deals-details/uknowva/Pitch/09.jpg",
+                "./assets/images/deals-details/uknowva/Pitch/10.jpg",
+                "./assets/images/deals-details/uknowva/Pitch/11.jpg",
+                "./assets/images/deals-details/uknowva/Pitch/12.jpg",
+                "./assets/images/deals-details/uknowva/Pitch/13.jpg",
+                "./assets/images/deals-details/uknowva/Pitch/14.jpg",
+                "./assets/images/deals-details/uknowva/Pitch/15.jpg",
+                "./assets/images/deals-details/uknowva/Pitch/16.jpg",
+                "./assets/images/deals-details/uknowva/Pitch/17.jpg",
+                "./assets/images/deals-details/uknowva/Pitch/18.jpg",
+                "./assets/images/deals-details/uknowva/Pitch/19.jpg",
+                "./assets/images/deals-details/uknowva/Pitch/20.jpg",
+                "./assets/images/deals-details/uknowva/Pitch/21.jpg",
+                "./assets/images/deals-details/uknowva/Pitch/22.jpg",
+                "./assets/images/deals-details/uknowva/Pitch/23.jpg",
+                "./assets/images/deals-details/uknowva/Pitch/24.jpg",
+                "./assets/images/deals-details/uknowva/Pitch/25.jpg",
 
 
 
@@ -2080,111 +2081,7 @@ class uknowaHRMS extends Component {
                                     {/* media */}
                                 </div>
                             </div>
-                            <section
-                                className="deals-details-page"
-                                style={{ marginBottom: "-50px", marginTop: "40px " }}
-                            >
-                                <div>
-                                    <div>
-                                        {/* media */}
-
-                                        <div
-                                            className="container highlight-section"
-                                            style={{
-                                                marginBottom: "-80px !important",
-                                                padding: "0px !important",
-                                            }}
-                                        >
-                                            <h1 style={{ fontSize: "2rem", marginBottom: "30px" }}>
-                                                Media Coverage
-                                            </h1>
-                                            <div className="row">
-                                                <div className="col-lg-6 col-md-6 col-sm-6">
-                                                    <div className="single medialink text-left d-flex flex-column  ">
-                                                        <img src="./assets/images/deals-details/Vsnap/Media/media1.webp" />
-
-                                                        <p style={{ padding: "1px !important" }}>
-                                                            VsnapU offers a platform to book photographers and videographers                              <a
-                                                                href="https://entrackr.com/2023/04/vsnapu-offers-a-platform-to-book-photographers-and-videographers/%20VsnapU%20raises%20Rs%202%20crore%20in%20Seed%20Round%20led%20by%20Inflection%20Point%20Ventures"
-                                                                target="_blank"
-                                                            >
-                                                                {" "}
-                                                                Readmore
-                                                            </a>
-                                                        </p>
-                                                    </div>
-                                                </div>
-
-                                                {/* <div className="col-lg-6 col-md-6 col-sm-6">
-                          <div className="single medialink text-left d-flex flex-column  ">
-                            <img src="./assets/images/deals-details/Vsnap/Media/media2.webp" />
-                            <p style={{ padding: "1px !important" }}>
-                            Revolutionizing Photography and Creating Opportunities Worldwide                              <a
-                                href="https://www.business-standard.com/content/press-releases-ani/revolutionizing-photography-and-creating-opportunities-worldwide-123060700545_1.html"
-                                target="_blank"
-                              >
-                                {" "}
-                                Readmore
-                              </a>
-                            </p>
-                          </div>
-                        </div> */}
-
-
-
-                                                <div className="col-lg-6 col-md-6 col-sm-6">
-                                                    <div className="single medialink text-left d-flex flex-column  ">
-                                                        <img src="./assets/images/deals-details/Vsnap/Media/media2.webp" />
-                                                        <p style={{ padding: "1px !important" }}>
-                                                            Revolutionizing Photography and Creating Opportunities Worldwide
-
-                                                            <a
-                                                                href="https://www.aninews.in/news/business/business/revolutionizing-photography-and-creating-opportunities-worldwide20230607140831/
-"
-                                                                target="_blank"
-                                                            >
-                                                                Readmore
-                                                            </a>
-                                                        </p>
-                                                    </div>
-                                                </div>
-
-                                                <div className="col-lg-6 col-md-6 col-sm-6">
-                                                    <div className="single medialink text-left d-flex flex-column  ">
-                                                        <img src="./assets/images/deals-details/Vsnap/Media/media3.webp" />
-                                                        <p style={{ padding: "1px !important" }}>
-                                                            VsnapU raises Rs 2 Cr in the seed round of funding
-
-                                                            <a
-                                                                href="https://startupstorymedia.com/insights-vsnapu-raises-rs-2-cr-in-the-seed-round-of-funding/"
-                                                                target="_blank"
-                                                            >
-                                                                Readmore
-                                                            </a>
-                                                        </p>
-                                                    </div>
-                                                </div>
-
-                                                {/* <div className="col-lg-6 col-md-6 col-sm-6">
-                          <div className="single medialink text-left d-flex flex-column  ">
-                          <img src="./assets/images/deals-details/Vsnap/Media/media4.webp" />
-                          <p style={{ padding: "1px !important" }}>
-                          Tech-based Platform for Photographers, Videographers VsnapU Raises 2 Cr in Seed Round Led by Inflection Point Ventures
-                              <a    
-                                href ="https://www.indianweb2.com/2022/09/tech-based-platform-for-photographer.html#google_vignette"
-                                target="_blank"
-                              >
-                                Readmore
-                              </a>
-                            </p>
-                          </div>
-                        </div> */}
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
+                            
                         </section>
                         <div className="deals-page">
                             <div className="tab-wrapper">

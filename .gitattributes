@@ -1,0 +1,4 @@
+/apps/client/node_modules/.cache/default-development/1.pack filter=lfs diff=lfs merge=lfs -text
+/apps/client/node_modules/.cache/default-development/4.pack filter=lfs diff=lfs merge=lfs -text
+/apps/client/node_modules/minimalcss/node_modules/puppeteer/.local-chromium/linux-722234/chrome-linux/chrome filter=lfs diff=lfs merge=lfs -text
+/apps/client/node_modules/puppeteer/.local-chromium/linux-686378/chrome-linux/chrome filter=lfs diff=lfs merge=lfs -text
