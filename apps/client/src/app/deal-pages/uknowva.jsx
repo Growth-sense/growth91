@@ -103,28 +103,34 @@ class uknowaHRMS extends Component {
             gstmodal: false,
             deal_service: "",
             images: [
-                "./assets/images/deals-details/Vsnap/Pitch/Vsnapu pitch deck-images-0.jpg",
-                "./assets/images/deals-details/Vsnap/Pitch/Vsnapu pitch deck-images-1.jpg",
-                "./assets/images/deals-details/Vsnap/Pitch/Vsnapu pitch deck-images-2.jpg",
-                "./assets/images/deals-details/Vsnap/Pitch/Vsnapu pitch deck-images-3.jpg",
-                "./assets/images/deals-details/Vsnap/Pitch/Vsnapu pitch deck-images-4.jpg",
-                "./assets/images/deals-details/Vsnap/Pitch/Vsnapu pitch deck-images-5.jpg",
-                "./assets/images/deals-details/Vsnap/Pitch/Vsnapu pitch deck-images-6.jpg",
-                "./assets/images/deals-details/Vsnap/Pitch/Vsnapu pitch deck-images-7.jpg",
-                "./assets/images/deals-details/Vsnap/Pitch/Vsnapu pitch deck-images-8.jpg",
-                "./assets/images/deals-details/Vsnap/Pitch/Vsnapu pitch deck-images-9.jpg",
-                "./assets/images/deals-details/Vsnap/Pitch/Vsnapu pitch deck-images-10.jpg",
-                "./assets/images/deals-details/Vsnap/Pitch/Vsnapu pitch deck-images-11.jpg",
-                "./assets/images/deals-details/Vsnap/Pitch/Vsnapu pitch deck-images-12.jpg",
-                "./assets/images/deals-details/Vsnap/Pitch/Vsnapu pitch deck-images-13.jpg",
-                "./assets/images/deals-details/Vsnap/Pitch/Vsnapu pitch deck-images-14.jpg",
-                "./assets/images/deals-details/Vsnap/Pitch/Vsnapu pitch deck-images-15.jpg",
-                "./assets/images/deals-details/Vsnap/Pitch/Vsnapu pitch deck-images-16.jpg",
-                "./assets/images/deals-details/Vsnap/Pitch/Vsnapu pitch deck-images-17.jpg",
-                "./assets/images/deals-details/Vsnap/Pitch/Vsnapu pitch deck-images-18.jpg",
-                "./assets/images/deals-details/Vsnap/Pitch/Vsnapu pitch deck-images-19.jpg",
-                "./assets/images/deals-details/Vsnap/Pitch/Vsnapu pitch deck-images-20.jpg",
-                "./assets/images/deals-details/Vsnap/Pitch/Vsnapu pitch deck-images-21.jpg",
+                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-0001",
+                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-0002",
+                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-0003",
+                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-0004",
+                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-0005",
+                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-0006",
+                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-0007",
+                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-0008",
+                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-0009",
+                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00010",
+                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00011",
+                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00012",
+                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00013",
+                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00014",
+                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00015",
+                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00016",
+                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00017",
+                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00018",
+                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00019",
+                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00020",
+                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00021",
+                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00022",
+                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00023",
+                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00024",
+                "./assets/images/deals-details/uknowva/Pitch/Uknowa-pitch-deck-page-00025",
+
+
+
             ],
             current: "",
         };
@@ -1861,13 +1867,13 @@ class uknowaHRMS extends Component {
                                         </div>
                                     </Modal>
                                     <div className="col-lg-7 deal-banner deals-video-banner liaplus ">
-                                       <iframe width="560" height="315"
-                                       style={{
+                                        <iframe width="560" height="315"
+                                            style={{
                                                 boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
                                                 borderRadius: 3,
                                                 // marginLeft: 65,
                                             }} src="https://www.youtube.com/embed/5TkGBxxAG4Y?si=83FF3G4dUKfH_vEy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                                    
+
                                         {/* {this.state.youtube_url && (
                                         
                  <iframe
@@ -1935,7 +1941,7 @@ class uknowaHRMS extends Component {
                             >
                               India's Higher Education Market:
                             </span>{" "} */}
-The global HR Tech market, valued at $23 billion in 2023, is projected to reach $91.8 billion by 2032, growing at a CAGR of 10%. This expansion is fueled by the increasing adoption of AI-powered tools and cloud-based solutions that streamline payroll, recruitment, and workforce management. Emerging markets in Asia-Pacific, the Middle East, and Africa are driving growth as businesses in these regions prioritize digital transformation and scalable, cost-effective HR systems.                                                    </p>
+                                                        The global HR Tech market, valued at $23 billion in 2023, is projected to reach $91.8 billion by 2032, growing at a CAGR of 10%. This expansion is fueled by the increasing adoption of AI-powered tools and cloud-based solutions that streamline payroll, recruitment, and workforce management. Emerging markets in Asia-Pacific, the Middle East, and Africa are driving growth as businesses in these regions prioritize digital transformation and scalable, cost-effective HR systems.                                                    </p>
                                                 </div>
                                             </div>
                                             <div className="col-lg-4">
@@ -1964,7 +1970,7 @@ The global HR Tech market, valued at $23 billion in 2023, is projected to reach 
                             >
                               International Education and Skill Shortages:
                             </span>{" "} */}
-Key trends include the rise of AI and predictive analytics for employee retention and performance, along with a focus on enhancing the employee experience through tools like mood trackers and engagement platforms. Hybrid work models and gig economy management are also shaping demand for flexible HR solutions. Cloud-based platforms dominate due to their affordability and scalability, with additional opportunities emerging in DE&I analytics and tools designed for workforce upskilling.                                                    </p>
+                                                        Key trends include the rise of AI and predictive analytics for employee retention and performance, along with a focus on enhancing the employee experience through tools like mood trackers and engagement platforms. Hybrid work models and gig economy management are also shaping demand for flexible HR solutions. Cloud-based platforms dominate due to their affordability and scalability, with additional opportunities emerging in DE&I analytics and tools designed for workforce upskilling.                                                    </p>
                                                 </div>
                                             </div>
 
@@ -1994,7 +2000,7 @@ Key trends include the rise of AI and predictive analytics for employee retentio
                             >
                               Government Focus on Upskilling:
                             </span>{" "} */}
-The competitive landscape features global players like SAP SuccessFactors and Workday, alongside regional providers such as Darwinbox and Keka HR. To stand out, modern HR platforms emphasize user-friendly design, customization, and employee-centric features like emotional intelligence tools. The future of HR Tech lies in targeting underserved SME markets, leveraging AI-driven innovation, and offering integrated ecosystems that balance operational efficiency with employee well-being.                                                    </p>{" "}
+                                                        The competitive landscape features global players like SAP SuccessFactors and Workday, alongside regional providers such as Darwinbox and Keka HR. To stand out, modern HR platforms emphasize user-friendly design, customization, and employee-centric features like emotional intelligence tools. The future of HR Tech lies in targeting underserved SME markets, leveraging AI-driven innovation, and offering integrated ecosystems that balance operational efficiency with employee well-being.                                                    </p>{" "}
                                                 </div>
                                             </div>
                                         </div>
@@ -2028,7 +2034,7 @@ The competitive landscape features global players like SAP SuccessFactors and Wo
                                                         <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
                                                     </div>
                                                     <p style={{ paddingLeft: "0px !important" }}>
-uknowva provides AI-enabled HR solutions for mid-sized and growing organizations (200–5,000 employees), covering payroll, recruitment, onboarding, performance management, and employee engagement. With a 350,000+ user base, 150+ paying customers, and a 93% retention rate, it delivers strong product-market fit.                                                    </p>
+                                                        uknowva provides AI-enabled HR solutions for mid-sized and growing organizations (200–5,000 employees), covering payroll, recruitment, onboarding, performance management, and employee engagement. With a 350,000+ user base, 150+ paying customers, and a 93% retention rate, it delivers strong product-market fit.                                                    </p>
                                                 </div>
                                             </div>
                                             <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
@@ -2040,7 +2046,7 @@ uknowva provides AI-enabled HR solutions for mid-sized and growing organizations
                                                         <img src="./assets/images/deals-details/Petmojo/highlight01.jpg" />
                                                     </div>
                                                     <p style={{ padding: "1px !important" }}>
-uknowva stands out with AI and Emotional Intelligence (EI) features like sentiment analysis, stress detection, and attrition prediction, fostering employee well-being alongside productivity. Customizable and user-friendly, it surpasses competitors like Darwinbox and SAP SuccessFactors.                                                    </p>{" "}
+                                                        uknowva stands out with AI and Emotional Intelligence (EI) features like sentiment analysis, stress detection, and attrition prediction, fostering employee well-being alongside productivity. Customizable and user-friendly, it surpasses competitors like Darwinbox and SAP SuccessFactors.                                                    </p>{" "}
                                                 </div>
                                             </div>
                                             <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
@@ -2052,7 +2058,7 @@ uknowva stands out with AI and Emotional Intelligence (EI) features like sentime
                                                         <img src="./assets/images/deals-details/highlight2.jfif" />
                                                     </div>
                                                     <p style={{ padding: "0px !important" }}>
-uknowva projects revenue growth from INR 9.2 Cr to INR 74 Cr in five years, with an 85% gross margin. Its affordable subscription model ensures accessibility for businesses of all sizes.                                                    </p>
+                                                        uknowva projects revenue growth from INR 9.2 Cr to INR 74 Cr in five years, with an 85% gross margin. Its affordable subscription model ensures accessibility for businesses of all sizes.                                                    </p>
                                                 </div>
                                             </div>
                                             <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
@@ -2064,10 +2070,10 @@ uknowva projects revenue growth from INR 9.2 Cr to INR 74 Cr in five years, with
                                                         <img src="./assets/images/deals-details/highlight3.jpg" />
                                                     </div>
                                                     <p style={{ paddingLeft: "0px !important" }}>
-uknowva has improved HR processes for companies like Kotak Mahindra Bank, Delhivery and Indostar, showcasing results in onboarding efficiency, engagement, and performance management. Its tailored solutions drive measurable value for clients.                                                    </p>
+                                                        uknowva has improved HR processes for companies like Kotak Mahindra Bank, Delhivery and Indostar, showcasing results in onboarding efficiency, engagement, and performance management. Its tailored solutions drive measurable value for clients.                                                    </p>
                                                 </div>
                                             </div>
-                                           
+
                                         </div>
                                     </div>
 
@@ -2693,7 +2699,7 @@ uknowva has improved HR processes for companies like Kotak Mahindra Bank, Delhiv
                                                                                                                     textAlign: "justify",
                                                                                                                 }}
                                                                                                             >
-uknowva HRMS combines a product-focused strategy with a service-oriented approach to deliver maximum value to clients. At its core is a robust, scalable platform, continuously enhanced with upgrades and innovative features. This is complemented by exceptional customer support, comprehensive training, and tailored customization services, ensuring businesses can fully leverage the platform to meet their unique needs.                                                                                                            </p>
+                                                                                                                uknowva HRMS combines a product-focused strategy with a service-oriented approach to deliver maximum value to clients. At its core is a robust, scalable platform, continuously enhanced with upgrades and innovative features. This is complemented by exceptional customer support, comprehensive training, and tailored customization services, ensuring businesses can fully leverage the platform to meet their unique needs.                                                                                                            </p>
                                                                                                         </div>
                                                                                                     </Panel>
                                                                                                     <Panel
@@ -2712,8 +2718,8 @@ uknowva HRMS combines a product-focused strategy with a service-oriented approac
                                                                                                                     textAlign: "justify",
                                                                                                                 }}
                                                                                                             >
-The primary challenges for scaling uknowva HRMS include: Global Expansion: Penetrating international markets requires adapting to region-specific compliance, cultural nuances, and competition. Support Scalability: As our client base grows, ensuring consistent, high-quality support across regions is critical. R&D Investment: To stay ahead, continuous investment in AI and product innovation is necessary. 
-To manage these challenges: We plan to establish regional partnerships for localized support and market entry. Our automation-driven customer service tools, such as chatbots and self-service portals, will ensure scalable and efficient support. Increased investment in our research and development teams will drive innovation to address market-specific challenges effectively.                                                                                                            </p>
+                                                                                                                The primary challenges for scaling uknowva HRMS include: Global Expansion: Penetrating international markets requires adapting to region-specific compliance, cultural nuances, and competition. Support Scalability: As our client base grows, ensuring consistent, high-quality support across regions is critical. R&D Investment: To stay ahead, continuous investment in AI and product innovation is necessary.
+                                                                                                                To manage these challenges: We plan to establish regional partnerships for localized support and market entry. Our automation-driven customer service tools, such as chatbots and self-service portals, will ensure scalable and efficient support. Increased investment in our research and development teams will drive innovation to address market-specific challenges effectively.                                                                                                            </p>
                                                                                                         </div>
                                                                                                     </Panel>
 
@@ -2733,11 +2739,11 @@ To manage these challenges: We plan to establish regional partnerships for local
                                                                                                                     textAlign: "justify",
                                                                                                                 }}
                                                                                                             >
-Yes, uknowva HRMS is disrupting the HRMS market by:
-Offering affordable, flexible, and scalable solutions that cater to both SMEs and large enterprises across 10+ industries in 5+ countries and serving 300K active users daily in 150+ business organizations. 
-Introducing EI-driven features like mood meters, happiness tracking, and AI-driven analytics that focus on people rather than processes.
-Building a strong community ecosystem with our Partner Portal and Extension Store, allowing stakeholders to collaborate and innovate.
-These disruptions challenge traditional HRMS platforms that focus on operational efficiency rather than holistic employee engagement and well-being.
+                                                                                                                Yes, uknowva HRMS is disrupting the HRMS market by:
+                                                                                                                Offering affordable, flexible, and scalable solutions that cater to both SMEs and large enterprises across 10+ industries in 5+ countries and serving 300K active users daily in 150+ business organizations.
+                                                                                                                Introducing EI-driven features like mood meters, happiness tracking, and AI-driven analytics that focus on people rather than processes.
+                                                                                                                Building a strong community ecosystem with our Partner Portal and Extension Store, allowing stakeholders to collaborate and innovate.
+                                                                                                                These disruptions challenge traditional HRMS platforms that focus on operational efficiency rather than holistic employee engagement and well-being.
                                                                                                             </p><p
                                                                                                                 style={{
                                                                                                                     color: "#7f7776",
@@ -2764,12 +2770,12 @@ These disruptions challenge traditional HRMS platforms that focus on operational
                                                                                                                     textAlign: "justify",
                                                                                                                 }}
                                                                                                             >
-primary moats include:
-Extension Store: Over 100+ customizable apps integrated within our ecosystem, offering unmatched flexibility.
-Emotional Intelligence (EI) & AI-driven Tools: Features like the Happiness Meter and AI chatbots enhance engagement uniquely.
-Partner Portal: A community-driven model fosters collaboration and expands our ecosystem organically.
-Affordability and Flexibility: A scalable pricing model accessible to SMEs and enterprises alike.
-Customer-Centric Approach: With intuitive UI/UX, compared to "Amul Butter," and people-focused tools, our retention rates remain high.
+                                                                                                                primary moats include:
+                                                                                                                Extension Store: Over 100+ customizable apps integrated within our ecosystem, offering unmatched flexibility.
+                                                                                                                Emotional Intelligence (EI) & AI-driven Tools: Features like the Happiness Meter and AI chatbots enhance engagement uniquely.
+                                                                                                                Partner Portal: A community-driven model fosters collaboration and expands our ecosystem organically.
+                                                                                                                Affordability and Flexibility: A scalable pricing model accessible to SMEs and enterprises alike.
+                                                                                                                Customer-Centric Approach: With intuitive UI/UX, compared to "Amul Butter," and people-focused tools, our retention rates remain high.
                                                                                                             </p>{" "}
                                                                                                         </div>
                                                                                                     </Panel>
@@ -2958,7 +2964,7 @@ Customer-Centric Approach: With intuitive UI/UX, compared to "Amul Butter," and 
                                                                 >
                                                                     <div className="d-flex">
                                                                         <img
-                                                                            src="./assets/images/deals-details/Vsnap/Team/parminderssahni.jpeg"
+                                                                            src="./assets/images/deals-details/uknowva/Team/Vicky-Jain.jpeg"
                                                                             alt=""
                                                                         />
                                                                         <div className="intro">
@@ -2988,9 +2994,9 @@ Customer-Centric Approach: With intuitive UI/UX, compared to "Amul Butter," and 
                                                                     <ul>
                                                                         <li>
                                                                             <a>
-Vicky drives uknowva’s technology vision, overseeing product development and strategy.
-He holds a BE from Mumbai University and an MBA from IBS.A recipient of the prestigious Bharat Gaurav Award (2009) by IEDRA, 
-he has been recognized for his significant contributions to innovation and technology.                                                                            </a>
+                                                                                Vicky drives uknowva’s technology vision, overseeing product development and strategy.
+                                                                                He holds a BE from Mumbai University and an MBA from IBS.A recipient of the prestigious Bharat Gaurav Award (2009) by IEDRA,
+                                                                                he has been recognized for his significant contributions to innovation and technology.                                                                            </a>
                                                                         </li>
 
                                                                     </ul>
@@ -3004,7 +3010,7 @@ he has been recognized for his significant contributions to innovation and techn
                                                                 >
                                                                     <div className="d-flex">
                                                                         <img
-                                                                            src="./assets/images/deals-details/Vsnap/Team/taranbirjpeg.jpeg"
+                                                                            src="./assets/images/deals-details/uknowva/Team/Abhay-Talekar .jpeg"
                                                                             alt=""
                                                                         />
                                                                         <div className="intro">
@@ -3039,7 +3045,7 @@ he has been recognized for his significant contributions to innovation and techn
                                                                     </ul>
                                                                 </div>
                                                             </div>
-                                                              <div className="col-lg-6">
+                                                            <div className="col-lg-6">
                                                                 <div
                                                                     className="single"
                                                                     style={{ paddingBottom: "0px !important" }}
@@ -3047,7 +3053,7 @@ he has been recognized for his significant contributions to innovation and techn
                                                                 >
                                                                     <div className="d-flex">
                                                                         <img
-                                                                            src="./assets/images/deals-details/Vsnap/Team/taranbirjpeg.jpeg"
+                                                                            src="./assets/images/deals-details/uknowva/Team/Priyanka-bhor.jpeg"
                                                                             alt=""
                                                                         />
                                                                         <div className="intro">
@@ -3075,9 +3081,9 @@ he has been recognized for his significant contributions to innovation and techn
                                                                     <ul>
                                                                         <li>
                                                                             <a>
-Priyanka brings extensive expertise in product design and user experience, ensuring uknowva's platform is intuitive and user-friendly.
-She holds a BE from Mumbai University and an MBA from Welingkar Institute.
-Recognized for her leadership and innovation, she was featured among the "50 Most Empowering Women in Business 2016" by Insights Success and named one of the "Top 50 Women HR Tech Influencers 2023."                                                                            </a>
+                                                                                Priyanka brings extensive expertise in product design and user experience, ensuring uknowva's platform is intuitive and user-friendly.
+                                                                                She holds a BE from Mumbai University and an MBA from Welingkar Institute.
+                                                                                Recognized for her leadership and innovation, she was featured among the "50 Most Empowering Women in Business 2016" by Insights Success and named one of the "Top 50 Women HR Tech Influencers 2023."                                                                            </a>
                                                                         </li>
 
                                                                     </ul>
