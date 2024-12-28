@@ -144,7 +144,7 @@ class uknowaHRMS extends Component {
         document.title = "Vsnapu - Growth91 - Startup Marketplace ";
     }
     componentDidMount() {
-        let deal_id = "133";
+        let deal_id = "41";
         this.setState({ deal_id: deal_id }, () => {
             this.get_pitch_list();
         });
@@ -1868,7 +1868,7 @@ class uknowaHRMS extends Component {
                                         </div>
                                     </Modal>
                                     <div className="col-lg-7 deal-banner deals-video-banner liaplus ">
-                                        <iframe width="560" height="315"
+                                        <iframe width="" height="315"
                                             style={{
                                                 boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
                                                 borderRadius: 3,
