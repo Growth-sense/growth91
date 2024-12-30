@@ -141,7 +141,7 @@ class uknowaHRMS extends Component {
     callback3 = (key) => { };
 
     componentWillMount() {
-        document.title = "Vsnapu - Growth91 - Startup Marketplace ";
+        document.title = "uknowva HRMS - Growth91 - Startup Marketplace ";
     }
     componentDidMount() {
         let deal_id = "41";
