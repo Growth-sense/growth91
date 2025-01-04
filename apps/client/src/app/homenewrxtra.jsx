@@ -10,7 +10,8 @@ export const Homenewrxtra = () => {
             <div class="MuiBox-root css-2tc2s4">
               <div class="css-uj36w1">
                 <h3 class="MuiTypography-root MuiTypography-h3 css-1j7pxlf">
-                Discover, Trust, Invest in the Future of Indian Startups
+                  Discover, Trust, Invest
+                  Invest in the Future of Indian Startups
 
                 </h3>
                 {/* <p class="MuiTypography-root MuiTypography-body2 css-o2di0e">
@@ -21,7 +22,7 @@ export const Homenewrxtra = () => {
               <div class="MuiStepper-root MuiStepper-vertical css-jcksi0">
                 <div class="stepss">
                   <div class="MuiStep-root MuiStep-vertical css-0 ">
-                    <span class="MuiStepLabel-root MuiStepLabel-vertical css-r12ba4 dropfirst"  onMouseEnter={()=>{setshow(1)}}>
+                    <span class="MuiStepLabel-root MuiStepLabel-vertical css-r12ba4 dropfirst" onMouseEnter={() => { setshow(1) }}>
                       <span class="MuiStepLabel-iconContainer Mui-active css-a5nipc">
                         <svg
                           class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiStepIcon-root Mui-active css-mmwvxz"
@@ -51,7 +52,7 @@ export const Homenewrxtra = () => {
                         </span>
                       </span>
                     </span>
-                    <div class={`MuiStepContent-root  css-d0mviz drop0ne ${show==1?("activedrop"):("")}  `}>
+                    <div class={`MuiStepContent-root  css-d0mviz drop0ne ${show == 1 ? ("activedrop") : ("")}  `}>
                       <div
                         class="MuiCollapse-root MuiCollapse-vertical MuiStepContent-transition MuiCollapse-entered css-inp9se"
                         style={{
@@ -64,7 +65,6 @@ export const Homenewrxtra = () => {
                           <div class="MuiCollapse-wrapperInner MuiCollapse-vertical css-8atqhb">
                             <span class="MuiTypography-root MuiTypography-subtitle css-f58h4c">
                             We are India's leading startup investing platform, connecting you with high-potential startups. Invest in startups with potential for growth like the next Google or Amazon.
-
                             </span>
                           </div>
                         </div>
@@ -77,7 +77,7 @@ export const Homenewrxtra = () => {
                 </div>
                 <div class="stepss">
                   <div class="MuiStep-root MuiStep-vertical css-0">
-                    <span class="MuiStepLabel-root MuiStepLabel-vertical css-r12ba4 dropsecond" onMouseEnter={()=>{setshow(2)}}>
+                    <span class="MuiStepLabel-root MuiStepLabel-vertical css-r12ba4 dropsecond" onMouseEnter={() => { setshow(2) }}>
                       <span class="MuiStepLabel-iconContainer Mui-active css-a5nipc">
                         <svg
                           class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiStepIcon-root Mui-active css-mmwvxz"
@@ -106,7 +106,7 @@ export const Homenewrxtra = () => {
                         </span>
                       </span>
                     </span>
-                    <div class={`MuiStepContent-root css-d0mviz dropTwo ${show==2?("activedrop"):("")} `}>
+                    <div class={`MuiStepContent-root css-d0mviz dropTwo ${show == 2 ? ("activedrop") : ("")} `}>
                       <div
                         class="MuiCollapse-root MuiCollapse-vertical MuiStepContent-transition MuiCollapse-entered css-inp9se"
                         style={{
@@ -119,7 +119,7 @@ export const Homenewrxtra = () => {
                           <div class="MuiCollapse-wrapperInner MuiCollapse-vertical css-8atqhb">
                             <span class="MuiTypography-root MuiTypography-subtitle css-f58h4c">
                             Growth91's startups undergo a rigorous vetting process. We invest alongside you, ensuring shared success.
-&nbsp;
+                            &nbsp;
                             </span>
                           </div>
                         </div>
@@ -130,9 +130,9 @@ export const Homenewrxtra = () => {
                     <span class="MuiStepConnector-line MuiStepConnector-lineVertical css-vgb7rt"></span>
                   </div>
                 </div>
-                <div class="stepss">
+                <div class="stepss">                                                                                                                                                                                                                                                                                                                                                                                                          
                   <div class="MuiStep-root MuiStep-vertical css-0">
-                    <span class="MuiStepLabel-root MuiStepLabel-vertical css-r12ba4 dropthird" onMouseEnter={()=>{setshow(3)}}>
+                    <span class="MuiStepLabel-root MuiStepLabel-vertical css-r12ba4 dropthird" onMouseEnter={() => { setshow(3) }}>
                       <span class="MuiStepLabel-iconContainer Mui-active css-a5nipc">
                         <svg
                           class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiStepIcon-root Mui-active css-mmwvxz"
@@ -162,7 +162,7 @@ export const Homenewrxtra = () => {
                       </span>
                     </span>
                     <div
-                      class={`MuiStepContent-root css-d0mviz dropThree ${show==3?("activedrop"):("")}`}
+                      class={`MuiStepContent-root css-d0mviz dropThree ${show == 3 ? ("activedrop") : ("")}`}
                     >
                       <div
                         class="MuiCollapse-root MuiCollapse-vertical MuiStepContent-transition MuiCollapse-entered css-inp9se"
@@ -184,22 +184,23 @@ export const Homenewrxtra = () => {
                     </div>
                   </div>
                 </div>
+            
               </div>
             </div>
             <div class="css-1scryk1">
               <img
                 src="./assets/images/capitalization.png"
-                class={`mouse-event-class black ${show==1?("active"):("")}  `}
+                class={`mouse-event-class black ${show == 1 ? ("active") : ("")}  `}
                 alt="signup.webp"
               />
               <img
                 src="./assets/images/trustworthiness.png"
-                class={`mouse-event-class black ${show==2?("active"):("")}  `}
+                class={`mouse-event-class black ${show == 2 ? ("active") : ("")}  `}
                 alt="signup.webp"
               />
               <img
                 src="./assets/images/whoarewe.png"
-                class={`mouse-event-class black ${show==3?("active"):("")}  `}
+                class={`mouse-event-class black ${show == 3 ? ("active") : ("")}  `}
                 alt="signup.webp"
               />
             </div>

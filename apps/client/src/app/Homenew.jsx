@@ -50,17 +50,17 @@ class Homenew extends Component {
   componentWillMount() {
     // title
     document.getElementsByTagName("META")[4].content =
-    "Growth91: Best Startup investment platform for Investing in startups in India";
+      "Growth91: Best Startup investment platform for Investing in startups in India";
     // title
 
     document.title =
       "Growth91: Best Startup investment platform for Investing in startups in India";
-      // keyword
+    // keyword
     document.getElementsByTagName("META")[5].content = "invest in startups invest in startups india "
-// description
+    // description
     document.getElementsByTagName("META")[3].content =
-"Maximize your returns with the best startup investing platform. Learn how to invest in startups in India and find the top investment opportunities."; 
-   window.removeEventListener("scroll", this.handleScroll);
+      "Maximize your returns with the best startup investing platform. Learn how to invest in startups in India and find the top investment opportunities.";
+    window.removeEventListener("scroll", this.handleScroll);
   }
   togglemsg() {
     // Toggle isActive state
@@ -563,13 +563,12 @@ class Homenew extends Component {
                       <div class="d-flex-banner fadding-bottom fadding-bottom-1">
                         <div class="banner-part banner-slidingpart">
                           <h1 class="">
-                          Looking to Invest in Startups in India and 
-                            Tap Into High-Growth Ventures?
+                            Invest in Startups in India with Ease by
+                            Accessing High-Growth Opportunities
                           </h1>
                           <p class=" p-0">
                             <span>
-                              Growth 91 connects you with the next big thing
-                            </span>
+                            Growth91 simplifies private market investment, connecting you to India's most promising startups.                            </span>
                           </p>
 
                           <div className="banner-mobile-img d-sm-none">
@@ -597,7 +596,7 @@ class Homenew extends Component {
                                 class="white-btns"
                                 type="button"
                               >
-                                Get Started
+                                Start Investing Now
                               </Link>
                             </div>
                           </form>
@@ -623,11 +622,14 @@ class Homenew extends Component {
                               animationName: "fadeInUp",
                             }}
                           >
-                            Don't Let Funding Hold You Back.
-                            <br />
-                            Find Investor for Your Startup on Growth91.
+                            Entrepreneurs: Find the Investors You Need on Growth91
                           </h2>
-                          <div class="banner-listes">
+                          <p class=" p-0" data-wow-delay="0.5s">
+                            <span>
+                            Simplify fundraising for your startup by connecting with investors on our startup investing platform. List your startup and raise funds faster.
+                            </span>
+                          </p>
+                          {/* <div class="banner-listes">
                             <ul>
                               <li>
                                 <span>
@@ -648,7 +650,7 @@ class Homenew extends Component {
                                 Build Your Startup
                               </li>
                             </ul>
-                          </div>
+                          </div> */}
 
                           <div className="banner-mobile-img d-sm-none">
                             <img
@@ -673,7 +675,7 @@ class Homenew extends Component {
                                 class="white-btns"
                                 type="button"
                               >
-                                Raise Funds
+                                Get Started - List Your Startup
                               </Link>
                             </div>
                           </form>
@@ -692,12 +694,10 @@ class Homenew extends Component {
                       <div class="d-flex-banner banner1 fadding-bottom fadding-bottom-3">
                         <div class="banner-part banner-slidingpart">
                           <h2 class="">
-                            Private market <br /> investing made easy
-                          </h2>
-                          <p class=" p-0" data-wow-delay="0.5s" style={{textTransform:"uppercase"}}>
-                          Raise Fund. Invest in Indian Startups. Drive Growth.
+                          Making Private Market Investment Easy and Accessible                          </h2>
+                          <p class=" p-0" data-wow-delay="0.5s" style={{ textTransform: "uppercase" }}>
+                          Whether you're raising funds or looking to invest in Indian startups, Growth91 empowers you to drive growth in India's vibrant startup ecosystem.
 
-                            
                           </p>
                           <div className="banner-mobile-img d-sm-none">
                             <img
@@ -724,7 +724,7 @@ class Homenew extends Component {
                                 class="white-btns"
                                 type=""
                               >
-                                Explore Deals{" "}
+                                Explore Startups{" "}
                                 {this.state.loggedinstatus == true
                                   ? ""
                                   : "(Sign Up)"}
@@ -756,7 +756,7 @@ class Homenew extends Component {
                   <span></span>{" "}
                 </p>
                 <h3>Startups liked by Marquee Angels
-</h3>
+                </h3>
               </div>
             </div>
             <div class="position-rel">
@@ -1424,11 +1424,11 @@ class Homenew extends Component {
                       data-bs-parent="#accordionFlushExample"
                     >
                       <div class="accordion-body">
-                      Your Investment is in safe hands, After all 
-                      the required fund raising formalities are completed 
-                      by the Startup, we advise investors to directly 
-                      transfer funds to the account of respective Startup, 
-                      dedicated for receiving Securities Application Money.
+                        Your Investment is in safe hands, After all
+                        the required fund raising formalities are completed
+                        by the Startup, we advise investors to directly
+                        transfer funds to the account of respective Startup,
+                        dedicated for receiving Securities Application Money.
                       </div>
                     </div>
                   </div>
@@ -1536,7 +1536,7 @@ class Homenew extends Component {
             </div>
           </div>
         </section>
-      
+
         <section class="custom-section">
           <div class="join-section join-sec-yellow join-sec-white undefined join-divide mobile-join">
             {/* <h4>Join us</h4> */}
