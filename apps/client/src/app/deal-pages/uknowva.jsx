@@ -144,7 +144,7 @@ class uknowaHRMS extends Component {
         document.title = "uknowva HRMS - Growth91 - Startup Marketplace ";
     }
     componentDidMount() {
-        let deal_id = "41";
+        let deal_id = "133";
         this.setState({ deal_id: deal_id }, () => {
             this.get_pitch_list();
         });
