@@ -103,7 +103,7 @@ class uknowaHRMS extends Component {
             gstmodal: false,
             deal_service: "",
             images: [
-                                                            
+
                 "./assets/images/deals-details/uknowva/Pitch/02.jpg",
                 "./assets/images/deals-details/uknowva/Pitch/03.jpg",
                 "./assets/images/deals-details/uknowva/Pitch/01.jpg",
@@ -1299,7 +1299,7 @@ class uknowaHRMS extends Component {
                                                             objectFit: "contain",
                                                         }}
                                                     />
-                                                    <h5 className="ml-5 mt-4">uknowva HRMS</h5>
+                                                    <h5 className="ml-5 mt-4">uKnowva</h5>
                                                     {/* <h5>{this.state.logo}</h5> */}
                                                 </div>
                                                 {this.state.isPrivate == true && (
@@ -1341,7 +1341,7 @@ class uknowaHRMS extends Component {
                                                 </div>
                                             </div>
                                             <p style={{ textAlign: "justify" }}>
-                                                Uknowa is an AI-enabled HR Tech platform tailored for mid-sized companies (200–2,000 employees), offering a full-stack solution for payroll, recruitment, onboarding, performance management, and employee engagement. Combining Artificial Intelligence (AI) and Emotional Intelligence (EI), it enhances productivity and well-being with features like stress detection, sentiment analysis, and attrition prediction. With 300,000+ active users, 120+ paying customers, and a 93% retention rate, Uknowa demonstrates strong product-market fit. Financially robust, the company has achieved positive PAT, repaid its venture debt, and projects revenue growth from INR 9.2 Cr to INR 74 Cr in five years. Backed by an experienced leadership team, Uknowa is recognized for its customizability, affordability, and ease of use, making it a scalable and globally competitive HR solution. 
+                                            uKnowva  is an AI-enabled HR Tech platform tailored for mid-sized companies (200–2,000 employees), offering a full-stack solution for payroll, recruitment, onboarding, performance management, and employee engagement. Combining Artificial Intelligence (AI) and Emotional Intelligence (EI),  it enhances productivity and well-being with features like stress detection, sentiment analysis, and attrition prediction. With 300,000+ active users, 120+ paying customers, and a 93% retention rate, uKnowva demonstrates strong product-market fit. Financially robust, the company has achieved positive PAT, repaid its venture debt, and projects revenue growth from INR 9.2 Cr to INR 74 Cr in five years. Backed by an experienced leadership team, Uknowva is recognized for its customizability, affordability, and ease of use, making it a scalable and globally competitive HR solution.
                                             </p>{" "}
                                             <div className=" percentage-container">
                                                 <div className="percentage-values">
@@ -2071,7 +2071,8 @@ class uknowaHRMS extends Component {
                                                         <img src="./assets/images/deals-details/highlight3.jpg" />
                                                     </div>
                                                     <p style={{ paddingLeft: "0px !important" }}>
-                                                        uknowva has improved HR processes for companies like Kotak Mahindra Bank, Delhivery and Indostar, showcasing results in onboarding efficiency, engagement, and performance management. Its tailored solutions drive measurable value for clients.                                                    </p>
+                                                    uKnowva has improved HR processes for companies like Kotak Mahindra group, Reliance retail,IDFC Bank, Delhivery and Indostar, showcasing results in onboarding efficiency, engagement, and performance management. Its tailored solutions drive measurable value for clients.
+                                                      </p>
                                                 </div>
                                             </div>
 
@@ -2081,7 +2082,7 @@ class uknowaHRMS extends Component {
                                     {/* media */}
                                 </div>
                             </div>
-                            
+
                         </section>
                         <div className="deals-page">
                             <div className="tab-wrapper">
@@ -2596,11 +2597,12 @@ class uknowaHRMS extends Component {
                                                                                                                     textAlign: "justify",
                                                                                                                 }}
                                                                                                             >
-                                                                                                                uknowva HRMS combines a product-focused strategy with a service-oriented approach to deliver maximum value to clients. At its core is a robust, scalable platform, continuously enhanced with upgrades and innovative features. This is complemented by exceptional customer support, comprehensive training, and tailored customization services, ensuring businesses can fully leverage the platform to meet their unique needs.                                                                                                            </p>
+                                                                                                                uKnowva combines a product-focused strategy with a service-oriented approach to deliver maximum value to clients. At its core is a robust, scalable platform, continuously enhanced with upgrades and innovative features. This is complemented by exceptional customer support, comprehensive training, and tailored customization services, ensuring businesses can fully leverage the platform to meet their unique needs.
+                                                                                                            </p>
                                                                                                         </div>
                                                                                                     </Panel>
                                                                                                     <Panel
-                                                                                                        header="What are the challenges for scale up and how these will be managed?"
+                                                                                                        header="what are the challanges for scale up and how these will be managed?"
                                                                                                         key="2"
                                                                                                         extra={genExtra()}
                                                                                                     >
@@ -2615,8 +2617,11 @@ class uknowaHRMS extends Component {
                                                                                                                     textAlign: "justify",
                                                                                                                 }}
                                                                                                             >
-                                                                                                                The primary challenges for scaling uknowva HRMS include: Global Expansion: Penetrating international markets requires adapting to region-specific compliance, cultural nuances, and competition. Support Scalability: As our client base grows, ensuring consistent, high-quality support across regions is critical. R&D Investment: To stay ahead, continuous investment in AI and product innovation is necessary.
-                                                                                                                To manage these challenges: We plan to establish regional partnerships for localized support and market entry. Our automation-driven customer service tools, such as chatbots and self-service portals, will ensure scalable and efficient support. Increased investment in our research and development teams will drive innovation to address market-specific challenges effectively.                                                                                                            </p>
+                                                                                                                The primary challenges for scaling uKnowva  include: Global Expansion: Penetrating international markets requires adapting to region-specific compliance, cultural nuances, and competition. Support Scalability: As our client base grows, ensuring consistent, high-quality support across regions is critical. R&D Investment: To stay ahead, continuous investment in AI and product innovation is necessary.
+                                                                                                                {/* br */}
+                                                                                                                <br />
+                                                                                                                To manage these challenges: They plan to establish regional partnerships for localized support and market entry. Our automation-driven customer service tools, such as chatbots and self-service portals, will ensure scalable and efficient support. Increased investment in our research and development teams will drive innovation to address market-specific challenges effectively
+                                                                                                            </p>
                                                                                                         </div>
                                                                                                     </Panel>
 
@@ -2636,11 +2641,19 @@ class uknowaHRMS extends Component {
                                                                                                                     textAlign: "justify",
                                                                                                                 }}
                                                                                                             >
-                                                                                                                Yes, uknowva HRMS is disrupting the HRMS market by:
+                                                                                                                Yes, uKnowva  is disrupting the HRMS market by:
+                                                                                                                <br />
                                                                                                                 Offering affordable, flexible, and scalable solutions that cater to both SMEs and large enterprises across 10+ industries in 5+ countries and serving 300K active users daily in 150+ business organizations.
+                                                                                                                <br />
+
                                                                                                                 Introducing EI-driven features like mood meters, happiness tracking, and AI-driven analytics that focus on people rather than processes.
+                                                                                                                <br />
+
                                                                                                                 Building a strong community ecosystem with our Partner Portal and Extension Store, allowing stakeholders to collaborate and innovate.
+                                                                                                                <br />
+
                                                                                                                 These disruptions challenge traditional HRMS platforms that focus on operational efficiency rather than holistic employee engagement and well-being.
+                                                                                                                
                                                                                                             </p><p
                                                                                                                 style={{
                                                                                                                     color: "#7f7776",
