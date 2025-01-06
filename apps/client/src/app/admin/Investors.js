@@ -9,7 +9,7 @@ import {
   message,
   Select,
   Spin,
-  DatePicker,
+  DatePicker, 
   Dropdown,
   Menu,
   Tag,
@@ -33,6 +33,7 @@ import Apis from "../constants/Apis";
 import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
 import Sidebar2 from "./common/Sidebar2";
+import Portfolio from "../investor/components/Portfolio";
 
 const { TextArea } = Input;
 
@@ -52,6 +53,7 @@ class Investors extends Component {
       editModalStatus: false,
       disableModalStatus: false,
       updatemodalstatus: false,
+      displayInvestorDashboardId: null,
 
       // add
       first_name: "",
@@ -190,18 +192,32 @@ class Investors extends Component {
         //   });
         // } else {
         this.setState({
-          investors: result.data.map((el) => {
-            return { ...el, name: el.first_name + " " + el.last_name, investor_id: Number(el.investor_id),investor_ids: el.investor_id,
-              total_invested_amount: Number(el.total_invested_amount) };
-          }).sort((a, b) => {
-            return a.investor_id > b.investor_id ? -1 : 1;
-          }),
-          cinvestors: result.data.map((el) => {
-            return { ...el, name: el.first_name + " " + el.last_name , investor_id: Number(el.investor_id),investor_ids: el.investor_id,
-              total_invested_amount: Number(el.total_invested_amount)};
-          }).sort((a, b) => {
-            return a.investor_id > b.investor_id ? -1 : 1;
-          }),
+          investors: result.data
+            .map((el) => {
+              return {
+                ...el,
+                name: el.first_name + " " + el.last_name,
+                investor_id: Number(el.investor_id),
+                investor_ids: el.investor_id,
+                total_invested_amount: Number(el.total_invested_amount),
+              };
+            })
+            .sort((a, b) => {
+              return a.investor_id > b.investor_id ? -1 : 1;
+            }),
+          cinvestors: result.data
+            .map((el) => {
+              return {
+                ...el,
+                name: el.first_name + " " + el.last_name,
+                investor_id: Number(el.investor_id),
+                investor_ids: el.investor_id,
+                total_invested_amount: Number(el.total_invested_amount),
+              };
+            })
+            .sort((a, b) => {
+              return a.investor_id > b.investor_id ? -1 : 1;
+            }),
           loading: false,
         });
         // }
@@ -437,7 +453,7 @@ class Investors extends Component {
           // (item.last_name && item.last_name.toLowerCase().includes(text.toLowerCase())) ||
           (item.email && item.email.includes(text)) ||
           (item.mobile && item.mobile.includes(text)) ||
-          (item.investor_ids && (item.investor_ids).includes((text))) ||
+          (item.investor_ids && item.investor_ids.includes(text)) ||
           (item.referred_by && item.referred_by.includes(text))
         ) {
           arr = [...arr, item];
@@ -1150,7 +1166,7 @@ class Investors extends Component {
           });
         this.setState({
           investors: data,
-          modes:"dis"
+          modes: "dis",
         });
         console.log(data);
       } else if (this.state.modes == "dis") {
@@ -1168,8 +1184,7 @@ class Investors extends Component {
           });
         this.setState({
           investors: data,
-          modes:"ass"
-
+          modes: "ass",
         });
         console.log(data);
       }
@@ -1215,7 +1230,7 @@ class Investors extends Component {
         return {
           key: index,
           investorid: item.investor_id,
-          name: (item.name).toLowerCase(),
+          name: item.name.toLowerCase(),
           contactno: item.mobile ? item.mobile : "---",
           email: item.email ? item.email : "---",
           investment_amt: item.email ? item.email : "---",
@@ -1259,9 +1274,9 @@ class Investors extends Component {
         key: "name",
         width: 180,
         fixed: "left",
-        render:(text,record)=>{
-          return <span style={{textTransform:"capitalize"}}>{text}</span>
-        }
+        render: (text, record) => {
+          return <span style={{ textTransform: "capitalize" }}>{text}</span>;
+        },
       },
 
       {
@@ -1370,6 +1385,23 @@ class Investors extends Component {
                   &nbsp;&nbsp;Edit
                 </a>
               </Menu.Item>
+              <Menu.Item
+                key={`view_dashboard_${record.key}`}
+                icon={<EditOutlined />}
+              >
+                <a
+                  href="#"
+                  onClick={() => {
+                    this.setState({
+                      displayInvestorDashboardId: text.investor_id,
+                    });
+                    console.log(text.investor_id);
+                  }}
+                  style={{ fontSize: 14 }}
+                >
+                  &nbsp;&nbsp;View Dashboard
+                </a>
+              </Menu.Item>
               {text.user_block_status == 0 ? (
                 <Menu.Item
                   key={`disable_${record.key}`}
@@ -1443,69 +1475,90 @@ class Investors extends Component {
             <Sidebar2 />
 
             <Content className="home-section" style={{ margin: "0 16px" }}>
-              <Card
-                title="Investors"
-                extra={
-                  <Button type="primary" onClick={this.showAddModal}>
-                    <i
-                      className="bx bxs-plus-circle"
-                      style={{
-                        color: "#fff",
-                        position: "relative",
-                        top: 3,
-                        left: -3,
-                      }}
-                    ></i>{" "}
-                    Add New Investor
-                  </Button>
-                }
-                style={{ margin: 16 }}
-              >
-                <Breadcrumb
-                  style={{
-                    margin: "0",
-                  }}
-                >
-                  <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
-                  <Breadcrumb.Item>Investors</Breadcrumb.Item>
-                </Breadcrumb>
-                <br />
-                <br />
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Input
-                    value={this.state.searchinput}
-                    placeholder="Search"
-                    onChange={(e) => this.searchinput(e)}
-                    style={{ maxWidth: 300, marginBottom: 20, height: 40 }}
-                  />
+              {this.state.displayInvestorDashboardId != null && (
+                <>
                   <Button
+                    style={{marginTop: 20, marginRight: 20}}
                     type="primary"
-                    onClick={() => this.exportToCSV("Investor list")}
+                    onClick={() => {
+                      this.setState({
+                        displayInvestorDashboardId: null,
+                      });
+                    }}
                   >
-                    <i
-                      className="bx bxs-cloud-download"
-                      style={{
-                        color: "#fff",
-                        position: "relative",
-                        top: 3,
-                        left: -3,
-                      }}
-                    ></i>{" "}
-                    Export Data
+                    Back
                   </Button>
-                </div>
-                <Table
-                  dataSource={dataSource}
-                  columns={columns}
-                  loading={this.state.loading}
-                  bordered
-                />
-              </Card>
+                  <Portfolio
+                    investor_id={this.state.displayInvestorDashboardId}
+                  />
+                </>
+              )}
+
+              {this.state.displayInvestorDashboardId == null && (
+                <Card
+                  title="Investors"
+                  extra={
+                    <Button type="primary" onClick={this.showAddModal}>
+                      <i
+                        className="bx bxs-plus-circle"
+                        style={{
+                          color: "#fff",
+                          position: "relative",
+                          top: 3,
+                          left: -3,
+                        }}
+                      ></i>{" "}
+                      Add New Investor
+                    </Button>
+                  }
+                  style={{ margin: 16 }}
+                >
+                  <Breadcrumb
+                    style={{
+                      margin: "0",
+                    }}
+                  >
+                    <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+                    <Breadcrumb.Item>Investors</Breadcrumb.Item>
+                  </Breadcrumb>
+                  <br />
+                  <br />
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Input
+                      value={this.state.searchinput}
+                      placeholder="Search"
+                      onChange={(e) => this.searchinput(e)}
+                      style={{ maxWidth: 300, marginBottom: 20, height: 40 }}
+                    />
+                    <Button
+                      type="primary"
+                      onClick={() => this.exportToCSV("Investor list")}
+                    >
+                      <i
+                        className="bx bxs-cloud-download"
+                        style={{
+                          color: "#fff",
+                          position: "relative",
+                          top: 3,
+                          left: -3,
+                        }}
+                      ></i>{" "}
+                      Export Data
+                    </Button>
+                  </div>
+                  <Table
+                    dataSource={dataSource}
+                    columns={columns}
+                    loading={this.state.loading}
+                    bordered
+                  />
+                </Card>
+              )}
             </Content>
 
             <BottomBar />
