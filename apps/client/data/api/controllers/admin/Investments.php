@@ -20,7 +20,7 @@ class investments extends CI_Controller {
 		$sql = "SELECT * FROM `investments`
 		LEFT JOIN deals on deals.deal_id = investments.deal_id
 		LEFT JOIN startups on startups.startupid = deals.deal_name
-		left join users on users.investor_id = investments.investor_id
+		LEFT JOIN users on users.investor_id = investments.investor_id
 		ORDER BY investments.investment_id  DESC
 		";
 		$query=$this->db->query($sql);
