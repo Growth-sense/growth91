@@ -1341,7 +1341,7 @@ class uknowaHRMS extends Component {
                                                 </div>
                                             </div>
                                             <p style={{ textAlign: "justify" }}>
-                                            uKnowva  is an AI-enabled HR Tech platform tailored for mid-sized companies (200–2,000 employees), offering a full-stack solution for payroll, recruitment, onboarding, performance management, and employee engagement. Combining Artificial Intelligence (AI) and Emotional Intelligence (EI),  it enhances productivity and well-being with features like stress detection, sentiment analysis, and attrition prediction. With 300,000+ active users, 120+ paying customers, and a 93% retention rate, uKnowva demonstrates strong product-market fit. Financially robust, the company has achieved positive PAT, repaid its venture debt, and projects revenue growth from INR 9.2 Cr to INR 74 Cr in five years. Backed by an experienced leadership team, Uknowva is recognized for its customizability, affordability, and ease of use, making it a scalable and globally competitive HR solution.
+                                                uKnowva  is an AI-enabled HR Tech platform tailored for mid-sized companies (200–2,000 employees), offering a full-stack solution for payroll, recruitment, onboarding, performance management, and employee engagement. Combining Artificial Intelligence (AI) and Emotional Intelligence (EI),  it enhances productivity and well-being with features like stress detection, sentiment analysis, and attrition prediction. With 300,000+ active users, 120+ paying customers, and a 93% retention rate, uKnowva demonstrates strong product-market fit. Financially robust, the company has achieved positive PAT, repaid its venture debt, and projects revenue growth from INR 9.2 Cr to INR 74 Cr in five years. Backed by an experienced leadership team, Uknowva is recognized for its customizability, affordability, and ease of use, making it a scalable and globally competitive HR solution.
                                             </p>{" "}
                                             <div className=" percentage-container">
                                                 <div className="percentage-values">
@@ -1867,7 +1867,7 @@ class uknowaHRMS extends Component {
                                             </div>
                                         </div>
                                     </Modal>
-                                    <div className="col-lg-7 deal-banner deals-video-banner liaplus ">
+                                    {/* <div className="col-lg-7 deal-banner deals-video-banner liaplus ">
                                         <iframe width="" height="315"
                                             style={{
                                                 boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
@@ -1875,33 +1875,27 @@ class uknowaHRMS extends Component {
                                                 // marginLeft: 65,
                                             }} src="https://www.youtube.com/embed/5TkGBxxAG4Y?si=83FF3G4dUKfH_vEy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-                                        {/* {this.state.youtube_url && (
-                                        
-                 <iframe
-                      style={{
-                        boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
-                        borderRadius: 3,
-                        // marginLeft: 65,
-                      }}
-                      width="100%"
-                      height="335"
-                      src={this.state.youtube_url}   frameborder="10"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowfullscreen
-                    ></iframe> )} */}
 
-                                        {/* {!this.state.youtube_url && (
-                      <>
-                        <img
-                          src="./assets/images/deals-details/LiaPlus AI/banner.jpg"
-                          width="100%"
-                          style={{ height: "auto" }}
-                          className="sectionliaplus"
-                        />
-                      </>
-                    )} */}
+
+
+                                    </div> */}
+                                    <div className="col-lg-7 deal-banner deals-video-banner">
+                                        <iframe
+                                            style={{
+                                                boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
+                                                borderRadius: 3,
+                                                // marginLeft: 65,
+                                            }}
+                                            width="100%"
+                                            height="335"
+                                            src="https://www.youtube.com/embed/5TkGBxxAG4Y?si=83FF3G4dUKfH_vEy"
+                                            title="EcoRatings Product Introduction"
+                                            frameborder="10"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            allowfullscreen
+                                        ></iframe>
                                     </div>
-                                    {/* Market Overview */}
+
                                     <div
                                         className="container home-decor-section mt-0"
                                         style={{ marginTop: "3px !important" }}
@@ -2071,8 +2065,8 @@ class uknowaHRMS extends Component {
                                                         <img src="./assets/images/deals-details/highlight3.jpg" />
                                                     </div>
                                                     <p style={{ paddingLeft: "0px !important" }}>
-                                                    uKnowva has improved HR processes for companies like Kotak Mahindra group, Reliance retail,IDFC Bank, Delhivery and Indostar, showcasing results in onboarding efficiency, engagement, and performance management. Its tailored solutions drive measurable value for clients.
-                                                      </p>
+                                                        uKnowva has improved HR processes for companies like Kotak Mahindra group, Reliance retail,IDFC Bank, Delhivery and Indostar, showcasing results in onboarding efficiency, engagement, and performance management. Its tailored solutions drive measurable value for clients.
+                                                    </p>
                                                 </div>
                                             </div>
 
@@ -2653,7 +2647,7 @@ class uknowaHRMS extends Component {
                                                                                                                 <br />
 
                                                                                                                 These disruptions challenge traditional HRMS platforms that focus on operational efficiency rather than holistic employee engagement and well-being.
-                                                                                                                
+
                                                                                                             </p><p
                                                                                                                 style={{
                                                                                                                     color: "#7f7776",
@@ -2806,21 +2800,9 @@ class uknowaHRMS extends Component {
                                                                                                                 color: "#7f7776",
                                                                                                             }}
                                                                                                         >
-                                                                                                            Money invested by the
-                                                                                                            investor in all public
-                                                                                                            deals are automatically
-                                                                                                            transferred to separate
-                                                                                                            and dedicated escrow
-                                                                                                            account created for
-                                                                                                            respective Startup. The
-                                                                                                            escrow account is managed
-                                                                                                            by authorized trustee.
-                                                                                                            After the funding/deal and
-                                                                                                            documentation formalities
-                                                                                                            are completed, the fund
-                                                                                                            will be transferred to
-                                                                                                            respective startup bank
-                                                                                                            account.
+                                                                                                            After all the required fund raising formalities are completed by the Startup,
+                                                                                                            we advise investors to directly transfer funds to the account of respective
+                                                                                                            Startup, dedicated for receiving Securities Application Money
                                                                                                         </div>
                                                                                                     </Panel>
 
@@ -2908,6 +2890,12 @@ class uknowaHRMS extends Component {
                                                                                 He holds a BE from Mumbai University and an MBA from IBS.A recipient of the prestigious Bharat Gaurav Award (2009) by IEDRA,
                                                                                 he has been recognized for his significant contributions to innovation and technology.                                                                            </a>
                                                                         </li>
+                                                                        <li>
+                                                                            <a href="">
+
+                                                                            </a>
+
+                                                                        </li>
 
                                                                     </ul>
                                                                 </div>
@@ -2934,7 +2922,7 @@ class uknowaHRMS extends Component {
                                                                                 }}
                                                                             >
                                                                                 <a
-                                                                                    href="https://www.linkedin.com/in/vicky-jain-09062227?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
+                                                                                    href="https://www.linkedin.com/in/abhay-talekar-9a038126/"
                                                                                     target="_blank"
                                                                                 >
                                                                                     <i className="bx bxl-linkedin"></i>
@@ -2950,6 +2938,10 @@ class uknowaHRMS extends Component {
                                                                             <a>
                                                                                 Abhay focuses on scaling uknowva’s market presence and driving business growth.He holds an MBA from ITM and has extensive experience in business development and strategic partnerships.
                                                                             </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a>He holds an MBA from ITM and has extensive experience in business
+                                                                                development and strategic partnerships.</a>
                                                                         </li>
 
                                                                     </ul>
@@ -2968,7 +2960,7 @@ class uknowaHRMS extends Component {
                                                                         />
                                                                         <div className="intro">
                                                                             <h3>Priyanka Bhor </h3>
-                                                                            <span>Co-founder & CEO/CTO</span>
+                                                                            <span>Co-founder & Head of Product</span>
                                                                             <div
                                                                                 className="social-icons"
                                                                                 style={{
@@ -2991,9 +2983,17 @@ class uknowaHRMS extends Component {
                                                                     <ul>
                                                                         <li>
                                                                             <a>
-                                                                                Priyanka brings extensive expertise in product design and user experience, ensuring uknowva's platform is intuitive and user-friendly.
-                                                                                She holds a BE from Mumbai University and an MBA from Welingkar Institute.
-                                                                                Recognized for her leadership and innovation, she was featured among the "50 Most Empowering Women in Business 2016" by Insights Success and named one of the "Top 50 Women HR Tech Influencers 2023."                                                                            </a>
+                                                                                Priyanka brings extensive expertise in product design. She holds a
+                                                                                BE from Mumbai University and an MBA from Welingkar Institute.
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a>
+                                                                                Recognized for her leadership and innovation, she was featured
+                                                                                among the "50 Most Empowering Women in Business 2016" by
+                                                                                Insights Success and named one of the "Top 50 Women HR Tech
+                                                                                Influencers 2023."
+                                                                            </a>
                                                                         </li>
 
                                                                     </ul>
