@@ -1889,7 +1889,6 @@ class uknowaHRMS extends Component {
                                             width="100%"
                                             height="335"
                                             src="https://www.youtube.com/embed/5TkGBxxAG4Y?si=83FF3G4dUKfH_vEy"
-                                            title="EcoRatings Product Introduction"
                                             frameborder="10"
                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                             allowfullscreen
@@ -2886,13 +2885,15 @@ class uknowaHRMS extends Component {
                                                                     <ul>
                                                                         <li>
                                                                             <a>
-                                                                                Vicky drives uknowva’s technology vision, overseeing product development and strategy.
-                                                                                He holds a BE from Mumbai University and an MBA from IBS.A recipient of the prestigious Bharat Gaurav Award (2009) by IEDRA,
-                                                                                he has been recognized for his significant contributions to innovation and technology.                                                                            </a>
+                                                                                Vicky drives uKnowva’s technology vision, overseeing product
+                                                                                development and strategy. He holds a BE from Mumbai University
+                                                                                and an MBA from IBS.  </a>
                                                                         </li>
                                                                         <li>
-                                                                            <a href="">
-
+                                                                            <a>
+                                                                            A recipient of the prestigious Bharat Gaurav Award (2009) by IEDRA,
+he has been recognized for his significant contributions to innovation
+and technology.
                                                                             </a>
 
                                                                         </li>
@@ -2936,8 +2937,8 @@ class uknowaHRMS extends Component {
                                                                     <ul>
                                                                         <li>
                                                                             <a>
-                                                                                Abhay focuses on scaling uknowva’s market presence and driving business growth.He holds an MBA from ITM and has extensive experience in business development and strategic partnerships.
-                                                                            </a>
+                                                                                Abhay focuses on scaling uknowva’s market presence and driving
+                                                                                business growth. </a>
                                                                         </li>
                                                                         <li>
                                                                             <a>He holds an MBA from ITM and has extensive experience in business
@@ -2974,9 +2975,7 @@ class uknowaHRMS extends Component {
                                                                                 >
                                                                                     <i className="bx bxl-linkedin"></i>
                                                                                 </a>
-                                                                                {/* <a href="mailto:vaibhav.tambe@transbnk.co.in">
-                                        <i className="bx bxl-gmail"></i>
-                                        </a> */}
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -2989,10 +2988,8 @@ class uknowaHRMS extends Component {
                                                                         </li>
                                                                         <li>
                                                                             <a>
-                                                                                Recognized for her leadership and innovation, she was featured
-                                                                                among the "50 Most Empowering Women in Business 2016" by
-                                                                                Insights Success and named one of the "Top 50 Women HR Tech
-                                                                                Influencers 2023."
+                                                                                Priyanka was featured among the "50 Most Empowering Women in Business 2016" by
+                                                                                Insights Success and named one of the "Top 50 Women HR Tech Influencers 2023".
                                                                             </a>
                                                                         </li>
 
