@@ -3,22 +3,22 @@ import React from "react";
 export const NewWebFooter = () => {
   return (
     <div
-      class="Footer_footer__Dhw_9 newfooter"
+    className="Footer_footer__Dhw_9 newfooter"
       style={{ padding: "1rem 0rem !important" }}
     >
-      <div class="Footer_footerLogo__Dz6fy"></div>
-      <p class="Footer_footerText__YieoY">
+      <div className="Footer_footerLogo__Dz6fy"></div>
+      <p className="Footer_footerText__YieoY">
         Copyright <sup style={{fontSize:"10px"}}>&copy;</sup>  Growth91<sup>®</sup> 2024. All Rights Reserved{" "}
       </p>
-      <div class="Footer_footerMain__5yv_j">
+      <div className="Footer_footerMain__5yv_j">
         {/* <p><a href="/disclaimer">Disclaimer</a></p> */}
-        <ul class="Footer_footerSocials__Dn41J">
+        <ul className="Footer_footerSocials__Dn41J">
           <li>
             <a target="_blank" href="https://x.com/Growth_91">
               <svg
                 stroke="currentColor"
                 fill="currentColor"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 512 512"
                 height="1em"
                 width="1em"
@@ -35,7 +35,7 @@ export const NewWebFooter = () => {
               <svg
                 stroke="currentColor"
                 fill="currentColor"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 448 512"
                 height="1em"
                 width="1em"
@@ -52,7 +52,7 @@ export const NewWebFooter = () => {
               <svg
                 stroke="currentColor"
                 fill="currentColor"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 448 512"
                 height="1em"
                 width="1em"
@@ -68,7 +68,7 @@ export const NewWebFooter = () => {
               <svg
                 stroke="currentColor"
                 fill="currentColor"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 320 512"
                 height="1em"
                 width="1em"

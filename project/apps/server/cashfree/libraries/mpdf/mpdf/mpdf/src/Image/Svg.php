@@ -153,7 +153,7 @@ class Svg
 
 	var $textoutput; // mPDF 5.7.4
 
-	var $textanchor; // mPDF 5.7.4
+	var $text-anchor; // mPDF 5.7.4
 
 	var $textXorigin; // mPDF 5.7.4
 
@@ -209,7 +209,7 @@ class Svg
 		$this->textlength = 0; // mPDF 5.7.4
 		$this->texttotallength = 0; // mPDF 5.7.4
 		$this->textoutput = ''; // mPDF 5.7.4
-		$this->textanchor = 'start'; // mPDF 5.7.4
+		$this->text-anchor = 'start'; // mPDF 5.7.4
 		$this->textXorigin = 0; // mPDF 5.7.4
 		$this->textYorigin = 0; // mPDF 5.7.4
 		$this->textjuststarted = false; // mPDF 5.7.4
@@ -3875,7 +3875,7 @@ class Svg
 				$this->textlength = 0;  // mPDF 5.7.4
 				$this->texttotallength = 0; // mPDF 5.7.4
 				$this->textoutput = '';  // mPDF 5.7.4
-				$this->textanchor = 'start'; // mPDF 5.7.4
+				$this->text-anchor = 'start'; // mPDF 5.7.4
 				$this->textXorigin = 0;  // mPDF 5.7.4
 				$this->textYorigin = 0;  // mPDF 5.7.4
 
@@ -3932,7 +3932,7 @@ class Svg
 				unset($critere_style['x'], $critere_style['y']);
 				$this->svgDefineTxtStyle($critere_style);
 
-				$this->textanchor = $this->txt_style[count($this->txt_style) - 1]['text-anchor']; // mPDF 5.7.4
+				$this->text-anchor = $this->txt_style[count($this->txt_style) - 1]['text-anchor']; // mPDF 5.7.4
 				$this->textXorigin = $this->txt_data[0];  // mPDF 5.7.4
 				$this->textYorigin = $this->txt_data[1];  // mPDF 5.7.4
 				$this->textjuststarted = true;  // mPDF 5.7.4
@@ -3988,9 +3988,9 @@ class Svg
 				// If absolute position adjustment (x or y), creates new block of text for text-alignment
 				if (isset($attribs['x']) || isset($attribs['y'])) {
 					// If text-anchor middle|end, adjust
-					if ($this->textanchor == 'end') {
+					if ($this->text-anchor == 'end') {
 						$tx = -$this->texttotallength;
-					} elseif ($this->textanchor == 'middle') {
+					} elseif ($this->text-anchor == 'middle') {
 						$tx = -$this->texttotallength / 2;
 					} else {
 						$tx = 0;
@@ -4022,7 +4022,7 @@ class Svg
 					unset($critere_style['x'], $critere_style['y']);
 					$this->svgDefineTxtStyle($critere_style);
 
-					$this->textanchor = $this->txt_style[count($this->txt_style) - 1]['text-anchor'];
+					$this->text-anchor = $this->txt_style[count($this->txt_style) - 1]['text-anchor'];
 					$this->textXorigin = $x;
 					$this->textYorigin = $y;
 				} else {
@@ -4152,9 +4152,9 @@ class Svg
 
 				// mPDF 5.7.4
 				// If text-anchor middle|end, adjust
-				if ($this->textanchor == 'end') {
+				if ($this->text-anchor == 'end') {
 					$tx = -$this->texttotallength;
-				} elseif ($this->textanchor == 'middle') {
+				} elseif ($this->text-anchor == 'middle') {
 					$tx = -$this->texttotallength / 2;
 				} else {
 					$tx = 0;

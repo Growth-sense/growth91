@@ -133,10 +133,10 @@ class Homenew extends Component {
       )
       .then((response) => {
         this.setState({ delete_analytics_session_data: response.data });
-        console.log(response.data);
+        // console.log(response.data);
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
   };
   postStart_analytics_session_data = () => {
@@ -149,7 +149,7 @@ class Homenew extends Component {
         this.setState({ start_analytics_session_responseData: response.data });
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
   };
   getDeals = () => {
@@ -266,8 +266,8 @@ class Homenew extends Component {
       return (
         <>
           <div className="nextArrow" onClick={onClick}>
-            <span class="next-arrows slick-arrow">
-              <i class="fa fa-angle-right" aria-hidden="true"></i>
+            <span className="next-arrows slick-arrow">
+              <i className="fa fa-angle-right" aria-hidden="true"></i>
             </span>
           </div>
         </>
@@ -279,9 +279,9 @@ class Homenew extends Component {
       return (
         <>
           <div className="prevArrow" onClick={onClick}>
-            <span class="prev-arrows slick-arrow">
+            <span className="prev-arrows slick-arrow">
               {" "}
-              <i class="fa fa-angle-left" aria-hidden="true"></i>{" "}
+              <i className="fa fa-angle-left" aria-hidden="true"></i>{" "}
             </span>
           </div>
         </>
@@ -539,7 +539,7 @@ class Homenew extends Component {
       pointerEvents: "none",
     };
     const { loading } = this.state
-    console.log(loading);
+    // console.log(loading);
     return (
       <div>
         {/*  <NewWebHeader  newabout={"newabout"} /> */}
@@ -553,20 +553,20 @@ class Homenew extends Component {
           </div>
         </div>
         <div className="mainbanner">
-          <section class="banner_section ">
-            <div class="container-fluid">
-              <div class="row banner-row">
-                <div class="banner-sliding">
+          <section className="banner_section ">
+            <div className="container-fluid">
+              <div className="row banner-row">
+                <div className="banner-sliding">
                   <Slider {...sliderSettings}>
 
-                    <div class="left-content">
-                      <div class="d-flex-banner fadding-bottom fadding-bottom-1">
-                        <div class="banner-part banner-slidingpart">
-                          <h1 class="">
+                    <div className="left-content">
+                      <div className="d-flex-banner fadding-bottom fadding-bottom-1">
+                        <div className="banner-part banner-slidingpart">
+                          <h1 className="">
                           Looking to Invest in Startups in India and 
                             Tap Into High-Growth Ventures?
                           </h1>
-                          <p class=" p-0">
+                          <p className=" p-0">
                             <span>
                               Growth 91 connects you with the next big thing
                             </span>
@@ -579,7 +579,7 @@ class Homenew extends Component {
                             />
                           </div>
                           <form
-                            class="input_box input-box-new banner-btns wow  fadeInUp"
+                            className="input_box input-box-new banner-btns wow  fadeInUp"
                             data-wow-delay="0.7s"
                             style={{
                               visibility: "visible",
@@ -587,14 +587,14 @@ class Homenew extends Component {
                               animationName: "fadeInUp",
                             }}
                           >
-                            <div class="form-wraper new-form-wrapper">
+                            <div className="form-wraper new-form-wrapper">
                               <Link
                                 to={
                                   this.state.loggedinstatus == true
                                     ? "/deals"
                                     : "/signup"
                                 }
-                                class="white-btns"
+                                className="white-btns"
                                 type="button"
                               >
                                 Get Started
@@ -603,7 +603,7 @@ class Homenew extends Component {
                           </form>
                         </div>
 
-                        <div class="img-banner-part">
+                        <div className="img-banner-part">
                           <img
                             src="./assets/images/diagram.png"
                             alt="Private market investing made easy"
@@ -611,11 +611,11 @@ class Homenew extends Component {
                         </div>
                       </div>
                     </div>
-                    <div class="left-content">
-                      <div class="d-flex-banner fadding-bottom fadding-bottom-2">
-                        <div class="banner-part banner-slidingpart">
+                    <div className="left-content">
+                      <div className="d-flex-banner fadding-bottom fadding-bottom-2">
+                        <div className="banner-part banner-slidingpart">
                           <h2
-                            class="wow fadeInUp"
+                            className="wow fadeInUp"
                             data-wow-delay="0.3s"
                             style={{
                               visibility: "visible",
@@ -627,23 +627,23 @@ class Homenew extends Component {
                             <br />
                             Find Investor for Your Startup on Growth91.
                           </h2>
-                          <div class="banner-listes">
+                          <div className="banner-listes">
                             <ul>
                               <li>
                                 <span>
-                                  <i class="fa-solid fa-check"></i>
+                                  <i className="fa-solid fa-check"></i>
                                 </span>
                                 Connect with Investors
                               </li>
                               <li>
                                 <span>
-                                  <i class="fa-solid fa-check"></i>
+                                  <i className="fa-solid fa-check"></i>
                                 </span>
                                 Simplify Fundraising
                               </li>
                               <li>
                                 <span>
-                                  <i class="fa-solid fa-check"></i>
+                                  <i className="fa-solid fa-check"></i>
                                 </span>
                                 Build Your Startup
                               </li>
@@ -659,7 +659,7 @@ class Homenew extends Component {
                             />
                           </div>
                           <form
-                            class="input_box input-box-new banner-btns wow  fadeInUp"
+                            className="input_box input-box-new banner-btns wow  fadeInUp"
                             data-wow-delay="0.7s"
                             style={{
                               visibility: "visible",
@@ -667,10 +667,10 @@ class Homenew extends Component {
                               animationName: "fadeInUp",
                             }}
                           >
-                            <div class="form-wraper new-form-wrapper">
+                            <div className="form-wraper new-form-wrapper">
                               <Link
                                 to="/founder-registration"
-                                class="white-btns"
+                                className="white-btns"
                                 type="button"
                               >
                                 Raise Funds
@@ -678,7 +678,7 @@ class Homenew extends Component {
                             </div>
                           </form>
                         </div>
-                        <div class="img-banner-part">
+                        <div className="img-banner-part">
                           <img
                             src="./assets/images/venture.png"
                             loading="lazy"
@@ -688,13 +688,13 @@ class Homenew extends Component {
                         </div>
                       </div>
                     </div>
-                    <div class="left-content">
-                      <div class="d-flex-banner banner1 fadding-bottom fadding-bottom-3">
-                        <div class="banner-part banner-slidingpart">
-                          <h2 class="">
+                    <div className="left-content">
+                      <div className="d-flex-banner banner1 fadding-bottom fadding-bottom-3">
+                        <div className="banner-part banner-slidingpart">
+                          <h2 className="">
                             Private market <br /> investing made easy
                           </h2>
-                          <p class=" p-0" data-wow-delay="0.5s" style={{textTransform:"uppercase"}}>
+                          <p className=" p-0" data-wow-delay="0.5s" style={{textTransform:"uppercase"}}>
                           Raise Fund. Invest in Indian Startups. Drive Growth.
 
                             
@@ -706,7 +706,7 @@ class Homenew extends Component {
                             />
                           </div>
                           <form
-                            class="input_box input-box-new banner-btns "
+                            className="input_box input-box-new banner-btns "
                             data-wow-delay="0.7s"
                             style={{
                               visibility: "visible",
@@ -714,14 +714,14 @@ class Homenew extends Component {
                               animationName: "fadeInUp",
                             }}
                           >
-                            <div class="form-wraper new-form-wrapper">
+                            <div className="form-wraper new-form-wrapper">
                               <Link
                                 to={
                                   this.state.loggedinstatus == true
                                     ? "/deals"
                                     : "/deals"
                                 }
-                                class="white-btns"
+                                className="white-btns"
                                 type=""
                               >
                                 Explore Deals{" "}
@@ -732,7 +732,7 @@ class Homenew extends Component {
                             </div>
                           </form>
                         </div>
-                        <div class="img-banner-part">
+                        <div className="img-banner-part">
                           <img
                             src="./assets/images/profits.png"
                             alt="startup ecosystem"
@@ -748,10 +748,10 @@ class Homenew extends Component {
         </div>
         <Homenewrxtra />
 
-        <section class="business-crowd logo-sections ">
-          <div class="container">
-            <div class="row">
-              <div class="heading-title founder-text">
+        <section className="business-crowd logo-sections ">
+          <div className="container">
+            <div className="row">
+              <div className="heading-title founder-text">
                 <p>
                   <span></span>{" "}
                 </p>
@@ -759,25 +759,25 @@ class Homenew extends Component {
 </h3>
               </div>
             </div>
-            <div class="position-rel">
-              <div class="blur-div"></div>
-              <div class="row client-slider">
+            <div className="position-rel">
+              <div className="blur-div"></div>
+              <div className="row client-slider">
                 <Slider {...successsetting}>
-                  <div class="client-logo">
+                  <div className="client-logo">
                     <img
                       src="./assets/images/deal-images/Atreya/logo.jpg"
                       alt="img"
                       srcset=""
                     />
                   </div>
-                  <div class="client-logo">
+                  <div className="client-logo">
                     <img
                       src="./assets/images/deal-images/BizPay/logo.svg"
                       alt="img"
                       srcset=""
                     />
                   </div>
-                  <div class="client-logo">
+                  <div className="client-logo">
                     <img
                       src="./assets/images/deal-images/Bulkpe/logo.png"
                       alt="img"
@@ -785,35 +785,37 @@ class Homenew extends Component {
                     />
                   </div>
 
-                  <div class="client-logo">
+                  <div className="client-logo">
                     <img
                       src="./assets/images/deal-images/EcoRatings/logo.png"
                       alt="img"
                       srcset=""
                     />
                   </div>
-                  <div class="client-logo">
+                  <div className="client-logo">
                     <img
                       src="./assets/images/deal-images/EventBeep/logo.png"
                       alt="img"
                       srcset=""
                     />
+
+                    
                   </div>
-                  <div class="client-logo">
+                  <div className="client-logo">
                     <img
                       src="./assets/images/deal-images/Footrax/logo.png"
                       alt="img"
                       srcset=""
                     />
                   </div>
-                  <div class="client-logo">
+                  <div className="client-logo">
                     <img
                       src="./assets/images/deal-images/Homversity/logo.jpg"
                       alt="img"
                       srcset=""
                     />
                   </div>
-                  <div class="client-logo">
+                  <div className="client-logo">
                     <img
                       src="./assets/images/deal-images/HumSafer/logo.jpg"
                       alt="img"
@@ -821,28 +823,28 @@ class Homenew extends Component {
                     />
                   </div>
 
-                  <div class="client-logo">
+                  <div className="client-logo">
                     <img
                       src="./assets/images/deal-images/IndianStartupNews/logo.jpg"
                       alt="img"
                       srcset=""
                     />
                   </div>
-                  <div class="client-logo">
+                  <div className="client-logo">
                     <img
                       src="./assets/images/deal-images/IndusUno/logo.png"
                       alt="img"
                       srcset=""
                     />
                   </div>
-                  <div class="client-logo">
+                  <div className="client-logo">
                     <img
                       src="./assets/images/deal-images/Invidata/logo.png"
                       alt="img"
                       srcset=""
                     />
                   </div>
-                  <div class="client-logo">
+                  <div className="client-logo">
                     <img
                       src="./assets/images/deal-images/Newboo/logo.jpg"
                       alt="img"
@@ -850,42 +852,42 @@ class Homenew extends Component {
                     />
                   </div>
 
-                  <div class="client-logo">
+                  <div className="client-logo">
                     <img
                       src="./assets/images/deal-images/Petmojo/logo.jpg"
                       alt="img"
                       srcset=""
                     />
                   </div>
-                  <div class="client-logo">
+                  <div className="client-logo">
                     <img
                       src="./assets/images/deal-images/Targetpeak/Target-Peak-Logo.png"
                       alt="img"
                       srcset=""
                     />
                   </div>
-                  <div class="client-logo">
+                  <div className="client-logo">
                     <img
                       src="./assets/images/deal-images/the EleFant/logo.png"
                       alt="img"
                       srcset=""
                     />
                   </div>
-                  <div class="client-logo">
+                  <div className="client-logo">
                     <img
                       src="./assets/images/deal-images/TransBank/Logo.jpg"
                       alt="img"
                       srcset=""
                     />
                   </div>
-                  <div class="client-logo">
+                  <div className="client-logo">
                     <img
                       src="./assets/images/deal-images/Tulua/Tulua Logo.webp"
                       alt="img"
                       srcset=""
                     />
                   </div>
-                  <div class="client-logo">
+                  <div className="client-logo">
                     <img
                       src="./assets/images/deal-images/Yolo/logo.png"
                       alt="img"
@@ -898,11 +900,11 @@ class Homenew extends Component {
           </div>
         </section>
 
-        <section class="counter-sections">
-          <div class="container">
-            <div class="row">
-              <div class="">
-                <div class="main-heading-counter">
+        <section className="counter-sections">
+          <div className="container">
+            <div className="row">
+              <div className="">
+                <div className="main-heading-counter">
                   <p ref={this.elementRef}>Investment Strategy</p>
                   <h3>Data-Driven Decisions</h3>
                   <p>
@@ -917,10 +919,10 @@ class Homenew extends Component {
                     className="flex-counters sliderdriven"
                     {...countersettting}
                   >
-                    <div class="counter-container newcountercontainer">
-                      <div class="part-one-count">
+                    <div className="counter-container newcountercontainer">
+                      <div className="part-one-count">
                         <div id="numbers">
-                          <span class=" fig-number">
+                          <span className=" fig-number">
                             <CountUp
                               duration={5}
                               start={0}
@@ -933,10 +935,10 @@ class Homenew extends Component {
                       </div>
                       <span>Startups funded</span>
                     </div>
-                    <div class="counter-container newcountercontainer ">
-                      <div class="part-one-count">
+                    <div className="counter-container newcountercontainer ">
+                      <div className="part-one-count">
                         <div id="numbers">
-                          <span class=" fig-number">
+                          <span className=" fig-number">
                             <CountUp
                               duration={3}
                               start={0}
@@ -951,10 +953,10 @@ class Homenew extends Component {
                       <span>Success Rate</span>
                     </div>
 
-                    <div class="counter-container newcountercontainer">
-                      <div class="part-one-count">
+                    <div className="counter-container newcountercontainer">
+                      <div className="part-one-count">
                         <div id="numbers">
-                          <span class=" fig-number">
+                          <span className=" fig-number">
                             <CountUp
                               duration={3}
                               start={0}
@@ -967,8 +969,8 @@ class Homenew extends Component {
                       </div>
                       <span>Startups Analyzed</span>
                     </div>
-                    <div class="counter-container newcountercontainer">
-                      <div class="part-one-count">
+                    <div className="counter-container newcountercontainer">
+                      <div className="part-one-count">
                         <p>Top Quartile</p>
                       </div>
                       <span>Performance Ranking</span>
@@ -976,11 +978,11 @@ class Homenew extends Component {
                   </Slider>
                 ) : (
                   <>
-                    <div class="flex-counters">
-                      <div class="counter-container ">
-                        <div class="part-one-count">
+                    <div className="flex-counters">
+                      <div className="counter-container ">
+                        <div className="part-one-count">
                           <div id="numbers">
-                            <span class=" fig-number">
+                            <span className=" fig-number">
                               <CountUp
                                 duration={5}
                                 start={0}
@@ -993,10 +995,10 @@ class Homenew extends Component {
                         </div>
                         <span>Startups funded</span>
                       </div>
-                      <div class="counter-container  ">
-                        <div class="part-one-count">
+                      <div className="counter-container  ">
+                        <div className="part-one-count">
                           <div id="numbers">
-                            <span class=" fig-number">
+                            <span className=" fig-number">
                               <CountUp
                                 duration={3}
                                 start={0}
@@ -1011,10 +1013,10 @@ class Homenew extends Component {
                         <span>Success Rate</span>
                       </div>
 
-                      <div class="counter-container ">
-                        <div class="part-one-count">
+                      <div className="counter-container ">
+                        <div className="part-one-count">
                           <div id="numbers">
-                            <span class=" fig-number">
+                            <span className=" fig-number">
                               <CountUp
                                 duration={3}
                                 start={0}
@@ -1027,8 +1029,8 @@ class Homenew extends Component {
                         </div>
                         <span>Startups Analyzed</span>
                       </div>
-                      <div class="counter-container ">
-                        <div class="part-one-count">
+                      <div className="counter-container ">
+                        <div className="part-one-count">
                           <p>Top Quartile</p>
                         </div>
                         <span>Performance Ranking</span>
@@ -1041,22 +1043,22 @@ class Homenew extends Component {
           </div>
         </section>
 
-        <section class="business-crowd">
-          <div class="container">
-            <div class="row">
-              <div class="heading-title founder-text">
+        <section className="business-crowd">
+          <div className="container">
+            <div className="row">
+              <div className="heading-title founder-text">
                 <p>
                   <span></span>{" "}
                 </p>
                 <h3>Why Invest in Startups in India with Us</h3>
               </div>
 
-              <div class="main-business-card">
-                <div class="circle-card-g91">
-                  <div class="img-inner-card1">
+              <div className="main-business-card">
+                <div className="circle-card-g91">
+                  <div className="img-inner-card1">
                     <img src="./assets/images/display.png" alt="" srcset="" />
                   </div>
-                  <div class="card-business-crowd">
+                  <div className="card-business-crowd">
                     <h4>Transparency at Every Step </h4>
                     <p>
                       We offer a clear view into our rigorous vetting process,
@@ -1067,11 +1069,11 @@ class Homenew extends Component {
                     </p>
                   </div>
                 </div>
-                <div class="circle-card-g91">
-                  <div class="img-inner-card1">
+                <div className="circle-card-g91">
+                  <div className="img-inner-card1">
                     <img src="./assets/images/funding.png" alt="" srcset="" />
                   </div>
-                  <div class="card-business-crowd">
+                  <div className="card-business-crowd">
                     <h4>Handpicked Deals for Explosive Growth </h4>
                     <p>
                       We meticulously select high-growth potential startups from
@@ -1080,11 +1082,11 @@ class Homenew extends Component {
                     </p>
                   </div>
                 </div>
-                <div class="circle-card-g91">
-                  <div class="img-inner-card1">
+                <div className="circle-card-g91">
+                  <div className="img-inner-card1">
                     <img src="./assets/images/growth.png" alt="" srcset="" />
                   </div>
-                  <div class="card-business-crowd">
+                  <div className="card-business-crowd">
                     <h4>Aligned Interests, Shared Success</h4>
                     <p>
                       {" "}
@@ -1100,35 +1102,35 @@ class Homenew extends Component {
           </div>
         </section>
 
-        <section class="testimonial-section">
-          <div class="container">
-            <div class="row">
-              <div class="heading-title founder-text">
+        <section className="testimonial-section">
+          <div className="container">
+            <div className="row">
+              <div className="heading-title founder-text">
                 <p>
                   <span></span>{" "}
                 </p>
                 <h3>Our Successful Startup Investors</h3>
               </div>
-              <div class="col-12 col-xl-12 col-lg-12 col-md-12 ">
-                <div class="slider-testimonials">
+              <div className="col-12 col-xl-12 col-lg-12 col-md-12 ">
+                <div className="slider-testimonials">
                   <Slider {...testimonialsetting}>
                     <div>
-                      <div class="testimonails-cards">
+                      <div className="testimonails-cards">
                         <ul>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                         </ul>
                         <p>
@@ -1139,14 +1141,14 @@ class Homenew extends Component {
                           about numbers; it's about the thrill of finding the
                           next big thing in the startup world.
                         </p>
-                        <div class="name-testi">
-                          <div class="img-testiminal-card">
+                        <div className="name-testi">
+                          <div className="img-testiminal-card">
                             <img
                               src="./assets/images/testimonials/hrish.jpg"
                               alt="user"
                             />
                           </div>
-                          <div class="contents-testimonials">
+                          <div className="contents-testimonials">
                             <h3>Hirish Shipurkar</h3>
                             <p> Head India </p>
                             <p className="company-name">
@@ -1159,22 +1161,22 @@ class Homenew extends Component {
                       </div>
                     </div>
                     <div>
-                      <div class="testimonails-cards">
+                      <div className="testimonails-cards">
                         <ul>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                         </ul>
                         <p>
@@ -1185,14 +1187,14 @@ class Homenew extends Component {
                           market trends and a commitment to providing investors
                           with access to cream of the crop
                         </p>
-                        <div class="name-testi">
-                          <div class="img-testiminal-card">
+                        <div className="name-testi">
+                          <div className="img-testiminal-card">
                             <img
                               src="./assets/images/testimonials/jaison.jpg"
                               alt="user"
                             />
                           </div>
-                          <div class="contents-testimonials">
+                          <div className="contents-testimonials">
                             <h3>JAISON TITUS</h3>
                             <p>SOFTWARE DEVLOPMENT </p>
 
@@ -1205,22 +1207,22 @@ class Homenew extends Component {
                       </div>
                     </div>
                     <div>
-                      <div class="testimonails-cards">
+                      <div className="testimonails-cards">
                         <ul>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                         </ul>
                         <p>
@@ -1229,14 +1231,14 @@ class Homenew extends Component {
                           Looking forward to equally exciting opportunities at
                           Growth91<sup style={{ fontSize: "0.6rem" }}>TM</sup>
                         </p>
-                        <div class="name-testi">
-                          <div class="img-testiminal-card">
+                        <div className="name-testi">
+                          <div className="img-testiminal-card">
                             <img
                               src="./assets/images/testimonials/ramesh-babu.jpg"
                               alt="user"
                             />
                           </div>
-                          <div class="contents-testimonials">
+                          <div className="contents-testimonials">
                             <h3>Ramesh Babu</h3>
                             <p>Country Head </p>
 
@@ -1249,22 +1251,22 @@ class Homenew extends Component {
                       </div>
                     </div>
                     <div>
-                      <div class="testimonails-cards">
+                      <div className="testimonails-cards">
                         <ul>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                         </ul>
                         <p>
@@ -1272,14 +1274,14 @@ class Homenew extends Component {
                           experiencing their skill in deal curation; looking
                           forward to some exciting deals on the platform.
                         </p>
-                        <div class="name-testi">
-                          <div class="img-testiminal-card">
+                        <div className="name-testi">
+                          <div className="img-testiminal-card">
                             <img
                               src="./assets/images/testimonials/mitul.jpg"
                               alt="user"
                             />
                           </div>
-                          <div class="contents-testimonials">
+                          <div className="contents-testimonials">
                             <h3>Mitul Jhaveri</h3>
                             <p>Director Finance</p>
                             <p className="company-name">
@@ -1293,22 +1295,22 @@ class Homenew extends Component {
                       </div>
                     </div>
                     <div>
-                      <div class="testimonails-cards">
+                      <div className="testimonails-cards">
                         <ul>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                         </ul>
                         <p>
@@ -1321,14 +1323,14 @@ class Homenew extends Component {
                           benifits from a wealth of collective exprience and
                           foresight
                         </p>
-                        <div class="name-testi">
-                          <div class="img-testiminal-card">
+                        <div className="name-testi">
+                          <div className="img-testiminal-card">
                             <img
                               src="./assets/images/testimonials/kush.jpg"
                               alt="user"
                             />
                           </div>
-                          <div class="contents-testimonials">
+                          <div className="contents-testimonials">
                             <h3>KUSH SHRIVASTAVA</h3>
                             <p>Co Founder Quiklo</p>
                             <p className="company-name">
@@ -1339,22 +1341,22 @@ class Homenew extends Component {
                       </div>
                     </div>
                     <div>
-                      <div class="testimonails-cards">
+                      <div className="testimonails-cards">
                         <ul>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                           <li>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                           </li>
                         </ul>
                         <p>
@@ -1366,14 +1368,14 @@ class Homenew extends Component {
                           investment landscapes on this platform. hope they
                           continueto do it in future also
                         </p>
-                        <div class="name-testi">
-                          <div class="img-testiminal-card">
+                        <div className="name-testi">
+                          <div className="img-testiminal-card">
                             <img
                               src="./assets/images/testimonials/Prakash.jpg"
                               alt="user"
                             />
                           </div>
-                          <div class="contents-testimonials">
+                          <div className="contents-testimonials">
                             <h3>PRAKASH ROHERA</h3>
                             <p>INTERNATIONAL Corporate </p>
                             <p className="company-name">
@@ -1393,21 +1395,21 @@ class Homenew extends Component {
         {/* blog section */}
         <Homeblog />
 
-        <section class="faq-sections">
-          <div class="container">
-            <div class="row">
-              <div class="main-accordain-all">
-                <div class="faq-side-content">
+        <section className="faq-sections">
+          <div className="container">
+            <div className="row">
+              <div className="main-accordain-all">
+                <div className="faq-side-content">
                   <h3>Frequently Asked Questions</h3>
                 </div>
                 <div
-                  class="accordion accordion-flush"
+                  className="accordion accordion-flush"
                   id="accordionFlushExample"
                 >
-                  <div class="accordion-item">
-                    <h3 class="accordion-header" id="flush-headingOne">
+                  <div className="accordion-item">
+                    <h3 className="accordion-header" id="flush-headingOne">
                       <button
-                        class="accordion-button collapsed"
+                        className="accordion-button collapsed"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseOne"
@@ -1419,11 +1421,11 @@ class Homenew extends Component {
                     </h3>
                     <div
                       id="flush-collapseOne"
-                      class="accordion-collapse collapse"
+                      className="accordion-collapse collapse"
                       aria-labelledby="flush-headingOne"
                       data-bs-parent="#accordionFlushExample"
                     >
-                      <div class="accordion-body">
+                      <div className="accordion-body">
                       Your Investment is in safe hands, After all 
                       the required fund raising formalities are completed 
                       by the Startup, we advise investors to directly 
@@ -1432,10 +1434,10 @@ class Homenew extends Component {
                       </div>
                     </div>
                   </div>
-                  <div class="accordion-item">
-                    <h3 class="accordion-header" id="flush-headingTwo">
+                  <div className="accordion-item">
+                    <h3 className="accordion-header" id="flush-headingTwo">
                       <button
-                        class="accordion-button collapsed"
+                        className="accordion-button collapsed"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseTwo"
@@ -1447,11 +1449,11 @@ class Homenew extends Component {
                     </h3>
                     <div
                       id="flush-collapseTwo"
-                      class="accordion-collapse collapse"
+                      className="accordion-collapse collapse"
                       aria-labelledby="flush-headingTwo"
                       data-bs-parent="#accordionFlushExample"
                     >
-                      <div class="accordion-body">
+                      <div className="accordion-body">
                         Unlike shares traded on stock exchanges like the Bombay
                         Stock Exchange (BSE), private startup investments don't
                         have a constantly changing market value. To estimate
@@ -1465,10 +1467,10 @@ class Homenew extends Component {
                       </div>
                     </div>
                   </div>
-                  <div class="accordion-item">
-                    <h3 class="accordion-header" id="flush-headingThree">
+                  <div className="accordion-item">
+                    <h3 className="accordion-header" id="flush-headingThree">
                       <button
-                        class="accordion-button collapsed"
+                        className="accordion-button collapsed"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseThree"
@@ -1480,11 +1482,11 @@ class Homenew extends Component {
                     </h3>
                     <div
                       id="flush-collapseThree"
-                      class="accordion-collapse collapse"
+                      className="accordion-collapse collapse"
                       aria-labelledby="flush-headingThree"
                       data-bs-parent="#accordionFlushExample"
                     >
-                      <div class="accordion-body">
+                      <div className="accordion-body">
                         While there's no guaranteed timeframe, industry reports
                         suggest an average wait time of 5-7 years for Indian
                         startups to deliver returns to investors. This is just a
@@ -1498,10 +1500,10 @@ class Homenew extends Component {
                       </div>
                     </div>
                   </div>
-                  <div class="accordion-item">
-                    <h3 class="accordion-header" id="flush-headingfour">
+                  <div className="accordion-item">
+                    <h3 className="accordion-header" id="flush-headingfour">
                       <button
-                        class="accordion-button collapsed"
+                        className="accordion-button collapsed"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#flush-headingfournew"
@@ -1513,11 +1515,11 @@ class Homenew extends Component {
                     </h3>
                     <div
                       id="flush-headingfournew"
-                      class="accordion-collapse collapse"
+                      className="accordion-collapse collapse"
                       aria-labelledby="flush-headingfour"
                       data-bs-parent="#accordionFlushExample"
                     >
-                      <div class="accordion-body">
+                      <div className="accordion-body">
                         We've done the groundwork. We carefully vet all deals
                         before featuring them, and only invest in those we truly
                         believe in.
@@ -1537,32 +1539,32 @@ class Homenew extends Component {
           </div>
         </section>
       
-        <section class="custom-section">
-          <div class="join-section join-sec-yellow join-sec-white undefined join-divide mobile-join">
+        <section className="custom-section">
+          <div className="join-section join-sec-yellow join-sec-white undefined join-divide mobile-join">
             {/* <h4>Join us</h4> */}
             <div className="join-flex-one-us">
               <h2>Join Us to Invest in Startups in India and Support Breakthrough Ventures</h2>
-              <p class="index_pitch">
+              <p className="index_pitch">
                 Decades of banking, investing & startup success guide your investments. Invest confidently with us.
               </p>
             </div>
-            <div class="index-button-1">
+            <div className="index-button-1">
               <Link to="/Deals" style={{ color: "white" }}>
                 Join Us
               </Link>
             </div>
           </div>
         </section>
-        {/* <section class="custom-section">
-          <div class="join-section join-sec-yellow join-sec-white undefined">
+        {/* <section className="custom-section">
+          <div className="join-section join-sec-yellow join-sec-white undefined">
             <h4>Join us</h4>
             <h2>Partner with Us to Identify High-Potential Growth Businesses</h2>
-            <p class="index_pitch">
+            <p className="index_pitch">
               Experience unparalleled expertise in startup investments with us.
               With over half a decade of rich experience, we've made our mark in
               the world startup ecosystem. Invest confidently today!{" "}
             </p>
-            <div class="index-button">
+            <div className="index-button">
               <Link to="/Deals" style={{ color: "white" }}>
                 Join Us
               </Link>
@@ -1570,8 +1572,8 @@ class Homenew extends Component {
           </div>
         </section> */}
         <div class={`social-widjet ${isActivemsg ? ("social-open") : ("")}`}>
-          <div class="widjet-link">
-            <div class="whatsapp " onClick={this.togglemsg} style={{ backgroundColor: "#29176f" }}>
+          <div className="widjet-link">
+            <div className="whatsapp " onClick={this.togglemsg} style={{ backgroundColor: "#29176f" }}>
               <a >
                 <img
                   src="/assets/images/cross.svg"
@@ -1581,7 +1583,7 @@ class Homenew extends Component {
                 />
               </a>
             </div>
-            <div class="whatsapp">
+            <div className="whatsapp">
               <a href="https://www.facebook.com/MyGrowth91?mibextid=ZbWKwL"
                 target="_blank">
                 <img
@@ -1592,7 +1594,7 @@ class Homenew extends Component {
                 />
               </a>
             </div>
-            <div class="whatsapp">
+            <div className="whatsapp">
               <a href="https://www.instagram.com/growth.91/"
                 target="_blank">
                 <img
@@ -1603,7 +1605,7 @@ class Homenew extends Component {
                 />
               </a>
             </div>
-            <div class="whatsapp">
+            <div className="whatsapp">
               <a href="https://api.whatsapp.com/send?phone=7588544442&text=welcome%20to%20Growth%2091"
                 target="_blank">
                 <img
@@ -1618,12 +1620,12 @@ class Homenew extends Component {
         </div>
         <div class={`wid-icons`} onClick={this.togglemsg}>
           <div className="msgbut">
-            <i class="fa-regular fa-message"></i>
+            <i className="fa-regular fa-message"></i>
           </div>
         </div>
-        <div class="top-butns">
-          <button class="gotoTop">
-            <i class="fa-solid fa-angle-up"></i>
+        <div className="top-butns">
+          <button className="gotoTop">
+            <i className="fa-solid fa-angle-up"></i>
           </button>
         </div>
         {/* { this.state.testtime ==2?(

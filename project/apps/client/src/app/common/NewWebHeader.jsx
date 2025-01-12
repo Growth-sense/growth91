@@ -723,9 +723,9 @@ class NewWebHeader extends Component {
             }`}
           id="topNav"
         >
-          <div class="">
+          <div className="">
             <div
-              class="top-header newtopheader"
+              className="top-header newtopheader"
               style={{ background: "rgb(41, 23, 111);" }}
             ></div>
             <div
@@ -733,13 +733,13 @@ class NewWebHeader extends Component {
                 }`}
             >
               <nav class={`main-navbar ${newabout}`}>
-                <div class="nav-inner ">
+                <div className="nav-inner ">
                   <div
                     className={`logo-menus ${isActive ? "directions-columns" : ""
                       }`}
                   >
                     <div
-                      class="menu-logo"
+                      className="menu-logo"
                       style={
                         isActive
                           ? {
@@ -759,7 +759,7 @@ class NewWebHeader extends Component {
                         />
                       </Link>
                       <div
-                        class="menu-bar open-menu mobileuser"
+                        className="menu-bar open-menu mobileuser"
                         style={
                           isActive
                             ? { display: "flex", width: "160px" }
@@ -839,7 +839,7 @@ class NewWebHeader extends Component {
                           ""
                         )}
 
-                        {/* <!-- <i class="fa-solid fa-bars"></i> --> */}
+                        {/* <!-- <i className="fa-solid fa-bars"></i> --> */}
                         <span
                           onClick={this.toggleMenu}
                           className={`expandMenu ${isActive ? "active" : ""}`}
@@ -956,7 +956,7 @@ class NewWebHeader extends Component {
                           <>
                             {isActive ? (
                               <>
-                                <div class="headers-btn  mobile-logins-btns">
+                                <div className="headers-btn  mobile-logins-btns">
                                   <Link to="/login">Sign In</Link>
                                   <Link to="/Signup">
                                     get started
@@ -1061,7 +1061,7 @@ class NewWebHeader extends Component {
                       </li>
                     </ul>
                   ) : (
-                    <div class="headers-btn">
+                    <div className="headers-btn">
                       <Link to="/login">Sign In</Link>
                       <Link to="/Signup">Get Started</Link>
                     </div>

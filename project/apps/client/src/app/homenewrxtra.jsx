@@ -34,7 +34,7 @@ export const Homenewrxtra = () => {
                             class="MuiStepIcon-text css-y7rzyf"
                             x="12"
                             y="12"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             dominant-baseline="central"
                           >
                             1
@@ -90,7 +90,7 @@ export const Homenewrxtra = () => {
                             class="MuiStepIcon-text css-y7rzyf"
                             x="12"
                             y="12"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             dominant-baseline="central"
                           >
                             2
@@ -145,7 +145,7 @@ export const Homenewrxtra = () => {
                             class="MuiStepIcon-text css-y7rzyf"
                             x="12"
                             y="12"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             dominant-baseline="central"
                           >
                             3
