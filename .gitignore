@@ -1,8 +1,12 @@
-project/apps/client/node_modules
-project/apps/server/api/application/libraries/mpdf/paragonie/random_compat/dist
-project/apps/server/cashfree/libraries/mpdf/paragonie/random_compat/dist
-project/apps/client/.env
 .DS_Store
 project/.DS_Store
-project/apps/server/api/.DS_Store
 project/apps/client/.DS_Store
+project/apps/client/.env
+project/apps/client/node_modules
+project/apps/server/api/.DS_Store
+project/apps/server/api/application/libraries/mailgun/vendor/mailgun/mailgun-php/phpunit.xml.dist.bak
+project/apps/server/api/application/libraries/mpdf/mpdf/mpdf/tmp
+project/apps/server/api/application/libraries/mpdf/paragonie/random_compat/dist
+project/apps/server/cashfree/libraries/mailgun/vendor/mailgun/mailgun-php/phpunit.xml.dist.bak
+project/apps/server/cashfree/libraries/mpdf/mpdf/mpdf/tmp
+project/apps/server/cashfree/libraries/mpdf/paragonie/random_compat/dist
