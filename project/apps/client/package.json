@@ -17,6 +17,7 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.1.1",
     "@testing-library/user-event": "^13.5.0",
+    "ajv-keywords": "^5.1.0",
     "antd": "^4.24.6",
     "antd-img-crop": "^4.5.2",
     "apexcharts": "^3.6.7",
@@ -59,6 +60,7 @@
     "react-sweet-progress": "^1.1.2",
     "react-to-print": "^2.14.7",
     "react-toastify": "^10.0.5",
+    "schema-utils": "^4.3.0",
     "slick-carousel": "^1.8.1",
     "source-map-loader": "^3.0.1",
     "timer-countdown": "^0.2.6",
@@ -67,10 +69,11 @@
     "xlsx-js-style": "^1.2.0"
   },
   "scripts": {
-    "start": "react-scripts start --no-lint",
-    "build": "react-scripts build --no-lint",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"  },
+    "eject": "react-scripts eject"
+  },
   "eslintConfig": {
     "extends": [
       "react-app",

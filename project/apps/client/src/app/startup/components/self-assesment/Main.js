@@ -61,15 +61,15 @@ export default class Main extends Component {
       form_id: localStorage.getItem("form_id"),
     };
     Bridge.save_startup_form_2(params).then((result) => {
-      if (result.status === 1) {
+      if (result.status == 1) {
         message.success(result.message);
         this.getuserdetails();
         $("html, body").animate({ scrollTop: 0 }, 1000);
         this.props.check();
-        if(this.state.type==='saveandproceed'){
+        if(this.state.type=='saveandproceed'){
           this.checkforvalidation();
           this.setState({show_error:false});
-        }else if(this.state.type==='save'){
+        }else if(this.state.type=='save'){
           this.setState({show_error:false});
         }
       } else {
@@ -134,7 +134,7 @@ export default class Main extends Component {
       form_id: localStorage.getItem('form_id'),
     };
     Bridge.get_startup_form2_details(params).then((response) => {
-      if (response.status===1) {
+      if (response.status==1) {
         if(response.data.length>0){
           let item=response.data[0];
           this.setState({
@@ -165,7 +165,7 @@ export default class Main extends Component {
       form_id:form_id,
     };
     Bridge.check_validation(params).then((result) => {
-      if (result.status === 1) {
+      if (result.status == 1) {
         let validate = false;
         let role_type=localStorage.getItem('form_user_type');
         let form_id=localStorage.getItem('form_id');
@@ -173,24 +173,24 @@ export default class Main extends Component {
       
         let arr2=[];
           for(let item of result.data){
-          if(item.role_type===this.props.user_type && item.email===this.props.item.email && item.form_id===form_id){
+          if(item.role_type==this.props.user_type && item.email==this.props.item.email && item.form_id==form_id){
             arr2=[...arr2,item];
           }
         }
         
         if(arr2.length>0){
           if (
-            (arr2[0].leadership!=='0' && arr2[0].leadership) &&
-            (arr2[0].understanding_finance!=='0' && arr2[0].understanding_finance) &&
-            (arr2[0].understanding_hr!=='0' && arr2[0].understanding_hr) &&
-            (arr2[0].understanding_low!=='0' && arr2[0].understanding_low) &&
-            (arr2[0].passion_for_current_project!=='0' && arr2[0].passion_for_current_project) &&
-            (arr2[0].passion_of_business!=='0' && arr2[0].passion_of_business) &&
-            (arr2[0].experimental_mindset!=='0' && arr2[0].experimental_mindset) &&
-            (arr2[0].out_of_box_thinking!=='0' && arr2[0].out_of_box_thinking) &&
-            (arr2[0].problem_solving!=='0' && arr2[0].problem_solving) &&
-            (arr2[0].network_business!=='0' && arr2[0].network_business) &&
-            (arr2[0].network_social!=='0' && arr2[0].network_social)
+            (arr2[0].leadership!='0' && arr2[0].leadership) &&
+            (arr2[0].understanding_finance!='0' && arr2[0].understanding_finance) &&
+            (arr2[0].understanding_hr!='0' && arr2[0].understanding_hr) &&
+            (arr2[0].understanding_low!='0' && arr2[0].understanding_low) &&
+            (arr2[0].passion_for_current_project!='0' && arr2[0].passion_for_current_project) &&
+            (arr2[0].passion_of_business!='0' && arr2[0].passion_of_business) &&
+            (arr2[0].experimental_mindset!='0' && arr2[0].experimental_mindset) &&
+            (arr2[0].out_of_box_thinking!='0' && arr2[0].out_of_box_thinking) &&
+            (arr2[0].problem_solving!='0' && arr2[0].problem_solving) &&
+            (arr2[0].network_business!='0' && arr2[0].network_business) &&
+            (arr2[0].network_social!='0' && arr2[0].network_social)
           ){
             this.setState({class0:" success-tab",error_status_0:"1"});
             validate = true;
@@ -213,98 +213,98 @@ export default class Main extends Component {
         <div className="col-lg-12">
           <div className="row" style={{ maxWidth: 900 }}>
           
-            {((this.props.error==='0' && this.state.show_error===true) || 
-              (((this.state.error_status_0==='0' && this.state.form_data.validated===false) && 
-                this.state.show_error===true))) && (
+            {((this.props.error=='0' && this.state.show_error==true) || 
+              (((this.state.error_status_0=='0' && this.state.form_data.validated==false) && 
+                this.state.show_error==true))) && (
               !this.state.name ||
               !this.state.email ||
               !this.state.roleType ||
-              (this.state.leaderShip===0||!this.state.leaderShip) ||
-              (this.state.understandFinance===0|| !this.state.understandFinance) ||
-              (this.state.understandHr===0 || !this.state.understandHr) ||
-              (this.state.understandLaw===0 || !this.state.understandLaw) ||
-              (this.state.passionCurProject===0 || !this.state.passionCurProject) ||
-              (this.state.passionOfBusiness===0 || !this.state.passionOfBusiness) ||
-              (this.state.experimentalMindset===0 || !this.state.experimentalMindset) ||
-              (this.state.outOFBox===0 || !this.state.outOFBox) ||
-              (this.state.problemSolving===0 || !this.state.problemSolving) ||
-              (this.state.networkBusiness===0 || !this.state.networkBusiness) ||
-              (this.state.networkSocial===0 || !this.state.networkSocial)
+              (this.state.leaderShip==0||!this.state.leaderShip) ||
+              (this.state.understandFinance==0|| !this.state.understandFinance) ||
+              (this.state.understandHr==0 || !this.state.understandHr) ||
+              (this.state.understandLaw==0 || !this.state.understandLaw) ||
+              (this.state.passionCurProject==0 || !this.state.passionCurProject) ||
+              (this.state.passionOfBusiness==0 || !this.state.passionOfBusiness) ||
+              (this.state.experimentalMindset==0 || !this.state.experimentalMindset) ||
+              (this.state.outOFBox==0 || !this.state.outOFBox) ||
+              (this.state.problemSolving==0 || !this.state.problemSolving) ||
+              (this.state.networkBusiness==0 || !this.state.networkBusiness) ||
+              (this.state.networkSocial==0 || !this.state.networkSocial)
               ) &&(
                 <div className='error-div' style={{marginLeft:12}}>
                   <div className='error-icon'><i className='bx bxs-error'></i></div>
                   <ul>
-                    {(this.state.leaderShip===0 || !this.state.leaderShip)  &&(
+                    {(this.state.leaderShip==0 || !this.state.leaderShip)  &&(
                       <li><span>Please select leader ship field.</span></li>
                     )}
-                    {(this.state.understandFinance===0 || !this.state.understandFinance) &&(
+                    {(this.state.understandFinance==0 || !this.state.understandFinance) &&(
                       <li><span>Please select Understanding of Finance field.</span></li>
                     )}
-                    {(this.state.understandHr===0 || !this.state.understandHr) &&(
+                    {(this.state.understandHr==0 || !this.state.understandHr) &&(
                       <li><span>Please select Understanding of HR field.</span></li>
                     )}
-                    {(this.state.understandLaw===0 || !this.state.understandLaw)&&(
+                    {(this.state.understandLaw==0 || !this.state.understandLaw)&&(
                       <li><span>Please select Understanding of Law  field.</span></li>
                     )}
-                    {(this.state.passionCurProject==='0' || this.state.passionCurProject==='') &&(
+                    {(this.state.passionCurProject=='0' || this.state.passionCurProject=='') &&(
                       <li><span>Please select Passion for Current Project field.</span></li>
                     )}
-                    {(this.state.passionOfBusiness===0 || !this.state.passionOfBusiness)&&(
+                    {(this.state.passionOfBusiness==0 || !this.state.passionOfBusiness)&&(
                       <li><span>Please select Passion for business field.</span></li>
                     )}
-                    {(this.state.experimentalMindset===0 || !this.state.experimentalMindset) &&(
+                    {(this.state.experimentalMindset==0 || !this.state.experimentalMindset) &&(
                       <li><span>Please select Experimental Mindset field.</span></li>
                     )}
-                    {(this.state.outOFBox===0 || !this.state.outOFBox) &&(
+                    {(this.state.outOFBox==0 || !this.state.outOFBox) &&(
                       <li><span>Please select Out of Box Thinking field.</span></li>
                     )}
-                    {(this.state.problemSolving===0 || !this.state.problemSolving) &&(
+                    {(this.state.problemSolving==0 || !this.state.problemSolving) &&(
                       <li><span>Please select Problem Solving Skills field.</span></li>
                     )}
-                    {(this.state.networkBusiness===0 || !this.state.networkBusiness) &&(
+                    {(this.state.networkBusiness==0 || !this.state.networkBusiness) &&(
                       <li><span>Please select Networking Business field.</span></li>
                     )}
-                    {(this.state.networkSocial===0 || !this.state.networkSocial)&&(
+                    {(this.state.networkSocial==0 || !this.state.networkSocial)&&(
                       <li><span>Please select Networking Social field.</span></li>
                     )}
                   </ul>
                 </div>
               )}
-              {(this.state.allerror===true && this.props.error!=='0' && this.props.show_error===true)  && (
+              {(this.state.allerror==true && this.props.error!='0' && this.props.show_error==true)  && (
                 <div className='error-div' style={{marginLeft:12}}>
                   <div className='error-icon'><i className='bx bxs-error'></i></div>
                   <ul>
-                  {(this.state.leaderShip===0 || !this.state.leaderShip)  &&(
+                  {(this.state.leaderShip==0 || !this.state.leaderShip)  &&(
                       <li><span>Please select leader ship field.</span></li>
                     )}
-                    {(this.state.understandFinance===0 || !this.state.understandFinance) &&(
+                    {(this.state.understandFinance==0 || !this.state.understandFinance) &&(
                       <li><span>Please select Understanding of Finance field.</span></li>
                     )}
-                    {(this.state.understandHr===0 || !this.state.understandHr) &&(
+                    {(this.state.understandHr==0 || !this.state.understandHr) &&(
                       <li><span>Please select Understanding of HR field.</span></li>
                     )}
-                    {(this.state.understandLaw===0 || !this.state.understandLaw)&&(
+                    {(this.state.understandLaw==0 || !this.state.understandLaw)&&(
                       <li><span>Please select Understanding of Law  field.</span></li>
                     )}
-                    {(this.state.passionCurProject==='0' || this.state.passionCurProject==='') &&(
+                    {(this.state.passionCurProject=='0' || this.state.passionCurProject=='') &&(
                       <li><span>Please select Passion for Current Project field.</span></li>
                     )}
-                    {(this.state.passionOfBusiness===0 || !this.state.passionOfBusiness)&&(
+                    {(this.state.passionOfBusiness==0 || !this.state.passionOfBusiness)&&(
                       <li><span>Please select Passion for business field.</span></li>
                     )}
-                    {(this.state.experimentalMindset===0 || !this.state.experimentalMindset) &&(
+                    {(this.state.experimentalMindset==0 || !this.state.experimentalMindset) &&(
                       <li><span>Please select Experimental Mindset field.</span></li>
                     )}
-                    {(this.state.outOFBox===0 || !this.state.outOFBox) &&(
+                    {(this.state.outOFBox==0 || !this.state.outOFBox) &&(
                       <li><span>Please select Out of Box Thinking field.</span></li>
                     )}
-                    {(this.state.problemSolving===0 || !this.state.problemSolving) &&(
+                    {(this.state.problemSolving==0 || !this.state.problemSolving) &&(
                       <li><span>Please select Problem Solving Skills field.</span></li>
                     )}
-                    {(this.state.networkBusiness===0 || !this.state.networkBusiness) &&(
+                    {(this.state.networkBusiness==0 || !this.state.networkBusiness) &&(
                       <li><span>Please select Networking Business field.</span></li>
                     )}
-                    {(this.state.networkSocial===0 || !this.state.networkSocial)&&(
+                    {(this.state.networkSocial==0 || !this.state.networkSocial)&&(
                       <li><span>Please select Networking Social field.</span></li>
                     )}
                   </ul>
