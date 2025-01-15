@@ -252,5 +252,1121 @@ class Startup extends CI_Controller {
 		->set_output(json_encode($response));	
 	}
 	
+	// add unicorn in draft / temp table
+	function createunicorndraft() {
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		if(!empty($formdata)) {
+			// POst data for table 1
+			extract($formdata);
+			$post_data=[
+		//		'submiited_by_founder_id'=>$founder_id,
+		
+			'tudStartupName' => $tudStartupName ,
+			'tudEmail' => $tudEmail,
+			'tudCountryCode' => $tudCountryCode,
+			'tudPrimaryContactName' => $tudPrimaryContactName,
+			'tudPrimaryContactMobile' => $tudPrimaryContactMobile,
+			'tudPrimaryContactEmail' => $tudPrimaryContactEmail,
+			'tudDisruptingMarket' => $tudDisruptingMarket,
+			'tudTappingNew' => $tudTappingNew,
+			'tudCustomerBenifit' => $tudCustomerBenifit,
+			'tudSuppliersBenifit' => $tudSuppliersBenifit,
+			'tudDirectSubstitueAvailable' => $tudDirectSubstitueAvailable,
+			'tudIndirectSubstitueAvailable' => $tudIndirectSubstitueAvailable,
+			'tudRiskPerceived' => $tudRiskPerceived,
+			'tudRolesCoreTeam' => $tudRolesCoreTeam,
+			'tudMoats' => $tudMoats,
+			'tudScaleupChallenges' => $tudScaleupChallenges,
+			'tudTrademark' => $tudTrademark,
+			'tudPatents' => $tudPatents,
+			'tudOtherIPs' => $tudOtherIPs,
+			'tudOtherDetailsIPs' => $tudOtherDetailsIPs,
+			'tudIPsRegistrationInfo' => $tudIPsRegistrationInfo,
+			'tudAndroidMobileApp' => $tudAndroidMobileApp,
+			'tudAndroidAppDetails' => $tudAndroidAppDetails,
+			'tudIphoneMobileApp' => $tudIphoneMobileApp,
+			'tudIphoneAppDetails' => $tudIphoneAppDetails,
+			'tudIndustryClassification' => $tudIndustryClassification,
+			'tudIndustryViews' => $tudIndustryViews,
+			'tudIndustryMarketSize' => $tudIndustryMarketSize,
+			'tudSupportingInfoMarketSize' => $tudSupportingInfoMarketSize,
+			'tudAddressableMarketSize' => $tudAddressableMarketSize,
+			'tudSupportingInfoAddressableMarketSize' => $tudSupportingInfoAddressableMarketSize ,
+			'tudLocalDirectComp' => $tudLocalDirectComp,
+			'tudLocalIndirectComp' => $tudLocalIndirectComp,
+			'tudGlobalDirectComp' => $tudGlobalDirectComp,
+			'tudGlobalIndirectComp' => $tudGlobalIndirectComp,
+			'tudDiffCompetion' => $tudDiffCompetion,
+			'tudWhyCompSame' => $tudWhyCompSame,
+			'tudUnfairAdv' => $tudUnfairAdv,
+			'tudLikeCompetion' => $tudLikeCompetion,
+			'tudFailVenture' => $tudFailVenture,
+			'tudFailureReason' => $tudFailureReason,
+			'tudStrength' => $tudStrength,
+			'tudWeakness' => $tudWeakness,
+			'tudOpportunities' => $tudOpportunities,
+			'tudThreats' => $tudThreats,
+			'tudLeagalName' => $tudLeagalName,
+			'tudWebsite' => $tudWebsite,
+			'tudLegalCin' => $tudLegalCin,
+			'tudLegalPan'  => $tudLegalPan,
+			'tudLegalCountry' => $tudLegalCountry,
+			'tudEstablishedDate' => $tudEstablishedDate,
+			'tudActivityStartedDate' => $tudActivityStartedDate,
+			'tudRegisteredOffice' => $tudRegisteredOffice,
+			'tudCorporateOffice' => $tudCorporateOffice,
+			'tudDirector1' => $tudDirector1,
+			'tudDin1'  => $tudDin1,
+			'tudDirector2'  => $tudDirector2,
+			'tudDin2'  => $tudDin2,
+			'tudDirector3'  => $tudDirector3,
+			'tudDin3'  => $tudDin3,
+			'tudDirector4'  => $tudDirector4,
+			'tudDin4'  => $tudDin4,
+			'tudSocialInsta'  => $tudSocialInsta,
+			'tudSocialFacebook'  => $tudSocialFacebook,
+			'tudSocialLinkedIn'  => $tudSocialLinkedIn,
+			'tudSocialYouTube'  => $tudSocialYouTube,
+			'tudSocialOthers'  => $tudSocialOthers,
+			'tudGtmStratergy' => $tudGtmStratergy,
+			'tudGtmBackup' => $tudGtmBackup,
+			'tudExistingCac'  => $tudExistingCac,
+			'tudExpectedCac'  => $tudExpectedCac,
+			'tudLogicCac'  => $tudLogicCac,
+			'tudLtvCustomer'  => $tudLtvCustomer,
+			'tudLogicLtvNumber'  => $tudLogicLtvNumber,
+			'tudLtvCacRatio'  => $tudLtvCacRatio,
+			'tudNumberofClients' => $tudNumberofClients,
+			'tudClientRetentions' => $tudClientRetentions,
+			'tudRevenueTop10' => $tudRevenueTop10,
+			'tudUnitEconomics' => $tudUnitEconomics,
+			'tudTotalCapEx' => $tudTotalCapEx,
+			'tudAmountSpentProdDev' => $tudAmountSpentProdDev,
+			'tudMajorExpInv' => $tudMajorExpInv,
+			'tudAuthorisedCap'  => $tudAuthorisedCap,
+			'tudPaidupCapi'  => $tudPaidupCapi,
+			'tudFounderPer'  => $tudFounderPer,
+			'tudCorePer'  => $tudCorePer,
+			'tudEsopPer'  => $tudEsopPer,
+			'tudOtherPer' => $tudOtherPer,
+			'tudAmountByFounder'  => $tudAmountByFounder,
+			'tudUnsecLoanFounder' => $tudUnsecLoanFounder,
+			'tudUnsecLoanOthers' => $tudUnsecLoanOthers,
+			'tudOtherLoan' => $tudOtherLoan,
+			'tudFounderSalary'  => $tudFounderSalary,
+			'tudFounderSalaryPlan' => $tudFounderSalaryPlan,
+			'tudCoreTeamSalary'  => $tudCoreTeamSalary,
+			'tudTotalSalary'  => $tudTotalSalary,
+			'tudPreviousFundRaised' => $tudPreviousFundRaised,
+			'tudFundRequired' => $tudFundRequired,
+			'tudExpRunway' => $tudExpRunway,
+			'tudValueFundRaise' => $tudValueFundRaise,
+			'tudLogicFundRaise' => $tudLogicFundRaise,
+			'tudOpentoLower' => $tudOpentoLower,
+			'tudCapexImmidate' => $tudCapexImmidate,
+			'tudCapexFuture' => $tudCapexFuture,
+			'tudProductFund'  => $tudProductFund,
+			'tudMarketingFund'  => $tudMarketingFund,
+			'tudSalaryFund'  => $tudSalaryFund,
+			'tudCastComFund'  => $tudCastComFund,
+			'tudOthersFund'  => $tudOthersFund,
+			'tudRepaymentFund'  => $tudRepaymentFund,
+			'tudGstRegistered' => $tudGstRegistered,
+			'tudGstDetails' => $tudGstDetails,
+			'tudAuditedBL' => $tudAuditedBL,
+			'tudItrFilling' => $tudItrFilling,
+			'tudAgm' => $tudAgm,
+			'tudPendingRoc' => $tudPendingRoc,
+			'tudPastDelays' => $tudPastDelays,
+			'tudOtherApplicableCompliance'=> $tudOtherApplicableCompliance ,
+			'tudCaInfo'  => $tudCaInfo,
+			'tudCsInfo'  => $tudCsInfo,
+			'tudOtherLegalInfo'  => $tudOtherLegalInfo,
+			'tudAcceptedDate'  => $tudAcceptedDate,
+			'tudPublishedDate' => $tudPublishedDate,
+			'tudExpiryDate' => $tudExpiryDate,
+			'founderID' => $founderID, 
+			'tudDeclare' => $tudDeclare,
+			];		
+			
+			$this->db->insert('tempunicorndeals',$post_data);
+			$id=$this->db->insert_id();
+			if($id) {
 
+				$post_data2=[
+					'tudTempUdID'  => $id,
+					'tudSaleExitInfo'  => $tudSaleExitInfo,
+					'tudDepedencyPerson'  => $tudDepedencyPerson,
+					'tudReglarityIssue'  => $tudReglarityIssue,
+					'tudLicPermissionStatus'  => $tudLicPermissionStatus,
+					'tudTeamSize'  => $tudTeamSize,
+					'tud5perCommission'  => $tud5perCommission,
+					'tud10perCommission'  => $tud10perCommission,
+					'tudExitTimeline'  => $tudExitTimeline,
+					'tudSubsidiries'  => $tudSubsidiries,
+					'tudSisterConcerns'  => $tudSisterConcerns,
+					'tudRelatedPartyTrans'  => $tudRelatedPartyTrans,
+					'tudLegalRisk'  => $tudLegalRisk,
+					'tudFounderExitEarlier'  => $tudFounderExitEarlier,
+					'tudDemoLink'  => $tudDemoLink,
+					'tudOtherDocsLinks'  => $tudOtherDocsLinks,
+					'tudMediaCoverLinks'  => $tudMediaCoverLinks,
+					'tudAwards'  => $tudAwards,
+					'tudStartupRecon'  => $tudStartupRecon,
+					'tudOtherInfo'  => $tudOtherInfo,
+					'tudCustomerRef'  => $tudCustomerRef,
+					'tudVendorRef'  => $tudVendorRef,
+					'tudPastEmployerRef'  => $tudPastEmployerRef,
+					'tudGuideRef'  => $tudGuideRef,
+					'tudPitchDeck'  => $tudPitchDeck,
+					'tudDoc1'  => $tudDoc1,
+					'tudDoc2'  => $tudDoc2,
+					'tudDoc3'   => $tudDoc3,
+					'tudStartupFounderName'=> $tudStartupFounderName,
+					'tudStartupFounderMobileNumber'=> $tudStartupFounderMobileNumber,
+					'tudStartupFounderEmail'=> $tudStartupFounderEmail,
+					'tudDealShowDateForRegularMember'=> $tudDealShowDateForRegularMember,
+					'tudDealShowDateForPremiumMember'=> $tudDealShowDateForPremiumMember,
+					'tudDealStartDateForRegularMember'=> $tudDealStartDateForRegularMember,
+					'tudDealStartDateForPremiumMember'=> $tudDealStartDateForPremiumMember,
+					'tudDealEndDateForRegularMember'=> $tudDealEndDateForRegularMember,
+					'tudDealEndDateForPremiumMember'=> $tudDealEndDateForPremiumMember,
+					'tudTargetAmount'=> $tudTargetAmount,
+					'tudMinInvestmentAmount'=> $tudMinInvestmentAmount,
+					'tudCAPTableThresholdAmount'=> $tudCAPTableThresholdAmount,
+					'tudMaxInvestmentAmount'=> $tudMaxInvestmentAmount,
+					'tudCAPTableMultiple'=> $tudCAPTableMultiple,
+					'tudMultiplesOf'=> $tudMultiplesOf,
+					'tudRaiseGap'=> $tudRaiseGap,
+					'tudEnableSpecialOffer'=> $tudEnableSpecialOffer,
+					'tudSpecialOfferText'=> $tudSpecialOfferText,
+					'tudInputDefaultText'=> $tudInputDefaultText,
+					'tudDiscount'=> $tudDiscount,
+					'tudEscrowAccountName'=> $tudEscrowAccountName,
+					'tudEscrowAccountNumber'=> $tudEscrowAccountNumber,
+					'tudEscrowAccountBank'=> $tudEscrowAccountBank,
+					'tudEscrowAccountBranch'=> $tudEscrowAccountBranch,
+					'tudEscrowAccountIFSC'=> $tudEscrowAccountIFSC,
+					'tudDigioTemplateId'=> $tudDigioTemplateId,
+					'tudDigioSignforInvestor'=> $tudDigioSignforInvestor,
+					'tudDigioSignforFounder'=> $tudDigioSignforFounder,
+					'tudDealDescription'=> $tudDealDescription,
+					'tudBackedBy'=> $tudBackedBy,
+					'tudYoutubeLink'=> $tudYoutubeLink,
+					'tudCategory'=> $tudCategory,
+					'tudBannerImage'=> $tudBannerImage,
+					'tudSelectLogo'=> $tudSelectLogo,
+					'tudPageLink'=> $tudPageLink,
+					'tudVendorId'=> $tudVendorId,
+					'tudStartupHighlights'=> $tudStartupHighlights,
+					'tudMediaCoverages'=> $tudMediaCoverages,
+					'tudMark'=> $tudMark,
+
+					'tudValuation'=> $tudValuation,
+					'tudLegalname'=> $tudLegalname,
+					'tudFoundedon'=> $tudFoundedon,
+					'tudAddress'=> $tudAddress,
+					'tudLogoImage'=> $tudLogoImage,
+					'tudMediaCoverageFiles'=> $tudMediaCoverageFiles,
+					'tudEmployees'=> $tudEmployees,
+					'tudFocusedOnProduct'=> $tudFocusedOnProduct,
+					'tudUseofFundRepayment'=> $tudUseofFundRepayment,
+				];	
+			
+				$this->db->insert('tempunicorndeals2',$post_data2);
+				$id2=$this->db->insert_id();
+				if($id2) 
+				{
+					$response = [
+						'status' => '1',
+						'message' => 'Details updated successfully.',
+						'id' => $id2,
+					];
+				}
+				else
+				{
+					$response = [
+						'status' => '0',
+						'message' => 'Please try again!',
+						'id' => $id,
+					];
+				}
+			
+			} else {
+				$response =[
+					'status' => '0',
+					'message' => 'Please try again!'
+				];
+			}
+		} else {
+			$response = [
+				'status' => '0',
+				'message'=> 'Please enter values of all fields.',
+			];
+		}
+		$this->output
+		->set_content_type('application/json')
+		->set_output(json_encode($response));	
+	}
+	// List Unicorn Deals founders
+
+	 
+	public function unicornListByFounders()
+	{
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+			extract($formdata);
+		// sql query
+		$sql = "SELECT tempunicorndeals.*,tempunicorndeals2.*  FROM `tempunicorndeals` 
+		LEFT JOIN tempunicorndeals2 on tempunicorndeals2.tudTempUdID = tempunicorndeals.tudTempUdID WHERE founderID='".$founderID."'
+		ORDER BY tempunicorndeals.tudTempUdID DESC;";
+		$query = $this->db->query($sql);
+		$list = $query->result();
+		for ($i = 0; $i < count($list); $i++) {
+			 
+			// get Published ID
+			/*$sql2 = "SELECT * FROM `private_deal_invities` WHERE `deal_id`='$deal_id'";
+			$query2 = $this->db->query($sql2);
+			$data3=$query2->result();
+			$num_rows = $query2->num_rows();
+			if($list[$i] -> deal_type == "Private" || $list[$i] -> deal_type == "Public"){
+				$list[$i]->total_invitions=$num_rows;
+			}else{
+				$list[$i]->total_invitions='0';
+			}*/
+			 
+		}
+		if (count($list) >= 0) {
+			$response = [
+				'status' => '1',
+				'message' => 'List fetched successfully.',
+				'data' => $list,
+			];
+		}
+		else {
+			$response = [
+				'status' => '0',
+				'message' => 'Please try again!'
+			];
+		}
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
+	
+	// Edit Unicorn temp table
+	function editunicorndraft() {
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		if(!empty($formdata)) {
+			// POst data for table 1
+			extract($formdata);
+			
+			$post_data=[
+		//		'submiited_by_founder_id'=>$founder_id,
+		
+			'tudStartupName' => $tudStartupName ,
+			'tudEmail' => $tudEmail,
+			'tudPrimaryContactName' => $tudPrimaryContactName,
+			'tudCountryCode' => $tudCountryCode,
+			'tudPrimaryContactMobile' => $tudPrimaryContactMobile,
+			'tudPrimaryContactEmail' => $tudPrimaryContactEmail,
+			'tudDisruptingMarket' => $tudDisruptingMarket,
+			'tudTappingNew' => $tudTappingNew,
+			'tudCustomerBenifit' => $tudCustomerBenifit,
+			'tudSuppliersBenifit' => $tudSuppliersBenifit,
+			'tudDirectSubstitueAvailable' => $tudDirectSubstitueAvailable,
+			'tudIndirectSubstitueAvailable' => $tudIndirectSubstitueAvailable,
+			'tudRiskPerceived' => $tudRiskPerceived,
+			'tudRolesCoreTeam' => $tudRolesCoreTeam,
+			'tudMoats' => $tudMoats,
+			'tudScaleupChallenges' => $tudScaleupChallenges,
+			'tudTrademark' => $tudTrademark,
+			'tudPatents' => $tudPatents,
+			'tudOtherIPs' => $tudOtherIPs,
+			'tudOtherDetailsIPs' => $tudOtherDetailsIPs,
+			'tudIPsRegistrationInfo' => $tudIPsRegistrationInfo,
+			'tudAndroidMobileApp' => $tudAndroidMobileApp,
+			'tudAndroidAppDetails' => $tudAndroidAppDetails,
+			'tudIphoneMobileApp' => $tudIphoneMobileApp,
+			'tudIphoneAppDetails' => $tudIphoneAppDetails,
+			'tudIndustryClassification' => $tudIndustryClassification,
+			'tudIndustryViews' => $tudIndustryViews,
+			'tudIndustryMarketSize' => $tudIndustryMarketSize,
+			'tudSupportingInfoMarketSize' => $tudSupportingInfoMarketSize,
+			'tudAddressableMarketSize' => $tudAddressableMarketSize,
+			'tudSupportingInfoAddressableMarketSize' => $tudSupportingInfoAddressableMarketSize ,
+			'tudLocalDirectComp' => $tudLocalDirectComp,
+			'tudLocalIndirectComp' => $tudLocalIndirectComp,
+			'tudGlobalDirectComp' => $tudGlobalDirectComp,
+			'tudGlobalIndirectComp' => $tudGlobalIndirectComp,
+			'tudDiffCompetion' => $tudDiffCompetion,
+			'tudWhyCompSame' => $tudWhyCompSame,
+			'tudUnfairAdv' => $tudUnfairAdv,
+			'tudLikeCompetion' => $tudLikeCompetion,
+			'tudFailVenture' => $tudFailVenture,
+			'tudFailureReason' => $tudFailureReason,
+			'tudStrength' => $tudStrength,
+			'tudWeakness' => $tudWeakness,
+			'tudOpportunities' => $tudOpportunities,
+			'tudThreats' => $tudThreats,
+			'tudLeagalName' => $tudLeagalName,
+			'tudWebsite' => $tudWebsite,
+			'tudLegalCin' => $tudLegalCin,
+			'tudLegalPan'  => $tudLegalPan,
+			'tudLegalCountry' => $tudLegalCountry,
+			'tudEstablishedDate' => $tudEstablishedDate,
+			'tudActivityStartedDate' => $tudActivityStartedDate,
+			'tudRegisteredOffice' => $tudRegisteredOffice,
+			'tudCorporateOffice' => $tudCorporateOffice,
+			'tudDirector1' => $tudDirector1,
+			'tudDin1'  => $tudDin1,
+			'tudDirector2'  => $tudDirector2,
+			'tudDin2'  => $tudDin2,
+			'tudDirector3'  => $tudDirector3,
+			'tudDin3'  => $tudDin3,
+			'tudDirector4'  => $tudDirector4,
+			'tudDin4'  => $tudDin4,
+			'tudSocialInsta'  => $tudSocialInsta,
+			'tudSocialFacebook'  => $tudSocialFacebook,
+			'tudSocialLinkedIn'  => $tudSocialLinkedIn,
+			'tudSocialYouTube'  => $tudSocialYouTube,
+			'tudSocialOthers'  => $tudSocialOthers,
+			'tudGtmStratergy' => $tudGtmStratergy,
+			'tudGtmBackup' => $tudGtmBackup,
+			'tudExistingCac'  => $tudExistingCac,
+			'tudExpectedCac'  => $tudExpectedCac,
+			'tudLogicCac'  => $tudLogicCac,
+			'tudLtvCustomer'  => $tudLtvCustomer,
+			'tudLogicLtvNumber'  => $tudLogicLtvNumber,
+			'tudLtvCacRatio'  => $tudLtvCacRatio,
+			'tudNumberofClients' => $tudNumberofClients,
+			'tudClientRetentions' => $tudClientRetentions,
+			'tudRevenueTop10' => $tudRevenueTop10,
+			'tudUnitEconomics' => $tudUnitEconomics,
+			'tudTotalCapEx' => $tudTotalCapEx,
+			'tudAmountSpentProdDev' => $tudAmountSpentProdDev,
+			'tudMajorExpInv' => $tudMajorExpInv,
+			'tudAuthorisedCap'  => $tudAuthorisedCap,
+			'tudPaidupCapi'  => $tudPaidupCapi,
+			'tudFounderPer'  => $tudFounderPer,
+			'tudCorePer'  => $tudCorePer,
+			'tudEsopPer'  => $tudEsopPer,
+			'tudOtherPer' => $tudOtherPer,
+			'tudAmountByFounder'  => $tudAmountByFounder,
+			'tudUnsecLoanFounder' => $tudUnsecLoanFounder,
+			'tudUnsecLoanOthers' => $tudUnsecLoanOthers,
+			'tudOtherLoan' => $tudOtherLoan,
+			'tudFounderSalary'  => $tudFounderSalary,
+			'tudFounderSalaryPlan' => $tudFounderSalaryPlan,
+			'tudCoreTeamSalary'  => $tudCoreTeamSalary,
+			'tudTotalSalary'  => $tudTotalSalary,
+			'tudPreviousFundRaised' => $tudPreviousFundRaised,
+			'tudFundRequired' => $tudFundRequired,
+			'tudExpRunway' => $tudExpRunway,
+			'tudValueFundRaise' => $tudValueFundRaise,
+			'tudLogicFundRaise' => $tudLogicFundRaise,
+			'tudOpentoLower' => $tudOpentoLower,
+			'tudCapexImmidate' => $tudCapexImmidate,
+			'tudCapexFuture' => $tudCapexFuture,
+			'tudProductFund'  => $tudProductFund,
+			'tudMarketingFund'  => $tudMarketingFund,
+			'tudSalaryFund'  => $tudSalaryFund,
+			'tudCastComFund'  => $tudCastComFund,
+			'tudOthersFund'  => $tudOthersFund,
+			'tudRepaymentFund'  => $tudRepaymentFund,
+			'tudGstRegistered' => $tudGstRegistered,
+			'tudGstDetails' => $tudGstDetails,
+			'tudAuditedBL' => $tudAuditedBL,
+			'tudItrFilling' => $tudItrFilling,
+			'tudAgm' => $tudAgm,
+			'tudPendingRoc' => $tudPendingRoc,
+			'tudPastDelays' => $tudPastDelays,
+			'tudOtherApplicableCompliance'=> $tudOtherApplicableCompliance ,
+			'tudCaInfo'  => $tudCaInfo,
+			'tudCsInfo'  => $tudCsInfo,
+			'tudOtherLegalInfo'  => $tudOtherLegalInfo,
+			'tudAcceptedDate'  => $tudAcceptedDate,
+			'tudPublishedDate' => $tudPublishedDate,
+			'tudExpiryDate' => $tudExpiryDate,
+			'founderID' => $founderID, 
+			'tudDeclare' => $tudDeclare,
+
+			];		
+			
+			//$tudTempUdID
+			$this -> db -> where("tudTempUdID",$tudTempUdID);
+			$status = $this -> db -> update("tempunicorndeals",$post_data);
+
+			//if($status)
+			 
+			if($status) {
+
+				$post_data2=[
+					 
+					'tudSaleExitInfo'  => $tudSaleExitInfo,
+					'tudDepedencyPerson'  => $tudDepedencyPerson,
+					'tudReglarityIssue'  => $tudReglarityIssue,
+					'tudLicPermissionStatus'  => $tudLicPermissionStatus,
+					'tudTeamSize'  => $tudTeamSize,
+					'tud5perCommission'  => $tud5perCommission,
+					'tud10perCommission'  => $tud10perCommission,
+					'tudExitTimeline'  => $tudExitTimeline,
+					'tudSubsidiries'  => $tudSubsidiries,
+					'tudSisterConcerns'  => $tudSisterConcerns,
+					'tudRelatedPartyTrans'  => $tudRelatedPartyTrans,
+					'tudLegalRisk'  => $tudLegalRisk,
+					'tudFounderExitEarlier'  => $tudFounderExitEarlier,
+					'tudDemoLink'  => $tudDemoLink,
+					'tudOtherDocsLinks'  => $tudOtherDocsLinks,
+					'tudMediaCoverLinks'  => $tudMediaCoverLinks,
+					'tudAwards'  => $tudAwards,
+					'tudStartupRecon'  => $tudStartupRecon,
+					'tudOtherInfo'  => $tudOtherInfo,
+					'tudCustomerRef'  => $tudCustomerRef,
+					'tudVendorRef'  => $tudVendorRef,
+					'tudPastEmployerRef'  => $tudPastEmployerRef,
+					'tudGuideRef'  => $tudGuideRef,
+					'tudPitchDeck'  => $tudPitchDeck,
+					'tudDoc1'  => $tudDoc1,
+					'tudDoc2'  => $tudDoc2,
+					'tudDoc3'   => $tudDoc3,
+					'tudStartupFounderName'=> $tudStartupFounderName,
+					'tudStartupFounderMobileNumber'=> $tudStartupFounderMobileNumber,
+					'tudStartupFounderEmail'=> $tudStartupFounderEmail,
+					'tudDealShowDateForRegularMember'=> $tudDealShowDateForRegularMember,
+					'tudDealShowDateForPremiumMember'=> $tudDealShowDateForPremiumMember,
+					'tudDealStartDateForRegularMember'=> $tudDealStartDateForRegularMember,
+					'tudDealStartDateForPremiumMember'=> $tudDealStartDateForPremiumMember,
+					'tudDealEndDateForRegularMember'=> $tudDealEndDateForRegularMember,
+					'tudDealEndDateForPremiumMember'=> $tudDealEndDateForPremiumMember,
+					'tudTargetAmount'=> $tudTargetAmount,
+					'tudMinInvestmentAmount'=> $tudMinInvestmentAmount,
+					'tudCAPTableThresholdAmount'=> $tudCAPTableThresholdAmount,
+					'tudMaxInvestmentAmount'=> $tudMaxInvestmentAmount,
+					'tudCAPTableMultiple'=> $tudCAPTableMultiple,
+					'tudMultiplesOf'=> $tudMultiplesOf,
+					'tudRaiseGap'=> $tudRaiseGap,
+					'tudEnableSpecialOffer'=> $tudEnableSpecialOffer,
+					'tudSpecialOfferText'=> $tudSpecialOfferText,
+					'tudInputDefaultText'=> $tudInputDefaultText,
+					'tudDiscount'=> $tudDiscount,
+					'tudEscrowAccountName'=> $tudEscrowAccountName,
+					'tudEscrowAccountNumber'=> $tudEscrowAccountNumber,
+					'tudEscrowAccountBank'=> $tudEscrowAccountBank,
+					'tudEscrowAccountBranch'=> $tudEscrowAccountBranch,
+					'tudEscrowAccountIFSC'=> $tudEscrowAccountIFSC,
+					'tudDigioTemplateId'=> $tudDigioTemplateId,
+					'tudDigioSignforInvestor'=> $tudDigioSignforInvestor,
+					'tudDigioSignforFounder'=> $tudDigioSignforFounder,
+					'tudDealDescription'=> $tudDealDescription,
+					'tudBackedBy'=> $tudBackedBy,
+					'tudYoutubeLink'=> $tudYoutubeLink,
+					'tudCategory'=> $tudCategory,
+					'tudBannerImage'=> $tudBannerImage,
+					'tudSelectLogo'=> $tudSelectLogo,
+					'tudPageLink'=> $tudPageLink,
+					'tudVendorId'=> $tudVendorId,
+					'tudStartupHighlights'=> $tudStartupHighlights,
+					'tudMediaCoverages'=> $tudMediaCoverages,
+					'tudMark'=> $tudMark,
+					'tudValuation'=> $tudValuation,
+					'tudLegalname'=> $tudLegalname,
+					'tudFoundedon'=> $tudFoundedon,
+					'tudAddress'=> $tudAddress,
+					'tudLogoImage'=> $tudLogoImage,
+					'tudMediaCoverageFiles'=> $tudMediaCoverageFiles,
+					'tudEmployees'=> $tudEmployees,
+					'tudFocusedOnProduct'=> $tudFocusedOnProduct,
+					'tudUseofFundRepayment'=> $tudUseofFundRepayment,
+				];	
+				$this -> db -> where("tudTempUdID",$tudTempUdID);
+				$status2 = $this -> db -> update("tempunicorndeals2",$post_data2);
+				//$this->db->insert('tempunicorndeals2',$post_data2);
+				//$id2=$this->db->insert_id();
+				if($status2) 
+				{
+					$response = [
+						'status' => '1',
+						'message' => 'Details updated successfully.',
+						//'id' => $id2,
+					];
+				}
+				else
+				{
+					$response = [
+						'status' => '0',
+						'message' => 'Please try again!',
+						//'id' => $id,
+					];
+				}
+			
+			} else {
+				$response =[
+					'status' => '0',
+					'message' => 'Please try again!'
+				];
+			}
+		} else {
+			$response = [
+				'status' => '0',
+				'message'=> 'Please enter values of all fields.',
+			];
+		}
+		$this->output
+		->set_content_type('application/json')
+		->set_output(json_encode($response));	
+	}
+	// Publish unicorn
+	function publishunicorndeal() {
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		if(!empty($formdata)) {
+			// POst data for table 1
+			extract($formdata);
+			/* Steps
+			1) Decide by selecting tempID from Published table that its create OR UPDATE and set flag accodingly
+			2) based on temp unicorn ID select from temp table1 
+			3) Set Post array for master unicorn table 1
+			4) update/insert in master unicorn table and get ID of the master table 1
+			5) based on temp unicorn ID select from temp table2 
+			6) Set Post array for master unicorn table 2
+			7) update/insert in master unicorn table and get ID of the master table 2
+			 */
+			$isNew= true;	
+			$unicornDealID = 0;
+			//Step1
+			$listArr = $this -> db -> select("unicornDealID") -> from("unicorndeals") -> where("udFounderID",$founderID) -> where("tudTempUdID",$tudTempUdID) -> get() -> result_array();
+			if (!empty($listArr)) {
+				$isNew=false;
+				$unicornDealID = $listArr[0]["unicornDealID"];
+			}
+			//Step2 & Step3
+			
+			$tempunicornArr = $this -> db -> select("tempunicorndeals.*") -> from("tempunicorndeals") -> where("tempunicorndeals.tudTempUdID",$tudTempUdID) -> get() -> result_array();
+			$mainunicornArr=array();
+			foreach($tempunicornArr[0] as $Key => $Value)
+			{
+				//echo $Key;
+				if($Key == "tudTempUdID")
+				{
+					$mainunicornArr[$Key] = $Value;
+				}
+				elseif($Key == "founderID")
+				{
+					$mainunicornArr["udFounderID"] = $Value;
+				}
+				else
+				{
+					$nKeyName = substr($Key, 1);
+					$mainunicornArr[$nKeyName] = $Value;
+				}
+
+				
+			}
+			//Step 4
+
+			if($isNew)
+			{
+				$this->db->insert('unicorndeals',$mainunicornArr);
+				$unicornDealID=$this->db->insert_id();
+			}
+			else
+			{
+				$this -> db -> where("tudTempUdID",$tudTempUdID);
+				$status = $this -> db -> update("unicorndeals",$mainunicornArr);
+			}
+			//echo $unicornDealID."<BR>".@$status;
+
+			if($unicornDealID>0)
+			{
+				// Step 5 & 6
+				$processDone=false;
+				$tempunicorn2Arr = $this -> db -> select("tempunicorndeals2.*") -> from("tempunicorndeals2") -> where("tempunicorndeals2.tudTempUdID",$tudTempUdID) -> get() -> result_array();
+				$mainunicorn2Arr=array();
+				foreach($tempunicorn2Arr[0] as $Key => $Value)
+				{
+					//echo $Key;
+					if($Key!= "tudTempUdID2")
+					{
+						if($Key == "tudTempUdID")
+						{
+							$mainunicorn2Arr["unicornDealID"] = $unicornDealID;
+						}
+						
+						else
+						{
+							$nKeyName = substr($Key, 1);
+							$mainunicorn2Arr[$nKeyName] = $Value;
+						}
+					}
+				}
+				//Step 7
+				if($isNew)
+				{
+					$this->db->insert('unicorndeals2',$mainunicorn2Arr);
+					$unicornDealID2=$this->db->insert_id();
+					if($unicornDealID2>0)
+						$processDone=true;
+				}
+				else
+				{
+					$this -> db -> where("unicornDealID",$unicornDealID);
+					$status = $this -> db -> update("unicorndeals2",$mainunicorn2Arr);
+					if($status)
+						$processDone=true;
+				}
+				
+				if($processDone)
+				{
+					$response = [
+						'status' => '1',
+						'message' => 'Details updated successfully.',
+						'id' => $unicornDealID,
+					];
+
+				}
+				else
+				{
+					$response = [
+						'status' => '0',
+						'message' => 'Please check data.',
+						'id' => @$unicornDealID,
+					];
+
+				}
+
+			}
+			else
+			{
+				$response = [
+					'status' => '0',
+					'message' => 'Please try again.',
+					'id' => 0,
+				];
+
+			}
+			
+			 
+			
+		} else {
+			$response = [
+				'status' => '0',
+				'message'=> 'Please enter values of all fields.',
+				'id' => 0,
+			];
+		}
+		$this->output
+		->set_content_type('application/json')
+		->set_output(json_encode($response));	
+	}
+	// Unicorn deals for Investors
+	function unicorndealsByInvestors() {
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		if(!empty($formdata)) {
+			// POst data for table 1
+			extract($formdata);
+			/* Steps
+			Assume that form data have keys to filter so build SQL String
+
+			 */
+			$whereClause= " 1 = 1 ";
+			foreach($formdata as $Key => $Value)
+			{
+				if($Key!="page" && $Key!="pagesize" )
+				{
+					if($Key=="udPublished")
+					{
+						$whereClause.= " AND ".$Key." = '".$Value."' ";
+					}
+					else
+					{
+					$whereClause.= " AND ".$Key." LIKE '%".$Value."%' ";
+					}
+				}
+				
+			}
+
+			
+			//Step1
+			$sql= "SELECT unicorndeals.*,unicorndeals2.*  FROM unicorndeals LEFT JOIN unicorndeals2 on unicorndeals.unicornDealID = unicorndeals2.unicornDealID WHERE ".$whereClause;	
+			$query = $this->db->query($sql);
+			//echo $sql;die;
+			$list = $query->result();
+			$response = [
+				'status' => '1',
+				'message'=> 'Data found.',
+				'data'=>$list,
+			];
+		} else {
+			$response = [
+				'status' => '0',
+				'message'=> 'Please enter values of all fields.',
+			];
+		}
+		$this->output
+		->set_content_type('application/json')
+		->set_output(json_encode($response));	
+	}
+	function uploadunicornFiles()
+	{
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+
+		if (!empty($_POST)) {
+			$id = $this->input->post('tudTempUdID');
+			$image_details = array();
+			if ($id) {
+				// logo
+				if (isset($_FILES['tudPitchDeck']['name']) && $_FILES['tudPitchDeck']['name'] != "") {
+					$dir = FCPATH . "uploads/unicorndeals/" . $id . "/";
+
+					if (!is_dir($dir)) {
+						@mkdir($dir, 0777, true);
+					}
+
+					$image = $_FILES['tudPitchDeck']['tmp_name'];
+					$temp = explode(".", $_FILES["tudPitchDeck"]["name"]);
+					$newfilename = round(microtime(true)) . '.' . end($temp);
+
+					$hash = $_FILES['tudPitchDeck']['name'];
+
+					if (move_uploaded_file($image, $dir . $newfilename)) {
+						$image_details["tudPitchDeck"] = $newfilename;
+						
+						
+					}
+				}
+				// logo
+				if (isset($_FILES['tudDoc1']['name']) && $_FILES['tudDoc1']['name'] != "") {
+					$dir = FCPATH . "uploads/unicorndeals/" . $id . "/";
+
+					if (!is_dir($dir)) {
+						@mkdir($dir, 0777, true);
+					}
+
+					$image = $_FILES['tudDoc1']['tmp_name'];
+					$temp = explode(".", $_FILES["tudDoc1"]["name"]);
+					$newfilename = round(microtime(true)) . '.' . end($temp);
+
+					$hash = $_FILES['tudDoc1']['name'];
+
+					if (move_uploaded_file($image, $dir . $newfilename)) {
+						$image_details["tudDoc1"] = $newfilename;
+						 
+					}
+				}
+				// banner
+				if (isset($_FILES['tudDoc2']['name']) && $_FILES['tudDoc2']['name'] != "") {
+					$dir = FCPATH . "uploads/unicorndeals/" . $id . "/";
+
+					if (!is_dir($dir)) {
+						@mkdir($dir, 0777, true);
+					}
+
+					$image = $_FILES['tudDoc2']['tmp_name'];
+					$temp = explode(".", $_FILES["tudDoc2"]["name"]);
+					$newfilename = round(microtime(true)) . '.' . end($temp);
+
+					$hash = $_FILES['tudDoc2']['name'];
+
+					if (move_uploaded_file($image, $dir . $newfilename)) {
+						$image_details["tudDoc2"] = $newfilename;
+						 
+					}
+				}
+
+				// pdf
+				if (isset($_FILES['tudDoc3']['name']) && $_FILES['tudDoc3']['name'] != "") {
+					$dir = FCPATH . "uploads/unicorndeals/" . $id . "/";
+
+					if (!is_dir($dir)) {
+						@mkdir($dir, 0777, true);
+					}
+
+					$image = $_FILES['tudDoc3']['tmp_name'];
+					$temp = explode(".", $_FILES["tudDoc3"]["name"]);
+					$newfilename = round(microtime(true)) . '.' . end($temp);
+
+					$hash = $_FILES['tudDoc3']['name'];
+
+					if (move_uploaded_file($image, $dir . $newfilename)) {
+						$image_details["tudDoc3"] = $newfilename;
+						 
+					}
+				}
+
+				$response = [
+					'status' => '1',
+					'message' => 'Image is uploaded successfully.',
+					'data'=> $image_details
+				];
+			}
+			else {
+				$response = [
+					'status' => '0',
+					'message' => 'Please try again!'
+				];
+			}
+
+		}
+		else {
+			$response = [
+				'status' => '0',
+				'message' => 'Please enter values of all fields.',
+			];
+		}
+
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
+	function uploadFiles()
+	{
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+
+		if (!empty($_POST)) {
+			$id = $this->input->post('tudTempUdID');
+			$image_details = array();
+			if ($id) {
+				// logo
+				if (isset($_FILES['upfile']['name']) && $_FILES['upfile']['name'] != "") {
+					$dir = FCPATH . "uploads/unicorndeals/" . $id . "/";
+
+					if (!is_dir($dir)) {
+						@mkdir($dir, 0777, true);
+					}
+
+					$image = $_FILES['upfile']['tmp_name'];
+					$temp = explode(".", $_FILES["upfile"]["name"]);
+					$newfilename = round(microtime(true)) . '.' . end($temp);
+
+					$hash = $_FILES['upfile']['name'];
+
+					if (move_uploaded_file($image, $dir . $newfilename)) {
+						$image_details["upfile"] = $newfilename;
+						
+						
+					}
+				}
+				
+
+				$response = [
+					'status' => '1',
+					'message' => 'Image is uploaded successfully.',
+					'data'=> $image_details
+				];
+			}
+			else {
+				$response = [
+					'status' => '0',
+					'message' => 'Please try again!'
+				];
+			}
+
+		}
+		else {
+			$response = [
+				'status' => '0',
+				'message' => 'Please enter values of all fields.',
+			];
+		}
+
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
+	// I am interested
+	function add_unicorn_interest() {
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		//echo $formdata;	
+		//extract($formdata);
+		if(!empty($formdata['unicornDealID']) && !empty($formdata['udFounderID']) && !empty($formdata['investor_id']) && !empty($formdata['interestMessage'])) {
+			//Validate uniqueness of investor and deal
+
+			$unicornDealID=$formdata['unicornDealID'];
+			$sql="SELECT  * FROM `unicorninterest` WHERE unicornDealID='".$unicornDealID."' AND investor_id='".$formdata['investor_id']."'";
+			$query=$this->db->query($sql);
+			$num_rows=$query->num_rows();
+			if(intval($num_rows)>0)
+			{
+				$response = [
+					'status' => '0',
+					'message' => 'You already have shown interest to this Startup.',
+					'id' => 0,
+				];
+			}
+			else
+				{
+				//$unicornDealID=$formdata['unicornDealID'];
+				$post_data=[
+					'unicornDealID'=>$formdata['unicornDealID'],
+					'udFounderID'=>$formdata['udFounderID'],
+					'investor_id'=>$formdata['investor_id'],
+					'interestKnowMore'=>$formdata['interestKnowMore'],
+					'interestWorkwithYou'=>$formdata['interestWorkwithYou'],
+					'interestInvestinStartup'=>$formdata['interestInvestinStartup'],
+					'interestMessage'=>$formdata['interestMessage'],
+				];
+				$this->db->insert('unicorninterest', $post_data);
+				$id=$this->db->insert_id();
+				
+				if($id) {
+					$response = [
+						'status' => '1',
+						'message' => 'Details are updated successfully.',
+						'id' => $id,
+					];
+				} else {
+					$response =[
+						'status' => '0',
+						'message' => 'Please try again!'
+					];
+				}
+			}
+		} else {
+			$response = [
+				'status' => '0',
+				'message'=> 'Please enter values of all fields.',
+			];
+		}
+		$this->output
+		->set_content_type('application/json')
+		->set_output(json_encode($response));
+	}
+	// List of I am interested
+	function unicorn_interested_list() {
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		if(!empty($formdata)) {
+			// POst data for table 1
+			extract($formdata);
+			/* Steps
+			Assume that form data have keys to filter so build SQL String
+
+			 */
+			$whereClause= " 1 = 1 ";
+			foreach($formdata as $Key => $Value)
+			{
+				if($Key!="page" && $Key!="pagesize" && $Key!="udFounderID" && $Key!="investor_id")
+				{
+					$whereClause.= " AND ".$Key." LIKE '%".$Value."%' ";
+				}
+				if($Key=="udFounderID")
+				{
+					$whereClause.= " AND unicorninterest.udFounderID LIKE '%".$Value."%' ";
+				}
+				if($Key=="investor_id")
+				{
+					$whereClause.= " AND unicorninterest.investor_id LIKE '%".$Value."%' ";
+				}
+			}
+
+			
+			//Step1
+			$sql= "SELECT unicorninterest.*,unicorndeals.udStartupName,unicorndeals.udPrimaryContactName, Investors.first_name,Investors.middle_name,Investors.last_name, Investors.email, Investors.mobile FROM `unicorninterest` 
+			LEFT JOIN unicorndeals on unicorndeals.unicornDealID = unicorninterest.unicornDealID
+			LEFT JOIN users as Investors ON Investors.investor_id = unicorninterest.investor_id WHERE ".$whereClause;	
+			$query = $this->db->query($sql);
+			$list = $query->result();
+			$response = [
+				'status' => '1',
+				'message'=> 'Data found.',
+				'data'=>$list,
+			];
+		} else {
+			$response = [
+				'status' => '0',
+				'message'=> 'Please enter values of all fields.',
+			];
+		}
+		$this->output
+		->set_content_type('application/json')
+		->set_output(json_encode($response));	
+	}
+
+	// List of I am interested
+	function unicorn_Publish_unpublish() {
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		if(!empty($formdata)) {
+			// POst data for table 1
+			extract($formdata);
+			$unicornDealID =$formdata['unicornDealID'];
+			$udPublished=$formdata['udPublished'];
+			$post_data=[
+				'udPublished'=>$formdata['udPublished'],
+				
+			];
+			$this->db->where('unicornDealID', $unicornDealID);
+			$id = $this->db->update('unicorndeals', $post_data);
+			$response = [
+				'status' => '1',
+				'message' => 'Deal '.$udPublished.' successfully.',
+				'id' => $id,
+			];
+		} else {
+			$response = [
+				'status' => '0',
+				'message'=> 'Please enter values of all fields.',
+			];
+		}
+		$this->output
+		->set_content_type('application/json')
+		->set_output(json_encode($response));	
+	}
 }
