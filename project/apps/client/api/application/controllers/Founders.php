@@ -229,7 +229,7 @@ class Founders extends CI_Controller {
 				if($num_rows && $ress) {
 					$response = [
 						'status' => '1',
-						'message' => 'Otp is sent successfully. Please check once you email address',
+						'message' => 'OTP is sent successfully. Please check your registered email address',
 						'data' => $res,
 					];
 				} else {

@@ -36,6 +36,22 @@ class Dashboard extends CI_Controller {
 		$sql_con1=$this->db->query($sql_con);
 		$Total_convience_amount =$sql_con1->result();
 
+		// total commitments
+		$sql_con = "SELECT SUM(totalamount) as Total_commitment_amount FROM `investor_commitment`";
+		$sql_con1=$this->db->query($sql_con);
+		$Total_commitment_amount =$sql_con1->result();
+
+
+		// total Completed Deal
+		$sql_con = "SELECT COUNT(deal_id) as Total_completed_deal FROM `deals` WHERE `deal_status`='Closed'";
+		$sql_con1=$this->db->query($sql_con);
+		$Total_completed_deal =$sql_con1->result();
+
+		// total open deal
+		$sql_con = "SELECT COUNT(deal_id) as Total_open_deal FROM `deals` WHERE `deal_status`='Open'";
+		$sql_con1=$this->db->query($sql_con);
+		$Total_open_deal =$sql_con1->result();
+
 		// SUM(!ISNULL(visited)) AS visited
 		if($founder_count) {
 			$response = [
@@ -46,6 +62,9 @@ class Dashboard extends CI_Controller {
 				'investment' => $invested_amt,
 				'Total_expected_deals_amount' => $Total_expected_deals_amount,
 				'Total_convience_amount' => $Total_convience_amount,
+				'Total_commitment_amount'=> $Total_commitment_amount,
+				'Total_completed_deal' => $Total_completed_deal,
+				'Total_open_deal'=> $Total_open_deal,
 			];
 		} else {
 			$response =[

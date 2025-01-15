@@ -39,7 +39,7 @@ class Investor extends CI_Controller {
 			$is_refferal_code_matched = $formdata['is_refferal_code_matched'];
 			$international_contact = $formdata['phone1'];
 			$contact = $formdata['phone'];
-			// $country_code = $formdata['country_code'];
+			$country_code = $formdata['country_code'];
 
 			$end_date = date('Y-m-d H-i a', strtotime('+1 years'));
 			$post_data = [
@@ -57,6 +57,7 @@ class Investor extends CI_Controller {
 				'membership_duration'=>'1',
 				'membership_type' => 'regular',
 				'user_registered_dt' => date('Y-m-d'),
+				'country_code' => $country_code,
 				//'email_otp' => $this->GenerateOTP(6);
 				//'mobile_otp' => $this->GenerateOTP(6);
 			];
@@ -164,7 +165,7 @@ class Investor extends CI_Controller {
 				if($num_rows) {
 					$response = [
 						'status' => '1',
-						'message' => 'Otp is sent successfully. Please check once you email address',
+						'message' => 'OTP is sent successfully. Please check your registered email address',
 						'data' => $res,
 					];
 				} else {

@@ -108,4 +108,4 @@ define('SMTP_USER', 'growth91@zrow.in');
 define('SMTP_PASS', '3J4ZKs0SO8yHAgVD');
 define('SMTP_FROM_EMAIL', 'noreply@mg.growth91.com');
 define('SMTP_FROM_NAME', 'Growth91');
-define('WEB_BASE_URL', 'https://growth91.saamaancart.com/');
+define('WEB_BASE_URL', 'https://growth91.com/');

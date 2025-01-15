@@ -98,11 +98,12 @@ class Investors extends CI_Controller {
 			$sql = "
 			SELECT * FROM `investments`
 			LEFT JOIN deals on deals.deal_id = investments.deal_id
-			LEFT JOIN startups on startups.startupid = deals.deal_name
+			LEFT JOIN startups on startups.startupid = deals.startup_id
 			left join users on users.investor_id = investments.investor_id
 	        WHERE startups.startupid='$startupid'
 			ORDER BY investments.investment_id  DESC;
 			";
+//			echo $sql;
 			$query=$this->db->query($sql);
 			$list =$query->result();
 			
@@ -736,6 +737,23 @@ class Investors extends CI_Controller {
 		
 		if(!empty($formdata)) {
 			$id = $formdata['investor_id'];
+			$userId = $formdata['user_id'];
+
+			if (!empty($userId)) {
+				$sql="SELECT * FROM `admin_master` WHERE id='$userId' LIMIT 1";
+				$query=$this->db->query($sql);
+				$result=$query->result();
+
+				if ($result[0]->is_super_admin == 0) {
+					$response = [
+						'status' => '0',
+						'message' => 'You have no rights.'
+					];
+					return $this->output
+					->set_content_type('application/json')
+					->set_output(json_encode($response));
+				}
+			}
 		
 			$post_data = [
 				'user_block_status'=> $formdata['user_block_status'],
@@ -769,7 +787,242 @@ class Investors extends CI_Controller {
 		->set_output(json_encode($response));	
 	}
 	
+	public function send_email_to_investors()
+	{
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		$investor_commitment = $this->db->select("users.investor_id, users.first_name, users.last_name, users.email, investor_commitment.amount, investor_commitment.processingfees, deals.deal_name, users.startup_name, deals.bank_acc_name, deals.bank_acc_num, deals.bank_name, deals.bank_acc_type, deals.bank_acc_ifsc, deals.bank_branch")->from("users")->join("investor_commitment", "users.investor_id = investor_commitment.investor_id", "left")->join("deals", "deals.deal_id = investor_commitment.deal_id")->where("investor_commitment.parent_id", 0)->where("investor_commitment.isCommitmentEnabled", 'Enabled')->where('investor_commitment.deal_id', $formdata['deal_id'])->where_in('users.investor_id', $formdata['investor_ids'])->order_by('users.investor_id')->get()->result_array();
+		
+		$this->load->helper('send_email');
+		foreach ($investor_commitment as $key => $value) {
+			$query = "SELECT admin_documents.* FROM admin_documents LEFT join admin_documents_for on admin_documents_for.admindocID = admin_documents.admindocID WHERE (deal_id=0 AND investor_id=0 AND founder_id=0) OR (investor_id='".$value["investor_id"]."') OR (deal_id > 0 AND investor_id = '-1') ORDER BY admin_documents.admindocID DESC";
+			$attachmentsData = $this->db->query($query)->result();
+			$attachments = [];
+			if (!empty($attachmentsData)) {
+				foreach ($attachmentsData as $attachment) {
+					array_push($attachments, 'uploads/admindocs/' . $attachment->admindocID . '/' . $attachment->admindocFile);
+				}
+			}
+			$body = '
+				<!doctype html>
+				<html>
+					<head>
+						<meta name="viewport" content="width=device-width, initial-scale=1.0">
+						<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+						<title> Deal Payment Success</title>
+						<style>
+							@media only screen and (max-width: 620px) {
+								table.body h1 {
+									font-size: 28px !important;
+									margin-bottom: 10px !important;
+								}
+								table.body p,
+								table.body ul,
+								table.body ol,
+								table.body td,
+								table.body span,
+								table.body a {
+									font-size: 16px !important;
+								}
+								table.body .wrapper,
+								table.body .article {
+									padding: 10px !important;
+								}
+								table.body .content {
+									padding: 0 !important;
+								}
+								table.body .container {
+									padding: 0 !important;
+									width: 100% !important;
+								}
+								table.body .main {
+									border-left-width: 0 !important;
+									border-radius: 0 !important;
+									border-right-width: 0 !important;
+								}
+								table.body .btn table {
+									width: 100% !important;
+								}
+								table.body .btn a {
+									width: 100% !important;
+								}
+								table.body .img-responsive {
+									height: auto !important;
+									max-width: 100% !important;
+									width: auto !important;
+								}
+							}
+							@media all {
+								.ExternalClass {
+									width: 100%;
+								}
+								.ExternalClass,
+								.ExternalClass p,
+								.ExternalClass span,
+								.ExternalClass font,
+								.ExternalClass td,
+								.ExternalClass div {
+									line-height: 100%;
+								}
+								.apple-link a {
+									color: inherit !important;
+									font-family: inherit !important;
+									font-size: inherit !important;
+									font-weight: inherit !important;
+									line-height: inherit !important;
+									text-decoration: none !important;
+								}
+								#MessageViewBody a {
+									color: inherit;
+									text-decoration: none;
+									font-size: inherit;
+									font-family: inherit;
+									font-weight: inherit;
+									line-height: inherit;
+								}
+								.btn-primary table td:hover {
+									background-color: #34495e !important;
+								}
+								.btn-primary a:hover {
+									background-color: #34495e !important;
+									border-color: #34495e !important;
+								}
+							}
+						</style>
+					</head>
+					<body style="color: black !important; background-color: #f6f6f6; font-family: sans-serif; -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.4; margin: 0; padding: 0; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
+						<table role="presentation" border="0" cellpadding="0" cellspacing="0" class="body" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f6f6f6; width: 100%;" width="100%" bgcolor="#f6f6f6">
+							<tr>
+								<td style="font-family: sans-serif; font-size: 14px; vertical-align: top;" valign="top">&nbsp;</td>
+								<td class="container" style="font-family: sans-serif; font-size: 14px; vertical-align: top; display: block; max-width: 580px; padding: 10px; width: 580px; margin: 0 auto;" width="580" valign="top">
+									<div class="content" style="box-sizing: border-box; display: block; margin: 0 auto; max-width: 580px; padding: 10px;">
+										<!-- START CENTERED WHITE CONTAINER -->
+										<table role="presentation" class="main" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background: #ffffff; border-radius: 3px; width: 100%;" width="100%">
+											<!-- START MAIN CONTENT AREA -->
+											<tr>
+												<td class="wrapper" style="font-family: sans-serif; font-size: 14px; vertical-align: top; box-sizing: border-box; padding: 20px;" valign="top">
+													<table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
+														<tr>
+															<td style="font-family: sans-serif; font-size: 14px; vertical-align: top;" valign="top">
+																<table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; box-sizing: border-box; width: 100%;" width="100%">
+																	<tbody>
+																		<tr>
+																			<td align="left" style="font-family: sans-serif; font-size: 14px; vertical-align: top; padding-bottom: 15px;" valign="top">
+																				<table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;">
+																				</table>
+																			</td>
+																		</tr>
+																	</tbody>
+																</table>
+																<div">
+																<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;"> Dear <strong>'. $value['first_name'] .'</strong>, 
+																	<br>
+																	<br>
+																	Thank you for committing your interest in the '. $value['deal_name'] .' Deal. We are pleased to inform you that we have initiated the Call for Money.
+																	<br>
+																	<br>
+																	The investment amount is ₹ '. $value['amount'] .'. Please find the bank details for transferring the funds below:
+																	<br>
+																	<br>
+																	'. $value['deal_name'] .' Bank Details:
+																	<br>
+																	Account Name: '. $value['bank_acc_name'] .'.
+																	<br>
+																	Account Number: '. $value['bank_acc_num'] .'
+																	<br>
+																	Bank: '. $value['bank_name'] .'
+																	<br>
+																	Account Type: '. $value['bank_acc_type'] .'
+																	<br>
+																	IFSC Code: '. $value['bank_acc_ifsc'] .'
+																	<br>
+																	Branch: '. $value['bank_branch'] .'
+																	<br>
+																	<br><br>
+																	Also, we request you to pay investment facilitation charges of ₹ '. $value['processingfees'] .'. Kindly transfer this amount to the following account:
+																	<br>
+																	<br><br>
+																	Growth91 Advisors Private Limited Bank Details:
+																	<br>
+																	Account Name: Growth91 Advisors Private Limited
+																	<br>
+																	Account Number: 50200066360849
+																	<br>
+																	Bank: HDFC Bank
+																	<br>
+																	Branch: Akola, Maharashtra
+																	<br>
+																	IFSC Code: HDFC0000221
+																	<br>
+																	Account Type: Current Account
+																	<br><br>
+																	You can transfer the amounts either by adding the bank details as a beneficiary in your bank and sending the payment directly, or alternatively, we will send you a follow-up email containing a payment link, so you can transfer the amount
+																	<br><br>
+																	We have attached required documents for your reference.
+																	<br><br>
+																	Feel free to reach out if you have any questions.
+																	<br><br>
+																	Best regards,
+																	<br>
+																	Team Growth91
+																	<br>
+																	Growth91 Advisors Private Limited
+																	<br><br>
+																	PS: This is an automated email. Please do not reply.
+																	<br>
+																<div style="text-align: center;" class="imgRes col-sm-12 col-md-12 col-lg-12">
+																	<img src="https://growth91.com/web/growth91LOGO%20(4).png" alt="logo" style="width:120px;height:auto;">
+																</div>
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+											<!-- END MAIN CONTENT AREA -->
+										</table>
+										<!-- END CENTERED WHITE CONTAINER -->
+										<!-- START FOOTER -->
+										<div class="footer" style="clear: both; margin-top: 10px; text-align: center; width: 100%;">
+											<table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
+												<tr>
+													<td class="content-block" style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; color: #999999; font-size: 12px; text-align: center;" valign="top" align="center">
+														<span class="apple-link" style="color: #999999; font-size: 12px; text-align: center;">Growth91 Advisors Private Limited</span>
+													</td>
+												</tr>
+												<tr>
+													<td class="content-block powered-by" style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; color: #999999; font-size: 12px; text-align: center;" valign="top" align="center">
+														Powered by <a href="' . WEB_BASE_URL . '" style="color: #999999; font-size: 12px; text-align: center; text-decoration: none;">Growth91</a>.
+													</td>
+												</tr>
+											</table>
+										</div>
+										<!-- END FOOTER -->
+									</div>
+								</td>
+								<td style="font-family: sans-serif; font-size: 14px; vertical-align: top;" valign="top">&nbsp;</td>
+							</tr>
+						</table>
+					</body>
+				</html>
+			';
+			$subject = 'Growth91 - Requesting Payment for Investments and the Applicable Convenience Fees';
+			$cc = '';
+			$to = $value['email'];
+			send_email($body, $subject, $to, $cc, $attachments);
+		}
 
+		$response = [
+			'status' => '1',
+			'message' => 'Email sent successfully'
+		];
 
-
+		return $this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
 }

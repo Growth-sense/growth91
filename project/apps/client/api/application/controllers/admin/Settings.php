@@ -7,9 +7,9 @@ class Settings extends CI_Controller {
 	// get deal settings
 	public function getdealsettings(){
 
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");

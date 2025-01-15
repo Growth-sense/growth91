@@ -155,7 +155,7 @@ class Deal extends CI_Controller
 			$this -> db -> where("investor_commitment.deal_id",$deal_id);*/
 			
 			 
-			$this -> db -> select("investor_commitment.*,users.kycstatus,users.email,users.first_name,users.last_name,deals.deal_name, user_pan_details.pan as kyc_pan, user_adhar_details.address as kyc_address, user_adhar_details.care_of as kyc_fathername,mobile,user_pan_details.father_name as pan_fathername,user_pan_details.registered_name as pan_registered_name,user_pan_details.name_provided as pan_name_provided");
+			$this -> db -> select("investor_commitment.*,users.kycstatus,users.email,users.first_name,users.last_name,deals.deal_name, user_pan_details.pan as kyc_pan, user_adhar_details.address as kyc_address, user_adhar_details.care_of as kyc_fathername,mobile,user_pan_details.father_name as pan_fathername,user_pan_details.registered_name as pan_registered_name,user_pan_details.name_provided as pan_name_provided,users.address as residential_address");
 			$this -> db -> from("investor_commitment");
 			$this -> db -> join("deals","deals.deal_id = investor_commitment.deal_id");
 			$this -> db -> join("users","users.investor_id = investor_commitment.investor_id");
@@ -171,7 +171,7 @@ class Deal extends CI_Controller
 			{
 				foreach($status as $Key => $Value)
 				{
-					$this -> db -> select("investor_commitment.*,users.kycstatus,users.email,users.first_name,users.last_name,deals.deal_name, user_pan_details.pan as kyc_pan, user_adhar_details.address as kyc_address, user_adhar_details.care_of as kyc_fathername, mobile,user_pan_details.father_name as pan_fathername,user_pan_details.registered_name as pan_registered_name,user_pan_details.name_provided as pan_name_provided");
+					$this -> db -> select("investor_commitment.*,users.kycstatus,users.email,users.first_name,users.last_name,deals.deal_name, user_pan_details.pan as kyc_pan, user_adhar_details.address as kyc_address, user_adhar_details.care_of as kyc_fathername, mobile,user_pan_details.father_name as pan_fathername,user_pan_details.registered_name as pan_registered_name,user_pan_details.name_provided as pan_name_provided,users.address as residential_address");
 					$this -> db -> from("investor_commitment");
 					$this -> db -> join("deals","deals.deal_id = investor_commitment.deal_id");
 					$this -> db -> join("users","users.investor_id = investor_commitment.investor_id");
@@ -667,6 +667,8 @@ class Deal extends CI_Controller
 				'special_offer_text'=>$formdata['special_offer_text'],
 				'default_special_offer_text'=>$formdata['default_special_offer_text'],
 				'offer_discount'=>$formdata['offer_discount'],
+				// 'automated _email'=>$formdata['automated _email'] ? $formdata['automated _email'] : 'No',
+				'offer_discount'=>$formdata['deal_service'],
 			];
 
 			$this->db->insert('deals', $post_data);
@@ -751,6 +753,7 @@ class Deal extends CI_Controller
 				'special_offer_text'=>$formdata['special_offer_text'],
 				'default_special_offer_text'=>$formdata['default_special_offer_text'],
 				'offer_discount'=>$formdata['offer_discount'],
+				'deal_service'=>$formdata['deal_service'],
 			];
 
 			$this->db->where('deal_id', $id);
@@ -1071,6 +1074,7 @@ class Deal extends CI_Controller
 				$bannerimg=$formdata['bannerimg'];
 				$fun_founder_id=$formdata['fun_founder_id'];
 				$deal_id=$formdata['deal_id'];
+				$cctofouder=$formdata['cc_to_fouder'];
 				// $page_link=$formdatap['page_link'];
 
 				// check for investor is present pr not present
@@ -1327,7 +1331,11 @@ class Deal extends CI_Controller
 					$cc=$fun_founder_mail;
 							// $subject="$founder_name is inviting you to invest in $deal_name.";
 							// $resp = $this->send_invitation($formdata['email'],"$founder_name is inviting you to invest in $deal_name .",$body,$cc);	
+							if($cctofouder=="Yes")
 							$resp = $this->send_invitation($formdata['email'],"Invitation by $founder_name: Growth91 Investment Opportunity - $deal_name (Transaction Banking Platform)",$body,$cc,$bcc);
+							else
+								$resp = $this->send_invitation($formdata['email'],"Invitation by $founder_name: Growth91 Investment Opportunity - $deal_name (Transaction Banking Platform)",$body,$this->send_invitation($formdata['email']),$bcc);
+
 				if($resp=='1'){
 					$data=[
 						'name'=>$formdata['name'],
@@ -1812,6 +1820,15 @@ class Deal extends CI_Controller
 				$this->db->insert('payments', $post_data2);
 				$di3=$this->db->insert_id();
 				
+				/* get commitment ID for this data and then update it 
+				
+				
+				$this -> db -> where("id",$offline_payment[0]["commitment_id"]) -> update("investor_commitment",["commitment_satus" => "In_commitment"]);
+
+				$this -> db -> where("parent_id",$offline_payment[0]["commitment_id"]) -> update("investor_commitment",["commitment_satus" => "In_commitment"]);
+				*/
+
+
 			}
 			else {
 				$response = [
@@ -1903,7 +1920,7 @@ class Deal extends CI_Controller
 					'payment_ref' =>$this->input->post('reference_id'),
 					'Invested_dt' => $this->input->post('payment_dt'),
 					'payment_status_date' => $this->input->post('payment_dt'),
-					'payment_status' =>'PENDING',
+					'payment_status' =>'SUCCESS',
 					'payment_type'=>'offline_payment',
 					'processingfees'=>$this->input->post('processing_fees'),
 				];
@@ -1916,7 +1933,7 @@ class Deal extends CI_Controller
 					'payment_amount' => $this->input->post('investment_amt'),
 					'payment_ref' =>$this->input->post('reference_id'),
 					'payment_date' => $this->input->post('payment_dt'),
-					'payment_status' =>'PENDING',
+					'payment_status' =>'SUCCESS',
 					'payment_type'=>'offline_payment',
 					'description'=>'User invested in deal',
 					'investment_id'=>$di2,
@@ -2012,7 +2029,26 @@ class Deal extends CI_Controller
 		//print_r($commitment);
 		$affected_rows=false;
 
-		if(empty($commitment["totalamount"]) || empty($commitment["deal_id"]) || empty($commitment["investor_id"]) || empty($commitment["amount"]) || empty($commitment["processingfees"]) || empty($delete_log["interested_id"]))
+		$userId = $this->input->post('user_id');
+		
+		if (!empty($userId)) {
+			$sql="SELECT * FROM `admin_master` WHERE id='$userId' LIMIT 1";
+			$query=$this->db->query($sql);
+			$result=$query->result();
+
+			if ($result[0]->is_super_admin == 0) {
+				$response = [
+					'status' => '0',
+					'message' => 'You have no rights.'
+				];
+				return $this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($response));
+			}
+		}
+
+		//if(empty($commitment["totalamount"]) || empty($commitment["deal_id"]) || empty($commitment["investor_id"]) || empty($commitment["amount"]) || empty($commitment["processingfees"]) || empty($delete_log["interested_id"]))
+		if(empty($commitment["totalamount"]) || empty($commitment["deal_id"]) || empty($commitment["investor_id"]) || empty($commitment["amount"]) || empty($delete_log["interested_id"]))
 		{
 		 	$response = [
 		 		'status' => '0',
@@ -2038,7 +2074,7 @@ class Deal extends CI_Controller
 			usecase 2 where commitment is more then 1 time so parent ID will have 1 record parentid 6,8
 			*/
 			
-			//print_r($total)
+			//print_r($committed_idwise[0]);
 			//echo $already_committed[0]["total"]."<BR>".$committed_idwise[0]["total"];
 		//	die;
 			if(count($already_committed) > 0)
@@ -2046,18 +2082,19 @@ class Deal extends CI_Controller
 				$total["totalamount"] =	($already_committed[0]["totalamount"] + $commitment["totalamount"]) - $committed_idwise[0]["totalamount"];	
 				$total["amount"] =	($already_committed[0]["amount"] + $commitment["amount"]) - $committed_idwise[0]["amount"];	
 				$total["processingfees"] =	($already_committed[0]["processingfees"] + $commitment["processingfees"]) - $committed_idwise[0]["processingfees"];	
+				$total["legalfee"] =	($already_committed[0]["legalfee"] + $commitment["legalfee"]) - $committed_idwise[0]["legalfee"];	
 				//print_r($total);
 				//die;
 				$this -> db -> where("deal_id",$commitment["deal_id"]) -> where("investor_id",$commitment["investor_id"]) -> where("parent_id",0)  -> update("investor_commitment",$total);
 				
-				$child_commitment["parent_id"] = $already_committed[0]["id"];
+				//$child_commitment["parent_id"] = $already_committed[0]["id"];
 				$child_commitment["deal_id"] = $commitment["deal_id"];
 				$child_commitment["investor_id"] = $commitment["investor_id"];
 				$child_commitment["amount"] = $commitment["amount"];
 				$child_commitment["processingfees"] = $commitment["processingfees"];
 				$child_commitment["totalamount"] = $commitment["totalamount"];
 				$child_commitment["created_at"] = date("Y-m-d H:i:s");
-
+				$child_commitment["legalfee"] = $commitment["legalfee"];
 				//$status = $this -> db -> insert("investor_commitment",$child_commitment);
 				$this->db->where('id', $commitment["id"]);
 				$this->db->update('investor_commitment', $child_commitment);
@@ -2079,6 +2116,7 @@ class Deal extends CI_Controller
 			{
 				$parent_commitment["amount"] = $commitment["amount"];
 				$parent_commitment["processingfees"] = $commitment["processingfees"];
+			 
 				$parent_commitment["deal_id"] = $commitment["deal_id"];
 				$parent_commitment["investor_id"] = $commitment["investor_id"];
 				$parent_commitment["totalamount"] = $commitment["totalamount"];
@@ -2102,6 +2140,8 @@ class Deal extends CI_Controller
 					$child_commitment["investor_id"] = $commitment["investor_id"];
 					$child_commitment["amount"] = $commitment["amount"];
 					$child_commitment["processingfees"] = $commitment["processingfees"];
+					$child_commitment["legalfee"] = $commitment["legalfee"];
+					
 					$child_commitment["totalamount"] = $commitment["totalamount"];
 					$child_commitment["created_at"] = date("Y-m-d H:i:s");
 					

@@ -998,6 +998,8 @@ class Authenticate extends CI_Controller
 										<br>
 										<br>
 										Request you to participate in the assessment.	
+										<br>
+										Use this OTP to authenticate'.$otp.'.
 										<a 
 										href="'.WEB_BASE_URL.'authenticate?email=' . $email . '&secret='.$otp.'&founder_id='.$founder_id.'"
 							              target="_blank"

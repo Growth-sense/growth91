@@ -1,52 +1,14 @@
 <?php 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-
-//Load Composer's autoloader
-require APPPATH. 'third_party/phpmailer/vendor/autoload.php';
-
-/*
-function send_email($body,$subject,$email,$cc){	
-	$mail = new PHPMailer;
-    // $mail->isSMTP();          
-    $mail->Host = 'smtp-relay.sendinblue.com';       
-    $mail->SMTPAuth = true;              
-    $mail->Username = 'growth91@zrow.in';   
-    $mail->Password = '3J4ZKs0SO8yHAgVD';
-    $mail->SMTPSecure = 'tls';          
-    $mail->From = 'noreply@growth91.com';
-    $mail->FromName = 'Growth91';
-    $mail->addAddress($email);   
-    if(!empty($cc)) {
-        $mail->AddBCC($cc);   
-    }
-    // $mail->AddBcc('');    
-    $mail->WordWrap=50; 
-    $mail->isHTML(true);
-	$mail->Subject=$subject;
-    $mail->Body=$body;
-    if(!$mail->send()) {
-        // return 'Message could not be sent.';
-        return '0';
-    } else {
-        // return 'Message has been sent';
-        return '1';
-    }
-}
-*/
-
 function send_email($body,$subject,$email,$cc)
-{	
-	//$toName = 'TO NAME';
+{	 
 	$toEmail = $email;
 	$fromName = 'Growth91';
-	$fromEmail = 'noreply@saamaancart.com';
+	$fromEmail = 'noreply@growth91.com';
 	$subject = $subject;
 	$htmlMessage = $body;
-
+	
 	$data = array(
 	    "sender" => array(
 		"email" => $fromEmail,
@@ -58,14 +20,22 @@ function send_email($body,$subject,$email,$cc)
 		    //"name" => $toName 
 		    )
 	    ), 
-	    "bcc" => array(
-	    	array(
-	    		"email" => $cc	
-	    		)
-	    ),
 	    "subject" => $subject,
 	    "htmlContent" => $htmlMessage
 	); 
+	
+	if(!empty($cc))
+	{
+	    $data_cc = array(
+	            "cc" => array(
+    	    	array(
+    	    		"email" => $cc	
+    	    		)
+    	    ),
+	        );
+	        
+        $data = array_merge($data,$data_cc);
+	}
 
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, 'https://api.sendinblue.com/v3/smtp/email');
@@ -74,14 +44,16 @@ function send_email($body,$subject,$email,$cc)
 	curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 	$headers = array();
 	$headers[] = 'Accept: application/json';
-	$headers[] = 'Api-Key: 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';
+	//$headers[] = 'Api-Key: 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';
+	$headers[] = 'Api-Key: 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';
 	$headers[] = 'Content-Type: application/json';  
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 	$result = curl_exec($ch);
 	
-
+	//var_dump($result);
+	//die;
 	
-	if (curl_errno($ch))
+	if (curl_exec($ch) === false)
 	{
 	    	return 0;
 	}

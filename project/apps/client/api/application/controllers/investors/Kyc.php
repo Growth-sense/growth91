@@ -495,7 +495,7 @@ class Kyc extends CI_Controller {
 		if(!empty($formdata)) {
             $id = $formdata['id'];
             $sql="
-            	SELECT investor_id,kycstatus,bank_ac_no,ifsc_code,first_name,middle_name,last_name,mobile,user_profile_picture,membership_type,membership_start_date,membership_payment_status,membership_end_date,pan_kyc_status,bank_kyc_status,adhar_kyc_status,nationality,user_block_status FROM `users`
+            	SELECT investor_id,kycstatus,bank_ac_no,ifsc_code,first_name,middle_name,last_name,mobile,user_profile_picture,membership_type,membership_start_date,membership_payment_status,membership_end_date,pan_kyc_status,bank_kyc_status,adhar_kyc_status,nationality,user_block_status,email FROM `users`
 				WHERE investor_id = '$id'
             ";
             $query=$this->db->query($sql);
