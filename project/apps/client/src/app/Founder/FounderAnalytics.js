@@ -416,7 +416,7 @@ class FounderAnalytics extends Component {
             <Sidebar />
           </div>
 
-          <div className="  col col-md-8 pb-4">
+          <div className="  col col-md-10 pb-4">
             <div style={{ marginTop: 130 }}>
               <Card
                 title="Analytics"

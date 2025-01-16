@@ -45,7 +45,16 @@ class MobileApp extends Component {
       } 
     });
   }
-  updatefounder = () => {
+   updatefounder = () => {
+ if (this.props.adminnext) {
+      if (this.state.processtype == "next") {
+        this.props.next();
+        return;
+      } else if (this.state.processtype == "prev") {
+        this.props.prev();
+        return;
+      }
+    }
     let params={
       have_any_android_app_startup:this.state.have_any_android_app_startup,
       app_name_details:this.state.app_name_details,
@@ -192,7 +201,7 @@ class MobileApp extends Component {
                             </div>
                         </div>
                             <div className="form-group">
-                              <label for="">Give details (App Name, Downloads, Rating, Active User, etc.)</label>
+                              <label for="">Give details (App Name, Downloads, Rating, Active User, etc.)<span className="text-danger">*</span></label>
                               <input  
                                 type="text" 
                                 name='tudAndroidAppDetails'
@@ -203,20 +212,25 @@ class MobileApp extends Component {
                               />
                             </div>
                             <div className="form-group ">
-                                <label for="">Do you have an IOS app for your Startup?</label>
+                                <label for="">Do you have an IOS app for your Startup?<span className="text-danger">*</span></label>
                                 <div className='button-grp'> 
                                   <button  
                                   className={this.props.unicorn.tudIphoneMobileApp=='Yes' && 'active'} 
-                                  onClick={() => this.changeStatus1('Yes')}
+                                  value="Yes"
+                                  name='tudIphoneMobileApp'
+                                  onClick={(e) => {this.props.onInput(e.target.name, e.target.value)}}
+
                                   >Yes</button>
                                   <button  
+                                  name='tudIphoneMobileApp'
                                   className={this.props.unicorn.tudIphoneMobileApp=='No' && 'active'} 
-                                  onClick={() => this.changeStatus1('No')}
+                                  value="No"
+                                  onClick={(e) => {this.props.onInput(e.target.name, e.target.value)}}
                                   >No</button>
                                 </div>
                             </div> 
                             <div className="form-group">
-                              <label for="">Give details (app name, downloads, rating, active user, ect.)</label>
+                              <label for="">Give details (app name, downloads, rating, active user, ect.)<span className="text-danger">*</span></label>
                               <input  
                                 type="text" 
                                 name='tudIphoneAppDetails'

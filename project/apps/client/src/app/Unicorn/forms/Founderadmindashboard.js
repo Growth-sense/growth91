@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Spin, Steps } from "antd";
+import { Modal, Spin, Steps, message } from "antd";
 import BasicDetails from "./BasicDetails";
 import Step2 from "./IdeaBusiness";
 import Step3 from "./IntellectualProperty";
@@ -22,6 +22,8 @@ import Step19 from "./Declaration";
 import Dellistinicorn from "./Deallist.js";
 import Mediacoverager from "./Mediacoverager.js";
 import Step20 from "./SupportingDocuments";
+import { Preview } from "./Preview.jsx";
+import { Previewbutton } from "./Previewbutton.jsx";
 
 import ReactGA from "react-ga4";
 
@@ -114,6 +116,7 @@ class Founderadmindashboard extends Component {
         tudStartupName: "",
         tudEmail: "",
         tudPrimaryContactName: "",
+        tudCountryCode: "",
         tudPrimaryContactMobile: "",
         tudPrimaryContactEmail: "",
         tudDisruptingMarket: "",
@@ -306,18 +309,27 @@ class Founderadmindashboard extends Component {
         tudLegalname: "",
         tudFoundedon: "",
         tudLogoImage: "",
-        tudAddress:"",
-        tudTempUdID:"",
+        tudAddress: "",
+        tudEmployees: "",
+        tudFocusedOnProduct: "",
+        tudUseofFundRepayment: "",
+        tudTempUdID: "",
+        show_thankyou_modal: "",
+        unicornid: "",
+        tudDeclare: 0,
+
         founderID: localStorage.getItem("founder_id"),
       },
     };
   }
 
   componentDidMount() {
-    // this.setState("");
     this.setState({ activeform: 0 });
-
-    this.getData(this.props.id);
+    // if(localStorage.getItem("founder_id")){
+    if (this.props.adminview !== "") {
+      this.getData();
+    }
+    this.getData();
     if (this.props.id) {
       let id = this.props.id;
     }
@@ -328,28 +340,34 @@ class Founderadmindashboard extends Component {
     // localStorage.removeItem('register_id');
   }
 
-  getData = async(id) => {
+  getData = async (id) => {
+    console.log(this.props.adminview, "hello");
+
     let params = {
-      founderID: localStorage.getItem("founder_id"),
+      founderID: localStorage.getItem("founder_id") || this.props.adminview,
     };
     let headers = {
       "content-type": "application/json",
     };
-   await axios
+    await axios
       .post(
         `https://cors-anywhere.herokuapp.com/https://growth91.growthmetaverse.in/api/founder/Startup/unicornListByFounders`,
-        params,{headers}
+        params,
+        { headers }
       )
-      .then(async(result) => {
+      .then(async (result) => {
+        console.log(result);
+
         if (result.data.data.length == 0) {
-       const datas=   await axios.post(
+          const datas = await axios.post(
             `https://cors-anywhere.herokuapp.com/https://growth91.growthmetaverse.in/api/founder/Startup/createunicorndraft`,
             this.state.unicorn
           );
-          this.setState({tudTempUdID:datas.data.id})
+          this.setState({ tudTempUdID: datas.data.id });
           // console.log(datas.data.id);
-          
         } else {
+          console.log(result.data.data[0]);
+
           const data = Object.keys(result.data.data[0]).reduce(
             (acc, key, index) => {
               // Collect the values from the object
@@ -917,8 +935,8 @@ class Founderadmindashboard extends Component {
   };
 
   onInput = (names, value) => {
-    console.log(names,value);
-    
+    console.log(names, value);
+
     this.setState({
       unicorn: {
         ...this.state.unicorn,
@@ -927,977 +945,1461 @@ class Founderadmindashboard extends Component {
     });
   };
   publishunicorn = () => {
-    this.setState({loading:true})
+    this.setState({ loading: true });
     console.log(this.state.unicorn);
+    if (
+      !this.state.unicorn.tudEmail ||
+      this.state.unicorn.tudEmail == "" ||
+      !this.state.unicorn.tudStartupName ||
+      this.state.unicorn.tudStartupName == "" ||
+      !this.state.unicorn.tudPrimaryContactName ||
+      this.state.unicorn.tudPrimaryContactName == "" ||
+      !this.state.unicorn.tudCountryCode ||
+      this.state.unicorn.tudCountryCode == "" ||
+      !this.state.unicorn.tudPrimaryContactMobile ||
+      this.state.unicorn.tudPrimaryContactMobile == "" ||
+      !this.state.unicorn.tudPrimaryContactEmail ||
+      this.state.unicorn.tudPrimaryContactEmail == ""
+    ) {
+      this.setState({ loading: false });
+      this.activeform(0);
+      toast.error("Please fill Basic Details Section");
+      return;
+    }
+
+    if (
+      !this.state.unicorn.tudDisruptingMarket ||
+      this.state.unicorn.tudDisruptingMarket == "" ||
+      !this.state.unicorn.tudTappingNew ||
+      this.state.unicorn.tudTappingNew == "" ||
+      !this.state.unicorn.tudCustomerBenifit ||
+      this.state.unicorn.tudCustomerBenifit == "" ||
+      !this.state.unicorn.tudSuppliersBenifit ||
+      this.state.unicorn.tudSuppliersBenifit == "" ||
+      !this.state.unicorn.tudFocusedOnProduct ||
+      this.state.unicorn.tudFocusedOnProduct == "" ||
+      !this.state.unicorn.tudUseofFundRepayment ||
+      this.state.unicorn.tudUseofFundRepayment == "" ||
+      !this.state.unicorn.tudFocusedOnProduct ||
+      this.state.unicorn.tudFocusedOnProduct == "" ||
+      !this.state.unicorn.tudDirectSubstitueAvailable ||
+      this.state.unicorn.tudDirectSubstitueAvailable == "" ||
+      !this.state.unicorn.tudIndirectSubstitueAvailable ||
+      this.state.unicorn.tudIndirectSubstitueAvailable == "" ||
+      !this.state.unicorn.tudRiskPerceived ||
+      this.state.unicorn.tudRiskPerceived == "" ||
+      !this.state.unicorn.tudMoats ||
+      this.state.unicorn.tudMoats == "" ||
+      !this.state.unicorn.tudScaleupChallenges ||
+      this.state.unicorn.tudScaleupChallenges == ""
+    ) {
+      this.setState({ loading: false });
+      this.activeform(1);
+      toast.error("Please fill Idea/Business Section");
+      return;
+    }
+    if (
+      !this.state.unicorn.tudAndroidMobileApp ||
+      this.state.unicorn.tudAndroidMobileApp == "" ||
+      !this.state.unicorn.tudAndroidAppDetails ||
+      this.state.unicorn.tudAndroidAppDetails == "" ||
+      !this.state.unicorn.tudIphoneMobileApp ||
+      this.state.unicorn.tudIphoneMobileApp == "" ||
+      !this.state.unicorn.tudIphoneAppDetails ||
+      this.state.unicorn.tudIphoneAppDetails == ""
+    ) {
+      this.setState({ loading: false });
+      this.activeform(3);
+
+      toast.error("Please fill Mobile App Section");
+      return;
+    }
+    if (
+      !this.state.unicorn.tudIndustryClassification ||
+      this.state.unicorn.tudIndustryClassification == "" ||
+      !this.state.unicorn.tudIndustryViews ||
+      this.state.unicorn.tudIndustryViews == "" ||
+      !this.state.unicorn.tudIndustryMarketSize ||
+      this.state.unicorn.tudIndustryMarketSize == "" ||
+      !this.state.unicorn.tudSupportingInfoMarketSize ||
+      this.state.unicorn.tudSupportingInfoMarketSize == "" ||
+      !this.state.unicorn.tudAddressableMarketSize ||
+      this.state.unicorn.tudAddressableMarketSize == "" ||
+      !this.state.unicorn.tudSupportingInfoAddressableMarketSize ||
+      this.state.unicorn.tudSupportingInfoAddressableMarketSize == ""
+    ) {
+      this.setState({ loading: false });
+      this.activeform(4);
+
+      toast.error("Please fill Industry Market Section");
+      return;
+    }
+    if (
+      !this.state.unicorn.tudLocalDirectComp ||
+      this.state.unicorn.tudLocalDirectComp == "" ||
+      !this.state.unicorn.tudLocalIndirectComp ||
+      this.state.unicorn.tudLocalIndirectComp == "" ||
+      !this.state.unicorn.tudGlobalDirectComp ||
+      this.state.unicorn.tudGlobalDirectComp == "" ||
+      !this.state.unicorn.tudGlobalIndirectComp ||
+      this.state.unicorn.tudGlobalIndirectComp == "" ||
+      !this.state.unicorn.tudDiffCompetion ||
+      this.state.unicorn.tudDiffCompetion == "" ||
+      !this.state.unicorn.tudWhyCompSame ||
+      this.state.unicorn.tudWhyCompSame == "" ||
+      !this.state.unicorn.tudUnfairAdv ||
+      this.state.unicorn.tudUnfairAdv == "" ||
+      !this.state.unicorn.tudLikeCompetion ||
+      this.state.unicorn.tudLikeCompetion == "" ||
+      !this.state.unicorn.tudFailVenture ||
+      this.state.unicorn.tudFailVenture == "" ||
+      !this.state.unicorn.tudFailureReason ||
+      this.state.unicorn.tudFailureReason == ""
+    ) {
+      this.setState({ loading: false });
+      this.activeform(5);
+
+      toast.error("Please fill Comepetition Section");
+      return;
+    }
+    if (
+      !this.state.unicorn.tudStrength ||
+      this.state.unicorn.tudStrength == "" ||
+      !this.state.unicorn.tudWeakness ||
+      this.state.unicorn.tudWeakness == "" ||
+      !this.state.unicorn.tudOpportunities ||
+      this.state.unicorn.tudOpportunities == "" ||
+      !this.state.unicorn.tudThreats ||
+      this.state.unicorn.tudThreats == ""
+    ) {
+      this.setState({ loading: false });
+      this.activeform(6);
+      toast.error("Please fill SWOT Section");
+      return;
+    }
+
+    if (
+      !this.state.unicorn.tudGtmStratergy ||
+      this.state.unicorn.tudGtmStratergy == "" ||
+      !this.state.unicorn.tudGtmBackup ||
+      this.state.unicorn.tudGtmBackup == "" ||
+      !this.state.unicorn.tudExistingCac ||
+      this.state.unicorn.tudExistingCac == "" ||
+      !this.state.unicorn.tudExpectedCac ||
+      this.state.unicorn.tudExpectedCac == "" ||
+      !this.state.unicorn.tudLogicCac ||
+      this.state.unicorn.tudLogicCac == "" ||
+      !this.state.unicorn.tudLtvCustomer ||
+      this.state.unicorn.tudLtvCustomer == "" ||
+      !this.state.unicorn.tudLogicLtvNumber ||
+      this.state.unicorn.tudLogicLtvNumber == "" ||
+      !this.state.unicorn.tudLtvCacRatio ||
+      this.state.unicorn.tudLtvCacRatio == ""
+    ) {
+      this.setState({ loading: false });
+      this.activeform(9);
+      toast.error("Please fill Go to market Section");
+      return;
+    }
+    if (!this.state.unicorn.tudPreviousFundRaised) {
+      !this.state.unicorn.tudPreviousFundRaised == "" ||
+        this.setState({ loading: false });
+      this.activeform(13);
+      toast.error("Please fill Go to Funding Detail Section");
+      return;
+    }
+    if (
+      !this.state.unicorn.tudFundRequired ||
+      this.state.unicorn.tudFundRequired == "" ||
+      !this.state.unicorn.tudExpRunway ||
+      this.state.unicorn.tudExpRunway == "" ||
+      !this.state.unicorn.tudValueFundRaise ||
+      this.state.unicorn.tudValueFundRaise == "" ||
+      !this.state.unicorn.tudLogicFundRaise ||
+      this.state.unicorn.tudLogicFundRaise == "" ||
+      !this.state.unicorn.tudOpentoLower ||
+      this.state.unicorn.tudOpentoLower == "" ||
+      !this.state.unicorn.tudCapexImmidate ||
+      this.state.unicorn.tudCapexImmidate == "" ||
+      !this.state.unicorn.tudCapexFuture ||
+      this.state.unicorn.tudCapexFuture == "" ||
+      !this.state.unicorn.tudProductFund ||
+      this.state.unicorn.tudProductFund == "" ||
+      !this.state.unicorn.tudMarketingFund ||
+      this.state.unicorn.tudMarketingFund == "" ||
+      !this.state.unicorn.tudUseofFundRepayment ||
+      this.state.unicorn.tudUseofFundRepayment == "" ||
+      !this.state.unicorn.tudSalaryFund ||
+      this.state.unicorn.tudSalaryFund == "" ||
+      !this.state.unicorn.tudCastComFund ||
+      this.state.unicorn.tudCastComFund == "" ||
+      !this.state.unicorn.tudOthersFund ||
+      this.state.unicorn.tudOthersFund == ""
+    ) {
+      this.setState({ loading: false });
+      this.activeform(14);
+      toast.error("Please fill Use of funds Section");
+      return;
+    }
+    if (
+      !this.state.unicorn.tudSaleExitInfo ||
+      this.state.unicorn.tudSaleExitInfo == "" ||
+      !this.state.unicorn.tudDepedencyPerson ||
+      this.state.unicorn.tudDepedencyPerson == "" ||
+      !this.state.unicorn.tudReglarityIssue ||
+      this.state.unicorn.tudReglarityIssue == "" ||
+      !this.state.unicorn.tudLicPermissionStatus ||
+      this.state.unicorn.tudLicPermissionStatus == "" ||
+      !this.state.unicorn.tudTeamSize ||
+      this.state.unicorn.tudTeamSize == "" ||
+      !this.state.unicorn.tud5perCommission ||
+      this.state.unicorn.tud5perCommission == "" ||
+      !this.state.unicorn.tud10perCommission ||
+      this.state.unicorn.tud10perCommission == "" ||
+      !this.state.unicorn.tudExitTimeline ||
+      this.state.unicorn.tudExitTimeline == "" ||
+      !this.state.unicorn.tudSubsidiries ||
+      this.state.unicorn.tudSubsidiries == "" ||
+      !this.state.unicorn.tudSisterConcerns ||
+      this.state.unicorn.tudSisterConcerns == "" ||
+      !this.state.unicorn.tudRelatedPartyTrans ||
+      this.state.unicorn.tudRelatedPartyTrans == "" ||
+      !this.state.unicorn.tudLegalRisk ||
+      this.state.unicorn.tudLegalRisk == "" ||
+      !this.state.unicorn.tudFounderExitEarlier ||
+      this.state.unicorn.tudFounderExitEarlier == "" ||
+      !this.state.unicorn.tudDemoLink ||
+      this.state.unicorn.tudDemoLink == "" ||
+      !this.state.unicorn.tudOtherDocsLinks ||
+      this.state.unicorn.tudOtherDocsLinks == "" ||
+      !this.state.unicorn.tudMediaCoverLinks ||
+      this.state.unicorn.tudMediaCoverLinks == "" ||
+      !this.state.unicorn.tudAwards ||
+      this.state.unicorn.tudAwards == "" ||
+      !this.state.unicorn.tudStartupRecon ||
+      this.state.unicorn.tudStartupRecon == "" ||
+      !this.state.unicorn.tudOtherInfo ||
+      this.state.unicorn.tudOtherInfo == ""
+    ) {
+      this.setState({ loading: false });
+      this.activeform(16);
+      toast.error("Please fill Other Important indicators Section");
+      return;
+    }
+    if (
+      !this.state.unicorn.tudMark ||
+      this.state.unicorn.tudMark == "" ||
+      !this.state.unicorn.tudStartupHighlights ||
+      this.state.unicorn.tudStartupHighlights == "" ||
+      !this.state.unicorn.tudLogoImage ||
+      this.state.unicorn.tudLogoImage == "" ||
+      !this.state.unicorn.tudBannerImage ||
+      this.state.unicorn.tudBannerImage == "" ||
+      !this.state.unicorn.tudPitchDeck ||
+      this.state.unicorn.tudPitchDeck == ""
+    ) {
+      this.setState({ loading: false });
+      this.activeform(18);
+      toast.error("Please fill Supporting Documents Section");
+      return;
+    }
+
+    if (
+      !this.state.unicorn.tudStartupFounderName ||
+      this.state.unicorn.tudStartupFounderName == "" ||
+      !this.state.unicorn.tudLegalname ||
+      this.state.unicorn.tudLegalname == "" ||
+      !this.state.unicorn.tudStartupFounderMobileNumber ||
+      this.state.unicorn.tudStartupFounderMobileNumber == "" ||
+      !this.state.unicorn.tudStartupFounderEmail ||
+      this.state.unicorn.tudStartupFounderEmail == "" ||
+      !this.state.unicorn.tudFoundedon ||
+      this.state.unicorn.tudFoundedon == "" ||
+      !this.state.unicorn.tudAddress ||
+      this.state.unicorn.tudAddress == "" ||
+      !this.state.unicorn.tudEmployees ||
+      this.state.unicorn.tudEmployees == "" ||
+      !this.state.unicorn.tudCAPTableThresholdAmount ||
+      this.state.unicorn.tudCAPTableThresholdAmount == "" ||
+      !this.state.unicorn.tudSpecialOfferText ||
+      this.state.unicorn.tudSpecialOfferText == "" ||
+      !this.state.unicorn.tudInputDefaultText ||
+      this.state.unicorn.tudInputDefaultText == "" ||
+      !this.state.unicorn.tudDealDescription ||
+      this.state.unicorn.tudDealDescription == "" ||
+      !this.state.unicorn.tudYoutubeLink ||
+      this.state.unicorn.tudYoutubeLink == "" ||
+      !this.state.unicorn.tudCategory ||
+      this.state.unicorn.tudCategory == ""
+    ) {
+      this.setState({ loading: false });
+      this.activeform(19);
+      toast.error("Please fill Deals Section");
+      return;
+    }
+    if (!this.state.unicorn.tudDeclare || this.state.unicorn.tudDeclare == 0) {
+      this.setState({ loading: false });
+      this.activeform(21);
+      toast.error("Please fill Declaration Section");
+      return;
+    }
     let params = {
       tudTempUdID: this.state.unicorn.tudTempUdID,
       founderID: this.state.unicorn.founderID,
     };
     Bridge.Unicorn.publishunicorndeal(params).then((result) => {
       console.log(result);
-    this.setState({loading:false})
-    toast.success("Unicorn Publish Success fully")
-
+      this.setState({
+        loading: false,
+        show_thankyou_modal: true,
+        unicornid: result.id,
+      });
+      toast.success("Unicorn Publish Success fully");
     });
+  };
+  updatefounder = async (data) => {
+    // console.log(this.state.mediacoverager);
+
+    // let params = {
+    //   no: 18,
+    //   main_founder_id: localStorage.getItem("founder_id"),
+    //   f18_status:
+    //     this.state.processtype == "saveandproceed" ? "success" : "new",
+    // };
+    this.setState({ loading: true });
+    setTimeout(() => {
+      // console.log(this.props.unicorn.tudMediaCoverageFiles);
+
+      Bridge.Unicorn.editunicorndraft(this.state.unicorn).then((result) => {
+        if (result.status == 1) {
+          this.setState({ loading: false });
+          if (data === "save as draft") {
+            toast.success("Unicorn save as draft");
+            setTimeout(() => {
+              window.location.assign("/FounderMyListing");
+            }, 1000);
+          } else {
+            this.publishunicorn();
+          }
+        } else {
+          message.warning(result.message);
+          this.setState({ loading: false });
+        }
+      });
+    }, 3000);
   };
 
   render() {
     return (
       <div>
-          <Spin spinning={this.state.loading}>
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12 text-center mb-5">
-              {/* <h1>Information about Startup</h1> */}
-              <br />
-              <p>
-                Tell us a little about your company. This will help us
-                understand your business better.
+        <style>
+          {`
+            .multistep-form-icons span{
+                color: black;
+    font-size: 1.3em !important;
+            }
+    .line-seperator span{
+     color: black;
+    // font-size: 1.2em;
+    
+    }
+     .form-group label{
+     color: black;
+    // font-size: 1.2em;
+    
+    }
+      .form-group input{
+     color: black;
+    // font-size: 1.2em;
+    
+    }
+            
+            `}
+        </style>
+        <Spin spinning={this.state.loading}>
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-12 text-center mb-5">
+                {/* <h1>Information about Startup</h1> */}
                 <br />
-                {/* <span style={{ color: "red" }}>
+                <p style={{ fontSize: "1.7em" }}>
+                  Tell us about your startup
+                  <br />
+                  {/* <span style={{ color: "red" }}>
                       ( Instruction: Startup form and Assessment Forms are best
                       viewed on PC/Laptop. )
                     </span> */}
-              </p>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-lg-4">
-              <div className="multistep-form-icons">
-                <ul>
-                  <li onClick={() => this.activethistab(0)}>
-                    <div>
-                      <div
-                        className={
-                          this.state.activeform == 0
-                            ? "circle active-tab"
-                            : "circle " + this.state.class0
-                        }
-                      >
-                        {(this.state.activeform == 0 ||
-                          this.state.class0 == "") &&
-                          "1"}
-                        {this.state.activeform != 0 &&
-                          this.state.class0 == " success-tab" && (
-                            <i
-                              style={{ fontSize: 28 }}
-                              className="bx bx-check"
-                            ></i>
-                          )}
-                        {this.state.activeform != 0 &&
-                          this.state.class0 == " error-tab" && (
-                            <i style={{ fontSize: 28 }} className="bx bx-x"></i>
-                          )}
-                      </div>
-                      <span>Basic Details</span>
-                      <div className="line"></div>
-                    </div>
-                  </li>
-                  <li
-                    onClick={() => {
-                      this.activethistab(1);
-                      this.checkforvalidation();
-                    }}
-                  >
-                    <div>
-                      <div
-                        className={
-                          this.state.activeform == 1
-                            ? "circle active-tab"
-                            : "circle " + this.state.class1
-                        }
-                      >
-                        {(this.state.activeform == 1 ||
-                          this.state.class1 == "") &&
-                          "2"}
-                        {this.state.activeform != 1 &&
-                          this.state.class1 == " success-tab" && (
-                            <i
-                              style={{ fontSize: 28 }}
-                              className="bx bx-check"
-                            ></i>
-                          )}
-                        {this.state.activeform != 1 &&
-                          this.state.class1 == " error-tab" && (
-                            <i style={{ fontSize: 28 }} className="bx bx-x"></i>
-                          )}
-                      </div>
-                      <span>Idea/Business</span>
-                      <div className="line"></div>
-                    </div>
-                  </li>
-                  <li
-                    onClick={() => {
-                      this.activethistab(2);
-                      this.checkforvalidation();
-                    }}
-                  >
-                    <div>
-                      <div
-                        className={
-                          this.state.activeform == 2
-                            ? "circle active-tab"
-                            : "circle " + this.state.class2
-                        }
-                      >
-                        {(this.state.activeform == 2 ||
-                          this.state.class2 == "") &&
-                          "3"}
-                        {this.state.activeform != 2 &&
-                          this.state.class2 == " success-tab" && (
-                            <i
-                              style={{ fontSize: 28 }}
-                              className="bx bx-check"
-                            ></i>
-                          )}
-                        {this.state.activeform != 2 &&
-                          this.state.class2 == " error-tab" && (
-                            <i style={{ fontSize: 28 }} className="bx bx-x"></i>
-                          )}
-                      </div>
-                      <span>Intellectual Property</span>
-                      <div className="line"></div>
-                    </div>
-                  </li>
-                  <li
-                    onClick={() => {
-                      this.activethistab(3);
-                      this.checkforvalidation();
-                    }}
-                  >
-                    <div>
-                      <div
-                        className={
-                          this.state.activeform == 3
-                            ? "circle active-tab"
-                            : "circle" + this.state.class3
-                        }
-                      >
-                        {(this.state.activeform == 3 ||
-                          this.state.class3 == "") &&
-                          "4"}
-                        {this.state.activeform != 3 &&
-                          this.state.class3 == " success-tab" && (
-                            <i
-                              style={{ fontSize: 28 }}
-                              className="bx bx-check"
-                            ></i>
-                          )}
-                        {this.state.activeform != 3 &&
-                          this.state.class3 == " error-tab" && (
-                            <i style={{ fontSize: 28 }} className="bx bx-x"></i>
-                          )}
-                      </div>
-                      <span>Mobile App</span>
-                      <div className="line"></div>
-                    </div>
-                  </li>
-                  <li
-                    onClick={() => {
-                      this.activethistab(4);
-                      this.checkforvalidation();
-                    }}
-                  >
-                    <div>
-                      <div
-                        className={
-                          this.state.activeform == 4
-                            ? "circle active-tab"
-                            : "circle" + this.state.class4
-                        }
-                      >
-                        {(this.state.activeform == 4 ||
-                          this.state.class4 == "") &&
-                          "5"}
-                        {this.state.activeform != 4 &&
-                          this.state.class4 == " success-tab" && (
-                            <i
-                              style={{ fontSize: 28 }}
-                              className="bx bx-check"
-                            ></i>
-                          )}
-                        {this.state.activeform != 4 &&
-                          this.state.class4 == " error-tab" && (
-                            <i style={{ fontSize: 28 }} className="bx bx-x"></i>
-                          )}
-                      </div>
-                      <span>Industry Market</span>
-                      <div className="line"></div>
-                    </div>
-                  </li>
-                  <li onClick={() => this.activethistab(5)}>
-                    <div>
-                      <div
-                        className={
-                          this.state.activeform == 5
-                            ? "circle active-tab"
-                            : "circle" + this.state.class5
-                        }
-                      >
-                        {(this.state.activeform == 5 ||
-                          this.state.class5 == "") &&
-                          "6"}
-                        {this.state.activeform != 5 &&
-                          this.state.class5 == " success-tab" && (
-                            <i
-                              style={{ fontSize: 28 }}
-                              className="bx bx-check"
-                            ></i>
-                          )}
-                        {this.state.activeform != 5 &&
-                          this.state.class5 == " error-tab" && (
-                            <i style={{ fontSize: 28 }} className="bx bx-x"></i>
-                          )}
-                      </div>
-                      <span>Competition</span>
-                      <div className="line"></div>
-                    </div>
-                  </li>
-                  <li onClick={() => this.activethistab(6)}>
-                    <div>
-                      <div
-                        className={
-                          this.state.activeform == 6
-                            ? "circle active-tab"
-                            : "circle" + this.state.class6
-                        }
-                      >
-                        {(this.state.activeform == 6 ||
-                          this.state.class6 == "") &&
-                          "7"}
-                        {this.state.activeform != 6 &&
-                          this.state.class6 == " success-tab" && (
-                            <i
-                              style={{ fontSize: 28 }}
-                              className="bx bx-check"
-                            ></i>
-                          )}
-                        {this.state.activeform != 6 &&
-                          this.state.class6 == " error-tab" && (
-                            <i style={{ fontSize: 28 }} className="bx bx-x"></i>
-                          )}
-                      </div>
-                      <span>SWOT</span>
-                      <div className="line"></div>
-                    </div>
-                  </li>
-                  <li onClick={() => this.activethistab(7)}>
-                    <div>
-                      <div
-                        className={
-                          this.state.activeform == 7
-                            ? "circle active-tab"
-                            : "circle" + this.state.class7
-                        }
-                      >
-                        {(this.state.activeform == 7 ||
-                          this.state.class7 == "") &&
-                          "8"}
-                        {this.state.activeform != 7 &&
-                          this.state.class7 == " success-tab" && (
-                            <i
-                              style={{ fontSize: 28 }}
-                              className="bx bx-check"
-                            ></i>
-                          )}
-                        {this.state.activeform != 7 &&
-                          this.state.class7 == " error-tab" && (
-                            <i style={{ fontSize: 28 }} className="bx bx-x"></i>
-                          )}
-                      </div>
-                      <span>Company Legal Entity</span>
-                      <div className="line"></div>
-                    </div>
-                  </li>
-                  <li onClick={() => this.activethistab(8)}>
-                    <div>
-                      <div
-                        className={
-                          this.state.activeform == 8
-                            ? "circle active-tab"
-                            : "circle" + this.state.class8
-                        }
-                      >
-                        {(this.state.activeform == 8 ||
-                          this.state.class8 == "") &&
-                          "9"}
-                        {this.state.activeform != 8 &&
-                          this.state.class8 == " success-tab" && (
-                            <i
-                              style={{ fontSize: 28 }}
-                              className="bx bx-check"
-                            ></i>
-                          )}
-                        {this.state.activeform != 8 &&
-                          this.state.class8 == " error-tab" && (
-                            <i style={{ fontSize: 28 }} className="bx bx-x"></i>
-                          )}
-                      </div>
-                      <span>Social Media Presence</span>
-                      <div className="line"></div>
-                    </div>
-                  </li>
-                  <li onClick={() => this.activethistab(9)}>
-                    <div>
-                      <div
-                        className={
-                          this.state.activeform == 9
-                            ? "circle active-tab"
-                            : "circle" + this.state.class9
-                        }
-                      >
-                        {(this.state.activeform == 9 ||
-                          this.state.class9 == "") &&
-                          "10"}
-                        {this.state.activeform != 9 &&
-                          this.state.class9 == " success-tab" && (
-                            <i
-                              style={{ fontSize: 28 }}
-                              className="bx bx-check"
-                            ></i>
-                          )}
-                        {this.state.activeform != 9 &&
-                          this.state.class9 == " error-tab" && (
-                            <i style={{ fontSize: 28 }} className="bx bx-x"></i>
-                          )}
-                      </div>
-                      <span>Go To Market</span>
-                      <div className="line"></div>
-                    </div>
-                  </li>
-                  <li onClick={() => this.activethistab(10)}>
-                    <div>
-                      <div
-                        className={
-                          this.state.activeform == 10
-                            ? "circle active-tab"
-                            : "circle" + this.state.class10
-                        }
-                      >
-                        {(this.state.activeform == 10 ||
-                          this.state.class10 == "") &&
-                          "11"}
-                        {this.state.activeform != 10 &&
-                          this.state.class10 == " success-tab" && (
-                            <i
-                              style={{ fontSize: 28 }}
-                              className="bx bx-check"
-                            ></i>
-                          )}
-                        {this.state.activeform != 10 &&
-                          this.state.class10 == " error-tab" && (
-                            <i style={{ fontSize: 28 }} className="bx bx-x"></i>
-                          )}
-                      </div>
-                      <span>Financials</span>
-                      <div className="line"></div>
-                    </div>
-                  </li>
-                  <li onClick={() => this.activethistab(11)}>
-                    <div>
-                      <div
-                        className={
-                          this.state.activeform == 11
-                            ? "circle active-tab"
-                            : "circle" + this.state.class11
-                        }
-                      >
-                        {(this.state.activeform == 11 ||
-                          this.state.class11 == "") &&
-                          "12"}
-                        {this.state.activeform != 11 &&
-                          this.state.class11 == " success-tab" && (
-                            <i
-                              style={{ fontSize: 28 }}
-                              className="bx bx-check"
-                            ></i>
-                          )}
-                        {this.state.activeform != 11 &&
-                          this.state.class11 == " error-tab" && (
-                            <i style={{ fontSize: 28 }} className="bx bx-x"></i>
-                          )}
-                      </div>
-                      <span>Capital</span>
-                      <div className="line"></div>
-                    </div>
-                  </li>
-                  <li onClick={() => this.activethistab(12)}>
-                    <div>
-                      <div
-                        className={
-                          this.state.activeform == 12
-                            ? "circle active-tab"
-                            : "circle" + this.state.class12
-                        }
-                      >
-                        {(this.state.activeform == 12 ||
-                          this.state.class12 == "") &&
-                          "13"}
-                        {this.state.activeform != 12 &&
-                          this.state.class12 == " success-tab" && (
-                            <i
-                              style={{ fontSize: 28 }}
-                              className="bx bx-check"
-                            ></i>
-                          )}
-                        {this.state.activeform != 12 &&
-                          this.state.class12 == " error-tab" && (
-                            <i style={{ fontSize: 28 }} className="bx bx-x"></i>
-                          )}
-                      </div>
-                      <span>Salaries</span>
-                      <div className="line"></div>
-                    </div>
-                  </li>
-                  <li onClick={() => this.activethistab(13)}>
-                    <div>
-                      <div
-                        className={
-                          this.state.activeform == 13
-                            ? "circle active-tab"
-                            : "circle" + this.state.class13
-                        }
-                      >
-                        {(this.state.activeform == 13 ||
-                          this.state.class13 == "") &&
-                          "14"}
-                        {this.state.activeform != 13 &&
-                          this.state.class13 == " success-tab" && (
-                            <i
-                              style={{ fontSize: 28 }}
-                              className="bx bx-check"
-                            ></i>
-                          )}
-                        {this.state.activeform != 13 &&
-                          this.state.class13 == " error-tab" && (
-                            <i style={{ fontSize: 28 }} className="bx bx-x"></i>
-                          )}
-                      </div>
-                      <span>Funding Details</span>
-                      <div className="line"></div>
-                    </div>
-                  </li>
-                  <li onClick={() => this.activethistab(14)}>
-                    <div>
-                      <div
-                        className={
-                          this.state.activeform == 14
-                            ? "circle active-tab"
-                            : "circle" + this.state.class14
-                        }
-                      >
-                        {(this.state.activeform == 14 ||
-                          this.state.class14 == "") &&
-                          "15"}
-                        {this.state.activeform != 14 &&
-                          this.state.class14 == " success-tab" && (
-                            <i
-                              style={{ fontSize: 28 }}
-                              className="bx bx-check"
-                            ></i>
-                          )}
-                        {this.state.activeform != 14 &&
-                          this.state.class14 == " error-tab" && (
-                            <i style={{ fontSize: 28 }} className="bx bx-x"></i>
-                          )}
-                      </div>
-                      <span>Use Of Funds</span>
-                      <div className="line"></div>
-                    </div>
-                  </li>
-                  <li onClick={() => this.activethistab(15)}>
-                    <div>
-                      <div
-                        className={
-                          this.state.activeform == 15
-                            ? "circle active-tab"
-                            : "circle" + this.state.class15
-                        }
-                      >
-                        {(this.state.activeform == 15 ||
-                          this.state.class15 == "") &&
-                          "16"}
-                        {this.state.activeform != 15 &&
-                          this.state.class15 == " success-tab" && (
-                            <i
-                              style={{ fontSize: 28 }}
-                              className="bx bx-check"
-                            ></i>
-                          )}
-                        {this.state.activeform != 15 &&
-                          this.state.class15 == " error-tab" && (
-                            <i style={{ fontSize: 28 }} className="bx bx-x"></i>
-                          )}
-                      </div>
-                      <span>Compliances</span>
-                      <div className="line"></div>
-                    </div>
-                  </li>
-                  <li onClick={() => this.activethistab(16)}>
-                    <div>
-                      <div
-                        className={
-                          this.state.activeform == 16
-                            ? "circle active-tab"
-                            : "circle" + this.state.class16
-                        }
-                      >
-                        {(this.state.activeform == 16 ||
-                          this.state.class16 == "") &&
-                          "17"}
-                        {this.state.activeform != 16 &&
-                          this.state.class16 == " success-tab" && (
-                            <i
-                              style={{ fontSize: 28 }}
-                              className="bx bx-check"
-                            ></i>
-                          )}
-                        {this.state.activeform != 16 &&
-                          this.state.class16 == " error-tab" && (
-                            <i style={{ fontSize: 28 }} className="bx bx-x"></i>
-                          )}
-                      </div>
-                      <span>Other Important Indicators</span>
-                      <div className="line"></div>
-                    </div>
-                  </li>
-                  <li onClick={() => this.activethistab(17)}>
-                    <div>
-                      <div
-                        className={
-                          this.state.activeform == 17
-                            ? "circle active-tab"
-                            : "circle" + this.state.class17
-                        }
-                      >
-                        {(this.state.activeform == 17 ||
-                          this.state.class17 == "") &&
-                          "18"}
-                        {this.state.activeform != 17 &&
-                          this.state.class17 == " success-tab" && (
-                            <i
-                              style={{ fontSize: 28 }}
-                              className="bx bx-check"
-                            ></i>
-                          )}
-                        {this.state.activeform != 17 &&
-                          this.state.class17 == " error-tab" && (
-                            <i style={{ fontSize: 28 }} className="bx bx-x"></i>
-                          )}
-                      </div>
-                      <span>References</span>
-                      <div className="line"></div>
-                    </div>
-                  </li>
-                  <li onClick={() => this.activethistab(18)}>
-                    <div>
-                      <div
-                        className={
-                          this.state.activeform == 18
-                            ? "circle active-tab"
-                            : "circle" + this.state.class18
-                        }
-                      >
-                        {(this.state.activeform == 18 ||
-                          this.state.class18 == "") &&
-                          "19"}
-                        {this.state.activeform != 18 &&
-                          this.state.class18 == " success-tab" && (
-                            <i
-                              style={{ fontSize: 28 }}
-                              className="bx bx-check"
-                            ></i>
-                          )}
-                        {this.state.activeform != 18 &&
-                          this.state.class18 == " error-tab" && (
-                            <i style={{ fontSize: 28 }} className="bx bx-x"></i>
-                          )}
-                      </div>
-                      <span>Supporting Documents</span>
-                      <div className="line"></div>
-                    </div>
-                  </li>
-                  <li onClick={() => this.activethistab(19)}>
-                    <div>
-                      <div
-                        className={
-                          this.state.activeform == 19
-                            ? "circle active-tab"
-                            : "circle" + this.state.class19
-                        }
-                      >
-                        {(this.state.activeform == 19 ||
-                          this.state.class19 == "") &&
-                          "20"}
-                        {this.state.activeform != 19 &&
-                          this.state.class19 == " success-tab" && (
-                            <i
-                              style={{ fontSize: 28 }}
-                              className="bx bx-check"
-                            ></i>
-                          )}
-                        {this.state.activeform != 19 &&
-                          this.state.class19 == " error-tab" && (
-                            <i style={{ fontSize: 28 }} className="bx bx-x"></i>
-                          )}
-                      </div>
-                      <span>Deallist</span>
-                      <div className="line"></div>
-
-                    </div>
-                  </li>
-                
-                  <li onClick={() => this.activethistab(20)}>
-                    <div>
-                      <div
-                        className={
-                          this.state.activeform == 20
-                            ? "circle active-tab"
-                            : "circle" + this.state.class20
-                        }
-                      >
-                        {(this.state.activeform == 20 ||
-                          this.state.class20 == "") &&
-                          "20"}
-                        {this.state.activeform != 20 &&
-                          this.state.class20 == " success-tab" && (
-                            <i
-                              style={{ fontSize: 28 }}
-                              className="bx bx-check"
-                            ></i>
-                          )}
-                        {this.state.activeform != 20 &&
-                          this.state.class20 == " error-tab" && (
-                            <i style={{ fontSize: 28 }} className="bx bx-x"></i>
-                          )}
-                      </div>
-                      <span>Media Coverages</span>
-                    </div>
-                  </li>
-                  <li onClick={() => this.activethistab(21)}>
-                    <div>
-                      <div
-                        className={
-                          this.state.activeform == 21
-                            ? "circle active-tab"
-                            : "circle" + this.state.class21
-                        }
-                      >
-                        {(this.state.activeform == 21 ||
-                          this.state.class21 == "") &&
-                          "21"}
-                        {this.state.activeform != 21 &&
-                          this.state.class21 == " success-tab" && (
-                            <i
-                              style={{ fontSize: 28 }}
-                              className="bx bx-check"
-                            ></i>
-                          )}
-                        {this.state.activeform != 21 &&
-                          this.state.class21 == " error-tab" && (
-                            <i style={{ fontSize: 28 }} className="bx bx-x"></i>
-                          )}
-                      </div>
-                      <span>Declaration</span>
-                    </div>
-                  </li>
-                </ul>
+                </p>
               </div>
             </div>
-            <div className="col-lg-8">
-              {this.state.activeform == "0" && (
-                <BasicDetails
-                  activate={() => this.activeform(1)}
-                  next={() => this.activeform(1)}
-                  // id={this.props.id}
-                  data={this.props.tab}
-                  onInput={(name, value) => this.onInput(name, value)}
-                  unicorn={this.state.unicorn}
-                  error={this.state.error_status_0}
-                  check={(ind) => this.checkforvalidation(ind)}
-                />
-              )}
-              {this.state.activeform == "1" && (
-                <Step2
-                  activate={() => this.activeform(2)}
-                  prev={() => this.activeform(0)}
-                  next={() => this.activeform(2)}
-                  onClick={() => this.activatethisform(1)}
-                  id={this.props.id}
-                  onInput={(name, value) => this.onInput(name, value)}
-                  unicorn={this.state.unicorn}
-                  error={this.state.error_status_1}
-                  check={() => this.checkforvalidation()}
-                />
-              )}
-              {this.state.activeform == "2" && (
-                <Step3
-                  activate={() => this.activeform(3)}
-                  prev={() => this.activeform(1)}
-                  next={() => this.activeform(3)}
-                  onInput={(name, value) => this.onInput(name, value)}
-                  unicorn={this.state.unicorn}
-                  id={this.props.id}
-                  error={this.state.error_status_2}
-                  check={() => this.checkforvalidation()}
-                />
-              )}
-              {this.state.activeform == "3" && (
-                <Step4
-                  activate={() => this.activeform(4)}
-                  prev={() => this.activeform(2)}
-                  next={() => this.activeform(4)}
-                  onInput={(name, value) => this.onInput(name, value)}
-                  unicorn={this.state.unicorn}
-                  id={this.props.id}
-                  error={this.state.error_status_3}
-                  check={() => this.checkforvalidation()}
-                />
-              )}
-              {this.state.activeform == "4" && (
-                <Step5
-                  activate={() => this.activeform(5)}
-                  prev={() => this.activeform(3)}
-                  next={() => this.activeform(5)}
-                  onInput={(name, value) => this.onInput(name, value)}
-                  unicorn={this.state.unicorn}
-                  id={this.props.id}
-                  error={this.state.error_status_4}
-                  check={() => this.checkforvalidation()}
-                />
-              )}
-              {this.state.activeform == "5" && (
-                <Step6
-                  activate={() => this.activeform(6)}
-                  prev={() => this.activeform(4)}
-                  next={() => this.activeform(6)}
-                  onInput={(name, value) => this.onInput(name, value)}
-                  unicorn={this.state.unicorn}
-                  id={this.props.id}
-                  error={this.state.error_status_5}
-                  check={() => this.checkforvalidation()}
-                />
-              )}
-              {this.state.activeform == "6" && (
-                <Step7
-                  activate={() => this.activeform(7)}
-                  prev={() => this.activeform(5)}
-                  next={() => this.activeform(7)}
-                  onInput={(name, value) => this.onInput(name, value)}
-                  unicorn={this.state.unicorn}
-                  id={this.props.id}
-                  error={this.state.error_status_6}
-                  check={() => this.checkforvalidation()}
-                />
-              )}
-              {this.state.activeform == "7" && (
-                <Step8
-                  activate={() => this.activeform(8)}
-                  prev={() => this.activeform(6)}
-                  next={() => this.activeform(8)}
-                  onInput={(name, value) => this.onInput(name, value)}
-                  unicorn={this.state.unicorn}
-                  id={this.props.id}
-                  error={this.state.error_status_7}
-                  check={() => this.checkforvalidation()}
-                />
-              )}
-              {this.state.activeform == "8" && (
-                <Step9
-                  activate={() => this.activeform(9)}
-                  prev={() => this.activeform(7)}
-                  next={() => this.activeform(9)}
-                  onInput={(name, value) => this.onInput(name, value)}
-                  unicorn={this.state.unicorn}
-                  id={this.props.id}
-                  error={this.state.error_status_8}
-                  check={() => this.checkforvalidation()}
-                />
-              )}
-              {this.state.activeform == "9" && (
-                <Step10
-                  activate={() => this.activeform(10)}
-                  prev={() => this.activeform(8)}
-                  next={() => this.activeform(10)}
-                  onInput={(name, value) => this.onInput(name, value)}
-                  unicorn={this.state.unicorn}
-                  id={this.props.id}
-                  error={this.state.error_status_9}
-                  check={() => this.checkforvalidation()}
-                />
-              )}
-              {this.state.activeform == "10" && (
-                <Step11
-                  activate={() => this.activeform(11)}
-                  prev={() => this.activeform(9)}
-                  next={() => this.activeform(11)}
-                  onInput={(name, value) => this.onInput(name, value)}
-                  unicorn={this.state.unicorn}
-                  id={this.props.id}
-                  error={this.state.error_status_10}
-                  check={() => this.checkforvalidation()}
-                />
-              )}
-              {this.state.activeform == "11" && (
-                <Step12
-                  activate={() => this.activeform(12)}
-                  prev={() => this.activeform(10)}
-                  next={() => this.activeform(12)}
-                  onInput={(name, value) => this.onInput(name, value)}
-                  unicorn={this.state.unicorn}
-                  id={this.props.id}
-                  error={this.state.error_status_11}
-                  check={() => this.checkforvalidation()}
-                />
-              )}
-              {this.state.activeform == "12" && (
-                <Step13
-                  activate={() => this.activeform(13)}
-                  prev={() => this.activeform(11)}
-                  next={() => this.activeform(13)}
-                  onInput={(name, value) => this.onInput(name, value)}
-                  unicorn={this.state.unicorn}
-                  id={this.props.id}
-                  error={this.state.error_status_12}
-                  check={() => this.checkforvalidation()}
-                />
-              )}
-              {this.state.activeform == "13" && (
-                <Step14
-                  activate={() => this.activeform(14)}
-                  prev={() => this.activeform(12)}
-                  next={() => this.activeform(14)}
-                  onInput={(name, value) => this.onInput(name, value)}
-                  unicorn={this.state.unicorn}
-                  id={this.props.id}
-                  error={this.state.error_status_13}
-                  check={() => this.checkforvalidation()}
-                />
-              )}
-              {this.state.activeform == "14" && (
-                <Step15
-                  activate={() => this.activeform(15)}
-                  prev={() => this.activeform(13)}
-                  next={() => this.activeform(15)}
-                  onInput={(name, value) => this.onInput(name, value)}
-                  unicorn={this.state.unicorn}
-                  id={this.props.id}
-                  error={this.state.error_status_14}
-                  check={() => this.checkforvalidation()}
-                />
-              )}
-              {this.state.activeform == "15" && (
-                <Step16
-                  activate={() => this.activeform(16)}
-                  prev={() => this.activeform(14)}
-                  next={() => this.activeform(16)}
-                  onInput={(name, value) => this.onInput(name, value)}
-                  unicorn={this.state.unicorn}
-                  id={this.props.id}
-                  error={this.state.error_status_15}
-                  check={() => this.checkforvalidation()}
-                />
-              )}
-              {this.state.activeform == "16" && (
-                <Step17
-                  activate={() => this.activeform(17)}
-                  prev={() => this.activeform(16)}
-                  next={() => this.activeform(17)}
-                  onInput={(name, value) => this.onInput(name, value)}
-                  unicorn={this.state.unicorn}
-                  id={this.props.id}
-                  error={this.state.error_status_16}
-                  check={() => this.checkforvalidation()}
-                />
-              )}
-              {this.state.activeform == "17" && (
-                <Step18
-                  activate={() => this.activeform(18)}
-                  prev={() => this.activeform(17)}
-                  next={() => this.activeform(18)}
-                  onInput={(name, value) => this.onInput(name, value)}
-                  unicorn={this.state.unicorn}
-                  id={this.props.id}
-                  error={this.state.error_status_17}
-                  check={() => this.checkforvalidation()}
-                />
-              )}
-              {this.state.activeform == "18" && (
-                <Step20
-                  activate={() => this.activeform(19)}
-                  prev={() => this.activeform(17)}
-                  next={() => this.activeform(19)}
-                  onInput={(name, value) => this.onInput(name, value)}
-                  unicorn={this.state.unicorn}
-                  id={this.props.id}
-                  error={this.state.error_status_18}
-                  check={() => this.checkforvalidation()}
-                />
-              )}
-              {this.state.activeform == "19" && (
-                <Dellistinicorn
-                  activate={() => this.activeform(19)}
-                  prev={() => this.activeform(18)}
-                  next={() => this.activeform(20)}
-                  onInput={(name, value) => this.onInput(name, value)}
-                  unicorn={this.state.unicorn}
-                  id={this.props.id}
-                  error={this.state.error_status_19}
-                  validated={this.state.validated}
-                  check={(ind) => this.checkforvalidation(ind)}
-                />
-              )}
-              {this.state.activeform == "20" && (
-                <Mediacoverager
-                  activate={() => this.activeform(20)}
-                  prev={() => this.activeform(19)}
-                  next={() => this.activeform(21)}
-                  onInput={(name, value) => this.onInput(name, value)}
-                  unicorn={this.state.unicorn}
-                  id={this.props.id}
-                  error={this.state.error_status_19}
-                  validated={this.state.validated}
-                  check={(ind) => this.checkforvalidation(ind)}
-                />
-              )}
-              {this.state.activeform == "21" && (
-                <Step19
-                  activate={() => this.activeform(21)}
-                  prev={() => this.activeform(20)}
-                  next={() => this.activeform(21)}
-                  onInput={(name, value) => this.onInput(name, value)}
-                  unicorn={this.state.unicorn}
-                  id={this.props.id}
-                  error={this.state.error_status_20}
-                  validated={this.state.validated}
-                  check={(ind) => this.checkforvalidation(ind)}
-                />
-              )}
-             
+            <div className="row">
+              <div className="col-lg-4">
+                <div className="multistep-form-icons">
+                  <ul>
+                    <li onClick={() => this.activethistab(0)}>
+                      <div>
+                        <div
+                          className={
+                            this.state.activeform == 0
+                              ? "circle active-tab"
+                              : "circle " + this.state.class0
+                          }
+                        >
+                          {(this.state.activeform == 0 ||
+                            this.state.class0 == "") &&
+                            "1"}
+                          {this.state.activeform != 0 &&
+                            this.state.class0 == " success-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-check"
+                              ></i>
+                            )}
+                          {this.state.activeform != 0 &&
+                            this.state.class0 == " error-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-x"
+                              ></i>
+                            )}
+                        </div>
+                        <span>Basic Details</span>
+                        <div className="line"></div>
+                      </div>
+                    </li>
+                    <li
+                      onClick={() => {
+                        this.activethistab(1);
+                        this.checkforvalidation();
+                      }}
+                    >
+                      <div>
+                        <div
+                          className={
+                            this.state.activeform == 1
+                              ? "circle active-tab"
+                              : "circle " + this.state.class1
+                          }
+                        >
+                          {(this.state.activeform == 1 ||
+                            this.state.class1 == "") &&
+                            "2"}
+                          {this.state.activeform != 1 &&
+                            this.state.class1 == " success-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-check"
+                              ></i>
+                            )}
+                          {this.state.activeform != 1 &&
+                            this.state.class1 == " error-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-x"
+                              ></i>
+                            )}
+                        </div>
+                        <span>Idea/Business</span>
+                        <div className="line"></div>
+                      </div>
+                    </li>
+                    <li
+                      onClick={() => {
+                        this.activethistab(2);
+                        this.checkforvalidation();
+                      }}
+                    >
+                      <div>
+                        <div
+                          className={
+                            this.state.activeform == 2
+                              ? "circle active-tab"
+                              : "circle " + this.state.class2
+                          }
+                        >
+                          {(this.state.activeform == 2 ||
+                            this.state.class2 == "") &&
+                            "3"}
+                          {this.state.activeform != 2 &&
+                            this.state.class2 == " success-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-check"
+                              ></i>
+                            )}
+                          {this.state.activeform != 2 &&
+                            this.state.class2 == " error-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-x"
+                              ></i>
+                            )}
+                        </div>
+                        <span>Intellectual Property</span>
+                        <div className="line"></div>
+                      </div>
+                    </li>
+                    <li
+                      onClick={() => {
+                        this.activethistab(3);
+                        this.checkforvalidation();
+                      }}
+                    >
+                      <div>
+                        <div
+                          className={
+                            this.state.activeform == 3
+                              ? "circle active-tab"
+                              : "circle" + this.state.class3
+                          }
+                        >
+                          {(this.state.activeform == 3 ||
+                            this.state.class3 == "") &&
+                            "4"}
+                          {this.state.activeform != 3 &&
+                            this.state.class3 == " success-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-check"
+                              ></i>
+                            )}
+                          {this.state.activeform != 3 &&
+                            this.state.class3 == " error-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-x"
+                              ></i>
+                            )}
+                        </div>
+                        <span>Mobile App</span>
+                        <div className="line"></div>
+                      </div>
+                    </li>
+                    <li
+                      onClick={() => {
+                        this.activethistab(4);
+                        this.checkforvalidation();
+                      }}
+                    >
+                      <div>
+                        <div
+                          className={
+                            this.state.activeform == 4
+                              ? "circle active-tab"
+                              : "circle" + this.state.class4
+                          }
+                        >
+                          {(this.state.activeform == 4 ||
+                            this.state.class4 == "") &&
+                            "5"}
+                          {this.state.activeform != 4 &&
+                            this.state.class4 == " success-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-check"
+                              ></i>
+                            )}
+                          {this.state.activeform != 4 &&
+                            this.state.class4 == " error-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-x"
+                              ></i>
+                            )}
+                        </div>
+                        <span>Industry Market</span>
+                        <div className="line"></div>
+                      </div>
+                    </li>
+                    <li onClick={() => this.activethistab(5)}>
+                      <div>
+                        <div
+                          className={
+                            this.state.activeform == 5
+                              ? "circle active-tab"
+                              : "circle" + this.state.class5
+                          }
+                        >
+                          {(this.state.activeform == 5 ||
+                            this.state.class5 == "") &&
+                            "6"}
+                          {this.state.activeform != 5 &&
+                            this.state.class5 == " success-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-check"
+                              ></i>
+                            )}
+                          {this.state.activeform != 5 &&
+                            this.state.class5 == " error-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-x"
+                              ></i>
+                            )}
+                        </div>
+                        <span>Competition</span>
+                        <div className="line"></div>
+                      </div>
+                    </li>
+                    <li onClick={() => this.activethistab(6)}>
+                      <div>
+                        <div
+                          className={
+                            this.state.activeform == 6
+                              ? "circle active-tab"
+                              : "circle" + this.state.class6
+                          }
+                        >
+                          {(this.state.activeform == 6 ||
+                            this.state.class6 == "") &&
+                            "7"}
+                          {this.state.activeform != 6 &&
+                            this.state.class6 == " success-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-check"
+                              ></i>
+                            )}
+                          {this.state.activeform != 6 &&
+                            this.state.class6 == " error-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-x"
+                              ></i>
+                            )}
+                        </div>
+                        <span>SWOT</span>
+                        <div className="line"></div>
+                      </div>
+                    </li>
+                    <li onClick={() => this.activethistab(7)}>
+                      <div>
+                        <div
+                          className={
+                            this.state.activeform == 7
+                              ? "circle active-tab"
+                              : "circle" + this.state.class7
+                          }
+                        >
+                          {(this.state.activeform == 7 ||
+                            this.state.class7 == "") &&
+                            "8"}
+                          {this.state.activeform != 7 &&
+                            this.state.class7 == " success-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-check"
+                              ></i>
+                            )}
+                          {this.state.activeform != 7 &&
+                            this.state.class7 == " error-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-x"
+                              ></i>
+                            )}
+                        </div>
+                        <span>Company Legal Entity</span>
+                        <div className="line"></div>
+                      </div>
+                    </li>
+                    <li onClick={() => this.activethistab(8)}>
+                      <div>
+                        <div
+                          className={
+                            this.state.activeform == 8
+                              ? "circle active-tab"
+                              : "circle" + this.state.class8
+                          }
+                        >
+                          {(this.state.activeform == 8 ||
+                            this.state.class8 == "") &&
+                            "9"}
+                          {this.state.activeform != 8 &&
+                            this.state.class8 == " success-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-check"
+                              ></i>
+                            )}
+                          {this.state.activeform != 8 &&
+                            this.state.class8 == " error-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-x"
+                              ></i>
+                            )}
+                        </div>
+                        <span>Social Media Presence</span>
+                        <div className="line"></div>
+                      </div>
+                    </li>
+                    <li onClick={() => this.activethistab(9)}>
+                      <div>
+                        <div
+                          className={
+                            this.state.activeform == 9
+                              ? "circle active-tab"
+                              : "circle" + this.state.class9
+                          }
+                        >
+                          {(this.state.activeform == 9 ||
+                            this.state.class9 == "") &&
+                            "10"}
+                          {this.state.activeform != 9 &&
+                            this.state.class9 == " success-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-check"
+                              ></i>
+                            )}
+                          {this.state.activeform != 9 &&
+                            this.state.class9 == " error-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-x"
+                              ></i>
+                            )}
+                        </div>
+                        <span>Go To Market</span>
+                        <div className="line"></div>
+                      </div>
+                    </li>
+                    <li onClick={() => this.activethistab(10)}>
+                      <div>
+                        <div
+                          className={
+                            this.state.activeform == 10
+                              ? "circle active-tab"
+                              : "circle" + this.state.class10
+                          }
+                        >
+                          {(this.state.activeform == 10 ||
+                            this.state.class10 == "") &&
+                            "11"}
+                          {this.state.activeform != 10 &&
+                            this.state.class10 == " success-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-check"
+                              ></i>
+                            )}
+                          {this.state.activeform != 10 &&
+                            this.state.class10 == " error-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-x"
+                              ></i>
+                            )}
+                        </div>
+                        <span>Financials</span>
+                        <div className="line"></div>
+                      </div>
+                    </li>
+                    <li onClick={() => this.activethistab(11)}>
+                      <div>
+                        <div
+                          className={
+                            this.state.activeform == 11
+                              ? "circle active-tab"
+                              : "circle" + this.state.class11
+                          }
+                        >
+                          {(this.state.activeform == 11 ||
+                            this.state.class11 == "") &&
+                            "12"}
+                          {this.state.activeform != 11 &&
+                            this.state.class11 == " success-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-check"
+                              ></i>
+                            )}
+                          {this.state.activeform != 11 &&
+                            this.state.class11 == " error-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-x"
+                              ></i>
+                            )}
+                        </div>
+                        <span>Capital</span>
+                        <div className="line"></div>
+                      </div>
+                    </li>
+                    <li onClick={() => this.activethistab(12)}>
+                      <div>
+                        <div
+                          className={
+                            this.state.activeform == 12
+                              ? "circle active-tab"
+                              : "circle" + this.state.class12
+                          }
+                        >
+                          {(this.state.activeform == 12 ||
+                            this.state.class12 == "") &&
+                            "13"}
+                          {this.state.activeform != 12 &&
+                            this.state.class12 == " success-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-check"
+                              ></i>
+                            )}
+                          {this.state.activeform != 12 &&
+                            this.state.class12 == " error-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-x"
+                              ></i>
+                            )}
+                        </div>
+                        <span>Salaries</span>
+                        <div className="line"></div>
+                      </div>
+                    </li>
+                    <li onClick={() => this.activethistab(13)}>
+                      <div>
+                        <div
+                          className={
+                            this.state.activeform == 13
+                              ? "circle active-tab"
+                              : "circle" + this.state.class13
+                          }
+                        >
+                          {(this.state.activeform == 13 ||
+                            this.state.class13 == "") &&
+                            "14"}
+                          {this.state.activeform != 13 &&
+                            this.state.class13 == " success-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-check"
+                              ></i>
+                            )}
+                          {this.state.activeform != 13 &&
+                            this.state.class13 == " error-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-x"
+                              ></i>
+                            )}
+                        </div>
+                        <span>Funding Details</span>
+                        <div className="line"></div>
+                      </div>
+                    </li>
+                    <li onClick={() => this.activethistab(14)}>
+                      <div>
+                        <div
+                          className={
+                            this.state.activeform == 14
+                              ? "circle active-tab"
+                              : "circle" + this.state.class14
+                          }
+                        >
+                          {(this.state.activeform == 14 ||
+                            this.state.class14 == "") &&
+                            "15"}
+                          {this.state.activeform != 14 &&
+                            this.state.class14 == " success-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-check"
+                              ></i>
+                            )}
+                          {this.state.activeform != 14 &&
+                            this.state.class14 == " error-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-x"
+                              ></i>
+                            )}
+                        </div>
+                        <span>Use Of Funds</span>
+                        <div className="line"></div>
+                      </div>
+                    </li>
+                    <li onClick={() => this.activethistab(15)}>
+                      <div>
+                        <div
+                          className={
+                            this.state.activeform == 15
+                              ? "circle active-tab"
+                              : "circle" + this.state.class15
+                          }
+                        >
+                          {(this.state.activeform == 15 ||
+                            this.state.class15 == "") &&
+                            "16"}
+                          {this.state.activeform != 15 &&
+                            this.state.class15 == " success-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-check"
+                              ></i>
+                            )}
+                          {this.state.activeform != 15 &&
+                            this.state.class15 == " error-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-x"
+                              ></i>
+                            )}
+                        </div>
+                        <span>Compliances</span>
+                        <div className="line"></div>
+                      </div>
+                    </li>
+                    <li onClick={() => this.activethistab(16)}>
+                      <div>
+                        <div
+                          className={
+                            this.state.activeform == 16
+                              ? "circle active-tab"
+                              : "circle" + this.state.class16
+                          }
+                        >
+                          {(this.state.activeform == 16 ||
+                            this.state.class16 == "") &&
+                            "17"}
+                          {this.state.activeform != 16 &&
+                            this.state.class16 == " success-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-check"
+                              ></i>
+                            )}
+                          {this.state.activeform != 16 &&
+                            this.state.class16 == " error-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-x"
+                              ></i>
+                            )}
+                        </div>
+                        <span>Other Important Indicators</span>
+                        <div className="line"></div>
+                      </div>
+                    </li>
+                    <li onClick={() => this.activethistab(17)}>
+                      <div>
+                        <div
+                          className={
+                            this.state.activeform == 17
+                              ? "circle active-tab"
+                              : "circle" + this.state.class17
+                          }
+                        >
+                          {(this.state.activeform == 17 ||
+                            this.state.class17 == "") &&
+                            "18"}
+                          {this.state.activeform != 17 &&
+                            this.state.class17 == " success-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-check"
+                              ></i>
+                            )}
+                          {this.state.activeform != 17 &&
+                            this.state.class17 == " error-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-x"
+                              ></i>
+                            )}
+                        </div>
+                        <span>References</span>
+                        <div className="line"></div>
+                      </div>
+                    </li>
+                    <li onClick={() => this.activethistab(18)}>
+                      <div>
+                        <div
+                          className={
+                            this.state.activeform == 18
+                              ? "circle active-tab"
+                              : "circle" + this.state.class18
+                          }
+                        >
+                          {(this.state.activeform == 18 ||
+                            this.state.class18 == "") &&
+                            "19"}
+                          {this.state.activeform != 18 &&
+                            this.state.class18 == " success-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-check"
+                              ></i>
+                            )}
+                          {this.state.activeform != 18 &&
+                            this.state.class18 == " error-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-x"
+                              ></i>
+                            )}
+                        </div>
+                        <span>Supporting Documents</span>
+                        <div className="line"></div>
+                      </div>
+                    </li>
+                    <li onClick={() => this.activethistab(19)}>
+                      <div>
+                        <div
+                          className={
+                            this.state.activeform == 19
+                              ? "circle active-tab"
+                              : "circle" + this.state.class19
+                          }
+                        >
+                          {(this.state.activeform == 19 ||
+                            this.state.class19 == "") &&
+                            "20"}
+                          {this.state.activeform != 19 &&
+                            this.state.class19 == " success-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-check"
+                              ></i>
+                            )}
+                          {this.state.activeform != 19 &&
+                            this.state.class19 == " error-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-x"
+                              ></i>
+                            )}
+                        </div>
+                        <span>Other info</span>
+                        <div className="line"></div>
+                      </div>
+                    </li>
+
+                    <li onClick={() => this.activethistab(20)}>
+                      <div>
+                        <div
+                          className={
+                            this.state.activeform == 20
+                              ? "circle active-tab"
+                              : "circle" + this.state.class20
+                          }
+                        >
+                          {(this.state.activeform == 20 ||
+                            this.state.class20 == "") &&
+                            "21"}
+                          {this.state.activeform != 20 &&
+                            this.state.class20 == " success-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-check"
+                              ></i>
+                            )}
+                          {this.state.activeform != 20 &&
+                            this.state.class20 == " error-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-x"
+                              ></i>
+                            )}
+                        </div>
+                        <span>Media Coverages</span>
+                        <div className="line"></div>
+                      </div>
+                    </li>
+                    <li onClick={() => this.activethistab(21)}>
+                      <div>
+                        <div
+                          className={
+                            this.state.activeform == 21
+                              ? "circle active-tab"
+                              : "circle" + this.state.class21
+                          }
+                        >
+                          {(this.state.activeform == 21 ||
+                            this.state.class21 == "") &&
+                            "22"}
+                          {this.state.activeform != 21 &&
+                            this.state.class21 == " success-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-check"
+                              ></i>
+                            )}
+                          {this.state.activeform != 21 &&
+                            this.state.class21 == " error-tab" && (
+                              <i
+                                style={{ fontSize: 28 }}
+                                className="bx bx-x"
+                              ></i>
+                            )}
+                        </div>
+                        <span>Declaration</span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div className="col-lg-8">
+                {this.state.activeform == "0" && (
+                  <BasicDetails
+                    activate={() => this.activeform(1)}
+                    next={() => this.activeform(1)}
+                    adminnext={this.props.adminview}
+                    data={this.props.tab}
+                    onInput={(name, value) => this.onInput(name, value)}
+                    unicorn={this.state.unicorn}
+                    error={this.state.error_status_0}
+                    check={(ind) => this.checkforvalidation(ind)}
+                  />
+                )}
+                {this.state.activeform == "1" && (
+                  <Step2
+                    adminnext={this.props.adminview}
+                    activate={() => this.activeform(2)}
+                    prev={() => this.activeform(0)}
+                    next={() => this.activeform(2)}
+                    onClick={() => this.activatethisform(1)}
+                    id={this.props.id}
+                    onInput={(name, value) => this.onInput(name, value)}
+                    unicorn={this.state.unicorn}
+                    error={this.state.error_status_1}
+                    check={() => this.checkforvalidation()}
+                  />
+                )}
+                {this.state.activeform == "2" && (
+                  <Step3
+                    adminnext={this.props.adminview}
+                    activate={() => this.activeform(3)}
+                    prev={() => this.activeform(1)}
+                    next={() => this.activeform(3)}
+                    onInput={(name, value) => this.onInput(name, value)}
+                    unicorn={this.state.unicorn}
+                    id={this.props.id}
+                    error={this.state.error_status_2}
+                    check={() => this.checkforvalidation()}
+                  />
+                )}
+                {this.state.activeform == "3" && (
+                  <Step4
+                    adminnext={this.props.adminview}
+                    activate={() => this.activeform(4)}
+                    prev={() => this.activeform(2)}
+                    next={() => this.activeform(4)}
+                    onInput={(name, value) => this.onInput(name, value)}
+                    unicorn={this.state.unicorn}
+                    id={this.props.id}
+                    error={this.state.error_status_3}
+                    check={() => this.checkforvalidation()}
+                  />
+                )}
+                {this.state.activeform == "4" && (
+                  <Step5
+                    adminnext={this.props.adminview}
+                    activate={() => this.activeform(5)}
+                    prev={() => this.activeform(3)}
+                    next={() => this.activeform(5)}
+                    onInput={(name, value) => this.onInput(name, value)}
+                    unicorn={this.state.unicorn}
+                    id={this.props.id}
+                    error={this.state.error_status_4}
+                    check={() => this.checkforvalidation()}
+                  />
+                )}
+                {this.state.activeform == "5" && (
+                  <Step6
+                    adminnext={this.props.adminview}
+                    activate={() => this.activeform(6)}
+                    prev={() => this.activeform(4)}
+                    next={() => this.activeform(6)}
+                    onInput={(name, value) => this.onInput(name, value)}
+                    unicorn={this.state.unicorn}
+                    id={this.props.id}
+                    error={this.state.error_status_5}
+                    check={() => this.checkforvalidation()}
+                  />
+                )}
+                {this.state.activeform == "6" && (
+                  <Step7
+                    adminnext={this.props.adminview}
+                    activate={() => this.activeform(7)}
+                    prev={() => this.activeform(5)}
+                    next={() => this.activeform(7)}
+                    onInput={(name, value) => this.onInput(name, value)}
+                    unicorn={this.state.unicorn}
+                    id={this.props.id}
+                    error={this.state.error_status_6}
+                    check={() => this.checkforvalidation()}
+                  />
+                )}
+                {this.state.activeform == "7" && (
+                  <Step8
+                    adminnext={this.props.adminview}
+                    activate={() => this.activeform(8)}
+                    prev={() => this.activeform(6)}
+                    next={() => this.activeform(8)}
+                    onInput={(name, value) => this.onInput(name, value)}
+                    unicorn={this.state.unicorn}
+                    id={this.props.id}
+                    error={this.state.error_status_7}
+                    check={() => this.checkforvalidation()}
+                  />
+                )}
+                {this.state.activeform == "8" && (
+                  <Step9
+                    adminnext={this.props.adminview}
+                    activate={() => this.activeform(9)}
+                    prev={() => this.activeform(7)}
+                    next={() => this.activeform(9)}
+                    onInput={(name, value) => this.onInput(name, value)}
+                    unicorn={this.state.unicorn}
+                    id={this.props.id}
+                    error={this.state.error_status_8}
+                    check={() => this.checkforvalidation()}
+                  />
+                )}
+                {this.state.activeform == "9" && (
+                  <Step10
+                    adminnext={this.props.adminview}
+                    activate={() => this.activeform(10)}
+                    prev={() => this.activeform(8)}
+                    next={() => this.activeform(10)}
+                    onInput={(name, value) => this.onInput(name, value)}
+                    unicorn={this.state.unicorn}
+                    id={this.props.id}
+                    error={this.state.error_status_9}
+                    check={() => this.checkforvalidation()}
+                  />
+                )}
+                {this.state.activeform == "10" && (
+                  <Step11
+                    adminnext={this.props.adminview}
+                    activate={() => this.activeform(11)}
+                    prev={() => this.activeform(9)}
+                    next={() => this.activeform(11)}
+                    onInput={(name, value) => this.onInput(name, value)}
+                    unicorn={this.state.unicorn}
+                    id={this.props.id}
+                    error={this.state.error_status_10}
+                    check={() => this.checkforvalidation()}
+                  />
+                )}
+                {this.state.activeform == "11" && (
+                  <Step12
+                    adminnext={this.props.adminview}
+                    activate={() => this.activeform(12)}
+                    prev={() => this.activeform(10)}
+                    next={() => this.activeform(12)}
+                    onInput={(name, value) => this.onInput(name, value)}
+                    unicorn={this.state.unicorn}
+                    id={this.props.id}
+                    error={this.state.error_status_11}
+                    check={() => this.checkforvalidation()}
+                  />
+                )}
+                {this.state.activeform == "12" && (
+                  <Step13
+                    adminnext={this.props.adminview}
+                    activate={() => this.activeform(13)}
+                    prev={() => this.activeform(11)}
+                    next={() => this.activeform(13)}
+                    onInput={(name, value) => this.onInput(name, value)}
+                    unicorn={this.state.unicorn}
+                    id={this.props.id}
+                    error={this.state.error_status_12}
+                    check={() => this.checkforvalidation()}
+                  />
+                )}
+                {this.state.activeform == "13" && (
+                  <Step14
+                    adminnext={this.props.adminview}
+                    activate={() => this.activeform(14)}
+                    prev={() => this.activeform(12)}
+                    next={() => this.activeform(14)}
+                    onInput={(name, value) => this.onInput(name, value)}
+                    unicorn={this.state.unicorn}
+                    id={this.props.id}
+                    error={this.state.error_status_13}
+                    check={() => this.checkforvalidation()}
+                  />
+                )}
+                {this.state.activeform == "14" && (
+                  <Step15
+                    adminnext={this.props.adminview}
+                    activate={() => this.activeform(15)}
+                    prev={() => this.activeform(13)}
+                    next={() => this.activeform(15)}
+                    onInput={(name, value) => this.onInput(name, value)}
+                    unicorn={this.state.unicorn}
+                    id={this.props.id}
+                    error={this.state.error_status_14}
+                    check={() => this.checkforvalidation()}
+                  />
+                )}
+                {this.state.activeform == "15" && (
+                  <Step16
+                    adminnext={this.props.adminview}
+                    activate={() => this.activeform(16)}
+                    prev={() => this.activeform(14)}
+                    next={() => this.activeform(16)}
+                    onInput={(name, value) => this.onInput(name, value)}
+                    unicorn={this.state.unicorn}
+                    id={this.props.id}
+                    error={this.state.error_status_15}
+                    check={() => this.checkforvalidation()}
+                  />
+                )}
+                {this.state.activeform == "16" && (
+                  <Step17
+                    adminnext={this.props.adminview}
+                    activate={() => this.activeform(17)}
+                    prev={() => this.activeform(16)}
+                    next={() => this.activeform(17)}
+                    onInput={(name, value) => this.onInput(name, value)}
+                    unicorn={this.state.unicorn}
+                    id={this.props.id}
+                    error={this.state.error_status_16}
+                    check={() => this.checkforvalidation()}
+                  />
+                )}
+                {this.state.activeform == "17" && (
+                  <Step18
+                    adminnext={this.props.adminview}
+                    activate={() => this.activeform(18)}
+                    prev={() => this.activeform(17)}
+                    next={() => this.activeform(18)}
+                    onInput={(name, value) => this.onInput(name, value)}
+                    unicorn={this.state.unicorn}
+                    id={this.props.id}
+                    error={this.state.error_status_17}
+                    check={() => this.checkforvalidation()}
+                  />
+                )}
+                {this.state.activeform == "18" && (
+                  <Step20
+                    adminnext={this.props.adminview}
+                    activate={() => this.activeform(19)}
+                    prev={() => this.activeform(17)}
+                    next={() => this.activeform(19)}
+                    onInput={(name, value) => this.onInput(name, value)}
+                    unicorn={this.state.unicorn}
+                    id={this.props.id}
+                    error={this.state.error_status_18}
+                    check={() => this.checkforvalidation()}
+                  />
+                )}
+                {this.state.activeform == "19" && (
+                  <Dellistinicorn
+                    adminnext={this.props.adminview}
+                    activate={() => this.activeform(19)}
+                    prev={() => this.activeform(18)}
+                    next={() => this.activeform(20)}
+                    onInput={(name, value) => this.onInput(name, value)}
+                    unicorn={this.state.unicorn}
+                    id={this.props.id}
+                    error={this.state.error_status_19}
+                    validated={this.state.validated}
+                    check={(ind) => this.checkforvalidation(ind)}
+                  />
+                )}
+                {this.state.activeform == "20" && (
+                  <Mediacoverager
+                    adminnext={this.props.adminview}
+                    activate={() => this.activeform(20)}
+                    prev={() => this.activeform(19)}
+                    next={() => this.activeform(21)}
+                    onInput={(name, value) => this.onInput(name, value)}
+                    unicorn={this.state.unicorn}
+                    id={this.props.id}
+                    error={this.state.error_status_19}
+                    validated={this.state.validated}
+                    check={(ind) => this.checkforvalidation(ind)}
+                  />
+                )}
+                {this.state.activeform == "21" && (
+                  <Step19
+                    adminnext={this.props.adminview}
+                    activate={() => this.activeform(21)}
+                    prev={() => this.activeform(20)}
+                    next={() => this.activeform(21)}
+                    onInput={(name, value) => this.onInput(name, value)}
+                    unicorn={this.state.unicorn}
+                    id={this.props.id}
+                    error={this.state.error_status_20}
+                    validated={this.state.validated}
+                    check={(ind) => this.checkforvalidation(ind)}
+                  />
+                )}
+              </div>
             </div>
+            {!this.props.adminview && (
+              <div className="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto mt-3">
+                <div className="submit-draft-publish d-flex justify-content-center">
+                  <Previewbutton unicorn={this.state.unicorn} />
+                  <a
+                    onClick={() => {
+                      this.updatefounder("save as draft");
+                    }}
+                    className="submit-future"
+                  >
+                    Save as Draft
+                  </a>
+                  <a
+                    onClick={() => {
+                      this.updatefounder();
+                    }}
+                    // to="MemberShip"
+                    className="submit-future"
+                  >
+                    Publish
+                  </a>
+                </div>
+              </div>
+            )}
           </div>
-          <div className="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto mt-3">
-            <div className="submit-draft-publish d-flex justify-content-center">
-              <Link to="FutureUnicornList" className="submit-future">
-                Save Draft
-              </Link>
-              <Link
-                onClick={() => {
-                  this.publishunicorn();
-                }}
-                // to="MemberShip"
-                className="submit-future"
-              >
-                Save Publish
-              </Link>
-              <Link to="FutureUnicornDescription" className="submit-future">
-                Preview
-              </Link>
+          <Modal
+            // title="Thank You"
+            centered
+            open={this.state.show_thankyou_modal}
+            className="thankumodal"
+            // onCancel={this.cancelThankyou}
+            iconType="SmileOutlined"
+            maskClosable={false}
+            cancelText={"Cancel"}
+            footer={[
+              <>
+                <Link
+                  to={`/FutureUnicornDescription?id=${this.state.unicornid}`}
+                >
+                  <button className="btn btn-block">View Startup</button>
+                </Link>
+                <Link to="/founder-dashboard">
+                  <button className="btn btn-block">Go to Dashboard</button>
+                </Link>
+              </>,
+            ]}
+          >
+            <div className="modal-confirm">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <div className="icon-box">
+                    <i class="far fa-check-circle"></i>
+                  </div>
+                  <div className="modal-title">
+                    <h4>Thankyou</h4>
+                  </div>
+                </div>
+                <div className="modal-body">
+                  <p className="text-center">
+                    Future Unicorn is published successfully.
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-</Spin>
-<ToastContainer/>
+          </Modal>
+        </Spin>
+        <ToastContainer />
       </div>
     );
   }

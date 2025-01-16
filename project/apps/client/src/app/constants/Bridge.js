@@ -701,6 +701,11 @@ export default {
         api.post(URLs.getstartupinvestorlist, data).then((response) => {
           return response.data;
         }),
+      send_email_to_investors: (data) =>
+        api.post(URLs.send_email_to_investors, data).then((response) => {
+          return response.data;
+        }),
+        
     },
 
     document: {
@@ -946,6 +951,18 @@ export default {
       }),
     uploadFiles: (data) =>
       api.post(URLs.uploadFiles, data).then((response) => {
+        return response.data;
+      }),
+    add_unicorn_interest: (data) =>
+      api.post(URLs.add_unicorn_interest, data).then((response) => {
+        return response.data;
+      }),
+    unicorn_interested_list: (data) =>
+      api.post(URLs.unicorn_interested_list, data).then((response) => {
+        return response.data;
+      }),
+    unicorn_Publish_unpublish: (data) =>
+      api.post(URLs.unicorn_Publish_unpublish, data).then((response) => {
         return response.data;
       }),
   },

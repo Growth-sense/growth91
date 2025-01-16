@@ -1,15 +1,29 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NewWebFooter } from './common/NewWebFooter'
 import Slider from 'react-slick'
 import NewWebHeader from "./common/NewWebHeader.jsx";
 import $ from "jquery";
 import { Link } from 'react-router-dom';
+import Bridge from './constants/Bridge.js';
+import Foundermylistnew from './foundermylistnew.js';
 
 export const FounderDashboardType = () => {
     useEffect(() => {
+        // 
         window.scrollTo(0, 0)
+        getfounderdetails()
     }, [])
+    const [data, setdata] = useState()
+const getfounderdetails=()=>{
+    let params = {
+        investor_id: localStorage.getItem("founder_id"),
+      };
+      Bridge.check_for_membership_type(params).then((result) => {
+        setdata(result.data[0])
 
+
+      })
+}
     $(window).scroll(function () {
         if ($(this).scrollTop() > 30) {
             $('body').addClass('newClass');
@@ -17,6 +31,8 @@ export const FounderDashboardType = () => {
             $('body').removeClass('newClass');
         }
     });
+    console.log(data);
+    
     function SimpleNextArrow(props) {
         const { onClick } = props;
         return (
@@ -92,11 +108,32 @@ export const FounderDashboardType = () => {
     }
     return (
         <div>
-            <div classname="newabout">
-                <NewWebHeader newabout={"newabout"} />
-            </div>
-            <section class="about-page-section blog-section pb-0" style={{ paddingBottom: "0px !important" }}>
-
+        <div classname="newabout">
+          <NewWebHeader newabout={"newabout"} />
+        </div>
+        <section></section>
+        <div className="row">
+          {/* <div className="collapse navbar-collapse" id="navbarSupportedContent"
+              style={{ width:'fit-content' }}> */}
+          <div
+            className="hiw-nav col-md-2 col-12 py-3 px-0 sidebar2 collapse navbar-collapse"
+            id="navbarSupportedContent"
+          >
+            {/* <section></section> */}
+            <Foundermylistnew />
+          </div>
+          <div className="hiw-nav col-md-2 col-12 py-3 px-0 d-lg-block d-none ">
+            {/* <section></section> */}
+            <Foundermylistnew />
+          </div>
+  
+          <div className="  col col-lg-8 pb-4 ">
+            {/* How do i invest? */}
+            <section
+              id="hdii"
+              className="m-lg-0  m-3"
+              style={{ marginTop: 25, minHeight: "75vh" }}
+            >
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center align-items-center" style={{ pointerEvents: "none" }}>
@@ -110,65 +147,61 @@ export const FounderDashboardType = () => {
 
                     </div>
                     <div class="tabs-dashboard">
-                        <div class="tabs-nav">
-                            <label class="tab-nav active"><Link to="FounderDashboardType">My Account</Link></label>
-                            <label class="tab-nav"><Link to="FounderMyListing">My Startups</Link></label>
-                            <label class="tab-nav"><Link to="FounderMyPlan">My Plan</Link></label>
-                            <label class="tab-nav"><Link to="FounderInterest">Enquiry/Lead</Link></label>
-                          
-                        </div>
+                       
                         <div class="tab-contents">
 
                             <div class="tab-content">
                                 <input type="radio" name="tab-index" id="tab-index1" checked />
                                 <div class="content">
+                                    {data&&
                                     <div className="row">
                                         <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
                                             <div className="input-dashboard-acc">
                                                 <label htmlFor="">First Name *</label>
-                                                <input type="text" value="khushboo " className='form-control' enable />
+                                                <input type="text" value={data.first_name} className='form-control' enable />
                                             </div>
                                         </div>
+                                        {data.middle_name&&
                                         <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
                                             <div className="input-dashboard-acc">
                                                 <label htmlFor="">Middle Name (Optional)</label>
-                                                <input type="text" value="Satyendra" className='form-control' />                                            </div>
-                                        </div>
+                                                <input type="text" value={data.middle_name} className='form-control' />                                            </div>
+                                    </div>}
 
                                         <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
                                             <div className="input-dashboard-acc">
                                                 <label htmlFor="">Last Name *</label>
-                                                <input type="text" value=" bharati" className='form-control' />
+                                                <input type="text" value={data.last_name}  className='form-control' />
                                             </div>
                                         </div>
 
                                         <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
                                             <div className="input-dashboard-acc">
                                                 <label htmlFor="">Mobile No *</label>
-                                                <input type="text" value="8806234772" className='form-control' />
+                                                <input type="text" value={data.mobile} className='form-control' />
                                             </div>
                                         </div>
 
                                         <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
                                             <div className="input-dashboard-acc">
                                                 <label htmlFor="">Email *</label>
-                                                <input type="text" value="khushbharati124@gmail.com" className='form-control' />
+                                                <input type="text" value={localStorage.getItem("founder_email")} className='form-control' />
                                             </div>
                                         </div>
-
+                                        {data.referral_code&&
                                         <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
                                             <div className="input-dashboard-acc">
                                                 <label htmlFor="">Referral Code</label>
-                                                <input type="text" value="13572" className='form-control' />
+                                                <input type="text" value={data.referral_code} className='form-control' />
                                             </div>
-                                        </div>
+                                        </div>}
 
                                         {/* <div className="col-md-6 col-12 col-xl-6 col-xxl-6 col-sm-6 col-lg-6 mb-4">
                                             <div className="input-dashboard-acc">
                                                 <input type="text" value="khushboo bharati" className='form-control' />
                                             </div>
                                         </div> */}
-                                    </div>
+                                    </div>}
                                 </div>
                             </div>
 
@@ -178,6 +211,8 @@ export const FounderDashboardType = () => {
                 </div>
 
             </section>
+            </div>
+            </div>
 
 
 

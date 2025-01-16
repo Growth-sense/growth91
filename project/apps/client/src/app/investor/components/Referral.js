@@ -317,7 +317,8 @@ export default class Referral extends Component {
                 <div className="col offset-md-4">
                   <button
                     className="small-button-dark3"
-                    onClick={this.onClickInvite}
+                  onClick={() => {!this.props.adminview?(this.onClickInvite()):(console.log(""))}}
+
                   >
                     Invite
                   </button>

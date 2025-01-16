@@ -56,7 +56,16 @@ class FundRaiseRegistration extends Component {
       } 
     });
   }
-  updatefounder = () => { 
+   updatefounder = () => {
+ if (this.props.adminnext) {
+      if (this.state.processtype == "next") {
+        this.props.next();
+        return;
+      } else if (this.state.processtype == "prev") {
+        this.props.prev();
+        return;
+      }
+    } 
     let params={
       direct_local_competition:this.state.direct_local_competition,
       in_direct_local_competition:this.state.in_direct_local_competition,
@@ -315,7 +324,7 @@ class FundRaiseRegistration extends Component {
                               ></textarea>
                             </div>                            
                             <div className="form-group">
-                              <label for=""> Do you know any failed venture in same domain or doing similar activities?</label>
+                              <label for=""> Do you know any failed venture in same domain or doing similar activities?<span className="text-danger">*</span></label>
                               <textarea 
                                 id="" cols="30" rows="6"
                                 name='tudFailVenture'
@@ -326,7 +335,7 @@ class FundRaiseRegistration extends Component {
                               ></textarea>
                             </div>
                             <div className="form-group">
-                              <label for="">What are the reasons for failure as analyzed by you?
+                              <label for="">What are the reasons for failure as analyzed by you?<span className="text-danger">*</span>
                               </label>
                               <textarea 
                                 cols="30" 

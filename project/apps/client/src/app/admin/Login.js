@@ -54,10 +54,10 @@ class Login extends Component {
           expiry: new Date().getTime() + 12 * 60 * 60 * 1000, // 12 hour in milliseconds
         };
         localStorage.setItem("admin_login", JSON.stringify(data));
-        // localStorage.setItem(
-        //   "super_admin",
-        //   JSON.stringify(result.data[0].is_super_admin)
-        // );
+        localStorage.setItem(
+          "super_admin",
+          JSON.stringify(result.data[0].is_super_admin)
+        );
         localStorage.removeItem("admin_user");
         localStorage.removeItem("id");
         window.location.href = "/admin-dashboard";

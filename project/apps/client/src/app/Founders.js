@@ -189,7 +189,7 @@ class Founders extends Component {
                               </div>
                             </div>
                             <div className="col-lg-5">
-                              <div className="col-lg-5">
+                              <div>
                                 <div
                                   className="right-side-images wow fadeInRight"
                                   data-wow-delay="0.6s"

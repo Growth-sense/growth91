@@ -5,6 +5,7 @@ import Bridge from "../../constants/Bridge";
 import $ from "jquery";
 import "./BasicDetais.css";
 import axios from "axios";
+import CountrySelect from "../../investor/register/CountrySelect";
 class BasicDetails extends Component {
   constructor(props) {
     super(props);
@@ -81,6 +82,15 @@ class BasicDetails extends Component {
   };
   // register
   register = () => {
+    if (this.props.adminnext) {
+      if (this.state.processtype == "next") {
+        this.props.next();
+        return;
+      } else if (this.state.processtype == "prev") {
+        this.props.prev();
+        return;
+      }
+    }
     let params = {
       tudEmail: this.state.email,
       tudStartupName: this.state.startup_name,
@@ -91,6 +101,7 @@ class BasicDetails extends Component {
       // f1_status:this.state.processtype=='saveandproceed'?'success':'new',
     };
     this.setState({ loading: true });
+
     Bridge.Unicorn.editunicorndraft(this.props.unicorn).then((result) => {
       if (result.status == 1) {
         this.props.check();
@@ -243,13 +254,13 @@ class BasicDetails extends Component {
                       </div>
                       <div className="form-group input-rezized">
                         <label for="">
-                          Name Of Startup <span className="text-danger">*</span>
+                          Name Of Startup<span className="text-danger">*</span>
                         </label>
                         <input
                           type="text"
                           placeholder="Enter your Startup name"
                           name="tudStartupName"
-                           value={this.props.unicorn.tudStartupName}
+                          value={this.props.unicorn.tudStartupName}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           } //.
@@ -264,7 +275,7 @@ class BasicDetails extends Component {
                           type="text"
                           placeholder="Enter Name"
                           name="tudPrimaryContactName"
-                           value={this.props.unicorn.tudPrimaryContactName}
+                          value={this.props.unicorn.tudPrimaryContactName}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           } //.
@@ -275,16 +286,24 @@ class BasicDetails extends Component {
                           Primary Contact Person (Mobile)
                           <span className="text-danger">*</span>
                         </label>
+                        <div style={{display:"flex",alignItems:"baseline"}}>
+                        <CountrySelect
+                          value={this.props.unicorn.tudCountryCode}
+                          onChange={(e) =>
+                            this.props.onInput("tudCountryCode", e.target.value)
+                          }
+                        />
                         <input
                           type="number"
                           placeholder="Enter Mobile"
                           name="tudPrimaryContactMobile"
-                           value={this.props.unicorn.tudPrimaryContactMobile}
+                          value={this.props.unicorn.tudPrimaryContactMobile}
                           onWheel={() => document.activeElement.blur()}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
-                          } //.
+                          } 
                         />
+                        </div>
                       </div>
                       <div className="form-group input-rezized">
                         <label for="">
@@ -295,7 +314,7 @@ class BasicDetails extends Component {
                           type="email"
                           placeholder="Enter Email "
                           name="tudPrimaryContactEmail"
-                           value={this.props.unicorn.tudPrimaryContactEmail}
+                          value={this.props.unicorn.tudPrimaryContactEmail}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           } //.

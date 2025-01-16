@@ -983,7 +983,7 @@ class Investments extends Component {
                       &nbsp;&nbsp;Approve Status
                     </a>
                   </Menu.Item>
-                  {/* {localStorage.getItem("super_admin") === "1" &&  */}
+                  {JSON.parse(localStorage.getItem("super_admin")) === "1" && 
                   <Menu.Item
                     key={`Edits${record.key}`}
                     icon={<WindowsOutlined />}
@@ -996,7 +996,7 @@ class Investments extends Component {
                       &nbsp;&nbsp;Edit
                     </a>
                   </Menu.Item>
-                  {/* } */}
+                   } 
                     </>
                 )
                 }

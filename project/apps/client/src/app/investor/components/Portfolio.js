@@ -324,7 +324,7 @@ export default class Portfolio extends Component {
             <div className="text-center mt-5 responsive">
               <h4 className="responsive">
                 You have not made any investment on Growth91 Platform.<br></br>
-                <a href="/deals" style={{ fontSize: "1.5rem" }}>
+                <a href={!this.props.adminview?("/deals"):("#")}style={{ fontSize: "1.5rem" }}>
                   Start Today{" "}
                 </a>
               </h4>

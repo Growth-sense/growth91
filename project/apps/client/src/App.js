@@ -15,6 +15,14 @@ import { InformationList } from "./app/InformationList.jsx"
 import { LoginInvestor } from './app/LoginInvestor.jsx'
 import { LoginFounder } from './app/LoginFounder.jsx'
 import { MemberShip } from './app/MemberShip.jsx'
+import NewHome from "./app/admin/NewHome.js";
+import NewHome2 from "./app/admin/NewHome2.js";
+import NewHome3 from "./app/admin/NewHome3.js";
+import Newunicorninvestor from "./app/Newunicorninvestor.jsx";
+import Newunicornfounder from "./app/Newunicornfounder.jsx";
+
+
+
 
 import { FutureUnicornDescription } from './app/FutureUnicornDescription.jsx'
 import { FutureUnicornDescriptiondesgin } from './app/FutureUnicornDescriptiondesgin.jsx'
@@ -185,6 +193,7 @@ import Invidata from "./app/deal-pages/Invidata";
 import TestDeal1 from "./app/deal-pages/TestDeal1";
 import TestDeal2 from "./app/deal-pages/TestDeal2";
 import ProtectDeals from "./app/ProtectDeals";
+import ProtectUnicorn from "./app/ProtectUnicorn.js";
 import PendingOfflinePayments from "./app/admin/PendingOfflinePayments";
 import UnderMaintenance from "./app/UnderMaintenance";
 import AdminDocuments from "./app/admin/AdminDocuments";
@@ -199,6 +208,7 @@ import IndusUnoTranche2 from "./app/deal-pages/IndusUnoTranche2";
 import { Newdeals } from "./app/Newdeals.jsx";
 import jqeryscript from "./jq.js"
 import FamilyAdmin from "./app/admin/FamilyAdmin.jsx";
+import UnicornAdmin from "./app/admin/UnicornAdmin.jsx";
 import familyRemoveRequest from "./app/admin/familyRemoveRequest.jsx";
 import Familymanage from "./app/admin/Familymanage.jsx";
 import FutureUnicorn from "./app/admin/FutureUnicorn.jsx";
@@ -206,7 +216,12 @@ import FUnicornStartup from "./app/admin/FUnicornStartup.js";
 import FUnicornInvestors from "./app/admin/FUnicornInvestors.js";
 import FUnicornFounders from "./app/admin/FUnicornFounders.js";
 import TableComponent from "./app/admin/pdfview/TableComponent.js";
+import { Synergy } from "./app/Synergy.jsx";
+import { Synergypartner } from "./app/Synergy-partner.jsx";
+
+
 import Createfamily from "./app/investor/Create-Family.jsx";
+import InvestorFutureunicorn from "./app/investor/InvestorFutureunicorn.jsx";
 import Viewfamilylist from "./app/investor/View-family-list.jsx";
 import familyinvite from "./app/investor/family-invite.jsx";
 
@@ -220,6 +235,7 @@ import uknowva from "./app/deal-pages/uknowva.jsx";
 import Innoserv from "./app/deal-pages/Innoserv.jsx";
 import Petmojo from "./app/deal-pages/Petmojo(Pre Series A).jsx";
 import LVLAlpha from "./app/deal-pages/LVLAlpha.jsx";
+import  {Preview} from "./app/Unicorn/forms/Preview.jsx";
 
 ReactGA.initialize(TRACKING_ID);
 
@@ -251,7 +267,21 @@ function App() {
 
           {/* <Route path="/" exact component={Home} /> */}
           <Route path="/" exact component={Homenew} />
+          <Route path="/NewHome" exact component = {NewHome} />
+          <Route path="/NewHome2" exact component = {NewHome2} />
+          <Route path="/NewHome3" exact component = {NewHome3} />
+       
+          <Route path="/unicornfounder" exact component = {Newunicornfounder} />
+          <Route path="/unicorninvestor" exact component = {Newunicorninvestor} />
+
+
+
+
           <Route path="/about" exact component={Aboutnew} />
+          <Route path="/synergy-partner" exact component={Synergy} />
+          <Route path="/synergy-form" exact component={Synergypartner} />
+
+
           <Route path="/LoginInvestor" exact component={LoginInvestor} />
           <Route path="/LoginFounder" exact component={LoginFounder} />
           <Route path="/MemberShip" exact component={MemberShip} />
@@ -267,16 +297,29 @@ function App() {
           <Route path="/FounderDraftList" exact component={FounderDraftList} />
           <Route path="/FinishedEditPopup" exact component={FinishedEditPopup} />
           <Route path="/RemainingEditPopup" exact component={RemainingEditPopup} />
-          <Route path="/FutureUnicornFormEdits" exact component={FutureUnicornFormEdits} />
-          <Route path="/FutureUnicornList" exact component={FutureUnicornList} />
+          {/* <Route path="/FutureUnicornFormEdits" exact component={FutureUnicornFormEdits} /> */}
+          {/* <Route path="/FutureUnicornList" exact component={FutureUnicornList} /> */}
           <Route path="/WaitApproval" exact component={WaitApproval} />
           <Route path="/CheckboxThank" exact component={CheckboxThank} />
 
           <Route path="/FamilyDashboard" exact component={FamilyDashboard} />
-          <Route path="/FutureUnicornDescription" exact component={FutureUnicornDescription} />
+          <Route path="/Preview" exact component={Preview} />
+          <Route path="/FutureUnicornList" exact  >
+            <ProtectUnicorn Component2={FutureUnicornList}   Conditon={true} />
+            </Route>
+          <Route path="/FutureUnicornDescription" exact  >
+            <ProtectUnicorn Component2={FutureUnicornDescription}   Conditon={true} />
+            </Route>
+          <Route path="/FutureUnicornForm" exact  >
+            <ProtectUnicorn Component2={FutureUnicornForm}   Conditon={true} />
+            </Route>
+          <Route path="/InformationList" exact  >
+            <ProtectUnicorn Component2={InformationList}   Conditon={true} />
+            </Route>
+          {/* <Route path="/FutureUnicornDescription" exact component={FutureUnicornDescription} /> */}
           <Route path="/FutureUnicornDescriptiondesgin" exact component={FutureUnicornDescriptiondesgin} />
-          <Route path="/FutureUnicornForm" exact component={FutureUnicornForm} />
-          <Route path="/InformationList" exact component={InformationList} />
+          {/* <Route path="/FutureUnicornForm" exact component={FutureUnicornForm} /> */}
+          {/* <Route path="/InformationList" exact component={InformationList} /> */}
           <Route path="/UnderMaintenance" exact component={UnderMaintenance} />
           <Route path="/StartInvestment" exact component={Content} />
           <Route path="/deals" exact>
@@ -372,11 +415,12 @@ function App() {
           <Route path="/admin-investors" exact component={admininvestors} />
           <Route path="/admin-startups" exact component={adminstartups} />
           <Route path="/admin-family" exact component={FamilyAdmin} />
+          <Route path="/admin-unicorn" exact component={UnicornAdmin} />
           <Route path="/family-Remove-Request" exact component={familyRemoveRequest} />
           <Route path="/admin-family-manage" exact component={Familymanage} />
           <Route path="/future-unicorn-startups" exact component={FUnicornStartup} />
           <Route path="/FutureUnicorn" exact  >
-            <ProtectDeals Component2={FutureUnicorn}   Conditon={true} />
+            <ProtectUnicorn Component2={FutureUnicorn}   Conditon={true} />
             </Route>
           <Route path="/future-unicorn-investors" exact component={FUnicornInvestors} />
           <Route path="/future-unicorn-founders" exact component={FUnicornFounders} />
@@ -699,6 +743,7 @@ function App() {
           <Route path="/Group-Investments" exact component={Createfamily} />
           <Route path="/View-Group-list" exact component={Viewfamilylist} />
           <Route path="/Group-Invite"  component={familyinvite} />
+          <Route path="/My-Future-unicorn" exact component={InvestorFutureunicorn} />
 
 
           <Route path="*" exact component={error} />

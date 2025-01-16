@@ -44,7 +44,16 @@ class SWOT extends Component {
       } 
     });
   }
-  updatefounder = () => {
+   updatefounder = () => {
+ if (this.props.adminnext) {
+      if (this.state.processtype == "next") {
+        this.props.next();
+        return;
+      } else if (this.state.processtype == "prev") {
+        this.props.prev();
+        return;
+      }
+    }
     let params={
       strength_of_your_startup:this.state.strength_of_your_startup,
       weakness_of_startup:this.state.weakness_of_startup,
@@ -185,7 +194,7 @@ class SWOT extends Component {
                               />
                             </div>
                             <div className="form-group">
-                              <label for="">What are the weaknesses of your startup? <span className="text-danger">*</span></label>
+                              <label for="">What are the weaknesses of your startup?<span className="text-danger">*</span></label>
                               <textarea  
                                 type="text" 
                                 name='tudWeakness'
@@ -198,7 +207,7 @@ class SWOT extends Component {
                               />
                             </div>
                             <div className="form-group">
-                              <label for="">What are the opportunities for your startup? <span className="text-danger">*</span></label>
+                              <label for="">What are the opportunities for your startup?<span className="text-danger">*</span></label>
                               <textarea 
                                 type="text"
                                 name='tudOpportunities'
@@ -211,7 +220,7 @@ class SWOT extends Component {
                               />
                             </div>
                             <div className="form-group">
-                              <label for="">What are the threats for your startup? <span className="text-danger">*</span></label>
+                              <label for="">What are the threats for your startup?<span className="text-danger">*</span></label>
                               <textarea  
                                 type="text" 
                                 name='tudThreats'

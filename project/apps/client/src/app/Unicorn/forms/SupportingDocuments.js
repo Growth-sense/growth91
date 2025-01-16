@@ -5,7 +5,7 @@ import ProgressBar from "@ramonak/react-progress-bar";
 import { DownloadOutlined, DeleteOutlined } from "@ant-design/icons";
 import $ from "jquery";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 class SupportingDocuments extends Component {
   constructor(props) {
     super(props);
@@ -460,8 +460,8 @@ class SupportingDocuments extends Component {
                         <div className="form-group ">
                           <div className="mt-4">
                             <label className="mb-2">
-                              Select Pitch PDF (Max file size should be 10MB)
-                              <span className="text-danger">*</span>
+                              Select Pitch PDF (Max file size should be 10MB)<span className="text-danger">*</span>
+                             
                             </label>
 
                             <input
@@ -527,7 +527,7 @@ class SupportingDocuments extends Component {
                         </div>
                       </div> */}
                       <div className="form-group">
-                        <label for="">Banner Image</label>
+                        <label for="">Banner Image<span className="text-danger">*</span></label>
                         <input
                           type="file"
                           onWheel={() => document.activeElement.blur()}
@@ -537,7 +537,7 @@ class SupportingDocuments extends Component {
                         />
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Select Logo</label>
+                        <label for="">Select Logo<span className="text-danger">*</span></label>
                         <input
                           type="file"
                           onWheel={() => document.activeElement.blur()}
@@ -549,7 +549,7 @@ class SupportingDocuments extends Component {
                       {this.state.startuphighlight.map((item, index) => {
                         return (
                           <div className="form-group">
-                            <label for=""> Highlight {index + 1}</label>
+                            <label for=""> Highlight {index + 1}<span className="text-danger">*</span></label>
                             <textarea
                               id="selected-field"
                               cols="30"
@@ -561,7 +561,7 @@ class SupportingDocuments extends Component {
                               onChange={(e) => {
                                 this.handleInputhighlightChange(index, e);
 
-                                if (e.target.value.length == 100) {
+                                if (e.target.value.length >= 100) {
                                   toast.error("only 100 chart");
                                 }
                               }}
@@ -577,19 +577,19 @@ class SupportingDocuments extends Component {
                           <div className="form-group">
                             <label for="">
                               {" "}
-                              Market Overview of the product {index + 1}
+                              Market Overview of the product {index + 1}<span className="text-danger">*</span>
                             </label>
                             <textarea
                               id="selected-field"
                               cols="30"
                               rows="6"
-                              maxLength="500"
+                              maxLength="200"
                               name="content1"
                               value={item.content1}
                               onChange={(e) => {
                                 this.handleInputChange(index, e);
-                                if (e.target.value.length == 500) {
-                                  toast.error("only 500 chart");
+                                if (e.target.value.length >= 200) {
+                                  toast.error("only 200 chart");
                                 }
                               }}
                             >
@@ -644,6 +644,7 @@ class SupportingDocuments extends Component {
               </div>
             </div>
           </Spin>
+          <ToastContainer/>
         </section>
       </div>
     );

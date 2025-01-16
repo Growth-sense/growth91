@@ -145,10 +145,13 @@ export const FutureUnicornDescriptiondesgin = () => {
                     <div className="row row-imgdirects">
                         <div className="row-img-direct">
                             <div className="img-certified-directors">
-                                <img src="https://www.theidy.com/img/SanjaySarda/profile-pic/sanjay.jpg" alt="" />
+                                <img src="/assets/images/fevicon_new.jpg" alt="" />
                             </div>
                             <div className="content-certify-directors">
-                                <h3>Sanjay Sarda</h3>
+                                {/* <h3>Sanjay Sarda</h3>
+                                 */}
+                                <h3>Growth 91</h3>
+
                                 <p>
                                     <span></span>
                                     Certified Corporate Director - Business Management Consultant
@@ -173,8 +176,8 @@ export const FutureUnicornDescriptiondesgin = () => {
                         </div>
 
                     </div>
-                    <div className="row row-imgdirects bg-box-futures">
-                        <ul className='grid-box-futures'>
+                    <div className="row row-imgdirects bg-box-futures d-none">
+                        <ul className='grid-box-futures'> 
                             <li>
                                 <span><img src="./assets/images/telephone.png" alt="" /></span>
                                 <span>Call</span>
@@ -275,33 +278,195 @@ export const FutureUnicornDescriptiondesgin = () => {
                                         </div>
                                     </div>
                                 </div> */}
-                                <div class="accordion-item">
+                                <div class="accordion-item" style={{border : "none"}}>
                                     <h3 class="accordion-header" id="flush-headingOne">
-                                        <button
-                                            class="accordion-button collapsed"
-                                            type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#flush-collapseOne"
-                                            aria-expanded="false"
-                                            aria-controls="flush-collapseOne"
-                                        >
+                                        <div class = "default-Show"  >
                                             <span><img src="./assets/images/information.png" alt="" /></span>
                                             About Us
-                                        </button>
+                                        </div>
                                     </h3>
-                                    <div
-                                        id="flush-collapseOne"
-                                        class="accordion-collapse collapse"
-                                        aria-labelledby="flush-headingOne"
-                                        data-bs-parent="#accordionFlushExample"
-                                    >
+                                  
                                         <div class="accordion-body about-us-p">
                                             <p>
                                                 Tulua Foods Pvt Ltd, established in 2020, specializes in providing high-quality, clean-label spice and masala products. With a mission to spotlight authentic Indian flavours, Tulua offers a diverse range of over 50 SKUs, including whole spices, powdered spices, and ready-to-cook (RTC) pastes. Their commitment to quality, transparency, and authenticity sets them apart in the market. Operating in both B2B and B2C segments, Tulua supplies branded spices to hospitality businesses and caters directly to individual consumers through various sales channels. Achieving rapid growth and significant milestones, Tulua has secured funding to support its expansion plans, including venturing into export markets and introducing new product lines.
 
                                             </p>
                                         </div>
-                                    </div>
+                                    
+                                </div>
+                                <div class="accordion-item" style={{border : "none"}}>
+                                    <h3 class="accordion-header" id="flush-headingsixx">
+                                        <div
+                                            class="default-Show"
+                                          
+                                        >
+                                            <span><img src="./assets/images/highluights.png" alt="" /></span>
+
+                                            Highlights
+                                        </div>
+                                    </h3>
+                                    <div class="accordion-body">
+                                            <div className="row row-bg-highlights" >
+                                                <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
+                                                    <div className="highlights-accordian">
+                                                        <div className="para-highlights-accordian">
+                                                            <div className="img-highlights">
+                                                                <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" alt="" />
+
+                                                            </div>
+                                                            <div className="para-p-highlight">
+                                                                <p>
+                                                                    Tulua Foods Pvt Ltd has experienced exceptional revenue growth, with a 941% increase in the first three quarters, reaching Rs. 1.79 crore. Despite being a young startup, Tulua has shown financial stability, surpassing milestones from Rs. 8 lakhs in FY20-21 to Rs. 1.79 crore in FY23-24. Projections indicate further growth, aiming for Rs. 2.8 crore in FY23-24 and Rs. 10.9 crore in FY24-25, highlighting their confidence in future success.
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
+                                                    <div className="highlights-accordian">
+                                                        <div className="para-highlights-accordian">
+                                                            <div className="img-highlights">
+                                                                <img src="./assets/images/deals-details/Petmojo/highlight01.jpg" alt="" />
+
+                                                            </div>
+                                                            <div className="para-p-highlight">
+                                                                <p>
+                                                                    Tulua operates in the spice and grocery sector, capitalizing on the growing demand for high-quality, clean-label spice and masala products in India. With a focus on authenticity and convenience, Tulua targets both domestic and international markets, leveraging an omnichannel approach catering to HoReCa, exports, and retail. This positions Tulua well to capture a significant share of the expanding market for branded spices and convenience foods.                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
+                                                    <div className="highlights-accordian">
+                                                        <div className="para-highlights-accordian">
+                                                            <div className="img-highlights">
+                                                                <img src="./assets/images/deals-details/highlight2.jfif" alt="" />
+
+                                                            </div>
+                                                            <div className="para-p-highlight">
+                                                                <p>
+                                                                    Tulua's product packaging sets it apart from competitors, boasting premium designs that appeal to the millennial and GenZ demographic Despite the premium packaging, Tulua ensures affordability with competitive pricing across its product range. For instance, spice prices range from Rs 40 to Rs 115, while ready-to-cook pastes are priced at Rs 150 for 100g and Rs 225 for 200g. This combination of attractive packaging and reasonable pricing enhances Tulua's appeal to modern consumers seeking both quality and aesthetic appeal in their culinary products.                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
+                                                    <div className="highlights-accordian">
+                                                        <div className="para-highlights-accordian">
+                                                            <div className="img-highlights">
+                                                                <img src="./assets/images/deals-details/highlight3.jpg" alt="" />
+
+                                                            </div>
+                                                            <div className="para-p-highlight">
+                                                                <p>
+                                                                    Tulua's consumer retail segment has experienced significant growth, with over 1,400 active customers and a notable 18% repeat rate without targeted retention marketing. Sales have surged by 400% compared to the previous quarter, showcasing strong demand and consumer satisfaction with Tulua's clean-label products, including ready-to-cook pastes and single-origin spices.                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                               
+                                               
+
+
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="accordion-item" style={{border : "none"}}>
+                                    <h3 class="accordion-header" id="flush-headingdetails">
+                                        <div
+                                            class="default-Show"
+                                           
+                                        >
+                                            <span><img src="./assets/images/group-chat.png" alt="" /></span>
+                                            Team
+                                        </div>
+                                    </h3>
+                                  
+                                        <div class="accordion-body ">
+                                            <div className="row row-box-linse Grid-team">
+                                                <div className="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-12 col-sm-12 col-xs-12">
+                                                    <div className="main-card-of-teams">
+                                                        <div className="img-teams-of-cards">
+                                                            <img src="./assets/images/deals-details/Tulua new/Team/Richy.jpg" alt="" />
+                                                          
+                                                        </div>
+                                                        <div className="name-of-teams-card">
+                                                        <div className="head-deals-team">
+                                                                <h3>Richy Dave
+                                                                </h3>
+                                                                <p>Founder and CEO</p>
+                                                            </div>
+                                                            {/* <ul>
+                                                                <li>
+                                                                    10+ years of experience in Marketing and Brand-building.
+                                                                </li>
+                                                                <li>
+                                                                    Ex-founder of Surge Digital, a boutique creative marketing agency.
+                                                                </li>
+                                                                <li>
+                                                                    looks after Marketing & Brand building, Supply chain.
+                                                                </li>
+                                                            </ul> */}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-12 col-sm-12 col-xs-12">
+                                                    <div className="main-card-of-teams">
+                                                        <div className="img-teams-of-cards">
+                                                            <img src="./assets/images/deals-details/Tulua new/Team/hitesh.jpg" alt="" />
+                                                    
+                                                        </div>
+                                                        <div className="name-of-teams-card">
+                                                        <div className="head-deals-team">
+                                                                <h3>Hitesh Dave
+                                                               
+                                                                </h3>
+                                                                <p> Director of Sales</p>
+                                                            </div>
+                                                            {/* <ul>
+                                                                <li>
+                                                                35+ yrs experience in sales & distribution in markets across India and China.
+                                                                
+                                                                </li>
+                                                                <li>
+                                                                Formerly setup food service network for brands such as Sankalp.
+                                                                </li>
+                                                                
+                                                            </ul> */}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-12 col-sm-12 col-xs-12">
+                                                    <div className="main-card-of-teams">
+                                                        <div className="img-teams-of-cards">
+                                                            <img src="./assets/images/deals-details/Tulua new/Team/arjunvaidya.jpg" alt="" />
+                                                            
+                                                        </div>
+                                                        <div className="name-of-teams-card">
+                                                        <div className="head-deals-team">
+                                                                <h3>Arjun Vaidya
+                                                             
+                                                                </h3>
+                                                                <p>   D2C founder & Investor.</p>
+                                                            </div>
+                                                            {/* <ul>
+                                                              
+                                                                <li>
+                                                                With vast experience in sales and marketing,           
+                                                                                                                     </li>
+                                                                <li>
+                                                               
+                                                                She has a deep network and has closed strategic alliances worth US$ 200 million as part of Brand Capital, the strategic investment arm of Times Group.
+                                                                </li>
+                                                            </ul> */}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                 
                                 </div>
                                 <div class="accordion-item">
                                     <h3 class="accordion-header" id="flush-headingThree">
@@ -371,121 +536,7 @@ export const FutureUnicornDescriptiondesgin = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="accordion-item">
-                                    <h3 class="accordion-header" id="flush-headingsixx">
-                                        <button
-                                            class="accordion-button collapsed"
-                                            type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#flush-headingsixxnew"
-                                            aria-expanded="false"
-                                            aria-controls="flush-headingsixx"
-                                        >
-                                            <span><img src="./assets/images/highluights.png" alt="" /></span>
-
-                                            Highlights
-                                        </button>
-                                    </h3>
-                                    <div
-                                        id="flush-headingsixxnew"
-                                        class="accordion-collapse collapse"
-                                        aria-labelledby="flush-headingsixx"
-                                        data-bs-parent="#accordionFlushExample"
-                                    >
-                                        <div class="accordion-body">
-                                            <div className="row row-bg-highlights" >
-                                                <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
-                                                    <div className="highlights-accordian">
-                                                        <div className="para-highlights-accordian">
-                                                            <div className="img-highlights">
-                                                                <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" alt="" />
-
-                                                            </div>
-                                                            <div className="para-p-highlight">
-                                                                <p>
-                                                                    Tulua Foods Pvt Ltd has experienced exceptional revenue growth, with a 941% increase in the first three quarters, reaching Rs. 1.79 crore. Despite being a young startup, Tulua has shown financial stability, surpassing milestones from Rs. 8 lakhs in FY20-21 to Rs. 1.79 crore in FY23-24. Projections indicate further growth, aiming for Rs. 2.8 crore in FY23-24 and Rs. 10.9 crore in FY24-25, highlighting their confidence in future success.
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
-                                                    <div className="highlights-accordian">
-                                                        <div className="para-highlights-accordian">
-                                                            <div className="img-highlights">
-                                                                <img src="./assets/images/deals-details/Petmojo/highlight01.jpg" alt="" />
-
-                                                            </div>
-                                                            <div className="para-p-highlight">
-                                                                <p>
-                                                                    Tulua operates in the spice and grocery sector, capitalizing on the growing demand for high-quality, clean-label spice and masala products in India. With a focus on authenticity and convenience, Tulua targets both domestic and international markets, leveraging an omnichannel approach catering to HoReCa, exports, and retail. This positions Tulua well to capture a significant share of the expanding market for branded spices and convenience foods.                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
-                                                    <div className="highlights-accordian">
-                                                        <div className="para-highlights-accordian">
-                                                            <div className="img-highlights">
-                                                                <img src="./assets/images/deals-details/highlight2.jfif" alt="" />
-
-                                                            </div>
-                                                            <div className="para-p-highlight">
-                                                                <p>
-                                                                    Tulua's product packaging sets it apart from competitors, boasting premium designs that appeal to the millennial and GenZ demographic Despite the premium packaging, Tulua ensures affordability with competitive pricing across its product range. For instance, spice prices range from Rs 40 to Rs 115, while ready-to-cook pastes are priced at Rs 150 for 100g and Rs 225 for 200g. This combination of attractive packaging and reasonable pricing enhances Tulua's appeal to modern consumers seeking both quality and aesthetic appeal in their culinary products.                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
-                                                    <div className="highlights-accordian">
-                                                        <div className="para-highlights-accordian">
-                                                            <div className="img-highlights">
-                                                                <img src="./assets/images/deals-details/highlight3.jpg" alt="" />
-
-                                                            </div>
-                                                            <div className="para-p-highlight">
-                                                                <p>
-                                                                    Tulua's consumer retail segment has experienced significant growth, with over 1,400 active customers and a notable 18% repeat rate without targeted retention marketing. Sales have surged by 400% compared to the previous quarter, showcasing strong demand and consumer satisfaction with Tulua's clean-label products, including ready-to-cook pastes and single-origin spices.                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
-                                                    <div className="highlights-accordian">
-                                                        <div className="para-highlights-accordian">
-                                                            <div className="img-highlights">
-                                                                <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" alt="" />
-
-                                                            </div>
-                                                            <div className="para-p-highlight">
-                                                                <p>
-                                                                    Tulua's enterprise products consist of a wide selection of high-quality spices, including 15 single spice powders, 8 blended spice powders, and 22 whole spices. Sourced directly from farms and mandis, these products ensure superior taste and freshness, making them the preferred choice for hotels, restaurants, cafes, and airlines.                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-12 col-lg-12 col-xxl-12 col-12 col-sm-12 col-xxl-12">
-                                                    <div className="highlights-accordian">
-                                                        <div className="para-highlights-accordian">
-                                                            <div className="img-highlights">
-                                                                <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" alt="" />
-
-                                                            </div>
-                                                            <div className="para-p-highlight">
-                                                                <p>
-                                                                    Tulua prioritizes rigorous quality control measures and uses single-origin ingredients and chef-made recipes to ensure authentic Indian flavors in their products. Tulua's products are 100% natural with no added flavors or additives, appealing to health-conscious consumers. Additionally, the company operates as a plastic-neutral brand and sources locally to reduce environmental impact.                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                             
                                 <div class="accordion-item">
                                     <h3 class="accordion-header" id="flush-headingfourees">
                                         <button
@@ -618,7 +669,7 @@ export const FutureUnicornDescriptiondesgin = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="accordion-item">
+                                {/* <div class="accordion-item">
                                     <h3 class="accordion-header" id="flush-headingtearm">
                                         <button
                                             class="accordion-button collapsed"
@@ -700,112 +751,8 @@ export const FutureUnicornDescriptiondesgin = () => {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h3 class="accordion-header" id="flush-headingdetails">
-                                        <button
-                                            class="accordion-button collapsed"
-                                            type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#flush-headingdetailsnew"
-                                            aria-expanded="false"
-                                            aria-controls="flush-headingdetails"
-                                        >
-                                            <span><img src="./assets/images/group-chat.png" alt="" /></span>
-                                            Team
-                                        </button>
-                                    </h3>
-                                    <div
-                                        id="flush-headingdetailsnew"
-                                        class="accordion-collapse collapse"
-                                        aria-labelledby="flush-headingdetails"
-                                        data-bs-parent="#accordionFlushExample"
-                                    >
-                                        <div class="accordion-body ">
-                                            <div className="row row-box-linse">
-                                                <div className="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-12 col-sm-12 col-xs-12">
-                                                    <div className="main-card-of-teams">
-                                                        <div className="img-teams-of-cards">
-                                                            <img src="./assets/images/deals-details/Tulua new/Team/Richy.jpg" alt="" />
-                                                          
-                                                        </div>
-                                                        <div className="name-of-teams-card">
-                                                        <div className="head-deals-team">
-                                                                <h3>Richy Dave
-                                                                </h3>
-                                                                <p>Founder and CEO</p>
-                                                            </div>
-                                                            <ul>
-                                                                <li>
-                                                                    10+ years of experience in Marketing and Brand-building.
-                                                                </li>
-                                                                <li>
-                                                                    Ex-founder of Surge Digital, a boutique creative marketing agency.
-                                                                </li>
-                                                                <li>
-                                                                    looks after Marketing & Brand building, Supply chain.
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-12 col-sm-12 col-xs-12">
-                                                    <div className="main-card-of-teams">
-                                                        <div className="img-teams-of-cards">
-                                                            <img src="./assets/images/deals-details/Tulua new/Team/hitesh.jpg" alt="" />
-                                                    
-                                                        </div>
-                                                        <div className="name-of-teams-card">
-                                                        <div className="head-deals-team">
-                                                                <h3>Hitesh Dave
-                                                               
-                                                                </h3>
-                                                                <p> Director of Sales</p>
-                                                            </div>
-                                                            <ul>
-                                                                <li>
-                                                                35+ yrs experience in sales & distribution in markets across India and China.
-                                                                
-                                                                </li>
-                                                                <li>
-                                                                Formerly setup food service network for brands such as Sankalp.
-                                                                </li>
-                                                                
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-12 col-sm-12 col-xs-12">
-                                                    <div className="main-card-of-teams">
-                                                        <div className="img-teams-of-cards">
-                                                            <img src="./assets/images/deals-details/Tulua new/Team/arjunvaidya.jpg" alt="" />
-                                                            
-                                                        </div>
-                                                        <div className="name-of-teams-card">
-                                                        <div className="head-deals-team">
-                                                                <h3>Arjun Vaidya
-                                                             
-                                                                </h3>
-                                                                <p>   D2C founder & Investor.</p>
-                                                            </div>
-                                                            <ul>
-                                                              
-                                                                <li>
-                                                                With vast experience in sales and marketing,           
-                                                                                                                     </li>
-                                                                <li>
-                                                               
-                                                                She has a deep network and has closed strategic alliances worth US$ 200 million as part of Brand Capital, the strategic investment arm of Times Group.
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </div> */}
+                             
 
                                 {/* <div class="accordion-item">
                                     <h3 class="accordion-header" id="flush-headingTwo">
@@ -922,7 +869,7 @@ export const FutureUnicornDescriptiondesgin = () => {
                                         >
                                             <span><img src="./assets/images/mobile.png" alt="" /></span>
 
-                                            Connect Us
+                                            Contact Us
                                         </button>
                                     </h3>
                                     <div
@@ -1187,7 +1134,7 @@ export const FutureUnicornDescriptiondesgin = () => {
                     <div className="row">
                         <div className="col-12">
                             <div className="investor-amounts">
-                                <Link to="/CheckboxThank">I am Interested</Link>
+                                <Link to="/PaymentMethods">Investment Amount</Link>
                             </div>
                         </div>
                     </div>
