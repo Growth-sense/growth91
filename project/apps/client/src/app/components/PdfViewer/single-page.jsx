@@ -8,32 +8,34 @@ export default function SinglePage(props) {
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
 
-  // Handler for successful document load
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
     setPageNumber(1);
   }
 
-  // Change page based on offset
   function changePage(offset) {
     setPageNumber((prevPageNumber) => prevPageNumber + offset);
   }
 
-  // Go to the previous page
   function previousPage() {
     changePage(-1);
   }
 
-  // Go to the next page
   function nextPage() {
     changePage(1);
   }
 
   const { pdf } = props;
 
+  console.log("PDF URL:", pdf);
+
   return (
     <>
-      <Document file={pdf} onLoadSuccess={onDocumentLoadSuccess}>
+      <Document
+        file={pdf}
+        onLoadSuccess={onDocumentLoadSuccess}
+        options={{ workerSrc: "/pdf.worker.js" }}
+      >
         <Page pageNumber={pageNumber} />
       </Document>
       <div>

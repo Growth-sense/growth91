@@ -917,12 +917,31 @@ align-content:center;
                 )}
 
                 <section>
+                  <div className="container">
+                    <div className="row">
+                      <div className="col-md-12">
+                        {/* blue bg */}
+                        <div
+                          className="shadow-lg p-5"
+                          style={{
+                            backgroundColor: "#5C33CF",
+                            color: "white",
+                            borderRadius: "20px",
+                          }}
+                        >
 
 
+
+                {console.log(`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.udPitchDeck)}`)}
                   {/* <SinglePagePDFViewer pdf={udPitchDeck/samplePDF} /> */}
                   <SinglePagePDFViewer
                     pdf={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.udPitchDeck)}`}
                   />
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+
                 </section>
 
 
