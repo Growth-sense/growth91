@@ -705,7 +705,6 @@ export default {
         api.post(URLs.send_email_to_investors, data).then((response) => {
           return response.data;
         }),
-        
     },
 
     document: {
@@ -922,6 +921,11 @@ export default {
       api.post(URLs.deleteGroup, data).then((response) => {
         return response.data;
       }),
+
+    addInvestor: (data) =>
+      api.post(URLs.addInvestor, data).then((response) => {
+        return response.data;
+      }),
   },
   Unicorn: {
     createunicorndraft: (data) =>
@@ -941,8 +945,7 @@ export default {
         return response.data;
       }),
     unicorndealsByInvestors: (data) =>
-      api.post(URLs.unicorndealsByInvestors
-        , data).then((response) => {
+      api.post(URLs.unicorndealsByInvestors, data).then((response) => {
         return response.data;
       }),
     uploadunicornFiles: (data) =>

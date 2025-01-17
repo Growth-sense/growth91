@@ -1,6 +1,7 @@
 const URLs = {
   fundRaiseRegistration: "FundRaise/register",
   registerNewInvestor: "Investor/register",
+  addInvestor: "Investor/addInvestor",
   comment: "Blog/comment",
   commentlist: "Blog/commentlist",
   getstatusdata: "Users/getstatusdata",

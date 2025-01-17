@@ -139,6 +139,127 @@ class Investor extends CI_Controller {
 		->set_output(json_encode($response));	
 	}
 
+
+
+	public function addInvestor(){
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		if(!empty($formdata)) {
+			$group_id = $formdata['group_id'];
+			$first_name = $formdata['first_name'];
+			$middle_name = $formdata['middle_name'];
+			$last_name = $formdata['last_name'];
+			$email = $formdata['email'];
+			$typeofmember = $formdata['nationality'];
+			$refferal_code = $formdata['refferal_code'];
+			$is_refferal_code_matched = $formdata['is_refferal_code_matched'];
+			$international_contact = $formdata['phone1'];
+			$contact = $formdata['phone'];
+			$country_code = $formdata['country_code'];
+
+			$end_date = date('Y-m-d H-i a', strtotime('+1 years'));
+			$post_data = [
+				'first_name' => $first_name,
+				'middle_name' => $middle_name,
+				'last_name' => $last_name,
+				'email' => $email,
+				// 'nationality' => $typeofmember=='1' ? 'Indian Resident' :'Non Resident',
+				'nationality' => $typeofmember,
+				'user_type' => 'investor',
+				'mobile' => $contact,
+				'international_contact' => $international_contact,
+				'membership_start_date' => date('Y-m-d H-i a'),
+				'membership_end_date' => $end_date,
+				'membership_duration'=>'1',
+				'membership_type' => 'regular',
+				'user_registered_dt' => date('Y-m-d'),
+				'country_code' => $country_code,
+				//'email_otp' => $this->GenerateOTP(6);
+				//'mobile_otp' => $this->GenerateOTP(6);
+			];
+			$sql="SELECT membership_payment_status,investor_id,membership_type FROM `users` WHERE email='$email'";
+			$query=$this->db->query($sql);
+			$result=$query->result();
+			$num_rows=$query->num_rows();
+			if(intval($num_rows)>0){
+				if($result[0]->membership_type=='premium' && ($result[0]->membership_payment_status=='FAILED' || $result[0]->membership_payment_status=='')){
+					$id=$result[0]->investor_id;
+					$this->db->where('investor_id',$id);
+					$resp=$this->db->update('users',$post_data);
+					if($resp){
+						$response =[
+							'status' => '1',
+							'message' => 'Registration is completed successfully.',
+							'data' => $id,
+						];		
+					}else{
+						$response =[
+							'status' => '0',
+							'message' => 'Email already used by someone else.'
+						];		
+					}
+				}else{
+					$response =[
+						'status' => '0',
+						'message' => 'Email already used by someone else.'
+					];	
+				}
+			}else{
+				// $id = $this->InvestorModel->register($post_data);
+				$this->db->insert('users',$post_data);
+				$id=$this->db->insert_id();
+				if($id) {
+
+					 // check in invitation id os present or not 
+					$sql2="SELECT * FROM `private_deal_invities` WHERE email='$email'";
+					$query2=$this->db->query($sql2);
+					$num_rows=$query2->num_rows();
+					if(intval($num_rows)>0){
+						$sql3="UPDATE `private_deal_invities` SET investor_id='$id' WHERE email='$email'";
+						$this->db->query($sql3);
+					}
+					if($is_refferal_code_matched==true){
+						$data2=[
+							'referred_by'=>$refferal_code,
+							'referral_code' => $formdata['reffered_code2'].'0'.$id,
+						];
+						$this->db->where('investor_id',$id);
+						$this->db->update('users',$data2);
+					}else{
+						$data2=[
+							'referral_code'=> $formdata['reffered_code2'].'0'.$id,	
+						];
+						$this->db->where('investor_id',$id);
+						$this->db->update('users',$data2);
+					}
+					$response = [
+						'status' => '1',
+						'message' => 'Registration is done successfully.',
+						'data' => $id,
+					];
+				} else {
+					$response =[
+						'status' => '0',
+						'message' => 'Please try again!'
+					];
+				}
+			}
+		} else {
+			$response = [
+				'status' => '0',
+				'message'=> 'Please enter values of all fields.',
+			];
+		}
+		$this->output
+		->set_content_type('application/json')
+		->set_output(json_encode($response));	
+	}
+
 	public function sendotp() {
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");

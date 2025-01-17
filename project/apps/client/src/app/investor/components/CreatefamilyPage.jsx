@@ -104,7 +104,7 @@ export default class CreatefamilyPage extends Component {
   };
   Creategroup = () => {
     let params = {
-      userID: localStorage.getItem("investor_id"),
+      userID: localStorage.getItem("Parent_investor_id"),
       groupName: this.state.newgroupName,
     };
 
@@ -120,7 +120,7 @@ export default class CreatefamilyPage extends Component {
   viewgroupall = () => {
     let values
     let params = {
-      userID:!this.props.adminview?localStorage.getItem("investor_id"):this.props.investor_id,
+      userID:!this.props.adminview?localStorage.getItem("Parent_investor_id"):this.props.investor_id,
     }
 
     Bridge.family.getGroupList(params).then((result) => {
@@ -129,18 +129,18 @@ export default class CreatefamilyPage extends Component {
   };
 
   getmember = (value) => {
-    if (localStorage.getItem("investor_id"))
+    if (localStorage.getItem("Parent_investor_id"))
       this.setState({ memberdetail: "", memberlistloader: true });
     this.setState({ ids: value });
     let params = {
-      parent_id: !this.props.adminview?localStorage.getItem("investor_id"):this.props.investor_id,
+      parent_id: !this.props.adminview?localStorage.getItem("Parent_investor_id"):this.props.investor_id,
       groupID: value,
     };
     this.setState({ chggroupID: value });
 
     Bridge.investor.getfamilymember(params).then((result) => {
       const data = result.data.filter((item, index) => {
-        return item.investor_id == !this.props.adminview?localStorage.getItem("investor_id"):this.props.investor_id
+        return item.investor_id == !this.props.adminview?localStorage.getItem("Parent_investor_id"):this.props.investor_id
       });
      
 
@@ -149,7 +149,7 @@ export default class CreatefamilyPage extends Component {
   };
   deleteGroup = () => {
     let param = {
-      userID: localStorage.getItem("investor_id"),
+      userID: localStorage.getItem("Parent_investor_id"),
       groupID: this.state.chggroupID,
     };
     Bridge.family.deleteGroup(param).then((result) => {
@@ -174,7 +174,7 @@ export default class CreatefamilyPage extends Component {
   };
   changegroupname = () => {
     let params = {
-      userID: localStorage.getItem("investor_id"),
+      userID: localStorage.getItem("Parent_investor_id"),
       groupID: this.state.chggroupID,
       groupName: this.state.change_group_name,
     };
@@ -202,7 +202,7 @@ export default class CreatefamilyPage extends Component {
   deletefamilymeber = (value) => {
 
     let params = {
-      userID: localStorage.getItem("investor_id"),
+      userID: localStorage.getItem("Parent_investor_id"),
       groupID: this.state.this.state.chggroupID,
       invite_email: value.data.email,
       invite_mobile: value.data.mobile,
@@ -224,7 +224,7 @@ export default class CreatefamilyPage extends Component {
   removerequest = (value) => {
 
     let params = {
-      userID: localStorage.getItem("investor_id"),
+      userID: localStorage.getItem("Parent_investor_id"),
       groupID: value.groupID,
       invite_email: value.email,
       invite_mobile: value.mobile,
@@ -259,7 +259,7 @@ export default class CreatefamilyPage extends Component {
       this.state.group_list &&
       this.state.group_list
         .filter(
-          (item) => item.userID == !this.props.adminview?localStorage.getItem("investor_id"):this.props.investor_id,
+          (item) => item.userID == !this.props.adminview?localStorage.getItem("Parent_investor_id"):this.props.investor_id,
         )
         .map((item, index) => {
 
@@ -278,7 +278,7 @@ export default class CreatefamilyPage extends Component {
       this.state.group_list &&
       this.state.group_list
         .filter(
-          (item) => item.userID != (this.props.adminview?this.props.investor_id:localStorage.getItem("investor_id")),
+          (item) => item.userID != (this.props.adminview?this.props.investor_id:localStorage.getItem("Parent_investor_id")),
         )
         .map((item, index) => {
 
