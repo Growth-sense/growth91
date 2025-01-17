@@ -1,10 +1,17 @@
 import React, { Component } from "react";
-import { Modal, Spin, DatePicker, Input, Skeleton } from "antd";
+import { Modal, Spin, DatePicker, Input, Skeleton,notification } from "antd";
 import Bridge from "../../constants/Bridge";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { withRouter } from "react-router-dom";
 import Urldata from "./Urldata.jsx";
+import axios from "axios";
+import $ from "jquery";
+
+import ReactGA from "react-ga4";
+import { TRACKING_ID } from "../../constants/data";
+ReactGA.initialize(TRACKING_ID);
+
 
 const { TextArea } = Input;
 class Viewfamily extends Component {
@@ -16,6 +23,7 @@ class Viewfamily extends Component {
       bankstatus: "",
       loading: false,
       investments: [],
+      panno: "",
       startinvestedcompanies: 0,
       startinvestedamount: 0,
       addModalStatus: false,
@@ -58,13 +66,13 @@ class Viewfamily extends Component {
     }
     this.getInvestments();
   }
-  test=()=>{
+  test = () => {
 
   }
   getInvestments = () => {
     this.setState({ loading: true });
     let params = {
-      investor_id:  localStorage.getItem("investor_id"),
+      investor_id: localStorage.getItem("investor_id"),
     };
     Bridge.investor.getInvestments(params).then((result) => {
       if (result.status == 1) {
@@ -93,10 +101,10 @@ class Viewfamily extends Component {
       if (result.status == 1) {
         //checking user block status
         if (result.data[0].user_block_status == 0) {
-          console.log('result',result.data);
+          console.log('result', result.data);
           this.setState({
             selfaccount: result.data[0],
-            viewmemberdetail:result.data[0]
+            viewmemberdetail: result.data[0]
           });
         }
       }
@@ -133,7 +141,7 @@ class Viewfamily extends Component {
     this.setState({ email: email });
   };
   sendinvite = () => {
-   
+
     console.log(this.state.ids);
     let params = {
       email: this.state.SendreqEmail,
@@ -154,9 +162,9 @@ class Viewfamily extends Component {
     });
   };
 
-  getmember = (id,userid) => {
+  getmember = (id, userid) => {
     console.log(id);
-    
+
     this.setState({ ids: id });
     let params = {
       parent_id: localStorage.getItem("Parent_investor_id"),
@@ -164,64 +172,64 @@ class Viewfamily extends Component {
     };
     Bridge.investor.getfamilymember(params).then((result) => {
       console.log(result);
-    const data =result.data.filter((item,index)=>{
-      console.log(item.investor_id );
-      console.log(localStorage.getItem("investor_id") );
-        return(
+      const data = result.data.filter((item, index) => {
+        console.log(item.investor_id);
+        console.log(localStorage.getItem("investor_id"));
+        return (
 
-          item.investor_id == localStorage.getItem("investor_id")    
+          item.investor_id == localStorage.getItem("investor_id")
         )
       })
       console.log(data);
-      console.log(data.length,"0");
-     const newchanges= data.filter((item,index)=>{
-      return(
+      console.log(data.length, "0");
+      const newchanges = data.filter((item, index) => {
+        return (
 
-        item.investor_id ==  localStorage.getItem("investor_id") 
-      )
-     })
-     console.log(newchanges);
-     if(newchanges.length==0){
-      localStorage.setItem(
-              "investor_id",
-              localStorage.getItem("Parent_investor_id")
-            );
-            localStorage.setItem(
-              "investor_email",
-              localStorage.getItem("Parent_investor_email")
-            );
-            localStorage.setItem(
-              "investor_kycstatus",
-              localStorage.getItem("Parent_investor_kycstatus")
-            );
-            localStorage.setItem(
-              "investor_name",
-              localStorage.getItem("Parent_investor_name")
-            );
-            
-          }
-          this.getbankdetails( localStorage.getItem("investor_id"));
-     
-    //   if(data.length !=0 ){
-    //     localStorage.setItem(
-    //       "investor_id",
-    //       localStorage.getItem("Parent_investor_id")
-    //     );
-    //     localStorage.setItem(
-    //       "investor_email",
-    //       localStorage.getItem("Parent_investor_email")
-    //     );
-    //     localStorage.setItem(
-    //       "investor_kycstatus",
-    //       localStorage.getItem("Parent_investor_kycstatus")
-    //     );
-    //     localStorage.setItem(
-    //       "investor_name",
-    //       localStorage.getItem("Parent_investor_name")
-    //     );
-    // // window.location.reload();
+          item.investor_id == localStorage.getItem("investor_id")
+        )
+      })
+      console.log(newchanges);
+      if (newchanges.length == 0) {
+        localStorage.setItem(
+          "investor_id",
+          localStorage.getItem("Parent_investor_id")
+        );
+        localStorage.setItem(
+          "investor_email",
+          localStorage.getItem("Parent_investor_email")
+        );
+        localStorage.setItem(
+          "investor_kycstatus",
+          localStorage.getItem("Parent_investor_kycstatus")
+        );
+        localStorage.setItem(
+          "investor_name",
+          localStorage.getItem("Parent_investor_name")
+        );
 
-    //   }
+      }
+      this.getbankdetails(localStorage.getItem("investor_id"));
+
+      //   if(data.length !=0 ){
+      //     localStorage.setItem(
+      //       "investor_id",
+      //       localStorage.getItem("Parent_investor_id")
+      //     );
+      //     localStorage.setItem(
+      //       "investor_email",
+      //       localStorage.getItem("Parent_investor_email")
+      //     );
+      //     localStorage.setItem(
+      //       "investor_kycstatus",
+      //       localStorage.getItem("Parent_investor_kycstatus")
+      //     );
+      //     localStorage.setItem(
+      //       "investor_name",
+      //       localStorage.getItem("Parent_investor_name")
+      //     );
+      // // window.location.reload();
+
+      //   }
       this.setState({ memberdetail: result.data });
     });
   };
@@ -248,7 +256,7 @@ class Viewfamily extends Component {
     console.log(data[0]);
     console.log(id);
     if (id != localStorage.getItem("Parent_investor_id")) {
-      
+
 
       localStorage.setItem("investor_id", id);
       localStorage.setItem("investor_email", data[0].email);
@@ -262,7 +270,7 @@ class Viewfamily extends Component {
       this.getbankdetails()
       window.location.reload();
     } else {
-    
+
       localStorage.setItem("investor_id",
         localStorage.getItem("Parent_investor_id")
       );
@@ -285,6 +293,104 @@ class Viewfamily extends Component {
       window.location.reload();
     }
   };
+
+
+
+  CHECK_pan_no = (e) => {
+    e.preventDefault();
+    if (!this.state.panno || this.state.panno.length != 10) {
+      notification.warning({
+        message: `Invalid PAN number`,
+        description: "Please enter the valid PAN number",
+        placement: "top",
+        duration: 5,
+      });
+      return;
+    }
+    // if (!this.state.panimage && !this.state.api_panimage) {
+    //   notification.warning({
+    //     message: `No Image Selected`,
+    //     description: "Please select",
+    //     placement: "top",
+    //     duration: 5,
+    //   });
+    //   return;
+    // }
+    // this.setState({ imgtype: "pan" })
+    let panstatus = this.checkforpanno(this.state.panno);
+    if (panstatus == false) {
+      notification.warning({
+        message: `Invalid format of PAN No`,
+        description: "Please enter valid PAN No.",
+        placement: "top",
+        duration: 5,
+      });
+      return;
+    }
+    this.setState({ loading: true });
+    axios({
+      method: "post",
+      url: `${process.env.REACT_APP_BASE_URL}verification/pan.php`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      data: {
+        pan_no: this.state.panno,
+      },
+    }).then((response) => {
+      if (response.data.valid === true) {
+        // this.uploadimg();
+        notification.success({
+          message: `Success`,
+          description: "PAN is Valid.",
+          placement: "top",
+          duration: 5,
+        });
+
+        ReactGA.event({
+          category: "KYC",
+          action: "PAN Verified",
+        });
+
+        this.setState(
+          {
+            // panVerifyStatus: true,
+            // legalname: response.data.registered_name,
+            // fathername: "",
+            // screen1: false,
+            // screen2: true,
+            // screen3: false,
+            // screen4: false,
+            // screen5: false,
+            // pan_details: response.data,
+            // selectedTab: "1",
+            // adharscreen: "0",
+            // pan_submit: true,
+            // imgtype: "",
+          },
+          () => {
+            this.update_pan_no();
+            this.setState({ loading: false });
+          }
+        );
+        $("html, body").animate(
+          {
+            scrollTop: 280,
+          },
+          1000
+        );
+      } else {
+        notification.warning({
+          message: response.data.message,
+          description: "Please enter the valid pan number.",
+          placement: "top",
+          duration: 5,
+        });
+        this.setState({ loading: false });
+      }
+    });
+  };
   render() {
     console.log(this.state.viewmemberdetail);
     return (
@@ -295,13 +401,13 @@ class Viewfamily extends Component {
             <section
               id="hdii"
               className="m-lg-0  m-3"
-              // style={{ minHeight: "40vh" }}
+            // style={{ minHeight: "40vh" }}
             >
               <div>
                 <div className="row dashboard-items ">
                   <div className="col-lg-12 family-columns">
-                    <div 
-                    className="filteruser-dropdown form-control d-flex"
+                    <div
+                      className="filteruser-dropdown form-control d-flex"
                     >
                       <select
                         name=""
@@ -344,7 +450,7 @@ class Viewfamily extends Component {
                     </div>
                   </div>
                 </div>
-                {this.state.viewmemberdetail &&(
+                {this.state.viewmemberdetail && (
                   <div className="row dashboard-items">
                     <div className="col-lg-12">
                       <div className="heads-names active">
@@ -361,15 +467,15 @@ class Viewfamily extends Component {
                           </h5>
                           <h5>
                             Registered Email id :{" "}
-                            {this.state.viewmemberdetail.email }
+                            {this.state.viewmemberdetail.email}
                           </h5>
                         </div>
                       </div>
                     </div>
                     <div className="row card-dashboard-rows"></div>
                   </div>
-                    )
-                  }
+                )
+                }
               </div>
             </section>
           </div>
@@ -419,7 +525,7 @@ class Viewfamily extends Component {
                         <div>
                           {(this.state.kycstatus == "admin_approved" ||
                             this.state.kycstatus == "system_approved") &&
-                          this.state.nationality == "Indian Resident" ? (
+                            this.state.nationality == "Indian Resident" ? (
                             <span
                               style={{
                                 color: "rgb(91 145 21)",
@@ -467,8 +573,8 @@ class Viewfamily extends Component {
                                 <div>
                                   {(this.state.kycstatus == "admin_approved" ||
                                     this.state.kycstatus ==
-                                      "system_approved") &&
-                                  this.state.nationality ==
+                                    "system_approved") &&
+                                    this.state.nationality ==
                                     "Indian Resident" ? (
                                     <span
                                       style={{
@@ -479,9 +585,9 @@ class Viewfamily extends Component {
                                       COMPLETED
                                     </span>
                                   ) : this.state.kycstatus ==
-                                      "admin_rejected" &&
+                                    "admin_rejected" &&
                                     this.state.nationality ==
-                                      "Indian Resident" ? (
+                                    "Indian Resident" ? (
                                     <span
                                       style={{
                                         color: "rgb(243 92 0)",
@@ -504,7 +610,7 @@ class Viewfamily extends Component {
                               </div>
                               {(this.state.kycstatus == "admin_approved" ||
                                 this.state.kycstatus == "system_approved") &&
-                              this.state.nationality == "Indian Resident" ? (
+                                this.state.nationality == "Indian Resident" ? (
                                 <p>
                                   You have completed your KYC. You can invest
                                   from Deal page.
@@ -632,6 +738,84 @@ class Viewfamily extends Component {
                 }
               />
             </div>
+
+            {/* first name */}
+            <div className="form-group my-2">
+              <label className="mb-2">First Name<span className="text-danger">*</span></label>
+              <Input
+
+                onChange={(e) => this.setState({ first_name: e.target.value })}
+              />
+            </div>
+
+            {/* middle name */}
+            <div className="form-group my-2">
+              <label className="mb-2">Middle Name</label>
+              <Input
+                onChange={(e) => this.setState({ middle_name: e.target.value })}
+              />
+            </div>
+
+            {/* last name */}
+            <div className="form-group my-2">
+              <label className="mb-2">Last Name <span className="text-danger">*</span></label>
+              <Input
+                onChange={(e) => this.setState({ last_name: e.target.value })}
+              />
+            </div>
+
+            {/* row */}
+            <div className="row align-items-center">
+              <div className="col-md-8">
+                <div className="form-group my-2">
+                  <label className="mb-2">PAN Number<span className="text-danger">*</span></label>
+                  <Input
+                    
+                    value={this.state.panno}
+                                      onChange={(e) => {
+                                        this.setState({
+                                          panno: e.target.value,
+                                        });
+                                      }}
+                                      disabled={
+                                        this.state.pan_submit == true
+                                          ? true
+                                          : false
+                                      }
+                  />
+
+                </div>
+
+              </div>
+
+              <div className="col-md-4">
+                <button
+                  type="button"
+                  className="btn btn-primary mt-4 w-100"
+                  onClick={this.CHECK_pan_no}
+                  
+                >
+                  Verify
+                </button>
+              </div>
+            </div>
+            {/* pan number with validate button */}
+
+            {/* diabled field name as per pan card */}
+            <div className="form-group my-2">
+              <label className="mb-2">Name as per PAN Card</label>
+              <Input
+                value={this.state.first_name + " " + this.state.middle_name + " " + this.state.last_name}
+                disabled
+              />
+            </div>
+
+
+
+
+
+
+
             <div className="form-group">
               <label className="mb-2">Mobile</label>
               <Input
