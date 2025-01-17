@@ -509,10 +509,7 @@ align-content:center;
 
 }
 
-
-
-
-                `}
+`}
       </style>
       <div classname="newabout">
         <NewWebHeader newabout={"newabout"} />
@@ -669,135 +666,6 @@ align-content:center;
             </div>
           </div>
 
-          {/* Highlight 2 */}
-          <div className="col-md-6 mb-4">
-            <div
-              className="p-4 shadow-sm h-100"
-              style={{
-                backgroundColor: '#F8F9FA',
-                borderRadius: '15px',
-              }}
-            >
-              <div className="d-flex">
-                <img
-                  src="icon2.png" // Replace with the actual icon path
-                  alt="Highlight Icon"
-                  style={{
-                    width: '50px',
-                    height: '50px',
-                    marginRight: '15px',
-                  }}
-                />
-                <p>
-                  With on-roll teams in 8 cities and projects executed in over 100 cities, VsnapU has built a strong geographical footprint. Its leadership team, including CEO Parminder Sahni, COO Taranbir Singh, and CMO Harneh Sachdeva, brings diverse expertise in scaling businesses, marketing, and project management. This experienced core team is driving the company’s success and expansion.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Highlight 3 */}
-          <div className="col-md-6 mb-4">
-            <div
-              className="p-4 shadow-sm h-100"
-              style={{
-                backgroundColor: '#F8F9FA',
-                borderRadius: '15px',
-              }}
-            >
-              <div className="d-flex">
-                <img
-                  src="icon3.png" // Replace with the actual icon path
-                  alt="Highlight Icon"
-                  style={{
-                    width: '50px',
-                    height: '50px',
-                    marginRight: '15px',
-                  }}
-                />
-                <p>
-                  VsnapU started as a B2B e-commerce photography provider, working with well-known brands like Zomato, MakeMyTrip, and OYO. Post-COVID, the company pivoted to premium B2C photography services, catering to travelers at luxury resorts. This shift, supported by a Shark Tank feature and funding, has resulted in over 60,000 completed shoots and an impressive ₹8.5 crore ARR, with a strong 47.5% gross margin.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Highlight 4 */}
-          <div className="col-md-6 mb-4">
-            <div
-              className="p-4 shadow-sm h-100"
-              style={{
-                backgroundColor: '#F8F9FA',
-                borderRadius: '15px',
-              }}
-            >
-              <div className="d-flex">
-                <img
-                  src="icon4.png" // Replace with the actual icon path
-                  alt="Highlight Icon"
-                  style={{
-                    width: '50px',
-                    height: '50px',
-                    marginRight: '15px',
-                  }}
-                />
-                <p>
-                  VsnapU effectively uses digital marketing channels like Instagram, Google, JustDial, and WedMeGood for customer acquisition, with a customer acquisition cost (CAC) of ₹2,500. The company handles around 100 transactions monthly, with an average transaction value of ₹37,500, indicating strong demand and high customer spending on photography services.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Highlight 5 */}
-          <div className="col-md-6 mb-4">
-            <div
-              className="p-4 shadow-sm h-100"
-              style={{
-                backgroundColor: '#F8F9FA',
-                borderRadius: '15px',
-              }}
-            >
-              <div className="d-flex">
-                <img
-                  src="icon5.png" // Replace with the actual icon path
-                  alt="Highlight Icon"
-                  style={{
-                    width: '50px',
-                    height: '50px',
-                    marginRight: '15px',
-                  }}
-                />
-                <p>
-                  The company’s roadmap includes scaling B2C wedding and event photography, entering the MSME and government sectors, and launching SaaS solutions for individual photographers. Plans also involve establishing franchise studios for local photographers and developing AI-driven tools for image and video processing, along with owning intellectual property for content creation.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Highlight 6 */}
-          <div className="col-md-6 mb-4">
-            <div
-              className="p-4 shadow-sm h-100"
-              style={{
-                backgroundColor: '#F8F9FA',
-                borderRadius: '15px',
-              }}
-            >
-              <div className="d-flex">
-                <img
-                  src="icon6.png" // Replace with the actual icon path
-                  alt="Highlight Icon"
-                  style={{
-                    width: '50px',
-                    height: '50px',
-                    marginRight: '15px',
-                  }}
-                />
-                <p>
-                  The company’s monthly B2C revenue has reached ₹32 lakh, with plans to scale it to ₹1 crore in the next year. VsnapU has diversified its revenue streams, with B2C contributing 40.8%, followed by travel (19.7%) and resort services (19.1%). Long- term, VsnapU aims to achieve a revenue target of ₹234 crore within three years, leveraging its growing market presence.
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 

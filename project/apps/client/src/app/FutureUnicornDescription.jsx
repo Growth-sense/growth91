@@ -9,7 +9,41 @@ import { useLocation } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { Modal, message as mess, Spin } from "antd";
 
+import { Link as NewLINK } from "react-router-dom/cjs/react-router-dom.min";
+
 export const FutureUnicornDescription = () => {
+  const videos = [
+    {
+      id: 1,
+      src: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Replace with the actual YouTube embed link
+    },
+    {
+      id: 2,
+      src: "https://www.youtube.com/embed/3JZ_D3ELwOQ", // Replace with the actual YouTube embed link
+    },
+    {
+      id: 3,
+      src: "https://www.youtube.com/embed/vx2u5uUu3DE", // Replace with the actual YouTube embed link
+    },
+  ];
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 2,
+    slidesToScroll: 1,
+    arrows: true,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
+  };
+
   const search = useLocation().search;
   const id = new URLSearchParams(search).get("id");
   useEffect(() => {
@@ -187,10 +221,454 @@ export const FutureUnicornDescription = () => {
       }
     });
   };
-  const dat=JSON.stringify(localStorage.getItem("investor_id")) 
-  
+  const dat = JSON.stringify(localStorage.getItem("investor_id"));
+
   return (
     <div>
+      <style>
+        {`
+
+                .design-space-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          padding: 2rem;
+          background-color: #ffffff;
+        }
+        .image-section {
+          width: 100%;
+          max-width: 800px;
+          border-radius: 8px;
+          overflow: hidden;
+          margin-bottom: 1.5rem;
+        }
+        .image-section img {
+          width: 100%;
+          height: auto;
+        }
+        .logo-section {
+          width: 100px;
+          height: 100px;
+          border-radius: 50%;
+          background-color: #ffffff;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          margin-bottom: 1.5rem;
+        }
+        .logo-section img {
+          width: 60%;
+          height: auto;
+        }
+        .text-section {
+          max-width: 600px;
+        }
+        .text-section h1 {
+          font-size: 2rem;
+          font-weight: bold;
+          margin-bottom: 1rem;
+          color: #29176f !important;
+        }
+        .text-section p {
+          font-size: 1rem;
+          color: #555555;
+          margin-bottom: 2rem;
+        }
+        .text-section button {
+          padding: 0.75rem 1.5rem;
+          font-size: 1rem;
+          color: #00000;
+          background-color: transparent;    
+          border: 1px solid #00000;
+          border-radius: 50px;
+          cursor: pointer;
+        }
+
+                   
+                    .hero {
+                        height: 100vh;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        text-align: center;
+                        background-image: url('background-image.jpg'); /* Add the background image here */
+                        background-size: cover;
+                        background-position: center;
+                            background-color: #100050;
+                    }
+                    .hero h1 {
+                        font-size: 4em;
+                        margin-bottom: 20px;
+                        color: white !important;
+
+                    }
+                    .hero p {
+                        font-size: 1.5em;
+                        margin-bottom: 30px;
+                        color: white;
+                    }
+                    .buttons {
+                        display: flex;
+                        justify-content: center;
+                        gap: 20px;
+                    }
+                    .buttons a {
+                        text-decoration: none;
+                        color: white;
+                        background-color: #6c63ff;
+                        padding: 15px 30px;
+                        border-radius: 5px;
+                        font-size: 1.3em;
+                        transition: background-color 0.3s;
+                    }
+                    .buttons a:hover {
+                        background-color: #574bda;
+                    }
+
+                    /* Why to list section */
+                    .why-to-list {
+                        padding: 50px 20px;
+                        text-align: center;
+                        background-color: white;
+                    }
+                    .why-to-list h2 {
+                        font-size: 2.5em;
+                        margin-bottom: 40px;
+                        color: white;
+                    }
+                    .features {
+                        display: flex;
+                        justify-content: center;
+                        gap: 30px;
+                    }
+                    .feature-box {
+                        background-color: #f5f5f5;
+                        padding: 20px;
+                        border-radius: 10px;
+                        width: 400px;
+                    }
+                    .feature-box h3 {
+                        font-size: 1.5em;
+                        margin-bottom: 10px;
+                        color: #333;
+                    }
+                    .feature-box p {
+                        font-size: 1.3em;
+                        color: #666;
+                    }
+
+                    /* Key Features Section */
+                    .key-features {
+                        padding: 50px 20px;
+                        background-color: white;
+                        color: black;
+                        text-align: left;
+                        display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+                    }
+                    .key-features h2 {
+                        font-size: 2.5em;
+                        text-align: center;
+                        margin-bottom: 40px;
+                        color: #333;
+                    }
+                    .features-list {
+                    
+                        display: grid;
+                        grid-template-columns: repeat(2, 1fr);
+                        grid-gap: 30px;
+                        margin : 20px 90px;
+                    }
+                    .feature-item {
+                        display: flex;
+                        // align-items: center;
+                    }
+                    .feature-item-number {
+                        width: 30px;
+                        height: 30px;
+                        background-color: #d8d8f8;
+                        border-radius: 50%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        font-size: 1.5em;
+                        margin-right: 20px;
+                        color: #333;
+                    }
+                    .feature-description {
+                        max-width: 700px;
+                    }
+                    .feature-description h3 {
+                        font-size: 1.5em;
+                        margin-bottom: 10px;
+                        color: #333;
+                    }
+                    .feature-description p {
+                        font-size: 1.3em;
+                        color: #666;
+                    }
+                        .investor-benifit{
+                        background : #ffffff;
+
+                        }
+                           .investor-benifit h2{
+    color: #333;
+
+
+                           }
+                        /* Benefits for Founders Section */
+.founder-benefit {
+    background: #ffffff;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.founder-benefit h2 {
+    // color: #ffffff !important;
+    font-size: 2.5em;
+    margin-bottom: 40px;
+}
+
+.founder-benefit .features {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.founder-benefit .feature-box {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+}
+
+.founder-benefit .feature-box h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+                        color: ##100050 !important;
+
+}
+
+.founder-benefit .feature-box p {
+    font-size: 1.3em;
+    color: #666;
+}
+.theme-btn{
+ justify-content  : center !important;
+}
+ /* Section Styling */
+.market-overview-section {
+  background-color: #f8f9fa;
+  padding: 50px 0;
+}
+
+/* Card Styling */
+.market-overview-card {
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  height: 100%; /* Ensures cards have the same height */
+}
+
+/* Typography */
+.market-overview-section h2 {
+  color: #333;
+  font-weight: bold;
+}
+
+.media-coverage-section {
+  padding: 50px 0;
+}
+
+/* Card Styling */
+.media-card {
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.media-card-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.media-card-content {
+  padding: 20px;
+}
+
+.media-card-content h5 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.media-card-date {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 10px;
+}
+
+.read-more-link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.read-more-link:hover {
+  text-decoration: underline;
+}
+
+/* Load More Button */
+.load-more-btn {
+  background-color: #ffffff;
+  border: 2px solid #333;
+  border-radius: 25px;
+  padding: 10px 30px;
+  color: #333;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.load-more-btn:hover {
+  background-color: #333;
+  color: #ffffff;
+}
+
+
+.videos-section {
+  padding: 50px 0;
+}
+
+.video-slide {
+  padding: 10px;
+}
+
+.video-slide iframe {
+  border-radius: 10px;
+}
+
+.slick-prev, .slick-next {
+  font-size: 30px;
+  z-index: 1;
+}
+
+.slick-prev:hover, .slick-next:hover {
+  
+}
+
+.slick-dots li button:before {
+  
+}
+
+.slick-dots li.slick-active button:before {
+ 
+}
+
+.contact-us-section {
+  padding: 50px 0;
+}
+
+.contact-info-card {
+  background: linear-gradient(90deg, #5c33cf, #7d56d9);
+  color: white;
+  border-radius: 15px;
+  padding: 30px;
+}
+
+.contact-info-card h2 {
+  font-size: 30px;
+  margin-bottom: 20px;
+  font-weight: 900;
+  color: white !important;
+}
+
+.contact-info-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.contact-info-list li {
+  margin-bottom: 35px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.contact-info-list i {
+  font-size: 18px;
+  margin-right: 26px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+}
+
+.social-icon {
+  background-color: white;
+  color: #5c33cf;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center !important;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.social-icon:hover {
+  background-color: #fff;
+  color: #7d56d9;
+}
+
+.company-info-list {
+  list-style: none;
+  padding: 0;
+}
+
+.company-info-list li {
+  margin-bottom: 20px;
+}
+
+.company-info-list span {
+  font-weight: bold;
+  color: #333;
+  font-size: 16px;
+}
+
+.company-info-list p {
+  margin: 5px 0 0;
+  color: #777;
+  font-size: 15px;
+}
+
+.company-info-list a {
+  color: #5c33cf;
+  text-decoration: none;
+}
+
+.company-info-list a:hover {
+  text-decoration: underline;
+}
+.center-class{
+align-content:center;
+
+}
+
+`}
+      </style>
+
       <div classname="newabout">
         <NewWebHeader newabout={"newabout"} />
       </div>
@@ -200,28 +678,336 @@ export const FutureUnicornDescription = () => {
           .filter((item) => item.unicornDealID == id)
           .map((item, index) => {
             return (
-              
               <>
+                <section className="design-space">
+                  <div className="design-space-container">
+                    {/* Image Section */}
+                    <div className="image-section">
+                      {/* Add your image manually here */}
+                      <img src="./web/images/banner-unicorn.png" alt="Team" />
+                    </div>
 
-              <style>
-{
-`
-.form-checkbox label{
+                    {/* Logo Section */}
+                    <div className="logo-section">
+                      {/* Replace with your logo */}
+                      <img src="./web/images/uni-logo.png" alt="Logo" />
+                    </div>
 
-text-transform : none;
+                    {/* Text Section */}
+                    <div className="text-section">
+                      <h1>{item.udPrimaryContactName}</h1>
+                      <p>
+                        Give your favorite room in the house a first-class
+                        face-lift with home renovation expert Shea McGee.
+                        Discover how to add new and simple flares that transform
+                        the look and feel of the room entirely.
+                      </p>
+                      <button>I am Interested</button>
+                    </div>
+                  </div>
+                </section>
+                <section className="container py-5 my-5">
+                  <div
+                    className="shadow-lg p-5"
+                    style={{
+                      backgroundColor: "#5C33CF",
+                      color: "white",
+                      borderRadius: "20px",
+                    }}
+                  >
+                    <div className="row">
+                      {/* Left Image Section */}
+                      <div className="col-md-4 d-flex justify-content-center align-items-center">
+                        <img
+                          src="your-image-path.png" // Replace with the image path or import it
+                          alt="Growth Illustration"
+                          style={{ maxWidth: "100%", borderRadius: "15px" }}
+                        />
+                      </div>
 
-}
+                      {/* Right Text Section */}
+                      <div className="col-md-8 d-flex flex-column justify-content-center">
+                        <p className="text-white">
+                          Shea McGee has revolutionized the home renovation
+                           world, leveraging her approachable design aesthetic
+                          to make beautiful interior design dreams a reality.
+                          From social media sensation to Emmy-nominated Netflix
+                          star, she’s empowered millions of fans with an
+                          inspiring vision for creating timeless homes they love
+                          living in.
+                        </p>
+                        <NewLINK
+                          to="/"
+                          className="read-btn mt-5 px-4 py-2 rounded-pill"
+                        >
+                          Read More
+                        </NewLINK>
+                      </div>
+                    </div>
+                  </div>
+                </section>
 
-`
+                <section className="container py-5 my-5">
+                  <h2 className="text-center mb-5">Highlights</h2>
+                  <div className="row">
+                    {/* Highlight 1 */}
 
+                    {item.udStartupHighlights &&
+                      JSON.parse(item.udStartupHighlights).map(
+                        (itemstartuphighlight, indexstartuphighlight) => {
+                          console.log(itemstartuphighlight);
 
-}
+                          return (
+                            <div className="col-md-6 mb-4">
+                              <div
+                                className="p-4 shadow-sm h-100"
+                                style={{
+                                  backgroundColor: "#F8F9FA",
+                                  borderRadius: "15px",
+                                }}
+                              >
+                                <div className="d-flex">
+                                  <img
+                                    src={highlightimages[indexstartuphighlight]} // Replace with the actual icon path
+                                    alt="Highlight Icon"
+                                    style={{
+                                      width: "50px",
+                                      height: "50px",
+                                      marginRight: "15px",
+                                    }}
+                                  />
+                                  <p>{itemstartuphighlight.content1}</p>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        }
+                      )}
+                  </div>
+                </section>
 
-              </style>
+                <section className="container my-5">
+                  <h2 className="text-center mb-5">Team</h2>
+                  <div className="row row-box-linse Grid-team">
+                    {item.udVendorId &&
+                      JSON.parse(item.udVendorId).map(
+                        (itemudVendorId, indexudVendorId) => (
+                          <div className="col-md-6 mb-4" key={index}>
+                            <div
+                              className="shadow-lg"
+                              style={{
+                                borderRadius: "15px",
+                                overflow: "hidden",
+                                backgroundColor: "#ffffff",
+                              }}
+                            >
+                              {/* Header with Gradient Background */}
+                              <div
+                                style={{
+                                  background:
+                                    "linear-gradient(90deg, #5C33CF, #7D56D9)",
+                                  color: "white",
+                                  padding: "20px",
+                                }}
+                              >
+                                <div className="d-flex align-items-center">
+                                  <img
+                                    src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${itemudVendorId.imgname}`}
+                                    alt=""
+                                    style={{
+                                      width: "60px",
+                                      height: "60px",
+                                      borderRadius: "50%",
+                                      objectFit: "cover",
+                                      marginRight: "15px",
+                                    }}
+                                  />
+                                  <div>
+                                    <h5 className="mb-0">
+                                      {itemudVendorId.name ||
+                                        "Name not provided"}
+                                    </h5>
+                                    <p className="mb-0">
+                                      {itemudVendorId.Role ||
+                                        "Role not specified"}
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                              {/* Description Section */}
+                              <div className="p-3">
+                                <p>
+                                  {itemudVendorId.description1} || "Description
+                                  not available for this team member."}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        )
+                      )}
+                  </div>
+                </section>
 
-              
+                <section className="my-5 py-5 market-overview-section">
+                  <h2 className="text-center mb-5">Market Overview</h2>
+                  <div className="row market-overreview-row px-5">
+                    {item.udMark &&
+                      JSON.parse(item.udMark).map((itemudMark, index) => (
+                        <div className="col-md-4 mb-4" key={index}>
+                          <div className="market-overview-card">
+                            <p>
+                              {itemudMark.content1 || "Content not available"}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+                </section>
 
-            
+                <section className="container my-5 py-5 media-coverage-section">
+                  <h2 className="text-center mb-5">Media Coverage</h2>
+                  <div className="row">
+                    {item.udMediaCoverageFiles &&
+                      JSON.parse(item.udMediaCoverageFiles).map(
+                        (
+                          itemudMediaCoverageFiles,
+                          indexudMediaCoverageFiles
+                        ) => {
+                          return (
+                            <div className="col-md-4 mb-4">
+                              <div className="media-card">
+                                <img
+                                  src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${itemudMediaCoverageFiles.imgname}`}
+                                  alt=""
+                                  className="media-card-image"
+                                />
+                                <div className="media-card-content">
+                                  <h5>{itemudMediaCoverageFiles.title}</h5>
+                                  <p className="media-card-date">
+                                    Discription Details
+                                  </p>
+                                  <p>
+                                    {itemudMediaCoverageFiles.content}{" "}
+                                    <a
+                                      href={itemudMediaCoverageFiles.content}
+                                      className="read-more-link"
+                                    >
+                                      Read More..
+                                    </a>
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        }
+                      )}
+                  </div>
+                  <div className="text-center mt-4">
+                    <button className="load-more-btn">Load more</button>
+                  </div>
+                </section>
+
+                <section className="container my-5 py-5 videos-section">
+                  <h2 className="text-center mb-5">Videos</h2>
+                  <Slider {...settings}>
+                    {videos.map((video) => (
+                      <div key={video.id} className="video-slide">
+                        <iframe
+                          width="100%"
+                          height="400"
+                          src={video.src}
+                          title={video.title}
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        ></iframe>
+                        <h5 className="text-center mt-3">{video.title}</h5>
+                      </div>
+                    ))}
+                  </Slider>
+                </section>
+
+                <section className="container my-5 py-5 contact-us-section">
+                  <h2 className="text-center mb-5">Contact Us</h2>
+                  <div className="row">
+                    {/* Contact Information Card */}
+                    <div className="col-md-4">
+                      <div className="contact-info-card">
+                        <h2>Contact Information</h2>
+                        <ul className="contact-info-list">
+                          <li>
+                            <i className="fas fa-phone"></i> +1012 3456 789
+                          </li>
+                          <li>
+                            <i className="fas fa-envelope"></i> demo@gmail.com
+                          </li>
+                          <li>
+                            <i className="fas fa-map-marker-alt"></i> 132
+                            Dartmouth Street Boston, Massachusetts 02156 United
+                            States
+                          </li>
+                        </ul>
+                        <div className="social-icons d-flex justify-content-center">
+                          <a href="#facebook" className="social-icon">
+                            <i className="fab fa-facebook-f"></i>
+                          </a>
+                          <a href="#instagram" className="social-icon">
+                            <i className="fab fa-instagram"></i>
+                          </a>
+                          <a href="#linkedin" className="social-icon">
+                            <i className="fab fa-linkedin-in"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Company Information */}
+                    <div className="col-md-8 center-class">
+                      <div className="row">
+                        <div className="col-md-6">
+                          <ul className="company-info-list">
+                            <li>
+                              <span>Legal Name</span>
+                              <p>{item.udLegalname}</p>
+                            </li>
+
+                            <li>
+                              <span>Status</span>
+                              <p>Private Limited Company</p>
+                            </li>
+
+                            <li>
+                              <span>Website</span>
+                              <p>
+                                <a
+                                  href={`//${item.udWebsite}`}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
+                                  www.vsnapu.com
+                                </a>
+                              </p>
+                            </li>
+                          </ul>
+                        </div>
+                        <div className="col-md-6">
+                          <ul className="company-info-list">
+                            <li>
+                              <span>Founded</span>
+                              <p>{item.udFoundedon}</p>
+                            </li>
+
+                            <li>
+                              <span>Employees</span>
+                              <p>{item.udEmployees}</p>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
                 <section class="futureunicorn-slider-sections">
                   <div class="container-flex">
                     <div className="row row-imgdirects">
@@ -431,7 +1217,7 @@ text-transform : none;
                                     alt=""
                                   />
                                 </span>
-                                Highlights
+                                Highlight
                               </div>
                             </h3>
                             <div class="accordion-body">
@@ -481,24 +1267,30 @@ text-transform : none;
                             </div>
                           </div>
                           <div className="accordion-item">
-        <h3 className="accordion-header" id="flush-headingfour">
-          <button
-            style={{
-              padding: "1rem 1.25rem",
-              cursor: "pointer",
-              fontSize : "0.82em"
-            }}
-            className="btn"
-            type="button"
-            onClick={handleShow}
-          >
-            <span style={{ marginRight: "0rem" }}>
-              <img src="./assets/images/gallery.png" alt="gallery icon" />
-            </span>
-            Investor Presentation
-          </button>
-        </h3>
-      </div>
+                            <h3
+                              className="accordion-header"
+                              id="flush-headingfour"
+                            >
+                              <button
+                                style={{
+                                  padding: "1rem 1.25rem",
+                                  cursor: "pointer",
+                                  fontSize: "0.82em",
+                                }}
+                                className="btn"
+                                type="button"
+                                onClick={handleShow}
+                              >
+                                <span style={{ marginRight: "0rem" }}>
+                                  <img
+                                    src="./assets/images/gallery.png"
+                                    alt="gallery icon"
+                                  />
+                                </span>
+                                Investor Presentation
+                              </button>
+                            </h3>
+                          </div>
 
                           {/* Dialog-style Modal */}
                           {showModal && (
@@ -1131,18 +1923,19 @@ text-transform : none;
                         }}
                       >
                         {/* {!JSON.stringify(localStorage.getItem("investor_id"))  && ( */}
-                          <div className="investor-amounts">
-                            <a
-                              style={{ color: "white", fontSize : "1.5em" }}
-                              onClick={openiamintrest}
-                              
-                            >
-                              Express Interest
-                            </a>
-                          </div>
+                        <div className="investor-amounts">
+                          <a
+                            style={{ color: "white", fontSize: "1.5em" }}
+                            onClick={openiamintrest}
+                          >
+                            Express Interest
+                          </a>
+                        </div>
                         {/* )}  */}
                         <div className="investor-amounts button">
-                          <a href="/FutureUnicornList">View other Future Unicorns</a>
+                          <a href="/FutureUnicornList">
+                            View other Future Unicorns
+                          </a>
                         </div>
                       </div>
                     </div>
@@ -1174,89 +1967,87 @@ text-transform : none;
           class="about-page-section blog-section payment-sec pb-0"
           style={{ paddingBottom: "0px !important" }}
         > */}
-          {/* <div class="container"> */}
-            <div class="row">
-              <div
-                class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center align-items-center"
-                style={{ pointerEvents: "none" }}
-              ></div>
-            </div>
-            <div className="row  justify-content-center ">
-              <div className="col-md-8 col-12 col-sm-12 col-xl-8 col-xxl-12">
-                <div className="card-payment-methods">
-                  <div class="heading-title m-sm-0">
-                    <p>
-                      <span></span>{" "}
-                    </p>
-                    <h2>Type of Interest</h2>
+        {/* <div class="container"> */}
+        <div class="row">
+          <div
+            class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center align-items-center"
+            style={{ pointerEvents: "none" }}
+          ></div>
+        </div>
+        <div className="row  justify-content-center ">
+          <div className="col-md-8 col-12 col-sm-12 col-xl-8 col-xxl-12">
+            <div className="card-payment-methods">
+              <div class="heading-title m-sm-0">
+                <p>
+                  <span></span>{" "}
+                </p>
+                <h2>Type of Interest</h2>
+              </div>
+              <div className="para-proceed">
+                <form action="" className="form-checkbox">
+                  <div className="row">
+                    <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
+                      <input
+                        type="radio"
+                        name="I Want to know more about it"
+                        value={data["I Want to know more about it"]}
+                        checked={data["I Want to know more about it"] == true}
+                        onClick={adddata}
+                      />
+                      <label htmlFor="">
+                        I want to know more about your startup
+                      </label>
+                    </div>
+                    <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
+                      <input
+                        type="radio"
+                        name="I want to work with you"
+                        value={data["I want to work with you"]}
+                        checked={data["I want to work with you"] == true}
+                        onClick={adddata}
+                      />
+                      <label htmlFor="">I want to explore collaboration </label>
+                    </div>
+                    <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
+                      <input
+                        type="radio"
+                        name="I am excited to invest in your startups"
+                        value={data["I am excited to invest in your startups"]}
+                        checked={
+                          data["I am excited to invest in your startups"] ==
+                          true
+                        }
+                        onClick={adddata}
+                      />
+                      <label htmlFor="">
+                        I am interested to invest in your startup
+                      </label>
+                    </div>
+                    <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mt-2">
+                      <textarea
+                        value={message}
+                        name="message"
+                        onChange={(e) => {
+                          setmessage(e.target.value);
+                        }}
+                        id="w3review"
+                        rows="4"
+                        className="w100"
+                        placeholder="Message"
+                      />
+                    </div>
                   </div>
-                  <div className="para-proceed">
-                    <form action="" className="form-checkbox">
-                      <div className="row">
-                        <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
-                          <input
-                            type="radio"
-                            name="I Want to know more about it"
-                            value={data["I Want to know more about it"]}
-                            checked={
-                              data["I Want to know more about it"] == true
-                            }
-                            onClick={adddata}
-                          />
-                          <label htmlFor="">I want to know more about your startup</label>
-                        </div>
-                        <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
-                          <input
-                            type="radio"
-                            name="I want to work with you"
-                            value={data["I want to work with you"]}
-                            checked={data["I want to work with you"] == true}
-                            onClick={adddata}
-                          />
-                          <label htmlFor="">I want to explore collaboration </label>
-                        </div>
-                        <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
-                          <input
-                            type="radio"
-                            name="I am excited to invest in your startups"
-                            value={
-                              data["I am excited to invest in your startups"]
-                            }
-                            checked={
-                              data["I am excited to invest in your startups"] ==
-                              true
-                            }
-                            onClick={adddata}
-                          />
-                          <label htmlFor="">
-                            I am interested to invest in your startup
-                          </label>
-                        </div>
-                        <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mt-2">
-                          <textarea
-                            value={message}
-                            name="message"
-                            onChange={(e) => {
-                              setmessage(e.target.value);
-                            }}
-                            id="w3review"
-                            rows="4"
-                            className="w100"
-                            placeholder="Message"
-                          />
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                  <div className="button-proceed-online">
-                    <a style={{ color: "white" }} onClick={submitintrest}>
-                      Submit
-                    </a>
-                  </div>
-                </div>
+                </form>
+              </div>
+              <div className="button-proceed-online">
+                <a style={{ color: "white" }} onClick={submitintrest}>
+                  Submit
+                </a>
               </div>
             </div>
-          {/* </div> */}
+          </div>
+        </div>
+        {/* </div> */}
         {/* </section> */}
       </Modal>
       <ToastContainer />
