@@ -964,20 +964,43 @@ align-content:center;
                             {item.udEmail}
                           </li>
                           <li>
-                            <i className="fas fa-map-marker-alt"></i> 132
-                            Dartmouth Street Boston, Massachusetts 02156 United
-                            States
+                            <i className="fas fa-map-marker-alt"></i> 
+                            {/* udAddress */}
+                            {item.udAddress}
+
                           </li>
                         </ul>
                         <div className="social-icons d-flex justify-content-center">
-                          <a href="#facebook" className="social-icon">
-                            <i className="fab fa-facebook-f"></i>
+                          <a href="#youtube" className="social-icon">
+                          <Link
+                                            to={`//${item.udSocialYouTube}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                          >
+
+                            <i className="fab fa-youtube"></i>
+                            </Link>
                           </a>
                           <a href="#instagram" className="social-icon">
+                          <Link
+                                            to={`//${item.udSocialInsta}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                          >
+                                             
+
                             <i className="fab fa-instagram"></i>
+                            </Link>
                           </a>
-                          <a href="#linkedin" className="social-icon">
-                            <i className="fab fa-linkedin-in"></i>
+                          <a href="#facebook" className="social-icon">
+                          <Link
+                                            to={`//${item.udSocialFacebook}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                          >
+
+                            <i className="fab fa-facebook-f"></i>
+                            </Link>
                           </a>
                         </div>
                       </div>
