@@ -837,8 +837,9 @@ align-content:center;
                               {/* Description Section */}
                               <div className="p-3">
                                 <p>
-                                  {itemudVendorId.description1} || "Description
-                                  not available for this team member."}
+                                  {itemudVendorId.description1
+                                    ? itemudVendorId.description1
+                                    : "Description not available for this team member."}
                                 </p>
                               </div>
                             </div>
