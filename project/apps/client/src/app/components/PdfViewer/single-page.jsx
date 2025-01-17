@@ -1,23 +1,30 @@
 import React, { useState } from "react";
-import { Document, Page } from "react-pdf";
+import { Document, Page, pdfjs } from "react-pdf";
+
+// Set the worker source globally
+pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.0.279/pdf.worker.min.js`;
 
 export default function SinglePage(props) {
   const [numPages, setNumPages] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1); //setting 1 to show fisrt page
+  const [pageNumber, setPageNumber] = useState(1);
 
+  // Handler for successful document load
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
     setPageNumber(1);
   }
 
+  // Change page based on offset
   function changePage(offset) {
-    setPageNumber(prevPageNumber => prevPageNumber + offset);
+    setPageNumber((prevPageNumber) => prevPageNumber + offset);
   }
 
+  // Go to the previous page
   function previousPage() {
     changePage(-1);
   }
 
+  // Go to the next page
   function nextPage() {
     changePage(1);
   }
@@ -26,11 +33,7 @@ export default function SinglePage(props) {
 
   return (
     <>
-      <Document
-        file={pdf}
-        options={{ workerSrc: "/pdf.worker.js" }}
-        onLoadSuccess={onDocumentLoadSuccess}
-      >
+      <Document file={pdf} onLoadSuccess={onDocumentLoadSuccess}>
         <Page pageNumber={pageNumber} />
       </Document>
       <div>

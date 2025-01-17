@@ -11,21 +11,10 @@ import { Modal, message as mess, Spin } from "antd";
 
 import { Link as NewLINK } from "react-router-dom/cjs/react-router-dom.min";
 
+import SinglePagePDFViewer from "./components/PdfViewer/single-page";
+
 export const FutureUnicornDescription = () => {
-  const videos = [
-    {
-      id: 1,
-      src: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Replace with the actual YouTube embed link
-    },
-    {
-      id: 2,
-      src: "https://www.youtube.com/embed/3JZ_D3ELwOQ", // Replace with the actual YouTube embed link
-    },
-    {
-      id: 3,
-      src: "https://www.youtube.com/embed/vx2u5uUu3DE", // Replace with the actual YouTube embed link
-    },
-  ];
+
 
   const settings = {
     dots: true,
@@ -666,7 +655,7 @@ align-content:center;
       </style>
 
       <div classname="newabout">
-        {/* <NewWebHeader newabout={"newabout"} /> */}
+        <NewWebHeader newabout={"newabout"} />
       </div>
 
       {unicorn &&
@@ -713,7 +702,7 @@ align-content:center;
                             `${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.udLogoImage)}`) ||
                           "https://growth91.com/api/uploads/deal/logo/34/1719999515.jpg"
                         }
-                          alt="Logo" />
+                          alt="Logo" style={{ borderRadius: "50%" }} />
                       </div>
 
                       {/* Text Section */}
@@ -743,11 +732,14 @@ align-content:center;
                     <div className="row">
                       {/* Left Image Section */}
                       <div className="col-md-4 d-flex justify-content-center align-items-center">
-                        <img
-                          src="your-image-path.png" // Replace with the image path or import it
-                          alt="Growth Illustration"
-                          style={{ maxWidth: "100%", borderRadius: "15px" }}
-                        />
+                        <div className="bg-white" style={{ borderRadius: "15px" }}>
+                          <img
+                            // assets/images/unicorn-about-us
+                            src="assets/images/unicorn-about-us.png"
+                            alt="Growth Illustration"
+                            style={{ maxWidth: "100%", borderRadius: "15px" }}
+                          />
+                        </div>
                       </div>
 
                       {/* Right Text Section */}
@@ -759,12 +751,12 @@ align-content:center;
                           {/* description */}
                           {item.udDealDescription}
                         </p>
-                        <NewLINK
+                        {/* <NewLINK
                           to="/"
                           className="read-btn mt-5 px-4 py-2 rounded-pill"
                         >
                           Read More
-                        </NewLINK>
+                        </NewLINK> */}
                       </div>
                     </div>
                   </div>
@@ -918,32 +910,44 @@ align-content:center;
                         </div>
                       ))}
                     </div>
-                    <div className="text-center mt-4">
+                    {/* <div className="text-center mt-4">
                       <button className="load-more-btn">Load more</button>
-                    </div>
+                    </div> */}
                   </section>
                 )}
+
+                <section>
+
+
+                  {/* <SinglePagePDFViewer pdf={udPitchDeck/samplePDF} /> */}
+                  <SinglePagePDFViewer
+                    pdf={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.udPitchDeck)}`}
+                  />
+                </section>
 
 
                 <section className="container my-5 py-5 videos-section">
                   <h2 className="text-center mb-5">Videos</h2>
-                  <Slider {...settings}>
-                    {videos.map((video) => (
-                      <div key={video.id} className="video-slide">
-                        <iframe
-                          width="100%"
-                          height="400"
-                          src={video.src}
-                          title={video.title}
-                          frameBorder="0"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                        ></iframe>
-                        <h5 className="text-center mt-3">{video.title}</h5>
-                      </div>
-                    ))}
-                  </Slider>
+                  <div className="video-slide">
+                    <iframe
+                      style={{
+                        boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
+                        borderRadius: 3,
+                      }}
+                      width="100%"
+                      height="435"
+                      src={`https://www.youtube.com/embed/${item.udYoutubeLink
+                        .split("=")
+                        .pop()}`}
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+
+                  </div>
                 </section>
+
 
                 <section className="container my-5 py-5 contact-us-section">
                   <h2 className="text-center mb-5">Contact Us</h2>
@@ -954,17 +958,17 @@ align-content:center;
                         <h2>Contact Information</h2>
                         <ul className="contact-info-list">
                           <li>
-                            <i className="fas fa-phone"></i> 
+                            <i className="fas fa-phone"></i>
                             {/* udStartupFounderMobileNumber */}
                             {item.udStartupFounderMobileNumber}
                           </li>
                           <li>
-                            <i className="fas fa-envelope"></i> 
+                            <i className="fas fa-envelope"></i>
                             {/* udEmail */}
                             {item.udEmail}
                           </li>
                           <li>
-                            <i className="fas fa-map-marker-alt"></i> 
+                            <i className="fas fa-map-marker-alt"></i>
                             {/* udAddress */}
                             {item.udAddress}
 
@@ -972,34 +976,34 @@ align-content:center;
                         </ul>
                         <div className="social-icons d-flex justify-content-center">
                           <a href="#youtube" className="social-icon">
-                          <Link
-                                            to={`//${item.udSocialYouTube}`}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                          >
+                            <Link
+                              to={`//${item.udSocialYouTube}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
 
-                            <i className="fab fa-youtube"></i>
+                              <i className="fab fa-youtube"></i>
                             </Link>
                           </a>
                           <a href="#instagram" className="social-icon">
-                          <Link
-                                            to={`//${item.udSocialInsta}`}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                          >
-                                             
+                            <Link
+                              to={`//${item.udSocialInsta}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
 
-                            <i className="fab fa-instagram"></i>
+
+                              <i className="fab fa-instagram"></i>
                             </Link>
                           </a>
                           <a href="#facebook" className="social-icon">
-                          <Link
-                                            to={`//${item.udSocialFacebook}`}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                          >
+                            <Link
+                              to={`//${item.udSocialFacebook}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
 
-                            <i className="fab fa-facebook-f"></i>
+                              <i className="fab fa-facebook-f"></i>
                             </Link>
                           </a>
                         </div>
@@ -1054,9 +1058,9 @@ align-content:center;
                   </div>
                 </section>
 
-            
 
-           
+
+
               </>
             );
           })}
