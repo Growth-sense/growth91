@@ -14,8 +14,6 @@ import { Link as NewLINK } from "react-router-dom/cjs/react-router-dom.min";
 import SinglePagePDFViewer from "./components/PdfViewer/single-page";
 
 export const FutureUnicornDescription = () => {
-
-
   const settings = {
     dots: true,
     infinite: true,
@@ -213,7 +211,7 @@ export const FutureUnicornDescription = () => {
   const dat = JSON.stringify(localStorage.getItem("investor_id"));
 
   return (
-    <div>
+    <div style={{ backgroundColor: "#F8F9FA" }}>
       <style>
         {`
 
@@ -244,8 +242,8 @@ object-fit:cover;
           margin-top:-75px;
         }
         .logo-section img {
-          width: 80%;
-          height: auto;
+          width: 100%;
+          height: 100%;
         }
         
         .text-section h1 {
@@ -566,6 +564,7 @@ object-fit:cover;
   color: white;
   border-radius: 15px;
   padding: 30px;
+  z-index: 999;
 }
 
 .contact-info-card h2 {
@@ -647,9 +646,13 @@ object-fit:cover;
 }
 .center-class{
 align-content:center;
+background-color: white;
+box-shadow: 0px 3px 6px #000;
+border-radius: 15px;
 
 
 }
+
 
 `}
       </style>
@@ -663,10 +666,7 @@ align-content:center;
           .filter((item) => item.unicornDealID == id)
           .map((item, index) => {
             return (
-
-
               <>
-
                 {/* loop through items and print all for debugging */}
                 {/* {Object.keys(item).map((key) => {
                 return (
@@ -678,46 +678,68 @@ align-content:center;
                 );
               })} */}
 
-
-
-                <section className="design-space" >
+                <section className="design-space">
                   <div className="container">
-
                     {/* Image Section */}
-                    <div className="image-section" style={{ borderRadius: "15px", border: "1px solid #ddd" }}>
+                    <div
+                      className="image-section"
+                      style={{ borderRadius: "15px", border: "1px solid #ddd", marginTop: "-5px" }}
+                    >
                       {/* Add your image manually here */}
-                      <img className="heroSectionImage" src={
-                        (item.udBannerImage &&
-                          `${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.udBannerImage)}`) ||
-                        "https://growth91.com/api/uploads/deal/banner/34/1719999515.jpg"
-                      } alt="Team" />
+                      <img
+                        className="heroSectionImage"
+                        src={
+                          (item.udBannerImage &&
+                            `${
+                              process.env.REACT_APP_BASE_URL
+                            }api/uploads/unicorndeals/${
+                              item.tudTempUdID
+                            }/${JSON.parse(item.udBannerImage)}`) ||
+                          "https://growth91.com/api/uploads/deal/banner/34/1719999515.jpg"
+                        }
+                        alt="Team"
+                      />
                     </div>
 
-                    <div className="d-flex ps-4">
+                    <div className="d-flex ps-4 gap-5">
                       {/* Logo Section */}
                       <div className="logo-section">
                         {/* Replace with your logo */}
-                        <img src={
-                          (item.udLogoImage &&
-                            `${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.udLogoImage)}`) ||
-                          "https://growth91.com/api/uploads/deal/logo/34/1719999515.jpg"
-                        }
-                          alt="Logo" style={{ borderRadius: "50%" }} />
+                        <img
+                          src={
+                            (item.udLogoImage &&
+                              `${
+                                process.env.REACT_APP_BASE_URL
+                              }api/uploads/unicorndeals/${
+                                item.tudTempUdID
+                              }/${JSON.parse(item.udLogoImage)}`) ||
+                            "https://growth91.com/api/uploads/deal/logo/34/1719999515.jpg"
+                          }
+                          alt="Logo"
+                          style={{
+                            borderRadius: "50%",
+                            boxShadow: "0px 3px 6px #000",
+                          }}
+                        />
                       </div>
 
                       {/* Text Section */}
                       <div className="text-section">
                         <h1>{item.udPrimaryContactName}</h1>
-                        <p>
-                          {item.udDealDescription}
-                        </p>
-                        <button>I am Interested</button>
+                        <button
+                          className="primaryInterested"
+                          style={{
+                            backgroundColor: "#5C33CF",
+                            color: "white",
+                            border: "none",
+                            cursor: "pointer",
+                            boxShadow: "0px 3px 6px #000",
+                          }}
+                        >
+                          I am Interested
+                        </button>
                       </div>
                     </div>
-
-
-
-
                   </div>
                 </section>
                 <section className="container py-5 my-5">
@@ -732,25 +754,26 @@ align-content:center;
                     <div className="row">
                       {/* Left Image Section */}
                       <div className="col-md-4 d-flex justify-content-center align-items-center">
-                        <div className="bg-white" style={{ borderRadius: "15px" }}>
+                        <div
+                          className="bg-white"
+                          style={{ borderRadius: "15px" }}
+                        >
                           <img
                             // assets/images/unicorn-about-us
                             src="assets/images/unicorn-about-us.png"
                             alt="Growth Illustration"
-                            style={{ maxWidth: "100%", borderRadius: "15px" }}
+                            style={{
+                              maxWidth: "100%",
+                              borderRadius: "15px",
+                              boxShadow: "0px 3px 6px #000",
+                            }}
                           />
                         </div>
                       </div>
 
                       {/* Right Text Section */}
                       <div className="col-md-8 d-flex flex-column justify-content-center">
-                        <p className="text-white">
-                          <strong>Startup Name:</strong> {item.udStartupName}
-                          <br />
-                          <br />
-                          {/* description */}
-                          {item.udDealDescription}
-                        </p>
+                        <p className="text-white">{item.udDealDescription}</p>
                         {/* <NewLINK
                           to="/"
                           className="read-btn mt-5 px-4 py-2 rounded-pill"
@@ -777,7 +800,7 @@ align-content:center;
                               <div
                                 className="p-4 shadow-sm h-100"
                                 style={{
-                                  backgroundColor: "#F8F9FA",
+                                  backgroundColor: "#fff",
                                   borderRadius: "15px",
                                 }}
                               >
@@ -790,6 +813,7 @@ align-content:center;
                                       height: "100px",
                                       borderRadius: "50%",
                                       marginRight: "15px",
+                                      boxShadow: "0px 3px 6px #000",
                                     }}
                                   />
                                   <p>{itemstartuphighlight.content1}</p>
@@ -836,6 +860,7 @@ align-content:center;
                                       borderRadius: "50%",
                                       objectFit: "cover",
                                       marginRight: "15px",
+                                      boxShadow: "0px 3px 6px #000",
                                     }}
                                   />
                                   <div>
@@ -865,7 +890,7 @@ align-content:center;
                   </div>
                 </section>
 
-                <section className="my-5 py-5 market-overview-section">
+                <section className="container my-5 py-5 market-overview-section">
                   <h2 className="text-center mb-5">Market Overview</h2>
                   <div className="row market-overreview-row px-5">
                     {item.udMark &&
@@ -881,40 +906,51 @@ align-content:center;
                   </div>
                 </section>
 
-                {item.udMediaCoverageFiles && JSON.parse(item.udMediaCoverageFiles).length > 0 && (
-                  <section className="container my-5 py-5 media-coverage-section">
-                    <h2 className="text-center mb-5">Media Coverage</h2>
-                    <div className="row">
-                      {JSON.parse(item.udMediaCoverageFiles).map((itemudMediaCoverageFiles, indexudMediaCoverageFiles) => (
-                        <div className="col-md-4 mb-4" key={indexudMediaCoverageFiles}>
-                          <div className="media-card">
-                            <img
-                              src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${itemudMediaCoverageFiles.imgname}`}
-                              alt=""
-                              className="media-card-image"
-                            />
-                            <div className="media-card-content">
-                              <h5>{itemudMediaCoverageFiles.title}</h5>
-                              <p className="media-card-date">Description Details</p>
-                              <p>
-                                {itemudMediaCoverageFiles.content}{" "}
-                                <a
-                                  href={itemudMediaCoverageFiles.content}
-                                  className="read-more-link"
-                                >
-                                  Read More..
-                                </a>
-                              </p>
+                {item.udMediaCoverageFiles &&
+                  JSON.parse(item.udMediaCoverageFiles).length > 0 && (
+                    <section className="container my-5 py-5 media-coverage-section">
+                      <h2 className="text-center mb-5">Media Coverage</h2>
+                      <div className="row">
+                        {JSON.parse(item.udMediaCoverageFiles).map(
+                          (
+                            itemudMediaCoverageFiles,
+                            indexudMediaCoverageFiles
+                          ) => (
+                            <div
+                              className="col-md-4 mb-4"
+                              key={indexudMediaCoverageFiles}
+                            >
+                              <div className="media-card">
+                                <img
+                                  src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${itemudMediaCoverageFiles.imgname}`}
+                                  alt=""
+                                  className="media-card-image"
+                                />
+                                <div className="media-card-content">
+                                  <h5>{itemudMediaCoverageFiles.title}</h5>
+                                  <p className="media-card-date">
+                                    Description Details
+                                  </p>
+                                  <p>
+                                    {itemudMediaCoverageFiles.content}{" "}
+                                    <a
+                                      href={itemudMediaCoverageFiles.content}
+                                      className="read-more-link"
+                                    >
+                                      Read More..
+                                    </a>
+                                  </p>
+                                </div>
+                              </div>
                             </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    {/* <div className="text-center mt-4">
+                          )
+                        )}
+                      </div>
+                      {/* <div className="text-center mt-4">
                       <button className="load-more-btn">Load more</button>
                     </div> */}
-                  </section>
-                )}
+                    </section>
+                  )}
 
                 <section>
                   <div className="container">
@@ -929,28 +965,33 @@ align-content:center;
                             borderRadius: "20px",
                           }}
                         >
-
-
-
-                {console.log(`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.udPitchDeck)}`)}
-                  {/* <SinglePagePDFViewer pdf={udPitchDeck/samplePDF} /> */}
-                  <SinglePagePDFViewer
-                    pdf={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.udPitchDeck)}`}
-                  />
+                          {console.log(
+                            `${
+                              process.env.REACT_APP_BASE_URL
+                            }api/uploads/unicorndeals/${
+                              item.tudTempUdID
+                            }/${JSON.parse(item.udPitchDeck)}`
+                          )}
+                          {/* <SinglePagePDFViewer pdf={udPitchDeck/samplePDF} /> */}
+                          <SinglePagePDFViewer
+                            pdf={`${
+                              process.env.REACT_APP_BASE_URL
+                            }api/uploads/unicorndeals/${
+                              item.tudTempUdID
+                            }/${JSON.parse(item.udPitchDeck)}`}
+                          />
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  </div>
-                  </div>
-                  </div>
-
                 </section>
-
 
                 <section className="container my-5 py-5 videos-section">
                   <h2 className="text-center mb-5">Videos</h2>
                   <div className="video-slide">
                     <iframe
                       style={{
-                        boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
+                        boxShadow: '0px 3px 6px #000',
                         borderRadius: 3,
                       }}
                       width="100%"
@@ -963,16 +1004,14 @@ align-content:center;
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                     ></iframe>
-
                   </div>
                 </section>
-
 
                 <section className="container my-5 py-5 contact-us-section">
                   <h2 className="text-center mb-5">Contact Us</h2>
                   <div className="row">
                     {/* Contact Information Card */}
-                    <div className="col-md-4">
+                    <div className="col-md-4" style={{padding: 0}}>
                       <div className="contact-info-card">
                         <h2>Contact Information</h2>
                         <ul className="contact-info-list">
@@ -990,7 +1029,6 @@ align-content:center;
                             <i className="fas fa-map-marker-alt"></i>
                             {/* udAddress */}
                             {item.udAddress}
-
                           </li>
                         </ul>
                         <div className="social-icons d-flex justify-content-center">
@@ -1000,7 +1038,6 @@ align-content:center;
                               target="_blank"
                               rel="noopener noreferrer"
                             >
-
                               <i className="fab fa-youtube"></i>
                             </Link>
                           </a>
@@ -1010,8 +1047,6 @@ align-content:center;
                               target="_blank"
                               rel="noopener noreferrer"
                             >
-
-
                               <i className="fab fa-instagram"></i>
                             </Link>
                           </a>
@@ -1021,7 +1056,6 @@ align-content:center;
                               target="_blank"
                               rel="noopener noreferrer"
                             >
-
                               <i className="fab fa-facebook-f"></i>
                             </Link>
                           </a>
@@ -1076,10 +1110,6 @@ align-content:center;
                     </div>
                   </div>
                 </section>
-
-
-
-
               </>
             );
           })}

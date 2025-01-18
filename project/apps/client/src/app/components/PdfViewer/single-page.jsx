@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 
+
 // Set the worker source globally
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.0.279/pdf.worker.min.js`;
 
@@ -32,9 +33,9 @@ export default function SinglePage(props) {
   return (
     <>
       <Document
-        file={pdf}
+        file={"https://growth91.growthmetaverse.in/api/uploads/unicorndeals/56/1737096521.pdf"}
         onLoadSuccess={onDocumentLoadSuccess}
-        options={{ workerSrc: "/pdf.worker.js" }}
+        options={{ workerSrc: "/assets/js/pdf.worker.js" }}
       >
         <Page pageNumber={pageNumber} />
       </Document>

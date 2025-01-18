@@ -32,7 +32,7 @@ console.log(unicorn);
     };
     await axios
       .post(
-        `https://cors-anywhere.herokuapp.com/https://growth91.growthmetaverse.in/api/founder/Startup/unicornListByFounders`,
+        `${process.env.REACT_APP_BASE_URL}api/founder/Startup/unicornListByFounders`,
         params,
         { headers }
       )
@@ -248,7 +248,7 @@ console.log(unicorn);
                                 <label htmlFor="">:</label>
 
                                 <label htmlFor="">
-                                +{unideatils.tudCountryCode} {unideatils.tudPrimaryContactMobile}
+                                {unideatils.tudCountryCode} {unideatils.tudPrimaryContactMobile}
                                 </label>
                               </div>
                             </div>
@@ -282,7 +282,7 @@ console.log(unicorn);
                                   </Link>
                                 </div></div>)}
 
-                                {unicorn && unicorn.length !== 0 && (
+                                {/* {unicorn && unicorn.length !== 0 && (
 
                                 <div className="performs-btns">
                                   <Link to="FounderInterest">
@@ -291,7 +291,7 @@ console.log(unicorn);
                                     Enquires
                                   </Link>
                                 </div>
-                               ) }
+                               ) } */}
                               </td>
                             </div>
                           </div>

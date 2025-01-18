@@ -351,7 +351,7 @@ class Founderadmindashboard extends Component {
     };
     await axios
       .post(
-        `https://cors-anywhere.herokuapp.com/https://growth91.growthmetaverse.in/api/founder/Startup/unicornListByFounders`,
+        `${process.env.REACT_APP_BASE_URL}api/founder/Startup/unicornListByFounders`,
         params,
         { headers }
       )
@@ -360,7 +360,7 @@ class Founderadmindashboard extends Component {
 
         if (result.data.data.length == 0) {
           const datas = await axios.post(
-            `https://cors-anywhere.herokuapp.com/https://growth91.growthmetaverse.in/api/founder/Startup/createunicorndraft`,
+            `${process.env.REACT_APP_BASE_URL}api/founder/Startup/createunicorndraft`,
             this.state.unicorn
           );
           this.setState({ tudTempUdID: datas.data.id });
