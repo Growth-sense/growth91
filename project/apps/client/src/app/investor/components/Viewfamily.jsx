@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {  message,Modal, Spin, DatePicker, Input, Skeleton,notification } from "antd";
+import { message, Modal, Spin, DatePicker, Input, Skeleton, notification, Checkbox } from "antd";
 import Bridge from "../../constants/Bridge";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -20,6 +20,9 @@ class Viewfamily extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isEmailRequired: true,
+      nameDetailsShow: false,
+      panDetailsShow: false,
       investor_id: "",
       kycstatus: "",
       bankstatus: "",
@@ -59,6 +62,34 @@ class Viewfamily extends Component {
       countemailseconds: 119000,
     };
   }
+
+
+  handleRegisterWithoutEmailCheckbox = (e) => {
+    const registerWithoutEmail = e.target.checked; // Get the checked state
+    this.setState({ registerWithoutEmail });
+    console.log("Checkbox is now:", registerWithoutEmail); // Call your desired function here
+    this.handleRegisterWithoutEmailCheckboxFunction(registerWithoutEmail); // Example function call
+  };
+
+  handleRegisterWithoutEmailCheckboxFunction = (registerWithoutEmail) => {
+    if (registerWithoutEmail) {
+      console.log("Checkbox is checked!");
+      // Perform your desired actions here
+      //set email required to false
+      this.setState({ isEmailRequired: false });
+      // nameDetailsShow
+      this.setState({ nameDetailsShow: true });
+      // panDetailsShow
+      this.setState({ panDetailsShow: true });
+    } else {
+      console.log("Checkbox is unchecked!");
+      this.setState({ isEmailRequired: true });
+      // nameDetailsShow
+      this.setState({ nameDetailsShow: false });
+      // panDetailsShow
+      this.setState({ panDetailsShow: false });
+    }
+  };
 
   componentWillMount() {
     document.title = "Investor Dashboard - Growth91 ";
@@ -307,13 +338,13 @@ class Viewfamily extends Component {
     let groupID = this.state.ids;
     this.state.typeofmember == "Indian Resident"
       ? ReactGA.event({
-          category: "Investor SignUp",
-          action: "SignUp button clicked.",
-        })
+        category: "Investor SignUp",
+        action: "SignUp button clicked.",
+      })
       : ReactGA.event({
-          category: "Investor SignUp",
-          action: "Non Resident. SignUp button clicked.",
-        });
+        category: "Investor SignUp",
+        action: "Non Resident. SignUp button clicked.",
+      });
 
     if (!this.state.first_name) {
       message.error("Please enter your first name");
@@ -831,71 +862,127 @@ class Viewfamily extends Component {
           </div>
         </section>
         <Modal
-          title="Add New Member"
+          title="Add New Members"
           visible={this.state.addModalStatus}
           onOk={this.addInvestor}
           okText="Submit"
           // onCancel={this.cancel_addfounder}
           onCancel={() => this.setState({ addModalStatus: false })}
           width={550}
-          // onClick={this.register}
+        // onClick={this.register}
         >
           <Spin spinning={this.state.formloader}>
-            <div className="form-group">
-              <label className="mb-2">
-                Email <span className="text-danger">*</span>
-              </label>
-              <Input
-                value={this.state.SendreqEmail}
-                onChange={(e) =>
-                  this.setState({ SendreqEmail: e.target.value })
-                }
-              />
+            <div className="row">
+              <div className="col-md-8">
+                <div className="form-group">
+                  <label className="mb-2">
+                    Email{" "}
+                    <span
+                      className="text-danger"
+                      style={{ display: this.state.isEmailRequired ? "inline" : "none" }}
+                    >
+                      *
+                    </span>
+                  </label>
+                  <Input
+                    required={this.state.isEmailRequired}
+                    value={this.state.SendreqEmail}
+                    onChange={(e) =>
+                      this.setState({ SendreqEmail: e.target.value })
+                    }
+                  />
+
+                </div>
+
+              </div>
+              <div className="col-md-4 mt-2 h-100">
+                <button
+                  type="button"
+
+
+
+                  className="add-family-butttons mt-4 w-100 mt-2"
+                  style={{
+                    background: "#29176F",
+                    color: "white",
+
+
+                    borderRadius: "5px",
+                  }}
+                // onClick={this.CHECK_pan_no}
+
+                >
+                  Get User
+                </button>
+
+              </div>
             </div>
 
-            {/* first name */}
-            <div className="form-group my-2">
-              <label className="mb-2">First Name<span className="text-danger">*</span></label>
-              <Input
+            <div className="row">
+              {/* no user found checkbox */}
+              <div className="col-md-12">
+                <div className="form-group my-2">
+                  <Checkbox onChange={this.handleRegisterWithoutEmailCheckbox}>
+                  </Checkbox>
+                  <label className="mb-2"> &nbsp;Register Witout Email </label>
+                </div>
+              </div>
 
-                onChange={(e) => this.setState({ first_name: e.target.value })}
-              />
+
             </div>
 
-            {/* middle name */}
-            <div className="form-group my-2">
-              <label className="mb-2">Middle Name</label>
-              <Input
-                onChange={(e) => this.setState({ middle_name: e.target.value })}
-              />
+            <div className="row" style={{ display: this.state.nameDetailsShow ? "flex" : "none" }}>
+              <div className="col-md-12">
+
+                {/* first name */}
+                <div className="form-group my-2">
+                  <label className="mb-2">First Name<span className="text-danger">*</span></label>
+                  <Input
+
+                    onChange={(e) => this.setState({ first_name: e.target.value })}
+                  />
+                </div>
+
+                {/* middle name */}
+                <div className="form-group my-2">
+                  <label className="mb-2">Middle Name</label>
+                  <Input
+                    onChange={(e) => this.setState({ middle_name: e.target.value })}
+                  />
+                </div>
+
+                {/* last name */}
+                <div className="form-group my-2">
+                  <label className="mb-2">Last Name <span className="text-danger">*</span></label>
+                  <Input
+                    onChange={(e) => this.setState({ last_name: e.target.value })}
+                  />
+                </div>
+
+              </div>
             </div>
 
-            {/* last name */}
-            <div className="form-group my-2">
-              <label className="mb-2">Last Name <span className="text-danger">*</span></label>
-              <Input
-                onChange={(e) => this.setState({ last_name: e.target.value })}
-              />
-            </div>
+
+
 
             {/* row */}
-            <div className="row align-items-center">
+            <div className="row align-items-center" style={{ display: this.state.panDetailsShow ? "flex" : "none" }}>
               <div className="col-md-8">
                 <div className="form-group my-2">
                   <label className="mb-2">PAN Number<span className="text-danger">*</span></label>
                   <Input
-                    
+
                     value={this.state.panno}
-                                      onChange={(e) => {
-                                        this.setState({
-                                          panno: e.target.value,
-                                        });
-                                      }}
-                                      disabled={
-                                        this.state.pan_submit == true
-                                          ? true
-                                          : false
-                                      }
+                    onChange={(e) => {
+                      this.setState({
+                        panno: e.target.value,
+                      });
+                    }}
+                    disabled={
+                      this.state.pan_submit == true
+                        ? true
+                        : false
+                    }
                   />
 
                 </div>
@@ -907,22 +994,23 @@ class Viewfamily extends Component {
                   type="button"
                   className="btn btn-primary mt-4 w-100"
                   onClick={this.CHECK_pan_no}
-                  
+
                 >
                   Verify
                 </button>
               </div>
+
+              <div className="col-md-12">
+                <div className="form-group my-2">
+                  <label className="mb-2">Name as per PAN Card</label>
+                  <Input
+                    value={this.state.first_name + " " + this.state.middle_name + " " + this.state.last_name}
+                    disabled
+                  />
+                </div>
+
+              </div>
             </div>
-            {/* pan number with validate button */}
-
-            {/* diabled field name as per pan card */}
-            <div className="form-group my-2">
-              <label className="mb-2">Name as per PAN Card</label>
-              <Input
-                value={this.state.first_name + " " + this.state.middle_name + " " + this.state.last_name}
-                disabled
-              />
-            </div>
 
 
 
@@ -930,7 +1018,9 @@ class Viewfamily extends Component {
 
 
 
-            <div className="form-group">
+
+
+            {/* <div className="form-group">
               <label className="mb-2">Mobile</label>
               <Input
                 value={this.state.Sendreqmobile}
@@ -938,7 +1028,7 @@ class Viewfamily extends Component {
                   this.setState({ Sendreqmobile: e.target.value })
                 }
               />
-            </div>
+            </div> */}
           </Spin>
         </Modal>
 
