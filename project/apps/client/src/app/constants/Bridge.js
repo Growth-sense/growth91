@@ -12,6 +12,10 @@ export default {
     api.post(URLs.get_registered_user_details, data).then((response) => {
       return response.data;
     }),
+
+  
+
+
   update_kyc_details: (data) =>
     api.post(URLs.update_kyc_details, data).then((response) => {
       return response.data;
@@ -29,6 +33,12 @@ export default {
       api.post(URLs.getstatusdata, data).then((response) => {
         return response.data;
       }),
+
+        // getUsersDetailsByEmail
+  getUsersDetailsByEmail: (data) =>
+    api.post(URLs.getUsersDetailsByEmail, data).then((response) => {
+      return response.data;
+    }),
   },
   update_investment_document_id: (data) =>
     api.post(URLs.update_investment_document_id, data).then((response) => {

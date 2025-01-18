@@ -34,10 +34,10 @@ class Viewfamily extends Component {
       addModalStatus: false,
       formloader: false,
       middle_name: "",
-      first_name: "aadil",
-      last_name: "khan test family",
-      email: "epu26061@doolk.com",
-      phone: "8878331005",
+      first_name: "",
+      last_name: "",
+      email: "",
+      phone: "",
       nationality: "Indian Citizen",
       selffirst_name: "",
       selflast_name: "",
@@ -90,6 +90,49 @@ class Viewfamily extends Component {
       this.setState({ panDetailsShow: false });
     }
   };
+
+
+  getUserWithEmail = (e) => {
+    e.preventDefault();
+    console.log("getUserWithEmail");
+    console.log(this.state.SendreqEmail);
+
+    // getUsersDetailsByEmail get user details with this api 
+    let params = {
+      email: this.state.SendreqEmail,
+    };
+    Bridge.users.getUsersDetailsByEmail(params).then((result) => {
+      console.log(result);
+      if (result.status == 1 && result.data.length > 0) {
+        console.log(result.data[0]);
+        this.setState({
+          nameDetailsShow: true,
+          panDetailsShow: false,
+          first_name: result.data[0].first_name,
+          last_name: result.data[0].last_name,
+          email: result.data[0].email,
+          phone: result.data[0].mobile,
+          country_code: result.data[0].country_code,
+        });
+      } else {
+        this.setState({
+          nameDetailsShow: true,
+          panDetailsShow: false,
+          
+
+        });
+
+        // notification that user not exist but you can still invite by entering details
+        notification.warning({
+          message: "User not found",
+          description: "You can still invite the user by entering details.",
+          placement: "top",
+          duration: 5,
+        });
+
+      }
+    });
+  }
 
   componentWillMount() {
     document.title = "Investor Dashboard - Growth91 ";
@@ -872,7 +915,7 @@ class Viewfamily extends Component {
         // onClick={this.register}
         >
           <Spin spinning={this.state.formloader}>
-            <div className="row">
+            <div className="row" style={{ display: this.state.registerWithoutEmail ? "none" : "flex" }}>
               <div className="col-md-8">
                 <div className="form-group">
                   <label className="mb-2">
@@ -911,6 +954,8 @@ class Viewfamily extends Component {
                   }}
                 // onClick={this.CHECK_pan_no}
 
+                onClick={this.getUserWithEmail}
+
                 >
                   Get User
                 </button>
@@ -938,6 +983,7 @@ class Viewfamily extends Component {
                 <div className="form-group my-2">
                   <label className="mb-2">First Name<span className="text-danger">*</span></label>
                   <Input
+                  value={this.state.first_name}
 
                     onChange={(e) => this.setState({ first_name: e.target.value })}
                   />
@@ -947,6 +993,7 @@ class Viewfamily extends Component {
                 <div className="form-group my-2">
                   <label className="mb-2">Middle Name</label>
                   <Input
+                  value={this.state.middle_name}
                     onChange={(e) => this.setState({ middle_name: e.target.value })}
                   />
                 </div>
@@ -955,6 +1002,7 @@ class Viewfamily extends Component {
                 <div className="form-group my-2">
                   <label className="mb-2">Last Name <span className="text-danger">*</span></label>
                   <Input
+                  value={this.state.last_name}
                     onChange={(e) => this.setState({ last_name: e.target.value })}
                   />
                 </div>

@@ -238,6 +238,7 @@ const URLs = {
   delte_blog_category: "admin/Blogcategory/delete",
   delete_pitch_file: "founders/delete_pitch_file",
   get_registered_user_details: "Users/get_registered_user_details",
+  getUsersDetailsByEmail: "Users/getUsersDetailsByEmail",
   change_membership_details: "Investor/change_membership_details",
   update_membership_to_premium: "Users/update_membership_to_premium",
   get_private_inivation_details:

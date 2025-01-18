@@ -673,6 +673,46 @@ class Users extends CI_Controller {
 		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($response));	
 	}
+
+
+
+
+	function getUsersDetailsByEmail(){
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		if(!empty($formdata)){
+			$email=$formdata['email'];
+			$sql="SELECT * FROM `users` WHERE email='$email'";
+			$query=$this->db->query($sql);
+			$resp =$query->result();
+			if(isset($resp)) {
+				$response = [
+					'status' => '1',
+					'message' => 'Data is fetched successfully.',
+					'data' => $resp,
+				];
+			} else {
+				$response =[
+					'status' => '0',
+					'message' => 'Please try again!'
+				];
+			}	
+		} else{
+			$response=[
+				'status' => '0',
+				'message' => 'Please try again!'
+			];
+		}
+		$this->output->set_content_type('application/json')->set_output(json_encode($response));	
+	}
+
+
+
 	function send_contact_email(){
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
