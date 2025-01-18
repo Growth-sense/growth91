@@ -137,7 +137,17 @@ class VsnapU extends Component {
         document.title = "Vsnapu - Growth91 - Startup Marketplace ";
     }
     componentDidMount() {
-        let deal_id = "40";
+        // ENVIRONMENT get from env and set deal id accordingly
+
+        
+       
+
+        // Determine the deal_id based on the environment
+let deal_id = process.env.ENVIRONMENT === "production" ? "40" : "133";
+
+
+
+
         this.setState({ deal_id: deal_id }, () => {
             this.get_pitch_list();
         });
