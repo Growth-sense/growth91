@@ -118,7 +118,7 @@ class Viewfamily extends Component {
         this.setState({
           nameDetailsShow: true,
           panDetailsShow: false,
-          
+
 
         });
 
@@ -201,7 +201,7 @@ class Viewfamily extends Component {
     } else {
       let params = {
         email: this.state.SendreqEmail,
-        mobile: this.state.Sendreqmobile,
+        // mobile: this.state.Sendreqmobile,
       };
       Bridge.family.checkFamilyMember(params).then((result) => {
         console.log(result);
@@ -482,6 +482,14 @@ class Viewfamily extends Component {
     });
   };
 
+
+  checkforpanno = (text) => {
+    let regex = /^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/;
+    if (regex.test(text)) {
+      return true;
+    }
+    return false;
+  };
 
   CHECK_pan_no = (e) => {
     e.preventDefault();
@@ -952,9 +960,9 @@ class Viewfamily extends Component {
 
                     borderRadius: "5px",
                   }}
-                // onClick={this.CHECK_pan_no}
+                  // onClick={this.CHECK_pan_no}
 
-                onClick={this.getUserWithEmail}
+                  onClick={this.getUserWithEmail}
 
                 >
                   Get User
@@ -983,7 +991,7 @@ class Viewfamily extends Component {
                 <div className="form-group my-2">
                   <label className="mb-2">First Name<span className="text-danger">*</span></label>
                   <Input
-                  value={this.state.first_name}
+                    value={this.state.first_name}
 
                     onChange={(e) => this.setState({ first_name: e.target.value })}
                   />
@@ -993,7 +1001,7 @@ class Viewfamily extends Component {
                 <div className="form-group my-2">
                   <label className="mb-2">Middle Name</label>
                   <Input
-                  value={this.state.middle_name}
+                    value={this.state.middle_name}
                     onChange={(e) => this.setState({ middle_name: e.target.value })}
                   />
                 </div>
@@ -1002,7 +1010,7 @@ class Viewfamily extends Component {
                 <div className="form-group my-2">
                   <label className="mb-2">Last Name <span className="text-danger">*</span></label>
                   <Input
-                  value={this.state.last_name}
+                    value={this.state.last_name}
                     onChange={(e) => this.setState({ last_name: e.target.value })}
                   />
                 </div>
@@ -1037,16 +1045,33 @@ class Viewfamily extends Component {
 
               </div>
 
-              <div className="col-md-4">
-                <button
-                  type="button"
-                  className="btn btn-primary mt-4 w-100"
-                  onClick={this.CHECK_pan_no}
+             
 
-                >
-                  Verify
-                </button>
-              </div>
+
+                <div className="col-md-4 mt-2 h-100">
+                  <button
+                    type="button"
+
+
+
+                    className="add-family-butttons mt-4 w-100 mt-2"
+                    style={{
+                      background: "#29176F",
+                      color: "white",
+
+
+                      borderRadius: "5px",
+                    }}
+                    // onClick={this.CHECK_pan_no}
+
+                    onClick={this.CHECK_pan_no}
+
+                  >
+                    Check PAN
+                  </button>
+
+                </div>
+              
 
               <div className="col-md-12">
                 <div className="form-group my-2">

@@ -401,8 +401,9 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 		if(!empty($formdata)) {
 			 
 			$email = $formdata['email'];
-			$mobile = $formdata['mobile'];
-		    $sql="SELECT investor_id  FROM `users` WHERE email='$email' AND mobile='$mobile' AND user_type<>'founder'";
+			// $mobile = $formdata['mobile'];
+		    // $sql="SELECT investor_id  FROM `users` WHERE email='$email' AND mobile='$mobile' AND user_type<>'founder'";
+		    $sql="SELECT investor_id  FROM `users` WHERE email='$email'  AND user_type<>'founder'";
 			$query=$this->db->query($sql);
 			$result=$query->result();
 			$num_rows=$query->num_rows();
