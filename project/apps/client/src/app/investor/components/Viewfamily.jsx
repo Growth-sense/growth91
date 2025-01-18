@@ -375,112 +375,32 @@ class Viewfamily extends Component {
 
 
   // register
-  addInvestor = () => {
-
-    // get group id from url
-    let groupID = this.state.ids;
-    this.state.typeofmember == "Indian Resident"
-      ? ReactGA.event({
-        category: "Investor SignUp",
-        action: "SignUp button clicked.",
-      })
-      : ReactGA.event({
-        category: "Investor SignUp",
-        action: "Non Resident. SignUp button clicked.",
-      });
-
-    if (!this.state.first_name) {
-      message.error("Please enter your first name");
-      return;
-    } else if (!this.state.last_name) {
-      message.error("Please enter your last name.");
-      return;
-    } else if (!this.state.email) {
-      message.error("Please enter your email.");
-      return;
-    }
-    // else if(this.state.phone.length!='10') {
-    //   message.error('Invalid mobile.');
-    //   return;
-    // }
-    if (this.state.typeofmember == "Indian Resident") {
-      if (this.state.verfied == false) {
-        message.error("Please verify mobile number");
-        return;
-      } else if (this.state.phone.length != "10") {
-        message.error("Invalid mobil number.");
-        return;
-      }
-
-      // if (!this.state.email_verified) {
-      //   message.error("Email Not verified");
-      //   return;
-      // }
-    }
-
-    if (this.state.typeofmember == "Non Resident") {
-      if (this.state.phone.length <= "7" || this.state.phone.length >= "15") {
-        message.error("Invalid mobile number.");
-        console.log(this.state.phone);
-        return;
-      }
-      // if (!this.state.email_verified) {
-      //   message.error("Email Not verified");
-      //   return;
-      // }
-    }
-
-    let string = this.state.first_name + " " + this.state.last_name;
-    let newArray = string.split(" ");
-    let name = "";
-    if (newArray.length == "3") {
-      let firstChar = newArray[0].charAt(0).toUpperCase();
-      let firs2tChar = newArray[2].charAt(0).toUpperCase();
-      name = firstChar + "" + firs2tChar;
-    } else if (newArray.length == "2") {
-      let firstChar = newArray[0].charAt(0).toUpperCase();
-      let firs2tChar = newArray[1].charAt(0).toUpperCase();
-      name = firstChar + "" + firs2tChar;
-    }
+  addInvestorViaFamily = () => {
+    console.log("addInvestorViaFamily");
     let params = {
       first_name: this.state.first_name,
       middle_name: this.state.middle_name,
       last_name: this.state.last_name,
       email: this.state.email,
-      nationality: this.state.typeofmember,
-      refferal_code: this.state.refferal_code,
-      reffered_code2: name + "RR",
-      is_refferal_code_matched: this.state.is_refferal_code_matched,
       phone: this.state.phone,
-      phone1: this.state.phone1,
-      country_code: this.state.country_code,
-      groupID: groupID,
-    };
-
-    // this.setState({loading:true});
-    Bridge.investor.addInvestor(params).then((result) => {
+    }
+    Bridge.users.addInvestorViaFamily(params).then((result) => {
+      console.log(result);
       if (result.status == 1) {
-        message.success(result.message);
-        this.setState({ loading: false });
-        if (result.data) {
-          console.log("result", result);
-          // return
-          // localStorage.removeItem('reg_id');
-          localStorage.setItem("reg_id", result.data);
-          window.location.assign("/investor-registration");
-
-          ReactGA.event({
-            category: "Investor Registration",
-            action: "Investor Registered Successfully",
-            label: "Investor Registered Successfully",
-          });
-        }
-      } else {
-        message.error(result.message);
-        this.setState({ loading: false });
+        this.setState({
+          addModalStatus: false,
+          first_name: "",
+          middle_name: "",
+          last_name: "",
+          email: "",
+          phone: "",
+        });
+        this.getmember();
       }
     });
   };
+
+
 
 
   checkforpanno = (text) => {
@@ -915,7 +835,7 @@ class Viewfamily extends Component {
         <Modal
           title="Add New Members"
           visible={this.state.addModalStatus}
-          onOk={this.addInvestor}
+          onOk={this.addInvestorViaFamily}
           okText="Submit"
           // onCancel={this.cancel_addfounder}
           onCancel={() => this.setState({ addModalStatus: false })}

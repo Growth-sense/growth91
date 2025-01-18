@@ -39,6 +39,12 @@ export default {
     api.post(URLs.getUsersDetailsByEmail, data).then((response) => {
       return response.data;
     }),
+
+    // addInvestor
+    addInvestorViaFamily: (data) => 
+    api.post(URLs.addInvestorViaFamily, data).then((response) => {
+      return response.data;
+    }),
   },
   update_investment_document_id: (data) =>
     api.post(URLs.update_investment_document_id, data).then((response) => {

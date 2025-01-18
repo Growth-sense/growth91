@@ -1,27 +1,29 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class Investor extends CI_Controller {
+class Investor extends CI_Controller
+{
 
-	public function __construct() {
+	public function __construct()
+	{
 		parent::__construct();
 		$this->load->model(['InvestorModel']);
 	}
 	// This functuion is for Generating OTP on Server (Dhaval)
-	public function GenerateOTP($n) 
-	{ 
-		$generator = "135792468"; 
-		$result = ""; 
-		for($i = 1; $i <= $n; $i++) 
-		{ 
-			$result .= substr($generator, (rand()%(strlen($generator))), 1); 
+	public function GenerateOTP($n)
+	{
+		$generator = "135792468";
+		$result = "";
+		for ($i = 1; $i <= $n; $i++) {
+			$result .= substr($generator, (rand() % (strlen($generator))), 1);
 		}
 		//$result = "1234";
-		return $result; 
-	} 
+		return $result;
+	}
 	// register as new investor
-	public function register(){
+	public function register()
+	{
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
 		header("Access-Control-Allow-Origin: *");
@@ -29,7 +31,7 @@ class Investor extends CI_Controller {
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 		$formdata = json_decode(file_get_contents('php://input'), true);
-		if(!empty($formdata)) {
+		if (!empty($formdata)) {
 			$first_name = $formdata['first_name'];
 			$middle_name = $formdata['middle_name'];
 			$last_name = $formdata['last_name'];
@@ -54,67 +56,67 @@ class Investor extends CI_Controller {
 				'international_contact' => $international_contact,
 				'membership_start_date' => date('Y-m-d H-i a'),
 				'membership_end_date' => $end_date,
-				'membership_duration'=>'1',
+				'membership_duration' => '1',
 				'membership_type' => 'regular',
 				'user_registered_dt' => date('Y-m-d'),
 				'country_code' => $country_code,
 				//'email_otp' => $this->GenerateOTP(6);
 				//'mobile_otp' => $this->GenerateOTP(6);
 			];
-			$sql="SELECT membership_payment_status,investor_id,membership_type FROM `users` WHERE email='$email'";
-			$query=$this->db->query($sql);
-			$result=$query->result();
-			$num_rows=$query->num_rows();
-			if(intval($num_rows)>0){
-				if($result[0]->membership_type=='premium' && ($result[0]->membership_payment_status=='FAILED' || $result[0]->membership_payment_status=='')){
-					$id=$result[0]->investor_id;
-					$this->db->where('investor_id',$id);
-					$resp=$this->db->update('users',$post_data);
-					if($resp){
-						$response =[
+			$sql = "SELECT membership_payment_status,investor_id,membership_type FROM `users` WHERE email='$email'";
+			$query = $this->db->query($sql);
+			$result = $query->result();
+			$num_rows = $query->num_rows();
+			if (intval($num_rows) > 0) {
+				if ($result[0]->membership_type == 'premium' && ($result[0]->membership_payment_status == 'FAILED' || $result[0]->membership_payment_status == '')) {
+					$id = $result[0]->investor_id;
+					$this->db->where('investor_id', $id);
+					$resp = $this->db->update('users', $post_data);
+					if ($resp) {
+						$response = [
 							'status' => '1',
 							'message' => 'Registration is completed successfully.',
 							'data' => $id,
-						];		
-					}else{
-						$response =[
+						];
+					} else {
+						$response = [
 							'status' => '0',
 							'message' => 'Email already used by someone else.'
-						];		
+						];
 					}
-				}else{
-					$response =[
+				} else {
+					$response = [
 						'status' => '0',
 						'message' => 'Email already used by someone else.'
-					];	
+					];
 				}
-			}else{
+			} else {
 				// $id = $this->InvestorModel->register($post_data);
-				$this->db->insert('users',$post_data);
-				$id=$this->db->insert_id();
-				if($id) {
+				$this->db->insert('users', $post_data);
+				$id = $this->db->insert_id();
+				if ($id) {
 
-					 // check in invitation id os present or not 
-					$sql2="SELECT * FROM `private_deal_invities` WHERE email='$email'";
-					$query2=$this->db->query($sql2);
-					$num_rows=$query2->num_rows();
-					if(intval($num_rows)>0){
-						$sql3="UPDATE `private_deal_invities` SET investor_id='$id' WHERE email='$email'";
+					// check in invitation id os present or not 
+					$sql2 = "SELECT * FROM `private_deal_invities` WHERE email='$email'";
+					$query2 = $this->db->query($sql2);
+					$num_rows = $query2->num_rows();
+					if (intval($num_rows) > 0) {
+						$sql3 = "UPDATE `private_deal_invities` SET investor_id='$id' WHERE email='$email'";
 						$this->db->query($sql3);
 					}
-					if($is_refferal_code_matched==true){
-						$data2=[
-							'referred_by'=>$refferal_code,
-							'referral_code' => $formdata['reffered_code2'].'0'.$id,
+					if ($is_refferal_code_matched == true) {
+						$data2 = [
+							'referred_by' => $refferal_code,
+							'referral_code' => $formdata['reffered_code2'] . '0' . $id,
 						];
-						$this->db->where('investor_id',$id);
-						$this->db->update('users',$data2);
-					}else{
-						$data2=[
-							'referral_code'=> $formdata['reffered_code2'].'0'.$id,	
+						$this->db->where('investor_id', $id);
+						$this->db->update('users', $data2);
+					} else {
+						$data2 = [
+							'referral_code' => $formdata['reffered_code2'] . '0' . $id,
 						];
-						$this->db->where('investor_id',$id);
-						$this->db->update('users',$data2);
+						$this->db->where('investor_id', $id);
+						$this->db->update('users', $data2);
 					}
 					$response = [
 						'status' => '1',
@@ -122,7 +124,7 @@ class Investor extends CI_Controller {
 						'data' => $id,
 					];
 				} else {
-					$response =[
+					$response = [
 						'status' => '0',
 						'message' => 'Please try again!'
 					];
@@ -131,17 +133,18 @@ class Investor extends CI_Controller {
 		} else {
 			$response = [
 				'status' => '0',
-				'message'=> 'Please enter values of all fields.',
+				'message' => 'Please enter values of all fields.',
 			];
 		}
 		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($response));	
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
 	}
 
 
 
-	public function addInvestor(){
+	public function addInvestor()
+	{
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
 		header("Access-Control-Allow-Origin: *");
@@ -149,7 +152,7 @@ class Investor extends CI_Controller {
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 		$formdata = json_decode(file_get_contents('php://input'), true);
-		if(!empty($formdata)) {
+		if (!empty($formdata)) {
 			$group_id = $formdata['group_id'];
 			$first_name = $formdata['first_name'];
 			$middle_name = $formdata['middle_name'];
@@ -175,67 +178,67 @@ class Investor extends CI_Controller {
 				'international_contact' => $international_contact,
 				'membership_start_date' => date('Y-m-d H-i a'),
 				'membership_end_date' => $end_date,
-				'membership_duration'=>'1',
+				'membership_duration' => '1',
 				'membership_type' => 'regular',
 				'user_registered_dt' => date('Y-m-d'),
 				'country_code' => $country_code,
 				//'email_otp' => $this->GenerateOTP(6);
 				//'mobile_otp' => $this->GenerateOTP(6);
 			];
-			$sql="SELECT membership_payment_status,investor_id,membership_type FROM `users` WHERE email='$email'";
-			$query=$this->db->query($sql);
-			$result=$query->result();
-			$num_rows=$query->num_rows();
-			if(intval($num_rows)>0){
-				if($result[0]->membership_type=='premium' && ($result[0]->membership_payment_status=='FAILED' || $result[0]->membership_payment_status=='')){
-					$id=$result[0]->investor_id;
-					$this->db->where('investor_id',$id);
-					$resp=$this->db->update('users',$post_data);
-					if($resp){
-						$response =[
+			$sql = "SELECT membership_payment_status,investor_id,membership_type FROM `users` WHERE email='$email'";
+			$query = $this->db->query($sql);
+			$result = $query->result();
+			$num_rows = $query->num_rows();
+			if (intval($num_rows) > 0) {
+				if ($result[0]->membership_type == 'premium' && ($result[0]->membership_payment_status == 'FAILED' || $result[0]->membership_payment_status == '')) {
+					$id = $result[0]->investor_id;
+					$this->db->where('investor_id', $id);
+					$resp = $this->db->update('users', $post_data);
+					if ($resp) {
+						$response = [
 							'status' => '1',
 							'message' => 'Registration is completed successfully.',
 							'data' => $id,
-						];		
-					}else{
-						$response =[
+						];
+					} else {
+						$response = [
 							'status' => '0',
 							'message' => 'Email already used by someone else.'
-						];		
+						];
 					}
-				}else{
-					$response =[
+				} else {
+					$response = [
 						'status' => '0',
 						'message' => 'Email already used by someone else.'
-					];	
+					];
 				}
-			}else{
+			} else {
 				// $id = $this->InvestorModel->register($post_data);
-				$this->db->insert('users',$post_data);
-				$id=$this->db->insert_id();
-				if($id) {
+				$this->db->insert('users', $post_data);
+				$id = $this->db->insert_id();
+				if ($id) {
 
-					 // check in invitation id os present or not 
-					$sql2="SELECT * FROM `private_deal_invities` WHERE email='$email'";
-					$query2=$this->db->query($sql2);
-					$num_rows=$query2->num_rows();
-					if(intval($num_rows)>0){
-						$sql3="UPDATE `private_deal_invities` SET investor_id='$id' WHERE email='$email'";
+					// check in invitation id os present or not 
+					$sql2 = "SELECT * FROM `private_deal_invities` WHERE email='$email'";
+					$query2 = $this->db->query($sql2);
+					$num_rows = $query2->num_rows();
+					if (intval($num_rows) > 0) {
+						$sql3 = "UPDATE `private_deal_invities` SET investor_id='$id' WHERE email='$email'";
 						$this->db->query($sql3);
 					}
-					if($is_refferal_code_matched==true){
-						$data2=[
-							'referred_by'=>$refferal_code,
-							'referral_code' => $formdata['reffered_code2'].'0'.$id,
+					if ($is_refferal_code_matched == true) {
+						$data2 = [
+							'referred_by' => $refferal_code,
+							'referral_code' => $formdata['reffered_code2'] . '0' . $id,
 						];
-						$this->db->where('investor_id',$id);
-						$this->db->update('users',$data2);
-					}else{
-						$data2=[
-							'referral_code'=> $formdata['reffered_code2'].'0'.$id,	
+						$this->db->where('investor_id', $id);
+						$this->db->update('users', $data2);
+					} else {
+						$data2 = [
+							'referral_code' => $formdata['reffered_code2'] . '0' . $id,
 						];
-						$this->db->where('investor_id',$id);
-						$this->db->update('users',$data2);
+						$this->db->where('investor_id', $id);
+						$this->db->update('users', $data2);
 					}
 					$response = [
 						'status' => '1',
@@ -243,7 +246,7 @@ class Investor extends CI_Controller {
 						'data' => $id,
 					];
 				} else {
-					$response =[
+					$response = [
 						'status' => '0',
 						'message' => 'Please try again!'
 					];
@@ -252,15 +255,71 @@ class Investor extends CI_Controller {
 		} else {
 			$response = [
 				'status' => '0',
-				'message'=> 'Please enter values of all fields.',
+				'message' => 'Please enter values of all fields.',
 			];
 		}
 		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($response));	
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
 	}
 
-	public function sendotp() {
+
+	public function addInvestorViaFamily()
+	{
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		if (!empty($formdata)) {
+			$first_name = $formdata['first_name'];
+			$middle_name = $formdata['middle_name'];
+			$last_name = $formdata['last_name'];
+			$email = $formdata['email'];
+
+			// check if user exist with this email if yes pass the user id 
+			$sql = "SELECT * FROM `users` WHERE email='$email'";
+			$query = $this->db->query($sql);
+			$result = $query->result();
+			$num_rows = $query->num_rows();
+			if (intval($num_rows) > 0) {
+				$id = $result[0]->investor_id;
+				$response = [
+					'status' => '1',
+					'message' => 'User already exist.',
+					'data' => $id,
+				];
+			} else {
+				$post_data = [
+					'first_name' => $first_name,
+					'middle_name' => $middle_name,
+					'last_name' => $last_name,
+					'email' => $email,
+					'user_type' => 'investor',
+					'user_registered_dt' => date('Y-m-d'),
+				];
+				$this->db->insert('users', $post_data);
+				$id = $this->db->insert_id();
+				if ($id) {
+					$response = [
+						'status' => '1',
+						'message' => 'Registration is done successfully.',
+						'data' => $id,
+					];
+				} else {
+					$response = [
+						'status' => '0',
+						'message' => 'Please try again!'
+					];
+				}
+			}
+		}
+	}
+
+	public function sendotp()
+	{
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
 		header("Access-Control-Allow-Origin: *");
@@ -269,34 +328,34 @@ class Investor extends CI_Controller {
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 		$formdata = json_decode(file_get_contents('php://input'), true);
 
-		if(!empty($formdata)) {
+		if (!empty($formdata)) {
 			$email = $formdata['email'];
 			$otp = $formdata['otp'];
 			//'email_otp' => $this->GenerateOTP(6);
 			//'mobile_otp' => $this->GenerateOTP(6);
-		
-			$sql ="SELECT * FROM `users` WHERE email='$email'";
+
+			$sql = "SELECT * FROM `users` WHERE email='$email'";
 			$query = $this->db->query($sql);
-			$res =$query->result();
-			
-			$num_rows =$query->num_rows();
-			if(intval($num_rows) > 0) {
+			$res = $query->result();
+
+			$num_rows = $query->num_rows();
+			if (intval($num_rows) > 0) {
 				// send email
 
-				if($num_rows) {
+				if ($num_rows) {
 					$response = [
 						'status' => '1',
 						'message' => 'OTP is sent successfully. Please check your registered email address',
 						'data' => $res,
 					];
 				} else {
-					$response =[
+					$response = [
 						'status' => '0',
 						'message' => 'Please try again!'
 					];
-				}	
-			}else {
-				$response =[
+				}
+			} else {
+				$response = [
 					'status' => '0',
 					'message' => 'Invalid email address. Please try again!',
 				];
@@ -304,15 +363,16 @@ class Investor extends CI_Controller {
 		} else {
 			$response = [
 				'status' => '0',
-				'message'=> 'Please enter values of all fields.',
+				'message' => 'Please enter values of all fields.',
 			];
 		}
 		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($response));	
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
 	}
 
-	public function updaterstatus() {
+	public function updaterstatus()
+	{
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
 		header("Access-Control-Allow-Origin: *");
@@ -321,7 +381,7 @@ class Investor extends CI_Controller {
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 		$formdata = json_decode(file_get_contents('php://input'), true);
 
-		if(!empty($formdata)) {
+		if (!empty($formdata)) {
 
 			$id = $formdata['id'];
 			$riskstatus = $formdata['riskstatus'];
@@ -330,25 +390,25 @@ class Investor extends CI_Controller {
 			$cancellationstatus = $formdata['cancellationstatus'];
 			$researchstatus = $formdata['researchstatus'];
 			$is_investor = $formdata['is_investor'];
-			$data=[
+			$data = [
 				'riskstatus' => $riskstatus,
 				'limitedstatus' => $limitedstatus,
 				'divesestatus' => $divesestatus,
 				'cancellationstatus' => $cancellationstatus,
 				'researchstatus' => $researchstatus,
-				'is_investor'=> $is_investor,
-				'ip_address'=> $_SERVER['REMOTE_ADDR'],
+				'is_investor' => $is_investor,
+				'ip_address' => $_SERVER['REMOTE_ADDR'],
 			];
 			$this->db->where('investor_id', $id);
-			$res =$this->db->update('users',$data);
+			$res = $this->db->update('users', $data);
 
-			if($res) {
+			if ($res) {
 				$response = [
 					'status' => '1',
 					'message' => 'Registration is completed successfully.',
 				];
-			}else {
-				$response =[
+			} else {
+				$response = [
 					'status' => '0',
 					'message' => 'Please try again!'
 				];
@@ -356,17 +416,18 @@ class Investor extends CI_Controller {
 		} else {
 			$response = [
 				'status' => '0',
-				'message'=> 'Please enter values of all fields.',
+				'message' => 'Please enter values of all fields.',
 			];
 		}
-		
+
 		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($response));	
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
 	}
 
 	// REGISTER PREMIUM MEMBER
-	public function register_premium_member() {
+	public function register_premium_member()
+	{
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
 		header("Access-Control-Allow-Origin: *");
@@ -375,7 +436,7 @@ class Investor extends CI_Controller {
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 		$formdata = json_decode(file_get_contents('php://input'), true);
 
-		if(!empty($formdata)) {
+		if (!empty($formdata)) {
 
 			$first_name = $formdata['first_name'];
 			$middle_name = $formdata['middle_name'];
@@ -384,11 +445,11 @@ class Investor extends CI_Controller {
 			$mobile = $formdata['mobile'];
 			$otp = $formdata['otp'];
 
-			$sql ="SELECT * FROM `users` WHERE email='$email'";
+			$sql = "SELECT * FROM `users` WHERE email='$email'";
 			$query = $this->db->query($sql);
-			$res =$query->result();
-			$num_rows =$query->num_rows();
-			if(intval($num_rows) > 0) {
+			$res = $query->result();
+			$num_rows = $query->num_rows();
+			if (intval($num_rows) > 0) {
 				$response = [
 					'status' => '0',
 					'message' => 'Please try to register with another email or mobile.',
@@ -404,49 +465,49 @@ class Investor extends CI_Controller {
 					'are_premium_members' => '1',
 					'user_registered_dt' => date('Y-m-d'),
 				];
-				
+
 				$id = $this->InvestorModel->register($post_data);
-				
-				if($id) {
+
+				if ($id) {
 					$response = [
 						'status' => '1',
 						'message' => 'Registration is done successfully.',
 						'data' => $id,
 					];
 				} else {
-					$response =[
+					$response = [
 						'status' => '0',
 						'message' => 'Please try again!'
 					];
 				}
 			}
-			
 		} else {
 			$response = [
 				'status' => '0',
-				'message'=> 'Please enter values of all fields.',
+				'message' => 'Please enter values of all fields.',
 			];
 		}
-		
+
 		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($response));	
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
 	}
 
 
-	public function sendregisterotp($email, $otp) {
+	public function sendregisterotp($email, $otp)
+	{
 
-			$email = $email;
-			$otp = $otp;
-			
-			// check for the email
-			// $sql ="SELECT * FROM `users` WHERE email='$email'";
-			// $query = $this->db->query($sql);
-			// $res =$query->result();
+		$email = $email;
+		$otp = $otp;
 
-			// $num_rows =$query->num_rows();
-		if(!empty($email)) {
-			$body='<!doctype html>
+		// check for the email
+		// $sql ="SELECT * FROM `users` WHERE email='$email'";
+		// $query = $this->db->query($sql);
+		// $res =$query->result();
+
+		// $num_rows =$query->num_rows();
+		if (!empty($email)) {
+			$body = '<!doctype html>
 	      <html>
 	        <head>
 	          <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -567,7 +628,7 @@ class Investor extends CI_Controller {
 											Use the following OTP to complete the growth91 signup process. OTP is valid for 10 mins. 
 											<br>
 											<br>
-											OTP is '.$otp.'
+											OTP is ' . $otp . '
 											<br>
 											<br>
 										
@@ -577,7 +638,7 @@ class Investor extends CI_Controller {
 											PS: This is system generated email. Please do not reply.
 										</br>
 										<div style="text-align: center;" class="imgRes col-sm-12 col-md-12 col-lg-12">
-											<img src="'.WEB_BASE_URL.'web/glogo.png" alt="logo" style="width:120px;height:auto;">
+											<img src="' . WEB_BASE_URL . 'web/glogo.png" alt="logo" style="width:120px;height:auto;">
 										</div>
 										</td>
 									</tr>
@@ -599,7 +660,7 @@ class Investor extends CI_Controller {
 								</tr>
 								<tr>
 									<td class="content-block powered-by" style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; color: #999999; font-size: 12px; text-align: center;" valign="top" align="center">
-									Powered by <a href="'.WEB_BASE_URL.'" style="color: #999999; font-size: 12px; text-align: center; text-decoration: none;">Growth91</a>.
+									Powered by <a href="' . WEB_BASE_URL . '" style="color: #999999; font-size: 12px; text-align: center; text-decoration: none;">Growth91</a>.
 									</td>
 								</tr>
 								</table>
@@ -613,34 +674,35 @@ class Investor extends CI_Controller {
 					</table>
 					</body>
 	      	</html>';
-			$subject="Growth91 Signup OTP $otp";
+			$subject = "Growth91 Signup OTP $otp";
 			$this->load->helper('send_email');
-			$res=send_email($body,$subject,$email,'');
-			if($res=='1') {
+			$res = send_email($body, $subject, $email, '');
+			if ($res == '1') {
 				$response = [
 					'status' => '1',
 					'message' => 'Otp is sent successfully.',
 				];
 			} else {
-				$response =[
+				$response = [
 					'status' => '0',
 					'message' => 'Please try again!'
 				];
-			}	
-		}else {
-			$response =[
+			}
+		} else {
+			$response = [
 				'status' => '0',
 				'message' => 'Invalid email. Please try to register first.'
 			];
 		}
-		
+
 		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($response));	
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
 	}
 
 
-	public function invest() {
+	public function invest()
+	{
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
 		header("Access-Control-Allow-Origin: *");
@@ -649,7 +711,7 @@ class Investor extends CI_Controller {
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 		$formdata = json_decode(file_get_contents('php://input'), true);
 
-		if(!empty($formdata)) {
+		if (!empty($formdata)) {
 
 			$investor_id = $formdata['investor_id'];
 			$deal_id = $formdata['deal_id'];
@@ -662,7 +724,7 @@ class Investor extends CI_Controller {
 			$processingfees = $formdata['processingfees'];
 			$gst = $formdata['gst'];
 			$legalfees = $formdata['legalfees'];
-			
+
 			$post_data = [
 				'investor_id' => $investor_id,
 				'deal_id' => $deal_id,
@@ -676,46 +738,46 @@ class Investor extends CI_Controller {
 				'gst' => $formdata['gst'],
 				'legalfees' => $formdata['legalfees'],
 			];
-			$this->db->insert('investments',$post_data);
-			$id=$this->db->insert_id();
-			
-			if($id) {
-	
+			$this->db->insert('investments', $post_data);
+			$id = $this->db->insert_id();
+
+			if ($id) {
+
 				$data2 = [
-					'investor_id'=>$investor_id,
-					'deal_id'=>$deal_id,
-					'payment_date'=> date('Y-m-d'),
-					'payment_amount'=>$Investment_amt,
-					'description'=> 'User invested in deal',
+					'investor_id' => $investor_id,
+					'deal_id' => $deal_id,
+					'payment_date' => date('Y-m-d'),
+					'payment_amount' => $Investment_amt,
+					'description' => 'User invested in deal',
 					'payment_ref' => $payment_ref,
 				];
 
-				$this->db->insert('payments',$data2);
+				$this->db->insert('payments', $data2);
 				$response = [
 					'status' => '1',
 					'message' => 'Congratulations.You have invested successfully.',
 					'data' => $id,
 				];
 			} else {
-				$response =[
+				$response = [
 					'status' => '0',
 					'message' => 'Please try again!'
 				];
 			}
-			
 		} else {
 			$response = [
 				'status' => '0',
-				'message'=> 'Please enter values of all fields.',
+				'message' => 'Please enter values of all fields.',
 			];
 		}
-		
+
 		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($response));	
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
 	}
 
-	public function getinvestmentdetails() {
+	public function getinvestmentdetails()
+	{
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
 		header("Access-Control-Allow-Origin: *");
@@ -724,42 +786,42 @@ class Investor extends CI_Controller {
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 		$formdata = json_decode(file_get_contents('php://input'), true);
 
-		if(!empty($formdata)) {
+		if (!empty($formdata)) {
 
 			$investor_id = $formdata['investor_id'];
 			$deal_id = $formdata['deal_id'];
-			
-			$sql="SELECT * FROM `investments` WHERE investor_id='$investor_id' AND deal_id='$deal_id'";
-			$query=$this->db->query($sql);
+
+			$sql = "SELECT * FROM `investments` WHERE investor_id='$investor_id' AND deal_id='$deal_id'";
+			$query = $this->db->query($sql);
 			$result = $query->result();
 			$num = $query->num_rows();
-			
-			if($num) {
+
+			if ($num) {
 				$response = [
 					'status' => '1',
 					'message' => 'Invested status is fetched successfully.',
 					'data' => $num,
 				];
 			} else {
-				$response =[
+				$response = [
 					'status' => '0',
 					'message' => 'Please try again!'
 				];
 			}
-			
 		} else {
 			$response = [
 				'status' => '0',
-				'message'=> 'Please enter values of all fields.',
+				'message' => 'Please enter values of all fields.',
 			];
 		}
-		
+
 		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($response));	
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
 	}
 
-	public function upgradeplan() {
+	public function upgradeplan()
+	{
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
 		header("Access-Control-Allow-Origin: *");
@@ -768,28 +830,28 @@ class Investor extends CI_Controller {
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 		$formdata = json_decode(file_get_contents('php://input'), true);
 		date_default_timezone_set("Asia/Kolkata");
-		if(!empty($formdata)) {
+		if (!empty($formdata)) {
 			$id = $formdata['id'];
 			$membership_fees = $formdata['membership_fees'];
 			$registered_amt = $formdata['registered_amt'];
 			$end_date = date('Y-m-d H-i a', strtotime('+1 years'));
-			$post_data =[
+			$post_data = [
 				'membership_start_date' => date('Y-m-d H-i a'),
 				'membership_end_date' => $end_date,
-				'membership_duration'=>'1',
+				'membership_duration' => '1',
 				'membership_type' => 'premium',
-				'membership_fees'=>$membership_fees,
+				'membership_fees' => $membership_fees,
 				'registered_amt' => $registered_amt,
 			];
 			$this->db->where('investor_id', $id);
-			$res =$this->db->update('users',$post_data);
-			if($res) {
+			$res = $this->db->update('users', $post_data);
+			if ($res) {
 				$response = [
 					'status' => '1',
 					'message' => '',
 				];
-			}else {
-				$response =[
+			} else {
+				$response = [
 					'status' => '0',
 					'message' => 'Please try again!'
 				];
@@ -797,14 +859,15 @@ class Investor extends CI_Controller {
 		} else {
 			$response = [
 				'status' => '0',
-				'message'=> 'Please enter values of all fields.',
+				'message' => 'Please enter values of all fields.',
 			];
 		}
 		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($response));	
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
 	}
-	function updateexpirystatus(){
+	function updateexpirystatus()
+	{
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
 		header("Access-Control-Allow-Origin: *");
@@ -812,21 +875,21 @@ class Investor extends CI_Controller {
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 		$formdata = json_decode(file_get_contents('php://input'), true);
-		if(!empty($formdata)) {
-			$membership_type='expired';
-			$id=$formdata['id'];
-			$post_data =[
-				'membership_type'=>$membership_type,
+		if (!empty($formdata)) {
+			$membership_type = 'expired';
+			$id = $formdata['id'];
+			$post_data = [
+				'membership_type' => $membership_type,
 			];
 			$this->db->where('investor_id', $id);
-			$res =$this->db->update('users',$post_data);
-			if($res) {
+			$res = $this->db->update('users', $post_data);
+			if ($res) {
 				$response = [
 					'status' => '1',
 					'message' => 'Data is updated successfully.',
 				];
-			}else {
-				$response =[
+			} else {
+				$response = [
 					'status' => '0',
 					'message' => 'Please try again!'
 				];
@@ -834,15 +897,16 @@ class Investor extends CI_Controller {
 		} else {
 			$response = [
 				'status' => '0',
-				'message'=> 'Please enter values of all fields.',
+				'message' => 'Please enter values of all fields.',
 			];
 		}
 		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($response));	
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
 	}
 	// check for membership type
-	function check_for_membership_type(){
+	function check_for_membership_type()
+	{
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
 		header("Access-Control-Allow-Origin: *");
@@ -850,19 +914,19 @@ class Investor extends CI_Controller {
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 		$formdata = json_decode(file_get_contents('php://input'), true);
-		if(!empty($formdata)) {
-			$investor_id=$formdata['investor_id'];
+		if (!empty($formdata)) {
+			$investor_id = $formdata['investor_id'];
 			$sql = "SELECT * FROM `users` WHERE investor_id='$investor_id'";
-			$query=$this->db->query($sql);
-			$list =$query->result();
-			if(isset($list)) {
+			$query = $this->db->query($sql);
+			$list = $query->result();
+			if (isset($list)) {
 				$response = [
-					'status' =>'1',
-					'message' =>'',
-					'data'=>$list,
+					'status' => '1',
+					'message' => '',
+					'data' => $list,
 				];
-			}else {
-				$response =[
+			} else {
+				$response = [
 					'status' => '0',
 					'message' => 'Not premium memmber.'
 				];
@@ -870,16 +934,17 @@ class Investor extends CI_Controller {
 		} else {
 			$response = [
 				'status' => '0',
-				'message'=> 'Please enter values of all fields.',
+				'message' => 'Please enter values of all fields.',
 			];
 		}
 		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($response));
-	}	
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
 
 	// check for membership type
-	function check_referral_code_ins(){
+	function check_referral_code_ins()
+	{
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
 		header("Access-Control-Allow-Origin: *");
@@ -887,26 +952,26 @@ class Investor extends CI_Controller {
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 		$formdata = json_decode(file_get_contents('php://input'), true);
-		if(!empty($formdata)) {
-			$refferal_code=$formdata['refferal_code'];
+		if (!empty($formdata)) {
+			$refferal_code = $formdata['refferal_code'];
 			$sql = "SELECT * FROM `institutional_referral_master` WHERE referral_code='$refferal_code' and toggle='1'";
-			$query=$this->db->query($sql);
-			$list =$query->result();
-			$num_rows=$query->num_rows();
+			$query = $this->db->query($sql);
+			$list = $query->result();
+			$num_rows = $query->num_rows();
 
 			$sql2 = "SELECT * FROM `users` WHERE referral_code='$refferal_code'";
-			$query2=$this->db->query($sql2);
-			$list2 =$query2->result();
-			$num_rows2=$query2->num_rows();
+			$query2 = $this->db->query($sql2);
+			$list2 = $query2->result();
+			$num_rows2 = $query2->num_rows();
 
-			if(intval($num_rows)>0 || intval($num_rows2)>0) {
+			if (intval($num_rows) > 0 || intval($num_rows2) > 0) {
 				$response = [
 					'status' => '1',
 					'message' => 'Data is matched',
-					'data'=>$list,
+					'data' => $list,
 				];
-			}else {
-				$response =[
+			} else {
+				$response = [
 					'status' => '0',
 					'message' => 'Not matched'
 				];
@@ -914,172 +979,177 @@ class Investor extends CI_Controller {
 		} else {
 			$response = [
 				'status' => '0',
-				'message'=> 'Please enter values of all fields.',
+				'message' => 'Please enter values of all fields.',
 			];
 		}
 		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($response));
-	}	
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
 
-		// get investor referral code
-		function  get_investor_referral_code(){
-			header("Access-Control-Allow-Origin: *");
-			header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-			header("Access-Control-Allow-Origin: *");
-			header("Access-Control-Allow-Headers: access");
-			header("Content-Type: application/json; charset=UTF-8");
-			header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-			$formdata = json_decode(file_get_contents('php://input'), true);
-			if(!empty($formdata)) {
-				$investor_id=$formdata['investor_id'];
-				$sql = "SELECT referral_code FROM `users` WHERE investor_id='$investor_id'";
-				$query=$this->db->query($sql);
-				$list =$query->result();
-				if(count($list) >= 0) {
-					$response = [
-						'status' => '1',
-						'message' => 'Data get successfully',
-						'data'=>$list,
-					];
-				}else {
-					$response =[
-						'status' => '0',
-						'message' => 'Not matched'
-					];
-				}
+	// get investor referral code
+	function  get_investor_referral_code()
+	{
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		if (!empty($formdata)) {
+			$investor_id = $formdata['investor_id'];
+			$sql = "SELECT referral_code FROM `users` WHERE investor_id='$investor_id'";
+			$query = $this->db->query($sql);
+			$list = $query->result();
+			if (count($list) >= 0) {
+				$response = [
+					'status' => '1',
+					'message' => 'Data get successfully',
+					'data' => $list,
+				];
 			} else {
 				$response = [
 					'status' => '0',
-					'message'=> 'Please enter values of all fields.',
+					'message' => 'Not matched'
 				];
 			}
-			$this->output
+		} else {
+			$response = [
+				'status' => '0',
+				'message' => 'Please enter values of all fields.',
+			];
+		}
+		$this->output
 			->set_content_type('application/json')
 			->set_output(json_encode($response));
-		}	
-		// send otp on mobile
-		public function sendotponmobile(){
-			header("Access-Control-Allow-Origin: *");
-			header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-			header("Access-Control-Allow-Origin: *");
-			header("Access-Control-Allow-Headers: access");
-			header("Content-Type: application/json; charset=UTF-8");
-			header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-			$formdata = json_decode(file_get_contents('php://input'), true);
-			$mobile=$_GET['mobile'];
-			if(!empty($mobile)){
-				$otp=$_GET['otp'];
-				 
-				$this->load->helper('send_sms_investor');
-				$resp=investor_otp_sms($otp,$mobile);
-				if($resp=='1'){
-					$response = [
-						'status' => '1',
-						'message'=> 'OTP sent to your mobile no.',
-					];
-				}else{
-					$response = [
-						'status' => '0',
-						'message'=> 'OTP is not correct',
-					];
-				}
-			}else{
+	}
+	// send otp on mobile
+	public function sendotponmobile()
+	{
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		$mobile = $_GET['mobile'];
+		if (!empty($mobile)) {
+			$otp = $_GET['otp'];
+
+			$this->load->helper('send_sms_investor');
+			$resp = investor_otp_sms($otp, $mobile);
+			if ($resp == '1') {
 				$response = [
-					'status' => '0',
-					'message'=> 'Invalid mobile no. pleae try again.',
+					'status' => '1',
+					'message' => 'OTP sent to your mobile no.',
 				];
-			}
-			$this->output
-			->set_content_type('application/json')
-			->set_output(json_encode($response));
-		}
-		// send sms
-		function sendsms($mobile,$message){
-			$curl = curl_init();
-			$API_KEY = 'uXBLhCNkKUsPDrq62Y73c5gjtodzQabISMO10pmevw4fTE8RVlhzKG9twWyTRrjuDBv3YMkSmZNiEcpb';
-			$url = "https://www.fast2sms.com/dev/bulkV2?authorization=".$API_KEY."&route=dlt&sender_id=GrowNI&message=147470&variables_values=".urlencode($otp)."%7C&flash=0&numbers=".urlencode($mobileNo);	
-	        curl_setopt_array($curl, array(
-	          CURLOPT_URL => $url,
-	          CURLOPT_RETURNTRANSFER => true,
-	          CURLOPT_ENCODING => "",
-	          CURLOPT_MAXREDIRS => 10,
-	          CURLOPT_TIMEOUT => 30,
-	          CURLOPT_SSL_VERIFYHOST => 0,
-	          CURLOPT_SSL_VERIFYPEER => 0,
-	          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-	          CURLOPT_CUSTOMREQUEST => "GET",
-	          CURLOPT_HTTPHEADER => array(
-	            "cache-control: no-cache"
-	          ),
-	        ));
-	        $response = curl_exec($curl);
-	        $err = curl_error($curl);
-	        curl_close($curl);
-	        if ($err) {
-	        	return '0';
-	        } else {
-	        	return '1';
-	        }
-		}
-		
-		// This function is used for premium membership
-		function change_membership_details(){
-			header("Access-Control-Allow-Origin: *");
-			header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-			header("Access-Control-Allow-Origin: *");
-			header("Access-Control-Allow-Headers: access");
-			header("Content-Type: application/json; charset=UTF-8");
-			header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-			$formdata = json_decode(file_get_contents('php://input'), true);
-			if(!empty($formdata)){
-				$investor_id=$formdata['investor_id'];
-				$end_date = date('Y-m-d H-i a', strtotime('+1 years'));
-      			$start_date=date('Y-m-d H-i a');
-      			$membership_duration='1';
-      			$data=[
-      				'membership_duration'=>$membership_duration,
-      				'membership_end_date'=>$end_date,
-      				'membership_start_date'=>$start_date,
-      				'membership_type'=>'premium',
-      			];
-      			$this->db->where('investor_id',$investor_id);
-      			$res=$this->db->update('users',$data);
-				if(isset($res)){
-					$this->send_premium_member_email($investor_id);
-					$response = [
-						'status' => '1',
-						'message'=> 'Data is updated successfully.',
-					];
-				}else{
-					$response = [
-						'status' => '0',
-						'message'=> 'Please try again!',
-					];
-				}
 			} else {
 				$response = [
 					'status' => '0',
-					'message'=> 'Something went wrong. Please try again.',
-				];	
+					'message' => 'OTP is not correct',
+				];
 			}
-			$this->output
+		} else {
+			$response = [
+				'status' => '0',
+				'message' => 'Invalid mobile no. pleae try again.',
+			];
+		}
+		$this->output
 			->set_content_type('application/json')
 			->set_output(json_encode($response));
+	}
+	// send sms
+	function sendsms($mobile, $message)
+	{
+		$curl = curl_init();
+		$API_KEY = 'uXBLhCNkKUsPDrq62Y73c5gjtodzQabISMO10pmevw4fTE8RVlhzKG9twWyTRrjuDBv3YMkSmZNiEcpb';
+		$url = "https://www.fast2sms.com/dev/bulkV2?authorization=" . $API_KEY . "&route=dlt&sender_id=GrowNI&message=147470&variables_values=" . urlencode($otp) . "%7C&flash=0&numbers=" . urlencode($mobileNo);
+		curl_setopt_array($curl, array(
+			CURLOPT_URL => $url,
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => "",
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 30,
+			CURLOPT_SSL_VERIFYHOST => 0,
+			CURLOPT_SSL_VERIFYPEER => 0,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => "GET",
+			CURLOPT_HTTPHEADER => array(
+				"cache-control: no-cache"
+			),
+		));
+		$response = curl_exec($curl);
+		$err = curl_error($curl);
+		curl_close($curl);
+		if ($err) {
+			return '0';
+		} else {
+			return '1';
 		}
-	function send_premium_member_email($investor_id){
-		$sql="SELECT * FROM users WHERE investor_id='$investor_id'";
-		$query=$this->db->query($sql);
-		$result=$query->result();
-		$name=$result[0]->first_name.' '.$result[0]->last_name;
-		$email=$result[0]->email;
-		$investment=$result[0]->email;
+	}
+
+	// This function is used for premium membership
+	function change_membership_details()
+	{
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		if (!empty($formdata)) {
+			$investor_id = $formdata['investor_id'];
+			$end_date = date('Y-m-d H-i a', strtotime('+1 years'));
+			$start_date = date('Y-m-d H-i a');
+			$membership_duration = '1';
+			$data = [
+				'membership_duration' => $membership_duration,
+				'membership_end_date' => $end_date,
+				'membership_start_date' => $start_date,
+				'membership_type' => 'premium',
+			];
+			$this->db->where('investor_id', $investor_id);
+			$res = $this->db->update('users', $data);
+			if (isset($res)) {
+				$this->send_premium_member_email($investor_id);
+				$response = [
+					'status' => '1',
+					'message' => 'Data is updated successfully.',
+				];
+			} else {
+				$response = [
+					'status' => '0',
+					'message' => 'Please try again!',
+				];
+			}
+		} else {
+			$response = [
+				'status' => '0',
+				'message' => 'Something went wrong. Please try again.',
+			];
+		}
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
+	function send_premium_member_email($investor_id)
+	{
+		$sql = "SELECT * FROM users WHERE investor_id='$investor_id'";
+		$query = $this->db->query($sql);
+		$result = $query->result();
+		$name = $result[0]->first_name . ' ' . $result[0]->last_name;
+		$email = $result[0]->email;
+		$investment = $result[0]->email;
 		$membership_fees = $result[0]->membership_fees;
-		$subject='Welcome to Growth91 platform as premium member';
-		$email=$email;
-		$cc='';
+		$subject = 'Welcome to Growth91 platform as premium member';
+		$email = $email;
+		$cc = '';
 		$this->load->helper('send_email');
-		$body='<!doctype html>
+		$body = '<!doctype html>
 	      <html>
 	        <head>
 	          <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1194,7 +1264,7 @@ class Investor extends CI_Controller {
 									<table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
 									<tr>
 										<td style="font-family: sans-serif; font-size: 14px; vertical-align: top;" valign="top">
-										<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;"> Dear <strong>'.$name.'</strong>, 
+										<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;"> Dear <strong>' . $name . '</strong>, 
 											<br>
 											<br>
 											Thank you for registering on Growth91 as an investor.
@@ -1207,8 +1277,8 @@ class Investor extends CI_Controller {
 											We have successfully upgraded you as a premium member.
 											<br>
 											<br>
-											'.($membership_fees=="0" ? "" : "<br>
-											<br>We have received Rs. 999 towards the premium membership subscription.").'
+											' . ($membership_fees == "0" ? "" : "<br>
+											<br>We have received Rs. 999 towards the premium membership subscription.") . '
 											<br>
 											<br>
 											As a premium member, you have early access to view listed deals and priority for investment.
@@ -1230,7 +1300,7 @@ class Investor extends CI_Controller {
 										</br>
 										</br>
 										<div style="text-align: center;" class="imgRes col-sm-12 col-md-12 col-lg-12">
-											<img src="'.WEB_BASE_URL.'web/glogo.png" alt="logo" style="width:120px;height:auto;">
+											<img src="' . WEB_BASE_URL . 'web/glogo.png" alt="logo" style="width:120px;height:auto;">
 										</div>
 										</td>
 									</tr>
@@ -1252,7 +1322,7 @@ class Investor extends CI_Controller {
 								</tr>
 								<tr>
 									<td class="content-block powered-by" style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; color: #999999; font-size: 12px; text-align: center;" valign="top" align="center">
-									Powered by <a href="'.WEB_BASE_URL.'" style="color: #999999; font-size: 12px; text-align: center; text-decoration: none;">Growth91</a>.
+									Powered by <a href="' . WEB_BASE_URL . '" style="color: #999999; font-size: 12px; text-align: center; text-decoration: none;">Growth91</a>.
 									</td>
 								</tr>
 								</table>
@@ -1266,7 +1336,6 @@ class Investor extends CI_Controller {
 					</table>
 					</body>
 	      </html>';
-		$res=send_email($body,$subject,$email,$cc);
+		$res = send_email($body, $subject, $email, $cc);
 	}
-	
 }
