@@ -23,6 +23,7 @@ class Viewfamily extends Component {
       isEmailRequired: true,
       nameDetailsShow: false,
       panDetailsShow: false,
+      panCardValidatedName: "",
       investor_id: "",
       kycstatus: "",
       bankstatus: "",
@@ -196,8 +197,9 @@ class Viewfamily extends Component {
   };
   addfamily = () => {
     this.setState({ formloader: true });
-    if (this.state.SendreqEmail == "" || this.state.Sendreqmobile == "") {
-      toast.error("Plz fill all field");
+    // if (this.state.SendreqEmail == "" || this.state.Sendreqmobile == "") {
+      if (this.state.SendreqEmail == "") {
+      toast.error("Plz fill all fieldddd");
     } else {
       let params = {
         email: this.state.SendreqEmail,
@@ -381,10 +383,11 @@ class Viewfamily extends Component {
       first_name: this.state.first_name,
       middle_name: this.state.middle_name,
       last_name: this.state.last_name,
-      email: this.state.email,
+      email: this.state.SendreqEmail,
       phone: this.state.phone,
     }
     Bridge.users.addInvestorViaFamily(params).then((result) => {
+      console.log('data', result);
       console.log(result);
       if (result.status == 1) {
         this.setState({
@@ -395,7 +398,9 @@ class Viewfamily extends Component {
           email: "",
           phone: "",
         });
-        this.getmember();
+        // addfamily
+        this.addfamily();
+        
       }
     });
   };
@@ -851,6 +856,7 @@ class Viewfamily extends Component {
                     <span
                       className="text-danger"
                       style={{ display: this.state.isEmailRequired ? "inline" : "none" }}
+                      
                     >
                       *
                     </span>
@@ -860,6 +866,7 @@ class Viewfamily extends Component {
                     value={this.state.SendreqEmail}
                     onChange={(e) =>
                       this.setState({ SendreqEmail: e.target.value })
+                      
                     }
                   />
 
@@ -997,7 +1004,7 @@ class Viewfamily extends Component {
                 <div className="form-group my-2">
                   <label className="mb-2">Name as per PAN Card</label>
                   <Input
-                    value={this.state.first_name + " " + this.state.middle_name + " " + this.state.last_name}
+                    value={this.state.panCardValidatedName}
                     disabled
                   />
                 </div>

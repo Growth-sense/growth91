@@ -1,7 +1,7 @@
 const URLs = {
   fundRaiseRegistration: "FundRaise/register",
   registerNewInvestor: "Investor/register",
-  addInvestorViaFamily: "Investor/addInvestor",
+  addInvestorViaFamily: "Investor/addInvestorViaFamily",
   comment: "Blog/comment",
   commentlist: "Blog/commentlist",
   getstatusdata: "Users/getstatusdata",

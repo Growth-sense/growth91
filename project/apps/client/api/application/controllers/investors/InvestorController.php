@@ -419,6 +419,7 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 			    $response = [
 				'status' => '0',
 				'message'=> 'Investor is not availale with this details.',
+				'query' => $sql,
 				'data' => [],
 			];
 			}

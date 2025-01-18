@@ -274,6 +274,14 @@ class Investor extends CI_Controller
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 		$formdata = json_decode(file_get_contents('php://input'), true);
 		if (!empty($formdata)) {
+
+			
+
+			
+
+
+
+
 			$first_name = $formdata['first_name'];
 			$middle_name = $formdata['middle_name'];
 			$last_name = $formdata['last_name'];
@@ -297,7 +305,7 @@ class Investor extends CI_Controller
 					'middle_name' => $middle_name,
 					'last_name' => $last_name,
 					'email' => $email,
-					'user_type' => 'investor',
+					'user_type' => 'nvestor',
 					'user_registered_dt' => date('Y-m-d'),
 				];
 				$this->db->insert('users', $post_data);
@@ -315,7 +323,15 @@ class Investor extends CI_Controller
 					];
 				}
 			}
+		}else{
+			$response = [
+				'status' => '0',
+				'message' => 'Please enter values of all fields.',
+			];
 		}
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
 	}
 
 	public function sendotp()
