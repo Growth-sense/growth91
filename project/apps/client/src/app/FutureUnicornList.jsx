@@ -269,11 +269,11 @@ export const FutureUnicornList = () => {
 </Modal>
 
       {/* Filtered Cards */}
-      <div className="row justify-content-center card-box">
+      <div className="row justify-content-center card-box" >
         {filteredData &&
           filteredData.map((item, index) => (
             <div key={index} className="grid-cards col-md-4">
-              <div className="community-all-contents">
+              <div className="community-all-contents" style={{height: "500px"}}>
                 <div className="img-community-box">
                   <img
                     src={
@@ -299,6 +299,10 @@ export const FutureUnicornList = () => {
                     </li>
                   </ul>
                   <p>{item.udDealDescription}</p>
+             
+                </div>
+                <div className="community-paragraph-box">
+            
                   <Link
                     to={`/FutureUnicornDescription?id=${item.unicornDealID}`}
                     className="btn-com"

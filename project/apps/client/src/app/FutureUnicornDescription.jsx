@@ -445,7 +445,6 @@ object-fit:cover;
  /* Section Styling */
 .market-overview-section {
   background-color: #f8f9fa;
-  padding: 50px 0;
 }
 
 /* Card Styling */
@@ -464,7 +463,6 @@ object-fit:cover;
 }
 
 .media-coverage-section {
-  padding: 50px 0;
 }
 
 /* Card Styling */
@@ -556,7 +554,6 @@ object-fit:cover;
 }
 
 .contact-us-section {
-  padding: 50px 0;
 }
 
 .contact-info-card {
@@ -653,6 +650,64 @@ border-radius: 15px;
 
 }
 
+.about-text {
+color: #fff;
+text-align: justify;  
+}
+
+
+/* Responsive Styling */
+
+@media only screen and (max-width: 600px) {
+
+.text-section button {
+    width: 200px;
+    font-size: 1rem;
+    color: #0000 0;
+    background-color: transparent;
+    border: 1px solid #0000 0;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.content-section-banner {
+  display: block !important;
+
+}
+
+.text-section {
+  text-align: center;
+  }
+.text-section h1 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #29176f !important;
+}
+
+.design-space {
+margin-top: 100px;
+
+}
+
+.about-img{
+ margin-bottom: 20px;
+
+}
+
+.about-all {
+  padding: 30px !important;
+
+
+}
+
+.about-text {
+color: #fff;
+text-align: justify;  
+}
+
+}
 
 `}
       </style>
@@ -701,7 +756,7 @@ border-radius: 15px;
                       />
                     </div>
 
-                    <div className="d-flex ps-4 gap-5">
+                    <div className="content-section-banner d-flex ps-4 gap-5">
                       {/* Logo Section */}
                       <div className="logo-section">
                         {/* Replace with your logo */}
@@ -729,6 +784,7 @@ border-radius: 15px;
                         <button
                           className="primaryInterested"
                           style={{
+                            height: "100%",
                             backgroundColor: "#5C33CF",
                             color: "white",
                             border: "none",
@@ -742,9 +798,9 @@ border-radius: 15px;
                     </div>
                   </div>
                 </section>
-                <section className="container py-5 my-5">
+                <section className="container my-5">
                   <div
-                    className="shadow-lg p-5"
+                    className="about-all shadow-lg p-5"
                     style={{
                       backgroundColor: "#5C33CF",
                       color: "white",
@@ -753,7 +809,7 @@ border-radius: 15px;
                   >
                     <div className="row">
                       {/* Left Image Section */}
-                      <div className="col-md-4 d-flex justify-content-center align-items-center">
+                      <div className="about-img col-md-4 d-flex justify-content-center align-items-center">
                         <div
                           className="bg-white"
                           style={{ borderRadius: "15px" }}
@@ -773,7 +829,7 @@ border-radius: 15px;
 
                       {/* Right Text Section */}
                       <div className="col-md-8 d-flex flex-column justify-content-center">
-                        <p className="text-white">{item.udDealDescription}</p>
+                        <p className="about-text">{item.udDealDescription}</p>
                         {/* <NewLINK
                           to="/"
                           className="read-btn mt-5 px-4 py-2 rounded-pill"
@@ -785,8 +841,8 @@ border-radius: 15px;
                   </div>
                 </section>
 
-                <section className="container py-5 my-5">
-                  <h2 className="text-center mb-5">Highlights</h2>
+                <section className="container my-5">
+                  <h2 className="text-center mb-4">Highlights</h2>
                   <div className="row">
                     {/* Highlight 1 */}
 
@@ -827,8 +883,8 @@ border-radius: 15px;
                 </section>
 
                 <section className="container my-5">
-                  <h2 className="text-center mb-5">Team</h2>
-                  <div className="row row-box-linse Grid-team">
+                  <h2 className="text-center mb-3">Team</h2>
+                  <div className="row row-box-linse Grid-team px-1">
                     {item.udVendorId &&
                       JSON.parse(item.udVendorId).map(
                         (itemudVendorId, indexudVendorId) => (
@@ -876,7 +932,7 @@ border-radius: 15px;
                                 </div>
                               </div>
                               {/* Description Section */}
-                              <div className="p-3">
+                              <div className="p-3" style={{height: "210px"}}>
                                 <p className="p-4">
                                   {itemudVendorId.description1
                                     ? itemudVendorId.description1
@@ -890,9 +946,9 @@ border-radius: 15px;
                   </div>
                 </section>
 
-                <section className="container my-5 py-5 market-overview-section">
+                <section className="container my-5  market-overview-section">
                   <h2 className="text-center mb-5">Market Overview</h2>
-                  <div className="row market-overreview-row px-5">
+                  <div className="row market-overreview-row">
                     {item.udMark &&
                       JSON.parse(item.udMark).map((itemudMark, index) => (
                         <div className="col-md-4 mb-4" key={index}>
@@ -908,8 +964,8 @@ border-radius: 15px;
 
                 {item.udMediaCoverageFiles &&
                   JSON.parse(item.udMediaCoverageFiles).length > 0 && (
-                    <section className="container my-5 py-5 media-coverage-section">
-                      <h2 className="text-center mb-5">Media Coverage</h2>
+                    <section className="container my-5 media-coverage-section">
+                      <h2 className="text-center mb-4">Media Coverage</h2>
                       <div className="row">
                         {JSON.parse(item.udMediaCoverageFiles).map(
                           (
@@ -986,7 +1042,7 @@ border-radius: 15px;
                   </div>
                 </section>
 
-                <section className="container my-5 py-5 videos-section">
+                <section className="container my-5 videos-section">
                   <h2 className="text-center mb-5">Videos</h2>
                   <div className="video-slide">
                     <iframe
@@ -1007,11 +1063,11 @@ border-radius: 15px;
                   </div>
                 </section>
 
-                <section className="container my-5 py-5 contact-us-section">
+                <section className="container my-5 contact-us-section">
                   <h2 className="text-center mb-5">Contact Us</h2>
-                  <div className="row">
+                  <div className="row mx-0">
                     {/* Contact Information Card */}
-                    <div className="col-md-4" style={{padding: 0}}>
+                    <div className="col-md-4 my-2">
                       <div className="contact-info-card">
                         <h2>Contact Information</h2>
                         <ul className="contact-info-list">
@@ -1064,7 +1120,7 @@ border-radius: 15px;
                     </div>
 
                     {/* Company Information */}
-                    <div className="col-md-8 center-class">
+                    <div className="col-md-8 center-class my-2  ">
                       <div className="row">
                         <div className="col-md-6">
                           <ul className="company-info-list">
