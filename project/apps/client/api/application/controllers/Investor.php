@@ -357,12 +357,18 @@ class Investor extends CI_Controller
 					'last_name' => $last_name,
 					'user_type' => 'nvestor',
 					'user_registered_dt' => date('Y-m-d'),
+					'groupID' => $group_id,
 				];
 				$this->db->insert('users', $post_data);
 				$id = $this->db->insert_id();
 
+
+				$temp_email = 'temp' . $id . '@growth91.com';
+				$temp_mobile = '0000000000' . $id;
 				// 				// After registering the user, insert into the group_invite table
 				$group_invite_data = [
+					'invite_email' => $temp_email,
+					'invite_mobile' => $temp_mobile,
 					'member_id' => $id,
 					'userID' => $user_id,          // Use the newly created user_id
 					'groupID' => $group_id,   // Use the group_id from the request

@@ -1220,7 +1220,8 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 			$groupID = $formdata['groupID'];
 			$deleteRequested="";
 			
-            $sql="SELECT * FROM `users` WHERE parent_id = '$parent_id' AND groupID='$groupID' ORDER BY first_name";
+            // $sql="SELECT * FROM `users` WHERE parent_id = '$parent_id' AND groupID='$groupID' ORDER BY first_name";
+            $sql="SELECT * FROM `users` WHERE groupID='$groupID' ORDER BY first_name";
             $query=$this->db->query($sql);
             $result = $query->result();
             $num_rows=$query->num_rows();

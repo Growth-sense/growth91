@@ -447,8 +447,12 @@ class Viewfamily extends Component {
           last_name: "",
           
         });
-        // addfamily
-        this.addfamily();
+
+        // close the modal
+        this.setState({ addModalStatus: false });
+      
+      }else{
+        toast.error(result.message);
       }
     });
   };
