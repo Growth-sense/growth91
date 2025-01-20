@@ -122,14 +122,14 @@ sendotp =()=>{
   }
   accpetinvitaion =(e)=>{
       e.preventDefault()
-    if( !this.state.emailotp && !this.state.mobileotp){
+    if( !this.state.emailotp){
         alert("plz fill all field")
     }
     else{
 
         let params = {
             emailOTP:this.state.emailotp,
-            mobileOTP:this.state.mobileotp,
+            // mobileOTP:this.state.mobileotp,
             inviteID: this.state.inviteid,
         };
         console.log(params);
@@ -210,7 +210,7 @@ sendotp =()=>{
                       /> 
                      
                       
-                      <label>Mobile Otp</label>
+                      {/* <label>Mobile Otp</label>
                       <input 
                         type="text" 
                         name="otp" 
@@ -222,7 +222,7 @@ sendotp =()=>{
                           this.setState({ mobileotp: e.target.value })
                         }
                         // disabled={true}
-                      /> 
+                      />  */}
                      
                       <button
                         type="button"

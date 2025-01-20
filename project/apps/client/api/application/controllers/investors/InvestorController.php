@@ -1006,12 +1006,10 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 		if(!empty($formdata)) {
 			$inviteID  = $formdata['inviteID'];
 			$emailOTP = $formdata['emailOTP'];
-			$mobileOTP = $formdata['mobileOTP'];
 			$parentID=0;
 			$groupID =0;
 			$invite_email  =0;
-			$invite_mobile  =0;
-			$sql="SELECT *  FROM `group_invites` WHERE emailOTP ='$emailOTP' AND mobileOTP ='$mobileOTP' AND inviteID ='$inviteID'";
+			$sql="SELECT *  FROM `group_invites` WHERE emailOTP ='$emailOTP' AND inviteID ='$inviteID'";
 			$query=$this->db->query($sql);
 			$result=$query->result();
 			$num_rows=$query->num_rows();
@@ -1021,7 +1019,7 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 					$groupID = $result[0]->groupID;
 					$parentID = $result[0]->userID;
 					$invite_email = $result[0]->invite_email;
-					$invite_mobile = $result[0]->invite_mobile;
+					
 				// once verify update status in group invite table
 					$post_data = [
 						'emailVerified' => "Yes",
@@ -1045,7 +1043,7 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 						];		
 					}
 				// update user data against the invite email and mobile with group ID and parent ID 
-				$sql="SELECT *  FROM `users` WHERE email ='$invite_email' AND mobile ='$invite_mobile'  ";
+				$sql="SELECT *  FROM `users` WHERE email ='$invite_email' ";
 				$query=$this->db->query($sql);
 				$result=$query->result();
 				$num_rows=$query->num_rows();
