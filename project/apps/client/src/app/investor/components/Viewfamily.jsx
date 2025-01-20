@@ -62,6 +62,18 @@ class Viewfamily extends Component {
       typeofmember: "Indian Resident",
       country_code: "",
       countemailseconds: 119000,
+      panVerifyStatus: false,
+      adharVerifyStatus: false,
+      bankAcountVerifyStatus: false,
+      loading: false,
+      activetab: 0,
+      accountno: "",
+      ifsccode: "",
+      pan_details: {},
+      adhar_details: {},
+      bank_details: {},
+      kycstatus:'',
+      nationality:'', 
     };
   }
 
@@ -427,6 +439,26 @@ class Viewfamily extends Component {
   };
 
   addInvestorViaFamilyWithoutEmail = () => {
+
+    //validate name and pan verification status
+    if (!this.state.first_name || !this.state.last_name) {
+      toast.error("Please enter first name and last name");
+      return;
+    }
+
+    if (!this.state.panno || this.state.panno.length != 10) {
+      toast.error("Please enter valid PAN number");
+      return;
+    }
+
+    // panVerifyStatus
+    if (!this.state.panVerifyStatus) {
+      toast.error("Please verify PAN number");
+      return;
+    }
+
+
+
     console.log("addInvestorViaFamilyWithoutEmailCheck");
     let params = {
       first_name: this.state.first_name,
@@ -467,10 +499,9 @@ class Viewfamily extends Component {
     }
     return false;
   };
-
   CHECK_pan_no = (e) => {
     e.preventDefault();
-    if (!this.state.panno || this.state.panno.length != 10) {
+    if (!this.state.panno || this.state.panno.length !== 10) {
       notification.warning({
         message: `Invalid PAN number`,
         description: "Please enter the valid PAN number",
@@ -479,18 +510,9 @@ class Viewfamily extends Component {
       });
       return;
     }
-    // if (!this.state.panimage && !this.state.api_panimage) {
-    //   notification.warning({
-    //     message: `No Image Selected`,
-    //     description: "Please select",
-    //     placement: "top",
-    //     duration: 5,
-    //   });
-    //   return;
-    // }
-    // this.setState({ imgtype: "pan" })
+  
     let panstatus = this.checkforpanno(this.state.panno);
-    if (panstatus == false) {
+    if (panstatus === false) {
       notification.warning({
         message: `Invalid format of PAN No`,
         description: "Please enter valid PAN No.",
@@ -499,70 +521,95 @@ class Viewfamily extends Component {
       });
       return;
     }
+  
     this.setState({ loading: true });
     axios({
       method: "post",
-      url: `${process.env.REACT_APP_BASE_URL}verification/pan.php`,
+      url: `https://growth91.growthmetaverse.in/api/Panverification/verify_pan`,
       headers: {
         "Content-Type": "application/json",
       },
-
       data: {
         pan_no: this.state.panno,
       },
-    }).then((response) => {
-      if (response.data.valid === true) {
-        // this.uploadimg();
-        notification.success({
-          message: `Success`,
-          description: "PAN is Valid.",
-          placement: "top",
-          duration: 5,
-        });
-
-        ReactGA.event({
-          category: "KYC",
-          action: "PAN Verified",
-        });
-
-        this.setState(
-          {
-            // panVerifyStatus: true,
-            // legalname: response.data.registered_name,
-            // fathername: "",
-            // screen1: false,
-            // screen2: true,
-            // screen3: false,
-            // screen4: false,
-            // screen5: false,
-            // pan_details: response.data,
-            // selectedTab: "1",
-            // adharscreen: "0",
-            // pan_submit: true,
-            // imgtype: "",
-          },
-          () => {
-            this.update_pan_no();
-            this.setState({ loading: false });
-          }
-        );
-        $("html, body").animate(
-          {
-            scrollTop: 280,
-          },
-          1000
-        );
-      } else {
-        notification.warning({
-          message: response.data.message,
-          description: "Please enter the valid pan number.",
+    })
+      .then((response) => {
+        // Parse the `data` field
+        let parsedData;
+        try {
+          parsedData = JSON.parse(response.data.data);
+        } catch (error) {
+          notification.error({
+            message: "Error",
+            description: "Failed to parse response data.",
+            placement: "top",
+            duration: 5,
+          });
+          this.setState({ loading: false });
+          return;
+        }
+  
+        if (parsedData.valid === true) {
+          notification.success({
+            message: `Success`,
+            description: "PAN is Valid.",
+            placement: "top",
+            duration: 5,
+          });
+  
+          ReactGA.event({
+            category: "KYC",
+            action: "PAN Verified",
+          });
+  
+          this.setState(
+            {
+              panVerifyStatus: true,
+              legalname: parsedData.registered_name,
+              fathername: parsedData.father_name || "",
+              screen1: false,
+              screen2: true,
+              screen3: false,
+              screen4: false,
+              screen5: false,
+              pan_details: parsedData,
+              selectedTab: "1",
+              adharscreen: "0",
+              pan_submit: true,
+              imgtype: "",
+            },
+            () => {
+              this.setState({ loading: false });
+            }
+          );
+  
+          $("html, body").animate(
+            {
+              scrollTop: 280,
+            },
+            1000
+          );
+        } else {
+          notification.warning({
+            message: parsedData.message || "Verification Failed",
+            description: "Please enter the valid PAN number.",
+            placement: "top",
+            duration: 5,
+          });
+          this.setState({ loading: false });
+        }
+      })
+      .catch((error) => {
+        notification.error({
+          message: "Error",
+          description: "Failed to verify PAN. Please try again later.",
           placement: "top",
           duration: 5,
         });
         this.setState({ loading: false });
-      }
-    });
+      });
   };
+  
   render() {
     console.log(this.state.viewmemberdetail);
     return (
@@ -1056,7 +1103,7 @@ class Viewfamily extends Component {
                 <div className="form-group my-2">
                   <label className="mb-2">Name as per PAN Card</label>
                   <Input
-                    value={this.state.panCardValidatedName}
+                    value={this.state.legalname}
                     disabled
                   />
                 </div>
