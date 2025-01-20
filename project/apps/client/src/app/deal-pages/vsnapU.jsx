@@ -3,6 +3,7 @@ import WebHeader from "../common/WebHeader";
 import WebFooter from "../common/WebFooter";
 import "./newboo.css";
 import {
+    Table,
     Tabs,
     Collapse,
     message,
@@ -29,6 +30,7 @@ class VsnapU extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            group_list: [],
             deal_id: "",
             investor_id: "",
             interested_id: "",
@@ -139,11 +141,11 @@ class VsnapU extends Component {
     componentDidMount() {
         // ENVIRONMENT get from env and set deal id accordingly
 
-        
-       
+
+
 
         // Determine the deal_id based on the environment
-let deal_id = process.env.ENVIRONMENT === "production" ? "40" : "133";
+        let deal_id = process.env.ENVIRONMENT === "production" ? "40" : "133";
 
 
 
@@ -179,7 +181,51 @@ let deal_id = process.env.ENVIRONMENT === "production" ? "40" : "133";
         this.getGst();
         this.get_deal_doucments(deal_id);
         // console.log("hello");
+
+        this.setState(
+            {
+              investor_id: localStorage.getItem("Parent_investor_id"),
+            },
+      
+            () => this.viewgroupall(),
+            
+          );
+        
     }
+
+   viewgroupall = () => {
+       let values
+       let params = {
+         userID:!this.props.adminview?localStorage.getItem("Parent_investor_id"):this.props.investor_id,
+       }
+   
+       Bridge.family.getGroupList(params).then((result) => {
+         this.setState({ group_list: result.data });
+       });
+     };
+
+     getmember = (value) => {
+        if (localStorage.getItem("Parent_investor_id"))
+          this.setState({ memberdetail: "", memberlistloader: true });
+        this.setState({ ids: value });
+        let params = {
+          parent_id: !this.props.adminview?localStorage.getItem("Parent_investor_id"):this.props.investor_id,
+          groupID: value,
+        };
+        this.setState({ chggroupID: value });
+    
+        Bridge.investor.getfamilymember(params).then((result) => {
+          const data = result.data.filter((item, index) => {
+            return item.investor_id == !this.props.adminview?localStorage.getItem("Parent_investor_id"):this.props.investor_id
+          });
+         
+    
+          this.setState({ memberdetail: result.data, memberlistloader: false });
+        });
+      };
+
+
+
     get_founder_details = () => {
         let params = {
             founder_id: localStorage.getItem("founder_id"),
@@ -610,7 +656,7 @@ let deal_id = process.env.ENVIRONMENT === "production" ? "40" : "133";
                                 });
                             }
                         }
-                        // console.log('button_show_status',this.state.button_show_status);
+                        console.log('button_show_status', this.state.button_show_status);
                         this.setState(
                             {
                                 deal_name: d.name,
@@ -1257,6 +1303,114 @@ let deal_id = process.env.ENVIRONMENT === "production" ? "40" : "133";
     };
 
     render() {
+
+
+        const dataSource =
+            this.state.group_list &&
+            this.state.group_list
+                .filter(
+                    (item) => item.userID == !this.props.adminview ? localStorage.getItem("Parent_investor_id") : this.props.investor_id,
+                )
+                .map((item, index) => {
+
+
+
+                    return {
+                        key: item.groupID,
+                        name: item.groupName,
+                        groupCreateDate: item.groupCreateDate
+                            ? moment(item.groupCreateDate).format("DD MMM, YYYY")
+                            : "---",
+                        Status: item.groupStatus,
+                    };
+                });
+        const dataSource2 =
+            this.state.group_list &&
+            this.state.group_list
+                .filter(
+                    (item) => item.userID != (this.props.adminview ? this.props.investor_id : localStorage.getItem("Parent_investor_id")),
+                )
+                .map((item, index) => {
+
+
+                    return {
+                        key: item.groupID,
+                        name: item.groupName,
+                        groupCreateDate: item.groupCreateDate
+                            ? moment(item.groupCreateDate).format("DD MMM, YYYY")
+                            : "---",
+                        Status: item.groupStatus,
+                        action: item,
+                    };
+                });
+
+
+                const columns = [
+                    {
+                      title: "Group Name",
+                      dataIndex: "name",
+                      key: "name",
+                    },
+              
+                    {
+                      title: "Date of Creation",
+                      dataIndex: "groupCreateDate",
+                      key: "groupCreateDate",
+                    },
+              
+                    {
+                      title: "Status",
+                      dataIndex: "Status",
+                      key: "Status",
+                    },
+                  
+                  ];
+                  const columns2 = [
+                    {
+                      title: "Group Name",
+                      dataIndex: "name",
+                      key: "name",
+                    },
+              
+                    {
+                      title: "Date of Creation",
+                      dataIndex: "groupCreateDate",
+                      key: "groupCreateDate",
+                    },
+              
+                    {
+                      title: "Status",
+                      dataIndex: "Status",
+                      key: "Status",
+                    },
+                  ];
+
+
+
+                const MembersourceSource =
+                this.state.memberdetail &&
+                this.state.memberdetail.map((item, index) => {
+                  return {
+                    key: item.groupID,
+                    name: item.first_name + " " + item.last_name,
+                    groupCreateDate: item.groupCreateDate
+                      ? moment(item.groupCreateDate).format("DD MMM, YYYY")
+                      : "---",
+                    Status: item.groupStatus,
+                    data: item,
+                  };
+                });
+              const Membercolumns = [
+                {
+                  title: "Name",
+                  dataIndex: "name",
+                  key: "name",
+                },
+          
+                
+              ];
+
+
         const myStyle = {
             color: "white",
             fontSize: "17px",
@@ -1285,6 +1439,40 @@ let deal_id = process.env.ENVIRONMENT === "production" ? "40" : "133";
                             className="deals-details-page"
                             style={{ marginBottom: "-50px" }}
                         >
+
+
+
+{dataSource2.length != 0 && (
+                <section id="hdii" style={{ minHeight: "10vh", marginTop: 0 }}>
+                  <div className="row">
+                    <div
+                      className="col-10 my-2"
+                      style={{ marginTop: 50, marginLeft: 30 }}
+                    >
+                      <h2 className="text-center mb-3">Group Member</h2>
+                    </div>
+                  </div>
+
+                  <div className="row m-md- ms-2 p-md-3 pt-3">
+                    <div className="col-4 "></div>
+
+                    <div className="col offset-md-4"></div>
+
+                    <div className="row m-3 p-3">
+                      <Table
+                        className="table-2"
+                        dataSource={dataSource2}
+                        columns={columns2}
+                        bordered
+                        loading={this.state.loading}
+                      />
+                    </div>
+                  </div>
+                </section>
+              )}
+
+
+
                             <div className="container main-section">
                                 <div className="row">
                                     <div className="col-lg-5 col-md-5 col-sm-5">
@@ -1392,7 +1580,17 @@ let deal_id = process.env.ENVIRONMENT === "production" ? "40" : "133";
                                                 </div>
                                             ) : (
                                                 <>
-                                                    {this.state.button_show_status == true ? (
+
+
+
+
+                                                    {/* console log isfunded */}
+                                                    {console.log('is funded is ' + this.state.isFunded)}
+                                                    {/* TODO:Orginal condition */}
+                                                    {/* {this.state.button_show_status == true ? ( */}
+
+
+                                                    {this.state.button_show_status == false ? (
                                                         <>
                                                             <div className="button-group">
                                                                 {this.state.isFunded == true ? (
@@ -1446,7 +1644,25 @@ let deal_id = process.env.ENVIRONMENT === "production" ? "40" : "133";
                                                                                 }}
                                                                             >
                                                                                 Express Your Interest
+
+
                                                                             </a>
+
+
+
+
+
+
+                                                                            // check group_list length and if larger than 1 button for express interest as group 
+
+
+
+
+
+
+
+
+
                                                                         ) : (
                                                                             <a
                                                                                 href="/founder-as-investor"
@@ -1501,7 +1717,7 @@ let deal_id = process.env.ENVIRONMENT === "production" ? "40" : "133";
                                                                         className="black-button prime-bg"
                                                                         style={{ cursor: "default" }}
                                                                     >
-                                                                        Deal is closed
+                                                                        Deal is closed0
                                                                     </a>
                                                                 </div>
                                                             )}
