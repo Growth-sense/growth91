@@ -904,6 +904,10 @@ export default {
       api.post(URLs.getGroupList, data).then((response) => {
         return response.data;
       }),
+    getGroupListForInvestment: (data) =>
+      api.post(URLs.getGroupList, data).then((response) => {
+        return response.data;
+      }),
     checkFamilyMember: (data) =>
       api.post(URLs.checkFamilyMember, data).then((response) => {
         return response.data;

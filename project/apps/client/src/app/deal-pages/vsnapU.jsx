@@ -12,6 +12,7 @@ import {
     Checkbox,
     Progress,
     Alert,
+    notification,
 } from "antd";
 import axios from "axios";
 import { ExclamationCircleOutlined, PlusOutlined } from "@ant-design/icons";
@@ -30,6 +31,8 @@ class VsnapU extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            selectedInvestorId: null,
+            selectInvestorModal: false,
             group_list: [],
             deal_id: "",
             investor_id: "",
@@ -130,7 +133,7 @@ class VsnapU extends Component {
             ],
             current: "",
         };
-    }
+    } 
     callback1 = (key) => { };
     callback2 = (key) => { };
     callback3 = (key) => { };
@@ -199,8 +202,14 @@ class VsnapU extends Component {
          userID:!this.props.adminview?localStorage.getItem("Parent_investor_id"):this.props.investor_id,
        }
    
-       Bridge.family.getGroupList(params).then((result) => {
-         this.setState({ group_list: result.data });
+       Bridge.family.getGroupListForInvestment(params).then((result) => {
+            let youAsMember = [{
+                investor_id: localStorage.getItem("Parent_investor_id"),
+                first_name: "You",
+                last_name:"",
+                groupName: "N/A"
+            }]
+         this.setState({ group_list: youAsMember.concat(result.data) });
        });
      };
 
@@ -732,6 +741,7 @@ class VsnapU extends Component {
 
         this.setState(
             {
+                selectInvestorModal: false,
                 investmentmodal: true,
             },
             () => {
@@ -1303,113 +1313,47 @@ class VsnapU extends Component {
     };
 
     render() {
-
-
-        const dataSource =
-            this.state.group_list &&
-            this.state.group_list
-                .filter(
-                    (item) => item.userID == !this.props.adminview ? localStorage.getItem("Parent_investor_id") : this.props.investor_id,
-                )
-                .map((item, index) => {
-
-
-
-                    return {
-                        key: item.groupID,
-                        name: item.groupName,
-                        groupCreateDate: item.groupCreateDate
-                            ? moment(item.groupCreateDate).format("DD MMM, YYYY")
-                            : "---",
-                        Status: item.groupStatus,
-                    };
-                });
         const dataSource2 =
             this.state.group_list &&
             this.state.group_list
-                .filter(
-                    (item) => item.userID != (this.props.adminview ? this.props.investor_id : localStorage.getItem("Parent_investor_id")),
-                )
+                // .filter(
+                //     (item) => {
+                //         console.log(item);
+                //         return item.userID != (this.props.adminview ? this.props.investor_id : localStorage.getItem("Parent_investor_id"))
+                //     }
+                // )
                 .map((item, index) => {
-
-
                     return {
-                        key: item.groupID,
-                        name: item.groupName,
-                        groupCreateDate: item.groupCreateDate
-                            ? moment(item.groupCreateDate).format("DD MMM, YYYY")
-                            : "---",
-                        Status: item.groupStatus,
+                        key: item.investor_id,
+                        investorName: item.first_name + " " + item.last_name,
+                        groupName: item.groupName,
                         action: item,
                     };
                 });
 
 
-                const columns = [
-                    {
-                      title: "Group Name",
-                      dataIndex: "name",
-                      key: "name",
-                    },
-              
-                    {
-                      title: "Date of Creation",
-                      dataIndex: "groupCreateDate",
-                      key: "groupCreateDate",
-                    },
-              
-                    {
-                      title: "Status",
-                      dataIndex: "Status",
-                      key: "Status",
-                    },
-                  
-                  ];
-                  const columns2 = [
-                    {
-                      title: "Group Name",
-                      dataIndex: "name",
-                      key: "name",
-                    },
-              
-                    {
-                      title: "Date of Creation",
-                      dataIndex: "groupCreateDate",
-                      key: "groupCreateDate",
-                    },
-              
-                    {
-                      title: "Status",
-                      dataIndex: "Status",
-                      key: "Status",
-                    },
-                  ];
-
-
-
-                const MembersourceSource =
-                this.state.memberdetail &&
-                this.state.memberdetail.map((item, index) => {
-                  return {
-                    key: item.groupID,
-                    name: item.first_name + " " + item.last_name,
-                    groupCreateDate: item.groupCreateDate
-                      ? moment(item.groupCreateDate).format("DD MMM, YYYY")
-                      : "---",
-                    Status: item.groupStatus,
-                    data: item,
-                  };
-                });
-              const Membercolumns = [
-                {
-                  title: "Name",
-                  dataIndex: "name",
-                  key: "name",
-                },
-          
                 
-              ];
+                  const columns2 = [
+                    // {
+                    //     title: "Investor Name",
+                    //     dataIndex: "name",
+                    //     key: "name",  
+                    // },
+                    {
+                        title: "Investor Name",
+                        dataIndex: "investorName",
+                        key: "investorName",
+                      },
+                    {
+                      title: "Group Name",
+                      dataIndex: "groupName",
+                      key: "groupName",
+                    }
+                  ];
 
+
+
+             
 
         const myStyle = {
             color: "white",
@@ -1439,40 +1383,6 @@ class VsnapU extends Component {
                             className="deals-details-page"
                             style={{ marginBottom: "-50px" }}
                         >
-
-
-
-{dataSource2.length != 0 && (
-                <section id="hdii" style={{ minHeight: "10vh", marginTop: 0 }}>
-                  <div className="row">
-                    <div
-                      className="col-10 my-2"
-                      style={{ marginTop: 50, marginLeft: 30 }}
-                    >
-                      <h2 className="text-center mb-3">Group Member</h2>
-                    </div>
-                  </div>
-
-                  <div className="row m-md- ms-2 p-md-3 pt-3">
-                    <div className="col-4 "></div>
-
-                    <div className="col offset-md-4"></div>
-
-                    <div className="row m-3 p-3">
-                      <Table
-                        className="table-2"
-                        dataSource={dataSource2}
-                        columns={columns2}
-                        bordered
-                        loading={this.state.loading}
-                      />
-                    </div>
-                  </div>
-                </section>
-              )}
-
-
-
                             <div className="container main-section">
                                 <div className="row">
                                     <div className="col-lg-5 col-md-5 col-sm-5">
@@ -1640,7 +1550,7 @@ class VsnapU extends Component {
                                                                                 className="black-button prime-bg text-center"
                                                                                 onClick={() => {
                                                                                     this.getpostData();
-                                                                                    this.showModal1();
+                                                                                    this.setState({selectInvestorModal: true});                                                               
                                                                                 }}
                                                                             >
                                                                                 Express Your Interest
@@ -1681,7 +1591,7 @@ class VsnapU extends Component {
                                                                                 className="black-button prime-bg text-center"
                                                                                 onClick={() => {
                                                                                     this.getpostData();
-                                                                                    this.showModal1();
+                                                                                    this.setState({selectInvestorModal: true});
                                                                                 }}
                                                                                 style={{ padding: "13px 0" }}
                                                                             >
@@ -1727,6 +1637,58 @@ class VsnapU extends Component {
                                             )}
                                         </Spin>
                                     </div>
+                                    <Modal
+                                        title={`Select Investor`}
+                                        okText={"Select"}
+                                        visible={this.state.selectInvestorModal}
+                                        
+                                        
+                                        cancelText="Cancel"
+                                        width={600}
+                                        footer={false}
+                                    >
+                                         <Table
+                                          rowSelection={{
+                                            type: "radio",
+                                            onSelect: (x) => {
+                                                this.setState({selectedInvestorId: x.key})
+                                            }
+                                            // selectedRowKeys: this.state.selectedRowKeys,
+                                            // onChange: (x,y) => {
+                                            //     console.log(x);
+                                            //     console.log(y);
+                                            // }
+                                        }}
+
+                                            className="table-2"
+                                            dataSource={dataSource2}
+                                            columns={columns2}
+                                            bordered
+                                            loading={this.state.loading}
+                                        />
+                                        
+                                            <button
+                                                type="button"
+                                                className="login-button prime-bg d-md-block mx-auto w-50 mt-1"
+                                                onClick={() => {
+                                                    if(this.state.selectedInvestorId == null){
+                                                        notification.warning({
+                                                            message: `Please Select an Investor`,
+                                                            placement: "top",
+                                                            duration: 5,
+                                                          });
+                                                        
+                                                    }else{
+                                                        this.showModal1();
+                                                    }
+                                                }}
+                                            >
+                                                Invest as Selected User
+                                            </button>
+                                            
+                                            
+                                        
+                                    </Modal>
                                     <Modal
                                         title={`Invest in ${this.state.deal_name}`}
                                         visible={this.state.investmentmodal}
@@ -1962,7 +1924,7 @@ class VsnapU extends Component {
                                                         maxamount={this.state.maxamount}
                                                         agree={this.state.agree}
                                                         error_status={this.state.amount_error_status}
-                                                        investor_id={this.state.investor_id}
+                                                        investor_id={this.state.selectedInvestorId}
                                                         deduct={this.state.deduct}
                                                         tdsstatus={this.state.tdsstatus}
                                                         gst={this.state.gst}

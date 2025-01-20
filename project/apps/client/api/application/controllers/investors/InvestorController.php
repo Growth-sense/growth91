@@ -388,6 +388,63 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 		->set_content_type('application/json')
 		->set_output(json_encode($response));	
    }
+
+
+   public function getGroupListForInvestment()
+	{
+	   header("Access-Control-Allow-Origin: *");
+	   header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+	   header("Access-Control-Allow-Origin: *");
+	   header("Access-Control-Allow-Headers: access");
+	   header("Content-Type: application/json; charset=UTF-8");
+	   header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+	   $formdata = json_decode(file_get_contents('php://input'), true);
+		if(!empty($formdata)) {
+            $userID = $formdata['userID'];
+			if($userID <> "-1") 
+           	 $sql="SELECT 
+				g.groupID,
+				g.groupName,
+				u.investor_id,
+				u.first_name,
+				u.last_name,
+				u.email,
+				u.mobile,
+				gi.invite_status
+			FROM groups g
+			LEFT JOIN group_invites gi ON g.groupID = gi.groupID
+			LEFT JOIN users u ON gi.member_id = u.investor_id
+			WHERE gi.invite_status = 'Accepted' AND g.userID = '$userID'
+			ORDER BY g.groupName, u.first_name;";
+			else
+				$sql="SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inner join users on users.investor_id = groups.userID  WHERE 1 = '1' ORDER BY groupName";
+            $query=$this->db->query($sql);
+            $result = $query->result();
+            $num_rows=$query->num_rows();
+			if($result) {
+				$response = [
+					'status' => '1',
+					'message' => 'Groups fetched successfully.',
+					'data' => $result,
+				];
+			} else {
+				$response =[
+					'status' => '1',
+					'message' => 'Family members are fetched successfully.',
+					'data' => [],
+				];
+			}
+		} else {
+			$response = [
+				'status' => '0',
+				'message'=> 'Please enter values of all fields.',
+			];
+		}
+		$this->output
+		->set_content_type('application/json')
+		->set_output(json_encode($response));	
+   }
+
    //	Check family member email/mobile
    public function checkFamilyMember()
 	 {
@@ -1225,13 +1282,13 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 	   header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 	   $formdata = json_decode(file_get_contents('php://input'), true);
 		if(!empty($formdata)) {
-            $parent_id = $formdata['parent_id'];
+            // $parent_id = $formdata['parent_id'];
 			$groupID = $formdata['groupID'];
 			$deleteRequested="";
 			
             // $sql="SELECT * FROM `users` WHERE parent_id = '$parent_id' AND groupID='$groupID' ORDER BY first_name";
 			
-            $sql="SELECT * FROM users WHERE investor_id IN (SELECT member_id FROM `group_invites` where groupID = '22' and invite_status = 'Accepted');";
+            $sql="SELECT * FROM users WHERE investor_id IN (SELECT member_id FROM `group_invites` where groupID = '$groupID' and invite_status = 'Accepted');";
             $query=$this->db->query($sql);
             $result = $query->result();
             $num_rows=$query->num_rows();

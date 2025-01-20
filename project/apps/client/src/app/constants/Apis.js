@@ -255,6 +255,7 @@ const URLs = {
   getfamilymember:"investors/InvestorController/getfamilymember",
   creategroup:"investors/InvestorController/createGroup",
   getGroupList:"investors/InvestorController/getGroupList",
+  getGroupListForInvestment: "investors/InvestorController/getGroupListForInvestment",
   checkFamilyMember:"investors/InvestorController/checkFamilyMember",
   saveInvite:"investors/InvestorController/saveInvite",
   familyInviteOTP:"investors/InvestorController/familyInviteOTP",
