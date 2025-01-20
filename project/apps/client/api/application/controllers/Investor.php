@@ -347,17 +347,18 @@ class Investor extends CI_Controller
 			$last_name = $formdata['last_name'];
 			$group_id = $formdata['groupID'];
 			$user_id = $formdata['userID'];
+			$pan = $formdata['pan'];
+			$legalname = $formdata['legalname'];
 
-
-			
-			
 				$post_data = [
 					'first_name' => $first_name,
 					'middle_name' => $middle_name,
 					'last_name' => $last_name,
-					'user_type' => 'nvestor',
+					'user_type' => 'investor',
 					'user_registered_dt' => date('Y-m-d'),
 					'groupID' => $group_id,
+					'panno' => $pan,
+                	'legal_name' => $legalname,
 				];
 				$this->db->insert('users', $post_data);
 				$id = $this->db->insert_id();
@@ -373,6 +374,7 @@ class Investor extends CI_Controller
 					'userID' => $user_id,          // Use the newly created user_id
 					'groupID' => $group_id,   // Use the group_id from the request
 					'invite_sent' => date('Y-m-d H:i:s'), // Add the invitation timestamp
+					'invite_status' => 'Accepted'
 				];
 
 				// Insert into group_invite table

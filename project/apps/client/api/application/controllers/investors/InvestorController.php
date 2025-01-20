@@ -452,17 +452,7 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 			$invite_email = $formdata['email'];
 			$invite_mobile = $formdata['mobile'];
 			 
-			$post_data = [
-				'groupID' => $groupID,
-				'userID' => $userID,
-				'invite_email' => $invite_email,
-				'invite_mobile' => $invite_mobile,
-				'invite_status' => 'Pending',
-				'invite_sent' => date('Y-m-d H-i a'),
-			 
-				//'email_otp' => $this->GenerateOTP(6);
-				//'mobile_otp' => $this->GenerateOTP(6);
-			];
+			
 			$sql="SELECT inviteID  FROM `group_invites` WHERE invite_email ='$invite_email' AND invite_mobile ='$invite_mobile' AND groupID ='$groupID'";
 			$query=$this->db->query($sql);
 			$result=$query->result();
@@ -477,6 +467,25 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 			}
 			else
 			{
+				$sql0="SELECT * FROM users WHERE email='$invite_email'";
+				$query0=$this->db->query($sql0);
+				$result0=$query0->result();
+				$investorId=$result0[0]->investor_id;
+
+				$post_data = [
+					'groupID' => $groupID,
+					'userID' => $userID,
+					'invite_email' => $invite_email,
+					'invite_mobile' => $invite_mobile,
+					'invite_status' => 'Pending',
+					'invite_sent' => date('Y-m-d H-i a'),
+					'member_id' => $investorId
+				 
+					//'email_otp' => $this->GenerateOTP(6);
+					//'mobile_otp' => $this->GenerateOTP(6);
+				];
+				
+
 			    $this->db->insert('group_invites',$post_data);
 				$id=$this->db->insert_id();
 				if($id) {
@@ -487,7 +496,7 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 						'data' => $id,
 					];
 					//email to invite email
-					$sql="SELECT * FROM users WHERE email='$invite_email' and mobile='$invite_mobile'";
+					$sql="SELECT * FROM users WHERE email='$invite_email'";
 					$query=$this->db->query($sql);
 					$result=$query->result();
 					$invitedName=$result[0]->first_name.' '.$result[0]->last_name;
@@ -1221,7 +1230,8 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 			$deleteRequested="";
 			
             // $sql="SELECT * FROM `users` WHERE parent_id = '$parent_id' AND groupID='$groupID' ORDER BY first_name";
-            $sql="SELECT * FROM `users` WHERE groupID='$groupID' ORDER BY first_name";
+			
+            $sql="SELECT * FROM users WHERE investor_id IN (SELECT member_id FROM `group_invites` where groupID = '22' and invite_status = 'Accepted');";
             $query=$this->db->query($sql);
             $result = $query->result();
             $num_rows=$query->num_rows();

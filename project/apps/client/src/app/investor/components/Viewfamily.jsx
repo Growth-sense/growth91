@@ -73,7 +73,8 @@ class Viewfamily extends Component {
       adhar_details: {},
       bank_details: {},
       kycstatus:'',
-      nationality:'', 
+      nationality:'',
+      autoFill: false
     };
   }
 
@@ -96,6 +97,9 @@ class Viewfamily extends Component {
         isEmailRequired: false,
         nameDetailsShow: true,
         panDetailsShow: true,
+        autoFill: false,
+        SendreqEmail: "",
+        email:""
       }, () => {
         // Log state after all updates are completed
         console.log("registerWithoutEmailCheck", this.state.registerWithoutEmailCheck);
@@ -107,6 +111,9 @@ class Viewfamily extends Component {
         isEmailRequired: true,
         nameDetailsShow: false,
         panDetailsShow: false,
+        autoFill: false,
+        SendreqEmail: "",
+        email:""
       }, () => {
         // Log state after all updates are completed
         console.log("Checkbox is unchecked!");
@@ -138,13 +145,18 @@ class Viewfamily extends Component {
           email: result.data[0].email,
           phone: result.data[0].mobile,
           country_code: result.data[0].country_code,
+          autoFill: true
         });
       } else {
         this.setState({
           nameDetailsShow: true,
           panDetailsShow: false,
-
-
+          autoFill: false,
+          first_name:"",
+          last_name: "",
+          phone: "",
+          country_code: "",
+          email:""
         });
 
         // notification that user not exist but you can still invite by entering details
@@ -466,6 +478,8 @@ class Viewfamily extends Component {
       last_name: this.state.last_name,
       groupID: this.state.ids,
       userID: localStorage.getItem("Parent_investor_id"),
+      pan: this.state.panno,
+      legalname: this.state.legalname
 
     }
     Bridge.users.addInvestorViaFamilyWithoutEmail(params).then((result) => {
@@ -477,7 +491,9 @@ class Viewfamily extends Component {
           first_name: "",
           middle_name: "",
           last_name: "",
-          
+          panVerifyStatus: false,
+          panno: "",
+          legalname:""
         });
 
         // close the modal
@@ -1003,7 +1019,7 @@ class Viewfamily extends Component {
                 <div className="form-group my-2">
                   <Checkbox onChange={this.handleRegisterWithoutEmailCheckbox}>
                   </Checkbox>
-                  <label className="mb-2"> &nbsp;Register Witout Email </label>
+                  <label className="mb-2"> &nbsp;Register Without Email </label>
                 </div>
               </div>
 
@@ -1018,6 +1034,7 @@ class Viewfamily extends Component {
                   <label className="mb-2">First Name<span className="text-danger">*</span></label>
                   <Input
                     value={this.state.first_name}
+                    disabled={this.state.autoFill}
 
                     onChange={(e) => this.setState({ first_name: e.target.value })}
                   />
@@ -1028,6 +1045,7 @@ class Viewfamily extends Component {
                   <label className="mb-2">Middle Name</label>
                   <Input
                     value={this.state.middle_name}
+                    disabled={this.state.autoFill}
                     onChange={(e) => this.setState({ middle_name: e.target.value })}
                   />
                 </div>
@@ -1037,6 +1055,7 @@ class Viewfamily extends Component {
                   <label className="mb-2">Last Name <span className="text-danger">*</span></label>
                   <Input
                     value={this.state.last_name}
+                    disabled={this.state.autoFill}
                     onChange={(e) => this.setState({ last_name: e.target.value })}
                   />
                 </div>
