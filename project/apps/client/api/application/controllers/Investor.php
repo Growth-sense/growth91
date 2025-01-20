@@ -275,12 +275,6 @@ class Investor extends CI_Controller
 		$formdata = json_decode(file_get_contents('php://input'), true);
 		if (!empty($formdata)) {
 
-			
-
-			
-
-
-
 
 			$first_name = $formdata['first_name'];
 			$middle_name = $formdata['middle_name'];
@@ -323,7 +317,7 @@ class Investor extends CI_Controller
 					];
 				}
 			}
-		}else{
+		} else {
 			$response = [
 				'status' => '0',
 				'message' => 'Please enter values of all fields.',
@@ -333,6 +327,160 @@ class Investor extends CI_Controller
 			->set_content_type('application/json')
 			->set_output(json_encode($response));
 	}
+
+
+
+	//addInvestorViaFamilyWithoutEmail
+	public function addInvestorViaFamilyWithoutEmail()
+	{
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		if (!empty($formdata)) {
+
+			$first_name = $formdata['first_name'];
+			$middle_name = $formdata['middle_name'];
+			$last_name = $formdata['last_name'];
+			$group_id = $formdata['groupID'];
+			$user_id = $formdata['userID'];
+
+
+			
+			
+				$post_data = [
+					'first_name' => $first_name,
+					'middle_name' => $middle_name,
+					'last_name' => $last_name,
+					'user_type' => 'nvestor',
+					'user_registered_dt' => date('Y-m-d'),
+				];
+				$this->db->insert('users', $post_data);
+				$id = $this->db->insert_id();
+
+				// 				// After registering the user, insert into the group_invite table
+				$group_invite_data = [
+					'member_id' => $id,
+					'userID' => $user_id,          // Use the newly created user_id
+					'groupID' => $group_id,   // Use the group_id from the request
+					'invite_sent' => date('Y-m-d H:i:s'), // Add the invitation timestamp
+				];
+
+				// Insert into group_invite table
+				$this->db->insert('group_invites', $group_invite_data);
+
+				// if ($id) {
+
+
+
+				$response = [
+					'status' => '1',
+					'message' => 'Registration is done successfully.',
+					'data' => $id,
+				];
+				// } else {
+				// $response = [
+				// 	'status' => '0',
+				// 	'message' => 'Please try again!'
+				// ];
+				// }
+			}
+		
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
+
+
+	// public function addInvestorViaFamilyWithoutEmail()
+	// {
+	// 	header("Access-Control-Allow-Origin: *");
+	// 	header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+	// 	header("Access-Control-Allow-Origin: *");
+	// 	header("Access-Control-Allow-Headers: access");
+	// 	header("Content-Type: application/json; charset=UTF-8");
+	// 	header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
+	// 	// Get the form data (assuming this is a POST request with JSON body)
+	// 	$formdata = json_decode(file_get_contents('php://input'), true);
+
+	// 	if (!empty($formdata)) {
+
+	// 		$response = [
+	// 			'status' => '1',
+	// 			'message' => 'User already exists.',
+	// 			'data' => $formdata,
+	// 		];
+
+	// 			// Send the response back as JSON
+	// 	$this->output
+	// 	->set_content_type('application/json')
+	// 	->set_output(json_encode($response));
+
+	// 	exit;
+
+	// 		// Extract necessary fields from the form data
+	// 		$first_name = $formdata['first_name'];
+	// 		$middle_name = $formdata['middle_name'];
+	// 		$last_name = $formdata['last_name'];
+	// 		$group_id = $formdata['group_id'];  // Assuming group_id is provided in the request
+	// 		$user_id = $formdata['user_id'];    // Assuming user_id is provided in the request
+
+
+	// 			// If user does not exist, create a new user
+	// 			$post_data = [
+	// 				'first_name' => $first_name,
+	// 				'middle_name' => $middle_name,
+	// 				'last_name' => $last_name,
+	// 				'user_type' => 'nvestor',
+	// 				'user_registered_dt' => date('Y-m-d'),
+	// 			];
+	// 			$this->db->insert('users', $post_data);
+	// 			$id = $this->db->insert_id();
+
+	// 			if ($id) {
+	// 				// After registering the user, insert into the group_invite table
+	// 				$group_invite_data = [
+	// 					'member_id' => $id,
+	// 					'user_id' => $user_id,          // Use the newly created user_id
+	// 					'group_id' => $group_id,   // Use the group_id from the request
+	// 					'invited_at' => date('Y-m-d H:i:s'), // Add the invitation timestamp
+	// 				];
+
+	// 				// Insert into group_invite table
+	// 				$this->db->insert('group_invite', $group_invite_data);
+
+	// 				// Prepare response for successful registration and group invite
+	// 				$response = [
+	// 					'status' => '1',
+	// 					'message' => 'Registration is done successfully and user is invited to the group.',
+	// 					'data' => $id,
+	// 				];
+	// 			} else {
+	// 				// If registration failed
+	// 				$response = [
+	// 					'status' => '0',
+	// 					'message' => 'Please try again!',
+	// 				];
+	// 			}
+
+	// 	} else {
+	// 		// If form data is empty
+	// 		$response = [
+	// 			'status' => '0',
+	// 			'message' => 'Please enter values for all fields.',
+	// 		];
+	// 	}
+
+	// 	// Send the response back as JSON
+	// 	$this->output
+	// 		->set_content_type('application/json')
+	// 		->set_output(json_encode($response));
+	// }
+
 
 	public function sendotp()
 	{

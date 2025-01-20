@@ -20,6 +20,7 @@ class Viewfamily extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      registerWithoutEmailCheck: false,
       isEmailRequired: true,
       nameDetailsShow: false,
       panDetailsShow: false,
@@ -64,33 +65,44 @@ class Viewfamily extends Component {
     };
   }
 
+  //group id from id parameter
+
 
   handleRegisterWithoutEmailCheckbox = (e) => {
     const registerWithoutEmail = e.target.checked; // Get the checked state
-    this.setState({ registerWithoutEmail });
-    console.log("Checkbox is now:", registerWithoutEmail); // Call your desired function here
-    this.handleRegisterWithoutEmailCheckboxFunction(registerWithoutEmail); // Example function call
+    this.setState({ registerWithoutEmail }, () => {
+      // This callback will be called after the state has been updated
+      console.log("Checkbox is now:", registerWithoutEmail);
+      this.handleRegisterWithoutEmailCheckboxFunction(registerWithoutEmail);
+    });
   };
-
+  
   handleRegisterWithoutEmailCheckboxFunction = (registerWithoutEmail) => {
     if (registerWithoutEmail) {
-      console.log("Checkbox is checked!");
-      // Perform your desired actions here
-      //set email required to false
-      this.setState({ isEmailRequired: false });
-      // nameDetailsShow
-      this.setState({ nameDetailsShow: true });
-      // panDetailsShow
-      this.setState({ panDetailsShow: true });
+      this.setState({ 
+        registerWithoutEmailCheck: true,
+        isEmailRequired: false,
+        nameDetailsShow: true,
+        panDetailsShow: true,
+      }, () => {
+        // Log state after all updates are completed
+        console.log("registerWithoutEmailCheck", this.state.registerWithoutEmailCheck);
+        console.log("Checkbox is checked!");
+      });
     } else {
-      console.log("Checkbox is unchecked!");
-      this.setState({ isEmailRequired: true });
-      // nameDetailsShow
-      this.setState({ nameDetailsShow: false });
-      // panDetailsShow
-      this.setState({ panDetailsShow: false });
+      this.setState({
+        registerWithoutEmailCheck: false,
+        isEmailRequired: true,
+        nameDetailsShow: false,
+        panDetailsShow: false,
+      }, () => {
+        // Log state after all updates are completed
+        console.log("Checkbox is unchecked!");
+        console.log("registerWithoutEmailCheck", this.state.registerWithoutEmailCheck);
+      });
     }
   };
+  
 
 
   getUserWithEmail = (e) => {
@@ -221,6 +233,8 @@ class Viewfamily extends Component {
   onChangeEmail = (email) => {
     this.setState({ email: email });
   };
+
+
   sendinvite = () => {
 
     console.log(this.state.ids);
@@ -242,6 +256,8 @@ class Viewfamily extends Component {
       }
     });
   };
+
+
 
   getmember = (id, userid) => {
     console.log(id);
@@ -379,6 +395,10 @@ class Viewfamily extends Component {
   // register
   addInvestorViaFamily = () => {
     console.log("addInvestorViaFamily");
+    if (this.state.registerWithoutEmailCheck) {
+      this.addInvestorViaFamilyWithoutEmail();
+    } else {
+
     let params = {
       first_name: this.state.first_name,
       middle_name: this.state.middle_name,
@@ -401,6 +421,34 @@ class Viewfamily extends Component {
         // addfamily
         this.addfamily();
         
+      }
+    });
+  };
+  };
+
+  addInvestorViaFamilyWithoutEmail = () => {
+    console.log("addInvestorViaFamilyWithoutEmailCheck");
+    let params = {
+      first_name: this.state.first_name,
+      middle_name: this.state.middle_name,
+      last_name: this.state.last_name,
+      groupID: this.state.ids,
+      userID: localStorage.getItem("Parent_investor_id"),
+
+    }
+    Bridge.users.addInvestorViaFamilyWithoutEmail(params).then((result) => {
+      console.log('data', result);
+      console.log(result);
+      if (result.status == 1) {
+        this.setState({
+          addModalStatus: false,
+          first_name: "",
+          middle_name: "",
+          last_name: "",
+          
+        });
+        // addfamily
+        this.addfamily();
       }
     });
   };

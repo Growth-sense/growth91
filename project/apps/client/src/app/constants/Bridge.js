@@ -45,6 +45,13 @@ export default {
     api.post(URLs.addInvestorViaFamily, data).then((response) => {
       return response.data;
     }),
+
+    //addInvestorViaFamilyWithoutEmailCheck
+    addInvestorViaFamilyWithoutEmail: (data) => {
+      api.post(URLs.addInvestorViaFamilyWithoutEmail, data).then((response) => {
+        return response.data;
+      });
+    }
   },
   update_investment_document_id: (data) =>
     api.post(URLs.update_investment_document_id, data).then((response) => {
