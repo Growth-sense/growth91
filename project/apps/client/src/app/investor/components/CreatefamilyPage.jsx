@@ -200,24 +200,23 @@ export default class CreatefamilyPage extends Component {
     });
   };
   deletefamilymeber = (value) => {
-
+    
     let params = {
-      userID: localStorage.getItem("Parent_investor_id"),
-      groupID: this.state.this.state.chggroupID,
-      invite_email: value.data.email,
-      invite_mobile: value.data.mobile,
+      memberId:value.data.investor_id,
+      groupID: this.state.chggroupID,
     };
 
     Bridge.family.deleteGroupMember(params).then((result) => {
+      
       if (result.message == "Member deleted successfully.") {
         this.setState({ view_change_group_name_modal: false });
         this.viewgroupall();
         
-        this.getmember(this.state.this.state.chggroupID);
+        this.getmember(this.state.chggroupID);
 
         toast.success("Member deleted successfully.");
       } else {
-        toast.error("Error");
+        toast.error(result.message);
       }
     });
   };

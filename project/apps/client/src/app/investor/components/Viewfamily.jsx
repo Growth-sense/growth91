@@ -1,5 +1,14 @@
 import React, { Component } from "react";
-import { message, Modal, Spin, DatePicker, Input, Skeleton, notification, Checkbox } from "antd";
+import {
+  message,
+  Modal,
+  Spin,
+  DatePicker,
+  Input,
+  Skeleton,
+  notification,
+  Checkbox,
+} from "antd";
 import Bridge from "../../constants/Bridge";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,12 +17,9 @@ import Urldata from "./Urldata.jsx";
 import axios from "axios";
 import $ from "jquery";
 
-
-
 import ReactGA from "react-ga4";
 import { TRACKING_ID } from "../../constants/data";
 ReactGA.initialize(TRACKING_ID);
-
 
 const { TextArea } = Input;
 class Viewfamily extends Component {
@@ -72,14 +78,13 @@ class Viewfamily extends Component {
       pan_details: {},
       adhar_details: {},
       bank_details: {},
-      kycstatus:'',
-      nationality:'',
-      autoFill: false
+      kycstatus: "",
+      nationality: "",
+      autoFill: false,
     };
   }
 
   //group id from id parameter
-
 
   handleRegisterWithoutEmailCheckbox = (e) => {
     const registerWithoutEmail = e.target.checked; // Get the checked state
@@ -89,47 +94,57 @@ class Viewfamily extends Component {
       this.handleRegisterWithoutEmailCheckboxFunction(registerWithoutEmail);
     });
   };
-  
+
   handleRegisterWithoutEmailCheckboxFunction = (registerWithoutEmail) => {
     if (registerWithoutEmail) {
-      this.setState({ 
-        registerWithoutEmailCheck: true,
-        isEmailRequired: false,
-        nameDetailsShow: true,
-        panDetailsShow: true,
-        autoFill: false,
-        SendreqEmail: "",
-        email:""
-      }, () => {
-        // Log state after all updates are completed
-        console.log("registerWithoutEmailCheck", this.state.registerWithoutEmailCheck);
-        console.log("Checkbox is checked!");
-      });
+      this.setState(
+        {
+          registerWithoutEmailCheck: true,
+          isEmailRequired: false,
+          nameDetailsShow: true,
+          panDetailsShow: true,
+          autoFill: false,
+          SendreqEmail: "",
+          email: "",
+        },
+        () => {
+          // Log state after all updates are completed
+          console.log(
+            "registerWithoutEmailCheck",
+            this.state.registerWithoutEmailCheck
+          );
+          console.log("Checkbox is checked!");
+        }
+      );
     } else {
-      this.setState({
-        registerWithoutEmailCheck: false,
-        isEmailRequired: true,
-        nameDetailsShow: false,
-        panDetailsShow: false,
-        autoFill: false,
-        SendreqEmail: "",
-        email:""
-      }, () => {
-        // Log state after all updates are completed
-        console.log("Checkbox is unchecked!");
-        console.log("registerWithoutEmailCheck", this.state.registerWithoutEmailCheck);
-      });
+      this.setState(
+        {
+          registerWithoutEmailCheck: false,
+          isEmailRequired: true,
+          nameDetailsShow: false,
+          panDetailsShow: false,
+          autoFill: false,
+          SendreqEmail: "",
+          email: "",
+        },
+        () => {
+          // Log state after all updates are completed
+          console.log("Checkbox is unchecked!");
+          console.log(
+            "registerWithoutEmailCheck",
+            this.state.registerWithoutEmailCheck
+          );
+        }
+      );
     }
   };
-  
-
 
   getUserWithEmail = (e) => {
     e.preventDefault();
     console.log("getUserWithEmail");
     console.log(this.state.SendreqEmail);
 
-    // getUsersDetailsByEmail get user details with this api 
+    // getUsersDetailsByEmail get user details with this api
     let params = {
       email: this.state.SendreqEmail,
     };
@@ -145,18 +160,18 @@ class Viewfamily extends Component {
           email: result.data[0].email,
           phone: result.data[0].mobile,
           country_code: result.data[0].country_code,
-          autoFill: true
+          autoFill: true,
         });
       } else {
         this.setState({
           nameDetailsShow: true,
           panDetailsShow: false,
           autoFill: false,
-          first_name:"",
+          first_name: "",
           last_name: "",
           phone: "",
           country_code: "",
-          email:""
+          email: "",
         });
 
         // notification that user not exist but you can still invite by entering details
@@ -166,10 +181,9 @@ class Viewfamily extends Component {
           placement: "top",
           duration: 5,
         });
-
       }
     });
-  }
+  };
 
   componentWillMount() {
     document.title = "Investor Dashboard - Growth91 ";
@@ -182,9 +196,7 @@ class Viewfamily extends Component {
     }
     this.getInvestments();
   }
-  test = () => {
-
-  }
+  test = () => {};
   getInvestments = () => {
     this.setState({ loading: true });
     let params = {
@@ -217,10 +229,10 @@ class Viewfamily extends Component {
       if (result.status == 1) {
         //checking user block status
         if (result.data[0].user_block_status == 0) {
-          console.log('result', result.data);
+          console.log("result", result.data);
           this.setState({
             selfaccount: result.data[0],
-            viewmemberdetail: result.data[0]
+            viewmemberdetail: result.data[0],
           });
         }
       }
@@ -234,8 +246,8 @@ class Viewfamily extends Component {
   addfamily = () => {
     this.setState({ formloader: true });
     // if (this.state.SendreqEmail == "" || this.state.Sendreqmobile == "") {
-      if (this.state.SendreqEmail == "") {
-      toast.error("Plz fill all fieldddd");
+    if (this.state.SendreqEmail == "") {
+      toast.error("Please fill require fields");
     } else {
       let params = {
         email: this.state.SendreqEmail,
@@ -258,9 +270,7 @@ class Viewfamily extends Component {
     this.setState({ email: email });
   };
 
-
   sendinvite = () => {
-
     console.log(this.state.ids);
     let params = {
       email: this.state.SendreqEmail,
@@ -272,7 +282,7 @@ class Viewfamily extends Component {
       console.log(result);
       if (result.status == "1") {
         toast.success(
-          " Request has been sent to register E-mail id and Phone no"
+          "An invitation is sent to the requested email address."
         );
       } else {
         toast.info("Invitation already sent!");
@@ -280,8 +290,6 @@ class Viewfamily extends Component {
       }
     });
   };
-
-
 
   getmember = (id, userid) => {
     console.log(id);
@@ -296,19 +304,13 @@ class Viewfamily extends Component {
       const data = result.data.filter((item, index) => {
         console.log(item.investor_id);
         console.log(localStorage.getItem("investor_id"));
-        return (
-
-          item.investor_id == localStorage.getItem("investor_id")
-        )
-      })
+        return item.investor_id == localStorage.getItem("investor_id");
+      });
       console.log(data);
       console.log(data.length, "0");
       const newchanges = data.filter((item, index) => {
-        return (
-
-          item.investor_id == localStorage.getItem("investor_id")
-        )
-      })
+        return item.investor_id == localStorage.getItem("investor_id");
+      });
       console.log(newchanges);
       if (newchanges.length == 0) {
         localStorage.setItem(
@@ -327,7 +329,6 @@ class Viewfamily extends Component {
           "investor_name",
           localStorage.getItem("Parent_investor_name")
         );
-
       }
       this.getbankdetails(localStorage.getItem("investor_id"));
 
@@ -377,8 +378,6 @@ class Viewfamily extends Component {
     console.log(data[0]);
     console.log(id);
     if (id != localStorage.getItem("Parent_investor_id")) {
-
-
       localStorage.setItem("investor_id", id);
       localStorage.setItem("investor_email", data[0].email);
       localStorage.setItem("investor_kycstatus", data[0].kycstatus);
@@ -388,11 +387,11 @@ class Viewfamily extends Component {
       );
 
       this.setState({ viewmemberdetail: data[0] });
-      this.getbankdetails()
+      this.getbankdetails();
       window.location.reload();
     } else {
-
-      localStorage.setItem("investor_id",
+      localStorage.setItem(
+        "investor_id",
         localStorage.getItem("Parent_investor_id")
       );
       localStorage.setItem(
@@ -407,14 +406,11 @@ class Viewfamily extends Component {
         "investor_name",
         localStorage.getItem("Parent_investor_name")
       );
-      this.getbankdetails()
-
-
+      this.getbankdetails();
 
       window.location.reload();
     }
   };
-
 
   // register
   addInvestorViaFamily = () => {
@@ -422,36 +418,33 @@ class Viewfamily extends Component {
     if (this.state.registerWithoutEmailCheck) {
       this.addInvestorViaFamilyWithoutEmail();
     } else {
-
-    let params = {
-      first_name: this.state.first_name,
-      middle_name: this.state.middle_name,
-      last_name: this.state.last_name,
-      email: this.state.SendreqEmail,
-      phone: this.state.phone,
+      let params = {
+        first_name: this.state.first_name,
+        middle_name: this.state.middle_name,
+        last_name: this.state.last_name,
+        email: this.state.SendreqEmail,
+        phone: this.state.phone,
+      };
+      Bridge.users.addInvestorViaFamily(params).then((result) => {
+        console.log("data", result);
+        console.log(result);
+        if (result.status == 1) {
+          this.setState({
+            addModalStatus: false,
+            first_name: "",
+            middle_name: "",
+            last_name: "",
+            email: "",
+            phone: "",
+          });
+          // addfamily
+          this.addfamily();
+        }
+      });
     }
-    Bridge.users.addInvestorViaFamily(params).then((result) => {
-      console.log('data', result);
-      console.log(result);
-      if (result.status == 1) {
-        this.setState({
-          addModalStatus: false,
-          first_name: "",
-          middle_name: "",
-          last_name: "",
-          email: "",
-          phone: "",
-        });
-        // addfamily
-        this.addfamily();
-        
-      }
-    });
-  };
   };
 
   addInvestorViaFamilyWithoutEmail = () => {
-
     //validate name and pan verification status
     if (!this.state.first_name || !this.state.last_name) {
       toast.error("Please enter first name and last name");
@@ -469,9 +462,6 @@ class Viewfamily extends Component {
       return;
     }
 
-
-
-    console.log("addInvestorViaFamilyWithoutEmailCheck");
     let params = {
       first_name: this.state.first_name,
       middle_name: this.state.middle_name,
@@ -479,11 +469,10 @@ class Viewfamily extends Component {
       groupID: this.state.ids,
       userID: localStorage.getItem("Parent_investor_id"),
       pan: this.state.panno,
-      legalname: this.state.legalname
-
-    }
+      legalname: this.state.legalname,
+    };
     Bridge.users.addInvestorViaFamilyWithoutEmail(params).then((result) => {
-      console.log('data', result);
+      console.log("data", result);
       console.log(result);
       if (result.status == 1) {
         this.setState({
@@ -493,20 +482,16 @@ class Viewfamily extends Component {
           last_name: "",
           panVerifyStatus: false,
           panno: "",
-          legalname:""
+          legalname: "",
         });
 
         // close the modal
         this.setState({ addModalStatus: false });
-      
-      }else{
+      } else {
         toast.error(result.message);
       }
     });
   };
-
-
-
 
   checkforpanno = (text) => {
     let regex = /^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/;
@@ -526,7 +511,7 @@ class Viewfamily extends Component {
       });
       return;
     }
-  
+
     let panstatus = this.checkforpanno(this.state.panno);
     if (panstatus === false) {
       notification.warning({
@@ -537,7 +522,7 @@ class Viewfamily extends Component {
       });
       return;
     }
-  
+
     this.setState({ loading: true });
     axios({
       method: "post",
@@ -564,7 +549,7 @@ class Viewfamily extends Component {
           this.setState({ loading: false });
           return;
         }
-  
+
         if (parsedData.valid === true) {
           notification.success({
             message: `Success`,
@@ -572,12 +557,12 @@ class Viewfamily extends Component {
             placement: "top",
             duration: 5,
           });
-  
+
           ReactGA.event({
             category: "KYC",
             action: "PAN Verified",
           });
-  
+
           this.setState(
             {
               panVerifyStatus: true,
@@ -598,7 +583,7 @@ class Viewfamily extends Component {
               this.setState({ loading: false });
             }
           );
-  
+
           $("html, body").animate(
             {
               scrollTop: 280,
@@ -625,7 +610,7 @@ class Viewfamily extends Component {
         this.setState({ loading: false });
       });
   };
-  
+
   render() {
     console.log(this.state.viewmemberdetail);
     return (
@@ -636,14 +621,12 @@ class Viewfamily extends Component {
             <section
               id="hdii"
               className="m-lg-0  m-3"
-            // style={{ minHeight: "40vh" }}
+              // style={{ minHeight: "40vh" }}
             >
               <div>
                 <div className="row dashboard-items ">
                   <div className="col-lg-12 family-columns">
-                    <div
-                      className="filteruser-dropdown form-control d-flex"
-                    >
+                    <div className="filteruser-dropdown form-control d-flex">
                       <select
                         name=""
                         id=""
@@ -709,8 +692,7 @@ class Viewfamily extends Component {
                     </div>
                     <div className="row card-dashboard-rows"></div>
                   </div>
-                )
-                }
+                )}
               </div>
             </section>
           </div>
@@ -760,7 +742,7 @@ class Viewfamily extends Component {
                         <div>
                           {(this.state.kycstatus == "admin_approved" ||
                             this.state.kycstatus == "system_approved") &&
-                            this.state.nationality == "Indian Resident" ? (
+                          this.state.nationality == "Indian Resident" ? (
                             <span
                               style={{
                                 color: "rgb(91 145 21)",
@@ -808,8 +790,8 @@ class Viewfamily extends Component {
                                 <div>
                                   {(this.state.kycstatus == "admin_approved" ||
                                     this.state.kycstatus ==
-                                    "system_approved") &&
-                                    this.state.nationality ==
+                                      "system_approved") &&
+                                  this.state.nationality ==
                                     "Indian Resident" ? (
                                     <span
                                       style={{
@@ -820,9 +802,9 @@ class Viewfamily extends Component {
                                       COMPLETED
                                     </span>
                                   ) : this.state.kycstatus ==
-                                    "admin_rejected" &&
+                                      "admin_rejected" &&
                                     this.state.nationality ==
-                                    "Indian Resident" ? (
+                                      "Indian Resident" ? (
                                     <span
                                       style={{
                                         color: "rgb(243 92 0)",
@@ -845,7 +827,7 @@ class Viewfamily extends Component {
                               </div>
                               {(this.state.kycstatus == "admin_approved" ||
                                 this.state.kycstatus == "system_approved") &&
-                                this.state.nationality == "Indian Resident" ? (
+                              this.state.nationality == "Indian Resident" ? (
                                 <p>
                                   You have completed your KYC. You can invest
                                   from Deal page.
@@ -960,18 +942,24 @@ class Viewfamily extends Component {
           // onCancel={this.cancel_addfounder}
           onCancel={() => this.setState({ addModalStatus: false })}
           width={550}
-        // onClick={this.register}
+          // onClick={this.register}
         >
           <Spin spinning={this.state.formloader}>
-            <div className="row" style={{ display: this.state.registerWithoutEmail ? "none" : "flex" }}>
+            <div
+              className="row"
+              style={{
+                display: this.state.registerWithoutEmail ? "none" : "flex",
+              }}
+            >
               <div className="col-md-8">
                 <div className="form-group">
                   <label className="mb-2">
                     Email{" "}
                     <span
                       className="text-danger"
-                      style={{ display: this.state.isEmailRequired ? "inline" : "none" }}
-                      
+                      style={{
+                        display: this.state.isEmailRequired ? "inline" : "none",
+                      }}
                     >
                       *
                     </span>
@@ -981,35 +969,26 @@ class Viewfamily extends Component {
                     value={this.state.SendreqEmail}
                     onChange={(e) =>
                       this.setState({ SendreqEmail: e.target.value })
-                      
                     }
                   />
-
                 </div>
-
               </div>
               <div className="col-md-4 mt-2 h-100">
                 <button
                   type="button"
-
-
-
                   className="add-family-butttons mt-4 w-100 mt-2"
                   style={{
                     background: "#29176F",
                     color: "white",
-
 
                     borderRadius: "5px",
                   }}
                   // onClick={this.CHECK_pan_no}
 
                   onClick={this.getUserWithEmail}
-
                 >
                   Get User
                 </button>
-
               </div>
             </div>
 
@@ -1017,26 +996,30 @@ class Viewfamily extends Component {
               {/* no user found checkbox */}
               <div className="col-md-12">
                 <div className="form-group my-2">
-                  <Checkbox onChange={this.handleRegisterWithoutEmailCheckbox}>
-                  </Checkbox>
+                  <Checkbox
+                    onChange={this.handleRegisterWithoutEmailCheckbox}
+                  ></Checkbox>
                   <label className="mb-2"> &nbsp;Register Without Email </label>
                 </div>
               </div>
-
-
             </div>
 
-            <div className="row" style={{ display: this.state.nameDetailsShow ? "flex" : "none" }}>
+            <div
+              className="row"
+              style={{ display: this.state.nameDetailsShow ? "flex" : "none" }}
+            >
               <div className="col-md-12">
-
                 {/* first name */}
                 <div className="form-group my-2">
-                  <label className="mb-2">First Name<span className="text-danger">*</span></label>
+                  <label className="mb-2">
+                    First Name<span className="text-danger">*</span>
+                  </label>
                   <Input
                     value={this.state.first_name}
                     disabled={this.state.autoFill}
-
-                    onChange={(e) => this.setState({ first_name: e.target.value })}
+                    onChange={(e) =>
+                      this.setState({ first_name: e.target.value })
+                    }
                   />
                 </div>
 
@@ -1046,97 +1029,75 @@ class Viewfamily extends Component {
                   <Input
                     value={this.state.middle_name}
                     disabled={this.state.autoFill}
-                    onChange={(e) => this.setState({ middle_name: e.target.value })}
+                    onChange={(e) =>
+                      this.setState({ middle_name: e.target.value })
+                    }
                   />
                 </div>
 
                 {/* last name */}
                 <div className="form-group my-2">
-                  <label className="mb-2">Last Name <span className="text-danger">*</span></label>
+                  <label className="mb-2">
+                    Last Name <span className="text-danger">*</span>
+                  </label>
                   <Input
                     value={this.state.last_name}
                     disabled={this.state.autoFill}
-                    onChange={(e) => this.setState({ last_name: e.target.value })}
+                    onChange={(e) =>
+                      this.setState({ last_name: e.target.value })
+                    }
                   />
                 </div>
-
               </div>
             </div>
 
-
-
-
             {/* row */}
-            <div className="row align-items-center" style={{ display: this.state.panDetailsShow ? "flex" : "none" }}>
+            <div
+              className="row align-items-center"
+              style={{ display: this.state.panDetailsShow ? "flex" : "none" }}
+            >
               <div className="col-md-8">
                 <div className="form-group my-2">
-                  <label className="mb-2">PAN Number<span className="text-danger">*</span></label>
+                  <label className="mb-2">
+                    PAN Number<span className="text-danger">*</span>
+                  </label>
                   <Input
-
                     value={this.state.panno}
                     onChange={(e) => {
                       this.setState({
                         panno: e.target.value,
                       });
                     }}
-                    disabled={
-                      this.state.pan_submit == true
-                        ? true
-                        : false
-                    }
+                    disabled={this.state.pan_submit == true ? true : false}
                   />
-
                 </div>
-
               </div>
 
-             
+              <div className="col-md-4 mt-2 h-100">
+                <button
+                  type="button"
+                  className="add-family-butttons mt-4 w-100 mt-2"
+                  style={{
+                    background: "#29176F",
+                    color: "white",
 
+                    borderRadius: "5px",
+                  }}
+                  // onClick={this.CHECK_pan_no}
 
-                <div className="col-md-4 mt-2 h-100">
-                  <button
-                    type="button"
-
-
-
-                    className="add-family-butttons mt-4 w-100 mt-2"
-                    style={{
-                      background: "#29176F",
-                      color: "white",
-
-
-                      borderRadius: "5px",
-                    }}
-                    // onClick={this.CHECK_pan_no}
-
-                    onClick={this.CHECK_pan_no}
-
-                  >
-                    Check PAN
-                  </button>
-
-                </div>
-              
+                  onClick={this.CHECK_pan_no}
+                >
+                  Check PAN
+                </button>
+              </div>
 
               <div className="col-md-12">
                 <div className="form-group my-2">
                   <label className="mb-2">Name as per PAN Card</label>
-                  <Input
-                    value={this.state.legalname}
-                    disabled
-                  />
+                  <Input value={this.state.legalname} disabled />
                 </div>
-
               </div>
             </div>
-
-
-
-
-
-
-
-
 
             {/* <div className="form-group">
               <label className="mb-2">Mobile</label>

@@ -350,53 +350,69 @@ class Investor extends CI_Controller
 			$pan = $formdata['pan'];
 			$legalname = $formdata['legalname'];
 
-				$post_data = [
-					'first_name' => $first_name,
-					'middle_name' => $middle_name,
-					'last_name' => $last_name,
-					'user_type' => 'investor',
-					'user_registered_dt' => date('Y-m-d'),
-					'groupID' => $group_id,
-					'panno' => $pan,
-                	'legal_name' => $legalname,
-				];
-				$this->db->insert('users', $post_data);
-				$id = $this->db->insert_id();
+			$post_data = [
+				'first_name' => $first_name,
+				'middle_name' => $middle_name,
+				'last_name' => $last_name,
+				'user_type' => 'investor',
+				'user_registered_dt' => date('Y-m-d'),
+				'groupID' => $group_id,
+				'panno' => $pan,
+				'legal_name' => $legalname,
+			];
 
+			// Check if there is already a user registered with given Pan
+			// If registered return error
+			// Else add the user
 
-				$temp_email = 'temp' . $id . '@growth91.com';
-				$temp_mobile = '0000000000' . $id;
-				// 				// After registering the user, insert into the group_invite table
-				$group_invite_data = [
-					'invite_email' => $temp_email,
-					'invite_mobile' => $temp_mobile,
-					'member_id' => $id,
-					'userID' => $user_id,          // Use the newly created user_id
-					'groupID' => $group_id,   // Use the group_id from the request
-					'invite_sent' => date('Y-m-d H:i:s'), // Add the invitation timestamp
-					'invite_status' => 'Accepted'
-				];
-
-				// Insert into group_invite table
-				$this->db->insert('group_invites', $group_invite_data);
-
-				// if ($id) {
-
-
-
+			$sql0 = "SELECT * FROM `users` WHERE panno='$pan'";
+			$query0 = $this->db->query($sql0);
+			$num_rows = $query0->num_rows();
+			if (intval($num_rows) > 0) {
+				// There is already a user with same PAN Number fail the request
 				$response = [
-					'status' => '1',
-					'message' => 'Registration is done successfully.',
-					'data' => $id,
+					'status' => '0',
+					'message' => 'User already exist with given PAN number.'
 				];
-				// } else {
-				// $response = [
-				// 	'status' => '0',
-				// 	'message' => 'Please try again!'
-				// ];
-				// }
 			}
-		
+
+			$this->db->insert('users', $post_data);
+			$id = $this->db->insert_id();
+
+
+			$temp_email = 'temp' . $id . '@growth91.com';
+			$temp_mobile = '0000000000' . $id;
+			// 				// After registering the user, insert into the group_invite table
+			$group_invite_data = [
+				'invite_email' => $temp_email,
+				'invite_mobile' => $temp_mobile,
+				'member_id' => $id,
+				'userID' => $user_id,          // Use the newly created user_id
+				'groupID' => $group_id,   // Use the group_id from the request
+				'invite_sent' => date('Y-m-d H:i:s'), // Add the invitation timestamp
+				'invite_status' => 'Accepted'
+			];
+
+			// Insert into group_invite table
+			$this->db->insert('group_invites', $group_invite_data);
+
+			// if ($id) {
+
+
+
+			$response = [
+				'status' => '1',
+				'message' => 'Registration is done successfully.',
+				'data' => $id,
+			];
+			// } else {
+			// $response = [
+			// 	'status' => '0',
+			// 	'message' => 'Please try again!'
+			// ];
+			// }
+		}
+
 		$this->output
 			->set_content_type('application/json')
 			->set_output(json_encode($response));
@@ -1160,7 +1176,7 @@ class Investor extends CI_Controller
 	}
 
 	// get investor referral code
-	function  get_investor_referral_code()
+	function get_investor_referral_code()
 	{
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");

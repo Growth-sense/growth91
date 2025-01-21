@@ -1,21 +1,24 @@
-
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class InvestorController extends CI_Controller {
+class InvestorController extends CI_Controller
+{
 
-	function __construct() {
-        parent::__construct();
-        $this->check_for_db_class();
-    }
+	function __construct()
+	{
+		parent::__construct();
+		$this->check_for_db_class();
+	}
 
-    function check_for_db_class(){
-    	if(!$this->load->is_loaded('database')){
-		      $this->load->database();
-		} 
-    }
+	function check_for_db_class()
+	{
+		if (!$this->load->is_loaded('database')) {
+			$this->load->database();
+		}
+	}
 
-	public function getinvestordetails(){
+	public function getinvestordetails()
+	{
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
 		header("Access-Control-Allow-Origin: *");
@@ -24,43 +27,44 @@ class InvestorController extends CI_Controller {
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 		$formdata = json_decode(file_get_contents('php://input'), true);
 
-		if(!empty($formdata)) {
+		if (!empty($formdata)) {
 
-            $id = $formdata['investor_id'];
+			$id = $formdata['investor_id'];
 
-            $sql="
+			$sql = "
             	SELECT email,first_name,last_name,kycstatus,investor_id FROM `users`
 				WHERE investor_id = '$id'
             ";
-            $query=$this->db->query($sql);
-            $result = $query->result();
-			
-			if($result) {
+			$query = $this->db->query($sql);
+			$result = $query->result();
+
+			if ($result) {
 				$response = [
 					'status' => '1',
 					'message' => 'Details are fetched successfully.',
 					'data' => $result,
 				];
 			} else {
-				$response =[
+				$response = [
 					'status' => '0',
 					'message' => 'Please try again!'
 				];
 			}
-			
+
 		} else {
 			$response = [
 				'status' => '0',
-				'message'=> 'Please enter values of all fields.',
+				'message' => 'Please enter values of all fields.',
 			];
 		}
-		
+
 		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($response));	
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
 	}
 
-	public function getInvestments(){
+	public function getInvestments()
+	{
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
 		header("Access-Control-Allow-Origin: *");
@@ -68,24 +72,24 @@ class InvestorController extends CI_Controller {
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 		$formdata = json_decode(file_get_contents('php://input'), true);
-		if(!empty($formdata)) {
-            $investor_id = $formdata['investor_id'];
+		if (!empty($formdata)) {
+			$investor_id = $formdata['investor_id'];
 			$payment_status = "payment_success";
-            $sql="SELECT * FROM `investments`
+			$sql = "SELECT * FROM `investments`
             	LEFT JOIN deals on deals.deal_id=investments.deal_id
             	LEFT JOIN startups on startups.startupid=deals.startup_id
 				WHERE investments.investor_id = '$investor_id' AND investments.payment_status = '$payment_status' ORDER BY investments.created_at DESC";
-            $query=$this->db->query($sql);
-            $result = $query->result();
-            $num_rows=$query->num_rows();
-			if($result) {
+			$query = $this->db->query($sql);
+			$result = $query->result();
+			$num_rows = $query->num_rows();
+			if ($result) {
 				$response = [
 					'status' => '1',
 					'message' => 'Investments are fetched successfully.',
 					'data' => $result,
 				];
 			} else {
-				$response =[
+				$response = [
 					'status' => '1',
 					'message' => 'Investments are fetched successfully.',
 					'data' => [],
@@ -94,15 +98,16 @@ class InvestorController extends CI_Controller {
 		} else {
 			$response = [
 				'status' => '0',
-				'message'=> 'Please enter values of all fields.',
+				'message' => 'Please enter values of all fields.',
 			];
 		}
 		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($response));	
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
 	}
 
-	public function updateaccountdetails(){
+	public function updateaccountdetails()
+	{
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
 		header("Access-Control-Allow-Origin: *");
@@ -111,19 +116,19 @@ class InvestorController extends CI_Controller {
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 		$formdata = json_decode(file_get_contents('php://input'), true);
 
-		if(!empty($formdata)) {
-            $investor_id = $formdata['id'];
-            $accountno = $formdata['accountno'];
-            $ifsccode = $formdata['ifsccode'];
-            $data=[
-            	'bank_ac_no' => $accountno,
-            	'ifsc_code' => $ifsccode,
-            	'bank_kyc_status'=>'success'
-            ];
-            $this->db->where('investor_id',$investor_id);
-            $result= $this->db->update('users',$data);
-			
-			if($result) {
+		if (!empty($formdata)) {
+			$investor_id = $formdata['id'];
+			$accountno = $formdata['accountno'];
+			$ifsccode = $formdata['ifsccode'];
+			$data = [
+				'bank_ac_no' => $accountno,
+				'ifsc_code' => $ifsccode,
+				'bank_kyc_status' => 'success'
+			];
+			$this->db->where('investor_id', $investor_id);
+			$result = $this->db->update('users', $data);
+
+			if ($result) {
 				$this->updatebankaccountdetails($formdata);
 				$this->check_for_kyc_status($formdata);
 				$response = [
@@ -132,26 +137,27 @@ class InvestorController extends CI_Controller {
 					'data' => $result,
 				];
 			} else {
-				$response =[
+				$response = [
 					'status' => '0',
 					'message' => 'Please try again!'
 				];
 			}
-			
+
 		} else {
 			$response = [
 				'status' => '0',
-				'message'=> 'Please enter values of all fields.',
+				'message' => 'Please enter values of all fields.',
 			];
 		}
-		
+
 		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($response));	
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
 	}
 
-	function updatebankaccountdetails($formdata){
-		$user_id=$formdata['id'];
+	function updatebankaccountdetails($formdata)
+	{
+		$user_id = $formdata['id'];
 		// bank details
 		$sql="SELECT * FROM `user_bank_details` WHERE user_id='$user_id'";
 		$query=$this->db->query($sql);
@@ -164,8 +170,8 @@ class InvestorController extends CI_Controller {
 				'ref_id' => $formdata['ref_id'],
 			];
 			// var_dump($post_data);
-			$this->db->where('user_id',$user_id);
-			$this->db->update('user_bank_details',$post_data);
+			$this->db->where('user_id', $user_id);
+			$this->db->update('user_bank_details', $post_data);
 		} else {
 			$post_data=[
 				'account_exists' => 'YES',
@@ -175,11 +181,12 @@ class InvestorController extends CI_Controller {
 				'user_id' => $user_id,
 			];
 			// var_dump($post_data);
-			$this->db->insert('user_bank_details',$post_data);
+			$this->db->insert('user_bank_details', $post_data);
 		}
 	}
 
-	function updateprofiledetails() {
+	function updateprofiledetails()
+	{
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
 		header("Access-Control-Allow-Origin: *");
@@ -187,38 +194,38 @@ class InvestorController extends CI_Controller {
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 		$formdata = json_decode(file_get_contents('php://input'), true);
-		
-		if(!empty($_POST)) {
-			$investor_id=$this->input->post('investor_id');
+
+		if (!empty($_POST)) {
+			$investor_id = $this->input->post('investor_id');
 			$post_data = [
-				'first_name'=>$this->input->post('first_name'),
-				'middle_name'=>$this->input->post('middle_name'),
-				'last_name'=>$this->input->post('last_name'),
-				'mobile'=>$this->input->post('mobile'),
+				'first_name' => $this->input->post('first_name'),
+				'middle_name' => $this->input->post('middle_name'),
+				'last_name' => $this->input->post('last_name'),
+				'mobile' => $this->input->post('mobile'),
 			];
 			$this->db->where('investor_id', $investor_id);
-			$res = $this->db->update('users',$post_data);
-			
-			if($res) {
+			$res = $this->db->update('users', $post_data);
 
-				if( isset($_FILES['user_profile_picture']['name']) && $_FILES['user_profile_picture']['name'] != "" ) {
-					$dir = "uploads/profile/".$investor_id.'/';
-		
-					if(!is_dir($dir)) {
-						@mkdir($dir, 0777,true);
+			if ($res) {
+
+				if (isset($_FILES['user_profile_picture']['name']) && $_FILES['user_profile_picture']['name'] != "") {
+					$dir = "uploads/profile/" . $investor_id . '/';
+
+					if (!is_dir($dir)) {
+						@mkdir($dir, 0777, true);
 					}
-		
+
 					$image = $_FILES['user_profile_picture']['tmp_name'];
 					$hash = $_FILES['user_profile_picture']['name'];
-		
-					if(move_uploaded_file($image, $dir.$hash)) {
-						 $image_details = array(
+
+					if (move_uploaded_file($image, $dir . $hash)) {
+						$image_details = array(
 							"user_profile_picture" => $hash
 						);
 						$this->db->where('investor_id', $investor_id);
 						$this->db->update('users', $image_details);
 					}
-					
+
 				}
 
 				$response = [
@@ -226,153 +233,150 @@ class InvestorController extends CI_Controller {
 					'message' => 'Profile is updated successfully.'
 				];
 			} else {
-				$response =[
+				$response = [
 					'status' => '0',
 					'message' => 'Please try again!'
 				];
 			}
-			
+
 		} else {
 			$response = [
 				'status' => '0',
-				'message'=> 'Please enter values of all fields.',
+				'message' => 'Please enter values of all fields.',
 			];
 		}
-		
+
 		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($response));	
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
 	}
-	
+
 
 
 
 
 	// check for kyc statis
-	 function check_for_kyc_status($formdata){
-	 	$investor_id=$formdata['id'];
-	 	$sql="SELECT * FROM `users` WHERE investor_id='$investor_id'";
-		$query=$this->db->query($sql);
-		$result=$query->result();
-		$num_rows=$query->num_rows();
-		if(intval($num_rows)>0){
-			$bank_kyc_status=$result[0]->bank_kyc_status;
-			$adhar_kyc_status=$result[0]->adhar_kyc_status;
-			$pan_kyc_status=$result[0]->pan_kyc_status;
-			if(
-				$adhar_kyc_status=='success' && 
-				$bank_kyc_status=='success' && 
-				$pan_kyc_status=='success' 
-			){
-				$data=[
-					'kycstatus'=>'system_approved'
+	function check_for_kyc_status($formdata)
+	{
+		$investor_id = $formdata['id'];
+		$sql = "SELECT * FROM `users` WHERE investor_id='$investor_id'";
+		$query = $this->db->query($sql);
+		$result = $query->result();
+		$num_rows = $query->num_rows();
+		if (intval($num_rows) > 0) {
+			$bank_kyc_status = $result[0]->bank_kyc_status;
+			$adhar_kyc_status = $result[0]->adhar_kyc_status;
+			$pan_kyc_status = $result[0]->pan_kyc_status;
+			if (
+				$adhar_kyc_status == 'success' &&
+				$bank_kyc_status == 'success' &&
+				$pan_kyc_status == 'success'
+			) {
+				$data = [
+					'kycstatus' => 'system_approved'
 				];
-				$this->db->where('investor_id',$investor_id);
-				$this->db->update('users',$data);
+				$this->db->where('investor_id', $investor_id);
+				$this->db->update('users', $data);
 			}
 		}
-	 }
+	}
 	/* Family account APIS
-	Create group
-	list group
-	Check family member email/mobile
-	save family member in invite table
-	accept invite send otps to family member
-	verify otp email
-	verify otp phone
-	accept in invite table and update group id, parent id in user table
-	modify list member api with group id
-	
-	*/
-public function createGroup()
+			 Create group
+			 list group
+			 Check family member email/mobile
+			 save family member in invite table
+			 accept invite send otps to family member
+			 verify otp email
+			 verify otp phone
+			 accept in invite table and update group id, parent id in user table
+			 modify list member api with group id
+			 
+			 */
+	public function createGroup()
 	{
-	   header("Access-Control-Allow-Origin: *");
-	   header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-	   header("Access-Control-Allow-Origin: *");
-	   header("Access-Control-Allow-Headers: access");
-	   header("Content-Type: application/json; charset=UTF-8");
-	   header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-	   $formdata = json_decode(file_get_contents('php://input'), true);
-	   if(!empty($formdata)) {
-		   $groupName  = $formdata['groupName'];
-		   $userID  = $formdata['userID'];
-		   
-		   $post_data = [
-			   'groupName' => $groupName,
-			   'userID' => $userID,
-			
-		   ];
-		   // check group name is exists or not in existing user
-		   $sql="SELECT groupName  FROM `groups` WHERE userID='$userID' and groupName='$groupName'";
-		   $query=$this->db->query($sql);
-		   $result=$query->result();
-		   $num_rows=$query->num_rows();
-		   if(intval($num_rows)>0){
-				$response =[
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		if (!empty($formdata)) {
+			$groupName = $formdata['groupName'];
+			$userID = $formdata['userID'];
+
+			$post_data = [
+				'groupName' => $groupName,
+				'userID' => $userID,
+
+			];
+			// check group name is exists or not in existing user
+			$sql = "SELECT groupName  FROM `groups` WHERE userID='$userID' and groupName='$groupName'";
+			$query = $this->db->query($sql);
+			$result = $query->result();
+			$num_rows = $query->num_rows();
+			if (intval($num_rows) > 0) {
+				$response = [
 					'status' => '0',
 					'message' => 'Group is already exist.',
 					'data' => 0,
 				];
 
-		   }
-		   else
-		   {
-				$this->db->insert('groups',$post_data);
-				$id=$this->db->insert_id();
-				if($id) {
+			} else {
+				$this->db->insert('groups', $post_data);
+				$id = $this->db->insert_id();
+				if ($id) {
 					$response = [
 						'status' => '1',
 						'message' => 'Group created successfully.',
 						'data' => $id,
 					];
-				}
-				else
-				{
-					$response =[
+				} else {
+					$response = [
 						'status' => '0',
 						'message' => 'Something went wrong, try after sometimes.',
 						'data' => 0,
 					];
 				}
-		   }
+			}
 		} else {
 			$response = [
 				'status' => '0',
-				'message'=> 'Please enter values of all fields.',
+				'message' => 'Please enter values of all fields.',
 			];
-		}	   
-	   $this->output
-	   ->set_content_type('application/json')
-	   ->set_output(json_encode($response));	
+		}
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
 	}
-    // Group List
-    public function getGroupList()
+	// Group List
+	public function getGroupList()
 	{
-	   header("Access-Control-Allow-Origin: *");
-	   header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-	   header("Access-Control-Allow-Origin: *");
-	   header("Access-Control-Allow-Headers: access");
-	   header("Content-Type: application/json; charset=UTF-8");
-	   header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-	   $formdata = json_decode(file_get_contents('php://input'), true);
-		if(!empty($formdata)) {
-            $userID = $formdata['userID'];
-			if($userID <> "-1") 
-           	 $sql="SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inner join users on users.investor_id = groups.userID WHERE userID = '$userID' union 
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		if (!empty($formdata)) {
+			$userID = $formdata['userID'];
+			if ($userID <> "-1")
+				$sql = "SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inner join users on users.investor_id = groups.userID WHERE userID = '$userID' union 
 SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inner join users on users.groupID = groups.groupID WHERE users.investor_id = '$userID'  ORDER BY groupName";
 			else
-				$sql="SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inner join users on users.investor_id = groups.userID  WHERE 1 = '1' ORDER BY groupName";
-            $query=$this->db->query($sql);
-            $result = $query->result();
-            $num_rows=$query->num_rows();
-			if($result) {
+				$sql = "SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inner join users on users.investor_id = groups.userID  WHERE 1 = '1' ORDER BY groupName";
+			$query = $this->db->query($sql);
+			$result = $query->result();
+			$num_rows = $query->num_rows();
+			if ($result) {
 				$response = [
 					'status' => '1',
 					'message' => 'Groups fetched successfully.',
 					'data' => $result,
 				];
 			} else {
-				$response =[
+				$response = [
 					'status' => '1',
 					'message' => 'Family members are fetched successfully.',
 					'data' => [],
@@ -381,28 +385,28 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 		} else {
 			$response = [
 				'status' => '0',
-				'message'=> 'Please enter values of all fields.',
+				'message' => 'Please enter values of all fields.',
 			];
 		}
 		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($response));	
-   }
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
 
 
-   public function getGroupListForInvestment()
+	public function getGroupListForInvestment()
 	{
-	   header("Access-Control-Allow-Origin: *");
-	   header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-	   header("Access-Control-Allow-Origin: *");
-	   header("Access-Control-Allow-Headers: access");
-	   header("Content-Type: application/json; charset=UTF-8");
-	   header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-	   $formdata = json_decode(file_get_contents('php://input'), true);
-		if(!empty($formdata)) {
-            $userID = $formdata['userID'];
-			if($userID <> "-1") 
-           	 $sql="SELECT 
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		if (!empty($formdata)) {
+			$userID = $formdata['userID'];
+			if ($userID <> "-1")
+				$sql = "SELECT 
 				g.groupID,
 				g.groupName,
 				u.investor_id,
@@ -417,18 +421,18 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 			WHERE gi.invite_status = 'Accepted' AND g.userID = '$userID'
 			ORDER BY g.groupName, u.first_name;";
 			else
-				$sql="SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inner join users on users.investor_id = groups.userID  WHERE 1 = '1' ORDER BY groupName";
-            $query=$this->db->query($sql);
-            $result = $query->result();
-            $num_rows=$query->num_rows();
-			if($result) {
+				$sql = "SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inner join users on users.investor_id = groups.userID  WHERE 1 = '1' ORDER BY groupName";
+			$query = $this->db->query($sql);
+			$result = $query->result();
+			$num_rows = $query->num_rows();
+			if ($result) {
 				$response = [
 					'status' => '1',
 					'message' => 'Groups fetched successfully.',
 					'data' => $result,
 				];
 			} else {
-				$response =[
+				$response = [
 					'status' => '1',
 					'message' => 'Family members are fetched successfully.',
 					'data' => [],
@@ -437,65 +441,63 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 		} else {
 			$response = [
 				'status' => '0',
-				'message'=> 'Please enter values of all fields.',
+				'message' => 'Please enter values of all fields.',
 			];
 		}
 		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($response));	
-   }
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
 
-   //	Check family member email/mobile
-   public function checkFamilyMember()
-	 {
-	     	header("Access-Control-Allow-Origin: *");
+	//	Check family member email/mobile
+	public function checkFamilyMember()
+	{
+		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 		$formdata = json_decode(file_get_contents('php://input'), true);
-		if(!empty($formdata)) {
-			 
+		if (!empty($formdata)) {
+
 			$email = $formdata['email'];
 			// $mobile = $formdata['mobile'];
-		    // $sql="SELECT investor_id  FROM `users` WHERE email='$email' AND mobile='$mobile' AND user_type<>'founder'";
-		    $sql="SELECT investor_id  FROM `users` WHERE email='$email'  AND user_type<>'founder'";
-			$query=$this->db->query($sql);
-			$result=$query->result();
-			$num_rows=$query->num_rows();
-			if(intval($num_rows)>0){
-			     $response = [
-				'status' => '1',
-				'message'=> 'Investor found with this details.',
-				'data' => $result,
-		    	];
+			// $sql="SELECT investor_id  FROM `users` WHERE email='$email' AND mobile='$mobile' AND user_type<>'founder'";
+			$sql = "SELECT investor_id  FROM `users` WHERE email='$email'  AND user_type<>'founder'";
+			$query = $this->db->query($sql);
+			$result = $query->result();
+			$num_rows = $query->num_rows();
+			if (intval($num_rows) > 0) {
+				$response = [
+					'status' => '1',
+					'message' => 'Investor found with this details.',
+					'data' => $result,
+				];
+			} else {
+				$response = [
+					'status' => '0',
+					'message' => 'Investor is not availale with this details.',
+					'query' => $sql,
+					'data' => [],
+				];
 			}
-			else
-			{
-			    $response = [
-				'status' => '0',
-				'message'=> 'Investor is not availale with this details.',
-				'query' => $sql,
-				'data' => [],
-			];
-			}
-		
+
 		} else {
 			$response = [
 				'status' => '0',
-				'message'=> 'Please enter values of all fields.',
+				'message' => 'Please enter values of all fields.',
 				'data' => [],
 			];
 		}
 		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($response));	
-	 }
-//	save family member in invite table
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
+	//	save family member in invite table
 
-	 public function saveInvite()
-	 {
+	public function saveInvite()
+	{
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
 		header("Access-Control-Allow-Origin: *");
@@ -503,31 +505,29 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 		$formdata = json_decode(file_get_contents('php://input'), true);
-		if(!empty($formdata)) {
+		if (!empty($formdata)) {
 			$groupID = $formdata['groupID'];
 			$userID = $formdata['userID'];
 			$invite_email = $formdata['email'];
 			$invite_mobile = $formdata['mobile'];
-			 
-			
-			$sql="SELECT inviteID  FROM `group_invites` WHERE invite_email ='$invite_email' AND invite_mobile ='$invite_mobile' AND groupID ='$groupID'";
-			$query=$this->db->query($sql);
-			$result=$query->result();
-			$num_rows=$query->num_rows();
-			if(intval($num_rows)>0){
-			    //already invited
-			    $response =[
-						'status' => '0',
-						'message' => 'Invitation already sent!',
-						'data' => [],
-					];
-			}
-			else
-			{
-				$sql0="SELECT * FROM users WHERE email='$invite_email'";
-				$query0=$this->db->query($sql0);
-				$result0=$query0->result();
-				$investorId=$result0[0]->investor_id;
+
+
+			$sql = "SELECT inviteID  FROM `group_invites` WHERE invite_email ='$invite_email' AND invite_mobile ='$invite_mobile' AND groupID ='$groupID'";
+			$query = $this->db->query($sql);
+			$result = $query->result();
+			$num_rows = $query->num_rows();
+			if (intval($num_rows) > 0) {
+				//already invited
+				$response = [
+					'status' => '0',
+					'message' => 'Invitation already sent!',
+					'data' => [],
+				];
+			} else {
+				$sql0 = "SELECT * FROM users WHERE email='$invite_email'";
+				$query0 = $this->db->query($sql0);
+				$result0 = $query0->result();
+				$investorId = $result0[0]->investor_id;
 
 				$post_data = [
 					'groupID' => $groupID,
@@ -537,41 +537,41 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 					'invite_status' => 'Pending',
 					'invite_sent' => date('Y-m-d H-i a'),
 					'member_id' => $investorId
-				 
+
 					//'email_otp' => $this->GenerateOTP(6);
 					//'mobile_otp' => $this->GenerateOTP(6);
 				];
-				
 
-			    $this->db->insert('group_invites',$post_data);
-				$id=$this->db->insert_id();
-				if($id) {
-				    
-				    $response = [
+
+				$this->db->insert('group_invites', $post_data);
+				$id = $this->db->insert_id();
+				if ($id) {
+
+					$response = [
 						'status' => '1',
 						'message' => 'Invitation sent successfully.',
 						'data' => $id,
 					];
 					//email to invite email
-					$sql="SELECT * FROM users WHERE email='$invite_email'";
-					$query=$this->db->query($sql);
-					$result=$query->result();
-					$invitedName=$result[0]->first_name.' '.$result[0]->last_name;
-		
-					$sql="SELECT * FROM users WHERE investor_id='$userID'";
-					$query=$this->db->query($sql);
-					$result1=$query->result();
-					$inviteeName=$result1[0]->first_name.' '.$result1[0]->last_name;
-					
-					$sql="SELECT * FROM groups WHERE groupID='$groupID'";
-					$query=$this->db->query($sql);
-					$result2=$query->result();
-					$groupName=$result2[0]->groupName;
-					
-					
-					$link = WEB_BASE_URL.'Group-Invite?'.base64_encode('inviteID='.$id);
+					$sql = "SELECT * FROM users WHERE email='$invite_email'";
+					$query = $this->db->query($sql);
+					$result = $query->result();
+					$invitedName = $result[0]->first_name . ' ' . $result[0]->last_name;
 
-					$body='<!doctype html>
+					$sql = "SELECT * FROM users WHERE investor_id='$userID'";
+					$query = $this->db->query($sql);
+					$result1 = $query->result();
+					$inviteeName = $result1[0]->first_name . ' ' . $result1[0]->last_name;
+
+					$sql = "SELECT * FROM groups WHERE groupID='$groupID'";
+					$query = $this->db->query($sql);
+					$result2 = $query->result();
+					$groupName = $result2[0]->groupName;
+
+
+					$link = WEB_BASE_URL . 'Group-Invite?' . base64_encode('inviteID=' . $id);
+
+					$body = '<!doctype html>
 					<html>
 					  <head>
 						<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -686,13 +686,13 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 											  <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
 											  <tr>
 												  <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;" valign="top">
-												  <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;"> Dear '.$invitedName.', 
+												  <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;"> Dear ' . $invitedName . ', 
 													  <br>
 													  <br>
-													  You have been invited By '.$inviteeName.' to join the Family Group '.$groupName.'. 
+													  You have been invited By ' . $inviteeName . ' to join the Family Group ' . $groupName . '. 
 													  <br>
 													  <br>
-													  Please click this link to complete the process '.$link.'
+													  Please click this link to complete the process ' . $link . '
 													  <br>
 													  <br>
 												  
@@ -702,7 +702,7 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 													  PS: This is system generated email. Please do not reply.
 												  </br>
 												  <div style="text-align: center;" class="imgRes col-sm-12 col-md-12 col-lg-12">
-													  <img src="'.WEB_BASE_URL.'web/glogo.png" alt="logo" style="width:120px;height:auto;">
+													  <img src="' . WEB_BASE_URL . 'web/glogo.png" alt="logo" style="width:120px;height:auto;">
 												  </div>
 												  </td>
 											  </tr>
@@ -724,7 +724,7 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 										  </tr>
 										  <tr>
 											  <td class="content-block powered-by" style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; color: #999999; font-size: 12px; text-align: center;" valign="top" align="center">
-											  Powered by <a href="'.WEB_BASE_URL.'" style="color: #999999; font-size: 12px; text-align: center; text-decoration: none;">Growth91</a>.
+											  Powered by <a href="' . WEB_BASE_URL . '" style="color: #999999; font-size: 12px; text-align: center; text-decoration: none;">Growth91</a>.
 											  </td>
 										  </tr>
 										  </table>
@@ -738,36 +738,34 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 							  </table>
 							  </body>
 						</html>';
-			$subject="Growth91 Group Investment";
-			$this->load->helper('send_email');
-			$res=send_email($body,$subject,$invite_email,'');
+					$subject = "Growth91 Group Investment";
+					$this->load->helper('send_email');
+					$res = send_email($body, $subject, $invite_email, '');
 
 
 
-				}
-				else
-				{
-				    $response =[
+				} else {
+					$response = [
 						'status' => '0',
 						'message' => 'Please try again!',
 						'data' => [],
 					];
 				}
 			}
-			
+
 		} else {
 			$response = [
 				'status' => '0',
-				'message'=> 'Please enter values of all fields.',
+				'message' => 'Please enter values of all fields.',
 			];
 		}
 		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($response));	
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
 	}
 
 	public function familyInviteOTP()
-	 {
+	{
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
 		header("Access-Control-Allow-Origin: *");
@@ -775,38 +773,38 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 		$formdata = json_decode(file_get_contents('php://input'), true);
-		if(!empty($formdata)) {
-			$inviteID  = $formdata['inviteID'];
-			 
-			 
+		if (!empty($formdata)) {
+			$inviteID = $formdata['inviteID'];
+
+
 			$post_data = [
 				'inviteID' => $inviteID,
 				'emailOTP' => $this->GenerateOTP(4),
 				'mobileOTP' => $this->GenerateOTP(4),
-				
+
 			];
-			
-					$this->db->where('inviteID',$inviteID);
-					$resp=$this->db->update('group_invites',$post_data);
-				    if($resp){
-				    $response = [
-						'status' => '1',
-						'message' => 'OTP sent successfully.',
-						//'data' => $id,
-					];
+
+			$this->db->where('inviteID', $inviteID);
+			$resp = $this->db->update('group_invites', $post_data);
+			if ($resp) {
+				$response = [
+					'status' => '1',
+					'message' => 'OTP sent successfully.',
+					//'data' => $id,
+				];
 
 
-					//email to invite email
-					$sql="SELECT * FROM group_invites WHERE inviteID='$inviteID'";
-					$query=$this->db->query($sql);
-					$result=$query->result();
-					$invite_email =$result[0]->invite_email ;
-					$invite_mobile  =$result[0]->invite_mobile  ;
-					$emailOTP = $result[0]->emailOTP ;
-					$mobileOTP = $result[0]->mobileOTP ;
-					 
+				//email to invite email
+				$sql = "SELECT * FROM group_invites WHERE inviteID='$inviteID'";
+				$query = $this->db->query($sql);
+				$result = $query->result();
+				$invite_email = $result[0]->invite_email;
+				$invite_mobile = $result[0]->invite_mobile;
+				$emailOTP = $result[0]->emailOTP;
+				$mobileOTP = $result[0]->mobileOTP;
 
-					$body='<!doctype html>
+
+				$body = '<!doctype html>
 					<html>
 					  <head>
 						<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -924,7 +922,7 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 												  <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;"> Dear User, 
 													  <br>
 													  <br>
-													  Please use this email OTP for verification of your family invite '.$emailOTP.' 
+													  Please use this email OTP for verification of your family invite ' . $emailOTP . ' 
 													  <br>
 													  <br>
 													  
@@ -935,7 +933,7 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 													  PS: This is system generated email. Please do not reply.
 												  </br>
 												  <div style="text-align: center;" class="imgRes col-sm-12 col-md-12 col-lg-12">
-													  <img src="'.WEB_BASE_URL.'web/glogo.png" alt="logo" style="width:120px;height:auto;">
+													  <img src="' . WEB_BASE_URL . 'web/glogo.png" alt="logo" style="width:120px;height:auto;">
 												  </div>
 												  </td>
 											  </tr>
@@ -957,7 +955,7 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 										  </tr>
 										  <tr>
 											  <td class="content-block powered-by" style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; color: #999999; font-size: 12px; text-align: center;" valign="top" align="center">
-											  Powered by <a href="'.WEB_BASE_URL.'" style="color: #999999; font-size: 12px; text-align: center; text-decoration: none;">Growth91</a>.
+											  Powered by <a href="' . WEB_BASE_URL . '" style="color: #999999; font-size: 12px; text-align: center; text-decoration: none;">Growth91</a>.
 											  </td>
 										  </tr>
 										  </table>
@@ -971,28 +969,28 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 							  </table>
 							  </body>
 						</html>';
-			$subject="Growth91 family invite email OTP ".$emailOTP;
-			$this->load->helper('send_email');
-			$res=send_email($body,$subject,$invite_email,'');
+				$subject = "Growth91 family invite email OTP " . $emailOTP;
+				$this->load->helper('send_email');
+				$res = send_email($body, $subject, $invite_email, '');
 
-			$this->load->helper('send_sms_investor');
-				$resp=investor_otp_sms($mobileOTP,$invite_mobile );			  	
+				$this->load->helper('send_sms_investor');
+				$resp = investor_otp_sms($mobileOTP, $invite_mobile);
 
-				}
-				 
-			
-			
+			}
+
+
+
 		} else {
 			$response = [
 				'status' => '0',
-				'message'=> 'Please enter values of all fields.',
+				'message' => 'Please enter values of all fields.',
 			];
 		}
 		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($response));	
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
 	}
-	
+
 	public function verifyFamilyInvite()
 	{
 		// Verify Email & SMS otp
@@ -1003,69 +1001,65 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 		$formdata = json_decode(file_get_contents('php://input'), true);
-		if(!empty($formdata)) {
-			$inviteID  = $formdata['inviteID'];
+		if (!empty($formdata)) {
+			$inviteID = $formdata['inviteID'];
 			$emailOTP = $formdata['emailOTP'];
-			$parentID=0;
-			$groupID =0;
-			$invite_email  =0;
-			$sql="SELECT *  FROM `group_invites` WHERE emailOTP ='$emailOTP' AND inviteID ='$inviteID'";
-			$query=$this->db->query($sql);
-			$result=$query->result();
-			$num_rows=$query->num_rows();
-			if(intval($num_rows)>0)
-			{
-			    //OTP Mached
-					$groupID = $result[0]->groupID;
-					$parentID = $result[0]->userID;
-					$invite_email = $result[0]->invite_email;
-					
+			$parentID = 0;
+			$groupID = 0;
+			$invite_email = 0;
+			$sql = "SELECT *  FROM `group_invites` WHERE emailOTP ='$emailOTP' AND inviteID ='$inviteID'";
+			$query = $this->db->query($sql);
+			$result = $query->result();
+			$num_rows = $query->num_rows();
+			if (intval($num_rows) > 0) {
+				//OTP Mached
+				$groupID = $result[0]->groupID;
+				$parentID = $result[0]->userID;
+				$invite_email = $result[0]->invite_email;
+
 				// once verify update status in group invite table
-					$post_data = [
-						'emailVerified' => "Yes",
-						'mobileVerified' => "Yes",
-						'emailOTP' => "",
-						'mobileOTP' => "",
-						'invite_accepted' => date('Y-m-d H-i a'),
-						'invite_status' => "Accepted",
+				$post_data = [
+					'emailVerified' => "Yes",
+					'mobileVerified' => "Yes",
+					'emailOTP' => "",
+					'mobileOTP' => "",
+					'invite_accepted' => date('Y-m-d H-i a'),
+					'invite_status' => "Accepted",
+				];
+				$this->db->where('inviteID', $inviteID);
+				$resp = $this->db->update('group_invites', $post_data);
+				if ($resp) {
+
+				} else {
+					$response = [
+						'status' => '0',
+						'message' => 'Something went wrong!',
+						'data' => [],
 					];
-					$this->db->where('inviteID',$inviteID);
-					$resp=$this->db->update('group_invites',$post_data);
-				    if($resp){
-				    
-					}
-					else
-					{
-						$response =[
-							'status' => '0',
-							'message' => 'Something went wrong!',
-							'data' => [],
-						];		
-					}
+				}
 				// update user data against the invite email and mobile with group ID and parent ID 
-				$sql="SELECT *  FROM `users` WHERE email ='$invite_email' ";
-				$query=$this->db->query($sql);
-				$result=$query->result();
-				$num_rows=$query->num_rows();
-				$investor_id  = $result[0]->investor_id  ;
-				$invitedName=$result[0]->first_name.' '.$result[0]->last_name;
+				$sql = "SELECT *  FROM `users` WHERE email ='$invite_email' ";
+				$query = $this->db->query($sql);
+				$result = $query->result();
+				$num_rows = $query->num_rows();
+				$investor_id = $result[0]->investor_id;
+				$invitedName = $result[0]->first_name . ' ' . $result[0]->last_name;
 				$post_data = [
 					'parent_id' => $parentID,
 					'groupID' => $groupID,
 				];
 
-				$sql="SELECT *  FROM `groups` WHERE groupID ='$groupID'  ";
-				$query=$this->db->query($sql);
-				$result=$query->result();
-				$num_rows=$query->num_rows();
+				$sql = "SELECT *  FROM `groups` WHERE groupID ='$groupID'  ";
+				$query = $this->db->query($sql);
+				$result = $query->result();
+				$num_rows = $query->num_rows();
 				$groupName = $result[0]->groupName;
 
-				$this->db->where('investor_id',$investor_id);
-				$resp=$this->db->update('users',$post_data);
-				if($resp)
-				{
+				$this->db->where('investor_id', $investor_id);
+				$resp = $this->db->update('users', $post_data);
+				if ($resp) {
 
-					$body='<!doctype html>
+					$body = '<!doctype html>
 					<html>
 					  <head>
 						<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1183,7 +1177,7 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 												  <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;"> Dear User, 
 													  <br>
 													  <br>
-													  You are now a member of '.$groupName.' Family Group at Growth91. 
+													  You are now a member of ' . $groupName . ' Family Group at Growth91. 
 													  <br>
 													  <br>
 													  
@@ -1194,7 +1188,7 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 													  PS: This is system generated email. Please do not reply.
 												  </br>
 												  <div style="text-align: center;" class="imgRes col-sm-12 col-md-12 col-lg-12">
-													  <img src="'.WEB_BASE_URL.'web/glogo.png" alt="logo" style="width:120px;height:auto;">
+													  <img src="' . WEB_BASE_URL . 'web/glogo.png" alt="logo" style="width:120px;height:auto;">
 												  </div>
 												  </td>
 											  </tr>
@@ -1216,7 +1210,7 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 										  </tr>
 										  <tr>
 											  <td class="content-block powered-by" style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; color: #999999; font-size: 12px; text-align: center;" valign="top" align="center">
-											  Powered by <a href="'.WEB_BASE_URL.'" style="color: #999999; font-size: 12px; text-align: center; text-decoration: none;">Growth91</a>.
+											  Powered by <a href="' . WEB_BASE_URL . '" style="color: #999999; font-size: 12px; text-align: center; text-decoration: none;">Growth91</a>.
 											  </td>
 										  </tr>
 										  </table>
@@ -1230,74 +1224,71 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 							  </table>
 							  </body>
 						</html>';
-			$subject="Growth91 family member joined ".$invitedName;
-			$this->load->helper('send_email');
-			$res=send_email($body,$subject,$invite_email,'');
+					$subject = "Growth91 family member joined " . $invitedName;
+					$this->load->helper('send_email');
+					$res = send_email($body, $subject, $invite_email, '');
 
-			    $response =[
+					$response = [
 						'status' => '0',
 						'message' => 'You have joined the Family!',
 						'data' => [],
 					];
-				}
-				else
-				{
-					$response =[
+				} else {
+					$response = [
 						'status' => '0',
 						'message' => 'Something went wrong!',
-						'data' => [], ];
+						'data' => [],
+					];
 				}
-			}
-			else
-			{
-				$response =[
+			} else {
+				$response = [
 					'status' => '0',
 					'message' => 'Please enter valid OTPs!',
-					'data' => [], ];
+					'data' => [],
+				];
 			}
-		
-		}
-		else
-		{
-			$response =[
+
+		} else {
+			$response = [
 				'status' => '0',
 				'message' => 'Please provide all data!',
-				'data' => [], ];
+				'data' => [],
+			];
 		}
 		// send invite accepted email to owner of the group 
 		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($response));
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
 	}
-	
+
 	public function getfamilymember()
 	{
-	   header("Access-Control-Allow-Origin: *");
-	   header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-	   header("Access-Control-Allow-Origin: *");
-	   header("Access-Control-Allow-Headers: access");
-	   header("Content-Type: application/json; charset=UTF-8");
-	   header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-	   $formdata = json_decode(file_get_contents('php://input'), true);
-		if(!empty($formdata)) {
-            // $parent_id = $formdata['parent_id'];
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		if (!empty($formdata)) {
+			// $parent_id = $formdata['parent_id'];
 			$groupID = $formdata['groupID'];
-			$deleteRequested="";
-			
-            // $sql="SELECT * FROM `users` WHERE parent_id = '$parent_id' AND groupID='$groupID' ORDER BY first_name";
-			
-            $sql="SELECT * FROM users WHERE investor_id IN (SELECT member_id FROM `group_invites` where groupID = '$groupID' and invite_status = 'Accepted');";
-            $query=$this->db->query($sql);
-            $result = $query->result();
-            $num_rows=$query->num_rows();
-			if($result) {
+			$deleteRequested = "";
+
+			// $sql="SELECT * FROM `users` WHERE parent_id = '$parent_id' AND groupID='$groupID' ORDER BY first_name";
+
+			$sql = "SELECT * FROM users WHERE investor_id IN (SELECT member_id FROM `group_invites` where groupID = '$groupID' and invite_status = 'Accepted');";
+			$query = $this->db->query($sql);
+			$result = $query->result();
+			$num_rows = $query->num_rows();
+			if ($result) {
 				$response = [
 					'status' => '1',
 					'message' => 'Family members fetched successfully.',
 					'data' => $result,
 				];
 			} else {
-				$response =[
+				$response = [
 					'status' => '0',
 					'message' => 'Family members are fetched successfully.',
 					'data' => [],
@@ -1306,216 +1297,198 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 		} else {
 			$response = [
 				'status' => '0',
-				'message'=> 'Please enter values of all fields.',
+				'message' => 'Please enter values of all fields.',
 			];
 		}
 		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($response));	
-   }
-   public function GenerateOTP($n) 
-	{ 
-		$generator = "135792468"; 
-		$result = ""; 
-		for($i = 1; $i <= $n; $i++) 
-		{ 
-			$result .= substr($generator, (rand()%(strlen($generator))), 1); 
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
+	public function GenerateOTP($n)
+	{
+		$generator = "135792468";
+		$result = "";
+		for ($i = 1; $i <= $n; $i++) {
+			$result .= substr($generator, (rand() % (strlen($generator))), 1);
 		}
 		//$result = "1234";
-		return $result; 
-	} 
+		return $result;
+	}
 	//edit group
 	public function editGroup()
 	{
-	   header("Access-Control-Allow-Origin: *");
-	   header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-	   header("Access-Control-Allow-Origin: *");
-	   header("Access-Control-Allow-Headers: access");
-	   header("Content-Type: application/json; charset=UTF-8");
-	   header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-	   $formdata = json_decode(file_get_contents('php://input'), true);
-	   if(!empty($formdata)) {
-		   $groupName  = $formdata['groupName'];
-		   $userID  = $formdata['userID'];
-		   $groupID = $formdata['groupID'];
-		   $post_data = [
-			   'groupName' => $groupName,
-			   'userID' => $userID,
-			
-		   ];
-		   // check group name is exists or not in existing user
-		   $sql="SELECT groupName  FROM `groups` WHERE userID='$userID' and groupName='$groupName' ANd groupID <> '$groupID'";
-		   $query=$this->db->query($sql);
-		   $result=$query->result();
-		   $num_rows=$query->num_rows();
-		   if(intval($num_rows)>0){
-				$response =[
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		if (!empty($formdata)) {
+			$groupName = $formdata['groupName'];
+			$userID = $formdata['userID'];
+			$groupID = $formdata['groupID'];
+			$post_data = [
+				'groupName' => $groupName,
+				'userID' => $userID,
+
+			];
+			// check group name is exists or not in existing user
+			$sql = "SELECT groupName  FROM `groups` WHERE userID='$userID' and groupName='$groupName' ANd groupID <> '$groupID'";
+			$query = $this->db->query($sql);
+			$result = $query->result();
+			$num_rows = $query->num_rows();
+			if (intval($num_rows) > 0) {
+				$response = [
 					'status' => '0',
 					'message' => 'Group is already exist.',
 					'data' => 0,
 				];
 
-		   }
-		   else
-		   {
-				$this->db->where('groupID',$groupID);
-            	$result= $this->db->update('groups',$post_data);
+			} else {
+				$this->db->where('groupID', $groupID);
+				$result = $this->db->update('groups', $post_data);
 				//$this->db->insert('groups',$post_data);
-				$id=$groupID;
-				if($id) {
+				$id = $groupID;
+				if ($id) {
 					$response = [
 						'status' => '1',
 						'message' => 'Group updated successfully.',
 						'data' => $id,
 					];
-				}
-				else
-				{
-					$response =[
+				} else {
+					$response = [
 						'status' => '0',
 						'message' => 'Something went wrong, try after sometimes.',
 						'data' => 0,
 					];
 				}
-		   }
+			}
 		} else {
 			$response = [
 				'status' => '0',
-				'message'=> 'Please enter values of all fields.',
+				'message' => 'Please enter values of all fields.',
 			];
-		}	   
-	   $this->output
-	   ->set_content_type('application/json')
-	   ->set_output(json_encode($response));	
+		}
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
 	}
 
 	public function deleteGroup()
 	{
-	   header("Access-Control-Allow-Origin: *");
-	   header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-	   header("Access-Control-Allow-Origin: *");
-	   header("Access-Control-Allow-Headers: access");
-	   header("Content-Type: application/json; charset=UTF-8");
-	   header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-	   $formdata = json_decode(file_get_contents('php://input'), true);
-	   if(!empty($formdata)) {
-		    
-		   $userID  = $formdata['userID'];
-		   $groupID = $formdata['groupID'];
-		   $post_data = [
-			   'groupID' => $groupID,
-			   'userID' => $userID,
-			];
-		   // Check group have pending Invite/Active Users in that or 
-		   $sql="SELECT inviteID  FROM `group_invites` WHERE groupID='$groupID'";
-		   $query=$this->db->query($sql);
-		   $result=$query->result();
-		   $num_rows=$query->num_rows();
-		   if(intval($num_rows)>0)
-		   {
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		if (!empty($formdata)) {
 
-			//cant delete
-			
+			$userID = $formdata['userID'];
+			$groupID = $formdata['groupID'];
+			$post_data = [
+				'groupID' => $groupID,
+				'userID' => $userID,
+			];
+			// Check group have pending Invite/Active Users in that or 
+			$sql = "SELECT inviteID  FROM `group_invites` WHERE groupID='$groupID'";
+			$query = $this->db->query($sql);
+			$result = $query->result();
+			$num_rows = $query->num_rows();
+			if (intval($num_rows) > 0) {
+
+				//cant delete
+
 
 				$response = [
 					'status' => '0',
 					'message' => 'You can not delete this group, you have previously invited members in that.',
-					
+
 				];
-			 
+
 				//Delete and success
-		   }
-		   else
-		   {
-				$this -> db -> where("groupID",$groupID) -> delete("groups");
-				$response =[
+			} else {
+				$this->db->where("groupID", $groupID)->delete("groups");
+				$response = [
 					'status' => '1',
 					'message' => 'Group deleted successfully.',
 					'data' => 0,
-				];	
-				
-		   }
+				];
+
+			}
 		} else {
 			$response = [
 				'status' => '0',
-				'message'=> 'Please enter values of all fields.',
+				'message' => 'Please enter values of all fields.',
 			];
-		}	   
-	   $this->output
-	   ->set_content_type('application/json')
-	   ->set_output(json_encode($response));	
+		}
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
 	}
 	public function deleteGroupMember()
 	{
-	   header("Access-Control-Allow-Origin: *");
-	   header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-	   header("Access-Control-Allow-Origin: *");
-	   header("Access-Control-Allow-Headers: access");
-	   header("Content-Type: application/json; charset=UTF-8");
-	   header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-	   $formdata = json_decode(file_get_contents('php://input'), true);
-	   if(!empty($formdata)) {
-		   $invite_email  = $formdata['invite_email'];
-		   $invite_mobile  = $formdata['invite_mobile'];
-		   $userID  = $formdata['userID'];
-		   $groupID = $formdata['groupID'];
-		   $post_data = [
-			   'groupID' => $groupID,
-			   'userID' => $userID,
-			   'invite_email' => $invite_email,
-			   'invite_mobile' => $invite_mobile,
-		   ];
-		   // check group name is exists or not in existing user
-		   $sql="SELECT inviteID  FROM `group_invites` WHERE userID='$userID' and groupID='$groupID' AND invite_mobile='$invite_mobile' AND invite_email='$invite_email' ";
-		   $query=$this->db->query($sql);
-		   $result=$query->result();
-		   $num_rows=$query->num_rows();
-		   if(intval($num_rows)>0){
-			//echo $sql;
-			$this -> db -> where("inviteID",$result[0]->inviteID) -> delete("group_invites");
-			$inviteID = $result[0]->inviteID;
-			//$this -> db -> where("inviteID",$inviteID) -> delete("group_invites");
-			// once verify update status in group invite table
-			$sql="SELECT *  FROM `users` WHERE email ='$invite_email' AND mobile ='$invite_mobile'  ";
-			$query=$this->db->query($sql);
-			$result=$query->result();
-			$num_rows=$query->num_rows();
-			$investor_id  = $result[0]->investor_id  ;
-			$invitedName=$result[0]->first_name.' '.$result[0]->last_name;
-			$post_data = [
-				'parent_id' => 0,
-				'groupID' => 0,
-			];
-			$this->db->where('investor_id',$investor_id);
-			$resp=$this->db->update('users',$post_data);
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		if (!empty($formdata)) {
+			$memberId = $formdata['memberId'];
+			$groupID = $formdata['groupID'];
+
+			$sql = "SELECT *  FROM `group_invites` WHERE member_id ='$memberId' AND groupID ='$groupID'";
+			$query = $this->db->query($sql);
+			$result = $query->result();
+			$num_rows = $query->num_rows();
+			if (intval($num_rows) > 0) {
+				if (str_starts_with($result[0]->invite_email, 'temp')) {
+					$response = [
+						'status' => '0',
+						'message' => 'Cannot delete a member who does not have email registered.'
+					];
+				} else {
+					$rowsDeleted = $this->db
+						->where("member_id", $memberId)
+						->where("groupID", $groupID)
+						->delete("group_invites");
+
+					if ($rowsDeleted) {
+						$response = [
+							'status' => '1',
+							'message' => 'Member deleted successfully.'
+						];
+					} else {
+						$response = [
+							'status' => '0',
+							'message' => 'Something went wrong, Please try again.',
+						];
+					}
+
+				}
 
 
+			} else {
 				$response = [
-					'status' => '1',
-					'message' => 'Member deleted successfully.',
-					'data' => $inviteID,
-				];
-			 
-				//Delete and success
-		   }
-		   else
-		   {
-				$response =[
 					'status' => '0',
-					'message' => 'Member is not exist in this group.',
-					'data' => 0,
-				];	
-				
-		   }
+					'message' => 'Member not found',
+				];
+			}
+
+
 		} else {
 			$response = [
 				'status' => '0',
-				'message'=> 'Please enter values of all fields.',
+				'message' => 'Please enter values of all fields.',
 			];
-		}	   
-	   $this->output
-	   ->set_content_type('application/json')
-	   ->set_output(json_encode($response));	
+		}
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
 	}
 	public function deleteRequest()
 	{
@@ -1527,52 +1500,49 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 		$formdata = json_decode(file_get_contents('php://input'), true);
-		if(!empty($formdata)) {
-			$invite_email   = $formdata['invite_email'];
-			$invite_mobile  = $formdata['invite_mobile'];
-			$groupID  = $formdata['groupID'];
-			$userID= $formdata['userID'];
-			$parentID=0;
+		if (!empty($formdata)) {
+			$invite_email = $formdata['invite_email'];
+			$invite_mobile = $formdata['invite_mobile'];
+			$groupID = $formdata['groupID'];
+			$userID = $formdata['userID'];
+			$parentID = 0;
 			//$groupID =0;
 			//$invite_email  =0;
 			//$invite_mobile  =0;
-			$sql="SELECT *  FROM `group_invites` WHERE invite_email ='$invite_email' AND invite_mobile ='$invite_mobile' AND groupID ='$groupID'";
-			$query=$this->db->query($sql);
-			$result=$query->result();
-			$num_rows=$query->num_rows();
-			if(intval($num_rows)>0)
-			{
-			    //User found
-				$inviteID =$result[0]->inviteID;
+			$sql = "SELECT *  FROM `group_invites` WHERE invite_email ='$invite_email' AND invite_mobile ='$invite_mobile' AND groupID ='$groupID'";
+			$query = $this->db->query($sql);
+			$result = $query->result();
+			$num_rows = $query->num_rows();
+			if (intval($num_rows) > 0) {
+				//User found
+				$inviteID = $result[0]->inviteID;
 				// once verify update status in group invite table
-					$post_data = [
-						'deleteRequested' => "Yes",
-						'deleteRequestDate' => date('Y-m-d H-i a'),
-						
-					];
-					$this->db->where('inviteID',$inviteID);
-					$resp=$this->db->update('group_invites',$post_data);
-				    if(!$resp){
-						$response =[
-							'status' => '0',
-							'message' => 'Something went wrong!',
-							'data' => [],
-						];	
-					}
-					else
-					{
-							
-					
-				// update user data against the invite email and mobile with group ID and parent ID 
-				$sql="SELECT *  FROM `users` WHERE email ='$invite_email' AND mobile ='$invite_mobile'  ";
-				$query=$this->db->query($sql);
-				$result=$query->result();
-				$num_rows=$query->num_rows();
-				$investor_id  = $result[0]->investor_id  ;
-				$invitedName=$result[0]->first_name.' '.$result[0]->last_name;
-				 
+				$post_data = [
+					'deleteRequested' => "Yes",
+					'deleteRequestDate' => date('Y-m-d H-i a'),
 
-					$body='<!doctype html>
+				];
+				$this->db->where('inviteID', $inviteID);
+				$resp = $this->db->update('group_invites', $post_data);
+				if (!$resp) {
+					$response = [
+						'status' => '0',
+						'message' => 'Something went wrong!',
+						'data' => [],
+					];
+				} else {
+
+
+					// update user data against the invite email and mobile with group ID and parent ID 
+					$sql = "SELECT *  FROM `users` WHERE email ='$invite_email' AND mobile ='$invite_mobile'  ";
+					$query = $this->db->query($sql);
+					$result = $query->result();
+					$num_rows = $query->num_rows();
+					$investor_id = $result[0]->investor_id;
+					$invitedName = $result[0]->first_name . ' ' . $result[0]->last_name;
+
+
+					$body = '<!doctype html>
 					<html>
 					  <head>
 						<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1701,7 +1671,7 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 													  PS: This is system generated email. Please do not reply.
 												  </br>
 												  <div style="text-align: center;" class="imgRes col-sm-12 col-md-12 col-lg-12">
-													  <img src="'.WEB_BASE_URL.'web/glogo.png" alt="logo" style="width:120px;height:auto;">
+													  <img src="' . WEB_BASE_URL . 'web/glogo.png" alt="logo" style="width:120px;height:auto;">
 												  </div>
 												  </td>
 											  </tr>
@@ -1723,7 +1693,7 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 										  </tr>
 										  <tr>
 											  <td class="content-block powered-by" style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; color: #999999; font-size: 12px; text-align: center;" valign="top" align="center">
-											  Powered by <a href="'.WEB_BASE_URL.'" style="color: #999999; font-size: 12px; text-align: center; text-decoration: none;">Growth91</a>.
+											  Powered by <a href="' . WEB_BASE_URL . '" style="color: #999999; font-size: 12px; text-align: center; text-decoration: none;">Growth91</a>.
 											  </td>
 										  </tr>
 										  </table>
@@ -1737,65 +1707,63 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 							  </table>
 							  </body>
 						</html>';
-			$subject="Growth91 family member delete request ";
-			$this->load->helper('send_email');
-			$res=send_email($body,$subject,$invite_email,'contact@growth91.com');
+					$subject = "Growth91 family member delete request ";
+					$this->load->helper('send_email');
+					$res = send_email($body, $subject, $invite_email, 'contact@growth91.com');
 
-			    $response =[
+					$response = [
 						'status' => '1',
 						'message' => 'Your request for delete is received by us successfully.',
 						'data' => [],
 					];
 				}
-			}
-			else
-			{
-				$response =[
+			} else {
+				$response = [
 					'status' => '0',
 					'message' => 'Please enter valid details!',
-					'data' => [], ];
+					'data' => [],
+				];
 			}
-		
-		}
-		else
-		{
-			$response =[
+
+		} else {
+			$response = [
 				'status' => '0',
 				'message' => 'Please provide all data!',
-				'data' => [], ];
+				'data' => [],
+			];
 		}
 		// send invite accepted email to owner of the group 
 		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($response));
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
 	}
 
 
 	public function getDeleteRequest()
 	{
-	   header("Access-Control-Allow-Origin: *");
-	   header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-	   header("Access-Control-Allow-Origin: *");
-	   header("Access-Control-Allow-Headers: access");
-	   header("Content-Type: application/json; charset=UTF-8");
-	   header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-	   $formdata = json_decode(file_get_contents('php://input'), true);
-		if(!empty($formdata)) {
-            $deleteRequested = $formdata['deleteRequested'];
-			 
-			
-            $sql=$sql="SELECT groups.groupName, group_invites.*,first_name,middle_name,last_name,email,mobile, concat(first_name,' ',middle_name,' ',last_name) as fullName FROM `group_invites` inner join users on users.investor_id = group_invites.userID inner join groups on groups.groupID = group_invites.groupID  WHERE deleteRequested = 'Yes' ORDER BY first_name";
-            $query=$this->db->query($sql);
-            $result = $query->result();
-            $num_rows=$query->num_rows();
-			if($result) {
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		if (!empty($formdata)) {
+			$deleteRequested = $formdata['deleteRequested'];
+
+
+			$sql = $sql = "SELECT groups.groupName, group_invites.*,first_name,middle_name,last_name,email,mobile, concat(first_name,' ',middle_name,' ',last_name) as fullName FROM `group_invites` inner join users on users.investor_id = group_invites.userID inner join groups on groups.groupID = group_invites.groupID  WHERE deleteRequested = 'Yes' ORDER BY first_name";
+			$query = $this->db->query($sql);
+			$result = $query->result();
+			$num_rows = $query->num_rows();
+			if ($result) {
 				$response = [
 					'status' => '1',
 					'message' => 'Family members fetched successfully.',
 					'data' => $result,
 				];
 			} else {
-				$response =[
+				$response = [
 					'status' => '0',
 					'message' => 'Family members are fetched successfully.',
 					'data' => [],
@@ -1804,15 +1772,15 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 		} else {
 			$response = [
 				'status' => '0',
-				'message'=> 'Please enter values of all fields.',
+				'message' => 'Please enter values of all fields.',
 			];
 		}
 		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($response));	
-   }
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
 
-   public function deleteRequestApprove()
+	public function deleteRequestApprove()
 	{
 		// Verify Email & SMS otp
 		header("Access-Control-Allow-Origin: *");
@@ -1822,63 +1790,61 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 		$formdata = json_decode(file_get_contents('php://input'), true);
-		if(!empty($formdata)) {
-			$invite_email   = $formdata['invite_email'];
-			$invite_mobile  = $formdata['invite_mobile'];
-			$groupID  = $formdata['groupID'];
-			$userID= $formdata['userID'];
-			$inviteID=$formdata['inviteID'];;
+		if (!empty($formdata)) {
+			$invite_email = $formdata['invite_email'];
+			$invite_mobile = $formdata['invite_mobile'];
+			$groupID = $formdata['groupID'];
+			$userID = $formdata['userID'];
+			$inviteID = $formdata['inviteID'];
+			;
 			//$groupID =0;
 			//$invite_email  =0;
 			//$invite_mobile  =0;
-			$sql="SELECT *  FROM `group_invites` WHERE invite_email ='$invite_email' AND invite_mobile ='$invite_mobile' AND groupID ='$groupID'";
-			$query=$this->db->query($sql);
-			$result=$query->result();
-			$num_rows=$query->num_rows();
-			if(intval($num_rows)>0)
-			{
-			    //User found
+			$sql = "SELECT *  FROM `group_invites` WHERE invite_email ='$invite_email' AND invite_mobile ='$invite_mobile' AND groupID ='$groupID'";
+			$query = $this->db->query($sql);
+			$result = $query->result();
+			$num_rows = $query->num_rows();
+			if (intval($num_rows) > 0) {
+				//User found
 				// Delete from invite table
-				$this -> db -> where("inviteID",$inviteID) -> delete("group_invites");
+				$this->db->where("inviteID", $inviteID)->delete("group_invites");
 				// once verify update status in group invite table
-				$sql="SELECT *  FROM `users` WHERE email ='$invite_email' AND mobile ='$invite_mobile'  ";
-				$query=$this->db->query($sql);
-				$result=$query->result();
-				$num_rows=$query->num_rows();
-				$investor_id  = $result[0]->investor_id  ;
-				$invitedName=$result[0]->first_name.' '.$result[0]->last_name;
+				$sql = "SELECT *  FROM `users` WHERE email ='$invite_email' AND mobile ='$invite_mobile'  ";
+				$query = $this->db->query($sql);
+				$result = $query->result();
+				$num_rows = $query->num_rows();
+				$investor_id = $result[0]->investor_id;
+				$invitedName = $result[0]->first_name . ' ' . $result[0]->last_name;
 				$post_data = [
 					'parent_id' => 0,
 					'groupID' => 0,
 				];
-				$this->db->where('investor_id',$investor_id);
-				$resp=$this->db->update('users',$post_data);
-				 
-				$investor_id  = $result[0]->investor_id  ;
-				$invitedName=$result[0]->first_name.' '.$result[0]->last_name;
-				 
-				
-					$post_data = [
-						'deleteRequested' => "Yes",
-						'deleteRequestDate' => date('Y-m-d H-i a'),
-						
-					];
-					$this->db->where('inviteID',$inviteID);
-					$resp=$this->db->update('group_invites',$post_data);
-				    if(!$resp){
-						$response =[
-							'status' => '0',
-							'message' => 'Something went wrong!',
-							'data' => [],
-						];	
-					}
-					else
-					{
-							
-					
-				
+				$this->db->where('investor_id', $investor_id);
+				$resp = $this->db->update('users', $post_data);
 
-					$body='<!doctype html>
+				$investor_id = $result[0]->investor_id;
+				$invitedName = $result[0]->first_name . ' ' . $result[0]->last_name;
+
+
+				$post_data = [
+					'deleteRequested' => "Yes",
+					'deleteRequestDate' => date('Y-m-d H-i a'),
+
+				];
+				$this->db->where('inviteID', $inviteID);
+				$resp = $this->db->update('group_invites', $post_data);
+				if (!$resp) {
+					$response = [
+						'status' => '0',
+						'message' => 'Something went wrong!',
+						'data' => [],
+					];
+				} else {
+
+
+
+
+					$body = '<!doctype html>
 					<html>
 					  <head>
 						<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -2007,7 +1973,7 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 													  PS: This is system generated email. Please do not reply.
 												  </br>
 												  <div style="text-align: center;" class="imgRes col-sm-12 col-md-12 col-lg-12">
-													  <img src="'.WEB_BASE_URL.'web/glogo.png" alt="logo" style="width:120px;height:auto;">
+													  <img src="' . WEB_BASE_URL . 'web/glogo.png" alt="logo" style="width:120px;height:auto;">
 												  </div>
 												  </td>
 											  </tr>
@@ -2029,7 +1995,7 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 										  </tr>
 										  <tr>
 											  <td class="content-block powered-by" style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; color: #999999; font-size: 12px; text-align: center;" valign="top" align="center">
-											  Powered by <a href="'.WEB_BASE_URL.'" style="color: #999999; font-size: 12px; text-align: center; text-decoration: none;">Growth91</a>.
+											  Powered by <a href="' . WEB_BASE_URL . '" style="color: #999999; font-size: 12px; text-align: center; text-decoration: none;">Growth91</a>.
 											  </td>
 										  </tr>
 										  </table>
@@ -2043,36 +2009,34 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 							  </table>
 							  </body>
 						</html>';
-			$subject="Growth91 removed from Group ";
-			$this->load->helper('send_email');
-			$res=send_email($body,$subject,$invite_email,'');
+					$subject = "Growth91 removed from Group ";
+					$this->load->helper('send_email');
+					$res = send_email($body, $subject, $invite_email, '');
 
-			    $response =[
+					$response = [
 						'status' => '1',
 						'message' => 'Your request for delete is processed successfully.',
 						'data' => [],
 					];
 				}
-			}
-			else
-			{
-				$response =[
+			} else {
+				$response = [
 					'status' => '0',
 					'message' => 'Please enter valid details!',
-					'data' => [], ];
+					'data' => [],
+				];
 			}
-		
-		}
-		else
-		{
-			$response =[
+
+		} else {
+			$response = [
 				'status' => '0',
 				'message' => 'Please provide all data!',
-				'data' => [], ];
+				'data' => [],
+			];
 		}
 		// send invite accepted email to owner of the group 
 		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($response));
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
 	}
 }
