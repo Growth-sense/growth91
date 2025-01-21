@@ -1641,7 +1641,7 @@ class VsnapU extends Component {
                                         title={`Select Investor`}
                                         okText={"Select"}
                                         visible={this.state.selectInvestorModal}
-                                        
+                                        onCancel={() => {this.setState({selectInvestorModal: false})} }
                                         
                                         cancelText="Cancel"
                                         width={600}
