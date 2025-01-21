@@ -47,11 +47,10 @@ export default {
     }),
 
     //addInvestorViaFamilyWithoutEmailCheck
-    addInvestorViaFamilyWithoutEmail: (data) => {
+    addInvestorViaFamilyWithoutEmail: (data) => 
       api.post(URLs.addInvestorViaFamilyWithoutEmail, data).then((response) => {
         return response.data;
-      });
-    }
+      }),
   },
   update_investment_document_id: (data) =>
     api.post(URLs.update_investment_document_id, data).then((response) => {
