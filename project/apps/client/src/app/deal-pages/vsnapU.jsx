@@ -1550,7 +1550,14 @@ class VsnapU extends Component {
                                                                                 className="black-button prime-bg text-center"
                                                                                 onClick={() => {
                                                                                     this.getpostData();
-                                                                                    this.setState({selectInvestorModal: true});                                                               
+                                                                                    if(dataSource2.length > 1){
+                                                                                        this.setState({selectInvestorModal: true});
+                                                                                    }
+                                                                                    else{
+                                                                                        this.setState({selectedInvestorId: dataSource2[0].key});
+                                                                                        this.showModal1();
+                                                                                    }
+                                                                                    
                                                                                 }}
                                                                             >
                                                                                 Express Your Interest
@@ -1591,7 +1598,14 @@ class VsnapU extends Component {
                                                                                 className="black-button prime-bg text-center"
                                                                                 onClick={() => {
                                                                                     this.getpostData();
-                                                                                    this.setState({selectInvestorModal: true});
+                                                                                    if(dataSource2.length > 1){
+                                                                                        this.setState({selectInvestorModal: true});
+                                                                                    }
+                                                                                    else{
+                                                                                        this.setState({selectedInvestorId: dataSource2[0].key});
+                                                                                        this.showModal1();
+                                                                                    }
+                                                                                    
                                                                                 }}
                                                                                 style={{ padding: "13px 0" }}
                                                                             >
