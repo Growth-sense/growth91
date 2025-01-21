@@ -525,12 +525,16 @@ class Startup extends CI_Controller {
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
 		$formdata = json_decode(file_get_contents('php://input'), true);
 			extract($formdata);
 		// sql query
 		$sql = "SELECT tempunicorndeals.*,tempunicorndeals2.*  FROM `tempunicorndeals` 
 		LEFT JOIN tempunicorndeals2 on tempunicorndeals2.tudTempUdID = tempunicorndeals.tudTempUdID WHERE founderID='".$founderID."'
 		ORDER BY tempunicorndeals.tudTempUdID DESC;";
+		echo $sql;
+		exit;
+
 		$query = $this->db->query($sql);
 		$list = $query->result();
 		for ($i = 0; $i < count($list); $i++) {

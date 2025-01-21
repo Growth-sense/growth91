@@ -784,7 +784,7 @@ text-align: justify;
                         <button
                           className="primaryInterested"
                           style={{
-                            height: "100%",
+                            // height: "100%",
                             backgroundColor: "#5C33CF",
                             color: "white",
                             border: "none",

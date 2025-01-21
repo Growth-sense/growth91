@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { message, Spin } from "antd";
+import { message, Spin, Button, Modal } from "antd"; // Added Modal
+import { CloseOutlined, UploadOutlined } from "@ant-design/icons";
 import Bridge from "../../constants/Bridge";
-
-import $ from "jquery";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 class Mediacoverager extends Component {
   constructor(props) {
     super(props);
@@ -22,66 +23,71 @@ class Mediacoverager extends Component {
       ],
       teammem: [
         // Array to handle multiple sets of input fields
-        {  name: "", img: "", description1: "", description2: "",imgname: "" ,Role:"" },
-    ],
-};
-}
+        {
+          name: "",
+          img: "",
+          description1: "",
+          description2: "",
+          imgname: "",
+          Role: "",
+        },
+      ],
+    };
+  }
 
   componentDidMount() {
-    if (this.props.id) {
-      let id = this.props.id;
+    const { id, unicorn } = this.props;
+    if (id) {
+      this.getData(id);
     }
-    if(this.props.unicorn.tudMediaCoverageFiles){
-
+    if (unicorn.tudMediaCoverageFiles) {
       this.setState({
-        mediacoverager: JSON.parse(this.props.unicorn.tudMediaCoverageFiles),
-       
+        mediacoverager: JSON.parse(unicorn.tudMediaCoverageFiles),
       });
     }
-    if(this.props.unicorn.tudVendorId){
-
+    if (unicorn.tudVendorId) {
       this.setState({
-        teammem: JSON.parse(this.props.unicorn.tudVendorId),       
+        teammem: JSON.parse(unicorn.tudVendorId),
       });
     }
 
+    // Removed jQuery dependency
+    // $("#selected-field").focus();
 
-    $("#selected-field").focus();
     this.props.check();
-}
-addcoverger = () => {
-    const newMedia = {
-        title: "",
-        img: "",
-        content: "",
-    };
+  }
+
+  addcoverger = () => {
     this.setState((prevState) => ({
-        mediacoverager: [
-            ...prevState.mediacoverager,
-            { title: "", img: "", content: "", imgname: "" },
-        ],
-    }));
-  };
-  addteam = () => {
-    const newMedia = {
-      title: "",
-      img: "",
-      content: "",
-    };
-    this.setState((prevState) => ({
-        teammem: [
-            ...prevState.teammem,
-            { name: "", img: "", description1: "", description2: "",imgname: "" ,Role:""},
+      mediacoverager: [
+        ...prevState.mediacoverager,
+        { title: "", img: "", content: "", imgname: "" },
       ],
     }));
   };
+
+  addteam = () => {
+    this.setState((prevState) => ({
+      teammem: [
+        ...prevState.teammem,
+        {
+          name: "",
+          img: "",
+          description1: "",
+          description2: "",
+          imgname: "",
+          Role: "",
+        },
+      ],
+    }));
+  };
+
   getData = (id) => {
     let params = {
       founder_id: this.props.id,
     };
     Bridge.founder.getFounderDetails(params).then((result) => {
-      console.log("result", result.data[0].reference_of_guide_from_college);
-      if (result.status == 1) {
+      if (result.status === 1) {
         this.setState({
           reference_of_customers: result.data[0].reference_of_customers,
           reference_of_vendors: result.data[0].reference_of_vendors,
@@ -96,37 +102,33 @@ addcoverger = () => {
     });
   };
 
-  updatefounder = async() => {
+  updatefounder = async () => {
     console.log(this.state.mediacoverager);
-   setTimeout(() => {
-      
-    this.props.onInput(
-      "tudMediaCoverageFiles",
-      JSON.stringify(this.state.mediacoverager)
-    );
-  }, 1000);
-    this.props.onInput(
-      "tudVendorId",
-       JSON.stringify(this.state.teammem)
-    );
+    setTimeout(() => {
+      this.props.onInput(
+        "tudMediaCoverageFiles",
+        JSON.stringify(this.state.mediacoverager)
+      );
+    }, 1000);
+    this.props.onInput("tudVendorId", JSON.stringify(this.state.teammem));
     let params = {
       no: 18,
       main_founder_id: localStorage.getItem("founder_id"),
       f18_status:
-        this.state.processtype == "saveandproceed" ? "success" : "new",
+        this.state.processtype === "saveandproceed" ? "success" : "new",
     };
     this.setState({ loading: true });
     setTimeout(() => {
       console.log(this.props.unicorn.tudMediaCoverageFiles);
 
       Bridge.Unicorn.editunicorndraft(this.props.unicorn).then((result) => {
-        if (result.status == 1) {
+        if (result.status === 1) {
           this.setState({ loading: false }, () => this.props.activate());
-          if (this.state.processtype == "next") {
+          if (this.state.processtype === "next") {
             this.props.next();
-          } else if (this.state.processtype == "prev") {
+          } else if (this.state.processtype === "prev") {
             this.props.prev();
-          } else if (this.state.processtype == "saveandproceed") {
+          } else if (this.state.processtype === "saveandproceed") {
             this.props.activate();
             message.success("Reference details are updated successfully.", 6);
           } else {
@@ -142,7 +144,6 @@ addcoverger = () => {
   };
 
   saveandproceed = () => {
-    // this.props.check();
     this.setState({ processtype: "saveandproceed" }, () =>
       this.updatefounder()
     );
@@ -161,7 +162,7 @@ addcoverger = () => {
   handleInputChange = async (index, e) => {
     const formData = new FormData();
     const { name, value } = e.target;
-    if (name == "img") {
+    if (name === "img") {
       const newEntries = [...this.state.mediacoverager];
       newEntries[index][name] = value; // Update the specific input field
       this.setState({ mediacoverager: newEntries });
@@ -170,27 +171,18 @@ addcoverger = () => {
       console.log(formData.get("tudTempUdID"));
       console.log(formData.get("upfile"));
 
-      // Append the file to the formData
-
       try {
-        // Make the fetch request with formData as the body
         const response = await axios.post(
           `${process.env.REACT_APP_BASE_URL}api/founder/Startup/uploadFiles`,
           formData,
           {
             headers: {
               "Content-Type": "multipart/form-data",
-              // "Accept": "application/json",
-              // "type": "formData"
             },
           }
         );
 
-        // Check if the response is okay (status 200-299)
         if (response) {
-          // or .text(), depending on the response type
-
-          // Process the response
           console.log(response);
           newEntries[index].imgname = response.data.data.upfile; // Update the specific input field
           this.setState({ mediacoverager: newEntries });
@@ -204,10 +196,11 @@ addcoverger = () => {
       this.setState({ mediacoverager: newEntries });
     }
   };
+
   handleteamChange = async (index, e) => {
     const formData = new FormData();
     const { name, value } = e.target;
-    if (name == "img") {
+    if (name === "img") {
       const newEntries = [...this.state.teammem];
       newEntries[index][name] = value; // Update the specific input field
       this.setState({ teammem: newEntries });
@@ -216,27 +209,18 @@ addcoverger = () => {
       console.log(formData.get("tudTempUdID"));
       console.log(formData.get("upfile"));
 
-      // Append the file to the formData
-
       try {
-        // Make the fetch request with formData as the body
         const response = await axios.post(
           `${process.env.REACT_APP_BASE_URL}api/founder/Startup/uploadFiles`,
           formData,
           {
             headers: {
               "Content-Type": "multipart/form-data",
-              // "Accept": "application/json",
-              // "type": "formData"
             },
           }
         );
 
-        // Check if the response is okay (status 200-299)
         if (response) {
-          // or .text(), depending on the response type
-
-          // Process the response
           console.log(response);
           newEntries[index].imgname = response.data.data.upfile; // Update the specific input field
           this.setState({ teammem: newEntries });
@@ -251,11 +235,67 @@ addcoverger = () => {
     }
   };
 
+  // Remove Coverager Card Handler
+  removeCoverager = (index) => {
+    Modal.confirm({
+      title: "Are you sure you want to delete this media card?",
+      onOk: () => {
+        const { mediacoverager } = this.state;
+        const updatedCoveragers = mediacoverager.filter((_, i) => i !== index);
+        this.setState({ mediacoverager: updatedCoveragers }, () => {
+          message.success("Media card removed successfully.");
+        });
+      },
+      onCancel() {
+        // Do nothing on cancel
+      },
+    });
+  };
+
+  // Remove Team Member Card Handler
+  removeTeamMember = (index) => {
+    Modal.confirm({
+      title: "Are you sure you want to delete this team member?",
+      onOk: () => {
+        const { teammem } = this.state;
+        const updatedTeammem = teammem.filter((_, i) => i !== index);
+        this.setState({ teammem: updatedTeammem }, () => {
+          message.success("Team member removed successfully.");
+        });
+      },
+      onCancel() {
+        // Do nothing on cancel
+      },
+    });
+  };
+
   render() {
     let active = false;
 
     return (
       <div>
+        <style>
+          {`
+            .Card {
+              margin-top: 20px;
+              background-color: #f5f5f5;
+              padding: 20px;
+              border-radius: 10px;
+              position: relative;
+            }
+            .remove-icon {
+              position: absolute;
+              top: 10px;
+              right: 10px;
+              font-size: 20px;
+              color: #ff4d4f;
+              cursor: pointer;
+            }
+            .remove-icon:hover {
+              color: #ff7875;
+            }
+          `}
+        </style>
         <section className="StepForm-section" style={{ display: "block" }}>
           <Spin spinning={this.state.loading}>
             <div className="container">
@@ -271,6 +311,7 @@ addcoverger = () => {
                       }}
                     >
                       <span
+                        className="fs-5"
                         style={{
                           background: "#fff",
                           width: 119,
@@ -288,215 +329,259 @@ addcoverger = () => {
                   <div className="row" style={{ maxWidth: 900 }}>
                     <div className="col-lg-12">
                       <div className="form-group">
-                        {/* <label for="">mediacoverager</label> */}
-                        {this.state.mediacoverager.map((item, index) => {
-                          console.log(item);
+                        {/* Media Coverager Section */}
+                        {this.state.mediacoverager.map((item, index) => (
+                          <div className="Card my-3" key={index}>
+                            {/* Cross Icon for Removing the Card */}
+                            <CloseOutlined
+                              onClick={() => this.removeCoverager(index)}
+                              className="remove-icon"
+                            />
 
-                          return (
-                            <>
-                              <div className="form-group ">
-                                <div className="mt-4">
-                                  <label className="mb-2">
-                                    Media title{index + 1}
-                                    {/* <span className="text-danger">*</span> */}
-                                  </label>
+                            {/* Media Title */}
+                            <div className="form-group">
+                              <div className="mt-4">
+                                <label className="mb-2">
+                                  Media title {index + 1}
+                                  {/* <span className="text-danger">*</span> */}
+                                </label>
 
-                                  <input
-                                    key={index}
-                                    type="text"
-                                    onWheel={() =>
-                                      document.activeElement.blur()
-                                    }
-                                    name="title"
-                                    value={item.title}
-                                    onChange={(e) =>
-                                      this.handleInputChange(index, e)
-                                    }
-                                  />
-                                </div>
+                                <input
+                                  type="text"
+                                  onWheel={() => document.activeElement.blur()}
+                                  name="title"
+                                  value={item.title}
+                                  onChange={(e) =>
+                                    this.handleInputChange(index, e)
+                                  }
+                                  className="form-control"
+                                />
                               </div>
-                              <div className="form-group ">
-                                <div className="mt-4">
-                                  <label className="mb-2">
-                                    Media link{index + 1}
-                                   
-                                  </label>
-                                  <input
-                                    key={index}
-                                    type="text"
-                                    onWheel={() =>
-                                      document.activeElement.blur()
-                                    }
-                                    name="content"
-                                    value={item.content}
-                                    onChange={(e) =>
-                                      this.handleInputChange(index, e)
-                                    }
-                                  />
-                                </div>
+                            </div>
+
+                            {/* Media Link */}
+                            <div className="form-group">
+                              <div className="mt-4">
+                                <label className="mb-2">
+                                  Media link {index + 1}
+                                </label>
+                                <input
+                                  type="text"
+                                  onWheel={() => document.activeElement.blur()}
+                                  name="content"
+                                  value={item.content}
+                                  onChange={(e) =>
+                                    this.handleInputChange(index, e)
+                                  }
+                                  className="form-control"
+                                />
                               </div>
-                              <div className="form-group ">
-                                <div className="mt-4">
-                                  <label className="mb-2">
-                                    Media img{index + 1}
-                                   
-                                  </label>
-                                  <input
-                                    key={index}
-                                    type="file"
-                                    onWheel={() =>
-                                      document.activeElement.blur()
-                                    }
-                                    name="img"
-                                    // value={item.img}
-                                    onChange={(e) =>
-                                      this.handleInputChange(index, e)
-                                    }
-                                  />
-                                </div>
+                            </div>
+
+                            {/* Media Image */}
+                            <div className="form-group">
+                              <div className="mt-4">
+                                <label className="mb-2">
+                                  Media img {index + 1}
+                                </label>
+                                <input
+                                  type="file"
+                                  onWheel={() => document.activeElement.blur()}
+                                  name="img"
+                                  onChange={(e) =>
+                                    this.handleInputChange(index, e)
+                                  }
+                                  className="form-control-file"
+                                />
+                                {item.imgname && (
+                                  <div style={{ marginTop: "10px" }}>
+                                    <a
+                                      href={`${process.env.REACT_APP_BASE_URL}api/uploads/founders/media/${localStorage.getItem(
+                                        "founder_id"
+                                      )}/${item.imgname}`}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                    >
+                                      View Image
+                                    </a>
+                                  </div>
+                                )}
                               </div>
-                            </>
-                          );
-                        })}
-                        <button
-                          className="btn btn-primary"
+                            </div>
+                          </div>
+                        ))}
+
+                        {/* Button to Add New Media Card */}
+                        <Button
+                          type="dashed"
                           onClick={this.addcoverger}
+                          block
+                          icon={<UploadOutlined />}
+                          style={{
+                            marginTop: "10px",
+                            marginBottom: "10px",
+                            backgroundColor: "#29176f",
+                            color: "#fff",
+                            border: "1px solid #29176f",
+                          }}
                         >
-                          Add media
-                        </button>
+                          Add Media
+                        </Button>
                       </div>
+
+                      {/* Team Section */}
                       <div className="form-group">
-                        <label for="">Team</label>
-                        {this.state.teammem.map((item, index) => {
-                          console.log(item);
+                        <label className="fs-4">Team</label>
+                        {this.state.teammem.map((item, index) => (
+                          <div className="Card my-3" key={index}>
+                            {/* Conditionally render the Close icon only if there are more than one team members */}
+                            {this.state.teammem.length > 1 && (
+                              <CloseOutlined
+                                onClick={() => this.removeTeamMember(index)}
+                                className="remove-icon"
+                              />
+                            )}
 
-                          return (
-                            <>
-                              <div className="form-group ">
-                                <div className="mt-4">
-                                  <label className="mb-2">
-                                    Name 
-                                   
-                                  </label>
+                            {/* Team Member Name */}
+                            <div className="form-group">
+                              <div className="mt-4">
+                                <label className="mb-2">Name</label>
 
-                                  <input
-                                    key={index}
-                                    type="text"
-                                    onWheel={() =>
-                                      document.activeElement.blur()
-                                    }
-                                    name="name"
-                                    value={item.name}
-                                    onChange={(e) =>
-                                      this.handleteamChange(index, e)
-                                    }
-                                  />
-                                </div>
+                                <input
+                                  type="text"
+                                  onWheel={() =>
+                                    document.activeElement.blur()
+                                  }
+                                  name="name"
+                                  value={item.name}
+                                  onChange={(e) =>
+                                    this.handleteamChange(index, e)
+                                  }
+                                  className="form-control"
+                                />
                               </div>
-                              <div className="form-group ">
-                                <div className="mt-4">
-                                  <label className="mb-2">
-                                    Role
-                                   
-                                  </label>
+                            </div>
 
-                                  <input
-                                    key={index}
-                                    type="text"
-                                    onWheel={() =>
-                                      document.activeElement.blur()
-                                    }
-                                    name="Role"
-                                    value={item.Role}
-                                    onChange={(e) =>
-                                      this.handleteamChange(index, e)
-                                    }
-                                  />
-                                </div>
+                            {/* Team Member Role */}
+                            <div className="form-group">
+                              <div className="mt-4">
+                                <label className="mb-2">Role</label>
+
+                                <input
+                                  type="text"
+                                  onWheel={() =>
+                                    document.activeElement.blur()
+                                  }
+                                  name="Role"
+                                  value={item.Role}
+                                  onChange={(e) =>
+                                    this.handleteamChange(index, e)
+                                  }
+                                  className="form-control"
+                                />
                               </div>
-                              <div className="form-group ">
-                                <div className="mt-4">
-                                  <label className="mb-2">
-                                    Description 1
-                                   
-                                  </label>
-                                  <input
-                                    key={index}
-                                    type="text"
-                                    onWheel={() =>
-                                      document.activeElement.blur()
+                            </div>
+
+                            {/* Team Member Description 1 */}
+                            <div className="form-group">
+                              <div className="mt-4">
+                                <label className="mb-2">Description 1</label>
+                                <input
+                                  type="text"
+                                  onWheel={() =>
+                                    document.activeElement.blur()
+                                  }
+                                  maxLength="100"
+                                  name="description1"
+                                  value={item.description1}
+                                  onChange={(e) => {
+                                    this.handleteamChange(index, e);
+                                    if (e.target.value.length === 100) {
+                                      toast.error("Only 100 characters allowed.");
                                     }
-                                    maxlength="100"
-                                    name="description1"
-                                    value={item.description1}
-                                    onChange={(e) =>
-                                      {this.handleteamChange(index, e);
-                                        if (e.target.value.length == 100) {
-                                          toast.error("only 100 chart");
-                                        }
-                                      }
-                                    }
-                                  />
-                                </div>
+                                  }}
+                                  className="form-control"
+                                />
                               </div>
-                              <div className="form-group ">
-                                <div className="mt-4">
-                                  <label className="mb-2">
-                                    Description 2
-                                   
-                                  </label>
-                                  <input
-                                    key={index}
-                                    type="text"
-                                    onWheel={() =>
-                                      document.activeElement.blur()
+                            </div>
+
+                            {/* Team Member Description 2 */}
+                            <div className="form-group">
+                              <div className="mt-4">
+                                <label className="mb-2">Description 2</label>
+                                <input
+                                  type="text"
+                                  onWheel={() =>
+                                    document.activeElement.blur()
+                                  }
+                                  name="description2"
+                                  value={item.description2}
+                                  maxLength="100"
+                                  onChange={(e) => {
+                                    this.handleteamChange(index, e);
+                                    if (e.target.value.length === 100) {
+                                      toast.error("Only 100 characters allowed.");
                                     }
-                                    name="description2"
-                                    value={item.description2}
-                                    maxlength="100"
-                                    onChange={(e) =>
-                                      {this.handleteamChange(index, e);
-                                        if (e.target.value.length == 100) {
-                                          toast.error("only 100 chart");
-                                        }
-                                      }
-                                    }
-                                  />
-                                </div>
+                                  }}
+                                  className="form-control"
+                                />
                               </div>
-                              <div className="form-group ">
-                                <div className="mt-4">
-                                  <label className="mb-2">
-                                     Img
-                                   
-                                  </label>
-                                  <input
-                                    key={index}
-                                    type="file"
-                                    onWheel={() =>
-                                      document.activeElement.blur()
-                                    }
-                                    name="img"
-                                    // value={item.img}
-                                    onChange={(e) =>
-                                      this.handleteamChange(index, e)
-                                    }
-                                  />
-                                </div>
+                            </div>
+
+                            {/* Team Member Image */}
+                            <div className="form-group">
+                              <div className="mt-4">
+                                <label className="mb-2">Img</label>
+                                <input
+                                  type="file"
+                                  onWheel={() =>
+                                    document.activeElement.blur()
+                                  }
+                                  name="img"
+                                  onChange={(e) =>
+                                    this.handleteamChange(index, e)
+                                  }
+                                  className="form-control-file"
+                                />
+                                {item.imgname && (
+                                  <div style={{ marginTop: "10px" }}>
+                                    <a
+                                      href={`${process.env.REACT_APP_BASE_URL}api/uploads/founders/media/${localStorage.getItem(
+                                        "founder_id"
+                                      )}/${item.imgname}`}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                    >
+                                      View Image
+                                    </a>
+                                  </div>
+                                )}
                               </div>
-                            </>
-                          );
-                        })}
-                        <button
-                          className="btn btn-primary"
+                            </div>
+                          </div>
+                        ))}
+
+                        {/* Button to Add New Team Member */}
+                        <Button
+                          type="dashed"
                           onClick={this.addteam}
+                          block
+                          icon={<UploadOutlined />}
+                          style={{
+                            marginTop: "10px",
+                            backgroundColor: "#29176f",
+                            color: "#fff",
+                            border: "1px solid #29176f",
+                          }}
                         >
                           Add Team
-                        </button>
+                        </Button>
                       </div>
+
+                      {/* Navigation Buttons (Hidden) */}
                       <div
-                        className="form-group  justify-content-between"
-                        style={{ display: "none !important" }}
+                        className="form-group justify-content-between"
+                        style={{ display: "none" }}
                       >
                         <div className="arrow-buttons">
                           <button
@@ -508,7 +593,7 @@ addcoverger = () => {
                               color: "#29176f",
                             }}
                             onClick={this.prev}
-                            class="submit-button"
+                            className="submit-button"
                           >
                             <i className="bx bx-chevron-left"></i>
                           </button>
@@ -516,15 +601,12 @@ addcoverger = () => {
                             style={{
                               position: "relative",
                               left: -20,
-                              background: active == false ? "#fff" : "#fff",
-                              border:
-                                active == false
-                                  ? "1px solid #29176f"
-                                  : "1px solid #29176f",
-                              color: active == false ? "#29176f" : "#29176f",
+                              background: "#fff",
+                              border: "1px solid #29176f",
+                              color: "#29176f",
                             }}
                             onClick={this.next}
-                            class="submit-button"
+                            className="submit-button"
                           >
                             <i className="bx bx-chevron-right"></i>
                           </button>
@@ -537,11 +619,13 @@ addcoverger = () => {
               </div>
             </div>
           </Spin>
-          <ToastContainer/>
         </section>
+      
+        <ToastContainer />
       </div>
     );
   }
 }
 
-export default Mediacoverager;
+
+    export default Mediacoverager;

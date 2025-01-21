@@ -150,13 +150,13 @@ export const FounderMyPlan = () => {
     <div class="content">
         <div className="row w-100">
             <div className="plans-main-dashboard">
-                <div className="d-flex-active">
+                <div className="d-flex-active justify-content-center">
                     <h3>
                         Active Plan
                     </h3>
                    
                 </div>
-                <div className="expiring-dates">
+                <div className="expiring-dates d-flex justify-content-center">
                     <p>Your plan validity is upto <span>24-01-2025</span></p>
                 </div>
                 <div className="flex-plans-dashboard">
@@ -183,20 +183,20 @@ export const FounderMyPlan = () => {
                             </span>
                         </li>
                        
-                        <li><span>
+                        {/* <li><span>
                             Remaining Edits
                         </span>
                             <span className='text-green'>
                                 03
                             </span>
-                        </li>
+                        </li> */}
                     
                     </ul>
                 </div>
-                <div className="view-history community-paragraph-box">
+                {/* <div className="view-history community-paragraph-box">
                         <Link to="FounderTransactionHistory" className='mt-0'>Transaction History</Link>
 
-                    </div>
+                    </div> */}
             </div>
         </div>
     </div>

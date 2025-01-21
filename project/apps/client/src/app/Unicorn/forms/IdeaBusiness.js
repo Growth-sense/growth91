@@ -476,7 +476,8 @@ class IdeaBusiness extends Component {
                           rows="6"
                           name="tudRolesCoreTeam"
                           value={
-                            this.state.tudRolesCoreTeam
+                            this.props.unicorn.tudRolesCoreTeam
+                            
                           }
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
