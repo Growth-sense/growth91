@@ -782,6 +782,7 @@ text-align: justify;
                       <div className="text-section">
                         <h1>{item.udPrimaryContactName}</h1>
                         <button
+                        onClick={openiamintrest}
                           className="primaryInterested"
                           style={{
                             // height: "100%",
@@ -1163,6 +1164,27 @@ text-align: justify;
                           </ul>
                         </div>
                       </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section className="container text-section">
+                  <div className="row">
+                    <div className="col-md-12 text-center my-5">
+                    <button
+                        onClick={openiamintrest}
+                          className="primaryInterested"
+                          style={{
+                            // height: "100%",
+                            backgroundColor: "#5C33CF",
+                            color: "white",
+                            border: "none",
+                            cursor: "pointer",
+                            boxShadow: "0px 3px 6px #000",
+                          }}
+                        >
+                          I am Interested
+                        </button>
                     </div>
                   </div>
                 </section>
