@@ -374,43 +374,52 @@ class Investor extends CI_Controller
 					'status' => '0',
 					'message' => 'User already exist with given PAN number.'
 				];
+			} else {
+				$this->db->insert('users', $post_data);
+				$id = $this->db->insert_id();
+
+
+				$temp_email = 'temp' . $id . '@growth91.com';
+				$temp_mobile = '0000000000' . $id;
+				// 				// After registering the user, insert into the group_invite table
+				$group_invite_data = [
+					'invite_email' => $temp_email,
+					'invite_mobile' => $temp_mobile,
+					'member_id' => $id,
+					'userID' => $user_id,          // Use the newly created user_id
+					'groupID' => $group_id,   // Use the group_id from the request
+					'invite_sent' => date('Y-m-d H:i:s'), // Add the invitation timestamp
+					'invite_status' => 'Accepted'
+				];
+
+				// Insert into group_invite table
+				$this->db->insert('group_invites', $group_invite_data);
+
+				// if ($id) {
+
+
+
+				$response = [
+					'status' => '1',
+					'message' => 'Registration is done successfully.',
+					'data' => $id,
+				];
+
 			}
 
-			$this->db->insert('users', $post_data);
-			$id = $this->db->insert_id();
 
-
-			$temp_email = 'temp' . $id . '@growth91.com';
-			$temp_mobile = '0000000000' . $id;
-			// 				// After registering the user, insert into the group_invite table
-			$group_invite_data = [
-				'invite_email' => $temp_email,
-				'invite_mobile' => $temp_mobile,
-				'member_id' => $id,
-				'userID' => $user_id,          // Use the newly created user_id
-				'groupID' => $group_id,   // Use the group_id from the request
-				'invite_sent' => date('Y-m-d H:i:s'), // Add the invitation timestamp
-				'invite_status' => 'Accepted'
-			];
-
-			// Insert into group_invite table
-			$this->db->insert('group_invites', $group_invite_data);
-
-			// if ($id) {
-
-
-
-			$response = [
-				'status' => '1',
-				'message' => 'Registration is done successfully.',
-				'data' => $id,
-			];
 			// } else {
 			// $response = [
 			// 	'status' => '0',
 			// 	'message' => 'Please try again!'
 			// ];
 			// }
+		}
+		else{
+			$response = [
+				'status' => '0',
+				'message' => 'Something went wrong. Please try again.'
+			];
 		}
 
 		$this->output
@@ -1266,8 +1275,8 @@ class Investor extends CI_Controller
 			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			CURLOPT_CUSTOMREQUEST => "GET",
 			CURLOPT_HTTPHEADER => array(
-				"cache-control: no-cache"
-			),
+					"cache-control: no-cache"
+				),
 		));
 		$response = curl_exec($curl);
 		$err = curl_error($curl);
