@@ -301,34 +301,12 @@ class Mediacoverager extends Component {
             <div className="container">
               <div className="row">
                 <div className="col-lg-12">
-                  <div className="line-seperator">
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: -10,
-                        background: "#fff",
-                        paddingRight: 16,
-                      }}
-                    >
-                      <span
-                        className="fs-5"
-                        style={{
-                          background: "#fff",
-                          width: 119,
-                          height: 20,
-                          zIndex: 4,
-                          position: "absolute",
-                          paddingRight: 10,
-                        }}
-                      >
-                        Media Coverages{" "}
-                      </span>
-                    </div>
-                    <hr />
-                  </div>
+
                   <div className="row" style={{ maxWidth: 900 }}>
                     <div className="col-lg-12">
                       <div className="form-group">
+                      <label className="fs-4">Media Coverage</label>
+
                         {/* Media Coverager Section */}
                         {this.state.mediacoverager.map((item, index) => (
                           <div className="Card my-3" key={index}>
@@ -382,7 +360,7 @@ class Mediacoverager extends Component {
                             <div className="form-group">
                               <div className="mt-4">
                                 <label className="mb-2">
-                                  Media img {index + 1}
+                                  Media Image {index + 1}
                                 </label>
                                 <input
                                   type="file"
@@ -531,7 +509,7 @@ class Mediacoverager extends Component {
                             {/* Team Member Image */}
                             <div className="form-group">
                               <div className="mt-4">
-                                <label className="mb-2">Img</label>
+                                <label className="mb-2">Image</label>
                                 <input
                                   type="file"
                                   onWheel={() =>

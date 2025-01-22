@@ -8,11 +8,6 @@ class SocialMediaPresence extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      linkdin: '',
-      facebook: '',
-      instagram: '',
-      youtube: '',
-      others: '',
       founder_id: '',
       loading: false,
       valueispresent: false,
@@ -37,16 +32,13 @@ class SocialMediaPresence extends Component {
     };
     Bridge.founder.getFounderDetails(params).then((result) => {
       if (result.status === 1) {
-        this.setState({
-          linkdin: result.data[0].linkdin || '',
-          facebook: result.data[0].facebook || '',
-          instagram: result.data[0].instagram || '',
-          youtube: result.data[0].youtube || '',
-          others: result.data[0].others || '',
-        });
-        if (result.data[0].linkdin) {
-          this.setState({ valueispresent: true });
-        }
+        const data = result.data[0];
+        this.props.onInput('linkdin', data.linkdin || '');
+        this.props.onInput('facebook', data.facebook || '');
+        this.props.onInput('instagram', data.instagram || '');
+        this.props.onInput('youtube', data.youtube || '');
+        this.props.onInput('others', data.others || '');
+        this.setState({ valueispresent: !!data.linkdin });
       } 
     });
   }
@@ -55,14 +47,18 @@ class SocialMediaPresence extends Component {
   handleInputChange = (e) => {
     const { name, value } = e.target;
     this.setState(prevState => ({
-      [name]: value,
       errors: { ...prevState.errors, [name]: '' }, // Clear the error for this field
     }));
+    
+    // Call the onInput prop to update parent state
+    if (this.props.onInput) {
+      this.props.onInput(name, value);
+    }
   }
 
   // Validation function
   validateSocialMediaLinks = () => {
-    const { linkdin, facebook, instagram, youtube, others } = this.state;
+    const { linkdin, facebook, instagram, youtube, others } = this.props.unicorn;
     const errors = {};
 
     // Validation patterns
@@ -123,20 +119,26 @@ class SocialMediaPresence extends Component {
     }
 
     const params = {
-      linkdin: this.state.linkdin,
-      facebook: this.state.facebook,
-      instagram: this.state.instagram,
-      youtube: this.state.youtube,
-      others: this.state.others,
+      linkdin: this.props.unicorn.linkdin,
+      facebook: this.props.unicorn.facebook,
+      instagram: this.props.unicorn.instagram,
+      youtube: this.props.unicorn.youtube,
+      others: this.props.unicorn.others,
       founder_id: this.state.founder_id,
       no: 9,
       main_founder_id: this.state.founder_id, // Assuming main_founder_id is same as founder_id
       f9_status: this.state.processtype === 'saveandproceed' ? 'success' : 'new',
     };
 
+    // Merge unicorn data with params
+    const payload = { ...this.props.unicorn, ...params };
+
+    console.log('Payload being sent to API:', payload); // Debugging line
+
     this.setState({ loading: true });
 
-    Bridge.Unicorn.editunicorndraft(this.props.unicorn, params).then((result) => { // Ensure params are sent correctly
+    Bridge.Unicorn.editunicorndraft(payload).then((result) => { // Pass the merged payload
+      console.log('API Response:', result); // Debugging line
       if (result.status === 1) {
         this.setState({ loading: false, valueispresent: true });
         if (this.state.processtype === 'next') {
@@ -150,11 +152,12 @@ class SocialMediaPresence extends Component {
           message.success('Social media details are updated successfully.', 6);
         }
       } else {
-        message.warning(result.message);
+        message.warning(result.message || 'Failed to update social media details.', 6);
         this.setState({ loading: false });
       }
     }).catch((error) => {
-      message.error('An error occurred while updating. Please try again.', 6);
+      console.error('API Error:', error); // Debugging line
+      message.error('An unexpected error occurred while updating. Please try again.', 6);
       this.setState({ loading: false });
     });
   }
@@ -176,7 +179,8 @@ class SocialMediaPresence extends Component {
   }
 
   render() {
-    const { linkdin, facebook, instagram, youtube, others, errors, loading } = this.state;
+    const { linkdin, facebook, instagram, youtube, others } = this.props.unicorn;
+    const { errors, loading } = this.state;
 
     return (
       <div>
@@ -283,39 +287,11 @@ class SocialMediaPresence extends Component {
                         {errors.others && <div className="invalid-feedback">{errors.others}</div>}
                       </div>
 
-                      {/* Navigation Buttons (Uncomment if needed) */}
-                      {/* 
-                      <div className="form-group justify-content-between" style={{ display: "none !important" }}>
-                        <div className='arrow-buttons'>
-                          <button
-                            style={{
-                              position: 'relative',
-                              left: -20,
-                              background: '#fff',
-                              border: '1px solid #29176f',
-                              color: '#29176f',
-                            }}
-                            onClick={this.prev}
-                            className="submit-button">
-                            <i className='bx bx-chevron-left'></i>
-                          </button>
-                          <button
-                            style={{
-                              position: 'relative',
-                              left: -20,
-                              background: '#fff',
-                              border: '1px solid #29176f',
-                              color: '#29176f',
-                            }}
-                            onClick={this.next}
-                            className="submit-button">
-                            <i className='bx bx-chevron-right'></i>
-                          </button>
-                        </div>
-                      </div>
-                      */}
+                      {/* Navigation Buttons */}
+                     
                     </div>
                   </div>
+
                 </div>
               </div>
             </div>

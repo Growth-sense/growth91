@@ -505,8 +505,8 @@ class FundRaiseRegistration extends Component {
                         <textarea
                          
                           onWheel={() => document.activeElement.blur()}
-                          name="director_2_din"
-                          value={this.props.unicorn.director_2_din}
+                          name="tudDin2"
+                          value={this.props.unicorn.tudDin2}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
