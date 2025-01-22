@@ -201,7 +201,7 @@ console.log(unicorn);
                     </div>
 
                 </div>
-                <div class="tabs-dashboard">
+                <div class="tabs-dashboard justify-content-center">
                   <div class="tab-contents">
                     <div class="tab-content">
                     <input type="radio" name="tab-index" id="tab-index1" checked />
@@ -256,7 +256,7 @@ console.log(unicorn);
                             </div>
                           )}
                           <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
-                            <div className="btns-performs mt-3">
+                            <div className="btns-performs mt-3 d-flex justify-content-center">
                               <td className="flex-action center-button">
                                 {unicorn && unicorn.length !== 0 && (
                                   <div className="performs-btns">
@@ -264,7 +264,7 @@ console.log(unicorn);
                                       to={`/FutureUnicornDescription?id=${unicorn[0].unicornDealID}`}
                                     >
                                       <i class="fa-regular fa-eye"></i>View
-                                      Startup
+                                      Unicorn
                                     </Link>
                                   </div>
                                 )}
@@ -274,7 +274,7 @@ console.log(unicorn);
                                   <Link to="FutureUnicornForm">
                                     {" "}
                                     <i class="fa-solid fa-pen-to-square"></i>
-                                    Edit Startup
+                                    Edit Unicorn
                                   </Link>
                                 </div>):(<div style={{display : "flex" , flexDirection :"column", gap :"30px", alignItems: "center", justifyContent :"center" }}><div style={{fontSize :"1.5em"}}>You haven't listed your future unicorn</div> <div className="performs-btns">
                                   <Link to="FutureUnicornForm">
