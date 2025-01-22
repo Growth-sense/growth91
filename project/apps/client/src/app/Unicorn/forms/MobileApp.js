@@ -131,8 +131,8 @@ class MobileApp extends Component {
   render() {
     let active =
       this.state.have_any_android_app_startup &&
-      this.state.have_ios_app &&
-      this.state.valueispresent == true
+        this.state.have_ios_app &&
+        this.state.valueispresent == true
         ? false
         : true;
     return (
@@ -201,35 +201,23 @@ class MobileApp extends Component {
                           </label>
                           <div className="button-grp">
                             <button
-                              className={
-                                this.props.unicorn.tudAndroidMobileApp === "Yes"
-                                  ? "active"
-                                  : ""
-                              }
+                              className={this.props.unicorn.tudAndroidMobileApp === "Yes" && "active"}
                               name="tudAndroidMobileApp"
                               value="Yes"
                               onClick={(e) => {
-                                this.props.onInput(
-                                  e.target.name,
-                                  e.target.value
-                                );
+                                this.props.onInput(e.target.name, e.target.value);
                               }}
                             >
                               Yes
                             </button>
                             <button
-                              className={
-                                this.props.unicorn.tudAndroidMobileApp === "No"
-                                  ? "active"
-                                  : ""
-                              }
+                              className={this.props.unicorn.tudAndroidMobileApp === "No" && "active" }
                               name="tudAndroidMobileApp"
                               value="No"
                               onClick={(e) => {
-                                this.props.onInput(
-                                  e.target.name,
-                                  e.target.value
-                                );
+                                this.props.onInput(e.target.name, e.target.value);
+                                // Optionally reset the details when "No" is clicked
+                                this.props.onInput('tudAndroidAppDetails', '');  // Clearing the details field
                               }}
                             >
                               No
@@ -241,23 +229,21 @@ class MobileApp extends Component {
                         {this.props.unicorn.tudAndroidMobileApp === "Yes" && (
                           <div className="form-group">
                             <label>
-                              Give details (App Name, Downloads, Rating, Active
-                              User, etc.)<span className="text-danger">*</span>
+                              Give details (App Name, Downloads, Rating, Active User, etc.)
+                              <span className="text-danger">*</span>
                             </label>
                             <input
                               type="text"
                               name="tudAndroidAppDetails"
                               value={this.props.unicorn.tudAndroidAppDetails}
                               onChange={(e) =>
-                                this.props.onInput(
-                                  e.target.name,
-                                  e.target.value
-                                )
+                                this.props.onInput(e.target.name, e.target.value)
                               }
                             />
                           </div>
                         )}
                       </div>
+
 
                       <div className="form-group ">
                         <label for="">
@@ -275,7 +261,7 @@ class MobileApp extends Component {
                             onClick={(e) => {
                               this.props.onInput(e.target.name, e.target.value);
                             }}
-                          > 
+                          >
                             Yes
                           </button>
                           <button
@@ -299,23 +285,23 @@ class MobileApp extends Component {
 
                       }
                       {
-                      this.props.unicorn.tudIphoneMobileApp === "Yes" && (
-                      
-                      <div className="form-group">
-                        <label for="">
-                          Give details (app name, downloads, rating, active
-                          user, ect.)<span className="text-danger">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          name="tudIphoneAppDetails"
-                          value={this.props.unicorn.tudIphoneAppDetails}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          }
-                        />
-                      </div>
-                      )}
+                        this.props.unicorn.tudIphoneMobileApp === "Yes" && (
+
+                          <div className="form-group">
+                            <label for="">
+                              Give details (app name, downloads, rating, active
+                              user, ect.)<span className="text-danger">*</span>
+                            </label>
+                            <input
+                              type="text"
+                              name="tudIphoneAppDetails"
+                              value={this.props.unicorn.tudIphoneAppDetails}
+                              onChange={(e) =>
+                                this.props.onInput(e.target.name, e.target.value)
+                              }
+                            />
+                          </div>
+                        )}
 
                       <div
                         className="form-group  justify-content-between"
