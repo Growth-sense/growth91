@@ -1258,53 +1258,46 @@ class Founderadmindashboard extends Component {
     });
   };
   updatefounder = async (data) => {
-
-    console.log('calling this function home main');
-
-
-    // add delay  of 10 seconds before proceeeding
-    let delay = 5000;
-    await new Promise((resolve) => setTimeout(resolve, delay));
-    
-
-
-    // current_step = 21;
-
-    // if(current_step){
-      
-    // }
-
-
-    // console.log(this.state.mediacoverager);
-
-    // let params = {
-    //   no: 18,
-    //   main_founder_id: localStorage.getItem("founder_id"),
-    //   f18_status:
-    //     this.state.processtype == "saveandproceed" ? "success" : "new",
-    // };
+    console.log('Calling updatefounder function');
+  
     this.setState({ loading: true });
-    setTimeout(() => {
-      // console.log(this.props.unicorn.tudMediaCoverageFiles);
-
-      Bridge.Unicorn.editunicorndraft(this.state.unicorn).then((result) => {
-        if (result.status == 1) {
-          this.setState({ loading: false });
-          if (data === "save as draft") {
-            toast.success("Unicorn save as draft");
-            setTimeout(() => {
-              // window.location.assign("/FounderMyListing");
-            }, 1000);
-          } else {
-            this.publishunicorn();
-          }
+  
+    // Removed the setTimeout as it's generally not necessary unless specifically required
+    try {
+      const result = await Bridge.Unicorn.editunicorndraft(this.state.unicorn);
+  
+      if (result.status === 1) {
+        this.setState({ loading: false });
+  
+        if (data === "save as draft") {
+          toast.success("Unicorn saved as draft");
+          setTimeout(() => {
+            window.location.assign("/FounderMyListing");
+          }, 1000);
+        } else if (data === "preview") {
+          toast.success("Redirecting to Preview");
+  
+          // Use history.push for client-side navigation without a full page reload
+          this.props.history.push({
+            pathname: "/Preview",
+            state: { unicorn: this.state.unicorn }, // Passing the unicorn data
+          });
+  
+          // Removed window.location.assign to prevent conflicts
         } else {
-          message.warning(result.message);
-          this.setState({ loading: false });
+          this.publishunicorn();
         }
-      });
-    }, 3000);
+      } else {
+        message.warning(result.message);
+        this.setState({ loading: false });
+      }
+    } catch (error) {
+      console.error("Error updating founder:", error);
+      message.error("An unexpected error occurred.");
+      this.setState({ loading: false });
+    }
   };
+  
 
   render() {
     return (
@@ -2353,7 +2346,16 @@ class Founderadmindashboard extends Component {
             {!this.props.adminview && (
               <div className="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto mt-3">
                 <div className="submit-draft-publish d-flex justify-content-center">
-                  <Previewbutton unicorn={this.state.unicorn} />
+                  {/* <Previewbutton unicorn={this.state.unicorn} /> */}
+
+                  <a
+                    onClick={() => {
+                      this.updatefounder("preview");
+                    }}
+                    className="submit-future"
+                  >
+                    Preview
+                  </a>
                          
                   <a
                     onClick={() => {
