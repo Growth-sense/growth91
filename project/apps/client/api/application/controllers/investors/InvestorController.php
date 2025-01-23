@@ -1501,15 +1501,10 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 		$formdata = json_decode(file_get_contents('php://input'), true);
 		if (!empty($formdata)) {
-			$invite_email = $formdata['invite_email'];
-			$invite_mobile = $formdata['invite_mobile'];
 			$groupID = $formdata['groupID'];
 			$userID = $formdata['userID'];
-			$parentID = 0;
-			//$groupID =0;
-			//$invite_email  =0;
-			//$invite_mobile  =0;
-			$sql = "SELECT *  FROM `group_invites` WHERE invite_email ='$invite_email' AND invite_mobile ='$invite_mobile' AND groupID ='$groupID'";
+			
+			$sql = "SELECT *  FROM `group_invites` WHERE member_id ='$userID' AND groupID ='$groupID'";
 			$query = $this->db->query($sql);
 			$result = $query->result();
 			$num_rows = $query->num_rows();
@@ -1534,13 +1529,11 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 
 
 					// update user data against the invite email and mobile with group ID and parent ID 
-					$sql = "SELECT *  FROM `users` WHERE email ='$invite_email' AND mobile ='$invite_mobile'  ";
+					$sql = "SELECT *  FROM `users` WHERE investor_id ='$userID' ";
 					$query = $this->db->query($sql);
 					$result = $query->result();
 					$num_rows = $query->num_rows();
-					$investor_id = $result[0]->investor_id;
-					$invitedName = $result[0]->first_name . ' ' . $result[0]->last_name;
-
+					$invite_email = $result[0]->email;
 
 					$body = '<!doctype html>
 					<html>
@@ -1720,7 +1713,7 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 			} else {
 				$response = [
 					'status' => '0',
-					'message' => 'Please enter valid details!',
+					'message' => 'Something Went Wrong. Member not found.',
 					'data' => [],
 				];
 			}
@@ -1791,16 +1784,16 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 		$formdata = json_decode(file_get_contents('php://input'), true);
 		if (!empty($formdata)) {
-			$invite_email = $formdata['invite_email'];
-			$invite_mobile = $formdata['invite_mobile'];
-			$groupID = $formdata['groupID'];
+			// $invite_email = $formdata['invite_email'];
+			// $invite_mobile = $formdata['invite_mobile'];
+			// $groupID = $formdata['groupID'];
 			$userID = $formdata['userID'];
 			$inviteID = $formdata['inviteID'];
-			;
+			
 			//$groupID =0;
 			//$invite_email  =0;
 			//$invite_mobile  =0;
-			$sql = "SELECT *  FROM `group_invites` WHERE invite_email ='$invite_email' AND invite_mobile ='$invite_mobile' AND groupID ='$groupID'";
+			$sql = "SELECT *  FROM `group_invites` WHERE inviteID ='$inviteID'";
 			$query = $this->db->query($sql);
 			$result = $query->result();
 			$num_rows = $query->num_rows();
@@ -1809,38 +1802,11 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 				// Delete from invite table
 				$this->db->where("inviteID", $inviteID)->delete("group_invites");
 				// once verify update status in group invite table
-				$sql = "SELECT *  FROM `users` WHERE email ='$invite_email' AND mobile ='$invite_mobile'  ";
+				$sql = "SELECT *  FROM `users` WHERE investor_id ='$userID' ";
 				$query = $this->db->query($sql);
 				$result = $query->result();
 				$num_rows = $query->num_rows();
-				$investor_id = $result[0]->investor_id;
-				$invitedName = $result[0]->first_name . ' ' . $result[0]->last_name;
-				$post_data = [
-					'parent_id' => 0,
-					'groupID' => 0,
-				];
-				$this->db->where('investor_id', $investor_id);
-				$resp = $this->db->update('users', $post_data);
-
-				$investor_id = $result[0]->investor_id;
-				$invitedName = $result[0]->first_name . ' ' . $result[0]->last_name;
-
-
-				$post_data = [
-					'deleteRequested' => "Yes",
-					'deleteRequestDate' => date('Y-m-d H-i a'),
-
-				];
-				$this->db->where('inviteID', $inviteID);
-				$resp = $this->db->update('group_invites', $post_data);
-				if (!$resp) {
-					$response = [
-						'status' => '0',
-						'message' => 'Something went wrong!',
-						'data' => [],
-					];
-				} else {
-
+				$invite_email = $result[0]->email;
 
 
 
@@ -2018,7 +1984,7 @@ SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inne
 						'message' => 'Your request for delete is processed successfully.',
 						'data' => [],
 					];
-				}
+				
 			} else {
 				$response = [
 					'status' => '0',

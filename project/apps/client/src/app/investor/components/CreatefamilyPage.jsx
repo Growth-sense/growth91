@@ -224,9 +224,7 @@ export default class CreatefamilyPage extends Component {
 
     let params = {
       userID: localStorage.getItem("Parent_investor_id"),
-      groupID: value.groupID,
-      invite_email: value.email,
-      invite_mobile: value.mobile,
+      groupID: value.groupID
     };
 
     Bridge.family.deleteRequest(params).then((result) => {
@@ -257,13 +255,20 @@ export default class CreatefamilyPage extends Component {
     const dataSource =
       this.state.group_list &&
       this.state.group_list
-        .filter(
-          (item) => item.userID == !this.props.adminview?localStorage.getItem("Parent_investor_id"):this.props.investor_id,
+        .filter((item) => {
+          if(this.props.adminview){
+            return item.userID == this.props.investor_id
+          }
+          else{
+            return item.userID == localStorage.getItem("Parent_investor_id")
+          }
+        }
+          
         )
         .map((item, index) => {
 
 
-          
+          console.log(item);
           return {
             key: item.groupID,
             name: item.groupName,
@@ -273,6 +278,7 @@ export default class CreatefamilyPage extends Component {
             Status: item.groupStatus,
           };
         });
+        {console.log(dataSource)}
     const dataSource2 =
       this.state.group_list &&
       this.state.group_list

@@ -299,7 +299,7 @@ class Investor extends CI_Controller
 					'middle_name' => $middle_name,
 					'last_name' => $last_name,
 					'email' => $email,
-					'user_type' => 'nvestor',
+					'user_type' => 'investor',
 					'user_registered_dt' => date('Y-m-d'),
 				];
 				$this->db->insert('users', $post_data);
