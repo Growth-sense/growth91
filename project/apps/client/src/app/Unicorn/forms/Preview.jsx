@@ -787,11 +787,10 @@ text-align: justify;
                     <img
                       className="heroSectionImage"
                       src={
-                        (item.udBannerImage &&
+                        (item.tudBannerImage &&
                           `${process.env.REACT_APP_BASE_URL
                           }api/uploads/unicorndeals/${item.tudTempUdID
-                          }/${JSON.parse(item.udBannerImage)}`) ||
-                        "https://growth91.com/api/uploads/deal/banner/34/1719999515.jpg"
+                          }/${JSON.parse(item.tudBannerImage)}`)
                       }
                       alt="Team"
                     />
@@ -829,19 +828,10 @@ text-align: justify;
                     </div>
 
                     {/* Text Section */}
-                    <div className="text-section d-flex justify-content-between align-items-center">
-                      <div>
-                        <h1>{item.udPrimaryContactName}</h1>
-                        {item.tudPrimaryContactName &&
-                          <div className="content-certify-directors">
-                            <h3>{item.tudPrimaryContactName}</h3>
-                            <p>
-                              <span></span>
-                              {/* Certified Corporate Director - Business Management
-                            Consultant */}
-                            </p>
-                          </div>
-                        }
+                    <div className="text-section d-flex justify-content-around align-items-center">
+                      <div className="pe-5">
+                        <h3>{item.tudStartupName}</h3>
+                      
                       </div>
                       <div>
                         <button

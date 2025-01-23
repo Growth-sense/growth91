@@ -612,7 +612,7 @@ class Founderadmindashboard extends Component {
     let params = {
       founderID: localStorage.getItem("founder_id"),
     };
-    // axios.post(`https://cors-anywhere.herokuapp.com/https://growth91.growthmetaverse.in/api/founder/Startup/unicornListByFoundaaaers`).then((result) => {
+  
     // if (result.status == 1) {
     //   let validate = false;
 
@@ -1258,6 +1258,23 @@ class Founderadmindashboard extends Component {
     });
   };
   updatefounder = async (data) => {
+
+    console.log('calling this function home main');
+
+
+    // add delay  of 10 seconds before proceeeding
+    let delay = 5000;
+    await new Promise((resolve) => setTimeout(resolve, delay));
+    
+
+
+    // current_step = 21;
+
+    // if(current_step){
+      
+    // }
+
+
     // console.log(this.state.mediacoverager);
 
     // let params = {
@@ -1276,7 +1293,7 @@ class Founderadmindashboard extends Component {
           if (data === "save as draft") {
             toast.success("Unicorn save as draft");
             setTimeout(() => {
-              window.location.assign("/FounderMyListing");
+              // window.location.assign("/FounderMyListing");
             }, 1000);
           } else {
             this.publishunicorn();
@@ -2337,6 +2354,7 @@ class Founderadmindashboard extends Component {
               <div className="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto mt-3">
                 <div className="submit-draft-publish d-flex justify-content-center">
                   <Previewbutton unicorn={this.state.unicorn} />
+                         
                   <a
                     onClick={() => {
                       this.updatefounder("save as draft");

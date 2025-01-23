@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { message, Spin, Button, Modal } from "antd"; // Added Modal
+import { message, Spin, Button, Modal } from "antd"; 
 import { CloseOutlined, UploadOutlined } from "@ant-design/icons";
-import Bridge from "../../constants/Bridge";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,19 +9,8 @@ class Mediacoverager extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      reference_of_customers: "",
-      reference_of_vendors: "",
-      reference_of_past_employer: "",
-      reference_of_guide_from_college: "",
-      founder_id: "",
-      loading: false,
-      processtype: "",
-      mediacoverager: [
-        // Array to handle multiple sets of input fields
-        { title: "", img: "", content: "", imgname: "" },
-      ],
+      mediacoverager: [], // Local state for media coverage
       teammem: [
-        // Array to handle multiple sets of input fields
         {
           name: "",
           img: "",
@@ -32,246 +20,197 @@ class Mediacoverager extends Component {
           Role: "",
         },
       ],
+      loading: false,
     };
   }
 
   componentDidMount() {
-    const { id, unicorn } = this.props;
-    if (id) {
-      this.getData(id);
-    }
-    if (unicorn.tudMediaCoverageFiles) {
+    // Load existing media coverage from parent unicorn state
+    if (this.props.unicorn.tudMediaCoverageFiles) {
       this.setState({
-        mediacoverager: JSON.parse(unicorn.tudMediaCoverageFiles),
-      });
-    }
-    if (unicorn.tudVendorId) {
-      this.setState({
-        teammem: JSON.parse(unicorn.tudVendorId),
+        mediacoverager: JSON.parse(this.props.unicorn.tudMediaCoverageFiles),
       });
     }
 
-    // Removed jQuery dependency
-    // $("#selected-field").focus();
+    // Load existing team members from parent unicorn state
+    if (this.props.unicorn.tudVendorId) {
+      this.setState({
+        teammem: JSON.parse(this.props.unicorn.tudVendorId),
+      });
+    }
 
-    this.props.check();
+    // If your parent has a check function to mark validation steps, you can still call it:
+    if (typeof this.props.check === "function") {
+      this.props.check();
+    }
   }
 
+  /**
+   * Helper function to sync changes with parent's `onInput`.
+   * Call this whenever local state changes so the parent’s `unicorn` is always up to date.
+   */
+  syncWithParent = (mediacoverager, teammem) => {
+    // Convert arrays to JSON strings
+    this.props.onInput("tudMediaCoverageFiles", JSON.stringify(mediacoverager));
+    this.props.onInput("tudVendorId", JSON.stringify(teammem));
+  };
+
+  // Add a new empty media coverage entry
   addcoverger = () => {
-    this.setState((prevState) => ({
-      mediacoverager: [
-        ...prevState.mediacoverager,
+    const { mediacoverager } = this.state;
+    const lastEntry = mediacoverager[mediacoverager.length - 1];
+
+    // Check if the last entry is partially/fully filled before adding new
+    if (
+      !lastEntry ||
+      lastEntry.title.trim() !== "" ||
+      lastEntry.content.trim() !== "" ||
+      lastEntry.imgname.trim() !== ""
+    ) {
+      const newMediaCover = [
+        ...mediacoverager,
         { title: "", img: "", content: "", imgname: "" },
-      ],
-    }));
+      ];
+      this.setState({ mediacoverager: newMediaCover }, () => {
+        this.syncWithParent(this.state.mediacoverager, this.state.teammem);
+      });
+    } else {
+      message.warning(
+        "Please fill out the current media coverage or remove it before adding a new one."
+      );
+    }
   };
 
+  // Add a new team member
   addteam = () => {
-    this.setState((prevState) => ({
-      teammem: [
-        ...prevState.teammem,
-        {
-          name: "",
-          img: "",
-          description1: "",
-          description2: "",
-          imgname: "",
-          Role: "",
-        },
-      ],
-    }));
-  };
-
-  getData = (id) => {
-    let params = {
-      founder_id: this.props.id,
-    };
-    Bridge.founder.getFounderDetails(params).then((result) => {
-      if (result.status === 1) {
-        this.setState({
-          reference_of_customers: result.data[0].reference_of_customers,
-          reference_of_vendors: result.data[0].reference_of_vendors,
-          reference_of_past_employer: result.data[0].reference_of_past_employer,
-          reference_of_guide_from_college:
-            result.data[0].reference_of_guide_from_college,
-        });
-        if (result.data[0].reference_of_customers) {
-          this.setState({ valueispresent: true });
-        }
-      }
+    const { teammem } = this.state;
+    const newTeam = [
+      ...teammem,
+      {
+        name: "",
+        img: "",
+        description1: "",
+        description2: "",
+        imgname: "",
+        Role: "",
+      },
+    ];
+    this.setState({ teammem: newTeam }, () => {
+      this.syncWithParent(this.state.mediacoverager, this.state.teammem);
     });
   };
 
-  updatefounder = async () => {
-    console.log(this.state.mediacoverager);
-    setTimeout(() => {
-      this.props.onInput(
-        "tudMediaCoverageFiles",
-        JSON.stringify(this.state.mediacoverager)
-      );
-    }, 1000);
-    this.props.onInput("tudVendorId", JSON.stringify(this.state.teammem));
-    let params = {
-      no: 18,
-      main_founder_id: localStorage.getItem("founder_id"),
-      f18_status:
-        this.state.processtype === "saveandproceed" ? "success" : "new",
-    };
-    this.setState({ loading: true });
-    setTimeout(() => {
-      console.log(this.props.unicorn.tudMediaCoverageFiles);
-
-      Bridge.Unicorn.editunicorndraft(this.props.unicorn).then((result) => {
-        if (result.status === 1) {
-          this.setState({ loading: false }, () => this.props.activate());
-          if (this.state.processtype === "next") {
-            this.props.next();
-          } else if (this.state.processtype === "prev") {
-            this.props.prev();
-          } else if (this.state.processtype === "saveandproceed") {
-            this.props.activate();
-            message.success("Reference details are updated successfully.", 6);
-          } else {
-            message.success("Reference details are updated successfully.", 6);
-          }
-        } else {
-          message.warning(result.message);
-          this.setState({ loading: false });
-        }
-        console.log(this.state.mediacoverager);
-      });
-    }, 3000);
-  };
-
-  saveandproceed = () => {
-    this.setState({ processtype: "saveandproceed" }, () =>
-      this.updatefounder()
-    );
-  };
-
-  save = () => {
-    this.setState({ processtype: "save" }, () => this.updatefounder());
-  };
-  next = () => {
-    this.setState({ processtype: "next" }, () => this.updatefounder());
-  };
-  prev = () => {
-    this.setState({ processtype: "prev" }, () => this.updatefounder());
-  };
-
-  handleInputChange = async (index, e) => {
-    const formData = new FormData();
-    const { name, value } = e.target;
-    if (name === "img") {
-      const newEntries = [...this.state.mediacoverager];
-      newEntries[index][name] = value; // Update the specific input field
-      this.setState({ mediacoverager: newEntries });
-      formData.append("tudTempUdID", this.props.unicorn.tudTempUdID);
-      formData.append("upfile", e.target.files[0]);
-      console.log(formData.get("tudTempUdID"));
-      console.log(formData.get("upfile"));
-
-      try {
-        const response = await axios.post(
-          `${process.env.REACT_APP_BASE_URL}api/founder/Startup/uploadFiles`,
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-
-        if (response) {
-          console.log(response);
-          newEntries[index].imgname = response.data.data.upfile; // Update the specific input field
-          this.setState({ mediacoverager: newEntries });
-        }
-      } catch (error) {
-        console.error("Error uploading file:", error);
-      }
-    } else {
-      const newEntries = [...this.state.mediacoverager];
-      newEntries[index][name] = value; // Update the specific input field
-      this.setState({ mediacoverager: newEntries });
-    }
-  };
-
-  handleteamChange = async (index, e) => {
-    const formData = new FormData();
-    const { name, value } = e.target;
-    if (name === "img") {
-      const newEntries = [...this.state.teammem];
-      newEntries[index][name] = value; // Update the specific input field
-      this.setState({ teammem: newEntries });
-      formData.append("tudTempUdID", this.props.unicorn.tudTempUdID);
-      formData.append("upfile", e.target.files[0]);
-      console.log(formData.get("tudTempUdID"));
-      console.log(formData.get("upfile"));
-
-      try {
-        const response = await axios.post(
-          `${process.env.REACT_APP_BASE_URL}api/founder/Startup/uploadFiles`,
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-
-        if (response) {
-          console.log(response);
-          newEntries[index].imgname = response.data.data.upfile; // Update the specific input field
-          this.setState({ teammem: newEntries });
-        }
-      } catch (error) {
-        console.error("Error uploading file:", error);
-      }
-    } else {
-      const newEntries = [...this.state.teammem];
-      newEntries[index][name] = value; // Update the specific input field
-      this.setState({ teammem: newEntries });
-    }
-  };
-
-  // Remove Coverager Card Handler
+  // Remove a media coverage card
   removeCoverager = (index) => {
     Modal.confirm({
       title: "Are you sure you want to delete this media card?",
       onOk: () => {
         const { mediacoverager } = this.state;
-        const updatedCoveragers = mediacoverager.filter((_, i) => i !== index);
-        this.setState({ mediacoverager: updatedCoveragers }, () => {
+        const updated = mediacoverager.filter((_, i) => i !== index);
+        this.setState({ mediacoverager: updated }, () => {
+          this.syncWithParent(this.state.mediacoverager, this.state.teammem);
           message.success("Media card removed successfully.");
         });
-      },
-      onCancel() {
-        // Do nothing on cancel
       },
     });
   };
 
-  // Remove Team Member Card Handler
+  // Remove a team member card
   removeTeamMember = (index) => {
     Modal.confirm({
       title: "Are you sure you want to delete this team member?",
       onOk: () => {
         const { teammem } = this.state;
-        const updatedTeammem = teammem.filter((_, i) => i !== index);
-        this.setState({ teammem: updatedTeammem }, () => {
+        const updated = teammem.filter((_, i) => i !== index);
+        this.setState({ teammem: updated }, () => {
+          this.syncWithParent(this.state.mediacoverager, this.state.teammem);
           message.success("Team member removed successfully.");
         });
-      },
-      onCancel() {
-        // Do nothing on cancel
       },
     });
   };
 
-  render() {
-    let active = false;
+  // Handle user input in Media Coverage fields
+  handleInputChange = async (index, e) => {
+    const { name, value } = e.target;
+    const newEntries = [...this.state.mediacoverager];
+    if (name === "img") {
+      // File upload
+      const file = e.target.files[0];
+      newEntries[index].img = file;
 
+      const formData = new FormData();
+      formData.append("tudTempUdID", this.props.unicorn.tudTempUdID);
+      formData.append("upfile", file);
+
+      this.setState({ loading: true });
+      try {
+        const response = await axios.post(
+          `${process.env.REACT_APP_BASE_URL}api/founder/Startup/uploadFiles`,
+          formData,
+          { headers: { "Content-Type": "multipart/form-data" } }
+        );
+
+        if (response.data && response.data.data.upfile) {
+          newEntries[index].imgname = response.data.data.upfile;
+        }
+      } catch (error) {
+        console.error("Error uploading file:", error);
+        message.error("Could not upload file. Please try again.");
+      } finally {
+        this.setState({ loading: false });
+      }
+    } else {
+      // Text input
+      newEntries[index][name] = value;
+    }
+
+    this.setState({ mediacoverager: newEntries }, () => {
+      this.syncWithParent(this.state.mediacoverager, this.state.teammem);
+    });
+  };
+
+  // Handle user input in Team Member fields
+  handleteamChange = async (index, e) => {
+    const { name, value } = e.target;
+    const newEntries = [...this.state.teammem];
+
+    if (name === "img") {
+      // File upload
+      const file = e.target.files[0];
+      newEntries[index].img = file;
+
+      const formData = new FormData();
+      formData.append("tudTempUdID", this.props.unicorn.tudTempUdID);
+      formData.append("upfile", file);
+
+      this.setState({ loading: true });
+      try {
+        const response = await axios.post(
+          `${process.env.REACT_APP_BASE_URL}api/founder/Startup/uploadFiles`,
+          formData,
+          { headers: { "Content-Type": "multipart/form-data" } }
+        );
+        if (response.data && response.data.data.upfile) {
+          newEntries[index].imgname = response.data.data.upfile;
+        }
+      } catch (error) {
+        console.error("Error uploading file:", error);
+        message.error("Could not upload file. Please try again.");
+      } finally {
+        this.setState({ loading: false });
+      }
+    } else {
+      // Text input
+      newEntries[index][name] = value;
+    }
+
+    this.setState({ teammem: newEntries }, () => {
+      this.syncWithParent(this.state.mediacoverager, this.state.teammem);
+    });
+  };
+
+  render() {
     return (
       <div>
         <style>
@@ -294,316 +233,302 @@ class Mediacoverager extends Component {
             .remove-icon:hover {
               color: #ff7875;
             }
+            .is-invalid {
+              border-color: #ff4d4f;
+            }
+            .invalid-feedback {
+              color: #ff4d4f;
+              font-size: 12px;
+            }
           `}
         </style>
         <section className="StepForm-section" style={{ display: "block" }}>
           <Spin spinning={this.state.loading}>
             <div className="container">
-              <div className="row">
+              <div className="row" style={{ maxWidth: 900 }}>
+                {/* MEDIA COVERAGE SECTION */}
                 <div className="col-lg-12">
+                  <div className="form-group">
+                    <label className="fs-4">Media Coverage</label>
+                    {this.state.mediacoverager.map((item, index) => (
+                      <div className="Card my-3" key={index}>
+                        {/* Remove Media Coverage Card */}
+                        <CloseOutlined
+                          onClick={() => this.removeCoverager(index)}
+                          className="remove-icon"
+                        />
 
-                  <div className="row" style={{ maxWidth: 900 }}>
-                    <div className="col-lg-12">
-                      <div className="form-group">
-                      <label className="fs-4">Media Coverage</label>
-
-                        {/* Media Coverager Section */}
-                        {this.state.mediacoverager.map((item, index) => (
-                          <div className="Card my-3" key={index}>
-                            {/* Cross Icon for Removing the Card */}
-                            <CloseOutlined
-                              onClick={() => this.removeCoverager(index)}
-                              className="remove-icon"
-                            />
-
-                            {/* Media Title */}
-                            <div className="form-group">
-                              <div className="mt-4">
-                                <label className="mb-2">
-                                  Media title {index + 1}
-                                  {/* <span className="text-danger">*</span> */}
-                                </label>
-
-                                <input
-                                  type="text"
-                                  onWheel={() => document.activeElement.blur()}
-                                  name="title"
-                                  value={item.title}
-                                  onChange={(e) =>
-                                    this.handleInputChange(index, e)
-                                  }
-                                  className="form-control"
-                                />
-                              </div>
-                            </div>
-
-                            {/* Media Link */}
-                            <div className="form-group">
-                              <div className="mt-4">
-                                <label className="mb-2">
-                                  Media link {index + 1}
-                                </label>
-                                <input
-                                  type="text"
-                                  onWheel={() => document.activeElement.blur()}
-                                  name="content"
-                                  value={item.content}
-                                  onChange={(e) =>
-                                    this.handleInputChange(index, e)
-                                  }
-                                  className="form-control"
-                                />
-                              </div>
-                            </div>
-
-                            {/* Media Image */}
-                            <div className="form-group">
-                              <div className="mt-4">
-                                <label className="mb-2">
-                                  Media Image {index + 1}
-                                </label>
-                                <input
-                                  type="file"
-                                  onWheel={() => document.activeElement.blur()}
-                                  name="img"
-                                  onChange={(e) =>
-                                    this.handleInputChange(index, e)
-                                  }
-                                  className="form-control-file"
-                                />
-                                {item.imgname && (
-                                  <div style={{ marginTop: "10px" }}>
-                                    <a
-                                      href={`${process.env.REACT_APP_BASE_URL}api/uploads/founders/media/${localStorage.getItem(
-                                        "founder_id"
-                                      )}/${item.imgname}`}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                    >
-                                      View Image
-                                    </a>
-                                  </div>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-
-                        {/* Button to Add New Media Card */}
-                        <Button
-                          type="dashed"
-                          onClick={this.addcoverger}
-                          block
-                          icon={<UploadOutlined />}
-                          style={{
-                            marginTop: "10px",
-                            marginBottom: "10px",
-                            backgroundColor: "#29176f",
-                            color: "#fff",
-                            border: "1px solid #29176f",
-                          }}
-                        >
-                          Add Media
-                        </Button>
-                      </div>
-
-                      {/* Team Section */}
-                      <div className="form-group">
-                        <label className="fs-4">Team</label>
-                        {this.state.teammem.map((item, index) => (
-                          <div className="Card my-3" key={index}>
-                            {/* Conditionally render the Close icon only if there are more than one team members */}
-                            {this.state.teammem.length > 1 && (
-                              <CloseOutlined
-                                onClick={() => this.removeTeamMember(index)}
-                                className="remove-icon"
-                              />
-                            )}
-
-                            {/* Team Member Name */}
-                            <div className="form-group">
-                              <div className="mt-4">
-                                <label className="mb-2">Name</label>
-
-                                <input
-                                  type="text"
-                                  onWheel={() =>
-                                    document.activeElement.blur()
-                                  }
-                                  name="name"
-                                  value={item.name}
-                                  onChange={(e) =>
-                                    this.handleteamChange(index, e)
-                                  }
-                                  className="form-control"
-                                />
-                              </div>
-                            </div>
-
-                            {/* Team Member Role */}
-                            <div className="form-group">
-                              <div className="mt-4">
-                                <label className="mb-2">Role</label>
-
-                                <input
-                                  type="text"
-                                  onWheel={() =>
-                                    document.activeElement.blur()
-                                  }
-                                  name="Role"
-                                  value={item.Role}
-                                  onChange={(e) =>
-                                    this.handleteamChange(index, e)
-                                  }
-                                  className="form-control"
-                                />
-                              </div>
-                            </div>
-
-                            {/* Team Member Description 1 */}
-                            <div className="form-group">
-                              <div className="mt-4">
-                                <label className="mb-2">Description 1</label>
-                                <input
-                                  type="text"
-                                  onWheel={() =>
-                                    document.activeElement.blur()
-                                  }
-                                  maxLength="100"
-                                  name="description1"
-                                  value={item.description1}
-                                  onChange={(e) => {
-                                    this.handleteamChange(index, e);
-                                    if (e.target.value.length === 100) {
-                                      toast.error("Only 100 characters allowed.");
-                                    }
-                                  }}
-                                  className="form-control"
-                                />
-                              </div>
-                            </div>
-
-                            {/* Team Member Description 2 */}
-                            <div className="form-group">
-                              <div className="mt-4">
-                                <label className="mb-2">Description 2</label>
-                                <input
-                                  type="text"
-                                  onWheel={() =>
-                                    document.activeElement.blur()
-                                  }
-                                  name="description2"
-                                  value={item.description2}
-                                  maxLength="100"
-                                  onChange={(e) => {
-                                    this.handleteamChange(index, e);
-                                    if (e.target.value.length === 100) {
-                                      toast.error("Only 100 characters allowed.");
-                                    }
-                                  }}
-                                  className="form-control"
-                                />
-                              </div>
-                            </div>
-
-                            {/* Team Member Image */}
-                            <div className="form-group">
-                              <div className="mt-4">
-                                <label className="mb-2">Image</label>
-                                <input
-                                  type="file"
-                                  onWheel={() =>
-                                    document.activeElement.blur()
-                                  }
-                                  name="img"
-                                  onChange={(e) =>
-                                    this.handleteamChange(index, e)
-                                  }
-                                  className="form-control-file"
-                                />
-                                {item.imgname && (
-                                  <div style={{ marginTop: "10px" }}>
-                                    <a
-                                      href={`${process.env.REACT_APP_BASE_URL}api/uploads/founders/media/${localStorage.getItem(
-                                        "founder_id"
-                                      )}/${item.imgname}`}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                    >
-                                      View Image
-                                    </a>
-                                  </div>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-
-                        {/* Button to Add New Team Member */}
-                        <Button
-                          type="dashed"
-                          onClick={this.addteam}
-                          block
-                          icon={<UploadOutlined />}
-                          style={{
-                            marginTop: "10px",
-                            backgroundColor: "#29176f",
-                            color: "#fff",
-                            border: "1px solid #29176f",
-                          }}
-                        >
-                          Add Team
-                        </Button>
-                      </div>
-
-                      {/* Navigation Buttons (Hidden) */}
-                      <div
-                        className="form-group justify-content-between"
-                        style={{ display: "none" }}
-                      >
-                        <div className="arrow-buttons">
-                          <button
-                            style={{
-                              position: "relative",
-                              left: -20,
-                              background: "#fff",
-                              border: "1px solid #29176f",
-                              color: "#29176f",
-                            }}
-                            onClick={this.prev}
-                            className="submit-button"
-                          >
-                            <i className="bx bx-chevron-left"></i>
-                          </button>
-                          <button
-                            style={{
-                              position: "relative",
-                              left: -20,
-                              background: "#fff",
-                              border: "1px solid #29176f",
-                              color: "#29176f",
-                            }}
-                            onClick={this.next}
-                            className="submit-button"
-                          >
-                            <i className="bx bx-chevron-right"></i>
-                          </button>
+                        {/* Media Title */}
+                        <div className="form-group mt-4">
+                          <label className="mb-2">Media title {index + 1}</label>
+                          <input
+                            type="text"
+                            name="title"
+                            value={item.title}
+                            onChange={(e) => this.handleInputChange(index, e)}
+                            className="form-control"
+                          />
                         </div>
-                        <div></div>
+
+                        {/* Media Link */}
+                        <div className="form-group mt-4">
+                          <label className="mb-2">
+                            Media link {index + 1}{" "}
+                            {item.title.trim() !== "" && (
+                              <span style={{ color: "red" }}>*</span>
+                            )}
+                          </label>
+                          <input
+                            type="text"
+                            name="content"
+                            value={item.content}
+                            onChange={(e) => this.handleInputChange(index, e)}
+                            className={`form-control ${
+                              item.title.trim() !== "" &&
+                              item.content.trim() === ""
+                                ? "is-invalid"
+                                : ""
+                            }`}
+                          />
+                          {item.title.trim() !== "" &&
+                            item.content.trim() === "" && (
+                              <div className="invalid-feedback">
+                                This field is required.
+                              </div>
+                            )}
+                        </div>
+
+                        {/* Media Image */}
+                        <div className="form-group mt-4">
+                          <label className="mb-2">
+                            Media Image {index + 1}{" "}
+                            {item.title.trim() !== "" && (
+                              <span style={{ color: "red" }}>*</span>
+                            )}
+                          </label>
+                          <input
+                            type="file"
+                            name="img"
+                            onChange={(e) => this.handleInputChange(index, e)}
+                            className={`form-control-file ${
+                              item.title.trim() !== "" &&
+                              item.imgname.trim() === ""
+                                ? "is-invalid"
+                                : ""
+                            }`}
+                          />
+                          {item.title.trim() !== "" &&
+                            item.imgname.trim() === "" && (
+                              <div className="invalid-feedback">
+                                This field is required.
+                              </div>
+                            )}
+                          {item.imgname && (
+                            <div style={{ marginTop: "10px" }}>
+                              <a
+                                href={`${process.env.REACT_APP_BASE_URL}api/uploads/founders/media/${localStorage.getItem(
+                                  "founder_id"
+                                )}/${item.imgname}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                View Image
+                              </a>
+                            </div>
+                          )}
+                        </div>
                       </div>
-                    </div>
+                    ))}
+
+                    {/* Button to Add New Media Card */}
+                    <Button
+                      type="dashed"
+                      onClick={this.addcoverger}
+                      block
+                      icon={<UploadOutlined />}
+                      style={{
+                        marginTop: "10px",
+                        marginBottom: "10px",
+                        backgroundColor: "#29176f",
+                        color: "#fff",
+                        border: "1px solid #29176f",
+                      }}
+                    >
+                      Add Media
+                    </Button>
+                  </div>
+                </div>
+
+                {/* TEAM SECTION */}
+                <div className="col-lg-12">
+                  <div className="form-group">
+                    <label className="fs-4">Team</label>
+                    {this.state.teammem.map((item, index) => (
+                      <div className="Card my-3" key={index}>
+                        {/* Remove Team Member Card */}
+                        {this.state.teammem.length > 1 && (
+                          <CloseOutlined
+                            onClick={() => this.removeTeamMember(index)}
+                            className="remove-icon"
+                          />
+                        )}
+
+                        {/* Team Member Name */}
+                        <div className="form-group mt-4">
+                          <label className="mb-2">
+                            Name <span style={{ color: "red" }}>*</span>
+                          </label>
+                          <input
+                            type="text"
+                            name="name"
+                            value={item.name}
+                            onChange={(e) => this.handleteamChange(index, e)}
+                            className={`form-control ${
+                              !item.name.trim() ? "is-invalid" : ""
+                            }`}
+                          />
+                          {!item.name.trim() && (
+                            <div className="invalid-feedback">
+                              Name is required.
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Team Member Role */}
+                        <div className="form-group mt-4">
+                          <label className="mb-2">
+                            Role <span style={{ color: "red" }}>*</span>
+                          </label>
+                          <input
+                            type="text"
+                            name="Role"
+                            value={item.Role}
+                            onChange={(e) => this.handleteamChange(index, e)}
+                            className={`form-control ${
+                              !item.Role.trim() ? "is-invalid" : ""
+                            }`}
+                          />
+                          {!item.Role.trim() && (
+                            <div className="invalid-feedback">
+                              Role is required.
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Team Member Description 1 */}
+                        <div className="form-group mt-4">
+                          <label className="mb-2">
+                            Description 1 <span style={{ color: "red" }}>*</span>
+                          </label>
+                          <input
+                            type="text"
+                            maxLength="100"
+                            name="description1"
+                            value={item.description1}
+                            onChange={(e) => {
+                              this.handleteamChange(index, e);
+                              if (e.target.value.length === 100) {
+                                toast.error("Only 100 characters allowed.");
+                              }
+                            }}
+                            className={`form-control ${
+                              !item.description1.trim() ? "is-invalid" : ""
+                            }`}
+                          />
+                          {!item.description1.trim() && (
+                            <div className="invalid-feedback">
+                              Description 1 is required.
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Team Member Description 2 */}
+                        <div className="form-group mt-4">
+                          <label className="mb-2">
+                            Description 2 <span style={{ color: "red" }}>*</span>
+                          </label>
+                          <input
+                            type="text"
+                            maxLength="100"
+                            name="description2"
+                            value={item.description2}
+                            onChange={(e) => {
+                              this.handleteamChange(index, e);
+                              if (e.target.value.length === 100) {
+                                toast.error("Only 100 characters allowed.");
+                              }
+                            }}
+                            className={`form-control ${
+                              !item.description2.trim() ? "is-invalid" : ""
+                            }`}
+                          />
+                          {!item.description2.trim() && (
+                            <div className="invalid-feedback">
+                              Description 2 is required.
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Team Member Image */}
+                        <div className="form-group mt-4">
+                          <label className="mb-2">
+                            Image <span style={{ color: "red" }}>*</span>
+                          </label>
+                          <input
+                            type="file"
+                            name="img"
+                            onChange={(e) => this.handleteamChange(index, e)}
+                            className={`form-control-file ${
+                              !item.imgname.trim() ? "is-invalid" : ""
+                            }`}
+                          />
+                          {!item.imgname.trim() && (
+                            <div className="invalid-feedback">
+                              Image is required.
+                            </div>
+                          )}
+                          {item.imgname && (
+                            <div style={{ marginTop: "10px" }}>
+                              <a
+                                href={`${process.env.REACT_APP_BASE_URL}api/uploads/founders/media/${localStorage.getItem(
+                                  "founder_id"
+                                )}/${item.imgname}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                View Image
+                              </a>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                    {/* Button to Add New Team Member */}
+                    <Button
+                      type="dashed"
+                      onClick={this.addteam}
+                      block
+                      icon={<UploadOutlined />}
+                      style={{
+                        marginTop: "10px",
+                        backgroundColor: "#29176f",
+                        color: "#fff",
+                        border: "1px solid #29176f",
+                      }}
+                    >
+                      Add Team
+                    </Button>
                   </div>
                 </div>
               </div>
             </div>
           </Spin>
         </section>
-      
+
         <ToastContainer />
       </div>
     );
   }
 }
 
-
-    export default Mediacoverager;
+export default Mediacoverager;
