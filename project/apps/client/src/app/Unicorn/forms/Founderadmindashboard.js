@@ -1001,12 +1001,14 @@ class Founderadmindashboard extends Component {
     if (
       !this.state.unicorn.tudAndroidMobileApp ||
       this.state.unicorn.tudAndroidMobileApp == "" ||
+      (this.state.unicorn.tudAndroidMobileApp == "Yes" && (
       !this.state.unicorn.tudAndroidAppDetails ||
-      this.state.unicorn.tudAndroidAppDetails == "" ||
+      this.state.unicorn.tudAndroidAppDetails == "" ))||
       !this.state.unicorn.tudIphoneMobileApp ||
       this.state.unicorn.tudIphoneMobileApp == "" ||
+      (this.state.unicorn.tudIphoneMobileApp == "Yes" && (
       !this.state.unicorn.tudIphoneAppDetails ||
-      this.state.unicorn.tudIphoneAppDetails == ""
+      this.state.unicorn.tudIphoneAppDetails == "" ))
     ) {
       this.setState({ loading: false });
       this.activeform(3);
@@ -1077,7 +1079,6 @@ class Founderadmindashboard extends Component {
       toast.error("Please fill SWOT Section");
       return;
     }
-
     if (
       !this.state.unicorn.tudGtmStratergy ||
       this.state.unicorn.tudGtmStratergy == "" ||
@@ -1237,6 +1238,48 @@ class Founderadmindashboard extends Component {
       toast.error("Please fill Deals Section");
       return;
     }
+    let mediaValidation = true;
+    let mediaData = JSON.parse(this.state.unicorn.tudMediaCoverageFiles);
+    console.log(mediaData);
+    if(mediaData.mediaData > 0){
+      mediaData.forEach(element => {
+        if(element.title != ""){
+          if(element.img == "" || element.content == "" || element.imgname == ""){
+            mediaValidation = false;
+          }
+        }
+      });
+    }
+
+    let teamData = JSON.parse(this.state.unicorn.tudVendorId);
+    console.log(teamData);
+    if(teamData.length < 1){
+      mediaValidation = false;
+    }
+
+    teamData.forEach((a) => {
+      if(a.name == "" || a.img == "" || a.description1 == "" || a.description2 == "" || a.imgname == "" || a.Role == ""){
+        mediaValidation = false;
+      }
+    })
+
+    if(!mediaValidation){
+      this.setState({ loading: false });
+        this.activeform(20);
+        toast.error("Please fill Media Coverages");
+        return;
+
+    }
+
+
+    if (!this.state.unicorn.tudDeclare || this.state.unicorn.tudDeclare == 0) {
+      this.setState({ loading: false });
+      this.activeform(21);
+      toast.error("Please fill Declaration Section");
+      return;
+    }
+
+
     if (!this.state.unicorn.tudDeclare || this.state.unicorn.tudDeclare == 0) {
       this.setState({ loading: false });
       this.activeform(21);
@@ -1258,6 +1301,7 @@ class Founderadmindashboard extends Component {
     });
   };
   updatefounder = async (data) => {
+    console.log(data);
     console.log('Calling updatefounder function');
   
     this.setState({ loading: true });
@@ -1265,8 +1309,8 @@ class Founderadmindashboard extends Component {
     // Removed the setTimeout as it's generally not necessary unless specifically required
     try {
       const result = await Bridge.Unicorn.editunicorndraft(this.state.unicorn);
-  
-      if (result.status === 1) {
+      if (result.status == 1) {
+        
         this.setState({ loading: false });
   
         if (data === "save as draft") {
@@ -1274,16 +1318,6 @@ class Founderadmindashboard extends Component {
           setTimeout(() => {
             window.location.assign("/FounderMyListing");
           }, 1000);
-        } else if (data === "preview") {
-          toast.success("Redirecting to Preview");
-  
-          // Use history.push for client-side navigation without a full page reload
-          this.props.history.push({
-            pathname: "/Preview",
-            state: { unicorn: this.state.unicorn }, // Passing the unicorn data
-          });
-  
-          // Removed window.location.assign to prevent conflicts
         } else {
           this.publishunicorn();
         }
@@ -2346,16 +2380,9 @@ class Founderadmindashboard extends Component {
             {!this.props.adminview && (
               <div className="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto mt-3">
                 <div className="submit-draft-publish d-flex justify-content-center">
-                  {/* <Previewbutton unicorn={this.state.unicorn} /> */}
+                  <Previewbutton unicorn={this.state.unicorn} />
 
-                  <a
-                    onClick={() => {
-                      this.updatefounder("preview");
-                    }}
-                    className="submit-future"
-                  >
-                    Preview
-                  </a>
+                 
                          
                   <a
                     onClick={() => {

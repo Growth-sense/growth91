@@ -203,7 +203,7 @@ console.log(unicorn);
                 </div>
                 <div class="tabs-dashboard justify-content-center">
                   <div class="tab-contents">
-                    <div class="tab-content">
+                    <div class="tab-content" style={{height: "unset"}}>
                     <input type="radio" name="tab-index" id="tab-index1" checked />
 
                       <div class="content">

@@ -985,16 +985,13 @@ text-align: justify;
                                 />
                                 <div className="media-card-content">
                                   <h5>{itemudMediaCoverageFiles.title}</h5>
-                                  <p className="media-card-date">
-                                    Description Details
-                                  </p>
                                   <p>
                                     {itemudMediaCoverageFiles.content}{" "}
                                     <a
                                       href={itemudMediaCoverageFiles.content}
                                       className="read-more-link"
                                     >
-                                      Read More..
+                                      Read More
                                     </a>
                                   </p>
                                 </div>
@@ -1222,7 +1219,7 @@ text-align: justify;
           ></div>
         </div>
         <div className="row  justify-content-center ">
-          <div className="col-md-8 col-12 col-sm-12 col-xl-8 col-xxl-12">
+          <div className="col-md-8 col-12 col-sm-8 col-xl-8 col-xxl-8">
             <div className="card-payment-methods">
               <div class="heading-title m-sm-0">
                 <p>
