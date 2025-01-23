@@ -363,7 +363,7 @@ class InvestorController extends CI_Controller
 			$userID = $formdata['userID'];
 			if ($userID <> "-1")
 				$sql = "SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inner join users on users.investor_id = groups.userID WHERE userID = '$userID' union 
-SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inner join users on users.groupID = groups.groupID WHERE users.investor_id = '$userID'  ORDER BY groupName";
+				SELECT g.*, first_name,middle_name,last_name,email,mobile FROM groups g INNER JOIN group_invites gi ON g.groupID = gi.groupID INNER JOIN users u ON gi.member_id = u.investor_id WHERE gi.member_id = '$userID'";
 			else
 				$sql = "SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inner join users on users.investor_id = groups.userID  WHERE 1 = '1' ORDER BY groupName";
 			$query = $this->db->query($sql);
