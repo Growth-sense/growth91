@@ -738,7 +738,11 @@ text-align: justify;
                     {/* Image Section */}
                     <div
                       className="image-section"
-                      style={{ borderRadius: "15px", border: "1px solid #ddd", marginTop: "-5px" }}
+                      style={{
+                        borderRadius: "15px",
+                        border: "1px solid #ddd",
+                        marginTop: "-5px",
+                      }}
                     >
                       {/* Add your image manually here */}
                       <img
@@ -782,7 +786,7 @@ text-align: justify;
                       <div className="text-section">
                         <h1>{item.udPrimaryContactName}</h1>
                         <button
-                        onClick={openiamintrest}
+                          onClick={openiamintrest}
                           className="primaryInterested"
                           style={{
                             // height: "100%",
@@ -933,7 +937,7 @@ text-align: justify;
                                 </div>
                               </div>
                               {/* Description Section */}
-                              <div className="p-3" style={{height: "210px"}}>
+                              <div className="p-3" style={{ height: "210px" }}>
                                 <p className="p-4">
                                   {itemudVendorId.description1
                                     ? itemudVendorId.description1
@@ -1005,47 +1009,44 @@ text-align: justify;
                     </div> */}
                     </section>
                   )}
-
-                <section>
-                  <div className="container">
-                    <div className="row">
-                      <div className="col-md-12">
-                        {/* blue bg */}
-                        <div
-                          className="shadow-lg p-5"
-                          style={{
-                            backgroundColor: "#5C33CF",
-                            color: "white",
-                            borderRadius: "20px",
-                          }}
-                        >
-                          {console.log(
-                            `${
-                              process.env.REACT_APP_BASE_URL
-                            }api/uploads/unicorndeals/${
-                              item.tudTempUdID
-                            }/${JSON.parse(item.udPitchDeck)}`
-                          )}
-                          {/* <SinglePagePDFViewer pdf={udPitchDeck/samplePDF} /> */}
-                          <SinglePagePDFViewer
-                            pdf={`${
-                              process.env.REACT_APP_BASE_URL
-                            }api/uploads/unicorndeals/${
-                              item.tudTempUdID
-                            }/${JSON.parse(item.udPitchDeck)}`}
-                          />
+                {
+                  item.udPitchDeck != "" && JSON.parse(item.udPitchDeck) != "" &&
+                  <section>
+                    <div className="container">
+                      <div className="row">
+                        <div className="col-md-12">
+                          {/* blue bg */}
+                          <div
+                            className="shadow-lg p-5"
+                            style={{
+                              backgroundColor: "#5C33CF",
+                              color: "white",
+                              borderRadius: "20px",
+                            }}
+                          >
+                            <h2 className="text-left text-white mb-4">
+                              Investor Presentation
+                            </h2>
+                            <SinglePagePDFViewer
+                              pdf={`${
+                                process.env.REACT_APP_BASE_URL
+                              }api/uploads/unicorndeals/${
+                                item.tudTempUdID
+                              }/${JSON.parse(item.udPitchDeck)}`}
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </section>
+                  </section>
+                }
 
                 <section className="container my-5 videos-section">
                   <h2 className="text-center mb-5">Videos</h2>
                   <div className="video-slide">
                     <iframe
                       style={{
-                        boxShadow: '0px 3px 6px #000',
+                        boxShadow: "0px 3px 6px #000",
                         borderRadius: 3,
                       }}
                       width="100%"
@@ -1168,20 +1169,20 @@ text-align: justify;
                 <section className="container text-section">
                   <div className="row">
                     <div className="col-md-12 text-center my-5">
-                    <button
+                      <button
                         onClick={openiamintrest}
-                          className="primaryInterested"
-                          style={{
-                            // height: "100%",
-                            backgroundColor: "#5C33CF",
-                            color: "white",
-                            border: "none",
-                            cursor: "pointer",
-                            boxShadow: "0px 3px 6px #000",
-                          }}
-                        >
-                          I am Interested
-                        </button>
+                        className="primaryInterested"
+                        style={{
+                          // height: "100%",
+                          backgroundColor: "#5C33CF",
+                          color: "white",
+                          border: "none",
+                          cursor: "pointer",
+                          boxShadow: "0px 3px 6px #000",
+                        }}
+                      >
+                        I am Interested
+                      </button>
                     </div>
                   </div>
                 </section>

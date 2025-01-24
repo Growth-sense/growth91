@@ -2353,6 +2353,15 @@ class Founderadmindashboard extends Component {
                     activate={() => this.activeform(20)}
                     prev={() => this.activeform(19)}
                     next={() => this.activeform(21)}
+                    setMultiple={(data) => {
+                        this.setState({
+                          unicorn: {
+                            ...this.state.unicorn,
+                            ...data
+                          },
+                        });
+                      }
+                    }
                     onInput={(name, value) => this.onInput(name, value)}
                     unicorn={this.state.unicorn}
                     id={this.props.id}

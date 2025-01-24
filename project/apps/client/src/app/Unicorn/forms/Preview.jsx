@@ -10,26 +10,20 @@ import { NewWebFooter } from "../../common/NewWebFooter.jsx";
 import { Modal, message as mess, Spin } from "antd";
 import SinglePagePDFViewer from "./../../components/PdfViewer/single-page";
 
-
 import Bridge from "./../../constants/Bridge.js";
-
-
-// import SinglePagePDFViewer from "./components/PdfViewer/single-page";
 
 export const Preview = (props) => {
   const location = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
     if (location.state) {
-      setunicorn(location.state)
-
+      setunicorn(location.state);
     }
 
     console.log(location);
   }, []);
 
-
-  const [unicorn, setunicorn] = useState()
+  const [unicorn, setunicorn] = useState();
   console.log(unicorn);
   $(window).scroll(function () {
     if ($(this).scrollTop() > 30) {
@@ -64,9 +58,6 @@ export const Preview = (props) => {
       </>
     );
   }
-
-
-
 
   const settings = {
     dots: true,
@@ -768,29 +759,33 @@ text-align: justify;
         <NewWebHeader newabout={"newabout"} />
       </div>
 
-
       {unicorn &&
         [unicorn].map((item, index) => {
           console.log(item);
 
           return (
             <>
-
               <section className="design-space">
                 <div className="container">
                   {/* Image Section */}
                   <div
                     className="image-section"
-                    style={{ borderRadius: "15px", border: "1px solid #ddd", marginTop: "-5px" }}
+                    style={{
+                      borderRadius: "15px",
+                      border: "1px solid #ddd",
+                      marginTop: "-5px",
+                    }}
                   >
                     {/* Add your image manually here */}
                     <img
                       className="heroSectionImage"
                       src={
-                        (item.tudBannerImage &&
-                          `${process.env.REACT_APP_BASE_URL
-                          }api/uploads/unicorndeals/${item.tudTempUdID
-                          }/${JSON.parse(item.tudBannerImage)}`)
+                        item.tudBannerImage &&
+                        `${
+                          process.env.REACT_APP_BASE_URL
+                        }api/uploads/unicorndeals/${
+                          item.tudTempUdID
+                        }/${JSON.parse(item.tudBannerImage)}`
                       }
                       alt="Team"
                     />
@@ -816,9 +811,11 @@ text-align: justify;
                       /> */}
 
                       <img
-                        src={`${process.env.REACT_APP_BASE_URL
-                          }api/uploads/unicorndeals/${item.tudTempUdID
-                          }/${JSON.parse(item.tudLogoImage)}`}
+                        src={`${
+                          process.env.REACT_APP_BASE_URL
+                        }api/uploads/unicorndeals/${
+                          item.tudTempUdID
+                        }/${JSON.parse(item.tudLogoImage)}`}
                         alt=""
                         style={{
                           borderRadius: "50%",
@@ -831,7 +828,6 @@ text-align: justify;
                     <div className="text-section d-flex justify-content-around align-items-center">
                       <div className="pe-5">
                         <h3>{item.tudStartupName}</h3>
-                      
                       </div>
                       <div>
                         <button
@@ -852,10 +848,7 @@ text-align: justify;
                             Edit Unicorn
                           </Link>
                         </button>
-                        
                       </div>
-
-
                     </div>
                   </div>
                 </div>
@@ -904,7 +897,6 @@ text-align: justify;
                 </div>
               </section>
 
-
               <section className="container my-5">
                 <h2 className="text-center mb-4">Highlights</h2>
 
@@ -947,7 +939,6 @@ text-align: justify;
                 </div>
               </section>
 
-
               <section className="container my-5">
                 <h2 className="text-center mb-3">Team</h2>
                 <div className="row row-box-linse Grid-team px-1">
@@ -987,8 +978,7 @@ text-align: justify;
                                 />
                                 <div>
                                   <h5 className="mb-0 text-white">
-                                    {itemudVendorId.name ||
-                                      "Name not provided"}
+                                    {itemudVendorId.name || "Name not provided"}
                                   </h5>
                                   <p className="mb-0 text-white">
                                     {itemudVendorId.Role ||
@@ -1012,9 +1002,6 @@ text-align: justify;
                 </div>
               </section>
 
-
-
-
               <section className="container my-5  market-overview-section">
                 <h2 className="text-center mb-5">Market Overview</h2>
                 <div className="row market-overreview-row">
@@ -1030,8 +1017,6 @@ text-align: justify;
                     ))}
                 </div>
               </section>
-
-
 
               {item.tudMediaCoverageFiles &&
                 JSON.parse(item.tudMediaCoverageFiles).length > 0 && (
@@ -1079,62 +1064,43 @@ text-align: justify;
                   </section>
                 )}
 
-
-
-              <section>
-                <div className="container">
-                  <h2 className="text-center mb-5">Investor Presentation</h2>
-
-                  <div className="row">
-                    <div className="col-md-12">
-                      {/* blue bg */}
-                      <div
-                        className="shadow-lg p-5"
-                        style={{
-                          backgroundColor: "#5C33CF",
-                          color: "white",
-                          borderRadius: "20px",
-                        }}
-                      >
-                        {console.log(
-                          `${process.env.REACT_APP_BASE_URL
-                          }api/uploads/unicorndeals/${item.tudTempUdID
-                          }/${JSON.parse(item.tudPitchDeck)}`
-                        )}
-                        {/* <SinglePagePDFViewer pdf={udPitchDeck/samplePDF} /> */}
-
-                        <SinglePagePDFViewer
-                          pdf={`${process.env.REACT_APP_BASE_URL
-                            }api/uploads/unicorndeals/${item.tudTempUdID
+              {item.tudPitchDeck && item.tudPitchDeck != "" && JSON.parse(item.tudPitchDeck) != "" && (
+                <section>
+                  <div className="container">
+                    <div className="row">
+                      <div className="col-md-12">
+                        {/* blue bg */}
+                        <div
+                          className="shadow-lg p-5"
+                          style={{
+                            backgroundColor: "#5C33CF",
+                            color: "white",
+                            borderRadius: "20px",
+                          }}
+                        >
+                          <h2 className="text-left text-white mb-4">
+                            Investor Presentation
+                          </h2>
+                          <SinglePagePDFViewer
+                            pdf={`${
+                              process.env.REACT_APP_BASE_URL
+                            }api/uploads/unicorndeals/${
+                              item.tudTempUdID
                             }/${JSON.parse(item.tudPitchDeck)}`}
-                        />
-                        {/* {item.tudPitchDeck &&
-                              <div class="accordion-body">
-                                <iframe
-                                  src={`${process.env.REACT_APP_BASE_URL
-                                    }api/uploads/unicorndeals/${item.tudTempUdID
-                                    }/${JSON.parse(item.tudPitchDeck)}`}
-                                  frameborder="0"
-                                  height={"500px"}
-                                  width={"100%"}
-                                ></iframe>
-                                
-                              </div>} */}
-
-
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </section>
-
+                </section>
+              )}
 
               <section className="container my-5 videos-section">
                 <h2 className="text-center mb-5">Videos</h2>
                 <div className="video-slide">
                   <iframe
                     style={{
-                      boxShadow: '0px 3px 6px #000',
+                      boxShadow: "0px 3px 6px #000",
                       borderRadius: 3,
                     }}
                     width="100%"
@@ -1149,7 +1115,6 @@ text-align: justify;
                   ></iframe>
                 </div>
               </section>
-
 
               <section className="container my-5 contact-us-section">
                 <h2 className="text-center mb-5">Contact Us</h2>
@@ -1254,29 +1219,6 @@ text-align: justify;
                   </div>
                 </div>
               </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </>
           );
         })}

@@ -463,6 +463,9 @@ class SupportingDocuments extends Component {
                               Select Pitch PDF (Max file size should be 10MB)<span className="text-danger">*</span>
                              
                             </label>
+                            <div className="mb-1">
+                              {this.props.unicorn.tudPitchDeck != "" && JSON.parse(this.props.unicorn.tudPitchDeck) != "" ? "File Uploaded" : ""}
+                            </div>
 
                             <input
                               type="file"
@@ -471,7 +474,7 @@ class SupportingDocuments extends Component {
                               accept=".pdf,.docx"
                               name="tudPitchDeck"
                               // style={{display:'none'}}
-                            />
+                            />                        
                           </div>
                         </div>
                         {/* <button>Add pitch File</button> */}
@@ -528,6 +531,11 @@ class SupportingDocuments extends Component {
                       </div> */}
                       <div className="form-group">
                         <label for="">Banner Image<span className="text-danger">*</span></label>
+                        {
+                          this.props.unicorn.tudBannerImage != "" && JSON.parse(this.props.unicorn.tudBannerImage) != "" ? 
+                          <img style={{maxWidth:"100%"}} src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${JSON.parse(this.props.unicorn.tudBannerImage)}`} /> : null
+                        }
+                        
                         <input
                           type="file"
                           onWheel={() => document.activeElement.blur()}
@@ -538,6 +546,10 @@ class SupportingDocuments extends Component {
                       </div>{" "}
                       <div className="form-group">
                         <label for="">Select Logo<span className="text-danger">*</span></label>
+                        {
+                          this.props.unicorn.tudLogoImage != "" && JSON.parse(this.props.unicorn.tudLogoImage) != "" ? 
+                          <img style={{maxWidth:"100%"}} src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${JSON.parse(this.props.unicorn.tudLogoImage)}`} /> : null
+                        }
                         <input
                           type="file"
                           onWheel={() => document.activeElement.blur()}

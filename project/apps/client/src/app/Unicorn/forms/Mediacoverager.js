@@ -50,9 +50,10 @@ class Mediacoverager extends Component {
    * Call this whenever local state changes so the parent’s `unicorn` is always up to date.
    */
   syncWithParent = (mediacoverager, teammem) => {
-    // Convert arrays to JSON strings
-    this.props.onInput("tudMediaCoverageFiles", JSON.stringify(mediacoverager));
-    this.props.onInput("tudVendorId", JSON.stringify(teammem));
+    this.props.setMultiple({
+      tudMediaCoverageFiles: JSON.stringify(mediacoverager),
+      tudVendorId: JSON.stringify(teammem)
+    })
   };
 
   // Add a new empty media coverage entry
@@ -323,18 +324,9 @@ class Mediacoverager extends Component {
                                 This field is required.
                               </div>
                             )}
+                          
                           {item.imgname && (
-                            <div style={{ marginTop: "10px" }}>
-                              <a
-                                href={`${process.env.REACT_APP_BASE_URL}api/uploads/founders/media/${localStorage.getItem(
-                                  "founder_id"
-                                )}/${item.imgname}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                View Image
-                              </a>
-                            </div>
+                            <img style={{maxWidth:"100%"}} src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${item.imgname}`} />
                           )}
                         </div>
                       </div>
@@ -487,19 +479,11 @@ class Mediacoverager extends Component {
                               Image is required.
                             </div>
                           )}
-                          {item.imgname && (
-                            <div style={{ marginTop: "10px" }}>
-                              <a
-                                href={`${process.env.REACT_APP_BASE_URL}api/uploads/founders/media/${localStorage.getItem(
-                                  "founder_id"
-                                )}/${item.imgname}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                View Image
-                              </a>
-                            </div>
-                          )}
+                          {
+                            item.imgname &&
+                            <img style={{maxWidth:"100%"}} src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${item.imgname}`} />
+                          }
+                          
                         </div>
                       </div>
                     ))}
