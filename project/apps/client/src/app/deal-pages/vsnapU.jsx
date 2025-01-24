@@ -1511,13 +1511,15 @@ class VsnapU extends Component {
                                                                         Deal is closed
                                                                     </a>
                                                                 ) : this.state.user_type != "founder" &&
-                                                                    this.state.invest_amt !== null ? (
+                                                                    this.state.invest_amt !== null 
+                                                                    && dataSource2.length <= 1 ? (
                                                                     <div className="button-group">
                                                                         <p>{`You have committed Rs. ${this.state.invest_amt} to this deal so far. (Including platform fees)`}</p>
                                                                         <a
                                                                             href="#!"
                                                                             style={{ padding: "13px 0" }}
                                                                             onClick={() => {
+                                                                                this.setState({selectedInvestorId: dataSource2[0].key});
                                                                                 this.getpostData();
                                                                                 this.showModal1();
                                                                             }}
@@ -1606,6 +1608,22 @@ class VsnapU extends Component {
                                                                                         this.showModal1();
                                                                                     }
                                                                                     
+                                                                                }}
+                                                                                style={{ padding: "13px 0" }}
+                                                                            >
+                                                                                Express Your Interest
+                                                                            </a>
+                                                                        ) : null}
+                                                                        {this.state.user_type == "investor" &&
+                                                                            this.state.invest_amt != null && 
+                                                                            dataSource2.length > 1
+                                                                            ? (
+                                                                            <a
+                                                                                href="#"
+                                                                                className="black-button prime-bg text-center"
+                                                                                onClick={() => {
+                                                                                    this.getpostData();
+                                                                                    this.setState({selectInvestorModal: true});
                                                                                 }}
                                                                                 style={{ padding: "13px 0" }}
                                                                             >
@@ -1867,7 +1885,7 @@ class VsnapU extends Component {
                                                     </tr>
                                                 </table>
                                             </div>
-                                            {this.state.invest_amt !== null ? (
+                                            {this.state.invest_amt !== null && this.state.selectedInvestorId == localStorage.getItem("Parent_investor_id")? (
                                                 <div className="">
                                                     <Alert
                                                         message={`You have committed Rs. ${this.state.invest_amt} to this deal so far. (Including platform fees)`}
