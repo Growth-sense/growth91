@@ -158,7 +158,7 @@ class InvestorController extends CI_Controller {
 		$num_rows3=$query->num_rows();
 		if(intval($num_rows3)>0){
 			$post_data=[
-				'account_exists' => $formdata['account_exists'],
+				'account_exists' => 'YES',
 				'amount_deposited' => $formdata['amount_deposited'],
 				'name_at_bank' => $formdata['name_at_bank'],
 				'ref_id' => $formdata['ref_id'],
@@ -168,7 +168,7 @@ class InvestorController extends CI_Controller {
 			$this->db->update('user_bank_details',$post_data);
 		} else {
 			$post_data=[
-				'account_exists' => $formdata['account_exists'],
+				'account_exists' => 'YES',
 				'amount_deposited' => $formdata['amount_deposited'],
 				'name_at_bank' => $formdata['name_at_bank'],
 				'ref_id' => $formdata['ref_id'],
