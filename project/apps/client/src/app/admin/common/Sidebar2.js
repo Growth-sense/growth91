@@ -184,7 +184,7 @@ class Sidebar extends Component {
               </li>
               
               <li>
-               <a href="/admin-unicorn">View Unicron</a>
+               <a href="/admin-unicorn">View Unicorn</a>
               </li>
            
             
