@@ -37,6 +37,9 @@ class Viewfamily extends Component {
       loading: false,
       investments: [],
       panno: "",
+      legalname: "",
+      reference_id: "",
+      type: "",
       startinvestedcompanies: 0,
       startinvestedamount: 0,
       addModalStatus: false,
@@ -196,7 +199,7 @@ class Viewfamily extends Component {
     }
     this.getInvestments();
   }
-  test = () => {};
+
   getInvestments = () => {
     this.setState({ loading: true });
     let params = {
@@ -470,6 +473,8 @@ class Viewfamily extends Component {
       userID: localStorage.getItem("Parent_investor_id"),
       pan: this.state.panno,
       legalname: this.state.legalname,
+      type: this.state.type,
+      reference_id: this.state.reference_id
     };
     Bridge.users.addInvestorViaFamilyWithoutEmail(params).then((result) => {
       console.log("data", result);
@@ -483,6 +488,8 @@ class Viewfamily extends Component {
           panVerifyStatus: false,
           panno: "",
           legalname: "",
+          type: "",
+          reference_id: "",
         });
 
         // close the modal
@@ -568,6 +575,8 @@ class Viewfamily extends Component {
               panVerifyStatus: true,
               legalname: parsedData.registered_name,
               fathername: parsedData.father_name || "",
+              reference_id: parsedData.reference_id,
+              type: parsedData.type,
               screen1: false,
               screen2: true,
               screen3: false,

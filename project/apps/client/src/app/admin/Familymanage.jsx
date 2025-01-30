@@ -492,13 +492,13 @@ class Familymanage extends Component {
         key: "name",
         width: 280,
       },
-      {
-        title: "Status",
-        dataIndex: "status",
-        key: "status",
-        width: 280,
+      // {
+      //   title: "Status",
+      //   dataIndex: "status",
+      //   key: "status",
+      //   width: 280,
 
-      },
+      // },
       {
         title: "Action",
         dataIndex: "action",

@@ -349,7 +349,9 @@ class Investor extends CI_Controller
 			$user_id = $formdata['userID'];
 			$pan = $formdata['pan'];
 			$legalname = $formdata['legalname'];
-
+			$type = $formdata['type'];
+			$reference_id = $formdata['reference_id'];
+			
 			$post_data = [
 				'first_name' => $first_name,
 				'middle_name' => $middle_name,
@@ -377,6 +379,17 @@ class Investor extends CI_Controller
 			} else {
 				$this->db->insert('users', $post_data);
 				$id = $this->db->insert_id();
+
+				$kyc_post_data = [
+					'user_id' => $id,
+					'pan' => $pan,
+					'reference_id' => $reference_id,
+					'registered_name' => $legalname,
+					'type' => $type,
+					'valid' => 1
+				];
+
+				$this->db->insert('user_pan_details', $kyc_post_data);
 
 
 				$temp_email = 'temp' . $id . '@growth91.com';
