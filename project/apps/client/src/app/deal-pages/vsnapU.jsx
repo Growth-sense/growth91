@@ -1659,7 +1659,7 @@ class VsnapU extends Component {
                                                                         className="black-button prime-bg"
                                                                         style={{ cursor: "default" }}
                                                                     >
-                                                                        Deal is closed0
+                                                                        Deal is closed
                                                                     </a>
                                                                 </div>
                                                             )}
