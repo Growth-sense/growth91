@@ -129,7 +129,7 @@ export default class CreatefamilyPage extends Component {
   };
 
   getmember = (value) => {
-    if (localStorage.getItem("investor_id"))
+    if (localStorage.getItem("Parent_investor_id"))
       this.setState({ memberdetail: "", memberlistloader: true });
     this.setState({ ids: value });
     let params = {
@@ -140,7 +140,7 @@ export default class CreatefamilyPage extends Component {
 
     Bridge.investor.getfamilymember(params).then((result) => {
       const data = result.data.filter((item, index) => {
-        return item.investor_id == !this.props.adminview?localStorage.getItem("investor_id"):this.props.investor_id
+        return item.investor_id == !this.props.adminview?localStorage.getItem("Parent_investor_id"):this.props.investor_id
       });
      
 
@@ -200,24 +200,23 @@ export default class CreatefamilyPage extends Component {
     });
   };
   deletefamilymeber = (value) => {
-
+    
     let params = {
-      userID: localStorage.getItem("Parent_investor_id"),
-      groupID: this.state.this.state.chggroupID,
-      invite_email: value.data.email,
-      invite_mobile: value.data.mobile,
+      memberId:value.data.investor_id,
+      groupID: this.state.chggroupID,
     };
 
     Bridge.family.deleteGroupMember(params).then((result) => {
+      
       if (result.message == "Member deleted successfully.") {
         this.setState({ view_change_group_name_modal: false });
         this.viewgroupall();
         
-        this.getmember(this.state.this.state.chggroupID);
+        this.getmember(this.state.chggroupID);
 
         toast.success("Member deleted successfully.");
       } else {
-        toast.error("Error");
+        toast.error(result.message);
       }
     });
   };
@@ -225,9 +224,7 @@ export default class CreatefamilyPage extends Component {
 
     let params = {
       userID: localStorage.getItem("Parent_investor_id"),
-      groupID: value.groupID,
-      invite_email: value.email,
-      invite_mobile: value.mobile,
+      groupID: value.groupID
     };
 
     Bridge.family.deleteRequest(params).then((result) => {
@@ -258,13 +255,20 @@ export default class CreatefamilyPage extends Component {
     const dataSource =
       this.state.group_list &&
       this.state.group_list
-        .filter(
-          (item) => item.userID == !this.props.adminview?localStorage.getItem("Parent_investor_id"):this.props.investor_id,
+        .filter((item) => {
+          if(this.props.adminview){
+            return item.userID == this.props.investor_id
+          }
+          else{
+            return item.userID == localStorage.getItem("Parent_investor_id")
+          }
+        }
+          
         )
         .map((item, index) => {
 
 
-          
+          console.log(item);
           return {
             key: item.groupID,
             name: item.groupName,
@@ -274,6 +278,7 @@ export default class CreatefamilyPage extends Component {
             Status: item.groupStatus,
           };
         });
+        {console.log(dataSource)}
     const dataSource2 =
       this.state.group_list &&
       this.state.group_list

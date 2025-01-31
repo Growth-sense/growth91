@@ -407,13 +407,13 @@ class FamilyAdmin extends Component {
         width: 280,
 
       },
-      {
-        title: "Status",
-        dataIndex: "status",
-        key: "status",
-        width: 280,
+      // {
+      //   title: "Status",
+      //   dataIndex: "status",
+      //   key: "status",
+      //   width: 280,
 
-      },
+      // },
       {
         title: "Action",
         dataIndex: "action",

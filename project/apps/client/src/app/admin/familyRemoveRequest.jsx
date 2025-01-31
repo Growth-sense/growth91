@@ -115,7 +115,7 @@ class familyRemoveReq extends Component {
     
     let params = {
       groupID: item.groupID,
-      userID:item.userID,
+      userID:item.member_id,
       invite_email: item.invite_email,
       invite_mobile: item.invite_mobile,
       inviteID: item.inviteID,
@@ -305,11 +305,12 @@ class familyRemoveReq extends Component {
           ownernumber: item.mobile,
           email: item.email,
           status:"Active",
-          mobile: item.mobile,
+          mobile: item.invite_mobile,
           action: item,
           groupCreateDate: item.groupCreateDate,
           ownername: item.invite_email,
           userId: item.userID,
+          memberId: item.member_id
         };
       });
 
