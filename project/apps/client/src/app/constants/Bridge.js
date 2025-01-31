@@ -12,6 +12,10 @@ export default {
     api.post(URLs.get_registered_user_details, data).then((response) => {
       return response.data;
     }),
+
+  
+
+
   update_kyc_details: (data) =>
     api.post(URLs.update_kyc_details, data).then((response) => {
       return response.data;
@@ -27,6 +31,24 @@ export default {
   users: {
     getstatusdata: (data) =>
       api.post(URLs.getstatusdata, data).then((response) => {
+        return response.data;
+      }),
+
+        // getUsersDetailsByEmail
+  getUsersDetailsByEmail: (data) =>
+    api.post(URLs.getUsersDetailsByEmail, data).then((response) => {
+      return response.data;
+    }),
+
+    // addInvestor
+    addInvestorViaFamily: (data) => 
+    api.post(URLs.addInvestorViaFamily, data).then((response) => {
+      return response.data;
+    }),
+
+    //addInvestorViaFamilyWithoutEmailCheck
+    addInvestorViaFamilyWithoutEmail: (data) => 
+      api.post(URLs.addInvestorViaFamilyWithoutEmail, data).then((response) => {
         return response.data;
       }),
   },
@@ -705,7 +727,6 @@ export default {
         api.post(URLs.send_email_to_investors, data).then((response) => {
           return response.data;
         }),
-        
     },
 
     document: {
@@ -882,6 +903,10 @@ export default {
       api.post(URLs.getGroupList, data).then((response) => {
         return response.data;
       }),
+    getGroupListForInvestment: (data) =>
+      api.post(URLs.getGroupListForInvestment, data).then((response) => {
+        return response.data;
+      }),
     checkFamilyMember: (data) =>
       api.post(URLs.checkFamilyMember, data).then((response) => {
         return response.data;
@@ -922,6 +947,11 @@ export default {
       api.post(URLs.deleteGroup, data).then((response) => {
         return response.data;
       }),
+
+    addInvestor: (data) =>
+      api.post(URLs.addInvestor, data).then((response) => {
+        return response.data;
+      }),
   },
   Unicorn: {
     createunicorndraft: (data) =>
@@ -941,8 +971,7 @@ export default {
         return response.data;
       }),
     unicorndealsByInvestors: (data) =>
-      api.post(URLs.unicorndealsByInvestors
-        , data).then((response) => {
+      api.post(URLs.unicorndealsByInvestors, data).then((response) => {
         return response.data;
       }),
     uploadunicornFiles: (data) =>

@@ -23,7 +23,7 @@ class Createfamily extends Component {
         </div>
           <div className='col-md-10 col-12'>
             <CreatefamilyPage 
-                investor_id={localStorage.getItem('investor_id')}
+                investor_id={localStorage.getItem('Parent_investor_id')}
             />
             <br/><br/>
           </div>
