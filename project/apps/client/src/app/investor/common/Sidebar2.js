@@ -182,7 +182,7 @@ export default class Sidebar2 extends Component {
                 <div className="col-md-4 col-12 side-text">Group Investments</div>
               </li>
             </a>
-            <a
+            {/* <a
               href="/My-Future-unicorn"
               className={
                 window.location.pathname == "/My-Future-unicorn" ? "active" : ""
@@ -193,7 +193,7 @@ export default class Sidebar2 extends Component {
                 <div className="col-md-4 col-12 side-text">My Future unicorn</div>
               </li>
             </a>
-           
+            */}
           {/* <div>
             <a
               href="/founder-as-investor"

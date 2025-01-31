@@ -176,7 +176,7 @@ class Sidebar extends Component {
                 }
               ></i>
             </div>
-            <ul id="md-future" className="sub-menu hide">
+            {/* <ul id="md-future" className="sub-menu hide">
               <li>
                <a className="link_name" href="#">
                Future Unicorn
@@ -188,7 +188,7 @@ class Sidebar extends Component {
               </li>
            
             
-            </ul>
+            </ul> */}
             
           </li>
           <li>
