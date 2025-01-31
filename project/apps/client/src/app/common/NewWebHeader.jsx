@@ -939,7 +939,7 @@ class NewWebHeader extends Component {
                               href="/FutureUnicorn"
                           >
                             Future Unicorns
-                          </a>
+                          </a> */}
                           {/* <div className="submenu-cards">
                             <div className="submenus">
                               <ul>
@@ -949,7 +949,7 @@ class NewWebHeader extends Component {
                             </div>
                           </div> */}
 
-                        </li> */}
+                        {/* </li> */}
                         {this.state.loggedinstatus == true ? (
                           ""
                         ) : (
