@@ -3,6 +3,7 @@ import WebHeader from "../common/WebHeader";
 import WebFooter from "../common/WebFooter";
 import "./newboo.css";
 import {
+    Table,
     Tabs,
     Collapse,
     message,
@@ -11,6 +12,7 @@ import {
     Checkbox,
     Progress,
     Alert,
+    notification
 } from "antd";
 import axios from "axios";
 import { ExclamationCircleOutlined, PlusOutlined } from "@ant-design/icons";
@@ -29,6 +31,9 @@ class uknowaHRMS extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            selectedInvestorId: null,
+            selectInvestorModal: false,
+            group_list: [],
             deal_id: "",
             investor_id: "",
             interested_id: "",
@@ -178,7 +183,33 @@ let deal_id = process.env.ENVIRONMENT === "production" ? "41" : "133";
         this.getGst();
         this.get_deal_doucments(deal_id);
         // console.log("hello");
+
+        this.setState(
+            {
+              investor_id: localStorage.getItem("Parent_investor_id"),
+            },
+      
+            () => this.viewgroupall(),
+            
+          );
     }
+
+    viewgroupall = () => {
+           let params = {
+             userID:!this.props.adminview?localStorage.getItem("Parent_investor_id"):this.props.investor_id,
+           }
+       
+           Bridge.family.getGroupListForInvestment(params).then((result) => {
+                let youAsMember = [{
+                    investor_id: localStorage.getItem("Parent_investor_id"),
+                    first_name: "You",
+                    last_name:"",
+                    groupName: "N/A"
+                }]
+             this.setState({ group_list: youAsMember.concat(result.data) });
+           });
+         };
+
     get_founder_details = () => {
         let params = {
             founder_id: localStorage.getItem("founder_id"),
@@ -685,6 +716,7 @@ let deal_id = process.env.ENVIRONMENT === "production" ? "41" : "133";
 
         this.setState(
             {
+                selectInvestorModal: false,
                 investmentmodal: true,
             },
             () => {
@@ -1256,6 +1288,44 @@ let deal_id = process.env.ENVIRONMENT === "production" ? "41" : "133";
     };
 
     render() {
+        const dataSource2 =
+            this.state.group_list &&
+            this.state.group_list
+                // .filter(
+                //     (item) => {
+                //         console.log(item);
+                //         return item.userID != (this.props.adminview ? this.props.investor_id : localStorage.getItem("Parent_investor_id"))
+                //     }
+                // )
+                .map((item, index) => {
+                    return {
+                        key: item.investor_id,
+                        investorName: item.first_name + " " + item.last_name,
+                        groupName: item.groupName,
+                        action: item,
+                    };
+                });
+
+
+                
+                  const columns2 = [
+                    // {
+                    //     title: "Investor Name",
+                    //     dataIndex: "name",
+                    //     key: "name",  
+                    // },
+                    {
+                        title: "Investor Name",
+                        dataIndex: "investorName",
+                        key: "investorName",
+                      },
+                    {
+                      title: "Group Name",
+                      dataIndex: "groupName",
+                      key: "groupName",
+                    }
+                  ];
+
         const myStyle = {
             color: "white",
             fontSize: "17px",
@@ -1402,13 +1472,15 @@ let deal_id = process.env.ENVIRONMENT === "production" ? "41" : "133";
                                                                         Deal is closed
                                                                     </a>
                                                                 ) : this.state.user_type != "founder" &&
-                                                                    this.state.invest_amt !== null ? (
+                                                                    this.state.invest_amt !== null 
+                                                                    && dataSource2.length <= 1 ? (
                                                                     <div className="button-group">
                                                                         <p>{`You have committed Rs. ${this.state.invest_amt} to this deal so far. (Including platform fees)`}</p>
                                                                         <a
                                                                             href="#!"
                                                                             style={{ padding: "13px 0" }}
                                                                             onClick={() => {
+                                                                                this.setState({selectedInvestorId: dataSource2[0].key});
                                                                                 this.getpostData();
                                                                                 this.showModal1();
                                                                             }}
@@ -1441,7 +1513,13 @@ let deal_id = process.env.ENVIRONMENT === "production" ? "41" : "133";
                                                                                 className="black-button prime-bg text-center"
                                                                                 onClick={() => {
                                                                                     this.getpostData();
-                                                                                    this.showModal1();
+                                                                                    if(dataSource2.length > 1){
+                                                                                        this.setState({selectInvestorModal: true});
+                                                                                    }
+                                                                                    else{
+                                                                                        this.setState({selectedInvestorId: dataSource2[0].key});
+                                                                                        this.showModal1();
+                                                                                    }
                                                                                 }}
                                                                             >
                                                                                 Express Your Interest
@@ -1465,7 +1543,29 @@ let deal_id = process.env.ENVIRONMENT === "production" ? "41" : "133";
                                                                                 className="black-button prime-bg text-center"
                                                                                 onClick={() => {
                                                                                     this.getpostData();
-                                                                                    this.showModal1();
+                                                                                    if(dataSource2.length > 1){
+                                                                                        this.setState({selectInvestorModal: true});
+                                                                                    }
+                                                                                    else{
+                                                                                        this.setState({selectedInvestorId: dataSource2[0].key});
+                                                                                        this.showModal1();
+                                                                                    }
+                                                                                }}
+                                                                                style={{ padding: "13px 0" }}
+                                                                            >
+                                                                                Express Your Interest
+                                                                            </a>
+                                                                        ) : null}
+                                                                        {this.state.user_type == "investor" &&
+                                                                            this.state.invest_amt != null && 
+                                                                            dataSource2.length > 1
+                                                                            ? (
+                                                                            <a
+                                                                                href="#"
+                                                                                className="black-button prime-bg text-center"
+                                                                                onClick={() => {
+                                                                                    this.getpostData();
+                                                                                    this.setState({selectInvestorModal: true});
                                                                                 }}
                                                                                 style={{ padding: "13px 0" }}
                                                                             >
@@ -1511,6 +1611,58 @@ let deal_id = process.env.ENVIRONMENT === "production" ? "41" : "133";
                                             )}
                                         </Spin>
                                     </div>
+                                    <Modal
+                                        title={`Select Investor`}
+                                        okText={"Select"}
+                                        visible={this.state.selectInvestorModal}
+                                        onCancel={() => {this.setState({selectInvestorModal: false})} }
+                                        
+                                        cancelText="Cancel"
+                                        width={600}
+                                        footer={false}
+                                    >
+                                            <Table
+                                            rowSelection={{
+                                            type: "radio",
+                                            onSelect: (x) => {
+                                                this.setState({selectedInvestorId: x.key})
+                                            }
+                                            // selectedRowKeys: this.state.selectedRowKeys,
+                                            // onChange: (x,y) => {
+                                            //     console.log(x);
+                                            //     console.log(y);
+                                            // }
+                                        }}
+
+                                            className="table-2"
+                                            dataSource={dataSource2}
+                                            columns={columns2}
+                                            bordered
+                                            loading={this.state.loading}
+                                        />
+                                        
+                                            <button
+                                                type="button"
+                                                className="login-button prime-bg d-md-block mx-auto w-50 mt-1"
+                                                onClick={() => {
+                                                    if(this.state.selectedInvestorId == null){
+                                                        notification.warning({
+                                                            message: `Please Select an Investor`,
+                                                            placement: "top",
+                                                            duration: 5,
+                                                            });
+                                                        
+                                                    }else{
+                                                        this.showModal1();
+                                                    }
+                                                }}
+                                            >
+                                                Invest as Selected User
+                                            </button>
+                                            
+                                            
+                                        
+                                    </Modal>
                                     <Modal
                                         title={`Invest in ${this.state.deal_name}`}
                                         visible={this.state.investmentmodal}
@@ -1675,7 +1827,7 @@ let deal_id = process.env.ENVIRONMENT === "production" ? "41" : "133";
                                                     </tr>
                                                 </table>
                                             </div>
-                                            {this.state.invest_amt !== null ? (
+                                            {this.state.invest_amt !== null && this.state.selectedInvestorId == localStorage.getItem("Parent_investor_id")? (
                                                 <div className="">
                                                     <Alert
                                                         message={`You have committed Rs. ${this.state.invest_amt} to this deal so far. (Including platform fees)`}
@@ -1746,7 +1898,7 @@ let deal_id = process.env.ENVIRONMENT === "production" ? "41" : "133";
                                                         maxamount={this.state.maxamount}
                                                         agree={this.state.agree}
                                                         error_status={this.state.amount_error_status}
-                                                        investor_id={this.state.investor_id}
+                                                        investor_id={this.state.selectedInvestorId}
                                                         deduct={this.state.deduct}
                                                         tdsstatus={this.state.tdsstatus}
                                                         gst={this.state.gst}

@@ -197,7 +197,6 @@ class VsnapU extends Component {
     }
 
    viewgroupall = () => {
-       let values
        let params = {
          userID:!this.props.adminview?localStorage.getItem("Parent_investor_id"):this.props.investor_id,
        }
@@ -1500,7 +1499,7 @@ class VsnapU extends Component {
                                                     {/* {this.state.button_show_status == true ? ( */}
 
 
-                                                    {this.state.button_show_status == false ? (
+                                                    {this.state.button_show_status == true ? (
                                                         <>
                                                             <div className="button-group">
                                                                 {this.state.isFunded == true ? (
