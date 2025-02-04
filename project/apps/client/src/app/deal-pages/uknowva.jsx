@@ -146,11 +146,11 @@ class uknowaHRMS extends Component {
     callback3 = (key) => { };
 
     componentWillMount() {
-        document.title = "uknowva HRMS - Growth91 - Startup Marketplace ";
+        document.title = "uKnowva HRMS - Growth91 - Startup Marketplace ";
     }
     componentDidMount() {
-        // let deal_id = "41";
-let deal_id = process.env.ENVIRONMENT === "production" ? "41" : "133";
+        let deal_id = "41";
+        // let deal_id = process.env.ENVIRONMENT === "production" ? "41" : "133";
 
         this.setState({ deal_id: deal_id }, () => {
             this.get_pitch_list();
@@ -1413,7 +1413,7 @@ let deal_id = process.env.ENVIRONMENT === "production" ? "41" : "133";
                                                 </div>
                                             </div>
                                             <p style={{ textAlign: "justify" }}>
-                                                uKnowva  is an AI-enabled HR Tech platform tailored for mid-sized companies (200–2,000 employees), offering a full-stack solution for payroll, recruitment, onboarding, performance management, and employee engagement. Combining Artificial Intelligence (AI) and Emotional Intelligence (EI),  it enhances productivity and well-being with features like stress detection, sentiment analysis, and attrition prediction. With 300,000+ active users, 120+ paying customers, and a 93% retention rate, uKnowva demonstrates strong product-market fit. Financially robust, the company has achieved positive PAT, repaid its venture debt, and projects revenue growth from INR 9.2 Cr to INR 74 Cr in five years. Backed by an experienced leadership team, Uknowva is recognized for its customizability, affordability, and ease of use, making it a scalable and globally competitive HR solution.
+                                                uKnowva is an AI-enabled HR Tech platform tailored for mid-sized companies (200–2,000 employees), offering a full-stack solution for payroll, recruitment, onboarding, performance management, and employee engagement. Combining Artificial Intelligence (AI) and Emotional Intelligence (EI),  it enhances productivity and well-being with features like stress detection, sentiment analysis, and attrition prediction. With 300,000+ active users, 120+ paying customers, and a 93% retention rate, uKnowva demonstrates strong product-market fit. Financially robust, the company has achieved positive PAT, repaid its venture debt, and projects revenue growth from INR 9.2 Cr to INR 74 Cr in five years. Backed by an experienced leadership team, uKnowva is recognized for its customizability, affordability, and ease of use, making it a scalable and globally competitive HR solution.
                                             </p>{" "}
                                             <div className=" percentage-container">
                                                 <div className="percentage-values">
@@ -2183,7 +2183,7 @@ let deal_id = process.env.ENVIRONMENT === "production" ? "41" : "133";
                                                         <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
                                                     </div>
                                                     <p style={{ paddingLeft: "0px !important" }}>
-                                                        uknowva provides AI-enabled HR solutions for mid-sized and growing organizations (200–5,000 employees), covering payroll, recruitment, onboarding, performance management, and employee engagement. With a 350,000+ user base, 150+ paying customers, and a 93% retention rate, it delivers strong product-market fit.                                                    </p>
+                                                        uKnowva provides AI-enabled HR solutions for mid-sized and growing organizations (200–5,000 employees), covering payroll, recruitment, onboarding, performance management, and employee engagement. With a 350,000+ user base, 150+ paying customers, and a 93% retention rate, it delivers strong product-market fit.                                                    </p>
                                                 </div>
                                             </div>
                                             <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
@@ -2195,7 +2195,7 @@ let deal_id = process.env.ENVIRONMENT === "production" ? "41" : "133";
                                                         <img src="./assets/images/deals-details/Petmojo/highlight01.jpg" />
                                                     </div>
                                                     <p style={{ padding: "1px !important" }}>
-                                                        uknowva stands out with AI and Emotional Intelligence (EI) features like sentiment analysis, stress detection, and attrition prediction, fostering employee well-being alongside productivity. Customizable and user-friendly, it surpasses competitors like Darwinbox and SAP SuccessFactors.                                                    </p>{" "}
+                                                        uKnowva stands out with AI and Emotional Intelligence (EI) features like sentiment analysis, stress detection, and attrition prediction, fostering employee well-being alongside productivity. Customizable and user-friendly, it surpasses competitors like Darwinbox and SAP SuccessFactors.                                                    </p>{" "}
                                                 </div>
                                             </div>
                                             <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
@@ -2207,7 +2207,7 @@ let deal_id = process.env.ENVIRONMENT === "production" ? "41" : "133";
                                                         <img src="./assets/images/deals-details/highlight2.jfif" />
                                                     </div>
                                                     <p style={{ padding: "0px !important" }}>
-                                                        uknowva projects revenue growth from INR 9.2 Cr to INR 74 Cr in five years, with an 85% gross margin. Its affordable subscription model ensures accessibility for businesses of all sizes.                                                    </p>
+                                                        uKnowva projects revenue growth from INR 9.2 Cr to INR 74 Cr in five years, with an 85% gross margin. Its affordable subscription model ensures accessibility for businesses of all sizes.                                                    </p>
                                                 </div>
                                             </div>
                                             <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
@@ -3092,7 +3092,7 @@ and technology.
                                                                     <ul>
                                                                         <li>
                                                                             <a>
-                                                                                Abhay focuses on scaling uknowva’s market presence and driving
+                                                                                Abhay focuses on scaling uKnowva’s market presence and driving
                                                                                 business growth. </a>
                                                                         </li>
                                                                         <li>

@@ -148,7 +148,8 @@ class VsnapU extends Component {
 
 
         // Determine the deal_id based on the environment
-        let deal_id = process.env.ENVIRONMENT === "production" ? "40" : "133";
+        let deal_id = "40";
+        // let deal_id = process.env.ENVIRONMENT === "production" ? "40" : "133";
 
 
 
