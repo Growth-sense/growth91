@@ -341,7 +341,7 @@ class UnicornAdmin extends Component {
     const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
     const data = new Blob([excelBuffer], { type: fileType });
     FileSaver.saveAs(data, fileName + fileExtension);
-    message.success("Investment data exported successfully.");
+    message.success("Unicorns data exported successfully.");
   };
   exportToCSV_CommitList = (fileName) => {
     let arr = [];
@@ -736,7 +736,7 @@ class UnicornAdmin extends Component {
                   </Button> */}
                   <Button
                     type="primary"
-                    onClick={() => this.exportToCSV("Investment Details")}
+                    onClick={() => this.exportToCSV("Unicorn Details")}
                   >
                     <i
                       className="bx bxs-cloud-download"
