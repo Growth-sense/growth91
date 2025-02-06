@@ -1250,7 +1250,7 @@ class Startup extends CI_Controller {
 					'interestKnowMore'=>$formdata['interestKnowMore'],
 					'interestWorkwithYou'=>$formdata['interestWorkwithYou'],
 					'interestInvestinStartup'=>$formdata['interestInvestinStartup'],
-					'interestMessage'=>$formdata['interestMessage'],
+					'interestMessage'=> isset($formdata['interestMessage']) ? $formdata['interestMessage'] : '',
 				];
 				$this->db->insert('unicorninterest', $post_data);
 				$id=$this->db->insert_id();

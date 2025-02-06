@@ -13,7 +13,7 @@ import { Link as NewLINK } from "react-router-dom/cjs/react-router-dom.min";
 
 import SinglePagePDFViewer from "./components/PdfViewer/single-page";
 
-export const FutureUnicornDescription = () => {
+export const FutureUnicornDescription = (props) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -32,7 +32,7 @@ export const FutureUnicornDescription = () => {
   };
 
   const search = useLocation().search;
-  const id = new URLSearchParams(search).get("id");
+  const id = props.id || new URLSearchParams(search).get("id");
   useEffect(() => {
     getuniondata();
     window.scrollTo(0, 0);
@@ -172,7 +172,7 @@ export const FutureUnicornDescription = () => {
     let params = {
       unicornDealID: datas[0].unicornDealID,
       udFounderID: datas[0].udFounderID,
-      investor_id: localStorage.getItem("investor_id"),
+      investor_id: localStorage.getItem("Parent_investor_id") || localStorage.getItem("founder_id"),
       interestKnowMore: data["I Want to know more about it"] == true || false,
       interestWorkwithYou: data["I want to work with you"] == true || false,
       interestInvestinStartup:
