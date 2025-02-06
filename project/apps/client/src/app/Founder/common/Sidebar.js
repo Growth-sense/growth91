@@ -158,7 +158,7 @@ export default class Sidebar extends Component {
               style={{ float: "right" }}
             ></i>
           </li>
-          <ol
+          {/* <ol
             className="submenu"
             style={{
               listStyle: "none",
@@ -179,7 +179,7 @@ export default class Sidebar extends Component {
                 &nbsp;&nbsp;My Plan
               </li>
             </a>
-          </ol>
+          </ol> */}
           <ol
             className="submenu"
             style={{

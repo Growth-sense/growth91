@@ -199,8 +199,6 @@ export const FutureUnicornDescription = () => {
           message: "",
         });
         setmessage("");
-      } else if (result.message == "Please enter values of all fields.") {
-        toast.error("Plz fill all feild");
       } else if (
         result.message == "You already have shown interest to this Startup."
       ) {
@@ -754,7 +752,7 @@ text-align: justify;
                             }api/uploads/unicorndeals/${
                               item.tudTempUdID
                             }/${JSON.parse(item.udBannerImage)}`) ||
-                          "https://growth91.com/api/uploads/deal/banner/34/1719999515.jpg"
+                          ""
                         }
                         alt="Team"
                       />
@@ -772,11 +770,11 @@ text-align: justify;
                               }api/uploads/unicorndeals/${
                                 item.tudTempUdID
                               }/${JSON.parse(item.udLogoImage)}`) ||
-                            "https://growth91.com/api/uploads/deal/logo/34/1719999515.jpg"
+                            ""
                           }
                           alt="Logo"
                           style={{
-                            borderRadius: "50%",
+                            // borderRadius: "50%",
                             boxShadow: "0px 3px 6px #000",
                           }}
                         />
@@ -1129,11 +1127,6 @@ text-align: justify;
                             </li>
 
                             <li>
-                              <span>Status</span>
-                              <p>Private Limited Company</p>
-                            </li>
-
-                            <li>
                               <span>Website</span>
                               <p>
                                 <a
@@ -1231,7 +1224,7 @@ text-align: justify;
               <div className="para-proceed">
                 <form action="" className="form-checkbox">
                   <div className="row">
-                    <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
+                    <div  className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
                       <input
                         type="radio"
                         name="I Want to know more about it"
@@ -1239,11 +1232,11 @@ text-align: justify;
                         checked={data["I Want to know more about it"] == true}
                         onClick={adddata}
                       />
-                      <label htmlFor="">
+                      <label style={{cursor:"pointer"}}  onClick={() => { setdata({ "I Want to know more about it": true  }) }} htmlFor="">
                         I want to know more about your startup
                       </label>
                     </div>
-                    <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
+                    <div  className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
                       <input
                         type="radio"
                         name="I want to work with you"
@@ -1251,9 +1244,9 @@ text-align: justify;
                         checked={data["I want to work with you"] == true}
                         onClick={adddata}
                       />
-                      <label htmlFor="">I want to explore collaboration </label>
+                      <label style={{cursor:"pointer"}} onClick={() => { setdata({ "I want to work with you": true  }) }} htmlFor="">I want to explore collaboration </label>
                     </div>
-                    <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
+                    <div  className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
                       <input
                         type="radio"
                         name="I am excited to invest in your startups"
@@ -1264,7 +1257,7 @@ text-align: justify;
                         }
                         onClick={adddata}
                       />
-                      <label htmlFor="">
+                      <label style={{cursor:"pointer"}} htmlFor="" onClick={() => { setdata({ "I am excited to invest in your startups": true  }) }} >
                         I am interested to invest in your startup
                       </label>
                     </div>

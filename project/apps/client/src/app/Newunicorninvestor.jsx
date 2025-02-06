@@ -387,11 +387,11 @@ const NewFutureUnicorn = () => {
               investments. Invest confidently with us.
             </p>
           </div>
-          <div class="index-button-1">
+          {/* <div class="index-button-1">
             <Link to="/Deals" style={{ color: "white" }}>
               Sign Up and Start Investing
             </Link>
-          </div>
+          </div> */}
         </div>
       </section>
       <NewWebFooter />
