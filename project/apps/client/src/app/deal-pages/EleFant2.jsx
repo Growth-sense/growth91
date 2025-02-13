@@ -645,7 +645,7 @@ class EleFant2 extends Component {
                 this.setState({ show_data: "block" });
               } else {
                 this.setState({ show_data: "none" });
-                // window.location.assign("/deals");
+                window.location.assign("/deals");
                 return;
               }
             } else if (this.state.check_membership_type == "regular") {
@@ -658,7 +658,7 @@ class EleFant2 extends Component {
                 this.setState({ show_data: "block" });
               } else {
                 this.setState({ show_data: "none" });
-                // window.location.assign("/deals");
+                window.location.assign("/deals");
                 return;
               }
             }
@@ -668,7 +668,7 @@ class EleFant2 extends Component {
           if (d.deal_id == this.state.deal_id) {
             if (d.show_status == "0") {
               this.setState({ is_deal_visible: false });
-              // window.location.assign("/deals")
+              window.location.assign("/deals")
             } else {
               this.setState({ is_deal_visible: true });
             }
@@ -680,7 +680,7 @@ class EleFant2 extends Component {
                 d.invitations.includes(investor_id)
               ) {
               } else {
-                // window.location.assign("/deals");
+                window.location.assign("/deals");
                 return;
               }
             }
@@ -1470,11 +1470,8 @@ class EleFant2 extends Component {
 
     return (
       <>
-        {/* {this.state.is_deal_visible == false ? ( */}
-        {true ? (
-
-          <div style={{ display: "block" }}>
-            {/* <div style={{ display: this.state.show_data }}> */}
+        {this.state.is_deal_visible == true ? (
+            <div style={{ display: this.state.show_data }}>
             <NewWebHeader newabout={"newabout"} />
             <section
               className="deals-details-page"
