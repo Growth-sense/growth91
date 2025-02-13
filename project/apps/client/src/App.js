@@ -236,6 +236,7 @@ import Innoserv from "./app/deal-pages/Innoserv.jsx";
 import Petmojo from "./app/deal-pages/Petmojo(Pre Series A).jsx";
 import LVLAlpha from "./app/deal-pages/LVLAlpha.jsx";
 import  {Preview} from "./app/Unicorn/forms/Preview.jsx";
+import EleFant2 from "./app/deal-pages/EleFant2.jsx";
 
 ReactGA.initialize(TRACKING_ID);
 
@@ -654,8 +655,11 @@ function App() {
           <Route path="/LiaPlus" exact>
             <ProtectDeals Component={LiaPlus} />
           </Route>
-          <Route path="/theEleFant" exact>
+          <Route path="/elefant" exact>
             <ProtectDeals Component={EleFant} />
+          </Route>
+          <Route path="/theEleFant" exact>
+            <ProtectDeals Component={EleFant2} />
           </Route>
           <Route path="/EcoRatings" >
             <ProtectDeals Component={EcoRatings} />

@@ -396,6 +396,9 @@ class Investments extends Component {
         "Investment Amount": item.Investment_amt
           ? "₹ " + item.Investment_amt
           : "---",
+        "Commitment Amount": item.totalamount
+        ? "₹ " + item.totalamount
+        : "---",
         "Startup Name": item.name ? item.name : "---",
         Reference: item.payment_ref,
         "Tax Type": item.payment_type,
@@ -762,7 +765,7 @@ class Investments extends Component {
           panno: item.panno ? item.panno : "---",
           dealid: item.deal_id ? item.deal_id : "---",
           reference: item.Investment_amt,
-          Commitment_amount: "₹ " +  nf.format(item.amount),
+          Commitment_amount: "₹ " +  nf.format(item.totalamount),
           txntype: item.payment_type,
           status: item.isapproved,
           action: item,
