@@ -2163,22 +2163,21 @@ class EleFant2 extends Component {
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowfullscreen
                     ></iframe>
-                    {
-                      staticDealData.youtubeVideoLink2 && staticDealData.youtubeVideoLink2 != "" && 
-                      <iframe
-                        style={{
-                          boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
-                          borderRadius: 3,
-                          // marginLeft: 65,
-                        }}
-                        width="100%"
-                        height="335"
-                        src={staticDealData.youtubeVideoLink2}
-                        frameborder="10"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen
-                      ></iframe>
-                    }
+                    
+                    <iframe
+                      style={{
+                        boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
+                        borderRadius: 3,
+                        // marginLeft: 65,
+                      }}
+                      width="100%"
+                      height="335"
+                      src={staticDealData.youtubeVideoLink2}
+                      frameborder="10"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowfullscreen
+                    ></iframe>
+                    
                     
                   </div>
 
