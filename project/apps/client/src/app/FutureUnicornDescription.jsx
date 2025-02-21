@@ -214,7 +214,9 @@ export const FutureUnicornDescription = () => {
     <div style={{ backgroundColor: "#F8F9FA" }}>
       <style>
         {`
-
+        .para-proceed label{
+          text-transform: none;
+        }
       
         .image-section {
           width: 100%;

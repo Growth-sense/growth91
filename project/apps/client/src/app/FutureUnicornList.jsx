@@ -6,7 +6,7 @@ import $ from "jquery";
 import { Link } from "react-router-dom";
 import Bridge from "./constants/Bridge.js";
 import { set } from "react-ga";
-import { Button, Modal } from "antd";
+import { Button, Modal, Input } from "antd";
 
 export const FutureUnicornList = () => {
   useEffect(() => {
@@ -15,6 +15,8 @@ export const FutureUnicornList = () => {
   }, []);
   const [unicorn, setUnicorn] = useState();
   const [filterdata, setfilterdata] = useState();
+  const [searchQuery, setSearchQuery] = useState("");
+
   $(window).scroll(function () {
     if ($(this).scrollTop() > 30) {
       $("body").addClass("newClass");
@@ -135,32 +137,41 @@ export const FutureUnicornList = () => {
     category: "",
     founder: "",
   });
-  function filterData(data, filters) {
-    console.log(data);
-    if (data) {
-      console.log(data);
+  function filterData(data, filters, searchQuery) {
+    
+    if (!data) return [];
 
-      const la = data.filter((obj) => {
-        console.log(obj);
-        console.log(filters);
-        return (
-          obj.udCategory == filters.category ||
-          obj.udStartupName == filters.startupName ||
-          obj.udPrimaryContactName == filters.founder
-        );
+    if (data) {
+      
+      let filteredResults = data.filter((obj) => {
+        
+        const matchesCategory = filters.category ? obj.udCategory === filters.category : true;
+        const matchesStartupName = filters.startupName ? obj.udStartupName === filters.startupName : true;
+        const matchesFounder = filters.founder ? obj.udPrimaryContactName === filters.founder : true;
+
+        return matchesCategory && matchesStartupName && matchesFounder;
+
       });
-      console.log(la);
-      if (la != "") {
-        return la;
-      } else {
-        return data;
+
+      if (!filters.category && !filters.startupName && !filters.founder) {
+        filteredResults = [...data];
       }
+
+      if (searchQuery) {
+        const lowerSearch = searchQuery.toLowerCase();
+        filteredResults = filteredResults.filter((obj) =>
+          ["udStartupName", "udPrimaryContactName", "udCategory", "udDealDescription"].some(
+            (key) => obj[key]?.toLowerCase().includes(lowerSearch)
+          )
+        );
+      }
+      
+      return filteredResults;
+     
     }
   }
-  const filteredData = filterData(unicorn, filters);
-  console.log(unicorn);
-  console.log(filteredData);
-
+  const filteredData = filterData(unicorn, filters, searchQuery);
+  
   return (
     <div>
       <div classname="newabout">
@@ -178,13 +189,23 @@ export const FutureUnicornList = () => {
             </div>
           </div>
           
+          {/* Search Bar */}
+          <div className="search-bar-container">
+            <Input
+              placeholder="Search..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="search-input py-2"
+            />
+          </div>
+
     <div className="list-container list-mobile-only">
       {/* Filter Icon */}
       <div className="row justify-content-end d-flex filter-box">
         <div className="col-lg-12">
           
-          <div className="search-input-unicorn1-filter" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "20px" }}>
-            <h2>Filters</h2>
+          <div className="search-input-unicorn1-filter" style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
+            <h2 className="mx-4">Filters</h2>
             <span onClick={() => setShowModal(true)} style={{ cursor: "pointer" }} className="filter-span">
               <i className="fa-solid fa-filter"></i>
             </span>
@@ -270,7 +291,7 @@ export const FutureUnicornList = () => {
 
       {/* Filtered Cards */}
       <div className="row justify-content-center card-box" >
-        {filteredData &&
+        {filteredData && filteredData.length > 0 ? (
           filteredData.map((item, index) => (
             <div key={index} className="grid-cards col-md-4">
               <div className="community-all-contents" style={{height: "500px"}}>
@@ -312,7 +333,13 @@ export const FutureUnicornList = () => {
                 </div>
               </div>
             </div>
-          ))}
+          ))
+
+        ) : (
+          <div className="text-center mt-4">
+            <h4>No Data Found</h4>
+          </div>
+        )}
       </div>
     </div>
 
