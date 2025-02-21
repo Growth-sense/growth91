@@ -190,7 +190,7 @@ export default class Sidebar2 extends Component {
             >
               <li className="hiw-li row text-center">
                 <i className="bx bx-transfer-alt col-md-4" />
-                <div className="col-md-4 col-12 side-text">My Future unicorn</div>
+                <div className="col-md-4 col-12 side-text">Future unicorn</div>
               </li>
             </a>
            

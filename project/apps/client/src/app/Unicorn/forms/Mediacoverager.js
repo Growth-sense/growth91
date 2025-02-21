@@ -4,6 +4,7 @@ import { CloseOutlined, UploadOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Bridge from "../../constants/Bridge";
 
 class Mediacoverager extends Component {
   constructor(props) {
@@ -209,6 +210,55 @@ class Mediacoverager extends Component {
     this.setState({ teammem: newEntries }, () => {
       this.syncWithParent(this.state.mediacoverager, this.state.teammem);
     });
+  };
+
+  updatefounder = () => {
+      if (this.props.adminnext) {
+        if (this.state.processtype == "next") {
+          this.props.next();
+          return;
+        } else if (this.state.processtype == "prev") {
+          this.props.prev();
+          return;
+        }
+      }
+      
+      this.setState({ loading: true });
+      Bridge.Unicorn.editunicorndraft(this.props.unicorn).then((result) => {
+        if (result.status == 1) {
+          this.setState({ loading: false }, () => this.props.activate());
+          if (this.state.processtype == "next") {
+            this.props.next();
+          } else if (this.state.processtype == "prev") {
+            this.props.prev();
+          } else if (this.state.processtype == "saveandproceed") {
+            this.props.activate();
+            message.success("Details are updated successfully.", 6);
+          } else {
+            message.success("Details are updated successfully.", 6);
+          }
+        } else {
+          message.warning(result.message);
+          this.setState({ loading: false });
+        }
+      });
+    };
+
+  saveandproceed = () => {
+    // this.props.check();
+    this.setState({ processtype: "saveandproceed" }, () =>
+      this.updatefounder()
+    );
+  };
+
+  save = () => {
+    this.setState({ processtype: "save" }, () => this.updatefounder());
+  };
+  next = () => {
+    this.setState({ processtype: "next" }, () => this.updatefounder());
+  };
+  prev = () => {
+    this.setState({ processtype: "prev" }, () => this.updatefounder());
   };
 
   render() {
@@ -503,6 +553,42 @@ class Mediacoverager extends Component {
                       Add Team
                     </Button>
                   </div>
+                  
+                  <div
+                        className="form-group  justify-content-between"
+                        style={{ display: "none !important", marginTop:20 }}
+                      >
+                        <div className="arrow-buttons">
+                          <button
+                            style={{
+                              position: "relative",
+                              left: -20,
+                              background: "#fff",
+                              border: "1px solid #29176f",
+                              color: "#29176f",
+                            }}
+                            onClick={this.prev}
+                            class="submit-button"
+                          >
+                            <i className="bx bx-chevron-left"></i>
+                          </button>
+                          <button
+                            style={{
+                              position: "relative",
+                              left: -20,
+                              background:  "#fff",
+                              border:
+                                   "1px solid #29176f",
+                              color: "#29176f",
+                            }}
+                            onClick={this.next}
+                            class="submit-button"
+                          >
+                            <i className="bx bx-chevron-right"></i>
+                          </button>
+                        </div>
+                        <div></div>
+                      </div>
                 </div>
               </div>
             </div>

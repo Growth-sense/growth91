@@ -240,7 +240,7 @@ class Dellistinicorn extends Component {
                         />
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">CAP Table Threshold Amount<span className="text-danger">*</span></label>
+                        <label for="">CAP Table Threshold Amount</label>
                         <input
                           type="number"
                           onWheel={() => document.activeElement.blur()}
@@ -252,7 +252,7 @@ class Dellistinicorn extends Component {
                         />
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Special Offer Tex<span className="text-danger">*</span></label>
+                        <label for="">Special Offer Tex</label>
                         <input
                           type="text"
                           onWheel={() => document.activeElement.blur()}
@@ -264,7 +264,7 @@ class Dellistinicorn extends Component {
                         />{" "}
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Input Default Tex<span className="text-danger">*</span></label>
+                        <label for="">Input Default Tex</label>
                         <input
                           type="text"
                           onWheel={() => document.activeElement.blur()}

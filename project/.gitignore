@@ -1,6 +1,7 @@
 .DS_Store
 apps/client/build/project/apps/client/node_modules
 apps/client/node_modules/
+apps/client/build
 project/.DS_Store
 project/apps/client/.DS_Store
 project/apps/client/.env

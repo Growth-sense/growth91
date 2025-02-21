@@ -1220,12 +1220,6 @@ class Founderadmindashboard extends Component {
       this.state.unicorn.tudAddress == "" ||
       !this.state.unicorn.tudEmployees ||
       this.state.unicorn.tudEmployees == "" ||
-      !this.state.unicorn.tudCAPTableThresholdAmount ||
-      this.state.unicorn.tudCAPTableThresholdAmount == "" ||
-      !this.state.unicorn.tudSpecialOfferText ||
-      this.state.unicorn.tudSpecialOfferText == "" ||
-      !this.state.unicorn.tudInputDefaultText ||
-      this.state.unicorn.tudInputDefaultText == "" ||
       !this.state.unicorn.tudDealDescription ||
       this.state.unicorn.tudDealDescription == "" ||
       !this.state.unicorn.tudYoutubeLink ||

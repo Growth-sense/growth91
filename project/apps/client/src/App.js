@@ -236,6 +236,7 @@ import Innoserv from "./app/deal-pages/Innoserv.jsx";
 import Petmojo from "./app/deal-pages/Petmojo(Pre Series A).jsx";
 import LVLAlpha from "./app/deal-pages/LVLAlpha.jsx";
 import  {Preview} from "./app/Unicorn/forms/Preview.jsx";
+import UnicornEnquiryFutureUnicorn from "./app/Founder/UnicornEnquiryFutureunicorn.js";
 
 ReactGA.initialize(TRACKING_ID);
 
@@ -744,6 +745,8 @@ function App() {
           <Route path="/View-Group-list" exact component={Viewfamilylist} />
           <Route path="/Group-Invite"  component={familyinvite} />
           <Route path="/My-Future-unicorn" exact component={InvestorFutureunicorn} />
+          <Route path="/UnicornEnquiryList" exact component={UnicornEnquiryFutureUnicorn} />
+          
 
 
           <Route path="*" exact component={error} />

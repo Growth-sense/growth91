@@ -206,7 +206,7 @@ console.log(unicorn);
                     <div class="tab-content" style={{height: "unset"}}>
                     <input type="radio" name="tab-index" id="tab-index1" checked />
 
-                      <div class="content">
+                      <div class="content" style={{justifyContent: "center"}}>
                         <div className="row">
                           {unideatils && unideatils.tudPrimaryContactName && (
                             <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">

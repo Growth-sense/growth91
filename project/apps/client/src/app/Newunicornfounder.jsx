@@ -232,7 +232,7 @@ const Newunicornfounder = () => {
                                   >
                                     Let's Connect
                                   </a> */}
-                                  <NavLink to="FutureUnicornForm"  className="theme-btn " >List Your Startup</NavLink>
+                                  <NavLink to="FounderMyListing"  className="theme-btn " >List Your Unicorn</NavLink>
                                   <NavLink to="FutureUnicornList"  className="theme-btn " >Explore Investments</NavLink>
                             
                               </div>
@@ -376,9 +376,9 @@ const Newunicornfounder = () => {
               </p> */}
             </div>
             <div class="index-button-1" style={{fontSize : "2rem"}}>
-              <Link to="/Deals" style={{ color: "white", fontSize:"2rem" }}>
+              <NavLink  to="FounderMyListing" style={{ color: "white", fontSize:"2rem" }}>
               List now
-              </Link>
+              </NavLink>
             </div>
           </div>
         </section>

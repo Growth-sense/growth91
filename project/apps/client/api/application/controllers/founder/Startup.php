@@ -1225,7 +1225,7 @@ class Startup extends CI_Controller {
 		$formdata = json_decode(file_get_contents('php://input'), true);
 		//echo $formdata;	
 		//extract($formdata);
-		if(!empty($formdata['unicornDealID']) && !empty($formdata['udFounderID']) && !empty($formdata['investor_id']) && !empty($formdata['interestMessage'])) {
+		if(!empty($formdata['unicornDealID']) && !empty($formdata['udFounderID']) && !empty($formdata['investor_id'])) {
 			//Validate uniqueness of investor and deal
 
 			$unicornDealID=$formdata['unicornDealID'];
@@ -1250,7 +1250,7 @@ class Startup extends CI_Controller {
 					'interestKnowMore'=>$formdata['interestKnowMore'],
 					'interestWorkwithYou'=>$formdata['interestWorkwithYou'],
 					'interestInvestinStartup'=>$formdata['interestInvestinStartup'],
-					'interestMessage'=>$formdata['interestMessage'],
+					'interestMessage'=> isset($formdata['interestMessage']) ? $formdata['interestMessage'] : '',
 				];
 				$this->db->insert('unicorninterest', $post_data);
 				$id=$this->db->insert_id();

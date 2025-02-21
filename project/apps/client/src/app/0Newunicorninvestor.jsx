@@ -928,11 +928,6 @@ align-content:center;
                   </li>
                  
                   <li>
-                    <span>Status</span>
-                    <p>Private Limited Company</p>
-                  </li>
-                
-                  <li>
                     <span>Website</span>
                     <p>
                       <a href="https://www.vsnapu.com" target="_blank" rel="noreferrer">

@@ -158,7 +158,7 @@ export default class Sidebar extends Component {
               style={{ float: "right" }}
             ></i>
           </li>
-          <ol
+          {/* <ol
             className="submenu"
             style={{
               listStyle: "none",
@@ -179,7 +179,7 @@ export default class Sidebar extends Component {
                 &nbsp;&nbsp;My Plan
               </li>
             </a>
-          </ol>
+          </ol> */}
           <ol
             className="submenu"
             style={{
@@ -199,6 +199,29 @@ export default class Sidebar extends Component {
               <li className="hiw-li">
                 <i className="bx bx-calendar-star" style={{ fontSize: 20 }}></i>{" "}
                 &nbsp;&nbsp;Account Details
+              </li>
+            </a>
+          </ol>
+
+          <ol
+            className="submenu"
+            style={{
+              listStyle: "none",
+              paddingLeft: "20px",
+              maxHeight: this.state.isFutureUnicornOpen ? "100px" : "0",
+              overflow: "hidden",
+              transition: "max-height 0.5s ease-out", // Adjusting transition effect here
+            }}
+          >
+             <a
+            href="/UnicornEnquiryList"
+            className={
+              window.location.pathname === "/UnicornEnquiryList" ? "active" : ""
+            }
+          >
+              <li className="hiw-li">
+                <i className="bx bx-calendar-star" style={{ fontSize: 20 }}></i>{" "}
+                &nbsp;&nbsp;Enquiries
               </li>
             </a>
           </ol>

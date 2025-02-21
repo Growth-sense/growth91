@@ -818,7 +818,6 @@ text-align: justify;
                         }/${JSON.parse(item.tudLogoImage)}`}
                         alt=""
                         style={{
-                          borderRadius: "50%",
                           boxShadow: "0px 3px 6px #000",
                         }}
                       />
@@ -1180,11 +1179,6 @@ text-align: justify;
                           <li>
                             <span>Legal Name</span>
                             <p>{item.tudLegalname}</p>
-                          </li>
-
-                          <li>
-                            <span>Status</span>
-                            <p>Private Limited Company</p>
                           </li>
 
                           <li>
