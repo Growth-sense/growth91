@@ -65,6 +65,12 @@ const columns = [
       dataIndex: "message",
       key: "message",
       width: 280,
+    },
+    {
+      title: "Interest Date",
+      dataIndex: "interestDate",
+      key: "interestDate",
+      width: 280,
     }
   ];
 

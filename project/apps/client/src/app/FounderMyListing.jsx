@@ -154,6 +154,14 @@ console.log(unicorn);
   return (
     <>
  
+      <style>
+        {`
+          .input-dashboard-acc label {
+            width: 21%;
+          }
+        `}
+      </style>
+
     <Spin spinning={loading}>
  <div
         style={{
@@ -211,8 +219,8 @@ console.log(unicorn);
                           {unideatils && unideatils.tudPrimaryContactName && (
                             <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
                               <div className="input-dashboard-acc">
-                                <label htmlFor="">Founder Name </label>
-                                <label htmlFor="">:</label>
+                                <label htmlFor="">Founder Name :</label>
+                                {/* <label htmlFor="">:</label> */}
                                 <label htmlFor="">
                                   {unideatils.tudPrimaryContactName}
                                 </label>
@@ -222,8 +230,8 @@ console.log(unicorn);
                           {unideatils && unideatils.tudStartupName && (
                             <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
                               <div className="input-dashboard-acc">
-                                <label htmlFor="">Startup Name </label>
-                                <label htmlFor="">:</label>
+                                <label htmlFor="">Startup Name :</label>
+                                {/* <label htmlFor="">:</label> */}
 
                                 <label htmlFor="">
                                   {unideatils.tudStartupName}
@@ -235,8 +243,8 @@ console.log(unicorn);
                           {unideatils && unideatils.tudEmail && (
                             <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
                               <div className="input-dashboard-acc">
-                                <label htmlFor="">Email Id</label>
-                                <label htmlFor="">:</label>
+                                <label htmlFor="">Email Id :</label>
+                                {/* <label htmlFor="">:</label> */}
 
                                 <label htmlFor="">{unideatils.tudEmail}</label>
                               </div>
@@ -246,8 +254,8 @@ console.log(unicorn);
                           {unideatils && unideatils.tudPrimaryContactMobile && (
                             <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
                               <div className="input-dashboard-acc">
-                                <label htmlFor="">Mobile No. </label>
-                                <label htmlFor="">:</label>
+                                <label htmlFor="">Mobile No. :</label>
+                                {/* <label htmlFor="">:</label> */}
 
                                 <label htmlFor="">
                                 {unideatils.tudCountryCode} {unideatils.tudPrimaryContactMobile}
@@ -280,7 +288,7 @@ console.log(unicorn);
                                   <Link to="FutureUnicornForm">
                                     {" "}
                                     <i class="fa-solid fa-pen-to-square"></i>
-                                    Create Startup
+                                    List your Unicorn
                                   </Link>
                                 </div></div>)}
 
