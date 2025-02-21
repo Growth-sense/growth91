@@ -41,6 +41,8 @@ class Founderadmindashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      showPreview: false,
+
       activeform: "0",
       class0: "",
       class1: "",
@@ -944,6 +946,8 @@ class Founderadmindashboard extends Component {
       },
     });
   };
+
+
   publishunicorn = () => {
     this.setState({ loading: true });
     console.log(this.state.unicorn);
@@ -1200,7 +1204,7 @@ class Founderadmindashboard extends Component {
       this.state.unicorn.tudPitchDeck == ""
     ) {
       this.setState({ loading: false });
-      this.activeform(18);
+      this.activeform(2);
       toast.error("Please fill Supporting Documents Section");
       return;
     }
@@ -1326,6 +1330,20 @@ class Founderadmindashboard extends Component {
     }
   };
   
+  validatePreview = () => {
+    const { unicorn } = this.state;
+
+    // Check if required fields in step 1 (Basic Details) are filled
+    const step1Valid = unicorn.tudEmail && unicorn.tudStartupName && unicorn.tudPrimaryContactName && unicorn.tudCountryCode && unicorn.tudPrimaryContactMobile && unicorn.tudPrimaryContactEmail;
+
+    // Check if required fields in step 2 (Idea/Business) are filled
+    const step2Valid = unicorn.tudDisruptingMarket && unicorn.tudTappingNew && unicorn.tudCustomerBenifit && unicorn.tudSuppliersBenifit && unicorn.tudFocusedOnProduct;
+
+    // Check if required fields in step 3 (Intellectual Property) are filled
+    const step3Valid = unicorn.tudTrademark && unicorn.tudPatents && unicorn.tudOtherIPs;
+
+    return step1Valid && step2Valid && step3Valid;
+  };
 
   render() {
     return (
@@ -1447,12 +1465,13 @@ class Founderadmindashboard extends Component {
                         this.checkforvalidation();
                       }}
                     >
+                    
                       <div>
                         <div
                           className={
                             this.state.activeform == 2
                               ? "circle active-tab"
-                              : "circle " + this.state.class2
+                              : "circle" + this.state.class2
                           }
                         >
                           {(this.state.activeform == 2 ||
@@ -1473,10 +1492,11 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Intellectual Property</span>
+                        <span>Supporting Documents</span>
                         <div className="line"></div>
                       </div>
                     </li>
+
                     <li
                       onClick={() => {
                         this.activethistab(3);
@@ -1488,7 +1508,7 @@ class Founderadmindashboard extends Component {
                           className={
                             this.state.activeform == 3
                               ? "circle active-tab"
-                              : "circle" + this.state.class3
+                              : "circle " + this.state.class3
                           }
                         >
                           {(this.state.activeform == 3 ||
@@ -1509,10 +1529,11 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Mobile App</span>
+                        <span>Intellectual Property</span>
                         <div className="line"></div>
                       </div>
                     </li>
+
                     <li
                       onClick={() => {
                         this.activethistab(4);
@@ -1545,11 +1566,16 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Industry Market</span>
+                        <span>Mobile App</span>
                         <div className="line"></div>
                       </div>
                     </li>
-                    <li onClick={() => this.activethistab(5)}>
+                    <li
+                      onClick={() => {
+                        this.activethistab(5);
+                        this.checkforvalidation();
+                      }}
+                    >
                       <div>
                         <div
                           className={
@@ -1576,7 +1602,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Competition</span>
+                        <span>Industry Market</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -1607,7 +1633,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>SWOT</span>
+                        <span>Competition</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -1638,7 +1664,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Company Legal Entity</span>
+                        <span>SWOT</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -1669,7 +1695,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Social Media Presence</span>
+                        <span>Company Legal Entity</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -1700,7 +1726,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Go To Market</span>
+                        <span>Social Media Presence</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -1731,7 +1757,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Financials</span>
+                        <span>Go To Market</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -1762,7 +1788,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Capital</span>
+                        <span>Financials</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -1793,7 +1819,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Salaries</span>
+                        <span>Capital</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -1824,7 +1850,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Funding Details</span>
+                        <span>Salaries</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -1855,7 +1881,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Use Of Funds</span>
+                        <span>Funding Details</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -1886,7 +1912,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Compliances</span>
+                        <span>Use Of Funds</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -1917,7 +1943,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Other Important Indicators</span>
+                        <span>Compliances</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -1948,7 +1974,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>References</span>
+                        <span>Other Important Indicators</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -1979,10 +2005,11 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Supporting Documents</span>
+                        <span>References</span>
                         <div className="line"></div>
                       </div>
                     </li>
+                   
                     <li onClick={() => this.activethistab(19)}>
                       <div>
                         <div
@@ -2107,7 +2134,7 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "2" && (
-                  <Step3
+                  <Step20
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(3)}
                     prev={() => this.activeform(1)}
@@ -2119,8 +2146,9 @@ class Founderadmindashboard extends Component {
                     check={() => this.checkforvalidation()}
                   />
                 )}
+                
                 {this.state.activeform == "3" && (
-                  <Step4
+                  <Step3
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(4)}
                     prev={() => this.activeform(2)}
@@ -2133,7 +2161,7 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "4" && (
-                  <Step5
+                  <Step4
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(5)}
                     prev={() => this.activeform(3)}
@@ -2146,7 +2174,7 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "5" && (
-                  <Step6
+                  <Step5
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(6)}
                     prev={() => this.activeform(4)}
@@ -2159,7 +2187,7 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "6" && (
-                  <Step7
+                  <Step6
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(7)}
                     prev={() => this.activeform(5)}
@@ -2172,7 +2200,7 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "7" && (
-                  <Step8
+                  <Step7
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(8)}
                     prev={() => this.activeform(6)}
@@ -2185,7 +2213,7 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "8" && (
-                  <Step9
+                  <Step8
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(9)}
                     prev={() => this.activeform(7)}
@@ -2198,7 +2226,7 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "9" && (
-                  <Step10
+                  <Step9
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(10)}
                     prev={() => this.activeform(8)}
@@ -2211,7 +2239,7 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "10" && (
-                  <Step11
+                  <Step10
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(11)}
                     prev={() => this.activeform(9)}
@@ -2224,7 +2252,7 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "11" && (
-                  <Step12
+                  <Step11
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(12)}
                     prev={() => this.activeform(10)}
@@ -2237,7 +2265,7 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "12" && (
-                  <Step13
+                  <Step12
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(13)}
                     prev={() => this.activeform(11)}
@@ -2250,7 +2278,7 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "13" && (
-                  <Step14
+                  <Step13
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(14)}
                     prev={() => this.activeform(12)}
@@ -2263,7 +2291,7 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "14" && (
-                  <Step15
+                  <Step14
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(15)}
                     prev={() => this.activeform(13)}
@@ -2276,7 +2304,7 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "15" && (
-                  <Step16
+                  <Step15
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(16)}
                     prev={() => this.activeform(14)}
@@ -2289,7 +2317,7 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "16" && (
-                  <Step17
+                  <Step16
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(17)}
                     prev={() => this.activeform(16)}
@@ -2302,7 +2330,7 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "17" && (
-                  <Step18
+                  <Step17
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(18)}
                     prev={() => this.activeform(17)}
@@ -2315,7 +2343,7 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "18" && (
-                  <Step20
+                  <Step18
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(19)}
                     prev={() => this.activeform(17)}
@@ -2327,6 +2355,7 @@ class Founderadmindashboard extends Component {
                     check={() => this.checkforvalidation()}
                   />
                 )}
+                
                 {this.state.activeform == "19" && (
                   <Dellistinicorn
                     adminnext={this.props.adminview}
@@ -2383,9 +2412,21 @@ class Founderadmindashboard extends Component {
             {!this.props.adminview && (
               <div className="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto mt-3">
                 <div className="submit-draft-publish d-flex justify-content-center">
-                  <Previewbutton unicorn={this.state.unicorn} />
 
-                 
+                  <a
+                    onClick={() => {
+                      if (this.validatePreview()) {
+                        this.setState({ showPreview: true });
+                        <Previewbutton unicorn={this.state.unicorn} />
+                      } else {
+                        message.error("Please tell us more about your Unicorn for preview.");
+                      }
+                    }}
+                    className="submit-future"
+                  >
+                    
+                    Preview
+                  </a>
                          
                   <a
                     onClick={() => {
@@ -2456,3 +2497,5 @@ class Founderadmindashboard extends Component {
 }
 
 export default Founderadmindashboard;
+
+
