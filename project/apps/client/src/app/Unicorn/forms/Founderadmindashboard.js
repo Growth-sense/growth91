@@ -937,20 +937,75 @@ class Founderadmindashboard extends Component {
   };
 
   onInput = (names, value) => {
-    console.log(names, value);
-
-    this.setState({
+   
+    this.setState((prevState) => ({
       unicorn: {
-        ...this.state.unicorn,
-        [names]: value,
-      },
-    });
+        ...prevState.unicorn, 
+        [names]: value, 
+      }
+    }));
   };
 
+  checkStepCompletion = (step) => {
+    const { unicorn } = this.state;
+  
+    let isComplete = false;
+  
+    switch (step) {
+      case 0:
+        isComplete =
+          unicorn.email &&
+          unicorn.startup_name &&
+          unicorn.primary_contact_person_name &&
+          unicorn.primary_contact_person_mobile &&
+          unicorn.email !== "" &&
+          unicorn.startup_name !== "" &&
+          unicorn.primary_contact_person_name !== "" &&
+          unicorn.primary_contact_person_mobile !== "";
+        this.setState({ step0Complete: isComplete });
+        break;
+      case 2:
+        isComplete =
+          unicorn.notApplicable ||
+          (unicorn.tudMark &&
+            unicorn.tudStartupHighlights &&
+            unicorn.tudLogoImage &&
+            unicorn.tudBannerImage &&
+            unicorn.tudPitchDeck &&
+            unicorn.tudMark !== "" &&
+            unicorn.tudStartupHighlights !== "" &&
+            unicorn.tudLogoImage !== "" &&
+            unicorn.tudBannerImage !== "" &&
+            unicorn.tudPitchDeck !== "");
+        this.setState({ step2Complete: isComplete });
+        break;
+  
+      case 21:
+        isComplete =
+          unicorn.someField1 &&
+          unicorn.someField2 &&
+          unicorn.someField3 &&
+          unicorn.someField1 !== "" &&
+          unicorn.someField2 !== "" &&
+          unicorn.someField3 !== "";
+        this.setState({ step21Complete: isComplete });
+        break;
+  
+      // ✅ Add more cases as needed
+      default:
+        break;
+    }
+  };
+  
+  componentDidMount() {
+    [0, 2, 21].forEach((step) => this.checkStepCompletion(step));
+  }
+  
 
   publishunicorn = () => {
     this.setState({ loading: true });
-    console.log(this.state.unicorn);
+    
+    console.log(this.state.unicorn, "call");
     if (
       !this.state.unicorn.tudEmail ||
       this.state.unicorn.tudEmail == "" ||
@@ -983,9 +1038,7 @@ class Founderadmindashboard extends Component {
       !this.state.unicorn.tudFocusedOnProduct ||
       this.state.unicorn.tudFocusedOnProduct == "" ||
       !this.state.unicorn.tudUseofFundRepayment ||
-      this.state.unicorn.tudUseofFundRepayment == "" ||
-      !this.state.unicorn.tudFocusedOnProduct ||
-      this.state.unicorn.tudFocusedOnProduct == "" ||
+      this.state.unicorn.tudUseofFundRepayment == "" ||   
       !this.state.unicorn.tudDirectSubstitueAvailable ||
       this.state.unicorn.tudDirectSubstitueAvailable == "" ||
       !this.state.unicorn.tudIndirectSubstitueAvailable ||
@@ -1002,6 +1055,29 @@ class Founderadmindashboard extends Component {
       toast.error("Please fill Idea/Business Section");
       return;
     }
+
+    if (  
+      !this.state.unicorn.notApplicable &&
+      (   
+        !this.state.unicorn.tudMark ||
+        this.state.unicorn.tudMark == "" ||
+        !this.state.unicorn.tudStartupHighlights ||
+        this.state.unicorn.tudStartupHighlights == "" ||
+        !this.state.unicorn.tudLogoImage ||
+        this.state.unicorn.tudLogoImage == "" ||
+        !this.state.unicorn.tudBannerImage ||
+        this.state.unicorn.tudBannerImage == "" ||
+        !this.state.unicorn.tudPitchDeck ||
+        this.state.unicorn.tudPitchDeck == ""
+      )
+    ) {
+      console.log(this.state.unicorn.notApplicable, this.state.unicorn, "notApplicable");
+      this.setState({ loading: false });
+      this.activeform(2);      
+      toast.error("Please fill Supporting Documents Section");
+      return;
+    }
+    this.checkStepCompletion(2);
     if (
       !this.state.unicorn.tudAndroidMobileApp ||
       this.state.unicorn.tudAndroidMobileApp == "" ||
@@ -1106,10 +1182,32 @@ class Founderadmindashboard extends Component {
       toast.error("Please fill Go to market Section");
       return;
     }
+    if (
+      !this.state.unicorn.tudNameOfClients ||
+      this.state.unicorn.tudNameOfClients == "" ||
+      !this.state.unicorn.tudClientRetention ||
+      this.state.unicorn.tudClientRetention == "" ||
+      !this.state.unicorn.tudRevenueTop5Clients ||
+      this.state.unicorn.tudRevenueTop5Clients == "" ||
+      !this.state.unicorn.tudExplanationEconomicsOfStartup ||
+      this.state.unicorn.tudExplanationEconomicsOfStartup == "" ||
+      !this.state.unicorn.tudTotalAmountSpentOnProduct ||
+      this.state.unicorn.tudTotalAmountSpentOnProduct == "" ||
+      !this.state.unicorn.tudTotalCapExOfStartup ||
+      this.state.unicorn.tudTotalCapExOfStartup == "" ||
+      !this.state.unicorn.tudMajorExpenseTillDate ||
+      this.state.unicorn.tudMajorExpenseTillDate == ""
+    ) {
+      this.setState({ loading: false });
+      this.activeform(11);
+      toast.error("Please fill Financials Section");
+      return;
+    }
+    
     if (!this.state.unicorn.tudPreviousFundRaised) {
       !this.state.unicorn.tudPreviousFundRaised == "" ||
         this.setState({ loading: false });
-      this.activeform(13);
+      this.activeform(14);
       toast.error("Please fill Go to Funding Detail Section");
       return;
     }
@@ -1190,24 +1288,7 @@ class Founderadmindashboard extends Component {
       this.activeform(16);
       toast.error("Please fill Other Important indicators Section");
       return;
-    }
-    if (
-      !this.state.unicorn.tudMark ||
-      this.state.unicorn.tudMark == "" ||
-      !this.state.unicorn.tudStartupHighlights ||
-      this.state.unicorn.tudStartupHighlights == "" ||
-      !this.state.unicorn.tudLogoImage ||
-      this.state.unicorn.tudLogoImage == "" ||
-      !this.state.unicorn.tudBannerImage ||
-      this.state.unicorn.tudBannerImage == "" ||
-      !this.state.unicorn.tudPitchDeck ||
-      this.state.unicorn.tudPitchDeck == ""
-    ) {
-      this.setState({ loading: false });
-      this.activeform(2);
-      toast.error("Please fill Supporting Documents Section");
-      return;
-    }
+    }    
 
     if (
       !this.state.unicorn.tudStartupFounderName ||
@@ -1398,7 +1479,8 @@ class Founderadmindashboard extends Component {
                           className={
                             this.state.activeform == 0
                               ? "circle active-tab"
-                              : "circle " + this.state.class0
+                              : "circle " + 
+                              (this.state.step0Complete ? " success-tab" : "") + this.state.class0
                           }
                         >
                           {(this.state.activeform == 0 ||
@@ -1434,7 +1516,8 @@ class Founderadmindashboard extends Component {
                           className={
                             this.state.activeform == 1
                               ? "circle active-tab"
-                              : "circle " + this.state.class1
+                              : "circle " + 
+                              (this.state.step1Complete ? " success-tab" : "") + this.state.class1
                           }
                         >
                           {(this.state.activeform == 1 ||
@@ -1471,7 +1554,9 @@ class Founderadmindashboard extends Component {
                           className={
                             this.state.activeform == 2
                               ? "circle active-tab"
-                              : "circle" + this.state.class2
+                              : "circle" +
+                                (this.state.step2Complete ? " success-tab" : "") +
+                                this.state.class2
                           }
                         >
                           {(this.state.activeform == 2 ||
@@ -1508,7 +1593,7 @@ class Founderadmindashboard extends Component {
                           className={
                             this.state.activeform == 3
                               ? "circle active-tab"
-                              : "circle " + this.state.class3
+                              : "circle " + (this.state.step3Complete ? " success-tab" : "") + this.state.class3
                           }
                         >
                           {(this.state.activeform == 3 ||
@@ -1545,7 +1630,8 @@ class Founderadmindashboard extends Component {
                           className={
                             this.state.activeform == 4
                               ? "circle active-tab"
-                              : "circle" + this.state.class4
+                              : "circle" + (this.state.step4Complete ? " success-tab" : "") +
+                              this.state.class4
                           }
                         >
                           {(this.state.activeform == 4 ||
@@ -1581,7 +1667,8 @@ class Founderadmindashboard extends Component {
                           className={
                             this.state.activeform == 5
                               ? "circle active-tab"
-                              : "circle" + this.state.class5
+                              : "circle" + 
+                              (this.state.step5Complete ? " success-tab" : "") + this.state.class5
                           }
                         >
                           {(this.state.activeform == 5 ||
@@ -1612,7 +1699,9 @@ class Founderadmindashboard extends Component {
                           className={
                             this.state.activeform == 6
                               ? "circle active-tab"
-                              : "circle" + this.state.class6
+                              : "circle" + 
+                              (this.state.step6Complete ? " success-tab" : "") +
+                              this.state.class6
                           }
                         >
                           {(this.state.activeform == 6 ||
@@ -1643,7 +1732,8 @@ class Founderadmindashboard extends Component {
                           className={
                             this.state.activeform == 7
                               ? "circle active-tab"
-                              : "circle" + this.state.class7
+                              : "circle" + (this.state.step7Complete ? " success-tab" : "") + 
+                              this.state.class7
                           }
                         >
                           {(this.state.activeform == 7 ||
@@ -1674,7 +1764,7 @@ class Founderadmindashboard extends Component {
                           className={
                             this.state.activeform == 8
                               ? "circle active-tab"
-                              : "circle" + this.state.class8
+                              : "circle" + (this.state.step8Complete ? " success-tab" : "") + this.state.class8
                           }
                         >
                           {(this.state.activeform == 8 ||
@@ -1705,7 +1795,7 @@ class Founderadmindashboard extends Component {
                           className={
                             this.state.activeform == 9
                               ? "circle active-tab"
-                              : "circle" + this.state.class9
+                              : "circle" + (this.state.step9Complete ? " success-tab" : "") + this.state.class9
                           }
                         >
                           {(this.state.activeform == 9 ||
@@ -1736,7 +1826,7 @@ class Founderadmindashboard extends Component {
                           className={
                             this.state.activeform == 10
                               ? "circle active-tab"
-                              : "circle" + this.state.class10
+                              : "circle" + (this.state.step10Complete ? " success-tab" : "") + this.state.class10
                           }
                         >
                           {(this.state.activeform == 10 ||
@@ -1767,7 +1857,7 @@ class Founderadmindashboard extends Component {
                           className={
                             this.state.activeform == 11
                               ? "circle active-tab"
-                              : "circle" + this.state.class11
+                              : "circle" + (this.state.step11Complete ? " success-tab" : "") + this.state.class11
                           }
                         >
                           {(this.state.activeform == 11 ||
@@ -1798,7 +1888,7 @@ class Founderadmindashboard extends Component {
                           className={
                             this.state.activeform == 12
                               ? "circle active-tab"
-                              : "circle" + this.state.class12
+                              : "circle" + (this.state.step12Complete ? " success-tab" : "") + this.state.class12
                           }
                         >
                           {(this.state.activeform == 12 ||
@@ -1829,7 +1919,7 @@ class Founderadmindashboard extends Component {
                           className={
                             this.state.activeform == 13
                               ? "circle active-tab"
-                              : "circle" + this.state.class13
+                              : "circle" + (this.state.step13Complete ? " success-tab" : "") + this.state.class13
                           }
                         >
                           {(this.state.activeform == 13 ||
@@ -1860,7 +1950,7 @@ class Founderadmindashboard extends Component {
                           className={
                             this.state.activeform == 14
                               ? "circle active-tab"
-                              : "circle" + this.state.class14
+                              : "circle" + (this.state.step14Complete ? " success-tab" : "") + this.state.class14
                           }
                         >
                           {(this.state.activeform == 14 ||
@@ -1891,7 +1981,7 @@ class Founderadmindashboard extends Component {
                           className={
                             this.state.activeform == 15
                               ? "circle active-tab"
-                              : "circle" + this.state.class15
+                              : "circle" + (this.state.step15Complete ? " success-tab" : "") + this.state.class15
                           }
                         >
                           {(this.state.activeform == 15 ||
@@ -1922,7 +2012,7 @@ class Founderadmindashboard extends Component {
                           className={
                             this.state.activeform == 16
                               ? "circle active-tab"
-                              : "circle" + this.state.class16
+                              : "circle" + (this.state.step16Complete ? " success-tab" : "") + this.state.class16
                           }
                         >
                           {(this.state.activeform == 16 ||
@@ -1953,7 +2043,7 @@ class Founderadmindashboard extends Component {
                           className={
                             this.state.activeform == 17
                               ? "circle active-tab"
-                              : "circle" + this.state.class17
+                              : "circle" + (this.state.step17Complete ? " success-tab" : "") + this.state.class17
                           }
                         >
                           {(this.state.activeform == 17 ||
@@ -1984,7 +2074,7 @@ class Founderadmindashboard extends Component {
                           className={
                             this.state.activeform == 18
                               ? "circle active-tab"
-                              : "circle" + this.state.class18
+                              : "circle" + (this.state.step18Complete ? " success-tab" : "") + this.state.class18
                           }
                         >
                           {(this.state.activeform == 18 ||
@@ -2016,7 +2106,7 @@ class Founderadmindashboard extends Component {
                           className={
                             this.state.activeform == 19
                               ? "circle active-tab"
-                              : "circle" + this.state.class19
+                              : "circle" + (this.state.step19Complete ? " success-tab" : "") + this.state.class19
                           }
                         >
                           {(this.state.activeform == 19 ||
@@ -2048,7 +2138,7 @@ class Founderadmindashboard extends Component {
                           className={
                             this.state.activeform == 20
                               ? "circle active-tab"
-                              : "circle" + this.state.class20
+                              : "circle" + (this.state.step20Complete ? " success-tab" : "") + this.state.class20
                           }
                         >
                           {(this.state.activeform == 20 ||
@@ -2079,7 +2169,7 @@ class Founderadmindashboard extends Component {
                           className={
                             this.state.activeform == 21
                               ? "circle active-tab"
-                              : "circle" + this.state.class21
+                              : "circle" + (this.state.step21Complete ? " success-tab" : "") + this.state.class21
                           }
                         >
                           {(this.state.activeform == 21 ||
@@ -2139,6 +2229,7 @@ class Founderadmindashboard extends Component {
                     activate={() => this.activeform(3)}
                     prev={() => this.activeform(1)}
                     next={() => this.activeform(3)}
+                    onClick={() => this.activatethisform(2)}
                     onInput={(name, value) => this.onInput(name, value)}
                     unicorn={this.state.unicorn}
                     id={this.props.id}
@@ -2497,5 +2588,6 @@ class Founderadmindashboard extends Component {
 }
 
 export default Founderadmindashboard;
+
 
 

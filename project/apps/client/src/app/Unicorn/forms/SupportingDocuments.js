@@ -101,6 +101,11 @@ class SupportingDocuments extends Component {
     });
   };
   saveandproceed = () => {
+
+    if (this.state.notApplicable) {
+      this.setState({ processtype: "saveandproceed" }, () => this.updateimg());
+      return;
+    }
     // if(this.state.pitchpdffile){
     //   message.warning('Please delete the existing, if you want to upload file');
     //   return;
@@ -402,6 +407,8 @@ class SupportingDocuments extends Component {
   handleCheckboxChange = (e) => {
     const isChecked = e.target.checked;
 
+    this.props.onInput("notApplicable", isChecked);
+    
     // Clear file input when checked
     this.setState({
       notApplicable: isChecked,
@@ -491,6 +498,7 @@ class SupportingDocuments extends Component {
                         style={{ width: 35 }}
                         checked={this.state.notApplicable}
                         onChange={this.handleCheckboxChange}
+                        name="notApplicable"
                       ></Checkbox>
                       <span className="ml-2">Not Applicable</span>
                     </div>
@@ -728,5 +736,6 @@ class SupportingDocuments extends Component {
 }
 
 export default SupportingDocuments;
+
 
 
