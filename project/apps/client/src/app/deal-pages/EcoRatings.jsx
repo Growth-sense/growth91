@@ -1624,7 +1624,7 @@ class EcoRatings extends Component {
                       }}
                       width="100%"
                       height="335"
-                      src="https://www.youtube.com/embed/1hq0Go0X_qg"
+                      src="https://www.youtube.com/embed/gDsFxR2izfs"
                       title="EcoRatings Product Introduction"
                       frameborder="10"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
