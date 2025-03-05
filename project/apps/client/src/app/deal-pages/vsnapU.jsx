@@ -1517,7 +1517,7 @@ class VsnapU extends Component {
                                                     {/* {this.state.button_show_status == true ? ( */}
 
 
-                                                    {this.state.button_show_status == false ? (
+                                                    {this.state.button_show_status == true ? (
                                                         <>
                                                             <div className="button-group">
                                                                 {this.state.isFunded == true ? (
