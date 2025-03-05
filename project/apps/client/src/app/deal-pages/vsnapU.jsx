@@ -24,6 +24,7 @@ import Bridge from "../constants/Bridge";
 import InvestmentMembershipmodal from "../components/membership/InvestmentMembershipmodal";
 import NewWebHeader from "../common/NewWebHeader";
 import { NewWebFooter } from "../common/NewWebFooter";
+import StateSelect from "../common/Selector/StateSelect";
 
 const { Panel } = Collapse;
 const { TabPane } = Tabs;
@@ -31,6 +32,7 @@ class VsnapU extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            userState: null,
             igst: 0,
             igstvalue: 0,
             cgst: 0,
@@ -372,6 +374,7 @@ class VsnapU extends Component {
                 if (result.data.length > 0) {
                     this.setState({
                         member_detail: result.data[0],
+                        userState: result.data[0].state,
                         check_membership_type: result.data[0].membership_type,
                     });
                     setTimeout(() => {
@@ -1747,6 +1750,7 @@ class VsnapU extends Component {
                                         footer={false}
                                     >
                                         <div className="row modal-body">
+                                            <StateSelect value={this.state.userState} onChange={(e, value) => {this.setState({userState: value})}} />
                                             <div className="login mt-3">
                                                 <label>
                                                     <b>
@@ -1984,6 +1988,7 @@ class VsnapU extends Component {
                                                         cgstvalue={this.state.cgstvalue}
                                                         sgst={this.state.sgst}
                                                         sgstvalue={this.state.sgstvalue}
+                                                        userState={this.state.userState}
                                                         order_token={this.state.order_token}
                                                         legalfee={this.state.legalfee}
                                                         walletDeductionMoney={

@@ -58,9 +58,17 @@ class InvestorCommitment extends CI_Controller
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 		$delete_log["interested_id"] = $this -> input -> post("interested_id");
+		
+		$userState["state"] = $this -> input -> post("userstate");
+		$commitment["investor_id"] = $this -> input -> post("investor_id");
+		
+		if (!empty($userState["state"]) && $userState["state"] !== null) {
+			$this->db->where('investor_id', $commitment["investor_id"]);
+    		$this->db->update('users', array('state' => $userState["state"]));
+		}
 
 		$commitment["deal_id"] = $this -> input -> post("deal_id");
-		$commitment["investor_id"] = $this -> input -> post("investor_id");
+		
 		$commitment["amount"] = $this -> input -> post("amount");
 		$commitment["processingfees"] = $this -> input -> post("processingfees");
 		$commitment["totalamount"] = $this -> input -> post("totalamount");
@@ -263,13 +271,13 @@ class InvestorCommitment extends CI_Controller
 					                                    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;"> Dear <strong>'.$investor_details[0]["first_name"].'</strong>, 
 					                                        <br>
 					                                        <br>
-					                                        Your commitment in '.$deal_details[0]["deal_name"].' on Growth91 has been received for Rs. '.$commitment["amount"].' on '.date("d/m/Y").'
+					                                        Your commitment in '.$deal_details[0]["deal_name"].' on Growth91 has been received for Rs. '.number_format($commitment["amount"]).' on '.date("d/m/Y").'
 					                                        <br>
 					                                      <br>
-					                                      Total Amount Committed in '.$deal_details[0]["deal_name"].': Rs.'.$total["amount"].'
+					                                      Total Amount Committed in '.$deal_details[0]["deal_name"].': Rs.'.number_format($total["amount"]).'
 					                                       <br>
 					                                       
-                                                          Total convenience fee: Rs '.($total["processingfees"] + $total["igstvalue"] + $total["cgstvalue"] + $total["sgstvalue"]).'
+                                                          Total convenience fee: Rs '.number_format($total["processingfees"] + $total["igstvalue"] + $total["cgstvalue"] + $total["sgstvalue"]).'
                                                           <br>
 					                                      <br>
                                                           Your commitment history can be found here: <a href='.WEB_BASE_URL.'investor-commitment>History</a>
@@ -344,7 +352,7 @@ class InvestorCommitment extends CI_Controller
 					              </body>
 					      </html>';  
 
-			          	$subject="Commitment of Rs. ".$commitment["amount"]." received for ".$deal_details[0]["deal_name"];
+			          	$subject="Commitment of Rs. ".number_format($commitment["amount"])." received for ".$deal_details[0]["deal_name"];
 				        $cc='contact@growth91.com';
 				        send_email($body,$subject,$investor_details[0]["email"],$cc);
 
@@ -539,13 +547,13 @@ class InvestorCommitment extends CI_Controller
 					                                    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;"> Dear <strong>'.$investor_details[0]["first_name"].'</strong>, 
 					                                        <br>
 					                                        <br>
-					                                        Your commitment in '.$deal_details[0]["deal_name"].' on Growth91 has been received for Rs. '.$commitment["amount"].' on '.date("d/m/Y").'.
+					                                        Your commitment in '.$deal_details[0]["deal_name"].' on Growth91 has been received for Rs. '.number_format($commitment["amount"]).' on '.date("d/m/Y").'.
 					                                        <br>
 					                                      <br>
-					                                      Total Amount Committed in '.$deal_details[0]["deal_name"].': Rs.'.$commitment["amount"].'
+					                                      Total Amount Committed in '.$deal_details[0]["deal_name"].': Rs.'.number_format($commitment["amount"]).'
 					                                       <br>
 					                                       
-                                                          Total convenience fee: Rs '.($commitment["processingfees"] + $commitment["igstvalue"] + $commitment["cgstvalue"] + $commitment["sgstvalue"]).'
+                                                          Total convenience fee: Rs '.number_format($commitment["processingfees"] + $commitment["igstvalue"] + $commitment["cgstvalue"] + $commitment["sgstvalue"]).'
                                                           <br>
 					                                      <br>
                                                           Your commitment history can be found here: <a href='.WEB_BASE_URL.'investor-commitment>History</a>
@@ -619,7 +627,7 @@ class InvestorCommitment extends CI_Controller
 					              </body>
 					      </html>';  
 
-			          	$subject="Commitment of Rs. ".$commitment["amount"]." received for ".$deal_details[0]["deal_name"];
+			          	$subject="Commitment of Rs. ".number_format($commitment["amount"])." received for ".$deal_details[0]["deal_name"];
 				        $cc='contact@growth91.com';
 				        send_email($body,$subject,$investor_details[0]["email"],$cc);
 					
