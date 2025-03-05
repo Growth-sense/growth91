@@ -21,6 +21,7 @@ const URLs = {
   deletepost: "admin/Blog/delete",
   admindeallist: "admin/Deal/list",
   admindealcloselist: "admin/Deal/close_list",
+  getSingleDealData: "admin/Deal/get_deal",
   adddeal: "admin/Deal/add",
   updatedeal: "admin/Deal/edit",
   deletedeal: "admin/Deal/delete",

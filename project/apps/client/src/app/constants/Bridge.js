@@ -1,6 +1,7 @@
 import URLs from "./Apis";
 import api from "../api/api";
 import Urldata from "../startup/Urldata";
+import encryptionHelper from "../helper/encryptionHelper";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -125,10 +126,11 @@ export default {
     api.post(URLs.upgradeplan, data).then((response) => {
       return response.data;
     }),
-  sendregisterotp: (data) =>
-    api.post(URLs.sendregisterotp, data).then((response) => {
-      return response.data;
-    }),
+  sendregisterotp: async function(data){
+    data['otp'] = encryptionHelper.encrypt(data['otp']);
+    const response = await api.post(URLs.sendregisterotp, data);
+    return response.data;
+  },
   loginUsingGoogle: (data) =>
     api.post(URLs.loginUsingGoogle, data).then((response) => {
       return response.data;
@@ -183,6 +185,10 @@ export default {
   deal: {
     list: () =>
       api.get(URLs.admindeallist).then((response) => {
+        return response.data;
+      }),
+    get_deal: (data) =>
+      api.post(URLs.getSingleDealData, data).then((response) => {
         return response.data;
       }),
     closelist: () =>
@@ -336,10 +342,11 @@ export default {
       api.post(URLs.update_membership_to_premium, data).then((response) => {
         return response.data;
       }),
-    sendotptomobile: (data) =>
-      api.get(URLs.sendotptomobile + data).then((response) => {
-        return response.data;
-      }),
+    sendotptomobile: async function(data){
+      data['otp'] = encryptionHelper.encrypt(data['otp']);
+      const response = await api.post(URLs.sendotptomobile, data);
+      return response.data;
+    },
     sendotp: (data) =>
       api.post(URLs.sendotpemail, data).then((response) => {
         return response.data;
@@ -466,10 +473,11 @@ export default {
         return response.data;
       }),
 
-    fsendotp: (data) =>
-      api.post(URLs.fsendotp, data).then((response) => {
-        return response.data;
-      }),
+    fsendotp: async function(data){
+      data['otp'] = encryptionHelper.encrypt(data['otp']);
+      const response = await api.post(URLs.fsendotp, data);
+      return response.data;
+    },
     add_startup_form_entry: (data) =>
       api.post(URLs.add_startup_form_entry, data).then((response) => {
         return response.data;

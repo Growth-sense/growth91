@@ -619,7 +619,10 @@ class EleFant2 extends Component {
   // get deal list
   getDeals = () => {
     this.setState({ loading: true });
-    Bridge.deal.list().then((result) => {
+    let param = {
+      deal_id: this.state.deal_id
+    }
+    Bridge.deal.get_deal(param).then((result) => {
       // console.log(result.data, "data");
       if (result.status == 1) {
         this.setState({

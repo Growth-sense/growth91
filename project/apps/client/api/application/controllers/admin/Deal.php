@@ -10,6 +10,70 @@ class Deal extends CI_Controller
 		parent::__construct();
 		$this->load->model(['admin/Blogmodel']);
 	}
+
+	public function get_deal()
+	{
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		$form_deal_id = $formdata['deal_id'];
+		
+		// sql query
+		$sql = "SELECT *,deals.deal_type,startups.name as deal_t_type,deals.deal_end_date as deal_deal_end_date FROM `deals` 
+		LEFT JOIN startups on startups.startupid = deals.startup_id
+		WHERE deals.deal_id='$form_deal_id';";
+		$query = $this->db->query($sql);
+		$list = $query->result();
+		for ($i = 0; $i < count($list); $i++) {
+			$deal_id=$list[$i]->deal_id;
+			$totalSql="SELECT SUM(amount) As total_investment FROM `investor_commitment` WHERE `parent_id`=0 AND`deal_id`='$deal_id'";
+			$query1 = $this->db->query($totalSql);
+			$data2=$query1->result();
+			$list[$i]->total_invested_amount=$data2[0]->total_investment;
+
+			// get invitation list
+			$sql2 = "SELECT * FROM `private_deal_invities` WHERE `deal_id`='$deal_id'";
+			$query2 = $this->db->query($sql2);
+			$data3=$query2->result();
+			$num_rows = $query2->num_rows();
+			if($list[$i] -> deal_type == "Private" || $list[$i] -> deal_type == "Public"){
+				$list[$i]->total_invitions=$num_rows;
+			}else{
+				$list[$i]->total_invitions='0';
+			}
+			$arr=[];
+			for($c=0;$c<count($data3);$c++){
+				if($data3[$c]->investor_id!="0"){
+					array_push($arr, $data3[$c]->investor_id);
+				}
+			}
+			$list[$i]->invitations=$arr;
+		}
+		if (count($list) >= 0) {
+			$response = [
+				'status' => '1',
+				'message' => 'Deal list is fetched successfully.',
+				'data' => $list,
+			];
+		}
+		else {
+			$response = [
+				'status' => '0',
+				'message' => 'Please try again!'
+			];
+		}
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
+
+
+
 	// DEAL LIST
 	public function list()
 	{
