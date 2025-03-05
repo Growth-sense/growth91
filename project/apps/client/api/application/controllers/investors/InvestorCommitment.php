@@ -291,6 +291,12 @@ class InvestorCommitment extends CI_Controller
 					                                      <br>
 					                                      <br>
 					                                      <i> Note: If you face any difficulty, please reach out to contact@growth91.com </i>
+														  <br>
+                                                        	<br>
+                                                        <small>Convenience Fee of 2% on the investment amount at the time of
+															investment and 2% on the sale proceeds at the time of exit is applicable.
+															For any specific investment, if fee is different, it will be mentioned at the
+															time of commitment (GST if any, shall be added at applicable rates).</small>
 					                                      <br>
 					                                      <br>
 					                                    </br>
@@ -560,6 +566,12 @@ class InvestorCommitment extends CI_Controller
 					                                      <br>
 					                                      <br>
 					                                      <i> Note: If you face any difficulty, please reach out to contact@growth91.com </i>
+														   <br>
+                                                        	<br>
+                                                        <small>Convenience Fee of 2% on the investment amount at the time of
+															investment and 2% on the sale proceeds at the time of exit is applicable.
+															For any specific investment, if fee is different, it will be mentioned at the
+															time of commitment (GST if any, shall be added at applicable rates).</small>
 					                                      <br>
 					                                      <br>
 					                                    </br>
