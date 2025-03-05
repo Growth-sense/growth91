@@ -95,7 +95,7 @@ class Investor extends CI_Controller
 				$this->db->insert('users', $post_data);
 				$id = $this->db->insert_id();
 				if ($id) {
-
+					sendRegistrationEmail($post_data['first_name'], $post_data['last_name'], $post_data['nationality'], $post_data['country_code'] . "-" . $post_data['mobile'], $post_data['email'], "Investor");
 					// check in invitation id os present or not 
 					$sql2 = "SELECT * FROM `private_deal_invities` WHERE email='$email'";
 					$query2 = $this->db->query($sql2);
@@ -217,7 +217,7 @@ class Investor extends CI_Controller
 				$this->db->insert('users', $post_data);
 				$id = $this->db->insert_id();
 				if ($id) {
-
+					sendRegistrationEmail($post_data['first_name'], $post_data['last_name'], $post_data['nationality'], $post_data['country_code'] . "-" . $post_data['mobile'], $post_data['email'], "Investor");
 					// check in invitation id os present or not 
 					$sql2 = "SELECT * FROM `private_deal_invities` WHERE email='$email'";
 					$query2 = $this->db->query($sql2);
@@ -305,6 +305,7 @@ class Investor extends CI_Controller
 				$this->db->insert('users', $post_data);
 				$id = $this->db->insert_id();
 				if ($id) {
+					sendRegistrationEmail($post_data['first_name'], $post_data['last_name'], "", "", $post_data['email'], "Investor");
 					$response = [
 						'status' => '1',
 						'message' => 'Registration is done successfully.',

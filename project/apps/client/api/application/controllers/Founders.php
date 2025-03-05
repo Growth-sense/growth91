@@ -376,7 +376,7 @@ function addnewfounder() {
 				$res=$query->result();
 			    if($id) {
 				// $this->uploaddealimg();
-
+				sendRegistrationEmail($post_data['first_name'], $post_data['last_name'], "", $post_data['mobile'], $post_data['email'], "Founder");
 				   $response = [
 					  'status' => '1',
 					  'message' => 'Registration successfully.',
