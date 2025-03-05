@@ -157,6 +157,13 @@ export default class EditInvestmentMembershipmodal extends Component {
     formData.append('order_token', this.props.order_token);
     formData.append('tdsstatus', this.props.tdsstatus);
     formData.append('gst', this.props.gst);
+    formData.append('gstvalue', this.props.gstvalue);
+    formData.append('igst', this.props.igst);
+    formData.append('igstvalue', this.props.igstvalue);
+    formData.append('cgst', this.props.cgst);
+    formData.append('cgstvalue', this.props.cgstvalue);
+    formData.append('sgst', this.props.sgst);
+    formData.append('sgstvalue', this.props.sgstvalue);
     formData.append('legalfee', this.props.legalfee);
     formData.append('interested_id', this.props.interested_id);
     formData.append('walletDeductionMoney', this.props.walletDeductionMoney);

@@ -31,6 +31,12 @@ class VsnapU extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            igst: 0,
+            igstvalue: 0,
+            cgst: 0,
+            cgstvalue: 0,
+            sgst: 0,
+            sgstvalue: 0,
             selectedInvestorId: null,
             selectInvestorModal: false,
             group_list: [],
@@ -148,7 +154,9 @@ class VsnapU extends Component {
 
 
         // Determine the deal_id based on the environment
-        let deal_id = "40";
+        // let deal_id = "40";
+        let deal_id = "133";
+
         // let deal_id = process.env.ENVIRONMENT === "production" ? "40" : "133";
 
 
@@ -334,13 +342,21 @@ class VsnapU extends Component {
                         gst:
                             result.data[0].taxation_percentage_cgst +
                             result.data[0].taxation_percentage_sgst,
+                        cgst: result.data[0].taxation_percentage_cgst,
+                        sgst: result.data[0].taxation_percentage_cgst
                     });
                 } else if (this.state.member_detail.nationality == "Non Resident") {
                     console.log(result.data[0]);
-                    this.setState({ gst: result.data[0].taxation_percentage });
+                    this.setState({ 
+                        gst: result.data[0].taxation_percentage,
+                        igst: result.data[0].taxation_percentage
+                     });
                 } else {
                     console.log(result.data[0], "asa");
-                    this.setState({ gst: result.data[0].taxation_percentage });
+                    this.setState({ 
+                        gst: result.data[0].taxation_percentage,
+                        igst: result.data[0].taxation_percentage
+                    });
                     // console.log("gst can not be able to fetch")
                 }
             }
@@ -941,6 +957,8 @@ class VsnapU extends Component {
     };
 
     // investing your money
+    // No longer used
+    // Was used before to use cashfree payment
     invest = () => {
         let investor_id = this.state.investor_id;
         let deal_id = this.state.deal_id;
@@ -980,22 +998,17 @@ class VsnapU extends Component {
     };
 
     calculategst = () => {
-        let legalfee = parseFloat(
-            (this.state.amount / 100) * parseFloat(this.state.percentage)
-        );
+        let legalfee = parseFloat((this.state.amount / 100) * parseFloat(this.state.percentage)).toFixed(0);
         let minusamt = 0;
         let gst = this.state.gst;
         let amt = parseFloat(this.state.amount);
-        let walletDeductionMoney;
-        if (this.state.checkWallet == false) {
-            walletDeductionMoney = 0;
-        } else {
-            walletDeductionMoney =
-                legalfee.toFixed(0) <= this.state.walletMoney
-                    ? legalfee.toFixed(0)
-                    : this.state.walletMoney;
-        }
-        let gstValue = ((legalfee.toFixed(0) - walletDeductionMoney) * gst) / 100;
+        let walletDeductionMoney = 0;
+        
+        let igstvalue = Math.ceil(((legalfee) * this.state.igst) / 100);
+        let cgstvalue = Math.ceil(((legalfee) * this.state.cgst) / 100);
+        let sgstvalue = Math.ceil(((legalfee) * this.state.sgst) / 100);
+
+        let gstValue = ((legalfee - walletDeductionMoney) * gst) / 100;
         // ceil gst value
         gstValue = Math.ceil(gstValue);
         // console.log(gst);
@@ -1013,13 +1026,13 @@ class VsnapU extends Component {
 
         this.setState({
             gst: gst,
-            legalfee: this.state.amount ? legalfee.toFixed(0) : 0,
+            legalfee: this.state.amount ? legalfee : 0,
             amountplusgst: this.state.amount ? amt.toFixed(0) : 0,
             processingfees: this.state.amount
-                ? legalfee.toFixed(0) - Number(tdsamount)
+                ? legalfee - Number(tdsamount)
                 : 0,
             totalamount: this.state.amount
-                ? (amt + parseFloat(legalfee.toFixed(0) - Number(tdsamount))).toFixed(
+                ? (amt + parseFloat(legalfee - Number(tdsamount))).toFixed(
                     0
                 ) -
                 walletDeductionMoney +
@@ -1027,9 +1040,13 @@ class VsnapU extends Component {
                 : 0,
             walletDeductionMoney: walletDeductionMoney,
             gstValue: Number(gstValue).toFixed(0),
+            cgstvalue: cgstvalue,
+            igstvalue: igstvalue,
+            sgstvalue: sgstvalue
         });
         return gst;
     };
+
     documentPay = () => {
         if (!this.state.investor_id) {
             message.warning("Please login first to invest.", 5);
@@ -1500,7 +1517,7 @@ class VsnapU extends Component {
                                                     {/* {this.state.button_show_status == true ? ( */}
 
 
-                                                    {this.state.button_show_status == true ? (
+                                                    {this.state.button_show_status == false ? (
                                                         <>
                                                             <div className="button-group">
                                                                 {this.state.isFunded == true ? (
@@ -1861,14 +1878,14 @@ class VsnapU extends Component {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>GST {this.state.gst} %</td>
+                                                        <td>GST</td>
                                                         <td
                                                             className="text-end"
                                                             style={{ textAlign: "right!important" }}
                                                         >
                                                             ₹{" "}
                                                             {this.formatNumberWithCommas(
-                                                                Number(this.state.gstValue).toFixed(0)
+                                                                Number(this.state.igstvalue + this.state.cgstvalue + this.state.sgstvalue).toFixed(0)
                                                             )}
                                                         </td>
                                                     </tr>
@@ -1961,6 +1978,12 @@ class VsnapU extends Component {
                                                         tdsstatus={this.state.tdsstatus}
                                                         gst={this.state.gst}
                                                         gstvalue={this.state.gstValue}
+                                                        igst={this.state.igst}
+                                                        igstvalue={this.state.igstvalue}
+                                                        cgst={this.state.cgst}
+                                                        cgstvalue={this.state.cgstvalue}
+                                                        sgst={this.state.sgst}
+                                                        sgstvalue={this.state.sgstvalue}
                                                         order_token={this.state.order_token}
                                                         legalfee={this.state.legalfee}
                                                         walletDeductionMoney={
