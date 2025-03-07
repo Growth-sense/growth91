@@ -2086,6 +2086,12 @@ class Deal extends CI_Controller
 		$commitment["order_token"] = $this -> input -> post("order_token");
 		$commitment["tdsstatus"] = $this -> input -> post("tdsstatus");
 		$commitment["gst"] = $this -> input -> post("gst");
+		$commitment["igst"] = $this -> input -> post("igst");
+		$commitment["cgst"] = $this -> input -> post("cgst");
+		$commitment["sgst"] = $this -> input -> post("sgst");
+		$commitment["igstvalue"] = $this -> input -> post("igstvalue");
+		$commitment["cgstvalue"] = $this -> input -> post("cgstvalue");
+		$commitment["sgstvalue"] = $this -> input -> post("sgstvalue");
 		$commitment["legalfee"] = $this -> input -> post("legalfee");
 		$commitment["id"] = $this -> input -> post("commitment_id");
 		$commitment["parent_id"] = $this -> input -> post("parent_id");
@@ -2147,6 +2153,12 @@ class Deal extends CI_Controller
 				$total["amount"] =	($already_committed[0]["amount"] + $commitment["amount"]) - $committed_idwise[0]["amount"];	
 				$total["processingfees"] =	($already_committed[0]["processingfees"] + $commitment["processingfees"]) - $committed_idwise[0]["processingfees"];	
 				$total["legalfee"] =	($already_committed[0]["legalfee"] + $commitment["legalfee"]) - $committed_idwise[0]["legalfee"];	
+				$total["igst"] = ($already_committed[0]["igst"] + $commitment["igst"]) - $committed_idwise[0]["igst"];	
+				$total["cgst"] = ($already_committed[0]["cgst"] + $commitment["cgst"]) - $committed_idwise[0]["cgst"];	
+				$total["sgst"] = ($already_committed[0]["sgst"] + $commitment["sgst"]) - $committed_idwise[0]["sgst"];	
+				$total["igstvalue"] = ($already_committed[0]["igstvalue"] + $commitment["igstvalue"]) - $committed_idwise[0]["igstvalue"];	
+				$total["cgstvalue"] = ($already_committed[0]["cgstvalue"] + $commitment["cgstvalue"]) - $committed_idwise[0]["cgstvalue"];	
+				$total["sgstvalue"] = ($already_committed[0]["sgstvalue"] + $commitment["sgstvalue"]) - $committed_idwise[0]["sgstvalue"];	
 				//print_r($total);
 				//die;
 				$this -> db -> where("deal_id",$commitment["deal_id"]) -> where("investor_id",$commitment["investor_id"]) -> where("parent_id",0)  -> update("investor_commitment",$total);
@@ -2159,6 +2171,12 @@ class Deal extends CI_Controller
 				$child_commitment["totalamount"] = $commitment["totalamount"];
 				$child_commitment["created_at"] = date("Y-m-d H:i:s");
 				$child_commitment["legalfee"] = $commitment["legalfee"];
+				$child_commitment["igst"] = $commitment["igst"];
+				$child_commitment["cgst"] = $commitment["cgst"];
+				$child_commitment["sgst"] = $commitment["sgst"];
+				$child_commitment["igstvalue"] = $commitment["igstvalue"];
+				$child_commitment["cgstvalue"] = $commitment["cgstvalue"];
+				$child_commitment["sgstvalue"] = $commitment["sgstvalue"];
 				//$status = $this -> db -> insert("investor_commitment",$child_commitment);
 				$this->db->where('id', $commitment["id"]);
 				$this->db->update('investor_commitment', $child_commitment);
@@ -2189,6 +2207,12 @@ class Deal extends CI_Controller
 				$parent_commitment["order_token"] = $commitment["order_token"];
 				$parent_commitment["tdsstatus"] = $commitment["tdsstatus"];
 				$parent_commitment["gst"] = $commitment["gst"];
+				$parent_commitment["igst"] = $commitment["igst"];
+				$parent_commitment["cgst"] = $commitment["cgst"];
+				$parent_commitment["sgst"] = $commitment["sgst"];
+				$parent_commitment["igstvalue"] = $commitment["igstvalue"];
+				$parent_commitment["cgstvalue"] = $commitment["cgstvalue"];
+				$parent_commitment["sgstvalue"] = $commitment["sgstvalue"];
 				$parent_commitment["legalfee"] = $commitment["legalfee"];
 				$parent_commitment["walletDeductionMoney"] = $commitment["walletDeductionMoney"];
 				$parent_commitment["created_at"] = date("Y-m-d H:i:s");
@@ -2205,7 +2229,12 @@ class Deal extends CI_Controller
 					$child_commitment["amount"] = $commitment["amount"];
 					$child_commitment["processingfees"] = $commitment["processingfees"];
 					$child_commitment["legalfee"] = $commitment["legalfee"];
-					
+					$child_commitment["igst"] = $commitment["igst"];
+					$child_commitment["cgst"] = $commitment["cgst"];
+					$child_commitment["sgst"] = $commitment["sgst"];
+					$child_commitment["igstvalue"] = $commitment["igstvalue"];
+					$child_commitment["cgstvalue"] = $commitment["cgstvalue"];
+					$child_commitment["sgstvalue"] = $commitment["sgstvalue"];
 					$child_commitment["totalamount"] = $commitment["totalamount"];
 					$child_commitment["created_at"] = date("Y-m-d H:i:s");
 					
@@ -2257,6 +2286,12 @@ class Deal extends CI_Controller
 		$commitment["order_token"] = $this -> input -> post("order_token");
 		$commitment["tdsstatus"] = $this -> input -> post("tdsstatus");
 		$commitment["gst"] = $this -> input -> post("gst");
+		$commitment["igst"] = $this -> input -> post("igst");
+		$commitment["igstvalue"] = $this -> input -> post("igstvalue");
+		$commitment["cgst"] = $this -> input -> post("cgst");
+		$commitment["cgstvalue"] = $this -> input -> post("cgstvalue");
+		$commitment["sgst"] = $this -> input -> post("sgst");
+		$commitment["sgstvalue"] = $this -> input -> post("sgstvalue");
 		$commitment["legalfee"] = $this -> input -> post("legalfee");
 		$commitment["walletDeductionMoney"] = $this -> input -> post("walletDeductionMoney");
 		
@@ -2283,7 +2318,13 @@ class Deal extends CI_Controller
 			{
 				$total["totalamount"] =	$already_committed[0]["totalamount"] + $commitment["totalamount"];	
 				$total["amount"] =	$already_committed[0]["amount"] + $commitment["amount"];	
-				$total["processingfees"] =	$already_committed[0]["processingfees"] + $commitment["processingfees"];	
+				$total["processingfees"] =	$already_committed[0]["processingfees"] + $commitment["processingfees"];
+				$commitment["igst"] = $already_committed[0]["igst"] + $commitment["igst"];
+				$commitment["igstvalue"] = $already_committed[0]["igstvalue"] + $commitment["igstvalue"];
+				$commitment["cgst"] = $already_committed[0]["cgst"] + $commitment["cgst"];
+				$commitment["cgstvalue"] = $already_committed[0]["cgstvalue"] + $commitment["cgstvalue"];
+				$commitment["sgst"] = $already_committed[0]["sgst"] + $commitment["sgst"];
+				$commitment["sgstvalue"] = $already_committed[0]["sgstvalue"] + $commitment["sgstvalue"];
 				
 				$this -> db -> where("deal_id",$commitment["deal_id"]) -> where("investor_id",$commitment["investor_id"]) -> where("parent_id",0)  -> update("investor_commitment",$total);
 				
@@ -2293,6 +2334,12 @@ class Deal extends CI_Controller
 				$child_commitment["amount"] = $commitment["amount"];
 				$child_commitment["processingfees"] = $commitment["processingfees"];
 				$child_commitment["totalamount"] = $commitment["totalamount"];
+				$child_commitment["igst"] = $commitment["igst"];
+				$child_commitment["igstvalue"] = $commitment["igstvalue"];
+				$child_commitment["cgst"] = $commitment["cgst"];
+				$child_commitment["cgstvalue"] = $commitment["cgstvalue"];
+				$child_commitment["sgst"] = $commitment["sgst"];
+				$child_commitment["sgstvalue"] = $commitment["sgstvalue"];
 				$child_commitment["created_at"] = date("Y-m-d H:i:s");
 
 				$status = $this -> db -> insert("investor_commitment",$child_commitment);
@@ -2430,13 +2477,13 @@ class Deal extends CI_Controller
 					                                    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;"> Dear <strong>'.$investor_details[0]["first_name"].'</strong>, 
 					                                        <br>
 					                                        <br>
-					                                        Your commitment in '.$deal_details[0]["deal_name"].' on Growth91 has been received for Rs. '.$commitment["amount"].' on '.date("d/m/Y").'
+					                                        Your commitment in '.$deal_details[0]["deal_name"].' on Growth91 has been received for Rs. '.number_format($commitment["amount"]).' on '.date("d/m/Y").'
 					                                        <br>
 					                                      <br>
-					                                      Total Amount Committed in '.$deal_details[0]["deal_name"].': Rs.'.$total["amount"].'
+					                                      Total Amount Committed in '.$deal_details[0]["deal_name"].': Rs.'.number_format($total["amount"]).'
 					                                       <br>
 					                                       
-                                                          Total convenience fee: Rs '.$total["processingfees"].'
+                                                          Total convenience fee: Rs '.number_format($total["processingfees"] + $total["igstvalue"] + $total["cgstvalue"] + $total["sgstvalue"] ).'
                                                           <br>
 					                                      <br>
                                                           Your commitment history can be found here: <a href='.WEB_BASE_URL.'investor-commitment>History</a>
@@ -2458,6 +2505,12 @@ class Deal extends CI_Controller
 					                                      <br>
 					                                      <br>
 					                                      <i> Note: If you face any difficulty, please reach out to contact@growth91.com </i>
+														  <br>
+                                                        	<br>
+                                                        <small>Convenience Fee of 2% on the investment amount at the time of
+															investment and 2% on the sale proceeds at the time of exit is applicable.
+															For any specific investment, if fee is different, it will be mentioned at the
+															time of commitment (GST if any, shall be added at applicable rates).</small>
 					                                      <br>
 					                                      <br>
 					                                    </br>
@@ -2505,7 +2558,7 @@ class Deal extends CI_Controller
 					              </body>
 					      </html>';  
 
-			          	$subject="Commitment of Rs. ".$commitment["amount"]." received for ".$deal_details[0]["deal_name"];
+			          	$subject="Commitment of Rs. ".number_format($commitment["amount"])." received for ".$deal_details[0]["deal_name"];
 				        $cc='contact@growth91.com';
 				       // send_email($body,$subject,$investor_details[0]["email"],$cc);
 
@@ -2533,6 +2586,12 @@ class Deal extends CI_Controller
 				$parent_commitment["order_token"] = $commitment["order_token"];
 				$parent_commitment["tdsstatus"] = $commitment["tdsstatus"];
 				$parent_commitment["gst"] = $commitment["gst"];
+				$parent_commitment["igst"] = $commitment["igst"];
+				$parent_commitment["igstvalue"] = $commitment["igstvalue"];
+				$parent_commitment["cgst"] = $commitment["cgst"];
+				$parent_commitment["cgstvalue"] = $commitment["cgstvalue"];
+				$parent_commitment["sgst"] = $commitment["sgst"];
+				$parent_commitment["sgstvalue"] = $commitment["sgstvalue"];
 				$parent_commitment["legalfee"] = $commitment["legalfee"];
 				$parent_commitment["walletDeductionMoney"] = $commitment["walletDeductionMoney"];
 				$parent_commitment["created_at"] = date("Y-m-d H:i:s");
@@ -2549,6 +2608,12 @@ class Deal extends CI_Controller
 					$child_commitment["amount"] = $commitment["amount"];
 					$child_commitment["processingfees"] = $commitment["processingfees"];
 					$child_commitment["totalamount"] = $commitment["totalamount"];
+					$child_commitment["igst"] = $commitment["igst"];
+					$child_commitment["igstvalue"] = $commitment["igstvalue"];
+					$child_commitment["cgst"] = $commitment["cgst"];
+					$child_commitment["cgstvalue"] = $commitment["cgstvalue"];
+					$child_commitment["sgst"] = $commitment["sgst"];
+					$child_commitment["sgstvalue"] = $commitment["sgstvalue"];
 					$child_commitment["created_at"] = date("Y-m-d H:i:s");
 					
 					$this -> db -> insert("investor_commitment",$child_commitment);
@@ -2686,13 +2751,13 @@ class Deal extends CI_Controller
 					                                    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;"> Dear <strong>'.$investor_details[0]["first_name"].'</strong>, 
 					                                        <br>
 					                                        <br>
-					                                        Your commitment in '.$deal_details[0]["deal_name"].' on Growth91 has been received for Rs. '.$commitment["amount"].' on '.date("d/m/Y").'.
+					                                        Your commitment in '.$deal_details[0]["deal_name"].' on Growth91 has been received for Rs. '.number_format($commitment["amount"]).' on '.date("d/m/Y").'.
 					                                        <br>
 					                                      <br>
-					                                      Total Amount Committed in '.$deal_details[0]["deal_name"].': Rs.'.$commitment["amount"].'
+					                                      Total Amount Committed in '.$deal_details[0]["deal_name"].': Rs.'.number_format($commitment["amount"]).'
 					                                       <br>
 					                                       
-                                                          Total convenience fee: Rs '.$commitment["processingfees"].'
+                                                          Total convenience fee: Rs '.number_format($commitment["processingfees"] + $commitment["igstvalue"] + $commitment["cgstvalue"] + $commitment["sgstvalue"] ).'
                                                           <br>
 					                                      <br>
                                                           Your commitment history can be found here: <a href='.WEB_BASE_URL.'investor-commitment>History</a>
@@ -2713,6 +2778,12 @@ class Deal extends CI_Controller
 					                                      <br>
 					                                      <br>
 					                                      <i> Note: If you face any difficulty, please reach out to contact@growth91.com </i>
+														  <br>
+                                                        	<br>
+                                                        <small>Convenience Fee of 2% on the investment amount at the time of
+															investment and 2% on the sale proceeds at the time of exit is applicable.
+															For any specific investment, if fee is different, it will be mentioned at the
+															time of commitment (GST if any, shall be added at applicable rates).</small>
 					                                      <br>
 					                                      <br>
 					                                    </br>
@@ -2760,7 +2831,7 @@ class Deal extends CI_Controller
 					              </body>
 					      </html>';  
 
-			          	$subject="Commitment of Rs. ".$commitment["amount"]." received for ".$deal_details[0]["deal_name"];
+			          	$subject="Commitment of Rs. ".number_format($commitment["amount"])." received for ".$deal_details[0]["deal_name"];
 				        $cc='contact@growth91.com';
 				       // send_email($body,$subject,$investor_details[0]["email"],$cc);
 					
