@@ -1,0 +1,304 @@
+import React, { useEffect, useState } from "react";
+import { NewWebFooter } from "../common/NewWebFooter";
+import $ from "jquery";
+import { Link } from "react-router-dom";
+import Bridge from "../constants/Bridge.js";
+import axios from "axios";
+import { Spin, Card, Button, Badge, Tooltip } from "antd";
+import { CheckOutlined, StarFilled } from '@ant-design/icons';
+import Header from "../common/Header.js";
+import Sidebar from "../Founder/common/Sidebar.js";
+
+export const ViewPlan = () => {
+  useEffect(() => {
+    unicorndetails();
+    window.scrollTo(0, 0);
+  }, []);
+
+  const [unideatils, setunideatils] = useState();
+  const [unicorn, setUnicorn] = useState();
+  const [loading, setloading] = useState(false);
+
+  const plans = [
+    {
+      name: "Silver",
+      edits: "2",
+      price: "₹3,000",
+      priceId: "3000",
+      features: [
+        "2 edits per year",
+        "1 year validity"
+      ]
+    },
+    {
+      name: "Gold",
+      edits: "12",
+      price: "₹10,000",
+      priceId: "10000",
+      features: [
+        "12 edits per year",
+        "1 year validity"
+      ]
+    },
+    {
+      name: "Platinum",
+      edits: "Unlimited",
+      price: "₹20,000",
+      priceId: "20000",
+      features: [
+        "Unlimited edits",
+        "1 year validity"
+      ]
+    }
+  ];
+
+  const unicorndetails = async () => {
+    let params = {
+      founder_id: localStorage.getItem("founder_id"),
+    };
+    Bridge.Unicorn.get_founder_detail_for_unicorn(params).then((result) => {
+      console.log(result)
+    })
+  };
+
+  $(window).scroll(function () {
+    if ($(this).scrollTop() > 30) {
+      $("body").addClass("newClass");
+    } else {
+      $("body").removeClass("newClass");
+    }
+  });
+
+  return (
+    <>
+      <Spin spinning={loading}>
+        <div
+          style={{
+            background: "linear-gradient(135deg, #f6f9fc 0%, #f1f4f8 100%)",
+            minHeight: "100vh",
+            display: "flex",
+            flexDirection: "column"
+          }}
+        >
+          <Header />
+          
+          {/* Modern Pricing Section */}
+          <section 
+            className="pricing-section" 
+            style={{ 
+              flex: 1,
+              display: "flex",
+              alignItems: "center",
+              padding: "40px 0"
+            }}
+          >
+            <div className="container">
+              <div className="text-center mb-5">
+                <h5 style={{
+                  color: "#5469d4",
+                  textTransform: "uppercase",
+                  letterSpacing: "2px",
+                  fontSize: "14px",
+                  marginBottom: "16px"
+                }}>
+                  Pricing Plans
+                </h5>
+                <h2 style={{
+                  fontSize: "36px",
+                  fontWeight: "700",
+                  color: "#1a1f36",
+                  marginBottom: "16px"
+                }}>
+                  Choose the Perfect Plan
+                </h2>
+                <p style={{
+                  color: "#4a5568",
+                  fontSize: "18px",
+                  maxWidth: "600px",
+                  margin: "0 auto"
+                }}>
+                  Select a plan that best suits your needs.
+                </p>
+              </div>
+
+              <div className="row justify-content-center">
+                {plans.map((plan, index) => (
+                  <div className="col-md-4 mb-4" key={index}>
+                    <Card
+                      hoverable
+                      className="text-center h-100"
+                      style={{
+                        borderRadius: "24px",
+                        border: "none",
+                        background: plan.name === "Gold" ? 
+                          "linear-gradient(135deg, #ffffff 0%, #fff6e6 100%)" : "#ffffff",
+                        boxShadow: plan.name === "Gold" ?
+                          "0 20px 40px rgba(255, 164, 28, 0.1)" :
+                          "0 20px 40px rgba(0, 0, 0, 0.05)",
+                        overflow: "hidden",
+                        position: "relative"
+                      }}
+                    >
+                      {plan.name === "Gold" && (
+                        <div style={{
+                          position: "absolute",
+                          top: "12px",
+                          right: "12px",
+                          background: "#ffb020",
+                          color: "white",
+                          padding: "4px 12px",
+                          borderRadius: "12px",
+                          fontSize: "12px",
+                          fontWeight: "600"
+                        }}>
+                          POPULAR
+                        </div>
+                      )}
+
+                      <div style={{ padding: "32px" }}>
+                        <h3 style={{ 
+                          fontSize: "24px",
+                          fontWeight: "600",
+                          color: plan.name === "Platinum" ? "#9333ea" : 
+                                 plan.name === "Gold" ? "#ff9800" : 
+                                 "#64748b",
+                          marginBottom: "24px"
+                        }}>
+                          {plan.name}
+                        </h3>
+
+                        <div style={{
+                          background: plan.name === "Gold" ? 
+                            "rgba(255, 164, 28, 0.1)" : "rgba(100, 116, 139, 0.05)",
+                          borderRadius: "16px",
+                          padding: "24px",
+                          marginBottom: "24px"
+                        }}>
+                          <div style={{
+                            fontSize: "42px",
+                            fontWeight: "700",
+                            color: "#1a1f36",
+                            marginBottom: "8px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center"
+                          }}>
+                            <span style={{ fontSize: "24px", marginRight: "4px" }}>₹</span>
+                            {plan.priceId.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                          </div>
+                          <div style={{ 
+                            color: "#64748b",
+                            fontSize: "14px",
+                            marginTop: "4px"
+                          }}>
+                            per year
+                          </div>
+                        </div>
+
+                       
+
+                        <div className="features" style={{ marginBottom: "32px" }}>
+                          {plan.features.map((feature, idx) => (
+                            <div 
+                              key={idx} 
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                marginBottom: "12px",
+                                color: "#4a5568"
+                              }}
+                            >
+                              <CheckOutlined 
+                                style={{
+                                  marginRight: "8px",
+                                  color: plan.name === "Gold" ? "#ff9800" : "#5469d4"
+                                }}
+                              />
+                              {feature}
+                            </div>
+                          ))}
+                        </div>
+
+                        <Button 
+                          type="primary"
+                          size="large"
+                          style={{
+                            width: "100%",
+                            height: "48px",
+                            borderRadius: "16px",
+                            border: "none",
+                            background: plan.name === "Platinum" ? 
+                              "linear-gradient(135deg, #9333ea 0%, #7c3aed 100%)" :
+                              plan.name === "Gold" ? 
+                              "linear-gradient(135deg, #ff9800 0%, #ff7300 100%)" :
+                              "linear-gradient(135deg, #64748b 0%, #475569 100%)",
+                            fontSize: "16px",
+                            fontWeight: "600",
+                            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)"
+                          }}
+                        >
+                          Get Started as {plan.name}
+                        </Button>
+                      </div>
+                    </Card>
+                  </div>
+                ))}
+              </div>
+
+              {/* Additional Info Section */}
+             
+            </div>
+          </section>
+        </div>
+      </Spin>
+      <NewWebFooter />
+    </>
+  );
+};
+
+// Add this CSS to your stylesheet
+const styles = `
+.pricing-section .ant-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pricing-section .ant-card:hover {
+  transform: translateY(-8px);
+}
+
+.ant-btn {
+  transition: all 0.3s ease;
+}
+
+.ant-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.features > div {
+  transition: all 0.2s ease;
+}
+
+.features > div:hover {
+  transform: translateX(4px);
+}
+
+@media (max-width: 768px) {
+  .pricing-section {
+    padding: 20px 0;
+  }
+  
+  .container {
+    padding: 0 20px;
+  }
+  
+  h2 {
+    font-size: 28px !important;
+  }
+  
+  p {
+    font-size: 16px !important;
+  }
+}
+`;

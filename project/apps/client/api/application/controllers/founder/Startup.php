@@ -1369,4 +1369,36 @@ class Startup extends CI_Controller {
 		->set_content_type('application/json')
 		->set_output(json_encode($response));	
 	}
+
+	function get_founder_detail_for_unicorn() {
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		
+		// Add logic to get founder id from formdata and get that details from db and return as response
+		if(!empty($formdata)) {
+			// POst data for table 1
+			
+			$sql= "SELECT * FROM `users` WHERE investor_id='".$formdata['founder_id']."'";
+			$query = $this->db->query($sql);
+			$list = $query->result();
+			$response = [
+				'status' => '1',
+				'message'=> 'Data found.',
+				'data'=>$list,
+			];
+		} else {
+			$response = [
+				'status' => '0',
+				'message'=> 'No data found.',
+			];
+		}
+		$this->output
+		->set_content_type('application/json')
+		->set_output(json_encode($response));	
+	}
 }

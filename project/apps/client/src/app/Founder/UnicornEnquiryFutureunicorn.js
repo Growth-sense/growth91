@@ -26,8 +26,9 @@ const getInterestData = (founderId) => {
                 name: item.first_name + " " + item.last_name,
                 email: item.email,
                 message: item.interestMessage,
+                interestDate: item.interestDate,
                 interestType: item.interestInvestinStartup == 1 ? "I am interested to invest in your startup" :
-                                    item.interestKnowMore == 1 ? "I want to know more about your startup" : "I want to explore collaboration"
+                                    item.interestKnowMore == 1 ? "I want to know more about your startup" : "I want to explore collaboration",
             }
         });
         setData({

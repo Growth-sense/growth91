@@ -965,5 +965,9 @@ export default {
       api.post(URLs.unicorn_Publish_unpublish, data).then((response) => {
         return response.data;
       }),
+    get_founder_detail_for_unicorn: (data) =>
+      api.post(URLs.get_founder_detail_for_unicorn, data).then((response) => {
+        return response.data;
+      }),
   },
 };
