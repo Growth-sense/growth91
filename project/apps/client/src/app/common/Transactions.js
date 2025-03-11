@@ -597,6 +597,7 @@ class Transactions extends Component {
   render() {
 
     const dataSource = this.state.paymentlist && this.state.paymentlist.map((item, index) => {
+      console.log(item.cgstvalue);
       return {
         key: index,
         payment: item.paymentid,
@@ -611,7 +612,7 @@ class Transactions extends Component {
         c_fees: item.processing_fees ? '₹' + item.processing_fees : '₹0',
         wallet: item.wallet ? '₹' + item.wallet : '₹0',
         totalamount: item.total_paid_amount ? '₹' + item.total_paid_amount : "---",
-        gst: item.igstvalue ? "₹" + (parseInt(item.igstvalue) + parseInt(item.cgstvalue) + parseInt(item.sgstValue)) : "---"
+        gst: item.igstvalue ? "₹" + (parseInt(item.igstvalue) + parseInt(item.cgstvalue) + parseInt(item.sgstvalue)) : "---"
       }
     });
 
