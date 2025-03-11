@@ -135,6 +135,7 @@ class OfflinePayment extends Component {
             ? moment(item.payment_dt).format("DD MMM, YYYY")
             : "---",
           processing_fees: item.processing_fees ? item.processing_fees : "---",
+          gst: parseInt(item.igstvalue) + parseInt(item.sgstvalue) + parseInt(item.cgstvalue),
           attach_copy: item,
           remarks: "",
         };
@@ -226,6 +227,14 @@ class OfflinePayment extends Component {
       >Convenience Fees</span>,
         dataIndex: "processing_fees",
         key: "processing_fees",
+        align: "right",
+      },
+      {
+        title:  <span
+       
+      >GST</span>,
+        dataIndex: "gst",
+        key: "gst",
         align: "right",
       },
       {

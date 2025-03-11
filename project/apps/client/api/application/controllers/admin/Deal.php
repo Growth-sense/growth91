@@ -1890,7 +1890,11 @@ class Deal extends CI_Controller
 					'payment_type'=>'offline_payment',
 					'description'=>'User invested in deal',
 					'investment_id'=>$di2,
-					'total_paid_amount'=>(intval($this->input->post('investment_amt'))+intval($this->input->post('processing_fees'))),
+					'total_paid_amount'=>(intval($this->input->post('investment_amt'))
+											+intval($this->input->post('processing_fees'))
+											+intval($this->input->post('igstvalue'))
+											+intval($this->input->post('cgstvalue'))
+											+intval($this->input->post('sgstvalue'))),
 					'processing_fees'=>$this->input->post('processing_fees'),
 					'igst' => $this->input->post('igst'),
 					'cgst' => $this->input->post('cgst'),
@@ -2282,6 +2286,101 @@ class Deal extends CI_Controller
 		->set_output(json_encode($response));
 
 	}
+
+
+	public function edit_investment()
+	{
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
+		$payment_ref = $this -> input -> post("payment_ref");
+
+		// Add code to check for payment_ref in offline_payment table as attribute reference_id
+		// If record exist update investment_amt, processing_fees, igst, cgst, sgst, igstvalue, sgstvalue and cgstvalue from input
+		if(!empty($payment_ref)) {
+		
+			$offline_payment["investment_amt"] = $this -> input -> post("amount");
+			$offline_payment["processing_fees"] = $this -> input -> post("processingfees");
+			$offline_payment["igst"] = $this -> input -> post("igst");
+			$offline_payment["cgst"] = $this -> input -> post("cgst");
+			$offline_payment["sgst"] = $this -> input -> post("sgst");
+			$offline_payment["igstvalue"] = $this -> input -> post("igstvalue");
+			$offline_payment["sgstvalue"] = $this -> input -> post("sgstvalue");
+			$offline_payment["cgstvalue"] = $this -> input -> post("cgstvalue");
+
+			// use commitment object to update offline_payment table using the payment_ref_id
+			if($this -> db -> where("reference_id", $payment_ref) -> update("offline_payment", $offline_payment)) {
+
+				$investments["Investment_amt"] = $this -> input -> post("amount");
+				$investments["processingfees"] = $this -> input -> post("processingfees");
+				$investments["igst"] = $this -> input -> post("igst");
+				$investments["cgst"] = $this -> input -> post("cgst");
+				$investments["sgst"] = $this -> input -> post("sgst");
+				$investments["igstvalue"] = $this -> input -> post("igstvalue");
+				$investments["sgstvalue"] = $this -> input -> post("sgstvalue");
+				$investments["cgstvalue"] = $this -> input -> post("cgstvalue");
+
+				if($this -> db -> where("payment_ref", $payment_ref) -> update("investments", $investments)){
+
+					$payments['payment_amount'] = $this -> input -> post("amount");
+					$payments['processing_fees'] = $this -> input -> post("processingfees");
+					$payments["igst"] = $this -> input -> post("igst");
+					$payments["cgst"] = $this -> input -> post("cgst");
+					$payments["sgst"] = $this -> input -> post("sgst");
+					$payments["igstvalue"] = $this -> input -> post("igstvalue");
+					$payments["sgstvalue"] = $this -> input -> post("sgstvalue");
+					$payments["cgstvalue"] = $this -> input -> post("cgstvalue");
+					$payments["total_paid_amount"] = (intval($this -> input -> post("amount")) 
+														+ intval($this -> input -> post("processingfees")) 
+														+ intval($this -> input -> post("igstvalue")) 
+														+ intval($this -> input -> post("sgstvalue")) 
+														+ intval($this -> input -> post("cgstvalue")));
+
+					if($this -> db -> where("payment_ref", $payment_ref) -> update("payments", $payments)){
+						$response = [
+							'status' => '1',
+							'message' => 'Committment is updated successfully.'
+						];
+					}
+					else{
+						$response =[
+							'status' => '0',
+							'message' => 'Please try again!'
+						];
+					}
+
+				}
+				else{
+					$response =[
+						'status' => '0',
+						'message' => 'Please try again!'
+					];
+				}
+			}
+			else {
+				$response =[
+					'status' => '0',
+					'message' => 'Please try again!'
+				];
+			}
+		}
+		else{
+			$response = [
+				'status' => '0',
+				'message' => 'Payment reference is empty.'
+			];
+		}
+		
+		$this->output
+		->set_content_type('application/json')
+		->set_output(json_encode($response));
+
+	}
+
 	/* Add commitments */
 	public function save_investor_commitment()
 	{

@@ -71,6 +71,13 @@ class Investments extends Component {
       ac_edit_deal_id: "",
       ac_edit_investor_id: "",
       ac_edit_amount: "",
+      edit_commitment_igst: 0,
+      edit_commitment_igstvalue: 0,
+      edit_commitment_cgst: 0,
+      edit_commitment_cgstvalue: 0,
+      edit_commitment_sgst: 0,
+      edit_commitment_sgstvalue: 0,
+      edit_commitment_payment_ref: "",
       ac_edit_processingfees: "",
       ac_edit_totalamount: "",
       ac_edit_deduct: "",
@@ -208,23 +215,23 @@ class Investments extends Component {
       message.warning("Fee is required");
       return false;
     }
+    else if (this.state.edit_commitment_payment_ref == "" || this.state.edit_commitment_payment_ref == "NA") {
+      message.warning("Payment Reference is missing, cannot update Investment");
+      return false;
+    }
 
     const formData = new FormData();
-    formData.append('deal_id', this.state.ac_edit_deal_id);
-    formData.append('investor_id', this.state.ac_edit_investor_id);
+    formData.append('payment_ref', this.state.edit_commitment_payment_ref);
     formData.append('amount', this.state.ac_edit_amount);
     formData.append('processingfees', this.state.ac_edit_processingfees);
-    formData.append('totalamount', +this.state.ac_edit_amount + +this.state.ac_edit_processingfees);
-    formData.append('deduct', this.state.ac_edit_deduct);
-    formData.append('agree', this.state.ac_edit_agree);
-    formData.append('order_token', this.state.ac_edit_order_token);
-    formData.append('tdsstatus', this.state.ac_edit_tdsstatus);
-    formData.append('gst', this.state.ac_edit_gst);
-    formData.append('legalfee', this.state.ac_edit_legalfee);
-    formData.append('walletDeductionMoney', this.state.ac_edit_walletDeductionMoney);
-    formData.append('interested_id', this.state.ac_edit_interested_id);
-    formData.append('commitment_id', this.state.ac_edit_commitment_id);
-    axios.post(`${process.env.REACT_APP_BASE_URL}api/admin/Deal/edit_investor_commitment`, formData, {
+    formData.append('igst', this.state.edit_commitment_igst);
+    formData.append('igstvalue', this.state.edit_commitment_igstvalue);
+    formData.append('cgst', this.state.edit_commitment_cgst);
+    formData.append('cgstvalue', this.state.edit_commitment_cgstvalue);
+    formData.append('sgst', this.state.edit_commitment_sgst);
+    formData.append('sgstvalue', this.state.edit_commitment_sgstvalue);
+    
+    axios.post(`${process.env.REACT_APP_BASE_URL}api/admin/Deal/edit_investment`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
@@ -272,6 +279,13 @@ class Investments extends Component {
       ac_edit_walletDeductionMoney: record.action.walletDeductionMoney,
       ac_edit_interested_id: record.action.id,
       ac_edit_commitment_id: record.action.id,
+      edit_commitment_cgst: record.action.cgst,
+      edit_commitment_cgstvalue: record.action.cgstvalue,
+      edit_commitment_sgst: record.action.sgst,
+      edit_commitment_sgstvalue: record.action.sgstvalue,
+      edit_commitment_igst: record.action.igst,
+      edit_commitment_igstvalue: record.action.igstvalue,
+      edit_commitment_payment_ref: record.action.payment_ref,
       show_edit_commitment_modal: true,
     });
   };
@@ -771,6 +785,7 @@ class Investments extends Component {
           action: item,
           kycstatus: item.kycstatus ? item.kycstatus : "Pending",
           investment_stage: item,
+          gst: "₹ " + (parseInt(item.igstvalue) + parseInt(item.sgstvalue) + parseInt(item.cgstvalue))
         };
       });
 
@@ -893,6 +908,15 @@ class Investments extends Component {
       >Investment Amount</span>,
         dataIndex: "investmentamount",
         key: "investmentamount",
+        align:"right",
+
+      },
+      {
+        title: <span
+        
+      >GST</span>,
+        dataIndex: "gst",
+        key: "gst",
         align:"right",
 
       },
@@ -1242,7 +1266,7 @@ class Investments extends Component {
 
           {/* Start Edit modal  */}
           <Modal
-          title="Update Commitment"
+          title="Update Investment"
           visible={this.state.show_edit_commitment_modal}
           onOk={this.ac_commit_update}
           okText="Update"
@@ -1272,6 +1296,84 @@ class Investments extends Component {
               value={this.state.ac_edit_processingfees}
               onChange={(e) =>
                 this.setState({ ac_edit_processingfees: e.target.value })
+              }
+            />
+          </div>
+          <div className="mt-4 editor-field">
+            <label className="mb-2">
+              igst Percentage
+            </label>
+            <Input
+              type="number"
+              onWheel={() => document.activeElement.blur()}
+              value={this.state.edit_commitment_igst}
+              onChange={(e) =>
+                this.setState({ edit_commitment_igst: e.target.value })
+              }
+            />
+          </div>
+          <div className="mt-4 editor-field">
+            <label className="mb-2">
+              igst Value
+            </label>
+            <Input
+              type="number"
+              onWheel={() => document.activeElement.blur()}
+              value={this.state.edit_commitment_igstvalue}
+              onChange={(e) =>
+                this.setState({ edit_commitment_igstvalue: e.target.value })
+              }
+            />
+          </div>
+          <div className="mt-4 editor-field">
+            <label className="mb-2">
+              cgst Percentage
+            </label>
+            <Input
+              type="number"
+              onWheel={() => document.activeElement.blur()}
+              value={this.state.edit_commitment_cgst}
+              onChange={(e) =>
+                this.setState({ edit_commitment_cgst: e.target.value })
+              }
+            />
+          </div>
+          <div className="mt-4 editor-field">
+            <label className="mb-2">
+              cgst Value
+            </label>
+            <Input
+              type="number"
+              onWheel={() => document.activeElement.blur()}
+              value={this.state.edit_commitment_cgstvalue}
+              onChange={(e) =>
+                this.setState({ edit_commitment_cgstvalue: e.target.value })
+              }
+            />
+          </div>
+          <div className="mt-4 editor-field">
+            <label className="mb-2">
+              sgst Percentage
+            </label>
+            <Input
+              type="number"
+              onWheel={() => document.activeElement.blur()}
+              value={this.state.edit_commitment_sgst}
+              onChange={(e) =>
+                this.setState({ edit_commitment_sgst: e.target.value })
+              }
+            />
+          </div>
+          <div className="mt-4 editor-field">
+            <label className="mb-2">
+              sgst Value
+            </label>
+            <Input
+              type="number"
+              onWheel={() => document.activeElement.blur()}
+              value={this.state.edit_commitment_sgstvalue}
+              onChange={(e) =>
+                this.setState({ edit_commitment_sgstvalue: e.target.value })
               }
             />
           </div>

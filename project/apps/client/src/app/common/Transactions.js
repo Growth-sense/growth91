@@ -611,6 +611,7 @@ class Transactions extends Component {
         c_fees: item.processing_fees ? '₹' + item.processing_fees : '₹0',
         wallet: item.wallet ? '₹' + item.wallet : '₹0',
         totalamount: item.total_paid_amount ? '₹' + item.total_paid_amount : "---",
+        gst: item.igstvalue ? "₹" + (parseInt(item.igstvalue) + parseInt(item.cgstvalue) + parseInt(item.sgstValue)) : "---"
       }
     });
 
@@ -675,6 +676,12 @@ class Transactions extends Component {
         title: 'Convenience Fees',
         dataIndex: 'c_fees',
         key: 'c_fees',
+        align: "right",
+      },
+      {
+        title: 'GST',
+        dataIndex: 'gst',
+        key: 'gst',
         align: "right",
       },
       {
