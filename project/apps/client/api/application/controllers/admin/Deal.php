@@ -1806,6 +1806,12 @@ class Deal extends CI_Controller
 					'payment_dt' => $this->input->post('payment_dt'),
 					'remarks' =>$this->input->post('remarks'),
 					'processing_fees'=>$this->input->post('processing_fees'),
+					'igst' => $this->input->post('igst'),
+					'cgst' => $this->input->post('cgst'),
+					'sgst' => $this->input->post('sgst'),
+					'igstvalue' => $this->input->post('igstvalue'),
+					'cgstvalue' => $this->input->post('cgstvalue'),
+					'sgstvalue' => $this->input->post('sgstvalue'),
 				];
 	
 				$this->db->insert('offline_payment', $post_data);
@@ -1864,6 +1870,12 @@ class Deal extends CI_Controller
 					'payment_status' =>'payment_success',
 					'payment_type'=>'offline_payment',
 					'processingfees'=>$this->input->post('processing_fees'),
+					'igst' => $this->input->post('igst'),
+					'cgst' => $this->input->post('cgst'),
+					'sgst' => $this->input->post('sgst'),
+					'igstvalue' => $this->input->post('igstvalue'),
+					'cgstvalue' => $this->input->post('cgstvalue'),
+					'sgstvalue' => $this->input->post('sgstvalue'),
 				];
 				$this->db->insert('investments', $post_data1);
 				$di2=$this->db->insert_id();
@@ -1880,6 +1892,12 @@ class Deal extends CI_Controller
 					'investment_id'=>$di2,
 					'total_paid_amount'=>(intval($this->input->post('investment_amt'))+intval($this->input->post('processing_fees'))),
 					'processing_fees'=>$this->input->post('processing_fees'),
+					'igst' => $this->input->post('igst'),
+					'cgst' => $this->input->post('cgst'),
+					'sgst' => $this->input->post('sgst'),
+					'igstvalue' => $this->input->post('igstvalue'),
+					'cgstvalue' => $this->input->post('cgstvalue'),
+					'sgstvalue' => $this->input->post('sgstvalue'),
 				];
 				$this->db->insert('payments', $post_data2);
 				$di3=$this->db->insert_id();

@@ -258,6 +258,12 @@ class Deals extends Component {
       utr_no_reference_id: "",
       investor_investment_amount: "",
       investor_payment_type: "",
+      offline_igst: 0,
+      offline_cgst: 0,
+      offline_sgst: 0,
+      offline_igstvalue: 0,
+      offline_cgstvalue: 0,
+      offline_sgstvalue: 0,
       investor_name: "",
       investor_email: "",
       investor_list: [],
@@ -1579,6 +1585,13 @@ class Deals extends Component {
     formdata.append("attach_copy", this.state.attach_file);
     formdata.append("remarks", this.state.investor_payment_remarks);
     formdata.append("processing_fees", this.state.processing_fees);
+    formdata.append("igst", this.state.offline_igst);
+    formdata.append("sgst", this.state.offline_sgst);
+    formdata.append("cgst", this.state.offline_cgst);
+    formdata.append("igstvalue", this.state.offline_igstvalue);
+    formdata.append("sgstvalue", this.state.offline_sgstvalue);
+    formdata.append("cgstvalue", this.state.offline_cgstvalue);
+    
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -4663,6 +4676,98 @@ class Deals extends Component {
                   this.setState(
                     { investor_investment_amount: e.target.value },
                     () => this.onChangeInvestmentAmount()
+                  )
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                igst Percentage
+              </label>
+              <Input
+                type="number"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.offline_igst}
+                onChange={(e) =>
+                  this.setState(
+                    { 
+                      offline_igst: e.target.value,
+                    }
+                  )
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                igst Value
+              </label>
+              <Input
+                type="number"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.offline_igstvalue}
+                onChange={(e) =>
+                  this.setState(
+                    { offline_igstvalue: e.target.value }
+                  )
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                cgst Percentage
+              </label>
+              <Input
+                type="number"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.offline_cgst}
+                onChange={(e) =>
+                  this.setState(
+                    { offline_cgst: e.target.value }
+                  )
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                cgst Value
+              </label>
+              <Input
+                type="number"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.offline_cgstvalue}
+                onChange={(e) =>
+                  this.setState(
+                    { offline_cgstvalue: e.target.value }
+                  )
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                sgst Percentage
+              </label>
+              <Input
+                type="number"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.offline_sgst}
+                onChange={(e) =>
+                  this.setState(
+                    { offline_sgst: e.target.value }
+                  )
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                sgst Value
+              </label>
+              <Input
+                type="number"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.offline_sgstvalue}
+                onChange={(e) =>
+                  this.setState(
+                    { offline_sgstvalue: e.target.value }
                   )
                 }
               />
