@@ -5,10 +5,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Deal extends CI_Controller
 {
 
+	private $formatter;
+	
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->model(['admin/Blogmodel']);
+		$this->formatter = new NumberFormatter('en_IN', NumberFormatter::DECIMAL);
 	}
 
 	public function get_deal()
@@ -2594,13 +2597,13 @@ class Deal extends CI_Controller
 					                                    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;"> Dear <strong>'.$investor_details[0]["first_name"].'</strong>, 
 					                                        <br>
 					                                        <br>
-					                                        Your commitment in '.$deal_details[0]["deal_name"].' on Growth91 has been received for Rs. '.number_format($commitment["amount"]).' on '.date("d/m/Y").'
+					                                        Your commitment in '.$deal_details[0]["deal_name"].' on Growth91 has been received for Rs. '.$this->formatter->format($commitment["amount"]).' on '.date("d/m/Y").'
 					                                        <br>
 					                                      <br>
-					                                      Total Amount Committed in '.$deal_details[0]["deal_name"].': Rs.'.number_format($total["amount"]).'
+					                                      Total Amount Committed in '.$deal_details[0]["deal_name"].': Rs.'.$this->formatter->format($total["amount"]).'
 					                                       <br>
 					                                       
-                                                          Total convenience fee: Rs '.number_format($total["processingfees"] + $total["igstvalue"] + $total["cgstvalue"] + $total["sgstvalue"] ).'
+                                                          Total convenience fee: Rs '.$this->formatter->format($total["processingfees"] + $total["igstvalue"] + $total["cgstvalue"] + $total["sgstvalue"] ).'
                                                           <br>
 					                                      <br>
                                                           Your commitment history can be found here: <a href='.WEB_BASE_URL.'investor-commitment>History</a>
@@ -2675,7 +2678,7 @@ class Deal extends CI_Controller
 					              </body>
 					      </html>';  
 
-			          	$subject="Commitment of Rs. ".number_format($commitment["amount"])." received for ".$deal_details[0]["deal_name"];
+			          	$subject="Commitment of Rs. ".$this->formatter->format($commitment["amount"])." received for ".$deal_details[0]["deal_name"];
 				        $cc='contact@growth91.com';
 				       // send_email($body,$subject,$investor_details[0]["email"],$cc);
 
@@ -2868,13 +2871,13 @@ class Deal extends CI_Controller
 					                                    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;"> Dear <strong>'.$investor_details[0]["first_name"].'</strong>, 
 					                                        <br>
 					                                        <br>
-					                                        Your commitment in '.$deal_details[0]["deal_name"].' on Growth91 has been received for Rs. '.number_format($commitment["amount"]).' on '.date("d/m/Y").'.
+					                                        Your commitment in '.$deal_details[0]["deal_name"].' on Growth91 has been received for Rs. '.$this->formatter->format($commitment["amount"]).' on '.date("d/m/Y").'.
 					                                        <br>
 					                                      <br>
-					                                      Total Amount Committed in '.$deal_details[0]["deal_name"].': Rs.'.number_format($commitment["amount"]).'
+					                                      Total Amount Committed in '.$deal_details[0]["deal_name"].': Rs.'.$this->formatter->format($commitment["amount"]).'
 					                                       <br>
 					                                       
-                                                          Total convenience fee: Rs '.number_format($commitment["processingfees"] + $commitment["igstvalue"] + $commitment["cgstvalue"] + $commitment["sgstvalue"] ).'
+                                                          Total convenience fee: Rs '.$this->formatter->format($commitment["processingfees"] + $commitment["igstvalue"] + $commitment["cgstvalue"] + $commitment["sgstvalue"] ).'
                                                           <br>
 					                                      <br>
                                                           Your commitment history can be found here: <a href='.WEB_BASE_URL.'investor-commitment>History</a>
@@ -2948,7 +2951,7 @@ class Deal extends CI_Controller
 					              </body>
 					      </html>';  
 
-			          	$subject="Commitment of Rs. ".number_format($commitment["amount"])." received for ".$deal_details[0]["deal_name"];
+			          	$subject="Commitment of Rs. ".$this->formatter->format($commitment["amount"])." received for ".$deal_details[0]["deal_name"];
 				        $cc='contact@growth91.com';
 				       // send_email($body,$subject,$investor_details[0]["email"],$cc);
 					
