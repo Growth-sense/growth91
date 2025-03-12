@@ -24,7 +24,6 @@ import Bridge from "../constants/Bridge";
 import InvestmentMembershipmodal from "../components/membership/InvestmentMembershipmodal";
 import NewWebHeader from "../common/NewWebHeader";
 import { NewWebFooter } from "../common/NewWebFooter";
-import StateSelect from "../common/Selector/StateSelect";
 
 const { Panel } = Collapse;
 const { TabPane } = Tabs;
@@ -32,13 +31,8 @@ class VsnapU extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userState: null,
             igst: 0,
             igstvalue: 0,
-            cgst: 0,
-            cgstvalue: 0,
-            sgst: 0,
-            sgstvalue: 0,
             selectedInvestorId: null,
             selectInvestorModal: false,
             group_list: [],
@@ -344,20 +338,19 @@ class VsnapU extends Component {
                         gst:
                             result.data[0].taxation_percentage_cgst +
                             result.data[0].taxation_percentage_sgst,
-                        cgst: result.data[0].taxation_percentage_cgst,
-                        sgst: result.data[0].taxation_percentage_cgst
+                        igst: 18
                     });
                 } else if (this.state.member_detail.nationality == "Non Resident") {
                     console.log(result.data[0]);
                     this.setState({ 
                         gst: result.data[0].taxation_percentage,
-                        igst: result.data[0].taxation_percentage
+                        igst: 18
                      });
                 } else {
                     console.log(result.data[0], "asa");
                     this.setState({ 
                         gst: result.data[0].taxation_percentage,
-                        igst: result.data[0].taxation_percentage
+                        igst: 18
                     });
                     // console.log("gst can not be able to fetch")
                 }
@@ -374,7 +367,6 @@ class VsnapU extends Component {
                 if (result.data.length > 0) {
                     this.setState({
                         member_detail: result.data[0],
-                        userState: result.data[0].state,
                         check_membership_type: result.data[0].membership_type,
                     });
                     setTimeout(() => {
@@ -1007,9 +999,7 @@ class VsnapU extends Component {
         let amt = parseFloat(this.state.amount);
         let walletDeductionMoney = 0;
         
-        let igstvalue = Math.ceil(((legalfee) * this.state.igst) / 100);
-        let cgstvalue = Math.ceil(((legalfee) * this.state.cgst) / 100);
-        let sgstvalue = Math.ceil(((legalfee) * this.state.sgst) / 100);
+        let igstvalue = Math.ceil(((legalfee) * 9) / 100) * 2;
 
         let gstValue = ((legalfee - walletDeductionMoney) * gst) / 100;
         // ceil gst value
@@ -1043,9 +1033,7 @@ class VsnapU extends Component {
                 : 0,
             walletDeductionMoney: walletDeductionMoney,
             gstValue: Number(gstValue).toFixed(0),
-            cgstvalue: cgstvalue,
             igstvalue: igstvalue,
-            sgstvalue: sgstvalue
         });
         return gst;
     };
@@ -1520,7 +1508,7 @@ class VsnapU extends Component {
                                                     {/* {this.state.button_show_status == true ? ( */}
 
 
-                                                    {this.state.button_show_status == true ? (
+                                                    {this.state.button_show_status == false ? (
                                                         <>
                                                             <div className="button-group">
                                                                 {this.state.isFunded == true ? (
@@ -1750,7 +1738,6 @@ class VsnapU extends Component {
                                         footer={false}
                                     >
                                         <div className="row modal-body">
-                                            <StateSelect value={this.state.userState} onChange={(e, value) => {this.setState({userState: value})}} />
                                             <div className="login mt-3">
                                                 <label>
                                                     <b>
@@ -1889,7 +1876,7 @@ class VsnapU extends Component {
                                                         >
                                                             ₹{" "}
                                                             {this.formatNumberWithCommas(
-                                                                Number(this.state.igstvalue + this.state.cgstvalue + this.state.sgstvalue).toFixed(0)
+                                                                Number(this.state.igstvalue).toFixed(0)
                                                             )}
                                                         </td>
                                                     </tr>
@@ -1984,11 +1971,6 @@ class VsnapU extends Component {
                                                         gstvalue={this.state.gstValue}
                                                         igst={this.state.igst}
                                                         igstvalue={this.state.igstvalue}
-                                                        cgst={this.state.cgst}
-                                                        cgstvalue={this.state.cgstvalue}
-                                                        sgst={this.state.sgst}
-                                                        sgstvalue={this.state.sgstvalue}
-                                                        userState={this.state.userState}
                                                         order_token={this.state.order_token}
                                                         legalfee={this.state.legalfee}
                                                         walletDeductionMoney={

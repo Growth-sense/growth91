@@ -73,10 +73,6 @@ class Investments extends Component {
       ac_edit_amount: "",
       edit_commitment_igst: 0,
       edit_commitment_igstvalue: 0,
-      edit_commitment_cgst: 0,
-      edit_commitment_cgstvalue: 0,
-      edit_commitment_sgst: 0,
-      edit_commitment_sgstvalue: 0,
       edit_commitment_payment_ref: "",
       ac_edit_processingfees: "",
       ac_edit_totalamount: "",
@@ -226,10 +222,6 @@ class Investments extends Component {
     formData.append('processingfees', this.state.ac_edit_processingfees);
     formData.append('igst', this.state.edit_commitment_igst);
     formData.append('igstvalue', this.state.edit_commitment_igstvalue);
-    formData.append('cgst', this.state.edit_commitment_cgst);
-    formData.append('cgstvalue', this.state.edit_commitment_cgstvalue);
-    formData.append('sgst', this.state.edit_commitment_sgst);
-    formData.append('sgstvalue', this.state.edit_commitment_sgstvalue);
     
     axios.post(`${process.env.REACT_APP_BASE_URL}api/admin/Deal/edit_investment`, formData, {
       headers: {
@@ -279,10 +271,6 @@ class Investments extends Component {
       ac_edit_walletDeductionMoney: record.action.walletDeductionMoney,
       ac_edit_interested_id: record.action.id,
       ac_edit_commitment_id: record.action.id,
-      edit_commitment_cgst: record.action.cgst,
-      edit_commitment_cgstvalue: record.action.cgstvalue,
-      edit_commitment_sgst: record.action.sgst,
-      edit_commitment_sgstvalue: record.action.sgstvalue,
       edit_commitment_igst: record.action.igst,
       edit_commitment_igstvalue: record.action.igstvalue,
       edit_commitment_payment_ref: record.action.payment_ref,
@@ -785,7 +773,7 @@ class Investments extends Component {
           action: item,
           kycstatus: item.kycstatus ? item.kycstatus : "Pending",
           investment_stage: item,
-          gst: "₹ " + (parseInt(item.igstvalue) + parseInt(item.sgstvalue) + parseInt(item.cgstvalue))
+          gst: "₹ " + (parseInt(item.igstvalue))
         };
       });
 
@@ -1301,7 +1289,7 @@ class Investments extends Component {
           </div>
           <div className="mt-4 editor-field">
             <label className="mb-2">
-              igst Percentage
+              GST Percentage
             </label>
             <Input
               type="number"
@@ -1314,7 +1302,7 @@ class Investments extends Component {
           </div>
           <div className="mt-4 editor-field">
             <label className="mb-2">
-              igst Value
+              GST Value
             </label>
             <Input
               type="number"
@@ -1322,58 +1310,6 @@ class Investments extends Component {
               value={this.state.edit_commitment_igstvalue}
               onChange={(e) =>
                 this.setState({ edit_commitment_igstvalue: e.target.value })
-              }
-            />
-          </div>
-          <div className="mt-4 editor-field">
-            <label className="mb-2">
-              cgst Percentage
-            </label>
-            <Input
-              type="number"
-              onWheel={() => document.activeElement.blur()}
-              value={this.state.edit_commitment_cgst}
-              onChange={(e) =>
-                this.setState({ edit_commitment_cgst: e.target.value })
-              }
-            />
-          </div>
-          <div className="mt-4 editor-field">
-            <label className="mb-2">
-              cgst Value
-            </label>
-            <Input
-              type="number"
-              onWheel={() => document.activeElement.blur()}
-              value={this.state.edit_commitment_cgstvalue}
-              onChange={(e) =>
-                this.setState({ edit_commitment_cgstvalue: e.target.value })
-              }
-            />
-          </div>
-          <div className="mt-4 editor-field">
-            <label className="mb-2">
-              sgst Percentage
-            </label>
-            <Input
-              type="number"
-              onWheel={() => document.activeElement.blur()}
-              value={this.state.edit_commitment_sgst}
-              onChange={(e) =>
-                this.setState({ edit_commitment_sgst: e.target.value })
-              }
-            />
-          </div>
-          <div className="mt-4 editor-field">
-            <label className="mb-2">
-              sgst Value
-            </label>
-            <Input
-              type="number"
-              onWheel={() => document.activeElement.blur()}
-              value={this.state.edit_commitment_sgstvalue}
-              onChange={(e) =>
-                this.setState({ edit_commitment_sgstvalue: e.target.value })
               }
             />
           </div>

@@ -1554,7 +1554,7 @@ console.log(  ac_captable_threshold_amount,
           action: item,
           dealname: item.deal_name ? item.deal_name : "---",
           amount: "₹" + item.totalamount,
-          fee: item.processingfees ? "₹" + (parseFloat(item.processingfees) + parseFloat(item.igstvalue) + parseFloat(item.cgstvalue) + parseFloat(item.sgstvalue)).toFixed(0) : "₹0",
+          fee: item.processingfees ? "₹" + (parseFloat(item.processingfees) + parseFloat(item.igstvalue)).toFixed(0) : "₹0",
           dealview:
             item.deal_status == "Open" ? (
               <Link to={item.page_link}>
@@ -1669,7 +1669,7 @@ console.log(  ac_captable_threshold_amount,
           actions:[record].map((itemx,index)=>{return itemx}),
           // nestdealname: item.deal_name ? item.deal_name : '---',
           nestamount: "₹" + item.totalamount,
-          nestfee: item.processingfees ? "₹" + (parseFloat(item.processingfees) + parseFloat(item.igstvalue) + parseFloat(item.cgstvalue) + parseFloat(item.sgstvalue)).toFixed(0)  : "₹0",
+          nestfee: item.processingfees ? "₹" + (parseFloat(item.processingfees) + parseFloat(item.igstvalue)).toFixed(0)  : "₹0",
           // nestcreated_at: item.created_at,
           parent_id:item.parent_id,
           interested_id:item.id,

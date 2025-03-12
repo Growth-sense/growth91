@@ -135,7 +135,7 @@ class OfflinePayment extends Component {
             ? moment(item.payment_dt).format("DD MMM, YYYY")
             : "---",
           processing_fees: item.processing_fees ? item.processing_fees : "---",
-          gst: parseInt(item.igstvalue) + parseInt(item.sgstvalue) + parseInt(item.cgstvalue),
+          gst: parseInt(item.igstvalue),
           attach_copy: item,
           remarks: "",
         };

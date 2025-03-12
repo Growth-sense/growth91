@@ -88,10 +88,6 @@ class InvestorCommitment extends CI_Controller
 		$commitment["gstvalue"] = $this -> input -> post("gstvalue");
 		$commitment["igst"] = $this -> input -> post("igst");
 		$commitment["igstvalue"] = $this -> input -> post("igstvalue");
-		$commitment["cgst"] = $this -> input -> post("cgst");
-		$commitment["cgstvalue"] = $this -> input -> post("cgstvalue");
-		$commitment["sgst"] = $this -> input -> post("sgst");
-		$commitment["sgstvalue"] = $this -> input -> post("sgstvalue");
 		$commitment["legalfee"] = $this -> input -> post("legalfee");
 		$commitment["walletDeductionMoney"] = $this -> input -> post("walletDeductionMoney");
 		$commitment["created_at"] = date("Y-m-d H:i:s");
@@ -122,10 +118,6 @@ class InvestorCommitment extends CI_Controller
 
 				$total["igst"] =	$already_committed[0]["igst"] + $commitment["igst"];
 				$total["igstvalue"] =	$already_committed[0]["igstvalue"] + $commitment["igstvalue"];
-				$total["cgst"] =	$already_committed[0]["cgst"] + $commitment["cgst"];
-				$total["cgstvalue"] =	$already_committed[0]["cgstvalue"] + $commitment["cgstvalue"];
-				$total["sgst"] =	$already_committed[0]["sgst"] + $commitment["sgst"];
-				$total["sgstvalue"] =	$already_committed[0]["sgstvalue"] + $commitment["sgstvalue"];
 				
 				$this -> db -> where("deal_id",$commitment["deal_id"]) -> where("investor_id",$commitment["investor_id"]) -> where("parent_id",0)  -> update("investor_commitment",$total);
 				
@@ -139,10 +131,6 @@ class InvestorCommitment extends CI_Controller
 
 				$child_commitment["igst"] = $commitment["igst"];
 				$child_commitment["igstvalue"] = $commitment["igstvalue"];
-				$child_commitment["cgst"] = $commitment["cgst"];
-				$child_commitment["cgstvalue"] = $commitment["cgstvalue"];
-				$child_commitment["sgst"] = $commitment["sgst"];
-				$child_commitment["sgstvalue"] = $commitment["sgstvalue"];
 
 				$status = $this -> db -> insert("investor_commitment",$child_commitment);
 
@@ -285,7 +273,7 @@ class InvestorCommitment extends CI_Controller
 					                                      Total Amount Committed in '.$deal_details[0]["deal_name"].': Rs.'.$this->formatter->format($total["amount"]).'
 					                                       <br>
 					                                       
-                                                          Total convenience fee: Rs '.$this->formatter->format($total["processingfees"] + $total["igstvalue"] + $total["cgstvalue"] + $total["sgstvalue"]).'
+                                                          Total convenience fee: Rs '.$this->formatter->format($total["processingfees"] + $total["igstvalue"]).'
                                                           <br>
 					                                      <br>
                                                           Your commitment history can be found here: <a href='.WEB_BASE_URL.'investor-commitment>History</a>
@@ -394,10 +382,6 @@ class InvestorCommitment extends CI_Controller
 
 				$parent_commitment["igst"] = $commitment["igst"];
 				$parent_commitment["igstvalue"] = $commitment["igstvalue"];
-				$parent_commitment["cgst"] = $commitment["cgst"];
-				$parent_commitment["cgstvalue"] = $commitment["cgstvalue"];
-				$parent_commitment["sgst"] = $commitment["sgst"];
-				$parent_commitment["sgstvalue"] = $commitment["sgstvalue"];
 
 				
 				$status = $this -> db -> insert("investor_commitment",$parent_commitment);
@@ -415,10 +399,6 @@ class InvestorCommitment extends CI_Controller
 
 					$child_commitment["igst"] = $commitment["igst"];
 					$child_commitment["igstvalue"] = $commitment["igstvalue"];
-					$child_commitment["cgst"] = $commitment["cgst"];
-					$child_commitment["cgstvalue"] = $commitment["cgstvalue"];
-					$child_commitment["sgst"] = $commitment["sgst"];
-					$child_commitment["sgstvalue"] = $commitment["sgstvalue"];
 					
 					$this -> db -> insert("investor_commitment",$child_commitment);
 // echo"<pre>";print_r($deal_details);exit();
@@ -561,7 +541,7 @@ class InvestorCommitment extends CI_Controller
 					                                      Total Amount Committed in '.$deal_details[0]["deal_name"].': Rs.'.$this->formatter->format($commitment["amount"]).'
 					                                       <br>
 					                                       
-                                                          Total convenience fee: Rs '.$this->formatter->format($commitment["processingfees"] + $commitment["igstvalue"] + $commitment["cgstvalue"] + $commitment["sgstvalue"]).'
+                                                          Total convenience fee: Rs '.$this->formatter->format($commitment["processingfees"] + $commitment["igstvalue"] ).'
                                                           <br>
 					                                      <br>
                                                           Your commitment history can be found here: <a href='.WEB_BASE_URL.'investor-commitment>History</a>

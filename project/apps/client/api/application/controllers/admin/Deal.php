@@ -1810,11 +1810,7 @@ class Deal extends CI_Controller
 					'remarks' =>$this->input->post('remarks'),
 					'processing_fees'=>$this->input->post('processing_fees'),
 					'igst' => $this->input->post('igst'),
-					'cgst' => $this->input->post('cgst'),
-					'sgst' => $this->input->post('sgst'),
 					'igstvalue' => $this->input->post('igstvalue'),
-					'cgstvalue' => $this->input->post('cgstvalue'),
-					'sgstvalue' => $this->input->post('sgstvalue'),
 				];
 	
 				$this->db->insert('offline_payment', $post_data);
@@ -1874,11 +1870,7 @@ class Deal extends CI_Controller
 					'payment_type'=>'offline_payment',
 					'processingfees'=>$this->input->post('processing_fees'),
 					'igst' => $this->input->post('igst'),
-					'cgst' => $this->input->post('cgst'),
-					'sgst' => $this->input->post('sgst'),
 					'igstvalue' => $this->input->post('igstvalue'),
-					'cgstvalue' => $this->input->post('cgstvalue'),
-					'sgstvalue' => $this->input->post('sgstvalue'),
 				];
 				$this->db->insert('investments', $post_data1);
 				$di2=$this->db->insert_id();
@@ -1895,16 +1887,10 @@ class Deal extends CI_Controller
 					'investment_id'=>$di2,
 					'total_paid_amount'=>(intval($this->input->post('investment_amt'))
 											+intval($this->input->post('processing_fees'))
-											+intval($this->input->post('igstvalue'))
-											+intval($this->input->post('cgstvalue'))
-											+intval($this->input->post('sgstvalue'))),
+											+intval($this->input->post('igstvalue'))),
 					'processing_fees'=>$this->input->post('processing_fees'),
 					'igst' => $this->input->post('igst'),
-					'cgst' => $this->input->post('cgst'),
-					'sgst' => $this->input->post('sgst'),
 					'igstvalue' => $this->input->post('igstvalue'),
-					'cgstvalue' => $this->input->post('cgstvalue'),
-					'sgstvalue' => $this->input->post('sgstvalue'),
 				];
 				$this->db->insert('payments', $post_data2);
 				$di3=$this->db->insert_id();
@@ -2112,11 +2098,7 @@ class Deal extends CI_Controller
 		$commitment["tdsstatus"] = $this -> input -> post("tdsstatus");
 		$commitment["gst"] = $this -> input -> post("gst");
 		$commitment["igst"] = $this -> input -> post("igst");
-		$commitment["cgst"] = $this -> input -> post("cgst");
-		$commitment["sgst"] = $this -> input -> post("sgst");
 		$commitment["igstvalue"] = $this -> input -> post("igstvalue");
-		$commitment["cgstvalue"] = $this -> input -> post("cgstvalue");
-		$commitment["sgstvalue"] = $this -> input -> post("sgstvalue");
 		$commitment["legalfee"] = $this -> input -> post("legalfee");
 		$commitment["id"] = $this -> input -> post("commitment_id");
 		$commitment["parent_id"] = $this -> input -> post("parent_id");
@@ -2179,11 +2161,7 @@ class Deal extends CI_Controller
 				$total["processingfees"] =	($already_committed[0]["processingfees"] + $commitment["processingfees"]) - $committed_idwise[0]["processingfees"];	
 				$total["legalfee"] =	($already_committed[0]["legalfee"] + $commitment["legalfee"]) - $committed_idwise[0]["legalfee"];	
 				$total["igst"] = ($already_committed[0]["igst"] + $commitment["igst"]) - $committed_idwise[0]["igst"];	
-				$total["cgst"] = ($already_committed[0]["cgst"] + $commitment["cgst"]) - $committed_idwise[0]["cgst"];	
-				$total["sgst"] = ($already_committed[0]["sgst"] + $commitment["sgst"]) - $committed_idwise[0]["sgst"];	
 				$total["igstvalue"] = ($already_committed[0]["igstvalue"] + $commitment["igstvalue"]) - $committed_idwise[0]["igstvalue"];	
-				$total["cgstvalue"] = ($already_committed[0]["cgstvalue"] + $commitment["cgstvalue"]) - $committed_idwise[0]["cgstvalue"];	
-				$total["sgstvalue"] = ($already_committed[0]["sgstvalue"] + $commitment["sgstvalue"]) - $committed_idwise[0]["sgstvalue"];	
 				//print_r($total);
 				//die;
 				$this -> db -> where("deal_id",$commitment["deal_id"]) -> where("investor_id",$commitment["investor_id"]) -> where("parent_id",0)  -> update("investor_commitment",$total);
@@ -2197,11 +2175,7 @@ class Deal extends CI_Controller
 				$child_commitment["created_at"] = date("Y-m-d H:i:s");
 				$child_commitment["legalfee"] = $commitment["legalfee"];
 				$child_commitment["igst"] = $commitment["igst"];
-				$child_commitment["cgst"] = $commitment["cgst"];
-				$child_commitment["sgst"] = $commitment["sgst"];
 				$child_commitment["igstvalue"] = $commitment["igstvalue"];
-				$child_commitment["cgstvalue"] = $commitment["cgstvalue"];
-				$child_commitment["sgstvalue"] = $commitment["sgstvalue"];
 				//$status = $this -> db -> insert("investor_commitment",$child_commitment);
 				$this->db->where('id', $commitment["id"]);
 				$this->db->update('investor_commitment', $child_commitment);
@@ -2233,11 +2207,7 @@ class Deal extends CI_Controller
 				$parent_commitment["tdsstatus"] = $commitment["tdsstatus"];
 				$parent_commitment["gst"] = $commitment["gst"];
 				$parent_commitment["igst"] = $commitment["igst"];
-				$parent_commitment["cgst"] = $commitment["cgst"];
-				$parent_commitment["sgst"] = $commitment["sgst"];
 				$parent_commitment["igstvalue"] = $commitment["igstvalue"];
-				$parent_commitment["cgstvalue"] = $commitment["cgstvalue"];
-				$parent_commitment["sgstvalue"] = $commitment["sgstvalue"];
 				$parent_commitment["legalfee"] = $commitment["legalfee"];
 				$parent_commitment["walletDeductionMoney"] = $commitment["walletDeductionMoney"];
 				$parent_commitment["created_at"] = date("Y-m-d H:i:s");
@@ -2255,11 +2225,7 @@ class Deal extends CI_Controller
 					$child_commitment["processingfees"] = $commitment["processingfees"];
 					$child_commitment["legalfee"] = $commitment["legalfee"];
 					$child_commitment["igst"] = $commitment["igst"];
-					$child_commitment["cgst"] = $commitment["cgst"];
-					$child_commitment["sgst"] = $commitment["sgst"];
 					$child_commitment["igstvalue"] = $commitment["igstvalue"];
-					$child_commitment["cgstvalue"] = $commitment["cgstvalue"];
-					$child_commitment["sgstvalue"] = $commitment["sgstvalue"];
 					$child_commitment["totalamount"] = $commitment["totalamount"];
 					$child_commitment["created_at"] = date("Y-m-d H:i:s");
 					
@@ -2309,11 +2275,7 @@ class Deal extends CI_Controller
 			$offline_payment["investment_amt"] = $this -> input -> post("amount");
 			$offline_payment["processing_fees"] = $this -> input -> post("processingfees");
 			$offline_payment["igst"] = $this -> input -> post("igst");
-			$offline_payment["cgst"] = $this -> input -> post("cgst");
-			$offline_payment["sgst"] = $this -> input -> post("sgst");
 			$offline_payment["igstvalue"] = $this -> input -> post("igstvalue");
-			$offline_payment["sgstvalue"] = $this -> input -> post("sgstvalue");
-			$offline_payment["cgstvalue"] = $this -> input -> post("cgstvalue");
 
 			// use commitment object to update offline_payment table using the payment_ref_id
 			if($this -> db -> where("reference_id", $payment_ref) -> update("offline_payment", $offline_payment)) {
@@ -2321,27 +2283,17 @@ class Deal extends CI_Controller
 				$investments["Investment_amt"] = $this -> input -> post("amount");
 				$investments["processingfees"] = $this -> input -> post("processingfees");
 				$investments["igst"] = $this -> input -> post("igst");
-				$investments["cgst"] = $this -> input -> post("cgst");
-				$investments["sgst"] = $this -> input -> post("sgst");
 				$investments["igstvalue"] = $this -> input -> post("igstvalue");
-				$investments["sgstvalue"] = $this -> input -> post("sgstvalue");
-				$investments["cgstvalue"] = $this -> input -> post("cgstvalue");
 
 				if($this -> db -> where("payment_ref", $payment_ref) -> update("investments", $investments)){
 
 					$payments['payment_amount'] = $this -> input -> post("amount");
 					$payments['processing_fees'] = $this -> input -> post("processingfees");
 					$payments["igst"] = $this -> input -> post("igst");
-					$payments["cgst"] = $this -> input -> post("cgst");
-					$payments["sgst"] = $this -> input -> post("sgst");
 					$payments["igstvalue"] = $this -> input -> post("igstvalue");
-					$payments["sgstvalue"] = $this -> input -> post("sgstvalue");
-					$payments["cgstvalue"] = $this -> input -> post("cgstvalue");
 					$payments["total_paid_amount"] = (intval($this -> input -> post("amount")) 
 														+ intval($this -> input -> post("processingfees")) 
-														+ intval($this -> input -> post("igstvalue")) 
-														+ intval($this -> input -> post("sgstvalue")) 
-														+ intval($this -> input -> post("cgstvalue")));
+														+ intval($this -> input -> post("igstvalue")) );
 
 					if($this -> db -> where("payment_ref", $payment_ref) -> update("payments", $payments)){
 						$response = [
@@ -2408,10 +2360,6 @@ class Deal extends CI_Controller
 		$commitment["gst"] = $this -> input -> post("gst");
 		$commitment["igst"] = $this -> input -> post("igst");
 		$commitment["igstvalue"] = $this -> input -> post("igstvalue");
-		$commitment["cgst"] = $this -> input -> post("cgst");
-		$commitment["cgstvalue"] = $this -> input -> post("cgstvalue");
-		$commitment["sgst"] = $this -> input -> post("sgst");
-		$commitment["sgstvalue"] = $this -> input -> post("sgstvalue");
 		$commitment["legalfee"] = $this -> input -> post("legalfee");
 		$commitment["walletDeductionMoney"] = $this -> input -> post("walletDeductionMoney");
 		
@@ -2441,10 +2389,6 @@ class Deal extends CI_Controller
 				$total["processingfees"] =	$already_committed[0]["processingfees"] + $commitment["processingfees"];
 				$commitment["igst"] = $already_committed[0]["igst"] + $commitment["igst"];
 				$commitment["igstvalue"] = $already_committed[0]["igstvalue"] + $commitment["igstvalue"];
-				$commitment["cgst"] = $already_committed[0]["cgst"] + $commitment["cgst"];
-				$commitment["cgstvalue"] = $already_committed[0]["cgstvalue"] + $commitment["cgstvalue"];
-				$commitment["sgst"] = $already_committed[0]["sgst"] + $commitment["sgst"];
-				$commitment["sgstvalue"] = $already_committed[0]["sgstvalue"] + $commitment["sgstvalue"];
 				
 				$this -> db -> where("deal_id",$commitment["deal_id"]) -> where("investor_id",$commitment["investor_id"]) -> where("parent_id",0)  -> update("investor_commitment",$total);
 				
@@ -2456,10 +2400,6 @@ class Deal extends CI_Controller
 				$child_commitment["totalamount"] = $commitment["totalamount"];
 				$child_commitment["igst"] = $commitment["igst"];
 				$child_commitment["igstvalue"] = $commitment["igstvalue"];
-				$child_commitment["cgst"] = $commitment["cgst"];
-				$child_commitment["cgstvalue"] = $commitment["cgstvalue"];
-				$child_commitment["sgst"] = $commitment["sgst"];
-				$child_commitment["sgstvalue"] = $commitment["sgstvalue"];
 				$child_commitment["created_at"] = date("Y-m-d H:i:s");
 
 				$status = $this -> db -> insert("investor_commitment",$child_commitment);
@@ -2603,7 +2543,7 @@ class Deal extends CI_Controller
 					                                      Total Amount Committed in '.$deal_details[0]["deal_name"].': Rs.'.$this->formatter->format($total["amount"]).'
 					                                       <br>
 					                                       
-                                                          Total convenience fee: Rs '.$this->formatter->format($total["processingfees"] + $total["igstvalue"] + $total["cgstvalue"] + $total["sgstvalue"] ).'
+                                                          Total convenience fee: Rs '.$this->formatter->format($total["processingfees"] + $total["igstvalue"] ).'
                                                           <br>
 					                                      <br>
                                                           Your commitment history can be found here: <a href='.WEB_BASE_URL.'investor-commitment>History</a>
@@ -2708,10 +2648,6 @@ class Deal extends CI_Controller
 				$parent_commitment["gst"] = $commitment["gst"];
 				$parent_commitment["igst"] = $commitment["igst"];
 				$parent_commitment["igstvalue"] = $commitment["igstvalue"];
-				$parent_commitment["cgst"] = $commitment["cgst"];
-				$parent_commitment["cgstvalue"] = $commitment["cgstvalue"];
-				$parent_commitment["sgst"] = $commitment["sgst"];
-				$parent_commitment["sgstvalue"] = $commitment["sgstvalue"];
 				$parent_commitment["legalfee"] = $commitment["legalfee"];
 				$parent_commitment["walletDeductionMoney"] = $commitment["walletDeductionMoney"];
 				$parent_commitment["created_at"] = date("Y-m-d H:i:s");
@@ -2730,10 +2666,6 @@ class Deal extends CI_Controller
 					$child_commitment["totalamount"] = $commitment["totalamount"];
 					$child_commitment["igst"] = $commitment["igst"];
 					$child_commitment["igstvalue"] = $commitment["igstvalue"];
-					$child_commitment["cgst"] = $commitment["cgst"];
-					$child_commitment["cgstvalue"] = $commitment["cgstvalue"];
-					$child_commitment["sgst"] = $commitment["sgst"];
-					$child_commitment["sgstvalue"] = $commitment["sgstvalue"];
 					$child_commitment["created_at"] = date("Y-m-d H:i:s");
 					
 					$this -> db -> insert("investor_commitment",$child_commitment);
@@ -2877,7 +2809,7 @@ class Deal extends CI_Controller
 					                                      Total Amount Committed in '.$deal_details[0]["deal_name"].': Rs.'.$this->formatter->format($commitment["amount"]).'
 					                                       <br>
 					                                       
-                                                          Total convenience fee: Rs '.$this->formatter->format($commitment["processingfees"] + $commitment["igstvalue"] + $commitment["cgstvalue"] + $commitment["sgstvalue"] ).'
+                                                          Total convenience fee: Rs '.$this->formatter->format($commitment["processingfees"] + $commitment["igstvalue"] ).'
                                                           <br>
 					                                      <br>
                                                           Your commitment history can be found here: <a href='.WEB_BASE_URL.'investor-commitment>History</a>
