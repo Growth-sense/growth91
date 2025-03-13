@@ -67,14 +67,8 @@ class InvestorCommitment extends CI_Controller
 
 		$delete_log["interested_id"] = $this -> input -> post("interested_id");
 		
-		$userState["state"] = $this -> input -> post("userstate");
 		$commitment["investor_id"] = $this -> input -> post("investor_id");
 		
-		if (!empty($userState["state"]) && $userState["state"] !== null) {
-			$this->db->where('investor_id', $commitment["investor_id"]);
-    		$this->db->update('users', array('state' => $userState["state"]));
-		}
-
 		$commitment["deal_id"] = $this -> input -> post("deal_id");
 		
 		$commitment["amount"] = $this -> input -> post("amount");

@@ -160,7 +160,6 @@ export default class EditInvestmentMembershipmodal extends Component {
     formData.append('gstvalue', this.props.gstvalue);
     formData.append('igst', this.props.igst);
     formData.append('igstvalue', this.props.igstvalue);
-    formData.append('userstate', this.props.userState);
     formData.append('legalfee', this.props.legalfee);
     formData.append('interested_id', this.props.interested_id);
     formData.append('walletDeductionMoney', this.props.walletDeductionMoney);
@@ -213,10 +212,6 @@ export default class EditInvestmentMembershipmodal extends Component {
                 }
                 if (this.props.agree != true) {
                   message.warning("Please agree to terms and conditions");
-                  return;
-                }
-                if(this.props.userState == null){
-                  message.warning("Please select state");
                   return;
                 }
               if(this.props.amount && this.props.agreecheck){
