@@ -403,7 +403,6 @@ class Users extends CI_Controller {
 			$email=$formdata['email'];
 			$encryptedOtp=$formdata['otp'];
 			$otp = $this->decryptData($encryptedOtp);
-			$otp=$formdata['otp'];
 			// $mobile=$formdata['mobile'];
 	
 			$sql="SELECT * FROM `users` WHERE email='$email'";
