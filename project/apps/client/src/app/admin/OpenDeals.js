@@ -2468,13 +2468,13 @@ class Deals extends Component {
       this.state.commitment_investor_list &&
       this.state.commitment_investor_list.map((item, index) => {
 
-
+        
         return {
           key: index,
           child: item["0"],
           investor_id: item.investor_id,
           amount: '₹' + item.amount,
-          fee: item.processingfees ? '₹' + item.processingfees : '₹0',
+          fee: item.processingfees ? '₹' + (parseInt(item.processingfees) + parseInt(item.igstvalue)) : '₹0',
           commitment_satus: item.commitment_satus === "committed" ? <Tag color="green">Invested</Tag> : <Tag color="red">Pending</Tag>,
           created_at: item.created_at ? moment(item.created_at).format('D-MMM-YYYY h:mm A') : '',
           name: item.first_name + " " + item.last_name,
@@ -2571,7 +2571,7 @@ class Deals extends Component {
           key: index,
           nestinvestor_id: item.investor_id,
           nestamount: '₹' + item.amount,
-          nestfee: item.processingfees ? '₹' + item.processingfees : '₹0',
+          nestfee: item.processingfees ? '₹' + (parseInt(item.processingfees) + parseInt(item.igstvalue)) : '₹0',
           nestcommitment_satus: item.commitment_satus === "committed" ? <Tag color="green">Invested</Tag> : <Tag color="red">Pending</Tag>,
           nestcreated_at: item.created_at ? moment(item.created_at).format('D-MMM-YYYY h:mm A') : '',
           nestname: item.first_name + " " + item.last_name,
