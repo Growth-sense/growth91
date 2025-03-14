@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { message, Spin, Button, notification, Checkbox } from "antd";
+import { message, Spin, Button, notification } from "antd";
 import Bridge from "../../constants/Bridge";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { DownloadOutlined, DeleteOutlined } from "@ant-design/icons";
@@ -10,7 +10,6 @@ class SupportingDocuments extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      notApplicable: false,
       have_you_raised_fund_for_startup: "",
       pitch: "",
       documents: [],
@@ -101,11 +100,6 @@ class SupportingDocuments extends Component {
     });
   };
   saveandproceed = () => {
-
-    if (this.state.notApplicable) {
-      this.setState({ processtype: "saveandproceed" }, () => this.updateimg());
-      return;
-    }
     // if(this.state.pitchpdffile){
     //   message.warning('Please delete the existing, if you want to upload file');
     //   return;
@@ -404,56 +398,6 @@ class SupportingDocuments extends Component {
     }
   };
 
-  handleCheckboxChange = (e) => {
-    const isChecked = e.target.checked;
-
-    this.props.onInput("notApplicable", isChecked);
-    
-    // Clear file input when checked
-    this.setState({
-      notApplicable: isChecked,
-      have_you_raised_fund_for_startup: "",
-      pitch: "",
-      documents: [],
-      pitchpdffile: "",
-      doc1: "",
-      doc2: "",
-      doc3: "",
-      documentfile: "",
-      founder_id: "",
-      upload_progres1: false,
-      upload_progres1_no: 0,
-      upload_progres2: false,
-      upload_progres2_no: 0,
-      upload_progres3: false,
-      upload_progres3_no: 0,
-      uploaded_document_list: [],
-      marketoverview: [{ content1: "" }, { content1: "" }, { content1: "" }],
-      startuphighlight: [
-        { title: "Revenue Growth ", content1: "" },
-        { title: " New Initiatives, Operational Efficiency", content1: "" },
-        { title: "Performance and Achievements ", content1: "" },
-        {
-          title: " Previous Funding/Future Funding and its Utilization",
-          content1: "",
-        },
-      ],
-    });
-  
-    // Reset file input values using refs
-    if (isChecked) {
-      if (this.props.onInput) {
-        this.props.onInput("tudPitchDeck", "");
-        this.props.onInput("tudBannerImage", "");
-        this.props.onInput("tudLogoImage", "");
-        this.props.onInput("tudDoc1", "");
-        this.props.onInput("tudDoc2", "");
-        this.props.onInput("tudDoc3", "");
-      }
-    }
-  };
-
-
   render() {
     let active =
       this.state.have_you_raised_fund_for_startup &&
@@ -492,17 +436,6 @@ class SupportingDocuments extends Component {
                     <hr />
                     {/* <button onClick={this.addmarketcv}>aaaa</button> */}
                   </div>
-                  <div className="form-group">
-                    <div className="d-flex">
-                      <Checkbox
-                        style={{ width: 35 }}
-                        checked={this.state.notApplicable}
-                        onChange={this.handleCheckboxChange}
-                        name="notApplicable"
-                      ></Checkbox>
-                      <span className="ml-2">Not Applicable</span>
-                    </div>
-                  </div>
                   {this.props.error == "0" &&
                     (!this.state.pitchpdffile ||
                       !this.state.pitch ||
@@ -540,7 +473,6 @@ class SupportingDocuments extends Component {
                               onChange={(e) => this.onChangeMultipleFile(e)}
                               accept=".pdf,.docx"
                               name="tudPitchDeck"
-                              disabled={this.state.notApplicable}
                               // style={{display:'none'}}
                             />                        
                           </div>
@@ -610,7 +542,6 @@ class SupportingDocuments extends Component {
                           name="tudBannerImage"
                           // value={this.props.unicorn.tudBannerImage||""}
                           onChange={(e) => this.onChangeMultipleFile(e)}
-                          disabled={this.state.notApplicable}
                         />
                       </div>{" "}
                       <div className="form-group">
@@ -625,7 +556,6 @@ class SupportingDocuments extends Component {
                           name="tudLogoImage"
                           // value={this.props.unicorn.tudLogoImage || ""}
                           onChange={(e) => this.onChangeMultipleFile(e)}
-                          disabled={this.state.notApplicable}
                         />
                       </div>
                       {this.state.startuphighlight.map((item, index) => {
@@ -647,7 +577,6 @@ class SupportingDocuments extends Component {
                                   toast.error("only 100 chart");
                                 }
                               }}
-                              disabled={this.state.notApplicable}
                             ></textarea>
                           </div>
                         );
@@ -675,7 +604,6 @@ class SupportingDocuments extends Component {
                                   toast.error("only 200 chart");
                                 }
                               }}
-                              disabled={this.state.notApplicable}
                             >
                               {" "}
                             </textarea>
@@ -736,6 +664,3 @@ class SupportingDocuments extends Component {
 }
 
 export default SupportingDocuments;
-
-
-
