@@ -969,5 +969,9 @@ export default {
       api.post(URLs.get_founder_detail_for_unicorn, data).then((response) => {
         return response.data;
       }),
+    get_payment_link: (data) =>
+      api.post(URLs.get_payment_link, data).then((response) => {
+        return response.data;
+      }),
   },
 };

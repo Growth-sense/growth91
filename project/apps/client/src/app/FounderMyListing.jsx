@@ -7,9 +7,10 @@ import { Link } from "react-router-dom";
 import Bridge from "./constants/Bridge.js";
 import axios from "axios";
 import Foundermylistnew from "./foundermylistnew.js";
-import { Spin } from "antd";
+import { Divider, Spin, Card } from "antd";
 import Header from "./common/Header.js";
 import Sidebar from "./Founder/common/Sidebar.js";
+import Title from "antd/lib/typography/Title.js";
 
 export const FounderMyListing = () => {
   useEffect(() => {
@@ -20,17 +21,15 @@ export const FounderMyListing = () => {
   const [unideatils, setunideatils] = useState();
   const [unicorn, setUnicorn] = useState();
   const [loading, setloading] = useState(false);
-console.log(unicorn);
+  console.log(unicorn);
 
   const unicorndetails = async () => {
-    setloading(true)
+    setloading(true);
     let params = {
       founderID: localStorage.getItem("founder_id"),
     };
     let headers = {
       "content-type": "application/json",
-      
-
     };
     await axios
       .post(
@@ -46,23 +45,19 @@ console.log(unicorn);
             pagesize: 10,
           };
           Bridge.Unicorn.unicorndealsByInvestors(par).then((result) => {
-          try {
-            if (res.data.data) {
-              
-              setUnicorn(
-                result.data.filter(
-                  (item) => item.tudTempUdID == res.data.data[0].tudTempUdID
-                )
-                
-              );
+            try {
+              if (res.data.data) {
+                setUnicorn(
+                  result.data.filter(
+                    (item) => item.tudTempUdID == res.data.data[0].tudTempUdID
+                  )
+                );
+              }
+            } catch (error) {
+              console.log(error);
             }
-          } catch (error) {
-            console.log(error);
-            
-            
-          }
           });
-          setloading(false)
+          setloading(false);
         }, 3000);
       });
   };
@@ -153,175 +148,239 @@ console.log(unicorn);
   };
   return (
     <>
- 
       <style>
         {`
-          .input-dashboard-acc label {
-            width: 21%;
+          .unicorn-card {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            background: white;
+            margin: 20px 0;
+          }
+          
+          .unicorn-header {
+            text-align: center;
+            margin-bottom: 2rem;
+          }
+          
+          .unicorn-detail-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+          }
+          
+          .detail-label {
+            font-weight: 600;
+            color: #555;
+            min-width: 150px;
+          }
+          
+          .detail-value {
+            color: #333;
+            flex: 1;
+          }
+          
+          .action-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 24px;
+          }
+          
+          .action-button {
+            padding: 10px 20px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #1890ff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+          }
+          
+          .action-button:hover {
+            background: #40a9ff;
+          }
+          
+          .empty-state {
+            text-align: center;
+            padding: 40px;
+          }
+
+          .action-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 24px;
+          }
+          
+          .action-button {
+            padding: 10px 24px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #1890ff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            min-width: fit-content;
+            width: auto;
+          }
+          
+          .action-button:hover {
+            background: #40a9ff;
+            color: white;
+            text-decoration: none;
+          }
+
+          .list-unicorn-button {
+            width: auto;
+            padding: 10px 20px;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 0 auto;
+          }
+
+          .list-unicorn-button i {
+            font-size: 12px;
+          }
+
+          .empty-state {
+            text-align: center;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
           }
         `}
       </style>
 
-    <Spin spinning={loading}>
- <div
-        style={{
-          background: "rgba(0, 0, 0, 0.036)",
-          paddingBottom: "0",
-          margin: "1px",
-          height: "100%",
-        }}
-      >
-        <Header />
-        <section></section>
-  
-        <div className="row">
-          {/* <div className="collapse navbar-collapse" id="navbarSupportedContent"
-            style={{ width:'fit-content' }}> */}
-          <div
-            className="hiw-nav col-md-2 col-12 py-3 px-0 sidebar2 collapse navbar-collapse"
-            id="navbarSupportedContent"
-          >
-            {/* <section></section> */}
-            <Sidebar />
-          </div>
-          <div className="hiw-nav col-md-2 col-12 py-3 px-0 d-lg-block d-none ">
-            {/* <section></section> */}
-            <Sidebar />
-          </div>
-  
-          <div className="  col col-lg-16 pb-4 ">
-            {/* How do i invest? */}
-            <section
-              id="hdii"
-              className="m-lg-0  m-3"
-              style={{ marginTop: 25, minHeight: "75vh" }}
+      <Spin spinning={loading}>
+        <div
+          style={{
+            background: "rgba(0, 0, 0, 0.036)",
+            paddingBottom: "0",
+            margin: "1px",
+            height: "100%",
+          }}
+        >
+          <Header />
+          <section></section>
+
+          <div className="row">
+            <div
+              className="hiw-nav col-md-2 col-12 py-3 px-0 sidebar2 collapse navbar-collapse"
+              id="navbarSupportedContent"
             >
-                
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center align-items-center" style={{ pointerEvents: "none" }}>
-                        <div class="heading-title m-sm-0">
-                            <p>
-                                <span></span>{" "}
-                            </p>
-                            <h2>Unicorn Details</h2>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="tabs-dashboard justify-content-center">
-                  <div class="tab-contents">
-                    <div class="tab-content" style={{height: "unset"}}>
-                    <input type="radio" name="tab-index" id="tab-index1" checked />
-
-                      <div class="content" style={{justifyContent: "center"}}>
-                        <div className="row">
-                          {unideatils && unideatils.tudPrimaryContactName && (
-                            <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
-                              <div className="input-dashboard-acc">
-                                <label htmlFor="">Founder Name :</label>
-                                {/* <label htmlFor="">:</label> */}
-                                <label htmlFor="">
-                                  {unideatils.tudPrimaryContactName}
-                                </label>
-                              </div>
-                            </div>
-                          )}
-                          {unideatils && unideatils.tudStartupName && (
-                            <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
-                              <div className="input-dashboard-acc">
-                                <label htmlFor="">Startup Name :</label>
-                                {/* <label htmlFor="">:</label> */}
-
-                                <label htmlFor="">
-                                  {unideatils.tudStartupName}
-                                </label>{" "}
-                              </div>
-                            </div>
-                          )}
-
-                          {unideatils && unideatils.tudEmail && (
-                            <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
-                              <div className="input-dashboard-acc">
-                                <label htmlFor="">Email Id :</label>
-                                {/* <label htmlFor="">:</label> */}
-
-                                <label htmlFor="">{unideatils.tudEmail}</label>
-                              </div>
-                            </div>
-                          )}
-
-                          {unideatils && unideatils.tudPrimaryContactMobile && (
-                            <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
-                              <div className="input-dashboard-acc">
-                                <label htmlFor="">Mobile No. :</label>
-                                {/* <label htmlFor="">:</label> */}
-
-                                <label htmlFor="">
-                                {unideatils.tudCountryCode} {unideatils.tudPrimaryContactMobile}
-                                </label>
-                              </div>
-                            </div>
-                          )}
-                          <div className="col-12 col-lg-12 col-xl-12 col-md-12 col-xxl-12 mb-4">
-                            <div className="btns-performs mt-3 d-flex justify-content-center">
-                              <td className="flex-action center-button">
-                                {unicorn && unicorn.length !== 0 && (
-                                  <div className="performs-btns">
-                                    <Link
-                                      to={`/FutureUnicornDescription?id=${unicorn[0].unicornDealID}`}
-                                    >
-                                      <i class="fa-regular fa-eye"></i>View
-                                      Unicorn
-                                    </Link>
-                                  </div>
-                                )}
-                                {unideatils && unideatils.length !== 0 ? (
-
-                                <div className="performs-btns">
-                                  <Link to="FutureUnicornForm">
-                                    {" "}
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                    Edit Unicorn
-                                  </Link>
-                                </div>):(<div style={{display : "flex" , flexDirection :"column", gap :"30px", alignItems: "center", justifyContent :"center" }}><div style={{fontSize :"1.5em"}}>You haven't listed your future unicorn</div> <div className="performs-btns">
-                                  <Link to="FutureUnicornForm">
-                                    {" "}
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                    List your Unicorn
-                                  </Link>
-                                </div></div>)}
-
-                                {/* {unicorn && unicorn.length !== 0 && (
-
-                                <div className="performs-btns">
-                                  <Link to="FounderInterest">
-                                    {" "}
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                    Enquires
-                                  </Link>
-                                </div>
-                               ) } */}
-                              </td>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
+              <Sidebar />
+            </div>
+            <div className="hiw-nav col-md-2 col-12 py-3 px-0 d-lg-block d-none">
+              <Sidebar />
             </div>
 
-        </section>
-        </div>
-        </div>
-        </div>
-</Spin>
+            <div className="col col-lg-16 pb-4">
+              <section
+                id="hdii"
+                className="m-lg-0 m-3"
+                style={{ marginTop: 25, minHeight: "75vh" }}
+              >
+                <div className="container">
+                  <div className="unicorn-header">
+                    <Title level={2}>Unicorn Details</Title>
+                    <Divider />
+                  </div>
 
-        <NewWebFooter />
-</>
+                  {unideatils ? (
+                    <Card className="unicorn-card">
+                      <div className="unicorn-details">
+                        {unideatils.tudPrimaryContactName && (
+                          <div className="unicorn-detail-item">
+                            <span className="detail-label">Founder Name</span>
+                            <span className="detail-value">
+                              {unideatils.tudPrimaryContactName}
+                            </span>
+                          </div>
+                        )}
 
+                        {unideatils.tudStartupName && (
+                          <div className="unicorn-detail-item">
+                            <span className="detail-label">Unicorn Name</span>
+                            <span className="detail-value">
+                              {unideatils.tudStartupName}
+                            </span>
+                          </div>
+                        )}
 
+                        {unideatils.tudEmail && (
+                          <div className="unicorn-detail-item">
+                            <span className="detail-label">Email Id</span>
+                            <span className="detail-value">
+                              {unideatils.tudEmail}
+                            </span>
+                          </div>
+                        )}
+
+                        {unideatils.tudPrimaryContactMobile && (
+                          <div className="unicorn-detail-item">
+                            <span className="detail-label">Mobile No.</span>
+                            <span className="detail-value">
+                              {unideatils.tudCountryCode}{" "}
+                              {unideatils.tudPrimaryContactMobile}
+                            </span>
+                          </div>
+                        )}
+
+                        <div className="action-buttons">
+                          {unicorn && unicorn.length !== 0 && (
+                            <Link
+                              to={`/FutureUnicornDescription?id=${unicorn[0].unicornDealID}`}
+                              className="action-button"
+                            >
+                              <i className="fa-regular fa-eye"></i>
+                              View Unicorn
+                            </Link>
+                          )}
+                          <Link
+                            to="FutureUnicornForm"
+                            className="action-button"
+                          >
+                            <i className="fa-solid fa-pen-to-square"></i>
+                            Edit Unicorn
+                          </Link>
+                        </div>
+                      </div>
+                    </Card>
+                  ) : (
+                    <Card className="unicorn-card">
+                      <div className="empty-state">
+                        <h3>You haven't listed your future unicorn</h3>
+                        <Link
+                          to="FutureUnicornForm"
+                          className="action-button list-unicorn-button"
+                        >
+                          <i className="fa-solid fa-plus"></i>
+                          List your Unicorn
+                        </Link>
+                      </div>
+                    </Card>
+                  )}
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </Spin>
+
+      <NewWebFooter />
+    </>
   );
 };

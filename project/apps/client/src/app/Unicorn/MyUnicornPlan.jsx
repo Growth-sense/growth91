@@ -6,49 +6,49 @@ import Bridge from "../constants/Bridge.js";
 import { Spin } from "antd";
 import Header from "../common/Header.js";
 import Sidebar from "../Founder/common/Sidebar.js";
-import { format } from 'date-fns';
-import { CalendarOutlined, EditOutlined } from '@ant-design/icons';
+import { format } from "date-fns";
+import { CalendarOutlined, EditOutlined } from "@ant-design/icons";
 
 export const MyUnicornPlan = () => {
   const styles = {
     mainContainer: {
       background: "#f8fafc",
-      minHeight: "100vh"
+      minHeight: "100vh",
     },
     contentSection: {
-      padding: "2rem"
+      padding: "2rem",
     },
     planDashboard: {
       background: "#ffffff",
       borderRadius: "16px",
       boxShadow: "0 4px 20px rgba(0, 0, 0, 0.05)",
-      padding: "2rem"
+      padding: "2rem",
     },
     dashboardHeader: {
       textAlign: "center",
-      marginBottom: "3rem"
+      marginBottom: "3rem",
     },
     headerTitle: {
       fontSize: "2rem",
       fontWeight: "600",
       color: "#1e293b",
-      marginBottom: "0.5rem"
+      marginBottom: "0.5rem",
     },
     headerUnderline: {
       width: "60px",
       height: "4px",
       background: "linear-gradient(90deg, #6366f1, #4f46e5)",
       margin: "0 auto",
-      borderRadius: "2px"
+      borderRadius: "2px",
     },
     activePlanContainer: {
-      padding: "1rem"
+      padding: "1rem",
     },
     planInfoGrid: {
       display: "grid",
       gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
       gap: "1.5rem",
-      marginTop: "1rem"
+      marginTop: "1rem",
     },
     planInfoCard: {
       background: "#f8fafc",
@@ -58,7 +58,7 @@ export const MyUnicornPlan = () => {
       alignItems: "center",
       gap: "1.5rem",
       transition: "all 0.3s ease",
-      cursor: "pointer"
+      cursor: "pointer",
     },
     cardIcon: {
       width: "48px",
@@ -69,50 +69,50 @@ export const MyUnicornPlan = () => {
       alignItems: "center",
       justifyContent: "center",
       color: "white",
-      fontSize: "1.25rem"
+      fontSize: "1.25rem",
     },
     cardContent: {
       display: "flex",
       flexDirection: "column",
-      gap: "0.25rem"
+      gap: "0.25rem",
     },
     cardLabel: {
       color: "#64748b",
       fontSize: "0.875rem",
-      fontWeight: "500"
+      fontWeight: "500",
     },
     cardValue: {
       color: "#1e293b",
       fontSize: "1.125rem",
-      fontWeight: "600"
+      fontWeight: "600",
     },
     dateContainer: {
       display: "flex",
       alignItems: "center",
-      gap: "8px"
+      gap: "8px",
     },
     calendarIcon: {
       fontSize: "16px",
       color: "#6366f1",
-      marginRight: "4px"
+      marginRight: "4px",
     },
     dateValue: {
       display: "flex",
       alignItems: "center",
       color: "#1e293b",
       fontSize: "1.125rem",
-      fontWeight: "600"
+      fontWeight: "600",
     },
     noPlanContainer: {
       minHeight: "400px",
       display: "flex",
       alignItems: "center",
-      justifyContent: "center"
+      justifyContent: "center",
     },
     noPlanContent: {
       textAlign: "center",
       maxWidth: "400px",
-      margin: "0 auto"
+      margin: "0 auto",
     },
     emptyStateIcon: {
       width: "80px",
@@ -124,17 +124,17 @@ export const MyUnicornPlan = () => {
       justifyContent: "center",
       margin: "0 auto 1.5rem",
       fontSize: "2rem",
-      color: "#64748b"
+      color: "#64748b",
     },
     noPlanTitle: {
       fontSize: "1.5rem",
       fontWeight: "600",
       color: "#1e293b",
-      marginBottom: "0.5rem"
+      marginBottom: "0.5rem",
     },
     noPlanText: {
       color: "#64748b",
-      marginBottom: "2rem"
+      marginBottom: "2rem",
     },
     ctaButton: {
       display: "inline-flex",
@@ -148,23 +148,61 @@ export const MyUnicornPlan = () => {
       textDecoration: "none",
       transition: "all 0.3s ease",
       border: "none",
-      cursor: "pointer"
+      cursor: "pointer",
     },
     daysRemaining: {
-      fontSize: '0.75rem',
-      fontWeight: '500',
-      padding: '2px 8px',
-      borderRadius: '4px',
-      display: 'inline-block'
+      fontSize: "0.75rem",
+      fontWeight: "500",
+      padding: "2px 8px",
+      borderRadius: "4px",
+      display: "inline-block",
     },
     daysRemainingWarning: {
-      backgroundColor: 'rgba(239, 68, 68, 0.1)',
-      color: '#ef4444'
+      backgroundColor: "rgba(239, 68, 68, 0.1)",
+      color: "#ef4444",
     },
     daysRemainingHealthy: {
-      backgroundColor: 'rgba(16, 185, 129, 0.1)',
-      color: '#10b981'
-    }
+      backgroundColor: "rgba(16, 185, 129, 0.1)",
+      color: "#10b981",
+    },
+  };
+
+  const additionalStyles = {
+    warningSection: {
+      backgroundColor: "#fff5f5",
+      border: "1px solid #fee2e2",
+      borderRadius: "8px",
+      padding: "1rem",
+      marginTop: "1.5rem",
+    },
+    warningTitle: {
+      color: "#dc2626",
+      fontSize: "1rem",
+      fontWeight: "600",
+      marginBottom: "0.5rem",
+      display: "flex",
+      alignItems: "center",
+      gap: "0.5rem",
+    },
+    warningText: {
+      color: "#64748b",
+      fontSize: "0.875rem",
+      marginBottom: "1rem",
+    },
+    purchaseButton: {
+      background: "linear-gradient(135deg, #dc2626, #ef4444)",
+      color: "white",
+      border: "none",
+      borderRadius: "6px",
+      padding: "0.75rem 1.5rem",
+      fontSize: "0.875rem",
+      fontWeight: "500",
+      cursor: "pointer",
+      transition: "all 0.3s ease",
+      display: "inline-flex",
+      alignItems: "center",
+      gap: "0.5rem",
+    },
   };
 
   useEffect(() => {
@@ -181,7 +219,9 @@ export const MyUnicornPlan = () => {
       founder_id: localStorage.getItem("founder_id"),
     };
     try {
-      const result = await Bridge.Unicorn.get_founder_detail_for_unicorn(params);
+      const result = await Bridge.Unicorn.get_founder_detail_for_unicorn(
+        params
+      );
       setFounderDetails(result.data[0]);
     } catch (error) {
       console.error("Error fetching unicorn details:", error);
@@ -193,10 +233,10 @@ export const MyUnicornPlan = () => {
   // Function to check if plan is active and not expired
   const isPlanActive = () => {
     if (!founderDetails?.unicorn_end_date) return false;
-    
+
     const endDate = new Date(founderDetails.unicorn_end_date);
     const currentDate = new Date();
-    
+
     return endDate > currentDate;
   };
 
@@ -209,9 +249,20 @@ export const MyUnicornPlan = () => {
     return diffDays;
   };
 
+  // Add this function to handle the purchase
+  const handlePurchaseEdits = () => {
+    let params = {
+      founder_id: localStorage.getItem("founder_id"),
+      plan_name: "AdditionalEdit"
+    };
+    Bridge.Unicorn.get_payment_link(params).then((result) => {
+      window.location.assign(JSON.parse(result.data).link_url);
+    })
+  };
+
   // PlanInfoCard component
   const PlanInfoCard = ({ icon, label, value, isDate = false }) => (
-    <div 
+    <div
       style={styles.planInfoCard}
       onMouseEnter={(e) => {
         e.currentTarget.style.transform = "translateY(-3px)";
@@ -234,6 +285,35 @@ export const MyUnicornPlan = () => {
           <span style={styles.cardValue}>{value}</span>
         )}
       </div>
+    </div>
+  );
+
+  // New WarningSection component
+  const WarningSection = ({ onPurchase }) => (
+    <div style={additionalStyles.warningSection}>
+      <div style={additionalStyles.warningTitle}>
+        <i className="fas fa-exclamation-circle" />
+        No Remaining Edits Available
+      </div>
+      <p style={additionalStyles.warningText}>
+        You have used all your edits. Purchase 2 additional edits for ₹1,000 to
+        continue making changes.
+      </p>
+      <button
+        style={additionalStyles.purchaseButton}
+        onClick={onPurchase}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = "translateY(-2px)";
+          e.currentTarget.style.boxShadow = "0 4px 12px rgba(239, 68, 68, 0.3)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = "translateY(0)";
+          e.currentTarget.style.boxShadow = "none";
+        }}
+      >
+        <i className="fas fa-shopping-cart" />
+        Purchase Additional Edits
+      </button>
     </div>
   );
 
@@ -262,21 +342,42 @@ export const MyUnicornPlan = () => {
                   <div style={styles.headerUnderline}></div>
                 </div>
 
+                {/* Add warning section here if there are no remaining edits */}
+                {founderDetails?.unicorn_end_date &&
+                  isPlanActive() &&
+                  founderDetails.left_edit == "0" && (
+                    <WarningSection onPurchase={handlePurchaseEdits} />
+                  )}
+
                 {founderDetails?.unicorn_end_date && isPlanActive() ? (
                   <div style={styles.activePlanContainer}>
                     <div style={styles.planInfoGrid}>
                       <PlanInfoCard
                         icon={<CalendarOutlined />}
                         label="Plan Start Date"
-                        value={format(new Date(founderDetails.unicorn_start_date), 'dd MMM yyyy')}
+                        value={format(
+                          new Date(founderDetails.unicorn_start_date),
+                          "dd MMM yyyy"
+                        )}
                         isDate={true}
                       />
                       <PlanInfoCard
                         icon={<CalendarOutlined />}
                         label="Plan End Date"
                         value={
-                          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                            <span>{format(new Date(founderDetails.unicorn_end_date), 'dd MMM yyyy')}</span>
+                          <div
+                            style={{
+                              display: "flex",
+                              flexDirection: "column",
+                              gap: "4px",
+                            }}
+                          >
+                            <span>
+                              {format(
+                                new Date(founderDetails.unicorn_end_date),
+                                "dd MMM yyyy"
+                              )}
+                            </span>
                           </div>
                         }
                         isDate={true}
@@ -286,40 +387,56 @@ export const MyUnicornPlan = () => {
                         label="Remaining Edits"
                         value={founderDetails.left_edit}
                       />
+                      <PlanInfoCard
+                        icon={<EditOutlined />}
+                        label="Plan Name"
+                        value={founderDetails.unicorn_plan}
+                      />
                     </div>
                   </div>
                 ) : (
                   <div style={styles.noPlanContainer}>
                     <div style={styles.noPlanContent}>
                       <h2 style={styles.noPlanTitle}>
-                        {founderDetails?.unicorn_end_date ? 'Plan Expired' : 'No Active Plan'}
+                        {founderDetails?.unicorn_end_date
+                          ? "Plan Expired"
+                          : "No Active Plan"}
                       </h2>
                       <p style={styles.noPlanText}>
-                        {founderDetails?.unicorn_end_date 
-                          ? 'Your unicorn plan has expired. Please renew to continue accessing the features.'
+                        {founderDetails?.unicorn_end_date
+                          ? "Your unicorn plan has expired. Please renew to continue accessing the features."
                           : "You currently don't have any active unicorn plan."}
                       </p>
-                      <Link 
-                        to="ViewUnicornPlan" 
+                      <Link
+                        to="ViewUnicornPlan"
                         style={{
                           ...styles.ctaButton,
-                          background: founderDetails?.unicorn_end_date 
-                            ? 'linear-gradient(135deg, #ef4444, #dc2626)'
-                            : 'linear-gradient(135deg, #6366f1, #4f46e5)'
+                          background: founderDetails?.unicorn_end_date
+                            ? "linear-gradient(135deg, #ef4444, #dc2626)"
+                            : "linear-gradient(135deg, #6366f1, #4f46e5)",
                         }}
                         onMouseEnter={(e) => {
                           e.currentTarget.style.transform = "translateY(-2px)";
-                          e.currentTarget.style.boxShadow = founderDetails?.unicorn_end_date 
-                            ? "0 4px 12px rgba(239, 68, 68, 0.3)"
-                            : "0 4px 12px rgba(99, 102, 241, 0.3)";
+                          e.currentTarget.style.boxShadow =
+                            founderDetails?.unicorn_end_date
+                              ? "0 4px 12px rgba(239, 68, 68, 0.3)"
+                              : "0 4px 12px rgba(99, 102, 241, 0.3)";
                         }}
                         onMouseLeave={(e) => {
                           e.currentTarget.style.transform = "translateY(0)";
                           e.currentTarget.style.boxShadow = "none";
                         }}
                       >
-                        <i className={founderDetails?.unicorn_end_date ? "fas fa-sync" : "fas fa-arrow-right"}></i>
-                        {founderDetails?.unicorn_end_date ? 'Renew Plan' : 'View Available Plans'}
+                        <i
+                          className={
+                            founderDetails?.unicorn_end_date
+                              ? "fas fa-sync"
+                              : "fas fa-arrow-right"
+                          }
+                        ></i>
+                        {founderDetails?.unicorn_end_date
+                          ? "Renew Plan"
+                          : "View Available Plans"}
                       </Link>
                     </div>
                   </div>

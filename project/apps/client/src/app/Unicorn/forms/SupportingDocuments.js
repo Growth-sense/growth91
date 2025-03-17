@@ -166,7 +166,16 @@ class SupportingDocuments extends Component {
   };
 
   updateimg = async () => {
-    let i = 0;
+    if (this.props.adminnext) {
+      if (this.state.processtype == "next") {
+        this.props.next();
+        return;
+      } else if (this.state.processtype == "prev") {
+        this.props.prev();
+        return;
+      }
+    }
+    
     this.props.onInput(
       "tudStartupHighlights",
       JSON.stringify(this.state.startuphighlight)
@@ -193,9 +202,9 @@ class SupportingDocuments extends Component {
         if (result.status == 1) {
           this.setState({ loading: false }, () => this.props.activate());
           if (this.state.processtype == "next") {
-            //  this.props.next();
+             this.props.next();
           } else if (this.state.processtype == "prev") {
-            //  this.props.prev();
+             this.props.prev();
           } else if (this.state.processtype == "saveandproceed") {
             //  this.props.activate();
             message.success("Reference details are updated successfully.", 6);
@@ -207,12 +216,7 @@ class SupportingDocuments extends Component {
           this.setState({ loading: false });
         }
       });
-      // return;
-      if (this.state.processtype == "next") {
-        //  this.props.next();
-      } else if (this.state.processtype == "prev") {
-        //  this.props.prev();
-      }
+      
     }, 5000);
   };
   openpitchfile = () => {

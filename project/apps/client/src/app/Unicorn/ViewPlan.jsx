@@ -43,8 +43,8 @@ export const ViewPlan = () => {
     {
       name: "Platinum",
       edits: "Unlimited",
-      price: "₹20,000",
-      priceId: "20000",
+      price: "₹25,000",
+      priceId: "25000",
       features: [
         "Unlimited edits",
         "1 year validity"
@@ -57,9 +57,19 @@ export const ViewPlan = () => {
       founder_id: localStorage.getItem("founder_id"),
     };
     Bridge.Unicorn.get_founder_detail_for_unicorn(params).then((result) => {
-      console.log(result)
+      console.log(result);  
     })
   };
+
+  const getPaymentLink = async (planName) => {
+    let params = {
+      founder_id: localStorage.getItem("founder_id"),
+      plan_name: planName
+    };
+    Bridge.Unicorn.get_payment_link(params).then((result) => {
+      window.location.assign(JSON.parse(result.data).link_url);
+    })
+  }
 
   $(window).scroll(function () {
     if ($(this).scrollTop() > 30) {
@@ -236,6 +246,9 @@ export const ViewPlan = () => {
                             fontSize: "16px",
                             fontWeight: "600",
                             boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)"
+                          }}
+                          onClick={() => {
+                            getPaymentLink(plan.name);
                           }}
                         >
                           Get Started as {plan.name}

@@ -795,6 +795,11 @@ class Startup extends CI_Controller {
 					'tudEmployees'=> $tudEmployees,
 					'tudFocusedOnProduct'=> $tudFocusedOnProduct,
 					'tudUseofFundRepayment'=> $tudUseofFundRepayment,
+					'tpage4NA' => $tpage4NA,
+					'tpage9NA' => $tpage4NA,
+					'tpage10NA' => $tpage4NA,
+					'tpage13NA' => $tpage4NA,
+					'tpage17NA' => $tpage4NA,
 				];	
 				$this -> db -> where("tudTempUdID",$tudTempUdID);
 				$status2 = $this -> db -> update("tempunicorndeals2",$post_data2);
@@ -854,8 +859,33 @@ class Startup extends CI_Controller {
 			6) Set Post array for master unicorn table 2
 			7) update/insert in master unicorn table and get ID of the master table 2
 			 */
+
+			
+
 			$isNew= true;	
-			$unicornDealID = 0;
+
+
+			// check if user has any left_edit if left_edit is not > 0 return error to user and if user has edit left, at the end we will reduce it by 1
+			$this->db->select('left_edit, unicorn_end_date');
+			$this->db->from('users');
+			$this->db->where('investor_id', $founderID);
+			$query = $this->db->get();
+			$userData = $query->row();
+			$currentDate = date('Y-m-d H:i:s');
+			if ($userData->left_edit <= 0) {
+				$response = [
+					'status' => '0',
+					'message' => "You don't have a valid plan",
+				];
+			}
+			else if ($userData->unicorn_end_date < $currentDate){
+				$response = [
+					'status' => '0',
+					'message' => "You don't have a valid plan",
+				];
+			}
+			else{
+				$unicornDealID = 0;
 			//Step1
 			$listArr = $this -> db -> select("unicornDealID") -> from("unicorndeals") -> where("udFounderID",$founderID) -> where("tudTempUdID",$tudTempUdID) -> get() -> result_array();
 			if (!empty($listArr)) {
@@ -940,6 +970,12 @@ class Startup extends CI_Controller {
 				
 				if($processDone)
 				{
+					// update left_edit value and set it to the current value -1 in users table
+					$this->db->where('investor_id', $founderID);
+					$this->db->set('left_edit', 'left_edit - 1', FALSE); // FALSE to prevent escaping
+					$this->db->update('users');
+
+
 					$response = [
 						'status' => '1',
 						'message' => 'Details updated successfully.',
@@ -967,6 +1003,15 @@ class Startup extends CI_Controller {
 				];
 
 			}
+
+			}
+				
+			
+
+
+
+
+			
 			
 			 
 			
@@ -1400,5 +1445,159 @@ class Startup extends CI_Controller {
 		$this->output
 		->set_content_type('application/json')
 		->set_output(json_encode($response));	
+	}
+
+	function get_payment_link() {
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		
+		// Add logic to get founder id from formdata and get that details from db and return as response
+		if(!empty($formdata)) {
+			// POst data for table 1
+
+			$founder_id=$formdata['founder_id'];
+			$plan_name=$formdata['plan_name'];
+
+			$linkId = $founder_id . '_' . $plan_name . '_' . time();
+
+			
+			$amount=0;
+			// if plan name is gold set amount to 3000 if plan name is silver set amount to 2000 if plan name is bronze set amount to 1000
+			if($plan_name=='AdditionalEdit')
+			{
+				$amount=1000;
+			}
+			if($plan_name=='Silver')
+			{
+				$amount=3000;
+			}
+			if($plan_name=='Gold')
+			{
+				$amount=10000;
+			}
+			if($plan_name=='Platinum')
+			{
+				$amount=25000;
+			}
+
+			$curl = curl_init();
+
+			// Get current time and add 10 minutes
+			$expiryTime = date('Y-m-d\TH:i:sP', strtotime('+10 minutes'));
+
+			// Prepare the request payload
+			$payload = [
+				'customer_details' => [
+					'customer_phone' => '1111111111'
+				],
+				'link_amount' => $amount, // Using the amount variable
+				'link_auto_reminders' => true,
+				'link_currency' => 'INR',
+				'link_expiry_time' => $expiryTime,
+				'link_id' => $linkId,
+				'link_meta' => [
+					'notify_url' => 'https://growth91.growthmetaverse.in/api/founder/Startup/handle_payment_link',
+					'return_url' => 'https://growth91.growthmetaverse.in/MyUnicornPlan',
+					'upi_intent' => false
+				],
+				'link_notify' => [
+					'send_email' => false,
+					'send_sms' => false
+				],
+				'link_purpose' => 'Growth91',
+			];
+
+			curl_setopt_array($curl, [
+				CURLOPT_URL => "https://sandbox.cashfree.com/pg/links",
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_ENCODING => "",
+				CURLOPT_MAXREDIRS => 10,
+				CURLOPT_TIMEOUT => 30,
+				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+				CURLOPT_CUSTOMREQUEST => "POST",
+				CURLOPT_POSTFIELDS => json_encode($payload),
+				CURLOPT_HTTPHEADER => [
+					"Content-Type: application/json",
+					"x-api-version: 2023-08-01",
+					"x-client-id: TEST1048875867fc188f7eb7cd24ab1d85788401",
+					"x-client-secret: cfsk_ma_test_ae9be5ff94d2a5007e56dd481d96f77e_53b7e225"
+				],
+			]);
+
+
+			$response = curl_exec($curl);
+			$err = curl_error($curl);
+
+			curl_close($curl);
+
+			if ($err) {
+				$response = [
+					'status' => '0',
+					'message'=> 'Something went wrong. Please try again later.',
+				];
+				echo "cURL Error #:" . $err;
+			} else {
+				$response = [
+					'status' => '0',
+					'data'=> $response,
+				];
+			}
+		} else {
+			$response = [
+				'status' => '0',
+				'message'=> 'Something went wrong. Please try again later.',
+			];
+		}
+		$this->output
+		->set_content_type('application/json')
+		->set_output(json_encode($response));	
+	}
+
+	function handle_payment_link() {
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		
+		$type=$formdata['type'];
+		if($type=='PAYMENT_SUCCESS_WEBHOOK'){
+			$link_id = $formdata['data']['order']['order_tags']['link_id'];
+			$founderId = explode('_', $link_id)[0];
+			$planName = explode('_', $link_id)[1];
+
+			if($planName=='AdditionalEdit'){
+				$post_data=[
+					'left_edit'=>2
+				];
+				$this->db->where('investor_id', $founderId);
+				$this->db->update('users', $post_data);
+			}
+
+			else{
+				$planStartDate=date('Y-m-d');
+				$planEndDate=date('Y-m-d', strtotime('+1 year'));
+
+				// Update users table with plan name start and end date
+				$post_data=[
+					'unicorn_plan'=>$planName,
+					'unicorn_start_date'=>$planStartDate,
+					'unicorn_end_date'=>$planEndDate,
+					// set if silver then 2, if gold then 10 else 999
+					'left_edit'=>
+						($planName=='Silver' ? 2 : ($planName=='Gold' ? 12 : ($planName=='Platinum' ? 999 : 0))),
+				];
+				$this->db->where('investor_id', $founderId);
+				$this->db->update('users', $post_data);
+			}
+		}
+		
 	}
 }

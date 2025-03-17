@@ -315,10 +315,16 @@ class Founderadmindashboard extends Component {
         tudUseofFundRepayment: "",
         tudTempUdID: "",
         show_thankyou_modal: "",
+        show_error_modal: false,
         unicornid: "",
         tudDeclare: 0,
 
         founderID: localStorage.getItem("founder_id"),
+        tpage4NA: false,
+        tpage9NA: false,
+        tpage10NA: false,
+        tpage13NA: false,
+        tpage17NA: false
       },
     };
   }
@@ -380,209 +386,209 @@ class Founderadmindashboard extends Component {
           this.setState({ unicorn: { ...this.state.unicorn, ...data } });
         }
 
-        if (result.status == 1) {
-          /// showing for done
-          if (result.data[0].send_me_copy_of_response) {
-            // this.setState({class18:' success-tab'});
-          }
-          if (
-            result.data[0].what_valuation_will_safe &&
-            result.data[0].dependence_on_any_specific_founder &&
-            result.data[0].regulartory_issues &&
-            result.data[0].licences_and_permissions &&
-            result.data[0].team_size &&
-            result.data[0].is_company_paying_commision_above_5_per &&
-            result.data[0].is_company_paying_commision_above_10_per &&
-            result.data[0].possible_exit_opportunities &&
-            result.data[0].subsidiaries &&
-            result.data[0].sister_concerns &&
-            result.data[0].related_party_transactions &&
-            result.data[0].legal_risk_plan_to_migrate &&
-            result.data[0].amy_change_by_founders &&
-            result.data[0].demo_video_link &&
-            result.data[0].supported_documents &&
-            result.data[0].media_coverage &&
-            result.data[0].awards_and_recognitions &&
-            result.data[0].recognized_as_startup_by_dpiit &&
-            result.data[0].any_specific_information_to_share
-          ) {
-            // this.setState({class16:' success-tab'});
-          }
-          if (
-            result.data[0].are_you_registered_for_gst &&
-            result.data[0].status_of_gst_compliance &&
-            result.data[0].date_of_last_audited_balance_sheet &&
-            result.data[0].date_of_filling_last_itr &&
-            result.data[0].date_of_last_agm &&
-            result.data[0].pending_complience_related_to_roc &&
-            result.data[0].past_days &&
-            result.data[0].list_of_other_situatory
-          ) {
-            // this.setState({class15:' success-tab'});
-          }
-          if (
-            result.data[0].funds_required &&
-            result.data[0].expected_runway_with_current_fund_raise &&
-            result.data[0].desired_valuation_for_current_fund_raise &&
-            result.data[0].logic_for_desired_valuation &&
-            result.data[0].are_you_open_to_consider_logical_lower_valuation &&
-            result.data[0].capex_immediately &&
-            result.data[0].capex_future_plans &&
-            result.data[0].use_of_funds_product_development &&
-            result.data[0].use_of_funds_marketing &&
-            result.data[0].use_of_funds_repayment &&
-            result.data[0].use_of_funds_salaries_in_per &&
-            result.data[0].use_of_funds_cost_and_commision &&
-            result.data[0].use_of_funds_other &&
-            result.data[0].are_you_open_to_consider_logical_lower_valuation
-          ) {
-            // this.setState({class14:' success-tab'});
-          }
-          if (result.data[0].have_you_raised_fund_for_startup) {
-            // this.setState({class13:' success-tab'});
-          }
-          if (
-            result.data[0].founders_current_salery &&
-            result.data[0].date_of_last_increase_founders_salary &&
-            result.data[0].core_team_current_salary &&
-            result.data[0].total_salary_including_core_team_salary
-          ) {
-            // this.setState({class12:' success-tab'});
-          }
-          if (
-            result.data[0].authorized_captial_of_company &&
-            result.data[0].paid_up_capital_company &&
-            result.data[0].percentage_holding_by_core_team &&
-            result.data[0].reserved_for_esop &&
-            result.data[0].percentage_holding_of_others &&
-            result.data[0].actual_amount_real_salaries_taken &&
-            result.data[0].usecure_loans_received_from_founders &&
-            result.data[0].usecure_loans_received_from_other &&
-            result.data[0].any_other_secured_or_ddebt_from_bank
-          ) {
-            // this.setState({class11:' success-tab'});
-          }
-          if (
-            result.data[0].name_of_clients &&
-            result.data[0].client_retention &&
-            result.data[0].revenue_top_5_clients &&
-            result.data[0].explaination_economics_of_startup &&
-            result.data[0].total_amount_spent_of_product &&
-            result.data[0].major_expense_till_date
-          ) {
-            // this.setState({class10:' success-tab'});
-          }
-          if (
-            result.data[0].primary_gtm_strategy &&
-            result.data[0].backup_plan_for_strategy &&
-            result.data[0].existing_cas &&
-            result.data[0].expected_cac_in_future &&
-            result.data[0].rational_behinde_any_change_in_cac &&
-            result.data[0].ltv_of_customer &&
-            result.data[0].rational_behind_ltv_number &&
-            result.data[0].ltv_to_cac_ratio
-          ) {
-            // this.setState({class9:' success-tab'});
-          }
-          if (
-            result.data[0].linkdin ||
-            result.data[0].facebook ||
-            result.data[0].instagram ||
-            result.data[0].youtube ||
-            result.data[0].others
-          ) {
-            // this.setState({class8:' success-tab'});
-          }
-          if (
-            result.data[0].name_of_legality_entity &&
-            result.data[0].website &&
-            result.data[0].cin_legality_entity &&
-            result.data[0].pan_legality_entity &&
-            result.data[0].registered_in_country &&
-            result.data[0].formality_established_date &&
-            result.data[0].activities_start_date_befire_formal &&
-            result.data[0].address_registered_office &&
-            result.data[0].address_corporate_office &&
-            result.data[0].director_1_name &&
-            result.data[0].director_1_din &&
-            result.data[0].director_2_name &&
-            result.data[0].director_2_din &&
-            result.data[0].director_3_name &&
-            result.data[0].director_3_din &&
-            result.data[0].director_4_name &&
-            result.data[0].director_4_din
-          ) {
-            // this.setState({class7:' success-tab'});
-          }
-          if (
-            result.data[0].strength_of_your_startup &&
-            result.data[0].weakness_of_startup &&
-            result.data[0].opportunities_for_startup &&
-            result.data[0].threats_for_startup
-          ) {
-            // this.setState({class6:' success-tab'});
-          }
-          if (
-            result.data[0].direct_local_competition &&
-            result.data[0].in_direct_local_competition &&
-            result.data[0].direct_global_competition &&
-            result.data[0].indirect_global_competition &&
-            result.data[0].how_different_startup_from_competition &&
-            result.data[0].why_difficult_competition &&
-            result.data[0].what_are_unfair_disadvantages &&
-            result.data[0].most_about_your_competition
-          ) {
-            // this.setState({class5:' success-tab'});
-          }
-          if (
-            result.data[0].relevant_industry &&
-            result.data[0].views_on_industry &&
-            result.data[0].total_market_size_of_industry &&
-            result.data[0].supporting_information_of_narket_size &&
-            result.data[0].addressale_market_size &&
-            result.data[0]
-              .supporting_information_of_demarking_addressable_market
-          ) {
-            // this.setState({class4:' success-tab'});
-          }
-          if (
-            result.data[0].have_any_android_app_startup &&
-            result.data[0].have_ios_app
-          ) {
-            // this.setState({class3:' success-tab'});
-          }
-          if (
-            result.data[0].trademark &&
-            result.data[0].patents &&
-            result.data[0].other_ips &&
-            result.data[0].all_iprs_rwgistered_in_company
-          ) {
-            // this.setState({class2:' success-tab'});
-          }
-          if (
-            result.data[0].is_disrupting_existing_market &&
-            result.data[0].is_targeting_new_untabed_market &&
-            result.data[0].customer_benifit &&
-            result.data[0].suplier_benifit &&
-            result.data[0].focused_on_product &&
-            result.data[0].direct_substitute_available &&
-            result.data[0].indirect_substitute_available &&
-            result.data[0].risks_perceived &&
-            result.data[0].responsibilities_distributted_members &&
-            result.data[0].moats &&
-            result.data[0].challenges_for_scale_up
-          ) {
-            // this.setState({class1:' success-tab'});
-          }
-          if (
-            result.data[0].email &&
-            result.data[0].startup_name &&
-            result.data[0].primary_contact_person_name &&
-            result.data[0].primary_contact_person_mobile
-          ) {
-            // this.setState({class0:' success-tab'});
-          }
-        }
+        // if (result.status == 1) {
+        //   /// showing for done
+        //   if (result.data[0].send_me_copy_of_response) {
+        //     // this.setState({class18:' success-tab'});
+        //   }
+        //   if (
+        //     result.data[0].what_valuation_will_safe &&
+        //     result.data[0].dependence_on_any_specific_founder &&
+        //     result.data[0].regulartory_issues &&
+        //     result.data[0].licences_and_permissions &&
+        //     result.data[0].team_size &&
+        //     result.data[0].is_company_paying_commision_above_5_per &&
+        //     result.data[0].is_company_paying_commision_above_10_per &&
+        //     result.data[0].possible_exit_opportunities &&
+        //     result.data[0].subsidiaries &&
+        //     result.data[0].sister_concerns &&
+        //     result.data[0].related_party_transactions &&
+        //     result.data[0].legal_risk_plan_to_migrate &&
+        //     result.data[0].amy_change_by_founders &&
+        //     result.data[0].demo_video_link &&
+        //     result.data[0].supported_documents &&
+        //     result.data[0].media_coverage &&
+        //     result.data[0].awards_and_recognitions &&
+        //     result.data[0].recognized_as_startup_by_dpiit &&
+        //     result.data[0].any_specific_information_to_share
+        //   ) {
+        //     // this.setState({class16:' success-tab'});
+        //   }
+        //   if (
+        //     result.data[0].are_you_registered_for_gst &&
+        //     result.data[0].status_of_gst_compliance &&
+        //     result.data[0].date_of_last_audited_balance_sheet &&
+        //     result.data[0].date_of_filling_last_itr &&
+        //     result.data[0].date_of_last_agm &&
+        //     result.data[0].pending_complience_related_to_roc &&
+        //     result.data[0].past_days &&
+        //     result.data[0].list_of_other_situatory
+        //   ) {
+        //     // this.setState({class15:' success-tab'});
+        //   }
+        //   if (
+        //     result.data[0].funds_required &&
+        //     result.data[0].expected_runway_with_current_fund_raise &&
+        //     result.data[0].desired_valuation_for_current_fund_raise &&
+        //     result.data[0].logic_for_desired_valuation &&
+        //     result.data[0].are_you_open_to_consider_logical_lower_valuation &&
+        //     result.data[0].capex_immediately &&
+        //     result.data[0].capex_future_plans &&
+        //     result.data[0].use_of_funds_product_development &&
+        //     result.data[0].use_of_funds_marketing &&
+        //     result.data[0].use_of_funds_repayment &&
+        //     result.data[0].use_of_funds_salaries_in_per &&
+        //     result.data[0].use_of_funds_cost_and_commision &&
+        //     result.data[0].use_of_funds_other &&
+        //     result.data[0].are_you_open_to_consider_logical_lower_valuation
+        //   ) {
+        //     // this.setState({class14:' success-tab'});
+        //   }
+        //   if (result.data[0].have_you_raised_fund_for_startup) {
+        //     // this.setState({class13:' success-tab'});
+        //   }
+        //   if (
+        //     result.data[0].founders_current_salery &&
+        //     result.data[0].date_of_last_increase_founders_salary &&
+        //     result.data[0].core_team_current_salary &&
+        //     result.data[0].total_salary_including_core_team_salary
+        //   ) {
+        //     // this.setState({class12:' success-tab'});
+        //   }
+        //   if (
+        //     result.data[0].authorized_captial_of_company &&
+        //     result.data[0].paid_up_capital_company &&
+        //     result.data[0].percentage_holding_by_core_team &&
+        //     result.data[0].reserved_for_esop &&
+        //     result.data[0].percentage_holding_of_others &&
+        //     result.data[0].actual_amount_real_salaries_taken &&
+        //     result.data[0].usecure_loans_received_from_founders &&
+        //     result.data[0].usecure_loans_received_from_other &&
+        //     result.data[0].any_other_secured_or_ddebt_from_bank
+        //   ) {
+        //     // this.setState({class11:' success-tab'});
+        //   }
+        //   if (
+        //     result.data[0].name_of_clients &&
+        //     result.data[0].client_retention &&
+        //     result.data[0].revenue_top_5_clients &&
+        //     result.data[0].explaination_economics_of_startup &&
+        //     result.data[0].total_amount_spent_of_product &&
+        //     result.data[0].major_expense_till_date
+        //   ) {
+        //     // this.setState({class10:' success-tab'});
+        //   }
+        //   if (
+        //     result.data[0].primary_gtm_strategy &&
+        //     result.data[0].backup_plan_for_strategy &&
+        //     result.data[0].existing_cas &&
+        //     result.data[0].expected_cac_in_future &&
+        //     result.data[0].rational_behinde_any_change_in_cac &&
+        //     result.data[0].ltv_of_customer &&
+        //     result.data[0].rational_behind_ltv_number &&
+        //     result.data[0].ltv_to_cac_ratio
+        //   ) {
+        //     // this.setState({class9:' success-tab'});
+        //   }
+        //   if (
+        //     result.data[0].linkdin ||
+        //     result.data[0].facebook ||
+        //     result.data[0].instagram ||
+        //     result.data[0].youtube ||
+        //     result.data[0].others
+        //   ) {
+        //     // this.setState({class8:' success-tab'});
+        //   }
+        //   if (
+        //     result.data[0].name_of_legality_entity &&
+        //     result.data[0].website &&
+        //     result.data[0].cin_legality_entity &&
+        //     result.data[0].pan_legality_entity &&
+        //     result.data[0].registered_in_country &&
+        //     result.data[0].formality_established_date &&
+        //     result.data[0].activities_start_date_befire_formal &&
+        //     result.data[0].address_registered_office &&
+        //     result.data[0].address_corporate_office &&
+        //     result.data[0].director_1_name &&
+        //     result.data[0].director_1_din &&
+        //     result.data[0].director_2_name &&
+        //     result.data[0].director_2_din &&
+        //     result.data[0].director_3_name &&
+        //     result.data[0].director_3_din &&
+        //     result.data[0].director_4_name &&
+        //     result.data[0].director_4_din
+        //   ) {
+        //     // this.setState({class7:' success-tab'});
+        //   }
+        //   if (
+        //     result.data[0].strength_of_your_startup &&
+        //     result.data[0].weakness_of_startup &&
+        //     result.data[0].opportunities_for_startup &&
+        //     result.data[0].threats_for_startup
+        //   ) {
+        //     // this.setState({class6:' success-tab'});
+        //   }
+        //   if (
+        //     result.data[0].direct_local_competition &&
+        //     result.data[0].in_direct_local_competition &&
+        //     result.data[0].direct_global_competition &&
+        //     result.data[0].indirect_global_competition &&
+        //     result.data[0].how_different_startup_from_competition &&
+        //     result.data[0].why_difficult_competition &&
+        //     result.data[0].what_are_unfair_disadvantages &&
+        //     result.data[0].most_about_your_competition
+        //   ) {
+        //     // this.setState({class5:' success-tab'});
+        //   }
+        //   if (
+        //     result.data[0].relevant_industry &&
+        //     result.data[0].views_on_industry &&
+        //     result.data[0].total_market_size_of_industry &&
+        //     result.data[0].supporting_information_of_narket_size &&
+        //     result.data[0].addressale_market_size &&
+        //     result.data[0]
+        //       .supporting_information_of_demarking_addressable_market
+        //   ) {
+        //     // this.setState({class4:' success-tab'});
+        //   }
+        //   if (
+        //     result.data[0].have_any_android_app_startup &&
+        //     result.data[0].have_ios_app
+        //   ) {
+        //     // this.setState({class3:' success-tab'});
+        //   }
+        //   if (
+        //     result.data[0].trademark &&
+        //     result.data[0].patents &&
+        //     result.data[0].other_ips &&
+        //     result.data[0].all_iprs_rwgistered_in_company
+        //   ) {
+        //     // this.setState({class2:' success-tab'});
+        //   }
+        //   if (
+        //     result.data[0].is_disrupting_existing_market &&
+        //     result.data[0].is_targeting_new_untabed_market &&
+        //     result.data[0].customer_benifit &&
+        //     result.data[0].suplier_benifit &&
+        //     result.data[0].focused_on_product &&
+        //     result.data[0].direct_substitute_available &&
+        //     result.data[0].indirect_substitute_available &&
+        //     result.data[0].risks_perceived &&
+        //     result.data[0].responsibilities_distributted_members &&
+        //     result.data[0].moats &&
+        //     result.data[0].challenges_for_scale_up
+        //   ) {
+        //     // this.setState({class1:' success-tab'});
+        //   }
+        //   if (
+        //     result.data[0].email &&
+        //     result.data[0].startup_name &&
+        //     result.data[0].primary_contact_person_name &&
+        //     result.data[0].primary_contact_person_mobile
+        //   ) {
+        //     // this.setState({class0:' success-tab'});
+        //   }
+        // }
       });
   };
 
@@ -944,60 +950,103 @@ class Founderadmindashboard extends Component {
       },
     });
   };
+
+  setMultiple = (data) => {
+    this.setState({
+      unicorn: {
+        ...this.state.unicorn,
+        ...data
+      },
+    });
+  };
+
+
   publishunicorn = () => {
     this.setState({ loading: true });
     console.log(this.state.unicorn);
-    if (
-      !this.state.unicorn.tudEmail ||
-      this.state.unicorn.tudEmail == "" ||
-      !this.state.unicorn.tudStartupName ||
-      this.state.unicorn.tudStartupName == "" ||
-      !this.state.unicorn.tudPrimaryContactName ||
-      this.state.unicorn.tudPrimaryContactName == "" ||
-      !this.state.unicorn.tudCountryCode ||
-      this.state.unicorn.tudCountryCode == "" ||
-      !this.state.unicorn.tudPrimaryContactMobile ||
-      this.state.unicorn.tudPrimaryContactMobile == "" ||
-      !this.state.unicorn.tudPrimaryContactEmail ||
-      this.state.unicorn.tudPrimaryContactEmail == ""
-    ) {
+    
+    const page1requiredFields = [
+      'tudEmail',
+      'tudStartupName',
+      'tudPrimaryContactName',
+      'tudCountryCode',
+      'tudPrimaryContactMobile',
+      'tudPrimaryContactEmail'
+    ];
+
+    const isPage1FormInvalid = page1requiredFields.some(field => 
+      !this.state.unicorn[field] || this.state.unicorn[field].trim() === ''
+    );
+    
+    if (isPage1FormInvalid) {
       this.setState({ loading: false });
       this.activeform(0);
       toast.error("Please fill Basic Details Section");
       return;
     }
 
-    if (
-      !this.state.unicorn.tudDisruptingMarket ||
-      this.state.unicorn.tudDisruptingMarket == "" ||
-      !this.state.unicorn.tudTappingNew ||
-      this.state.unicorn.tudTappingNew == "" ||
-      !this.state.unicorn.tudCustomerBenifit ||
-      this.state.unicorn.tudCustomerBenifit == "" ||
-      !this.state.unicorn.tudSuppliersBenifit ||
-      this.state.unicorn.tudSuppliersBenifit == "" ||
-      !this.state.unicorn.tudFocusedOnProduct ||
-      this.state.unicorn.tudFocusedOnProduct == "" ||
-      !this.state.unicorn.tudUseofFundRepayment ||
-      this.state.unicorn.tudUseofFundRepayment == "" ||
-      !this.state.unicorn.tudFocusedOnProduct ||
-      this.state.unicorn.tudFocusedOnProduct == "" ||
-      !this.state.unicorn.tudDirectSubstitueAvailable ||
-      this.state.unicorn.tudDirectSubstitueAvailable == "" ||
-      !this.state.unicorn.tudIndirectSubstitueAvailable ||
-      this.state.unicorn.tudIndirectSubstitueAvailable == "" ||
-      !this.state.unicorn.tudRiskPerceived ||
-      this.state.unicorn.tudRiskPerceived == "" ||
-      !this.state.unicorn.tudMoats ||
-      this.state.unicorn.tudMoats == "" ||
-      !this.state.unicorn.tudScaleupChallenges ||
-      this.state.unicorn.tudScaleupChallenges == ""
-    ) {
+    const page2requiredFields = [
+      'tudDisruptingMarket',
+      'tudTappingNew',
+      'tudCustomerBenifit',
+      'tudSuppliersBenifit',
+      'tudFocusedOnProduct',
+      'tudUseofFundRepayment',
+      'tudDirectSubstitueAvailable',
+      'tudIndirectSubstitueAvailable',
+      'tudRiskPerceived',
+      'tudMoats',
+      'tudScaleupChallenges'
+    ];
+
+    const isPage2FormInvalid = page2requiredFields.some(field => 
+      !this.state.unicorn[field] || this.state.unicorn[field].trim() === ''
+    );
+
+    if (isPage2FormInvalid) {
       this.setState({ loading: false });
       this.activeform(1);
       toast.error("Please fill Idea/Business Section");
       return;
     }
+
+    if (
+      !this.state.unicorn.tudMark ||
+      this.state.unicorn.tudMark == "" ||
+      !this.state.unicorn.tudStartupHighlights ||
+      this.state.unicorn.tudStartupHighlights == "" ||
+      !this.state.unicorn.tudLogoImage ||
+      this.state.unicorn.tudLogoImage == "" ||
+      !this.state.unicorn.tudBannerImage ||
+      this.state.unicorn.tudBannerImage == "" ||
+      !this.state.unicorn.tudPitchDeck ||
+      this.state.unicorn.tudPitchDeck == ""
+    ) {
+      this.setState({ loading: false });
+      this.activeform(2);
+      toast.error("Please fill Supporting Documents Section");
+      return;
+    }
+
+    const page4requiredFields = [
+      'tudTrademark',
+      'tudPatents',
+      'tudOtherIPs',
+      'tudOtherDetailsIPs',
+      'tudIPsRegistrationInfo'
+    ];
+
+    const isPage4FormInvalid = page4requiredFields.some(field => 
+      !this.state.unicorn[field] || this.state.unicorn[field].trim() === ''
+    );
+    
+    if (this.state.unicorn.tpage4NA == "0" && isPage4FormInvalid) {
+      this.setState({ loading: false });
+      this.activeform(3);
+      toast.error("Please fill Intellectual Property Section");
+      return;
+    }
+
     if (
       !this.state.unicorn.tudAndroidMobileApp ||
       this.state.unicorn.tudAndroidMobileApp == "" ||
@@ -1011,7 +1060,7 @@ class Founderadmindashboard extends Component {
       this.state.unicorn.tudIphoneAppDetails == "" ))
     ) {
       this.setState({ loading: false });
-      this.activeform(3);
+      this.activeform(4);
 
       toast.error("Please fill Mobile App Section");
       return;
@@ -1031,7 +1080,7 @@ class Founderadmindashboard extends Component {
       this.state.unicorn.tudSupportingInfoAddressableMarketSize == ""
     ) {
       this.setState({ loading: false });
-      this.activeform(4);
+      this.activeform(5);
 
       toast.error("Please fill Industry Market Section");
       return;
@@ -1059,7 +1108,7 @@ class Founderadmindashboard extends Component {
       this.state.unicorn.tudFailureReason == ""
     ) {
       this.setState({ loading: false });
-      this.activeform(5);
+      this.activeform(6);
 
       toast.error("Please fill Comepetition Section");
       return;
@@ -1075,10 +1124,61 @@ class Founderadmindashboard extends Component {
       this.state.unicorn.tudThreats == ""
     ) {
       this.setState({ loading: false });
-      this.activeform(6);
+      this.activeform(7);
       toast.error("Please fill SWOT Section");
       return;
     }
+
+    const page9requiredFields = [
+      'tudLeagalName',
+      'tudWebsite',
+      'tudLegalCin',
+      'tudLegalPan',
+      'tudLegalCountry',
+      'tudEstablishedDate',
+      'tudActivityStartedDate',
+      'tudRegisteredOffice',
+      'tudCorporateOffice',
+      'tudDirector1',
+      'tudDin1',
+      'tudDirector2',
+      'tudDin2',
+      'tudDirector3',
+      'tudDin3',
+      'tudDirector4',
+      'tudDin4'
+    ];
+
+    const isPage9FormInvalid = page9requiredFields.some(field => 
+      !this.state.unicorn[field] || this.state.unicorn[field].trim() === ''
+    );
+    
+    if (this.state.unicorn.tpage9NA == "0" && isPage9FormInvalid) {
+      this.setState({ loading: false });
+      this.activeform(8);
+      toast.error("Please fill Company Legal Entity Section");
+      return;
+    }
+
+    const page10requiredFields = [
+      'tudSocialInsta',
+      'tudSocialFacebook',
+      'tudSocialLinkedIn',
+      'tudSocialYouTube',
+      'tudSocialOthers'
+    ];
+
+    const isPage10FormInvalid = page10requiredFields.some(field => 
+      !this.state.unicorn[field] || this.state.unicorn[field].trim() === ''
+    );
+    
+    if (this.state.unicorn.tpage10NA == "0" && isPage10FormInvalid) {
+      this.setState({ loading: false });
+      this.activeform(9);
+      toast.error("Please fill Social Media Presence Section");
+      return;
+    }
+
     if (
       !this.state.unicorn.tudGtmStratergy ||
       this.state.unicorn.tudGtmStratergy == "" ||
@@ -1098,14 +1198,78 @@ class Founderadmindashboard extends Component {
       this.state.unicorn.tudLtvCacRatio == ""
     ) {
       this.setState({ loading: false });
-      this.activeform(9);
+      this.activeform(10);
       toast.error("Please fill Go to market Section");
       return;
     }
+
+    const page12requiredFields = [
+      'tudNumberofClients',
+      'tudClientRetentions',
+      'tudRevenueTop10',
+      'tudUnitEconomics',
+      'tudTotalCapEx',
+      'tudAmountSpentProdDev',
+      'tudMajorExpInv'
+    ];
+
+    const isPage12FormInvalid = page12requiredFields.some(field => 
+      !this.state.unicorn[field] || this.state.unicorn[field].trim() === ''
+    );
+    
+    if (isPage12FormInvalid) {
+      this.setState({ loading: false });
+      this.activeform(11);
+      toast.error("Please fill Financials Section");
+      return;
+    }
+
+    const page13requiredFields = [
+      'tudAuthorisedCap',
+      'tudPaidupCapi',
+      'tudFounderPer',
+      'tudCorePer',
+      'tudEsopPer',
+      'tudOtherPer',
+      'tudAmountByFounder',
+      'tudUnsecLoanFounder',
+      'tudUnsecLoanOthers',
+      'tudOtherLoan'
+    ];
+
+    const isPage13FormInvalid = page13requiredFields.some(field => 
+      !this.state.unicorn[field] || this.state.unicorn[field].trim() === ''
+    );
+    
+    if (this.state.unicorn.tpage13NA == "0" && isPage13FormInvalid) {
+      this.setState({ loading: false });
+      this.activeform(12);
+      toast.error("Please fill Capital Section");
+      return;
+    }
+
+    const page14requiredFields = [
+      'tudFounderSalary',
+      'tudFounderSalaryPlan',
+      'tudCoreTeamSalary',
+      'tudTotalSalary'
+    ];
+
+    const isPage14FormInvalid = page14requiredFields.some(field => 
+      !this.state.unicorn[field] || this.state.unicorn[field].trim() === ''
+    );
+    
+    if (isPage14FormInvalid) {
+      this.setState({ loading: false });
+      this.activeform(13);
+      toast.error("Please fill Salaries Section");
+      return;
+    }
+
     if (!this.state.unicorn.tudPreviousFundRaised) {
       !this.state.unicorn.tudPreviousFundRaised == "" ||
         this.setState({ loading: false });
-      this.activeform(13);
+      this.activeform(14);
       toast.error("Please fill Go to Funding Detail Section");
       return;
     }
@@ -1138,10 +1302,36 @@ class Founderadmindashboard extends Component {
       this.state.unicorn.tudOthersFund == ""
     ) {
       this.setState({ loading: false });
-      this.activeform(14);
+      this.activeform(15);
       toast.error("Please fill Use of funds Section");
       return;
     }
+
+    const page17requiredFields = [
+      'tudGstRegistered',
+      'tudGstDetails',
+      'tudAuditedBL',
+      'tudItrFilling',
+      'tudAgm',
+      'tudPendingRoc',
+      'tudPastDelays',
+      'tudOtherApplicableCompliance',
+      'tudCaInfo',
+      'tudCsInfo',
+      'tudOtherLegalInfo'
+    ];
+
+    const isPage17FormInvalid = page17requiredFields.some(field => 
+      !this.state.unicorn[field] || this.state.unicorn[field].trim() === ''
+    );
+    
+    if (this.state.unicorn.tpage17NA == "0" && isPage17FormInvalid) {
+      this.setState({ loading: false });
+      this.activeform(16);
+      toast.error("Please fill Compliances Section");
+      return;
+    }
+
     if (
       !this.state.unicorn.tudSaleExitInfo ||
       this.state.unicorn.tudSaleExitInfo == "" ||
@@ -1183,27 +1373,29 @@ class Founderadmindashboard extends Component {
       this.state.unicorn.tudOtherInfo == ""
     ) {
       this.setState({ loading: false });
-      this.activeform(16);
+      this.activeform(17);
       toast.error("Please fill Other Important indicators Section");
       return;
     }
-    if (
-      !this.state.unicorn.tudMark ||
-      this.state.unicorn.tudMark == "" ||
-      !this.state.unicorn.tudStartupHighlights ||
-      this.state.unicorn.tudStartupHighlights == "" ||
-      !this.state.unicorn.tudLogoImage ||
-      this.state.unicorn.tudLogoImage == "" ||
-      !this.state.unicorn.tudBannerImage ||
-      this.state.unicorn.tudBannerImage == "" ||
-      !this.state.unicorn.tudPitchDeck ||
-      this.state.unicorn.tudPitchDeck == ""
-    ) {
+
+    const page19requiredFields = [
+      'tudCustomerRef',
+      'tudVendorRef',
+      'tudPastEmployerRef',
+      'tudGuideRef'
+    ];
+
+    const isPage19FormInvalid = page19requiredFields.some(field => 
+      !this.state.unicorn[field] || this.state.unicorn[field].trim() === ''
+    );
+    
+    if (isPage19FormInvalid) {
       this.setState({ loading: false });
       this.activeform(18);
-      toast.error("Please fill Supporting Documents Section");
+      toast.error("Please fill References Section");
       return;
     }
+    
 
     if (
       !this.state.unicorn.tudStartupFounderName ||
@@ -1229,7 +1421,7 @@ class Founderadmindashboard extends Component {
     ) {
       this.setState({ loading: false });
       this.activeform(19);
-      toast.error("Please fill Deals Section");
+      toast.error("Please fill Other Info Section");
       return;
     }
     let mediaValidation = true;
@@ -1274,24 +1466,37 @@ class Founderadmindashboard extends Component {
     }
 
 
-    if (!this.state.unicorn.tudDeclare || this.state.unicorn.tudDeclare == 0) {
-      this.setState({ loading: false });
-      this.activeform(21);
-      toast.error("Please fill Declaration Section");
-      return;
-    }
+    
     let params = {
       tudTempUdID: this.state.unicorn.tudTempUdID,
       founderID: this.state.unicorn.founderID,
     };
     Bridge.Unicorn.publishunicorndeal(params).then((result) => {
-      console.log(result);
-      this.setState({
-        loading: false,
-        show_thankyou_modal: true,
-        unicornid: result.id,
-      });
-      toast.success("Unicorn Publish Success fully");
+      if(result.status == 1){
+        this.setState({
+          loading: false,
+          show_thankyou_modal: true,
+          unicornid: result.id,
+        });
+        toast.success("Unicorn Publish Successfully");
+      }
+      else{
+        if(result.message == "You don't have a valid plan"){
+          this.setState({
+            loading: false,
+            show_error_modal: true
+          });
+        }
+        else{
+          this.setState({
+            loading: false
+          });
+          toast.warning(result.message);
+        }
+        
+      }
+      
+      
     });
   };
   updatefounder = async (data) => {
@@ -1326,6 +1531,21 @@ class Founderadmindashboard extends Component {
     }
   };
   
+  validatePreview = () => {
+    const { unicorn } = this.state;
+    // Check if required fields in step 1 (Basic Details) are filled
+    const step1Valid = unicorn.tudEmail && unicorn.tudStartupName && unicorn.tudPrimaryContactName && unicorn.tudCountryCode && unicorn.tudPrimaryContactMobile && unicorn.tudPrimaryContactEmail;
+
+    // Check if required fields in step 2 (Idea/Business) are filled
+    const step2Valid = unicorn.tudDisruptingMarket && unicorn.tudTappingNew && unicorn.tudCustomerBenifit && unicorn.tudSuppliersBenifit && unicorn.tudFocusedOnProduct;
+
+    // TODO: This is old step3, we want to validate the new step3 which is logo and banner
+    // Check if required fields in step 3 (Intellectual Property) are filled
+    const step3Valid = unicorn.tudTrademark && unicorn.tudPatents && unicorn.tudOtherIPs;
+
+    return step1Valid && step2Valid && step3Valid;
+  };
+
 
   render() {
     return (
@@ -1473,7 +1693,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Intellectual Property</span>
+                        <span>Supporting Documents</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -1509,7 +1729,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Mobile App</span>
+                        <span>Intellectual Property</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -1545,7 +1765,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Industry Market</span>
+                        <span>Mobile App</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -1576,7 +1796,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Competition</span>
+                        <span>Industry Market</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -1607,7 +1827,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>SWOT</span>
+                        <span>Competition</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -1638,7 +1858,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Company Legal Entity</span>
+                        <span>SWOT</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -1669,7 +1889,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Social Media Presence</span>
+                        <span>Company Legal Entity</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -1700,7 +1920,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Go To Market</span>
+                        <span>Social Media Presence</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -1731,7 +1951,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Financials</span>
+                        <span>Go To Market</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -1762,7 +1982,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Capital</span>
+                        <span>Financials</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -1793,7 +2013,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Salaries</span>
+                        <span>Capital</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -1824,7 +2044,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Funding Details</span>
+                        <span>Salaries</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -1855,7 +2075,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Use Of Funds</span>
+                        <span>Funding Details</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -1886,7 +2106,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Compliances</span>
+                        <span>Use Of Funds</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -1917,7 +2137,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Other Important Indicators</span>
+                        <span>Compliances</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -1948,7 +2168,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>References</span>
+                        <span>Other Important Indicators</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -1979,7 +2199,7 @@ class Founderadmindashboard extends Component {
                               ></i>
                             )}
                         </div>
-                        <span>Supporting Documents</span>
+                        <span>References</span>
                         <div className="line"></div>
                       </div>
                     </li>
@@ -2107,12 +2327,22 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "2" && (
-                  <Step3
+                  <Step20
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(3)}
                     prev={() => this.activeform(1)}
                     next={() => this.activeform(3)}
+                    onClick={() => this.activatethisform(2)}
                     onInput={(name, value) => this.onInput(name, value)}
+                    setMultiple={(data) => {
+                        this.setState({
+                          unicorn: {
+                            ...this.state.unicorn,
+                            ...data
+                          },
+                        });
+                      }
+                    }
                     unicorn={this.state.unicorn}
                     id={this.props.id}
                     error={this.state.error_status_2}
@@ -2120,12 +2350,13 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "3" && (
-                  <Step4
+                  <Step3
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(4)}
                     prev={() => this.activeform(2)}
                     next={() => this.activeform(4)}
                     onInput={(name, value) => this.onInput(name, value)}
+                    setMultiple={(data) => this.setMultiple(data)}
                     unicorn={this.state.unicorn}
                     id={this.props.id}
                     error={this.state.error_status_3}
@@ -2133,7 +2364,7 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "4" && (
-                  <Step5
+                  <Step4
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(5)}
                     prev={() => this.activeform(3)}
@@ -2146,7 +2377,7 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "5" && (
-                  <Step6
+                  <Step5
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(6)}
                     prev={() => this.activeform(4)}
@@ -2159,7 +2390,7 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "6" && (
-                  <Step7
+                  <Step6
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(7)}
                     prev={() => this.activeform(5)}
@@ -2172,7 +2403,7 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "7" && (
-                  <Step8
+                  <Step7
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(8)}
                     prev={() => this.activeform(6)}
@@ -2185,11 +2416,12 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "8" && (
-                  <Step9
+                  <Step8
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(9)}
                     prev={() => this.activeform(7)}
                     next={() => this.activeform(9)}
+                    setMultiple={(data) => this.setMultiple(data)}
                     onInput={(name, value) => this.onInput(name, value)}
                     unicorn={this.state.unicorn}
                     id={this.props.id}
@@ -2198,11 +2430,12 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "9" && (
-                  <Step10
+                  <Step9
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(10)}
                     prev={() => this.activeform(8)}
                     next={() => this.activeform(10)}
+                    setMultiple={(data) => this.setMultiple(data)}
                     onInput={(name, value) => this.onInput(name, value)}
                     unicorn={this.state.unicorn}
                     id={this.props.id}
@@ -2211,7 +2444,7 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "10" && (
-                  <Step11
+                  <Step10
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(11)}
                     prev={() => this.activeform(9)}
@@ -2224,7 +2457,7 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "11" && (
-                  <Step12
+                  <Step11
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(12)}
                     prev={() => this.activeform(10)}
@@ -2237,11 +2470,12 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "12" && (
-                  <Step13
+                  <Step12
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(13)}
                     prev={() => this.activeform(11)}
                     next={() => this.activeform(13)}
+                    setMultiple={(data) => this.setMultiple(data)}
                     onInput={(name, value) => this.onInput(name, value)}
                     unicorn={this.state.unicorn}
                     id={this.props.id}
@@ -2250,7 +2484,7 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "13" && (
-                  <Step14
+                  <Step13
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(14)}
                     prev={() => this.activeform(12)}
@@ -2263,7 +2497,7 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "14" && (
-                  <Step15
+                  <Step14
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(15)}
                     prev={() => this.activeform(13)}
@@ -2276,7 +2510,7 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "15" && (
-                  <Step16
+                  <Step15
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(16)}
                     prev={() => this.activeform(14)}
@@ -2289,11 +2523,12 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "16" && (
-                  <Step17
+                  <Step16
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(17)}
                     prev={() => this.activeform(16)}
                     next={() => this.activeform(17)}
+                    setMultiple={(data) => this.setMultiple(data)}
                     onInput={(name, value) => this.onInput(name, value)}
                     unicorn={this.state.unicorn}
                     id={this.props.id}
@@ -2302,7 +2537,7 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "17" && (
-                  <Step18
+                  <Step17
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(18)}
                     prev={() => this.activeform(17)}
@@ -2315,7 +2550,7 @@ class Founderadmindashboard extends Component {
                   />
                 )}
                 {this.state.activeform == "18" && (
-                  <Step20
+                  <Step18
                     adminnext={this.props.adminview}
                     activate={() => this.activeform(19)}
                     prev={() => this.activeform(17)}
@@ -2383,7 +2618,7 @@ class Founderadmindashboard extends Component {
             {!this.props.adminview && (
               <div className="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto mt-3">
                 <div className="submit-draft-publish d-flex justify-content-center">
-                  <Previewbutton unicorn={this.state.unicorn} />
+                  <Previewbutton unicorn={this.state.unicorn} validatePreview={this.validatePreview}/>
 
                  
                          
@@ -2443,6 +2678,38 @@ class Founderadmindashboard extends Component {
                 <div className="modal-body">
                   <p className="text-center">
                     Future Unicorn is published successfully.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Modal>
+          <Modal
+            // title="Thank You"
+            centered
+            open={this.state.show_error_modal}
+            className="thankumodal"
+            // onCancel={this.cancelThankyou}
+            iconType="SmileOutlined"
+            maskClosable={false}
+            cancelText={"Cancel"}
+            footer={[
+              <>
+                <Link
+                  to={`/MyUnicornPlan`}
+                >
+                  <button className="btn btn-block">View Plans</button>
+                </Link>
+                <Link to="/founder-dashboard">
+                  <button className="btn btn-block">Go to Dashboard</button>
+                </Link>
+              </>,
+            ]}
+          >
+            <div className="modal-confirm">
+              <div className="modal-content">
+                <div className="modal-body">
+                  <p className="text-center">
+                    You don't have a valid plan. However we have saved your unicorn as draft.
                   </p>
                 </div>
               </div>

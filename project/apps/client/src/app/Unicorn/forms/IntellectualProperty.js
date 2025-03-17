@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { message, Spin } from "antd";
+import { Checkbox, message, Spin } from "antd";
 import Bridge from "../../constants/Bridge";
 
 import $ from "jquery";
@@ -16,6 +16,7 @@ class IntellectualProperty extends Component {
       loading: false,
       valueispresent: false,
       processtype: "",
+      page4NA: false,
     };
   }
   componentDidMount() {
@@ -26,28 +27,9 @@ class IntellectualProperty extends Component {
     $("#selected-field").focus();
     this.props.check();
   }
-  getData = (id) => {
-    let params = {
-      founder_id: this.props.id,
-    };
-    Bridge.founder.getFounderDetails(params).then((result) => {
-      if (result.status == 1) {
-        this.setState({
-          trademark: result.data[0].trademark,
-          patents: result.data[0].patents,
-          other_ips: result.data[0].other_ips,
-          other_relevant_details: result.data[0].other_relevant_details,
-          all_iprs_rwgistered_in_company:
-            result.data[0].all_iprs_rwgistered_in_company,
-        });
-        if (result.data[0].trademark) {
-          this.setState({ valueispresent: true });
-        }
-      }
-    });
-  };
-   updatefounder = () => {
- if (this.props.adminnext) {
+  
+  updatefounder = () => {
+    if (this.props.adminnext) {
       if (this.state.processtype == "next") {
         this.props.next();
         return;
@@ -56,17 +38,7 @@ class IntellectualProperty extends Component {
         return;
       }
     }
-    let params = {
-      trademark: this.state.trademark,
-      patents: this.state.patents,
-      other_ips: this.state.other_ips,
-      other_relevant_details: this.state.other_relevant_details,
-      all_iprs_rwgistered_in_company: this.state.all_iprs_rwgistered_in_company,
-      founder_id: this.state.founder_id,
-      no: 3,
-      main_founder_id: localStorage.getItem("founder_id"),
-      f3_status: this.state.processtype == "saveandproceed" ? "success" : "new",
-    };
+    
     this.setState({ loading: true });
     Bridge.Unicorn.editunicorndraft(this.props.unicorn).then((result) => {
       if (result.status == 1) {
@@ -94,27 +66,7 @@ class IntellectualProperty extends Component {
       }
     });
   };
-  saveandproceed = () => {
-    if (!this.state.trademark) {
-      message.warning("Please enter the value of field Trademarks");
-      return;
-    } else if (!this.state.patents) {
-      message.warning("Please enter the value of field Patents");
-      return;
-    } else if (!this.state.other_ips) {
-      message.warning("Please enter the value of field customer Other IPS.");
-      return;
-    } else if (!this.state.all_iprs_rwgistered_in_company) {
-      message.warning(
-        "Please enter the value of field All IPRS Registered In Company"
-      );
-      return;
-    }
-    // this.props.check();
-    this.setState({ processtype: "saveandproceed" }, () =>
-      this.updatefounder()
-    );
-  };
+  
   save = () => {
     this.setState({ processtype: "save" }, () => this.updatefounder());
   };
@@ -202,15 +154,44 @@ class IntellectualProperty extends Component {
                     )}
                   <div className="row" style={{ maxWidth: 900 }}>
                     <div className="col-lg-12">
+                      <div className="form-group">
+                        <div className="d-flex">
+                          
+                          <Checkbox
+                            name="tpage4NA"
+                            style={{ width: 35 }}
+                            checked={this.props.unicorn.tpage4NA == "1"}
+                            value={this.props.unicorn.tpage4NA== true ?(1):(0)}
+                            onChange={(e) =>{
+                              if(e.target.checked){
+                                this.props.setMultiple({
+                                  tpage4NA: "1",
+                                  tudTrademark: "",
+                                  tudPatents: "",
+                                  tudOtherIPs: "",
+                                  tudOtherDetailsIPs: "",
+                                  tudIPsRegistrationInfo: "",
+                                })
+                              }
+                              else{
+                                this.props.onInput(e.target.name, e.target.checked ? "1" : "0")
+                              }
+                              
+                            }
+                            }
+                          ></Checkbox>
+                          <span className="ml-2">Not Applicable</span>
+                        </div>
+                      </div>
+
                       <div className="form-group mt-3">
-                        <label for="">
-                          Trademark
-                        </label>
+                        <label for="">Trademark</label>
                         <textarea
                           id=""
                           cols="30"
                           rows="6"
                           name="tudTrademark"
+                          disabled={this.props.unicorn.tpage4NA == "1"}
                           // id="selected-field"
                           value={this.props.unicorn.tudTrademark}
                           onChange={(e) =>
@@ -219,14 +200,13 @@ class IntellectualProperty extends Component {
                         ></textarea>
                       </div>
                       <div className="form-group">
-                        <label for="">
-                          Patents
-                        </label>
+                        <label for="">Patents</label>
                         <textarea
                           id=""
                           cols="30"
                           rows="6"
                           name="tudPatents"
+                          disabled={this.props.unicorn.tpage4NA == "1"}
                           value={this.props.unicorn.tudPatents}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
@@ -234,14 +214,13 @@ class IntellectualProperty extends Component {
                         ></textarea>
                       </div>
                       <div className="form-group">
-                        <label for="">
-                          Other IPs
-                        </label>
+                        <label for="">Other IPs</label>
                         <textarea
                           id=""
                           cols="30"
                           rows="6"
                           name="tudOtherIPs"
+                          disabled={this.props.unicorn.tpage4NA == "1"}
                           value={this.props.unicorn.tudOtherIPs}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
@@ -255,6 +234,7 @@ class IntellectualProperty extends Component {
                           cols="30"
                           rows="6"
                           name="tudOtherDetailsIPs"
+                          disabled={this.props.unicorn.tpage4NA == "1"}
                           value={this.props.unicorn.tudOtherDetailsIPs}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
@@ -265,16 +245,14 @@ class IntellectualProperty extends Component {
                         <label for="">
                           Are all IPRs registered in Company's name (And not
                           Founder's or other name). If not, please give details.
-                         
                         </label>
                         <textarea
                           id=""
                           cols="30"
                           rows="6"
                           name="tudIPsRegistrationInfo"
-                          value={
-                            this.props.unicorn.tudIPsRegistrationInfo
-                          }
+                          disabled={this.props.unicorn.tpage4NA == "1"}
+                          value={this.props.unicorn.tudIPsRegistrationInfo}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }

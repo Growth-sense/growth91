@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { message, Spin, Input } from "antd";
+import { message, Spin, Input, Checkbox } from "antd";
 
 import $ from "jquery";
 import Bridge from "../../constants/Bridge";
@@ -28,25 +28,6 @@ class SocialMediaPresence extends Component {
     this.props.check();
   }
 
-  getData = (id) => {
-    let params = {
-      founder_id: this.props.id,
-    };
-    Bridge.founder.getFounderDetails(params).then((result) => {
-      if (result.status == 1) {
-        this.setState({
-          linkdin: result.data[0].linkdin,
-          facebook: result.data[0].facebook,
-          instagram: result.data[0].instagram,
-          youtube: result.data[0].youtube,
-          others: result.data[0].others,
-        });
-        if (result.data[0].linkdin) {
-          this.setState({ valueispresent: true });
-        }
-      }
-    });
-  };
   updatefounder = () => {
     if (this.props.adminnext) {
       if (this.state.processtype == "next") {
@@ -58,17 +39,6 @@ class SocialMediaPresence extends Component {
       }
     }
 
-    let params = {
-      linkdin: this.state.linkdin,
-      facebook: this.state.facebook,
-      instagram: this.state.instagram,
-      youtube: this.state.youtube,
-      others: this.state.others,
-      founder_id: this.state.founder_id,
-      no: 9,
-      main_founder_id: localStorage.getItem("founder_id"),
-      f9_status: this.state.processtype == "saveandproceed" ? "success" : "new",
-    };
     this.setState({ loading: true });
     Bridge.Unicorn.editunicorndraft(this.props.unicorn).then((result) => {
       if (result.status == 1) {
@@ -144,7 +114,41 @@ class SocialMediaPresence extends Component {
                   <div className="row" style={{ maxWidth: 900 }}>
                     <div className="col-lg-12">
                     
-
+                    <div className="form-group">
+                        <div className="d-flex">
+                          
+                          <Checkbox
+                            name="tpage10NA"
+                            style={{ width: 35 }}
+                            checked={this.props.unicorn.tpage10NA == "1"}
+                            value={this.props.unicorn.tpage10NA== true ?(1):(0)}
+                            onChange={(e) =>{
+                              if(e.target.checked){
+                                this.props.setMultiple({
+                                  tpage10NA: "1",
+                                  tudSocialInsta: "",
+                                  tudSocialFacebook: "",
+                                  tudSocialLinkedIn: "",
+                                  tudSocialYouTube: "",
+                                  tudSocialOthers: "",
+                                })
+                                this.setState({
+                                  linkedinError: "",
+                                  fbError: "",
+                                  instaError: "",
+                                  urlError: "",
+                                })
+                              }
+                              else{
+                                this.props.onInput(e.target.name, e.target.checked ? "1" : "0")
+                              }
+                              
+                            }
+                            }
+                          ></Checkbox>
+                          <span className="ml-2">Not Applicable</span>
+                        </div>
+                      </div>
                       <div className="form-group">
                         <div className="input-container">
                           <label htmlFor="tudSocialLinkedIn">LinkedIn</label>
@@ -153,6 +157,7 @@ class SocialMediaPresence extends Component {
                             name="tudSocialLinkedIn"
                             id="tudSocialLinkedIn" // Corrected id for accessibility
                             value={this.props.unicorn.tudSocialLinkedIn}
+                            disabled={this.props.unicorn.tpage10NA == "1"}
                             onChange={(e) => {
                               const value = e.target.value;
                               const linkedinPattern =
@@ -201,6 +206,7 @@ class SocialMediaPresence extends Component {
                           <Input
                             type="url"
                             name="tudSocialFacebook"
+                            disabled={this.props.unicorn.tpage10NA == "1"}
                             id="tudSocialFacebook" // Adding id for accessibility
                             value={this.props.unicorn.tudSocialFacebook}
                             onChange={(e) => {
@@ -244,6 +250,7 @@ class SocialMediaPresence extends Component {
                           <Input
                             type="url"
                             name="tudSocialInsta"
+                            disabled={this.props.unicorn.tpage10NA == "1"}
                             id="tudSocialInsta" // Adding id for accessibility
                             value={this.props.unicorn.tudSocialInsta}
                             onChange={(e) => {
@@ -328,6 +335,7 @@ class SocialMediaPresence extends Component {
                           <Input
                             type="url"
                             name="tudSocialYouTube"
+                            disabled={this.props.unicorn.tpage10NA == "1"}
                             value={this.props.unicorn.tudSocialYouTube}
                             onChange={(e) => {
                               const value = e.target.value;
@@ -362,6 +370,7 @@ class SocialMediaPresence extends Component {
                         <textarea
                           type="text"
                           name="tudSocialOthers"
+                          disabled={this.props.unicorn.tpage10NA == "1"}
                           value={this.props.unicorn.tudSocialOthers}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
