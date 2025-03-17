@@ -3,6 +3,7 @@ import WebHeader from "../common/WebHeader";
 import WebFooter from "../common/WebFooter";
 import "./newboo.css";
 import {
+    Table,
     Tabs,
     Collapse,
     message,
@@ -11,6 +12,7 @@ import {
     Checkbox,
     Progress,
     Alert,
+    notification
 } from "antd";
 import axios from "axios";
 import { ExclamationCircleOutlined, PlusOutlined } from "@ant-design/icons";
@@ -29,6 +31,9 @@ class uknowaHRMS extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            selectedInvestorId: null,
+            selectInvestorModal: false,
+            group_list: [],
             deal_id: "",
             investor_id: "",
             interested_id: "",
@@ -141,10 +146,12 @@ class uknowaHRMS extends Component {
     callback3 = (key) => { };
 
     componentWillMount() {
-        document.title = "uknowva HRMS - Growth91 - Startup Marketplace ";
+        document.title = "uKnowva HRMS - Growth91 - Startup Marketplace ";
     }
     componentDidMount() {
         let deal_id = "41";
+        // let deal_id = process.env.ENVIRONMENT === "production" ? "41" : "133";
+
         this.setState({ deal_id: deal_id }, () => {
             this.get_pitch_list();
         });
@@ -176,7 +183,33 @@ class uknowaHRMS extends Component {
         this.getGst();
         this.get_deal_doucments(deal_id);
         // console.log("hello");
+
+        this.setState(
+            {
+              investor_id: localStorage.getItem("Parent_investor_id"),
+            },
+      
+            () => this.viewgroupall(),
+            
+          );
     }
+
+    viewgroupall = () => {
+           let params = {
+             userID:!this.props.adminview?localStorage.getItem("Parent_investor_id"):this.props.investor_id,
+           }
+       
+           Bridge.family.getGroupListForInvestment(params).then((result) => {
+                let youAsMember = [{
+                    investor_id: localStorage.getItem("Parent_investor_id"),
+                    first_name: "You",
+                    last_name:"",
+                    groupName: "N/A"
+                }]
+             this.setState({ group_list: youAsMember.concat(result.data) });
+           });
+         };
+
     get_founder_details = () => {
         let params = {
             founder_id: localStorage.getItem("founder_id"),
@@ -428,7 +461,10 @@ class uknowaHRMS extends Component {
     // get deal list
     getDeals = () => {
         this.setState({ loading: true });
-        Bridge.deal.list().then((result) => {
+        let param = {
+              deal_id: this.state.deal_id
+            }
+        Bridge.deal.get_deal(param).then((result) => {
             // console.log(result.data, "data");
             if (result.status == 1) {
                 this.setState({
@@ -683,6 +719,7 @@ class uknowaHRMS extends Component {
 
         this.setState(
             {
+                selectInvestorModal: false,
                 investmentmodal: true,
             },
             () => {
@@ -1254,6 +1291,44 @@ class uknowaHRMS extends Component {
     };
 
     render() {
+        const dataSource2 =
+            this.state.group_list &&
+            this.state.group_list
+                // .filter(
+                //     (item) => {
+                //         console.log(item);
+                //         return item.userID != (this.props.adminview ? this.props.investor_id : localStorage.getItem("Parent_investor_id"))
+                //     }
+                // )
+                .map((item, index) => {
+                    return {
+                        key: item.investor_id,
+                        investorName: item.first_name + " " + item.last_name,
+                        groupName: item.groupName,
+                        action: item,
+                    };
+                });
+
+
+                
+                  const columns2 = [
+                    // {
+                    //     title: "Investor Name",
+                    //     dataIndex: "name",
+                    //     key: "name",  
+                    // },
+                    {
+                        title: "Investor Name",
+                        dataIndex: "investorName",
+                        key: "investorName",
+                      },
+                    {
+                      title: "Group Name",
+                      dataIndex: "groupName",
+                      key: "groupName",
+                    }
+                  ];
+
         const myStyle = {
             color: "white",
             fontSize: "17px",
@@ -1341,7 +1416,7 @@ class uknowaHRMS extends Component {
                                                 </div>
                                             </div>
                                             <p style={{ textAlign: "justify" }}>
-                                                uKnowva  is an AI-enabled HR Tech platform tailored for mid-sized companies (200–2,000 employees), offering a full-stack solution for payroll, recruitment, onboarding, performance management, and employee engagement. Combining Artificial Intelligence (AI) and Emotional Intelligence (EI),  it enhances productivity and well-being with features like stress detection, sentiment analysis, and attrition prediction. With 300,000+ active users, 120+ paying customers, and a 93% retention rate, uKnowva demonstrates strong product-market fit. Financially robust, the company has achieved positive PAT, repaid its venture debt, and projects revenue growth from INR 9.2 Cr to INR 74 Cr in five years. Backed by an experienced leadership team, Uknowva is recognized for its customizability, affordability, and ease of use, making it a scalable and globally competitive HR solution.
+                                                uKnowva is an AI-enabled HR Tech platform tailored for mid-sized companies (200–2,000 employees), offering a full-stack solution for payroll, recruitment, onboarding, performance management, and employee engagement. Combining Artificial Intelligence (AI) and Emotional Intelligence (EI),  it enhances productivity and well-being with features like stress detection, sentiment analysis, and attrition prediction. With 300,000+ active users, 120+ paying customers, and a 93% retention rate, uKnowva demonstrates strong product-market fit. Financially robust, the company has achieved positive PAT, repaid its venture debt, and projects revenue growth from INR 9.2 Cr to INR 74 Cr in five years. Backed by an experienced leadership team, uKnowva is recognized for its customizability, affordability, and ease of use, making it a scalable and globally competitive HR solution.
                                             </p>{" "}
                                             <div className=" percentage-container">
                                                 <div className="percentage-values">
@@ -1400,13 +1475,15 @@ class uknowaHRMS extends Component {
                                                                         Deal is closed
                                                                     </a>
                                                                 ) : this.state.user_type != "founder" &&
-                                                                    this.state.invest_amt !== null ? (
+                                                                    this.state.invest_amt !== null 
+                                                                    && dataSource2.length <= 1 ? (
                                                                     <div className="button-group">
                                                                         <p>{`You have committed Rs. ${this.state.invest_amt} to this deal so far. (Including platform fees)`}</p>
                                                                         <a
                                                                             href="#!"
                                                                             style={{ padding: "13px 0" }}
                                                                             onClick={() => {
+                                                                                this.setState({selectedInvestorId: dataSource2[0].key});
                                                                                 this.getpostData();
                                                                                 this.showModal1();
                                                                             }}
@@ -1439,11 +1516,18 @@ class uknowaHRMS extends Component {
                                                                                 className="black-button prime-bg text-center"
                                                                                 onClick={() => {
                                                                                     this.getpostData();
-                                                                                    this.showModal1();
+                                                                                    if(dataSource2.length > 1){
+                                                                                        this.setState({selectInvestorModal: true});
+                                                                                    }
+                                                                                    else{
+                                                                                        this.setState({selectedInvestorId: dataSource2[0].key});
+                                                                                        this.showModal1();
+                                                                                    }
                                                                                 }}
                                                                             >
                                                                                 Express Your Interest
                                                                             </a>
+                                                                            
                                                                         ) : (
                                                                             <a
                                                                                 href="/founder-as-investor"
@@ -1462,7 +1546,29 @@ class uknowaHRMS extends Component {
                                                                                 className="black-button prime-bg text-center"
                                                                                 onClick={() => {
                                                                                     this.getpostData();
-                                                                                    this.showModal1();
+                                                                                    if(dataSource2.length > 1){
+                                                                                        this.setState({selectInvestorModal: true});
+                                                                                    }
+                                                                                    else{
+                                                                                        this.setState({selectedInvestorId: dataSource2[0].key});
+                                                                                        this.showModal1();
+                                                                                    }
+                                                                                }}
+                                                                                style={{ padding: "13px 0" }}
+                                                                            >
+                                                                                Express Your Interest
+                                                                            </a>
+                                                                        ) : null}
+                                                                        {this.state.user_type == "investor" &&
+                                                                            this.state.invest_amt != null && 
+                                                                            dataSource2.length > 1
+                                                                            ? (
+                                                                            <a
+                                                                                href="#"
+                                                                                className="black-button prime-bg text-center"
+                                                                                onClick={() => {
+                                                                                    this.getpostData();
+                                                                                    this.setState({selectInvestorModal: true});
                                                                                 }}
                                                                                 style={{ padding: "13px 0" }}
                                                                             >
@@ -1508,6 +1614,58 @@ class uknowaHRMS extends Component {
                                             )}
                                         </Spin>
                                     </div>
+                                    <Modal
+                                        title={`Select Investor`}
+                                        okText={"Select"}
+                                        visible={this.state.selectInvestorModal}
+                                        onCancel={() => {this.setState({selectInvestorModal: false})} }
+                                        
+                                        cancelText="Cancel"
+                                        width={600}
+                                        footer={false}
+                                    >
+                                            <Table
+                                            rowSelection={{
+                                            type: "radio",
+                                            onSelect: (x) => {
+                                                this.setState({selectedInvestorId: x.key})
+                                            }
+                                            // selectedRowKeys: this.state.selectedRowKeys,
+                                            // onChange: (x,y) => {
+                                            //     console.log(x);
+                                            //     console.log(y);
+                                            // }
+                                        }}
+
+                                            className="table-2"
+                                            dataSource={dataSource2}
+                                            columns={columns2}
+                                            bordered
+                                            loading={this.state.loading}
+                                        />
+                                        
+                                            <button
+                                                type="button"
+                                                className="login-button prime-bg d-md-block mx-auto w-50 mt-1"
+                                                onClick={() => {
+                                                    if(this.state.selectedInvestorId == null){
+                                                        notification.warning({
+                                                            message: `Please Select an Investor`,
+                                                            placement: "top",
+                                                            duration: 5,
+                                                            });
+                                                        
+                                                    }else{
+                                                        this.showModal1();
+                                                    }
+                                                }}
+                                            >
+                                                Invest as Selected User
+                                            </button>
+                                            
+                                            
+                                        
+                                    </Modal>
                                     <Modal
                                         title={`Invest in ${this.state.deal_name}`}
                                         visible={this.state.investmentmodal}
@@ -1672,7 +1830,7 @@ class uknowaHRMS extends Component {
                                                     </tr>
                                                 </table>
                                             </div>
-                                            {this.state.invest_amt !== null ? (
+                                            {this.state.invest_amt !== null && this.state.selectedInvestorId == localStorage.getItem("Parent_investor_id")? (
                                                 <div className="">
                                                     <Alert
                                                         message={`You have committed Rs. ${this.state.invest_amt} to this deal so far. (Including platform fees)`}
@@ -1743,7 +1901,7 @@ class uknowaHRMS extends Component {
                                                         maxamount={this.state.maxamount}
                                                         agree={this.state.agree}
                                                         error_status={this.state.amount_error_status}
-                                                        investor_id={this.state.investor_id}
+                                                        investor_id={this.state.selectedInvestorId}
                                                         deduct={this.state.deduct}
                                                         tdsstatus={this.state.tdsstatus}
                                                         gst={this.state.gst}
@@ -2028,7 +2186,7 @@ class uknowaHRMS extends Component {
                                                         <img src="./assets/images/deals-details/Petmojo/highlight4.jpg" />
                                                     </div>
                                                     <p style={{ paddingLeft: "0px !important" }}>
-                                                        uknowva provides AI-enabled HR solutions for mid-sized and growing organizations (200–5,000 employees), covering payroll, recruitment, onboarding, performance management, and employee engagement. With a 350,000+ user base, 150+ paying customers, and a 93% retention rate, it delivers strong product-market fit.                                                    </p>
+                                                        uKnowva provides AI-enabled HR solutions for mid-sized and growing organizations (200–5,000 employees), covering payroll, recruitment, onboarding, performance management, and employee engagement. With a 350,000+ user base, 150+ paying customers, and a 93% retention rate, it delivers strong product-market fit.                                                    </p>
                                                 </div>
                                             </div>
                                             <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
@@ -2040,7 +2198,7 @@ class uknowaHRMS extends Component {
                                                         <img src="./assets/images/deals-details/Petmojo/highlight01.jpg" />
                                                     </div>
                                                     <p style={{ padding: "1px !important" }}>
-                                                        uknowva stands out with AI and Emotional Intelligence (EI) features like sentiment analysis, stress detection, and attrition prediction, fostering employee well-being alongside productivity. Customizable and user-friendly, it surpasses competitors like Darwinbox and SAP SuccessFactors.                                                    </p>{" "}
+                                                        uKnowva stands out with AI and Emotional Intelligence (EI) features like sentiment analysis, stress detection, and attrition prediction, fostering employee well-being alongside productivity. Customizable and user-friendly, it surpasses competitors like Darwinbox and SAP SuccessFactors.                                                    </p>{" "}
                                                 </div>
                                             </div>
                                             <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
@@ -2052,7 +2210,7 @@ class uknowaHRMS extends Component {
                                                         <img src="./assets/images/deals-details/highlight2.jfif" />
                                                     </div>
                                                     <p style={{ padding: "0px !important" }}>
-                                                        uknowva projects revenue growth from INR 9.2 Cr to INR 74 Cr in five years, with an 85% gross margin. Its affordable subscription model ensures accessibility for businesses of all sizes.                                                    </p>
+                                                        uKnowva projects revenue growth from INR 9.2 Cr to INR 74 Cr in five years, with an 85% gross margin. Its affordable subscription model ensures accessibility for businesses of all sizes.                                                    </p>
                                                 </div>
                                             </div>
                                             <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
@@ -2937,7 +3095,7 @@ and technology.
                                                                     <ul>
                                                                         <li>
                                                                             <a>
-                                                                                Abhay focuses on scaling uknowva’s market presence and driving
+                                                                                Abhay focuses on scaling uKnowva’s market presence and driving
                                                                                 business growth. </a>
                                                                         </li>
                                                                         <li>

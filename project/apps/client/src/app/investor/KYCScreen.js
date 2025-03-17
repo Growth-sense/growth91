@@ -362,7 +362,7 @@ class InvestorKYCScreen extends Component {
     this.setState({ loading: true });
     axios({
       method: "post",
-      url: `${process.env.REACT_APP_BASE_URL}verification/pan.php`,
+      url: `${process.env.REACT_APP_BASE_URL}api/Panverification/verify_pan`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -371,7 +371,8 @@ class InvestorKYCScreen extends Component {
         pan_no: this.state.panno,
       },
     }).then((response) => {
-      if (response.data.valid === true) {
+      console.log(response.data);
+      if (response.data.message == "Pan card is verified successfully.") {
         this.uploadimg();
         notification.success({
           message: `Success`,
@@ -389,14 +390,14 @@ class InvestorKYCScreen extends Component {
         this.setState(
           {
             panVerifyStatus: true,
-            legalname: response.data.registered_name,
+            legalname: JSON.parse(response.data.data).registered_name,
             fathername: "",
             screen1: false,
             screen2: true,
             screen3: false,
             screen4: false,
             screen5: false,
-            pan_details: response.data,
+            pan_details: JSON.parse(response.data.data),
             selectedTab: "1",
             adharscreen: "0",
             pan_submit: true,
@@ -458,7 +459,7 @@ class InvestorKYCScreen extends Component {
     this.setState({ loading: true });
     axios({
       method: "post",
-      url: `${process.env.REACT_APP_BASE_URL}verification/pan.php`,
+      url: `${process.env.REACT_APP_BASE_URL}api/Panverification/verify_pan`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -467,7 +468,8 @@ class InvestorKYCScreen extends Component {
         pan_no: this.state.panno,
       },
     }).then((response) => {
-      if (response.data.valid === true) {
+      // console.log(response.data);
+      if (response.data.message == "Pan card is verified successfully.") {
         // this.uploadimg();
         notification.success({
           message: `Success`,
@@ -498,7 +500,7 @@ class InvestorKYCScreen extends Component {
             // imgtype: "",
           },
           () => {
-            this.update_pan_no();
+            // this.update_pan_no();
             this.setState({ loading: false });
           }
         );
@@ -549,7 +551,8 @@ class InvestorKYCScreen extends Component {
     this.setState({ loading: true, imgtype: "aadhaar" });
     axios({
       method: "post",
-      url: `${process.env.REACT_APP_BASE_URL}api/Adharverification/verify_adhar_otp`,
+      // url: `${process.env.REACT_APP_BASE_URL}api/Adharverification/verify_adhar_otp`,
+      url: `https://growth91.com/api/Adharverification/verify_adhar_otp`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -606,7 +609,8 @@ class InvestorKYCScreen extends Component {
     // let otheradharurl='${process.env.REACT_APP_BASE_URL}verification/adhar.php';
     axios({
       method: "post",
-      url: `${process.env.REACT_APP_BASE_URL}api/Adharverification/verify_adhar`,
+      // url: `${process.env.REACT_APP_BASE_URL}api/Adharverification/verify_adhar`,
+      url: `https://growth91.com/api/Adharverification/verify_adhar`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -862,13 +866,15 @@ class InvestorKYCScreen extends Component {
     this.setState({ loading: true, imgtype: "cheque" });
     axios({
       method: "post",
-      url: `${process.env.REACT_APP_BASE_URL}verification/bank.php`,
+      // url: `https://growth91.com/verification/bank.php`,
+      url: `${process.env.REACT_APP_BASE_URL}api/Bankverification/verify_bank`,
+      // url: `https://growth91.com/verification/bank.php`,
       headers: {
         "Content-Type": "application/json",
       },
       data: box,
     }).then((response) => {
-      console.log(response);
+      console.log(response.data.message);
       if (response.data.message == "Invalid account number or ifsc provided") {
         notification.warning({
           message: `Invalid bank account details.`,
@@ -879,7 +885,7 @@ class InvestorKYCScreen extends Component {
         this.setState({ loading: false });
         return;
       } else if (
-        response.data.message === "Bank Account details verified successfully."
+        response.data.message == "Bank Account details verified successfully"
       ) {
         this.updatebank(response.data.data);
         this.uploadimg();

@@ -1,30 +1,54 @@
 import React, { Component } from "react";
-import { Modal, Spin, DatePicker, Input, Skeleton } from "antd";
+import {
+  message,
+  Modal,
+  Spin,
+  DatePicker,
+  Input,
+  Skeleton,
+  notification,
+  Checkbox,
+} from "antd";
 import Bridge from "../../constants/Bridge";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { withRouter } from "react-router-dom";
 import Urldata from "./Urldata.jsx";
+import axios from "axios";
+import $ from "jquery";
+
+import ReactGA from "react-ga4";
+import { TRACKING_ID } from "../../constants/data";
+ReactGA.initialize(TRACKING_ID);
 
 const { TextArea } = Input;
 class Viewfamily extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      registerWithoutEmailCheck: false,
+      isEmailRequired: true,
+      nameDetailsShow: false,
+      panDetailsShow: false,
+      panCardValidatedName: "",
       investor_id: "",
       kycstatus: "",
       bankstatus: "",
       loading: false,
       investments: [],
+      panno: "",
+      legalname: "",
+      reference_id: "",
+      type: "",
       startinvestedcompanies: 0,
       startinvestedamount: 0,
       addModalStatus: false,
       formloader: false,
       middle_name: "",
-      first_name: "aadil",
-      last_name: "khan test family",
-      email: "epu26061@doolk.com",
-      phone: "8878331005",
+      first_name: "",
+      last_name: "",
+      email: "",
+      phone: "",
       nationality: "Indian Citizen",
       selffirst_name: "",
       selflast_name: "",
@@ -44,8 +68,125 @@ class Viewfamily extends Component {
       Sendreqmobile: "",
       selfaccount: "",
       ids: "",
+      typeofmember: "Indian Resident",
+      country_code: "",
+      countemailseconds: 119000,
+      panVerifyStatus: false,
+      adharVerifyStatus: false,
+      bankAcountVerifyStatus: false,
+      loading: false,
+      activetab: 0,
+      accountno: "",
+      ifsccode: "",
+      pan_details: {},
+      adhar_details: {},
+      bank_details: {},
+      kycstatus: "",
+      nationality: "",
+      autoFill: false,
     };
   }
+
+  //group id from id parameter
+
+  handleRegisterWithoutEmailCheckbox = (e) => {
+    const registerWithoutEmail = e.target.checked; // Get the checked state
+    this.setState({ registerWithoutEmail }, () => {
+      // This callback will be called after the state has been updated
+      console.log("Checkbox is now:", registerWithoutEmail);
+      this.handleRegisterWithoutEmailCheckboxFunction(registerWithoutEmail);
+    });
+  };
+
+  handleRegisterWithoutEmailCheckboxFunction = (registerWithoutEmail) => {
+    if (registerWithoutEmail) {
+      this.setState(
+        {
+          registerWithoutEmailCheck: true,
+          isEmailRequired: false,
+          nameDetailsShow: true,
+          panDetailsShow: true,
+          autoFill: false,
+          SendreqEmail: "",
+          email: "",
+        },
+        () => {
+          // Log state after all updates are completed
+          console.log(
+            "registerWithoutEmailCheck",
+            this.state.registerWithoutEmailCheck
+          );
+          console.log("Checkbox is checked!");
+        }
+      );
+    } else {
+      this.setState(
+        {
+          registerWithoutEmailCheck: false,
+          isEmailRequired: true,
+          nameDetailsShow: false,
+          panDetailsShow: false,
+          autoFill: false,
+          SendreqEmail: "",
+          email: "",
+        },
+        () => {
+          // Log state after all updates are completed
+          console.log("Checkbox is unchecked!");
+          console.log(
+            "registerWithoutEmailCheck",
+            this.state.registerWithoutEmailCheck
+          );
+        }
+      );
+    }
+  };
+
+  getUserWithEmail = (e) => {
+    e.preventDefault();
+    console.log("getUserWithEmail");
+    console.log(this.state.SendreqEmail);
+
+    // getUsersDetailsByEmail get user details with this api
+    let params = {
+      email: this.state.SendreqEmail,
+    };
+    Bridge.users.getUsersDetailsByEmail(params).then((result) => {
+      console.log(result);
+      if (result.status == 1 && result.data.length > 0) {
+        console.log(result.data[0]);
+        this.setState({
+          nameDetailsShow: true,
+          panDetailsShow: false,
+          first_name: result.data[0].first_name,
+          last_name: result.data[0].last_name,
+          email: result.data[0].email,
+          phone: result.data[0].mobile,
+          country_code: result.data[0].country_code,
+          autoFill: true,
+        });
+      } else {
+        this.setState({
+          nameDetailsShow: true,
+          panDetailsShow: false,
+          autoFill: false,
+          first_name: "",
+          last_name: "",
+          phone: "",
+          country_code: "",
+          email: "",
+        });
+
+        // notification that user not exist but you can still invite by entering details
+        notification.warning({
+          message: "User not found",
+          description: "You can still invite the user by entering details.",
+          placement: "top",
+          duration: 5,
+        });
+      }
+    });
+  };
 
   componentWillMount() {
     document.title = "Investor Dashboard - Growth91 ";
@@ -58,13 +199,11 @@ class Viewfamily extends Component {
     }
     this.getInvestments();
   }
-  test=()=>{
 
-  }
   getInvestments = () => {
     this.setState({ loading: true });
     let params = {
-      investor_id:  localStorage.getItem("investor_id"),
+      investor_id: localStorage.getItem("investor_id"),
     };
     Bridge.investor.getInvestments(params).then((result) => {
       if (result.status == 1) {
@@ -93,10 +232,10 @@ class Viewfamily extends Component {
       if (result.status == 1) {
         //checking user block status
         if (result.data[0].user_block_status == 0) {
-          console.log('result',result.data);
+          console.log("result", result.data);
           this.setState({
             selfaccount: result.data[0],
-            viewmemberdetail:result.data[0]
+            viewmemberdetail: result.data[0],
           });
         }
       }
@@ -109,12 +248,13 @@ class Viewfamily extends Component {
   };
   addfamily = () => {
     this.setState({ formloader: true });
-    if (this.state.SendreqEmail == "" || this.state.Sendreqmobile == "") {
-      toast.error("Plz fill all field");
+    // if (this.state.SendreqEmail == "" || this.state.Sendreqmobile == "") {
+    if (this.state.SendreqEmail == "") {
+      toast.error("Please fill require fields");
     } else {
       let params = {
         email: this.state.SendreqEmail,
-        mobile: this.state.Sendreqmobile,
+        // mobile: this.state.Sendreqmobile,
       };
       Bridge.family.checkFamilyMember(params).then((result) => {
         console.log(result);
@@ -132,8 +272,8 @@ class Viewfamily extends Component {
   onChangeEmail = (email) => {
     this.setState({ email: email });
   };
+
   sendinvite = () => {
-   
     console.log(this.state.ids);
     let params = {
       email: this.state.SendreqEmail,
@@ -145,7 +285,7 @@ class Viewfamily extends Component {
       console.log(result);
       if (result.status == "1") {
         toast.success(
-          " Request has been sent to register E-mail id and Phone no"
+          "An invitation is sent to the requested email address."
         );
       } else {
         toast.info("Invitation already sent!");
@@ -154,9 +294,9 @@ class Viewfamily extends Component {
     });
   };
 
-  getmember = (id,userid) => {
+  getmember = (id, userid) => {
     console.log(id);
-    
+
     this.setState({ ids: id });
     let params = {
       parent_id: localStorage.getItem("Parent_investor_id"),
@@ -164,64 +304,57 @@ class Viewfamily extends Component {
     };
     Bridge.investor.getfamilymember(params).then((result) => {
       console.log(result);
-    const data =result.data.filter((item,index)=>{
-      console.log(item.investor_id );
-      console.log(localStorage.getItem("investor_id") );
-        return(
-
-          item.investor_id == localStorage.getItem("investor_id")    
-        )
-      })
+      const data = result.data.filter((item, index) => {
+        console.log(item.investor_id);
+        console.log(localStorage.getItem("investor_id"));
+        return item.investor_id == localStorage.getItem("investor_id");
+      });
       console.log(data);
-      console.log(data.length,"0");
-     const newchanges= data.filter((item,index)=>{
-      return(
+      console.log(data.length, "0");
+      const newchanges = data.filter((item, index) => {
+        return item.investor_id == localStorage.getItem("investor_id");
+      });
+      console.log(newchanges);
+      if (newchanges.length == 0) {
+        localStorage.setItem(
+          "investor_id",
+          localStorage.getItem("Parent_investor_id")
+        );
+        localStorage.setItem(
+          "investor_email",
+          localStorage.getItem("Parent_investor_email")
+        );
+        localStorage.setItem(
+          "investor_kycstatus",
+          localStorage.getItem("Parent_investor_kycstatus")
+        );
+        localStorage.setItem(
+          "investor_name",
+          localStorage.getItem("Parent_investor_name")
+        );
+      }
+      this.getbankdetails(localStorage.getItem("investor_id"));
 
-        item.investor_id ==  localStorage.getItem("investor_id") 
-      )
-     })
-     console.log(newchanges);
-     if(newchanges.length==0){
-      localStorage.setItem(
-              "investor_id",
-              localStorage.getItem("Parent_investor_id")
-            );
-            localStorage.setItem(
-              "investor_email",
-              localStorage.getItem("Parent_investor_email")
-            );
-            localStorage.setItem(
-              "investor_kycstatus",
-              localStorage.getItem("Parent_investor_kycstatus")
-            );
-            localStorage.setItem(
-              "investor_name",
-              localStorage.getItem("Parent_investor_name")
-            );
-            
-          }
-          this.getbankdetails( localStorage.getItem("investor_id"));
-     
-    //   if(data.length !=0 ){
-    //     localStorage.setItem(
-    //       "investor_id",
-    //       localStorage.getItem("Parent_investor_id")
-    //     );
-    //     localStorage.setItem(
-    //       "investor_email",
-    //       localStorage.getItem("Parent_investor_email")
-    //     );
-    //     localStorage.setItem(
-    //       "investor_kycstatus",
-    //       localStorage.getItem("Parent_investor_kycstatus")
-    //     );
-    //     localStorage.setItem(
-    //       "investor_name",
-    //       localStorage.getItem("Parent_investor_name")
-    //     );
-    // // window.location.reload();
+      //   if(data.length !=0 ){
+      //     localStorage.setItem(
+      //       "investor_id",
+      //       localStorage.getItem("Parent_investor_id")
+      //     );
+      //     localStorage.setItem(
+      //       "investor_email",
+      //       localStorage.getItem("Parent_investor_email")
+      //     );
+      //     localStorage.setItem(
+      //       "investor_kycstatus",
+      //       localStorage.getItem("Parent_investor_kycstatus")
+      //     );
+      //     localStorage.setItem(
+      //       "investor_name",
+      //       localStorage.getItem("Parent_investor_name")
+      //     );
+      // // window.location.reload();
 
-    //   }
+      //   }
       this.setState({ memberdetail: result.data });
     });
   };
@@ -248,8 +381,6 @@ class Viewfamily extends Component {
     console.log(data[0]);
     console.log(id);
     if (id != localStorage.getItem("Parent_investor_id")) {
-      
-
       localStorage.setItem("investor_id", id);
       localStorage.setItem("investor_email", data[0].email);
       localStorage.setItem("investor_kycstatus", data[0].kycstatus);
@@ -259,11 +390,11 @@ class Viewfamily extends Component {
       );
 
       this.setState({ viewmemberdetail: data[0] });
-      this.getbankdetails()
+      this.getbankdetails();
       window.location.reload();
     } else {
-    
-      localStorage.setItem("investor_id",
+      localStorage.setItem(
+        "investor_id",
         localStorage.getItem("Parent_investor_id")
       );
       localStorage.setItem(
@@ -278,13 +409,217 @@ class Viewfamily extends Component {
         "investor_name",
         localStorage.getItem("Parent_investor_name")
       );
-      this.getbankdetails()
-
-
+      this.getbankdetails();
 
       window.location.reload();
     }
   };
+
+  // register
+  addInvestorViaFamily = () => {
+    console.log("addInvestorViaFamily");
+    if (this.state.registerWithoutEmailCheck) {
+      this.addInvestorViaFamilyWithoutEmail();
+    } else {
+      let params = {
+        first_name: this.state.first_name,
+        middle_name: this.state.middle_name,
+        last_name: this.state.last_name,
+        email: this.state.SendreqEmail,
+        phone: this.state.phone,
+      };
+      Bridge.users.addInvestorViaFamily(params).then((result) => {
+        console.log("data", result);
+        console.log(result);
+        if (result.status == 1) {
+          this.setState({
+            addModalStatus: false,
+            first_name: "",
+            middle_name: "",
+            last_name: "",
+            email: "",
+            phone: "",
+          });
+          // addfamily
+          this.addfamily();
+        }
+      });
+    }
+  };
+
+  addInvestorViaFamilyWithoutEmail = () => {
+    //validate name and pan verification status
+    if (!this.state.first_name || !this.state.last_name) {
+      toast.error("Please enter first name and last name");
+      return;
+    }
+
+    if (!this.state.panno || this.state.panno.length != 10) {
+      toast.error("Please enter valid PAN number");
+      return;
+    }
+
+    // panVerifyStatus
+    if (!this.state.panVerifyStatus) {
+      toast.error("Please verify PAN number");
+      return;
+    }
+
+    let params = {
+      first_name: this.state.first_name,
+      middle_name: this.state.middle_name,
+      last_name: this.state.last_name,
+      groupID: this.state.ids,
+      userID: localStorage.getItem("Parent_investor_id"),
+      pan: this.state.panno,
+      legalname: this.state.legalname,
+      type: this.state.type,
+      reference_id: this.state.reference_id
+    };
+    Bridge.users.addInvestorViaFamilyWithoutEmail(params).then((result) => {
+      console.log("data", result);
+      console.log(result);
+      if (result.status == 1) {
+        this.setState({
+          addModalStatus: false,
+          first_name: "",
+          middle_name: "",
+          last_name: "",
+          panVerifyStatus: false,
+          panno: "",
+          legalname: "",
+          type: "",
+          reference_id: "",
+        });
+
+        // close the modal
+        this.setState({ addModalStatus: false });
+      } else {
+        toast.error(result.message);
+      }
+    });
+  };
+
+  checkforpanno = (text) => {
+    let regex = /^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/;
+    if (regex.test(text)) {
+      return true;
+    }
+    return false;
+  };
+  CHECK_pan_no = (e) => {
+    e.preventDefault();
+    if (!this.state.panno || this.state.panno.length !== 10) {
+      notification.warning({
+        message: `Invalid PAN number`,
+        description: "Please enter the valid PAN number",
+        placement: "top",
+        duration: 5,
+      });
+      return;
+    }
+
+    let panstatus = this.checkforpanno(this.state.panno);
+    if (panstatus === false) {
+      notification.warning({
+        message: `Invalid format of PAN No`,
+        description: "Please enter valid PAN No.",
+        placement: "top",
+        duration: 5,
+      });
+      return;
+    }
+
+    this.setState({ loading: true });
+    axios({
+      method: "post",
+      url: `https://growth91.growthmetaverse.in/api/Panverification/verify_pan`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        pan_no: this.state.panno,
+      },
+    })
+      .then((response) => {
+        // Parse the `data` field
+        let parsedData;
+        try {
+          parsedData = JSON.parse(response.data.data);
+        } catch (error) {
+          notification.error({
+            message: "Error",
+            description: "Failed to parse response data.",
+            placement: "top",
+            duration: 5,
+          });
+          this.setState({ loading: false });
+          return;
+        }
+
+        if (parsedData.valid === true) {
+          notification.success({
+            message: `Success`,
+            description: "PAN is Valid.",
+            placement: "top",
+            duration: 5,
+          });
+
+          ReactGA.event({
+            category: "KYC",
+            action: "PAN Verified",
+          });
+
+          this.setState(
+            {
+              panVerifyStatus: true,
+              legalname: parsedData.registered_name,
+              fathername: parsedData.father_name || "",
+              reference_id: parsedData.reference_id,
+              type: parsedData.type,
+              screen1: false,
+              screen2: true,
+              screen3: false,
+              screen4: false,
+              screen5: false,
+              pan_details: parsedData,
+              selectedTab: "1",
+              adharscreen: "0",
+              pan_submit: true,
+              imgtype: "",
+            },
+            () => {
+              this.setState({ loading: false });
+            }
+          );
+
+          $("html, body").animate(
+            {
+              scrollTop: 280,
+            },
+            1000
+          );
+        } else {
+          notification.warning({
+            message: parsedData.message || "Verification Failed",
+            description: "Please enter the valid PAN number.",
+            placement: "top",
+            duration: 5,
+          });
+          this.setState({ loading: false });
+        }
+      })
+      .catch((error) => {
+        notification.error({
+          message: "Error",
+          description: "Failed to verify PAN. Please try again later.",
+          placement: "top",
+          duration: 5,
+        });
+        this.setState({ loading: false });
+      });
+  };
+
   render() {
     console.log(this.state.viewmemberdetail);
     return (
@@ -300,9 +635,7 @@ class Viewfamily extends Component {
               <div>
                 <div className="row dashboard-items ">
                   <div className="col-lg-12 family-columns">
-                    <div 
-                    className="filteruser-dropdown form-control d-flex"
-                    >
+                    <div className="filteruser-dropdown form-control d-flex">
                       <select
                         name=""
                         id=""
@@ -344,7 +677,7 @@ class Viewfamily extends Component {
                     </div>
                   </div>
                 </div>
-                {this.state.viewmemberdetail &&(
+                {this.state.viewmemberdetail && (
                   <div className="row dashboard-items">
                     <div className="col-lg-12">
                       <div className="heads-names active">
@@ -361,15 +694,14 @@ class Viewfamily extends Component {
                           </h5>
                           <h5>
                             Registered Email id :{" "}
-                            {this.state.viewmemberdetail.email }
+                            {this.state.viewmemberdetail.email}
                           </h5>
                         </div>
                       </div>
                     </div>
                     <div className="row card-dashboard-rows"></div>
                   </div>
-                    )
-                  }
+                )}
               </div>
             </section>
           </div>
@@ -612,27 +944,171 @@ class Viewfamily extends Component {
           </div>
         </section>
         <Modal
-          title="Add New Member"
+          title="Add New Members"
           visible={this.state.addModalStatus}
-          onOk={this.addfamily}
+          onOk={this.addInvestorViaFamily}
           okText="Submit"
           // onCancel={this.cancel_addfounder}
           onCancel={() => this.setState({ addModalStatus: false })}
           width={550}
+          // onClick={this.register}
         >
           <Spin spinning={this.state.formloader}>
-            <div className="form-group">
-              <label className="mb-2">
-                Email <span className="text-danger">*</span>
-              </label>
-              <Input
-                value={this.state.SendreqEmail}
-                onChange={(e) =>
-                  this.setState({ SendreqEmail: e.target.value })
-                }
-              />
+            <div
+              className="row"
+              style={{
+                display: this.state.registerWithoutEmail ? "none" : "flex",
+              }}
+            >
+              <div className="col-md-8">
+                <div className="form-group">
+                  <label className="mb-2">
+                    Email{" "}
+                    <span
+                      className="text-danger"
+                      style={{
+                        display: this.state.isEmailRequired ? "inline" : "none",
+                      }}
+                    >
+                      *
+                    </span>
+                  </label>
+                  <Input
+                    required={this.state.isEmailRequired}
+                    value={this.state.SendreqEmail}
+                    onChange={(e) =>
+                      this.setState({ SendreqEmail: e.target.value })
+                    }
+                  />
+                </div>
+              </div>
+              <div className="col-md-4 mt-2 h-100">
+                <button
+                  type="button"
+                  className="add-family-butttons mt-4 w-100 mt-2"
+                  style={{
+                    background: "#29176F",
+                    color: "white",
+
+                    borderRadius: "5px",
+                  }}
+                  // onClick={this.CHECK_pan_no}
+
+                  onClick={this.getUserWithEmail}
+                >
+                  Get User
+                </button>
+              </div>
             </div>
-            <div className="form-group">
+
+            <div className="row">
+              {/* no user found checkbox */}
+              <div className="col-md-12">
+                <div className="form-group my-2">
+                  <Checkbox
+                    onChange={this.handleRegisterWithoutEmailCheckbox}
+                  ></Checkbox>
+                  <label className="mb-2"> &nbsp;Register Without Email </label>
+                </div>
+              </div>
+            </div>
+
+            <div
+              className="row"
+              style={{ display: this.state.nameDetailsShow ? "flex" : "none" }}
+            >
+              <div className="col-md-12">
+                {/* first name */}
+                <div className="form-group my-2">
+                  <label className="mb-2">
+                    First Name<span className="text-danger">*</span>
+                  </label>
+                  <Input
+                    value={this.state.first_name}
+                    disabled={this.state.autoFill}
+                    onChange={(e) =>
+                      this.setState({ first_name: e.target.value })
+                    }
+                  />
+                </div>
+
+                {/* middle name */}
+                <div className="form-group my-2">
+                  <label className="mb-2">Middle Name</label>
+                  <Input
+                    value={this.state.middle_name}
+                    disabled={this.state.autoFill}
+                    onChange={(e) =>
+                      this.setState({ middle_name: e.target.value })
+                    }
+                  />
+                </div>
+
+                {/* last name */}
+                <div className="form-group my-2">
+                  <label className="mb-2">
+                    Last Name <span className="text-danger">*</span>
+                  </label>
+                  <Input
+                    value={this.state.last_name}
+                    disabled={this.state.autoFill}
+                    onChange={(e) =>
+                      this.setState({ last_name: e.target.value })
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* row */}
+            <div
+              className="row align-items-center"
+              style={{ display: this.state.panDetailsShow ? "flex" : "none" }}
+            >
+              <div className="col-md-8">
+                <div className="form-group my-2">
+                  <label className="mb-2">
+                    PAN Number<span className="text-danger">*</span>
+                  </label>
+                  <Input
+                    value={this.state.panno}
+                    onChange={(e) => {
+                      this.setState({
+                        panno: e.target.value,
+                      });
+                    }}
+                    disabled={this.state.pan_submit == true ? true : false}
+                  />
+                </div>
+              </div>
+
+              <div className="col-md-4 mt-2 h-100">
+                <button
+                  type="button"
+                  className="add-family-butttons mt-4 w-100 mt-2"
+                  style={{
+                    background: "#29176F",
+                    color: "white",
+
+                    borderRadius: "5px",
+                  }}
+                  // onClick={this.CHECK_pan_no}
+
+                  onClick={this.CHECK_pan_no}
+                >
+                  Check PAN
+                </button>
+              </div>
+
+              <div className="col-md-12">
+                <div className="form-group my-2">
+                  <label className="mb-2">Name as per PAN Card</label>
+                  <Input value={this.state.legalname} disabled />
+                </div>
+              </div>
+            </div>
+
+            {/* <div className="form-group">
               <label className="mb-2">Mobile</label>
               <Input
                 value={this.state.Sendreqmobile}
@@ -640,7 +1116,7 @@ class Viewfamily extends Component {
                   this.setState({ Sendreqmobile: e.target.value })
                 }
               />
-            </div>
+            </div> */}
           </Spin>
         </Modal>
 

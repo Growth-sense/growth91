@@ -1,6 +1,9 @@
 const URLs = {
   fundRaiseRegistration: "FundRaise/register",
   registerNewInvestor: "Investor/register",
+  addInvestorViaFamily: "Investor/addInvestorViaFamily",
+  //addInvestorViaFamilyWithoutEmail
+  addInvestorViaFamilyWithoutEmail: "Investor/addInvestorViaFamilyWithoutEmail",
   comment: "Blog/comment",
   commentlist: "Blog/commentlist",
   getstatusdata: "Users/getstatusdata",
@@ -18,6 +21,7 @@ const URLs = {
   deletepost: "admin/Blog/delete",
   admindeallist: "admin/Deal/list",
   admindealcloselist: "admin/Deal/close_list",
+  getSingleDealData: "admin/Deal/get_deal",
   adddeal: "admin/Deal/add",
   updatedeal: "admin/Deal/edit",
   deletedeal: "admin/Deal/delete",
@@ -237,6 +241,7 @@ const URLs = {
   delte_blog_category: "admin/Blogcategory/delete",
   delete_pitch_file: "founders/delete_pitch_file",
   get_registered_user_details: "Users/get_registered_user_details",
+  getUsersDetailsByEmail: "Users/getUsersDetailsByEmail",
   change_membership_details: "Investor/change_membership_details",
   update_membership_to_premium: "Users/update_membership_to_premium",
   get_private_inivation_details:
@@ -251,6 +256,7 @@ const URLs = {
   getfamilymember:"investors/InvestorController/getfamilymember",
   creategroup:"investors/InvestorController/createGroup",
   getGroupList:"investors/InvestorController/getGroupList",
+  getGroupListForInvestment: "investors/InvestorController/getGroupListForInvestment",
   checkFamilyMember:"investors/InvestorController/checkFamilyMember",
   saveInvite:"investors/InvestorController/saveInvite",
   familyInviteOTP:"investors/InvestorController/familyInviteOTP",

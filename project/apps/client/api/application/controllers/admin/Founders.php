@@ -72,6 +72,7 @@ class Founders extends CI_Controller {
         	$id =  $this->db->insert_id();
 			
 			if($id) {
+				sendRegistrationEmail($formdata['first_name'], $formdata['last_name'], $formdata['nationality'], $formdata['mobile'], $formdata['email'], "Founder");
 				$response = [
 					'status' => '1',
 					'message' => 'New founder is added successfully.',

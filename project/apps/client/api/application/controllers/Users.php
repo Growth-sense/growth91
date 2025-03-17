@@ -320,6 +320,76 @@ class Users extends CI_Controller {
 		// if($_GET){
 		// }
 	}
+
+	private function decryptData($encryptedString) {
+		try {
+			// Get encryption key
+			$encKey = 'kIYFZKnwVRkhgFB5nzz3NbAho6ei3Z5v'; // Use same key as frontend
+	
+			// Base64 decode the encrypted string
+			$encryptedData = base64_decode($encryptedString);
+	
+			// Extract salt, iv and ciphertext
+			if (substr($encryptedData, 0, 8) !== "Salted__") {
+				return $encryptedString; // Return original if not encrypted
+			}
+	
+			$salt = substr($encryptedData, 8, 8);
+			$ciphertext = substr($encryptedData, 16);
+	
+			// Generate key and iv using the same method as CryptoJS
+			$keyIvPair = $this->evpKDF($encKey, $salt);
+	
+			// Decrypt
+			$decrypted = openssl_decrypt(
+				$ciphertext,
+				'aes-256-cbc',
+				$keyIvPair['key'],
+				OPENSSL_RAW_DATA,
+				$keyIvPair['iv']
+			);
+	
+			return $decrypted;
+		} catch (Exception $e) {
+			error_log("Decryption error: " . $e->getMessage());
+			return null;
+		}
+	}
+	
+	private function evpKDF($password, $salt, $keySize = 8, $ivSize = 4, $iterations = 1, $hashAlgorithm = "md5") {
+		$targetKeySize = $keySize + $ivSize;
+		$derivedBytes = "";
+		$numberOfDerivedWords = 0;
+		$block = null;
+		$hasher = hash_init($hashAlgorithm);
+	
+		while ($numberOfDerivedWords < $targetKeySize) {
+			if ($block != null) {
+				hash_update($hasher, $block);
+			}
+			hash_update($hasher, $password);
+			hash_update($hasher, $salt);
+			$block = hash_final($hasher, true);
+			$hasher = hash_init($hashAlgorithm);
+	
+			// Iterations
+			for ($i = 1; $i < $iterations; $i++) {
+				hash_update($hasher, $block);
+				$block = hash_final($hasher, true);
+				$hasher = hash_init($hashAlgorithm);
+			}
+	
+			$derivedBytes .= substr($block, 0, min(strlen($block), ($targetKeySize - $numberOfDerivedWords) * 4));
+			$numberOfDerivedWords += strlen($block)/4;
+		}
+	
+		return array(
+			"key" => substr($derivedBytes, 0, $keySize * 4),
+			"iv"  => substr($derivedBytes, $keySize * 4, $ivSize * 4)
+		);
+	}
+
+
 	function sendregisterotp(){
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
@@ -331,7 +401,8 @@ class Users extends CI_Controller {
 		
 		if(!empty($formdata)){
 			$email=$formdata['email'];
-			$otp=$formdata['otp'];
+			$encryptedOtp=$formdata['otp'];
+			$otp = $this->decryptData($encryptedOtp);
 			// $mobile=$formdata['mobile'];
 	
 			$sql="SELECT * FROM `users` WHERE email='$email'";
@@ -673,6 +744,46 @@ class Users extends CI_Controller {
 		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($response));	
 	}
+
+
+
+
+	function getUsersDetailsByEmail(){
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		if(!empty($formdata)){
+			$email=$formdata['email'];
+			$sql="SELECT * FROM `users` WHERE email='$email'";
+			$query=$this->db->query($sql);
+			$resp =$query->result();
+			if(isset($resp)) {
+				$response = [
+					'status' => '1',
+					'message' => 'Data is fetched successfully.',
+					'data' => $resp,
+				];
+			} else {
+				$response =[
+					'status' => '0',
+					'message' => 'Please try again!'
+				];
+			}	
+		} else{
+			$response=[
+				'status' => '0',
+				'message' => 'Please try again!'
+			];
+		}
+		$this->output->set_content_type('application/json')->set_output(json_encode($response));	
+	}
+
+
+
 	function send_contact_email(){
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");

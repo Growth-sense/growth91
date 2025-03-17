@@ -17,10 +17,14 @@ class investments extends CI_Controller {
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 		// sql query
 		
-		$sql = "SELECT * FROM `investments`
+		$sql = "SELECT investments.*, deals.*, startups.*, users.*, ic.totalamount 
+		FROM `investments`
 		LEFT JOIN deals on deals.deal_id = investments.deal_id
 		LEFT JOIN startups on startups.startupid = deals.startup_id
-		left join users on users.investor_id = investments.investor_id
+		LEFT JOIN users on users.investor_id = investments.investor_id
+		LEFT JOIN investor_commitment ic ON ic.deal_id = investments.deal_id 
+    		AND ic.investor_id = investments.investor_id 
+    		AND ic.parent_id = 0
 		ORDER BY investments.investment_id  DESC
 		";
 		$query=$this->db->query($sql);

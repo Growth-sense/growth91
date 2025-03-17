@@ -377,7 +377,10 @@ class FounderRegistration extends Component {
       message.warning("Mobile number is required.");
       return;
     }
-    let params = `?mobile=${this.state.phone}&otp=${otp}`;
+    let params = {
+      mobile: this.state.phone,
+      otp: otp
+    };
     Bridge.investor
       .sendotptomobile(params)
       .then((result) => {
@@ -415,7 +418,10 @@ class FounderRegistration extends Component {
       message.warning("Mobile number is required.");
       return;
     }
-    let params = `?mobile=${this.state.phone}&otp=${otp}`;
+    let params = {
+      mobile: this.state.phone,
+      otp: otp
+    };
     Bridge.investor
       .sendotptomobile(params)
       .then((result) => {

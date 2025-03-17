@@ -5,11 +5,78 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Deal extends CI_Controller
 {
 
+	private $formatter;
+	
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->model(['admin/Blogmodel']);
+		$this->formatter = new NumberFormatter('en_IN', NumberFormatter::DECIMAL);
 	}
+
+	public function get_deal()
+	{
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		$form_deal_id = $formdata['deal_id'];
+		
+		// sql query
+		$sql = "SELECT *,deals.deal_type,startups.name as deal_t_type,deals.deal_end_date as deal_deal_end_date FROM `deals` 
+		LEFT JOIN startups on startups.startupid = deals.startup_id
+		WHERE deals.deal_id='$form_deal_id';";
+		$query = $this->db->query($sql);
+		$list = $query->result();
+		for ($i = 0; $i < count($list); $i++) {
+			$deal_id=$list[$i]->deal_id;
+			$totalSql="SELECT SUM(amount) As total_investment FROM `investor_commitment` WHERE `parent_id`=0 AND`deal_id`='$deal_id'";
+			$query1 = $this->db->query($totalSql);
+			$data2=$query1->result();
+			$list[$i]->total_invested_amount=$data2[0]->total_investment;
+
+			// get invitation list
+			$sql2 = "SELECT * FROM `private_deal_invities` WHERE `deal_id`='$deal_id'";
+			$query2 = $this->db->query($sql2);
+			$data3=$query2->result();
+			$num_rows = $query2->num_rows();
+			if($list[$i] -> deal_type == "Private" || $list[$i] -> deal_type == "Public"){
+				$list[$i]->total_invitions=$num_rows;
+			}else{
+				$list[$i]->total_invitions='0';
+			}
+			$arr=[];
+			for($c=0;$c<count($data3);$c++){
+				if($data3[$c]->investor_id!="0"){
+					array_push($arr, $data3[$c]->investor_id);
+				}
+			}
+			$list[$i]->invitations=$arr;
+		}
+		if (count($list) >= 0) {
+			$response = [
+				'status' => '1',
+				'message' => 'Deal list is fetched successfully.',
+				'data' => $list,
+			];
+		}
+		else {
+			$response = [
+				'status' => '0',
+				'message' => 'Please try again!'
+			];
+		}
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
+
+
+
 	// DEAL LIST
 	public function list()
 	{
@@ -1742,6 +1809,8 @@ class Deal extends CI_Controller
 					'payment_dt' => $this->input->post('payment_dt'),
 					'remarks' =>$this->input->post('remarks'),
 					'processing_fees'=>$this->input->post('processing_fees'),
+					'igst' => $this->input->post('igst'),
+					'igstvalue' => $this->input->post('igstvalue'),
 				];
 	
 				$this->db->insert('offline_payment', $post_data);
@@ -1800,6 +1869,8 @@ class Deal extends CI_Controller
 					'payment_status' =>'payment_success',
 					'payment_type'=>'offline_payment',
 					'processingfees'=>$this->input->post('processing_fees'),
+					'igst' => $this->input->post('igst'),
+					'igstvalue' => $this->input->post('igstvalue'),
 				];
 				$this->db->insert('investments', $post_data1);
 				$di2=$this->db->insert_id();
@@ -1814,8 +1885,12 @@ class Deal extends CI_Controller
 					'payment_type'=>'offline_payment',
 					'description'=>'User invested in deal',
 					'investment_id'=>$di2,
-					'total_paid_amount'=>(intval($this->input->post('investment_amt'))+intval($this->input->post('processing_fees'))),
+					'total_paid_amount'=>(intval($this->input->post('investment_amt'))
+											+intval($this->input->post('processing_fees'))
+											+intval($this->input->post('igstvalue'))),
 					'processing_fees'=>$this->input->post('processing_fees'),
+					'igst' => $this->input->post('igst'),
+					'igstvalue' => $this->input->post('igstvalue'),
 				];
 				$this->db->insert('payments', $post_data2);
 				$di3=$this->db->insert_id();
@@ -2022,6 +2097,8 @@ class Deal extends CI_Controller
 		$commitment["order_token"] = $this -> input -> post("order_token");
 		$commitment["tdsstatus"] = $this -> input -> post("tdsstatus");
 		$commitment["gst"] = $this -> input -> post("gst");
+		$commitment["igst"] = $this -> input -> post("igst");
+		$commitment["igstvalue"] = $this -> input -> post("igstvalue");
 		$commitment["legalfee"] = $this -> input -> post("legalfee");
 		$commitment["id"] = $this -> input -> post("commitment_id");
 		$commitment["parent_id"] = $this -> input -> post("parent_id");
@@ -2083,6 +2160,8 @@ class Deal extends CI_Controller
 				$total["amount"] =	($already_committed[0]["amount"] + $commitment["amount"]) - $committed_idwise[0]["amount"];	
 				$total["processingfees"] =	($already_committed[0]["processingfees"] + $commitment["processingfees"]) - $committed_idwise[0]["processingfees"];	
 				$total["legalfee"] =	($already_committed[0]["legalfee"] + $commitment["legalfee"]) - $committed_idwise[0]["legalfee"];	
+				$total["igst"] = ($already_committed[0]["igst"] + $commitment["igst"]) - $committed_idwise[0]["igst"];	
+				$total["igstvalue"] = ($already_committed[0]["igstvalue"] + $commitment["igstvalue"]) - $committed_idwise[0]["igstvalue"];	
 				//print_r($total);
 				//die;
 				$this -> db -> where("deal_id",$commitment["deal_id"]) -> where("investor_id",$commitment["investor_id"]) -> where("parent_id",0)  -> update("investor_commitment",$total);
@@ -2095,6 +2174,8 @@ class Deal extends CI_Controller
 				$child_commitment["totalamount"] = $commitment["totalamount"];
 				$child_commitment["created_at"] = date("Y-m-d H:i:s");
 				$child_commitment["legalfee"] = $commitment["legalfee"];
+				$child_commitment["igst"] = $commitment["igst"];
+				$child_commitment["igstvalue"] = $commitment["igstvalue"];
 				//$status = $this -> db -> insert("investor_commitment",$child_commitment);
 				$this->db->where('id', $commitment["id"]);
 				$this->db->update('investor_commitment', $child_commitment);
@@ -2125,6 +2206,8 @@ class Deal extends CI_Controller
 				$parent_commitment["order_token"] = $commitment["order_token"];
 				$parent_commitment["tdsstatus"] = $commitment["tdsstatus"];
 				$parent_commitment["gst"] = $commitment["gst"];
+				$parent_commitment["igst"] = $commitment["igst"];
+				$parent_commitment["igstvalue"] = $commitment["igstvalue"];
 				$parent_commitment["legalfee"] = $commitment["legalfee"];
 				$parent_commitment["walletDeductionMoney"] = $commitment["walletDeductionMoney"];
 				$parent_commitment["created_at"] = date("Y-m-d H:i:s");
@@ -2141,7 +2224,8 @@ class Deal extends CI_Controller
 					$child_commitment["amount"] = $commitment["amount"];
 					$child_commitment["processingfees"] = $commitment["processingfees"];
 					$child_commitment["legalfee"] = $commitment["legalfee"];
-					
+					$child_commitment["igst"] = $commitment["igst"];
+					$child_commitment["igstvalue"] = $commitment["igstvalue"];
 					$child_commitment["totalamount"] = $commitment["totalamount"];
 					$child_commitment["created_at"] = date("Y-m-d H:i:s");
 					
@@ -2171,6 +2255,87 @@ class Deal extends CI_Controller
 		->set_output(json_encode($response));
 
 	}
+
+
+	public function edit_investment()
+	{
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
+		$payment_ref = $this -> input -> post("payment_ref");
+
+		// Add code to check for payment_ref in offline_payment table as attribute reference_id
+		// If record exist update investment_amt, processing_fees, igst, cgst, sgst, igstvalue, sgstvalue and cgstvalue from input
+		if(!empty($payment_ref)) {
+		
+			$offline_payment["investment_amt"] = $this -> input -> post("amount");
+			$offline_payment["processing_fees"] = $this -> input -> post("processingfees");
+			$offline_payment["igst"] = $this -> input -> post("igst");
+			$offline_payment["igstvalue"] = $this -> input -> post("igstvalue");
+
+			// use commitment object to update offline_payment table using the payment_ref_id
+			if($this -> db -> where("reference_id", $payment_ref) -> update("offline_payment", $offline_payment)) {
+
+				$investments["Investment_amt"] = $this -> input -> post("amount");
+				$investments["processingfees"] = $this -> input -> post("processingfees");
+				$investments["igst"] = $this -> input -> post("igst");
+				$investments["igstvalue"] = $this -> input -> post("igstvalue");
+
+				if($this -> db -> where("payment_ref", $payment_ref) -> update("investments", $investments)){
+
+					$payments['payment_amount'] = $this -> input -> post("amount");
+					$payments['processing_fees'] = $this -> input -> post("processingfees");
+					$payments["igst"] = $this -> input -> post("igst");
+					$payments["igstvalue"] = $this -> input -> post("igstvalue");
+					$payments["total_paid_amount"] = (intval($this -> input -> post("amount")) 
+														+ intval($this -> input -> post("processingfees")) 
+														+ intval($this -> input -> post("igstvalue")) );
+
+					if($this -> db -> where("payment_ref", $payment_ref) -> update("payments", $payments)){
+						$response = [
+							'status' => '1',
+							'message' => 'Committment is updated successfully.'
+						];
+					}
+					else{
+						$response =[
+							'status' => '0',
+							'message' => 'Please try again!'
+						];
+					}
+
+				}
+				else{
+					$response =[
+						'status' => '0',
+						'message' => 'Please try again!'
+					];
+				}
+			}
+			else {
+				$response =[
+					'status' => '0',
+					'message' => 'Please try again!'
+				];
+			}
+		}
+		else{
+			$response = [
+				'status' => '0',
+				'message' => 'Payment reference is empty.'
+			];
+		}
+		
+		$this->output
+		->set_content_type('application/json')
+		->set_output(json_encode($response));
+
+	}
+
 	/* Add commitments */
 	public function save_investor_commitment()
 	{
@@ -2193,6 +2358,8 @@ class Deal extends CI_Controller
 		$commitment["order_token"] = $this -> input -> post("order_token");
 		$commitment["tdsstatus"] = $this -> input -> post("tdsstatus");
 		$commitment["gst"] = $this -> input -> post("gst");
+		$commitment["igst"] = $this -> input -> post("igst");
+		$commitment["igstvalue"] = $this -> input -> post("igstvalue");
 		$commitment["legalfee"] = $this -> input -> post("legalfee");
 		$commitment["walletDeductionMoney"] = $this -> input -> post("walletDeductionMoney");
 		
@@ -2219,7 +2386,9 @@ class Deal extends CI_Controller
 			{
 				$total["totalamount"] =	$already_committed[0]["totalamount"] + $commitment["totalamount"];	
 				$total["amount"] =	$already_committed[0]["amount"] + $commitment["amount"];	
-				$total["processingfees"] =	$already_committed[0]["processingfees"] + $commitment["processingfees"];	
+				$total["processingfees"] =	$already_committed[0]["processingfees"] + $commitment["processingfees"];
+				$commitment["igst"] = $already_committed[0]["igst"] + $commitment["igst"];
+				$commitment["igstvalue"] = $already_committed[0]["igstvalue"] + $commitment["igstvalue"];
 				
 				$this -> db -> where("deal_id",$commitment["deal_id"]) -> where("investor_id",$commitment["investor_id"]) -> where("parent_id",0)  -> update("investor_commitment",$total);
 				
@@ -2229,6 +2398,8 @@ class Deal extends CI_Controller
 				$child_commitment["amount"] = $commitment["amount"];
 				$child_commitment["processingfees"] = $commitment["processingfees"];
 				$child_commitment["totalamount"] = $commitment["totalamount"];
+				$child_commitment["igst"] = $commitment["igst"];
+				$child_commitment["igstvalue"] = $commitment["igstvalue"];
 				$child_commitment["created_at"] = date("Y-m-d H:i:s");
 
 				$status = $this -> db -> insert("investor_commitment",$child_commitment);
@@ -2366,13 +2537,13 @@ class Deal extends CI_Controller
 					                                    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;"> Dear <strong>'.$investor_details[0]["first_name"].'</strong>, 
 					                                        <br>
 					                                        <br>
-					                                        Your commitment in '.$deal_details[0]["deal_name"].' on Growth91 has been received for Rs. '.$commitment["amount"].' on '.date("d/m/Y").'
+					                                        Your commitment in '.$deal_details[0]["deal_name"].' on Growth91 has been received for Rs. '.$this->formatter->format($commitment["amount"]).' on '.date("d/m/Y").'
 					                                        <br>
 					                                      <br>
-					                                      Total Amount Committed in '.$deal_details[0]["deal_name"].': Rs.'.$total["amount"].'
+					                                      Total Amount Committed in '.$deal_details[0]["deal_name"].': Rs.'.$this->formatter->format($total["amount"]).'
 					                                       <br>
 					                                       
-                                                          Total convenience fee: Rs '.$total["processingfees"].'
+                                                          Total convenience fee: Rs '.$this->formatter->format($total["processingfees"] + $total["igstvalue"] ).'
                                                           <br>
 					                                      <br>
                                                           Your commitment history can be found here: <a href='.WEB_BASE_URL.'investor-commitment>History</a>
@@ -2394,6 +2565,12 @@ class Deal extends CI_Controller
 					                                      <br>
 					                                      <br>
 					                                      <i> Note: If you face any difficulty, please reach out to contact@growth91.com </i>
+														  <br>
+                                                        	<br>
+                                                        <small>Convenience Fee of 2% on the investment amount at the time of
+															investment and 2% on the sale proceeds at the time of exit is applicable.
+															For any specific investment, if fee is different, it will be mentioned at the
+															time of commitment (GST if any, shall be added at applicable rates).</small>
 					                                      <br>
 					                                      <br>
 					                                    </br>
@@ -2441,7 +2618,7 @@ class Deal extends CI_Controller
 					              </body>
 					      </html>';  
 
-			          	$subject="Commitment of Rs. ".$commitment["amount"]." received for ".$deal_details[0]["deal_name"];
+			          	$subject="Commitment of Rs. ".$this->formatter->format($commitment["amount"])." received for ".$deal_details[0]["deal_name"];
 				        $cc='contact@growth91.com';
 				       // send_email($body,$subject,$investor_details[0]["email"],$cc);
 
@@ -2469,6 +2646,8 @@ class Deal extends CI_Controller
 				$parent_commitment["order_token"] = $commitment["order_token"];
 				$parent_commitment["tdsstatus"] = $commitment["tdsstatus"];
 				$parent_commitment["gst"] = $commitment["gst"];
+				$parent_commitment["igst"] = $commitment["igst"];
+				$parent_commitment["igstvalue"] = $commitment["igstvalue"];
 				$parent_commitment["legalfee"] = $commitment["legalfee"];
 				$parent_commitment["walletDeductionMoney"] = $commitment["walletDeductionMoney"];
 				$parent_commitment["created_at"] = date("Y-m-d H:i:s");
@@ -2485,6 +2664,8 @@ class Deal extends CI_Controller
 					$child_commitment["amount"] = $commitment["amount"];
 					$child_commitment["processingfees"] = $commitment["processingfees"];
 					$child_commitment["totalamount"] = $commitment["totalamount"];
+					$child_commitment["igst"] = $commitment["igst"];
+					$child_commitment["igstvalue"] = $commitment["igstvalue"];
 					$child_commitment["created_at"] = date("Y-m-d H:i:s");
 					
 					$this -> db -> insert("investor_commitment",$child_commitment);
@@ -2622,13 +2803,13 @@ class Deal extends CI_Controller
 					                                    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;"> Dear <strong>'.$investor_details[0]["first_name"].'</strong>, 
 					                                        <br>
 					                                        <br>
-					                                        Your commitment in '.$deal_details[0]["deal_name"].' on Growth91 has been received for Rs. '.$commitment["amount"].' on '.date("d/m/Y").'.
+					                                        Your commitment in '.$deal_details[0]["deal_name"].' on Growth91 has been received for Rs. '.$this->formatter->format($commitment["amount"]).' on '.date("d/m/Y").'.
 					                                        <br>
 					                                      <br>
-					                                      Total Amount Committed in '.$deal_details[0]["deal_name"].': Rs.'.$commitment["amount"].'
+					                                      Total Amount Committed in '.$deal_details[0]["deal_name"].': Rs.'.$this->formatter->format($commitment["amount"]).'
 					                                       <br>
 					                                       
-                                                          Total convenience fee: Rs '.$commitment["processingfees"].'
+                                                          Total convenience fee: Rs '.$this->formatter->format($commitment["processingfees"] + $commitment["igstvalue"] ).'
                                                           <br>
 					                                      <br>
                                                           Your commitment history can be found here: <a href='.WEB_BASE_URL.'investor-commitment>History</a>
@@ -2649,6 +2830,12 @@ class Deal extends CI_Controller
 					                                      <br>
 					                                      <br>
 					                                      <i> Note: If you face any difficulty, please reach out to contact@growth91.com </i>
+														  <br>
+                                                        	<br>
+                                                        <small>Convenience Fee of 2% on the investment amount at the time of
+															investment and 2% on the sale proceeds at the time of exit is applicable.
+															For any specific investment, if fee is different, it will be mentioned at the
+															time of commitment (GST if any, shall be added at applicable rates).</small>
 					                                      <br>
 					                                      <br>
 					                                    </br>
@@ -2696,7 +2883,7 @@ class Deal extends CI_Controller
 					              </body>
 					      </html>';  
 
-			          	$subject="Commitment of Rs. ".$commitment["amount"]." received for ".$deal_details[0]["deal_name"];
+			          	$subject="Commitment of Rs. ".$this->formatter->format($commitment["amount"])." received for ".$deal_details[0]["deal_name"];
 				        $cc='contact@growth91.com';
 				       // send_email($body,$subject,$investor_details[0]["email"],$cc);
 					

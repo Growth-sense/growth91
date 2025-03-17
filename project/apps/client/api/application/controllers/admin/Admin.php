@@ -21,19 +21,21 @@ class Admin extends CI_Controller {
 			$username = $formdata['username'];
 			$password = md5($formdata['password']);
 			
-			$id = $this->Adminmodel->signin($username,$password);
-			
-			if($id) {
-				$response = [
+			$result = $this->Adminmodel->signin($username,$password);
+			if ($result['status']) {
+				// Successful login
+				// Set session/return success response
+				$response = array(
 					'status' => '1',
-					'message' => 'Logged in successfully.',
-					'data' => $id,
-				];
+					'message' => $result['message'],
+					'data' => $result['data']
+				);
 			} else {
-				$response =[
+				// Failed login
+				$response = array(
 					'status' => '0',
-					'message' => 'Please try again!'
-				];
+					'message' => $result['message']
+				);
 			}
 			
 		} else {

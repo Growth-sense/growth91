@@ -445,14 +445,10 @@ class Familymanage extends Component {
   };
  
   deletefamilymeber = (value,text) => {
-    console.log(value,"ads");
     let params = {
-      userID:this.state.userID,
+      memberId:value.action.investor_id,
       groupID: this.state.groupID,
-      invite_email: value.action.email,
-      invite_mobile: value.action.mobile,
     };
-    console.log(params);
     Bridge.family.deleteGroupMember(params).then((result) => {
       console.log(result);
       if (result.message == "Member deleted successfully.") {
@@ -463,7 +459,7 @@ class Familymanage extends Component {
         toast.success("Member deleted successfully.");
         this.getmember( this.state.userID);
       } else {
-        toast.error("Error");
+        toast.error(result.message);
       }
     });
   };
@@ -496,13 +492,13 @@ class Familymanage extends Component {
         key: "name",
         width: 280,
       },
-      {
-        title: "Status",
-        dataIndex: "status",
-        key: "status",
-        width: 280,
+      // {
+      //   title: "Status",
+      //   dataIndex: "status",
+      //   key: "status",
+      //   width: 280,
 
-      },
+      // },
       {
         title: "Action",
         dataIndex: "action",

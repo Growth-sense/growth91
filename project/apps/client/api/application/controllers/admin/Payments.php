@@ -15,6 +15,7 @@ class Payments extends CI_Controller {
 
 		$sql="
 			SELECT payments.paymentid, payments.investor_id,payments.deal_id, payments.payment_date, payments.payment_amount,payments.total_paid_amount,
+			payments.igstvalue,
 			users.first_name, users.last_name,payments.description,startups.name,payments.payment_ref,
 			payments.payment_status,payments.payment_type,payments.processing_fees,payments.wallet, deals.deal_name
 			FROM `payments`

@@ -107,6 +107,8 @@ class Deals extends Component {
       ac_edit_order_token: "",
       ac_edit_tdsstatus: false,
       ac_edit_gst: 0,
+      ac_edit_igst: 0,
+      ac_edit_igstvalue: 0,
       ac_edit_legalfee: 0,
       ac_edit_walletDeductionMoney: 0,
       ac_edit_interested_id: 0,
@@ -120,6 +122,8 @@ class Deals extends Component {
       ac_interested_id: "",
       ac_deal_name: "",
       ac_commaAmount: 0,
+      ac_igst_percentage: 0,
+      ac_igst_value: 0,
       ac_amount: 0,
       ac_minamount: 0,
       ac_captable_threshold_amount: 0,
@@ -238,6 +242,8 @@ class Deals extends Component {
       utr_no_reference_id: "",
       investor_investment_amount: "",
       investor_payment_type: "",
+      offline_igst: 0,
+      offline_igstvalue: 0,
       investor_name: "",
       investor_email: "",
       investor_list: [],
@@ -350,6 +356,8 @@ class Deals extends Component {
     formData.append("order_token", this.state.ac_order_token);
     formData.append("tdsstatus", this.state.ac_tdsstatus);
     formData.append("gst", this.state.ac_gst);
+    formData.append('igst', this.state.ac_igst_percentage);
+    formData.append('igstvalue', this.state.ac_igst_value);
     formData.append("legalfee", this.state.ac_legalfee);
     formData.append("interested_id", this.state.ac_interested_id);
     formData.append("walletDeductionMoney", this.state.ac_walletDeductionMoney);
@@ -1571,6 +1579,9 @@ class Deals extends Component {
     formdata.append("attach_copy", this.state.attach_file);
     formdata.append("remarks", this.state.investor_payment_remarks);
     formdata.append("processing_fees", this.state.processing_fees);
+    formdata.append("igst", this.state.offline_igst);
+    formdata.append("igstvalue", this.state.offline_igstvalue);
+
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -1820,6 +1831,8 @@ class Deals extends Component {
       ac_edit_order_token: record.data.order_token,
       ac_edit_tdsstatus: record.data.tdsstatus,
       ac_edit_gst: record.data.gst,
+      ac_edit_igst: record.data.igst,
+      ac_edit_igstvalue: record.data.igstvalue,
       ac_edit_legalfee: record.data.legalfee,
       ac_edit_walletDeductionMoney: record.data.walletDeductionMoney,
       ac_edit_interested_id: record.data.id,
@@ -1834,6 +1847,14 @@ class Deals extends Component {
       return false;
     } else if (this.state.ac_edit_processingfees == "") {
       message.warning("Fee is required");
+      return false;
+    }
+    else if (this.state.ac_edit_igst == "") {
+      message.warning("GST is required");
+      return false;
+    }
+    else if (this.state.ac_edit_igstvalue == "") {
+      message.warning("GST value is required");
       return false;
     }
 
@@ -1851,6 +1872,8 @@ class Deals extends Component {
     formData.append("order_token", this.state.ac_edit_order_token);
     formData.append("tdsstatus", this.state.ac_edit_tdsstatus);
     formData.append("gst", this.state.ac_edit_gst);
+    formData.append('igst', this.state.ac_edit_igst);
+    formData.append('igstvalue', this.state.ac_edit_igstvalue);
     formData.append("legalfee", this.state.ac_edit_processingfees);
     formData.append(
       "walletDeductionMoney",
@@ -2017,9 +2040,15 @@ class Deals extends Component {
           : this.state.ac_walletMoney;
     }
 
-    let gstValue = ((legalfee.toFixed(0) - walletDeductionMoney) * gst) / 100;
-    let totalAmount =
-      (amt + parseFloat(legalfee)).toFixed(0) - walletDeductionMoney + gstValue;
+    legalfee = parseFloat(legalfee).toFixed(0);
+
+    let igst_per = 18;
+    let igst_value = Math.ceil(legalfee * 9 / 100) + Math.ceil(legalfee * 9 / 100);
+
+    
+
+    let gstValue = ((parseFloat(legalfee).toFixed(0) - walletDeductionMoney) * gst) / 100;
+    let totalAmount = (amt + parseFloat(legalfee)).toFixed(0) - walletDeductionMoney + igst_value;
 
     legalfee -= discountedMoney;
 
@@ -2032,6 +2061,8 @@ class Deals extends Component {
       ac_walletDeductionMoney: walletDeductionMoney,
       ac_gstValue: gstValue,
       ac_DiscountedMoney: discountedMoney,
+      ac_igst_percentage: igst_per,
+      ac_igst_value: igst_value,
     });
 
     return gst;
@@ -2118,6 +2149,7 @@ class Deals extends Component {
       message.warning("Please Select Investor");
       return;
     }
+    
     const {
       ac_amount,
       ac_captable_threshold_amount,
@@ -2179,6 +2211,7 @@ class Deals extends Component {
       message.warning("Please Select Investor");
       return;
     }
+    
     const {
       ac_amount,
       ac_captable_threshold_amount,
@@ -2377,7 +2410,7 @@ class Deals extends Component {
           child: item["0"],
           investor_id: item.investor_id,
           amount: "₹" + item.amount,
-          fee: item.processingfees ? "₹" + item.processingfees : "₹0",
+          fee: item.processingfees ? "₹" + (parseInt(item.processingfees) + parseInt(item.igstvalue)) : "₹0",
           totalamount: item.totalamount,
           commitment_satus:
             item.commitment_satus === "committed" ? (
@@ -2485,7 +2518,7 @@ class Deals extends Component {
           key: index,
           nestinvestor_id: item.investor_id,
           nestamount: "₹" + item.amount,
-          nestfee: item.processingfees ? "₹" + item.processingfees : "₹0",
+          nestfee: item.processingfees ? "₹" + (parseInt(item.processingfees) + parseInt(item.igstvalue)) : "₹0",
           nestcommitment_satus:
             item.commitment_satus === "committed" ? (
               <Tag color="green">Invested</Tag>
@@ -3115,6 +3148,34 @@ class Deals extends Component {
               }
             />
           </div>
+          <div className="mt-4 editor-field">
+            <label className="mb-2">
+              GST Percentage <span className="text-danger">*</span>
+            </label>
+            <Input
+              type="number"
+              onWheel={() => document.activeElement.blur()}
+              value={this.state.ac_edit_igst}
+              onChange={(e) =>
+                this.setState({ ac_edit_igst: e.target.value,
+                  ac_edit_igstvalue: Math.ceil((this.state.ac_edit_processingfees * e.target.value / 2) / 100) * 2
+                  })
+              }
+            />
+          </div>
+          <div className="mt-4 editor-field">
+            <label className="mb-2">
+              GST Value <span className="text-danger">*</span>
+            </label>
+            <Input
+              type="number"
+              onWheel={() => document.activeElement.blur()}
+              value={this.state.ac_edit_igstvalue}
+              onChange={(e) =>
+                this.setState({ ac_edit_igstvalue: e.target.value })
+              }
+            />
+          </div>          
         </Modal>
         {/* End Edit modal  */}
         {/* Start Edit modal  */}
@@ -3187,6 +3248,7 @@ class Deals extends Component {
                 ))}
             </Select>
           </div>
+          <div style={{height:20}} />
           <div className="login mt-3">
             <label>
               <b>
@@ -3298,8 +3360,8 @@ class Deals extends Component {
                 <td>Investment Amount</td>
                 <td className="text-center">
                   ₹{" "}
-                  {this.state.ac_amountplusgst
-                    ? this.state.ac_amountplusgst
+                  {this.state.ac_amount
+                    ? this.state.ac_amount
                     : "0"}
                 </td>
               </tr>
@@ -3328,6 +3390,14 @@ class Deals extends Component {
                 <td>Wallet Money</td>
                 <td className="text-center">
                   - ₹ {this.state.ac_walletDeductionMoney}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  GST
+                </td>
+                <td className="text-center">
+                  ₹ {this.state.ac_igst_value}
                 </td>
               </tr>
               <tr>
@@ -4788,6 +4858,38 @@ class Deals extends Component {
                   this.setState(
                     { investor_investment_amount: e.target.value },
                     () => this.onChangeInvestmentAmount()
+                  )
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                GST Percentage
+              </label>
+              <Input
+                type="number"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.offline_igst}
+                onChange={(e) =>
+                  this.setState(
+                    { 
+                      offline_igst: e.target.value,
+                    }
+                  )
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">
+                GST Value
+              </label>
+              <Input
+                type="number"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.offline_igstvalue}
+                onChange={(e) =>
+                  this.setState(
+                    { offline_igstvalue: e.target.value }
                   )
                 }
               />

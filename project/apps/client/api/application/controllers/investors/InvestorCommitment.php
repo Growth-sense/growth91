@@ -4,6 +4,14 @@ defined("BASEPATH") OR exit("No direct script access allowed");
 
 class InvestorCommitment extends CI_Controller
 {
+	private $formatter;  
+
+	public function __construct()
+    {
+        parent::__construct();
+        $this->formatter = new NumberFormatter('en_IN', NumberFormatter::DECIMAL);
+    }
+
 	public function save_investor_interest_deal()
 	{
 		header("Access-Control-Allow-Origin: *");
@@ -58,9 +66,11 @@ class InvestorCommitment extends CI_Controller
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 		$delete_log["interested_id"] = $this -> input -> post("interested_id");
-
-		$commitment["deal_id"] = $this -> input -> post("deal_id");
+		
 		$commitment["investor_id"] = $this -> input -> post("investor_id");
+		
+		$commitment["deal_id"] = $this -> input -> post("deal_id");
+		
 		$commitment["amount"] = $this -> input -> post("amount");
 		$commitment["processingfees"] = $this -> input -> post("processingfees");
 		$commitment["totalamount"] = $this -> input -> post("totalamount");
@@ -69,6 +79,9 @@ class InvestorCommitment extends CI_Controller
 		$commitment["order_token"] = $this -> input -> post("order_token");
 		$commitment["tdsstatus"] = $this -> input -> post("tdsstatus");
 		$commitment["gst"] = $this -> input -> post("gst");
+		$commitment["gstvalue"] = $this -> input -> post("gstvalue");
+		$commitment["igst"] = $this -> input -> post("igst");
+		$commitment["igstvalue"] = $this -> input -> post("igstvalue");
 		$commitment["legalfee"] = $this -> input -> post("legalfee");
 		$commitment["walletDeductionMoney"] = $this -> input -> post("walletDeductionMoney");
 		$commitment["created_at"] = date("Y-m-d H:i:s");
@@ -95,7 +108,10 @@ class InvestorCommitment extends CI_Controller
 			{
 				$total["totalamount"] =	$already_committed[0]["totalamount"] + $commitment["totalamount"];	
 				$total["amount"] =	$already_committed[0]["amount"] + $commitment["amount"];	
-				$total["processingfees"] =	$already_committed[0]["processingfees"] + $commitment["processingfees"];	
+				$total["processingfees"] =	$already_committed[0]["processingfees"] + $commitment["processingfees"];
+
+				$total["igst"] =	$already_committed[0]["igst"] + $commitment["igst"];
+				$total["igstvalue"] =	$already_committed[0]["igstvalue"] + $commitment["igstvalue"];
 				
 				$this -> db -> where("deal_id",$commitment["deal_id"]) -> where("investor_id",$commitment["investor_id"]) -> where("parent_id",0)  -> update("investor_commitment",$total);
 				
@@ -106,6 +122,9 @@ class InvestorCommitment extends CI_Controller
 				$child_commitment["processingfees"] = $commitment["processingfees"];
 				$child_commitment["totalamount"] = $commitment["totalamount"];
 				$child_commitment["created_at"] = date("Y-m-d H:i:s");
+
+				$child_commitment["igst"] = $commitment["igst"];
+				$child_commitment["igstvalue"] = $commitment["igstvalue"];
 
 				$status = $this -> db -> insert("investor_commitment",$child_commitment);
 
@@ -242,13 +261,13 @@ class InvestorCommitment extends CI_Controller
 					                                    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;"> Dear <strong>'.$investor_details[0]["first_name"].'</strong>, 
 					                                        <br>
 					                                        <br>
-					                                        Your commitment in '.$deal_details[0]["deal_name"].' on Growth91 has been received for Rs. '.$commitment["amount"].' on '.date("d/m/Y").'
+					                                        Your commitment in '.$deal_details[0]["deal_name"].' on Growth91 has been received for Rs. '.$this->formatter->format($commitment["amount"]).' on '.date("d/m/Y").'
 					                                        <br>
 					                                      <br>
-					                                      Total Amount Committed in '.$deal_details[0]["deal_name"].': Rs.'.$total["amount"].'
+					                                      Total Amount Committed in '.$deal_details[0]["deal_name"].': Rs.'.$this->formatter->format($total["amount"]).'
 					                                       <br>
 					                                       
-                                                          Total convenience fee: Rs '.$total["processingfees"].'
+                                                          Total convenience fee: Rs '.$this->formatter->format($total["processingfees"] + $total["igstvalue"]).'
                                                           <br>
 					                                      <br>
                                                           Your commitment history can be found here: <a href='.WEB_BASE_URL.'investor-commitment>History</a>
@@ -270,6 +289,12 @@ class InvestorCommitment extends CI_Controller
 					                                      <br>
 					                                      <br>
 					                                      <i> Note: If you face any difficulty, please reach out to contact@growth91.com </i>
+														  <br>
+                                                        	<br>
+                                                        <small>Convenience Fee of 2% on the investment amount at the time of
+															investment and 2% on the sale proceeds at the time of exit is applicable.
+															For any specific investment, if fee is different, it will be mentioned at the
+															time of commitment (GST if any, shall be added at applicable rates).</small>
 					                                      <br>
 					                                      <br>
 					                                    </br>
@@ -317,7 +342,7 @@ class InvestorCommitment extends CI_Controller
 					              </body>
 					      </html>';  
 
-			          	$subject="Commitment of Rs. ".$commitment["amount"]." received for ".$deal_details[0]["deal_name"];
+			          	$subject="Commitment of Rs. ".$this->formatter->format($commitment["amount"])." received for ".$deal_details[0]["deal_name"];
 				        $cc='contact@growth91.com';
 				        send_email($body,$subject,$investor_details[0]["email"],$cc);
 
@@ -349,6 +374,9 @@ class InvestorCommitment extends CI_Controller
 				$parent_commitment["walletDeductionMoney"] = $commitment["walletDeductionMoney"];
 				$parent_commitment["created_at"] = date("Y-m-d H:i:s");
 
+				$parent_commitment["igst"] = $commitment["igst"];
+				$parent_commitment["igstvalue"] = $commitment["igstvalue"];
+
 				
 				$status = $this -> db -> insert("investor_commitment",$parent_commitment);
 				$parent_committ_id = $this -> db -> insert_id();
@@ -362,6 +390,9 @@ class InvestorCommitment extends CI_Controller
 					$child_commitment["processingfees"] = $commitment["processingfees"];
 					$child_commitment["totalamount"] = $commitment["totalamount"];
 					$child_commitment["created_at"] = date("Y-m-d H:i:s");
+
+					$child_commitment["igst"] = $commitment["igst"];
+					$child_commitment["igstvalue"] = $commitment["igstvalue"];
 					
 					$this -> db -> insert("investor_commitment",$child_commitment);
 // echo"<pre>";print_r($deal_details);exit();
@@ -498,13 +529,13 @@ class InvestorCommitment extends CI_Controller
 					                                    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;"> Dear <strong>'.$investor_details[0]["first_name"].'</strong>, 
 					                                        <br>
 					                                        <br>
-					                                        Your commitment in '.$deal_details[0]["deal_name"].' on Growth91 has been received for Rs. '.$commitment["amount"].' on '.date("d/m/Y").'.
+					                                        Your commitment in '.$deal_details[0]["deal_name"].' on Growth91 has been received for Rs. '.$this->formatter->format($commitment["amount"]).' on '.date("d/m/Y").'.
 					                                        <br>
 					                                      <br>
-					                                      Total Amount Committed in '.$deal_details[0]["deal_name"].': Rs.'.$commitment["amount"].'
+					                                      Total Amount Committed in '.$deal_details[0]["deal_name"].': Rs.'.$this->formatter->format($commitment["amount"]).'
 					                                       <br>
 					                                       
-                                                          Total convenience fee: Rs '.$commitment["processingfees"].'
+                                                          Total convenience fee: Rs '.$this->formatter->format($commitment["processingfees"] + $commitment["igstvalue"] ).'
                                                           <br>
 					                                      <br>
                                                           Your commitment history can be found here: <a href='.WEB_BASE_URL.'investor-commitment>History</a>
@@ -525,6 +556,12 @@ class InvestorCommitment extends CI_Controller
 					                                      <br>
 					                                      <br>
 					                                      <i> Note: If you face any difficulty, please reach out to contact@growth91.com </i>
+														   <br>
+                                                        	<br>
+                                                        <small>Convenience Fee of 2% on the investment amount at the time of
+															investment and 2% on the sale proceeds at the time of exit is applicable.
+															For any specific investment, if fee is different, it will be mentioned at the
+															time of commitment (GST if any, shall be added at applicable rates).</small>
 					                                      <br>
 					                                      <br>
 					                                    </br>
@@ -572,7 +609,7 @@ class InvestorCommitment extends CI_Controller
 					              </body>
 					      </html>';  
 
-			          	$subject="Commitment of Rs. ".$commitment["amount"]." received for ".$deal_details[0]["deal_name"];
+			          	$subject="Commitment of Rs. ".$this->formatter->format($commitment["amount"])." received for ".$deal_details[0]["deal_name"];
 				        $cc='contact@growth91.com';
 				        send_email($body,$subject,$investor_details[0]["email"],$cc);
 					

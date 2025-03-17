@@ -161,7 +161,7 @@ class Sidebar extends Component {
             </ul>
             
           </li>
-          <li>
+          {/* <li>
             <div className="iocn-link">
              <a href="#">
                 <i className="bx bxs-folder-minus"></i>
@@ -190,7 +190,7 @@ class Sidebar extends Component {
             
             </ul>
             
-          </li>
+          </li> */}
           <li>
            <a href="/premium-members">
               <i className="bx bx-user-pin"></i>

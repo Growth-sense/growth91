@@ -3,6 +3,7 @@ import WebHeader from "../common/WebHeader";
 import WebFooter from "../common/WebFooter";
 import "./newboo.css";
 import {
+    Table,
     Tabs,
     Collapse,
     message,
@@ -11,6 +12,7 @@ import {
     Checkbox,
     Progress,
     Alert,
+    notification,
 } from "antd";
 import axios from "axios";
 import { ExclamationCircleOutlined, PlusOutlined } from "@ant-design/icons";
@@ -29,6 +31,11 @@ class VsnapU extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            igst: 0,
+            igstvalue: 0,
+            selectedInvestorId: null,
+            selectInvestorModal: false,
+            group_list: [],
             deal_id: "",
             investor_id: "",
             interested_id: "",
@@ -128,7 +135,7 @@ class VsnapU extends Component {
             ],
             current: "",
         };
-    }
+    } 
     callback1 = (key) => { };
     callback2 = (key) => { };
     callback3 = (key) => { };
@@ -137,7 +144,20 @@ class VsnapU extends Component {
         document.title = "Vsnapu - Growth91 - Startup Marketplace ";
     }
     componentDidMount() {
-        let deal_id = "40";
+        // ENVIRONMENT get from env and set deal id accordingly
+
+
+
+
+        // Determine the deal_id based on the environment
+        // let deal_id = "40";
+        let deal_id = "133";
+
+        // let deal_id = process.env.ENVIRONMENT === "production" ? "40" : "133";
+
+
+
+
         this.setState({ deal_id: deal_id }, () => {
             this.get_pitch_list();
         });
@@ -169,7 +189,56 @@ class VsnapU extends Component {
         this.getGst();
         this.get_deal_doucments(deal_id);
         // console.log("hello");
+
+        this.setState(
+            {
+              investor_id: localStorage.getItem("Parent_investor_id"),
+            },
+      
+            () => this.viewgroupall(),
+            
+          );
+        
     }
+
+   viewgroupall = () => {
+       let params = {
+         userID:!this.props.adminview?localStorage.getItem("Parent_investor_id"):this.props.investor_id,
+       }
+   
+       Bridge.family.getGroupListForInvestment(params).then((result) => {
+            let youAsMember = [{
+                investor_id: localStorage.getItem("Parent_investor_id"),
+                first_name: "You",
+                last_name:"",
+                groupName: "N/A"
+            }]
+         this.setState({ group_list: youAsMember.concat(result.data) });
+       });
+     };
+
+     getmember = (value) => {
+        if (localStorage.getItem("Parent_investor_id"))
+          this.setState({ memberdetail: "", memberlistloader: true });
+        this.setState({ ids: value });
+        let params = {
+          parent_id: !this.props.adminview?localStorage.getItem("Parent_investor_id"):this.props.investor_id,
+          groupID: value,
+        };
+        this.setState({ chggroupID: value });
+    
+        Bridge.investor.getfamilymember(params).then((result) => {
+          const data = result.data.filter((item, index) => {
+            return item.investor_id == !this.props.adminview?localStorage.getItem("Parent_investor_id"):this.props.investor_id
+          });
+         
+    
+          this.setState({ memberdetail: result.data, memberlistloader: false });
+        });
+      };
+
+
+
     get_founder_details = () => {
         let params = {
             founder_id: localStorage.getItem("founder_id"),
@@ -269,13 +338,20 @@ class VsnapU extends Component {
                         gst:
                             result.data[0].taxation_percentage_cgst +
                             result.data[0].taxation_percentage_sgst,
+                        igst: 18
                     });
                 } else if (this.state.member_detail.nationality == "Non Resident") {
                     console.log(result.data[0]);
-                    this.setState({ gst: result.data[0].taxation_percentage });
+                    this.setState({ 
+                        gst: result.data[0].taxation_percentage,
+                        igst: 18
+                     });
                 } else {
                     console.log(result.data[0], "asa");
-                    this.setState({ gst: result.data[0].taxation_percentage });
+                    this.setState({ 
+                        gst: result.data[0].taxation_percentage,
+                        igst: 18
+                    });
                     // console.log("gst can not be able to fetch")
                 }
             }
@@ -600,7 +676,7 @@ class VsnapU extends Component {
                                 });
                             }
                         }
-                        // console.log('button_show_status',this.state.button_show_status);
+                        console.log('button_show_status', this.state.button_show_status);
                         this.setState(
                             {
                                 deal_name: d.name,
@@ -676,6 +752,7 @@ class VsnapU extends Component {
 
         this.setState(
             {
+                selectInvestorModal: false,
                 investmentmodal: true,
             },
             () => {
@@ -875,6 +952,8 @@ class VsnapU extends Component {
     };
 
     // investing your money
+    // No longer used
+    // Was used before to use cashfree payment
     invest = () => {
         let investor_id = this.state.investor_id;
         let deal_id = this.state.deal_id;
@@ -914,22 +993,15 @@ class VsnapU extends Component {
     };
 
     calculategst = () => {
-        let legalfee = parseFloat(
-            (this.state.amount / 100) * parseFloat(this.state.percentage)
-        );
+        let legalfee = parseFloat((this.state.amount / 100) * parseFloat(this.state.percentage)).toFixed(0);
         let minusamt = 0;
         let gst = this.state.gst;
         let amt = parseFloat(this.state.amount);
-        let walletDeductionMoney;
-        if (this.state.checkWallet == false) {
-            walletDeductionMoney = 0;
-        } else {
-            walletDeductionMoney =
-                legalfee.toFixed(0) <= this.state.walletMoney
-                    ? legalfee.toFixed(0)
-                    : this.state.walletMoney;
-        }
-        let gstValue = ((legalfee.toFixed(0) - walletDeductionMoney) * gst) / 100;
+        let walletDeductionMoney = 0;
+        
+        let igstvalue = Math.ceil(((legalfee) * 9) / 100) * 2;
+
+        let gstValue = ((legalfee - walletDeductionMoney) * gst) / 100;
         // ceil gst value
         gstValue = Math.ceil(gstValue);
         // console.log(gst);
@@ -947,13 +1019,13 @@ class VsnapU extends Component {
 
         this.setState({
             gst: gst,
-            legalfee: this.state.amount ? legalfee.toFixed(0) : 0,
+            legalfee: this.state.amount ? legalfee : 0,
             amountplusgst: this.state.amount ? amt.toFixed(0) : 0,
             processingfees: this.state.amount
-                ? legalfee.toFixed(0) - Number(tdsamount)
+                ? legalfee - Number(tdsamount)
                 : 0,
             totalamount: this.state.amount
-                ? (amt + parseFloat(legalfee.toFixed(0) - Number(tdsamount))).toFixed(
+                ? (amt + parseFloat(legalfee - Number(tdsamount))).toFixed(
                     0
                 ) -
                 walletDeductionMoney +
@@ -961,9 +1033,11 @@ class VsnapU extends Component {
                 : 0,
             walletDeductionMoney: walletDeductionMoney,
             gstValue: Number(gstValue).toFixed(0),
+            igstvalue: igstvalue,
         });
         return gst;
     };
+
     documentPay = () => {
         if (!this.state.investor_id) {
             message.warning("Please login first to invest.", 5);
@@ -1247,6 +1321,48 @@ class VsnapU extends Component {
     };
 
     render() {
+        const dataSource2 =
+            this.state.group_list &&
+            this.state.group_list
+                // .filter(
+                //     (item) => {
+                //         console.log(item);
+                //         return item.userID != (this.props.adminview ? this.props.investor_id : localStorage.getItem("Parent_investor_id"))
+                //     }
+                // )
+                .map((item, index) => {
+                    return {
+                        key: item.investor_id,
+                        investorName: item.first_name + " " + item.last_name,
+                        groupName: item.groupName,
+                        action: item,
+                    };
+                });
+
+
+                
+                  const columns2 = [
+                    // {
+                    //     title: "Investor Name",
+                    //     dataIndex: "name",
+                    //     key: "name",  
+                    // },
+                    {
+                        title: "Investor Name",
+                        dataIndex: "investorName",
+                        key: "investorName",
+                      },
+                    {
+                      title: "Group Name",
+                      dataIndex: "groupName",
+                      key: "groupName",
+                    }
+                  ];
+
+
+
+             
+
         const myStyle = {
             color: "white",
             fontSize: "17px",
@@ -1382,7 +1498,17 @@ class VsnapU extends Component {
                                                 </div>
                                             ) : (
                                                 <>
-                                                    {this.state.button_show_status == true ? (
+
+
+
+
+                                                    {/* console log isfunded */}
+                                                    {console.log('is funded is ' + this.state.isFunded)}
+                                                    {/* TODO:Orginal condition */}
+                                                    {/* {this.state.button_show_status == true ? ( */}
+
+
+                                                    {this.state.button_show_status == false ? (
                                                         <>
                                                             <div className="button-group">
                                                                 {this.state.isFunded == true ? (
@@ -1393,13 +1519,15 @@ class VsnapU extends Component {
                                                                         Deal is closed
                                                                     </a>
                                                                 ) : this.state.user_type != "founder" &&
-                                                                    this.state.invest_amt !== null ? (
+                                                                    this.state.invest_amt !== null 
+                                                                    && dataSource2.length <= 1 ? (
                                                                     <div className="button-group">
                                                                         <p>{`You have committed Rs. ${this.state.invest_amt} to this deal so far. (Including platform fees)`}</p>
                                                                         <a
                                                                             href="#!"
                                                                             style={{ padding: "13px 0" }}
                                                                             onClick={() => {
+                                                                                this.setState({selectedInvestorId: dataSource2[0].key});
                                                                                 this.getpostData();
                                                                                 this.showModal1();
                                                                             }}
@@ -1432,11 +1560,36 @@ class VsnapU extends Component {
                                                                                 className="black-button prime-bg text-center"
                                                                                 onClick={() => {
                                                                                     this.getpostData();
-                                                                                    this.showModal1();
+                                                                                    if(dataSource2.length > 1){
+                                                                                        this.setState({selectInvestorModal: true});
+                                                                                    }
+                                                                                    else{
+                                                                                        this.setState({selectedInvestorId: dataSource2[0].key});
+                                                                                        this.showModal1();
+                                                                                    }
+                                                                                    
                                                                                 }}
                                                                             >
                                                                                 Express Your Interest
+
+
                                                                             </a>
+
+
+
+
+
+
+                                                                            // check group_list length and if larger than 1 button for express interest as group 
+
+
+
+
+
+
+
+
+
                                                                         ) : (
                                                                             <a
                                                                                 href="/founder-as-investor"
@@ -1455,7 +1608,30 @@ class VsnapU extends Component {
                                                                                 className="black-button prime-bg text-center"
                                                                                 onClick={() => {
                                                                                     this.getpostData();
-                                                                                    this.showModal1();
+                                                                                    if(dataSource2.length > 1){
+                                                                                        this.setState({selectInvestorModal: true});
+                                                                                    }
+                                                                                    else{
+                                                                                        this.setState({selectedInvestorId: dataSource2[0].key});
+                                                                                        this.showModal1();
+                                                                                    }
+                                                                                    
+                                                                                }}
+                                                                                style={{ padding: "13px 0" }}
+                                                                            >
+                                                                                Express Your Interest
+                                                                            </a>
+                                                                        ) : null}
+                                                                        {this.state.user_type == "investor" &&
+                                                                            this.state.invest_amt != null && 
+                                                                            dataSource2.length > 1
+                                                                            ? (
+                                                                            <a
+                                                                                href="#"
+                                                                                className="black-button prime-bg text-center"
+                                                                                onClick={() => {
+                                                                                    this.getpostData();
+                                                                                    this.setState({selectInvestorModal: true});
                                                                                 }}
                                                                                 style={{ padding: "13px 0" }}
                                                                             >
@@ -1501,6 +1677,58 @@ class VsnapU extends Component {
                                             )}
                                         </Spin>
                                     </div>
+                                    <Modal
+                                        title={`Select Investor`}
+                                        okText={"Select"}
+                                        visible={this.state.selectInvestorModal}
+                                        onCancel={() => {this.setState({selectInvestorModal: false})} }
+                                        
+                                        cancelText="Cancel"
+                                        width={600}
+                                        footer={false}
+                                    >
+                                         <Table
+                                          rowSelection={{
+                                            type: "radio",
+                                            onSelect: (x) => {
+                                                this.setState({selectedInvestorId: x.key})
+                                            }
+                                            // selectedRowKeys: this.state.selectedRowKeys,
+                                            // onChange: (x,y) => {
+                                            //     console.log(x);
+                                            //     console.log(y);
+                                            // }
+                                        }}
+
+                                            className="table-2"
+                                            dataSource={dataSource2}
+                                            columns={columns2}
+                                            bordered
+                                            loading={this.state.loading}
+                                        />
+                                        
+                                            <button
+                                                type="button"
+                                                className="login-button prime-bg d-md-block mx-auto w-50 mt-1"
+                                                onClick={() => {
+                                                    if(this.state.selectedInvestorId == null){
+                                                        notification.warning({
+                                                            message: `Please Select an Investor`,
+                                                            placement: "top",
+                                                            duration: 5,
+                                                          });
+                                                        
+                                                    }else{
+                                                        this.showModal1();
+                                                    }
+                                                }}
+                                            >
+                                                Invest as Selected User
+                                            </button>
+                                            
+                                            
+                                        
+                                    </Modal>
                                     <Modal
                                         title={`Invest in ${this.state.deal_name}`}
                                         visible={this.state.investmentmodal}
@@ -1641,14 +1869,14 @@ class VsnapU extends Component {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>GST {this.state.gst} %</td>
+                                                        <td>GST</td>
                                                         <td
                                                             className="text-end"
                                                             style={{ textAlign: "right!important" }}
                                                         >
                                                             ₹{" "}
                                                             {this.formatNumberWithCommas(
-                                                                Number(this.state.gstValue).toFixed(0)
+                                                                Number(this.state.igstvalue).toFixed(0)
                                                             )}
                                                         </td>
                                                     </tr>
@@ -1665,7 +1893,7 @@ class VsnapU extends Component {
                                                     </tr>
                                                 </table>
                                             </div>
-                                            {this.state.invest_amt !== null ? (
+                                            {this.state.invest_amt !== null && this.state.selectedInvestorId == localStorage.getItem("Parent_investor_id")? (
                                                 <div className="">
                                                     <Alert
                                                         message={`You have committed Rs. ${this.state.invest_amt} to this deal so far. (Including platform fees)`}
@@ -1736,11 +1964,13 @@ class VsnapU extends Component {
                                                         maxamount={this.state.maxamount}
                                                         agree={this.state.agree}
                                                         error_status={this.state.amount_error_status}
-                                                        investor_id={this.state.investor_id}
+                                                        investor_id={this.state.selectedInvestorId}
                                                         deduct={this.state.deduct}
                                                         tdsstatus={this.state.tdsstatus}
                                                         gst={this.state.gst}
                                                         gstvalue={this.state.gstValue}
+                                                        igst={this.state.igst}
+                                                        igstvalue={this.state.igstvalue}
                                                         order_token={this.state.order_token}
                                                         legalfee={this.state.legalfee}
                                                         walletDeductionMoney={

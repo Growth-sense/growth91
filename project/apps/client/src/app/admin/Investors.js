@@ -1073,6 +1073,7 @@ class Investors extends Component {
         "Father's Name": item.fathers_name,
         Address: item.address,
         "Contact No": item.mobile,
+        "Nationality": item.nationality,
         Email: item.email,
         "KYC Status": status,
         "Pan Id": item.panno,
@@ -1227,11 +1228,15 @@ class Investors extends Component {
     const dataSource =
       this.state.investors &&
       this.state.investors.map((item, index) => {
+        console.log(item)
         return {
           key: index,
           investorid: item.investor_id,
           name: item.name.toLowerCase(),
-          contactno: item.mobile ? item.mobile : "---",
+          contactno: item.mobile ? 
+            item.nationality == "Indian Resident" ? "(+91) " + item.mobile 
+            : item.country_code == null ?  item.mobile : `(${item.country_code}) ${item.mobile}`
+            : "---",
           email: item.email ? item.email : "---",
           investment_amt: item.email ? item.email : "---",
           isActive: item.user_block_status ? item.user_block_status : 0,

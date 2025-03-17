@@ -165,6 +165,8 @@ class Investors extends CI_Controller {
 			
 			if($id) {
 
+				sendRegistrationEmail($post_data['first_name'], $post_data['last_name'], $post_data['nationality'], $post_data['mobile'], $post_data['email'], "Investor");
+
 				if( isset($_FILES['profile_image']['name']) && $_FILES['profile_image']['name'] != "" ) {
 					$dir = "uploads/profile/".$id.'/';
 		

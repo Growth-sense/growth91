@@ -182,7 +182,7 @@ export default class Sidebaradmininvestorview extends Component {
                 <div className="col-md-4 col-12 side-text">Group Investments</div>
               </li>
             </a>
-            <a
+            {/* <a
               href="/My-Future-unicorn"
               className={
                 window.location.pathname == "/My-Future-unicorn" ? "active" : ""
@@ -192,7 +192,7 @@ export default class Sidebaradmininvestorview extends Component {
                 <i className="bx bx-transfer-alt col-md-4" />
                 <div className="col-md-4 col-12 side-text">Future unicorn</div>
               </li>
-            </a>
+            </a> */}
            
           {/* <div>
             <a

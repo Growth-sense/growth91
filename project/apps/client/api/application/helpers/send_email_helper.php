@@ -64,5 +64,25 @@ function send_email($body,$subject,$email,$cc)
 	curl_close($ch);
 }
 
+function sendRegistrationEmail($first_name, $last_name, $status, $mobile, $email, $user_type) {
+    // Format the email body
+    $body = "<p><strong>Name:</strong> {$first_name} {$last_name}</p>";
+    $body .= "<p><strong>Residential Status:</strong> {$status}</p>";
+    $body .= "<p><strong>Mobile Number:</strong> {$mobile}</p>";
+    $body .= "<p><strong>Email Id:</strong> {$email}</p>";
+    $body .= "<p><strong>Date of registration:</strong> " . date('Y-m-d') . "</p>";
+
+    $subject = "New {$user_type} registered";
+
+    // Using the existing send_email helper function
+    $result = send_email(
+        $body,                      // HTML body
+        $subject,                   // Subject
+        'contact@growth91.com',     // To email
+        ''                          // CC (empty in this case)
+    );
+
+    return $result;
+}
 
 ?>

@@ -140,8 +140,12 @@ class Step1 extends Component {
         return;
       }
     }
-
+    
     if (this.state.typeofmember == "Non Resident") {
+      if(this.state.country_code == null || this.state.country_code == ""){
+        message.error("Please select country code");
+        return;
+      }
       if (this.state.phone.length <= "7" || this.state.phone.length >= "15") {
         message.error("Invalid mobile number.");
         console.log(this.state.phone);
@@ -176,7 +180,7 @@ class Step1 extends Component {
       is_refferal_code_matched: this.state.is_refferal_code_matched,
       phone: this.state.phone,
       phone1: this.state.phone1,
-      country_code: this.state.country_code,
+      country_code: this.state.typeofmember == "Indian Resident" ? "" : this.state.country_code,
     };
 
     // this.setState({loading:true});
@@ -486,8 +490,11 @@ class Step1 extends Component {
       message.warning("Mobile no is required.");
       return;
     }
-    let params = `?mobile=${this.state.phone}&otp=${otp}`;
-
+    let params = {
+      mobile: this.state.phone,
+      otp: otp
+    };
+    
     Bridge.investor
       .sendotptomobile(params)
       .then((result) => {
@@ -531,7 +538,10 @@ class Step1 extends Component {
       message.warning("Mobile number is required.");
       return;
     }
-    let params = `?mobile=${this.state.phone}&otp=${this.state.mobileotp}`;
+    let params = {
+      mobile: this.state.phone,
+      otp: otp
+    };
     Bridge.investor
       .sendotptomobile(params)
       .then((result) => {

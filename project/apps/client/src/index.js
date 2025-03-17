@@ -5,6 +5,8 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import {  HelmetProvider } from 'react-helmet-async';
+import './app/helper/storageEncryptionHelper'
+
 const theme = createTheme({
   typography: {
     allVariants: {
