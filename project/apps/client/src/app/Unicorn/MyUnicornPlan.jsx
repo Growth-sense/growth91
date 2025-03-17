@@ -249,16 +249,15 @@ export const MyUnicornPlan = () => {
     return diffDays;
   };
 
-  // Add this function to handle the purchase
-  const handlePurchaseEdits = () => {
+
+  const handlePurchaseEdits = async () => {
     let params = {
       founder_id: localStorage.getItem("founder_id"),
       plan_name: "AdditionalEdit"
     };
-    Bridge.Unicorn.get_payment_link(params).then((result) => {
-      window.location.assign(JSON.parse(result.data).link_url);
-    })
-  };
+    const result = await Bridge.Unicorn.get_payment_link(params);
+    window.location.assign(JSON.parse(result.data).link_url);
+  }
 
   // PlanInfoCard component
   const PlanInfoCard = ({ icon, label, value, isDate = false }) => (
