@@ -1006,6 +1006,7 @@ class CareerCompany extends Component {
         : 0,
       walletDeductionMoney: walletDeductionMoney,
       gstValue: Number(gstValue).toFixed(0),
+      igstvalue: igstvalue
     });
     return gst;
   };
