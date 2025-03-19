@@ -27,214 +27,124 @@ const { Panel } = Collapse;
 const { TabPane } = Tabs;
 
 const staticDealData = {
-  title: "The EleFant Round 2 - Growth91 - Startup Marketplace ",
-  dealId: "43",
+  title: "The Career Company - Growth91 - Startup Marketplace ",
+  dealId: "42",
   imageList: [
-    "./assets/images/deals-details/new_theEleFant/Pitch/1.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/2.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/3.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/4.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/5.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/6.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/7.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/8.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/9.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/10.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/11.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/12.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/13.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/14.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/15.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/16.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/17.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/18.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/19.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/20.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/21.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/22.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/23.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/24.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/25.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/26.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/27.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/28.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/29.jpg"
+    "./assets/images/deals-details/theCareerCompany/Pitch/1.jpg",
+    "./assets/images/deals-details/theCareerCompany/Pitch/2.jpg",
+    "./assets/images/deals-details/theCareerCompany/Pitch/3.jpg",
+    "./assets/images/deals-details/theCareerCompany/Pitch/4.jpg",
+    "./assets/images/deals-details/theCareerCompany/Pitch/5.jpg",
+    "./assets/images/deals-details/theCareerCompany/Pitch/6.jpg",
+    "./assets/images/deals-details/theCareerCompany/Pitch/7.jpg",
+    "./assets/images/deals-details/theCareerCompany/Pitch/8.jpg",
+    "./assets/images/deals-details/theCareerCompany/Pitch/9.jpg",
+    "./assets/images/deals-details/theCareerCompany/Pitch/10.jpg",
+    "./assets/images/deals-details/theCareerCompany/Pitch/11.jpg",
+    "./assets/images/deals-details/theCareerCompany/Pitch/12.jpg",
+    "./assets/images/deals-details/theCareerCompany/Pitch/13.jpg",
+    "./assets/images/deals-details/theCareerCompany/Pitch/14.jpg",
+    // "./assets/images/deals-details/new_theEleFant/Pitch/15.jpg",
+    // "./assets/images/deals-details/new_theEleFant/Pitch/16.jpg",
+    // "./assets/images/deals-details/new_theEleFant/Pitch/17.jpg",
+    // "./assets/images/deals-details/new_theEleFant/Pitch/18.jpg",
+    // "./assets/images/deals-details/new_theEleFant/Pitch/19.jpg",
+    // "./assets/images/deals-details/new_theEleFant/Pitch/20.jpg",
+    // "./assets/images/deals-details/new_theEleFant/Pitch/21.jpg",
+    // "./assets/images/deals-details/new_theEleFant/Pitch/22.jpg",
+    // "./assets/images/deals-details/new_theEleFant/Pitch/23.jpg",
+    // "./assets/images/deals-details/new_theEleFant/Pitch/24.jpg",
+    // "./assets/images/deals-details/new_theEleFant/Pitch/25.jpg",
+    // "./assets/images/deals-details/new_theEleFant/Pitch/26.jpg",
+    // "./assets/images/deals-details/new_theEleFant/Pitch/27.jpg",
+    // "./assets/images/deals-details/new_theEleFant/Pitch/28.jpg",
+    // "./assets/images/deals-details/new_theEleFant/Pitch/29.jpg"
   ],
-  logoImage: "./assets/images/deals-details/new_theEleFant/logo.png",
-  dealTitle: "The Elefant Round 2",
-  industryTag: "E-commerce",
-  youtubeVideoLink: "https://www.youtube.com/embed/cimjF2sWGoM?si=iJjUnU8ldiMCU6U2",
-  youtubeVideoLink2: "https://www.youtube.com/embed/ORFeADai42s?si=AQ0xs-9NFbsSpWi3",
-  valuation: "Floor 40 Cr. Cap 60 Cr.",
-  legalName: "Madshades Technologies Private Ltd",
-  foundedDate: "2022-08-19",
-  status: "Private Limited Company",
-  employees: "48",
-  websiteHref: "https://www.theelefant.com",
-  websiteName: "www.theelefant.com",
-  facebookUrl: "https://www.facebook.com/theelefantofficial",
-  linkedinUrl: "https://www.linkedin.com/company/the-elefant/?originalSubdomain=in",
-  instaUrl: "https://www.instagram.com/theelefant_official",
-  youtubeUrlForCompany: "https://www.youtube.com/@theEleFant",
+  logoImage: "./assets/images/deals-details/theCareerCompany/logo.png",
+  dealTitle: "The Career Company",
+  industryTag: "Career Acceleration and Recruitment technology market",
+  youtubeVideoLink:
+    "https://www.youtube.com/embed/nTzp3SRzG10?si=2dPBllM4UUHV8jLL",
+  // youtubeVideoLink2: "https://www.youtube.com/embed/ORFeADai42s?si=AQ0xs-9NFbsSpWi3",
+  valuation: "8 Cr. (Interest 12% PA)",
+  legalName: "Careersage consultants Private Limited",
+  foundedDate: "2023-04-26",
+  status: "",
+  employees: "10",
+  websiteHref: "https://thecareercompany.in/",
+  websiteName: "thecareercompany.in",
+  facebookUrl: "",
+  linkedinUrl: "https://www.linkedin.com/company/thecareercompanyindia",
+  instaUrl: "https://www.instagram.com/tcc_india?igsh=NXV2OWtoZnpTheymZj",
+  youtubeUrlForCompany: "",
 
   teamMembers: [
     {
-        image: "./assets/images/deals-details/new_theEleFant/team/sourabh.jpg",
-        name: "CA Sourabh Jain",
-        position: "Founder and CEO",
-        linkedinUrl: "https://www.linkedin.com/in/sourabhjain-theelefant/",
-        description: [
-            `
-            16 years of diverse and global
-            experience across accountancy and
-            internal Audit, delivering value-added
-            solutions to clients and businesses
-            across various sectors and markets.
+      image:
+        "./assets/images/deals-details/theCareerCompany/team/Maharshi_Vyas.jpeg",
+      name: "Maharshi Vyas",
+      position: "Founder and CEO",
+      linkedinUrl: "https://www.linkedin.com/in/vyasmaharshi/",
+      description: [
+        `
+            Led placements at IIM Udaipur & IIM Nagpur, managing 12+ placement seasons and placing 1,400+ MBAs.
+
             `,
-            `
-            Registered Independent Director, CA, and CS.
+        `
+            Conducted 500+ career conversations annually for over 7 years.
             `,
-            `
-            Bringing strategic leadership and financial acumen to The EleFant.
-            `
-        ]
+      ],
     },
-    {
-        image: "./assets/images/deals-details/new_theEleFant/team/santhosh.jpg",
-        name: "Santhosh Vemishetty",
-        position: "Head - Product & Tech",
-        linkedinUrl: "https://www.linkedin.com/in/santhoshv44/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
-        description: [
-            `
-            10+ years of experience, specializing in
-            building innovative, data-driven
-            products, Retail/F&B processes, and SaaS
-            products, leading Omni Channel Retail
-            transformation
-            `,
-            `
-            Ex-Target, Aditya Birla, Chai Point,
-            Flash Coffee
-            `,
-            `
-            Contributing to The EleFant's product
-            innovation.
-            `
-        ]
-    },
-    {
-        image: "./assets/images/deals-details/new_theEleFant/team/nirupa.png",
-        name: "Nirupa Vora",
-        position: "Head - Toy Curator & Librarian Engagement",
-        linkedinUrl: "https://www.linkedin.com/in/nirupa-vora-18b442291/",
-        description: [
-            `
-            With her background as a former Principal, 
-            she brings valuable experience to curate and engage 
-            with the toy library, ensuring a quality selection of 
-            toys and fostering positive interactions with librarians.
-            `
-        ]
-    },
-    {
-        image: "./assets/images/deals-details/new_theEleFant/team/ruchi-new.png",
-        name: "CA Ruchi Gour",
-        position: "Head - Finance & Investor Relations CA",
-        linkedinUrl: "https://www.linkedin.com/in/ruchi-gour-92109b30/",
-        description: [
-            `
-            14+ experience across finance domains of
-            process audits, accounting
-            controllership, business finance,
-            funding, investments and acquisitions
-            `,
-            `
-            Ex Amazon, Swiggy, Meesho, Dream 11, and ITC
-            `,
-            `
-            Managing The EleFant's financial operations and investor relations.
-            `
-        ]
-    }
   ],
 
-  aboutTitle: "About The Elefant",
+  aboutTitle: "About The Career Company",
   aboutHeader1: "Are you focused on product or service?",
-  aboutDetail1: 
+  aboutDetail1: [
     `
-    EleFant offers a service, specifically a 
-    subscription-based toy library model. It provides users 
-    with access to a curated selection of toys through a 
-    membership or subscription, allowing them to enjoy a 
-    variety of toys without the need for ownership. 
-    The service is facilitated through a mobile application, 
-    which plays a crucial role in managing subscriptions, 
-    selecting toys, and enhancing the overall user experience. 
-    The focus is on providing an economical, clutter-free, and 
-    environmentally friendly toy solution for children.
+    The Career Company operates as a tech-driven service platform with product-like features. While its core offering is structured career acceleration services, it integrates technology-driven solutions such as a private career dashboard, job marketplace, and structured placement pipelines. The upcoming D2C career app further enhances its product-driven approach by offering AI-powered career guidance, mentorship, and job-matching. So, while the company is service-focused, it is building scalable product-based solutions to drive long-term growth.
     `,
-  aboutHeader2: "What are the challanges for scale up and how these will be managed?",
-  aboutDetail2: 
-    `
-    Scaling up EleFant poses challenges such as 
-    optimizing logistics for a growing subscriber base, 
-    efficient customer acquisition through targeted marketing, 
-    maintaining quality control and toy upkeep, expanding the 
-    librarian network, ensuring compliance with regulations, staying 
-    competitive in a dynamic market, and focusing on customer retention 
-    strategies. To tackle these challenges, EleFant needs to invest in robust 
-    logistics infrastructure, implement comprehensive marketing strategies, 
-    enforce stringent quality control measures, provide continuous librarian 
-    training and support, stay updated on regulatory requirements, foster 
-    innovation to stay competitive and build strong customer relationships 
-    through personalized services and continuous improvement based on customer 
-    feedback. Addressing these aspects strategically will be essential for 
-    EleFant's successful and sustainable scale-up in the toy subscription industry.
-    `,
+  ],
+  aboutHeader2:
+    "What are the challanges for scale up and how these will be managed?",
+  aboutDetail2: [
+    {
+      problem:
+        "1️⃣ Institutional Adoption Lag: While IIMs have embraced professional career preparation companies, large universities are still transitioning from alumni and soft skills trainers. Convincing them to adopt a structured placement accelerator may take time.",
+      solution:
+        "🔹 Solution: Focus on high-impact pilot projects with early adopters, showcasing tangible placement improvements. Build case studies and leverage word-of-mouth from top institutions to drive credibility.",
+    },
+    {
+      problem:
+        "2️⃣ Recruiter Mindset Shift: Companies traditionally hire from preferred campuses, and a centralized platform for multi-campus hiring may seem unfamiliar at first.",
+      solution:
+        "🔹 Solution: Demonstrate measurable hiring efficiency gains—reduced time-to-hire, access to untapped talent, and cost savings. Position TCC as a data-driven hiring enabler, not just another job board.",
+    },
+    {
+      problem:
+        "3️⃣ Market Entry by Large Players: If this model proves successful, large edtech or HR tech players may enter the space.",
+      solution:
+        "🔹 Solution: First-mover advantage with strong institutional partnerships, deep recruiter relationships, and AI-driven career personalization will create a defensible moat. Scalability through technology and network effects will ensure a competitive edge.",
+    },
+  ],
   aboutHeader3: "Are you targeting new untapped market? Justify",
-  aboutDetail3: 
+  aboutDetail3: [
     `
-    EleFant has the potential to tap into a relatively 
-    untapped market by offering its unique subscription-based 
-    toy library model. The traditional toy market primarily involves 
-    one-time purchases, which may pose financial and storage challenges 
-    for parents. EleFant's subscription model addresses these concerns by 
-    providing an economical, clutter-free, and environmentally friendly toy 
-    solution. This approach caters to a segment of parents who may be 
-    looking for more sustainable and cost-effective alternatives. Moreover, 
-    the emphasis on curated, high-quality, and educational toys, 
-    coupled with a personalized user experience through the app, 
-    distinguishes EleFant in the market. By targeting this untapped 
-    market segment, EleFant positions itself as a convenient and 
-    innovative solution, potentially attracting a new customer base 
-    seeking more flexible and sustainable options for their children's 
-    play and learning experiences.
+    Yes, The Career Company is targeting an untapped market by bridging the gap between traditional job portals, recruitment agencies, and career coaching platforms through a tech-driven, structured career acceleration model. Unlike conventional job portals that focus on job listings or placement agencies that rely on manual hiring, The Career Company integrates AI-driven job matching, career coaching, and institutional partnerships to provide end-to-end career support.
     `,
+    `
+    Furthermore, the private career dashboard for students and the D2C career app create a unique personalized career growth ecosystem, addressing the needs of students and professionals who struggle with resume optimization, skill development, and employer connections. With plans for IPO in Year 7, this approach taps into an underutilized segment—students and professionals looking for a guided career path beyond job postings, offering structured placement solutions tailored to industry needs.
+    `,
+  ],
   aboutHeader4: "What are your moats?",
-  aboutDetail4: 
-    `
-    EleFant's competitive edge is built on a distinctive 
-    subscription-based toy library model, fostering recurring 
-    revenue and customer loyalty. This approach not only offers 
-    an economical and sustainable alternative to traditional toy 
-    ownership but also ensures a consistent relationship with customers. 
-    The curated catalog of high-quality, educational toys, coupled with 
-    personalized recommendations based on a child's age and interests, 
-    establishes a unique selling proposition. The user-friendly mobile 
-    application, with features like real-time tracking and push notifications, 
-    enhances convenience and sets EleFant apart in terms of 
-    technological accessibility. Furthermore, EleFant's commitment 
-    to environmental sustainability by reducing toy waste adds an 
-    eco-friendly dimension, aligning with the growing consumer trend 
-    towards socially responsible products. Collectively, these factors 
-    create a robust competitive moat for EleFant in the toy industry.
-    `,
+  aboutDetail4: [
+    "1️⃣ The Only Placement Accelerator with Proven Placement Management Experience Unlike traditional placement training agencies, TCC is the only company that actively manages placements for institutions. With first-hand experience of running placements for 2 IIMs over 13 seasons and placing 1,400+ IIM graduates in 400+ companies, They bring deep operational expertise, making us a trusted partner for institutions.",
+    "2️⃣ Unmatched Talent Insights & Data-Driven Hiring They don’t just provide resumes—They offer structured, multi-step trained talent. Their exclusive access to IIM students and 9-step career intervention process provides rich data beyond resumes, helping companies mitigate hiring risks by evaluating skills, competencies, and readiness before making decisions.",
+    "3️⃣ End-to-End Hiring Support: Platform + Recruitment Services Beyond a technology platform, TCC also acts as a strategic hiring partner. If companies need direct staffing support, They leverage Their deep recruiter network to source, assess, and place the right talent, combining tech-driven efficiency with human expertise—a unique edge over pure tech platforms.",
+    "🚀 With their integrated model, deep industry expertise, and strong institutional + recruiter relationships, TCC is building a defensible ecosystem that competitors cannot easily replicate."
+  ],
 
-
-  addressOfCompany: 
-    `
-    705 Palm Spring Centre, New link
-    Road, Malad West Mumbai 400064
+  addressOfCompany: `
+    303- Atithya Park Flats, Near Chanakyapuri Circle  ,Sama Vadodara 390024
     `,
 
   highlight1Image: "./assets/images/deals-details/Petmojo/highlight4.jpg",
@@ -242,106 +152,46 @@ const staticDealData = {
   highlight3Image: "./assets/images/deals-details/highlight2.jfif",
   highlight4Image: "./assets/images/deals-details/highlight3.jpg",
 
-  highlight1Text:
-    `
-    The EleFant is India’s first mobile-based go to toy library subscription platform,Since launch, The EleFant has achieved 42,000+ registered users and 3,100+ paid subscribers, generating a ₹1.05 Cr monthly revenue run rate. With a presence in 85+ centres, 95+ partnerships, and physical stores in Mumbai & Noida, the platform is rapidly becoming India’s go-to toy rental solution. 
+  highlight1Text: `
+    The Career Company (TCC) is a tech-enabled career development platform offering personalized, data-driven career support through 1:1 guidance, role-based training, and JD-specific interview prep. Founded by Maharshi Vyas, a seasoned placement leader who has managed placements in 2 IIMs, IIM Udaipur and IIM Nagpur for 13 seasons. TCC has shown 10X growth in revenue from FY1 to FY2 and delivering placement training in 5+ IIMs. 
     `,
-  highlight2Text:
-    `
-    The EleFant is implementing a Hub & Spoke Supply Chain Model to optimize logistics and efficiently serve its expanding user base. It is also focusing on scaling B2B, B2B2C, and referral-based revenue models.
+  highlight2Text: `
+    TCC currently provides a plug-and-play career module that seamlessly integrates career planning, executive coaching, and skill-building workshops into existing degree programs, ensuring students gain structured, real-world career readiness alongside their academic curriculum.
     `,
-  highlight3Text:
-    `
-    The EleFant is focused on strong growth, aiming to reach approximately 27K users by 2025, 71k by 2026, and 1.3 lakh by 2027. Over the next 12 months, it projects an MRR of over ₹3 Cr and an ARR of ₹33 Cr. The roadmap includes expanding to 20+ new cities, reaching 25,000+ paid users, and achieving ₹2.65 Cr MRR by Dec 2025.
+  highlight3Text: `
+    With plans to launch a D2C career app, offering AI-driven, personalized career guidance with resume building, JD-based interview prep, and automated job-matching. Through a subscription model, it will provide self-paced learning, mentorship, and workshops, expanding beyond MBA students to professionals and universities, and making career acceleration more accessible and structured.
     `,
-  highlight4Text:
-    `
-    Having raised ₹5.5 Cr in Seed Funding (Apr 2024) at a ₹26 Cr valuation, The EleFant is now seeking ₹8 Cr to scale operations.  With a strong foundation and strategic growth plans, The EleFant is set to reshape playtime in India with toys.
+  highlight4Text: `
+    Partnering with IIM Kozhikode, IIM Udaipur, IIM Ranchi, IIM Nagpur, and TISS Mumbai, TCC helps students and professionals navigate career transitions. It also provides talent to 20+ Companies like Amul, Baskin Robbins, Exactly, Ather, Whatfix, and others. With a proven track record and mentor-driven model, TCC is emerging as a leader in career acceleration and placement preparation.
     `,
 
-
-  marketOverview1:
-    `
-    India has the largest child population
-    globally, with 275 million children in the
-    age group of 0 to 12 years. The Indian
-    National Education Policy 2020 emphasizes
-    play-based and activity-based learning,
-    recognizing the significance of play in
-    enhancing children's learning outcomes. It
-    proposes an integrated approach to formal
-    education that includes play, discovery,
-    and interactive learning.
+  marketOverview1: `
+    The Indian career development and recruitment technology market is expanding rapidly, driven by AI-driven hiring, digital job matching, and demand for upskilling. The total market size is valued at ₹1,00,000 Cr, with a Serviceable addressable market (SAM) of ₹50,000 Cr ($6B), and a Servicable Obtainable Market of ₹2800 Cr. primarily targeting B-Schools, T-Schools, and professional upskilling sectors. As companies and individuals seek tech-enabled career acceleration solutions, investment in AI-powered recruitment and structured career coaching is increasing.
     `,
-  marketOverview2:
-    `
-    The Indian toy market is set to reach $3
-    billion by 2028, driven by rising incomes
-    and a focus on child development. Toy
-    subscription services, expected to grow at
-    a CAGR of 12.2% from 2023 to 2028, offer a
-    convenient and eco-friendly solution,
-    tapping into India's vast and expanding
-    child population, which is over 17% of the
-    global total by 2036. The increasing
-    spending power of middle-class families
-    contributes to the market's potential,
-    with a growing openness to innovative
-    child development solutions like toy
-    subscriptions.
+  marketOverview2: `
+    Career Acceleration market Caters to students, professionals, corporations, and educational institutions, focusing on structured career development, AI-powered job matching, and mentorship-driven learning. Career acceleration platforms differentiate themselves from traditional job portals and recruitment agencies by offering personalized career coaching, structured placement support, and real-time job-market insights. Meanwhile, HRTech innovations, such as resume optimization, predictive hiring, and AI-driven interview preparation, are making recruitment more data-driven and efficient.
     `,
-  marketOverview3:
-    `
-    The evolution of the toy industry reflects
-    a transition from traditional toys to
-    modern, technology-driven offerings. In
-    the past, simple toys focused on promoting
-    imagination. Presently, STEM-based,
-    Montessori and eco-friendly toys are
-    prevalent, aligning with changing consumer
-    preferences. Looking to the future,
-    emerging technologies like virtual reality
-    and artificial intelligence are expected
-    to shape toys, providing immersive
-    experiences. The industry anticipates a
-    continued focus on learning, creativity,
-    and social interaction in toys,
-    emphasizing their crucial role in child
-    development.
+  marketOverview3: `
+    IIMs aim beyond just placements, avoiding the risks of a bad season. Instead, they invest heavily in a holistic approach to student preparation. With rising intakes, IIMs are investing more in placement preparation. Yet, 100% placements are tougher—on average, 30 companies participate yearly but leave without hiring in new IIMs
     `,
 
   aboutDeal: [
     `
-    The EleFant is revolutionizing the toy industry 
-    with a sustainable and affordable subscription 
-    model that gives parents access to a curated selection 
-    of premium toys. Moving away from the traditional 
-    buy-store-discard cycle, EleFant ensures a clutter-free, 
-    cost-effective, and eco-friendly solution for modern families. 
-    With 275 million children (0-12 years) and a $2 billion toy industry, 
-    India presents an enormous opportunity for sustainable toy consumption. 
-    The rise of eco-conscious parenting, digital adoption, 
-    and growing disposable income makes The EleFant a timely 
-    and impactful solution.
+    The Career Company (TCC) is a career accelerator platform that helps institutions accelerate placements, students access an all-in-one career dashboard, and companies hire top talent across campuses.
     `,
     `
-    The EleFant’s Franchise and Librarian Model enables 
-    rapid expansion and community-driven growth. 
-    Through franchises, partners can establish toy libraries 
-    with EleFant’s brand, tech, and logistics support, 
-    ensuring seamless operations. The Librarian Model empowers 
-    women entrepreneurs to manage toys subrciption, sanitization, 
-    and returns from home or small hubs, earning a flexible income. With 
-    a subscription-based model, it offers access to curated toys 
-    from 70+ top brands, including Hamleys, Hasbro, and Skillmatics. 
-    This asset-light approach boosts last-mile delivery, customer service, 
-    and sustainability, making EleFant a scalable and impactful business.
+    Founded by Maharshi Vyas (IIM Calcutta), who has managed placements for 2 IIMs over 13 seasons and placed 1,400+ IIM graduates in 400+ companies, TCC solves a fundamental inefficiency—students lack structured career preparedness, while recruiters struggle with different placement committees each year. One platform can streamline and transform campus hiring forever.
+    `,
     `
-  ]
-    
+    Funded by the Startup India Seed Fund Scheme and incubated by IIM Nagpur Foundation for Entrepreneurship Development, TCC has demonstrated 10x YoY revenue growth, scaling from ₹16.5L in its first year to ₹1.65 Cr this year.
+    `,
+    `
+    Placements are a critical challenge for every institute. TCC not only enhances student preparation but also attracts in more companies while giving recruiters a seamless platform to access the most relevant profiles across campuses.
+    `,
+  ],
 };
 
-class EleFant2 extends Component {
+class CareerCompany extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -499,7 +349,7 @@ class EleFant2 extends Component {
             gst:
               result.data[0].taxation_percentage_cgst +
               result.data[0].taxation_percentage_sgst,
-            igst: 18
+            igst: 18,
           });
         } else if (this.state.member_detail.nationality == "Non Resident") {
           console.log(result.data[0]);
@@ -623,7 +473,9 @@ class EleFant2 extends Component {
     let param = {
       deal_id: this.state.deal_id
     }
+    // TODO: Original
     Bridge.deal.get_deal(param).then((result) => {
+    // Bridge.deal.list().then((result) => {
       // console.log(result.data, "data");
       if (result.status == 1) {
         this.setState({
@@ -672,8 +524,11 @@ class EleFant2 extends Component {
         for (let d of result.data) {
           if (d.deal_id == this.state.deal_id) {
             if (d.show_status == "0") {
-              this.setState({ is_deal_visible: false });
-              window.location.assign("/deals")
+              console.log("Issue with show status")
+              // TODO Original
+              // this.setState({ is_deal_visible: false });
+              // window.location.assign("/deals")
+              this.setState({ is_deal_visible: true });
             } else {
               this.setState({ is_deal_visible: true });
             }
@@ -782,7 +637,10 @@ class EleFant2 extends Component {
               ) {
                 button_show_status = true;
               } else {
-                button_show_status = false;
+                console.log("Issue with end date")
+                // TODO original
+                // button_show_status = false;
+                button_show_status = true;
               }
               //for deal start date
               if (
@@ -1148,7 +1006,6 @@ class EleFant2 extends Component {
         : 0,
       walletDeductionMoney: walletDeductionMoney,
       gstValue: Number(gstValue).toFixed(0),
-      igstvalue: igstvalue,
     });
     return gst;
   };
@@ -2164,19 +2021,7 @@ class EleFant2 extends Component {
                       allowfullscreen
                     ></iframe>
                     
-                    <iframe
-                      style={{
-                        boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
-                        borderRadius: 3,
-                        // marginLeft: 65,
-                      }}
-                      width="100%"
-                      height="335"
-                      src={staticDealData.youtubeVideoLink2}
-                      frameborder="10"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowfullscreen
-                    ></iframe>
+                    
                     
                     
                   </div>
@@ -2354,7 +2199,7 @@ class EleFant2 extends Component {
                           >
                             Investor Presentation
                           </h1>
-                          <Slider {...settings} className="mb-5 pitch-slider">
+                          <Slider {...settings} className="mb-5 pitch-slider career-company-slider">
                             {images.map((image, index) => (
                               <img
                                 key={index}
@@ -2472,10 +2317,13 @@ class EleFant2 extends Component {
                                             <span>Founded</span>
                                             <h4>{staticDealData.foundedDate}</h4>
                                           </div>
-                                          <div className="info">
-                                            <span>Status</span>
-                                            <h4>{staticDealData.status}</h4>
-                                          </div>
+                                          {
+                                            staticDealData.status != "" &&
+                                            <div className="info">
+                                              <span>Status</span>
+                                              <h4>{staticDealData.status}</h4>
+                                            </div>
+                                          }
                                           <div className="info">
                                             <span>Employees</span>
                                             <h4>{staticDealData.employees}</h4>
@@ -2497,19 +2345,30 @@ class EleFant2 extends Component {
                                           <div className="info">
                                             <span>Social Links</span>
                                             <div className="social-icons">
-                                              <a href={staticDealData.facebookUrl}>
-                                                <i className="bx bxl-facebook fs-19"></i>
-                                              </a>
-                                              <a href={staticDealData.linkedinUrl}>
-                                                <i className="bx bxl-linkedin fs-19"></i>
-                                              </a>
-                                              <a href={staticDealData.instaUrl}>
-                                                <i className="bx bxl-instagram fs-19"></i>
-                                              </a>
-
-                                              <a href={staticDealData.youtubeUrlForCompany}>
-                                                <i className="bx bxl-youtube fs-19"></i>
-                                              </a>
+                                              {
+                                                staticDealData.facebookUrl != "" && 
+                                                  <a href={staticDealData.facebookUrl}>
+                                                    <i className="bx bxl-facebook fs-19"></i>
+                                                  </a>
+                                              }
+                                              {
+                                                staticDealData.linkedinUrl != "" && 
+                                                  <a href={staticDealData.linkedinUrl}>
+                                                    <i className="bx bxl-linkedin fs-19"></i>
+                                                  </a>
+                                              }
+                                              {
+                                                staticDealData.instaUrl != "" && 
+                                                  <a href={staticDealData.instaUrl}>
+                                                    <i className="bx bxl-instagram fs-19"></i>
+                                                  </a>
+                                              }
+                                              {
+                                                staticDealData.youtubeUrlForCompany != "" && 
+                                                  <a href={staticDealData.youtubeUrlForCompany}>
+                                                    <i className="bx bxl-youtube fs-19"></i>
+                                                  </a>
+                                              }
                                             </div>
                                           </div>
                                           <div className="info">
@@ -2770,7 +2629,17 @@ class EleFant2 extends Component {
                                                           textAlign: "justify",
                                                         }}
                                                       >
-                                                        {staticDealData.aboutDetail1}
+                                                        {
+                                                            staticDealData.aboutDetail1.map((item) => {
+                                                                return (
+                                                                    <>
+                                                                        {item}
+                                                                        <br />
+                                                                        <br />
+                                                                    </>
+                                                                );
+                                                            })
+                                                        }
                                                       </p>
                                                     </div>
                                                   </Panel>
@@ -2789,7 +2658,22 @@ class EleFant2 extends Component {
                                                           textAlign: "justify",
                                                         }}
                                                       >
-                                                        {staticDealData.aboutDetail2}
+                                                        {
+                                                            staticDealData.aboutDetail2.map((item) => {
+                                                                return (
+                                                                    <>
+                                                                    <>{item.problem}</>
+                                                                        
+                                                                    <br />
+                                                                    <>{item.solution}</>
+                                                                    
+                                                                        
+                                                                        <br />
+                                                                        <br />
+                                                                    </>
+                                                                );
+                                                            })
+                                                        }
                                                       </p>
                                                     </div>
                                                   </Panel>
@@ -2809,7 +2693,17 @@ class EleFant2 extends Component {
                                                           textAlign: "justify",
                                                         }}
                                                       >
-                                                        {staticDealData.aboutDetail3}
+                                                        {
+                                                            staticDealData.aboutDetail3.map((item) => {
+                                                                return (
+                                                                    <>
+                                                                        {item}
+                                                                        <br />
+                                                                        <br />
+                                                                    </>
+                                                                );
+                                                            })
+                                                        }
                                                       </p>
                                                       <p
                                                         style={{
@@ -2835,7 +2729,17 @@ class EleFant2 extends Component {
                                                           textAlign: "justify",
                                                         }}
                                                       >
-                                                        {staticDealData.aboutDetail4}
+                                                        {
+                                                            staticDealData.aboutDetail4.map((item) => {
+                                                                return (
+                                                                    <>
+                                                                        {item}
+                                                                        <br />
+                                                                        <br />
+                                                                    </>
+                                                                );
+                                                            })
+                                                        }
                                                       </p>{" "}
                                                     </div>
                                                   </Panel>
@@ -3073,4 +2977,4 @@ class EleFant2 extends Component {
   }
 }
 
-export default EleFant2;
+export default CareerCompany;
