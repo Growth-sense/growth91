@@ -3,15 +3,54 @@ use LDAP\Result;
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Deal extends CI_Controller
-{
-
-	private $formatter;
-	
+{	
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->model(['admin/Blogmodel']);
-		$this->formatter = new NumberFormatter('en_IN', NumberFormatter::DECIMAL);
+	}
+
+	private function formatIndianCurrency($number, $decimals = 0) {
+		// Round the number to specified decimals
+		$number = round($number, $decimals);
+		
+		// Split number into whole and decimal parts
+		$parts = explode('.', (string)$number);
+		$whole = $parts[0];
+		$decimal = isset($parts[1]) ? $parts[1] : '';
+		
+		// Pad decimals if needed
+		if ($decimals > 0) {
+			$decimal = str_pad($decimal, $decimals, '0', STR_PAD_RIGHT);
+		}
+		
+		// Format the whole number part with Indian numbering system
+		$len = strlen($whole);
+		$formatted = '';
+		
+		for ($i = 0; $i < $len; $i++) {
+			if ($i == 0) {
+				$formatted = $whole[$len - 1];
+			}
+			else if ($i == 1 || $i == 2) {
+				$formatted = $whole[$len - $i - 1] . $formatted;
+			}
+			else if ($i > 2) {
+				if (($i - 2) % 2 == 1) {
+					$formatted = $whole[$len - $i - 1] . ',' . $formatted;
+				} else {
+					$formatted = $whole[$len - $i - 1] . $formatted;
+				}
+			}
+		}
+		
+		// Add decimals if needed
+		if ($decimals > 0) {
+			$formatted .= '.' . $decimal;
+		}
+		
+		// Add currency symbol
+		return $formatted;
 	}
 
 	public function get_deal()
@@ -735,7 +774,7 @@ class Deal extends CI_Controller
 				'default_special_offer_text'=>$formdata['default_special_offer_text'],
 				'offer_discount'=>$formdata['offer_discount'],
 				// 'automated _email'=>$formdata['automated _email'] ? $formdata['automated _email'] : 'No',
-				'offer_discount'=>$formdata['deal_service'],
+				'deal_service'=>$formdata['deal_service'],
 			];
 
 			$this->db->insert('deals', $post_data);
@@ -2537,13 +2576,13 @@ class Deal extends CI_Controller
 					                                    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;"> Dear <strong>'.$investor_details[0]["first_name"].'</strong>, 
 					                                        <br>
 					                                        <br>
-					                                        Your commitment in '.$deal_details[0]["deal_name"].' on Growth91 has been received for Rs. '.$this->formatter->format($commitment["amount"]).' on '.date("d/m/Y").'
+					                                        Your commitment in '.$deal_details[0]["deal_name"].' on Growth91 has been received for Rs. '.$this->formatIndianCurrency($commitment["amount"]).' on '.date("d/m/Y").'
 					                                        <br>
 					                                      <br>
-					                                      Total Amount Committed in '.$deal_details[0]["deal_name"].': Rs.'.$this->formatter->format($total["amount"]).'
+					                                      Total Amount Committed in '.$deal_details[0]["deal_name"].': Rs.'.$this->formatIndianCurrency($total["amount"]).'
 					                                       <br>
 					                                       
-                                                          Total convenience fee: Rs '.$this->formatter->format($total["processingfees"] + $total["igstvalue"] ).'
+                                                          Total convenience fee: Rs '.$this->formatIndianCurrency($total["processingfees"] + $total["igstvalue"] ).'
                                                           <br>
 					                                      <br>
                                                           Your commitment history can be found here: <a href='.WEB_BASE_URL.'investor-commitment>History</a>
@@ -2618,7 +2657,7 @@ class Deal extends CI_Controller
 					              </body>
 					      </html>';  
 
-			          	$subject="Commitment of Rs. ".$this->formatter->format($commitment["amount"])." received for ".$deal_details[0]["deal_name"];
+			          	$subject="Commitment of Rs. ".$this->formatIndianCurrency($commitment["amount"])." received for ".$deal_details[0]["deal_name"];
 				        $cc='contact@growth91.com';
 				       // send_email($body,$subject,$investor_details[0]["email"],$cc);
 
@@ -2803,13 +2842,13 @@ class Deal extends CI_Controller
 					                                    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;"> Dear <strong>'.$investor_details[0]["first_name"].'</strong>, 
 					                                        <br>
 					                                        <br>
-					                                        Your commitment in '.$deal_details[0]["deal_name"].' on Growth91 has been received for Rs. '.$this->formatter->format($commitment["amount"]).' on '.date("d/m/Y").'.
+					                                        Your commitment in '.$deal_details[0]["deal_name"].' on Growth91 has been received for Rs. '.$this->formatIndianCurrency($commitment["amount"]).' on '.date("d/m/Y").'.
 					                                        <br>
 					                                      <br>
-					                                      Total Amount Committed in '.$deal_details[0]["deal_name"].': Rs.'.$this->formatter->format($commitment["amount"]).'
+					                                      Total Amount Committed in '.$deal_details[0]["deal_name"].': Rs.'.$this->formatIndianCurrency($commitment["amount"]).'
 					                                       <br>
 					                                       
-                                                          Total convenience fee: Rs '.$this->formatter->format($commitment["processingfees"] + $commitment["igstvalue"] ).'
+                                                          Total convenience fee: Rs '.$this->formatIndianCurrency($commitment["processingfees"] + $commitment["igstvalue"] ).'
                                                           <br>
 					                                      <br>
                                                           Your commitment history can be found here: <a href='.WEB_BASE_URL.'investor-commitment>History</a>
@@ -2883,7 +2922,7 @@ class Deal extends CI_Controller
 					              </body>
 					      </html>';  
 
-			          	$subject="Commitment of Rs. ".$this->formatter->format($commitment["amount"])." received for ".$deal_details[0]["deal_name"];
+			          	$subject="Commitment of Rs. ".$this->formatIndianCurrency($commitment["amount"])." received for ".$deal_details[0]["deal_name"];
 				        $cc='contact@growth91.com';
 				       // send_email($body,$subject,$investor_details[0]["email"],$cc);
 					
