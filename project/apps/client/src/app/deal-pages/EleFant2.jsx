@@ -499,13 +499,14 @@ class EleFant2 extends Component {
             gst:
               result.data[0].taxation_percentage_cgst +
               result.data[0].taxation_percentage_sgst,
+            igst: 18
           });
         } else if (this.state.member_detail.nationality == "Non Resident") {
           console.log(result.data[0]);
-          this.setState({ gst: result.data[0].taxation_percentage });
+          this.setState({ gst: result.data[0].taxation_percentage, igst: 18 });
         } else {
           console.log(result.data[0], "asa");
-          this.setState({ gst: result.data[0].taxation_percentage });
+          this.setState({ gst: result.data[0].taxation_percentage, igst: 18 });
           // console.log("gst can not be able to fetch")
         }
       }
@@ -1109,20 +1110,13 @@ class EleFant2 extends Component {
   calculategst = () => {
     let legalfee = parseFloat(
       (this.state.amount / 100) * parseFloat(this.state.percentage)
-    );
+    ).toFixed(0);
     let minusamt = 0;
     let gst = this.state.gst;
     let amt = parseFloat(this.state.amount);
-    let walletDeductionMoney;
-    if (this.state.checkWallet == false) {
-      walletDeductionMoney = 0;
-    } else {
-      walletDeductionMoney =
-        legalfee.toFixed(0) <= this.state.walletMoney
-          ? legalfee.toFixed(0)
-          : this.state.walletMoney;
-    }
-    let gstValue = ((legalfee.toFixed(0) - walletDeductionMoney) * gst) / 100;
+    let walletDeductionMoney = 0;
+    let igstvalue = Math.ceil(((legalfee) * 9) / 100) * 2;
+    let gstValue = ((legalfee - walletDeductionMoney) * gst) / 100;
     // ceil gst value
     gstValue = Math.ceil(gstValue);
     // console.log(gst);
@@ -1140,17 +1134,17 @@ class EleFant2 extends Component {
 
     this.setState({
       gst: gst,
-      legalfee: this.state.amount ? legalfee.toFixed(0) : 0,
+      legalfee: this.state.amount ? legalfee : 0,
       amountplusgst: this.state.amount ? amt.toFixed(0) : 0,
       processingfees: this.state.amount
-        ? legalfee.toFixed(0) - Number(tdsamount)
+        ? legalfee - Number(tdsamount)
         : 0,
       totalamount: this.state.amount
-        ? (amt + parseFloat(legalfee.toFixed(0) - Number(tdsamount))).toFixed(
+        ? (amt + parseFloat(legalfee - Number(tdsamount))).toFixed(
             0
           ) -
           walletDeductionMoney +
-          gstValue
+          igstvalue
         : 0,
       walletDeductionMoney: walletDeductionMoney,
       gstValue: Number(gstValue).toFixed(0),
@@ -1931,14 +1925,14 @@ class EleFant2 extends Component {
                             </td>
                           </tr>
                           <tr>
-                            <td>GST {this.state.gst} %</td>
+                            <td>GST</td>
                             <td
                               className="text-end"
                               style={{ textAlign: "right!important" }}
                             >
                               ₹{" "}
                               {this.formatNumberWithCommas(
-                                Number(this.state.gstValue).toFixed(0)
+                                Number(this.state.igstValue).toFixed(0)
                               )}
                             </td>
                           </tr>
@@ -2033,6 +2027,8 @@ class EleFant2 extends Component {
                             tdsstatus={this.state.tdsstatus}
                             gst={this.state.gst}
                             gstvalue={this.state.gstValue}
+                            igst={this.state.igst}
+                            igstvalue={this.state.igstvalue}
                             order_token={this.state.order_token}
                             legalfee={this.state.legalfee}
                             walletDeductionMoney={
