@@ -24,18 +24,20 @@ function send_email($body,$subject,$email,$cc)
 	    "htmlContent" => $htmlMessage
 	); 
 	
-	if(!empty($cc))
-	{
-	    $data_cc = array(
-	            "cc" => array(
-    	    	array(
-    	    		"email" => $cc	
-    	    		)
-    	    ),
-	        );
-	        
-        $data = array_merge($data,$data_cc);
-	}
+	// if(!empty($cc))
+	// {
+	// }
+
+	$data_cc = array(
+			"cc" => array(
+			array(
+				"email" => "contact@growth91.com"
+				)
+		),
+		);
+		
+	$data = array_merge($data,$data_cc);
+	
 
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, 'https://api.sendinblue.com/v3/smtp/email');
@@ -53,7 +55,7 @@ function send_email($body,$subject,$email,$cc)
 	//var_dump($result);
 	//die;
 	
-	if (curl_exec($ch) === false)
+	if (curl_errno($ch))
 	{
 	    	return 0;
 	}

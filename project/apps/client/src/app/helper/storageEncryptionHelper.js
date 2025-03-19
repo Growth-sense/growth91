@@ -38,14 +38,12 @@ const secureStorage = {
 
   // Override setItem to encrypt data before storing
   setItem: (key, value) => {
-    console.log("Set item called with ", key, value);
     try {
       if (encryptedKeys.includes(key)) {
         value = encryptionHelper.encrypt(JSON.stringify(value));
       }
       originalLocalStorage.setItem(key, value);
     } catch (err) {
-      console.error("Error encrypting data:", err);
     }
   },
 
@@ -70,16 +68,15 @@ const secureStorage = {
       const value = originalLocalStorage.getItem(key);
       
       if (!value) {
-        console.log("Value null, Get item called with ", key, value);
         return null;
       }
       // if key exist it shoule be encrypted
       if (secureStorage.isEncrypted(value)) {
         let decryptedValue = JSON.parse(encryptionHelper.decrypt(value));
-        console.log("Value Encrypted, Get item called with ", key, decryptedValue);
         return decryptedValue;
       } else {
-        console.log("Value not Encrypted, Get item called with ", key, value);
+        const encryptedValue = encryptionHelper.encrypt(JSON.stringify(value));
+        originalLocalStorage.setItem(key, encryptedValue);
         return value;
       }
     } catch (err) {

@@ -150,8 +150,8 @@ class VsnapU extends Component {
 
 
         // Determine the deal_id based on the environment
-        // let deal_id = "40";
-        let deal_id = "133";
+        let deal_id = "40";
+        // let deal_id = "133";
 
         // let deal_id = process.env.ENVIRONMENT === "production" ? "40" : "133";
 
@@ -1029,7 +1029,7 @@ class VsnapU extends Component {
                     0
                 ) -
                 walletDeductionMoney +
-                gstValue
+                igstvalue
                 : 0,
             walletDeductionMoney: walletDeductionMoney,
             gstValue: Number(gstValue).toFixed(0),
@@ -1505,10 +1505,7 @@ class VsnapU extends Component {
                                                     {/* console log isfunded */}
                                                     {console.log('is funded is ' + this.state.isFunded)}
                                                     {/* TODO:Orginal condition */}
-                                                    {/* {this.state.button_show_status == true ? ( */}
-
-
-                                                    {this.state.button_show_status == false ? (
+                                                    {this.state.button_show_status == true ? (
                                                         <>
                                                             <div className="button-group">
                                                                 {this.state.isFunded == true ? (

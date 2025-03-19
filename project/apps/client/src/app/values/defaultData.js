@@ -1,4 +1,6 @@
 const defaultDealData = {
+  igst: 0,
+  igstvalue: 0,
   selectedInvestorId: null,
   selectInvestorModal: false,
   group_list: [],

@@ -3066,6 +3066,20 @@ option {
 .pitch-slider .slick-prev {
   left: -55px;
 }
+
+.career-company-slider {
+  height: 500px; /* Set your desired fixed height */
+  width: 100%;
+  margin: 0 auto;
+}
+
+.career-company-slider img {
+  height: 500px; /* Match the slider height */
+  width: auto;
+  object-fit: contain; /* This ensures images maintain aspect ratio */
+  margin: 0 auto;
+}
+
 @media (max-width: 650px) {
   .pitch-slider .slick-prev:before,
   .pitch-slider .slick-next:before {
