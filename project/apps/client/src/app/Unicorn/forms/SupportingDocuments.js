@@ -176,14 +176,11 @@ class SupportingDocuments extends Component {
       }
     }
     
-    this.props.onInput(
-      "tudStartupHighlights",
-      JSON.stringify(this.state.startuphighlight)
-    );
-
-    setTimeout(() => {
-      this.props.onInput("tudMark", JSON.stringify(this.state.marketoverview));
-    }, 3000);
+    this.props.setMultiple({
+      "tudStartupHighlights": JSON.stringify(this.state.startuphighlight),
+      "tudMark": JSON.stringify(this.state.marketoverview),
+    })
+    
     this.savedata();
   };
 
@@ -304,12 +301,18 @@ class SupportingDocuments extends Component {
     const newEntries = [...this.state.marketoverview];
     newEntries[index][name] = value; // Update the specific input field
     this.setState({ marketoverview: newEntries });
+    this.props.setMultiple({
+      "tudMark": JSON.stringify(newEntries),
+    });
   };
   handleInputhighlightChange = (index, e) => {
     const { name, value } = e.target;
     const newEntries = [...this.state.startuphighlight];
     newEntries[index][name] = value; // Update the specific input field
     this.setState({ startuphighlight: newEntries });
+    this.props.setMultiple({
+      "tudStartupHighlights": JSON.stringify(newEntries)
+    })
   };
 
   formData = new FormData();

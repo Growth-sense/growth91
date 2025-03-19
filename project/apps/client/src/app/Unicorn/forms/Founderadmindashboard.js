@@ -316,6 +316,7 @@ class Founderadmindashboard extends Component {
         tudTempUdID: "",
         show_thankyou_modal: "",
         show_error_modal: false,
+        show_confirmation_modal: false,
         unicornid: "",
         tudDeclare: 0,
 
@@ -1013,8 +1014,34 @@ class Founderadmindashboard extends Component {
     if (
       !this.state.unicorn.tudMark ||
       this.state.unicorn.tudMark == "" ||
+      (() => {
+        try {
+          const tudMarkArray = JSON.parse(this.state.unicorn.tudMark);
+          // Check if it's an array with exactly 3 members
+          if (!Array.isArray(tudMarkArray) || tudMarkArray.length !== 3) {
+            return true; // validation failed
+          }
+          // Check if each member has content1 key and non-empty value
+          return tudMarkArray.some(item => !item.content1 || item.content1.trim() === "");
+        } catch (e) {
+          return true; // JSON parse failed, validation failed
+        }
+      })() ||
       !this.state.unicorn.tudStartupHighlights ||
       this.state.unicorn.tudStartupHighlights == "" ||
+      (() => {
+        try {
+          const tudStartupHighlightArray = JSON.parse(this.state.unicorn.tudStartupHighlights);
+          // Check if it's an array with exactly 3 members
+          if (!Array.isArray(tudStartupHighlightArray) || tudStartupHighlightArray.length !== 4) {
+            return true; // validation failed
+          }
+          // Check if each member has content1 key and non-empty value
+          return tudStartupHighlightArray.some(item => !item.content1 || item.content1.trim() === "");
+        } catch (e) {
+          return true; // JSON parse failed, validation failed
+        }
+      })() ||
       !this.state.unicorn.tudLogoImage ||
       this.state.unicorn.tudLogoImage == "" ||
       !this.state.unicorn.tudBannerImage ||
@@ -1518,7 +1545,7 @@ class Founderadmindashboard extends Component {
             window.location.assign("/FounderMyListing");
           }, 1000);
         } else {
-          this.publishunicorn();
+          this.setState({show_confirmation_modal: true});
         }
       } else {
         message.warning(result.message);
@@ -1539,11 +1566,37 @@ class Founderadmindashboard extends Component {
     // Check if required fields in step 2 (Idea/Business) are filled
     const step2Valid = unicorn.tudDisruptingMarket && unicorn.tudTappingNew && unicorn.tudCustomerBenifit && unicorn.tudSuppliersBenifit && unicorn.tudFocusedOnProduct;
 
-    // TODO: This is old step3, we want to validate the new step3 which is logo and banner
-    // Check if required fields in step 3 (Intellectual Property) are filled
-    const step3Valid = unicorn.tudTrademark && unicorn.tudPatents && unicorn.tudOtherIPs;
+    const step3Valid = unicorn.tudMark && unicorn.tudStartupHighlights && unicorn.tudLogoImage && unicorn.tudBannerImage && unicorn.tudPitchDeck;
 
-    return step1Valid && step2Valid && step3Valid;
+    const overviewInvalid = (() => {
+      try {
+        const tudMarkArray = JSON.parse(this.state.unicorn.tudMark);
+        // Check if it's an array with exactly 3 members
+        if (!Array.isArray(tudMarkArray) || tudMarkArray.length !== 3) {
+          return true; // validation failed
+        }
+        // Check if each member has content1 key and non-empty value
+        return tudMarkArray.some(item => !item.content1 || item.content1.trim() === "");
+      } catch (e) {
+        return true; // JSON parse failed, validation failed
+      }
+    })();
+
+    const highlightInvalid = (() => {
+      try {
+        const tudStartupHighlightArray = JSON.parse(this.state.unicorn.tudStartupHighlights);
+        // Check if it's an array with exactly 3 members
+        if (!Array.isArray(tudStartupHighlightArray) || tudStartupHighlightArray.length !== 4) {
+          return true; // validation failed
+        }
+        // Check if each member has content1 key and non-empty value
+        return tudStartupHighlightArray.some(item => !item.content1 || item.content1.trim() === "");
+      } catch (e) {
+        return true; // JSON parse failed, validation failed
+      }
+    })();
+
+    return step1Valid && step2Valid && step3Valid && !highlightInvalid && !overviewInvalid;
   };
 
 
@@ -2710,6 +2763,44 @@ class Founderadmindashboard extends Component {
                 <div className="modal-body">
                   <p className="text-center">
                     You don't have a valid plan. However we have saved your unicorn as draft.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Modal>
+          <Modal
+            // title="Thank You"
+            centered
+            open={this.state.show_confirmation_modal}
+            className="thankumodal"
+            // onCancel={this.cancelThankyou}
+            iconType="SmileOutlined"
+            maskClosable={false}
+            cancelText={"Cancel"}
+            footer={[
+              <>
+                <Link
+                  // to={`/MyUnicornPlan`}
+                >
+                  <button onClick={() => this.setState({ show_confirmation_modal: false })} 
+                  className="btn btn-block">Cancel</button>
+                </Link>
+                <Link 
+                // to="/founder-dashboard"
+                >
+                  <button onClick={() => {
+                    this.setState({ show_confirmation_modal: false });
+                    this.publishunicorn();
+                  }} className="btn btn-block">Publish</button>
+                </Link>
+              </>,
+            ]}
+          >
+            <div className="modal-confirm">
+              <div className="modal-content">
+                <div className="modal-body">
+                  <p className="text-center">
+                  Clicking on 'Publish' will use your edit access. Close this box if you haven't made any edits, and proceed with publishing only if you have made changes to the Unicorn page.
                   </p>
                 </div>
               </div>
