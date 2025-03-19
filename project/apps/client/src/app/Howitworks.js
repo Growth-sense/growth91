@@ -51,14 +51,12 @@ class Howitworks extends Component {
     }
     return (
       <div>
-          <Helmet>
-         
+        <Helmet>
           <script type="application/ld+json">
-          
-          {JSON.stringify(breedcrumb)}
+            {JSON.stringify(breedcrumb)}
           </script>
         </Helmet>
-        <NewWebHeader newabout={"newabout"}/>
+        <NewWebHeader newabout={"newabout"} />
 
         <section className="banner_section">
           <div
@@ -75,8 +73,8 @@ class Howitworks extends Component {
                         <div className="col-lg-6 col-xl-24 col-sm-24">
                           <div className="left-content">
                             <h2 className="wow fadeInUp " data-wow-delay="0.3s">
-                            Create your startup investment portfolio and enjoy the journey of growth
-
+                              Create your startup investment portfolio and enjoy
+                              the journey of growth
                             </h2>
                             {/* <span className="text-white ">
                               1. Create Profile <br />
@@ -143,13 +141,168 @@ class Howitworks extends Component {
               </h6>
               <h2>How it Works</h2>
             </div>
-           
           </div>
         </section>
 
-        <section className="MoneyPro-history hiw-li" id="hiw" style={{marginTop:"0"}}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "30px",
+            maxWidth: "1000px",
+            margin: "0 auto",
+          }}
+        >
+          {[
+            {
+              number: "01",
+              title: "Create a Profile",
+              description:
+                "Create a profile on Growth91 portal by signing up 'Investor Signup Link' in less than a minute.",
+              color: "#5469d4",
+            },
+            {
+              number: "02",
+              title: "Accept Risks, Platform T&C",
+              description:
+                "Acknowledge the Investment Risks and review the platform's terms and conditions.",
+              color: "#ff9800",
+            },
+            {
+              number: "03",
+              title: "Select the deal of your choice",
+              description:
+                "Understand the startup, go through the documents presented by startup on the platform for better understanding of the deal terms and also the investment opinion.",
+              color: "#22c55e",
+            },
+            {
+              number: "04",
+              title: "Invest",
+              description:
+                "Commit your interest to invest, and accept the terms and conditions to move further.",
+              color: "#9333ea",
+            },
+            {
+              number: "05",
+              title: "Complete KYC",
+              description:
+                "Before investing in the deal, you need to complete the e-KYC process. Sign the Consent Agreement, verify the bank details and deal specific Terms and conditions.",
+              color: "#f43f5e",
+            },
+            {
+              number: "06",
+              title: "Convenience Fees",
+              description:
+                "Convenience Fee of 2% on the investment amount at the time of investment and 2% on the sale proceeds at the time of exit is applicable. For any specific investment, if fee is different, it will be mentioned at the time of commitment (GST if any, shall be added at applicable rates).",
+              color: "#06b6d4",
+            },
+            {
+              number: "07",
+              title: "Post Deal Campaign Outcome",
+              description:
+                "Startups will sign and share the certificates. You can monitor the progress of your investment on the Growth91 Investor dashboard",
+              color: "#8b5cf6",
+            },
+          ].map((step, index) => (
+            <div
+              key={index}
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                padding: "30px",
+                background: "#ffffff",
+                borderRadius: "16px",
+                boxShadow:
+                  "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+                transition: "transform 0.2s ease, box-shadow 0.2s ease",
+                cursor: "pointer",
+                position: "relative",
+                overflow: "hidden",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-5px)";
+                e.currentTarget.style.boxShadow =
+                  "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow =
+                  "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)";
+              }}
+            >
+              {/* Number Circle */}
+              <div
+                style={{
+                  minWidth: "60px",
+                  height: "60px",
+                  borderRadius: "30px",
+                  background: `${step.color}10`,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginRight: "24px",
+                }}
+              >
+                <span
+                  style={{
+                    color: step.color,
+                    fontSize: "24px",
+                    fontWeight: "700",
+                  }}
+                >
+                  {step.number}
+                </span>
+              </div>
+
+              {/* Content */}
+              <div
+                style={{
+                  flex: 1,
+                }}
+              >
+                <h3
+                  style={{
+                    fontSize: "20px",
+                    fontWeight: "600",
+                    color: "#1a1f36",
+                    marginBottom: "12px",
+                  }}
+                >
+                  {step.title}
+                </h3>
+                <p
+                  style={{
+                    fontSize: "16px",
+                    color: "#64748b",
+                    lineHeight: "1.6",
+                    margin: 0,
+                  }}
+                >
+                  {step.description}
+                </p>
+              </div>
+
+              {/* Decorative Line */}
+              <div
+                style={{
+                  position: "absolute",
+                  left: 0,
+                  top: 0,
+                  width: "4px",
+                  height: "100%",
+                  background: step.color,
+                }}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* <section
+          className="MoneyPro-history hiw-li"
+          id="hiw"
+          style={{ marginTop: "0" }}
+        >
           <div className="container ">
-           
             <div className="row d-flex align-content-around flex-wrap flex-column">
               <div></div>
               <div className="col-lg-12">
@@ -161,8 +314,8 @@ class Howitworks extends Component {
                         1. Create a Profile
                       </h3>
                       <p style={{ textAlign: "justify" }}>
-                      Create a profile on Growth91 portal by signing up "Investor Signup Link" in less than a minute.
-
+                        Create a profile on Growth91 portal by signing up
+                        "Investor Signup Link" in less than a minute.
                       </p>
                     </div>
                   </div>
@@ -174,7 +327,8 @@ class Howitworks extends Component {
                         02. Accept Risks, Platform T&C
                       </h3>
                       <p style={{ textAlign: "justify" }}>
-                      Acknowledge the Investment Risks and review the platform’s terms and conditions.
+                        Acknowledge the Investment Risks and review the
+                        platform’s terms and conditions.
                       </p>
                     </div>
                   </div>
@@ -182,11 +336,14 @@ class Howitworks extends Component {
                 <div className="item ">
                   <div className="media">
                     <div className="content">
-                      <h3 style={{ textAlign: "start" }}>03. Select the deal of your choice</h3>
+                      <h3 style={{ textAlign: "start" }}>
+                        03. Select the deal of your choice
+                      </h3>
                       <p style={{ textAlign: "justify" }}>
-                      Understand the startup, go through the documents presented by startup on the platform for 
-better understanding of the deal terms and also the investment opinion.
-
+                        Understand the startup, go through the documents
+                        presented by startup on the platform for better
+                        understanding of the deal terms and also the investment
+                        opinion.
                       </p>
                     </div>
                   </div>
@@ -198,12 +355,10 @@ better understanding of the deal terms and also the investment opinion.
                   <div className="media">
                     <div className="media justify-content-start">
                       <div className="content">
-                        <h3 style={{ textAlign: "start" }}>
-                          {" "}
-                          04. Invest
-                        </h3>
+                        <h3 style={{ textAlign: "start" }}> 04. Invest</h3>
                         <p style={{ textAlign: "justify" }}>
-                        Commit your interest to invest, and accept the terms and conditions  to move further.
+                          Commit your interest to invest, and accept the terms
+                          and conditions to move further.
                         </p>
                       </div>
                     </div>
@@ -215,9 +370,9 @@ better understanding of the deal terms and also the investment opinion.
                       <div className="content">
                         <h3>05. Complete KYC</h3>
                         <p style={{ textAlign: "justify" }}>
-                          Before investing in the deal, you need to complete the e-KYC process. Sign the Consent 
-Agreement, verify the bank details and deal specific Terms and conditions .
-
+                          Before investing in the deal, you need to complete the
+                          e-KYC process. Sign the Consent Agreement, verify the
+                          bank details and deal specific Terms and conditions .
                         </p>
                       </div>
                     </div>
@@ -230,17 +385,19 @@ Agreement, verify the bank details and deal specific Terms and conditions .
                       <div className="content">
                         <h3>06. Convenience Fees</h3>
                         <p style={{ textAlign: "justify" }}>
-                        Convenience Fee of 2% on the investment amount at the time of investment and 2% on the 
-sale proceeds at the time of exit is applicable. For any specific investment, if fee is different, it 
-will be mentioned at the time of commitment (GST if any, shall be added at applicable rates).
-
+                          Convenience Fee of 2% on the investment amount at the
+                          time of investment and 2% on the sale proceeds at the
+                          time of exit is applicable. For any specific
+                          investment, if fee is different, it will be mentioned
+                          at the time of commitment (GST if any, shall be added
+                          at applicable rates).
                         </p>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="col-lg-12"  id="fee">
+              <div className="col-lg-12" id="fee">
                 <div
                   className="item right_item right_item07"
                   style={{
@@ -258,11 +415,11 @@ will be mentioned at the time of commitment (GST if any, shall be added at appli
                       <div className="content">
                         <h3 style={{ textAlign: "start" }}>
                           07. Post Deal Campaign Outcome
-
                         </h3>
                         <p style={{ textAlign: "justify" }}>
-                        Startups will sign and share the certificates. You can monitor the progress of your investment 
-on the Growth91 Investor dashboard
+                          Startups will sign and share the certificates. You can
+                          monitor the progress of your investment on the
+                          Growth91 Investor dashboard
                         </p>
                       </div>
                     </div>
@@ -271,7 +428,7 @@ on the Growth91 Investor dashboard
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         <section className="faq-section hiw-li" id="faq-section">
           <div className="container">
@@ -306,10 +463,12 @@ on the Growth91 Investor dashboard
                       >
                         <div className="accordion-body">
                           <p style={{ textAlign: "justify" }}>
-                          Once you make an investment, funds will be held in an Escrow account with our Banking 
-Partners managed by SEBI registered trustees. Once the startup completes the compliance 
-requirements, fund is transferred from Escrow bank account to Startup bank account.
-
+                            Once you make an investment, funds will be held in
+                            an Escrow account with our Banking Partners managed
+                            by SEBI registered trustees. Once the startup
+                            completes the compliance requirements, fund is
+                            transferred from Escrow bank account to Startup bank
+                            account.
                           </p>
                         </div>
                       </div>
@@ -335,9 +494,10 @@ requirements, fund is transferred from Escrow bank account to Startup bank accou
                       >
                         <div className="accordion-body">
                           <p style={{ textAlign: "justify" }}>
-                          You may cancel or change your investment within 72 hours of investing by writing to us at 
-contact@growth91.com. Cancelling your investment is not permitted in the final 48 hours of 
-a deal.
+                            You may cancel or change your investment within 72
+                            hours of investing by writing to us at
+                            contact@growth91.com. Cancelling your investment is
+                            not permitted in the final 48 hours of a deal.
                           </p>
                         </div>
                       </div>
@@ -487,9 +647,10 @@ a deal.
                       Declaration of Risk <br />{" "}
                     </h2>
                     <p style={{ textAlign: "justify" }}>
-                    By investing through the Growth91 platform, you acknowledge your capability to assume the 
-risks associated with investments made via the Website, including but not limited to the 
-following: 
+                      By investing through the Growth91 platform, you
+                      acknowledge your capability to assume the risks associated
+                      with investments made via the Website, including but not
+                      limited to the following:
                     </p>
                   </div>
                   <div className="accordion" id="accordionExample">
@@ -514,9 +675,12 @@ following:
                       >
                         <div className="accordion-body">
                           <p style={{ textAlign: "justify" }}>
-                          Investments in startups or early-stage ventures carry an inherent risk, as there is no guarantee 
-of profits or returns. Therefore, it is generally advisable to create a diversified investment 
-portfolio, which can offer the potential for gains while mitigating overall capital losses. 
+                            Investments in startups or early-stage ventures
+                            carry an inherent risk, as there is no guarantee of
+                            profits or returns. Therefore, it is generally
+                            advisable to create a diversified investment
+                            portfolio, which can offer the potential for gains
+                            while mitigating overall capital losses.
                           </p>
                         </div>
                       </div>
@@ -542,9 +706,12 @@ portfolio, which can offer the potential for gains while mitigating overall capi
                       >
                         <div className="accordion-body">
                           <p style={{ textAlign: "justify" }}>
-                          Liquidity refers to the ease with which equity shares can be sold. However, equity investments 
-in these companies are typically highly illiquid, as the shares are unlisted or privately held and 
-cannot be readily traded on an exchange or similar secondary market. 
+                            Liquidity refers to the ease with which equity
+                            shares can be sold. However, equity investments in
+                            these companies are typically highly illiquid, as
+                            the shares are unlisted or privately held and cannot
+                            be readily traded on an exchange or similar
+                            secondary market.
                           </p>
                         </div>
                       </div>
@@ -570,9 +737,12 @@ cannot be readily traded on an exchange or similar secondary market.
                       >
                         <div className="accordion-body">
                           <p style={{ textAlign: "justify" }}>
-                          The Companies may be unable to distribute dividends during the entire investment lifecycle. 
-Consequently, to realize any return on your investment, you may need to pursue a subsequent 
-sale or similar exit process, for which the timing cannot be predetermined. 
+                            The Companies may be unable to distribute dividends
+                            during the entire investment lifecycle.
+                            Consequently, to realize any return on your
+                            investment, you may need to pursue a subsequent sale
+                            or similar exit process, for which the timing cannot
+                            be predetermined.
                           </p>
                         </div>
                       </div>
@@ -598,8 +768,9 @@ sale or similar exit process, for which the timing cannot be predetermined.
                       >
                         <div className="accordion-body">
                           <p style={{ textAlign: "justify" }}>
-                          The companies may raise additional capital in the future, which could result in the dilution of 
-your shareholding due to the issuance of new shares.
+                            The companies may raise additional capital in the
+                            future, which could result in the dilution of your
+                            shareholding due to the issuance of new shares.
                           </p>
                         </div>
                       </div>
@@ -625,12 +796,15 @@ your shareholding due to the issuance of new shares.
                       >
                         <div className="accordion-body">
                           <p style={{ textAlign: "justify" }}>
-                          The company's forward-looking statements, which reflect opinions and beliefs, are based on 
-various estimates and assumptions that are subject to significant business, economic, 
-regulatory, and competitive uncertainties. While these statements may provide insight into 
-the companies' objectives and goals, they should not be regarded as commitments from the 
-companies. Instead, they should be viewed as speculative and inherently subjective
-
+                            The company's forward-looking statements, which
+                            reflect opinions and beliefs, are based on various
+                            estimates and assumptions that are subject to
+                            significant business, economic, regulatory, and
+                            competitive uncertainties. While these statements
+                            may provide insight into the companies' objectives
+                            and goals, they should not be regarded as
+                            commitments from the companies. Instead, they should
+                            be viewed as speculative and inherently subjective
                           </p>
                         </div>
                       </div>
@@ -656,11 +830,17 @@ companies. Instead, they should be viewed as speculative and inherently subjecti
                       >
                         <div className="accordion-body">
                           <p style={{ textAlign: "justify" }}>
-                           You may be liable for taxes on any dividends or gains you receive from your investments in the 
-Company, and the responsibility for paying such taxes rests solely with you. It is advisable to 
-consult your tax advisor for further guidance on these matters.<br/>
-For the avoidance of doubt, by acknowledging the above risk factors, you agree to release 
-Growth91 from any liability and to waive any claims related to the above considerations
+                            You may be liable for taxes on any dividends or
+                            gains you receive from your investments in the
+                            Company, and the responsibility for paying such
+                            taxes rests solely with you. It is advisable to
+                            consult your tax advisor for further guidance on
+                            these matters.
+                            <br />
+                            For the avoidance of doubt, by acknowledging the
+                            above risk factors, you agree to release Growth91
+                            from any liability and to waive any claims related
+                            to the above considerations
                           </p>
                         </div>
                       </div>
@@ -1015,7 +1195,7 @@ Growth91 from any liability and to waive any claims related to the above conside
                           <span>
                             <i className="fa fa-check text-success"></i>
                           </span>
-                          Access to all  Company Essential Documents
+                          Access to all Company Essential Documents
                         </li>
                         <li className="ps-md-5 ps-0 ">
                           <span>
@@ -1023,7 +1203,7 @@ Growth91 from any liability and to waive any claims related to the above conside
                           </span>
                           View Company Performance{" "}
                         </li>
-                        
+
                         <li className="ps-md-5 ps-0 ">
                           <span>
                             <i
@@ -1040,8 +1220,7 @@ Growth91 from any liability and to waive any claims related to the above conside
                               aria-hidden="true"
                             ></i>
                           </span>
-                          Minimum Amount as per CCPS 
-
+                          Minimum Amount as per CCPS
                         </li>
                         <li className="ps-md-5 ps-0 ">
                           <span>
@@ -1088,9 +1267,9 @@ Growth91 from any liability and to waive any claims related to the above conside
                           <span>
                             <i className="fa fa-check text-success"></i>
                           </span>
-                          Access to all  Company Essential Documents
+                          Access to all Company Essential Documents
                         </li>
-                       
+
                         <li className="ps-md-5 ps-0">
                           <span>
                             <i className="fa fa-check text-success"></i>
@@ -1113,7 +1292,7 @@ Growth91 from any liability and to waive any claims related to the above conside
                               aria-hidden="true"
                             ></i>
                           </span>
-                         Minimum Amount as per CCPS 
+                          Minimum Amount as per CCPS
                         </li>
                         <li className="ps-md-5 ps-0">
                           <span>
