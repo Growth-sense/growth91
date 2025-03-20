@@ -524,11 +524,8 @@ class CareerCompany extends Component {
         for (let d of result.data) {
           if (d.deal_id == this.state.deal_id) {
             if (d.show_status == "0") {
-              console.log("Issue with show status")
-              // TODO Original
-              // this.setState({ is_deal_visible: false });
-              // window.location.assign("/deals")
-              this.setState({ is_deal_visible: true });
+              this.setState({ is_deal_visible: false });
+              window.location.assign("/deals")
             } else {
               this.setState({ is_deal_visible: true });
             }
@@ -637,10 +634,7 @@ class CareerCompany extends Component {
               ) {
                 button_show_status = true;
               } else {
-                console.log("Issue with end date")
-                // TODO original
-                // button_show_status = false;
-                button_show_status = true;
+                button_show_status = false;
               }
               //for deal start date
               if (
@@ -1338,7 +1332,7 @@ class CareerCompany extends Component {
                 <div className="row">
                   <div className="col-lg-5 col-md-12 col-sm-12">
                     <Spin spinning={this.state.loading}>
-                      <div className="d-flex justify-content-between align-items-center">
+                      <div className="d-flex align-items-center justify-content-between">
                         <div className="d-flex align-items-center">
                           {/* Image is static */}
                           <img
@@ -1389,7 +1383,7 @@ class CareerCompany extends Component {
                             })
                         }
                       </p>{" "}
-                      <div className=" percentage-container">
+                      <div className="percentage-container">
                         <div className="percentage-values">
                           {this.state.coming_soon_days ? (
                             <>
@@ -1425,7 +1419,7 @@ class CareerCompany extends Component {
                         />
                       </div>
                       {!this.state.investor_id ? (
-                        <div className="button-group text-center">
+                        <div className="text-center button-group">
                           <a className="prime-bg" href="/Login">
                             Login
                           </a>
@@ -1441,7 +1435,7 @@ class CareerCompany extends Component {
                                 {this.state.isFunded == true ? (
                                   <a
                                     href="#"
-                                    className="black-button prime-bg text-center"
+                                    className="text-center black-button prime-bg"
                                   >
                                     Deal is closed
                                   </a>
@@ -1461,7 +1455,7 @@ class CareerCompany extends Component {
                                         this.getpostData();
                                         this.showModal1();
                                       }}
-                                      className="black-button prime-bg text-center"
+                                      className="text-center black-button prime-bg"
                                       id="btn-invest"
                                     >
                                       Add more
@@ -1476,7 +1470,7 @@ class CareerCompany extends Component {
                                       this.getpostData();
                                       this.showModal1();
                                     }}
-                                    className="black-button prime-bg text-center"
+                                    className="text-center black-button prime-bg"
                                   >
                                     I Agree to Terms and ss Your Interest
                                   </a>
@@ -1487,7 +1481,7 @@ class CareerCompany extends Component {
                                       <a
                                         href="#"
                                         style={{ padding: "15px 0" }}
-                                        className="black-button prime-bg text-center"
+                                        className="text-center black-button prime-bg"
                                         onClick={() => {
                                           this.getpostData();
                                           if (dataSource2.length > 1) {
@@ -1508,7 +1502,7 @@ class CareerCompany extends Component {
                                     ) : (
                                       <a
                                         href="/founder-as-investor"
-                                        className="black-button prime-bg text-center"
+                                        className="text-center black-button prime-bg"
                                       >
                                         Apply as investor
                                       </a>
@@ -1520,7 +1514,7 @@ class CareerCompany extends Component {
                                     this.state.invest_amt === null ? (
                                       <a
                                         href="#"
-                                        className="black-button prime-bg text-center"
+                                        className="text-center black-button prime-bg"
                                         onClick={() => {
                                           this.getpostData();
                                           if (dataSource2.length > 1) {
@@ -1545,7 +1539,7 @@ class CareerCompany extends Component {
                                     dataSource2.length > 1 ? (
                                       <a
                                         href="#"
-                                        className="black-button prime-bg text-center"
+                                        className="text-center black-button prime-bg"
                                         onClick={() => {
                                           this.getpostData();
                                           this.setState({
@@ -1628,7 +1622,7 @@ class CareerCompany extends Component {
 
                     <button
                       type="button"
-                      className="login-button prime-bg d-md-block mx-auto w-50 mt-1"
+                      className="d-md-block w-50 login-button mt-1 mx-auto prime-bg"
                       onClick={() => {
                         if (this.state.selectedInvestorId == null) {
                           notification.warning({
@@ -1711,7 +1705,7 @@ class CareerCompany extends Component {
                         )}
                       </div>
 
-                      <div class="form-group form-check d-flex">
+                      <div class="d-flex form-check form-group">
                         <Checkbox
                           checked={this.state.checkWallet}
                           onChange={(e) => {
@@ -1730,7 +1724,7 @@ class CareerCompany extends Component {
                           </sup> Money{" "}
                         </label>
                       </div>
-                      <div className=" d-flex justify-content-center modal-table">
+                      <div className="d-flex modal-table justify-content-center">
                         <table
                           className="col-12 m-5 investment-charge-table"
                           cellPadding={4}
@@ -1857,7 +1851,7 @@ class CareerCompany extends Component {
                         {this.state.amount_error_status == true ? (
                           <button
                             type="button"
-                            className="login-button text-center"
+                            className="text-center login-button"
                             style={{
                               border: "1px solid #9a9a9a",
                               backgroundColor: "#9a9a9a",
@@ -1902,7 +1896,7 @@ class CareerCompany extends Component {
                         )}
                         <button
                           type="button"
-                          className="login-button text-center  btn-secondary"
+                          className="btn-secondary text-center login-button"
                           style={{
                             border: "1px solid #f3f3f",
                             padding: "0.9em 0 ",
@@ -1958,7 +1952,7 @@ class CareerCompany extends Component {
 
                       <button
                         type="button"
-                        className="login-button prime-bg d-md-block mx-auto w-100 mt-1"
+                        className="d-md-block w-100 login-button mt-1 mx-auto prime-bg"
                         onClick={() => this.founder_updateprofiledetails()}
                       >
                         Update
@@ -1993,7 +1987,7 @@ class CareerCompany extends Component {
                       <div className="col-11">
                         <button
                           type="button"
-                          className="login-button bg-primary mt-4 mx-4"
+                          className="bg-primary login-button mt-4 mx-4"
                           onClick={() => this.invest()}
                         >
                           Yes
@@ -2042,7 +2036,7 @@ class CareerCompany extends Component {
                     </h1>
                     <div className="row">
                       <div className="col-lg-4">
-                        <div className="single text-center h-lg market-boxes">
+                        <div className="h-lg text-center market-boxes single">
                           {/* <h2 style={{paddingBottom:"20px"}}>$1 Tn </h2> */}
                           <p
                             style={{
@@ -2059,7 +2053,7 @@ class CareerCompany extends Component {
                         </div>
                       </div>
                       <div className="col-lg-4">
-                        <div className="single text-center h-lg market-boxes">
+                        <div className="h-lg text-center market-boxes single">
                           <p
                             style={{
                               color: "white",
@@ -2076,7 +2070,7 @@ class CareerCompany extends Component {
                       </div>
 
                       <div className="col-lg-4">
-                        <div className="single text-center h-lg market-boxes">
+                        <div className="h-lg text-center market-boxes single">
                           <p
                             style={{
                               color: "white",
@@ -2113,9 +2107,9 @@ class CareerCompany extends Component {
                     </h1>
 
                     <div className="row highlight-rows">
-                      <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
+                      <div className="col-12 col-lg-6 col-md-12 col-sm-12 col-xl-6">
                         <div
-                          className="single  mindlerhighlight text-left"
+                          className="text-left mindlerhighlight single"
                           style={{}}
                         >
                           <div className="hightlights-images">
@@ -2126,9 +2120,9 @@ class CareerCompany extends Component {
                           </p>
                         </div>
                       </div>
-                      <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
+                      <div className="col-12 col-lg-6 col-md-12 col-sm-12 col-xl-6">
                         <div
-                          className="single mindlerhighlight text-left"
+                          className="text-left mindlerhighlight single"
                           style={{}}
                         >
                           <div className="hightlights-images">
@@ -2139,9 +2133,9 @@ class CareerCompany extends Component {
                           </p>{" "}
                         </div>
                       </div>
-                      <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
+                      <div className="col-12 col-lg-6 col-md-12 col-sm-12 col-xl-6">
                         <div
-                          className="single mindlerhighlight text-left"
+                          className="text-left mindlerhighlight single"
                           style={{}}
                         >
                           <div className="hightlights-images">
@@ -2152,9 +2146,9 @@ class CareerCompany extends Component {
                           </p>
                         </div>
                       </div>
-                      <div className="col-lg-6 col-md-12 col-sm-12 col-12 col-xl-6">
+                      <div className="col-12 col-lg-6 col-md-12 col-sm-12 col-xl-6">
                         <div
-                          className="single mindlerhighlight text-left"
+                          className="text-left mindlerhighlight single"
                           style={{}}
                         >
                           <div className="hightlights-images">
@@ -2200,7 +2194,7 @@ class CareerCompany extends Component {
                           >
                             Investor Presentation
                           </h1>
-                          <Slider {...settings} className="mb-5 pitch-slider career-company-slider">
+                          <Slider {...settings} className="career-company-slider mb-5 pitch-slider">
                             {images.map((image, index) => (
                               <img
                                 key={index}
