@@ -151,7 +151,7 @@ class InvestorCommitment extends CI_Controller
 				$total["amount"] =	$already_committed[0]["amount"] + $commitment["amount"];	
 				$total["processingfees"] =	$already_committed[0]["processingfees"] + $commitment["processingfees"];
 
-				$total["igst"] =	$already_committed[0]["igst"] + $commitment["igst"];
+				$total["igst"] = $commitment["igst"];
 				$total["igstvalue"] =	$already_committed[0]["igstvalue"] + $commitment["igstvalue"];
 				
 				$this -> db -> where("deal_id",$commitment["deal_id"]) -> where("investor_id",$commitment["investor_id"]) -> where("parent_id",0)  -> update("investor_commitment",$total);
@@ -345,7 +345,7 @@ class InvestorCommitment extends CI_Controller
 					                                    PS: This is an automated email. Please do not reply.
 					                                    
 					                                    <br>
-					                                    <div style="text-align: center;" class="imgRes col-sm-12 col-md-12 col-lg-12">
+					                                    <div style="text-align: center;" class="col-lg-12 col-md-12 col-sm-12 imgRes">
 					                                      <img src="https://growth91.com/web/growth91LOGO%20(4).png" alt="logo" style="width:120px;height:auto;">
 					                                    </div>
 					                                  </td>
@@ -612,7 +612,7 @@ class InvestorCommitment extends CI_Controller
 					                                    PS: This is an automated email. Please do not reply.
 					                                    
 					                                    <br>
-					                                    <div style="text-align: center;" class="imgRes col-sm-12 col-md-12 col-lg-12">
+					                                    <div style="text-align: center;" class="col-lg-12 col-md-12 col-sm-12 imgRes">
 					                                      <img src="https://growth91.com/web/growth91LOGO%20(4).png" alt="logo" style="width:120px;height:auto;">
 					                                    </div>
 					                                  </td>

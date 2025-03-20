@@ -1860,7 +1860,7 @@ class Deals extends Component {
         "Sr No": count,
         "Name": item.first_name + " " + item.last_name,
         "Investment Amount": item.amount,
-        "Fees": item.processingfees,
+        "Fees": (parseInt(item.processingfees) + parseInt(item.igstvalue)),
        
       };
       arr = [...arr, obj];
@@ -3331,7 +3331,7 @@ class Deals extends Component {
               />
             </div>
 
-            <div className="mt-4 editor-field">
+            <div className="editor-field mt-4">
               <label className="mb-2">
                 Target Amount <span className="text-danger">*</span>
               </label>
@@ -3420,7 +3420,7 @@ class Deals extends Component {
                 onChange={(e) => this.setState({ raiseGap: e.target.value })}
               />
             </div>
-            <div className="mt-4 d-flex flex-row-reverse justify-content-end">
+            <div className="d-flex flex-row-reverse justify-content-end mt-4">
               <label className="mx-2" for="SpecialOffer" >
                 Enable Special Offer
               </label>
@@ -3680,7 +3680,7 @@ class Deals extends Component {
                 accept=".jpg, .jpeg, .png, .webp"
               />
             </div>
-            <div className="mt-4 editor-field">
+            <div className="editor-field mt-4">
               <label className="mb-2">Page Link</label>
               <Input
                 type="text"
@@ -3688,7 +3688,7 @@ class Deals extends Component {
                 onChange={(e) => this.setState({ page_link: e.target.value })}
               />
             </div>
-            <div className="mt-4 editor-field">
+            <div className="editor-field mt-4">
               <label className="mb-2">Vendor Id</label>
               <Input
                 type="text"
@@ -3893,7 +3893,7 @@ class Deals extends Component {
               />
             </div>
 
-            <div className="mt-4 editor-field">
+            <div className="editor-field mt-4">
               <label className="mb-2">
                 Target Amount <span className="text-danger">*</span>
               </label>
@@ -3980,7 +3980,7 @@ class Deals extends Component {
                 }
               />
             </div>
-            <div className="mt-4 d-flex flex-row-reverse justify-content-end">
+            <div className="d-flex flex-row-reverse justify-content-end mt-4">
               <label className="mx-2" for="SpecialOffer" >
                 Enable Special Offer
               </label>
@@ -4227,7 +4227,7 @@ class Deals extends Component {
               </Select>
             </div>
             <div className="mt-4">
-              <label className="mb-2 w-100">
+              <label className="w-100 mb-2">
                 Banner Image <span className="text-danger">*</span>
               </label>
               {this.state.bannerurl && (
@@ -4244,7 +4244,7 @@ class Deals extends Component {
               />
             </div>
             <div className="mt-4">
-              <label className="mb-2 w-100">
+              <label className="w-100 mb-2">
                 Select Logo <span className="text-danger">*</span>
               </label>
               {this.state.logourl && (
@@ -4260,7 +4260,7 @@ class Deals extends Component {
                 accept=".jpg, .jpeg, .png, .webp"
               />
             </div>
-            <div className="mt-4 editor-field">
+            <div className="editor-field mt-4">
               <label className="mb-2">Page Link</label>
               <Input
                 type="text"
@@ -4270,7 +4270,7 @@ class Deals extends Component {
                 }
               />
             </div>
-            <div className="mt-4 editor-field">
+            <div className="editor-field mt-4">
               <label className="mb-2">Vendor Id</label>
               <Input
                 type="text"
@@ -4376,7 +4376,7 @@ class Deals extends Component {
         >
           <Spin spinning={this.state.invite_form_loader}>
             <div>
-              <div className="mt-4 editor-field">
+              <div className="editor-field mt-4">
                 <label className="mb-2">Name</label>
                 <Input
                   type="text"
@@ -4386,7 +4386,7 @@ class Deals extends Component {
                   disabled={this.state.input_status == true ? true : false}
                 />
               </div>
-              <div className="mt-4 editor-field">
+              <div className="editor-field mt-4">
                 <label className="mb-2">Email</label>
                 <Input
                   type="email"
@@ -4396,7 +4396,7 @@ class Deals extends Component {
                   disabled={this.state.input_status == true ? true : false}
                 />
               </div>
-              <div className="mt-4 editor-field">
+              <div className="editor-field mt-4">
                 <label className="mb-2">Mobile</label>
                 <Input
                   type="number"
@@ -4439,7 +4439,7 @@ class Deals extends Component {
                 }
               >
                 <div className="mt-4">
-                  <label className="mb-2 w-100">
+                  <label className="w-100 mb-2">
                     Select Xlsx File <span className="text-danger">*</span>{" "}
                     <span className="text-danger">(Select xlsx file only)</span>
                   </label>
@@ -4491,7 +4491,7 @@ class Deals extends Component {
                   </div>
                 )}
               </Card>
-                  <div className="mt-4 editor-field d-flex align-items-center">
+                  <div className="d-flex align-items-center editor-field mt-4">
                 <label className="mb-2">CC to founder</label>
                 <input
                   type="checkbox"
@@ -4861,7 +4861,7 @@ class Deals extends Component {
               </p>
             )}
           </div>
-          <div className="form-group form-check d-flex">
+          <div className="d-flex form-check form-group">
             <Checkbox
               checked={this.state.ac_checkWallet}
               onChange={(e) => {
@@ -4880,7 +4880,7 @@ class Deals extends Component {
           {
             this.state.ac_enable_special_offer && this.state.ac_special_offer_text != null ? (
               <>
-                <div className="form-group form-check d-flex">
+                <div className="d-flex form-check form-group">
                   <Checkbox
                     checked={this.state.ac_checkDiscount}
                     onChange={(e) => {
@@ -4908,7 +4908,7 @@ class Deals extends Component {
               </div>
             ) : null
           }
-          <div className="d-flex justify-content-center modal-table">
+          <div className="d-flex modal-table justify-content-center">
             <table className="col-12 m-5 investment-charge-table" cellPadding={4}>
               <tr>
                 <th>
@@ -4991,7 +4991,7 @@ class Deals extends Component {
             {this.state.ac_amount_error_status == true ? (
               <button
                 type="button"
-                className="login-button text-center"
+                className="text-center login-button"
                 style={{
                   border: "1px solid #9a9a9a",
                   backgroundColor: "#9a9a9a",
@@ -5004,7 +5004,7 @@ class Deals extends Component {
             ) : (
               <button
                 type="button"
-                className="login-button prime-bg d-md-block mx-auto w-100"
+                className="d-md-block w-100 login-button mx-auto prime-bg"
                 onClick={
                   () => {
                     if (this.state.ac_investor_name === "") {
@@ -5051,7 +5051,7 @@ class Deals extends Component {
           onCancel={() => this.setState({ show_edit_commitment_modal: false })}
           width={550}
         >
-          <div className="mt-4 editor-field">
+          <div className="editor-field mt-4">
             <label className="mb-2">
               Amount <span className="text-danger">*</span>
             </label>
@@ -5077,7 +5077,7 @@ class Deals extends Component {
               }
             />
           </div>
-          <div className="mt-4 editor-field">
+          <div className="editor-field mt-4">
             <label className="mb-2">
               GST Percentage <span className="text-danger">*</span>
             </label>
@@ -5092,7 +5092,7 @@ class Deals extends Component {
               }
             />
           </div>
-          <div className="mt-4 editor-field">
+          <div className="editor-field mt-4">
             <label className="mb-2">
               GST Value <span className="text-danger">*</span>
             </label>

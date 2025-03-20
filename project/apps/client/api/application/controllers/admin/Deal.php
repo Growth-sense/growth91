@@ -509,7 +509,7 @@ class Deal extends CI_Controller
 					                                    PS: This is an automated email. Please do not reply.
 					                                    
 					                                    <br>
-					                                    <div style="text-align: center;" class="imgRes col-sm-12 col-md-12 col-lg-12">
+					                                    <div style="text-align: center;" class="col-lg-12 col-md-12 col-sm-12 imgRes">
 					                                      <img src="https://growth91.com/web/growth91LOGO%20(4).png" alt="logo" style="width:120px;height:auto;">
 					                                    </div>
 					                                  </td>
@@ -1396,7 +1396,7 @@ class Deal extends CI_Controller
 															<br>
 															PS: This is system generated email. Please do not reply.
 														</br>
-														<div style="text-align: center;" class="imgRes col-sm-12 col-md-12 col-lg-12">
+														<div style="text-align: center;" class="col-lg-12 col-md-12 col-sm-12 imgRes">
 															<img src="'.WEB_BASE_URL.'web/glogo.png" alt="logo" style="width:120px;height:auto;">
 														</div>
 														</td>
@@ -1690,7 +1690,7 @@ class Deal extends CI_Controller
 															<br>
 															PS: This is system generated email. Please do not reply.
 														</br>
-														<div style="text-align: center;" class="imgRes col-sm-12 col-md-12 col-lg-12">
+														<div style="text-align: center;" class="col-lg-12 col-md-12 col-sm-12 imgRes">
 															<img src="'.WEB_BASE_URL.'web/glogo.png" alt="logo" style="width:120px;height:auto;">
 														</div>
 														</td>
@@ -2199,7 +2199,7 @@ class Deal extends CI_Controller
 				$total["amount"] =	($already_committed[0]["amount"] + $commitment["amount"]) - $committed_idwise[0]["amount"];	
 				$total["processingfees"] =	($already_committed[0]["processingfees"] + $commitment["processingfees"]) - $committed_idwise[0]["processingfees"];	
 				$total["legalfee"] =	($already_committed[0]["legalfee"] + $commitment["legalfee"]) - $committed_idwise[0]["legalfee"];	
-				$total["igst"] = ($already_committed[0]["igst"] + $commitment["igst"]) - $committed_idwise[0]["igst"];	
+				$total["igst"] = $commitment["igst"];	
 				$total["igstvalue"] = ($already_committed[0]["igstvalue"] + $commitment["igstvalue"]) - $committed_idwise[0]["igstvalue"];	
 				//print_r($total);
 				//die;
@@ -2426,8 +2426,8 @@ class Deal extends CI_Controller
 				$total["totalamount"] =	$already_committed[0]["totalamount"] + $commitment["totalamount"];	
 				$total["amount"] =	$already_committed[0]["amount"] + $commitment["amount"];	
 				$total["processingfees"] =	$already_committed[0]["processingfees"] + $commitment["processingfees"];
-				$commitment["igst"] = $already_committed[0]["igst"] + $commitment["igst"];
-				$commitment["igstvalue"] = $already_committed[0]["igstvalue"] + $commitment["igstvalue"];
+				$total["igst"] = $commitment["igst"];
+				$total["igstvalue"] = $already_committed[0]["igstvalue"] + $commitment["igstvalue"];
 				
 				$this -> db -> where("deal_id",$commitment["deal_id"]) -> where("investor_id",$commitment["investor_id"]) -> where("parent_id",0)  -> update("investor_commitment",$total);
 				
@@ -2619,7 +2619,7 @@ class Deal extends CI_Controller
 					                                    PS: This is an automated email. Please do not reply.
 					                                    
 					                                    <br>
-					                                    <div style="text-align: center;" class="imgRes col-sm-12 col-md-12 col-lg-12">
+					                                    <div style="text-align: center;" class="col-lg-12 col-md-12 col-sm-12 imgRes">
 					                                      <img src="https://growth91.com/web/growth91LOGO%20(4).png" alt="logo" style="width:120px;height:auto;">
 					                                    </div>
 					                                  </td>
@@ -2884,7 +2884,7 @@ class Deal extends CI_Controller
 					                                    PS: This is an automated email. Please do not reply.
 					                                    
 					                                    <br>
-					                                    <div style="text-align: center;" class="imgRes col-sm-12 col-md-12 col-lg-12">
+					                                    <div style="text-align: center;" class="col-lg-12 col-md-12 col-sm-12 imgRes">
 					                                      <img src="https://growth91.com/web/growth91LOGO%20(4).png" alt="logo" style="width:120px;height:auto;">
 					                                    </div>
 					                                  </td>
