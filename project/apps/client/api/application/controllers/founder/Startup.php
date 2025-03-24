@@ -1462,28 +1462,73 @@ class Startup extends CI_Controller {
 
 			$founder_id=$formdata['founder_id'];
 			$plan_name=$formdata['plan_name'];
+			$is_upgrade = isset($formdata['is_upgrade']) ? $formdata['is_upgrade'] : false;
+		
+			$plans = [
+				'Silver' => [
+					'price' => 3000,
+					'editLeft' => 2
+				],
+				'Gold' => [
+					'price' => 10000,
+					'editLeft' => 12
+				],
+				'Platinum' => [
+					'price' => 25000,
+					'editLeft' => 999
+				],
+				'AdditionalEdit' => [
+					'price' => 1500,
+					'editLeft' => 1
+				]
+			];
 
-			$linkId = $founder_id . '_' . $plan_name . '_' . time();
+			$amount = $plans[$plan_name]['price'];
 
+			if ($is_upgrade) {
+				// First get current subscription details if it's an upgrade
+				$current_user = $this->db
+					->select('unicorn_plan, unicorn_start_date, left_edit')
+					->where('investor_id', $founder_id)
+					->get('users')
+					->row();
+
+				if ($current_user && $current_user->unicorn_plan && $current_user->unicorn_start_date) {
+					$start_date = new DateTime($current_user->unicorn_start_date);
+					$current_date = new DateTime();
+					
+					// Calculate the year and month difference
+					$year_diff = $current_date->format('Y') - $start_date->format('Y');
+					$month_diff = $current_date->format('n') - $start_date->format('n');
+					
+					// Calculate base months between dates
+					$months_used = ($year_diff * 12) + $month_diff;
+					
+					// Adjust for incomplete month
+					if ($current_date->format('j') < $start_date->format('j')) {
+						$months_used -= 1;
+					}
+	
+					// Calculate monthly rate for current plan
+					$current_plan_price = $plans[$current_user->unicorn_plan]['price'];
+					$current_plan_monthly_rate = $current_plan_price / 12;
+					
+					// Calculate remaining months
+					$remaining_months = 12 - $months_used;
+	
+					// Calculate refund amount for unused months
+					$refund_amount = $current_plan_monthly_rate * $remaining_months;
+	
+					// Calculate final upgrade price
+					$amount = max(0, $plans[$plan_name]['price'] - $refund_amount);
+				}
+			}
+
+			// Generate unique link ID
+			$link_id = $is_upgrade ? 
+            "upgrade_{$founder_id}_{$plan_name}_" . time() : 
+            "{$founder_id}_{$plan_name}_" . time();
 			
-			$amount=0;
-			// if plan name is gold set amount to 3000 if plan name is silver set amount to 2000 if plan name is bronze set amount to 1000
-			if($plan_name=='AdditionalEdit')
-			{
-				$amount=1000;
-			}
-			if($plan_name=='Silver')
-			{
-				$amount=3000;
-			}
-			if($plan_name=='Gold')
-			{
-				$amount=10000;
-			}
-			if($plan_name=='Platinum')
-			{
-				$amount=25000;
-			}
 
 			$curl = curl_init();
 
@@ -1495,11 +1540,11 @@ class Startup extends CI_Controller {
 				'customer_details' => [
 					'customer_phone' => '1111111111'
 				],
-				'link_amount' => $amount, // Using the amount variable
+				'link_amount' => round($amount), // Using the amount variable
 				'link_auto_reminders' => true,
 				'link_currency' => 'INR',
 				'link_expiry_time' => $expiryTime,
-				'link_id' => $linkId,
+				'link_id' => $link_id,
 				'link_meta' => [
 					'notify_url' => 'https://growth91.growthmetaverse.in/api/founder/Startup/handle_payment_link',
 					'return_url' => 'https://growth91.growthmetaverse.in/MyUnicornPlan',
@@ -1540,7 +1585,6 @@ class Startup extends CI_Controller {
 					'status' => '0',
 					'message'=> 'Something went wrong. Please try again later.',
 				];
-				echo "cURL Error #:" . $err;
 			} else {
 				$response = [
 					'status' => '0',
@@ -1570,18 +1614,49 @@ class Startup extends CI_Controller {
 		$type=$formdata['type'];
 		if($type=='PAYMENT_SUCCESS_WEBHOOK'){
 			$link_id = $formdata['data']['order']['order_tags']['link_id'];
-			$founderId = explode('_', $link_id)[0];
-			$planName = explode('_', $link_id)[1];
+
+			// Parse link_id to get founder_id and plan_name
+			$link_parts = explode('_', $link_id);
+			$is_upgrade = ($link_parts[0] === 'upgrade');
+
+			$index_offset = $is_upgrade ? 1 : 0;
+			$founderId = explode('_', $link_id)[$index_offset];
+			$planName = explode('_', $link_id)[$index_offset + 1];
+
+			// Define plan editLeft values
+			$plans = [
+				'Silver' => 2,
+				'Gold' => 12,
+				'Platinum' => 999,
+				'AdditionalEdit' => 1
+			];
 
 			if($planName=='AdditionalEdit'){
 				$post_data=[
-					'left_edit'=>2
+					'left_edit'=>1
 				];
 				$this->db->where('investor_id', $founderId);
 				$this->db->update('users', $post_data);
 			}
 
 			else{
+				if ($is_upgrade) {
+					$current_user = $this->db
+						->select('unicorn_plan, left_edit')
+						->where('investor_id', $founderId)
+						->get('users')
+						->row();
+
+					if ($current_user->unicorn_plan === $planName) {
+						// Skip processing as it's the same plan
+						return;
+					}
+					$new_edit_left = $current_user->left_edit + $plans[$planName];
+				} else {
+					// For new subscriptions, just use the plan's edit count
+					$new_edit_left = $plans[$planName];
+				}
+
 				$planStartDate=date('Y-m-d');
 				$planEndDate=date('Y-m-d', strtotime('+1 year'));
 
@@ -1591,8 +1666,7 @@ class Startup extends CI_Controller {
 					'unicorn_start_date'=>$planStartDate,
 					'unicorn_end_date'=>$planEndDate,
 					// set if silver then 2, if gold then 10 else 999
-					'left_edit'=>
-						($planName=='Silver' ? 2 : ($planName=='Gold' ? 12 : ($planName=='Platinum' ? 999 : 0))),
+					'left_edit'=> $new_edit_left
 				];
 				$this->db->where('investor_id', $founderId);
 				$this->db->update('users', $post_data);

@@ -15,9 +15,13 @@ export const ViewPlan = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const [unideatils, setunideatils] = useState();
-  const [unicorn, setUnicorn] = useState();
+  
   const [loading, setloading] = useState(false);
+  const [activePlan, setActivePlan] = useState(null);
+  const [planStartDate, setPlanStartDate] = useState(null);
+  const [planEndDate, setPlanEndDate] = useState(null);
+
+  
 
   const plans = [
     {
@@ -50,11 +54,15 @@ export const ViewPlan = () => {
   ];
 
   const unicorndetails = async () => {
+    setloading(true);
     let params = {
       founder_id: localStorage.getItem("founder_id"),
     };
     Bridge.Unicorn.get_founder_detail_for_unicorn(params).then((result) => {
-      console.log(result);
+      setActivePlan(result.data[0].unicorn_plan);
+      setPlanStartDate(result.data[0].unicorn_start_date);
+      setPlanEndDate(result.data[0].unicorn_end_date);
+      setloading(false);
     });
   };
 
@@ -62,10 +70,113 @@ export const ViewPlan = () => {
     let params = {
       founder_id: localStorage.getItem("founder_id"),
       plan_name: planName,
+      is_upgrade: !!activePlan
     };
     Bridge.Unicorn.get_payment_link(params).then((result) => {
       window.location.assign(JSON.parse(result.data).link_url);
     });
+  };
+
+  const renderActionButton = (plan) => {
+    const canUpgrade = 
+      (!activePlan) || 
+      (activePlan === "Silver" && (plan.name === "Gold" || plan.name === "Platinum")) ||
+      (activePlan === "Gold" && plan.name === "Platinum");
+  
+    const isActive = activePlan === plan.name;
+    const upgradedPrice = calculateUpgradedPrice(plan);
+  
+    if (isActive) {
+      return (
+        <Button
+          type="default"
+          size="large"
+          disabled
+          style={{
+            width: "100%",
+            height: "48px",
+            borderRadius: "16px",
+          }}
+        >
+          Current Active Plan
+        </Button>
+      );
+    }
+  
+    if (!canUpgrade) {
+      return (
+        <Button
+          type="default"
+          size="large"
+          disabled
+          style={{
+            width: "100%",
+            height: "48px",
+            borderRadius: "16px",
+          }}
+        >
+          Not Available
+        </Button>
+      );
+    }
+  
+    return (
+      <Button
+        type="primary"
+        size="large"
+        style={{
+          width: "100%",
+          height: "48px",
+          borderRadius: "16px",
+          border: "none",
+          background:
+            plan.name === "Platinum"
+              ? "linear-gradient(135deg, #9333ea 0%, #7c3aed 100%)"
+              : plan.name === "Gold"
+              ? "linear-gradient(135deg, #ff9800 0%, #ff7300 100%)"
+              : "linear-gradient(135deg, #64748b 0%, #475569 100%)",
+          fontSize: "16px",
+          fontWeight: "600",
+          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+        }}
+        onClick={() => {
+          getPaymentLink(plan.name);
+        }}
+      >
+        {activePlan ? `Upgrade to ${plan.name} (₹${upgradedPrice})` : `Get Started as ${plan.name}`}
+      </Button>
+    );
+  };
+
+  const calculateUpgradedPrice = (targetPlan) => {
+    if (!activePlan || !planStartDate) return targetPlan.priceId;
+  
+    const startDate = new Date(planStartDate);
+    const currentDate = new Date();
+    
+    // Calculate complete months between dates
+    const monthsUsed = (
+      (currentDate.getFullYear() - startDate.getFullYear()) * 12 +
+      (currentDate.getMonth() - startDate.getMonth())
+    );
+  
+    // Find current plan details
+    const currentPlanDetails = plans.find(p => p.name === activePlan);
+    if (!currentPlanDetails) return targetPlan.priceId;
+  
+    // Calculate monthly rate for current plan
+    const currentPlanMonthlyRate = currentPlanDetails.priceId / 12;
+    
+    // Calculate remaining months (including current incomplete month)
+    const remainingMonths = 12 - monthsUsed;
+  
+    // Calculate refund amount for unused months
+    const refundAmount = currentPlanMonthlyRate * remainingMonths;
+  
+    // Calculate final upgrade price
+    const upgradedPrice = targetPlan.priceId - refundAmount;
+  
+    return Math.max(0, Math.round(upgradedPrice));
   };
 
   $(window).scroll(function () {
@@ -324,7 +435,9 @@ export const ViewPlan = () => {
                           ))}
                         </div>
 
-                        <Button
+                        {renderActionButton(plan)}
+
+                        {/* <Button
                           type="primary"
                           size="large"
                           style={{
@@ -347,7 +460,7 @@ export const ViewPlan = () => {
                           }}
                         >
                           Get Started as {plan.name}
-                        </Button>
+                        </Button> */}
                       </div>
                     </Card>
                   </div>
