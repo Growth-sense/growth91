@@ -190,7 +190,6 @@ export const MyUnicornPlan = () => {
       marginBottom: "1rem",
     },
     purchaseButton: {
-      background: "linear-gradient(135deg, #dc2626, #ef4444)",
       color: "white",
       border: "none",
       borderRadius: "6px",
@@ -288,7 +287,7 @@ export const MyUnicornPlan = () => {
   );
 
   // New WarningSection component
-  const WarningSection = ({ onPurchase }) => (
+  const WarningSection = ({ onPurchase, onUpgrade }) => (
     <div style={additionalStyles.warningSection}>
       <div style={additionalStyles.warningTitle}>
         <i className="fas fa-exclamation-circle" />
@@ -298,21 +297,46 @@ export const MyUnicornPlan = () => {
         You have used all your edits. Purchase 1 additional edit for ₹1,500 to
         continue making changes.
       </p>
-      <button
-        style={additionalStyles.purchaseButton}
-        onClick={onPurchase}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = "translateY(-2px)";
-          e.currentTarget.style.boxShadow = "0 4px 12px rgba(239, 68, 68, 0.3)";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = "translateY(0)";
-          e.currentTarget.style.boxShadow = "none";
-        }}
-      >
-        <i className="fas fa-shopping-cart" />
-        Purchase Additional Edits
-      </button>
+      <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
+        <button
+          style={{
+            ...additionalStyles.purchaseButton,
+            backgroundColor: '#ef4444',
+          }}
+          onClick={onPurchase}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = "translateY(-2px)";
+            e.currentTarget.style.boxShadow = "0 4px 12px rgba(239, 68, 68, 0.3)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "translateY(0)";
+            e.currentTarget.style.boxShadow = "none";
+          }}
+        >
+          <i className="fas fa-shopping-cart" />
+          Purchase Additional Edits
+        </button>
+        <button
+          style={{
+            ...additionalStyles.purchaseButton,
+            backgroundColor: '#4F46E5', // Different color for distinction
+            border: 'none',
+            color: 'white',
+          }}
+          onClick={onUpgrade}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = "translateY(-2px)";
+            e.currentTarget.style.boxShadow = "0 4px 12px rgba(79, 70, 229, 0.3)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "translateY(0)";
+            e.currentTarget.style.boxShadow = "none";
+          }}
+        >
+          <i className="fas fa-arrow-up" />
+          Upgrade Plan
+        </button>
+      </div>
     </div>
   );
 
@@ -345,7 +369,7 @@ export const MyUnicornPlan = () => {
                 {founderDetails?.unicorn_end_date &&
                   isPlanActive() &&
                   founderDetails.left_edit == "0" && (
-                    <WarningSection onPurchase={handlePurchaseEdits} />
+                    <WarningSection onPurchase={handlePurchaseEdits} onUpgrade={() => {window.location.assign("/ViewUnicornPlan")}} />
                   )}
 
                 {founderDetails?.unicorn_end_date && isPlanActive() ? (
