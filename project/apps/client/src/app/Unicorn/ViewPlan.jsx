@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { NewWebFooter } from "../common/NewWebFooter";
 import $ from "jquery";
-import { Link } from "react-router-dom";
 import Bridge from "../constants/Bridge.js";
-import axios from "axios";
-import { Spin, Card, Button, Badge, Tooltip } from "antd";
-import { CheckOutlined, StarFilled } from "@ant-design/icons";
+import { Spin, Card, Button, Modal } from "antd";
 import Header from "../common/Header.js";
-import Sidebar from "../Founder/common/Sidebar.js";
+import { 
+  CheckOutlined, 
+  InfoCircleOutlined} from '@ant-design/icons';
+
 
 export const ViewPlan = () => {
   useEffect(() => {
@@ -20,6 +20,8 @@ export const ViewPlan = () => {
   const [activePlan, setActivePlan] = useState(null);
   const [planStartDate, setPlanStartDate] = useState(null);
   const [planEndDate, setPlanEndDate] = useState(null);
+  const [isPolicyModalVisible, setIsPolicyModalVisible] = useState(false);
+
 
   
 
@@ -345,7 +347,11 @@ export const ViewPlan = () => {
                             }}
                           >
                             <span
-                              style={{ fontSize: "16px", marginRight: "4px", textDecoration: "none" }}
+                              style={{
+                                fontSize: "16px",
+                                marginRight: "4px",
+                                textDecoration: "none",
+                              }}
                             >
                               ₹
                             </span>
@@ -470,55 +476,362 @@ export const ViewPlan = () => {
               {/* Additional Info Section */}
             </div>
           </section>
+          <section
+            className="pricing-section"
+            style={{
+              flex: 1,
+              display: "flex",
+              flexDirection: "column", // Add this
+              alignItems: "center",
+              padding: "40px 0",
+            }}
+          >
+            {/* Policy Link and Modal - Now properly positioned at bottom */}
+            <div className="text-center mt-4" style={{ marginTop: "40px" }}>
+              <Button
+                type="link"
+                onClick={() => setIsPolicyModalVisible(true)}
+                style={{
+                  fontSize: "14px",
+                  color: "#5469d4",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "4px",
+                }}
+              >
+                <InfoCircleOutlined /> View Pricing Plans and Upgrade Policy
+              </Button>
+
+              <Modal
+                title={null}
+                open={isPolicyModalVisible}
+                onCancel={() => setIsPolicyModalVisible(false)}
+                footer={null}
+                width={800}
+                style={{
+                  top: 20,
+                  borderRadius: "16px",
+                  overflow: "hidden",
+                }}
+                zIndex={1600}
+                closable={false}
+              >
+                <div style={{ padding: 0 }}>
+                  {/* Header */}
+                  <div
+                    style={{
+                      background:
+                        "linear-gradient(135deg,rgb(197, 204, 239) 0%,rgb(156, 169, 230) 20%)",
+                      padding: "32px 24px",
+                      textAlign: "center",
+                      color: "white",
+                    }}
+                  >
+                    <h2
+                      style={{
+                        fontSize: "24px",
+                        fontWeight: "600",
+                        marginBottom: "8px",
+                        color: "white",
+                      }}
+                    >
+                      Future Unicorns – Pricing Plans & Upgrade Policy
+                    </h2>
+                    <p
+                      style={{
+                        opacity: 0.9,
+                        fontSize: "14px",
+                        margin: 0,
+                      }}
+                    >
+                      Everything you need to know about our plans and policies
+                    </p>
+                  </div>
+
+                  {/* Content */}
+                  <div style={{ padding: "32px" }}>
+                    {/* Pricing Plans Section */}
+                    <div style={{ marginBottom: "40px" }}>
+                      <h3
+                        style={{
+                          fontSize: "18px",
+                          fontWeight: "600",
+                          color: "#1a1f36",
+                          marginBottom: "16px",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "12px",
+                        }}
+                      >
+                        <span
+                          style={{
+                            background: "#5469d4",
+                            color: "white",
+                            width: "24px",
+                            height: "24px",
+                            borderRadius: "12px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: "14px",
+                          }}
+                        >
+                          1
+                        </span>
+                        Pricing Plans
+                      </h3>
+                      <div style={{ paddingLeft: "36px" }}>
+                        <p style={{ color: "#4a5568", marginBottom: "16px" }}>
+                          Future Unicorns offers three subscription plans for
+                          founders to list their startups. Each plan includes a
+                          one-year validity and a set number of allowed edits.
+                        </p>
+                        <div
+                          style={{
+                            background: "#f8fafc",
+                            padding: "24px",
+                            borderRadius: "12px",
+                            marginBottom: "24px",
+                          }}
+                        >
+                          <div style={{ marginBottom: "24px" }}>
+                            <h4
+                              style={{
+                                fontSize: "16px",
+                                fontWeight: "600",
+                                marginBottom: "12px",
+                                color: "#1a1f36",
+                              }}
+                            >
+                              Silver Plan
+                            </h4>
+                            <p
+                              style={{ margin: "0 0 8px 0", color: "#4a5568" }}
+                            >
+                              Price: ₹6,000 (Discounted Price: ₹3,000)
+                            </p>
+                            <ul
+                              style={{
+                                margin: "0",
+                                paddingLeft: "20px",
+                                color: "#4a5568",
+                              }}
+                            >
+                              <li>Includes 2 edits</li>
+                              <li>Validity: 1 year</li>
+                            </ul>
+                          </div>
+
+                          <div style={{ marginBottom: "24px" }}>
+                            <h4
+                              style={{
+                                fontSize: "16px",
+                                fontWeight: "600",
+                                marginBottom: "12px",
+                                color: "#1a1f36",
+                              }}
+                            >
+                              Gold Plan
+                            </h4>
+                            <p
+                              style={{ margin: "0 0 8px 0", color: "#4a5568" }}
+                            >
+                              Price: ₹20,000 (Discounted Price: ₹10,000)
+                            </p>
+                            <ul
+                              style={{
+                                margin: "0",
+                                paddingLeft: "20px",
+                                color: "#4a5568",
+                              }}
+                            >
+                              <li>Includes 12 edits</li>
+                              <li>Validity: 1 year</li>
+                            </ul>
+                          </div>
+
+                          <div>
+                            <h4
+                              style={{
+                                fontSize: "16px",
+                                fontWeight: "600",
+                                marginBottom: "12px",
+                                color: "#1a1f36",
+                              }}
+                            >
+                              Platinum Plan
+                            </h4>
+                            <p
+                              style={{ margin: "0 0 8px 0", color: "#4a5568" }}
+                            >
+                              Price: ₹50,000 (Discounted Price: ₹25,000)
+                            </p>
+                            <ul
+                              style={{
+                                margin: "0",
+                                paddingLeft: "20px",
+                                color: "#4a5568",
+                              }}
+                            >
+                              <li>Unlimited edits</li>
+                              <li>Validity: 1 year</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Additional Edit Purchase Section */}
+                    <div style={{ marginBottom: "40px" }}>
+                      <h3
+                        style={{
+                          fontSize: "18px",
+                          fontWeight: "600",
+                          color: "#1a1f36",
+                          marginBottom: "16px",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "12px",
+                        }}
+                      >
+                        <span
+                          style={{
+                            background: "#5469d4",
+                            color: "white",
+                            width: "24px",
+                            height: "24px",
+                            borderRadius: "12px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: "14px",
+                          }}
+                        >
+                          2
+                        </span>
+                        Additional Edit Purchase
+                      </h3>
+                      <div style={{ paddingLeft: "36px" }}>
+                        <div
+                          style={{
+                            background: "#f8fafc",
+                            padding: "24px",
+                            borderRadius: "12px",
+                          }}
+                        >
+                          <p style={{ margin: "0", color: "#4a5568" }}>
+                            If a user exhausts their allotted edits, they can
+                            purchase additional edits at ₹1,500 per edit.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Upgrade Policy Section */}
+                    <div style={{ marginBottom: "40px" }}>
+                      <h3
+                        style={{
+                          fontSize: "18px",
+                          fontWeight: "600",
+                          color: "#1a1f36",
+                          marginBottom: "16px",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "12px",
+                        }}
+                      >
+                        <span
+                          style={{
+                            background: "#5469d4",
+                            color: "white",
+                            width: "24px",
+                            height: "24px",
+                            borderRadius: "12px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: "14px",
+                          }}
+                        >
+                          3
+                        </span>
+                        Plan Upgrade & Refund Policy
+                      </h3>
+                      <div style={{ paddingLeft: "36px" }}>
+                        <div
+                          style={{
+                            background: "#f8fafc",
+                            padding: "24px",
+                            borderRadius: "12px",
+                          }}
+                        >
+                          <p style={{ margin: "0 0 16px 0", color: "#4a5568" }}>
+                            Users can upgrade their plan at any time, and the
+                            amount payable for the new plan will be calculated
+                            as:
+                          </p>
+                          <div
+                            style={{
+                              padding: "16px",
+                              background: "white",
+                              borderRadius: "8px",
+                              marginBottom: "16px",
+                              fontWeight: "500",
+                              color: "#1a1f36",
+                            }}
+                          >
+                            New Plan Price - Unused Amount of the Remaining
+                            Months of the Current Plan
+                          </div>
+                          <ul
+                            style={{
+                              margin: "0",
+                              paddingLeft: "20px",
+                              color: "#4a5568",
+                            }}
+                          >
+                            <li style={{ marginBottom: "8px" }}>
+                              The unused amount is calculated as (Current Plan
+                              Price ÷ 12) × Remaining Months rounded to higher
+                              number
+                            </li>
+                            <li>
+                              The new plan's validity will start from the
+                              upgrade date and will be valid for 1 year
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Close Button */}
+                  <div
+                    style={{
+                      borderTop: "1px solid #e5e7eb",
+                      padding: "16px",
+                      display: "flex",
+                      justifyContent: "flex-end",
+                    }}
+                  >
+                    <Button
+                      onClick={() => setIsPolicyModalVisible(false)}
+                      size="large"
+                      style={{
+                        paddingLeft: "24px",
+                        paddingRight: "24px",
+                      }}
+                    >
+                      Close
+                    </Button>
+                  </div>
+                </div>
+              </Modal>
+            </div>
+          </section>
         </div>
       </Spin>
       <NewWebFooter />
     </>
   );
 };
-
-// Add this CSS to your stylesheet
-const styles = `
-.pricing-section .ant-card {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.pricing-section .ant-card:hover {
-  transform: translateY(-8px);
-}
-
-.ant-btn {
-  transition: all 0.3s ease;
-}
-
-.ant-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-}
-
-.features > div {
-  transition: all 0.2s ease;
-}
-
-.features > div:hover {
-  transform: translateX(4px);
-}
-
-@media (max-width: 768px) {
-  .pricing-section {
-    padding: 20px 0;
-  }
-  
-  .container {
-    padding: 0 20px;
-  }
-  
-  h2 {
-    font-size: 28px !important;
-  }
-  
-  p {
-    font-size: 16px !important;
-  }
-}
-`;

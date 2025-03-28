@@ -568,23 +568,29 @@ class SupportingDocuments extends Component {
                       {this.state.startuphighlight.map((item, index) => {
                         return (
                           <div className="form-group">
-                            <label for=""> Highlight {index + 1}<span className="text-danger">*</span></label>
+                            <label for="">
+                              {" "}
+                              Highlight {index + 1}
+                              <span className="text-danger">*</span>
+                            </label>
+                            <>
                             <textarea
                               id="selected-field"
                               cols="30"
                               rows="6"
-                              maxLength="100"
+                              maxLength="500"
                               placeholder={this.state.titlestartuphigh[index]}
                               name="content1"
                               value={item.content1}
                               onChange={(e) => {
                                 this.handleInputhighlightChange(index, e);
-
-                                if (e.target.value.length >= 100) {
-                                  toast.error("only 100 chart");
-                                }
                               }}
+                              style={{marginBottom: "5px"}}
                             ></textarea>
+                            <div className="character-count" style={{marginBottom: "20px"}}>
+                              {`${item.content1.length}/500 characters`}
+                            </div>
+                            </>
                           </div>
                         );
                       })}
@@ -607,13 +613,14 @@ class SupportingDocuments extends Component {
                               value={item.content1}
                               onChange={(e) => {
                                 this.handleInputChange(index, e);
-                                if (e.target.value.length >= 200) {
-                                  toast.error("only 200 chart");
-                                }
                               }}
+                              style={{marginBottom: "5px"}}
                             >
                               {" "}
                             </textarea>
+                            <div className="character-count" style={{marginBottom: "20px"}}>
+                              {`${item.content1.length}/200 characters`}
+                            </div>
                           </div>
                         );
                       })}

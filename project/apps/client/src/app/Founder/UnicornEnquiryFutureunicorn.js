@@ -138,9 +138,7 @@ const columns = [
                           You have not show any Intrest on Future Unicorn.
                           <br></br>
                           <a
-                            href={
-                              !this.props.adminview ? "/FutureUnicornList" : "#"
-                            }
+                            href={"/FutureUnicornList"}
                             style={{ fontSize: "1.5rem" }}
                           >
                             Start Today{" "}
