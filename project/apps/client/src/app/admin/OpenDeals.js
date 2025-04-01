@@ -2362,7 +2362,7 @@ class Deals extends Component {
     formData.append('investor_id', this.state.ac_edit_investor_id);
     formData.append('amount', this.state.ac_edit_amount);
     formData.append('processingfees', this.state.ac_edit_processingfees);
-    formData.append('totalamount', +this.state.ac_edit_amount + +this.state.ac_edit_processingfees + this.state.ac_edit_igstvalue );
+    formData.append('totalamount', +this.state.ac_edit_amount + +this.state.ac_edit_processingfees + +this.state.ac_edit_igstvalue );
     formData.append('deduct', this.state.ac_edit_deduct);
     formData.append('agree', this.state.ac_edit_agree);
     formData.append('order_token', this.state.ac_edit_order_token);

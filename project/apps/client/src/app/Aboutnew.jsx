@@ -325,26 +325,6 @@ The company follows a unique model of wealth creation, where its expert team wor
                       </div>
                     </div>
                   </div>
-
-                  <div class="div">
-                    <div class="content-abt-slider slider1">
-                      <div class="main-co-found">
-                        <div class="img-about-slider">
-                          <img src="/assets/images/pratik.png" alt="" />
-                        </div>
-                        <div class="fo-content">
-                          <p>Active Angel Investor & Industry Connector</p>
-                        </div>
-                      </div>
-                      <div class="about-inform">
-                        <h3>Prateek TC</h3>
-                        <p>
-                          NIT Trichy ex-Senior Software engineer at Walmart
-                          Active Angel investor{" "}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
                 </Slider>
               </div>
             </div>

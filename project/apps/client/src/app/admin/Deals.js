@@ -1865,7 +1865,7 @@ class Deals extends Component {
     formData.append("processingfees", this.state.ac_edit_processingfees);
     formData.append(
       "totalamount",
-      +this.state.ac_edit_amount + +this.state.ac_edit_processingfees
+      +this.state.ac_edit_amount + +this.state.ac_edit_processingfees + +this.state.ac_edit_igstvalue
     );
     formData.append("deduct", this.state.ac_edit_deduct);
     formData.append("agree", this.state.ac_edit_agree);
