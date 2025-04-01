@@ -135,14 +135,8 @@ const columns = [
                     <>
                       <div className="text-center mt-5">
                         <h4>
-                          You have not show any Intrest on Future Unicorn.
+                          No Interests shown on the unicorn yet.
                           <br></br>
-                          <a
-                            href={"/FutureUnicornList"}
-                            style={{ fontSize: "1.5rem" }}
-                          >
-                            Start Today{" "}
-                          </a>
                         </h4>
                         <img src="No_data_rafiki.png" width={200} />
                       </div>

@@ -254,9 +254,9 @@ export default class InvestorFutureunicornpage extends Component {
           <>
             <div className="text-center mt-5">
               <h4>
-                You have not show any Intrest on Future Unicorn.<br></br>
-              <a href={!this.props.adminview?("/FutureUnicornList"):("#")}style={{ fontSize: "1.5rem" }}>
-
+              You have not shown any interest in Future Unicorns.
+                <br></br>
+              <a href={"/FutureUnicornList"}style={{ fontSize: "1.5rem" }}>
                   Start Today{" "}
                 </a>
               </h4>

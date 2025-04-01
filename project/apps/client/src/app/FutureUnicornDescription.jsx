@@ -784,7 +784,7 @@ text-align: justify;
 
                       {/* Text Section */}
                       <div className="text-section">
-                        <h1>{item.udPrimaryContactName}</h1>
+                        <h1>{item.udStartupName}</h1>
                         <button
                           onClick={openiamintrest}
                           className="primaryInterested"
@@ -938,10 +938,15 @@ text-align: justify;
                               </div>
                               {/* Description Section */}
                               <div className="p-3" style={{ height: "210px" }}>
-                                <p className="p-4">
+                                <p >
                                   {itemudVendorId.description1
                                     ? itemudVendorId.description1
                                     : "Description not available for this team member."}
+                                </p>
+                                <p >
+                                  {itemudVendorId.description2
+                                    ? itemudVendorId.description2
+                                    : ""}
                                 </p>
                               </div>
                             </div>
