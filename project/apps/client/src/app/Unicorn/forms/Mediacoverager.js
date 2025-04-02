@@ -469,9 +469,6 @@ class Mediacoverager extends Component {
                             value={item.description1}
                             onChange={(e) => {
                               this.handleteamChange(index, e);
-                              if (e.target.value.length === 100) {
-                                toast.error("Only 100 characters allowed.");
-                              }
                             }}
                             className={`form-control ${
                               !item.description1.trim() ? "is-invalid" : ""
@@ -496,9 +493,6 @@ class Mediacoverager extends Component {
                             value={item.description2}
                             onChange={(e) => {
                               this.handleteamChange(index, e);
-                              if (e.target.value.length === 100) {
-                                toast.error("Only 100 characters allowed.");
-                              }
                             }}
                             className={`form-control ${
                               !item.description2.trim() ? "is-invalid" : ""

@@ -161,7 +161,7 @@ class Sidebar extends Component {
             </ul>
             
           </li>
-          {/* <li>
+          <li>
             <div className="iocn-link">
              <a href="#">
                 <i className="bx bxs-folder-minus"></i>
@@ -172,11 +172,11 @@ class Sidebar extends Component {
               <i
                 className="bx bxs-chevron-down arrow"
                 onClick={() =>
-                  document.getElementById("md-future").classList.toggle("hide")
+                  document.getElementById("md-futureuni").classList.toggle("hide")
                 }
               ></i>
             </div>
-            <ul id="md-future" className="sub-menu hide">
+            <ul id="md-futureuni" className="sub-menu hide">
               <li>
                <a className="link_name" href="#">
                Future Unicorn
@@ -190,7 +190,7 @@ class Sidebar extends Component {
             
             </ul>
             
-          </li> */}
+          </li>
           <li>
            <a href="/premium-members">
               <i className="bx bx-user-pin"></i>
