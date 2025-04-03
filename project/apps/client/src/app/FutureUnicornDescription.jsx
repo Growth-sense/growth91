@@ -846,7 +846,23 @@ text-align: justify;
                   </div>
                 </section>
 
-                <section className="container my-5">
+                <section id="marketOverviewSection" className="container my-5  market-overview-section">
+                  <h2 className="text-center mb-5">Market Overview</h2>
+                  <div className="row market-overreview-row">
+                    {item.udMark &&
+                      JSON.parse(item.udMark).map((itemudMark, index) => (
+                        <div className="col-md-4 mb-4" key={index}>
+                          <div className="market-overview-card">
+                            <p>
+                              {itemudMark.content1 || "Content not available"}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+                </section>
+
+                <section id="highlightSection" className="container my-5">
                   <h2 className="text-center mb-4">Highlights</h2>
                   <div className="row">
                     {/* Highlight 1 */}
@@ -865,7 +881,7 @@ text-align: justify;
                                   borderRadius: "15px",
                                 }}
                               >
-                                <div className="d-flex">
+                                <div className="d-flex" style={{textAlign:"justify"}}>
                                   <img
                                     src={highlightimages[indexstartuphighlight]} // Replace with the actual icon path
                                     alt="Highlight Icon"
@@ -887,7 +903,52 @@ text-align: justify;
                   </div>
                 </section>
 
-                <section className="container my-5">
+                <section id="mediaCoverageSection" className="container my-5 media-coverage-section">
+                {item.udMediaCoverageFiles &&
+                  JSON.parse(item.udMediaCoverageFiles).length > 0 && (
+                    <>
+                      <h2 className="text-center mb-4">Media Coverage</h2>
+                      <div className="row">
+                        {JSON.parse(item.udMediaCoverageFiles).map(
+                          (
+                            itemudMediaCoverageFiles,
+                            indexudMediaCoverageFiles
+                          ) => (
+                            <div
+                              className="col-md-4 mb-4"
+                              key={indexudMediaCoverageFiles}
+                            >
+                              <div className="media-card">
+                                <img
+                                  src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${itemudMediaCoverageFiles.imgname}`}
+                                  alt=""
+                                  className="media-card-image"
+                                />
+                                <div className="media-card-content">
+                                  <h5>{itemudMediaCoverageFiles.title}</h5>
+                                  <p>
+                                    {itemudMediaCoverageFiles.content}{" "}
+                                    <a
+                                      href={itemudMediaCoverageFiles.content}
+                                      className="read-more-link"
+                                    >
+                                      Read More
+                                    </a>
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          )
+                        )}
+                      </div>
+                      {/* <div className="text-center mt-4">
+                      <button className="load-more-btn">Load more</button>
+                    </div> */}
+                    </>
+                  )}
+                  </section>
+
+                <section id="teamSection" className="container my-5">
                   <h2 className="text-center mb-3">Team</h2>
                   <div className="row row-box-linse Grid-team px-1">
                     {item.udVendorId &&
@@ -956,67 +1017,10 @@ text-align: justify;
                   </div>
                 </section>
 
-                <section className="container my-5  market-overview-section">
-                  <h2 className="text-center mb-5">Market Overview</h2>
-                  <div className="row market-overreview-row">
-                    {item.udMark &&
-                      JSON.parse(item.udMark).map((itemudMark, index) => (
-                        <div className="col-md-4 mb-4" key={index}>
-                          <div className="market-overview-card">
-                            <p>
-                              {itemudMark.content1 || "Content not available"}
-                            </p>
-                          </div>
-                        </div>
-                      ))}
-                  </div>
-                </section>
-
-                {item.udMediaCoverageFiles &&
-                  JSON.parse(item.udMediaCoverageFiles).length > 0 && (
-                    <section className="container my-5 media-coverage-section">
-                      <h2 className="text-center mb-4">Media Coverage</h2>
-                      <div className="row">
-                        {JSON.parse(item.udMediaCoverageFiles).map(
-                          (
-                            itemudMediaCoverageFiles,
-                            indexudMediaCoverageFiles
-                          ) => (
-                            <div
-                              className="col-md-4 mb-4"
-                              key={indexudMediaCoverageFiles}
-                            >
-                              <div className="media-card">
-                                <img
-                                  src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${itemudMediaCoverageFiles.imgname}`}
-                                  alt=""
-                                  className="media-card-image"
-                                />
-                                <div className="media-card-content">
-                                  <h5>{itemudMediaCoverageFiles.title}</h5>
-                                  <p>
-                                    {itemudMediaCoverageFiles.content}{" "}
-                                    <a
-                                      href={itemudMediaCoverageFiles.content}
-                                      className="read-more-link"
-                                    >
-                                      Read More
-                                    </a>
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                          )
-                        )}
-                      </div>
-                      {/* <div className="text-center mt-4">
-                      <button className="load-more-btn">Load more</button>
-                    </div> */}
-                    </section>
-                  )}
+                  <section id="pitchDeck">
                 {
                   item.udPitchDeck != "" && JSON.parse(item.udPitchDeck) != "" &&
-                  <section>
+                  
                     <div className="container">
                       <div className="row">
                         <div className="col-md-12">
@@ -1043,10 +1047,11 @@ text-align: justify;
                         </div>
                       </div>
                     </div>
-                  </section>
+                  
                 }
+                </section>
 
-                <section className="container my-5 videos-section">
+                <section id="videoSection" className="container my-5 videos-section">
                   <h2 className="text-center mb-5">Videos</h2>
                   <div className="video-slide">
                     <iframe
@@ -1067,7 +1072,7 @@ text-align: justify;
                   </div>
                 </section>
 
-                <section className="container my-5 contact-us-section">
+                <section id="contactUsSection" className="container my-5 contact-us-section">
                   <h2 className="text-center mb-5">Contact Us</h2>
                   <div className="row mx-0">
                     {/* Contact Information Card */}
