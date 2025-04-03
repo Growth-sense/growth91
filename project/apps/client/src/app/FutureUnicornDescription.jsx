@@ -471,6 +471,9 @@ object-fit:cover;
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .media-card-image {
@@ -478,9 +481,18 @@ object-fit:cover;
   height: 180px;
   object-fit: cover;
 }
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
 
+.col-md-4 {
+  display: flex;
+}
+  
 .media-card-content {
   padding: 20px;
+  flex-grow: 1;
 }
 
 .media-card-content h5 {
