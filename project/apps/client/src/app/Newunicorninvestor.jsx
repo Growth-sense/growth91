@@ -1,10 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NewWebFooter } from './common/NewWebFooter';
 import NewWebHeader from './common/NewWebHeader';
 import { Link } from '@material-ui/core';
 import { Link as NewLINK } from 'react-router-dom/cjs/react-router-dom.min';
+import Bridge from './constants/Bridge';
 
 const NewFutureUnicorn = () => {
+  const [filteredData, setfilterdata] = useState();
+
+  function getuniondata() {
+    let params = {
+      page: 0,
+      udPublished: "Published",
+      pagesize: 10,
+    };
+    Bridge.Unicorn.unicorndealsByInvestors(params).then((result) => {
+      // from result.data only select where isHighlighted is true
+      let filtered = result.data.filter((item) => item.isHighlighted == true);
+      setfilterdata(filtered);
+    });
+  }
+  useEffect(() => {
+    getuniondata();
+  }, []);
   return (
     <div>
       <style>
@@ -292,6 +310,95 @@ const NewFutureUnicorn = () => {
 
 
 
+      <div class="heading-title founder-text">
+          <p>
+            <span></span>{" "}
+          </p>
+          <h2>Staring Unicorns</h2>
+        </div>
+        {/* I want below div to be only covering 80% width */}
+        <div className='row justify-content-center'>
+        <div className="row justify-content-center card-box col-12 col-md-12 col-lg-12 col-xl-10">
+          {filteredData && filteredData.length > 0 ? (
+            filteredData.map((item, index) => (
+              <div key={index} className="grid-cards col-md-4">
+                <div
+                  className="community-all-contents"
+                  style={{
+                    height: "500px",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <div className="img-community-box">
+                    <img
+                      src={
+                        (item.udBannerImage &&
+                          `${
+                            process.env.REACT_APP_BASE_URL
+                          }api/uploads/unicorndeals/${
+                            item.tudTempUdID
+                          }/${JSON.parse(item.udBannerImage)}`) ||
+                        "https://growth91.com/api/uploads/deal/banner/34/1719999515.jpg"
+                      }
+                      alt="Banner"
+                    />
+                  </div>
+                  <div className="community-paragraph-box">
+                    <ul>
+                      <li style={{ width: "100%" }}>
+                        <img
+                          src={
+                            (item.udLogoImage &&
+                              `${
+                                process.env.REACT_APP_BASE_URL
+                              }api/uploads/unicorndeals/${
+                                item.tudTempUdID
+                              }/${JSON.parse(item.udLogoImage)}`) ||
+                            "https://growth91.com/api/uploads/deal/logo/34/1719999515.jpg"
+                          }
+                          alt="Logo"
+                        />
+                        <h5>{item.udStartupName}</h5>
+                      </li>
+                    </ul>
+                    <p>{item.udDealDescription}</p>
+                  </div>
+                  <div
+                    className="community-paragraph-box"
+                    style={{ marginTop: "auto" }}
+                  >
+                    <Link
+                      to={`/FutureUnicornDescription?id=${item.unicornDealID}`}
+                      className="btn-com"
+                    >
+                      View More
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <></>
+          )}
+        </div>
+        </div>
+
+        {filteredData && filteredData.length > 0 && (
+          <div className="text-center mt-4">
+            <button
+              className="btn btn-primary btn-lg px-4 py-2 shadow-lg"
+              style={{
+                background: "linear-gradient(to right, #2b2f77, #4e54c8)", // Darker gradient
+                border: "none",
+                transition: "all 0.3s ease",
+              }}
+              onClick={() => {window.location.replace("/FutureUnicornList")}}
+            >
+              Explore all Unicorns
+            </button>
+          </div>
+        )}                     
 
       {/* Why to list section */}
 

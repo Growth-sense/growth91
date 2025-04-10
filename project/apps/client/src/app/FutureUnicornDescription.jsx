@@ -479,7 +479,7 @@ object-fit:cover;
 .media-card-image {
   width: 100%;
   height: 180px;
-  object-fit: cover;
+  object-fit: fill;
 }
 .row {
   display: flex;
