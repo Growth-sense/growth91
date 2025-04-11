@@ -17,6 +17,7 @@ class Mediacoverager extends Component {
           img: "",
           description1: "",
           description2: "",
+          linkedinUrl:"",
           imgname: "",
           Role: "",
         },
@@ -93,6 +94,7 @@ class Mediacoverager extends Component {
         img: "",
         description1: "",
         description2: "",
+        linkedinUrl: "",
         imgname: "",
         Role: "",
       },
@@ -501,6 +503,30 @@ class Mediacoverager extends Component {
                           {!item.description2.trim() && (
                             <div className="invalid-feedback">
                               Description 2 is required.
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Team Member Linkedin Url */}
+                        <div className="form-group mt-4">
+                          <label className="mb-2">
+                            LinkedIn Profile <span style={{ color: "red" }}>*</span>
+                          </label>
+                          <input
+                            type="text"
+                            maxLength="200"
+                            name="linkedinUrl"
+                            value={item.linkedinUrl}
+                            onChange={(e) => {
+                              this.handleteamChange(index, e);
+                            }}
+                            className={`form-control ${
+                              !item.linkedinUrl?.trim() ? "is-invalid" : ""
+                            }`}
+                          />
+                          {!item.linkedinUrl?.trim() && (
+                            <div className="invalid-feedback">
+                              LinkedIn Profile is required
                             </div>
                           )}
                         </div>

@@ -314,7 +314,7 @@ const NewFutureUnicorn = () => {
           <p>
             <span></span>{" "}
           </p>
-          <h2>Staring Unicorns</h2>
+          <h2>Unicorn Spotlight</h2>
         </div>
         {/* I want below div to be only covering 80% width */}
         <div className='row justify-content-center'>
@@ -369,7 +369,8 @@ const NewFutureUnicorn = () => {
                     style={{ marginTop: "auto" }}
                   >
                     <Link
-                      to={`/FutureUnicornDescription?id=${item.unicornDealID}`}
+                      onClick={() => {window.location.replace(`/FutureUnicornDescription?id=${item.unicornDealID}`)}}
+                      // to={`/FutureUnicornDescription?id=${item.unicornDealID}`}
                       className="btn-com"
                     >
                       View More
@@ -395,7 +396,7 @@ const NewFutureUnicorn = () => {
               }}
               onClick={() => {window.location.replace("/FutureUnicornList")}}
             >
-              Explore all Unicorns
+              Explore all
             </button>
           </div>
         )}                     

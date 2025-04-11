@@ -744,6 +744,7 @@ class Startup extends CI_Controller {
 					'tudPastEmployerRef'  => $tudPastEmployerRef,
 					'tudGuideRef'  => $tudGuideRef,
 					'tudPitchDeck'  => $tudPitchDeck,
+					'tudProductDeck'  => $tudProductDeck,
 					'tudDoc1'  => $tudDoc1,
 					'tudDoc2'  => $tudDoc2,
 					'tudDoc3'   => $tudDoc3,
