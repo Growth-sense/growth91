@@ -325,9 +325,10 @@ const NewFutureUnicorn = () => {
                 <div
                   className="community-all-contents"
                   style={{
-                    height: "500px",
+                    minHeight: "300px",
                     display: "flex",
                     flexDirection: "column",
+                    height: "100%",
                   }}
                 >
                   <div className="img-community-box">
@@ -362,7 +363,12 @@ const NewFutureUnicorn = () => {
                         <h5>{item.udStartupName}</h5>
                       </li>
                     </ul>
-                    <p>{item.udDealDescription}</p>
+                    <p style={{
+                          WebkitLineClamp: 3,
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden",
+                          display: "-webkit-box",
+                        }}>{item.udDealDescription}</p>
                   </div>
                   <div
                     className="community-paragraph-box"
@@ -390,6 +396,7 @@ const NewFutureUnicorn = () => {
             <button
               className="btn btn-primary btn-lg px-4 py-2 shadow-lg"
               style={{
+                marginTop: "2rem",
                 background: "linear-gradient(to right, #2b2f77, #4e54c8)", // Darker gradient
                 border: "none",
                 transition: "all 0.3s ease",

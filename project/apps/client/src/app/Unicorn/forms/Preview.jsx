@@ -897,7 +897,11 @@ text-align: justify;
                 <div className="row market-overreview-row">
                   {item.tudMark &&
                     JSON.parse(item.tudMark).map((itemudMark, index) => (
-                      <div className="col-md-4 mb-4" style={{display: "flex"}} key={index}>
+                      <div
+                        className="col-md-4 mb-4"
+                        style={{ display: "flex" }}
+                        key={index}
+                      >
                         <div className="market-overview-card">
                           <p>
                             {itemudMark.content1 || "Content not available"}
@@ -928,7 +932,7 @@ text-align: justify;
                                 borderRadius: "15px",
                               }}
                             >
-                              <div 
+                              <div
                                 className="d-flex"
                                 style={{ textAlign: "justify" }}
                               >
@@ -954,55 +958,54 @@ text-align: justify;
               </section>
 
               <section
-                  id="mediaCoverageSection"
-                  className="container my-5 media-coverage-section"
-                >
-                  {item.tudMediaCoverageFiles &&
-                JSON.parse(item.tudMediaCoverageFiles).length > 0 && (
-                  <section className="container my-5 media-coverage-section">
-                    <h2 className="text-center mb-4">Media Coverage</h2>
-                    <div className="row">
-                      {JSON.parse(item.tudMediaCoverageFiles).map(
-                        (
-                          itemudMediaCoverageFiles,
-                          indexudMediaCoverageFiles
-                        ) => (
-                          <div
-                            className="col-md-4 mb-4"
-                            key={indexudMediaCoverageFiles}
-                          >
-                            <div className="media-card">
-                              <img
-                                src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${itemudMediaCoverageFiles.imgname}`}
-                                alt=""
-                                className="media-card-image"
-                              />
-                              <div className="media-card-content">
-                                <h5>{itemudMediaCoverageFiles.title}</h5>
-                                <p className="media-card-date">
-                                  Description Details
-                                </p>
-                                <p>
-                                  {itemudMediaCoverageFiles.content}{" "}
-                                  <a
-                                    href={itemudMediaCoverageFiles.content}
-                                    className="read-more-link"
-                                  >
-                                    Read More..
-                                  </a>
-                                </p>
+                id="mediaCoverageSection"
+                className="container my-5 media-coverage-section"
+              >
+                {item.tudMediaCoverageFiles &&
+                  JSON.parse(item.tudMediaCoverageFiles).length > 0 && (
+                    <section className="container my-5 media-coverage-section">
+                      <h2 className="text-center mb-4">Media Coverage</h2>
+                      <div className="row">
+                        {JSON.parse(item.tudMediaCoverageFiles).map(
+                          (
+                            itemudMediaCoverageFiles,
+                            indexudMediaCoverageFiles
+                          ) => (
+                            <div
+                              className="col-md-4 mb-4"
+                              key={indexudMediaCoverageFiles}
+                            >
+                              <div className="media-card">
+                                <img
+                                  src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${itemudMediaCoverageFiles.imgname}`}
+                                  alt=""
+                                  className="media-card-image"
+                                />
+                                <div className="media-card-content">
+                                  <h5>{itemudMediaCoverageFiles.title}</h5>
+                                  <p className="media-card-date">
+                                    Description Details
+                                  </p>
+                                  <p>
+                                    {itemudMediaCoverageFiles.content}{" "}
+                                    <a
+                                      href={itemudMediaCoverageFiles.content}
+                                      className="read-more-link"
+                                    >
+                                      Read More..
+                                    </a>
+                                  </p>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        )
-                      )}
-                    </div>
-                    {/* <div className="text-center mt-4">
+                          )
+                        )}
+                      </div>
+                      {/* <div className="text-center mt-4">
                       <button className="load-more-btn">Load more</button>
                     </div> */}
-                  </section>
-                )}
-
+                    </section>
+                  )}
               </section>
 
               <section className="container my-5">
@@ -1083,71 +1086,75 @@ text-align: justify;
                     )}
                 </div>
               </section>
-     
+
               <section id="pitchDeck">
-                {item.tudPitchDeck && item.tudPitchDeck != "" && JSON.parse(item.tudPitchDeck) != "" && (
-                  <section>
-                    <div className="container">
-                      <div className="row">
-                        <div className="col-md-12">
-                          {/* blue bg */}
-                          <div
-                            className="shadow-lg p-5"
-                            style={{
-                              backgroundColor: "#5C33CF",
-                              color: "white",
-                              borderRadius: "20px",
-                            }}
-                          >
-                            <h2 className="text-left text-white mb-4">
-                              Investor Presentation
-                            </h2>
-                            <SinglePagePDFViewer
-                              pdf={`${
-                                process.env.REACT_APP_BASE_URL
-                              }api/uploads/unicorndeals/${
-                                item.tudTempUdID
-                              }/${JSON.parse(item.tudPitchDeck)}`}
-                            />
+                {item.tudPitchDeck &&
+                  item.tudPitchDeck != "" &&
+                  JSON.parse(item.tudPitchDeck) != "" && (
+                    <section>
+                      <div className="container">
+                        <div className="row">
+                          <div className="col-md-12">
+                            {/* blue bg */}
+                            <div
+                              className="shadow-lg p-5"
+                              style={{
+                                backgroundColor: "#5C33CF",
+                                color: "white",
+                                borderRadius: "20px",
+                              }}
+                            >
+                              <h2 className="text-left text-white mb-4">
+                                Investor Presentation
+                              </h2>
+                              <SinglePagePDFViewer
+                                pdf={`${
+                                  process.env.REACT_APP_BASE_URL
+                                }api/uploads/unicorndeals/${
+                                  item.tudTempUdID
+                                }/${JSON.parse(item.tudPitchDeck)}`}
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </section>
-                )}
+                    </section>
+                  )}
               </section>
 
               <section id="pitchDeck">
-                {item.tudProductDeck && item.tudProductDeck != "" && JSON.parse(item.tudProductDeck) != "" && (
-                  <section>
-                    <div className="container">
-                      <div className="row">
-                        <div className="col-md-12">
-                          {/* blue bg */}
-                          <div
-                            className="shadow-lg p-5"
-                            style={{
-                              backgroundColor: "#5C33CF",
-                              color: "white",
-                              borderRadius: "20px",
-                            }}
-                          >
-                            <h2 className="text-left text-white mb-4">
-                            Product Presentation
-                            </h2>
-                            <SinglePagePDFViewer
-                              pdf={`${
-                                process.env.REACT_APP_BASE_URL
-                              }api/uploads/unicorndeals/${
-                                item.tudTempUdID
-                              }/${JSON.parse(item.tudProductDeck)}`}
-                            />
+                {item.tudProductDeck &&
+                  item.tudProductDeck != "" &&
+                  JSON.parse(item.tudProductDeck) != "" && (
+                    <section>
+                      <div className="container">
+                        <div className="row">
+                          <div className="col-md-12">
+                            {/* blue bg */}
+                            <div
+                              className="shadow-lg p-5"
+                              style={{
+                                backgroundColor: "#5C33CF",
+                                color: "white",
+                                borderRadius: "20px",
+                              }}
+                            >
+                              <h2 className="text-left text-white mb-4">
+                                Product Presentation
+                              </h2>
+                              <SinglePagePDFViewer
+                                pdf={`${
+                                  process.env.REACT_APP_BASE_URL
+                                }api/uploads/unicorndeals/${
+                                  item.tudTempUdID
+                                }/${JSON.parse(item.tudProductDeck)}`}
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </section>
-                )}
+                    </section>
+                  )}
               </section>
 
               <section className="container my-5 videos-section">
@@ -1221,6 +1228,15 @@ text-align: justify;
                             rel="noopener noreferrer"
                           >
                             <i className="fab fa-facebook-f"></i>
+                          </Link>
+                        </a>
+                        <a href="#linkedin" className="social-icon">
+                          <Link
+                            to={`//${item.tudSocialLinkedIn}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <i className="fab fa-linkedin"></i>
                           </Link>
                         </a>
                       </div>

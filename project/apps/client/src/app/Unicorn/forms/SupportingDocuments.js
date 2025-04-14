@@ -394,7 +394,7 @@ class SupportingDocuments extends Component {
                               id="selected-field"
                               cols="30"
                               rows="6"
-                              maxLength="200"
+                              maxLength="750"
                               name="content1"
                               value={item.content1}
                               onChange={(e) => {
@@ -405,7 +405,7 @@ class SupportingDocuments extends Component {
                               {" "}
                             </textarea>
                             <div className="character-count" style={{marginBottom: "20px"}}>
-                              {`${item.content1.length}/200 characters`}
+                              {`${item.content1.length}/750 characters`}
                             </div>
                           </div>
                         );

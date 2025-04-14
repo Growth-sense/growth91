@@ -1197,6 +1197,15 @@ text-align: justify;
                               <i className="fab fa-facebook-f"></i>
                             </Link>
                           </a>
+                          <a href="#linkedin" className="social-icon">
+                            <Link
+                              to={`//${item.udSocialLinkedIn}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <i className="fab fa-linkedin"></i>
+                            </Link>
+                          </a>
                         </div>
                       </div>
                     </div>

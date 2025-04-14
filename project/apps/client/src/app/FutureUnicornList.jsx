@@ -325,9 +325,10 @@ export const FutureUnicornList = () => {
                     <div
                       className="community-all-contents"
                       style={{
-                        height: "500px",
+                        minHeight: "300px",
                         display: "flex",
                         flexDirection: "column",
+                        height: "100%",
                       }}
                     >
                       <div className="img-community-box">
@@ -362,7 +363,12 @@ export const FutureUnicornList = () => {
                             <h5>{item.udStartupName}</h5>
                           </li>
                         </ul>
-                        <p>{item.udDealDescription}</p>
+                        <p style={{
+                          WebkitLineClamp: 3,
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden",
+                          display: "-webkit-box",
+                        }}>{item.udDealDescription}</p>
                       </div>
                       <div
                         className="community-paragraph-box"
