@@ -1613,8 +1613,14 @@ class Startup extends CI_Controller {
 		$formdata = json_decode(file_get_contents('php://input'), true);
 		
 		$type=$formdata['type'];
-		if($type=='PAYMENT_SUCCESS_WEBHOOK'){
-			$link_id = $formdata['data']['order']['order_tags']['link_id'];
+
+		if($type=='PAYMENT_LINK_EVENT'){
+			$link_id = $formdata['data']['link_id'];
+			$status = $formdata['data']['link_status'];
+
+			if($status != "PAID"){
+				return;
+			}
 
 			// Parse link_id to get founder_id and plan_name
 			$link_parts = explode('_', $link_id);
