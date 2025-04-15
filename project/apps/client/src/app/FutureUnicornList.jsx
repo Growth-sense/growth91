@@ -318,7 +318,7 @@ export const FutureUnicornList = () => {
             </Modal>
 
             {/* Filtered Cards */}
-            <div className="row justify-content-center card-box">
+            <div className="row justify-content-center card-box gy-4">
               {filteredData && filteredData.length > 0 ? (
                 filteredData.map((item, index) => (
                   <div key={index} className="grid-cards col-md-4">

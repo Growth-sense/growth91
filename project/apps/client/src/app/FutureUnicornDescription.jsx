@@ -939,7 +939,7 @@ text-align: justify;
                             ) => (
                               <div
                                 className="col-md-4 mb-4"
-                                style={{display: "flex"}}
+                                style={{ display: "flex" }}
                                 key={indexudMediaCoverageFiles}
                               >
                                 <div className="media-card">
@@ -1042,7 +1042,6 @@ text-align: justify;
                                     style={{ color: "#0A66C2" }}
                                   >
                                     <i className="bx bxl-linkedin fs-19"></i>
-
                                   </a>
                                 </div>
                               </div>
@@ -1170,42 +1169,53 @@ text-align: justify;
                           </li>
                         </ul>
                         <div className="social-icons d-flex justify-content-center">
-                          <a href="#youtube" className="social-icon">
-                            <Link
-                              to={`//${item.udSocialYouTube}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <i className="fab fa-youtube"></i>
-                            </Link>
-                          </a>
-                          <a href="#instagram" className="social-icon">
-                            <Link
-                              to={`//${item.udSocialInsta}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <i className="fab fa-instagram"></i>
-                            </Link>
-                          </a>
-                          <a href="#facebook" className="social-icon">
-                            <Link
-                              to={`//${item.udSocialFacebook}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <i className="fab fa-facebook-f"></i>
-                            </Link>
-                          </a>
-                          <a href="#linkedin" className="social-icon">
-                            <Link
-                              to={`//${item.udSocialLinkedIn}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <i className="fab fa-linkedin"></i>
-                            </Link>
-                          </a>
+                          {item.udSocialYouTube &&
+                            item.udSocialYouTube != "" && (
+                              <a href="#youtube" className="social-icon">
+                                <Link
+                                  to={`//${item.udSocialYouTube}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  <i className="fab fa-youtube"></i>
+                                </Link>
+                              </a>
+                            )}
+                          {item.udSocialInsta && item.udSocialInsta != "" && (
+                            <a href="#instagram" className="social-icon">
+                              <Link
+                                to={`//${item.udSocialInsta}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                <i className="fab fa-instagram"></i>
+                              </Link>
+                            </a>
+                          )}
+                          {item.udSocialFacebook &&
+                            item.udSocialFacebook != "" && (
+                              <a href="#facebook" className="social-icon">
+                                <Link
+                                  to={`//${item.udSocialFacebook}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  <i className="fab fa-facebook-f"></i>
+                                </Link>
+                              </a>
+                            )}
+                          {item.udSocialLinkedIn &&
+                            item.udSocialLinkedIn != "" && (
+                              <a href="#linkedin" className="social-icon">
+                                <Link
+                                  to={`//${item.udSocialLinkedIn}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  <i className="fab fa-linkedin"></i>
+                                </Link>
+                              </a>
+                            )}
                         </div>
                       </div>
                     </div>

@@ -1203,42 +1203,52 @@ text-align: justify;
                         </li>
                       </ul>
                       <div className="social-icons d-flex justify-content-center">
-                        <a href="#youtube" className="social-icon">
-                          <Link
-                            to={`//${item.tudSocialYouTube}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <i className="fab fa-youtube"></i>
-                          </Link>
-                        </a>
-                        <a href="#instagram" className="social-icon">
-                          <Link
-                            to={`//${item.tudSocialInsta}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <i className="fab fa-instagram"></i>
-                          </Link>
-                        </a>
-                        <a href="#facebook" className="social-icon">
-                          <Link
-                            to={`//${item.tudSocialFacebook}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <i className="fab fa-facebook-f"></i>
-                          </Link>
-                        </a>
-                        <a href="#linkedin" className="social-icon">
-                          <Link
-                            to={`//${item.tudSocialLinkedIn}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <i className="fab fa-linkedin"></i>
-                          </Link>
-                        </a>
+                        {item.tudSocialYouTube && item.tudSocialYouTube != "" && (
+                          <a href="#youtube" className="social-icon">
+                            <Link
+                              to={`//${item.tudSocialYouTube}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <i className="fab fa-youtube"></i>
+                            </Link>
+                          </a>
+                        )}
+                        {item.tudSocialInsta && item.tudSocialInsta != "" && (
+                          <a href="#instagram" className="social-icon">
+                            <Link
+                              to={`//${item.tudSocialInsta}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <i className="fab fa-instagram"></i>
+                            </Link>
+                          </a>
+                        )}
+                        {item.tudSocialFacebook &&
+                          item.tudSocialFacebook != "" && (
+                            <a href="#facebook" className="social-icon">
+                              <Link
+                                to={`//${item.tudSocialFacebook}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                <i className="fab fa-facebook-f"></i>
+                              </Link>
+                            </a>
+                          )}
+                        {item.tudSocialLinkedIn &&
+                          item.tudSocialLinkedIn != "" && (
+                            <a href="#linkedin" className="social-icon">
+                              <Link
+                                to={`//${item.tudSocialLinkedIn}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                <i className="fab fa-linkedin"></i>
+                              </Link>
+                            </a>
+                          )}
                       </div>
                     </div>
                   </div>

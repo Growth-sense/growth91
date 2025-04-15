@@ -113,42 +113,6 @@ class SocialMediaPresence extends Component {
 
                   <div className="row" style={{ maxWidth: 900 }}>
                     <div className="col-lg-12">
-                    
-                    <div className="form-group">
-                        <div className="d-flex">
-                          
-                          <Checkbox
-                            name="tpage10NA"
-                            style={{ width: 35 }}
-                            checked={this.props.unicorn.tpage10NA == "1"}
-                            value={this.props.unicorn.tpage10NA== true ?(1):(0)}
-                            onChange={(e) =>{
-                              if(e.target.checked){
-                                this.props.setMultiple({
-                                  tpage10NA: "1",
-                                  tudSocialInsta: "",
-                                  tudSocialFacebook: "",
-                                  tudSocialLinkedIn: "",
-                                  tudSocialYouTube: "",
-                                  tudSocialOthers: "",
-                                })
-                                this.setState({
-                                  linkedinError: "",
-                                  fbError: "",
-                                  instaError: "",
-                                  urlError: "",
-                                })
-                              }
-                              else{
-                                this.props.onInput(e.target.name, e.target.checked ? "1" : "0")
-                              }
-                              
-                            }
-                            }
-                          ></Checkbox>
-                          <span className="ml-2">Not Applicable</span>
-                        </div>
-                      </div>
                       <div className="form-group">
                         <div className="input-container">
                           <label htmlFor="tudSocialLinkedIn">LinkedIn</label>

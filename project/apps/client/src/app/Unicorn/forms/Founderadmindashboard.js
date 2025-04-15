@@ -1007,25 +1007,6 @@ class Founderadmindashboard extends Component {
       return;
     }
 
-    const page10requiredFields = [
-      'tudSocialInsta',
-      'tudSocialFacebook',
-      'tudSocialLinkedIn',
-      'tudSocialYouTube',
-      'tudSocialOthers'
-    ];
-
-    const isPage10FormInvalid = page10requiredFields.some(field => 
-      !this.state.unicorn[field] || this.state.unicorn[field].trim() === ''
-    );
-    
-    if (this.state.unicorn.tpage10NA == "0" && isPage10FormInvalid) {
-      this.setState({ loading: false });
-      this.activeform(3);
-      toast.error("Please fill Social Media Presence Section");
-      return;
-    }
-
     if (
       !this.state.unicorn.tudStartupFounderName ||
       this.state.unicorn.tudStartupFounderName == "" ||
@@ -1210,7 +1191,7 @@ class Founderadmindashboard extends Component {
             
             `}
         </style>
-        <Spin spinning={this.state.loading}>
+        <Spin spinning={this.state.unicorn.tudTempUdID == ""}>
           <div className="container">
             <div className="row">
               <div className="col-lg-12 text-center mb-5">
