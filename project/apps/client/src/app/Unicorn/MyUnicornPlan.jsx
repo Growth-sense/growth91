@@ -106,6 +106,7 @@ export const MyUnicornPlan = () => {
     noPlanContainer: {
       minHeight: "400px",
       display: "flex",
+      flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
     },
@@ -369,7 +370,12 @@ export const MyUnicornPlan = () => {
                 {founderDetails?.unicorn_end_date &&
                   isPlanActive() &&
                   founderDetails.left_edit == "0" && (
-                    <WarningSection onPurchase={handlePurchaseEdits} onUpgrade={() => {window.location.assign("/ViewUnicornPlan")}} />
+                    <WarningSection
+                      onPurchase={handlePurchaseEdits}
+                      onUpgrade={() => {
+                        window.location.assign("/ViewUnicornPlan");
+                      }}
+                    />
                   )}
 
                 {founderDetails?.unicorn_end_date && isPlanActive() ? (
@@ -461,6 +467,16 @@ export const MyUnicornPlan = () => {
                           ? "Renew Plan"
                           : "View Available Plans"}
                       </Link>
+                    </div>
+                    <div
+                      className="alert alert-info d-flex align-items-center mt-5"
+                      role="alert"
+                    >
+                      <p className="mb-0 small">
+                        If you recently made a payment, we might still be
+                        processing it. Please refresh the page to check the
+                        status.
+                      </p>
                     </div>
                   </div>
                 )}
