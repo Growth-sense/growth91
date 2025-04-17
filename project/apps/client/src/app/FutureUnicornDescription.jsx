@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { NewWebFooter } from "./common/NewWebFooter";
-import Slider from "react-slick";
 import NewWebHeader from "./common/NewWebHeader.jsx";
 import $ from "jquery";
-import { Link } from "react-router-dom";
 import Bridge from "./constants/Bridge.js";
 import { useLocation } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import { Modal, message as mess, Spin } from "antd";
-
-import { Link as NewLINK } from "react-router-dom/cjs/react-router-dom.min";
-
+import { Modal, message as mess } from "antd";
 import SinglePagePDFViewer from "./components/PdfViewer/single-page";
+import { getAbsoluteUrl } from "./helper/utilHelper.js";
 
 export const FutureUnicornDescription = (props) => {
   const settings = {
@@ -758,6 +754,9 @@ text-align: justify;
                       {/* Add your image manually here */}
                       <img
                         className="heroSectionImage"
+                        style={{
+                          objectFit:"fill"
+                        }}
                         src={
                           (item.udBannerImage &&
                             `${
@@ -787,6 +786,7 @@ text-align: justify;
                           }
                           alt="Logo"
                           style={{
+                            objectFit: "fill",
                             // borderRadius: "50%",
                             boxShadow: "0px 3px 6px #000",
                           }}
@@ -1171,49 +1171,30 @@ text-align: justify;
                         <div className="social-icons d-flex justify-content-center">
                           {item.udSocialYouTube &&
                             item.udSocialYouTube != "" && (
-                              <a href="#youtube" className="social-icon">
-                                <Link
-                                  to={`//${item.udSocialYouTube}`}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  <i className="fab fa-youtube"></i>
-                                </Link>
+                              <a  href={getAbsoluteUrl(item.udSocialYouTube)}
+                                target="_blank" className="social-icon">
+                                
+                                <i className="fab fa-youtube"></i>
                               </a>
                             )}
                           {item.udSocialInsta && item.udSocialInsta != "" && (
-                            <a href="#instagram" className="social-icon">
-                              <Link
-                                to={`//${item.udSocialInsta}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                <i className="fab fa-instagram"></i>
-                              </Link>
+                            <a href={getAbsoluteUrl(item.udSocialInsta)}
+                            target="_blank" className="social-icon">
+                              <i className="fab fa-instagram"></i>
                             </a>
                           )}
                           {item.udSocialFacebook &&
                             item.udSocialFacebook != "" && (
-                              <a href="#facebook" className="social-icon">
-                                <Link
-                                  to={`//${item.udSocialFacebook}`}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  <i className="fab fa-facebook-f"></i>
-                                </Link>
+                              <a href={getAbsoluteUrl(item.udSocialFacebook)}
+                              target="_blank" className="social-icon">
+                                <i className="fab fa-facebook-f"></i>
                               </a>
                             )}
                           {item.udSocialLinkedIn &&
                             item.udSocialLinkedIn != "" && (
-                              <a href="#linkedin" className="social-icon">
-                                <Link
-                                  to={`//${item.udSocialLinkedIn}`}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  <i className="fab fa-linkedin"></i>
-                                </Link>
+                              <a href={getAbsoluteUrl(item.udSocialLinkedIn)}
+                              target="_blank" className="social-icon">
+                                <i className="fab fa-linkedin"></i>
                               </a>
                             )}
                         </div>

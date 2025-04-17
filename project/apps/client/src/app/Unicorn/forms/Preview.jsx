@@ -11,6 +11,7 @@ import { Modal, message as mess, Spin } from "antd";
 import SinglePagePDFViewer from "./../../components/PdfViewer/single-page";
 
 import Bridge from "./../../constants/Bridge.js";
+import { getAbsoluteUrl } from "../../helper/utilHelper.js";
 
 export const Preview = (props) => {
   const location = useLocation();
@@ -790,6 +791,9 @@ text-align: justify;
                     {/* Add your image manually here */}
                     <img
                       className="heroSectionImage"
+                      style={{
+                        objectFit: "fill",
+                      }}
                       src={
                         item.tudBannerImage &&
                         `${
@@ -814,6 +818,7 @@ text-align: justify;
                         }/${JSON.parse(item.tudLogoImage)}`}
                         alt=""
                         style={{
+                          objectFit: "fill",
                           boxShadow: "0px 3px 6px #000",
                         }}
                       />
@@ -898,8 +903,7 @@ text-align: justify;
                   {item.tudMark &&
                     JSON.parse(item.tudMark).map((itemudMark, index) => (
                       <div
-                        className="col-md-4 mb-4"
-                        style={{ display: "flex" }}
+                        className="col-12 col-md-12 col-lg-4 col-xl-4 mb-4"
                         key={index}
                       >
                         <div className="market-overview-card">
@@ -1203,50 +1207,43 @@ text-align: justify;
                         </li>
                       </ul>
                       <div className="social-icons d-flex justify-content-center">
-                        {item.tudSocialYouTube && item.tudSocialYouTube != "" && (
-                          <a href="#youtube" className="social-icon">
-                            <Link
-                              to={`//${item.tudSocialYouTube}`}
+                        {item.tudSocialYouTube &&
+                          item.tudSocialYouTube != "" && (
+                            <a
+                              href={getAbsoluteUrl(item.tudSocialYouTube)}
                               target="_blank"
-                              rel="noopener noreferrer"
+                              className="social-icon"
                             >
                               <i className="fab fa-youtube"></i>
-                            </Link>
-                          </a>
-                        )}
+                            </a>
+                          )}
                         {item.tudSocialInsta && item.tudSocialInsta != "" && (
-                          <a href="#instagram" className="social-icon">
-                            <Link
-                              to={`//${item.tudSocialInsta}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <i className="fab fa-instagram"></i>
-                            </Link>
+                          <a
+                            href={getAbsoluteUrl(item.tudSocialInsta)}
+                            target="_blank"
+                            className="social-icon"
+                          >
+                            <i className="fab fa-instagram"></i>
                           </a>
                         )}
                         {item.tudSocialFacebook &&
                           item.tudSocialFacebook != "" && (
-                            <a href="#facebook" className="social-icon">
-                              <Link
-                                to={`//${item.tudSocialFacebook}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                <i className="fab fa-facebook-f"></i>
-                              </Link>
+                            <a
+                              href={getAbsoluteUrl(item.tudSocialFacebook)}
+                              target="_blank"
+                              className="social-icon"
+                            >
+                              <i className="fab fa-facebook-f"></i>
                             </a>
                           )}
                         {item.tudSocialLinkedIn &&
                           item.tudSocialLinkedIn != "" && (
-                            <a href="#linkedin" className="social-icon">
-                              <Link
-                                to={`//${item.tudSocialLinkedIn}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                <i className="fab fa-linkedin"></i>
-                              </Link>
+                            <a
+                              href={getAbsoluteUrl(item.tudSocialLinkedIn)}
+                              target="_blank"
+                              className="social-icon"
+                            >
+                              <i className="fab fa-linkedin"></i>
                             </a>
                           )}
                       </div>
