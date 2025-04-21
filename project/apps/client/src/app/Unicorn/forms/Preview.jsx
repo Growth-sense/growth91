@@ -11,7 +11,7 @@ import { Modal, message as mess, Spin } from "antd";
 import SinglePagePDFViewer from "./../../components/PdfViewer/single-page";
 
 import Bridge from "./../../constants/Bridge.js";
-import { getAbsoluteUrl } from "../../helper/utilHelper.js";
+import { extractVideoIDFromYoutubeUrl, getAbsoluteUrl } from "../../helper/utilHelper.js";
 
 export const Preview = (props) => {
   const location = useLocation();
@@ -1171,9 +1171,7 @@ text-align: justify;
                     }}
                     width="100%"
                     height="435"
-                    src={`https://www.youtube.com/embed/${item.tudYoutubeLink
-                      .split("=")
-                      .pop()}`}
+                    src={`https://www.youtube.com/embed/${extractVideoIDFromYoutubeUrl(item.tudYoutubeLink)}`}
                     title="YouTube video player"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

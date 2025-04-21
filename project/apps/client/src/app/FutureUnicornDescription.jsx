@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { Modal, message as mess } from "antd";
 import SinglePagePDFViewer from "./components/PdfViewer/single-page";
-import { getAbsoluteUrl } from "./helper/utilHelper.js";
+import { extractVideoIDFromYoutubeUrl, getAbsoluteUrl } from "./helper/utilHelper.js";
 
 export const FutureUnicornDescription = (props) => {
   const settings = {
@@ -1130,9 +1130,7 @@ text-align: justify;
                       }}
                       width="100%"
                       height="435"
-                      src={`https://www.youtube.com/embed/${item.udYoutubeLink
-                        .split("=")
-                        .pop()}`}
+                      src={`https://www.youtube.com/embed/${extractVideoIDFromYoutubeUrl(item.udYoutubeLink)}`}
                       title="YouTube video player"
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
