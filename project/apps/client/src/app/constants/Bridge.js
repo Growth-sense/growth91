@@ -962,6 +962,10 @@ export default {
       }),
   },
   Unicorn: {
+    adminEditUnicornPlan: (data) => 
+      api.post(URLs.adminEditUnicornPlan, data).then((response) => {
+        return response.data;
+      }),
     createunicorndraft: (data) =>
       api.post(URLs.createunicorndraft, data).then((response) => {
         return response.data;

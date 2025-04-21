@@ -1603,6 +1603,40 @@ class Startup extends CI_Controller {
 		->set_output(json_encode($response));	
 	}
 
+	function update_unicorn_plan_by_admin() {
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		
+		if (!empty($formdata)) {
+			extract($formdata);
+			$post_data = [
+				'unicorn_plan' => $planName,
+				'unicorn_start_date' => $startDate,
+				'unicorn_end_date' => $endDate,
+				'left_edit' => $leftEdit,
+			];
+			$this->db->where('investor_id', $founder_id);
+			$id = $this->db->update('users', $post_data);
+			$response = [
+				'status' => '1',
+				'message' => 'Plan updated successfully.',
+			];
+		} else {
+			$response = [
+				'status' => '0',
+				'message' => 'Please enter values of all fields.',
+			];
+		}
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
+
 	function handle_payment_link() {
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");

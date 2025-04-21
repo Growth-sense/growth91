@@ -206,6 +206,19 @@ class Founders extends Component {
     });
   };
 
+  showEditUnicornModal = (item) => {
+    console.log("item", item);
+
+    this.setState({
+      edit_unicorn_plan_name: item.unicorn_plan,
+      edit_unicorn_plan_start_date: item.unicorn_start_date ? moment(item.unicorn_start_date, "YYYY-MM-DD HH:mm:ss") : null,
+      edit_unicorn_plan_end_date: item.unicorn_end_date ? moment(item.unicorn_end_date, "YYYY-MM-DD HH:mm:ss") : null,
+      edit_unicorn_plan_left_edit: item.left_edit,
+      editUnicornModalStatus: true,
+      founder_id: item.investor_id,
+    });
+  };
+
   showupdatemodal = (item) => {
     this.setState({
       deal_id: item.deal_id,
@@ -314,6 +327,45 @@ class Founders extends Component {
   //   this.setState({ editModalStatus:false });
   //   window.location.reload();
   // }
+
+  // update post
+  updateUnicornPlan = () => {
+    const startDate = this.state.edit_unicorn_plan_start_date;
+    const endDate = this.state.edit_unicorn_plan_end_date;
+    const planName = this.state.edit_unicorn_plan_name;
+    
+    // Format dates if they are moment objects
+    const formattedStartDate = startDate && moment.isMoment(startDate) ? startDate.format("YYYY-MM-DD HH:mm:ss") : null;
+    const formattedEndDate = endDate && moment.isMoment(endDate) ? endDate.format("YYYY-MM-DD HH:mm:ss") : null;
+    const formattedPlanName = planName && planName != "" ? planName : null;
+    
+    let params = {
+      planName: formattedPlanName,
+      startDate: formattedStartDate,
+      endDate: formattedEndDate,
+      leftEdit: this.state.edit_unicorn_plan_left_edit,
+      founder_id: this.state.founder_id,
+    };
+
+    console.log(params);
+    
+    Bridge.Unicorn.adminEditUnicornPlan(params).then((result) => {
+      if (result.status == 1) {
+        message.success(result.message);
+        this.setState(
+          {
+            
+            editUnicornModalStatus: false,
+            founder_id: "",
+          },
+          () => this.getfounderlist()
+        );
+      } else {
+        message.error(result.message);
+      }
+    });
+    
+  };
 
   showDisableModel = (item) => {
     this.setState({
@@ -836,6 +888,15 @@ class Founders extends Component {
                   &nbsp;&nbsp;Edit
                 </a>
               </Menu.Item>
+              <Menu.Item key={`EditUnicornPlan${record.key}`} icon={<EditOutlined />}>
+                <a
+                  href="#"
+                  onClick={() => this.showEditUnicornModal(text)}
+                  style={{ fontSize: 14 }}
+                >
+                  &nbsp;&nbsp;Edit Unicorn Plan
+                </a>
+              </Menu.Item>
              { JSON.parse(localStorage.getItem("super_admin")) === "1" &&(
               text.user_block_status == 0 ? (
                 <Menu.Item
@@ -1096,6 +1157,77 @@ class Founders extends Component {
         </Modal>
         {/* End Add modal  */}
 
+        {/* Start Edit Unicorn modal  */}
+        <Modal
+          title="Update Unicorn Plan"
+          visible={this.state.editUnicornModalStatus}
+          onOk={this.updateUnicornPlan}
+          okText="Update"
+          // onCancel={this.cancel_updatedeal}
+          onCancel={() => this.setState({ editUnicornModalStatus: false })}
+          width={550}
+        >
+            <div className="form-group mt-3">
+              <label className="mb-2">
+                Unicorn Plan
+              </label>
+              <select
+                name="unicornPlan"
+                className="form-input-field"
+                value={this.state.edit_unicorn_plan_name}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  this.setState({ edit_unicorn_plan_name: e.target.value })
+                }}
+              >
+                <option value="">No plan</option>
+                <option value="Silver">Silver</option>
+                <option value="Gold">Gold</option>
+                <option value="Platinum">Platinum</option>
+              </select>
+            </div>
+            <div className="form-group mt-3">
+              <label className="mb-2">
+                Start Date
+              </label>
+              <DatePicker
+                value={this.state.edit_unicorn_plan_start_date}
+                allowClear={true}
+                onChange={(value) => {
+                  this.setState({ edit_unicorn_plan_start_date: value })
+                }}
+                style={{ width: "100%" }}
+              />
+            </div>
+            <div className="form-group mt-3">
+              <label className="mb-2">
+                End Date
+              </label>
+              <DatePicker
+                value={this.state.edit_unicorn_plan_end_date}
+                allowClear={true}
+                onChange={(date) => {
+                  console.log(date);
+                  this.setState({ edit_unicorn_plan_end_date: date })
+                }}
+                style={{ width: "100%" }}
+              />
+            </div>
+            <div className="form-group mt-3">
+              <label className="mb-2">
+                Publish Credits
+              </label>
+              <Input
+                type="number"
+                value={this.state.edit_unicorn_plan_left_edit}
+                onChange={(e) =>
+                  this.setState({ edit_unicorn_plan_left_edit: e.target.value })
+                }
+              />
+            </div>
+        </Modal>
+        {/* End Edit modal  */}
+
         {/* Start Edit modal  */}
         <Modal
           title="Update Founder"
@@ -1257,7 +1389,7 @@ class Founders extends Component {
             </div>
           </Spin>
         </Modal>
-        {/* End Edit modal  */}
+        {/* End Edit Unicorn modal  */}
 
         {/* Start disable modal  */}
         <Modal
