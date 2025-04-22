@@ -1619,6 +1619,7 @@ class Startup extends CI_Controller {
 				'unicorn_start_date' => $startDate,
 				'unicorn_end_date' => $endDate,
 				'left_edit' => $leftEdit,
+				'utrref' => $utrref
 			];
 			$this->db->where('investor_id', $founder_id);
 			$id = $this->db->update('users', $post_data);

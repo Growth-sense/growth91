@@ -14,6 +14,7 @@ import {
   Menu,
   Tag,
   Input,
+  Checkbox,
 } from "antd";
 import Sidebar2 from "./common/Sidebar2";
 import Navbar from "./common/Navbar";
@@ -23,6 +24,7 @@ import {
   EditOutlined,
   EyeInvisibleOutlined,
   EyeOutlined,
+  UnlockOutlined,
 } from "@ant-design/icons";
 import moment from "moment";
 import Apis from "../constants/Apis";
@@ -214,6 +216,7 @@ class Founders extends Component {
       edit_unicorn_plan_start_date: item.unicorn_start_date ? moment(item.unicorn_start_date, "YYYY-MM-DD HH:mm:ss") : null,
       edit_unicorn_plan_end_date: item.unicorn_end_date ? moment(item.unicorn_end_date, "YYYY-MM-DD HH:mm:ss") : null,
       edit_unicorn_plan_left_edit: item.left_edit,
+      edit_unicorn_utr_ref: item.utrref,
       editUnicornModalStatus: true,
       founder_id: item.investor_id,
     });
@@ -344,6 +347,7 @@ class Founders extends Component {
       startDate: formattedStartDate,
       endDate: formattedEndDate,
       leftEdit: this.state.edit_unicorn_plan_left_edit,
+      utrref: this.state.edit_unicorn_utr_ref,
       founder_id: this.state.founder_id,
     };
 
@@ -897,6 +901,20 @@ class Founders extends Component {
                   &nbsp;&nbsp;Edit Unicorn Plan
                 </a>
               </Menu.Item>
+              <Menu.Item key={`AccessDashboard${record.key}`} icon={<UnlockOutlined />}>
+                <a
+                  href="#"
+                  onClick={() => {
+                    console.log(text.investor_id);
+                    localStorage.setItem("founder_id", text.investor_id);
+                    window.open(`${process.env.REACT_APP_BASE_URL}founder-dashboard`, "_blank");
+                    
+                  }}
+                  style={{ fontSize: 14 }}
+                >
+                  &nbsp;&nbsp;Access Dashboard
+                </a>
+              </Menu.Item>
              { JSON.parse(localStorage.getItem("super_admin")) === "1" &&(
               text.user_block_status == 0 ? (
                 <Menu.Item
@@ -1222,6 +1240,32 @@ class Founders extends Component {
                 value={this.state.edit_unicorn_plan_left_edit}
                 onChange={(e) =>
                   this.setState({ edit_unicorn_plan_left_edit: e.target.value })
+                }
+              />
+            </div>
+            <div className="form-group mt-3">
+              <label className="mb-2">
+                UTR No
+              </label>
+              <div>
+              <Checkbox 
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    this.setState({ edit_unicorn_utr_ref: "UTRNOTAPPLICABLE" })
+                  } else {
+                    this.setState({ edit_unicorn_utr_ref: "" })
+                  }
+                }}
+                checked={this.state.edit_unicorn_utr_ref == "UTRNOTAPPLICABLE"}
+              >
+                Not applicable
+              </Checkbox>
+              </div>
+              <Input
+                type="text"
+                value={this.state.edit_unicorn_utr_ref}
+                onChange={(e) =>
+                  this.setState({ edit_unicorn_utr_ref: e.target.value })
                 }
               />
             </div>
