@@ -244,6 +244,7 @@ class Founderadmindashboard extends Component {
         tudDoc2: "",
         tudDoc3: "",
         tudStartupFounderName: "",
+        tudStartupFounderMobileCountryCode: "",
         tudStartupFounderMobileNumber: "",
         tudStartupFounderEmail: "",
         tudDealShowDateForRegularMember: "",
@@ -1012,6 +1013,8 @@ class Founderadmindashboard extends Component {
       this.state.unicorn.tudStartupFounderName == "" ||
       !this.state.unicorn.tudLegalname ||
       this.state.unicorn.tudLegalname == "" ||
+      !this.state.unicorn.tudStartupFounderMobileCountryCode ||
+      this.state.unicorn.tudStartupFounderMobileCountryCode == "" ||
       !this.state.unicorn.tudStartupFounderMobileNumber ||
       this.state.unicorn.tudStartupFounderMobileNumber == "" ||
       !this.state.unicorn.tudStartupFounderEmail ||

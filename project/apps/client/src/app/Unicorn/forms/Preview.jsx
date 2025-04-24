@@ -1171,7 +1171,9 @@ text-align: justify;
                     }}
                     width="100%"
                     height="435"
-                    src={`https://www.youtube.com/embed/${extractVideoIDFromYoutubeUrl(item.tudYoutubeLink)}`}
+                    src={`https://www.youtube.com/embed/${extractVideoIDFromYoutubeUrl(
+                      item.tudYoutubeLink
+                    )}`}
                     title="YouTube video player"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -1191,7 +1193,10 @@ text-align: justify;
                         <li>
                           <i className="fas fa-phone"></i>
                           {/* udStartupFounderMobileNumber */}
-                          {item.tudStartupFounderMobileNumber}
+                          {item.tudStartupFounderMobileCountryCode
+                            ? item.tudStartupFounderMobileCountryCode +
+                              item.tudStartupFounderMobileNumber
+                            : item.tudStartupFounderMobileNumber}
                         </li>
                         <li>
                           <i className="fas fa-envelope"></i>

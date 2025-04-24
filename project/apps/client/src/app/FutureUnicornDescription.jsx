@@ -1153,7 +1153,10 @@ text-align: justify;
                           <li>
                             <i className="fas fa-phone"></i>
                             {/* udStartupFounderMobileNumber */}
-                            {item.udStartupFounderMobileNumber}
+                            {item.udStartupFounderMobileCountryCode
+                            ? item.udStartupFounderMobileCountryCode +
+                              item.udStartupFounderMobileNumber
+                            : item.udStartupFounderMobileNumber}
                           </li>
                           <li>
                             <i className="fas fa-envelope"></i>
