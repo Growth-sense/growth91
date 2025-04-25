@@ -109,3 +109,7 @@ define('SMTP_PASS', '3J4ZKs0SO8yHAgVD');
 define('SMTP_FROM_EMAIL', 'noreply@mg.growth91.com');
 define('SMTP_FROM_NAME', 'Growth91');
 define('WEB_BASE_URL', 'https://growth91.com/');
+define('CASHFREE_RESPONSE_DOMAIN_URL', 'https://growth91.growthmetaverse.in');
+define('CASHFREE_BASE_URL', 'https://sandbox.cashfree.com/pg/links');
+define('CASHFREE_CLIENT_ID', 'TEST1048875867fc188f7eb7cd24ab1d85788401');
+define('CASHFREE_CLIENT_SECRET', 'cfsk_ma_test_ae9be5ff94d2a5007e56dd481d96f77e_53b7e225');

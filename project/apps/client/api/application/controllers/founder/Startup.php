@@ -1548,8 +1548,8 @@ class Startup extends CI_Controller {
 				'link_expiry_time' => $expiryTime,
 				'link_id' => $link_id,
 				'link_meta' => [
-					'notify_url' => 'https://growth91.growthmetaverse.in/api/founder/Startup/handle_payment_link',
-					'return_url' => 'https://growth91.growthmetaverse.in/MyUnicornPlan',
+					'notify_url' => CASHFREE_RESPONSE_DOMAIN_URL.'/api/founder/Startup/handle_payment_link',
+					'return_url' => CASHFREE_RESPONSE_DOMAIN_URL.'/MyUnicornPlan',
 					'upi_intent' => false
 				],
 				'link_notify' => [
@@ -1560,7 +1560,7 @@ class Startup extends CI_Controller {
 			];
 
 			curl_setopt_array($curl, [
-				CURLOPT_URL => "https://sandbox.cashfree.com/pg/links",
+				CURLOPT_URL => CASHFREE_BASE_URL,
 				CURLOPT_RETURNTRANSFER => true,
 				CURLOPT_ENCODING => "",
 				CURLOPT_MAXREDIRS => 10,
@@ -1571,8 +1571,8 @@ class Startup extends CI_Controller {
 				CURLOPT_HTTPHEADER => [
 					"Content-Type: application/json",
 					"x-api-version: 2023-08-01",
-					"x-client-id: TEST1048875867fc188f7eb7cd24ab1d85788401",
-					"x-client-secret: cfsk_ma_test_ae9be5ff94d2a5007e56dd481d96f77e_53b7e225"
+					"x-client-id: ".CASHFREE_CLIENT_ID,
+					"x-client-secret: ".CASHFREE_CLIENT_SECRET
 				],
 			]);
 
