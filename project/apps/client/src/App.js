@@ -31,6 +31,8 @@ import { CheckboxThank } from './app/CheckboxThank.jsx';
 import { FounderTransactionHistory } from './app/FounderTransactionHistory.jsx';
 import { FounderDashboardType } from './app/FounderDashboardType.jsx';
 import { FounderMyListing } from './app/FounderMyListing.jsx';
+import { MyUnicornPlan } from './app/Unicorn/MyUnicornPlan.jsx';
+import { ViewPlan } from './app/Unicorn/ViewPlan.jsx';
 import { FounderDraftList } from './app/FounderDraftList.jsx';
 import { FinishedEditPopup } from './app/FinishedEditPopup.jsx';
 import { RemainingEditPopup } from './app/RemainingEditPopup.jsx';
@@ -236,6 +238,7 @@ import Innoserv from "./app/deal-pages/Innoserv.jsx";
 import Petmojo from "./app/deal-pages/Petmojo(Pre Series A).jsx";
 import LVLAlpha from "./app/deal-pages/LVLAlpha.jsx";
 import  {Preview} from "./app/Unicorn/forms/Preview.jsx";
+import UnicornEnquiryFutureUnicorn from "./app/Founder/UnicornEnquiryFutureunicorn.js";
 import EleFant2 from "./app/deal-pages/EleFant2.jsx";
 import CareerCompany from "./app/deal-pages/CareerCompany.jsx";
 
@@ -294,6 +297,8 @@ function App() {
           <Route path="/FounderTransactionHistory" exact component={FounderTransactionHistory} />
           <Route path="/FounderDashboardType" exact component={FounderDashboardType} />
           <Route path="/FounderMyListing" exact component={FounderMyListing} />
+          <Route path="/MyUnicornPlan" exact component={MyUnicornPlan} />
+          <Route path="/ViewUnicornPlan" exact component={ViewPlan} />
           <Route path="/FounderMyPlan" exact component={FounderMyPlan} />
           <Route path="/FounderInterest" exact component={FounderInterest} />
           <Route path="/FounderDraftList" exact component={FounderDraftList} />
@@ -752,6 +757,8 @@ function App() {
           <Route path="/View-Group-list" exact component={Viewfamilylist} />
           <Route path="/Group-Invite"  component={familyinvite} />
           <Route path="/My-Future-unicorn" exact component={InvestorFutureunicorn} />
+          <Route path="/UnicornEnquiryList" exact component={UnicornEnquiryFutureUnicorn} />
+          
 
 
           <Route path="*" exact component={error} />
