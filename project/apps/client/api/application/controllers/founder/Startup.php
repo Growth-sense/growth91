@@ -798,10 +798,10 @@ class Startup extends CI_Controller {
 					'tudFocusedOnProduct'=> $tudFocusedOnProduct,
 					'tudUseofFundRepayment'=> $tudUseofFundRepayment,
 					'tpage4NA' => $tpage4NA,
-					'tpage9NA' => $tpage4NA,
-					'tpage10NA' => $tpage4NA,
-					'tpage13NA' => $tpage4NA,
-					'tpage17NA' => $tpage4NA,
+					'tpage9NA' => $tpage9NA,
+					'tpage10NA' => $tpage10NA,
+					'tpage13NA' => $tpage13NA,
+					'tpage17NA' => $tpage17NA,
 				];	
 				$this -> db -> where("tudTempUdID",$tudTempUdID);
 				$status2 = $this -> db -> update("tempunicorndeals2",$post_data2);
