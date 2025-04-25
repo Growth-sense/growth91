@@ -150,7 +150,7 @@ export default class Sidebar extends Component {
           </a>
           
           {/* Future Unicorn Menu with My Plan as a Submenu */}
-          <li className="hiw-li" style={{ cursor: "pointer" }} onClick={this.toggleFutureUnicorn}>
+          {/* <li className="hiw-li" style={{ cursor: "pointer" }} onClick={this.toggleFutureUnicorn}>
             <i className="bx bx-calendar-star" style={{ fontSize: 20 }}></i>{" "}
             &nbsp;&nbsp; Future Unicorn
             <i
@@ -158,28 +158,7 @@ export default class Sidebar extends Component {
               style={{ float: "right" }}
             ></i>
           </li>
-          {/* <ol
-            className="submenu"
-            style={{
-              listStyle: "none",
-              paddingLeft: "20px",
-              maxHeight: this.state.isFutureUnicornOpen ? "100px" : "0",
-              overflow: "hidden",
-              transition: "max-height 0.5s ease-out", // Adjusting transition effect here
-            }}
-          >
-            <a
-              href="/FounderMyPlan"
-              className={
-                window.location.pathname === "/FounderMyPlan" ? "active" : ""
-              }
-            >
-              <li className="hiw-li">
-                <i className="bx bx-calendar-star" style={{ fontSize: 20 }}></i>{" "}
-                &nbsp;&nbsp;My Plan
-              </li>
-            </a>
-          </ol> */}
+         
           <ol
             className="submenu"
             style={{
@@ -247,7 +226,7 @@ export default class Sidebar extends Component {
                 &nbsp;&nbsp;My Plan
               </li>
             </a>
-          </ol>
+          </ol> */}
           
           
          
