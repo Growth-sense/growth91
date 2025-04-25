@@ -466,7 +466,7 @@ class Mediacoverager extends Component {
                           </label>
                           <input
                             type="text"
-                            maxLength="100"
+                            maxLength="500"
                             name="description1"
                             value={item.description1}
                             onChange={(e) => {
@@ -490,7 +490,7 @@ class Mediacoverager extends Component {
                           </label>
                           <input
                             type="text"
-                            maxLength="100"
+                            maxLength="500"
                             name="description2"
                             value={item.description2}
                             onChange={(e) => {

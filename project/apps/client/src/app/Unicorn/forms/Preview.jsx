@@ -12,6 +12,7 @@ import SinglePagePDFViewer from "./../../components/PdfViewer/single-page";
 
 import Bridge from "./../../constants/Bridge.js";
 import { extractVideoIDFromYoutubeUrl, getAbsoluteUrl } from "../../helper/utilHelper.js";
+import moment from "moment";
 
 export const Preview = (props) => {
   const location = useLocation();
@@ -499,6 +500,7 @@ object-fit:cover;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 20px;
   height: 100%; /* Ensures cards have the same height */
+  text-align: justify;
 }
 
 /* Typography */
@@ -1014,7 +1016,7 @@ text-align: justify;
 
               <section className="container my-5">
                 <h2 className="text-center mb-3">Team</h2>
-                <div className="row row-box-linse Grid-team px-1">
+                <div className="row row-box-linse Grid-team px-1 justify-content-center">
                   {item.tudVendorId &&
                     JSON.parse(item.tudVendorId).map(
                       (itemudVendorId, indexudVendorId) => (
@@ -1061,7 +1063,7 @@ text-align: justify;
                               </div>
                             </div>
                             {/* Description Section */}
-                            <div className="p-3" style={{ height: "210px" }}>
+                            <div className="p-3" style={{ height: "210px", textAlign:'justify' }}>
                               <p>
                                 {itemudVendorId.description1
                                   ? itemudVendorId.description1
@@ -1282,7 +1284,12 @@ text-align: justify;
                         <ul className="company-info-list">
                           <li>
                             <span>Founded</span>
-                            <p>{item.tudFoundedon}</p>
+                            {/* convert the below string from YYYY-MM-DD format to DD-MM-YYYY, only if it is not null */}
+                            <p>
+                              {item.tudFoundedon
+                                ? moment(item.tudFoundedon).format("DD-MM-YYYY")
+                                : ""}
+                            </p>
                           </li>
 
                           <li>

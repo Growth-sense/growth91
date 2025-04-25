@@ -8,6 +8,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { Modal, message as mess } from "antd";
 import SinglePagePDFViewer from "./components/PdfViewer/single-page";
 import { extractVideoIDFromYoutubeUrl, getAbsoluteUrl } from "./helper/utilHelper.js";
+import moment from "moment";
 
 export const FutureUnicornDescription = (props) => {
   const settings = {
@@ -450,6 +451,7 @@ object-fit:cover;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 20px;
   height: 100%; /* Ensures cards have the same height */
+  text-align: justify;
 }
 
 /* Typography */
@@ -755,7 +757,7 @@ text-align: justify;
                       <img
                         className="heroSectionImage"
                         style={{
-                          objectFit:"fill"
+                          objectFit: "fill",
                         }}
                         src={
                           (item.udBannerImage &&
@@ -974,7 +976,7 @@ text-align: justify;
 
                 <section id="teamSection" className="container my-5">
                   <h2 className="text-center mb-3">Team</h2>
-                  <div className="row row-box-linse Grid-team px-1">
+                  <div className="row row-box-linse Grid-team px-1 justify-content-center">
                     {item.udVendorId &&
                       JSON.parse(item.udVendorId).map(
                         (itemudVendorId, indexudVendorId) => (
@@ -1022,7 +1024,13 @@ text-align: justify;
                                 </div>
                               </div>
                               {/* Description Section */}
-                              <div className="p-3" style={{ height: "210px" }}>
+                              <div
+                                className="p-3"
+                                style={{
+                                  height: "210px",
+                                  textAlign: "justify",
+                                }}
+                              >
                                 <p>
                                   {itemudVendorId.description1
                                     ? itemudVendorId.description1
@@ -1130,7 +1138,9 @@ text-align: justify;
                       }}
                       width="100%"
                       height="435"
-                      src={`https://www.youtube.com/embed/${extractVideoIDFromYoutubeUrl(item.udYoutubeLink)}`}
+                      src={`https://www.youtube.com/embed/${extractVideoIDFromYoutubeUrl(
+                        item.udYoutubeLink
+                      )}`}
                       title="YouTube video player"
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -1154,9 +1164,9 @@ text-align: justify;
                             <i className="fas fa-phone"></i>
                             {/* udStartupFounderMobileNumber */}
                             {item.udStartupFounderMobileCountryCode
-                            ? item.udStartupFounderMobileCountryCode +
-                              item.udStartupFounderMobileNumber
-                            : item.udStartupFounderMobileNumber}
+                              ? item.udStartupFounderMobileCountryCode +
+                                item.udStartupFounderMobileNumber
+                              : item.udStartupFounderMobileNumber}
                           </li>
                           <li>
                             <i className="fas fa-envelope"></i>
@@ -1172,29 +1182,40 @@ text-align: justify;
                         <div className="social-icons d-flex justify-content-center">
                           {item.udSocialYouTube &&
                             item.udSocialYouTube != "" && (
-                              <a  href={getAbsoluteUrl(item.udSocialYouTube)}
-                                target="_blank" className="social-icon">
-                                
+                              <a
+                                href={getAbsoluteUrl(item.udSocialYouTube)}
+                                target="_blank"
+                                className="social-icon"
+                              >
                                 <i className="fab fa-youtube"></i>
                               </a>
                             )}
                           {item.udSocialInsta && item.udSocialInsta != "" && (
-                            <a href={getAbsoluteUrl(item.udSocialInsta)}
-                            target="_blank" className="social-icon">
+                            <a
+                              href={getAbsoluteUrl(item.udSocialInsta)}
+                              target="_blank"
+                              className="social-icon"
+                            >
                               <i className="fab fa-instagram"></i>
                             </a>
                           )}
                           {item.udSocialFacebook &&
                             item.udSocialFacebook != "" && (
-                              <a href={getAbsoluteUrl(item.udSocialFacebook)}
-                              target="_blank" className="social-icon">
+                              <a
+                                href={getAbsoluteUrl(item.udSocialFacebook)}
+                                target="_blank"
+                                className="social-icon"
+                              >
                                 <i className="fab fa-facebook-f"></i>
                               </a>
                             )}
                           {item.udSocialLinkedIn &&
                             item.udSocialLinkedIn != "" && (
-                              <a href={getAbsoluteUrl(item.udSocialLinkedIn)}
-                              target="_blank" className="social-icon">
+                              <a
+                                href={getAbsoluteUrl(item.udSocialLinkedIn)}
+                                target="_blank"
+                                className="social-icon"
+                              >
                                 <i className="fab fa-linkedin"></i>
                               </a>
                             )}
@@ -1231,7 +1252,13 @@ text-align: justify;
                           <ul className="company-info-list">
                             <li>
                               <span>Founded</span>
-                              <p>{item.udFoundedon}</p>
+                              <p>
+                                {item.udFoundedon
+                                  ? moment(item.udFoundedon).format(
+                                      "DD-MM-YYYY"
+                                    )
+                                  : ""}
+                              </p>
                             </li>
 
                             <li>
