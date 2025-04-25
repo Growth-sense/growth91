@@ -138,7 +138,7 @@ class References extends Component {
                       <div className="row" style={{ maxWidth: 900 }}>
                         <div className="col-lg-12">
                             <div className="form-group">
-                              <label for="">References of Customers (Name, Designation, Company, Mobile, Email, Brief about association) </label>
+                              <label for="">References of Customers (Name, Designation, Company, Mobile, Email, Brief about association) <span className="text-danger">*</span>{" "}</label>
                               <textarea 
                                 id="selected-field" cols="30" rows="6"
                                 name='tudCustomerRef'
@@ -148,7 +148,7 @@ class References extends Component {
                           }
                               ></textarea>
                             </div>                              <div className="form-group">
-                              <label for="">References of Vendors(Name, Designation, Company, Mobile, Email, Brief about association) </label>
+                              <label for="">References of Vendors(Name, Designation, Company, Mobile, Email, Brief about association) <span className="text-danger">*</span>{" "}</label>
                               <textarea 
                                 id="" cols="30" rows="6"
                                 name='tudVendorRef'
@@ -159,7 +159,7 @@ class References extends Component {
                               ></textarea>
                             </div>                             
                              <div className="form-group">
-                              <label for="">References of Past Employer of Founders (Name, Designation, Company, Mobile, Email, Brief about association) </label>
+                              <label for="">References of Past Employer of Founders (Name, Designation, Company, Mobile, Email, Brief about association)<span className="text-danger">*</span>{" "} </label>
                               <textarea 
                                 id="" cols="30" rows="6"
                                 name='tudPastEmployerRef'
@@ -171,7 +171,7 @@ class References extends Component {
                             </div>  
                                                
                               <div className="form-group">
-                              <label for="">References of Teacher/Guide from college(Name, Designation, Company, Mobile, Email, Brief about association) </label>
+                              <label for="">References of Teacher/Guide from college(Name, Designation, Company, Mobile, Email, Brief about association)<span className="text-danger">*</span>{" "} </label>
                               <textarea 
                                 id="" cols="30" rows="6"
                                 name='tudGuideRef'

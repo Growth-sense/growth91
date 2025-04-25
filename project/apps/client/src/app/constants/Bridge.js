@@ -962,6 +962,10 @@ export default {
       }),
   },
   Unicorn: {
+    adminEditUnicornPlan: (data) => 
+      api.post(URLs.adminEditUnicornPlan, data).then((response) => {
+        return response.data;
+      }),
     createunicorndraft: (data) =>
       api.post(URLs.createunicorndraft, data).then((response) => {
         return response.data;
@@ -1000,6 +1004,14 @@ export default {
       }),
     unicorn_Publish_unpublish: (data) =>
       api.post(URLs.unicorn_Publish_unpublish, data).then((response) => {
+        return response.data;
+      }),
+    get_founder_detail_for_unicorn: (data) =>
+      api.post(URLs.get_founder_detail_for_unicorn, data).then((response) => {
+        return response.data;
+      }),
+    get_payment_link: (data) =>
+      api.post(URLs.get_payment_link, data).then((response) => {
         return response.data;
       }),
   },

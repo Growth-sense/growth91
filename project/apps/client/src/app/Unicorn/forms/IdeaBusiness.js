@@ -37,7 +37,6 @@ class IdeaBusiness extends Component {
       founder_id: this.props.id,
     };
     Bridge.Unicorn.editunicorndraft(this.props.unicorn).then((result) => {
-
       if (result.status == 1) {
         console.log(result.data[0].is_disrupting_existing_market);
         this.setState({
@@ -64,8 +63,22 @@ class IdeaBusiness extends Component {
       }
     });
   };
-   updatefounder = () => {
- if (this.props.adminnext) {
+  updatefounder = () => {
+
+
+    // console.log('calling this function idea busines main');
+
+
+    // // add delay  of 10 seconds before proceeeding
+    // let delay = 10000;
+    // setTimeout(() => {
+    //   console.log('delayed by 10 seconds');
+    // }, delay);
+    
+
+
+
+    if (this.props.adminnext) {
       if (this.state.processtype == "next") {
         this.props.next();
         return;
@@ -95,7 +108,6 @@ class IdeaBusiness extends Component {
     };
     this.setState({ loading: true });
     Bridge.Unicorn.editunicorndraft(this.props.unicorn).then((result) => {
- 
       if (result.status == 1) {
         this.props.check(2);
         this.setState({ loading: false, valueispresent: true });
@@ -338,8 +350,8 @@ class IdeaBusiness extends Component {
                       <div className="form-group">
                         <label for="">
                           Are you Disrupting existing market?How?
-                         
-                       <span className="text-danger">*</span> </label>
+                          <span className="text-danger">*</span>{" "}
+                        </label>
                         <textarea
                           cols="30"
                           rows="6"
@@ -354,8 +366,8 @@ class IdeaBusiness extends Component {
                       <div className="form-group">
                         <label for="">
                           Are you targeting new untapped market?Justify?
-                         
-                       <span className="text-danger">*</span> </label>
+                          <span className="text-danger">*</span>{" "}
+                        </label>
                         <textarea
                           id=""
                           cols="30"
@@ -370,8 +382,8 @@ class IdeaBusiness extends Component {
                       <div className="form-group">
                         <label for="">
                           How will the customer benefit?
-                         
-                       <span className="text-danger">*</span> </label>
+                          <span className="text-danger">*</span>{" "}
+                        </label>
                         <textarea
                           id=""
                           cols="30"
@@ -386,8 +398,8 @@ class IdeaBusiness extends Component {
                       <div className="form-group">
                         <label for="">
                           How will your suppliers benefit?
-                         
-                       <span className="text-danger">*</span> </label>
+                          <span className="text-danger">*</span>{" "}
+                        </label>
                         <textarea
                           id=""
                           cols="30"
@@ -402,8 +414,8 @@ class IdeaBusiness extends Component {
                       <div className="form-group">
                         <label for="">
                           Are you focused on product or service?
-                         
-                       <span className="text-danger">*</span> </label>
+                          <span className="text-danger">*</span>{" "}
+                        </label>
                         <textarea
                           id=""
                           cols="30"
@@ -419,7 +431,8 @@ class IdeaBusiness extends Component {
                         <label for="">
                           What are the direct substitute available in the
                           market?
-                       <span className="text-danger">*</span> </label>
+                          <span className="text-danger">*</span>{" "}
+                        </label>
                         <textarea
                           id=""
                           cols="30"
@@ -435,13 +448,16 @@ class IdeaBusiness extends Component {
                         <label for="">
                           What are the indirect substitute available in the
                           market?
-                       <span className="text-danger">*</span> </label>
+                          <span className="text-danger">*</span>{" "}
+                        </label>
                         <textarea
                           id=""
                           cols="30"
                           rows="6"
                           name="tudIndirectSubstitueAvailable"
-                          value={this.props.unicorn.tudIndirectSubstitueAvailable}
+                          value={
+                            this.props.unicorn.tudIndirectSubstitueAvailable
+                          }
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -450,8 +466,8 @@ class IdeaBusiness extends Component {
                       <div className="form-group">
                         <label for="">
                           What are the risks perceived by you?
-                         
-                       <span className="text-danger">*</span> </label>
+                          <span className="text-danger">*</span>{" "}
+                        </label>
                         <textarea
                           id=""
                           cols="30"
@@ -468,16 +484,13 @@ class IdeaBusiness extends Component {
                         <label for="">
                           How roles and responsibilities are distributed between
                           core team members?
-                         
-                      </label>
+                        </label>
                         <textarea
                           id=""
                           cols="30"
                           rows="6"
                           name="tudRolesCoreTeam"
-                          value={
-                            this.state.tudRolesCoreTeam
-                          }
+                          value={this.props.unicorn.tudRolesCoreTeam}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -486,8 +499,8 @@ class IdeaBusiness extends Component {
                       <div className="form-group">
                         <label for="">
                           what are your moats?
-                         
-                       <span className="text-danger">*</span> </label>
+                          <span className="text-danger">*</span>{" "}
+                        </label>
                         <textarea
                           id=""
                           cols="30"
@@ -503,7 +516,7 @@ class IdeaBusiness extends Component {
                         <label for="">
                           what are the challanges for scale up and how these
                           will be managed?<span className="text-danger">*</span>
-                      </label>
+                        </label>
                         <textarea
                           id=""
                           cols="30"

@@ -3,6 +3,7 @@ import { message, Spin } from "antd";
 import Bridge from "../../constants/Bridge";
 
 import $ from "jquery";
+import CountrySelect from "../../investor/register/CountrySelect";
 class Dellistinicorn extends Component {
   constructor(props) {
     super(props);
@@ -167,17 +168,26 @@ class Dellistinicorn extends Component {
                       </div>{" "}
                       <div className="form-group">
                         <label for="">Startup Founder Mobile Number<span className="text-danger">*</span></label>
-                        <input
-                          type="email"
-                          onWheel={() => document.activeElement.blur()}
-                          name="tudStartupFounderMobileNumber"
-                          value={
-                            this.props.unicorn.tudStartupFounderMobileNumber
-                          }
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          }
-                        />
+                        <div style={{display:"flex",alignItems:"baseline"}}>
+                          <CountrySelect
+                            value={this.props.unicorn.tudStartupFounderMobileCountryCode}
+                            onChange={(e) =>
+                              this.props.onInput("tudStartupFounderMobileCountryCode", e.target.value)
+                            }
+                          />
+                          <input
+                            type="email"
+                            onWheel={() => document.activeElement.blur()}
+                            name="tudStartupFounderMobileNumber"
+                            value={
+                              this.props.unicorn.tudStartupFounderMobileNumber
+                            }
+                            onChange={(e) =>
+                              this.props.onInput(e.target.name, e.target.value)
+                            }
+                          />
+                        </div>
+                        
                       </div>{" "}
                       <div className="form-group">
                         <label for="">Startup Founder Email<span className="text-danger">*</span></label>
@@ -240,7 +250,7 @@ class Dellistinicorn extends Component {
                         />
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">CAP Table Threshold Amount<span className="text-danger">*</span></label>
+                        <label for="">CAP Table Threshold Amount</label>
                         <input
                           type="number"
                           onWheel={() => document.activeElement.blur()}
@@ -252,7 +262,7 @@ class Dellistinicorn extends Component {
                         />
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Special Offer Tex<span className="text-danger">*</span></label>
+                        <label for="">Special Offer Tex</label>
                         <input
                           type="text"
                           onWheel={() => document.activeElement.blur()}
@@ -264,7 +274,7 @@ class Dellistinicorn extends Component {
                         />{" "}
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Input Default Tex<span className="text-danger">*</span></label>
+                        <label for="">Input Default Tex</label>
                         <input
                           type="text"
                           onWheel={() => document.activeElement.blur()}

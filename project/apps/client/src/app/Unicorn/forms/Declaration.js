@@ -245,16 +245,6 @@ class Declaration extends Component {
                         </div>
                         <div></div>
                       </div>
-                      <p
-                        style={{
-                          color: "#29176f",
-                          position: "relative",
-                          top: -81,
-                        }}
-                      >
-                        Instuction: Please validate all sections to enable the
-                        submit button.
-                      </p>
                     </div>
                   </div>
                 </div>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { NewWebFooter } from './common/NewWebFooter'
 import Slider from 'react-slick'
 import NewWebHeader from "./common/NewWebHeader.jsx";
@@ -8,6 +8,17 @@ import Founderadmindashboard from "./Unicorn/forms/Founderadmindashboard";
 
 
 export const FutureUnicornForm = () => {
+    const [isDesktop, setIsDesktop] = useState(window.innerWidth > 768);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsDesktop(window.innerWidth > 768);
+        };
+
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+    
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
@@ -99,6 +110,7 @@ export const FutureUnicornForm = () => {
             </div>
             <div className="future-unicorn-stepper">
                 <div class="container">
+                {isDesktop ? (
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center align-items-center" style={{ pointerEvents: "none" }}>
                             <div class="heading-title m-sm-0">
@@ -308,7 +320,13 @@ export const FutureUnicornForm = () => {
                     </div>
 
 
-
+                ) : (
+                    <div class="row">
+                        <div className="mobile-message text-center">
+                            <p>Content is not available on mobile. Please visit on a larger screen.</p>
+                        </div>
+                    </div>
+                ) }
 
 
                 </div>

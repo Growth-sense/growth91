@@ -50,7 +50,7 @@ export default function CountrySelect({ value, onChange }) {
             // remove focus border
           }}
         >
-          <MenuItem value={0}>Country Code </MenuItem>
+          <MenuItem disabled value={0}>Country Code </MenuItem>
           <MenuItem value={93}>(+93) Afghanistan </MenuItem>
           <MenuItem value={"+358"}>(+358) Aland Islands </MenuItem>
           <MenuItem value={355}>(+355) Albania </MenuItem>

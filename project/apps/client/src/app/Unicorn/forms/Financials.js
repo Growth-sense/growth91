@@ -231,7 +231,7 @@ class FundRaiseRegistration extends Component {
                       <div className="row" style={{ maxWidth: 900 }}>
                         <div className="col-lg-12">
                             <div className="form-group">
-                              <label for="">Number of clients</label>
+                              <label for="">Number of clients<span className="text-danger">*</span>{" "}</label>
                               <textarea 
                                 type="text" 
                                 name='tudNumberofClients'
@@ -245,7 +245,7 @@ class FundRaiseRegistration extends Component {
                               />
                             </div>
                             <div className="form-group">
-                              <label for="">Client retention?</label>
+                              <label for="">Client retention?<span className="text-danger">*</span>{" "}</label>
                               <textarea 
                                 type="text" 
                                 name='tudClientRetentions'
@@ -258,7 +258,7 @@ class FundRaiseRegistration extends Component {
                               />
                             </div>
                             <div className="form-group">
-                              <label for=""> Revenue from top 5-10% clients?</label>
+                              <label for=""> Revenue from top 5-10% clients?<span className="text-danger">*</span>{" "}</label>
                               <textarea  
                                 type="text" 
                                 name='tudRevenueTop10'
@@ -271,7 +271,7 @@ class FundRaiseRegistration extends Component {
                               />
                             </div>
                             <div className="form-group">
-                              <label for=""> Explain unit economics of your startup?</label>
+                              <label for=""> Explain unit economics of your startup?<span className="text-danger">*</span>{" "}</label>
                               <input  
                                 type="text" 
                                 name='tudUnitEconomics'
@@ -282,7 +282,7 @@ class FundRaiseRegistration extends Component {
                               />
                             </div>
                             <div className="form-group">
-                              <label for="">What is the total CapEx of your startup till date?</label>
+                              <label for="">What is the total CapEx of your startup till date?<span className="text-danger">*</span>{" "}</label>
                               <input  
                                 type="text" 
                                 name='tudTotalCapEx'
@@ -293,7 +293,7 @@ class FundRaiseRegistration extends Component {
                               />
                             </div>
                             <div className="form-group">
-                              <label for="">What is the total amount spent in product development?</label>
+                              <label for="">What is the total amount spent in product development?<span className="text-danger">*</span>{" "}</label>
                               <textarea 
                                 type="text" 
                                 name='tudAmountSpentProdDev'
@@ -306,7 +306,7 @@ class FundRaiseRegistration extends Component {
                               />
                             </div>
                             <div className="form-group">
-                              <label for="">Other major expenses/investments till date.</label>
+                              <label for="">Other major expenses/investments till date<span className="text-danger">*</span>{" "}</label>
                               <textarea  
                                 type="text" 
                                 name='tudMajorExpInv'

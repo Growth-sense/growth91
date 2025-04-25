@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { message, Spin, DatePicker } from "antd";
+import { message, Spin, DatePicker, Checkbox } from "antd";
 import Bridge from "../../constants/Bridge";
 
 import moment from "moment";
@@ -109,44 +109,7 @@ class FundRaiseRegistration extends Component {
       return false;
     }
   };
-  saveandproceed = () => {
-    if (!this.state.name_of_legality_entity) {
-      message.warning("Please enter name of legality entity");
-      return;
-    }
-    let status = this.checkforpan(this.state.pan_legality_entity);
-    if (status == false) {
-      return;
-    } else if (!this.state.cin_legality_entity) {
-      message.warning("Please enter cin legality entity");
-      return;
-    } else if (!this.state.pan_legality_entity) {
-      message.warning("Please enter pan of legality entity");
-      return;
-    } else if (!this.state.registered_in_country) {
-      message.warning("Please enter registered country name");
-      return;
-    } else if (!this.state.formality_established_date) {
-      message.warning("Please enter value of formally established date");
-      return;
-    } else if (!this.state.address_registered_office) {
-      message.warning("Please enter address registered office");
-      return;
-    } else if (!this.state.address_corporate_office) {
-      message.warning("Please enter address corporate office");
-      return;
-    } else if (!this.state.director_1_name) {
-      message.warning("Please enter director name 1");
-      return;
-    } else if (!this.state.director_1_din) {
-      message.warning("Please enter din of director name 1");
-      return;
-    }
-    // this.props.check();
-    this.setState({ processtype: "saveandproceed" }, () =>
-      this.updatefounder()
-    );
-  };
+  
   save = () => {
     this.setState({ processtype: "save" }, () => this.updatefounder());
   };
@@ -325,14 +288,51 @@ class FundRaiseRegistration extends Component {
                   <div className="row" style={{ maxWidth: 900 }}>
                     <div className="col-lg-12">
                       <div className="form-group">
-                        <label for="">
-                          Name of the legal entity.{" "}
-                         
-                        </label>
-                        <textarea  
-                         
+                        <div className="d-flex">
+                          <Checkbox
+                            name="tpage9NA"
+                            style={{ width: 35 }}
+                            checked={this.props.unicorn.tpage9NA == "1"}
+                            value={this.props.unicorn.tpage9NA == true ? 1 : 0}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                this.props.setMultiple({
+                                  tpage9NA: "1",
+                                  tudLeagalName: "",
+                                  tudWebsite: "",
+                                  tudLegalCin: "",
+                                  tudLegalPan: "",
+                                  tudLegalCountry: "",
+                                  tudEstablishedDate: "",
+                                  tudActivityStartedDate: "",
+                                  tudRegisteredOffice: "",
+                                  tudCorporateOffice: "",
+                                  tudDirector1: "",
+                                  tudDin1: "",
+                                  tudDirector2: "",
+                                  tudDin2: "",
+                                  tudDirector3: "",
+                                  tudDin3: "",
+                                  tudDirector4: "",
+                                  tudDin4: "",
+                                });
+                              } else {
+                                this.props.onInput(
+                                  e.target.name,
+                                  e.target.checked ? "1" : "0"
+                                );
+                              }
+                            }}
+                          ></Checkbox>
+                          <span className="ml-2">Not Applicable</span>
+                        </div>
+                      </div>
+                      <div className="form-group">
+                        <label for="">Name of the legal entity </label>
+                        <textarea
                           name="tudLeagalName"
                           id="selected-field"
+                          disabled={this.props.unicorn.tpage9NA == "1"}
                           value={this.props.unicorn.tudLeagalName}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
@@ -341,68 +341,58 @@ class FundRaiseRegistration extends Component {
                       </div>
                       <div className="form-group">
                         <label for="">Website </label>
-                        <textarea  
-                         
+                        <textarea
                           name="tudWebsite"
+                          disabled={this.props.unicorn.tpage9NA == "1"}
                           value={this.props.unicorn.tudWebsite}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                          ></textarea>
-
+                        ></textarea>
                       </div>
                       <div className="form-group">
-                        <label for="">
-                          Legal entity - CIN{" "}
-                         
-                        </label>
-                        <textarea  
-                         
+                        <label for="">Legal entity - CIN </label>
+                        <textarea
                           name="tudLegalCin"
+                          disabled={this.props.unicorn.tpage9NA == "1"}
                           value={this.props.unicorn.tudLegalCin}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                          ></textarea>
+                        ></textarea>
                       </div>
                       <div className="form-group">
-                        <label for="">
-                          Legal entity - PAN{" "}
-                         
-                        </label>
-                        <textarea  
-                         
+                        <label for="">Legal entity - PAN </label>
+                        <textarea
                           name="tudLegalPan"
+                          disabled={this.props.unicorn.tpage9NA == "1"}
                           value={this.props.unicorn.tudLegalPan}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                          ></textarea>
+                        ></textarea>
                       </div>
                       <div className="form-group">
-                        <label for="">
-                          Registered in (Country){" "}
-                         
-                        </label>
-                        <textarea  
-                         
+                        <label for="">Registered in (Country) </label>
+                        <textarea
                           name="tudLegalCountry"
+                          disabled={this.props.unicorn.tpage9NA == "1"}
                           value={this.props.unicorn.tudLegalCountry}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                          ></textarea>
-
+                        ></textarea>
                       </div>
                       <div className="form-group step-form-date-input">
-                        <label for="">
-                          Formally established on(date){" "}
-                         
-                        </label>
+                        <label for="">Formally established on(date) </label>
 
-                        <input type="date"
-                          value={(this.props.unicorn.tudEstablishedDate)}
-                          onChange={(e) => this.props.onInput(e.target.name, e.target.value)}
+                        <input
+                          type="date"
+                          disabled={this.props.unicorn.tpage9NA == "1"}
+                          value={this.props.unicorn.tudEstablishedDate}
+                          onChange={(e) =>
+                            this.props.onInput(e.target.name, e.target.value)
+                          }
                           name="tudEstablishedDate"
                           // disabledDate={this.disabledDate}
                           format={"DD-MM-YYYY"}
@@ -417,13 +407,14 @@ class FundRaiseRegistration extends Component {
                           Activities start date before formal establishment(if
                           any)
                         </label>
-                        <input type="date"
-                          value={
-                            ( this.props.unicorn
-                              .tudActivityStartedDate)
-                          }
+                        <input
+                          type="date"
+                          disabled={this.props.unicorn.tpage9NA == "1"}
+                          value={this.props.unicorn.tudActivityStartedDate}
                           name="tudActivityStartedDate"
-                          onChange={(e) => this.props.onInput(e.target.name, e.target.value)}
+                          onChange={(e) =>
+                            this.props.onInput(e.target.name, e.target.value)
+                          }
                           // disabledDate={this.disabledDate}
                           format={"DD-MM-YYYY"}
                           style={{
@@ -433,13 +424,10 @@ class FundRaiseRegistration extends Component {
                         />
                       </div>
                       <div className="form-group">
-                        <label for="">
-                          Address - Registered office
-                         
-                        </label>
-                        <textarea  
-                         
+                        <label for="">Address - Registered office</label>
+                        <textarea
                           name="tudRegisteredOffice"
+                          disabled={this.props.unicorn.tpage9NA == "1"}
                           value={this.props.unicorn.tudRegisteredOffice}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
@@ -449,11 +437,10 @@ class FundRaiseRegistration extends Component {
                       <div className="form-group">
                         <label for="">
                           Address - Corporate/Working office{" "}
-                         
                         </label>
                         <textarea
-                         
                           name="tudCorporateOffice"
+                          disabled={this.props.unicorn.tpage9NA == "1"}
                           value={this.props.unicorn.tudCorporateOffice}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
@@ -461,13 +448,10 @@ class FundRaiseRegistration extends Component {
                         ></textarea>
                       </div>
                       <div className="form-group">
-                        <label for="">
-                          Director - 1(Name){" "}
-                         
-                        </label>
+                        <label for="">Director - 1(Name) </label>
                         <textarea
-                         
                           name="tudDirector1"
+                          disabled={this.props.unicorn.tpage9NA == "1"}
                           value={this.props.unicorn.tudDirector1}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
@@ -475,13 +459,10 @@ class FundRaiseRegistration extends Component {
                         ></textarea>
                       </div>
                       <div className="form-group">
-                        <label for="">
-                          Director - 1 (DIN){" "}
-                         
-                        </label>
+                        <label for="">Director - 1 (DIN) </label>
                         <textarea
-                         
                           onWheel={() => document.activeElement.blur()}
+                          disabled={this.props.unicorn.tpage9NA == "1"}
                           name="tudDin1"
                           value={this.props.unicorn.tudDin1}
                           onChange={(e) =>
@@ -492,8 +473,8 @@ class FundRaiseRegistration extends Component {
                       <div className="form-group">
                         <label for="">Director - 2(Name) </label>
                         <textarea
-                         
                           name="tudDirector2"
+                          disabled={this.props.unicorn.tpage9NA == "1"}
                           value={this.props.unicorn.tudDirector2}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
@@ -503,10 +484,10 @@ class FundRaiseRegistration extends Component {
                       <div className="form-group">
                         <label for="">Director - 2(DIN) </label>
                         <textarea
-                         
                           onWheel={() => document.activeElement.blur()}
-                          name="director_2_din"
-                          value={this.props.unicorn.director_2_din}
+                          name="tudDin2"
+                          disabled={this.props.unicorn.tpage9NA == "1"}
+                          value={this.props.unicorn.tudDin2}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
@@ -515,8 +496,8 @@ class FundRaiseRegistration extends Component {
                       <div className="form-group">
                         <label for="">Director - 3(Name)</label>
                         <textarea
-                         
                           name="tudDirector3"
+                          disabled={this.props.unicorn.tpage9NA == "1"}
                           value={this.props.unicorn.tudDirector3}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
@@ -526,9 +507,9 @@ class FundRaiseRegistration extends Component {
                       <div className="form-group">
                         <label for="">Director - 3 (DIN) </label>
                         <textarea
-                         
                           onWheel={() => document.activeElement.blur()}
                           name="tudDin3"
+                          disabled={this.props.unicorn.tpage9NA == "1"}
                           value={this.props.unicorn.tudDin3}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
@@ -538,8 +519,8 @@ class FundRaiseRegistration extends Component {
                       <div className="form-group">
                         <label for="">Director - 4(Name)</label>
                         <textarea
-                         
                           name="tudDirector4"
+                          disabled={this.props.unicorn.tpage9NA == "1"}
                           value={this.props.unicorn.tudDirector4}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
@@ -549,9 +530,9 @@ class FundRaiseRegistration extends Component {
                       <div className="form-group">
                         <label for="">Director - 4 (DIN)</label>
                         <textarea
-                         
                           onWheel={() => document.activeElement.blur()}
                           name="tudDin4"
+                          disabled={this.props.unicorn.tpage9NA == "1"}
                           value={this.props.unicorn.tudDin4}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)

@@ -12,8 +12,10 @@ class SupportingDocuments extends Component {
     this.state = {
       have_you_raised_fund_for_startup: "",
       pitch: "",
+      product: "",
       documents: [],
       pitchpdffile: "",
+      productpdffile: "",
       doc1: "",
       doc2: "",
       doc3: "",
@@ -51,24 +53,13 @@ class SupportingDocuments extends Component {
     };
   }
   componentDidMount() {
-    if (this.props.id) {
-      let id = this.props.id;
-    }
     if (this.props.unicorn.tudMark) {
       this.setState({ marketoverview: JSON.parse(this.props.unicorn.tudMark) });
-    }
-    console.log((this.props.unicorn.tudStartupHighlights));
-    
+    }    
     if (this.props.unicorn.tudStartupHighlights) {
-      this.setState({
-        startuphighlight: JSON.parse(this.props.unicorn.tudStartupHighlights),
-      });
-    }
-    console.log(this.state.startuphighlight);
-    
-    $("#selected-field").focus();
+      this.setState({ startuphighlight: JSON.parse(this.props.unicorn.tudStartupHighlights) });
+    }    
     this.props.check();
-    // console.log('validated', this.props.validated);
   }
   addmarketcv = (e) => {
     this.setState((prev) => ({
@@ -81,121 +72,35 @@ class SupportingDocuments extends Component {
     }));
   };
 
-  getData = (id) => {
-    let params = {
-      founder_id: this.props.id,
-    };
-    Bridge.founder.getFounderDetails(params).then((result) => {
-      if (result.status == 1) {
-        this.setState({
-          pitchpdffile: result.data[0].pitch,
-          uploaded_document_list: result.data[0].documents
-            ? JSON.parse(result.data[0].documents)
-            : [],
-        });
-        if (result.data[0].pitch) {
-          this.setState({ valueispresent: true });
-        }
-      }
-    });
-  };
-  saveandproceed = () => {
-    // if(this.state.pitchpdffile){
-    //   message.warning('Please delete the existing, if you want to upload file');
-    //   return;
-    // }
-    if (!this.state.pitch) {
-      message.warning("Please select pitch file.");
-      return;
-    }
-    if (this.state.pitch.size >= 10000000) {
-      message.warning("File size of pitch file should less than 10mb.");
-      return;
-    }
-    if (this.state.documents.length > 0) {
-      if (this.state.documents.length > 3) {
-        message.warning("You can upload maximum 3 files.");
-        return;
-      } else {
-        let status = true;
-        for (let item of this.state.documents) {
-          if (item.size >= 10000000) {
-            message.warning("File size of document should less than 10mb.");
-            return;
-          }
-        }
-      }
-    }
-    // this.props.check();
-    this.setState({ processtype: "saveandproceed" }, () => this.updateimg());
-  };
-  save = () => {
-    // if(this.state.pitchpdffile){
-    //   message.warning('Please delete the existing, if you want to upload file');
-    //   return;
-    // }
-    this.setState({ processtype: "save" }, () => this.updateimg());
-  };
-  onChangeFile = async (e, type) => {
-    const formData = new FormData();
-    if (type == "pdf") {
-      // this.setState({ pitchpdffile: e.target.files[0] });
-      formData.append("upfile", e.target.files[0]);
-      formData.append("tudTempUdID ", this.props.unicorn.tudTempUdID);
-      const response = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}api/founder/Startup/uploadFiles`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            // "Accept": "application/json",
-            // "type": "formData"
-          },
-        }
-      );
-      if (response) {
-        this.setState({ pitchpdffile: response.data.data.upfile });
-        this.props.onInput(
-          "tudPitchDeck",
-          JSON.stringify(response.data.data.upfile)
-        );
-      }
-
-      // this.props.onInput("tudPitchDeck",e.target.files[0])
-    }
-  };
 
   updateimg = async () => {
-    let i = 0;
-    this.props.onInput(
-      "tudStartupHighlights",
-      JSON.stringify(this.state.startuphighlight)
-    );
-
-    setTimeout(() => {
-      this.props.onInput("tudMark", JSON.stringify(this.state.marketoverview));
-    }, 3000);
+    if (this.props.adminnext) {
+      if (this.state.processtype == "next") {
+        this.props.next();
+        return;
+      } else if (this.state.processtype == "prev") {
+        this.props.prev();
+        return;
+      }
+    }
+    
+    this.props.setMultiple({
+      "tudStartupHighlights": JSON.stringify(this.state.startuphighlight),
+      "tudMark": JSON.stringify(this.state.marketoverview),
+    })
+    
     this.savedata();
   };
 
   savedata = () => {
     setTimeout(async () => {
-      console.log(this.state.marketoverview);
-      console.log(this.state.startuphighlight);
-
-      // const data = await axios.post(`${process.env.REACT_APP_BASE_URL}api/founder/Startup/uploadunicornFiles`,this.formData)
-      // .then((result) => {
-      //   console.log(result);
-      // });
-      console.log(this.props.unicorn.tudStartupHighlights);
-      console.log("tudMark", this.props.unicorn.tudBannerImage);
       Bridge.Unicorn.editunicorndraft(this.props.unicorn).then((result) => {
         if (result.status == 1) {
           this.setState({ loading: false }, () => this.props.activate());
           if (this.state.processtype == "next") {
-            //  this.props.next();
+             this.props.next();
           } else if (this.state.processtype == "prev") {
-            //  this.props.prev();
+             this.props.prev();
           } else if (this.state.processtype == "saveandproceed") {
             //  this.props.activate();
             message.success("Reference details are updated successfully.", 6);
@@ -207,137 +112,46 @@ class SupportingDocuments extends Component {
           this.setState({ loading: false });
         }
       });
-      // return;
-      if (this.state.processtype == "next") {
-        //  this.props.next();
-      } else if (this.state.processtype == "prev") {
-        //  this.props.prev();
-      }
     }, 5000);
   };
-  openpitchfile = () => {
-    let link = `${
-      process.env.REACT_APP_BASE_URL
-    }api/uploads/founders/pitch/${localStorage.getItem("founder_id")}/${
-      this.state.pitchpdffile
-    }`;
-    window.open(link, "_blank");
-  };
-  opendocumentfile = (docname) => {
-    let link = `${
-      process.env.REACT_APP_BASE_URL
-    }api/uploads/founders/documents/${localStorage.getItem(
-      "founder_id"
-    )}/${docname}`;
-    window.open(link, "_blank");
-  };
-  openNotification = (placement) => {
-    notification.success({
-      message: `Founder form is submitted successfully.`,
-      description: "Thank you for completing founder form.",
-      placement,
-    });
-    setTimeout(() => {
-      localStorage.removeItem("register_id");
-      window.location.reload();
-    }, 3000);
-  };
+
+  
   next = () => {
     this.setState({ processtype: "next" }, () => this.updateimg());
   };
   prev = () => {
-    // if(this.state.pitchpdffile){
-    //   message.warning('Please delete the existing, if you want to upload file');
-    //   return;
-    // }
     this.setState({ processtype: "prev" }, () => this.updateimg());
   };
-  deletedocument = (item) => {
-    let arr = [];
-    this.setState({ show_progress_bar: false });
-    for (let single of this.state.uploaded_document_list) {
-      if (single != item) {
-        arr = [...arr, single];
-      }
-    }
-    let params = {
-      founder_id: localStorage.getItem("founder_id"),
-      documents: arr,
-      removed_document: item,
-    };
-    Bridge.founders.delete_startup_form_document(params).then((result) => {
-      if (result.status == 1) {
-        message.success(result.message);
-        // this.getData(localStorage.getItem('founder_id'));
-        this.setState({ show_progress_bar: false });
-      } else {
-      }
-    });
-  };
-  delete_pitch_file = () => {
-    let params = {
-      founder_id: localStorage.getItem("founder_id"),
-      pitch: this.state.pitchpdffile,
-    };
-    Bridge.delete_pitch_file(params).then((result) => {
-      if (result.status == 1) {
-        message.success(result.message);
-        // this.getData(localStorage.getItem('founder_id'));
-      } else {
-        message.warning("Please try again!");
-        return;
-      }
-    });
-  };
-  openInputTypefile = () => {
-    $("#pitch_input_type_file").trigger("click");
-  };
-  triggerDocumentInputFile = () => {
-    $("#document_input_type_file").trigger("click");
-  };
+
   handleInputChange = (index, e) => {
     const { name, value } = e.target;
     const newEntries = [...this.state.marketoverview];
     newEntries[index][name] = value; // Update the specific input field
     this.setState({ marketoverview: newEntries });
+    this.props.setMultiple({
+      "tudMark": JSON.stringify(newEntries),
+    });
   };
   handleInputhighlightChange = (index, e) => {
     const { name, value } = e.target;
     const newEntries = [...this.state.startuphighlight];
     newEntries[index][name] = value; // Update the specific input field
     this.setState({ startuphighlight: newEntries });
+    this.props.setMultiple({
+      "tudStartupHighlights": JSON.stringify(newEntries)
+    })
   };
-
-  formData = new FormData();
-  saveimg = () => {};
 
   onChangeMultipleFile = async (e) => {
     const formData = new FormData();
-
-    if (e.target.name == "tudDoc1") {
-      this.setState({ doc1: e.target.files[0] });
-      this.formData.append("tudDoc1", e.target.files[0]);
-    } else if (e.target.name == "tudDoc2") {
-      this.setState({ doc2: e.target.files[0] });
-      this.formData.append("tudDoc2", e.target.files[0]);
-    } else if (e.target.name == "tudDoc3") {
-      this.setState({ doc3: e.target.files[0] });
-      this.formData.append("tudDoc3", e.target.files[0]);
-    } else if (e.target.name == "tudPitchDeck") {
+    if (e.target.name == "tudPitchDeck") {
       formData.append("upfile", e.target.files[0]);
-      console.log(formData.get("tudTempUdID"));
       formData.append("tudTempUdID", this.props.unicorn.tudTempUdID);
 
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}api/founder/Startup/uploadFiles`,
         formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            // "Accept": "application/json",
-            // "type": "formData"
-          },
-        }
+        { headers: { "Content-Type": "multipart/form-data"} }
       );
 
       if (response) {
@@ -347,9 +161,25 @@ class SupportingDocuments extends Component {
           JSON.stringify(response.data.data.upfile)
         );
       }
+    } else if (e.target.name == "tudProductDeck") {
+      formData.append("upfile", e.target.files[0]);
+      formData.append("tudTempUdID", this.props.unicorn.tudTempUdID);
+
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}api/founder/Startup/uploadFiles`,
+        formData,
+        { headers: { "Content-Type": "multipart/form-data"} }
+      );
+
+      if (response) {
+        this.setState({ productpdffile: response.data.data.upfile });
+        this.props.onInput(
+          "tudProductDeck",
+          JSON.stringify(response.data.data.upfile)
+        );
+      }
     } else if (e.target.name == "tudBannerImage") {
       formData.append("upfile", e.target.files[0]);
-      console.log(formData.get("tudTempUdID"));
       formData.append("tudTempUdID", this.props.unicorn.tudTempUdID);
 
       const response = await axios.post(
@@ -358,14 +188,11 @@ class SupportingDocuments extends Component {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            // "Accept": "application/json",
-            // "type": "formData"
           },
         }
       );
 
       if (response) {
-        // this.setState({ BannerImage: response.data.data.upfile });
         this.props.onInput(
           "tudBannerImage",
           JSON.stringify(response.data.data.upfile)
@@ -382,14 +209,11 @@ class SupportingDocuments extends Component {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            // "Accept": "application/json",
-            // "type": "formData"
           },
         }
       );
 
       if (response) {
-        // this.setState({ BannerImage: response.data.data.upfile });
         this.props.onInput(
           "tudLogoImage",
           JSON.stringify(response.data.data.upfile)
@@ -463,71 +287,48 @@ class SupportingDocuments extends Component {
                               Select Pitch PDF (Max file size should be 10MB)<span className="text-danger">*</span>
                              
                             </label>
+                            <div className="mb-1">
+                              {this.props.unicorn.tudPitchDeck != "" && JSON.parse(this.props.unicorn.tudPitchDeck) != "" ? "File Uploaded" : ""}
+                            </div>
 
                             <input
                               type="file"
                               id="pitch_input_type_file"
                               onChange={(e) => this.onChangeMultipleFile(e)}
-                              accept=".pdf,.docx"
+                              accept=".pdf"
                               name="tudPitchDeck"
                               // style={{display:'none'}}
-                            />
+                            />                        
                           </div>
                         </div>
-                        {/* <button>Add pitch File</button> */}
-                      </Spin>
-                      {/* <div className="form-group ">
-                        <div className="mt-4">
-                          <Spin spinning={this.state.formloader2}>
-                            <div className="d-flex flex-wrap justify-content-start align-items-center">
-                              <label className="mb-2">
-                                Please select document.(Maximum of 3 documents,
-                                10MB each can be uploaded)
-                              </label>
 
-                              <input
-                                type="file"
-                                multiple={true}
-                                name="tudDoc1"
-                                id="document_input_type_file"
-                                onChange={(e) => this.onChangeMultipleFile(e)}
-                                accept=".pdf"
-                              />
-                              <input
-                                type="file"
-                                name="tudDoc2"
-                                multiple={true}
-                                id="document_input_type_file"
-                                onChange={(e) => this.onChangeMultipleFile(e)}
-                                accept=".pdf"
-                              />
-                              <input
-                                name="tudDoc3"
-                                type="file"
-                                multiple={true}
-                                id="document_input_type_file"
-                                onChange={(e) => this.onChangeMultipleFile(e)}
-                                accept=".pdf"
-                              />
+                        <div className="form-group ">
+                          <div className="mt-4">
+                            <label className="mb-2">
+                              Select Product PDF (Max file size should be 10MB)
+                             
+                            </label>
+                            <div className="mb-1">
+                              {this.props.unicorn.tudProductDeck != null && this.props.unicorn.tudProductDeck != "" && JSON.parse(this.props.unicorn.tudProductDeck) != "" ? "File Uploaded" : ""}
                             </div>
-                            <div className="d-flex">
-                              <Button
-                                onClick={() => this.triggerDocumentInputFile()}
-                              >
-                                Select Documents file
-                              </Button>
-                              &nbsp;&nbsp;
-                              {this.state.documents.length > 0
-                                ? `(${this.state.documents.length} file is selected)`
-                                : ""}
-                            </div>
-                          </Spin>
 
-                          <br />
+                            <input
+                              type="file"
+                              id="product_input_type_file"
+                              onChange={(e) => this.onChangeMultipleFile(e)}
+                              accept=".pdf"
+                              name="tudProductDeck"
+                            />                        
+                          </div>
                         </div>
-                      </div> */}
+                      </Spin>
                       <div className="form-group">
                         <label for="">Banner Image<span className="text-danger">*</span></label>
+                        {
+                          this.props.unicorn.tudBannerImage != "" && JSON.parse(this.props.unicorn.tudBannerImage) != "" ? 
+                          <img style={{maxWidth:"100%"}} src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${JSON.parse(this.props.unicorn.tudBannerImage)}`} /> : null
+                        }
+                        
                         <input
                           type="file"
                           onWheel={() => document.activeElement.blur()}
@@ -538,6 +339,10 @@ class SupportingDocuments extends Component {
                       </div>{" "}
                       <div className="form-group">
                         <label for="">Select Logo<span className="text-danger">*</span></label>
+                        {
+                          this.props.unicorn.tudLogoImage != "" && JSON.parse(this.props.unicorn.tudLogoImage) != "" ? 
+                          <img style={{maxWidth:"100%"}} src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${JSON.parse(this.props.unicorn.tudLogoImage)}`} /> : null
+                        }
                         <input
                           type="file"
                           onWheel={() => document.activeElement.blur()}
@@ -549,23 +354,29 @@ class SupportingDocuments extends Component {
                       {this.state.startuphighlight.map((item, index) => {
                         return (
                           <div className="form-group">
-                            <label for=""> Highlight {index + 1}<span className="text-danger">*</span></label>
+                            <label for="">
+                              {" "}
+                              Highlight {index + 1}
+                              <span className="text-danger">*</span>
+                            </label>
+                            <>
                             <textarea
                               id="selected-field"
                               cols="30"
                               rows="6"
-                              maxLength="100"
+                              maxLength="500"
                               placeholder={this.state.titlestartuphigh[index]}
                               name="content1"
                               value={item.content1}
                               onChange={(e) => {
                                 this.handleInputhighlightChange(index, e);
-
-                                if (e.target.value.length >= 100) {
-                                  toast.error("only 100 chart");
-                                }
                               }}
+                              style={{marginBottom: "5px"}}
                             ></textarea>
+                            <div className="character-count" style={{marginBottom: "20px"}}>
+                              {`${item.content1.length}/500 characters`}
+                            </div>
+                            </>
                           </div>
                         );
                       })}
@@ -583,18 +394,19 @@ class SupportingDocuments extends Component {
                               id="selected-field"
                               cols="30"
                               rows="6"
-                              maxLength="200"
+                              maxLength="750"
                               name="content1"
                               value={item.content1}
                               onChange={(e) => {
                                 this.handleInputChange(index, e);
-                                if (e.target.value.length >= 200) {
-                                  toast.error("only 200 chart");
-                                }
                               }}
+                              style={{marginBottom: "5px"}}
                             >
                               {" "}
                             </textarea>
+                            <div className="character-count" style={{marginBottom: "20px"}}>
+                              {`${item.content1.length}/750 characters`}
+                            </div>
                           </div>
                         );
                       })}
