@@ -615,7 +615,7 @@ object-fit:cover;
 }
 
 .contact-info-card {
-  background: linear-gradient(90deg, #5c33cf, #7d56d9);
+  background: linear-gradient(90deg, #191964, #222276);
   color: white;
   border-radius: 15px;
   padding: 30px;
@@ -654,7 +654,7 @@ object-fit:cover;
 
 .social-icon {
   background-color: white;
-  color: #5c33cf;
+  color: #191964;
   width: 40px;
   height: 40px;
   display: flex;
@@ -692,7 +692,7 @@ object-fit:cover;
 }
 
 .company-info-list a {
-  color: #5c33cf;
+  color: #191964;
   text-decoration: none;
 }
 
@@ -837,7 +837,7 @@ text-align: justify;
                           className="primaryInterested"
                           style={{
                             // height: "100%",
-                            backgroundColor: "#5C33CF",
+                            backgroundColor: "#191964",
                             color: "white",
                             border: "none",
                             cursor: "pointer",
@@ -860,7 +860,7 @@ text-align: justify;
                 <div
                   className="about-all shadow-lg p-5"
                   style={{
-                    backgroundColor: "#5C33CF",
+                    backgroundColor: "#191964",
                     color: "white",
                     borderRadius: "20px",
                   }}
@@ -1033,7 +1033,7 @@ text-align: justify;
                             <div
                               style={{
                                 background:
-                                  "linear-gradient(90deg, #5C33CF, #7D56D9)",
+                                  "linear-gradient(90deg, #191964, #222276)",
                                 color: "white",
                                 padding: "20px",
                               }}
@@ -1105,7 +1105,7 @@ text-align: justify;
                             <div
                               className="shadow-lg p-5"
                               style={{
-                                backgroundColor: "#5C33CF",
+                                backgroundColor: "#191964",
                                 color: "white",
                                 borderRadius: "20px",
                               }}
@@ -1140,7 +1140,7 @@ text-align: justify;
                             <div
                               className="shadow-lg p-5"
                               style={{
-                                backgroundColor: "#5C33CF",
+                                backgroundColor: "#191964",
                                 color: "white",
                                 borderRadius: "20px",
                               }}
