@@ -1269,7 +1269,7 @@ text-align: justify;
                             <span>Website</span>
                             <p>
                               <a
-                                href={getAbsoluteUrl(item.udWebsite)}
+                                href={item.tudWebsite ? getAbsoluteUrl(item.tudWebsite) : "#"}
                                 target="_blank"
                                 rel="noreferrer"
                               >

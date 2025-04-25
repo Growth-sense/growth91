@@ -4,9 +4,9 @@ class Startup extends CI_Controller {
 
 	// get startup detailss
 	function get_startup_details() {
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -42,9 +42,9 @@ class Startup extends CI_Controller {
 
 	// update startup form details
 	function update_startup_founder() {
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -147,9 +147,9 @@ class Startup extends CI_Controller {
 
 	// update startup form details
 	function add_member_for_founder() {
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -178,9 +178,9 @@ class Startup extends CI_Controller {
 	}
 	// add startup form
 	function add_startup_form_entry(){
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -217,9 +217,9 @@ class Startup extends CI_Controller {
 	
 	// get startup form details
 	function getstartupformdetails(){
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -254,9 +254,9 @@ class Startup extends CI_Controller {
 	
 	// add unicorn in draft / temp table
 	function createunicorndraft() {
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -520,9 +520,9 @@ class Startup extends CI_Controller {
 	 
 	public function unicornListByFounders()
 	{
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -568,9 +568,9 @@ class Startup extends CI_Controller {
 	
 	// Edit Unicorn temp table
 	function editunicorndraft() {
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -842,9 +842,9 @@ class Startup extends CI_Controller {
 	}
 	// Publish unicorn
 	function publishunicorndeal() {
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -1030,9 +1030,9 @@ class Startup extends CI_Controller {
 	}
 	// Unicorn deals for Investors
 	function unicorndealsByInvestors() {
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -1084,9 +1084,9 @@ class Startup extends CI_Controller {
 	}
 	function uploadunicornFiles()
 	{
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -1202,9 +1202,9 @@ class Startup extends CI_Controller {
 	}
 	function uploadFiles()
 	{
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -1263,9 +1263,9 @@ class Startup extends CI_Controller {
 	}
 	// I am interested
 	function add_unicorn_interest() {
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -1327,9 +1327,9 @@ class Startup extends CI_Controller {
 	}
 	// List of I am interested
 	function unicorn_interested_list() {
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -1383,9 +1383,9 @@ class Startup extends CI_Controller {
 
 	// List of I am interested
 	function unicorn_Publish_unpublish() {
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -1418,9 +1418,9 @@ class Startup extends CI_Controller {
 	}
 
 	function get_founder_detail_for_unicorn() {
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -1450,9 +1450,9 @@ class Startup extends CI_Controller {
 	}
 
 	function get_payment_link() {
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -1579,6 +1579,7 @@ class Startup extends CI_Controller {
 
 			$response = curl_exec($curl);
 			$err = curl_error($curl);
+			$http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
 			curl_close($curl);
 
@@ -1586,12 +1587,28 @@ class Startup extends CI_Controller {
 				$response = [
 					'status' => '0',
 					'message'=> 'Something went wrong. Please try again later.',
+					'error_details' => $err
 				];
 			} else {
-				$response = [
-					'status' => '0',
-					'data'=> $response,
-				];
+				$decoded_response = json_decode($response, true);
+				if ($http_code >= 200 && $http_code < 300) {
+					$response = [
+						'status' => '1', // Changed to '1' for success
+						'message' => 'Payment link created successfully',
+						'data' => $decoded_response
+					];
+				} else {
+					$response = [
+						'status' => '0',
+						'message' => 'API error: ' . ($decoded_response['message'] ?? 'Unknown error'),
+						'http_code' => $http_code,
+						'error_details' => $decoded_response
+					];
+				}
+				// $response = [
+				// 	'status' => '0',
+				// 	'data'=> $response,
+				// ];
 			}
 		} else {
 			$response = [
@@ -1605,9 +1622,9 @@ class Startup extends CI_Controller {
 	}
 
 	function update_unicorn_plan_by_admin() {
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -1640,9 +1657,9 @@ class Startup extends CI_Controller {
 	}
 
 	function handle_payment_link() {
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
