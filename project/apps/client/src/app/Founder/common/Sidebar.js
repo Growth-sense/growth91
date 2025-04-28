@@ -150,7 +150,7 @@ export default class Sidebar extends Component {
           </a>
           
           {/* Future Unicorn Menu with My Plan as a Submenu */}
-          {/* <li className="hiw-li" style={{ cursor: "pointer" }} onClick={this.toggleFutureUnicorn}>
+          <li className="hiw-li" style={{ cursor: "pointer" }} onClick={this.toggleFutureUnicorn}>
             <i className="bx bx-calendar-star" style={{ fontSize: 20 }}></i>{" "}
             &nbsp;&nbsp; Future Unicorn
             <i
@@ -226,7 +226,7 @@ export default class Sidebar extends Component {
                 &nbsp;&nbsp;My Plan
               </li>
             </a>
-          </ol> */}
+          </ol>
           
           
          
