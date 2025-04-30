@@ -459,11 +459,11 @@ class Garudaaerospace extends Component {
         });
         if (this.state.check_membership_type == "premium") {
           this.setState({
-            percentage: result.data[0].premium_member_deal_percentage,
+            percentage: 3,
           });
         } else {
           this.setState({
-            percentage: result.data[0].regular_member_deal_percentage,
+            percentage: 3,
           });
         }
       } else {
@@ -1372,8 +1372,8 @@ class Garudaaerospace extends Component {
     return (
       <>
         {this.state.is_deal_visible == true ? (
-          
-          <div style={{ display: this.state.show_data }}> 
+
+          <div style={{ display: this.state.show_data }}>
             <NewWebHeader newabout={"newabout"} />
             <section
               className="deals-details-page"
@@ -1892,9 +1892,9 @@ class Garudaaerospace extends Component {
                           className="container-check"
                           style={{ fontSize: "10px" }}
                         >
-                          Convenience Fee of 2% on the investment amount at the
-                          time of investment and 2% on the sale proceeds at the
-                          time of exit is applicable.
+                          Convenience fee of 3% on the investment amount at the
+                          time of investment and 20% Carry on the sale proceeds
+                          at the time of exit is applicable.
                         </label>
                       </div>
 
@@ -2243,12 +2243,8 @@ class Garudaaerospace extends Component {
                             <img src={record.image} />
 
                             <p style={{ padding: "1px !important" }}>
-                              {record.text}
-                              {" "}
-                              <a
-                                href={record.url}
-                                target="_blank"
-                              >
+                              {record.text}{" "}
+                              <a href={record.url} target="_blank">
                                 {" "}
                                 Readmore
                               </a>
@@ -2640,148 +2636,6 @@ class Garudaaerospace extends Component {
                                                           }
                                                         )}
                                                       </p>{" "}
-                                                    </div>
-                                                  </Panel>
-                                                </Collapse>
-                                                <h1 className="text-center mb-2 mt-4">
-                                                  Growth91 Investment FAQ
-                                                </h1>
-                                                <Collapse
-                                                  expandIconPosition="left"
-                                                  accordion
-                                                >
-                                                  <Panel
-                                                    header="What is the due diligence process followed by Growth91"
-                                                    key="11"
-                                                  >
-                                                    <div
-                                                      style={{
-                                                        color: "#7f7776",
-                                                      }}
-                                                    >
-                                                      At Growth91, we follow
-                                                      stringent due-diligence
-                                                      process. We ask for
-                                                      detailed information about
-                                                      start-up and their team.
-                                                      After the scrutiny and if
-                                                      deemed fit, start-up would
-                                                      be listed on Growth91
-                                                      platform. Independent
-                                                      investment opinion and
-                                                      due-diligence report
-                                                      prepared by external
-                                                      qualified experts are made
-                                                      available for investors.
-                                                    </div>
-                                                  </Panel>
-                                                  <Panel
-                                                    header="Do you offer any guarantee on returns?"
-                                                    key="12"
-                                                  >
-                                                    <div
-                                                      style={{
-                                                        color: "#7f7776",
-                                                      }}
-                                                    >
-                                                      No, we do not guarantee
-                                                      any returns. The startup
-                                                      which is raising the money
-                                                      is also not guaranteeing
-                                                      any specific returns. In
-                                                      principle, it is not
-                                                      legally correct for the
-                                                      company to provide any
-                                                      guarantee about returns on
-                                                      equity linked securities.
-                                                    </div>
-                                                  </Panel>
-                                                  <Panel
-                                                    header="What is the refund process in case I don’t receive any allocation?"
-                                                    key="13"
-                                                  >
-                                                    <div
-                                                      style={{
-                                                        color: "#7f7776",
-                                                      }}
-                                                    >
-                                                      If an investor doesn’t
-                                                      receive the allocation,
-                                                      the investment amount will
-                                                      be refunded to the bank
-                                                      account from which the
-                                                      investment has been made.
-                                                      As per Growth91 policy,
-                                                      there will be no interest
-                                                      or compensation on these
-                                                      returned funds.
-                                                    </div>
-                                                  </Panel>
-                                                  <Panel
-                                                    header="What is the exit mechanism available for the investors"
-                                                    key="14"
-                                                  >
-                                                    <div
-                                                      style={{
-                                                        color: "#7f7776",
-                                                      }}
-                                                    >
-                                                      The Company and the
-                                                      Promoters shall make all
-                                                      reasonable endeavours to
-                                                      provide exit to the
-                                                      Investors by any of the
-                                                      following ways: 1. Initial
-                                                      Public Offer (IPO) 2.
-                                                      Merger or Acquisition
-                                                      Event 3. Buyout Event 3.
-                                                      Compulsory Call Option
-                                                      with minimum assured
-                                                      returns. (Please refer to
-                                                      investor agreement for
-                                                      more details)
-                                                    </div>
-                                                  </Panel>
-
-                                                  <Panel
-                                                    header="In which account Investor’s money are transferred"
-                                                    key="15"
-                                                  >
-                                                    <div
-                                                      style={{
-                                                        color: "#7f7776",
-                                                      }}
-                                                    >
-                                                      After all the required
-                                                      fund raising formalities
-                                                      are completed by the
-                                                      Startup, we advise
-                                                      investors to directly
-                                                      transfer funds to the
-                                                      account of respective
-                                                      Startup, dedicated for
-                                                      receiving Securities
-                                                      Application Money
-                                                    </div>
-                                                  </Panel>
-
-                                                  <Panel
-                                                    header="I have more questions; how do I contact Growth91?"
-                                                    key="16"
-                                                  >
-                                                    <div
-                                                      style={{
-                                                        color: "#7f7776",
-                                                      }}
-                                                    >
-                                                      You can always send your
-                                                      queries to{" "}
-                                                      <a href="mailto:contact@growth91.com">
-                                                        contact@growth91.com
-                                                      </a>
-                                                      , we will respond to your
-                                                      queries in shortest
-                                                      possible time.
                                                     </div>
                                                   </Panel>
                                                 </Collapse>

@@ -718,7 +718,7 @@ class Header extends Component {
                             />
                           ) : (
                             <div className="user-wrappr">
-                              {this.state.name.slice(0, 2)}
+                              {this.state.name?.slice(0, 2)}
                             </div>
                           )}
                         </a>
