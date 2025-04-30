@@ -171,7 +171,7 @@ const staticDealData = {
     `,
   ],
   aboutHeader2:
-    "What are the challanges for scale up and how these will be managed?",
+    "What are the challenges for scale up and how these will be managed?",
   aboutDetail2: [
     `The primary challenge we face in scaling our operations—especially in the agriculture segment—is the relatively slow rate of technology adoption among end-users, particularly small and marginal farmers. High upfront costs, limited awareness of drone benefits, and resistance to replacing traditional farming methods are major barriers.`,
     `To overcome this, Garuda Aerospace is strategically aligned with multiple central and state-level government initiatives designed to accelerate the adoption of drone technology:`,
