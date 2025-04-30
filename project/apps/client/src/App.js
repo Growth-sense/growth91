@@ -241,6 +241,7 @@ import  {Preview} from "./app/Unicorn/forms/Preview.jsx";
 import UnicornEnquiryFutureUnicorn from "./app/Founder/UnicornEnquiryFutureunicorn.js";
 import EleFant2 from "./app/deal-pages/EleFant2.jsx";
 import CareerCompany from "./app/deal-pages/CareerCompany.jsx";
+import Garudaaerospace from "./app/deal-pages/Garudaaerospace.jsx";
 
 ReactGA.initialize(TRACKING_ID);
 
@@ -666,6 +667,9 @@ function App() {
           </Route>
           <Route path="/theEleFant" exact>
             <ProtectDeals Component={EleFant2} />
+          </Route>
+          <Route path="/garudaaerospace" exact>
+            <ProtectDeals Component={Garudaaerospace} />
           </Route>
           <Route path="/theCareerCompany" exact>
             <ProtectDeals Component={CareerCompany} />
