@@ -1893,7 +1893,7 @@ class Garudaaerospace extends Component {
                           style={{ fontSize: "10px" }}
                         >
                           Convenience fee of 3% on the investment amount at the
-                          time of investment and 20% Carry on the sale proceeds
+                          time of investment and 20% Carry on the profit 
                           at the time of exit is applicable.
                         </label>
                       </div>
