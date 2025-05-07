@@ -801,8 +801,8 @@ class NewWebHeader extends Component {
                                       />
                                     ) : (
                                       <div className="user-wrappr">
-                                        {this.state.firstname.slice(0, 1)}
-                                        {this.state.lastname.slice(0, 1)}
+                                        {this.state.firstname?.slice(0, 1)}
+                                        {this.state.lastname?.slice(0, 1)}
                                       </div>
                                     )}
                                   </a>
@@ -827,7 +827,7 @@ class NewWebHeader extends Component {
                                       />
                                     ) : (
                                       <div className="user-wrappr">
-                                        {this.state.name.slice(0, 2)}
+                                        {this.state.name?.slice(0, 2)}
                                       </div>
                                     )}
                                   </a>
@@ -1019,8 +1019,8 @@ class NewWebHeader extends Component {
                                 />
                               ) : (
                                 <div className="user-wrappr">
-                                  {this.state.firstname.slice(0, 1)}
-                                  {this.state.lastname.slice(0, 1)}
+                                  {this.state.firstname?.slice(0, 1)}
+                                  {this.state.lastname?.slice(0, 1)}
                                 </div>
                               )}
                             </a>
@@ -1043,7 +1043,7 @@ class NewWebHeader extends Component {
                                 />
                               ) : (
                                 <div className="user-wrappr">
-                                  {this.state.name.slice(0, 2)}
+                                  {this.state.name?.slice(0, 2)}
                                 </div>
                               )}
                             </a>
