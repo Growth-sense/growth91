@@ -422,6 +422,42 @@ export const MyUnicornPlan = () => {
                         value={founderDetails.unicorn_plan}
                       />
                     </div>
+                    {/* Only show upgrade button for Silver and Gold plans */}
+                    {founderDetails?.unicorn_plan && 
+                     (founderDetails.unicorn_plan === "Silver" || founderDetails.unicorn_plan === "Gold") && (
+                      <div style={{marginTop: '24px', display: 'flex', justifyContent: 'center'}}>
+                        <button
+                          style={{
+                            padding: '12px 24px',
+                            backgroundColor: '#4F46E5',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '8px',
+                            fontSize: '16px',
+                            fontWeight: '600',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            cursor: 'pointer',
+                            transition: 'all 0.3s ease',
+                          }}
+                          onClick={() => {
+                            window.location.assign("/ViewUnicornPlan");
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = "translateY(-2px)";
+                            e.currentTarget.style.boxShadow = "0 4px 12px rgba(79, 70, 229, 0.3)";
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = "translateY(0)";
+                            e.currentTarget.style.boxShadow = "none";
+                          }}
+                        >
+                          <i className="fas fa-arrow-up" style={{marginRight: '4px'}}></i>
+                          Upgrade My Plan
+                        </button>
+                      </div>
+                    )}
                   </div>
                 ) : (
                   <div style={styles.noPlanContainer}>

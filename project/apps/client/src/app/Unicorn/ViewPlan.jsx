@@ -21,6 +21,7 @@ export const ViewPlan = () => {
   const [planStartDate, setPlanStartDate] = useState(null);
   const [planEndDate, setPlanEndDate] = useState(null);
   const [isPolicyModalVisible, setIsPolicyModalVisible] = useState(false);
+  const [isBankDetailsModalVisible, setIsBankDetailsModalVisible] = useState(false);
 
 
   
@@ -473,6 +474,33 @@ export const ViewPlan = () => {
                 ))}
               </div>
 
+              {/* Offline Payment Option */}
+              <div className="text-center mt-5">
+                <p style={{ 
+                  fontSize: "16px", 
+                  color: "#4a5568", 
+                  marginBottom: "10px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "8px"
+                }}>
+                  Prefer Offline Payment? You can also pay via bank transfer. 
+                  <span 
+                    onClick={() => setIsBankDetailsModalVisible(true)}
+                    style={{ 
+                      color: "#5469d4", 
+                      cursor: "pointer", 
+                      fontWeight: "600",
+                      display: "inline-flex",
+                      alignItems: "center"
+                    }}
+                  >
+                    👉 <span style={{ textDecoration: "underline", marginLeft: "4px" }}>Click here to view bank details</span>
+                  </span>
+                </p>
+              </div>
+
               {/* Additional Info Section */}
             </div>
           </section>
@@ -508,8 +536,8 @@ export const ViewPlan = () => {
                 onCancel={() => setIsPolicyModalVisible(false)}
                 footer={null}
                 width={800}
+                centered={true}
                 style={{
-                  top: 20,
                   borderRadius: "16px",
                   overflow: "hidden",
                 }}
@@ -824,6 +852,94 @@ export const ViewPlan = () => {
                     >
                       Close
                     </Button>
+                  </div>
+                </div>
+              </Modal>
+
+              {/* Bank Details Modal */}
+              <Modal
+                title="Bank Details"
+                open={isBankDetailsModalVisible}
+                onCancel={() => setIsBankDetailsModalVisible(false)}
+                footer={[
+                  <Button 
+                    key="close" 
+                    onClick={() => setIsBankDetailsModalVisible(false)}
+                    size="large"
+                    style={{
+                      paddingLeft: "24px",
+                      paddingRight: "24px",
+                    }}
+                  >
+                    Close
+                  </Button>
+                ]}
+                width={600}
+                centered={true}
+                style={{
+                  borderRadius: "16px",
+                  overflow: "hidden",
+                }}
+              >
+                <div style={{ padding: "20px 0" }}>
+                  <div style={{ 
+                    background: "#f8fafc", 
+                    padding: "24px", 
+                    borderRadius: "12px",
+                    marginBottom: "20px"
+                  }}>
+                    <h4 style={{ 
+                      fontSize: "18px", 
+                      fontWeight: "600", 
+                      marginBottom: "16px",
+                      color: "#1a1f36" 
+                    }}>
+                      Bank Details:
+                    </h4>
+                    
+                    <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                      <div style={{ display: "flex" }}>
+                        <div style={{ width: "160px", fontWeight: "500", color: "#64748b" }}>Account Name:</div>
+                        <div style={{ fontWeight: "500", color: "#1e293b" }}>Growth91 Advisors Private Limited</div>
+                      </div>
+                      
+                      <div style={{ display: "flex" }}>
+                        <div style={{ width: "160px", fontWeight: "500", color: "#64748b" }}>Account Number:</div>
+                        <div style={{ fontWeight: "500", color: "#1e293b" }}>50200066360849</div>
+                      </div>
+                      
+                      <div style={{ display: "flex" }}>
+                        <div style={{ width: "160px", fontWeight: "500", color: "#64748b" }}>Bank:</div>
+                        <div style={{ fontWeight: "500", color: "#1e293b" }}>HDFC Bank</div>
+                      </div>
+                      
+                      <div style={{ display: "flex" }}>
+                        <div style={{ width: "160px", fontWeight: "500", color: "#64748b" }}>Branch:</div>
+                        <div style={{ fontWeight: "500", color: "#1e293b" }}>Akola, Maharashtra</div>
+                      </div>
+                      
+                      <div style={{ display: "flex" }}>
+                        <div style={{ width: "160px", fontWeight: "500", color: "#64748b" }}>IFSC Code:</div>
+                        <div style={{ fontWeight: "500", color: "#1e293b" }}>HDFC0000221</div>
+                      </div>
+                      
+                      <div style={{ display: "flex" }}>
+                        <div style={{ width: "160px", fontWeight: "500", color: "#64748b" }}>Account Type:</div>
+                        <div style={{ fontWeight: "500", color: "#1e293b" }}>Current Account</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div style={{ 
+                    padding: "16px", 
+                    background: "#f0f9ff", 
+                    borderRadius: "8px", 
+                    borderLeft: "4px solid #0ea5e9",
+                    color: "#0c4a6e"
+                  }}>
+                    <p style={{ margin: "0", fontSize: "14px" }}>
+                      Please mail us the Transaction Reference Number and registered email address to <strong>contact@growth91.com</strong>.
+                    </p>
                   </div>
                 </div>
               </Modal>
