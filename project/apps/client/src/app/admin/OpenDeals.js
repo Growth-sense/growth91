@@ -2229,7 +2229,12 @@ class Deals extends Component {
         this.setState({
           ac_label: result.data[0].label,
         });
-        if (this.state.ac_check_membership_type == "premium") {
+        if(this.state.ac_deal_id == "44"){
+          this.setState({
+            ac_percentage: 3,
+          });
+        }
+        else if (this.state.ac_check_membership_type == "premium") {
           this.setState({
             ac_percentage: result.data[0].premium_member_deal_percentage,
           });
