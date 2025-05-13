@@ -151,7 +151,7 @@ class Founders extends Component {
                                     <br />
                                     {/* Are you a founder?{" "} */}
                                     <a
-                                      href="/founder-registration"
+                                      href="/Signup"
                                       className=""
                                       style={{ color: "#FF9C1A" }}
                                     >
@@ -177,7 +177,7 @@ class Founders extends Component {
                                       </div>
                                     ) : (
                                       <a
-                                        href="/founder-registration"
+                                        href="/Signup"
                                         className="theme-btn "
                                         type="button"
                                       >

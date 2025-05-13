@@ -368,7 +368,7 @@ class Content extends Component {
                                                         </h1>
 
                                                         <p className="text-white text-xl-left banner-txt">Access highly-vetted growth opportunities. Start your
-                                                            Investment journey with an amount as small as 5000 INR. <a href="https://growth91.com/founder-registration">Raise capital using Growth91</a>
+                                                            Investment journey with an amount as small as 5000 INR. <a href="https://growth91.com/Signup">Raise capital using Growth91</a>
                                                         </p>
 
                                                         <img src={about} alt="about" className="d-sm-none d-block" />

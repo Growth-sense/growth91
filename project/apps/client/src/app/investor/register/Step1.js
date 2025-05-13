@@ -1,16 +1,12 @@
 import React, { Component } from "react";
-import WebHeader from "../../common/WebHeader";
-import WebFooter from "../../common/WebFooter";
 import { message, Spin, Select, Radio, Input } from "antd";
 import Bridge from "../../constants/Bridge";
 import moment from "moment";
 import $ from "jquery";
 import Fetchurldata from "./Fetchurldata";
-import CountdownTimer from "timer-countdown";
 import CountrySelect from "./CountrySelect";
 import ReactGA from "react-ga4";
 import { TRACKING_ID } from "../../constants/data";
-import NewWebHeader from "../../common/NewWebHeader";
 
 ReactGA.initialize(TRACKING_ID);
 
@@ -640,20 +636,15 @@ class Step1 extends Component {
 
     return (
       <div style={{ display: this.state.show_data }}>
-        {/* <WebHeader /> */}
-        <NewWebHeader newabout={"newabout"} />
 
-        <section className="signup-section" style={{ marginTop: 30 }}>
+        <section className="signup-section" style={{ marginTop: 5, paddingTop: 0}}>
           <Fetchurldata setEmail={this.setCode} />
           <div className="container">
             <div className="row">
               <div className="col-lg-5 m-auto">
                 <Spin spinning={this.state.loading}>
                   <div className="login-form">
-                    <h3 className="text-center">Get Started</h3>
-                    <div className="or-div">
-                      <hr />
-                    </div>
+                    
 
                     {this.state.screen1 == true && (
                       <>
@@ -663,27 +654,47 @@ class Step1 extends Component {
                         )}
                         <div className="row">
                           <div className="col-lg-12">
-                            <Radio.Group
-                              className="typeofmember-radio"
-                              onChange={this.onChangeMembertype}
-                              value={this.state.typeofmember}
-                              style={{ marginBottom: 25, marginLeft: "12%" }}
-                            >
-                              <Radio value={"Indian Resident"}>
+                            <div style={{ 
+                              display: "flex", 
+                              justifyContent: "center", 
+                              marginBottom: 25 
+                            }}>
+                              <div 
+                                style={{ 
+                                  cursor: "pointer", 
+                                  padding: "10px 20px", 
+                                  fontWeight: this.state.typeofmember === "Indian Resident" ? "600" : "400",
+                                  color: this.state.typeofmember === "Indian Resident" ? "rgb(41, 23, 111)" : "#333",
+                                  borderBottom: this.state.typeofmember === "Indian Resident" ? "2px solid rgb(41, 23, 111)" : "none",
+                                  transition: "all 0.3s ease",
+                                  marginRight: "20px"
+                                }}
+                                onClick={() => {
+                                  this.onChangeMembertype({ target: { value: "Indian Resident" } });
+                                }}
+                              >
                                 Indian Resident
-                              </Radio>
-                              <Radio
-                                value={"Non Resident"}
+                              </div>
+                              <div 
+                                style={{ 
+                                  cursor: "pointer", 
+                                  padding: "10px 20px", 
+                                  fontWeight: this.state.typeofmember === "Non Resident" ? "600" : "400",
+                                  color: this.state.typeofmember === "Non Resident" ? "rgb(41, 23, 111)" : "#333",
+                                  borderBottom: this.state.typeofmember === "Non Resident" ? "2px solid rgb(41, 23, 111)" : "none",
+                                  transition: "all 0.3s ease"
+                                }}
                                 onClick={() => {
                                   ReactGA.event({
                                     category: "Investor SignUp",
                                     action: "Non Resident button clicked",
                                   });
+                                  this.onChangeMembertype({ target: { value: "Non Resident" } });
                                 }}
                               >
                                 Non Resident
-                              </Radio>
-                            </Radio.Group>
+                              </div>
+                            </div>
                           </div>
                           <div className="col-lg-6">
                             <label>
@@ -1264,27 +1275,12 @@ class Step1 extends Component {
                       <span>Already have an account?</span> &nbsp;&nbsp;
                       <a href="/Login">Log in instead</a>
                     </div>
-                    <div className="d-flex">
-                      <a
-                        onClick={() => {
-                          ReactGA.event({
-                            category: "Investor SignUp",
-                            action: "Apply as founder clicked",
-                          });
-                        }}
-                        href="/founder-registration"
-                      >
-                        Click Here
-                      </a>
-                      &nbsp;&nbsp;<span>to apply as Founder</span>
-                    </div>
                   </div>
                 </Spin>
               </div>
             </div>
           </div>
         </section>
-        <WebFooter />
       </div>
     );
   }

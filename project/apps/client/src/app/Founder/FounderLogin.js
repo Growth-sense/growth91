@@ -401,7 +401,7 @@ class FounderLogin extends Component {
                           Don’t have an account? &nbsp;&nbsp;
                           <a
                             style={{ fontSize: "18px" }}
-                            href="/founder-registration"
+                            href="/Signup"
                           >
                             Signup
                           </a>

@@ -1,14 +1,11 @@
 import React, { Component } from "react";
-import Footer from "../common/Footer";
-import WebHeader from "../common/WebHeader";
 import { message, Spin } from "antd";
 import Bridge from "../constants/Bridge";
 import $ from "jquery";
 import moment from "moment";
 import ReactGA from "react-ga4";
 import { TRACKING_ID } from "../constants/data";
-import NewWebHeader from "../common/NewWebHeader";
-import { NewWebFooter } from "../common/NewWebFooter";
+
 ReactGA.initialize(TRACKING_ID);
 class FounderRegistration extends Component {
   constructor(props) {
@@ -313,7 +310,7 @@ class FounderRegistration extends Component {
       } else {
         message.error(result.message);
         this.setState({ loading: false });
-        window.location.assign("/founder-registration");
+        window.location.assign("/Signup");
       }
     });
   };
@@ -463,16 +460,12 @@ class FounderRegistration extends Component {
   render() {
     return (
       <div style={{ display: this.state.show_data }}>
-        <NewWebHeader newabout={"newabout"}/>
-        <section className="signup-section">
+        <section className="signup-section" style={{ marginTop: 5, paddingTop: 0}}>
           <div className="container">
             <div className="row">
               <div className="col-lg-5 m-auto">
                 <Spin spinning={this.state.loading}>
-                  <div className="login-form">
-                    <h3 className="text-center">Get Started As Founder</h3>
-                    <hr />
-                    <br />
+                  <div className="login-form" >
                     {this.state.screen1 == true ? (
                       <>
                         <div className="row">
@@ -916,7 +909,6 @@ class FounderRegistration extends Component {
             </div>
           </div>
         </section>
-        <NewWebFooter />
       </div>
     );
   }

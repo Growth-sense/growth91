@@ -669,7 +669,7 @@ class Homenew extends Component {
                           >
                             <div class="form-wraper new-form-wrapper">
                               <Link
-                                to="/founder-registration"
+                                to="/Signup"
                                 class="white-btns"
                                 type="button"
                               >

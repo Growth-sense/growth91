@@ -238,7 +238,7 @@ signInWithGoogle=()=>
                     </div>
                     <div className="d-flex">
                       <span>Are you a founder looking to raise funds?</span> &nbsp;&nbsp;
-                      <a href="/founder-registration">Apply Here</a>
+                      <a href="/Signup">Apply Here</a>
                     </div>
                   </div>
                 </Spin>

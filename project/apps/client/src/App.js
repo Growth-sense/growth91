@@ -242,6 +242,7 @@ import UnicornEnquiryFutureUnicorn from "./app/Founder/UnicornEnquiryFutureunico
 import EleFant2 from "./app/deal-pages/EleFant2.jsx";
 import CareerCompany from "./app/deal-pages/CareerCompany.jsx";
 import Garudaaerospace from "./app/deal-pages/Garudaaerospace.jsx";
+import CombinedRegistration from "./app/investor/register/CombinedRegistration.js";
 
 ReactGA.initialize(TRACKING_ID);
 
@@ -350,7 +351,7 @@ function App() {
           <Route path="/Login" exact component={Login} />
           <Route path="/founder-login" exact component={FounderLogin} />
           <Route path="/Register" exact component={Register} />
-          <Route path="/Signup" exact component={Step1} />
+          <Route path="/Signup" exact component={CombinedRegistration} />
           <Route path="/resources" exact component={Howitworks} />
           <Route path="/resources" exact component={Howitworks} />
           <Route path="/How-it-works2" exact component={Howitworks2} />
@@ -367,11 +368,6 @@ function App() {
           <Route path="/founder-dashboard" exact component={FounderDashboard} />
           <Route path="/founder-investors" exact component={FounderInvestors} />
           <Route path="/founder-analytics" exact component={FounderAnalytics} />
-          <Route
-            path="/founder-registration"
-            exact
-            component={FounderRegistration}
-          />
           <Route
             path="/Investor-founder-registration"
             exact
@@ -762,8 +758,8 @@ function App() {
           <Route path="/Group-Invite"  component={familyinvite} />
           <Route path="/My-Future-unicorn" exact component={InvestorFutureunicorn} />
           <Route path="/UnicornEnquiryList" exact component={UnicornEnquiryFutureUnicorn} />
-          
 
+          
 
           <Route path="*" exact component={error} />
         </Switch>

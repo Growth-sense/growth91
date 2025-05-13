@@ -397,7 +397,6 @@ class InvestorFounderRegistration extends Component {
       } else {
         // message.error(result.message);
         this.setState({ loading: false });
-        // window.location.assign("/founder-registration");
       }
     });
   };

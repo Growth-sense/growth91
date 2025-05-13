@@ -303,7 +303,7 @@ class Home extends Component {
                             >
                               <span className="">
                                 <a
-                                  href="/founder-registration"
+                                  href="/Signup"
                                   className="raisecapitol"
                                   style={{ color: "#FF9C1A" }}                           
                                 >
