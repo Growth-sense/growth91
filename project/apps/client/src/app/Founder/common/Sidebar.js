@@ -93,7 +93,7 @@ export default class Sidebar extends Component {
               <i className="bx bx-trending-up"></i> &nbsp;&nbsp;Analytics
             </li>
           </a>
-          <a
+          {/* <a
             href="/startup-form"
             className={
               window.location.pathname === "/startup-form" ? "active" : ""
@@ -103,7 +103,7 @@ export default class Sidebar extends Component {
               <i className="bx bxs-file-doc" style={{ fontSize: 20 }}></i>{" "}
               &nbsp;&nbsp;Startup-Form
             </li>
-          </a>
+          </a> */}
           <a
             href="/founderdash-documents"
             className={
@@ -115,7 +115,7 @@ export default class Sidebar extends Component {
               &nbsp;&nbsp;Documents
             </li>
           </a>
-          <a
+          {/* <a
             href="/assessment-form"
             className={
               window.location.pathname === "/assessment-form" ? "active" : ""
@@ -125,7 +125,7 @@ export default class Sidebar extends Component {
               <i className="bx bx-calendar-star" style={{ fontSize: 20 }}></i>{" "}
               &nbsp;&nbsp;Assessment Form
             </li>
-          </a>
+          </a> */}
           <a
             href="/founder-deals"
             className={
