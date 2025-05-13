@@ -649,6 +649,19 @@ class Header extends Component {
                   <li className="nav-item">
                     <a className="nav-link"  rel="noreferrer" href="/FutureUnicorn">
                      Future Unicorns
+                     <span style={{ 
+                       backgroundColor: "#ff9c1a", 
+                       color: "white", 
+                       fontSize: "10px", 
+                       padding: "2px 6px", 
+                       borderRadius: "4px", 
+                       marginLeft: "5px",
+                       position: "relative", 
+                      top: "-8px" 
+ 
+                     }}>
+                       NEW
+                     </span>
                     </a>
                   </li>
                   {/* <li className="nav-item">
