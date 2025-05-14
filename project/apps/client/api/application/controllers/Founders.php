@@ -520,21 +520,29 @@ function addnewfounder() {
 												Thank you for registering on Growth91 as a founder.   
 											<br>
 											<br>
-											Growth91 platform enables founders in their growth journey by helping raise growth capital seamlessly. 
+											Growth91 enables founders in their growth journey by helping raise growth capital seamlessly.
 											<br>
 											<br>
-											To move forward, we would request you to complete the following to continue with the due-diligence process:
-
-											<br>1. Team Assessment Form : Survey assessment form to understand you and your team.
-											<br> 2. Start-up Form : Which gives us an understanding of your start-up.
-
-												<br>
-												<br>
-												Once the above details are submitted we will get in touch with you for the next steps.
-
+											We are excited to share that we have launched a new feature on the Growth91 platform called the <strong>Future Unicorn</strong> - a space built to help founders like you showcase your business to the world and scale faster.
 											<br>
 											<br>
-											<i> Note: If you face any difficulty, please reach out to contact@growth91.com </i>
+											Here\'s how you can list your startup under the Future Unicorn section:
+											<br>
+											<br>
+											✅ Sign up to Growth91 portal as a founder<br>
+											✅ Click on Future Unicorn from the top menu bar<br>
+											✅ Click on List Your Unicorn<br>
+											✅ Upload your pitch deck &amp; insights, and click on Publish<br>
+											✅ Your startup is listed in a desired and structured format<br>
+											✅ Get direct interest from verified investors<br>
+											✅ Choose your visibility level (Silver to Platinum)<br>
+											✅ Edit anytime as you grow
+											<br>
+											<br>
+											This feature is aimed at improving your discoverability among 2000+ registered investors, customers, advisors, and collaborators.
+											<br>
+											<br>
+											<i>If you face any difficulty, please reach out to contact@growth91.com</i>
 											<br>
 											<br>
 
