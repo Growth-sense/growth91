@@ -9,6 +9,7 @@ import { Modal, message as mess } from "antd";
 import SinglePagePDFViewer from "./components/PdfViewer/single-page";
 import { extractVideoIDFromYoutubeUrl, getAbsoluteUrl } from "./helper/utilHelper.js";
 import moment from "moment";
+import { FaYoutube, FaInstagram, FaFacebook, FaLinkedin } from 'react-icons/fa';
 
 export const FutureUnicornDescription = (props) => {
   const settings = {
@@ -1163,15 +1164,31 @@ text-align: justify;
                           <li>
                             <i className="fas fa-phone"></i>
                             {/* udStartupFounderMobileNumber */}
-                            {item.udStartupFounderMobileCountryCode
-                              ? item.udStartupFounderMobileCountryCode +
-                                item.udStartupFounderMobileNumber
+                            {(item.udStartupFounderMobileCountryCode || "") +
+                              item.udStartupFounderMobileNumber &&
+                            item.udStartupFounderMobileNumber.length > 8
+                              ? item.udStartupFounderMobileNumber.substring(
+                                  0,
+                                  2
+                                ) +
+                                "XXXXX" +
+                                item.udStartupFounderMobileNumber.substring(7)
                               : item.udStartupFounderMobileNumber}
                           </li>
                           <li>
                             <i className="fas fa-envelope"></i>
                             {/* udEmail */}
-                            {item.udEmail}
+                            {item.udEmail && item.udEmail.includes("@")
+                              ? item.udEmail.substring(
+                                  0,
+                                  item.udEmail.indexOf("@") - 3
+                                ) +
+                                "***" +
+                                "@" +
+                                item.udEmail
+                                  .substring(item.udEmail.indexOf("@") + 1)
+                                  .replace(/[^.]+/, "***")
+                              : item.udEmail}
                           </li>
                           <li>
                             <i className="fas fa-map-marker-alt"></i>
@@ -1187,7 +1204,12 @@ text-align: justify;
                                 target="_blank"
                                 className="social-icon"
                               >
-                                <i className="fab fa-youtube"></i>
+                                <img
+                                  src="/assets/logo/youtube.png"
+                                  alt="YouTube"
+                                  width="24"
+                                  height="24"
+                                />
                               </a>
                             )}
                           {item.udSocialInsta && item.udSocialInsta != "" && (
@@ -1196,7 +1218,12 @@ text-align: justify;
                               target="_blank"
                               className="social-icon"
                             >
-                              <i className="fab fa-instagram"></i>
+                              <img
+                                  src="/assets/logo/instagram.png"
+                                  alt="Instagram"
+                                  width="24"
+                                  height="24"
+                                />
                             </a>
                           )}
                           {item.udSocialFacebook &&
@@ -1206,7 +1233,12 @@ text-align: justify;
                                 target="_blank"
                                 className="social-icon"
                               >
-                                <i className="fab fa-facebook-f"></i>
+                                <img
+                                  src="/assets/logo/facebook.png"
+                                  alt="Facebook"
+                                  width="24"
+                                  height="24"
+                                />
                               </a>
                             )}
                           {item.udSocialLinkedIn &&
@@ -1216,7 +1248,12 @@ text-align: justify;
                                 target="_blank"
                                 className="social-icon"
                               >
-                                <i className="fab fa-linkedin"></i>
+                                <img
+                                  src="/assets/logo/linkedin.png"
+                                  alt="Linkedin"
+                                  width="24"
+                                  height="24"
+                                />
                               </a>
                             )}
                         </div>
@@ -1237,7 +1274,11 @@ text-align: justify;
                               <span>Website</span>
                               <p>
                                 <a
-                                  href={item.udWebsite ? getAbsoluteUrl(item.udWebsite) : "#"}
+                                  href={
+                                    item.udWebsite
+                                      ? getAbsoluteUrl(item.udWebsite)
+                                      : "#"
+                                  }
                                   target="_blank"
                                   rel="noreferrer"
                                 >

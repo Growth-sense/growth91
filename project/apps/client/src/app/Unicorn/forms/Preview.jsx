@@ -1063,7 +1063,10 @@ text-align: justify;
                               </div>
                             </div>
                             {/* Description Section */}
-                            <div className="p-3" style={{ height: "210px", textAlign:'justify' }}>
+                            <div
+                              className="p-3"
+                              style={{ height: "210px", textAlign: "justify" }}
+                            >
                               <p>
                                 {itemudVendorId.description1
                                   ? itemudVendorId.description1
@@ -1195,15 +1198,31 @@ text-align: justify;
                         <li>
                           <i className="fas fa-phone"></i>
                           {/* udStartupFounderMobileNumber */}
-                          {item.tudStartupFounderMobileCountryCode
-                            ? item.tudStartupFounderMobileCountryCode +
-                              item.tudStartupFounderMobileNumber
+                          {(item.tudStartupFounderMobileCountryCode || "") +
+                            item.tudStartupFounderMobileNumber &&
+                          item.tudStartupFounderMobileNumber.length > 8
+                            ? item.tudStartupFounderMobileNumber.substring(
+                                0,
+                                2
+                              ) +
+                              "XXXXX" +
+                              item.tudStartupFounderMobileNumber.substring(7)
                             : item.tudStartupFounderMobileNumber}
                         </li>
                         <li>
                           <i className="fas fa-envelope"></i>
                           {/* udEmail */}
-                          {item.tudEmail}
+                          {item.tudEmail && item.tudEmail.includes("@")
+                            ? item.tudEmail.substring(
+                                0,
+                                item.tudEmail.indexOf("@") - 3
+                              ) +
+                              "***" +
+                              "@" +
+                              item.tudEmail
+                                .substring(item.tudEmail.indexOf("@") + 1)
+                                .replace(/[^.]+/, "***")
+                            : item.tudEmail}
                         </li>
                         <li>
                           <i className="fas fa-map-marker-alt"></i>
@@ -1219,7 +1238,12 @@ text-align: justify;
                               target="_blank"
                               className="social-icon"
                             >
-                              <i className="fab fa-youtube"></i>
+                              <img
+                                  src="/assets/logo/youtube.png"
+                                  alt="YouTube"
+                                  width="24"
+                                  height="24"
+                                />
                             </a>
                           )}
                         {item.tudSocialInsta && item.tudSocialInsta != "" && (
@@ -1228,7 +1252,12 @@ text-align: justify;
                             target="_blank"
                             className="social-icon"
                           >
-                            <i className="fab fa-instagram"></i>
+                            <img
+                                  src="/assets/logo/instagram.png"
+                                  alt="Instagram"
+                                  width="24"
+                                  height="24"
+                                />
                           </a>
                         )}
                         {item.tudSocialFacebook &&
@@ -1238,7 +1267,12 @@ text-align: justify;
                               target="_blank"
                               className="social-icon"
                             >
-                              <i className="fab fa-facebook-f"></i>
+                              <img
+                                  src="/assets/logo/facebook.png"
+                                  alt="Facebook"
+                                  width="24"
+                                  height="24"
+                                />
                             </a>
                           )}
                         {item.tudSocialLinkedIn &&
@@ -1248,7 +1282,12 @@ text-align: justify;
                               target="_blank"
                               className="social-icon"
                             >
-                              <i className="fab fa-linkedin"></i>
+                              <img
+                                  src="/assets/logo/linkedin.png"
+                                  alt="Linkedin"
+                                  width="24"
+                                  height="24"
+                                />
                             </a>
                           )}
                       </div>
@@ -1269,7 +1308,11 @@ text-align: justify;
                             <span>Website</span>
                             <p>
                               <a
-                                href={item.tudWebsite ? getAbsoluteUrl(item.tudWebsite) : "#"}
+                                href={
+                                  item.tudWebsite
+                                    ? getAbsoluteUrl(item.tudWebsite)
+                                    : "#"
+                                }
                                 target="_blank"
                                 rel="noreferrer"
                               >
