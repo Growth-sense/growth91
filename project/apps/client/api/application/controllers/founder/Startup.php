@@ -1082,6 +1082,68 @@ class Startup extends CI_Controller {
 		->set_content_type('application/json')
 		->set_output(json_encode($response));	
 	}
+
+	// Unicorn deals for Investors
+	function getAllUnicorns() {
+		// header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		// header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		if(!empty($formdata)) {
+			// POst data for table 1
+			extract($formdata);
+			/* Steps
+			Assume that form data have keys to filter so build SQL String
+
+			 */
+			$whereClause= " 1 = 1 ";
+			foreach($formdata as $Key => $Value)
+			{
+				if($Key!="page" && $Key!="pagesize" )
+				{
+					if($Key=="udPublished")
+					{
+						$whereClause.= " AND ".$Key." = '".$Value."' ";
+					}
+					else
+					{
+					$whereClause.= " AND ".$Key." LIKE '%".$Value."%' ";
+					}
+				}
+				
+			}
+			
+			//Step1
+			$sql= <<<EOT
+			SELECT tempunicorndeals.*,tempunicorndeals2.*, ud.udPublished as mainPublished
+			FROM tempunicorndeals 
+			LEFT JOIN tempunicorndeals2 on tempunicorndeals.tudTempUdID = tempunicorndeals2.tudTempUdID 
+			LEFT JOIN unicorndeals ud ON tempunicorndeals.tudTempUdID = ud.unicornDealID 
+			WHERE $whereClause
+			EOT;
+			
+			$query = $this->db->query($sql);
+			//echo $sql;die;
+			$list = $query->result();
+			$response = [
+				'status' => '1',
+				'message'=> 'Data found.',
+				'data'=>$list,
+			];
+		} else {
+			$response = [
+				'status' => '0',
+				'message'=> 'Please enter values of all fields.',
+			];
+		}
+		$this->output
+		->set_content_type('application/json')
+		->set_output(json_encode($response));	
+	}
+
 	function uploadunicornFiles()
 	{
 		// header("Access-Control-Allow-Origin: *");

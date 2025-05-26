@@ -8,7 +8,7 @@ export default class Sidebar2 extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      is_founder: "1",
+      is_founder: localStorage.getItem("founder_is_investor")
     };
   }
   componentDidMount() {
@@ -194,102 +194,58 @@ export default class Sidebar2 extends Component {
               </li>
             </a>
            
-          {/* <div>
+          
+             {this.state.is_founder == "1" ? (
+              <div
+          style={{marginBottom: "30px"}}
+            onClick={() => {
+              let founderId = localStorage.getItem("investor_id");
+              let founderName = localStorage.getItem("investor_name");
+              let founderEmail = localStorage.getItem("investor_email");
+              let founderKyc = localStorage.getItem("investor_kycstatus");
+
+              localStorage.setItem("founder_id", founderId);
+              localStorage.setItem("founder_name", founderName);
+              localStorage.setItem("founder_email", founderEmail);
+              localStorage.setItem("founder_kycstatus", founderKyc);
+
+              localStorage.removeItem("investor_id");
+              localStorage.removeItem("Parent_investor_id");
+              localStorage.removeItem("investor_name");
+              localStorage.removeItem("Parent_investor_name");
+              localStorage.removeItem("investor_email");
+              localStorage.removeItem("Parent_investor_email");
+              localStorage.removeItem("investor_kycstatus");
+              localStorage.removeItem("Parent_investor_kycstatus");
+
+              // add delay of 1 second before window location assign so that localstorage gets update
+              setTimeout(() => {
+                window.location.assign("/founder-dashboard");
+              }, 1000);
+              
+            }}
+          >
             <a
-              href="/founder-as-investor"
+              href="#"
               style={{
-                background: "#fff",
+                background: "#ff9c1a",
+                color: "#fff",
                 padding: "7px 14px",
                 position: "relative",
                 left: 32,
                 top: 20,
+                borderRadius: "20px"
               }}
             >
-              Apply As Founder
+              Switch to Founder Dashboard
             </a>
-          </div> */}
-             {this.state.is_founder !== "1" ? (
-          <div className="founder-side-extra-role">
-            <div className="founder-role-heading">
-              <p>Founder</p>
-            </div>
-            <a
-            href="/investor-as-founder-dashboard"
-            className={
-              window.location.pathname == "/investor-as-founder-dashboard" ? "active" : ""
-            }
-          >
-            <li className="hiw-li ">
-              <i className="bx bx-grid-alt "></i> &nbsp;&nbsp;Dashboard
-            </li>
-          </a>
-            <a
-              href="/investor-as-founder-investors"
-              className={
-                window.location.pathname == "/investor-as-founder-investors"
-                  ? "active"
-                  : ""
-              }
-            >
-              <li className="hiw-li">
-              <i className="bx bxs-user-account"></i>
-                &nbsp;&nbsp;Investors
-              </li>
-            </a>
-            <a
-              href="/investor-as-founder-analytics"
-              className={
-                window.location.pathname == "/investor-as-founder-analytics"
-                  ? "active"
-                  : ""
-              }
-            >
-              <li className="hiw-li">
-              <i className="bx bx-trending-up"></i> &nbsp;&nbsp;Analytics
-            </li>
-            </a>
-            <a
-              href="/investor-as-founder-startup-form"
-              className={
-                window.location.pathname == "/investor-as-founder-startup-form"
-                  ? "active"
-                  : ""
-              }
-            >
-              <li className="hiw-li">
-              <i className="bx bxs-file-doc" style={{ fontSize: 20 }}></i>{" "}
-              &nbsp;&nbsp;Startup-Form
-            </li>
-            </a>
-            <a
-              href="/founder-as-investor-assessment-form"
-              className={
-                window.location.pathname == "/founder-as-investor-assessment-form"
-                  ? "active"
-                  : ""
-              }
-            >
-             <li className="hiw-li">
-              <i className="bx bx-calendar-star" style={{ fontSize: 20 }}></i>{" "}
-              &nbsp;&nbsp;Assessment Form
-            </li>
-            </a>
-            <a
-            href="/founder-deals"
-            className={
-              window.location.pathname == "/founder-deals" ? "active" : ""
-            }
-          >
-            <li className="hiw-li">
-              <i className="bx bx-calendar-star" style={{ fontSize: 20 }}></i>{" "}
-              &nbsp;&nbsp;Deals
-            </li>
-          </a>
           </div>
+          
         ) : 
 
         (
           <div
+          style={{marginBottom: "30px"}}
             onClick={() => {
               ReactGA.event({
                 category: "Founder",
@@ -300,12 +256,13 @@ export default class Sidebar2 extends Component {
             <a
               href="/investor-as-founder"
               style={{
-                background: "#fff",
+                background: "#ff9c1a",
+                color: "#fff",
                 padding: "7px 14px",
                 position: "relative",
                 left: 32,
                 top: 20,
-                display:"none",
+                borderRadius: "20px"
               }}
             >
               Apply As Founder

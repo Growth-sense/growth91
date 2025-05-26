@@ -610,6 +610,13 @@ class Investor extends CI_Controller
 				'is_investor' => $is_investor,
 				'ip_address' => $_SERVER['REMOTE_ADDR'],
 			];
+
+			if (isset($formdata['companyName'])) {
+				$companyName = $formdata['companyName'];
+				$data['startup_name'] = $companyName;
+				$data['user_type'] = 'founder';
+			}
+
 			$this->db->where('investor_id', $id);
 			$res = $this->db->update('users', $data);
 

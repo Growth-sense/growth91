@@ -68,7 +68,8 @@ class NationalityDetails extends Component {
           researchstatus:false,
           formloader:false,
           typeofmember:'Indian Resident',
-          is_investor:"1"
+          is_investor:"1",
+          companyName: this.state.companyName
       }
       Bridge.investor.updaterstatus(params).then((result) => {
           if (result.status == 1) {
@@ -123,15 +124,6 @@ class NationalityDetails extends Component {
                 </Breadcrumb>
                 {/* main form  */}
                 <div className="row">
-                    <div className='col-12'>
-                        <ul className="disc-list">
-                            <li>Lorem ipsum dolor sit amet.</li>
-                            <li>Lorem ipsum dolor sit amet.</li>
-                            <li>Lorem ipsum dolor sit amet.</li>
-                            <li>Lorem ipsum dolor sit amet.</li>
-                            <li>Lorem ipsum dolor sit amet.</li>
-                        </ul>
-                    </div>
                     <div className="col-lg-6">
                         <label>
                             Company Name{" "}

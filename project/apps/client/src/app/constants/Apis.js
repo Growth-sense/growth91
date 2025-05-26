@@ -274,6 +274,7 @@ const URLs = {
   editunicorndraft:"founder/Startup/editunicorndraft",
   publishunicorndeal:"founder/Startup/publishunicorndeal",
   unicorndealsByInvestors:"founder/Startup/unicorndealsByInvestors",
+  getAllUnicorns:"founder/Startup/getAllUnicorns",
   uploadunicornFiles:"founder/Startup/uploadunicornFiles",
   uploadFiles:"founder/Startup/uploadFiles",
   add_unicorn_interest:"founder/Startup/add_unicorn_interest",

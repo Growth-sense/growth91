@@ -233,76 +233,53 @@ export default class Sidebar extends Component {
         </div>
 
         {this.state.is_investor === "1" ? (
-          <div className="founder-side-extra-role">
-            <div className="founder-role-heading">
-              <p>Investor</p>
-            </div>
+          <div
+            onClick={() => {
+              let founderId = localStorage.getItem("founder_id");
+              let founderName = localStorage.getItem("founder_name");
+              let founderEmail = localStorage.getItem("founder_email");
+              let founderKyc = localStorage.getItem("founder_kycstatus");
+
+              localStorage.setItem("investor_id", founderId);
+              localStorage.setItem("Parent_investor_id", founderId);
+
+              localStorage.setItem("investor_name", founderName);
+              localStorage.setItem("Parent_investor_name", founderName);
+
+              localStorage.setItem("investor_email", founderEmail);
+              localStorage.setItem("Parent_investor_email", founderEmail);
+
+              localStorage.setItem("investor_kycstatus", founderKyc);
+              localStorage.setItem("Parent_investor_kycstatus", founderKyc);
+
+              localStorage.removeItem("founder_id");
+              localStorage.removeItem("founder_name");
+              localStorage.removeItem("founder_email");
+              localStorage.removeItem("founder_kycstatus");
+
+              // add delay of 1 second before window location assign so that localstorage gets update
+              setTimeout(() => {
+                window.location.assign("/investor-dashboard");
+              }, 1000);
+            }}
+          >
             <a
-              href="/founder-as-investor-dashboard"
-              className={
-                window.location.pathname === "/founder-as-investor-dashboard"
-                  ? "active"
-                  : ""
-              }
+              href="#"
+              style={{
+                background: "#ff9c1a",
+                color: "#fff",
+                padding: "7px 14px",
+                position: "relative",
+                left: 32,
+                top: 20,
+                borderRadius: "20px"
+              }}
             >
-              <li className="hiw-li">
-                <i className="bx bx-calendar-star" style={{ fontSize: 20 }}></i>{" "}
-                &nbsp;&nbsp;Dashboard
-              </li>
+              Switch to Investor Dashboard
             </a>
-            <a
-              href="/founder-as-investor-portfolio"
-              className={
-                window.location.pathname === "/founder-as-investor-portfolio"
-                  ? "active"
-                  : ""
-              }
-            >
-              <li className="hiw-li">
-                <i className="bx bx-calendar-star" style={{ fontSize: 20 }}></i>{" "}
-                &nbsp;&nbsp;Portfolio
-              </li>
-            </a>
-            <a
-              href="/founder-as-investor-analytics"
-              className={
-                window.location.pathname === "/founder-as-investor-analytics"
-                  ? "active"
-                  : ""
-              }
-            >
-              <li className="hiw-li">
-                <i className="bx bx-calendar-star" style={{ fontSize: 20 }}></i>{" "}
-                &nbsp;&nbsp;Analytics
-              </li>
-            </a>
-            <a
-              href="/founder-as-investor-transactions"
-              className={
-                window.location.pathname === "/founder-as-investor-transactions"
-                  ? "active"
-                  : ""
-              }
-            >
-              <li className="hiw-li">
-                <i className="bx bx-calendar-star" style={{ fontSize: 20 }}></i>{" "}
-                &nbsp;&nbsp;Transactions
-              </li>
-            </a>
-            <a
-              href="/founder-as-investor-referral"
-              className={
-                window.location.pathname === "/founder-as-investor-referral"
-                  ? "active"
-                  : ""
-              }
-            >
-              <li className="hiw-li">
-                <i className="bx bx-calendar-star" style={{ fontSize: 20 }}></i>{" "}
-                &nbsp;&nbsp;Referral
-              </li>
-            </a>
+
           </div>
+          
         ) : (
           <div
             
@@ -316,7 +293,8 @@ export default class Sidebar extends Component {
             <a
               href="/founder-as-investor"
               style={{
-                background: "#fff",
+                background: "#ff9c1a",
+                color: "#fff",
                 padding: "7px 14px",
                 position: "relative",
                 left: 32,

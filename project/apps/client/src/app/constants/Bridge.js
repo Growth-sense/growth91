@@ -986,6 +986,10 @@ export default {
       api.post(URLs.unicorndealsByInvestors, data).then((response) => {
         return response.data;
       }),
+    getAllUnicorns: (data) =>
+      api.post(URLs.getAllUnicorns, data).then((response) => {
+        return response.data;
+      }),
     uploadunicornFiles: (data) =>
       api.post(URLs.uploadunicornFiles, data).then((response) => {
         return response.data;

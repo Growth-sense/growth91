@@ -79,10 +79,8 @@ import Paiddocuments from "./app/admin/components/modal/Paiddocuments";
 import FounderDashboard from "./app/Founder/FounderDashboard";
 import FounderInvestors from "./app/Founder/FounderInvestors";
 import FounderAnalytics from "./app/Founder/FounderAnalytics";
-import FounderLogin from "./app/Founder/FounderLogin";
 import ReferLogin from "./app/ReferLogin";
 import InvestorKYCScreen from "./app/investor/KYCScreen";
-import InvestorRegistration from "./app/investor/register/Step2";
 import Investordashbord from "./app/investor/Dashboard";
 import InvestorPortfolio from "./app/investor/Portfolio";
 import InvestorAnalytics from "./app/investor/Analytics";
@@ -148,7 +146,6 @@ import TransBankPublic from "./app/deal-pages/TransBankPublic";
 import Test from "./app/components/Alerts/investment/Test";
 import Step1 from "./app/investor/register/Step1";
 import FounderRegistration from "./app/Founder/FounderRegistration";
-import InvestorFounderRegistration from "./app/Founder/InvestorFounderRegistration.jsx";
 import OfflinePayments from "./app/admin/OfflinePayment";
 import covertfoundertoinvestor from "./app/Founder/NationalityDetails";
 // foudner as investor
@@ -243,6 +240,7 @@ import EleFant2 from "./app/deal-pages/EleFant2.jsx";
 import CareerCompany from "./app/deal-pages/CareerCompany.jsx";
 import Garudaaerospace from "./app/deal-pages/Garudaaerospace.jsx";
 import CombinedRegistration from "./app/investor/register/CombinedRegistration.js";
+import UnicornAdminAll from "./app/admin/UnicornAdminAll.jsx";
 
 ReactGA.initialize(TRACKING_ID);
 
@@ -349,7 +347,7 @@ function App() {
           <Route path="/Learn" exact component={Learn} />
           <Route path="/Contact-us" exact component={Contact} />
           <Route path="/Login" exact component={Login} />
-          <Route path="/founder-login" exact component={FounderLogin} />
+          <Route path="/founder-login" exact component={Login} />
           <Route path="/Register" exact component={Register} />
           <Route path="/Signup" exact component={CombinedRegistration} />
           <Route path="/resources" exact component={Howitworks} />
@@ -371,7 +369,7 @@ function App() {
           <Route
             path="/Investor-founder-registration"
             exact
-            component={InvestorFounderRegistration}
+            component={CombinedRegistration}
           />
           <Route
             path="/investor-dashboard"
@@ -384,7 +382,7 @@ function App() {
           <Route
             path="/investor-registration"
             exact
-            component={InvestorRegistration}
+            component={CombinedRegistration}
           />
           <Route
             path="/investor-portfolio"
@@ -420,6 +418,7 @@ function App() {
           <Route path="/admin-startups" exact component={adminstartups} />
           <Route path="/admin-family" exact component={FamilyAdmin} />
           <Route path="/admin-unicorn" exact component={UnicornAdmin} />
+          <Route path="/admin-all-unicorn" exact component={UnicornAdminAll} />
           <Route path="/family-Remove-Request" exact component={familyRemoveRequest} />
           <Route path="/admin-family-manage" exact component={Familymanage} />
           <Route path="/future-unicorn-startups" exact component={FUnicornStartup} />
