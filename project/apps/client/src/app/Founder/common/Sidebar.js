@@ -234,6 +234,14 @@ export default class Sidebar extends Component {
 
         {this.state.is_investor === "1" ? (
           <div
+            style={{
+              background: "#ff9c1a",
+              color: "#fff",
+              borderRadius: "20px",
+              margin: "20px auto",
+              textAlign: "center",
+              maxWidth: "80%",
+            }}
             onClick={() => {
               let founderId = localStorage.getItem("founder_id");
               let founderName = localStorage.getItem("founder_name");
@@ -264,21 +272,18 @@ export default class Sidebar extends Component {
             }}
           >
             <a
-              href="#"
               style={{
-                background: "#ff9c1a",
                 color: "#fff",
-                padding: "7px 14px",
-                position: "relative",
-                left: 32,
-                top: 20,
-                borderRadius: "20px"
+                padding: "10px",
+                display: "block",
+                textDecoration: "none"
               }}
+              href="#"
             >
               Switch to Investor Dashboard
             </a>
-
           </div>
+
           
         ) : (
           <div

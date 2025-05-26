@@ -197,49 +197,54 @@ export default class Sidebar2 extends Component {
           
              {this.state.is_founder == "1" ? (
               <div
-          style={{marginBottom: "30px"}}
-            onClick={() => {
-              let founderId = localStorage.getItem("investor_id");
-              let founderName = localStorage.getItem("investor_name");
-              let founderEmail = localStorage.getItem("investor_email");
-              let founderKyc = localStorage.getItem("investor_kycstatus");
+                style={{
+                  background: "#ff9c1a",
+                  color: "#fff",
+                  borderRadius: "20px",
+                  margin: "20px auto",
+                  textAlign: "center",
+                  maxWidth: "80%",
+                }}
+                onClick={() => {
+                  let founderId = localStorage.getItem("investor_id");
+                  let founderName = localStorage.getItem("investor_name");
+                  let founderEmail = localStorage.getItem("investor_email");
+                  let founderKyc = localStorage.getItem("investor_kycstatus");
 
-              localStorage.setItem("founder_id", founderId);
-              localStorage.setItem("founder_name", founderName);
-              localStorage.setItem("founder_email", founderEmail);
-              localStorage.setItem("founder_kycstatus", founderKyc);
+                  localStorage.setItem("founder_id", founderId);
+                  localStorage.setItem("founder_name", founderName);
+                  localStorage.setItem("founder_email", founderEmail);
+                  localStorage.setItem("founder_kycstatus", founderKyc);
 
-              localStorage.removeItem("investor_id");
-              localStorage.removeItem("Parent_investor_id");
-              localStorage.removeItem("investor_name");
-              localStorage.removeItem("Parent_investor_name");
-              localStorage.removeItem("investor_email");
-              localStorage.removeItem("Parent_investor_email");
-              localStorage.removeItem("investor_kycstatus");
-              localStorage.removeItem("Parent_investor_kycstatus");
+                  localStorage.removeItem("investor_id");
+                  localStorage.removeItem("Parent_investor_id");
+                  localStorage.removeItem("investor_name");
+                  localStorage.removeItem("Parent_investor_name");
+                  localStorage.removeItem("investor_email");
+                  localStorage.removeItem("Parent_investor_email");
+                  localStorage.removeItem("investor_kycstatus");
+                  localStorage.removeItem("Parent_investor_kycstatus");
 
-              // add delay of 1 second before window location assign so that localstorage gets update
-              setTimeout(() => {
-                window.location.assign("/founder-dashboard");
-              }, 1000);
-              
-            }}
-          >
-            <a
-              href="#"
-              style={{
-                background: "#ff9c1a",
-                color: "#fff",
-                padding: "7px 14px",
-                position: "relative",
-                left: 32,
-                top: 20,
-                borderRadius: "20px"
-              }}
-            >
-              Switch to Founder Dashboard
-            </a>
-          </div>
+                  // add delay of 1 second before window location assign so that localstorage gets update
+                  setTimeout(() => {
+                    window.location.assign("/founder-dashboard");
+                  }, 1000);
+
+                }}
+              >
+                <a
+                  style={{
+                    color: "#fff",
+                    padding: "10px",
+                    display: "block",
+                    textDecoration: "none"
+                  }}
+                  href="#"
+                >
+                  Switch to Founder Dashboard
+                </a>
+              </div>
+
           
         ) : 
 
