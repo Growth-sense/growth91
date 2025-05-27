@@ -827,10 +827,23 @@ text-align: justify;
                     </div>
 
                     {/* Text Section */}
-                    <div className="text-section d-flex justify-content-around align-items-center">
-                      <div className="pe-5">
-                        <h3>{item.tudStartupName}</h3>
-                      </div>
+                    <div className="text-section">
+                        <h1>{item.tudStartupName}</h1>
+                      {item.tudTag && item.tudTag !== "None" && (
+                          <div style={{ marginTop: "8px", marginBottom: "8px" }}>
+                            <span style={{
+                              display: "inline-block",
+                              backgroundColor: "#e6f7ff",
+                              color: "#0066cc",
+                              padding: "3px 10px",
+                              borderRadius: "4px",
+                              fontSize: "12px",
+                              fontWeight: "500"
+                            }}>
+                              {item.tudTag}
+                            </span>
+                          </div>
+                        )}
                       <div>
                         <button
                           onClick={openiamintrest}

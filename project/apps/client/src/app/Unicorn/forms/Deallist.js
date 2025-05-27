@@ -321,6 +321,59 @@ class Dellistinicorn extends Component {
                           }
                         />
                       </div>{" "}
+                   
+                      <div className="form-group">
+                        <label for="">Tag for your profile<span className="text-danger">*</span></label>
+                        <div className="radio-options" style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                          <label style={{ display: "flex", alignItems: "flex-start", fontSize: "14px" }}>
+                            <input
+                              type="radio"
+                              name="tudTag"
+                              value="Need Investment"
+                              onChange={(e) => this.props.onInput(e.target.name, e.target.value)}
+                              checked={this.props.unicorn.tudTag === "Need Investment"}
+                              style={{ marginRight: "8px", width: "16px", height: "16px", marginTop: "2px" }}
+                            />
+                            <span>Need Investment</span>
+                          </label>
+                          <label style={{ display: "flex", alignItems: "flex-start", fontSize: "14px" }}>
+                            <input
+                              type="radio"
+                              name="tudTag"
+                              value="Hiring"
+                              onChange={(e) => this.props.onInput(e.target.name, e.target.value)}
+                              checked={this.props.unicorn.tudTag === "Hiring"}
+                              style={{ marginRight: "8px", width: "16px", height: "16px", marginTop: "2px" }}
+                            />
+                            <span>Hiring</span>
+                          </label>
+                          <label style={{ display: "flex", alignItems: "flex-start", fontSize: "14px" }}>
+                            <input
+                              type="radio"
+                              name="tudTag"
+                              value="Looking for Growth Partnerships"
+                              onChange={(e) => this.props.onInput(e.target.name, e.target.value)}
+                              checked={this.props.unicorn.tudTag === "Looking for Growth Partnerships"}
+                              style={{ marginRight: "8px", width: "16px", height: "16px", marginTop: "2px" }}
+                            />
+                            <span>Looking for Growth Partnerships</span>
+                          </label>
+                          <label style={{ display: "flex", alignItems: "flex-start", fontSize: "14px" }}>
+                            <input
+                              type="radio"
+                              name="tudTag"
+                              value="None"
+                              checked={this.props.unicorn.tudTag === "None"}
+                              onChange={(e) => this.props.onInput(e.target.name, e.target.value)}
+                              style={{ marginRight: "8px", width: "16px", height: "16px", marginTop: "2px" }}
+                            />
+                            <span>None</span>
+                          </label>
+                        </div>
+                      </div>
+
+                      
+                        
                       <div
                         className="form-group  justify-content-between"
                         style={{ display: "none !important" }}

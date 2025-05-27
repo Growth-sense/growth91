@@ -356,7 +356,23 @@ const Newunicornfounder = () => {
                         />
                         <h5>{item.udStartupName}</h5>
                       </li>
+                     
                     </ul>
+                     {item.udTag && item.udTag !== "None" && (
+                          <div style={{ marginTop: "8px" }}>
+                            <span style={{
+                              display: "inline-block",
+                              backgroundColor: "#e6f7ff",
+                              color: "#0066cc",
+                              padding: "3px 10px",
+                              borderRadius: "4px",
+                              fontSize: "12px",
+                              fontWeight: "500"
+                            }}>
+                              {item.udTag}
+                            </span>
+                          </div>
+                        )}
                     <p style={{
                           WebkitLineClamp: 3,
                           WebkitBoxOrient: "vertical",
