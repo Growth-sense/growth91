@@ -1063,7 +1063,13 @@ class Startup extends CI_Controller {
 
 			
 			//Step1
-			$sql= "SELECT unicorndeals.*,unicorndeals2.*  FROM unicorndeals LEFT JOIN unicorndeals2 on unicorndeals.unicornDealID = unicorndeals2.unicornDealID WHERE ".$whereClause;	
+			$sql= <<<EOT
+			SELECT unicorndeals.*, unicorndeals2.* , users.unicorn_start_date, users.unicorn_end_date, users.left_edit, users.unicorn_plan, users.utrref
+			FROM unicorndeals 
+			LEFT JOIN unicorndeals2 on unicorndeals.unicornDealID = unicorndeals2.unicornDealID
+			LEFT JOIN users on unicorndeals.udFounderID = users.investor_id
+			WHERE $whereClause
+			EOT;
 			$query = $this->db->query($sql);
 			//echo $sql;die;
 			$list = $query->result();

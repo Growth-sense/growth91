@@ -13,6 +13,7 @@ import {
   Dropdown,
   Menu,
   Input,
+  DatePicker,
 } from "antd";
 import Navbar from "./common/Navbar";
 import BottomBar from "./common/BottomBar";
@@ -79,6 +80,7 @@ class UnicornAdmin extends Component {
       formpreviewid: "",
       previewmodal: false,
       formpreviewmodal: false,
+      viewPlanModel: false,
     };
   }
 
@@ -574,6 +576,25 @@ class UnicornAdmin extends Component {
               <Menu.Item icon={<ManOutlined />}>
                 <a
                   style={{ fontSize: 14 }}
+                  onClick={() =>{
+                    this.setState({
+                      viewPlanModel: true,
+                      edit_unicorn_plan_name: record.action.unicorn_plan,
+                      edit_unicorn_plan_start_date: record.action.unicorn_start_date ? moment(record.action.unicorn_start_date, "YYYY-MM-DD HH:mm:ss") : null,
+                      edit_unicorn_plan_end_date: record.action.unicorn_end_date ? moment(record.action.unicorn_end_date, "YYYY-MM-DD HH:mm:ss") : null,
+                      edit_unicorn_plan_left_edit: record.action.left_edit,
+                      edit_unicorn_utr_ref: record.action.utrref
+                    })
+                  }
+                    
+                  }
+                >
+                  &nbsp;&nbsp;View Unicorn Plan
+                </a>
+              </Menu.Item>
+              <Menu.Item icon={<ManOutlined />}>
+                <a
+                  style={{ fontSize: 14 }}
                   onClick={() =>
                     this.setState({
                       formpreviewid: record.action.udFounderID,
@@ -807,6 +828,80 @@ class UnicornAdmin extends Component {
             scroll={{ x: "max-content" }}
           />
         </Modal>
+
+        {/* View Unicorn Plan Modal */}
+        <Modal
+          title="View Unicorn Plan"
+          visible={this.state.viewPlanModel}
+          okButtonProps={{ style: { display: 'none' } }}
+          onCancel={() => this.setState({ viewPlanModel: false })}
+          width={550}
+        >
+            <div className="form-group mt-3">
+              <label className="mb-2">
+                Unicorn Plan
+              </label>
+              <select
+                disabled={true}
+                name="unicornPlan"
+                className="form-input-field"
+                value={this.state.edit_unicorn_plan_name}
+              >
+                <option value="">No plan</option>
+                <option value="Silver">Silver</option>
+                <option value="Gold">Gold</option>
+                <option value="Platinum">Platinum</option>
+              </select>
+            </div>
+            <div className="form-group mt-3">
+              <label className="mb-2">
+                Start Date
+              </label>
+              <DatePicker
+                disabled={true}
+                value={this.state.edit_unicorn_plan_start_date}
+                allowClear={true}
+               
+                style={{ width: "100%" }}
+              />
+            </div>
+            <div className="form-group mt-3">
+              <label className="mb-2">
+                End Date
+              </label>
+              <DatePicker
+                disabled={true}
+                value={this.state.edit_unicorn_plan_end_date}
+                allowClear={true}
+               
+                style={{ width: "100%" }}
+              />
+            </div>
+            <div className="form-group mt-3">
+              <label className="mb-2">
+                Publish Credits
+              </label>
+              <Input
+                disabled={true}
+                type="number"
+                value={this.state.edit_unicorn_plan_left_edit}
+               
+              />
+            </div>
+            <div className="form-group mt-3">
+              <label className="mb-2">
+                UTR No
+              </label>
+              <Input
+                disabled={true}
+                type="text"
+                value={this.state.edit_unicorn_utr_ref}
+                
+              />
+            </div>
+        </Modal>
+
+
         <Modal
           title={"Edit Status"}
           visible={this.state.publishModalStatus}
