@@ -24,9 +24,9 @@ class Investor extends CI_Controller
 	// register as new investor
 	public function register()
 	{
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -145,9 +145,9 @@ class Investor extends CI_Controller
 
 	public function addInvestor()
 	{
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -266,9 +266,9 @@ class Investor extends CI_Controller
 
 	public function addInvestorViaFamily()
 	{
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -334,9 +334,9 @@ class Investor extends CI_Controller
 	//addInvestorViaFamilyWithoutEmail
 	public function addInvestorViaFamilyWithoutEmail()
 	{
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -444,9 +444,9 @@ class Investor extends CI_Controller
 
 	// public function addInvestorViaFamilyWithoutEmail()
 	// {
-	// 	header("Access-Control-Allow-Origin: *");
+	// 	// header("Access-Control-Allow-Origin: *");
 	// 	header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-	// 	header("Access-Control-Allow-Origin: *");
+	// 	// header("Access-Control-Allow-Origin: *");
 	// 	header("Access-Control-Allow-Headers: access");
 	// 	header("Content-Type: application/json; charset=UTF-8");
 	// 	header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -531,9 +531,9 @@ class Investor extends CI_Controller
 
 	public function sendotp()
 	{
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -584,9 +584,9 @@ class Investor extends CI_Controller
 
 	public function updaterstatus()
 	{
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -646,9 +646,9 @@ class Investor extends CI_Controller
 	// REGISTER PREMIUM MEMBER
 	public function register_premium_member()
 	{
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -921,9 +921,9 @@ class Investor extends CI_Controller
 
 	public function invest()
 	{
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -996,9 +996,9 @@ class Investor extends CI_Controller
 
 	public function getinvestmentdetails()
 	{
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -1040,9 +1040,9 @@ class Investor extends CI_Controller
 
 	public function upgradeplan()
 	{
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -1086,9 +1086,9 @@ class Investor extends CI_Controller
 	}
 	function updateexpirystatus()
 	{
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -1125,9 +1125,9 @@ class Investor extends CI_Controller
 	// check for membership type
 	function check_for_membership_type()
 	{
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -1163,9 +1163,9 @@ class Investor extends CI_Controller
 	// check for membership type
 	function check_referral_code_ins()
 	{
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -1208,9 +1208,9 @@ class Investor extends CI_Controller
 	// get investor referral code
 	function get_investor_referral_code()
 	{
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -1317,9 +1317,9 @@ class Investor extends CI_Controller
 	// send otp on mobile
 	public function sendotponmobile()
 	{
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -1386,9 +1386,9 @@ class Investor extends CI_Controller
 	// This function is used for premium membership
 	function change_membership_details()
 	{
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
