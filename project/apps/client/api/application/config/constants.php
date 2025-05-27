@@ -111,5 +111,5 @@ define('SMTP_FROM_NAME', 'Growth91');
 define('WEB_BASE_URL', 'https://growth91.com/');
 define('CASHFREE_RESPONSE_DOMAIN_URL', 'https://growth91.com');
 define('CASHFREE_BASE_URL', 'https://api.cashfree.com/pg/links');
-define('CASHFREE_CLIENT_ID', 'CF240429CPA3PR6EEAOFNUCBR68G');
-define('CASHFREE_CLIENT_SECRET', 'cfsk_ma_prod_f68cb55b5b7015dab54c1761fd59e408_f6ed00aa');
+define('CASHFREE_CLIENT_ID', '240429732f7516a654227081e7924042');
+define('CASHFREE_CLIENT_SECRET', 'a46de13a568b327521537f0cc9b4de8873665026');
