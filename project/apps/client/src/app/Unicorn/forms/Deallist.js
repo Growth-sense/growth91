@@ -251,7 +251,8 @@ class Dellistinicorn extends Component {
                         />
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Youtube Link<span className="text-danger">*</span></label>
+                        <label for="">Youtube Link</label>
+                        <label for="">(Leave the section blank if you don't have a video link to add)</label>
                         <input
                           type="text"
                           onWheel={() => document.activeElement.blur()}

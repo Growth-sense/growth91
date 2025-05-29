@@ -828,22 +828,24 @@ text-align: justify;
 
                     {/* Text Section */}
                     <div className="text-section">
-                        <h1>{item.tudStartupName}</h1>
+                      <h1>{item.tudStartupName}</h1>
                       {item.tudTag && item.tudTag !== "None" && (
-                          <div style={{ marginTop: "8px", marginBottom: "8px" }}>
-                            <span style={{
+                        <div style={{ marginTop: "8px", marginBottom: "8px" }}>
+                          <span
+                            style={{
                               display: "inline-block",
                               backgroundColor: "#e6f7ff",
                               color: "#0066cc",
                               padding: "3px 10px",
                               borderRadius: "4px",
                               fontSize: "12px",
-                              fontWeight: "500"
-                            }}>
-                              {item.tudTag}
-                            </span>
-                          </div>
-                        )}
+                              fontWeight: "500",
+                            }}
+                          >
+                            {item.tudTag}
+                          </span>
+                        </div>
+                      )}
                       <div>
                         <button
                           onClick={openiamintrest}
@@ -1179,26 +1181,31 @@ text-align: justify;
                   )}
               </section>
 
-              <section className="container my-5 videos-section">
-                <h2 className="text-center mb-5">Videos</h2>
-                <div className="video-slide">
-                  <iframe
-                    style={{
-                      boxShadow: "0px 3px 6px #000",
-                      borderRadius: 3,
-                    }}
-                    width="100%"
-                    height="435"
-                    src={`https://www.youtube.com/embed/${extractVideoIDFromYoutubeUrl(
-                      item.tudYoutubeLink
-                    )}`}
-                    title="YouTube video player"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
-                </div>
-              </section>
+              {item.tudYoutubeLink && item.tudYoutubeLink != "" && (
+                <section
+                  id="videoSection"
+                  className="container my-5 videos-section"
+                >
+                  <h2 className="text-center mb-5">Videos</h2>
+                  <div className="video-slide">
+                    <iframe
+                      style={{
+                        boxShadow: "0px 3px 6px #000",
+                        borderRadius: 3,
+                      }}
+                      width="100%"
+                      height="435"
+                      src={`https://www.youtube.com/embed/${extractVideoIDFromYoutubeUrl(
+                        item.tudYoutubeLink
+                      )}`}
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                </section>
+              )}
 
               <section className="container my-5 contact-us-section">
                 <h2 className="text-center mb-5">Contact Us</h2>
@@ -1252,11 +1259,11 @@ text-align: justify;
                               className="social-icon"
                             >
                               <img
-                                  src="/assets/logo/youtube.png"
-                                  alt="YouTube"
-                                  width="24"
-                                  height="24"
-                                />
+                                src="/assets/logo/youtube.png"
+                                alt="YouTube"
+                                width="24"
+                                height="24"
+                              />
                             </a>
                           )}
                         {item.tudSocialInsta && item.tudSocialInsta != "" && (
@@ -1266,11 +1273,11 @@ text-align: justify;
                             className="social-icon"
                           >
                             <img
-                                  src="/assets/logo/instagram.png"
-                                  alt="Instagram"
-                                  width="24"
-                                  height="24"
-                                />
+                              src="/assets/logo/instagram.png"
+                              alt="Instagram"
+                              width="24"
+                              height="24"
+                            />
                           </a>
                         )}
                         {item.tudSocialFacebook &&
@@ -1281,11 +1288,11 @@ text-align: justify;
                               className="social-icon"
                             >
                               <img
-                                  src="/assets/logo/facebook.png"
-                                  alt="Facebook"
-                                  width="24"
-                                  height="24"
-                                />
+                                src="/assets/logo/facebook.png"
+                                alt="Facebook"
+                                width="24"
+                                height="24"
+                              />
                             </a>
                           )}
                         {item.tudSocialLinkedIn &&
@@ -1296,11 +1303,11 @@ text-align: justify;
                               className="social-icon"
                             >
                               <img
-                                  src="/assets/logo/linkedin.png"
-                                  alt="Linkedin"
-                                  width="24"
-                                  height="24"
-                                />
+                                src="/assets/logo/linkedin.png"
+                                alt="Linkedin"
+                                width="24"
+                                height="24"
+                              />
                             </a>
                           )}
                       </div>

@@ -1102,8 +1102,6 @@ class Founderadmindashboard extends Component {
       this.state.unicorn.tudEmployees == "" ||
       !this.state.unicorn.tudDealDescription ||
       this.state.unicorn.tudDealDescription == "" ||
-      !this.state.unicorn.tudYoutubeLink ||
-      this.state.unicorn.tudYoutubeLink == "" ||
       !this.state.unicorn.tudCategory ||
       this.state.unicorn.tudCategory == ""
     ) {

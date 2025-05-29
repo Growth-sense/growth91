@@ -800,16 +800,20 @@ text-align: justify;
                       <div className="text-section">
                         <h1>{item.udStartupName}</h1>
                         {item.udTag && item.udTag !== "None" && (
-                          <div style={{ marginTop: "8px", marginBottom: "8px" }}>
-                            <span style={{
-                              display: "inline-block",
-                              backgroundColor: "#e6f7ff",
-                              color: "#0066cc",
-                              padding: "3px 10px",
-                              borderRadius: "4px",
-                              fontSize: "12px",
-                              fontWeight: "500"
-                            }}>
+                          <div
+                            style={{ marginTop: "8px", marginBottom: "8px" }}
+                          >
+                            <span
+                              style={{
+                                display: "inline-block",
+                                backgroundColor: "#e6f7ff",
+                                color: "#0066cc",
+                                padding: "3px 10px",
+                                borderRadius: "4px",
+                                fontSize: "12px",
+                                fontWeight: "500",
+                              }}
+                            >
                               {item.udTag}
                             </span>
                           </div>
@@ -1141,29 +1145,31 @@ text-align: justify;
                     )}
                 </section>
 
-                <section
-                  id="videoSection"
-                  className="container my-5 videos-section"
-                >
-                  <h2 className="text-center mb-5">Videos</h2>
-                  <div className="video-slide">
-                    <iframe
-                      style={{
-                        boxShadow: "0px 3px 6px #000",
-                        borderRadius: 3,
-                      }}
-                      width="100%"
-                      height="435"
-                      src={`https://www.youtube.com/embed/${extractVideoIDFromYoutubeUrl(
-                        item.udYoutubeLink
-                      )}`}
-                      title="YouTube video player"
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    ></iframe>
-                  </div>
-                </section>
+                {item.udYoutubeLink && item.udYoutubeLink != "" && (
+                  <section
+                    id="videoSection"
+                    className="container my-5 videos-section"
+                  >
+                    <h2 className="text-center mb-5">Videos</h2>
+                    <div className="video-slide">
+                      <iframe
+                        style={{
+                          boxShadow: "0px 3px 6px #000",
+                          borderRadius: 3,
+                        }}
+                        width="100%"
+                        height="435"
+                        src={`https://www.youtube.com/embed/${extractVideoIDFromYoutubeUrl(
+                          item.udYoutubeLink
+                        )}`}
+                        title="YouTube video player"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      ></iframe>
+                    </div>
+                  </section>
+                )}
 
                 <section
                   id="contactUsSection"
@@ -1234,11 +1240,11 @@ text-align: justify;
                               className="social-icon"
                             >
                               <img
-                                  src="/assets/logo/instagram.png"
-                                  alt="Instagram"
-                                  width="24"
-                                  height="24"
-                                />
+                                src="/assets/logo/instagram.png"
+                                alt="Instagram"
+                                width="24"
+                                height="24"
+                              />
                             </a>
                           )}
                           {item.udSocialFacebook &&
