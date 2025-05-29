@@ -76,7 +76,7 @@ export const ViewPlan = () => {
       is_upgrade: !!activePlan
     };
     Bridge.Unicorn.get_payment_link(params).then((result) => {
-      window.location.assign(JSON.parse(result.data).link_url);
+      window.location.assign(result.data.link_url);
     });
   };
 
