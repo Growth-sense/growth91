@@ -1605,12 +1605,16 @@ class Startup extends CI_Controller {
 			// Get current time and add 10 minutes
 			$expiryTime = date('Y-m-d\TH:i:sP', strtotime('+10 minutes'));
 
+			$roundAmount = round($amount);
+			$gstTwice = ceil($roundAmount * 0.09) * 2;
+			$finalAmount = $roundAmount + $gstTwice;
+
 			// Prepare the request payload
 			$payload = [
 				'customer_details' => [
 					'customer_phone' => '1111111111'
 				],
-				'link_amount' => round($amount), // Using the amount variable
+				'link_amount' => $finalAmount, // Using the amount variable
 				'link_auto_reminders' => true,
 				'link_currency' => 'INR',
 				'link_expiry_time' => $expiryTime,

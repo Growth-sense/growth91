@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Modal, Spin, Steps, message } from "antd";
+
+// Mandatory Forms
 import BasicDetails from "./BasicDetails";
 import Step20 from "./SupportingDocuments";
 import Step8 from "./CompanyLegalEntity";
@@ -7,6 +9,26 @@ import Step9 from "./SocialMediaPresence";
 import Dellistinicorn from "./Deallist.js";
 import Mediacoverager from "./Mediacoverager.js";
 import Step19 from "./Declaration";
+
+// Additional Information Forms
+import Step2 from "./IdeaBusiness";
+import Step3 from "./IntellectualProperty";
+import Step4 from "./MobileApp";
+import Step5 from "./IndustryMarket";
+import Step6 from "./Competition";
+import Step7 from "./SWOT";
+import Step10 from "./GoToMarket";
+import Step11 from "./Financials";
+import Step12 from "./Capital";
+import Step13 from "./Salaries";
+import Step14 from "./FundingDetails";
+import Step15 from "./UseOfFunds";
+import Step16 from "./Compliances";
+import Step17 from "./OtherImportantIndicators";
+import Step18 from "./Refrences";
+
+
+
 import { Previewbutton } from "./Previewbutton.jsx";
 import Bridge from "../../constants/Bridge";
 import $ from "jquery";
@@ -17,6 +39,57 @@ import { toast, ToastContainer } from "react-toastify";
 class Founderadmindashboard extends Component {
   constructor(props) {
     super(props);
+    
+    this.additionalSteps = [
+      "Basic Details",
+      "Supporting Documents",
+      "Social Media Presence",
+      "Other info",
+      "Media Coverager",
+      "Declaration",
+      "Company Legality Entity",
+      "Idea/Business", 
+      "Intellectual Property",
+      "Mobile App",
+      "Industry Market",
+      "Competition",
+      "SWOT",
+      "Go To Market",
+      "Financials",
+      "Capital",
+      "Salaries",
+      "Funding Details",
+      "Use Of Funds",
+      "Compliances",
+      "Other Important Indicators",
+      "References",
+    ];
+
+    this.formConfig = [
+      BasicDetails, 
+      Step20,
+      Step9,
+      Dellistinicorn,
+      Mediacoverager,
+      Step19,
+      Step8,
+      Step2,
+      Step3,
+      Step4,
+      Step5,
+      Step6,
+      Step7,
+      Step10,
+      Step11,
+      Step12,
+      Step13,
+      Step14,
+      Step15,
+      Step16,
+      Step17,
+      Step18
+    ]
+
     this.state = {
       activeform: "0",
       class0: "",
@@ -296,6 +369,7 @@ class Founderadmindashboard extends Component {
         show_thankyou_modal: "",
         show_error_modal: false,
         show_confirmation_modal: false,
+        show_additional_info_modal: false,
         unicornid: "",
         tudDeclare: 0,
 
@@ -998,16 +1072,16 @@ class Founderadmindashboard extends Component {
       'tudDin4'
     ];
 
-    const isPage9FormInvalid = page9requiredFields.some(field => 
-      !this.state.unicorn[field] || this.state.unicorn[field].trim() === ''
-    );
+    // const isPage9FormInvalid = page9requiredFields.some(field => 
+    //   !this.state.unicorn[field] || this.state.unicorn[field].trim() === ''
+    // );
     
-    if (this.state.unicorn.tpage9NA == "0" && isPage9FormInvalid) {
-      this.setState({ loading: false });
-      this.activeform(2);
-      toast.error("Please fill Company Legal Entity Section");
-      return;
-    }
+    // if (this.state.unicorn.tpage9NA == "0" && isPage9FormInvalid) {
+    //   this.setState({ loading: false });
+    //   this.activeform(2);
+    //   toast.error("Please fill Company Legal Entity Section");
+    //   return;
+    // }
 
     if (
       !this.state.unicorn.tudStartupFounderName ||
@@ -1167,6 +1241,27 @@ class Founderadmindashboard extends Component {
     return step1Valid && step3Valid && !highlightInvalid && !overviewInvalid;
   };
 
+  renderActiveForm = () => {
+    const activeForm = parseInt(this.state.activeform);
+    const nextForm = activeForm + 1;
+    const prevForm = activeForm - 1;
+    const ActiveComponent = this.formConfig[activeForm];
+    return (
+      <ActiveComponent
+        activate={() => this.activeform(nextForm)}
+        next={() => this.activeform(nextForm)}
+        prev={() => this.activeform(prevForm)}
+        adminnext={this.props.adminview}
+        data={this.props.tab}
+        onInput={this.onInput}
+        unicorn={this.state.unicorn}
+        setMultiple={this.setMultiple}
+        error={this.state.error_status_0}
+        check={this.checkforvalidation}
+        id={this.props.id}
+      />
+    )
+  }
 
   render() {
     return (
@@ -1211,360 +1306,55 @@ class Founderadmindashboard extends Component {
               <div className="col-lg-4">
                 <div className="multistep-form-icons">
                   <ul>
-                    <li onClick={() => this.activethistab(0)}>
-                      <div>
-                        <div
-                          className={
-                            this.state.activeform == 0
-                              ? "circle active-tab"
-                              : "circle " + this.state.class0
-                          }
-                        >
-                          {(this.state.activeform == 0 ||
-                            this.state.class0 == "") &&
-                            "1"}
-                          {this.state.activeform != 0 &&
-                            this.state.class0 == " success-tab" && (
-                              <i
-                                style={{ fontSize: 28 }}
-                                className="bx bx-check"
-                              ></i>
-                            )}
-                          {this.state.activeform != 0 &&
-                            this.state.class0 == " error-tab" && (
-                              <i
-                                style={{ fontSize: 28 }}
-                                className="bx bx-x"
-                              ></i>
-                            )}
-                        </div>
-                        <span>Basic Details</span>
-                        <div className="line"></div>
-                      </div>
-                    </li>
-                    <li
-                      onClick={() => {
-                        this.activethistab(1);
-                        this.checkforvalidation();
-                      }}
-                    >
-                      <div>
-                        <div
-                          className={
-                            this.state.activeform == 1
-                              ? "circle active-tab"
-                              : "circle " + this.state.class1
-                          }
-                        >
-                          {(this.state.activeform == 1 ||
-                            this.state.class1 == "") &&
-                            "2"}
-                          {this.state.activeform != 1 &&
-                            this.state.class1 == " success-tab" && (
-                              <i
-                                style={{ fontSize: 28 }}
-                                className="bx bx-check"
-                              ></i>
-                            )}
-                          {this.state.activeform != 1 &&
-                            this.state.class1 == " error-tab" && (
-                              <i
-                                style={{ fontSize: 28 }}
-                                className="bx bx-x"
-                              ></i>
-                            )}
-                        </div>
-                        <span>Supporting Documents</span>
-                        <div className="line"></div>
-                      </div>
-                    </li>
-                    <li
-                      onClick={() => {
-                        this.activethistab(2);
-                        this.checkforvalidation();
-                      }}
-                    >
-                      <div>
-                        <div
-                          className={
-                            this.state.activeform == 2
-                              ? "circle active-tab"
-                              : "circle " + this.state.class2
-                          }
-                        >
-                          {(this.state.activeform == 2 ||
-                            this.state.class2 == "") &&
-                            "3"}
-                          {this.state.activeform != 2 &&
-                            this.state.class2 == " success-tab" && (
-                              <i
-                                style={{ fontSize: 28 }}
-                                className="bx bx-check"
-                              ></i>
-                            )}
-                          {this.state.activeform != 2 &&
-                            this.state.class2 == " error-tab" && (
-                              <i
-                                style={{ fontSize: 28 }}
-                                className="bx bx-x"
-                              ></i>
-                            )}
-                        </div>
-                        <span>Company Legal Entity</span>
-                        <div className="line"></div>
-                      </div>
-                    </li>
-                    <li
-                      onClick={() => {
-                        this.activethistab(3);
-                        this.checkforvalidation();
-                      }}
-                    >
-                      <div>
-                        <div
-                          className={
-                            this.state.activeform == 3
-                              ? "circle active-tab"
-                              : "circle" + this.state.class3
-                          }
-                        >
-                          {(this.state.activeform == 3 ||
-                            this.state.class3 == "") &&
-                            "4"}
-                          {this.state.activeform != 3 &&
-                            this.state.class3 == " success-tab" && (
-                              <i
-                                style={{ fontSize: 28 }}
-                                className="bx bx-check"
-                              ></i>
-                            )}
-                          {this.state.activeform != 3 &&
-                            this.state.class3 == " error-tab" && (
-                              <i
-                                style={{ fontSize: 28 }}
-                                className="bx bx-x"
-                              ></i>
-                            )}
-                        </div>
-                        <span>Social Media Presence</span>
-                        <div className="line"></div>
-                      </div>
-                    </li>
-                    <li
-                      onClick={() => {
-                        this.activethistab(4);
-                        this.checkforvalidation();
-                      }}
-                    >
-                      <div>
-                        <div
-                          className={
-                            this.state.activeform == 4
-                              ? "circle active-tab"
-                              : "circle" + this.state.class4
-                          }
-                        >
-                          {(this.state.activeform == 4 ||
-                            this.state.class4 == "") &&
-                            "5"}
-                          {this.state.activeform != 4 &&
-                            this.state.class4 == " success-tab" && (
-                              <i
-                                style={{ fontSize: 28 }}
-                                className="bx bx-check"
-                              ></i>
-                            )}
-                          {this.state.activeform != 4 &&
-                            this.state.class4 == " error-tab" && (
-                              <i
-                                style={{ fontSize: 28 }}
-                                className="bx bx-x"
-                              ></i>
-                            )}
-                        </div>
-                        <span>Other info</span>
-                        <div className="line"></div>
-                      </div>
-                    </li>
-                    <li onClick={() => this.activethistab(5)}>
-                      <div>
-                        <div
-                          className={
-                            this.state.activeform == 5
-                              ? "circle active-tab"
-                              : "circle" + this.state.class5
-                          }
-                        >
-                          {(this.state.activeform == 5 ||
-                            this.state.class5 == "") &&
-                            "6"}
-                          {this.state.activeform != 5 &&
-                            this.state.class5 == " success-tab" && (
-                              <i
-                                style={{ fontSize: 28 }}
-                                className="bx bx-check"
-                              ></i>
-                            )}
-                          {this.state.activeform != 5 &&
-                            this.state.class5 == " error-tab" && (
-                              <i
-                                style={{ fontSize: 28 }}
-                                className="bx bx-x"
-                              ></i>
-                            )}
-                        </div>
-                        <span>Media Coverages</span>
-                        <div className="line"></div>
-                      </div>
-                    </li>
-                    <li onClick={() => this.activethistab(6)}>
-                      <div>
-                        <div
-                          className={
-                            this.state.activeform == 6
-                              ? "circle active-tab"
-                              : "circle" + this.state.class6
-                          }
-                        >
-                          {(this.state.activeform == 6 ||
-                            this.state.class6 == "") &&
-                            "7"}
-                          {this.state.activeform != 6 &&
-                            this.state.class6 == " success-tab" && (
-                              <i
-                                style={{ fontSize: 28 }}
-                                className="bx bx-check"
-                              ></i>
-                            )}
-                          {this.state.activeform != 6 &&
-                            this.state.class6 == " error-tab" && (
-                              <i
-                                style={{ fontSize: 28 }}
-                                className="bx bx-x"
-                              ></i>
-                            )}
-                        </div>
-                        <span>Declaration</span>
-                      </div>
-                    </li>
+                    {this.additionalSteps.map((step, index) => {
+                      const stepIndex = index;
+                      const formIndex = index;
+                      const classKey = `class${formIndex}`;
+                      
+                      return (
+                        <li key={stepIndex} onClick={() => this.activethistab(formIndex)}>
+                          <div>
+                            <div
+                              className={
+                                this.state.activeform == formIndex
+                                  ? "circle active-tab"
+                                  : "circle" + this.state[classKey]
+                              }
+                            >
+                              {(this.state.activeform == formIndex ||
+                                this.state[classKey] == "") &&
+                                (stepIndex + 1)}
+                              {this.state.activeform != formIndex &&
+                                this.state[classKey] == " success-tab" && (
+                                  <i
+                                    style={{ fontSize: 28 }}
+                                    className="bx bx-check"
+                                  ></i>
+                                )}
+                              {this.state.activeform != formIndex &&
+                                this.state[classKey] == " error-tab" && (
+                                  <i
+                                    style={{ fontSize: 28 }}
+                                    className="bx bx-x"
+                                  ></i>
+                                )}
+                            </div>
+                            <span>{step}</span>
+                            {
+                              step != "References" && <div className="line"></div>
+                            }
+                          </div>
+                        </li>
+                      );
+                    })}
+
                   </ul>
                 </div>
               </div>
               <div className="col-lg-8">
-                {this.state.activeform == "0" && (
-                  <BasicDetails
-                    activate={() => this.activeform(1)}
-                    next={() => this.activeform(1)}
-                    adminnext={this.props.adminview}
-                    data={this.props.tab}
-                    onInput={(name, value) => this.onInput(name, value)}
-                    unicorn={this.state.unicorn}
-                    error={this.state.error_status_0}
-                    check={(ind) => this.checkforvalidation(ind)}
-                  />
-                )}
-                {this.state.activeform == "1" && (
-                  <Step20
-                    adminnext={this.props.adminview}
-                    activate={() => this.activeform(2)}
-                    prev={() => this.activeform(0)}
-                    next={() => this.activeform(2)}
-                    onClick={() => this.activatethisform(1)}
-                    onInput={(name, value) => this.onInput(name, value)}
-                    setMultiple={(data) => {
-                        this.setState({
-                          unicorn: {
-                            ...this.state.unicorn,
-                            ...data
-                          },
-                        });
-                      }
-                    }
-                    unicorn={this.state.unicorn}
-                    id={this.props.id}
-                    error={this.state.error_status_2}
-                    check={() => this.checkforvalidation()}
-                  />
-                )}
-                {this.state.activeform == "2" && (
-                  <Step8
-                    adminnext={this.props.adminview}
-                    activate={() => this.activeform(3)}
-                    prev={() => this.activeform(1)}
-                    next={() => this.activeform(3)}
-                    setMultiple={(data) => this.setMultiple(data)}
-                    onInput={(name, value) => this.onInput(name, value)}
-                    unicorn={this.state.unicorn}
-                    id={this.props.id}
-                    error={this.state.error_status_8}
-                    check={() => this.checkforvalidation()}
-                  />
-                )}
-                {this.state.activeform == "3" && (
-                  <Step9
-                    adminnext={this.props.adminview}
-                    activate={() => this.activeform(4)}
-                    prev={() => this.activeform(2)}
-                    next={() => this.activeform(4)}
-                    setMultiple={(data) => this.setMultiple(data)}
-                    onInput={(name, value) => this.onInput(name, value)}
-                    unicorn={this.state.unicorn}
-                    id={this.props.id}
-                    error={this.state.error_status_9}
-                    check={() => this.checkforvalidation()}
-                  />
-                )}
-                {this.state.activeform == "4" && (
-                  <Dellistinicorn
-                    adminnext={this.props.adminview}
-                    activate={() => this.activeform(5)}
-                    prev={() => this.activeform(3)}
-                    next={() => this.activeform(5)}
-                    onInput={(name, value) => this.onInput(name, value)}
-                    unicorn={this.state.unicorn}
-                    id={this.props.id}
-                    error={this.state.error_status_19}
-                    validated={this.state.validated}
-                    check={(ind) => this.checkforvalidation(ind)}
-                  />
-                )}
-                {this.state.activeform == "5" && (
-                  <Mediacoverager
-                    adminnext={this.props.adminview}
-                    activate={() => this.activeform(6)}
-                    prev={() => this.activeform(4)}
-                    next={() => this.activeform(6)}
-                    setMultiple={(data) => {
-                        this.setState({
-                          unicorn: {
-                            ...this.state.unicorn,
-                            ...data
-                          },
-                        });
-                      }
-                    }
-                    onInput={(name, value) => this.onInput(name, value)}
-                    unicorn={this.state.unicorn}
-                    id={this.props.id}
-                    error={this.state.error_status_19}
-                    validated={this.state.validated}
-                    check={(ind) => this.checkforvalidation(ind)}
-                  />
-                )}
-                {this.state.activeform == "6" && (
-                  <Step19
-                    adminnext={this.props.adminview}
-                    activate={() => this.activeform(6)}
-                    prev={() => this.activeform(5)}
-                    next={() => this.activeform(6)}
-                    onInput={(name, value) => this.onInput(name, value)}
-                    unicorn={this.state.unicorn}
-                    id={this.props.id}
-                    error={this.state.error_status_20}
-                    validated={this.state.validated}
-                    check={(ind) => this.checkforvalidation(ind)}
-                  />
-                )}
+                {
+                  this.renderActiveForm()
+                }
               </div>
             </div>
             {!this.props.adminview && (
@@ -1702,6 +1492,7 @@ class Founderadmindashboard extends Component {
               </div>
             </div>
           </Modal>
+          
         </Spin>
         <ToastContainer />
       </div>

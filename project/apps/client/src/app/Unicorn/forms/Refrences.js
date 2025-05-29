@@ -194,18 +194,6 @@ class References extends Component {
                                 }} 
                                 onClick={this.prev}
                                 class="submit-button"><i className='bx bx-chevron-left'></i></button>
-                                <button 
-                                style={{ 
-                                  position:'relative',
-                                  left:-20,
-                                  background: active==false ? '#fff' : '#fff',
-                                  border: active==false ? '1px solid #29176f' : '1px solid #29176f',
-                                  color: active==false ? '#29176f' : '#29176f',
-                                }} 
-                                onClick={this.next}
-                                class="submit-button">
-                                  <i className='bx bx-chevron-right'></i>
-                                </button>
                               </div>
                               <div>
                                

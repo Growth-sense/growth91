@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import { message, Spin, Checkbox } from "antd";
+import { message, Spin, Checkbox, Modal } from "antd";
 import $ from "jquery";
 import Bridge from "../../constants/Bridge";
+import { Link } from "@mui/material";
 class Declaration extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      show_additional_info_modal: false,
       send_me_copy_of_response: "",
       founder_id: "",
       loading: false,
@@ -242,7 +244,26 @@ class Declaration extends Component {
                           >
                             <i className="bx bx-chevron-left"></i>
                           </button>
+                          <button
+                            style={{
+                              position: "relative",
+                              left: -20,
+                              background:  "#fff",
+                              border:
+                                   "1px solid #29176f",
+                              color: "#29176f",
+                            }}
+                            onClick={() => {
+                              this.setState({
+                                show_additional_info_modal: true,
+                              })
+                            }}
+                            class="submit-button"
+                          >
+                            <i className="bx bx-chevron-right"></i>
+                          </button>
                         </div>
+                        
                         <div></div>
                       </div>
                     </div>
@@ -251,6 +272,54 @@ class Declaration extends Component {
               </div>
             </div>
           </Spin>
+          <Modal
+            centered
+            open={this.state.show_additional_info_modal}
+            className="thankumodal"
+            iconType="SmileOutlined"
+            maskClosable={false}
+            cancelText={"Cancel"}
+            footer={[
+              <>
+                <Link
+                  // to={`/MyUnicornPlan`}
+                >
+                  <button onClick={() => {
+                    this.setState({ 
+                      show_additional_info_modal: false
+                    })
+                    this.props.next();
+                  }
+                } 
+                  className="btn btn-block">Continue with Additional Info</button>
+                </Link>
+                <Link 
+                // to="/founder-dashboard"
+                >
+                  <button onClick={() => {
+                    this.setState({ show_additional_info_modal: false });
+                  }} className="btn btn-block">Skip</button>
+                </Link>
+              </>,
+            ]}
+          >
+            <div className="modal-confirm">
+              <div className="modal-content">
+                <div className="modal-body">
+                  
+                  <p className="text-center">
+                    <h4>Additional Information for Better Evaluation</h4>
+                    <br/>
+                  <strong>Note:</strong> This section is for internal evaluation by Growth91 and will not be
+                  published on the Future Unicorn page. This may also be used to provide
+                  additional information to your prospective investors, partners, or associates,
+                  and to train our AI module on your behalf. Therefore, please provide as
+                  much detailed information as possible.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Modal>
         </section>
       </div>
     );

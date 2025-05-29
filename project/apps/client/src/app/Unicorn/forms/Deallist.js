@@ -237,54 +237,7 @@ class Dellistinicorn extends Component {
                           }
                         />
                       </div>{" "}
-                      <div className="form-group">
-                        <label for="">Valuation Amount</label>
-                        <input
-                          type="text"
-                          onWheel={() => document.activeElement.blur()}
-                          name="tudValuation"
-                          value={this.props.unicorn.tudValuation}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          }
-                        />
-                      </div>{" "}
-                      <div className="form-group">
-                        <label for="">CAP Table Threshold Amount</label>
-                        <input
-                          type="number"
-                          onWheel={() => document.activeElement.blur()}
-                          name="tudCAPTableThresholdAmount"
-                          value={this.props.unicorn.tudCAPTableThresholdAmount}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          }
-                        />
-                      </div>{" "}
-                      <div className="form-group">
-                        <label for="">Special Offer Tex</label>
-                        <input
-                          type="text"
-                          onWheel={() => document.activeElement.blur()}
-                          name="tudSpecialOfferText"
-                          value={this.props.unicorn.tudSpecialOfferText}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          }
-                        />{" "}
-                      </div>{" "}
-                      <div className="form-group">
-                        <label for="">Input Default Tex</label>
-                        <input
-                          type="text"
-                          onWheel={() => document.activeElement.blur()}
-                          name="tudInputDefaultText"
-                          value={this.props.unicorn.tudInputDefaultText}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          }
-                        />
-                      </div>{" "}
+                      
                       <div className="form-group">
                         <label for="">Deal Description<span className="text-danger">*</span></label>
                         <input
