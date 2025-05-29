@@ -394,7 +394,7 @@ export const ViewPlan = () => {
                               marginTop: "4px",
                             }}
                           >
-                            per year
+                            + GST
                           </div>
 
                           {/* Save Amount */}

@@ -295,7 +295,7 @@ export const MyUnicornPlan = () => {
         No Remaining Edits Available
       </div>
       <p style={additionalStyles.warningText}>
-        You have used all your edits. Purchase 1 additional edit for ₹1,500 to
+        You have used all your edits. Purchase 1 additional edit for ₹1,500 (+ GST) to
         continue making changes.
       </p>
       <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
