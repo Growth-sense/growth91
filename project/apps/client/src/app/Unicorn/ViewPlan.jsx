@@ -9,7 +9,7 @@ import {
   InfoCircleOutlined} from '@ant-design/icons';
 
 
-export const ViewPlan = () => {
+export const ViewPlan = (props) => {
   useEffect(() => {
     unicorndetails();
     window.scrollTo(0, 0);
@@ -201,8 +201,10 @@ export const ViewPlan = () => {
             flexDirection: "column",
           }}
         >
-          <Header />
-
+          {
+            !props.hideHeader && <Header />
+          }
+          
           {/* Modern Pricing Section */}
           <section
             className="pricing-section"
@@ -947,7 +949,9 @@ export const ViewPlan = () => {
           </section>
         </div>
       </Spin>
-      <NewWebFooter />
+      {
+        !props.hideHeader && <NewWebFooter />
+      }
     </>
   );
 };

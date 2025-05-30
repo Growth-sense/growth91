@@ -4,6 +4,7 @@ import NewWebHeader from './common/NewWebHeader';
 import { Link } from '@material-ui/core';
 import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
 import Bridge from './constants/Bridge';
+import { ViewPlan } from './Unicorn/ViewPlan';
 
 const Newunicornfounder = () => {
   const [filteredData, setfilterdata] = useState();
@@ -527,7 +528,9 @@ const Newunicornfounder = () => {
           </div>
         </div>
 
-        <section class="custom-section">
+        <ViewPlan hideHeader/>
+
+        <section class="custom-section" style={{marginTop:0, paddingTop: 0}}>
           <div
             class="join-section join-sec-yellow join-sec-white undefined join-divide mobile-join"
             style={{
