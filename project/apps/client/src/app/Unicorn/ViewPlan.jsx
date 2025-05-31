@@ -417,7 +417,7 @@ export const ViewPlan = (props) => {
 
                         <div
                           className="features"
-                          style={{ marginBottom: "32px" }}
+                          style={{ marginBottom: "32px", flexDirection: "column" }}
                         >
                           {plan.features.map((feature, idx) => (
                             <div
