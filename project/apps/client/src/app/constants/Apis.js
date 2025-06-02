@@ -282,7 +282,8 @@ const URLs = {
   unicorn_Publish_unpublish:"founder/Startup/unicorn_Publish_unpublish",
   get_founder_detail_for_unicorn:"founder/Startup/get_founder_detail_for_unicorn",
   get_payment_link:"founder/Startup/get_payment_link",
-  adminEditUnicornPlan: "founder/Startup/update_unicorn_plan_by_admin"
+  adminEditUnicornPlan: "founder/Startup/update_unicorn_plan_by_admin",
+  save_gst_number: "founder/Startup/update_unicorn_gst"
 
 
 };

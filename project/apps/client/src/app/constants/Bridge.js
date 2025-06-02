@@ -1018,5 +1018,9 @@ export default {
       api.post(URLs.get_payment_link, data).then((response) => {
         return response.data;
       }),
+    save_gst_number: (data) =>
+      api.post(URLs.save_gst_number, data).then((response) => {
+        return response.data;
+      }),
   },
 };

@@ -217,6 +217,7 @@ class Founders extends Component {
       edit_unicorn_plan_end_date: item.unicorn_end_date ? moment(item.unicorn_end_date, "YYYY-MM-DD HH:mm:ss") : null,
       edit_unicorn_plan_left_edit: item.left_edit,
       edit_unicorn_utr_ref: item.utrref,
+      edit_unicorn_gst: item.unicorn_gst,
       editUnicornModalStatus: true,
       founder_id: item.investor_id,
     });
@@ -348,6 +349,7 @@ class Founders extends Component {
       endDate: formattedEndDate,
       leftEdit: this.state.edit_unicorn_plan_left_edit,
       utrref: this.state.edit_unicorn_utr_ref,
+      unicorn_gst: this.state.edit_unicorn_gst,
       founder_id: this.state.founder_id,
     };
 
@@ -1266,6 +1268,18 @@ class Founders extends Component {
                 value={this.state.edit_unicorn_utr_ref}
                 onChange={(e) =>
                   this.setState({ edit_unicorn_utr_ref: e.target.value })
+                }
+              />
+            </div>
+            <div className="form-group mt-3">
+              <label className="mb-2">
+                GST Number
+              </label>
+              <Input
+                type="text"
+                value={this.state.edit_unicorn_gst}
+                onChange={(e) =>
+                  this.setState({ edit_unicorn_gst: e.target.value })
                 }
               />
             </div>

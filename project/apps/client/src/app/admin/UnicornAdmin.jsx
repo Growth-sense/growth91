@@ -583,7 +583,8 @@ class UnicornAdmin extends Component {
                       edit_unicorn_plan_start_date: record.action.unicorn_start_date ? moment(record.action.unicorn_start_date, "YYYY-MM-DD HH:mm:ss") : null,
                       edit_unicorn_plan_end_date: record.action.unicorn_end_date ? moment(record.action.unicorn_end_date, "YYYY-MM-DD HH:mm:ss") : null,
                       edit_unicorn_plan_left_edit: record.action.left_edit,
-                      edit_unicorn_utr_ref: record.action.utrref
+                      edit_unicorn_utr_ref: record.action.utrref,
+                      edit_unicorn_gst: record.action.unicorn_gst
                     })
                   }
                     
@@ -897,6 +898,16 @@ class UnicornAdmin extends Component {
                 type="text"
                 value={this.state.edit_unicorn_utr_ref}
                 
+              />
+            </div>
+             <div className="form-group mt-3">
+              <label className="mb-2">
+                GST Number
+              </label>
+              <Input
+                disabled={true}
+                type="text"
+                value={this.state.edit_unicorn_gst}
               />
             </div>
         </Modal>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NewWebFooter } from "../common/NewWebFooter";
 import $ from "jquery";
 import Bridge from "../constants/Bridge.js";
-import { Spin, Card, Button, Modal } from "antd";
+import { Spin, Card, Button, Modal, Input, message } from "antd";
 import Header from "../common/Header.js";
 import { 
   CheckOutlined, 
@@ -22,6 +22,9 @@ export const ViewPlan = (props) => {
   const [planEndDate, setPlanEndDate] = useState(null);
   const [isPolicyModalVisible, setIsPolicyModalVisible] = useState(false);
   const [isBankDetailsModalVisible, setIsBankDetailsModalVisible] = useState(false);
+  const [isGSTModalVisible, setIsGSTModalVisible] = useState(false);
+  const [gstNumber, setGstNumber] = useState("");
+  const [selectedPlan, setSelectedPlan] = useState(null);
 
 
   
@@ -65,19 +68,60 @@ export const ViewPlan = (props) => {
       setActivePlan(result.data[0].unicorn_plan);
       setPlanStartDate(result.data[0].unicorn_start_date);
       setPlanEndDate(result.data[0].unicorn_end_date);
+      // If GST number exists in the response, set it
+      if (result.data[0].gst_number) {
+        setGstNumber(result.data[0].unicorn_gst);
+      }
       setloading(false);
     });
   };
 
   const getPaymentLink = async (planName) => {
+    setSelectedPlan(planName);
+    
+    // Check if GST number is already collected
+    if (!gstNumber) {
+      // Show GST collection modal if GST number is not available
+      setIsGSTModalVisible(true);
+    } else {
+      // If GST number is already available, proceed with payment
+      proceedToPayment(planName);
+    }
+  };
+  
+  const proceedToPayment = async (planName) => {
     let params = {
       founder_id: localStorage.getItem("founder_id"),
-      plan_name: planName,
+      plan_name: planName || selectedPlan,
       is_upgrade: !!activePlan
     };
     Bridge.Unicorn.get_payment_link(params).then((result) => {
       window.location.assign(result.data.link_url);
     });
+  };
+  
+  const saveGSTNumber = async () => {
+    if (gstNumber && gstNumber.trim()) {
+      setloading(true);
+      let params = {
+        founder_id: localStorage.getItem("founder_id"),
+        unicorn_gst: gstNumber
+      };
+      
+      try {
+        await Bridge.Unicorn.save_gst_number(params);
+        message.success("GST number saved successfully");
+        setIsGSTModalVisible(false);
+        proceedToPayment();
+      } catch (error) {
+        message.error("Failed to save GST number");
+        console.error("Error saving GST number:", error);
+      } finally {
+        setloading(false);
+      }
+    } else {
+      message.warning("Please enter a valid GST number");
+    }
   };
 
   const renderActionButton = (plan) => {
@@ -858,6 +902,69 @@ export const ViewPlan = (props) => {
                 </div>
               </Modal>
 
+              {/* GST Collection Modal */}
+              <Modal
+                title="GST Information"
+                open={isGSTModalVisible}
+                onCancel={() => setIsGSTModalVisible(false)}
+                footer={null}
+                width={500}
+                centered={true}
+                style={{
+                  borderRadius: "16px",
+                  overflow: "hidden",
+                }}
+              >
+                <div style={{ padding: "20px 0" }}>
+                  <div style={{ 
+                    background: "#f8fafc", 
+                    padding: "24px", 
+                    borderRadius: "12px",
+                    marginBottom: "20px"
+                  }}>
+                    <h4 style={{ 
+                      fontSize: "18px", 
+                      fontWeight: "600", 
+                      marginBottom: "16px",
+                      color: "#1a1f36" 
+                    }}>
+                      Enter your GST Number
+                    </h4>
+                    
+                    <p style={{ color: "#4a5568", marginBottom: "16px" }}>
+                      Please provide your GST number for billing purposes.
+                    </p>
+                    
+                    <Input
+                      placeholder="Enter GST Number"
+                      value={gstNumber}
+                      onChange={(e) => setGstNumber(e.target.value)}
+                      style={{ marginBottom: "24px" }}
+                    />
+                    
+                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                      <Button 
+                        onClick={() => {
+                          setIsGSTModalVisible(false);
+                          proceedToPayment();
+                        }}
+                        size="large"
+                      >
+                        Skip and Continue
+                      </Button>
+                      <Button 
+                        type="primary"
+                        onClick={saveGSTNumber}
+                        size="large"
+                        loading={loading}
+                      >
+                        Save and Continue
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </Modal>
+              
               {/* Bank Details Modal */}
               <Modal
                 title="Bank Details"

@@ -1067,7 +1067,7 @@ class Startup extends CI_Controller {
 			
 			//Step1
 			$sql= <<<EOT
-			SELECT unicorndeals.*, unicorndeals2.* , users.unicorn_start_date, users.unicorn_end_date, users.left_edit, users.unicorn_plan, users.utrref
+			SELECT unicorndeals.*, unicorndeals2.* , users.unicorn_start_date, users.unicorn_end_date, users.left_edit, users.unicorn_plan, users.utrref, users.unicorn_gst
 			FROM unicorndeals 
 			LEFT JOIN unicorndeals2 on unicorndeals.unicornDealID = unicorndeals2.unicornDealID
 			LEFT JOIN users on unicorndeals.udFounderID = users.investor_id
@@ -1712,7 +1712,39 @@ class Startup extends CI_Controller {
 				'unicorn_start_date' => $startDate,
 				'unicorn_end_date' => $endDate,
 				'left_edit' => $leftEdit,
-				'utrref' => $utrref
+				'utrref' => $utrref,
+				'unicorn_gst' => $unicorn_gst
+			];
+			$this->db->where('investor_id', $founder_id);
+			$id = $this->db->update('users', $post_data);
+			$response = [
+				'status' => '1',
+				'message' => 'Plan updated successfully.',
+			];
+		} else {
+			$response = [
+				'status' => '0',
+				'message' => 'Please enter values of all fields.',
+			];
+		}
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
+
+	function update_unicorn_gst() {
+		// header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		// header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		
+		if (!empty($formdata)) {
+			extract($formdata);
+			$post_data = [
+				'unicorn_gst' => $unicorn_gst
 			];
 			$this->db->where('investor_id', $founder_id);
 			$id = $this->db->update('users', $post_data);
