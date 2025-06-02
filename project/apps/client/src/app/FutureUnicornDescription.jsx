@@ -796,42 +796,89 @@ text-align: justify;
                         />
                       </div>
 
-                      {/* Text Section */}
-                      <div className="text-section">
-                        <h1>{item.udStartupName}</h1>
-                        {item.udTag && item.udTag !== "None" && (
-                          <div
-                            style={{ marginTop: "8px", marginBottom: "8px" }}
-                          >
-                            <span
+                      <div className="text-section d-flex justify-content-between align-items-start w-100">
+                        <div>
+                          <h1>{item.udStartupName}</h1>
+                          {item.udTag && item.udTag !== "None" && (
+                            <div
+                              style={{ marginTop: "8px", marginBottom: "8px" }}
+                            >
+                              <span
+                                style={{
+                                  display: "inline-block",
+                                  backgroundColor: "#e6f7ff",
+                                  color: "#0066cc",
+                                  padding: "3px 10px",
+                                  borderRadius: "4px",
+                                  fontSize: "12px",
+                                  fontWeight: "500",
+                                }}
+                              >
+                                {item.udTag}
+                              </span>
+                            </div>
+                          )}
+                          <div>
+                            <button
+                              onClick={openiamintrest}
+                              className="primaryInterested"
                               style={{
-                                display: "inline-block",
-                                backgroundColor: "#e6f7ff",
-                                color: "#0066cc",
-                                padding: "3px 10px",
-                                borderRadius: "4px",
-                                fontSize: "12px",
-                                fontWeight: "500",
+                                // height: "100%",
+                                backgroundColor: "#191964",
+                                color: "white",
+                                border: "none",
+                                cursor: "pointer",
+                                boxShadow: "0px 3px 6px #000",
                               }}
                             >
-                              {item.udTag}
-                            </span>
+                              I am Interested
+                            </button>
                           </div>
-                        )}
-                        <button
-                          onClick={openiamintrest}
-                          className="primaryInterested"
-                          style={{
-                            // height: "100%",
-                            backgroundColor: "#191964",
-                            color: "white",
-                            border: "none",
-                            cursor: "pointer",
-                            boxShadow: "0px 3px 6px #000",
-                          }}
-                        >
-                          I am Interested
-                        </button>
+                        </div>
+
+                        {/* Sponsor section - only show if tudSponsorName exists */}
+                        {item.udSponsorName &&
+                          item.udSponsorName.trim() !== "" &&
+                          item.udSponsorImage &&
+                          item.udSponsorImage != "" && (
+                            <div
+                              style={{
+                                textAlign: "center",
+                                marginLeft: "20px",
+                              }}
+                            >
+                              {item.udSponsorImage && (
+                                <img
+                                  src={`${
+                                    process.env.REACT_APP_BASE_URL
+                                  }api/uploads/unicorndeals/${
+                                    item.tudTempUdID
+                                  }/${JSON.parse(item.udSponsorImage)}`}
+                                  alt="Sponsor"
+                                  style={{
+                                    maxWidth: "120px",
+                                    maxHeight: "60px",
+                                    marginBottom: "5px",
+                                    objectFit: "fill"
+                                  }}
+                                />
+                              )}
+                              <p
+                                style={{
+                                  fontSize: "12px",
+                                  color: "#666",
+                                  marginBottom: "0",
+                                }}
+                              >
+                                Incubated / Supported By
+                              </p>
+                              <p
+                                style={{ fontSize: "14px", fontWeight: "500" }}
+                              >
+                                {item.udSponsorName}
+                              </p>
+                            </div>
+                          )}
                       </div>
                     </div>
                   </div>

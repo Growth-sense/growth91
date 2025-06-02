@@ -148,12 +148,13 @@ export const FutureUnicornList = () => {
         const matchesCategory = filters.category ? obj.udCategory === filters.category : true;
         const matchesStartupName = filters.startupName ? obj.udStartupName === filters.startupName : true;
         const matchesFounder = filters.founder ? obj.udPrimaryContactName === filters.founder : true;
-
-        return matchesCategory && matchesStartupName && matchesFounder;
+        const matchesSponsor = filters.sponsorName ? obj.udSponsorName === filters.sponsorName : true;
+        
+        return matchesCategory && matchesStartupName && matchesFounder && matchesSponsor;
 
       });
 
-      if (!filters.category && !filters.startupName && !filters.founder) {
+      if (!filters.category && !filters.startupName && !filters.founder && !filters.sponsorName) {
         filteredResults = [...data];
       }
 
@@ -230,15 +231,23 @@ export const FutureUnicornList = () => {
               onCancel={() => setShowModal(false)} // Use `onCancel` to close the modal
               centered
               footer={[
-                <Button key="back" onClick={() => setShowModal(false)}>
-                  Close
+                <Button key="back" onClick={() => {
+                  setFilters({
+                    startupName: "",
+                    category: "",
+                    founder: "",
+                    sponsorName: ""
+                  });
+                  setShowModal(false)
+                }}>
+                  Reset
                 </Button>,
                 <Button
                   key="submit"
                   type="primary"
                   onClick={handleApplyFilters}
                 >
-                  Apply Filters
+                  Close
                 </Button>,
               ]}
             >
@@ -309,6 +318,30 @@ export const FutureUnicornList = () => {
                               value={item.udPrimaryContactName}
                             >
                               {item.udPrimaryContactName}
+                            </option>
+                          )
+                      )}
+                  </select>
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="sponsorName">
+                    View by Sponsor Name:
+                  </label>
+                  <select
+                    id="sponsorName"
+                    value={filters.sponsorName}
+                    onChange={(e) =>
+                      setFilters({ ...filters, sponsorName: e.target.value })
+                    }
+                    className="form-control"
+                  >
+                    <option value="">--Select--</option>
+                    {filterdata &&
+                      filterdata.map(
+                        (item, index) =>
+                          item.udSponsorName && (
+                            <option key={index} value={item.udSponsorName}>
+                              {item.udSponsorName}
                             </option>
                           )
                       )}

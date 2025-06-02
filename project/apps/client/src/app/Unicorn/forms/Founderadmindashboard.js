@@ -372,6 +372,8 @@ class Founderadmindashboard extends Component {
         show_additional_info_modal: false,
         unicornid: "",
         tudDeclare: 0,
+        tudSponsorName: "",
+        tudSponsorImage: "",
 
         founderID: localStorage.getItem("founder_id"),
         tpage4NA: false,
@@ -1044,7 +1046,9 @@ class Founderadmindashboard extends Component {
       !this.state.unicorn.tudBannerImage ||
       this.state.unicorn.tudBannerImage == "" ||
       !this.state.unicorn.tudPitchDeck ||
-      this.state.unicorn.tudPitchDeck == ""
+      this.state.unicorn.tudPitchDeck == "" ||
+      (this.state.unicorn.tudSponsorName != "" && this.state.unicorn.tudSponsorImage == "") || 
+      (this.state.unicorn.tudSponsorName == "" && this.state.unicorn.tudSponsorImage != "")
     ) {
       this.setState({ loading: false });
       this.activeform(1);

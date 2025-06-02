@@ -219,6 +219,26 @@ class SupportingDocuments extends Component {
           JSON.stringify(response.data.data.upfile)
         );
       }
+    } else if (e.target.name == "tudSponsorImage") {
+      formData.append("upfile", e.target.files[0]);
+      formData.append("tudTempUdID", this.props.unicorn.tudTempUdID);
+
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}api/founder/Startup/uploadFiles`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      if (response) {
+        this.props.onInput(
+          "tudSponsorImage",
+          JSON.stringify(response.data.data.upfile)
+        );
+      }
     }
   };
 
@@ -410,6 +430,44 @@ class SupportingDocuments extends Component {
                           </div>
                         );
                       })}
+
+
+                      <div className="form-group ">
+                          <div className="mt-4">
+                            <label className="mb-2">
+                              Name of the Sponsor / Incubator
+                            </label>
+                            <div style={{ fontSize: "12px", color: "#666", marginTop: "5px", marginBottom: "10px" }}>
+                              Note: If you provide a sponsor name or image, both fields become mandatory.
+                            </div>
+                            <input
+                              type="text"
+                              maxLength={100}
+                              placeholder="Name of the Sponsor / Incubator"
+                              name="tudSponsorName"
+                              value={this.props.unicorn.tudSponsorName}
+                              onChange={(e) =>
+                                this.props.onInput(e.target.name, e.target.value)
+                              }
+                            />
+                            <label className="mb-2">
+                              Logo of the Sponsor / Incubator
+                            </label>
+                            {
+                              this.props.unicorn.tudSponsorImage != "" && JSON.parse(this.props.unicorn.tudSponsorImage) != "" ?
+                                <img style={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${JSON.parse(this.props.unicorn.tudSponsorImage)}`} /> : null
+                            }
+                            <input
+                              type="file"
+                              onWheel={() => document.activeElement.blur()}
+                              name="tudSponsorImage"
+                              accept="image/*"
+                              onChange={(e) => this.onChangeMultipleFile(e)}
+                            />                      
+                          </div>
+                        </div>
+
+
                       {/* <button onClick={this.addmarketcv}>
                         Add new market Overview
                       </button> */}

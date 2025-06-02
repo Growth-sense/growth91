@@ -802,6 +802,9 @@ class Startup extends CI_Controller {
 					'tpage10NA' => $tpage10NA,
 					'tpage13NA' => $tpage13NA,
 					'tpage17NA' => $tpage17NA,
+					'tudTag' => $tudTag,
+					'tudSponsorName' => $tudSponsorName,
+					'tudSponsorImage' => $tudSponsorImage
 				];	
 				$this -> db -> where("tudTempUdID",$tudTempUdID);
 				$status2 = $this -> db -> update("tempunicorndeals2",$post_data2);
