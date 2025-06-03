@@ -161,7 +161,7 @@ export const FutureUnicornList = () => {
       if (searchQuery) {
         const lowerSearch = searchQuery.toLowerCase();
         filteredResults = filteredResults.filter((obj) =>
-          ["udStartupName", "udPrimaryContactName", "udCategory", "udDealDescription"].some(
+          ["udStartupName", "udPrimaryContactName", "udCategory", "udDealDescription", "udSponsorName"].some(
             (key) => obj[key]?.toLowerCase().includes(lowerSearch)
           )
         );

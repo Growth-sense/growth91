@@ -1153,6 +1153,40 @@ class Startup extends CI_Controller {
 		->set_output(json_encode($response));	
 	}
 
+	function getUnicornPayment() {
+		// header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		// header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
+		$sql = <<<EOT
+			SELECT u.*, 
+			CASE 
+				WHEN ud.udFounderId IS NOT NULL THEN 'Published' 
+				WHEN tud.founderID IS NOT NULL THEN 'Draft' 
+				ELSE 'Not started' 
+			END AS unicorn_form_status 
+			FROM users u 
+			LEFT JOIN unicorndeals ud ON u.investor_id = ud.udFounderId 
+			LEFT JOIN tempunicorndeals tud ON u.investor_id = tud.founderID 
+			WHERE u.unicorn_plan IS NOT NULL
+			EOT;
+
+		$query = $this->db->query($sql);
+		$list = $query->result();
+		$response = [
+			'status' => '1',
+			'message' => 'Data found.',
+			'data' => $list,
+		];
+		
+		$this->output
+		->set_content_type('application/json')
+		->set_output(json_encode($response));	
+	}
+
 	function uploadunicornFiles()
 	{
 		// header("Access-Control-Allow-Origin: *");

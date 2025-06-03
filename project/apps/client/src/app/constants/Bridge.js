@@ -990,6 +990,10 @@ export default {
       api.post(URLs.getAllUnicorns, data).then((response) => {
         return response.data;
       }),
+    getUnicornPayment: (data) =>
+      api.post(URLs.getUnicornPayment, data).then((response) => {
+        return response.data;
+      }),
     uploadunicornFiles: (data) =>
       api.post(URLs.uploadunicornFiles, data).then((response) => {
         return response.data;

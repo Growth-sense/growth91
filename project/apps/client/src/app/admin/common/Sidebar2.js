@@ -189,6 +189,9 @@ class Sidebar extends Component {
               <li>
                <a href="/admin-all-unicorn">View All Unicorns</a>
               </li>
+              <li>
+               <a href="/admin-unicorn-payments">View Payments</a>
+              </li>
            
             
             </ul>

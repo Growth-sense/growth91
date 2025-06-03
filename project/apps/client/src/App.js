@@ -419,6 +419,7 @@ function App() {
           <Route path="/admin-family" exact component={FamilyAdmin} />
           <Route path="/admin-unicorn" exact component={UnicornAdmin} />
           <Route path="/admin-all-unicorn" exact component={UnicornAdminAll} />
+          <Route path="/admin-unicorn-payments" exact component={UnicornAdminAll} />
           <Route path="/family-Remove-Request" exact component={familyRemoveRequest} />
           <Route path="/admin-family-manage" exact component={Familymanage} />
           <Route path="/future-unicorn-startups" exact component={FUnicornStartup} />
