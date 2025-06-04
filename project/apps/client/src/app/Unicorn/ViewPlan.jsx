@@ -24,6 +24,7 @@ export const ViewPlan = (props) => {
   const [isBankDetailsModalVisible, setIsBankDetailsModalVisible] = useState(false);
   const [isGSTModalVisible, setIsGSTModalVisible] = useState(false);
   const [gstNumber, setGstNumber] = useState("");
+  const [registeredAddress, setRegisteredAddress] = useState("");
   const [selectedPlan, setSelectedPlan] = useState(null);
 
 
@@ -72,6 +73,10 @@ export const ViewPlan = (props) => {
       if (result.data[0].gst_number) {
         setGstNumber(result.data[0].unicorn_gst);
       }
+      // If registered address exists in the response, set it
+      if (result.data[0].unicorn_gst_registered_address) {
+        setRegisteredAddress(result.data[0].unicorn_gst_registered_address);
+      }
       setloading(false);
     });
   };
@@ -105,17 +110,18 @@ export const ViewPlan = (props) => {
       setloading(true);
       let params = {
         founder_id: localStorage.getItem("founder_id"),
-        unicorn_gst: gstNumber
+        unicorn_gst: gstNumber,
+        registered_address: registeredAddress
       };
       
       try {
         await Bridge.Unicorn.save_gst_number(params);
-        message.success("GST number saved successfully");
+        message.success("GST information saved successfully");
         setIsGSTModalVisible(false);
         proceedToPayment();
       } catch (error) {
-        message.error("Failed to save GST number");
-        console.error("Error saving GST number:", error);
+        message.error("Failed to save GST information");
+        console.error("Error saving GST information:", error);
       } finally {
         setloading(false);
       }
@@ -939,8 +945,40 @@ export const ViewPlan = (props) => {
                       placeholder="Enter GST Number"
                       value={gstNumber}
                       onChange={(e) => setGstNumber(e.target.value)}
-                      style={{ marginBottom: "24px" }}
+                      style={{ marginBottom: "16px" }}
                     />
+
+                    <h4 style={{ 
+                      fontSize: "18px", 
+                      fontWeight: "600", 
+                      marginBottom: "16px",
+                      color: "#1a1f36" 
+                    }}>
+                      Registered Address
+                    </h4>
+                    
+                    <div style={{ marginBottom: "24px" }}>
+                      <Input.TextArea
+                        placeholder="Enter Registered Address"
+                        value={registeredAddress}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          if (value.length <= 250) {
+                            setRegisteredAddress(value);
+                          }
+                        }}
+                        maxLength={250}
+                        autoSize={{ minRows: 3, maxRows: 5 }}
+                        style={{ marginBottom: "8px" }}
+                      />
+                      <div style={{ 
+                        textAlign: "right", 
+                        fontSize: "12px", 
+                        color: registeredAddress.length >= 200 ? "#ff4d4f" : "#8c8c8c" 
+                      }}>
+                        {registeredAddress.length} / 250 characters
+                      </div>
+                    </div>
                     
                     <div style={{ display: "flex", justifyContent: "space-between" }}>
                       <Button 

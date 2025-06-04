@@ -218,6 +218,7 @@ class Founders extends Component {
       edit_unicorn_plan_left_edit: item.left_edit,
       edit_unicorn_utr_ref: item.utrref,
       edit_unicorn_gst: item.unicorn_gst,
+      edit_unicorn_address: item.unicorn_gst_registered_address,
       editUnicornModalStatus: true,
       founder_id: item.investor_id,
     });
@@ -350,6 +351,7 @@ class Founders extends Component {
       leftEdit: this.state.edit_unicorn_plan_left_edit,
       utrref: this.state.edit_unicorn_utr_ref,
       unicorn_gst: this.state.edit_unicorn_gst,
+      registered_address: this.state.edit_unicorn_address,
       founder_id: this.state.founder_id,
     };
 
@@ -1282,6 +1284,28 @@ class Founders extends Component {
                   this.setState({ edit_unicorn_gst: e.target.value })
                 }
               />
+            </div>
+            <div className="form-group mt-3">
+              <label className="mb-2">
+                Registerd Address
+              </label>
+              <TextArea
+                type="text"
+                value={this.state.edit_unicorn_address}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (value.length <= 250) {
+                    this.setState({ edit_unicorn_address: value })
+                  }
+                }}
+              />
+              <div style={{
+                textAlign: "right",
+                fontSize: "12px",
+
+              }}>
+                {this.state.edit_unicorn_address?.length} / 250 characters
+              </div>
             </div>
         </Modal>
         {/* End Edit modal  */}

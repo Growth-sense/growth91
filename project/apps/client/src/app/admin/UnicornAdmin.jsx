@@ -584,7 +584,8 @@ class UnicornAdmin extends Component {
                       edit_unicorn_plan_end_date: record.action.unicorn_end_date ? moment(record.action.unicorn_end_date, "YYYY-MM-DD HH:mm:ss") : null,
                       edit_unicorn_plan_left_edit: record.action.left_edit,
                       edit_unicorn_utr_ref: record.action.utrref,
-                      edit_unicorn_gst: record.action.unicorn_gst
+                      edit_unicorn_gst: record.action.unicorn_gst,
+                      edit_unicorn_address: record.action.unicorn_gst_registered_address,
                     })
                   }
                     
@@ -908,6 +909,16 @@ class UnicornAdmin extends Component {
                 disabled={true}
                 type="text"
                 value={this.state.edit_unicorn_gst}
+              />
+            </div>
+            <div className="form-group mt-3">
+              <label className="mb-2">
+                Registered Address
+              </label>
+              <TextArea
+                disabled={true}
+                type="text"
+                value={this.state.edit_unicorn_address}
               />
             </div>
         </Modal>

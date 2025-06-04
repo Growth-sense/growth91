@@ -1067,7 +1067,7 @@ class Startup extends CI_Controller {
 			
 			//Step1
 			$sql= <<<EOT
-			SELECT unicorndeals.*, unicorndeals2.* , users.unicorn_start_date, users.unicorn_end_date, users.left_edit, users.unicorn_plan, users.utrref, users.unicorn_gst
+			SELECT unicorndeals.*, unicorndeals2.* , users.unicorn_start_date, users.unicorn_end_date, users.left_edit, users.unicorn_plan, users.utrref, users.unicorn_gst, unicorn_gst_registered_address
 			FROM unicorndeals 
 			LEFT JOIN unicorndeals2 on unicorndeals.unicornDealID = unicorndeals2.unicornDealID
 			LEFT JOIN users on unicorndeals.udFounderID = users.investor_id
@@ -1747,7 +1747,8 @@ class Startup extends CI_Controller {
 				'unicorn_end_date' => $endDate,
 				'left_edit' => $leftEdit,
 				'utrref' => $utrref,
-				'unicorn_gst' => $unicorn_gst
+				'unicorn_gst' => $unicorn_gst,
+				'unicorn_gst_registered_address' => $registered_address
 			];
 			$this->db->where('investor_id', $founder_id);
 			$id = $this->db->update('users', $post_data);
@@ -1778,7 +1779,8 @@ class Startup extends CI_Controller {
 		if (!empty($formdata)) {
 			extract($formdata);
 			$post_data = [
-				'unicorn_gst' => $unicorn_gst
+				'unicorn_gst' => $unicorn_gst,
+				'unicorn_gst_registered_address' => $registered_address
 			];
 			$this->db->where('investor_id', $founder_id);
 			$id = $this->db->update('users', $post_data);
