@@ -17,7 +17,6 @@ import Sidebar2 from "./common/Sidebar2";
 import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
 import Urldata from "../investor/components/Urldata";
-import moment from "moment";
 
 const { Content } = Layout;
 
@@ -81,7 +80,7 @@ class UnicornAdminAll extends Component {
       page: 0,
       pagesize: 10,
     };
-    Bridge.Unicorn.getUnicornPayment(params).then((result) => {
+    Bridge.Unicorn.getAllUnicorns(params).then((result) => {
       if (result.status == 1) {
         // console.log(result);
 
@@ -99,9 +98,76 @@ class UnicornAdminAll extends Component {
     });
   };
 
+  // SEARCH
+  searchinput = (e) => {
+    let text = e.target.value;
+    this.setState({ loading: true, searchinput: text });
+    if (text) {
+      let arr = [];
+
+      for (let item of this.state.startups) {
+        if (
+          (item.tudPrimaryContactName &&
+            item.tudPrimaryContactName
+              .toLowerCase()
+              .includes(text.toLowerCase())) ||
+          (item.tudStartupName &&
+            item.tudStartupName.toLowerCase().includes(text.toLowerCase())) ||
+          (item.tudEmail &&
+            item.tudEmail.toLowerCase().includes(text.toLowerCase())) ||
+          // (item.status &&
+          //   item.status.toLowerCase().includes(text.toLowerCase())) ||
+          (item.tudTempUdID &&
+            item.tudTempUdID.includes(text.toLowerCase()))
+        ) {
+          arr = [...arr, item];
+        }
+      }
+      this.setState({
+        startups: arr,
+        loading: false,
+      });
+    } else {
+      this.setState({
+        startups: this.state.cstartups,
+        loading: false,
+      });
+    }
+  };
+
+  exportToCSV = (fileName) => {
+    let arr = [];
+    let count = 1;
+    for (let item of this.state.startups) {
+      let obj = {
+        "Sr No": count++,
+        "Unicorn ID": item.tudTempUdID ? item.tudTempUdID : "---",
+        "Unicorn Name": item.tudStartupName ? item.tudStartupName : "---",
+        "Unicorn Status": item.mainPublished == "Published"? "Published" : "Draft",
+        "Founder Id": item.founderID ? item.founderID : "---",
+        Email: item.tudEmail ? item.tudEmail : "---",
+        "Founder Name": item.tudPrimaryContactName
+          ? item.tudPrimaryContactName
+          : "---",
+        "Founder Mobile": item.tudPrimaryContactMobile
+          ? item.tudPrimaryContactMobile
+          : "---",
+      };
+      arr = [...arr, obj];
+    }
+    const ws = XLSX.utils.json_to_sheet(arr);
+    const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+    const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+    const data = new Blob([excelBuffer], { type: fileType });
+    FileSaver.saveAs(data, fileName + fileExtension);
+    message.success("Unicorns data exported successfully.");
+  };
+
+  
+  
+   
   
 
- 
 
   getmember = (value, id) => {
     this.setState({ ids: value });
@@ -149,60 +215,66 @@ class UnicornAdminAll extends Component {
       this.state.startups.map((item, index) => {
         // console.log(item);
         return {
-          founderFirstName: item.first_name ?? "---",
-          founderLastName: item.last_name ?? "---",
-          founderEmail: item.email ?? "---",
-          fouderMobile: item.mobile ?? "---",
-          unicornPlan: item.unicorn_plan ?? "---",
-          unicornStatus: item.unicorn_form_status,
-          unicornStartDate: item.unicorn_start_date ? moment(item.unicorn_start_date, "YYYY-MM-DD HH:mm:ss").format("DD-MMM-YYYY") : "---",
+          UnicornID: item.tudTempUdID ? item.tudTempUdID : "---",
+          "Unicorn Name": item.tudStartupName ? item.tudStartupName : "---",
+          Email: item.tudEmail ? item.tudEmail : "---",
+          "Unicorn Status": item.mainPublished =="Published"? "Published":"Draft",
+          "Admin Name": item.tudPrimaryContactName
+            ? item.tudPrimaryContactName
+            : "---",
+          "Admin Mobile": item.tudPrimaryContactMobile
+            ? item.tudPrimaryContactMobile
+            : "---",
+          AdminId: item.founderID ? item.founderID : "---",
+          action: item,
         };
       });
 
     const columns = [
       {
-        title: "First name",
-        dataIndex: "founderFirstName",
-        key: "founderFirstName",
+        title: "Unicorn ID",
+        dataIndex: "UnicornID",
+        key: "UnicornID",
         width: 260,
         fixed: "left",
       },
       {
-        title: "Last Name",
-        dataIndex: "founderLastName",
-        key: "founderLastName",
+        title: "Unicorn Name",
+        dataIndex: "Unicorn Name",
+        key: "Unicorn Name",
         width: 280,
       },
       {
-        title: "Email",
-        dataIndex: "founderEmail",
-        key: "founderEmail",
+        title: "Unicorn Status",
+        dataIndex: "Unicorn Status",
+        key: "Unicorn Status",
         width: 280,
       },
 
       {
-        title: "Mobile",
-        dataIndex: "fouderMobile",
-        key: "fouderMobile",
-        width: 280,
-      },
-      
-      {
-        title: "Unicorn Status",
-        dataIndex: "unicornStatus",
-        key: "unicornStatus",
+        title: "Founder ID",
+        dataIndex: "AdminId",
+        key: "AdminId",
         width: 280,
       },
       {
-        title: "Plan",
-        dataIndex: "unicornPlan",
-        key: "unicornPlan",
+        title: "Founder Name",
+        dataIndex: "Admin Name",
+        key: "Admin Name",
         width: 280,
       },
+
       {
-        title: "Plan Start Date",
-        dataIndex: "unicornStartDate",
-        key: "unicornStartDate",
+        title: "Founder Email ID",
+        dataIndex: "Email",
+        key: "Email",
+        width: 280,
+      },
+
+      {
+        title: "Founder Mobile No.",
+        dataIndex: "Admin Mobile",
+        key: "Admin Mobile",
         width: 280,
       }
     ];
@@ -226,13 +298,53 @@ class UnicornAdminAll extends Component {
                   }}
                 >
                   <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
-                  <Breadcrumb.Item>Unicorns</Breadcrumb.Item>
-                  <Breadcrumb.Item>Payments</Breadcrumb.Item>
+                  <Breadcrumb.Item>All Unicorns</Breadcrumb.Item>
                 </Breadcrumb>
                 <br />
                 <br />
                 
 
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "end",
+                  }}
+                >
+                  <Input
+                    value={this.state.searchinput}
+                    placeholder="Search"
+                    onChange={(e) => this.searchinput(e)}
+                    style={{ maxWidth: 300, marginBottom: 20, height: 40 }}
+                  />
+                  {/* <Button 
+                    type='primary' 
+                    onClick={()=>this.refresh()}
+                  >
+                    <i className='bx bxs-cloud-download' 
+                      style={{ 
+                      color:'#fff',
+                      position:'relative',
+                      top:3,
+                      left:-3
+                  }}
+                    ></i> Refersh data
+                  </Button> */}
+                  <Button
+                    type="primary"
+                    onClick={() => this.exportToCSV("Unicorn_Details_All")}
+                  >
+                    <i
+                      className="bx bxs-cloud-download"
+                      style={{
+                        color: "#fff",
+                        position: "relative",
+                        top: 3,
+                        left: -3,
+                      }}
+                    ></i>{" "}
+                    Export Data
+                  </Button>
+                </div>
                 <Table
                   dataSource={dataSource}
                   columns={columns}

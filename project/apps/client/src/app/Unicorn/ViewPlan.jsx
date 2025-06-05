@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NewWebFooter } from "../common/NewWebFooter";
 import $ from "jquery";
 import Bridge from "../constants/Bridge.js";
-import { Spin, Card, Button, Modal, Input, message } from "antd";
+import { Spin, Card, Button, Modal, Input, message, Checkbox } from "antd";
 import Header from "../common/Header.js";
 import { 
   CheckOutlined, 
@@ -70,7 +70,7 @@ export const ViewPlan = (props) => {
       setPlanStartDate(result.data[0].unicorn_start_date);
       setPlanEndDate(result.data[0].unicorn_end_date);
       // If GST number exists in the response, set it
-      if (result.data[0].gst_number) {
+      if (result.data[0].unicorn_gst) {
         setGstNumber(result.data[0].unicorn_gst);
       }
       // If registered address exists in the response, set it
@@ -251,10 +251,8 @@ export const ViewPlan = (props) => {
             flexDirection: "column",
           }}
         >
-          {
-            !props.hideHeader && <Header />
-          }
-          
+          {!props.hideHeader && <Header />}
+
           {/* Modern Pricing Section */}
           <section
             className="pricing-section"
@@ -467,7 +465,10 @@ export const ViewPlan = (props) => {
 
                         <div
                           className="features"
-                          style={{ marginBottom: "32px", flexDirection: "column" }}
+                          style={{
+                            marginBottom: "32px",
+                            flexDirection: "column",
+                          }}
                         >
                           {plan.features.map((feature, idx) => (
                             <div
@@ -528,27 +529,34 @@ export const ViewPlan = (props) => {
 
               {/* Offline Payment Option */}
               <div className="text-center mt-5">
-                <p style={{ 
-                  fontSize: "16px", 
-                  color: "#4a5568", 
-                  marginBottom: "10px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "8px"
-                }}>
-                  Prefer Offline Payment? You can also pay via bank transfer. 
-                  <span 
+                <p
+                  style={{
+                    fontSize: "16px",
+                    color: "#4a5568",
+                    marginBottom: "10px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "8px",
+                  }}
+                >
+                  Prefer Offline Payment? You can also pay via bank transfer.
+                  <span
                     onClick={() => setIsBankDetailsModalVisible(true)}
-                    style={{ 
-                      color: "#5469d4", 
-                      cursor: "pointer", 
+                    style={{
+                      color: "#5469d4",
+                      cursor: "pointer",
                       fontWeight: "600",
                       display: "inline-flex",
-                      alignItems: "center"
+                      alignItems: "center",
                     }}
                   >
-                    👉 <span style={{ textDecoration: "underline", marginLeft: "4px" }}>Click here to view bank details</span>
+                    👉{" "}
+                    <span
+                      style={{ textDecoration: "underline", marginLeft: "4px" }}
+                    >
+                      Click here to view bank details
+                    </span>
                   </span>
                 </p>
               </div>
@@ -922,41 +930,61 @@ export const ViewPlan = (props) => {
                 }}
               >
                 <div style={{ padding: "20px 0" }}>
-                  <div style={{ 
-                    background: "#f8fafc", 
-                    padding: "24px", 
-                    borderRadius: "12px",
-                    marginBottom: "20px"
-                  }}>
-                    <h4 style={{ 
-                      fontSize: "18px", 
-                      fontWeight: "600", 
-                      marginBottom: "16px",
-                      color: "#1a1f36" 
-                    }}>
+                  <div
+                    style={{
+                      background: "#f8fafc",
+                      padding: "24px",
+                      borderRadius: "12px",
+                      marginBottom: "20px",
+                    }}
+                  >
+                    <h4
+                      style={{
+                        fontSize: "18px",
+                        fontWeight: "600",
+                        marginBottom: "16px",
+                        color: "#1a1f36",
+                      }}
+                    >
                       Enter your GST Number
                     </h4>
-                    
-                    <p style={{ color: "#4a5568", marginBottom: "16px" }}>
+
+                    <p style={{ color: "#4a5568" }}>
                       Please provide your GST number for billing purposes.
                     </p>
-                    
+
+                    <div style={{ marginBottom: "10px" }}>
+                      <Checkbox
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setGstNumber("N/A");
+                          } else {
+                            setGstNumber("");
+                          }
+                        }}
+                      />{" "}
+                      &nbsp;No GST{" "}
+                    </div>
+
                     <Input
                       placeholder="Enter GST Number"
                       value={gstNumber}
+                      disabled={gstNumber == "N/A"}
                       onChange={(e) => setGstNumber(e.target.value)}
                       style={{ marginBottom: "16px" }}
                     />
 
-                    <h4 style={{ 
-                      fontSize: "18px", 
-                      fontWeight: "600", 
-                      marginBottom: "16px",
-                      color: "#1a1f36" 
-                    }}>
+                    <h4
+                      style={{
+                        fontSize: "18px",
+                        fontWeight: "600",
+                        marginBottom: "16px",
+                        color: "#1a1f36",
+                      }}
+                    >
                       Registered Address
                     </h4>
-                    
+
                     <div style={{ marginBottom: "24px" }}>
                       <Input.TextArea
                         placeholder="Enter Registered Address"
@@ -971,17 +999,27 @@ export const ViewPlan = (props) => {
                         autoSize={{ minRows: 3, maxRows: 5 }}
                         style={{ marginBottom: "8px" }}
                       />
-                      <div style={{ 
-                        textAlign: "right", 
-                        fontSize: "12px", 
-                        color: registeredAddress.length >= 200 ? "#ff4d4f" : "#8c8c8c" 
-                      }}>
+                      <div
+                        style={{
+                          textAlign: "right",
+                          fontSize: "12px",
+                          color:
+                            registeredAddress.length >= 200
+                              ? "#ff4d4f"
+                              : "#8c8c8c",
+                        }}
+                      >
                         {registeredAddress.length} / 250 characters
                       </div>
                     </div>
-                    
-                    <div style={{ display: "flex", justifyContent: "space-between" }}>
-                      <Button 
+
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Button
                         onClick={() => {
                           setIsGSTModalVisible(false);
                           proceedToPayment();
@@ -990,9 +1028,16 @@ export const ViewPlan = (props) => {
                       >
                         Skip and Continue
                       </Button>
-                      <Button 
+                      <Button
                         type="primary"
-                        onClick={saveGSTNumber}
+                        onClick={() => {
+                          if(gstNumber == "" || registeredAddress == ""){
+                            message.error("Please enter GST number and registered address");
+                          }
+                          else{
+                            saveGSTNumber()
+                          }
+                        }}
                         size="large"
                         loading={loading}
                       >
@@ -1002,15 +1047,15 @@ export const ViewPlan = (props) => {
                   </div>
                 </div>
               </Modal>
-              
+
               {/* Bank Details Modal */}
               <Modal
                 title="Bank Details"
                 open={isBankDetailsModalVisible}
                 onCancel={() => setIsBankDetailsModalVisible(false)}
                 footer={[
-                  <Button 
-                    key="close" 
+                  <Button
+                    key="close"
                     onClick={() => setIsBankDetailsModalVisible(false)}
                     size="large"
                     style={{
@@ -1019,7 +1064,7 @@ export const ViewPlan = (props) => {
                     }}
                   >
                     Close
-                  </Button>
+                  </Button>,
                 ]}
                 width={600}
                 centered={true}
@@ -1029,63 +1074,137 @@ export const ViewPlan = (props) => {
                 }}
               >
                 <div style={{ padding: "20px 0" }}>
-                  <div style={{ 
-                    background: "#f8fafc", 
-                    padding: "24px", 
-                    borderRadius: "12px",
-                    marginBottom: "20px"
-                  }}>
-                    <h4 style={{ 
-                      fontSize: "18px", 
-                      fontWeight: "600", 
-                      marginBottom: "16px",
-                      color: "#1a1f36" 
-                    }}>
+                  <div
+                    style={{
+                      background: "#f8fafc",
+                      padding: "24px",
+                      borderRadius: "12px",
+                      marginBottom: "20px",
+                    }}
+                  >
+                    <h4
+                      style={{
+                        fontSize: "18px",
+                        fontWeight: "600",
+                        marginBottom: "16px",
+                        color: "#1a1f36",
+                      }}
+                    >
                       Bank Details:
                     </h4>
-                    
-                    <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "12px",
+                      }}
+                    >
                       <div style={{ display: "flex" }}>
-                        <div style={{ width: "160px", fontWeight: "500", color: "#64748b" }}>Account Name:</div>
-                        <div style={{ fontWeight: "500", color: "#1e293b" }}>Growth91 Advisors Private Limited</div>
+                        <div
+                          style={{
+                            width: "160px",
+                            fontWeight: "500",
+                            color: "#64748b",
+                          }}
+                        >
+                          Account Name:
+                        </div>
+                        <div style={{ fontWeight: "500", color: "#1e293b" }}>
+                          Growth91 Advisors Private Limited
+                        </div>
                       </div>
-                      
+
                       <div style={{ display: "flex" }}>
-                        <div style={{ width: "160px", fontWeight: "500", color: "#64748b" }}>Account Number:</div>
-                        <div style={{ fontWeight: "500", color: "#1e293b" }}>50200066360849</div>
+                        <div
+                          style={{
+                            width: "160px",
+                            fontWeight: "500",
+                            color: "#64748b",
+                          }}
+                        >
+                          Account Number:
+                        </div>
+                        <div style={{ fontWeight: "500", color: "#1e293b" }}>
+                          50200066360849
+                        </div>
                       </div>
-                      
+
                       <div style={{ display: "flex" }}>
-                        <div style={{ width: "160px", fontWeight: "500", color: "#64748b" }}>Bank:</div>
-                        <div style={{ fontWeight: "500", color: "#1e293b" }}>HDFC Bank</div>
+                        <div
+                          style={{
+                            width: "160px",
+                            fontWeight: "500",
+                            color: "#64748b",
+                          }}
+                        >
+                          Bank:
+                        </div>
+                        <div style={{ fontWeight: "500", color: "#1e293b" }}>
+                          HDFC Bank
+                        </div>
                       </div>
-                      
+
                       <div style={{ display: "flex" }}>
-                        <div style={{ width: "160px", fontWeight: "500", color: "#64748b" }}>Branch:</div>
-                        <div style={{ fontWeight: "500", color: "#1e293b" }}>Akola, Maharashtra</div>
+                        <div
+                          style={{
+                            width: "160px",
+                            fontWeight: "500",
+                            color: "#64748b",
+                          }}
+                        >
+                          Branch:
+                        </div>
+                        <div style={{ fontWeight: "500", color: "#1e293b" }}>
+                          Akola, Maharashtra
+                        </div>
                       </div>
-                      
+
                       <div style={{ display: "flex" }}>
-                        <div style={{ width: "160px", fontWeight: "500", color: "#64748b" }}>IFSC Code:</div>
-                        <div style={{ fontWeight: "500", color: "#1e293b" }}>HDFC0000221</div>
+                        <div
+                          style={{
+                            width: "160px",
+                            fontWeight: "500",
+                            color: "#64748b",
+                          }}
+                        >
+                          IFSC Code:
+                        </div>
+                        <div style={{ fontWeight: "500", color: "#1e293b" }}>
+                          HDFC0000221
+                        </div>
                       </div>
-                      
+
                       <div style={{ display: "flex" }}>
-                        <div style={{ width: "160px", fontWeight: "500", color: "#64748b" }}>Account Type:</div>
-                        <div style={{ fontWeight: "500", color: "#1e293b" }}>Current Account</div>
+                        <div
+                          style={{
+                            width: "160px",
+                            fontWeight: "500",
+                            color: "#64748b",
+                          }}
+                        >
+                          Account Type:
+                        </div>
+                        <div style={{ fontWeight: "500", color: "#1e293b" }}>
+                          Current Account
+                        </div>
                       </div>
                     </div>
                   </div>
-                  
-                  <div style={{ 
-                    padding: "16px", 
-                    background: "#f0f9ff", 
-                    borderRadius: "8px", 
-                    borderLeft: "4px solid #0ea5e9",
-                    color: "#0c4a6e"
-                  }}>
+
+                  <div
+                    style={{
+                      padding: "16px",
+                      background: "#f0f9ff",
+                      borderRadius: "8px",
+                      borderLeft: "4px solid #0ea5e9",
+                      color: "#0c4a6e",
+                    }}
+                  >
                     <p style={{ margin: "0", fontSize: "14px" }}>
-                      Please mail us the Transaction Reference Number and registered email address to <strong>contact@growth91.com</strong>.
+                      Please mail us the Transaction Reference Number and
+                      registered email address to{" "}
+                      <strong>contact@growth91.com</strong>.
                     </p>
                   </div>
                 </div>
@@ -1094,9 +1213,7 @@ export const ViewPlan = (props) => {
           </section>
         </div>
       </Spin>
-      {
-        !props.hideHeader && <NewWebFooter />
-      }
+      {!props.hideHeader && <NewWebFooter />}
     </>
   );
 };

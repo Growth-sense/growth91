@@ -241,6 +241,7 @@ import CareerCompany from "./app/deal-pages/CareerCompany.jsx";
 import Garudaaerospace from "./app/deal-pages/Garudaaerospace.jsx";
 import CombinedRegistration from "./app/investor/register/CombinedRegistration.js";
 import UnicornAdminAll from "./app/admin/UnicornAdminAll.jsx";
+import UnicornAdminPayment from "./app/admin/UnicornAdminPayment.jsx";
 
 ReactGA.initialize(TRACKING_ID);
 
@@ -419,7 +420,7 @@ function App() {
           <Route path="/admin-family" exact component={FamilyAdmin} />
           <Route path="/admin-unicorn" exact component={UnicornAdmin} />
           <Route path="/admin-all-unicorn" exact component={UnicornAdminAll} />
-          <Route path="/admin-unicorn-payments" exact component={UnicornAdminAll} />
+          <Route path="/admin-unicorn-payments" exact component={UnicornAdminPayment} />
           <Route path="/family-Remove-Request" exact component={familyRemoveRequest} />
           <Route path="/admin-family-manage" exact component={Familymanage} />
           <Route path="/future-unicorn-startups" exact component={FUnicornStartup} />
