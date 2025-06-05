@@ -4541,7 +4541,7 @@ transition: max-height 0.45s ease-in; */
 }
 
 .img-community-box img {
-    object-fit: cover;
+    object-fit: fill;
     width: 100%;
     border-radius: 20px;
     height: 200px;
