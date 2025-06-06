@@ -256,7 +256,7 @@ export const MyUnicornPlan = () => {
       plan_name: "AdditionalEdit"
     };
     const result = await Bridge.Unicorn.get_payment_link(params);
-    window.location.assign(JSON.parse(result.data).link_url);
+    window.location.assign(result.data.link_url);
   }
 
   // PlanInfoCard component

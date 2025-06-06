@@ -466,7 +466,7 @@ class Mediacoverager extends Component {
                           </label>
                           <input
                             type="text"
-                            maxLength="500"
+                            maxLength="100"
                             name="description1"
                             value={item.description1}
                             onChange={(e) => {
@@ -486,11 +486,11 @@ class Mediacoverager extends Component {
                         {/* Team Member Description 2 */}
                         <div className="form-group mt-4">
                           <label className="mb-2">
-                            Description 2 <span style={{ color: "red" }}>*</span>
+                            Description 2 <span style={{ color: "red" }}>*</span> 
                           </label>
                           <input
                             type="text"
-                            maxLength="500"
+                            maxLength="100"
                             name="description2"
                             value={item.description2}
                             onChange={(e) => {
