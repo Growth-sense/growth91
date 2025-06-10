@@ -45,7 +45,7 @@ class Founderadmindashboard extends Component {
       "Supporting Documents",
       "Social Media Presence",
       "Other info",
-      "Media Coverager",
+      "Media Coverage",
       "Declaration",
       "Company Legality Entity",
       "Idea/Business", 
