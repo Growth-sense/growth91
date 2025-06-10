@@ -316,19 +316,6 @@ class UnicornAdminAll extends Component {
                     onChange={(e) => this.searchinput(e)}
                     style={{ maxWidth: 300, marginBottom: 20, height: 40 }}
                   />
-                  {/* <Button 
-                    type='primary' 
-                    onClick={()=>this.refresh()}
-                  >
-                    <i className='bx bxs-cloud-download' 
-                      style={{ 
-                      color:'#fff',
-                      position:'relative',
-                      top:3,
-                      left:-3
-                  }}
-                    ></i> Refersh data
-                  </Button> */}
                   <Button
                     type="primary"
                     onClick={() => this.exportToCSV("Unicorn_Details_All")}

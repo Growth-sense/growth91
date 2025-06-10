@@ -99,6 +99,33 @@ class UnicornAdminPayment extends Component {
     });
   };
 
+  // Export data to CSV
+  exportToCSV = (fileName) => {
+    let arr = [];
+    let count = 1;
+    for (let item of this.state.startups) {
+      let obj = {
+        "Sr No": count++,
+        "First Name": item.first_name ? item.first_name : "---",
+        "Last Name": item.last_name ? item.last_name : "---",
+        "Email": item.email ? item.email : "---",
+        "Mobile": item.mobile ? item.mobile : "---",
+        "Unicorn Status": item.unicorn_form_status ? item.unicorn_form_status : "---",
+        "Plan": item.unicorn_plan ? item.unicorn_plan : "---",
+        "Plan Start Date": item.unicorn_start_date ? 
+          moment(item.unicorn_start_date, "YYYY-MM-DD HH:mm:ss").format("DD-MMM-YYYY") : "---",
+        "GST": item.unicorn_gst ? item.unicorn_gst : "---",
+        "Registered Address": item.unicorn_gst_registered_address ? item.unicorn_gst_registered_address : "---"
+      };
+      arr = [...arr, obj];
+    }
+    const ws = XLSX.utils.json_to_sheet(arr);
+    const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+    const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+    const data = new Blob([excelBuffer], { type: fileType });
+    FileSaver.saveAs(data, fileName + fileExtension);
+    message.success("Unicorn payment data exported successfully.");
+  };
   
 
  
@@ -119,6 +146,46 @@ class UnicornAdminPayment extends Component {
      
       this.setState({ memberdetail: result.data });
     });
+  };
+
+  // Search functionality to match all displayed fields
+  searchinput = (e) => {
+    const searchValue = e.target.value.toLowerCase();
+    this.setState({ searchinput: e.target.value });
+    
+    if (searchValue === "") {
+      // If search input is empty, restore original data
+      this.setState({ startups: this.state.cstartups });
+      return;
+    }
+
+    // Filter the data based on all displayed fields
+    const filteredData = this.state.cstartups.filter((item) => {
+      // Check each field that's displayed in the table
+      return (
+        // First name
+        (item.first_name && item.first_name.toLowerCase().includes(searchValue)) ||
+        // Last name
+        (item.last_name && item.last_name.toLowerCase().includes(searchValue)) ||
+        // Email
+        (item.email && item.email.toLowerCase().includes(searchValue)) ||
+        // Mobile
+        (item.mobile && item.mobile.toLowerCase().includes(searchValue)) ||
+        // Unicorn Status
+        (item.unicorn_form_status && item.unicorn_form_status.toLowerCase().includes(searchValue)) ||
+        // Plan
+        (item.unicorn_plan && item.unicorn_plan.toLowerCase().includes(searchValue)) ||
+        // Plan Start Date
+        (item.unicorn_start_date && 
+          moment(item.unicorn_start_date, "YYYY-MM-DD HH:mm:ss").format("DD-MMM-YYYY").toLowerCase().includes(searchValue)) ||
+        // GST
+        (item.unicorn_gst && item.unicorn_gst.toLowerCase().includes(searchValue)) ||
+        // Registered Address
+        (item.unicorn_gst_registered_address && item.unicorn_gst_registered_address.toLowerCase().includes(searchValue))
+      );
+    });
+
+    this.setState({ startups: filteredData });
   };
 
   render() {
@@ -224,6 +291,35 @@ class UnicornAdminPayment extends Component {
                 </Breadcrumb>
                 <br />
                 <br />
+
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "end",
+                  }}
+                >
+                  <Input
+                    value={this.state.searchinput}
+                    placeholder="Search"
+                    onChange={(e) => this.searchinput(e)}
+                    style={{ maxWidth: 300, marginBottom: 20, height: 40 }}
+                  />
+                  <Button
+                    type="primary"
+                    onClick={() => this.exportToCSV("Unicorn_Payment_Details")}
+                  >
+                    <i
+                      className="bx bxs-cloud-download"
+                      style={{
+                        color: "#fff",
+                        position: "relative",
+                        top: 3,
+                        left: -3,
+                      }}
+                    ></i>{" "}
+                    Export Data
+                  </Button>
+                </div>
                 
 
                 <Table
