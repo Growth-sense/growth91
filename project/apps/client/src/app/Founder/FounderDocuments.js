@@ -163,7 +163,7 @@ class Commitment extends Component {
                                     </>
                                     : <>
                                         <div className='text-center mt-5'>
-                                            <h4>Documents will be visible here.</h4>
+                                            <h4>Relevant documents will appear here, if applicable</h4>
                                             <img src='No_data_rafiki.png' width={200} />
                                         </div>
                                     </>
