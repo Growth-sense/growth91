@@ -4,11 +4,29 @@ import Apis from "../../constants/Apis";
 import ReactGA from "react-ga4";
 
 export default class Sidebar extends Component {
+
+  specialFounderIds = [
+    "33",
+    "172", "198",
+    "413", "475",
+    "592",
+    "670",
+    "800", "867",
+    "901", "905", "927", "933",
+    "1000", "1018", "1098",
+    "1307", "1389", "1394", 
+    "1409", "1463", "1482",
+    "1532", "1537", "1548",
+    "1646",
+    "1743", "1790", "1795", "1978",
+    "2108", "2138"
+  ];
+
   constructor(props) {
     super(props);
     this.state = {
       is_investor: "0",
-      isFutureUnicornOpen: false, // New state to manage dropdown
+      isFutureUnicornOpen: true, // New state to manage dropdown
     };
   }
 
@@ -62,37 +80,45 @@ export default class Sidebar extends Component {
           </div>
         )}
         <div style={{ padding: "0 25px" }}>
-          <a
-            href="/founder-dashboard"
-            className={
-              window.location.pathname === "/founder-dashboard" ? "active" : ""
-            }
-          >
-            <li className="hiw-li">
-              <i className="bx bx-grid-alt "></i> &nbsp;&nbsp;Dashboard
-            </li>
-          </a>
-          <a
-            href="/founder-investors"
-            className={
-              window.location.pathname === "/founder-investors" ? "active" : ""
-            }
-          >
-            <li className="hiw-li">
-              <i className="bx bxs-user-account"></i>
-              &nbsp;&nbsp;Investors
-            </li>
-          </a>
-          <a
-            href="/founder-analytics"
-            className={
-              window.location.pathname === "/founder-analytics" ? "active" : ""
-            }
-          >
-            <li className="hiw-li">
-              <i className="bx bx-trending-up"></i> &nbsp;&nbsp;Analytics
-            </li>
-          </a>
+          {
+            this.specialFounderIds.includes(localStorage.getItem("founder_id")) && (
+              <>
+                <a
+                  href="/founder-dashboard"
+                  className={
+                    window.location.pathname === "/founder-dashboard" ? "active" : ""
+                  }
+                >
+                  <li className="hiw-li">
+                    <i className="bx bx-grid-alt "></i> &nbsp;&nbsp;Dashboard
+                  </li>
+                </a>
+                <a
+                  href="/founder-investors"
+                  className={
+                    window.location.pathname === "/founder-investors" ? "active" : ""
+                  }
+                >
+                  <li className="hiw-li">
+                    <i className="bx bxs-user-account"></i>
+                    &nbsp;&nbsp;Investors
+                  </li>
+                </a>
+                <a
+                  href="/founder-analytics"
+                  className={
+                    window.location.pathname === "/founder-analytics" ? "active" : ""
+                  }
+                >
+                  <li className="hiw-li">
+                    <i className="bx bx-trending-up"></i> &nbsp;&nbsp;Analytics
+                  </li>
+                </a>
+              </>
+            )
+          }
+          
+          
           {/* <a
             href="/startup-form"
             className={
@@ -126,17 +152,24 @@ export default class Sidebar extends Component {
               &nbsp;&nbsp;Assessment Form
             </li>
           </a> */}
-          <a
-            href="/founder-deals"
-            className={
-              window.location.pathname === "/founder-deals" ? "active" : ""
-            }
-          >
-            <li className="hiw-li">
-              <i className="bx bx-calendar-star" style={{ fontSize: 20 }}></i>{" "}
-              &nbsp;&nbsp;Deals
-            </li>
-          </a>
+          {
+            this.specialFounderIds.includes(localStorage.getItem("founder_id")) && (
+              <>
+                <a
+                  href="/founder-deals"
+                  className={
+                    window.location.pathname === "/founder-deals" ? "active" : ""
+                  }
+                >
+                  <li className="hiw-li">
+                    <i className="bx bx-calendar-star" style={{ fontSize: 20 }}></i>{" "}
+                    &nbsp;&nbsp;Deals
+                  </li>
+                </a>
+              </>
+            )
+          }
+          
           {/* <a
             href="/FounderInterest"
             className={
@@ -150,13 +183,9 @@ export default class Sidebar extends Component {
           </a>
           
           {/* Future Unicorn Menu with My Plan as a Submenu */}
-          <li className="hiw-li" style={{ cursor: "pointer" }} onClick={this.toggleFutureUnicorn}>
+          <li className="hiw-li" style={{ cursor: "not-allowed" }} >
             <i className="bx bx-calendar-star" style={{ fontSize: 20 }}></i>{" "}
             &nbsp;&nbsp; Future Unicorn
-            <i
-              className={`bx ${this.state.isFutureUnicornOpen ? "bx-chevron-up" : "bx-chevron-down"}`}
-              style={{ float: "right" }}
-            ></i>
           </li>
          
           <ol
@@ -316,10 +345,3 @@ export default class Sidebar extends Component {
     );
   }
 }
-
-
-
-
-
-
-
