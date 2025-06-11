@@ -1272,23 +1272,31 @@ class Founderadmindashboard extends Component {
           {`
             .multistep-form-icons span{
                 color: black;
-    font-size: 1.3em !important;
+                font-size: 1.3em !important;
             }
-    .line-seperator span{
-     color: black;
-    // font-size: 1.2em;
-    
-    }
-     .form-group label{
-     color: black;
-    // font-size: 1.2em;
-    
-    }
-      .form-group input{
-     color: black;
-    // font-size: 1.2em;
-    
-    }
+            .line-seperator span{
+                color: black;
+                // font-size: 1.2em;
+            }
+            .form-group label{
+                color: black;
+                // font-size: 1.2em;
+            }
+            .form-group input{
+                color: black;
+                // font-size: 1.2em;
+            }
+            
+            /* Grey out non-active tabs */
+            .multistep-form-icons li .circle:not(.active-tab) {
+                opacity: 0.2;
+            }
+            .multistep-form-icons li:not(:has(.active-tab)) span {
+                opacity: 0.2;
+            }
+            .multistep-form-icons li:not(:has(.active-tab)) .line {
+                opacity: 0.2;
+            }
             
             `}
         </style>
