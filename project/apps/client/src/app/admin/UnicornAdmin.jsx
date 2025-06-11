@@ -245,14 +245,14 @@ class UnicornAdmin extends Component {
 
       for (let item of this.state.startups) {
         if (
-          (item.udPrimaryContactName &&
-            item.udPrimaryContactName
+          (item.udStartupFounderName &&
+            item.udStartupFounderName
               .toLowerCase()
               .includes(text.toLowerCase())) ||
           (item.udStartupName &&
             item.udStartupName.toLowerCase().includes(text.toLowerCase())) ||
-          (item.udEmail &&
-            item.udEmail.toLowerCase().includes(text.toLowerCase())) ||
+          (item.udStartupFounderEmail &&
+            item.udStartupFounderEmail.toLowerCase().includes(text.toLowerCase())) ||
           // (item.status &&
           //   item.status.toLowerCase().includes(text.toLowerCase())) ||
           (item.unicornDealID &&
@@ -322,12 +322,12 @@ class UnicornAdmin extends Component {
         "Unicorn Name": item.udStartupName ? item.udStartupName : "---",
         "Unicorn Status": item.udPublished =="Published"? "Enable":"Disable",
         "Founder Id": item.udFounderID ? item.udFounderID : "---",
-        Email: item.udEmail ? item.udEmail : "---",
-        "Founder Name": item.udPrimaryContactName
-          ? item.udPrimaryContactName
+        Email: item.udStartupFounderEmail ? item.udStartupFounderEmail : "---",
+        "Founder Name": item.udStartupFounderName
+          ? item.udStartupFounderName
           : "---",
-        "Founder Mobile": item.udPrimaryContactMobile
-          ? item.udPrimaryContactMobile
+        "Founder Mobile": item.udStartupFounderMobileNumber
+          ? item.udStartupFounderMobileNumber
           : "---",
 
         // Status: item.status,
@@ -466,13 +466,13 @@ class UnicornAdmin extends Component {
         return {
           UnicornID: item.unicornDealID ? item.unicornDealID : "---",
           "Unicorn Name": item.udStartupName ? item.udStartupName : "---",
-          Email: item.udEmail ? item.udEmail : "---",
+          Email: item.udStartupFounderEmail ? item.udStartupFounderEmail : "---",
           "Unicorn Status": item.udPublished =="Published"? "Enable":"Disable",
-          "Admin Name": item.udPrimaryContactName
-            ? item.udPrimaryContactName
+          "Admin Name": item.udStartupFounderName
+            ? item.udStartupFounderName
             : "---",
-          "Admin Mobile": item.udPrimaryContactMobile
-            ? item.udPrimaryContactMobile
+          "Admin Mobile": item.udStartupFounderMobileNumber
+            ? item.udStartupFounderMobileNumber
             : "---",
           AdminId: item.udFounderID ? item.udFounderID : "---",
           action: item,

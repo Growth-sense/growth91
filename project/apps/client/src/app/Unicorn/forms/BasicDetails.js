@@ -91,15 +91,7 @@ class BasicDetails extends Component {
         return;
       }
     }
-    let params = {
-      tudEmail: this.state.email,
-      tudStartupName: this.state.startup_name,
-      tudPrimaryContactName: this.state.primary_contact_person_name,
-      tudPrimaryContactMobile: this.state.primary_contact_person_mobile,
-      tudPrimaryContactEmail: this.state.primary_contact_person_email,
-      founderID: localStorage.getItem("founder_id"),
-      // f1_status:this.state.processtype=='saveandproceed'?'success':'new',
-    };
+    
     this.setState({ loading: true });
 
     Bridge.Unicorn.editunicorndraft(this.props.unicorn).then((result) => {
@@ -239,21 +231,6 @@ class BasicDetails extends Component {
                     <div className="col-lg-12">
                       <div className="form-group input-rezized">
                         <label for="">
-                          Enter Your Email<span className="text-danger">*</span>
-                        </label>
-                        <input
-                          type="email"
-                          placeholder="Enter your Email"
-                          name="tudEmail"
-                          value={this.props.unicorn.tudEmail}
-                          id="selected-field"
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          } //.
-                        />
-                      </div>
-                      <div className="form-group input-rezized">
-                        <label for="">
                           Name Of Startup<span className="text-danger">*</span>
                         </label>
                         <input
@@ -261,60 +238,6 @@ class BasicDetails extends Component {
                           placeholder="Enter your Startup name"
                           name="tudStartupName"
                           value={this.props.unicorn.tudStartupName}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          } //.
-                        />
-                      </div>
-                      <div className="form-group input-rezized">
-                        <label for="">
-                          Primary Contact Person(Name)
-                          <span className="text-danger">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          placeholder="Enter Name"
-                          name="tudPrimaryContactName"
-                          value={this.props.unicorn.tudPrimaryContactName}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          } //.
-                        />
-                      </div>
-                      <div className="form-group input-rezized">
-                        <label for="">
-                          Primary Contact Person (Mobile)
-                          <span className="text-danger">*</span>
-                        </label>
-                        <div style={{display:"flex",alignItems:"baseline"}}>
-                        <CountrySelect
-                          value={this.props.unicorn.tudCountryCode}
-                          onChange={(e) =>
-                            this.props.onInput("tudCountryCode", e.target.value)
-                          }
-                        />
-                        <input
-                          type="number"
-                          placeholder="Enter Mobile"
-                          name="tudPrimaryContactMobile"
-                          value={this.props.unicorn.tudPrimaryContactMobile}
-                          onWheel={() => document.activeElement.blur()}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          } 
-                        />
-                        </div>
-                      </div>
-                      <div className="form-group input-rezized">
-                        <label for="">
-                          Primary Contact Person (Email){" "}
-                          <span className="text-danger">*</span>
-                        </label>
-                        <input
-                          type="email"
-                          placeholder="Enter Email "
-                          name="tudPrimaryContactEmail"
-                          value={this.props.unicorn.tudPrimaryContactEmail}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           } //.

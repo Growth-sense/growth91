@@ -107,14 +107,14 @@ class UnicornAdminAll extends Component {
 
       for (let item of this.state.startups) {
         if (
-          (item.tudPrimaryContactName &&
-            item.tudPrimaryContactName
+          (item.tudStartupFounderName &&
+            item.tudStartupFounderName
               .toLowerCase()
               .includes(text.toLowerCase())) ||
           (item.tudStartupName &&
             item.tudStartupName.toLowerCase().includes(text.toLowerCase())) ||
-          (item.tudEmail &&
-            item.tudEmail.toLowerCase().includes(text.toLowerCase())) ||
+          (item.tudStartupFounderEmail &&
+            item.tudStartupFounderEmail.toLowerCase().includes(text.toLowerCase())) ||
           // (item.status &&
           //   item.status.toLowerCase().includes(text.toLowerCase())) ||
           (item.tudTempUdID &&
@@ -145,12 +145,12 @@ class UnicornAdminAll extends Component {
         "Unicorn Name": item.tudStartupName ? item.tudStartupName : "---",
         "Unicorn Status": item.mainPublished == "Published"? "Published" : "Draft",
         "Founder Id": item.founderID ? item.founderID : "---",
-        Email: item.tudEmail ? item.tudEmail : "---",
-        "Founder Name": item.tudPrimaryContactName
-          ? item.tudPrimaryContactName
+        Email: item.tudStartupFounderEmail ? item.tudStartupFounderEmail : "---",
+        "Founder Name": item.tudStartupFounderName
+          ? item.tudStartupFounderName
           : "---",
-        "Founder Mobile": item.tudPrimaryContactMobile
-          ? item.tudPrimaryContactMobile
+        "Founder Mobile": item.tudStartupFounderMobileNumber
+          ? item.tudStartupFounderMobileNumber
           : "---",
       };
       arr = [...arr, obj];
@@ -217,13 +217,13 @@ class UnicornAdminAll extends Component {
         return {
           UnicornID: item.tudTempUdID ? item.tudTempUdID : "---",
           "Unicorn Name": item.tudStartupName ? item.tudStartupName : "---",
-          Email: item.tudEmail ? item.tudEmail : "---",
+          Email: item.tudStartupFounderEmail ? item.tudStartupFounderEmail : "---",
           "Unicorn Status": item.mainPublished =="Published"? "Published":"Draft",
-          "Admin Name": item.tudPrimaryContactName
-            ? item.tudPrimaryContactName
+          "Admin Name": item.tudStartupFounderName
+            ? item.tudStartupFounderName
             : "---",
-          "Admin Mobile": item.tudPrimaryContactMobile
-            ? item.tudPrimaryContactMobile
+          "Admin Mobile": item.tudStartupFounderMobileNumber
+            ? item.tudStartupFounderMobileNumber
             : "---",
           AdminId: item.founderID ? item.founderID : "---",
           action: item,

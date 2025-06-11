@@ -128,7 +128,7 @@ export const FutureUnicornList = () => {
         return (
           obj.udCategory == filters.category ||
           obj.udStartupName == filters.startupName ||
-          obj.udPrimaryContactName == filters.founder
+          obj.udStartupFounderName == filters.founder
         );
       });
       console.log(la);
@@ -251,9 +251,9 @@ export const FutureUnicornList = () => {
                             {filterdata &&
                               filterdata.map((item, index) => {
                                 return (
-                                  item.udPrimaryContactName !== "" && (
-                                    <option value={item.udPrimaryContactName}>
-                                      {item.udPrimaryContactName}
+                                  item.udStartupFounderName !== "" && (
+                                    <option value={item.udStartupFounderName}>
+                                      {item.udStartupFounderName}
                                     </option>
                                   )
                                 );

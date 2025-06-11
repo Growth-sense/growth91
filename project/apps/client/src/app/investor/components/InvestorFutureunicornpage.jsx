@@ -87,7 +87,7 @@ export default class InvestorFutureunicornpage extends Component {
          ( item.udStartupName&&item.udStartupName.toLowerCase().includes(text.toLowerCase()) )||
          ( item.interestDate&&item.interestDate.toLowerCase().includes(text.toLowerCase()) )||
          ( item.interestMessage&&item.interestMessage.toLowerCase().includes(text.toLowerCase()) )||
-         ( item.udPrimaryContactName&&item.udPrimaryContactName.toLowerCase().includes(text.toLowerCase()))
+         ( item.udStartupFounderName&&item.udStartupFounderName.toLowerCase().includes(text.toLowerCase()))
         ) {
           arr = [...arr, item];
         }
@@ -111,7 +111,7 @@ export default class InvestorFutureunicornpage extends Component {
       let obj = {
         "Sr No": count++,
         Unicorn: item.udStartupName,
-        name: item.udPrimaryContactName,
+        name: item.udStartupFounderName,
         //   email: item.email,
         //   mobile: item.mobile,
         Message: item.interestMessage ? item.interestMessage : "---",
@@ -141,7 +141,7 @@ export default class InvestorFutureunicornpage extends Component {
         return {
           key: index,
           Unicorn: item.udStartupName,
-          name: item.udPrimaryContactName,
+          name: item.udStartupFounderName,
           //   email: item.email,
           //   mobile: item.mobile,
           Message: item.interestMessage ? item.interestMessage : "---",

@@ -1270,18 +1270,17 @@ text-align: justify;
                         </li>
                         <li>
                           <i className="fas fa-envelope"></i>
-                          {/* udEmail */}
-                          {item.tudEmail && item.tudEmail.includes("@")
-                            ? item.tudEmail.substring(
+                          {item.tudStartupFounderEmail && item.tudStartupFounderEmail.includes("@")
+                            ? item.tudStartupFounderEmail.substring(
                                 0,
-                                item.tudEmail.indexOf("@") - 3
+                                item.tudStartupFounderEmail.indexOf("@") - 3
                               ) +
                               "***" +
                               "@" +
-                              item.tudEmail
-                                .substring(item.tudEmail.indexOf("@") + 1)
+                              item.tudStartupFounderEmail
+                                .substring(item.tudStartupFounderEmail.indexOf("@") + 1)
                                 .replace(/[^.]+/, "***")
-                            : item.tudEmail}
+                            : item.tudStartupFounderEmail}
                         </li>
                         <li>
                           <i className="fas fa-map-marker-alt"></i>

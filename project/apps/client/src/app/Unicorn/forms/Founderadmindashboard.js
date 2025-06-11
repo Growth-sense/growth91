@@ -991,12 +991,7 @@ class Founderadmindashboard extends Component {
     this.setState({ loading: true });
     
     const page1requiredFields = [
-      'tudEmail',
-      'tudStartupName',
-      'tudPrimaryContactName',
-      'tudCountryCode',
-      'tudPrimaryContactMobile',
-      'tudPrimaryContactEmail'
+      'tudStartupName'
     ];
 
     const isPage1FormInvalid = page1requiredFields.some(field => 
@@ -1208,7 +1203,7 @@ class Founderadmindashboard extends Component {
   validatePreview = () => {
     const { unicorn } = this.state;
     // Check if required fields in step 1 (Basic Details) are filled
-    const step1Valid = unicorn.tudEmail && unicorn.tudStartupName && unicorn.tudPrimaryContactName && unicorn.tudCountryCode && unicorn.tudPrimaryContactMobile && unicorn.tudPrimaryContactEmail;
+    const step1Valid = unicorn.tudStartupName;
 
     const step3Valid = unicorn.tudMark && unicorn.tudStartupHighlights && unicorn.tudLogoImage && unicorn.tudBannerImage && unicorn.tudPitchDeck;
 

@@ -147,7 +147,7 @@ export const FutureUnicornList = () => {
         
         const matchesCategory = filters.category ? obj.udCategory === filters.category : true;
         const matchesStartupName = filters.startupName ? obj.udStartupName === filters.startupName : true;
-        const matchesFounder = filters.founder ? obj.udPrimaryContactName === filters.founder : true;
+        const matchesFounder = filters.founder ? obj.udStartupFounderName === filters.founder : true;
         const matchesSponsor = filters.sponsorName ? obj.udSponsorName === filters.sponsorName : true;
         
         return matchesCategory && matchesStartupName && matchesFounder && matchesSponsor;
@@ -161,7 +161,7 @@ export const FutureUnicornList = () => {
       if (searchQuery) {
         const lowerSearch = searchQuery.toLowerCase();
         filteredResults = filteredResults.filter((obj) =>
-          ["udStartupName", "udPrimaryContactName", "udCategory", "udDealDescription", "udSponsorName"].some(
+          ["udStartupName", "udStartupFounderName", "udCategory", "udDealDescription", "udSponsorName"].some(
             (key) => obj[key]?.toLowerCase().includes(lowerSearch)
           )
         );
@@ -312,12 +312,12 @@ export const FutureUnicornList = () => {
                     {filterdata &&
                       filterdata.map(
                         (item, index) =>
-                          item.udPrimaryContactName && (
+                          item.udStartupFounderName && (
                             <option
                               key={index}
-                              value={item.udPrimaryContactName}
+                              value={item.udStartupFounderName}
                             >
-                              {item.udPrimaryContactName}
+                              {item.udStartupFounderName}
                             </option>
                           )
                       )}

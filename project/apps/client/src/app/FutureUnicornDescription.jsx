@@ -1245,18 +1245,17 @@ text-align: justify;
                           </li>
                           <li>
                             <i className="fas fa-envelope"></i>
-                            {/* udEmail */}
-                            {item.udEmail && item.udEmail.includes("@")
-                              ? item.udEmail.substring(
+                            {item.udStartupFounderEmail && item.udStartupFounderEmail.includes("@")
+                              ? item.udStartupFounderEmail.substring(
                                   0,
-                                  item.udEmail.indexOf("@") - 3
+                                  item.udStartupFounderEmail.indexOf("@") - 3
                                 ) +
                                 "***" +
                                 "@" +
-                                item.udEmail
-                                  .substring(item.udEmail.indexOf("@") + 1)
+                                item.udStartupFounderEmail
+                                  .substring(item.udStartupFounderEmail.indexOf("@") + 1)
                                   .replace(/[^.]+/, "***")
-                              : item.udEmail}
+                              : item.udStartupFounderEmail}
                           </li>
                           <li>
                             <i className="fas fa-map-marker-alt"></i>

@@ -302,11 +302,11 @@ export const FounderMyListing = () => {
                   {unideatils ? (
                     <Card className="unicorn-card">
                       <div className="unicorn-details">
-                        {unideatils.tudPrimaryContactName && (
+                        {unideatils.tudStartupFounderName && (
                           <div className="unicorn-detail-item">
                             <span className="detail-label">Founder Name</span>
                             <span className="detail-value">
-                              {unideatils.tudPrimaryContactName}
+                              {unideatils.tudStartupFounderName}
                             </span>
                           </div>
                         )}
@@ -320,21 +320,21 @@ export const FounderMyListing = () => {
                           </div>
                         )}
 
-                        {unideatils.tudEmail && (
+                        {unideatils.tudStartupFounderEmail && (
                           <div className="unicorn-detail-item">
                             <span className="detail-label">Email Id</span>
                             <span className="detail-value">
-                              {unideatils.tudEmail}
+                              {unideatils.tudStartupFounderEmail}
                             </span>
                           </div>
                         )}
 
-                        {unideatils.tudPrimaryContactMobile && (
+                        {unideatils.tudStartupFounderMobileNumber && (
                           <div className="unicorn-detail-item">
                             <span className="detail-label">Mobile No.</span>
                             <span className="detail-value">
-                              {unideatils.tudCountryCode}{" "}
-                              {unideatils.tudPrimaryContactMobile}
+                              {unideatils.tudStartupFounderMobileCountryCode}{" "}
+                              {unideatils.tudStartupFounderMobileNumber}
                             </span>
                           </div>
                         )}
