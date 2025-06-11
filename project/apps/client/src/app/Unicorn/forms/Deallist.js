@@ -144,6 +144,7 @@ class Dellistinicorn extends Component {
                     <div className="col-lg-12">
                       <div className="form-group">
                         <label for="">Startup Founder Name<span className="text-danger">*</span></label>
+                        <label for="">(If more than one founder, please add coma seprated)</label>
                         <input
                           type="email"
                           onWheel={() => document.activeElement.blur()}
