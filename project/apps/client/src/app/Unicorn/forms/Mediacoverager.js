@@ -476,6 +476,9 @@ class Mediacoverager extends Component {
                               !item.description1.trim() ? "is-invalid" : ""
                             }`}
                           />
+                          <div className="character-count" style={{marginBottom: "20px"}}>
+                              {`${item.description1.length}/100 characters`}
+                          </div>
                           {!item.description1.trim() && (
                             <div className="invalid-feedback">
                               Description 1 is required.
@@ -500,6 +503,9 @@ class Mediacoverager extends Component {
                               !item.description2.trim() ? "is-invalid" : ""
                             }`}
                           />
+                          <div className="character-count" style={{marginBottom: "20px"}}>
+                              {`${item.description2.length}/100 characters`}
+                          </div>
                           {!item.description2.trim() && (
                             <div className="invalid-feedback">
                               Description 2 is required.
@@ -524,6 +530,9 @@ class Mediacoverager extends Component {
                               !item.linkedinUrl?.trim() ? "is-invalid" : ""
                             }`}
                           />
+                          <div className="character-count" style={{marginBottom: "20px"}}>
+                              {`${item.linkedinUrl?.length ?? 0}/200 characters`}
+                          </div>
                           {!item.linkedinUrl?.trim() && (
                             <div className="invalid-feedback">
                               LinkedIn Profile is required

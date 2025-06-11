@@ -450,6 +450,9 @@ class SupportingDocuments extends Component {
                                 this.props.onInput(e.target.name, e.target.value)
                               }
                             />
+                            <div className="character-count" style={{marginBottom: "20px"}}>
+                              {`${this.props.unicorn.tudSponsorName.length}/100 characters`}
+                            </div>
                             <label className="mb-2">
                               Logo of the Sponsor / Incubator
                             </label>
