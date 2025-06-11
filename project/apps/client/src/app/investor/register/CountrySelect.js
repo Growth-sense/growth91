@@ -1,16 +1,285 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import ListSubheader from "@mui/material/ListSubheader";
+import InputBase from "@mui/material/InputBase";
 
 export default function CountrySelect({ value, onChange }) {
-  const [age, setAge] = React.useState("");
-  const [defaultValue, setDefaultValue] = React.useState(0);
+  const [searchText, setSearchText] = React.useState("");
+  const [menuOpen, setMenuOpen] = React.useState(false);
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
+  // Define countries data
+  const countries = [
+    { value: 0, label: "Country Code" },
+    { value: 93, label: "(+93) Afghanistan" },
+    { value: "+358", label: "(+358) Aland Islands" },
+    { value: 355, label: "(+355) Albania" },
+    { value: 213, label: "(+213) Algeria" },
+    { value: 1684, label: "(+1684) AmericanSamoa" },
+    { value: 376, label: "(+376) Andorra" },
+    { value: 244, label: "(+244) Angola" },
+    { value: 1264, label: "(+1264) Anguilla" },
+    { value: "+672", label: "(+672) Antarctica" },
+    { value: 1268, label: "(+1268) Antigua and Barbuda" },
+    { value: "+54", label: "(+54) Argentina" },
+    { value: 374, label: "(+374) Armenia" },
+    { value: 297, label: "(+297) Aruba" },
+    { value: "+61", label: "(+61) Australia" },
+    { value: 43, label: "(+43) Austria" },
+    { value: 994, label: "(+994) Azerbaijan" },
+    { value: 1242, label: "(+1242) Bahamas" },
+    { value: 973, label: "(+973) Bahrain" },
+    { value: 880, label: "(+880) Bangladesh" },
+    { value: 1246, label: "(+1246) Barbados" },
+    { value: 375, label: "(+375) Belarus" },
+    { value: 32, label: "(+32) Belgium" },
+    { value: 501, label: "(+501) Belize" },
+    { value: 229, label: "(+229) Benin" },
+    { value: 1441, label: "(+1441) Bermuda" },
+    { value: 975, label: "(+975) Bhutan" },
+    { value: 591, label: "(+591) Bolivia Plurinational State of" },
+    { value: 387, label: "(+387) Bosnia and Herzegovina" },
+    { value: 267, label: "(+267) Botswana" },
+    { value: 55, label: "(+55) Brazil" },
+    { value: 246, label: "(+246) British Indian Ocean Territory" },
+    { value: 673, label: "(+673) Brunei Darussalam" },
+    { value: 359, label: "(+359) Bulgaria" },
+    { value: 226, label: "(+226) Burkina Faso" },
+    { value: 257, label: "(+257) Burundi" },
+    { value: 855, label: "(+855) Cambodia" },
+    { value: 237, label: "(+237) Cameroon" },
+    { value: "+1", label: "(+1) Canada" },
+    { value: 238, label: "(+238) Cape Verde" },
+    { value: 345, label: "(+ 345) Cayman Islands" },
+    { value: 236, label: "(+236) Central African Republic" },
+    { value: 235, label: "(+235) Chad" },
+    { value: 56, label: "(+56) Chile" },
+    { value: 86, label: "(+86) China" },
+    { value: " 61", label: "(+61) Christmas Island" },
+    { value: 61, label: "(+61) Cocos (Keeling) Islands" },
+    { value: 57, label: "(+57) Colombia" },
+    { value: 269, label: "(+269) Comoros" },
+    { value: 242, label: "(+242) Congo" },
+    { value: 243, label: "(+243) Congo The Democratic Republic of the Congo" },
+    { value: 682, label: "(+682) Cook Islands" },
+    { value: 506, label: "(+506) Costa Rica" },
+    { value: 225, label: "(+225) Cote d'Ivoire" },
+    { value: 385, label: "(+385) Croatia" },
+    { value: 53, label: "(+53) Cuba" },
+    { value: 357, label: "(+357) Cyprus" },
+    { value: 420, label: "(+420) Czech Republic" },
+    { value: 45, label: "(+45) Denmark" },
+    { value: 253, label: "(+253) Djibouti" },
+    { value: 1767, label: "(+1767) Dominica" },
+    { value: 1849, label: "(+1849) Dominican Republic" },
+    { value: 593, label: "(+593) Ecuador" },
+    { value: 20, label: "(+20) Egypt" },
+    { value: 503, label: "(+503) El Salvador" },
+    { value: 240, label: "(+240) Equatorial Guinea" },
+    { value: 291, label: "(+291) Eritrea" },
+    { value: 372, label: "(+372) Estonia" },
+    { value: 251, label: "(+251) Ethiopia" },
+    { value: 500, label: "(+500) Falkland Islands (Malvinas)" },
+    { value: 298, label: "(+298) Faroe Islands" },
+    { value: 679, label: "(+679) Fiji" },
+    { value: 358, label: "(+358) Finland" },
+    { value: 33, label: "(+33) France" },
+    { value: 594, label: "(+594) French Guiana" },
+    { value: 689, label: "(+689) French Polynesia" },
+    { value: 241, label: "(+241) Gabon" },
+    { value: 220, label: "(+220) Gambia" },
+    { value: 995, label: "(+995) Georgia" },
+    { value: 49, label: "(+49) Germany" },
+    { value: 233, label: "(+233) Ghana" },
+    { value: 350, label: "(+350) Gibraltar" },
+    { value: 30, label: "(+30) Greece" },
+    { value: 299, label: "(+299) Greenland" },
+    { value: 1473, label: "(+1473) Grenada" },
+    { value: "+590", label: "(+590) Guadeloupe" },
+    { value: 1671, label: "(+1671) Guam" },
+    { value: 502, label: "(+502) Guatemala" },
+    { value: " +44", label: "(+44) Guernsey" },
+    { value: 224, label: "(+224) Guinea" },
+    { value: 245, label: "(+245) Guinea-Bissau" },
+    { value: 595, label: "(+595) Guyana" },
+    { value: 509, label: "(+509) Haiti" },
+    { value: 379, label: "(+379) Holy See (Vatican City State)" },
+    { value: 504, label: "(+504) Honduras" },
+    { value: 852, label: "(+852) Hong Kong" },
+    { value: 36, label: "(+36) Hungary" },
+    { value: 354, label: "(+354) Iceland" },
+    { value: 91, label: "(+91) India" },
+    { value: 62, label: "(+62) Indonesia" },
+    { value: 98, label: "(+98) Iran Islamic Republic of Persian Gulf" },
+    { value: 964, label: "(+964) Iraq" },
+    { value: 353, label: "(+353) Ireland" },
+    { value: "  +44", label: "(+44) Isle of Man" },
+    { value: 972, label: "(+972) Israel" },
+    { value: 39, label: "(+39) Italy" },
+    { value: 1876, label: "(+1876) Jamaica" },
+    { value: 81, label: "(+81) Japan" },
+    { value: 44, label: "(+44) Jersey" },
+    { value: 962, label: "(+962) Jordan" },
+    { value: 77, label: "(+77) Kazakhstan" },
+    { value: 254, label: "(+254) Kenya" },
+    { value: 686, label: "(+686) Kiribati" },
+    { value: 850, label: "(+850) Korea Democratic People's Republic of Korea" },
+    { value: 82, label: "(+82) Korea Republic of South Korea" },
+    { value: 965, label: "(+965) Kuwait" },
+    { value: 996, label: "(+996) Kyrgyzstan" },
+    { value: 856, label: "(+856) Laos" },
+    { value: 371, label: "(+371) Latvia" },
+    { value: 961, label: "(+961) Lebanon" },
+    { value: 266, label: "(+266) Lesotho" },
+    { value: 231, label: "(+231) Liberia" },
+    { value: 218, label: "(+218) Libyan Arab Jamahiriya" },
+    { value: 423, label: "(+423) Liechtenstein" },
+    { value: 370, label: "(+370) Lithuania" },
+    { value: 352, label: "(+352) Luxembourg" },
+    { value: 853, label: "(+853) Macao" },
+    { value: 389, label: "(+389) Macedonia" },
+    { value: 261, label: "(+261) Madagascar" },
+    { value: 265, label: "(+265) Malawi" },
+    { value: 60, label: "(+60) Malaysia" },
+    { value: 960, label: "(+960) Maldives" },
+    { value: 223, label: "(+223) Mali" },
+    { value: 356, label: "(+356) Malta" },
+    { value: 692, label: "(+692) Marshall Islands" },
+    { value: 596, label: "(+596) Martinique" },
+    { value: 222, label: "(+222) Mauritania" },
+    { value: 230, label: "(+230) Mauritius" },
+    { value: 262, label: "(+262) Mayotte" },
+    { value: 52, label: "(+52) Mexico" },
+    { value: 691, label: "(+691) Micronesia Federated States of Micronesia" },
+    { value: 373, label: "(+373) Moldova" },
+    { value: 377, label: "(+377) Monaco" },
+    { value: 976, label: "(+976) Mongolia" },
+    { value: 382, label: "(+382) Montenegro" },
+    { value: 1664, label: "(+1664) Montserrat" },
+    { value: 212, label: "(+212) Morocco" },
+    { value: 258, label: "(+258) Mozambique" },
+    { value: 95, label: "(+95) Myanmar" },
+    { value: 264, label: "(+264) Namibia" },
+    { value: 674, label: "(+674) Nauru" },
+    { value: 977, label: "(+977) Nepal" },
+    { value: 31, label: "(+31) Netherlands" },
+    { value: 599, label: "(+599) Netherlands Antilles" },
+    { value: 687, label: "(+687) New Caledonia" },
+    { value: 64, label: "(+64) New Zealand" },
+    { value: 505, label: "(+505) Nicaragua" },
+    { value: 227, label: "(+227) Niger" },
+    { value: 234, label: "(+234) Nigeria" },
+    { value: 683, label: "(+683) Niue" },
+    { value: 672, label: "(+672) Norfolk Island" },
+    { value: 1670, label: "(+1670) Northern Mariana Islands" },
+    { value: "+47", label: "(+47) Norway" },
+    { value: 968, label: "(+968) Oman" },
+    { value: 92, label: "(+92) Pakistan" },
+    { value: 680, label: "(+680) Palau" },
+    { value: 970, label: "(+970) Palestinian Territory Occupied" },
+    { value: 507, label: "(+507) Panama" },
+    { value: 675, label: "(+675) Papua New Guinea" },
+    { value: "+595", label: "(+595) Paraguay" },
+    { value: 51, label: "(+51) Peru" },
+    { value: 63, label: "(+63) Philippines" },
+    { value: 872, label: "(+872) Pitcairn" },
+    { value: 48, label: "(+48) Poland" },
+    { value: 351, label: "(+351) Portugal" },
+    { value: 1939, label: "(+1939) Puerto Rico" },
+    { value: 974, label: "(+974) Qatar" },
+    { value: 40, label: "(+40) Romania" },
+    { value: 7, label: "(+7) Russia" },
+    { value: 250, label: "(+250) Rwanda" },
+    { value: "+262", label: "(+262) Reunion" },
+    { value: " +590", label: "(+590) Saint Barthelemy" },
+    { value: 290, label: "(+290) Saint Helena Ascension and Tristan Da Cunha" },
+    { value: 1869, label: "(+1869) Saint Kitts and Nevis" },
+    { value: 1758, label: "(+1758) Saint Lucia" },
+    { value: 590, label: "(+590) Saint Martin" },
+    { value: 508, label: "(+508) Saint Pierre and Miquelon" },
+    { value: 1784, label: "(+1784) Saint Vincent and the Grenadines" },
+    { value: 685, label: "(+685) Samoa" },
+    { value: 378, label: "(+378) San Marino" },
+    { value: 239, label: "(+239) Sao Tome and Principe" },
+    { value: 966, label: "(+966) Saudi Arabia" },
+    { value: 221, label: "(+221) Senegal" },
+    { value: 381, label: "(+381) Serbia" },
+    { value: 248, label: "(+248) Seychelles" },
+    { value: 232, label: "(+232) Sierra Leone" },
+    { value: 65, label: "(+65) Singapore" },
+    { value: 421, label: "(+421) Slovakia" },
+    { value: 386, label: "(+386) Slovenia" },
+    { value: 677, label: "(+677) Solomon Islands" },
+    { value: 252, label: "(+252) Somalia" },
+    { value: 27, label: "(+27) South Africa" },
+    { value: 211, label: "(+211) South Sudan" },
+    { value: "+500", label: "(+500) South Georgia and the South Sandwich Islands" },
+    { value: 34, label: "(+34) Spain" },
+    { value: 94, label: "(+94) Sri Lanka" },
+    { value: 249, label: "(+249) Sudan" },
+    { value: 597, label: "(+597) Suriname" },
+    { value: 47, label: "(+47) Svalbard and Jan Mayen" },
+    { value: 268, label: "(+268) Swaziland" },
+    { value: 46, label: "(+46) Sweden" },
+    { value: 41, label: "(+41) Switzerland" },
+    { value: 963, label: "(+963) Syrian Arab Republic" },
+    { value: 886, label: "(+886) Taiwan" },
+    { value: 992, label: "(+992) Tajikistan" },
+    { value: 255, label: "(+255) Tanzania United Republic of Tanzania" },
+    { value: 66, label: "(+66) Thailand" },
+    { value: 670, label: "(+670) Timor-Leste" },
+    { value: 228, label: "(+228) Togo" },
+    { value: 690, label: "(+690) Tokelau" },
+    { value: 676, label: "(+676) Tonga" },
+    { value: 1868, label: "(+1868) Trinidad and Tobago" },
+    { value: 216, label: "(+216) Tunisia" },
+    { value: 90, label: "(+90) Turkey" },
+    { value: 993, label: "(+993) Turkmenistan" },
+    { value: 1649, label: "(+1649) Turks and Caicos Islands" },
+    { value: 688, label: "(+688) Tuvalu" },
+    { value: 256, label: "(+256) Uganda" },
+    { value: 380, label: "(+380) Ukraine" },
+    { value: 971, label: "(+971) United Arab Emirates" },
+    { value: "+44", label: "(+44) United Kingdom" },
+    { value: 1, label: "(+1) United States" },
+    { value: 598, label: "(+598) Uruguay" },
+    { value: 998, label: "(+998) Uzbekistan" },
+    { value: 678, label: "(+678) Vanuatu" },
+    { value: 58, label: "(+58) Venezuela Bolivarian Republic of Venezuela" },
+    { value: 84, label: "(+84) Vietnam" },
+    { value: 1284, label: "(+1284) Virgin Islands British" },
+    { value: 1340, label: "(+1340) Virgin Islands U.S." },
+    { value: 681, label: "(+681) Wallis and Futuna" },
+    { value: 967, label: "(+967) Yemen" },
+    { value: 260, label: "(+260) Zambia" },
+    { value: 263, label: "(+263) Zimbabwe" }
+  ];
+
+
+  const handleSearchChange = (event) => {
+    setSearchText(event.target.value);
+  };
+
+  // Filter countries based on search text
+  const filteredCountries = React.useMemo(() => {
+    if (!searchText) return countries;
+    
+    const searchLower = searchText.toLowerCase();
+    return countries.filter(country => 
+      country.label.toLowerCase().includes(searchLower)
+    );
+  }, [searchText, countries]);
+
+  const handleSelectOpen = () => {
+    setMenuOpen(true);
+  };
+
+  const handleSelectClose = () => {
+    setMenuOpen(false);
+    // Reset search when menu closes
+    setSearchText("");
   };
 
   return (
@@ -25,10 +294,23 @@ export default function CountrySelect({ value, onChange }) {
           variant="standard"
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={value || defaultValue}
+          value={value || 0}
           label="Age"
           onChange={onChange}
           disableUnderline={true}
+          onOpen={handleSelectOpen}
+          onClose={handleSelectClose}
+          MenuProps={{
+            PaperProps: {
+              style: {
+                maxHeight: 300,
+                width: 250,
+              },
+            },
+            // Prevent automatic selection while typing
+            disableListWrap: true,
+            autoFocus: false,
+          }}
           sx={{
             "& .MuiOutlinedInput-root": {
               "& fieldset": {
@@ -42,281 +324,54 @@ export default function CountrySelect({ value, onChange }) {
               },
             },
             maxWidth: "110px",
-
             boxShadow: "none",
             ".MuiOutlinedInput-notchedOutline": { border: 0 },
             width: "110px",
-
             // remove focus border
           }}
         >
-          <MenuItem disabled value={0}>Country Code </MenuItem>
-          <MenuItem value={93}>(+93) Afghanistan </MenuItem>
-          <MenuItem value={"+358"}>(+358) Aland Islands </MenuItem>
-          <MenuItem value={355}>(+355) Albania </MenuItem>
-          <MenuItem value={213}>(+213) Algeria </MenuItem>
-          <MenuItem value={1684}>(+1684) AmericanSamoa </MenuItem>
-          <MenuItem value={376}>(+376) Andorra </MenuItem>
-          <MenuItem value={244}>(+244) Angola </MenuItem>
-          <MenuItem value={1264}>(+1264) Anguilla </MenuItem>
-          <MenuItem value={"+672"}>(+672) Antarctica </MenuItem>
-          <MenuItem value={1268}>(+1268) Antigua and Barbuda </MenuItem>
-          <MenuItem value={"+54"}>(+54) Argentina </MenuItem>
-          <MenuItem value={374}>(+374) Armenia </MenuItem>
-          <MenuItem value={297}>(+297) Aruba </MenuItem>
-          <MenuItem value={"+61"}>(+61) Australia </MenuItem>
-          <MenuItem value={43}>(+43) Austria </MenuItem>
-          <MenuItem value={994}>(+994) Azerbaijan </MenuItem>
-          <MenuItem value={1242}>(+1242) Bahamas </MenuItem>
-          <MenuItem value={973}>(+973) Bahrain </MenuItem>
-          <MenuItem value={880}>(+880) Bangladesh </MenuItem>
-          <MenuItem value={1246}>(+1246) Barbados </MenuItem>
-          <MenuItem value={375}>(+375) Belarus </MenuItem>
-          <MenuItem value={32}>(+32) Belgium </MenuItem>
-          <MenuItem value={501}>(+501) Belize </MenuItem>
-          <MenuItem value={229}>(+229) Benin </MenuItem>
-          <MenuItem value={1441}>(+1441) Bermuda </MenuItem>
-          <MenuItem value={975}>(+975) Bhutan </MenuItem>
-          <MenuItem value={591}>
-            (+591) Bolivia Plurinational State of{" "}
-          </MenuItem>
-          <MenuItem value={387}>(+387) Bosnia and Herzegovina </MenuItem>
-          <MenuItem value={267}>(+267) Botswana </MenuItem>
-          <MenuItem value={55}>(+55) Brazil </MenuItem>
-          <MenuItem value={246}>
-            (+246) British Indian Ocean Territory{" "}
-          </MenuItem>
-          <MenuItem value={673}>(+673) Brunei Darussalam </MenuItem>
-          <MenuItem value={359}>(+359) Bulgaria </MenuItem>
-          <MenuItem value={226}>(+226) Burkina Faso </MenuItem>
-          <MenuItem value={257}>(+257) Burundi </MenuItem>
-          <MenuItem value={855}>(+855) Cambodia </MenuItem>
-          <MenuItem value={237}>(+237) Cameroon </MenuItem>
-          <MenuItem value={"+1"}>(+1) Canada </MenuItem>
-          <MenuItem value={238}>(+238) Cape Verde </MenuItem>
-          <MenuItem value={345}>(+ 345) Cayman Islands </MenuItem>
-          <MenuItem value={236}>(+236) Central African Republic </MenuItem>
-          <MenuItem value={235}>(+235) Chad </MenuItem>
-          <MenuItem value={56}>(+56) Chile </MenuItem>
-          <MenuItem value={86}>(+86) China </MenuItem>
-          <MenuItem value={" 61"}>(+61) Christmas Island </MenuItem>
-          <MenuItem value={61}>(+61) Cocos (Keeling) Islands </MenuItem>
-          <MenuItem value={57}>(+57) Colombia </MenuItem>
-          <MenuItem value={269}>(+269) Comoros </MenuItem>
-          <MenuItem value={242}>(+242) Congo </MenuItem>
-          <MenuItem value={243}>
-            (+243) Congo The Democratic Republic of the Congo{" "}
-          </MenuItem>
-          <MenuItem value={682}>(+682) Cook Islands </MenuItem>
-          <MenuItem value={506}>(+506) Costa Rica </MenuItem>
-          <MenuItem value={225}>(+225) Cote d'Ivoire </MenuItem>
-          <MenuItem value={385}>(+385) Croatia </MenuItem>
-          <MenuItem value={53}>(+53) Cuba </MenuItem>
-          <MenuItem value={357}>(+357) Cyprus </MenuItem>
-          <MenuItem value={420}>(+420) Czech Republic </MenuItem>
-          <MenuItem value={45}>(+45) Denmark </MenuItem>
-          <MenuItem value={253}>(+253) Djibouti </MenuItem>
-          <MenuItem value={1767}>(+1767) Dominica </MenuItem>
-          <MenuItem value={1849}>(+1849) Dominican Republic </MenuItem>
-          <MenuItem value={593}>(+593) Ecuador </MenuItem>
-          <MenuItem value={20}>(+20) Egypt </MenuItem>
-          <MenuItem value={503}>(+503) El Salvador </MenuItem>
-          <MenuItem value={240}>(+240) Equatorial Guinea </MenuItem>
-          <MenuItem value={291}>(+291) Eritrea </MenuItem>
-          <MenuItem value={372}>(+372) Estonia </MenuItem>
-          <MenuItem value={251}>(+251) Ethiopia </MenuItem>
-          <MenuItem value={500}>(+500) Falkland Islands (Malvinas) </MenuItem>
-          <MenuItem value={298}>(+298) Faroe Islands </MenuItem>
-          <MenuItem value={679}>(+679) Fiji </MenuItem>
-          <MenuItem value={358}>(+358) Finland </MenuItem>
-          <MenuItem value={33}>(+33) France </MenuItem>
-          <MenuItem value={594}>(+594) French Guiana </MenuItem>
-          <MenuItem value={689}>(+689) French Polynesia </MenuItem>
-          <MenuItem value={241}>(+241) Gabon </MenuItem>
-          <MenuItem value={220}>(+220) Gambia </MenuItem>
-          <MenuItem value={995}>(+995) Georgia </MenuItem>
-          <MenuItem value={49}>(+49) Germany </MenuItem>
-          <MenuItem value={233}>(+233) Ghana </MenuItem>
-          <MenuItem value={350}>(+350) Gibraltar </MenuItem>
-          <MenuItem value={30}>(+30) Greece </MenuItem>
-          <MenuItem value={299}>(+299) Greenland </MenuItem>
-          <MenuItem value={1473}>(+1473) Grenada </MenuItem>
-          <MenuItem value={"+590"}>(+590) Guadeloupe </MenuItem>
-          <MenuItem value={1671}>(+1671) Guam </MenuItem>
-          <MenuItem value={502}>(+502) Guatemala </MenuItem>
-          <MenuItem value={" +44"}>(+44) Guernsey </MenuItem>
-          <MenuItem value={224}>(+224) Guinea </MenuItem>
-          <MenuItem value={245}>(+245) Guinea-Bissau </MenuItem>
-          <MenuItem value={595}>(+595) Guyana </MenuItem>
-          <MenuItem value={509}>(+509) Haiti </MenuItem>
-          <MenuItem value={379}>(+379) Holy See (Vatican City State) </MenuItem>
-          <MenuItem value={504}>(+504) Honduras </MenuItem>
-          <MenuItem value={852}>(+852) Hong Kong </MenuItem>
-          <MenuItem value={36}>(+36) Hungary </MenuItem>
-          <MenuItem value={354}>(+354) Iceland </MenuItem>
-          <MenuItem value={91}>(+91) India </MenuItem>
-          <MenuItem value={62}>(+62) Indonesia </MenuItem>
-          <MenuItem value={98}>
-            (+98) Iran Islamic Republic of Persian Gulf{" "}
-          </MenuItem>
-          <MenuItem value={964}>(+964) Iraq </MenuItem>
-          <MenuItem value={353}>(+353) Ireland </MenuItem>
-          <MenuItem value={"+44"}>(+44) Isle of Man </MenuItem>
-          <MenuItem value={972}>(+972) Israel </MenuItem>
-          <MenuItem value={39}>(+39) Italy </MenuItem>
-          <MenuItem value={1876}>(+1876) Jamaica </MenuItem>
-          <MenuItem value={81}>(+81) Japan </MenuItem>
-          <MenuItem value={44}>(+44) Jersey </MenuItem>
-          <MenuItem value={962}>(+962) Jordan </MenuItem>
-          <MenuItem value={77}>(+77) Kazakhstan </MenuItem>
-          <MenuItem value={254}>(+254) Kenya </MenuItem>
-          <MenuItem value={686}>(+686) Kiribati </MenuItem>
-          <MenuItem value={850}>
-            (+850) Korea Democratic People's Republic of Korea{" "}
-          </MenuItem>
-          <MenuItem value={82}>(+82) Korea Republic of South Korea </MenuItem>
-          <MenuItem value={965}>(+965) Kuwait </MenuItem>
-          <MenuItem value={996}>(+996) Kyrgyzstan </MenuItem>
-          <MenuItem value={856}>(+856) Laos </MenuItem>
-          <MenuItem value={371}>(+371) Latvia </MenuItem>
-          <MenuItem value={961}>(+961) Lebanon </MenuItem>
-          <MenuItem value={266}>(+266) Lesotho </MenuItem>
-          <MenuItem value={231}>(+231) Liberia </MenuItem>
-          <MenuItem value={218}>(+218) Libyan Arab Jamahiriya </MenuItem>
-          <MenuItem value={423}>(+423) Liechtenstein </MenuItem>
-          <MenuItem value={370}>(+370) Lithuania </MenuItem>
-          <MenuItem value={352}>(+352) Luxembourg </MenuItem>
-          <MenuItem value={853}>(+853) Macao </MenuItem>
-          <MenuItem value={389}>(+389) Macedonia </MenuItem>
-          <MenuItem value={261}>(+261) Madagascar </MenuItem>
-          <MenuItem value={265}>(+265) Malawi </MenuItem>
-          <MenuItem value={60}>(+60) Malaysia </MenuItem>
-          <MenuItem value={960}>(+960) Maldives </MenuItem>
-          <MenuItem value={223}>(+223) Mali </MenuItem>
-          <MenuItem value={356}>(+356) Malta </MenuItem>
-          <MenuItem value={692}>(+692) Marshall Islands </MenuItem>
-          <MenuItem value={596}>(+596) Martinique </MenuItem>
-          <MenuItem value={222}>(+222) Mauritania </MenuItem>
-          <MenuItem value={230}>(+230) Mauritius </MenuItem>
-          <MenuItem value={262}>(+262) Mayotte </MenuItem>
-          <MenuItem value={52}>(+52) Mexico </MenuItem>
-          <MenuItem value={691}>
-            (+691) Micronesia Federated States of Micronesia{" "}
-          </MenuItem>
-          <MenuItem value={373}>(+373) Moldova </MenuItem>
-          <MenuItem value={377}>(+377) Monaco </MenuItem>
-          <MenuItem value={976}>(+976) Mongolia </MenuItem>
-          <MenuItem value={382}>(+382) Montenegro </MenuItem>
-          <MenuItem value={1664}>(+1664) Montserrat </MenuItem>
-          <MenuItem value={212}>(+212) Morocco </MenuItem>
-          <MenuItem value={258}>(+258) Mozambique </MenuItem>
-          <MenuItem value={95}>(+95) Myanmar </MenuItem>
-          <MenuItem value={264}>(+264) Namibia </MenuItem>
-          <MenuItem value={674}>(+674) Nauru </MenuItem>
-          <MenuItem value={977}>(+977) Nepal </MenuItem>
-          <MenuItem value={31}>(+31) Netherlands </MenuItem>
-          <MenuItem value={599}>(+599) Netherlands Antilles </MenuItem>
-          <MenuItem value={687}>(+687) New Caledonia </MenuItem>
-          <MenuItem value={64}>(+64) New Zealand </MenuItem>
-          <MenuItem value={505}>(+505) Nicaragua </MenuItem>
-          <MenuItem value={227}>(+227) Niger </MenuItem>
-          <MenuItem value={234}>(+234) Nigeria </MenuItem>
-          <MenuItem value={683}>(+683) Niue </MenuItem>
-          <MenuItem value={672}>(+672) Norfolk Island </MenuItem>
-          <MenuItem value={1670}>(+1670) Northern Mariana Islands </MenuItem>
-          <MenuItem value={"+47"}>(+47) Norway </MenuItem>
-          <MenuItem value={968}>(+968) Oman </MenuItem>
-          <MenuItem value={92}>(+92) Pakistan </MenuItem>
-          <MenuItem value={680}>(+680) Palau </MenuItem>
-          <MenuItem value={970}>
-            (+970) Palestinian Territory Occupied{" "}
-          </MenuItem>
-          <MenuItem value={507}>(+507) Panama </MenuItem>
-          <MenuItem value={675}>(+675) Papua New Guinea </MenuItem>
-          <MenuItem value={"+595"}>(+595) Paraguay </MenuItem>
-          <MenuItem value={51}>(+51) Peru </MenuItem>
-          <MenuItem value={63}>(+63) Philippines </MenuItem>
-          <MenuItem value={872}>(+872) Pitcairn </MenuItem>
-          <MenuItem value={48}>(+48) Poland </MenuItem>
-          <MenuItem value={351}>(+351) Portugal </MenuItem>
-          <MenuItem value={1939}>(+1939) Puerto Rico </MenuItem>
-          <MenuItem value={974}>(+974) Qatar </MenuItem>
-          <MenuItem value={40}>(+40) Romania </MenuItem>
-          <MenuItem value={7}>(+7) Russia </MenuItem>
-          <MenuItem value={250}>(+250) Rwanda </MenuItem>
-          <MenuItem value={"+262"}>(+262) Reunion </MenuItem>
-          <MenuItem value={" +590"}>(+590) Saint Barthelemy </MenuItem>
-          <MenuItem value={290}>
-            (+290) Saint Helena Ascension and Tristan Da Cunha{" "}
-          </MenuItem>
-          <MenuItem value={1869}>(+1869) Saint Kitts and Nevis </MenuItem>
-          <MenuItem value={1758}>(+1758) Saint Lucia </MenuItem>
-          <MenuItem value={590}>(+590) Saint Martin </MenuItem>
-          <MenuItem value={508}>(+508) Saint Pierre and Miquelon </MenuItem>
-          <MenuItem value={1784}>
-            (+1784) Saint Vincent and the Grenadines{" "}
-          </MenuItem>
-          <MenuItem value={685}>(+685) Samoa </MenuItem>
-          <MenuItem value={378}>(+378) San Marino </MenuItem>
-          <MenuItem value={239}>(+239) Sao Tome and Principe </MenuItem>
-          <MenuItem value={966}>(+966) Saudi Arabia </MenuItem>
-          <MenuItem value={221}>(+221) Senegal </MenuItem>
-          <MenuItem value={381}>(+381) Serbia </MenuItem>
-          <MenuItem value={248}>(+248) Seychelles </MenuItem>
-          <MenuItem value={232}>(+232) Sierra Leone </MenuItem>
-          <MenuItem value={65}>(+65) Singapore </MenuItem>
-          <MenuItem value={421}>(+421) Slovakia </MenuItem>
-          <MenuItem value={386}>(+386) Slovenia </MenuItem>
-          <MenuItem value={677}>(+677) Solomon Islands </MenuItem>
-          <MenuItem value={252}>(+252) Somalia </MenuItem>
-          <MenuItem value={27}>(+27) South Africa </MenuItem>
-          <MenuItem value={211}>(+211) South Sudan </MenuItem>
-          <MenuItem value={"+500"}>
-            (+500) South Georgia and the South Sandwich Islands{" "}
-          </MenuItem>
-          <MenuItem value={34}>(+34) Spain </MenuItem>
-          <MenuItem value={94}>(+94) Sri Lanka </MenuItem>
-          <MenuItem value={249}>(+249) Sudan </MenuItem>
-          <MenuItem value={597}>(+597) Suriname </MenuItem>
-          <MenuItem value={47}>(+47) Svalbard and Jan Mayen </MenuItem>
-          <MenuItem value={268}>(+268) Swaziland </MenuItem>
-          <MenuItem value={46}>(+46) Sweden </MenuItem>
-          <MenuItem value={41}>(+41) Switzerland </MenuItem>
-          <MenuItem value={963}>(+963) Syrian Arab Republic </MenuItem>
-          <MenuItem value={886}>(+886) Taiwan </MenuItem>
-          <MenuItem value={992}>(+992) Tajikistan </MenuItem>
-          <MenuItem value={255}>
-            (+255) Tanzania United Republic of Tanzania{" "}
-          </MenuItem>
-          <MenuItem value={66}>(+66) Thailand </MenuItem>
-          <MenuItem value={670}>(+670) Timor-Leste </MenuItem>
-          <MenuItem value={228}>(+228) Togo </MenuItem>
-          <MenuItem value={690}>(+690) Tokelau </MenuItem>
-          <MenuItem value={676}>(+676) Tonga </MenuItem>
-          <MenuItem value={1868}>(+1868) Trinidad and Tobago </MenuItem>
-          <MenuItem value={216}>(+216) Tunisia </MenuItem>
-          <MenuItem value={90}>(+90) Turkey </MenuItem>
-          <MenuItem value={993}>(+993) Turkmenistan </MenuItem>
-          <MenuItem value={1649}>(+1649) Turks and Caicos Islands </MenuItem>
-          <MenuItem value={688}>(+688) Tuvalu </MenuItem>
-          <MenuItem value={256}>(+256) Uganda </MenuItem>
-          <MenuItem value={380}>(+380) Ukraine </MenuItem>
-          <MenuItem value={971}>(+971) United Arab Emirates </MenuItem>
-          <MenuItem value={"+44"}>(+44) United Kingdom </MenuItem>
-          <MenuItem value={1}>(+1) United States </MenuItem>
-          <MenuItem value={598}>(+598) Uruguay </MenuItem>
-          <MenuItem value={998}>(+998) Uzbekistan </MenuItem>
-          <MenuItem value={678}>(+678) Vanuatu </MenuItem>
-          <MenuItem value={58}>
-            (+58) Venezuela Bolivarian Republic of Venezuela{" "}
-          </MenuItem>
-          <MenuItem value={84}>(+84) Vietnam </MenuItem>
-          <MenuItem value={1284}>(+1284) Virgin Islands British </MenuItem>
-          <MenuItem value={1340}>(+1340) Virgin Islands U.S. </MenuItem>
-          <MenuItem value={681}>(+681) Wallis and Futuna </MenuItem>
-          <MenuItem value={967}>(+967) Yemen </MenuItem>
-          <MenuItem value={260}>(+260) Zambia </MenuItem>
-          <MenuItem value={263}>(+263) Zimbabwe </MenuItem>
+          {menuOpen && (
+            <ListSubheader sx={{ backgroundColor: "white", position: "sticky", top: 0, zIndex: 1 }}>
+              <InputBase
+                autoFocus
+                placeholder="Search country..."
+                fullWidth
+                value={searchText}
+                onChange={handleSearchChange}
+                onClick={(e) => {
+                  // Prevent event bubbling to Select
+                  e.stopPropagation();
+                }}
+                onKeyDown={(e) => {
+                  // Prevent all keyboard events from propagating to Select
+                  e.stopPropagation();
+                }}
+                sx={{ 
+                  my: 1,
+                  border: "1px solid #ddd",
+                  borderRadius: "4px",
+                  height: "42px",
+                  padding: "0 12px",
+                  display: "flex",
+                  alignItems: "center",
+                  "& input": {
+                    padding: 0,
+                    height: "100%",
+                    fontSize: "16px"
+                  }
+                }}
+              />
+            </ListSubheader>
+          )}
+          {filteredCountries.map((country) => (
+            <MenuItem 
+              key={country.value} 
+              value={country.value}
+              disabled={country.value === 0}
+            >
+              {country.label}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
     </Box>
