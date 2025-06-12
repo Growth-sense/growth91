@@ -265,15 +265,17 @@ export const FutureUnicornList = () => {
                     className="form-control"
                   >
                     <option value="">--Select--</option>
-                    {filterdata &&
-                      filterdata.map(
-                        (item, index) =>
-                          item.udStartupName && (
-                            <option key={index} value={item.udStartupName}>
-                              {item.udStartupName}
-                            </option>
-                          )
-                      )}
+                    {filterdata && 
+                      [...new Set(filterdata
+                        .filter(item => item.udStartupName)
+                        .map(item => item.udStartupName))]
+                        .sort()
+                        .map((name, index) => (
+                          <option key={index} value={name}>
+                            {name}
+                          </option>
+                        ))
+                    }
                   </select>
                 </div>
                 <div className="mb-3">
@@ -287,15 +289,17 @@ export const FutureUnicornList = () => {
                     className="form-control"
                   >
                     <option value="">--Select--</option>
-                    {filterdata &&
-                      filterdata.map(
-                        (item, index) =>
-                          item.udCategory && (
-                            <option key={index} value={item.udCategory}>
-                              {item.udCategory}
-                            </option>
-                          )
-                      )}
+                    {filterdata && 
+                      [...new Set(filterdata
+                        .filter(item => item.udCategory)
+                        .map(item => item.udCategory))]
+                        .sort()
+                        .map((category, index) => (
+                          <option key={index} value={category}>
+                            {category}
+                          </option>
+                        ))
+                    }
                   </select>
                 </div>
                 <div className="mb-3">
@@ -309,18 +313,17 @@ export const FutureUnicornList = () => {
                     className="form-control"
                   >
                     <option value="">--Select--</option>
-                    {filterdata &&
-                      filterdata.map(
-                        (item, index) =>
-                          item.udStartupFounderName && (
-                            <option
-                              key={index}
-                              value={item.udStartupFounderName}
-                            >
-                              {item.udStartupFounderName}
-                            </option>
-                          )
-                      )}
+                    {filterdata && 
+                      [...new Set(filterdata
+                        .filter(item => item.udStartupFounderName)
+                        .map(item => item.udStartupFounderName))]
+                        .sort()
+                        .map((founderName, index) => (
+                          <option key={index} value={founderName}>
+                            {founderName}
+                          </option>
+                        ))
+                    }
                   </select>
                 </div>
                 <div className="mb-3">
@@ -336,15 +339,17 @@ export const FutureUnicornList = () => {
                     className="form-control"
                   >
                     <option value="">--Select--</option>
-                    {filterdata &&
-                      filterdata.map(
-                        (item, index) =>
-                          item.udSponsorName && (
-                            <option key={index} value={item.udSponsorName}>
-                              {item.udSponsorName}
-                            </option>
-                          )
-                      )}
+                    {filterdata && 
+                      [...new Set(filterdata
+                        .filter(item => item.udSponsorName)
+                        .map(item => item.udSponsorName))]
+                        .sort()
+                        .map((sponsorName, index) => (
+                          <option key={index} value={sponsorName}>
+                            {sponsorName}
+                          </option>
+                        ))
+                    }
                   </select>
                 </div>
               </div>
