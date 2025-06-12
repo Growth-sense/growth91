@@ -130,17 +130,6 @@ export default class Sidebar extends Component {
               &nbsp;&nbsp;Startup-Form
             </li>
           </a> */}
-          <a
-            href="/founderdash-documents"
-            className={
-              window.location.pathname === "/founderdash-documents" ? "active" : ""
-            }
-          >
-            <li className="hiw-li">
-              <i className="bx bxs-file-doc" style={{ fontSize: 20 }}></i>{" "}
-              &nbsp;&nbsp;Documents
-            </li>
-          </a>
           {/* <a
             href="/assessment-form"
             className={
@@ -256,6 +245,18 @@ export default class Sidebar extends Component {
               </li>
             </a>
           </ol>
+
+          <a
+            href="/founderdash-documents"
+            className={
+              window.location.pathname === "/founderdash-documents" ? "active" : ""
+            }
+          >
+            <li className="hiw-li">
+              <i className="bx bxs-file-doc" style={{ fontSize: 20 }}></i>{" "}
+              &nbsp;&nbsp;Documents
+            </li>
+          </a>
           
           
          
