@@ -341,7 +341,7 @@ class Founderadmindashboard extends Component {
 
   getData = async (id) => {
     let params = {
-      founderID: localStorage.getItem("founder_id") || this.props.adminview,
+      founderID: this.props.adminview || localStorage.getItem("founder_id"),
     };
     let headers = {
       "content-type": "application/json",

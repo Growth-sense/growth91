@@ -31,6 +31,7 @@ import Urldata from "../investor/components/Urldata";
 import { useLocation } from "react-router-dom";
 import Founderadmindashboard from "../Unicorn/forms/Founderadmindashboard";
 import { FutureUnicornDescription } from "../FutureUnicornDescription";
+import FounderadmindashboardAdditional from "../Unicorn/forms/FounderadmindashboardAdditional";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -80,6 +81,7 @@ class UnicornAdmin extends Component {
       formpreviewid: "",
       previewmodal: false,
       formpreviewmodal: false,
+      additionalformpreviewmodal: false,
       viewPlanModel: false,
     };
   }
@@ -609,6 +611,19 @@ class UnicornAdmin extends Component {
               </Menu.Item>
               <Menu.Item icon={<ManOutlined />}>
                 <a
+                  style={{ fontSize: 14 }}
+                  onClick={() =>
+                    this.setState({
+                      formpreviewid: record.action.udFounderID,
+                      additionalformpreviewmodal: true,
+                    })
+                  }
+                >
+                  &nbsp;&nbsp;Unicorn Additional Form Preview
+                </a>
+              </Menu.Item>
+              <Menu.Item icon={<ManOutlined />}>
+                <a
                   onClick={() => this.showenquiremodal(text)}
                   style={{ fontSize: 14 }}
                   //   onClick={() => this.showDeleteModal(text)}
@@ -995,6 +1010,25 @@ class UnicornAdmin extends Component {
         >
           {this.state.formpreviewid !== "" && (
             <Founderadmindashboard adminview={this.state.formpreviewid} />
+          )}
+        </Modal>
+
+        <Modal
+          title={"Unicorn Additional form Preview"}
+          visible={this.state.additionalformpreviewmodal}
+          onOk={() => {
+            this.setState({ additionalformpreviewmodal: false, formpreviewid: "" });
+            window.location.reload();
+          }}
+          onCancel={() => {
+            this.setState({ additionalformpreviewmodal: false, formpreviewid: "" });
+            window.location.reload();
+          }}
+          okText="OK"
+          width={1000}
+        >
+          {this.state.formpreviewid !== "" && (
+            <FounderadmindashboardAdditional adminview={this.state.formpreviewid} />
           )}
         </Modal>
       </>
