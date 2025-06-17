@@ -240,16 +240,27 @@ class Dellistinicorn extends Component {
                       </div>{" "}
                       
                       <div className="form-group">
-                        <label for="">Deal Description<span className="text-danger">*</span></label>
-                        <input
-                          type="texttext"
-                          onWheel={() => document.activeElement.blur()}
+                        <label for="">Elevator Pitch / Introduction about your startup<span className="text-danger">*</span></label>
+                        <textarea
+                          cols="30"
+                          rows="6"
+                          maxLength="750"
                           name="tudDealDescription"
                           value={this.props.unicorn.tudDealDescription}
-                          onChange={(e) =>
+                          onChange={(e) => {
                             this.props.onInput(e.target.name, e.target.value)
-                          }
-                        />
+                          }}
+                          style={{marginBottom: "5px"}}
+                        ></textarea>
+                        <div className="character-count" style={{
+                          marginBottom: "20px",
+                          color:
+                            this.props.unicorn.tudDealDescription.length < 500
+                              ? "#ff4d4f"
+                              : "green",
+                        }}>
+                          {`${this.props.unicorn.tudDealDescription.length}/750 characters`}
+                        </div>
                       </div>{" "}
                       <div className="form-group">
                         <label for="">Youtube Link</label>

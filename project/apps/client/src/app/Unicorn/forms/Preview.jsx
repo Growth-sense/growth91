@@ -941,13 +941,7 @@ text-align: justify;
 
                     {/* Right Text Section */}
                     <div className="col-md-8 d-flex flex-column justify-content-center">
-                      <p className="about-text">{item.tudDealDescription}</p>
-                      {/* <NewLINK
-                          to="/"
-                          className="read-btn mt-5 px-4 py-2 rounded-pill"
-                        >
-                          Read More
-                        </NewLINK> */}
+                      <p className="about-text" style={{overflowWrap: "anywhere"}}>{item.tudDealDescription}</p>
                     </div>
                   </div>
                 </div>

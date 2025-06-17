@@ -25,7 +25,7 @@ class Founderadmindashboard extends Component {
       "Supporting Documents",
       "Social Media Presence",
       "Other info",
-      "Media Coverage",
+      "Team",
       "Declaration"
     ];
 
@@ -577,7 +577,7 @@ class Founderadmindashboard extends Component {
   };
 
   activeform = (value) => {
-    this.setState({ activeform: value });
+    this.setState({ activeform: value, loading: false });
     $("html, body").animate({ scrollTop: 0 }, 1000);
   };
 
@@ -948,7 +948,6 @@ class Founderadmindashboard extends Component {
     );
     
     if (isPage1FormInvalid) {
-      this.setState({ loading: false });
       this.activeform(0);
       toast.error("Please fill Basic Details Section");
       return;
@@ -994,42 +993,28 @@ class Founderadmindashboard extends Component {
       (this.state.unicorn.tudSponsorName != "" && this.state.unicorn.tudSponsorImage == "") || 
       (this.state.unicorn.tudSponsorName == "" && this.state.unicorn.tudSponsorImage != "")
     ) {
-      this.setState({ loading: false });
       this.activeform(1);
       toast.error("Please fill Supporting Documents Section");
       return;
     }
 
-    const page9requiredFields = [
-      'tudLeagalName',
-      'tudWebsite',
-      'tudLegalCin',
-      'tudLegalPan',
-      'tudLegalCountry',
-      'tudEstablishedDate',
-      'tudActivityStartedDate',
-      'tudRegisteredOffice',
-      'tudCorporateOffice',
-      'tudDirector1',
-      'tudDin1',
-      'tudDirector2',
-      'tudDin2',
-      'tudDirector3',
-      'tudDin3',
-      'tudDirector4',
-      'tudDin4'
-    ];
+    let mediaValidation = true;
+    let mediaData = JSON.parse(this.state.unicorn.tudMediaCoverageFiles);
+    if(mediaData.mediaData > 0){
+      mediaData.forEach(element => {
+        if(element.title != ""){
+          if(element.img == "" || element.content == "" || element.imgname == ""){
+            mediaValidation = false;
+          }
+        }
+      });
+    }
 
-    // const isPage9FormInvalid = page9requiredFields.some(field => 
-    //   !this.state.unicorn[field] || this.state.unicorn[field].trim() === ''
-    // );
-    
-    // if (this.state.unicorn.tpage9NA == "0" && isPage9FormInvalid) {
-    //   this.setState({ loading: false });
-    //   this.activeform(2);
-    //   toast.error("Please fill Company Legal Entity Section");
-    //   return;
-    // }
+    if(!mediaValidation){
+        this.activeform(2);
+        toast.error("Please fill Social Media Presence Section");
+        return;
+    }
   
     if (
       !this.state.unicorn.tudStartupFounderName ||
@@ -1053,47 +1038,42 @@ class Founderadmindashboard extends Component {
       !this.state.unicorn.tudCategory ||
       this.state.unicorn.tudCategory == ""
     ) {
-      this.setState({ loading: false });
-      this.activeform(4);
+      this.activeform(3);
       toast.error("Please fill Other Info Section");
       return;
     }
-    
-    let mediaValidation = true;
-    let mediaData = JSON.parse(this.state.unicorn.tudMediaCoverageFiles);
-    if(mediaData.mediaData > 0){
-      mediaData.forEach(element => {
-        if(element.title != ""){
-          if(element.img == "" || element.content == "" || element.imgname == ""){
-            mediaValidation = false;
-          }
-        }
-      });
+
+    if(this.state.unicorn.tudDealDescription.length < 500){
+      this.activeform(3);
+      toast.error(`Please complete your startup introduction. You still need to add approximately ${500 - this.state.unicorn.tudDealDescription.length} more characters to meet the minimum requirement of 500 characters.`);
+      return;
     }
+    
+    
+
+    let teamValidation = true;
 
     let teamData = JSON.parse(this.state.unicorn.tudVendorId);
     if(teamData.length < 1){
-      mediaValidation = false;
+      teamValidation = false;
     }
 
     teamData.forEach((a) => {
       if(a.name == "" || a.img == "" || a.description1 == "" || a.description2 == "" || a.imgname == "" || a.Role == "" || a.linkedinUrl == null || a.linkedinUrl == ""){
-        mediaValidation = false;
+        teamValidation = false;
       }
     })
 
     
 
-    if(!mediaValidation){
-      this.setState({ loading: false });
-        this.activeform(5);
-        toast.error("Please fill Media Coverages");
+    if(!teamValidation){
+        this.activeform(4);
+        toast.error("Please fill Team Section");
         return;
     }
 
     if (!this.state.unicorn.tudDeclare || this.state.unicorn.tudDeclare == 0) {
-      this.setState({ loading: false });
-      this.activeform(6);
+      this.activeform(5);
       toast.error("Please fill Declaration Section");
       return;
     }
