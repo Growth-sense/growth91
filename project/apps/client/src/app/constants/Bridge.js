@@ -982,6 +982,14 @@ export default {
       api.post(URLs.publishunicorndeal, data).then((response) => {
         return response.data;
       }),
+    editunicorndraftAdditional: (data) =>
+      api.post(URLs.editunicorndraftadditional, data).then((response) => {
+        return response.data;
+      }),
+    publishunicorndealAdditional: (data) =>
+      api.post(URLs.publishunicorndealadditional, data).then((response) => {
+        return response.data;
+      }),
     unicorndealsByInvestors: (data) =>
       api.post(URLs.unicorndealsByInvestors, data).then((response) => {
         return response.data;

@@ -273,6 +273,8 @@ const URLs = {
   unicornListByFounders:"founder/Startup/unicornListByFounders",
   editunicorndraft:"founder/Startup/editunicorndraft",
   publishunicorndeal:"founder/Startup/publishunicorndeal",
+  editunicorndraftadditional:"founder/Startup/editunicorndraftadditional",
+  publishunicorndealadditional:"founder/Startup/publishunicorndealadditional",
   unicorndealsByInvestors:"founder/Startup/unicorndealsByInvestors",
   getAllUnicorns:"founder/Startup/getAllUnicorns",
   getUnicornPayment:"founder/Startup/getUnicornPayment",

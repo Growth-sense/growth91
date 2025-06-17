@@ -548,19 +548,6 @@ class FundRaiseRegistration extends Component {
                             style={{
                               position: "relative",
                               left: -20,
-                              background: "#fff",
-                              border: "1px solid #29176f",
-                              color: "#29176f",
-                            }}
-                            onClick={this.prev}
-                            class="submit-button"
-                          >
-                            <i className="bx bx-chevron-left"></i>
-                          </button>
-                          <button
-                            style={{
-                              position: "relative",
-                              left: -20,
                               background: active == false ? "#fff" : "#fff",
                               border:
                                 active == false

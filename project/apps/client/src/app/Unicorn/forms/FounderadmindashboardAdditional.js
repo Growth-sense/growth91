@@ -4,10 +4,30 @@ import { Modal, Spin, Steps, message } from "antd";
 // Mandatory Forms
 import BasicDetails from "./BasicDetails";
 import Step20 from "./SupportingDocuments";
+import Step8 from "./CompanyLegalEntity";
 import Step9 from "./SocialMediaPresence";
 import Dellistinicorn from "./Deallist.js";
 import Mediacoverager from "./Mediacoverager.js";
 import Step19 from "./Declaration";
+
+// Additional Information Forms
+import Step2 from "./IdeaBusiness";
+import Step3 from "./IntellectualProperty";
+import Step4 from "./MobileApp";
+import Step5 from "./IndustryMarket";
+import Step6 from "./Competition";
+import Step7 from "./SWOT";
+import Step10 from "./GoToMarket";
+import Step11 from "./Financials";
+import Step12 from "./Capital";
+import Step13 from "./Salaries";
+import Step14 from "./FundingDetails";
+import Step15 from "./UseOfFunds";
+import Step16 from "./Compliances";
+import Step17 from "./OtherImportantIndicators";
+import Step18 from "./Refrences";
+
+
 
 import { Previewbutton } from "./Previewbutton.jsx";
 import Bridge from "../../constants/Bridge";
@@ -16,26 +36,46 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 
-class Founderadmindashboard extends Component {
+class FounderadmindashboardAdditional extends Component {
   constructor(props) {
     super(props);
     
     this.additionalSteps = [
-      "Basic Details",
-      "Supporting Documents",
-      "Social Media Presence",
-      "Other info",
-      "Media Coverage",
-      "Declaration"
+      "Company Legality Entity",
+      "Idea/Business", 
+      "Intellectual Property",
+      "Mobile App",
+      "Industry Market",
+      "Competition",
+      "SWOT",
+      "Go To Market",
+      "Financials",
+      "Capital",
+      "Salaries",
+      "Funding Details",
+      "Use Of Funds",
+      "Compliances",
+      "Other Important Indicators",
+      "References",
     ];
 
     this.formConfig = [
-      BasicDetails, 
-      Step20,
-      Step9,
-      Dellistinicorn,
-      Mediacoverager,
-      Step19
+      Step8,
+      Step2,
+      Step3,
+      Step4,
+      Step5,
+      Step6,
+      Step7,
+      Step10,
+      Step11,
+      Step12,
+      Step13,
+      Step14,
+      Step15,
+      Step16,
+      Step17,
+      Step18
     ]
 
     this.state = {
@@ -936,173 +976,12 @@ class Founderadmindashboard extends Component {
 
 
   publishunicorn = () => {
-    
     this.setState({ loading: true });
-    
-    const page1requiredFields = [
-      'tudStartupName'
-    ];
-
-    const isPage1FormInvalid = page1requiredFields.some(field => 
-      !this.state.unicorn[field] || this.state.unicorn[field].trim() === ''
-    );
-    
-    if (isPage1FormInvalid) {
-      this.setState({ loading: false });
-      this.activeform(0);
-      toast.error("Please fill Basic Details Section");
-      return;
-    }
-    
-    if (
-      !this.state.unicorn.tudMark ||
-      this.state.unicorn.tudMark == "" ||
-      (() => {
-        try {
-          const tudMarkArray = JSON.parse(this.state.unicorn.tudMark);
-          // Check if it's an array with exactly 3 members
-          if (!Array.isArray(tudMarkArray) || tudMarkArray.length !== 3) {
-            return true; // validation failed
-          }
-          // Check if each member has content1 key and non-empty value
-          return tudMarkArray.some(item => !item.content1 || item.content1.trim() === "");
-        } catch (e) {
-          return true; // JSON parse failed, validation failed
-        }
-      })() ||
-      !this.state.unicorn.tudStartupHighlights ||
-      this.state.unicorn.tudStartupHighlights == "" ||
-      (() => {
-        try {
-          const tudStartupHighlightArray = JSON.parse(this.state.unicorn.tudStartupHighlights);
-          // Check if it's an array with exactly 3 members
-          if (!Array.isArray(tudStartupHighlightArray) || tudStartupHighlightArray.length !== 4) {
-            return true; // validation failed
-          }
-          // Check if each member has content1 key and non-empty value
-          return tudStartupHighlightArray.some(item => !item.content1 || item.content1.trim() === "");
-        } catch (e) {
-          return true; // JSON parse failed, validation failed
-        }
-      })() ||
-      !this.state.unicorn.tudLogoImage ||
-      this.state.unicorn.tudLogoImage == "" ||
-      !this.state.unicorn.tudBannerImage ||
-      this.state.unicorn.tudBannerImage == "" ||
-      !this.state.unicorn.tudPitchDeck ||
-      this.state.unicorn.tudPitchDeck == "" ||
-      (this.state.unicorn.tudSponsorName != "" && this.state.unicorn.tudSponsorImage == "") || 
-      (this.state.unicorn.tudSponsorName == "" && this.state.unicorn.tudSponsorImage != "")
-    ) {
-      this.setState({ loading: false });
-      this.activeform(1);
-      toast.error("Please fill Supporting Documents Section");
-      return;
-    }
-
-    const page9requiredFields = [
-      'tudLeagalName',
-      'tudWebsite',
-      'tudLegalCin',
-      'tudLegalPan',
-      'tudLegalCountry',
-      'tudEstablishedDate',
-      'tudActivityStartedDate',
-      'tudRegisteredOffice',
-      'tudCorporateOffice',
-      'tudDirector1',
-      'tudDin1',
-      'tudDirector2',
-      'tudDin2',
-      'tudDirector3',
-      'tudDin3',
-      'tudDirector4',
-      'tudDin4'
-    ];
-
-    // const isPage9FormInvalid = page9requiredFields.some(field => 
-    //   !this.state.unicorn[field] || this.state.unicorn[field].trim() === ''
-    // );
-    
-    // if (this.state.unicorn.tpage9NA == "0" && isPage9FormInvalid) {
-    //   this.setState({ loading: false });
-    //   this.activeform(2);
-    //   toast.error("Please fill Company Legal Entity Section");
-    //   return;
-    // }
-  
-    if (
-      !this.state.unicorn.tudStartupFounderName ||
-      this.state.unicorn.tudStartupFounderName == "" ||
-      !this.state.unicorn.tudLegalname ||
-      this.state.unicorn.tudLegalname == "" ||
-      !this.state.unicorn.tudStartupFounderMobileCountryCode ||
-      this.state.unicorn.tudStartupFounderMobileCountryCode == "" ||
-      !this.state.unicorn.tudStartupFounderMobileNumber ||
-      this.state.unicorn.tudStartupFounderMobileNumber == "" ||
-      !this.state.unicorn.tudStartupFounderEmail ||
-      this.state.unicorn.tudStartupFounderEmail == "" ||
-      !this.state.unicorn.tudFoundedon ||
-      this.state.unicorn.tudFoundedon == "" ||
-      !this.state.unicorn.tudAddress ||
-      this.state.unicorn.tudAddress == "" ||
-      !this.state.unicorn.tudEmployees ||
-      this.state.unicorn.tudEmployees == "" ||
-      !this.state.unicorn.tudDealDescription ||
-      this.state.unicorn.tudDealDescription == "" ||
-      !this.state.unicorn.tudCategory ||
-      this.state.unicorn.tudCategory == ""
-    ) {
-      this.setState({ loading: false });
-      this.activeform(4);
-      toast.error("Please fill Other Info Section");
-      return;
-    }
-    
-    let mediaValidation = true;
-    let mediaData = JSON.parse(this.state.unicorn.tudMediaCoverageFiles);
-    if(mediaData.mediaData > 0){
-      mediaData.forEach(element => {
-        if(element.title != ""){
-          if(element.img == "" || element.content == "" || element.imgname == ""){
-            mediaValidation = false;
-          }
-        }
-      });
-    }
-
-    let teamData = JSON.parse(this.state.unicorn.tudVendorId);
-    if(teamData.length < 1){
-      mediaValidation = false;
-    }
-
-    teamData.forEach((a) => {
-      if(a.name == "" || a.img == "" || a.description1 == "" || a.description2 == "" || a.imgname == "" || a.Role == "" || a.linkedinUrl == null || a.linkedinUrl == ""){
-        mediaValidation = false;
-      }
-    })
-
-    
-
-    if(!mediaValidation){
-      this.setState({ loading: false });
-        this.activeform(5);
-        toast.error("Please fill Media Coverages");
-        return;
-    }
-
-    if (!this.state.unicorn.tudDeclare || this.state.unicorn.tudDeclare == 0) {
-      this.setState({ loading: false });
-      this.activeform(6);
-      toast.error("Please fill Declaration Section");
-      return;
-    }
-    
     let params = {
       tudTempUdID: this.state.unicorn.tudTempUdID,
       founderID: this.state.unicorn.founderID,
     };
-    Bridge.Unicorn.publishunicorndeal(params).then((result) => {
+    Bridge.Unicorn.publishunicorndealAdditional(params).then((result) => {
       if(result.status == 1){
         this.setState({
           loading: false,
@@ -1131,7 +1010,7 @@ class Founderadmindashboard extends Component {
   updatefounder = async (data) => {
     this.setState({ loading: true });
     try {
-      const result = await Bridge.Unicorn.editunicorndraft(this.state.unicorn);
+      const result = await Bridge.Unicorn.editunicorndraftAdditional(this.state.unicorn);
       if (result.status == 1) {
         this.setState({ loading: false });
         if (data === "save as draft") {
@@ -1140,7 +1019,7 @@ class Founderadmindashboard extends Component {
             window.location.assign("/FounderMyListing");
           }, 1000);
         } else {
-          this.setState({show_confirmation_modal: true});
+          this.publishunicorn();
         }
       } else {
         message.warning(result.message);
@@ -1250,16 +1129,6 @@ class Founderadmindashboard extends Component {
         <Spin spinning={this.state.unicorn.tudTempUdID == ""}>
           <div className="container">
             <div className="row">
-              <div className="col-lg-12 text-center mb-5">
-                {/* <h1>Information about Startup</h1> */}
-                <br />
-                <p style={{ fontSize: "1.7em" }}>
-                  Tell us about your startup
-                  <br />
-                </p>
-              </div>
-            </div>
-            <div className="row">
               <div className="col-lg-4">
                 <div className="multistep-form-icons">
                   <ul>
@@ -1280,7 +1149,7 @@ class Founderadmindashboard extends Component {
                             >
                               {(this.state.activeform == formIndex ||
                                 this.state[classKey] == "") &&
-                                (stepIndex + 1)}
+                                (stepIndex + 6 + 1)}
                               {this.state.activeform != formIndex &&
                                 this.state[classKey] == " success-tab" && (
                                   <i
@@ -1298,7 +1167,7 @@ class Founderadmindashboard extends Component {
                             </div>
                             <span>{step}</span>
                             {
-                              step != "Declaration" && <div className="line"></div>
+                              step != "References" && <div className="line"></div>
                             }
                           </div>
                         </li>
@@ -1317,7 +1186,6 @@ class Founderadmindashboard extends Component {
             {!this.props.adminview && (
               <div className="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto mt-3">
                 <div className="submit-draft-publish d-flex justify-content-center">
-                  <Previewbutton unicorn={this.state.unicorn} validatePreview={this.validatePreview}/>
                   <a
                     onClick={() => {
                       this.updatefounder("save as draft");
@@ -1333,7 +1201,7 @@ class Founderadmindashboard extends Component {
                     // to="MemberShip"
                     className="submit-future"
                   >
-                    Publish
+                    Submit
                   </a>
                 </div>
               </div>
@@ -1353,10 +1221,10 @@ class Founderadmindashboard extends Component {
                 <Link
                   to={`/FutureUnicornDescription?id=${this.state.unicornid}`}
                 >
-                  <button className="btn btn-block">View Unicorn</button>
+                  <button className="btn btn-block">View Startup</button>
                 </Link>
-                <Link to="/FutureUnicornForm" onClick={() => { this.setState({show_thankyou_modal: false}) }} >
-                  <button className="btn btn-block">Continue with Additional Information</button>
+                <Link to="/founder-dashboard">
+                  <button className="btn btn-block">Go to Dashboard</button>
                 </Link>
               </>,
             ]}
@@ -1368,21 +1236,13 @@ class Founderadmindashboard extends Component {
                     <i class="far fa-check-circle"></i>
                   </div>
                   <div className="modal-title">
-                    <h4>Thank you</h4>
+                    <h4>Thankyou</h4>
                   </div>
                 </div>
                 <div className="modal-body">
                   <p className="text-center">
                     Future Unicorn is published successfully.
                   </p>
-                  <hr/>
-                  <div className="additional-info-section mt-4 text-center">
-                    <h5>Additional Information for Better Evaluation</h5>
-                    <br/>
-                    <p className="text-muted small">
-                      Note: This section is for internal evaluation by Growth91 and will not be published on the Future Unicorn page. This may also be used to provide additional information to your prospective investors, partners, or associates, and to train our AI module on your behalf. Therefore, please provide as much detailed information as possible.
-                    </p>
-                  </div>
                 </div>
               </div>
             </div>
@@ -1465,4 +1325,4 @@ class Founderadmindashboard extends Component {
   }
 }
 
-export default Founderadmindashboard;
+export default FounderadmindashboardAdditional;

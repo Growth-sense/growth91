@@ -579,136 +579,218 @@ class Startup extends CI_Controller {
 			// POst data for table 1
 			extract($formdata);
 			
-			$post_data=[
-		//		'submiited_by_founder_id'=>$founder_id,
-		
-			'tudStartupName' => $tudStartupName ,
-			'tudEmail' => $tudEmail,
-			'tudPrimaryContactName' => $tudPrimaryContactName,
-			'tudCountryCode' => $tudCountryCode,
-			'tudPrimaryContactMobile' => $tudPrimaryContactMobile,
-			'tudPrimaryContactEmail' => $tudPrimaryContactEmail,
-			'tudDisruptingMarket' => $tudDisruptingMarket,
-			'tudTappingNew' => $tudTappingNew,
-			'tudCustomerBenifit' => $tudCustomerBenifit,
-			'tudSuppliersBenifit' => $tudSuppliersBenifit,
-			'tudDirectSubstitueAvailable' => $tudDirectSubstitueAvailable,
-			'tudIndirectSubstitueAvailable' => $tudIndirectSubstitueAvailable,
-			'tudRiskPerceived' => $tudRiskPerceived,
-			'tudRolesCoreTeam' => $tudRolesCoreTeam,
-			'tudMoats' => $tudMoats,
-			'tudScaleupChallenges' => $tudScaleupChallenges,
-			'tudTrademark' => $tudTrademark,
-			'tudPatents' => $tudPatents,
-			'tudOtherIPs' => $tudOtherIPs,
-			'tudOtherDetailsIPs' => $tudOtherDetailsIPs,
-			'tudIPsRegistrationInfo' => $tudIPsRegistrationInfo,
-			'tudAndroidMobileApp' => $tudAndroidMobileApp,
-			'tudAndroidAppDetails' => $tudAndroidAppDetails,
-			'tudIphoneMobileApp' => $tudIphoneMobileApp,
-			'tudIphoneAppDetails' => $tudIphoneAppDetails,
-			'tudIndustryClassification' => $tudIndustryClassification,
-			'tudIndustryViews' => $tudIndustryViews,
-			'tudIndustryMarketSize' => $tudIndustryMarketSize,
-			'tudSupportingInfoMarketSize' => $tudSupportingInfoMarketSize,
-			'tudAddressableMarketSize' => $tudAddressableMarketSize,
-			'tudSupportingInfoAddressableMarketSize' => $tudSupportingInfoAddressableMarketSize ,
-			'tudLocalDirectComp' => $tudLocalDirectComp,
-			'tudLocalIndirectComp' => $tudLocalIndirectComp,
-			'tudGlobalDirectComp' => $tudGlobalDirectComp,
-			'tudGlobalIndirectComp' => $tudGlobalIndirectComp,
-			'tudDiffCompetion' => $tudDiffCompetion,
-			'tudWhyCompSame' => $tudWhyCompSame,
-			'tudUnfairAdv' => $tudUnfairAdv,
-			'tudLikeCompetion' => $tudLikeCompetion,
-			'tudFailVenture' => $tudFailVenture,
-			'tudFailureReason' => $tudFailureReason,
-			'tudStrength' => $tudStrength,
-			'tudWeakness' => $tudWeakness,
-			'tudOpportunities' => $tudOpportunities,
-			'tudThreats' => $tudThreats,
-			'tudLeagalName' => $tudLeagalName,
-			'tudWebsite' => $tudWebsite,
-			'tudLegalCin' => $tudLegalCin,
-			'tudLegalPan'  => $tudLegalPan,
-			'tudLegalCountry' => $tudLegalCountry,
-			'tudEstablishedDate' => $tudEstablishedDate,
-			'tudActivityStartedDate' => $tudActivityStartedDate,
-			'tudRegisteredOffice' => $tudRegisteredOffice,
-			'tudCorporateOffice' => $tudCorporateOffice,
-			'tudDirector1' => $tudDirector1,
-			'tudDin1'  => $tudDin1,
-			'tudDirector2'  => $tudDirector2,
-			'tudDin2'  => $tudDin2,
-			'tudDirector3'  => $tudDirector3,
-			'tudDin3'  => $tudDin3,
-			'tudDirector4'  => $tudDirector4,
-			'tudDin4'  => $tudDin4,
-			'tudSocialInsta'  => $tudSocialInsta,
-			'tudSocialFacebook'  => $tudSocialFacebook,
-			'tudSocialLinkedIn'  => $tudSocialLinkedIn,
-			'tudSocialYouTube'  => $tudSocialYouTube,
-			'tudSocialOthers'  => $tudSocialOthers,
-			'tudGtmStratergy' => $tudGtmStratergy,
-			'tudGtmBackup' => $tudGtmBackup,
-			'tudExistingCac'  => $tudExistingCac,
-			'tudExpectedCac'  => $tudExpectedCac,
-			'tudLogicCac'  => $tudLogicCac,
-			'tudLtvCustomer'  => $tudLtvCustomer,
-			'tudLogicLtvNumber'  => $tudLogicLtvNumber,
-			'tudLtvCacRatio'  => $tudLtvCacRatio,
-			'tudNumberofClients' => $tudNumberofClients,
-			'tudClientRetentions' => $tudClientRetentions,
-			'tudRevenueTop10' => $tudRevenueTop10,
-			'tudUnitEconomics' => $tudUnitEconomics,
-			'tudTotalCapEx' => $tudTotalCapEx,
-			'tudAmountSpentProdDev' => $tudAmountSpentProdDev,
-			'tudMajorExpInv' => $tudMajorExpInv,
-			'tudAuthorisedCap'  => $tudAuthorisedCap,
-			'tudPaidupCapi'  => $tudPaidupCapi,
-			'tudFounderPer'  => $tudFounderPer,
-			'tudCorePer'  => $tudCorePer,
-			'tudEsopPer'  => $tudEsopPer,
-			'tudOtherPer' => $tudOtherPer,
-			'tudAmountByFounder'  => $tudAmountByFounder,
-			'tudUnsecLoanFounder' => $tudUnsecLoanFounder,
-			'tudUnsecLoanOthers' => $tudUnsecLoanOthers,
-			'tudOtherLoan' => $tudOtherLoan,
-			'tudFounderSalary'  => $tudFounderSalary,
-			'tudFounderSalaryPlan' => $tudFounderSalaryPlan,
-			'tudCoreTeamSalary'  => $tudCoreTeamSalary,
-			'tudTotalSalary'  => $tudTotalSalary,
-			'tudPreviousFundRaised' => $tudPreviousFundRaised,
-			'tudFundRequired' => $tudFundRequired,
-			'tudExpRunway' => $tudExpRunway,
-			'tudValueFundRaise' => $tudValueFundRaise,
-			'tudLogicFundRaise' => $tudLogicFundRaise,
-			'tudOpentoLower' => $tudOpentoLower,
-			'tudCapexImmidate' => $tudCapexImmidate,
-			'tudCapexFuture' => $tudCapexFuture,
-			'tudProductFund'  => $tudProductFund,
-			'tudMarketingFund'  => $tudMarketingFund,
-			'tudSalaryFund'  => $tudSalaryFund,
-			'tudCastComFund'  => $tudCastComFund,
-			'tudOthersFund'  => $tudOthersFund,
-			'tudRepaymentFund'  => $tudRepaymentFund,
-			'tudGstRegistered' => $tudGstRegistered,
-			'tudGstDetails' => $tudGstDetails,
-			'tudAuditedBL' => $tudAuditedBL,
-			'tudItrFilling' => $tudItrFilling,
-			'tudAgm' => $tudAgm,
-			'tudPendingRoc' => $tudPendingRoc,
-			'tudPastDelays' => $tudPastDelays,
-			'tudOtherApplicableCompliance'=> $tudOtherApplicableCompliance ,
-			'tudCaInfo'  => $tudCaInfo,
-			'tudCsInfo'  => $tudCsInfo,
-			'tudOtherLegalInfo'  => $tudOtherLegalInfo,
-			'tudAcceptedDate'  => $tudAcceptedDate,
-			'tudPublishedDate' => $tudPublishedDate,
-			'tudExpiryDate' => $tudExpiryDate,
-			'founderID' => $founderID, 
-			'tudDeclare' => $tudDeclare,
+			$post_data=[		
+				'tudStartupName' => $tudStartupName ,
+				'tudSocialInsta'  => $tudSocialInsta,
+				'tudSocialFacebook'  => $tudSocialFacebook,
+				'tudSocialLinkedIn'  => $tudSocialLinkedIn,
+				'tudSocialYouTube'  => $tudSocialYouTube,
+				'tudSocialOthers'  => $tudSocialOthers,
+				'founderID' => $founderID, 
+				'tudDeclare' => $tudDeclare,
+			];		
+			
+			//$tudTempUdID
+			$this -> db -> where("tudTempUdID",$tudTempUdID);
+			$status = $this -> db -> update("tempunicorndeals",$post_data);
 
+			 
+			if($status) {
+
+				$post_data2=[
+					'tudPitchDeck'  => $tudPitchDeck,
+					'tudProductDeck'  => $tudProductDeck,
+					'tudBannerImage'=> $tudBannerImage,
+					'tudLogoImage'=> $tudLogoImage,
+					'tudMark'=> $tudMark,
+					'tudStartupHighlights'=> $tudStartupHighlights,
+					'tudSponsorName' => $tudSponsorName,
+					'tudSponsorImage' => $tudSponsorImage,
+					'tudStartupFounderName'=> $tudStartupFounderName,
+					'tudLegalname'=> $tudLegalname,
+					'tudStartupFounderMobileCountryCode' => $tudStartupFounderMobileCountryCode,
+					'tudStartupFounderMobileNumber'=> $tudStartupFounderMobileNumber,
+					'tudStartupFounderEmail'=> $tudStartupFounderEmail,
+					'tudFoundedon'=> $tudFoundedon,
+					'tudAddress'=> $tudAddress,
+					'tudEmployees'=> $tudEmployees,
+					'tudDealDescription'=> $tudDealDescription,
+					'tudYoutubeLink'=> $tudYoutubeLink,
+					'tudCategory'=> $tudCategory,
+					'tudTag' => $tudTag,
+					'tudMediaCoverageFiles'=> $tudMediaCoverageFiles,
+					'tudVendorId'=> $tudVendorId,
+				];	
+				$this -> db -> where("tudTempUdID",$tudTempUdID);
+				$status2 = $this -> db -> update("tempunicorndeals2",$post_data2);
+				
+				if($status2) 
+				{
+					$response = [
+						'status' => '1',
+						'message' => 'Details updated successfully.',
+						//'id' => $id2,
+					];
+				}
+				else
+				{
+					$response = [
+						'status' => '0',
+						'message' => 'Please try again!',
+						//'id' => $id,
+					];
+				}
+			
+			} else {
+				$response =[
+					'status' => '0',
+					'message' => 'Please try again!'
+				];
+			}
+		} else {
+			$response = [
+				'status' => '0',
+				'message'=> 'Please enter values of all fields.',
+			];
+		}
+		$this->output
+		->set_content_type('application/json')
+		->set_output(json_encode($response));	
+	}
+
+	// Edit Unicorn temp table
+	function editunicorndraftadditional() {
+		// header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		// header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		if(!empty($formdata)) {
+			// POst data for table 1
+			extract($formdata);
+			
+			$post_data=[
+				'tudEmail' => $tudEmail,
+				'tudPrimaryContactName' => $tudPrimaryContactName,
+				'tudCountryCode' => $tudCountryCode,
+				'tudPrimaryContactMobile' => $tudPrimaryContactMobile,
+				'tudPrimaryContactEmail' => $tudPrimaryContactEmail,
+				'tudDisruptingMarket' => $tudDisruptingMarket,
+				'tudTappingNew' => $tudTappingNew,
+				'tudCustomerBenifit' => $tudCustomerBenifit,
+				'tudSuppliersBenifit' => $tudSuppliersBenifit,
+				'tudDirectSubstitueAvailable' => $tudDirectSubstitueAvailable,
+				'tudIndirectSubstitueAvailable' => $tudIndirectSubstitueAvailable,
+				'tudRiskPerceived' => $tudRiskPerceived,
+				'tudRolesCoreTeam' => $tudRolesCoreTeam,
+				'tudMoats' => $tudMoats,
+				'tudScaleupChallenges' => $tudScaleupChallenges,
+				'tudTrademark' => $tudTrademark,
+				'tudPatents' => $tudPatents,
+				'tudOtherIPs' => $tudOtherIPs,
+				'tudOtherDetailsIPs' => $tudOtherDetailsIPs,
+				'tudIPsRegistrationInfo' => $tudIPsRegistrationInfo,
+				'tudAndroidMobileApp' => $tudAndroidMobileApp,
+				'tudAndroidAppDetails' => $tudAndroidAppDetails,
+				'tudIphoneMobileApp' => $tudIphoneMobileApp,
+				'tudIphoneAppDetails' => $tudIphoneAppDetails,
+				'tudIndustryClassification' => $tudIndustryClassification,
+				'tudIndustryViews' => $tudIndustryViews,
+				'tudIndustryMarketSize' => $tudIndustryMarketSize,
+				'tudSupportingInfoMarketSize' => $tudSupportingInfoMarketSize,
+				'tudAddressableMarketSize' => $tudAddressableMarketSize,
+				'tudSupportingInfoAddressableMarketSize' => $tudSupportingInfoAddressableMarketSize ,
+				'tudLocalDirectComp' => $tudLocalDirectComp,
+				'tudLocalIndirectComp' => $tudLocalIndirectComp,
+				'tudGlobalDirectComp' => $tudGlobalDirectComp,
+				'tudGlobalIndirectComp' => $tudGlobalIndirectComp,
+				'tudDiffCompetion' => $tudDiffCompetion,
+				'tudWhyCompSame' => $tudWhyCompSame,
+				'tudUnfairAdv' => $tudUnfairAdv,
+				'tudLikeCompetion' => $tudLikeCompetion,
+				'tudFailVenture' => $tudFailVenture,
+				'tudFailureReason' => $tudFailureReason,
+				'tudStrength' => $tudStrength,
+				'tudWeakness' => $tudWeakness,
+				'tudOpportunities' => $tudOpportunities,
+				'tudThreats' => $tudThreats,
+				'tudLeagalName' => $tudLeagalName,
+				'tudWebsite' => $tudWebsite,
+				'tudLegalCin' => $tudLegalCin,
+				'tudLegalPan'  => $tudLegalPan,
+				'tudLegalCountry' => $tudLegalCountry,
+				'tudEstablishedDate' => $tudEstablishedDate,
+				'tudActivityStartedDate' => $tudActivityStartedDate,
+				'tudRegisteredOffice' => $tudRegisteredOffice,
+				'tudCorporateOffice' => $tudCorporateOffice,
+				'tudDirector1' => $tudDirector1,
+				'tudDin1'  => $tudDin1,
+				'tudDirector2'  => $tudDirector2,
+				'tudDin2'  => $tudDin2,
+				'tudDirector3'  => $tudDirector3,
+				'tudDin3'  => $tudDin3,
+				'tudDirector4'  => $tudDirector4,
+				'tudDin4'  => $tudDin4,
+				'tudGtmStratergy' => $tudGtmStratergy,
+				'tudGtmBackup' => $tudGtmBackup,
+				'tudExistingCac'  => $tudExistingCac,
+				'tudExpectedCac'  => $tudExpectedCac,
+				'tudLogicCac'  => $tudLogicCac,
+				'tudLtvCustomer'  => $tudLtvCustomer,
+				'tudLogicLtvNumber'  => $tudLogicLtvNumber,
+				'tudLtvCacRatio'  => $tudLtvCacRatio,
+				'tudNumberofClients' => $tudNumberofClients,
+				'tudClientRetentions' => $tudClientRetentions,
+				'tudRevenueTop10' => $tudRevenueTop10,
+				'tudUnitEconomics' => $tudUnitEconomics,
+				'tudTotalCapEx' => $tudTotalCapEx,
+				'tudAmountSpentProdDev' => $tudAmountSpentProdDev,
+				'tudMajorExpInv' => $tudMajorExpInv,
+				'tudAuthorisedCap'  => $tudAuthorisedCap,
+				'tudPaidupCapi'  => $tudPaidupCapi,
+				'tudFounderPer'  => $tudFounderPer,
+				'tudCorePer'  => $tudCorePer,
+				'tudEsopPer'  => $tudEsopPer,
+				'tudOtherPer' => $tudOtherPer,
+				'tudAmountByFounder'  => $tudAmountByFounder,
+				'tudUnsecLoanFounder' => $tudUnsecLoanFounder,
+				'tudUnsecLoanOthers' => $tudUnsecLoanOthers,
+				'tudOtherLoan' => $tudOtherLoan,
+				'tudFounderSalary'  => $tudFounderSalary,
+				'tudFounderSalaryPlan' => $tudFounderSalaryPlan,
+				'tudCoreTeamSalary'  => $tudCoreTeamSalary,
+				'tudTotalSalary'  => $tudTotalSalary,
+				'tudPreviousFundRaised' => $tudPreviousFundRaised,
+				'tudFundRequired' => $tudFundRequired,
+				'tudExpRunway' => $tudExpRunway,
+				'tudValueFundRaise' => $tudValueFundRaise,
+				'tudLogicFundRaise' => $tudLogicFundRaise,
+				'tudOpentoLower' => $tudOpentoLower,
+				'tudCapexImmidate' => $tudCapexImmidate,
+				'tudCapexFuture' => $tudCapexFuture,
+				'tudProductFund'  => $tudProductFund,
+				'tudMarketingFund'  => $tudMarketingFund,
+				'tudSalaryFund'  => $tudSalaryFund,
+				'tudCastComFund'  => $tudCastComFund,
+				'tudOthersFund'  => $tudOthersFund,
+				'tudRepaymentFund'  => $tudRepaymentFund,
+				'tudGstRegistered' => $tudGstRegistered,
+				'tudGstDetails' => $tudGstDetails,
+				'tudAuditedBL' => $tudAuditedBL,
+				'tudItrFilling' => $tudItrFilling,
+				'tudAgm' => $tudAgm,
+				'tudPendingRoc' => $tudPendingRoc,
+				'tudPastDelays' => $tudPastDelays,
+				'tudOtherApplicableCompliance'=> $tudOtherApplicableCompliance ,
+				'tudCaInfo'  => $tudCaInfo,
+				'tudCsInfo'  => $tudCsInfo,
+				'tudOtherLegalInfo'  => $tudOtherLegalInfo,
+				'tudAcceptedDate'  => $tudAcceptedDate,
+				'tudPublishedDate' => $tudPublishedDate,
+				'tudExpiryDate' => $tudExpiryDate,
+				'founderID' => $founderID, 
 			];		
 			
 			//$tudTempUdID
@@ -744,14 +826,9 @@ class Startup extends CI_Controller {
 					'tudVendorRef'  => $tudVendorRef,
 					'tudPastEmployerRef'  => $tudPastEmployerRef,
 					'tudGuideRef'  => $tudGuideRef,
-					'tudPitchDeck'  => $tudPitchDeck,
-					'tudProductDeck'  => $tudProductDeck,
 					'tudDoc1'  => $tudDoc1,
 					'tudDoc2'  => $tudDoc2,
 					'tudDoc3'   => $tudDoc3,
-					'tudStartupFounderName'=> $tudStartupFounderName,
-					'tudStartupFounderMobileNumber'=> $tudStartupFounderMobileNumber,
-					'tudStartupFounderEmail'=> $tudStartupFounderEmail,
 					'tudDealShowDateForRegularMember'=> $tudDealShowDateForRegularMember,
 					'tudDealShowDateForPremiumMember'=> $tudDealShowDateForPremiumMember,
 					'tudDealStartDateForRegularMember'=> $tudDealStartDateForRegularMember,
@@ -777,24 +854,11 @@ class Startup extends CI_Controller {
 					'tudDigioTemplateId'=> $tudDigioTemplateId,
 					'tudDigioSignforInvestor'=> $tudDigioSignforInvestor,
 					'tudDigioSignforFounder'=> $tudDigioSignforFounder,
-					'tudDealDescription'=> $tudDealDescription,
 					'tudBackedBy'=> $tudBackedBy,
-					'tudYoutubeLink'=> $tudYoutubeLink,
-					'tudCategory'=> $tudCategory,
-					'tudBannerImage'=> $tudBannerImage,
 					'tudSelectLogo'=> $tudSelectLogo,
 					'tudPageLink'=> $tudPageLink,
-					'tudVendorId'=> $tudVendorId,
-					'tudStartupHighlights'=> $tudStartupHighlights,
 					'tudMediaCoverages'=> $tudMediaCoverages,
-					'tudMark'=> $tudMark,
 					'tudValuation'=> $tudValuation,
-					'tudLegalname'=> $tudLegalname,
-					'tudFoundedon'=> $tudFoundedon,
-					'tudAddress'=> $tudAddress,
-					'tudLogoImage'=> $tudLogoImage,
-					'tudMediaCoverageFiles'=> $tudMediaCoverageFiles,
-					'tudEmployees'=> $tudEmployees,
 					'tudFocusedOnProduct'=> $tudFocusedOnProduct,
 					'tudUseofFundRepayment'=> $tudUseofFundRepayment,
 					'tpage4NA' => $tpage4NA,
@@ -802,14 +866,10 @@ class Startup extends CI_Controller {
 					'tpage10NA' => $tpage10NA,
 					'tpage13NA' => $tpage13NA,
 					'tpage17NA' => $tpage17NA,
-					'tudTag' => $tudTag,
-					'tudSponsorName' => $tudSponsorName,
-					'tudSponsorImage' => $tudSponsorImage
 				];	
 				$this -> db -> where("tudTempUdID",$tudTempUdID);
 				$status2 = $this -> db -> update("tempunicorndeals2",$post_data2);
-				//$this->db->insert('tempunicorndeals2',$post_data2);
-				//$id2=$this->db->insert_id();
+				
 				if($status2) 
 				{
 					$response = [
@@ -843,6 +903,7 @@ class Startup extends CI_Controller {
 		->set_content_type('application/json')
 		->set_output(json_encode($response));	
 	}
+
 	// Publish unicorn
 	function publishunicorndeal() {
 		// header("Access-Control-Allow-Origin: *");
@@ -901,6 +962,13 @@ class Startup extends CI_Controller {
 			
 			$tempunicornArr = $this -> db -> select("tempunicorndeals.*") -> from("tempunicorndeals") -> where("tempunicorndeals.tudTempUdID",$tudTempUdID) -> get() -> result_array();
 			$mainunicornArr=array();
+			
+			$allowedKeys = array(
+				"tudStartupName", "tudSocialInsta", "tudSocialFacebook", "tudSocialLinkedIn", 
+				"tudSocialYouTube", "tudSocialOthers", "founderID", 
+				"tudDeclare"
+			);
+
 			foreach($tempunicornArr[0] as $Key => $Value)
 			{
 				//echo $Key;
@@ -912,13 +980,11 @@ class Startup extends CI_Controller {
 				{
 					$mainunicornArr["udFounderID"] = $Value;
 				}
-				else
+				elseif(in_array($Key, $allowedKeys))
 				{
 					$nKeyName = substr($Key, 1);
 					$mainunicornArr[$nKeyName] = $Value;
-				}
-
-				
+				}				
 			}
 			//Step 4
 
@@ -940,6 +1006,16 @@ class Startup extends CI_Controller {
 				$processDone=false;
 				$tempunicorn2Arr = $this -> db -> select("tempunicorndeals2.*") -> from("tempunicorndeals2") -> where("tempunicorndeals2.tudTempUdID",$tudTempUdID) -> get() -> result_array();
 				$mainunicorn2Arr=array();
+
+				$allowedKeys2 = array(
+					"tudPitchDeck", "tudProductDeck", "tudBannerImage", "tudLogoImage", 
+					"tudMark", "tudStartupHighlights", "tudSponsorName", 
+					"tudSponsorImage", "tudStartupFounderName", "tudLegalname", "tudStartupFounderMobileCountryCode", 
+					"tudStartupFounderMobileNumber", "tudStartupFounderEmail", "tudFoundedon", "tudAddress", 
+					"tudEmployees", "tudDealDescription", "tudYoutubeLink", "tudCategory", 
+					"tudTag", "tudMediaCoverageFiles", "tudVendorId"
+				);
+
 				foreach($tempunicorn2Arr[0] as $Key => $Value)
 				{
 					//echo $Key;
@@ -950,7 +1026,7 @@ class Startup extends CI_Controller {
 							$mainunicorn2Arr["unicornDealID"] = $unicornDealID;
 						}
 						
-						else
+						elseif(in_array($Key, $allowedKeys2))
 						{
 							$nKeyName = substr($Key, 1);
 							$mainunicorn2Arr[$nKeyName] = $Value;
@@ -1010,6 +1086,192 @@ class Startup extends CI_Controller {
 			}
 
 			}
+				
+			
+
+
+
+
+			
+			
+			 
+			
+		} else {
+			$response = [
+				'status' => '0',
+				'message'=> 'Please enter values of all fields.',
+				'id' => 0,
+			];
+		}
+		$this->output
+		->set_content_type('application/json')
+		->set_output(json_encode($response));	
+	}
+
+	function publishunicorndealadditional() {
+		// header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		// header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		if(!empty($formdata)) {
+			// POst data for table 1
+			extract($formdata);
+			/* Steps
+			1) Decide by selecting tempID from Published table that its create OR UPDATE and set flag accodingly
+			2) based on temp unicorn ID select from temp table1 
+			3) Set Post array for master unicorn table 1
+			4) update/insert in master unicorn table and get ID of the master table 1
+			5) based on temp unicorn ID select from temp table2 
+			6) Set Post array for master unicorn table 2
+			7) update/insert in master unicorn table and get ID of the master table 2
+			 */
+
+			
+
+			$isNew= true;	
+
+
+			// check if user has any left_edit if left_edit is not > 0 return error to user and if user has edit left, at the end we will reduce it by 1
+			
+			
+			$unicornDealID = 0;
+			//Step1
+			$listArr = $this -> db -> select("unicornDealID") -> from("unicorndeals") -> where("udFounderID",$founderID) -> where("tudTempUdID",$tudTempUdID) -> get() -> result_array();
+			if (!empty($listArr)) {
+				$isNew=false;
+				$unicornDealID = $listArr[0]["unicornDealID"];
+			}
+			//Step2 & Step3
+			
+			$tempunicornArr = $this -> db -> select("tempunicorndeals.*") -> from("tempunicorndeals") -> where("tempunicorndeals.tudTempUdID",$tudTempUdID) -> get() -> result_array();
+			$mainunicornArr=array();
+			
+			$allowedKeys = array(
+				"tudStartupName", "tudSocialInsta", "tudSocialFacebook", "tudSocialLinkedIn", 
+				"tudSocialYouTube", "tudSocialOthers", "founderID", 
+				"tudDeclare"
+			);
+
+			foreach($tempunicornArr[0] as $Key => $Value)
+			{
+				//echo $Key;
+				if($Key == "tudTempUdID")
+				{
+					$mainunicornArr[$Key] = $Value;
+				}
+				elseif($Key == "founderID")
+				{
+					$mainunicornArr["udFounderID"] = $Value;
+				}
+				elseif(!in_array($Key, $allowedKeys))
+				{
+					$nKeyName = substr($Key, 1);
+					$mainunicornArr[$nKeyName] = $Value;
+				}				
+			}
+			//Step 4
+
+			if($isNew)
+			{
+				$this->db->insert('unicorndeals',$mainunicornArr);
+				$unicornDealID=$this->db->insert_id();
+			}
+			else
+			{
+				$this -> db -> where("tudTempUdID",$tudTempUdID);
+				$status = $this -> db -> update("unicorndeals",$mainunicornArr);
+			}
+			//echo $unicornDealID."<BR>".@$status;
+
+			if($unicornDealID>0)
+			{
+				// Step 5 & 6
+				$processDone=false;
+				$tempunicorn2Arr = $this -> db -> select("tempunicorndeals2.*") -> from("tempunicorndeals2") -> where("tempunicorndeals2.tudTempUdID",$tudTempUdID) -> get() -> result_array();
+				$mainunicorn2Arr=array();
+
+				$allowedKeys2 = array(
+					"tudPitchDeck", "tudProductDeck", "tudBannerImage", "tudLogoImage", 
+					"tudMark", "tudStartupHighlights", "tudSponsorName", 
+					"tudSponsorImage", "tudStartupFounderName", "tudLegalname", "tudStartupFounderMobileCountryCode", 
+					"tudStartupFounderMobileNumber", "tudStartupFounderEmail", "tudFoundedon", "tudAddress", 
+					"tudEmployees", "tudDealDescription", "tudYoutubeLink", "tudCategory", 
+					"tudTag", "tudMediaCoverageFiles", "tudVendorId"
+				);
+
+				foreach($tempunicorn2Arr[0] as $Key => $Value)
+				{
+					//echo $Key;
+					if($Key!= "tudTempUdID2")
+					{
+						if($Key == "tudTempUdID")
+						{
+							$mainunicorn2Arr["unicornDealID"] = $unicornDealID;
+						}
+						
+						elseif(!in_array($Key, $allowedKeys2))
+						{
+							$nKeyName = substr($Key, 1);
+							$mainunicorn2Arr[$nKeyName] = $Value;
+						}
+					}
+				}
+				//Step 7
+				if($isNew)
+				{
+					$this->db->insert('unicorndeals2',$mainunicorn2Arr);
+					$unicornDealID2=$this->db->insert_id();
+					if($unicornDealID2>0)
+						$processDone=true;
+				}
+				else
+				{
+					$this -> db -> where("unicornDealID",$unicornDealID);
+					$status = $this -> db -> update("unicorndeals2",$mainunicorn2Arr);
+					if($status)
+						$processDone=true;
+				}
+				
+				if($processDone)
+				{
+					// update left_edit value and set it to the current value -1 in users table
+					$this->db->where('investor_id', $founderID);
+					$this->db->set('left_edit', 'left_edit - 1', FALSE); // FALSE to prevent escaping
+					$this->db->update('users');
+
+
+					$response = [
+						'status' => '1',
+						'message' => 'Details updated successfully.',
+						'id' => $unicornDealID,
+					];
+
+				}
+				else
+				{
+					$response = [
+						'status' => '0',
+						'message' => 'Please check data.',
+						'id' => @$unicornDealID,
+					];
+
+				}
+
+			}
+			else
+			{
+				$response = [
+					'status' => '0',
+					'message' => 'Please try again.',
+					'id' => 0,
+				];
+
+			}
+
+			
 				
 			
 

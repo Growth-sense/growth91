@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react'
+import './FutureUnicornForm.css'
 import { NewWebFooter } from './common/NewWebFooter'
 import NewWebHeader from "./common/NewWebHeader.jsx";
 import $ from "jquery";
 import Founderadmindashboard from "./Unicorn/forms/Founderadmindashboard";
+import FounderadmindashboardAdditional from './Unicorn/forms/FounderadmindashboardAdditional.js';
 
 export const FutureUnicornForm = () => {
     const [isDesktop, setIsDesktop] = useState(window.innerWidth > 768);
+    const [showSecondComponent, setShowSecondComponent] = useState(false);
 
     useEffect(() => {
         const handleResize = () => {
@@ -125,6 +128,41 @@ export const FutureUnicornForm = () => {
                                     <Founderadmindashboard view={0} />                                  
                                 </section>
                             </div>
+                            
+                            <div className="additional-info-section">
+                                <div className="info-box">
+                                    <h4>Additional Information for Better Evaluation</h4>
+                                    <p>Note: This section is for internal evaluation by Growth91 and will not be
+                                    published on the Future Unicorn page. This may also be used to provide
+                                    additional information to your prospective investors, partners, or
+                                    associates, and to train our AI module on your behalf. Therefore, please
+                                    provide as much detailed information as possible.</p>
+                                    
+                                    <div className="button-container">
+                                        <button 
+                                            className="action-button ok-button" 
+                                            onClick={() => setShowSecondComponent(true)}
+                                        >
+                                            Ok
+                                        </button>
+                                        <button 
+                                            className="action-button skip-button"
+                                            onClick={() => setShowSecondComponent(false)}
+                                        >
+                                            Skip
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {showSecondComponent && (
+                                <div class="tab_container">
+                                    <input id="tab2" type="radio" name="tabs2" className='input-uni' checked />
+                                    <section id="content2" class="tab-content mt-0">
+                                        <FounderadmindashboardAdditional view={0} />                                  
+                                    </section>
+                                </div>
+                            )}
                         </div>
                     </div>
                 ) : (
