@@ -588,6 +588,7 @@ class UnicornAdmin extends Component {
                       edit_unicorn_utr_ref: record.action.utrref,
                       edit_unicorn_gst: record.action.unicorn_gst,
                       edit_unicorn_address: record.action.unicorn_gst_registered_address,
+                      edit_unicorn_business_name: record.action.unicorn_gst_name,
                     })
                   }
                     
@@ -934,6 +935,16 @@ class UnicornAdmin extends Component {
                 disabled={true}
                 type="text"
                 value={this.state.edit_unicorn_address}
+              />
+            </div>
+            <div className="form-group mt-3">
+              <label className="mb-2">
+                Business Name
+              </label>
+              <Input
+                disabled={true}
+                type="text"
+                value={this.state.edit_unicorn_business_name}
               />
             </div>
         </Modal>

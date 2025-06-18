@@ -115,7 +115,8 @@ class UnicornAdminPayment extends Component {
         "Plan Start Date": item.unicorn_start_date ? 
           moment(item.unicorn_start_date, "YYYY-MM-DD HH:mm:ss").format("DD-MMM-YYYY") : "---",
         "GST": item.unicorn_gst ? item.unicorn_gst : "---",
-        "Registered Address": item.unicorn_gst_registered_address ? item.unicorn_gst_registered_address : "---"
+        "Registered Address": item.unicorn_gst_registered_address ? item.unicorn_gst_registered_address : "---",
+        "Business Name": item.unicorn_gst_name ? item.unicorn_gst_name : "---"
       };
       arr = [...arr, obj];
     }
@@ -181,7 +182,9 @@ class UnicornAdminPayment extends Component {
         // GST
         (item.unicorn_gst && item.unicorn_gst.toLowerCase().includes(searchValue)) ||
         // Registered Address
-        (item.unicorn_gst_registered_address && item.unicorn_gst_registered_address.toLowerCase().includes(searchValue))
+        (item.unicorn_gst_registered_address && item.unicorn_gst_registered_address.toLowerCase().includes(searchValue)) || 
+        // Business Name
+        (item.unicorn_gst_name && item.unicorn_gst_name.toLowerCase().includes(searchValue))
       );
     });
 
@@ -203,7 +206,8 @@ class UnicornAdminPayment extends Component {
           unicornStatus: item.unicorn_form_status,
           unicornStartDate: item.unicorn_start_date ? moment(item.unicorn_start_date, "YYYY-MM-DD HH:mm:ss").format("DD-MMM-YYYY") : "---",
           unicornGst: item.unicorn_gst ?? "---",
-          unicornRegisteredAddress: item.unicorn_gst_registered_address ?? "---"
+          unicornRegisteredAddress: item.unicorn_gst_registered_address ?? "---",
+          unicornBusinessName: item.unicorn_gst_name ?? "---"
         };
       });
 
@@ -263,6 +267,12 @@ class UnicornAdminPayment extends Component {
         title: "Registered Address",
         dataIndex: "unicornRegisteredAddress",
         key: "unicornRegisteredAddress",
+        width: 280,
+      },
+      {
+        title: "Business Name",
+        dataIndex: "unicornBusinessName",
+        key: "unicornBusinessName",
         width: 280,
       }
     ];

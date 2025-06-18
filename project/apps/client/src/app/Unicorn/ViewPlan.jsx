@@ -25,6 +25,7 @@ export const ViewPlan = (props) => {
   const [isGSTModalVisible, setIsGSTModalVisible] = useState(false);
   const [gstNumber, setGstNumber] = useState("");
   const [registeredAddress, setRegisteredAddress] = useState("");
+  const [businessName, setBusinessName] = useState("");
   const [selectedPlan, setSelectedPlan] = useState(null);
 
 
@@ -77,6 +78,11 @@ export const ViewPlan = (props) => {
       if (result.data[0].unicorn_gst_registered_address) {
         setRegisteredAddress(result.data[0].unicorn_gst_registered_address);
       }
+
+      if (result.data[0].unicorn_gst_name){
+        setBusinessName(result.data[0].unicorn_gst_name);
+      }
+
       setloading(false);
     });
   };
@@ -111,7 +117,8 @@ export const ViewPlan = (props) => {
       let params = {
         founder_id: localStorage.getItem("founder_id"),
         unicorn_gst: gstNumber,
-        registered_address: registeredAddress
+        registered_address: registeredAddress,
+        business_name: businessName
       };
       
       try {
@@ -1013,6 +1020,40 @@ export const ViewPlan = (props) => {
                       </div>
                     </div>
 
+                    <h4
+                      style={{
+                        fontSize: "18px",
+                        fontWeight: "600",
+                        marginBottom: "16px",
+                        color: "#1a1f36",
+                      }}
+                    >
+                      Business Name
+                    </h4>
+
+                    <div style={{ marginBottom: "24px" }}>
+                      <Input
+                        placeholder="Enter Business Name"
+                        value={businessName}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          if (value.length <= 250) {
+                            setBusinessName(value);
+                          }
+                        }}
+                        maxLength={250}
+                        style={{ marginBottom: "8px" }}
+                      />
+                      <div
+                        style={{
+                          textAlign: "right",
+                          fontSize: "12px"
+                        }}
+                      >
+                        {businessName.length} / 250 characters
+                      </div>
+                    </div>
+
                     <div
                       style={{
                         display: "flex",
@@ -1031,8 +1072,8 @@ export const ViewPlan = (props) => {
                       <Button
                         type="primary"
                         onClick={() => {
-                          if(gstNumber == "" || registeredAddress == ""){
-                            message.error("Please enter GST number and registered address");
+                          if(gstNumber == "" || registeredAddress == "" || businessName == ""){
+                            message.error("Please enter GST number, registered address and Business name");
                           }
                           else{
                             saveGSTNumber()
