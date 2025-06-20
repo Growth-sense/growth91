@@ -618,7 +618,7 @@ class FounderadmindashboardAdditional extends Component {
 
   activeform = (value) => {
     this.setState({ activeform: value });
-    $("html, body").animate({ scrollTop: 0 }, 1000);
+    $("#additionalForms").animate({ scrollTop: 0 }, 200);
   };
 
   onChange = (value) => {
@@ -627,7 +627,7 @@ class FounderadmindashboardAdditional extends Component {
 
   activethistab = (num) => {
     this.setState({ activeform: num });
-    $("html, body").animate({ scrollTop: 0 }, 1000);
+    $("#additionalForms").animate({ scrollTop: 0 }, 200);
   };
 
   checkforvalidation = (ind) => {
@@ -1127,7 +1127,7 @@ class FounderadmindashboardAdditional extends Component {
             `}
         </style>
         <Spin spinning={this.state.unicorn.tudTempUdID == ""}>
-          <div className="container">
+          <div id="additionalForms" className="container">
             <div className="row">
               <div className="col-lg-4">
                 <div className="multistep-form-icons">

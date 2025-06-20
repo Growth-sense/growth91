@@ -236,109 +236,7 @@ class SocialMediaPresence extends Component {
                     <hr />
                   </div>
 
-                  {/* MEDIA COVERAGE SECTION */}
-                <div className="col-lg-12">
-                  <div className="form-group">
-                    <label className="fs-4">Media Coverage</label>
-                    {this.state.mediacoverager.map((item, index) => (
-                      <div className="Card my-3" key={index}>
-                        {/* Remove Media Coverage Card */}
-                        <CloseOutlined
-                          onClick={() => this.removeCoverager(index)}
-                          className="remove-icon"
-                        />
-
-                        {/* Media Title */}
-                        <div className="form-group mt-4">
-                          <label className="mb-2">Media title {index + 1}</label>
-                          <input
-                            type="text"
-                            name="title"
-                            value={item.title}
-                            onChange={(e) => this.handleInputChange(index, e)}
-                            className="form-control"
-                          />
-                        </div>
-
-                        {/* Media Link */}
-                        <div className="form-group mt-4">
-                          <label className="mb-2">
-                            Media link {index + 1}{" "}
-                            {item.title.trim() !== "" && (
-                              <span style={{ color: "red" }}>*</span>
-                            )}
-                          </label>
-                          <input
-                            type="text"
-                            name="content"
-                            value={item.content}
-                            onChange={(e) => this.handleInputChange(index, e)}
-                            className={`form-control ${
-                              item.title.trim() !== "" &&
-                              item.content.trim() === ""
-                                ? "is-invalid"
-                                : ""
-                            }`}
-                          />
-                          {item.title.trim() !== "" &&
-                            item.content.trim() === "" && (
-                              <div className="invalid-feedback">
-                                This field is required.
-                              </div>
-                            )}
-                        </div>
-
-                        {/* Media Image */}
-                        <div className="form-group mt-4">
-                          <label className="mb-2">
-                            Media Image {index + 1}{" "}
-                            {item.title.trim() !== "" && (
-                              <span style={{ color: "red" }}>*</span>
-                            )}
-                          </label>
-                          <input
-                            type="file"
-                            name="img"
-                            onChange={(e) => this.handleInputChange(index, e)}
-                            className={`form-control-file ${
-                              item.title.trim() !== "" &&
-                              item.imgname.trim() === ""
-                                ? "is-invalid"
-                                : ""
-                            }`}
-                          />
-                          {item.title.trim() !== "" &&
-                            item.imgname.trim() === "" && (
-                              <div className="invalid-feedback">
-                                This field is required.
-                              </div>
-                            )}
-                          
-                          {item.imgname && (
-                            <img style={{maxWidth:"100%"}} src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${item.imgname}`} />
-                          )}
-                        </div>
-                      </div>
-                    ))}
-
-                    {/* Button to Add New Media Card */}
-                    <Button
-                      type="dashed"
-                      onClick={this.addcoverger}
-                      block
-                      icon={<UploadOutlined />}
-                      style={{
-                        marginTop: "10px",
-                        marginBottom: "10px",
-                        backgroundColor: "#29176f",
-                        color: "#fff",
-                        border: "1px solid #29176f",
-                      }}
-                    >
-                      Add Media
-                    </Button>
-                  </div>
-                </div>
+                 
 
                   <div className="row" style={{ maxWidth: 900, marginTop: 30 }}>
                     <div className="col-lg-12">
@@ -609,6 +507,111 @@ class SocialMediaPresence extends Component {
                       </div>
                     </div>
                   </div>
+
+                   {/* MEDIA COVERAGE SECTION */}
+                <div className="col-lg-12">
+                  <div className="form-group">
+                    <label className="fs-4">Media Coverage</label>
+                    {this.state.mediacoverager.map((item, index) => (
+                      <div className="Card my-3" key={index}>
+                        {/* Remove Media Coverage Card */}
+                        <CloseOutlined
+                          onClick={() => this.removeCoverager(index)}
+                          className="remove-icon"
+                        />
+
+                        {/* Media Title */}
+                        <div className="form-group mt-4">
+                          <label className="mb-2">Media title {index + 1}</label>
+                          <input
+                            type="text"
+                            name="title"
+                            value={item.title}
+                            onChange={(e) => this.handleInputChange(index, e)}
+                            className="form-control"
+                          />
+                        </div>
+
+                        {/* Media Link */}
+                        <div className="form-group mt-4">
+                          <label className="mb-2">
+                            Media link {index + 1}{" "}
+                            {item.title.trim() !== "" && (
+                              <span style={{ color: "red" }}>*</span>
+                            )}
+                          </label>
+                          <input
+                            type="text"
+                            name="content"
+                            value={item.content}
+                            onChange={(e) => this.handleInputChange(index, e)}
+                            className={`form-control ${
+                              item.title.trim() !== "" &&
+                              item.content.trim() === ""
+                                ? "is-invalid"
+                                : ""
+                            }`}
+                          />
+                          {item.title.trim() !== "" &&
+                            item.content.trim() === "" && (
+                              <div className="invalid-feedback">
+                                This field is required.
+                              </div>
+                            )}
+                        </div>
+
+                        {/* Media Image */}
+                        <div className="form-group mt-4">
+                          <label className="mb-2">
+                            Media Image {index + 1}{" "}
+                            {item.title.trim() !== "" && (
+                              <span style={{ color: "red" }}>*</span>
+                            )}
+                          </label>
+                          <input
+                            type="file"
+                            name="img"
+                            onChange={(e) => this.handleInputChange(index, e)}
+                            className={`form-control-file ${
+                              item.title.trim() !== "" &&
+                              item.imgname.trim() === ""
+                                ? "is-invalid"
+                                : ""
+                            }`}
+                          />
+                          {item.title.trim() !== "" &&
+                            item.imgname.trim() === "" && (
+                              <div className="invalid-feedback">
+                                This field is required.
+                              </div>
+                            )}
+                          
+                          {item.imgname && (
+                            <img style={{maxWidth:"100%"}} src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${item.imgname}`} />
+                          )}
+                        </div>
+                      </div>
+                    ))}
+
+                    {/* Button to Add New Media Card */}
+                    <Button
+                      type="dashed"
+                      onClick={this.addcoverger}
+                      block
+                      icon={<UploadOutlined />}
+                      style={{
+                        marginTop: "10px",
+                        marginBottom: "10px",
+                        backgroundColor: "#29176f",
+                        color: "#fff",
+                        border: "1px solid #29176f",
+                      }}
+                    >
+                      Add Media
+                    </Button>
+                  </div>
+                </div>
+
                 </div>
               </div>
             </div>
