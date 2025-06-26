@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { NewWebFooter } from "../common/NewWebFooter";
 import $ from "jquery";
 import Bridge from "../constants/Bridge.js";
@@ -10,10 +11,12 @@ import {
 
 
 export const ViewPlan = (props) => {
+  const { planName } = useParams();
+
   useEffect(() => {
     unicorndetails();
     window.scrollTo(0, 0);
-  }, []);
+  }, [planName]);
 
   
   const [loading, setloading] = useState(false);
@@ -27,9 +30,6 @@ export const ViewPlan = (props) => {
   const [registeredAddress, setRegisteredAddress] = useState("");
   const [businessName, setBusinessName] = useState("");
   const [selectedPlan, setSelectedPlan] = useState(null);
-
-
-  
 
   const plans = [
     {
@@ -82,29 +82,23 @@ export const ViewPlan = (props) => {
       if (result.data[0].unicorn_gst_name){
         setBusinessName(result.data[0].unicorn_gst_name);
       }
-
+      if(planName == "AdditionalEdit"){
+        getPaymentLink(planName);
+      }
       setloading(false);
     });
   };
 
   const getPaymentLink = async (planName) => {
     setSelectedPlan(planName);
-    
-    // Check if GST number is already collected
-    if (!gstNumber) {
-      // Show GST collection modal if GST number is not available
-      setIsGSTModalVisible(true);
-    } else {
-      // If GST number is already available, proceed with payment
-      proceedToPayment(planName);
-    }
+    setIsGSTModalVisible(true);
   };
   
   const proceedToPayment = async (planName) => {
     let params = {
       founder_id: localStorage.getItem("founder_id"),
       plan_name: planName || selectedPlan,
-      is_upgrade: !!activePlan
+      is_upgrade: planName || selectedPlan != "AdditionalEdit" && !!activePlan
     };
     Bridge.Unicorn.get_payment_link(params).then((result) => {
       window.location.assign(result.data.link_url);
@@ -1028,7 +1022,7 @@ export const ViewPlan = (props) => {
                         color: "#1a1f36",
                       }}
                     >
-                      Business Name
+                      Name (As needed on the Invoice)
                     </h4>
 
                     <div style={{ marginBottom: "24px" }}>
@@ -1060,15 +1054,6 @@ export const ViewPlan = (props) => {
                         justifyContent: "space-between",
                       }}
                     >
-                      <Button
-                        onClick={() => {
-                          setIsGSTModalVisible(false);
-                          proceedToPayment();
-                        }}
-                        size="large"
-                      >
-                        Skip and Continue
-                      </Button>
                       <Button
                         type="primary"
                         onClick={() => {

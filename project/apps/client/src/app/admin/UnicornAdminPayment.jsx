@@ -9,6 +9,9 @@ import {
   message,
   Select,
   Input,
+  Modal,
+  DatePicker,
+  Spin,
 } from "antd";
 import Navbar from "./common/Navbar";
 import BottomBar from "./common/BottomBar";
@@ -64,6 +67,13 @@ class UnicornAdminPayment extends Component {
       formpreviewid: "",
       previewmodal: false,
       formpreviewmodal: false,
+      offlinePaymentModal: false,
+      founderEmail: "",
+      founderDetails: null,
+      paymentAmount: "",
+      orderId: "",
+      eventTime: "",
+      selectedPlan: "",
     };
   }
 
@@ -111,12 +121,16 @@ class UnicornAdminPayment extends Component {
         "Email": item.email ? item.email : "---",
         "Mobile": item.mobile ? item.mobile : "---",
         "Unicorn Status": item.unicorn_form_status ? item.unicorn_form_status : "---",
-        "Plan": item.unicorn_plan ? item.unicorn_plan : "---",
+        "Current Plan": item.unicorn_plan ? item.unicorn_plan : "---",
         "Plan Start Date": item.unicorn_start_date ? 
           moment(item.unicorn_start_date, "YYYY-MM-DD HH:mm:ss").format("DD-MMM-YYYY") : "---",
         "GST": item.unicorn_gst ? item.unicorn_gst : "---",
         "Registered Address": item.unicorn_gst_registered_address ? item.unicorn_gst_registered_address : "---",
-        "Business Name": item.unicorn_gst_name ? item.unicorn_gst_name : "---"
+        "Name (As needed on the Invoice)": item.unicorn_gst_name ? item.unicorn_gst_name : "---",
+        "Unicorn Name": item.unicornName ? item.unicornName : "---",
+        "Purchase Plan": item.purchasePlan ? item.purchasePlan : "---",
+        "Transaction Date": item.purchaseDate ? item.purchaseDate : "---",
+        "Transaction Amount": item.amount ? item.amount.toString().split('.')[0] : "---",
       };
       arr = [...arr, obj];
     }
@@ -149,6 +163,71 @@ class UnicornAdminPayment extends Component {
     });
   };
 
+  // Get founder details by email
+  getFounderByEmail = () => {
+    if (!this.state.founderEmail) {
+      message.error("Please enter founder email");
+      return;
+    }
+    
+    this.setState({ formloader: true });
+    let params = {
+      email: this.state.founderEmail
+    };
+    
+    Bridge.users.getUsersDetailsByEmail(params).then((result) => {
+      if (result.status == 1 && result.data.length > 0 && result.data[0].user_type == 'founder') {
+        this.setState({
+          founderDetails: result.data[0],
+          formloader: false
+        });
+      } else {
+        message.error("Founder not found with this email");
+        this.setState({ formloader: false });
+      }
+    });
+  };
+
+  // Add offline payment
+  addOfflinePayment = () => {
+    const { founderDetails, paymentAmount, orderId, eventTime, selectedPlan } = this.state;
+    
+    if (!founderDetails || !paymentAmount || !orderId || !eventTime || !selectedPlan) {
+      message.error("Please fill all required fields");
+      return;
+    }
+    
+    this.setState({ formloader: true });
+    let params = {
+      founder_id: founderDetails.investor_id,
+      amount: paymentAmount,
+      order_id: orderId,
+      event_time: eventTime,
+      planName: selectedPlan
+    };
+    
+    Bridge.Unicorn.addOfflinePayment(params).then((result) => {
+      if (result.status == 1) {
+        message.success("Offline payment added successfully");
+        this.setState({
+          offlinePaymentModal: false,
+          founderEmail: "",
+          founderDetails: null,
+          paymentAmount: "",
+          orderId: "",
+          eventTime: "",
+          selectedPlan: "",
+          formloader: false
+        });
+        this.getgrouplist();
+      } else {
+        message.error(result.message);
+        this.setState({ formloader: false });
+      }
+    });
+  };
+
+
   // Search functionality to match all displayed fields
   searchinput = (e) => {
     const searchValue = e.target.value.toLowerCase();
@@ -174,8 +253,9 @@ class UnicornAdminPayment extends Component {
         (item.mobile && item.mobile.toLowerCase().includes(searchValue)) ||
         // Unicorn Status
         (item.unicorn_form_status && item.unicorn_form_status.toLowerCase().includes(searchValue)) ||
+        (item.purchasePlan && item.purchasePlan.toLowerCase().includes(searchValue)) ||
         // Plan
-        (item.unicorn_plan && item.unicorn_plan.toLowerCase().includes(searchValue)) ||
+        (item.unicornPlan && item.unicornPlan.toLowerCase().includes(searchValue)) ||
         // Plan Start Date
         (item.unicorn_start_date && 
           moment(item.unicorn_start_date, "YYYY-MM-DD HH:mm:ss").format("DD-MMM-YYYY").toLowerCase().includes(searchValue)) ||
@@ -184,7 +264,10 @@ class UnicornAdminPayment extends Component {
         // Registered Address
         (item.unicorn_gst_registered_address && item.unicorn_gst_registered_address.toLowerCase().includes(searchValue)) || 
         // Business Name
-        (item.unicorn_gst_name && item.unicorn_gst_name.toLowerCase().includes(searchValue))
+        (item.unicorn_gst_name && item.unicorn_gst_name.toLowerCase().includes(searchValue)) ||
+        (item.unicornName && item.unicornName.toLowerCase().includes(searchValue)) ||
+        (item.purchaseDate && item.purchaseDate.toLowerCase().includes(searchValue)) || 
+        (item.amount && item.amount.toLowerCase().includes(searchValue))
       );
     });
 
@@ -207,7 +290,11 @@ class UnicornAdminPayment extends Component {
           unicornStartDate: item.unicorn_start_date ? moment(item.unicorn_start_date, "YYYY-MM-DD HH:mm:ss").format("DD-MMM-YYYY") : "---",
           unicornGst: item.unicorn_gst ?? "---",
           unicornRegisteredAddress: item.unicorn_gst_registered_address ?? "---",
-          unicornBusinessName: item.unicorn_gst_name ?? "---"
+          unicornBusinessName: item.unicorn_gst_name ?? "---",
+          unicornName: item.startup_name ?? "---",
+          purchasePlan: item.plan_name ?? "---",
+          purchaseDate: item.event_time ? moment(item.event_time, "YYYY-MM-DD HH:mm:ss").format("DD-MMM-YYYY") : "---",
+          amount: item.amount ? item.amount.toString().split('.')[0] : "---"
         };
       });
 
@@ -218,18 +305,21 @@ class UnicornAdminPayment extends Component {
         key: "founderFirstName",
         width: 260,
         fixed: "left",
+        sorter: (a, b) => a.founderFirstName.localeCompare(b.founderFirstName),
       },
       {
         title: "Last Name",
         dataIndex: "founderLastName",
         key: "founderLastName",
         width: 280,
+        sorter: (a, b) => a.founderLastName.localeCompare(b.founderLastName),
       },
       {
         title: "Email",
         dataIndex: "founderEmail",
         key: "founderEmail",
         width: 280,
+        sorter: (a, b) => a.founderEmail.localeCompare(b.founderEmail),
       },
 
       {
@@ -237,6 +327,7 @@ class UnicornAdminPayment extends Component {
         dataIndex: "fouderMobile",
         key: "fouderMobile",
         width: 280,
+        sorter: (a, b) => a.fouderMobile.localeCompare(b.fouderMobile),
       },
       
       {
@@ -244,38 +335,73 @@ class UnicornAdminPayment extends Component {
         dataIndex: "unicornStatus",
         key: "unicornStatus",
         width: 280,
+        sorter: (a, b) => a.unicornStatus.localeCompare(b.unicornStatus),
       },
       {
-        title: "Plan",
+        title: "Current Plan",
         dataIndex: "unicornPlan",
         key: "unicornPlan",
         width: 280,
+        sorter: (a, b) => a.unicornPlan.localeCompare(b.unicornPlan),
       },
       {
         title: "Plan Start Date",
         dataIndex: "unicornStartDate",
         key: "unicornStartDate",
         width: 280,
+        sorter: (a, b) => a.unicornStartDate.localeCompare(b.unicornStartDate),
       },
       {
         title: "GST",
         dataIndex: "unicornGst",
         key: "unicornGst",
         width: 280,
+        sorter: (a, b) => a.unicornGst.localeCompare(b.unicornGst),
       },
       {
         title: "Registered Address",
         dataIndex: "unicornRegisteredAddress",
         key: "unicornRegisteredAddress",
         width: 280,
+        sorter: (a, b) => a.unicornRegisteredAddress.localeCompare(b.unicornRegisteredAddress),
       },
       {
-        title: "Business Name",
+        title: "Name (As needed on the Invoice)",
         dataIndex: "unicornBusinessName",
         key: "unicornBusinessName",
+        sorter: (a, b) => a.unicornBusinessName.localeCompare(b.unicornBusinessName),
         width: 280,
-      }
+      },
+      {
+        title: "Unicorn Name",
+        dataIndex: "unicornName",
+        key: "unicornName",
+        width: 280,
+        sorter: (a, b) => a.unicornName.localeCompare(b.unicornName),
+      },
+      {
+        title: "Purchase Plan",
+        dataIndex: "purchasePlan",
+        key: "purchasePlan",
+        width: 280,
+        sorter: (a, b) => a.purchasePlan.localeCompare(b.purchasePlan),
+      },
+      {
+        title: "Transaction Date",
+        dataIndex: "purchaseDate",
+        key: "purchaseDate",
+        width: 280,
+        sorter: (a, b) => a.purchaseDate.localeCompare(b.purchaseDate),
+      },
+      {
+        title: "Transaction Amount",
+        dataIndex: "amount",
+        key: "amount",
+        width: 280,
+        sorter: (a, b) => a.amount.localeCompare(b.amount),
+      },
     ];
+
 
     return (
       <>
@@ -314,9 +440,11 @@ class UnicornAdminPayment extends Component {
                     onChange={(e) => this.searchinput(e)}
                     style={{ maxWidth: 300, marginBottom: 20, height: 40 }}
                   />
+                  
                   <Button
                     type="primary"
                     onClick={() => this.exportToCSV("Unicorn_Payment_Details")}
+                    style={{height: 40, marginLeft: 10}}
                   >
                     <i
                       className="bx bxs-cloud-download"
@@ -329,7 +457,15 @@ class UnicornAdminPayment extends Component {
                     ></i>{" "}
                     Export Data
                   </Button>
+                  <Button
+                    type="primary"
+                    onClick={() => this.setState({ offlinePaymentModal: true })}
+                    style={{ marginLeft: 30, height: 40 }}
+                  >
+                    Add Offline Payment
+                  </Button>
                 </div>
+
                 
 
                 <Table
@@ -338,6 +474,124 @@ class UnicornAdminPayment extends Component {
                   loading={this.state.loading}
                   bordered
                 />
+
+                {/* Offline Payment Modal */}
+                <Modal
+                  title="Add Offline Payment"
+                  visible={this.state.offlinePaymentModal}
+                  onCancel={() => this.setState({ 
+                    offlinePaymentModal: false,
+                    founderEmail: "",
+                    founderDetails: null,
+                    paymentAmount: "",
+                    orderId: "",
+                    eventTime: "",
+                    selectedPlan: ""
+                  })}
+                  footer={[
+                    <Button key="cancel" onClick={() => this.setState({ 
+                      offlinePaymentModal: false,
+                      founderEmail: "",
+                      founderDetails: null,
+                      paymentAmount: "",
+                      orderId: "",
+                      eventTime: "",
+                      selectedPlan: ""
+                    })}>
+                      Cancel
+                    </Button>,
+                    <Button 
+                      key="submit" 
+                      type="primary" 
+                      loading={this.state.formloader}
+                      onClick={this.addOfflinePayment}
+                    >
+                      Add Payment
+                    </Button>
+                  ]}
+                >
+                  <Spin spinning={this.state.formloader}>
+                    <div style={{ marginBottom: 16 }}>
+                      <label>Founder Email *</label>
+                      <div style={{ display: 'flex', gap: 8 }}>
+                        <Input
+                          placeholder="Enter founder email"
+                          value={this.state.founderEmail}
+                          onChange={(e) => this.setState({ founderEmail: e.target.value })}
+                        />
+                        <Button onClick={this.getFounderByEmail}>Search</Button>
+                      </div>
+                    </div>
+                    
+                    {this.state.founderDetails && (
+                      <>
+                        <div style={{ marginBottom: 16 }}>
+                          <label>First Name</label>
+                          <Input value={this.state.founderDetails.first_name || "---"} disabled />
+                        </div>
+                        
+                        <div style={{ marginBottom: 16 }}>
+                          <label>Last Name</label>
+                          <Input value={this.state.founderDetails.last_name || "---"} disabled />
+                        </div>
+                        
+                        <div style={{ marginBottom: 16 }}>
+                          <label>Email</label>
+                          <Input value={this.state.founderDetails.email || "---"} disabled />
+                        </div>
+                        
+                        <div style={{ marginBottom: 16 }}>
+                          <label>Mobile</label>
+                          <Input value={this.state.founderDetails.mobile || "---"} disabled />
+                        </div>
+                      </>
+                    )}
+                    
+                    <div style={{ marginBottom: 16 }}>
+                      <label>Amount *</label>
+                      <Input
+                        placeholder="Enter payment amount"
+                        value={this.state.paymentAmount}
+                        onChange={(e) => this.setState({ paymentAmount: e.target.value })}
+                      />
+                    </div>
+                    
+                    <div style={{ marginBottom: 16 }}>
+                      <label>Order ID *</label>
+                      <Input
+                        placeholder="Enter order ID"
+                        value={this.state.orderId}
+                        onChange={(e) => this.setState({ orderId: e.target.value })}
+                      />
+                    </div>
+                    
+                    <div style={{ marginBottom: 16 }}>
+                      <label>Event Time *</label>
+                      <DatePicker
+                        showTime
+                        style={{ width: '100%' }}
+                        placeholder="Select date and time"
+                        onChange={(date, dateString) => this.setState({ eventTime: dateString })}
+                      />
+                    </div>
+                    
+                    <div style={{ marginBottom: 16 }}>
+                      <label>Plan Name *</label>
+                      <Select
+                        placeholder="Select plan"
+                        style={{ width: '100%' }}
+                        value={this.state.selectedPlan}
+                        onChange={(value) => this.setState({ selectedPlan: value })}
+                      >
+                        <Select.Option value="Silver">Silver</Select.Option>
+                        <Select.Option value="Gold">Gold</Select.Option>
+                        <Select.Option value="Platinum">Platinum</Select.Option>
+                        <Select.Option value="AdditionalEdit">AdditionalEdit</Select.Option>
+                      </Select>
+                    </div>
+                  </Spin>
+                </Modal>
+                
               </Card>
             </Content>
 

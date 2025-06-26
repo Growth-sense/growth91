@@ -359,7 +359,8 @@ export const FutureUnicornList = () => {
             <div className="row justify-content-center card-box gy-4">
               {filteredData && filteredData.length > 0 ? (
                 filteredData.map((item, index) => (
-                  <div key={index} className="grid-cards col-md-4">
+                  <div key={index} className="grid-cards col-md-4"
+                        onClick={() => {window.location.assign(`/FutureUnicornDescription?id=${item.unicornDealID}`)}}>
                     <div
                       className="community-all-contents"
                       style={{

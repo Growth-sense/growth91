@@ -1034,5 +1034,9 @@ export default {
       api.post(URLs.save_gst_number, data).then((response) => {
         return response.data;
       }),
+    addOfflinePayment: (data) =>
+      api.post(URLs.addOfflinePayment, data).then((response) => {
+        return response.data;
+      }),
   },
 };

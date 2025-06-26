@@ -939,7 +939,7 @@ class UnicornAdmin extends Component {
             </div>
             <div className="form-group mt-3">
               <label className="mb-2">
-                Business Name
+                Name (As needed on the Invoice)
               </label>
               <Input
                 disabled={true}

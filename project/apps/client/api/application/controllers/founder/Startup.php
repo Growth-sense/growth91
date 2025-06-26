@@ -1424,16 +1424,17 @@ class Startup extends CI_Controller {
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 		$sql = <<<EOT
-			SELECT u.*, 
+			SELECT p.*, u.*, 
 			CASE 
 				WHEN ud.udFounderId IS NOT NULL THEN 'Published' 
 				WHEN tud.founderID IS NOT NULL THEN 'Draft' 
 				ELSE 'Not started' 
 			END AS unicorn_form_status 
-			FROM users u 
+			FROM unicorn_payments p
+			LEFT JOIN users u ON p.founder_id = u.investor_id
 			LEFT JOIN unicorndeals ud ON u.investor_id = ud.udFounderId 
-			LEFT JOIN tempunicorndeals tud ON u.investor_id = tud.founderID 
-			WHERE u.unicorn_plan IS NOT NULL
+			LEFT JOIN tempunicorndeals tud ON u.investor_id = tud.founderID
+			ORDER BY STR_TO_DATE(p.event_time, '%Y-%m-%dT%H:%i:%s%T') DESC
 			EOT;
 
 		$query = $this->db->query($sql);
@@ -1854,13 +1855,13 @@ class Startup extends CI_Controller {
 
 			$amount = $plans[$plan_name]['price'];
 
-			if ($is_upgrade) {
-				// First get current subscription details if it's an upgrade
-				$current_user = $this->db
-					->select('unicorn_plan, unicorn_start_date, left_edit')
+			$current_user = $this->db
+					->select('unicorn_plan, unicorn_start_date, left_edit, unicorn_gst_name, email, mobile')
 					->where('investor_id', $founder_id)
 					->get('users')
 					->row();
+
+			if ($is_upgrade) {
 
 				if ($current_user && $current_user->unicorn_plan && $current_user->unicorn_start_date) {
 					$start_date = new DateTime($current_user->unicorn_start_date);
@@ -1909,9 +1910,15 @@ class Startup extends CI_Controller {
 			$finalAmount = $roundAmount + $gstTwice;
 
 			// Prepare the request payload
+			if ($current_user->mobile === null) {
+					$current_user->mobile = '1111111111';
+			}
+
 			$payload = [
 				'customer_details' => [
-					'customer_phone' => '1111111111'
+					'customer_name' => $current_user->unicorn_gst_name,
+					'customer_email' => $current_user->email,
+					'customer_phone' => $current_user->mobile
 				],
 				'link_amount' => $finalAmount, // Using the amount variable
 				'link_auto_reminders' => true,
@@ -2088,6 +2095,11 @@ class Startup extends CI_Controller {
 
 			$index_offset = $is_upgrade ? 1 : 0;
 			$founderId = explode('_', $link_id)[$index_offset];
+			$current_user = $this->db
+						->select('unicorn_plan, left_edit, unicorn_gst, unicorn_gst_registered_address, unicorn_gst_name')
+						->where('investor_id', $founderId)
+						->get('users')
+						->row();
 			$planName = explode('_', $link_id)[$index_offset + 1];
 
 			// Define plan editLeft values
@@ -2108,11 +2120,7 @@ class Startup extends CI_Controller {
 
 			else{
 				if ($is_upgrade) {
-					$current_user = $this->db
-						->select('unicorn_plan, left_edit')
-						->where('investor_id', $founderId)
-						->get('users')
-						->row();
+					
 
 					if ($current_user->unicorn_plan === $planName) {
 						// Skip processing as it's the same plan
@@ -2138,7 +2146,91 @@ class Startup extends CI_Controller {
 				$this->db->where('investor_id', $founderId);
 				$this->db->update('users', $post_data);
 			}
+
+			// Collect required data
+			$order_amount = $formdata['data']['order']['order_amount'];
+			$order_id = $formdata['data']['order']['order_id'];
+			$event_time = $formdata['event_time'];
+
+			// Check if record already exists in unicorn_payments
+			$existing_payment = $this->db
+				->where('order_id', $order_id)
+				->get('unicorn_payments')
+				->row();
+
+			if (!$existing_payment) {
+				// Insert new record
+				$payment_data = [
+					'amount' => $order_amount,
+					'order_id' => $order_id,
+					'event_time' => $event_time,
+					'founder_id' => $founderId,
+					'plan_name' => $planName,
+					'unicorn_gst' => $current_user->unicorn_gst,
+					'unicorn_gst_registered_address' => $current_user->unicorn_gst_registered_address,
+					'unicorn_gst_name' => $current_user->unicorn_gst_name
+				];
+				$this->db->insert('unicorn_payments', $payment_data);
+			}
+
+
 		}
 		
+	}
+
+	function record_unicorn_payment_offline() {
+		// header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		// header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		
+		if (!empty($formdata)) {
+			extract($formdata);
+			
+			// Check if order_id already exists
+			$existing_payment = $this->db
+				->where('order_id', $order_id)
+				->get('unicorn_payments')
+				->row();
+			
+			if ($existing_payment) {
+				$response = [
+					'status' => '0',
+					'message' => 'Payment record with this order ID already exists.'
+				];
+			} else {
+				$current_user = $this->db
+						->select('unicorn_gst, unicorn_gst_registered_address, unicorn_gst_name')
+						->where('investor_id', $founder_id)
+						->get('users')
+						->row();
+				$payment_data = [
+					'amount' => $amount,
+					'order_id' => $order_id,
+					'event_time' => $event_time,
+					'founder_id' => $founder_id,
+					'plan_name' => $planName,
+					'unicorn_gst' => $current_user->unicorn_gst,
+					'unicorn_gst_registered_address' => $current_user->unicorn_gst_registered_address,
+					'unicorn_gst_name' => $current_user->unicorn_gst_name
+				];
+				$this->db->insert('unicorn_payments', $payment_data);
+				$response = [
+					'status' => '1',
+					'message' => 'Payment recorded successfully.'
+				];
+			}
+		} else {
+			$response = [
+				'status' => '0',
+				'message' => 'Please provide all required fields.'
+			];
+		}
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
 	}
 }
