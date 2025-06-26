@@ -251,12 +251,7 @@ export const MyUnicornPlan = () => {
 
 
   const handlePurchaseEdits = async () => {
-    let params = {
-      founder_id: localStorage.getItem("founder_id"),
-      plan_name: "AdditionalEdit"
-    };
-    const result = await Bridge.Unicorn.get_payment_link(params);
-    window.location.assign(result.data.link_url);
+    window.location.assign("/ViewUnicornPlan/AdditionalEdit");
   }
 
   // PlanInfoCard component

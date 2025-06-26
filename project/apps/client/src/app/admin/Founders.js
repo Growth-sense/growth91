@@ -219,6 +219,7 @@ class Founders extends Component {
       edit_unicorn_utr_ref: item.utrref,
       edit_unicorn_gst: item.unicorn_gst,
       edit_unicorn_address: item.unicorn_gst_registered_address,
+      edit_unicorn_business_name: item.unicorn_gst_name,
       editUnicornModalStatus: true,
       founder_id: item.investor_id,
     });
@@ -352,6 +353,7 @@ class Founders extends Component {
       utrref: this.state.edit_unicorn_utr_ref,
       unicorn_gst: this.state.edit_unicorn_gst,
       registered_address: this.state.edit_unicorn_address,
+      business_name: this.state.edit_unicorn_business_name,
       founder_id: this.state.founder_id,
     };
 
@@ -1305,6 +1307,28 @@ class Founders extends Component {
 
               }}>
                 {this.state.edit_unicorn_address?.length} / 250 characters
+              </div>
+            </div>
+            <div className="form-group mt-3">
+              <label className="mb-2">
+                Name (As needed on the Invoice)
+              </label>
+              <Input
+                type="text"
+                value={this.state.edit_unicorn_business_name}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (value.length <= 250) {
+                    this.setState({ edit_unicorn_business_name: value })
+                  }
+                }}
+              />
+              <div style={{
+                textAlign: "right",
+                fontSize: "12px",
+
+              }}>
+                {this.state.edit_unicorn_business_name?.length} / 250 characters
               </div>
             </div>
         </Modal>

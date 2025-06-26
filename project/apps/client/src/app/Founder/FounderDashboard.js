@@ -9,6 +9,24 @@ import Bridge from "../constants/Bridge";
 import { ThemeProvider } from "@nivo/core";
 
 class FounderDashboard extends Component {
+
+  specialFounderIds = [
+    "33",
+    "172", "198",
+    "413", "475",
+    "592",
+    "670",
+    "800", "867",
+    "901", "905", "927", "933",
+    "1000", "1018", "1098",
+    "1307", "1389", "1394", 
+    "1409", "1463", "1482",
+    "1532", "1537", "1548",
+    "1646",
+    "1743", "1790", "1795", "1978",
+    "2108", "2138"
+  ];
+
   constructor(props) {
     super(props);
     this.state = {
@@ -21,6 +39,9 @@ class FounderDashboard extends Component {
   }
 
   componentWillMount() {
+    if(!this.specialFounderIds.includes(localStorage.getItem("founder_id"))){
+      window.location.assign("/FounderMyListing")
+    }
     document.title = "Founder Dashboard - Growth91";
   }
 

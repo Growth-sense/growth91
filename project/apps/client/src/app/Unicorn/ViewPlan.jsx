@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { NewWebFooter } from "../common/NewWebFooter";
 import $ from "jquery";
 import Bridge from "../constants/Bridge.js";
@@ -10,12 +11,13 @@ import {
 
 
 export const ViewPlan = (props) => {
+  const { planName } = useParams();
+  
   useEffect(() => {
     unicorndetails();
     window.scrollTo(0, 0);
-  }, []);
+  }, [planName]);
 
-  
   const [loading, setloading] = useState(false);
   const [activePlan, setActivePlan] = useState(null);
   const [planStartDate, setPlanStartDate] = useState(null);
@@ -25,10 +27,8 @@ export const ViewPlan = (props) => {
   const [isGSTModalVisible, setIsGSTModalVisible] = useState(false);
   const [gstNumber, setGstNumber] = useState("");
   const [registeredAddress, setRegisteredAddress] = useState("");
+  const [businessName, setBusinessName] = useState("");
   const [selectedPlan, setSelectedPlan] = useState(null);
-
-
-  
 
   const plans = [
     {
@@ -77,28 +77,27 @@ export const ViewPlan = (props) => {
       if (result.data[0].unicorn_gst_registered_address) {
         setRegisteredAddress(result.data[0].unicorn_gst_registered_address);
       }
+
+      if (result.data[0].unicorn_gst_name){
+        setBusinessName(result.data[0].unicorn_gst_name);
+      }
+      if(planName == "AdditionalEdit"){
+        getPaymentLink(planName);
+      }
       setloading(false);
     });
   };
 
   const getPaymentLink = async (planName) => {
     setSelectedPlan(planName);
-    
-    // Check if GST number is already collected
-    if (!gstNumber) {
-      // Show GST collection modal if GST number is not available
-      setIsGSTModalVisible(true);
-    } else {
-      // If GST number is already available, proceed with payment
-      proceedToPayment(planName);
-    }
+    setIsGSTModalVisible(true);
   };
   
   const proceedToPayment = async (planName) => {
     let params = {
       founder_id: localStorage.getItem("founder_id"),
       plan_name: planName || selectedPlan,
-      is_upgrade: !!activePlan
+      is_upgrade: planName || selectedPlan != "AdditionalEdit" && !!activePlan
     };
     Bridge.Unicorn.get_payment_link(params).then((result) => {
       window.location.assign(result.data.link_url);
@@ -111,7 +110,8 @@ export const ViewPlan = (props) => {
       let params = {
         founder_id: localStorage.getItem("founder_id"),
         unicorn_gst: gstNumber,
-        registered_address: registeredAddress
+        registered_address: registeredAddress,
+        business_name: businessName
       };
       
       try {
@@ -1013,6 +1013,40 @@ export const ViewPlan = (props) => {
                       </div>
                     </div>
 
+                    <h4
+                      style={{
+                        fontSize: "18px",
+                        fontWeight: "600",
+                        marginBottom: "16px",
+                        color: "#1a1f36",
+                      }}
+                    >
+                      Name (As needed on the Invoice)
+                    </h4>
+
+                    <div style={{ marginBottom: "24px" }}>
+                      <Input
+                        placeholder="Enter Business Name"
+                        value={businessName}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          if (value.length <= 250) {
+                            setBusinessName(value);
+                          }
+                        }}
+                        maxLength={250}
+                        style={{ marginBottom: "8px" }}
+                      />
+                      <div
+                        style={{
+                          textAlign: "right",
+                          fontSize: "12px"
+                        }}
+                      >
+                        {businessName.length} / 250 characters
+                      </div>
+                    </div>
+
                     <div
                       style={{
                         display: "flex",
@@ -1020,19 +1054,10 @@ export const ViewPlan = (props) => {
                       }}
                     >
                       <Button
-                        onClick={() => {
-                          setIsGSTModalVisible(false);
-                          proceedToPayment();
-                        }}
-                        size="large"
-                      >
-                        Skip and Continue
-                      </Button>
-                      <Button
                         type="primary"
                         onClick={() => {
-                          if(gstNumber == "" || registeredAddress == ""){
-                            message.error("Please enter GST number and registered address");
+                          if(gstNumber == "" || registeredAddress == "" || businessName == ""){
+                            message.error("Please enter GST number, registered address and Business name");
                           }
                           else{
                             saveGSTNumber()

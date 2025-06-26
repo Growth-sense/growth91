@@ -299,7 +299,7 @@ function App() {
           <Route path="/FounderDashboardType" exact component={FounderDashboardType} />
           <Route path="/FounderMyListing" exact component={FounderMyListing} />
           <Route path="/MyUnicornPlan" exact component={MyUnicornPlan} />
-          <Route path="/ViewUnicornPlan" exact component={ViewPlan} />
+          <Route path="/ViewUnicornPlan/:planName?" exact component={ViewPlan} />
           <Route path="/FounderMyPlan" exact component={FounderMyPlan} />
           <Route path="/FounderInterest" exact component={FounderInterest} />
           <Route path="/FounderDraftList" exact component={FounderDraftList} />
