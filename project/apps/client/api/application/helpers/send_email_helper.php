@@ -56,7 +56,7 @@ function send_email($body,$subject,$email,$cc,$templateId = null,$params = null)
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 	$result = curl_exec($ch);
 	curl_close($ch);
-	return 0;
+	return 1;
 }
 
 function sendRegistrationEmail($first_name, $last_name, $status, $mobile, $email, $user_type) {
