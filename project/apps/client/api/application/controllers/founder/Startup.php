@@ -1671,6 +1671,41 @@ class Startup extends CI_Controller {
 				$id=$this->db->insert_id();
 				
 				if($id) {
+					// Get founder and startup details for email
+					$sql = "SELECT u.first_name, u.last_name, u.email, ud.udStartupName FROM users u 
+							JOIN unicorndeals ud ON ud.udFounderID = u.investor_id 
+							WHERE ud.unicornDealID = '".$unicornDealID."'";
+					$query = $this->db->query($sql);
+					$founder_details = $query->row();
+					
+					// Get investor details
+					$investor_sql = "SELECT first_name, last_name, email FROM users WHERE investor_id = '".$formdata['investor_id']."'";
+					$investor_query = $this->db->query($investor_sql);
+					$investor_details = $investor_query->row();
+					
+					if($founder_details && $investor_details) {
+						$this->load->helper('send_email');
+						
+						$typeOfInterest = '';
+						if($formdata['interestKnowMore']) {
+							$typeOfInterest = 'I want to know more about your startup';
+						} elseif($formdata['interestWorkwithYou']) {
+							$typeOfInterest = 'I want to explore collaboration';
+						} elseif($formdata['interestInvestinStartup']) {
+							$typeOfInterest = 'I am interested to invest in your startup';
+						}
+						
+						$params = array(
+							'STARTUPNAME' => $founder_details->udStartupName,
+							'NAME' => $founder_details->first_name,
+							'USERFULLNAME' => $investor_details->first_name . ' ' . $investor_details->last_name,
+							'EMAILADDRESS' => $investor_details->email,
+							'TYPEOFINTEREST' => $typeOfInterest
+						);
+						
+						send_email('', '', $founder_details->email, '', 271, $params);
+					}
+					
 					$response = [
 						'status' => '1',
 						'message' => 'Details are updated successfully.',
@@ -2096,7 +2131,6 @@ class Startup extends CI_Controller {
 			$index_offset = $is_upgrade ? 1 : 0;
 			$founderId = explode('_', $link_id)[$index_offset];
 			$current_user = $this->db
-						->select('unicorn_plan, left_edit, unicorn_gst, unicorn_gst_registered_address, unicorn_gst_name')
 						->where('investor_id', $founderId)
 						->get('users')
 						->row();
@@ -2171,6 +2205,29 @@ class Startup extends CI_Controller {
 					'unicorn_gst_name' => $current_user->unicorn_gst_name
 				];
 				$this->db->insert('unicorn_payments', $payment_data);
+
+				$this->load->helper('send_email');
+				// Format the email body
+				$formatted_date = date('d-M-Y', strtotime($event_time));
+				$body = "<p><strong>Name as per invoice:</strong> {$current_user->unicorn_gst_name}</p>";
+				$body .= "<p><strong>Founder Email ID:</strong> {$current_user->email}</p>";
+				$body .= "<p><strong>Founder Name:</strong> {$current_user->first_name} {$current_user->last_name}</p>";
+				$body .= "<p><strong>Company name:</strong> {$current_user->startup_name}</p>";
+				$body .= "<p><strong>Mobile Number:</strong> {$current_user->mobile}</p>";
+				$body .= "<p><strong>GST:</strong> {$current_user->unicorn_gst}</p>";
+				$body .= "<p><strong>Address:</strong> {$current_user->unicorn_gst_registered_address}</p>";
+				$body .= "<p><strong>Transaction Date:</strong> {$formatted_date}</p>";
+				$body .= "<p><strong>Transaction amount:</strong> {$order_amount}</p>";
+
+				$subject = "New Unicorn payment received";
+
+				// Using the existing send_email helper function
+				send_email(
+					$body,                      // HTML body
+					$subject,                   // Subject
+					'invest@growth91.com',     // To email
+					''                          // CC (empty in this case)
+				);
 			}
 
 

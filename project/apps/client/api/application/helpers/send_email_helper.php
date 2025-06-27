@@ -1,44 +1,48 @@
 <?php 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-function send_email($body,$subject,$email,$cc)
+function send_email($body,$subject,$email,$cc,$templateId = null,$params = null)
 {	 
 	$toEmail = $email;
 	$fromName = 'Growth91';
 	$fromEmail = 'noreply@growth91.com';
-	$subject = $subject;
-	$htmlMessage = $body;
-	
+
 	$data = array(
-	    "sender" => array(
-		"email" => $fromEmail,
-		"name" => $fromName         
-	    ),
-	    "to" => array(
-		array(
-		    "email" => $toEmail,
-		    //"name" => $toName 
-		    )
-	    ), 
-	    "subject" => $subject,
-	    "htmlContent" => $htmlMessage
-	); 
-	
-	// if(!empty($cc))
-	// {
-	// }
+		"sender" => array(
+			"email" => $fromEmail,
+			"name" => $fromName
+		),
+		"to" => array(
+			array("email" => $toEmail)
+		)
+	);
+
+	if (!empty($subject)) {
+		$data["subject"] = $subject;
+	}
+
+	if (!empty($body)) {
+		$data["htmlContent"] = $body;
+	}
+
+	if (!empty($templateId)) {
+		$data["templateId"] = $templateId;
+	}
+
+	if (!empty($params)) {
+		$data["params"] = $params;
+	}
 
 	$data_cc = array(
-			"cc" => array(
+		"cc" => array(
 			array(
 				"email" => "contact@growth91.com"
-				)
+			)
 		),
-		);
+	);
 		
 	$data = array_merge($data,$data_cc);
 	
-
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, 'https://api.sendinblue.com/v3/smtp/email');
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -51,19 +55,8 @@ function send_email($body,$subject,$email,$cc)
 	$headers[] = 'Content-Type: application/json';  
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 	$result = curl_exec($ch);
-	
-	//var_dump($result);
-	//die;
-	
-	if (curl_errno($ch))
-	{
-	    	return 0;
-	}
-	else
-	{
-		return 1;
-	}
 	curl_close($ch);
+	return 0;
 }
 
 function sendRegistrationEmail($first_name, $last_name, $status, $mobile, $email, $user_type) {
