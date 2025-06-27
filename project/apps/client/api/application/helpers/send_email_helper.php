@@ -42,7 +42,6 @@ function send_email($body,$subject,$email,$cc,$templateId = null,$params = null,
 	} else {
 		$data_cc = array(
 			"cc" => array(
-				array("email" => "contact@growth91.com"),
 				array("email" => $cc2)
 			)
 		);
