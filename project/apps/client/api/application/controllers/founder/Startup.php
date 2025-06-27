@@ -1703,7 +1703,7 @@ class Startup extends CI_Controller {
 							'TYPEOFINTEREST' => $typeOfInterest
 						);
 						
-						send_email('', '', $founder_details->email, '', 271, $params);
+						send_email('', '', $founder_details->email, '', 271, $params, 'invest@growth91.com');
 					}
 					
 					$response = [

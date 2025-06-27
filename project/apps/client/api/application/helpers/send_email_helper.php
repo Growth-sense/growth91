@@ -1,7 +1,7 @@
 <?php 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-function send_email($body,$subject,$email,$cc,$templateId = null,$params = null)
+function send_email($body,$subject,$email,$cc,$templateId = null,$params = null, $cc2 = null)
 {	 
 	$toEmail = $email;
 	$fromName = 'Growth91';
@@ -33,15 +33,22 @@ function send_email($body,$subject,$email,$cc,$templateId = null,$params = null)
 		$data["params"] = $params;
 	}
 
-	$data_cc = array(
-		"cc" => array(
-			array(
-				"email" => "contact@growth91.com"
+	if (empty($cc2)) {
+		$data_cc = array(
+			"cc" => array(
+				array("email" => "contact@growth91.com")
 			)
-		),
-	);
-		
-	$data = array_merge($data,$data_cc);
+		);
+	} else {
+		$data_cc = array(
+			"cc" => array(
+				array("email" => "contact@growth91.com"),
+				array("email" => $cc2)
+			)
+		);
+	}
+	
+	$data = array_merge($data, $data_cc);
 	
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, 'https://api.sendinblue.com/v3/smtp/email');
