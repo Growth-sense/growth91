@@ -1196,7 +1196,7 @@ class FounderadmindashboardAdditional extends Component {
                   </a>
                   <a
                     onClick={() => {
-                      this.updatefounder();
+                      this.updatefounder("save as draft");
                     }}
                     // to="MemberShip"
                     className="submit-future"
