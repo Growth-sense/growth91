@@ -235,6 +235,22 @@ class UnicornAdmin extends Component {
     });
   };
 
+  toggleHighlight = (unicornDealID) => {
+    this.setState({ loading: true });
+    let params = {
+      unicornDealID: unicornDealID,
+    };
+    Bridge.Unicorn.toggle_unicorn_highlight(params).then((result) => {
+      if (result.status == 1) {
+        message.success(result.message);
+        this.getgrouplist();
+      } else {
+        message.error(result.message);
+      }
+      this.setState({ loading: false });
+    });
+  };
+
   // actuall functionality
 
   // SEARCH
@@ -323,6 +339,7 @@ class UnicornAdmin extends Component {
         "Unicorn ID": item.unicornDealID ? item.unicornDealID : "---",
         "Unicorn Name": item.udStartupName ? item.udStartupName : "---",
         "Unicorn Status": item.udPublished =="Published"? "Enable":"Disable",
+        "Highlight Status": item.isHighlighted == 1 ? "Highlighted" : "Not Highlighted",
         "Founder Id": item.udFounderID ? item.udFounderID : "---",
         Email: item.udStartupFounderEmail ? item.udStartupFounderEmail : "---",
         "Founder Name": item.udStartupFounderName
@@ -470,6 +487,7 @@ class UnicornAdmin extends Component {
           "Unicorn Name": item.udStartupName ? item.udStartupName : "---",
           Email: item.udStartupFounderEmail ? item.udStartupFounderEmail : "---",
           "Unicorn Status": item.udPublished =="Published"? "Enable":"Disable",
+          "Highlight Status": item.isHighlighted == 1 ? "Highlighted" : "Not Highlighted",
           "Admin Name": item.udStartupFounderName
             ? item.udStartupFounderName
             : "---",
@@ -499,6 +517,12 @@ class UnicornAdmin extends Component {
         title: "Unicorn Status",
         dataIndex: "Unicorn Status",
         key: "Unicorn Status",
+        width: 280,
+      },
+      {
+        title: "Highlight Status",
+        dataIndex: "Highlight Status",
+        key: "Highlight Status",
         width: 280,
       },
 
@@ -639,6 +663,14 @@ class UnicornAdmin extends Component {
                   //   onClick={() => this.showDeleteModal(text)}
                 >
                   &nbsp;&nbsp;Edit Status
+                </a>
+              </Menu.Item>
+              <Menu.Item icon={<ManOutlined />}>
+                <a
+                  onClick={() => this.toggleHighlight(text.unicornDealID)}
+                  style={{ fontSize: 14 }}
+                >
+                  &nbsp;&nbsp;{text.isHighlighted == 1 ? 'Remove Highlight' : 'Mark as Highlighted'}
                 </a>
               </Menu.Item>
               {/* <Menu.Item key={`Delete${record.key}`} icon={<ManOutlined />}>

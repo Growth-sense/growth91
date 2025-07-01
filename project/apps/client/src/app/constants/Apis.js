@@ -287,7 +287,8 @@ const URLs = {
   get_payment_link:"founder/Startup/get_payment_link",
   adminEditUnicornPlan: "founder/Startup/update_unicorn_plan_by_admin",
   save_gst_number: "founder/Startup/update_unicorn_gst",
-  addOfflinePayment: "founder/Startup/record_unicorn_payment_offline"
+  addOfflinePayment: "founder/Startup/record_unicorn_payment_offline",
+  toggle_unicorn_highlight: "founder/Startup/toggle_unicorn_highlight"
 };
 
 export default URLs;

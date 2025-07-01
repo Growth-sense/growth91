@@ -1329,7 +1329,7 @@ class Startup extends CI_Controller {
 			
 			//Step1
 			$sql= <<<EOT
-			SELECT unicorndeals.*, unicorndeals2.* , users.unicorn_start_date, users.unicorn_end_date, users.left_edit, users.unicorn_plan, users.utrref, users.unicorn_gst, unicorn_gst_registered_address, unicorn_gst_name
+			SELECT unicorndeals.*, unicorndeals2.*, users.unicorn_start_date, users.unicorn_end_date, users.left_edit, users.unicorn_plan, users.utrref, users.unicorn_gst, unicorn_gst_registered_address, unicorn_gst_name
 			FROM unicorndeals 
 			LEFT JOIN unicorndeals2 on unicorndeals.unicornDealID = unicorndeals2.unicornDealID
 			LEFT JOIN users on unicorndeals.udFounderID = users.investor_id
@@ -2286,6 +2286,86 @@ class Startup extends CI_Controller {
 				'message' => 'Please provide all required fields.'
 			];
 		}
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
+
+	function toggle_unicorn_highlight() {
+		// header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		// header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		
+		if (!empty($formdata)) {
+			extract($formdata);
+			
+			// Get current highlight status
+			$current_status_query = $this->db
+				->select('isHighlighted')
+				->where('unicornDealID', $unicornDealID)
+				->get('unicorndeals2');
+			
+			if ($current_status_query->num_rows() == 0) {
+				$response = [
+					'status' => '0',
+					'message' => 'Unicorn not found.'
+				];
+			} else {
+				$current_record = $current_status_query->row();
+				$current_highlighted = $current_record->isHighlighted ?? 0;
+				$new_highlighted = $current_highlighted ? 0 : 1;
+				
+				// If trying to highlight, check if we already have 6 highlighted unicorns
+				if ($new_highlighted == 1) {
+					$highlighted_count = $this->db
+						->where('isHighlighted', 1)
+						->count_all_results('unicorndeals2');
+					
+					if ($highlighted_count >= 6) {
+						$response = [
+							'status' => '0',
+							'message' => 'Maximum 6 unicorns can be highlighted. Please unhighlight another unicorn first.'
+						];
+						$this->output
+							->set_content_type('application/json')
+							->set_output(json_encode($response));
+						return;
+					}
+				}
+				
+				// Update the highlight status
+				$post_data = [
+					'isHighlighted' => $new_highlighted
+				];
+				
+				$this->db->where('unicornDealID', $unicornDealID);
+				$update_result = $this->db->update('unicorndeals2', $post_data);
+				
+				if ($update_result) {
+					$status_text = $new_highlighted ? 'highlighted' : 'unhighlighted';
+					$response = [
+						'status' => '1',
+						'message' => "Unicorn has been {$status_text} successfully.",
+						'isHighlighted' => $new_highlighted
+					];
+				} else {
+					$response = [
+						'status' => '0',
+						'message' => 'Failed to update highlight status. Please try again.'
+					];
+				}
+			}
+		} else {
+			$response = [
+				'status' => '0',
+				'message' => 'Please provide unicornDealID.'
+			];
+		}
+		
 		$this->output
 			->set_content_type('application/json')
 			->set_output(json_encode($response));

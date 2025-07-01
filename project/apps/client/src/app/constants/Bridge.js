@@ -1038,5 +1038,9 @@ export default {
       api.post(URLs.addOfflinePayment, data).then((response) => {
         return response.data;
       }),
+    toggle_unicorn_highlight: (data) =>
+      api.post(URLs.toggle_unicorn_highlight, data).then((response) => {
+        return response.data;
+      }),
   },
 };
