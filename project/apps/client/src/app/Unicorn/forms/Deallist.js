@@ -107,6 +107,43 @@ class Dellistinicorn extends Component {
     this.setState({ processtype: "prev" }, () => this.updatefounder());
   };
 
+  getSelectedTags = () => {
+    const tags = this.props.unicorn.tudTag;
+    if (!tags) return [];
+    if (tags === "None") return ["None"];
+    return tags.split(",").map(tag => tag.trim()).filter(tag => tag);
+  };
+
+  handleTagChange = (e) => {
+    const { value, checked } = e.target;
+    const currentTags = this.getSelectedTags();
+    
+    if (value === "None") {
+      // If "None" is selected, clear all other selections
+      this.props.onInput("tudTag", "None");
+      return;
+    }
+    
+    let newTags;
+    if (checked) {
+      // Remove "None" if it was selected and add new tag
+      const filteredTags = currentTags.filter(tag => tag !== "None");
+      if (filteredTags.length >= 2) {
+        // Already have 2 tags, don't add more
+        e.target.checked = false;
+        return;
+      }
+      newTags = [...filteredTags, value];
+    } else {
+      // Remove the unchecked tag
+      newTags = currentTags.filter(tag => tag !== value);
+    }
+    
+    // Update the tudTag field
+    const tagString = newTags.length > 0 ? newTags.join(", ") : "None";
+    this.props.onInput("tudTag", tagString);
+  };
+
   render() {
     let active = false;
 
@@ -322,49 +359,48 @@ class Dellistinicorn extends Component {
                       <div className="form-group">
                         <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                           Visibility Tags<span className="text-danger">*</span>
-                          <InfoTooltip title="Select tags like 'Need Investment', 'Hiring', 'Looking for Partnerships'." />
+                          <InfoTooltip title="Select up to 2 tags like 'Need Investment', 'Hiring', 'Looking for Partnerships'." />
                         </label>
-                        <div className="radio-options" style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                        <div style={{ fontSize: "12px", color: "#666", marginBottom: "10px" }}>
+                          Select up to 2 options
+                        </div>
+                        <div className="checkbox-options" style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                           <label style={{ display: "flex", alignItems: "flex-start", fontSize: "14px" }}>
                             <input
-                              type="radio"
-                              name="tudTag"
+                              type="checkbox"
                               value="Need Investment"
-                              onChange={(e) => this.props.onInput(e.target.name, e.target.value)}
-                              checked={this.props.unicorn.tudTag === "Need Investment"}
+                              onChange={(e) => this.handleTagChange(e)}
+                              checked={this.getSelectedTags().includes("Need Investment")}
                               style={{ marginRight: "8px", width: "16px", height: "16px", marginTop: "2px" }}
                             />
                             <span>Need Investment</span>
                           </label>
                           <label style={{ display: "flex", alignItems: "flex-start", fontSize: "14px" }}>
                             <input
-                              type="radio"
-                              name="tudTag"
+                              type="checkbox"
                               value="Hiring"
-                              onChange={(e) => this.props.onInput(e.target.name, e.target.value)}
-                              checked={this.props.unicorn.tudTag === "Hiring"}
+                              onChange={(e) => this.handleTagChange(e)}
+                              checked={this.getSelectedTags().includes("Hiring")}
                               style={{ marginRight: "8px", width: "16px", height: "16px", marginTop: "2px" }}
                             />
                             <span>Hiring</span>
                           </label>
                           <label style={{ display: "flex", alignItems: "flex-start", fontSize: "14px" }}>
                             <input
-                              type="radio"
-                              name="tudTag"
+                              type="checkbox"
                               value="Looking for Growth Partnerships"
-                              onChange={(e) => this.props.onInput(e.target.name, e.target.value)}
-                              checked={this.props.unicorn.tudTag === "Looking for Growth Partnerships"}
+                              onChange={(e) => this.handleTagChange(e)}
+                              checked={this.getSelectedTags().includes("Looking for Growth Partnerships")}
                               style={{ marginRight: "8px", width: "16px", height: "16px", marginTop: "2px" }}
                             />
                             <span>Looking for Growth Partnerships</span>
                           </label>
                           <label style={{ display: "flex", alignItems: "flex-start", fontSize: "14px" }}>
                             <input
-                              type="radio"
-                              name="tudTag"
+                              type="checkbox"
                               value="None"
-                              checked={this.props.unicorn.tudTag === "None"}
-                              onChange={(e) => this.props.onInput(e.target.name, e.target.value)}
+                              onChange={(e) => this.handleTagChange(e)}
+                              checked={this.getSelectedTags().includes("None")}
                               style={{ marginRight: "8px", width: "16px", height: "16px", marginTop: "2px" }}
                             />
                             <span>None</span>

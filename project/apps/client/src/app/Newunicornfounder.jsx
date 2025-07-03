@@ -362,17 +362,21 @@ const Newunicornfounder = () => {
                     </ul>
                      {item.udTag && item.udTag !== "None" && (
                           <div style={{ marginTop: "8px" }}>
-                            <span style={{
-                              display: "inline-block",
-                              backgroundColor: "#e6f7ff",
-                              color: "#0066cc",
-                              padding: "3px 10px",
-                              borderRadius: "4px",
-                              fontSize: "12px",
-                              fontWeight: "500"
-                            }}>
-                              {item.udTag}
-                            </span>
+                            {item.udTag.split(",").map((tag, tagIndex) => (
+                              <span key={tagIndex} style={{
+                                display: "inline-block",
+                                backgroundColor: "#e6f7ff",
+                                color: "#0066cc",
+                                padding: "3px 10px",
+                                borderRadius: "4px",
+                                fontSize: "12px",
+                                fontWeight: "500",
+                                marginRight: "5px",
+                                marginBottom: "3px"
+                              }}>
+                                {tag.trim()}
+                              </span>
+                            ))}
                           </div>
                         )}
                     <p style={{
