@@ -66,27 +66,66 @@ export const ViewPlan = (props) => {
     let params = {
       founder_id: localStorage.getItem("founder_id"),
     };
-    Bridge.Unicorn.get_founder_detail_for_unicorn(params).then((result) => {
+    
+    try {
+      const result = await Bridge.Unicorn.get_founder_detail_for_unicorn(params);
       setActivePlan(result.data[0].unicorn_plan);
       setPlanStartDate(result.data[0].unicorn_start_date);
       setPlanEndDate(result.data[0].unicorn_end_date);
-      // If GST number exists in the response, set it
+      
+      // Auto-prefill logic
       if (result.data[0].unicorn_gst) {
         setGstNumber(result.data[0].unicorn_gst);
       }
-      // If registered address exists in the response, set it
       if (result.data[0].unicorn_gst_registered_address) {
         setRegisteredAddress(result.data[0].unicorn_gst_registered_address);
       }
-
-      if (result.data[0].unicorn_gst_name){
+      if (result.data[0].unicorn_gst_name) {
         setBusinessName(result.data[0].unicorn_gst_name);
+      } else {
+        // Try to prefill from Future Unicorn Form data or founder registration
+        await prefillFormData(result.data[0]);
       }
+      
       if(planName == "AdditionalEdit"){
         getPaymentLink(planName);
       }
+    } catch (error) {
+      console.error("Error fetching unicorn details:", error);
+    } finally {
       setloading(false);
-    });
+    }
+  };
+
+  const prefillFormData = async (founderData) => {
+    try {
+      const unicornParams = {
+        founderID: localStorage.getItem("founder_id"),
+      };
+      
+      const unicornResult = await Bridge.Unicorn.unicornListByFounders(unicornParams);
+      if (unicornResult && unicornResult.data && unicornResult.data.length > 0) {
+        const unicornData = unicornResult.data[0];
+        
+        // Prefill Company Legal Name from Future Unicorn Form
+        if (unicornData.tudLegalname && !businessName) {
+          setBusinessName(unicornData.tudLegalname);
+        }
+        
+        // Prefill Registered Address from Future Unicorn Form
+        if (unicornData.tudAddress && !registeredAddress) {
+          setRegisteredAddress(unicornData.tudAddress);
+        }
+      } else {
+        // If no Future Unicorn Form data, try founder registration data
+        // Prefill company name from founder registration if available
+        if (founderData.startup_name && !businessName) {
+          setBusinessName(founderData.startup_name);
+        } 
+      }
+    } catch (error) {
+      console.error("Error prefilling form data:", error);
+    }
   };
 
   const getPaymentLink = async (planName) => {
