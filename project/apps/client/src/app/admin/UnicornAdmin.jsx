@@ -75,6 +75,7 @@ class UnicornAdmin extends Component {
       publishModalStatus: false,
       commitexport: "",
       unicornstatus: "",
+      unicornCategory: "",
       intrestedlist: "",
       show_investor_presentation_modal: false,
       previewid: "",
@@ -232,6 +233,7 @@ class UnicornAdmin extends Component {
       publishModalStatus: true,
       unicornDealID: item.unicornDealID,
       unicornstatus: item.udPublished,
+      unicornCategory: item.udCategory || "",
     });
   };
 
@@ -398,16 +400,14 @@ class UnicornAdmin extends Component {
   changesstatus = (e) => {
     let params = {
       "unicornDealID":this.state.unicornDealID,
-    "udPublished":this.state.unicornstatus
-
+      "udPublished":this.state.unicornstatus,
+      "udCategory":this.state.unicornCategory
     };
     Bridge.Unicorn.unicorn_Publish_unpublish(params).then((result) => {
       if (result.status == 1) {
         // console.log(result);
         message.success(result.message);
         this.getgrouplist();
-
-      
       } else {
         message.error(result.message);
         this.setState({
@@ -662,7 +662,7 @@ class UnicornAdmin extends Component {
                   style={{ fontSize: 14 }}
                   //   onClick={() => this.showDeleteModal(text)}
                 >
-                  &nbsp;&nbsp;Edit Status
+                  &nbsp;&nbsp;Edit
                 </a>
               </Menu.Item>
               <Menu.Item icon={<ManOutlined />}>
@@ -983,7 +983,7 @@ class UnicornAdmin extends Component {
 
 
         <Modal
-          title={"Edit Status"}
+          title={"Edit"}
           visible={this.state.publishModalStatus}
           onOk={() =>{
             this.changesstatus()
@@ -991,6 +991,7 @@ class UnicornAdmin extends Component {
               publishModalStatus: false,
               unicornDealID: "",
               udPublished: "",
+              unicornCategory: "",
             })}
           }
           onCancel={() =>
@@ -998,14 +999,12 @@ class UnicornAdmin extends Component {
               publishModalStatus: false,
               unicornDealID: "",
               udPublished: "",
+              unicornCategory: "",
             })
           }
           okText="OK"
           width={400}
         >
-          
-         
-           
             <div className="mt-4">
               <label className="mb-2">Active</label>
               <Select
@@ -1013,13 +1012,43 @@ class UnicornAdmin extends Component {
                 allowClear
                 value={this.state.unicornstatus}
                 onChange={(value)=>{ this.setState({ unicornstatus: value });}}
-                          >
+              >
                 <Option value="">--Select--</Option>
                 <Option value="Published">Enable</Option>
                 <Option value="Unpublished">Disable</Option>
               </Select>
             </div>
-          
+            
+            <div className="mt-4">
+              <label className="mb-2">Category</label>
+              <Select
+                style={{ width: "100%" }}
+                allowClear
+                value={this.state.unicornCategory}
+                onChange={(value)=>{ this.setState({ unicornCategory: value });}}
+              >
+                <Option value="">--Select Sector--</Option>
+                <Option value="Artificial Intelligence">Artificial Intelligence</Option>
+                <Option value="Astrology">Astrology</Option>
+                <Option value="AstroTech">AstroTech</Option>
+                <Option value="Career and Recruitment">Career and Recruitment</Option>
+                <Option value="CleanTech">CleanTech</Option>
+                <Option value="Cybersecurity">Cybersecurity</Option>
+                <Option value="EdTech">EdTech</Option>
+                <Option value="Entertainment">Entertainment</Option>
+                <Option value="Finance">Finance</Option>
+                <Option value="FinTech">FinTech</Option>
+                <Option value="Foods and Beverages">Foods and Beverages</Option>
+                <Option value="GenAI">GenAI</Option>
+                <Option value="HealthTech">HealthTech</Option>
+                <Option value="Healthy Snacking">Healthy Snacking</Option>
+                <Option value="HRTech">HRTech</Option>
+                <Option value="Other">Other</Option>
+                <Option value="PetCare">PetCare</Option>
+                <Option value="SpiritualTech">SpiritualTech</Option>
+                <Option value="Toy Library">Toy Library</Option>
+              </Select>
+            </div>
         </Modal>
         {/* End Add modal  */}
         {/* Start enquire modal  */}

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { message, Spin } from "antd";
+import { message, Spin, Select } from "antd";
 import Bridge from "../../constants/Bridge";
 
 import $ from "jquery";
@@ -345,15 +345,36 @@ class Dellistinicorn extends Component {
                           Startup Sector<span className="text-danger">*</span>
                           <InfoTooltip title="Choose the Industry that best describes your startup's space." />
                         </label>
-                        <input
-                          type="text"
-                          onWheel={() => document.activeElement.blur()}
+                        <Select
+                          style={{marginBottom : 35}}
                           name="tudCategory"
                           value={this.props.unicorn.tudCategory}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }
-                        />
+                          className="form-control"
+                        >
+                          <option value="">--Select Sector--</option>
+                          <option value="Artificial Intelligence">Artificial Intelligence</option>
+                          <option value="Astrology">Astrology</option>
+                          <option value="AstroTech">AstroTech</option>
+                          <option value="Career and Recruitment">Career and Recruitment</option>
+                          <option value="CleanTech">CleanTech</option>
+                          <option value="Cybersecurity">Cybersecurity</option>
+                          <option value="EdTech">EdTech</option>
+                          <option value="Entertainment">Entertainment</option>
+                          <option value="Finance">Finance</option>
+                          <option value="FinTech">FinTech</option>
+                          <option value="Foods and Beverages">Foods and Beverages</option>
+                          <option value="GenAI">GenAI</option>
+                          <option value="HealthTech">HealthTech</option>
+                          <option value="Healthy Snacking">Healthy Snacking</option>
+                          <option value="HRTech">HRTech</option>
+                          <option value="Other">Other</option>
+                          <option value="PetCare">PetCare</option>
+                          <option value="SpiritualTech">SpiritualTech</option>
+                          <option value="Toy Library">Toy Library</option>
+                        </Select>
                       </div>{" "}
                    
                       <div className="form-group">
