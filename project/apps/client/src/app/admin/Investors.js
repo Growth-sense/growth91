@@ -2093,7 +2093,7 @@ class Investors extends Component {
                       {this.state.pan_image ? (
                         this.state.pan_image.split(".").pop() == "pdf" ? (
                           <iframe
-                            src={`${Apis.IMAGEURL}/pan/${this.state.investor_id}/${this.state.pan_image}`}
+                            src={`${Apis.IMAGEURL}pan/${this.state.investor_id}/${this.state.pan_image}`}
                           ></iframe>
                         ) : (
                           <>
@@ -2101,7 +2101,7 @@ class Investors extends Component {
                             <br />
                             <Image
                               width={200}
-                              src={`${Apis.IMAGEURL}/pan/${this.state.investor_id}/${this.state.pan_image}`}
+                              src={`${Apis.IMAGEURL}pan/${this.state.investor_id}/${this.state.pan_image}`}
                             />
                             <br />
                             <label>Change PAN Card Image :</label>
@@ -2267,7 +2267,7 @@ class Investors extends Component {
                             <br />
                             <Image
                               width={200}
-                              src={`${Apis.IMAGEURL}/adhar-front/${this.state.investor_id}/${this.state.adhar_front_img}`}
+                              src={`${Apis.IMAGEURL}adhar-front/${this.state.investor_id}/${this.state.adhar_front_img}`}
                             />
                             <br />
                             <label>Change Adhar Card Image Front :</label>
@@ -2303,7 +2303,7 @@ class Investors extends Component {
                               <br />
                               <Image
                                 width={200}
-                                src={`${Apis.IMAGEURL}/adhar-back/${this.state.investor_id}/${this.state.adhar_back_img}`}
+                                src={`${Apis.IMAGEURL}adhar-back/${this.state.investor_id}/${this.state.adhar_back_img}`}
                               />
                               <br />
                               <label>Change Adhar Card Image Back :</label>
@@ -2453,7 +2453,7 @@ class Investors extends Component {
                             <br />
                             <Image
                               width={200}
-                              src={`${Apis.IMAGEURL}/cheque_image/${this.state.investor_id}/${this.state.cheque_image}`}
+                              src={`${Apis.IMAGEURL}cheque_image/${this.state.investor_id}/${this.state.cheque_image}`}
                             />
                             <br />
                             <label>Update Cancel Cheque Image :</label>
