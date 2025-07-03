@@ -2265,10 +2265,10 @@ class Investors extends Component {
                           <>
                             Adhar Card Image Front:
                             <br />
-                            <Image
+                            <iframe
                               width={200}
                               src={`${Apis.IMAGEURL}adhar-front/${this.state.investor_id}/${this.state.adhar_front_img}`}
-                            />
+                            ></iframe>
                             <br />
                             <label>Change Adhar Card Image Front :</label>
                             <br />
@@ -2301,10 +2301,10 @@ class Investors extends Component {
                             <>
                               Adhar Card Image Back:
                               <br />
-                              <Image
+                              <iframe
                                 width={200}
                                 src={`${Apis.IMAGEURL}adhar-back/${this.state.investor_id}/${this.state.adhar_back_img}`}
-                              />
+                              ></iframe>
                               <br />
                               <label>Change Adhar Card Image Back :</label>
                               <br />
@@ -2451,10 +2451,10 @@ class Investors extends Component {
                           <>
                             Cancel Cheque Image:
                             <br />
-                            <Image
+                            <iframe
                               width={200}
                               src={`${Apis.IMAGEURL}cheque_image/${this.state.investor_id}/${this.state.cheque_image}`}
-                            />
+                            ></iframe>
                             <br />
                             <label>Update Cancel Cheque Image :</label>
                             <br />
