@@ -5,6 +5,7 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Bridge from "../../constants/Bridge";
+import InfoTooltip from "./InfoTooltip";
 
 class Mediacoverager extends Component {
   constructor(props) {
@@ -231,8 +232,9 @@ class Mediacoverager extends Component {
 
                         {/* Team Member Name */}
                         <div className="form-group mt-4">
-                          <label className="mb-2">
-                            Name <span style={{ color: "red" }}>*</span>
+                          <label className="mb-2" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            Team Member Name <span style={{ color: "red" }}>*</span>
+                            <InfoTooltip title="Full name of the core team member." />
                           </label>
                           <input
                             type="text"
@@ -252,8 +254,9 @@ class Mediacoverager extends Component {
 
                         {/* Team Member Role */}
                         <div className="form-group mt-4">
-                          <label className="mb-2">
-                            Role <span style={{ color: "red" }}>*</span>
+                          <label className="mb-2" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            Role / Title <span style={{ color: "red" }}>*</span>
+                            <InfoTooltip title="Designation or function in the startup." />
                           </label>
                           <input
                             type="text"
@@ -273,8 +276,9 @@ class Mediacoverager extends Component {
 
                         {/* Team Member Description 1 */}
                         <div className="form-group mt-4">
-                          <label className="mb-2">
-                            Description 1 <span style={{ color: "red" }}>*</span>
+                          <label className="mb-2" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            Experience Snapshot <span style={{ color: "red" }}>*</span>
+                            <InfoTooltip title="Achievements, past experience, education, or relevant background." />
                           </label>
                           <input
                             type="text"
@@ -300,8 +304,9 @@ class Mediacoverager extends Component {
 
                         {/* Team Member Description 2 */}
                         <div className="form-group mt-4">
-                          <label className="mb-2">
-                            Description 2 <span style={{ color: "red" }}>*</span> 
+                          <label className="mb-2" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            Role Contribution <span style={{ color: "red" }}>*</span>
+                            <InfoTooltip title="What this team member is responsible for in the startup." />
                           </label>
                           <input
                             type="text"
@@ -327,8 +332,9 @@ class Mediacoverager extends Component {
 
                         {/* Team Member Linkedin Url */}
                         <div className="form-group mt-4">
-                          <label className="mb-2">
-                            LinkedIn Profile <span style={{ color: "red" }}>*</span>
+                          <label className="mb-2" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            LinkedIn URL <span style={{ color: "red" }}>*</span>
+                            <InfoTooltip title="Add LinkedIn profile link." />
                           </label>
                           <input
                             type="text"
@@ -354,8 +360,9 @@ class Mediacoverager extends Component {
 
                         {/* Team Member Image */}
                         <div className="form-group mt-4">
-                          <label className="mb-2">
-                            Image <span style={{ color: "red" }}>*</span>
+                          <label className="mb-2" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            Display Photo <span style={{ color: "red" }}>*</span>
+                            <InfoTooltip title="Clear image (JPG or PNG, square crop preferred)." />
                           </label>
                           <input
                             type="file"

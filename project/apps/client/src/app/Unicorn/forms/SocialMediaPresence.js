@@ -5,6 +5,7 @@ import $ from "jquery";
 import Bridge from "../../constants/Bridge";
 import axios from "axios";
 import { CloseOutlined, UploadOutlined } from "@ant-design/icons";
+import InfoTooltip from "./InfoTooltip";
 class SocialMediaPresence extends Component {
   constructor(props) {
     super(props);
@@ -242,7 +243,10 @@ class SocialMediaPresence extends Component {
                     <div className="col-lg-12">
                       <div className="form-group">
                         <div className="input-container">
-                          <label htmlFor="tudSocialLinkedIn">LinkedIn</label>
+                          <label htmlFor="tudSocialLinkedIn" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            LinkedIn Page
+                            <InfoTooltip title="Your startup's official LinkedIn page." />
+                          </label>
                           <Input
                             type="url"
                             name="tudSocialLinkedIn"
@@ -293,7 +297,10 @@ class SocialMediaPresence extends Component {
 
                       <div className="form-group">
                         <div className="input-container">
-                          <label htmlFor="tudSocialFacebook">Facebook</label>
+                          <label htmlFor="tudSocialFacebook" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            Facebook Page
+                            <InfoTooltip title="Facebook page for marketing or community building." />
+                          </label>
                           <Input
                             type="url"
                             name="tudSocialFacebook"
@@ -337,7 +344,10 @@ class SocialMediaPresence extends Component {
 
                       <div className="form-group">
                         <div className="input-container">
-                          <label htmlFor="tudSocialInsta">Instagram</label>
+                          <label htmlFor="tudSocialInsta" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            Instagram Handle
+                            <InfoTooltip title="Active Instagram business profile." />
+                          </label>
                           <Input
                             type="url"
                             name="tudSocialInsta"
@@ -421,7 +431,10 @@ class SocialMediaPresence extends Component {
                       {/* {" "} */}
                       <div className="form-group">
                         <div className="input-container">
-                          <label for="">YouTube</label>
+                          <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            YouTube Channel
+                            <InfoTooltip title="Link to your official YouTube channel." />
+                          </label>
 
                           <Input
                             type="url"
@@ -457,7 +470,10 @@ class SocialMediaPresence extends Component {
                         </div>
                       </div>
                       <div className="form-group">
-                        <label for="">Others</label>
+                        <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          Other Social Platforms
+                          <InfoTooltip title="Twitter, Medium, Discord, or any other relevant platforms." />
+                        </label>
                         <textarea
                           type="text"
                           name="tudSocialOthers"
@@ -511,7 +527,10 @@ class SocialMediaPresence extends Component {
                    {/* MEDIA COVERAGE SECTION */}
                 <div className="col-lg-12">
                   <div className="form-group">
-                    <label className="fs-4">Media Coverage</label>
+                    <label className="fs-4" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      Media Coverage
+                      <InfoTooltip title="Articles, interviews, awards, recognitions. (Also upload the snapshot of the coverage)" />
+                    </label>
                     {this.state.mediacoverager.map((item, index) => (
                       <div className="Card my-3" key={index}>
                         {/* Remove Media Coverage Card */}

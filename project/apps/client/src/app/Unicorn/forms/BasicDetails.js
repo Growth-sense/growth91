@@ -6,6 +6,7 @@ import $ from "jquery";
 import "./BasicDetais.css";
 import axios from "axios";
 import CountrySelect from "../../investor/register/CountrySelect";
+import InfoTooltip from "./InfoTooltip";
 class BasicDetails extends Component {
   constructor(props) {
     super(props);
@@ -206,7 +207,7 @@ class BasicDetails extends Component {
                           )}
                           {!this.state.startup_name && (
                             <li>
-                              <span>Name Of Startup is required.</span>
+                              <span>Startup Name is required.</span>
                             </li>
                           )}
                           {!this.state.primary_contact_person_name && (
@@ -230,8 +231,9 @@ class BasicDetails extends Component {
                   <div className="row" style={{ maxWidth: 900 }}>
                     <div className="col-lg-12">
                       <div className="form-group input-rezized">
-                        <label for="">
-                          Name Of Startup<span className="text-danger">*</span>
+                        <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          Startup Name<span className="text-danger">*</span>
+                          <InfoTooltip title="Brand name of your startup." />
                         </label>
                         <input
                           type="text"

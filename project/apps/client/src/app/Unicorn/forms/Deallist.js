@@ -4,6 +4,7 @@ import Bridge from "../../constants/Bridge";
 
 import $ from "jquery";
 import CountrySelect from "../../investor/register/CountrySelect";
+import InfoTooltip from "./InfoTooltip";
 class Dellistinicorn extends Component {
   constructor(props) {
     super(props);
@@ -143,7 +144,10 @@ class Dellistinicorn extends Component {
                   <div className="row" style={{ maxWidth: 900 }}>
                     <div className="col-lg-12">
                       <div className="form-group">
-                        <label for="">Startup Founder Name<span className="text-danger">*</span></label>
+                        <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          Startup Founder Name<span className="text-danger">*</span>
+                          <InfoTooltip title="Full name of all the startup founders." />
+                        </label>
                         <label for="">(If more than one founder, please add coma seprated)</label>
                         <input
                           type="email"
@@ -156,7 +160,10 @@ class Dellistinicorn extends Component {
                         />
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Legal Name<span className="text-danger">*</span></label>
+                        <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          Company Legal Name<span className="text-danger">*</span>
+                          <InfoTooltip title="Registered legal name as per ROC or GST filings." />
+                        </label>
                         <input
                           type="text"
                           onWheel={() => document.activeElement.blur()}
@@ -168,7 +175,10 @@ class Dellistinicorn extends Component {
                         />
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Startup Founder Mobile Number<span className="text-danger">*</span></label>
+                        <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          Founder Contact Number<span className="text-danger">*</span>
+                          <InfoTooltip title="Contact mobile number of the founder." />
+                        </label>
                         <div style={{display:"flex",alignItems:"baseline"}}>
                           <CountrySelect
                             value={this.props.unicorn.tudStartupFounderMobileCountryCode}
@@ -191,7 +201,10 @@ class Dellistinicorn extends Component {
                         
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Startup Founder Email<span className="text-danger">*</span></label>
+                        <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          Startup Founder Email<span className="text-danger">*</span>
+                          <InfoTooltip title="Official founder email address." />
+                        </label>
                         <input
                           type="email"
                           onWheel={() => document.activeElement.blur()}
@@ -203,7 +216,10 @@ class Dellistinicorn extends Component {
                         />
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Founded<span className="text-danger">*</span></label>
+                        <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          Date of Incorporation<span className="text-danger">*</span>
+                          <InfoTooltip title="Date your startup was incorporated/When you started working on the Idea" />
+                        </label>
                         <input
                           type="date"
                           onWheel={() => document.activeElement.blur()}
@@ -215,7 +231,10 @@ class Dellistinicorn extends Component {
                         />
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Address<span className="text-danger">*</span></label>
+                        <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          Registered Address<span className="text-danger">*</span>
+                          <InfoTooltip title="Full address including city, state, and PIN code." />
+                        </label>
                         <input
                           type="text"
                           onWheel={() => document.activeElement.blur()}
@@ -227,7 +246,10 @@ class Dellistinicorn extends Component {
                         />
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Employees <span className="text-danger">*</span></label>
+                        <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          Team Size <span className="text-danger">*</span>
+                          <InfoTooltip title="Number of full-time team members." />
+                        </label>
                         <input
                           type="text"
                           onWheel={() => document.activeElement.blur()}
@@ -240,7 +262,10 @@ class Dellistinicorn extends Component {
                       </div>{" "}
                       
                       <div className="form-group">
-                        <label for="">Elevator Pitch / Introduction about your startup<span className="text-danger">*</span></label>
+                        <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          Elevator Pitch / Introduction about your startup<span className="text-danger">*</span>
+                          <InfoTooltip title="Summary of what you're offering and what you're looking for." />
+                        </label>
                         <textarea
                           cols="30"
                           rows="6"
@@ -263,7 +288,10 @@ class Dellistinicorn extends Component {
                         </div>
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Youtube Link</label>
+                        <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          Video Link (Optional)
+                          <InfoTooltip title="Product demo/Pitch Video or explainer video (if available)." />
+                        </label>
                         <label for="">(Leave the section blank if you don't have a video link to add)</label>
                         <input
                           type="text"
@@ -276,7 +304,10 @@ class Dellistinicorn extends Component {
                         />
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Category<span className="text-danger">*</span></label>
+                        <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          Startup Sector<span className="text-danger">*</span>
+                          <InfoTooltip title="Choose the Industry that best describes your startup's space." />
+                        </label>
                         <input
                           type="text"
                           onWheel={() => document.activeElement.blur()}
@@ -289,7 +320,10 @@ class Dellistinicorn extends Component {
                       </div>{" "}
                    
                       <div className="form-group">
-                        <label for="">Tag for your profile<span className="text-danger">*</span></label>
+                        <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          Visibility Tags<span className="text-danger">*</span>
+                          <InfoTooltip title="Select tags like 'Need Investment', 'Hiring', 'Looking for Partnerships'." />
+                        </label>
                         <div className="radio-options" style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                           <label style={{ display: "flex", alignItems: "flex-start", fontSize: "14px" }}>
                             <input
