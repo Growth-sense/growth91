@@ -965,7 +965,7 @@ class Startup extends CI_Controller {
 			
 			$allowedKeys = array(
 				"tudStartupName", "tudSocialInsta", "tudSocialFacebook", "tudSocialLinkedIn", 
-				"tudSocialYouTube", "tudSocialOthers", "founderID", 
+				"tudSocialYouTube", "tudSocialOthers", "founderID", "tudWebsite",
 				"tudDeclare"
 			);
 
@@ -1151,7 +1151,7 @@ class Startup extends CI_Controller {
 			
 			$allowedKeys = array(
 				"tudStartupName", "tudSocialInsta", "tudSocialFacebook", "tudSocialLinkedIn", 
-				"tudSocialYouTube", "tudSocialOthers", "founderID", 
+				"tudSocialYouTube", "tudSocialOthers", "founderID", "tudWebsite",
 				"tudDeclare"
 			);
 

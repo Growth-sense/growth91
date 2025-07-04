@@ -299,7 +299,6 @@ class FundRaiseRegistration extends Component {
                                 this.props.setMultiple({
                                   tpage9NA: "1",
                                   tudLeagalName: "",
-                                  tudWebsite: "",
                                   tudLegalCin: "",
                                   tudLegalPan: "",
                                   tudLegalCountry: "",
@@ -334,17 +333,6 @@ class FundRaiseRegistration extends Component {
                           id="selected-field"
                           disabled={this.props.unicorn.tpage9NA == "1"}
                           value={this.props.unicorn.tudLeagalName}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
-                          }
-                        ></textarea>
-                      </div>
-                      <div className="form-group">
-                        <label for="">Website </label>
-                        <textarea
-                          name="tudWebsite"
-                          disabled={this.props.unicorn.tpage9NA == "1"}
-                          value={this.props.unicorn.tudWebsite}
                           onChange={(e) =>
                             this.props.onInput(e.target.name, e.target.value)
                           }

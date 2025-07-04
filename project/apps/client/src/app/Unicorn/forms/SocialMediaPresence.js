@@ -242,6 +242,21 @@ class SocialMediaPresence extends Component {
                   <div className="row" style={{ maxWidth: 900, marginTop: 30 }}>
                     <div className="col-lg-12">
                       <div className="form-group">
+                        <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          Website<span className="text-danger">*</span>
+                          <InfoTooltip title="Your startup's official website URL." />
+                        </label>
+                        <Input
+                          type="url"
+                          name="tudWebsite"
+                          value={this.props.unicorn.tudWebsite}
+                          onChange={(e) =>
+                            this.props.onInput(e.target.name, e.target.value)
+                          }
+                          placeholder="https://yourwebsite.com"
+                        />
+                      </div>           
+                      <div className="form-group">
                         <div className="input-container">
                           <label htmlFor="tudSocialLinkedIn" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                             LinkedIn Page
