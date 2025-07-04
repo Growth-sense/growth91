@@ -143,6 +143,16 @@ class SupportingDocuments extends Component {
     })
   };
 
+  removeFile = (fieldName) => {
+    this.props.onInput(fieldName, "");
+    if (fieldName === "tudPitchDeck") {
+      this.setState({ pitchpdffile: "" });
+    } else if (fieldName === "tudProductDeck") {
+      this.setState({ productpdffile: "" });
+    }
+    message.success("File removed successfully");
+  };
+
   onChangeMultipleFile = async (e) => {
     const formData = new FormData();
     if (e.target.name == "tudPitchDeck") {
@@ -308,9 +318,19 @@ class SupportingDocuments extends Component {
                               Upload Pitch Deck<span className="text-danger">*</span>
                               <InfoTooltip title="Upload a concise 10MB pitch deck covering vision, business model, and traction." />
                             </label>
-                            <div className="mb-1">
-                              {this.props.unicorn.tudPitchDeck != "" && JSON.parse(this.props.unicorn.tudPitchDeck) != "" ? "File Uploaded" : ""}
-                            </div>
+                            {this.props.unicorn.tudPitchDeck != "" && JSON.parse(this.props.unicorn.tudPitchDeck) != "" ? (
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+                                <span style={{ color: 'green' }}>✓ File Uploaded</span>
+                                <Button 
+                                  type="primary" 
+                                  size="small" 
+                                  icon={<DeleteOutlined />}
+                                  onClick={() => this.removeFile("tudPitchDeck")}
+                                >
+                                  Remove File
+                                </Button>
+                              </div>
+                            ) : null}
 
                             <input
                               type="file"
@@ -329,9 +349,19 @@ class SupportingDocuments extends Component {
                               Upload Product Brochure
                               <InfoTooltip title="Optional: Share a product sheet, use-case guide, or tech whitepaper (Max 10MB)." />
                             </label>
-                            <div className="mb-1">
-                              {this.props.unicorn.tudProductDeck != null && this.props.unicorn.tudProductDeck != "" && JSON.parse(this.props.unicorn.tudProductDeck) != "" ? "File Uploaded" : ""}
-                            </div>
+                            {this.props.unicorn.tudProductDeck != null && this.props.unicorn.tudProductDeck != "" && JSON.parse(this.props.unicorn.tudProductDeck) != "" ? (
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+                                <span style={{ color: 'green' }}>✓ File Uploaded</span>
+                                <Button 
+                                  type="primary" 
+                                  size="small" 
+                                  icon={<DeleteOutlined />}
+                                  onClick={() => this.removeFile("tudProductDeck")}
+                                >
+                                  Remove File
+                                </Button>
+                              </div>
+                            ) : null}
 
                             <input
                               type="file"
@@ -348,15 +378,27 @@ class SupportingDocuments extends Component {
                           Upload Banner Image<span className="text-danger">*</span>
                           <InfoTooltip title="Horizontal image showcasing your brand. Size: 1080x450px preferred." />
                         </label>
-                        {
-                          this.props.unicorn.tudBannerImage != "" && JSON.parse(this.props.unicorn.tudBannerImage) != "" ? 
-                          <img style={{maxWidth:"100%"}} src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${JSON.parse(this.props.unicorn.tudBannerImage)}`} /> : null
-                        }
+                        {this.props.unicorn.tudBannerImage != "" && JSON.parse(this.props.unicorn.tudBannerImage) != "" ? (
+                          <div>
+                            <img style={{maxWidth:"100%", marginBottom: '10px'}} src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${JSON.parse(this.props.unicorn.tudBannerImage)}`} />
+                            <div style={{ marginBottom: '10px' }}>
+                              <Button 
+                                type="primary" 
+                                size="small" 
+                                icon={<DeleteOutlined />}
+                                onClick={() => this.removeFile("tudBannerImage")}
+                              >
+                                Remove File
+                              </Button>
+                            </div>
+                          </div>
+                        ) : null}
                         
                         <input
                           type="file"
                           onWheel={() => document.activeElement.blur()}
                           name="tudBannerImage"
+                          accept="image/*"
                           // value={this.props.unicorn.tudBannerImage||""}
                           onChange={(e) => this.onChangeMultipleFile(e)}
                         />
@@ -366,14 +408,26 @@ class SupportingDocuments extends Component {
                           Upload Logo<span className="text-danger">*</span>
                           <InfoTooltip title="High-quality startup logo (JPG or PNG)." />
                         </label>
-                        {
-                          this.props.unicorn.tudLogoImage != "" && JSON.parse(this.props.unicorn.tudLogoImage) != "" ? 
-                          <img style={{maxWidth:"100%"}} src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${JSON.parse(this.props.unicorn.tudLogoImage)}`} /> : null
-                        }
+                        {this.props.unicorn.tudLogoImage != "" && JSON.parse(this.props.unicorn.tudLogoImage) != "" ? (
+                          <div>
+                            <img style={{maxWidth:"100%", marginBottom: '10px'}} src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${JSON.parse(this.props.unicorn.tudLogoImage)}`} />
+                            <div style={{ marginBottom: '10px' }}>
+                              <Button 
+                                type="primary" 
+                                size="small" 
+                                icon={<DeleteOutlined />}
+                                onClick={() => this.removeFile("tudLogoImage")}
+                              >
+                                Remove File
+                              </Button>
+                            </div>
+                          </div>
+                        ) : null}
                         <input
                           type="file"
                           onWheel={() => document.activeElement.blur()}
                           name="tudLogoImage"
+                          accept="image/*"
                           // value={this.props.unicorn.tudLogoImage || ""}
                           onChange={(e) => this.onChangeMultipleFile(e)}
                         />
@@ -498,10 +552,21 @@ class SupportingDocuments extends Component {
                               Referred By (Logo)
                               <InfoTooltip title="Upload logo of the referring entity (mandatory if name provided)." />
                             </label>
-                            {
-                              this.props.unicorn.tudSponsorImage != "" && JSON.parse(this.props.unicorn.tudSponsorImage) != "" ?
-                                <img style={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${JSON.parse(this.props.unicorn.tudSponsorImage)}`} /> : null
-                            }
+                            {this.props.unicorn.tudSponsorImage != "" && JSON.parse(this.props.unicorn.tudSponsorImage) != "" ? (
+                              <div>
+                                <img style={{ maxWidth: "100%", marginBottom: '10px' }} src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${JSON.parse(this.props.unicorn.tudSponsorImage)}`} />
+                                <div style={{ marginBottom: '10px' }}>
+                                  <Button 
+                                    type="primary" 
+                                    size="small" 
+                                    icon={<DeleteOutlined />}
+                                    onClick={() => this.removeFile("tudSponsorImage")}
+                                  >
+                                    Remove File
+                                  </Button>
+                                </div>
+                              </div>
+                            ) : null}
                             <input
                               type="file"
                               onWheel={() => document.activeElement.blur()}
