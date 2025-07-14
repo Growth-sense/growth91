@@ -349,8 +349,8 @@ class Dellistinicorn extends Component {
                           style={{marginBottom : 35}}
                           name="tudCategory"
                           value={this.props.unicorn.tudCategory}
-                          onChange={(e) =>
-                            this.props.onInput(e.target.name, e.target.value)
+                          onChange={(value) =>
+                            this.props.onInput("tudCategory", value)
                           }
                           className="form-control"
                         >
