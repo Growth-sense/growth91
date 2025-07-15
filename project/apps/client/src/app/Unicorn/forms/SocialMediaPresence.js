@@ -243,7 +243,7 @@ class SocialMediaPresence extends Component {
                     <div className="col-lg-12">
                       <div className="form-group">
                         <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                          Website<span className="text-danger">*</span>
+                          Website
                           <InfoTooltip title="Your startup's official website URL." />
                         </label>
                         <Input

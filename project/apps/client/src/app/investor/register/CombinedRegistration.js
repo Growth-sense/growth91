@@ -6,14 +6,17 @@ import { TRACKING_ID } from "../../constants/data";
 import NewWebHeader from "../../common/NewWebHeader";
 import Step1 from "./Step1";
 import FounderRegistration from "../../Founder/FounderRegistration";
+import { withRouter } from "react-router-dom";
 
 ReactGA.initialize(TRACKING_ID);
 
 class CombinedRegistration extends Component {
   constructor(props) {
     super(props);
+    const urlParams = new URLSearchParams(props.location.search);
+    const userTypeParam = urlParams.get('usertype');
     this.state = {
-      userType: "investor",
+      userType: userTypeParam === "founder" ? "founder" : "investor",
     };
   }
 
@@ -85,4 +88,4 @@ class CombinedRegistration extends Component {
   }
 }
 
-export default CombinedRegistration;
+export default withRouter(CombinedRegistration);

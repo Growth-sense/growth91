@@ -245,6 +245,29 @@ export default class Sidebar extends Component {
               </li>
             </a>
           </ol>
+                  
+           <ol
+            className="submenu"
+            style={{
+              listStyle: "none",
+              paddingLeft: "20px",
+              maxHeight: this.state.isFutureUnicornOpen ? "100px" : "0",
+              overflow: "hidden",
+              transition: "max-height 0.5s ease-out", // Adjusting transition effect here
+            }}
+          >
+             <a
+            href="/assessment-form"
+            className={
+              window.location.pathname === "/assessment-form" ? "active" : ""
+            }
+          >
+              <li className="hiw-li">
+                <i className="bx bx-calendar-star" style={{ fontSize: 20 }}></i>{" "}
+                &nbsp;&nbsp;Assessment Form
+              </li>
+            </a>
+          </ol>
 
           <a
             href="/founderdash-documents"

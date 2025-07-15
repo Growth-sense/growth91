@@ -998,30 +998,23 @@ class Founderadmindashboard extends Component {
       return;
     }
 
-    const page3requiredFields = [
-      'tudWebsite'
-    ];
-
-    const isPage3FormInvalid = page3requiredFields.some(field => 
-      !this.state.unicorn[field] || this.state.unicorn[field].trim() === ''
-    );
-    
-    if (isPage3FormInvalid) {
-      this.activeform(2);
-      toast.error("Please fill Social Media Presence Section");
-      return;
-    }
-
     let mediaValidation = true;
-    let mediaData = JSON.parse(this.state.unicorn.tudMediaCoverageFiles);
-    if(mediaData.mediaData > 0){
-      mediaData.forEach(element => {
-        if(element.title != ""){
-          if(element.img == "" || element.content == "" || element.imgname == ""){
-            mediaValidation = false;
-          }
+    if (this.state.unicorn.tudMediaCoverageFiles && this.state.unicorn.tudMediaCoverageFiles !== "") {
+      try {
+        let mediaData = JSON.parse(this.state.unicorn.tudMediaCoverageFiles);
+        if (mediaData && mediaData.length > 0) {
+          mediaData.forEach(element => {
+            if(element.title != ""){
+              if(element.img == "" || element.content == "" || element.imgname == ""){
+                mediaValidation = false;
+              }
+            }
+          });
         }
-      });
+      } catch (e) {
+        // If JSON parsing fails, set validation to false
+        mediaValidation = false;
+      }
     }
 
     if(!mediaValidation){
@@ -1067,16 +1060,24 @@ class Founderadmindashboard extends Component {
 
     let teamValidation = true;
 
-    let teamData = JSON.parse(this.state.unicorn.tudVendorId);
-    if(teamData.length < 1){
-      teamValidation = false;
-    }
-
-    teamData.forEach((a) => {
-      if(a.name == "" || a.img == "" || a.description1 == "" || a.description2 == "" || a.imgname == "" || a.Role == "" || a.linkedinUrl == null || a.linkedinUrl == ""){
+    if (this.state.unicorn.tudVendorId && this.state.unicorn.tudVendorId !== "") {
+      try {
+        let teamData = JSON.parse(this.state.unicorn.tudVendorId);
+        if (!teamData || teamData.length < 1) {
+          teamValidation = false;
+        } else {
+          teamData.forEach((a) => {
+            if(a.name == "" || a.img == "" || a.description1 == "" || a.description2 == "" || a.imgname == "" || a.Role == "" || a.linkedinUrl == null || a.linkedinUrl == ""){
+              teamValidation = false;
+            }
+          });
+        }
+      } catch (e) {
         teamValidation = false;
       }
-    })
+    } else {
+      teamValidation = false;
+    }
 
     
 
