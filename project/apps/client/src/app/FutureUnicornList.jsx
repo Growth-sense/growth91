@@ -3,16 +3,26 @@ import { NewWebFooter } from "./common/NewWebFooter";
 import Slider from "react-slick";
 import NewWebHeader from "./common/NewWebHeader.jsx";
 import $ from "jquery";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Bridge from "./constants/Bridge.js";
 import { set } from "react-ga";
 import { Button, Modal, Input } from "antd";
 
 export const FutureUnicornList = () => {
+  const location = useLocation();
+  
   useEffect(() => {
     getuniondata();
     window.scrollTo(0, 0);
-  }, []);
+    
+    // Check for sponsor filter in URL
+    const urlParams = new URLSearchParams(location.search);
+    const sponsorFilter = urlParams.get('sponsorFilter');
+    if (sponsorFilter) {
+      setFilters(prev => ({ ...prev, sponsorName: sponsorFilter }));
+    }
+  }, [location.search]);
+  
   const [unicorn, setUnicorn] = useState();
   const [filterdata, setfilterdata] = useState();
   const [searchQuery, setSearchQuery] = useState("");
@@ -136,6 +146,7 @@ export const FutureUnicornList = () => {
     startupName: "",
     category: "",
     founder: "",
+    sponsorName: ""
   });
   function filterData(data, filters, searchQuery) {
     
@@ -404,17 +415,21 @@ export const FutureUnicornList = () => {
                         </ul>
                         {item.udTag && item.udTag !== "None" && (
                           <div style={{ marginTop: "8px" }}>
-                            <span style={{
-                              display: "inline-block",
-                              backgroundColor: "#e6f7ff",
-                              color: "#0066cc",
-                              padding: "3px 10px",
-                              borderRadius: "4px",
-                              fontSize: "12px",
-                              fontWeight: "500"
-                            }}>
-                              {item.udTag}
-                            </span>
+                            {item.udTag.split(",").map((tag, tagIndex) => (
+                              <span key={tagIndex} style={{
+                                display: "inline-block",
+                                backgroundColor: "#e6f7ff",
+                                color: "#0066cc",
+                                padding: "3px 10px",
+                                borderRadius: "4px",
+                                fontSize: "12px",
+                                fontWeight: "500",
+                                marginRight: "5px",
+                                marginBottom: "3px"
+                              }}>
+                                {tag.trim()}
+                              </span>
+                            ))}
                           </div>
                         )}
                         <p style={{

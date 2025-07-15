@@ -833,19 +833,24 @@ text-align: justify;
                           <div
                             style={{ marginTop: "8px", marginBottom: "8px" }}
                           >
-                            <span
-                              style={{
-                                display: "inline-block",
-                                backgroundColor: "#e6f7ff",
-                                color: "#0066cc",
-                                padding: "3px 10px",
-                                borderRadius: "4px",
-                                fontSize: "12px",
-                                fontWeight: "500",
-                              }}
-                            >
-                              {item.tudTag}
-                            </span>
+                            {item.tudTag.split(",").map((tag, tagIndex) => (
+                              <span
+                                key={tagIndex}
+                                style={{
+                                  display: "inline-block",
+                                  backgroundColor: "#e6f7ff",
+                                  color: "#0066cc",
+                                  padding: "3px 10px",
+                                  borderRadius: "4px",
+                                  fontSize: "12px",
+                                  fontWeight: "500",
+                                  marginRight: "5px",
+                                  marginBottom: "3px"
+                                }}
+                              >
+                                {tag.trim()}
+                              </span>
+                            ))}
                           </div>
                         )}
                         <div>

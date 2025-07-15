@@ -6,6 +6,7 @@ import { DownloadOutlined, DeleteOutlined } from "@ant-design/icons";
 import $ from "jquery";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
+import InfoTooltip from "./InfoTooltip";
 class SupportingDocuments extends Component {
   constructor(props) {
     super(props);
@@ -140,6 +141,16 @@ class SupportingDocuments extends Component {
     this.props.setMultiple({
       "tudStartupHighlights": JSON.stringify(newEntries)
     })
+  };
+
+  removeFile = (fieldName) => {
+    this.props.onInput(fieldName, "");
+    if (fieldName === "tudPitchDeck") {
+      this.setState({ pitchpdffile: "" });
+    } else if (fieldName === "tudProductDeck") {
+      this.setState({ productpdffile: "" });
+    }
+    message.success("File removed successfully");
   };
 
   onChangeMultipleFile = async (e) => {
@@ -303,13 +314,23 @@ class SupportingDocuments extends Component {
                       <Spin spinning={this.state.formloader}>
                         <div className="form-group ">
                           <div className="mt-4">
-                            <label className="mb-2">
-                              Select Pitch PDF (Max file size should be 10MB)<span className="text-danger">*</span>
-                             
+                            <label className="mb-2" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                              Upload Pitch Deck<span className="text-danger">*</span>
+                              <InfoTooltip title="Upload a concise 10MB pitch deck covering vision, business model, and traction." />
                             </label>
-                            <div className="mb-1">
-                              {this.props.unicorn.tudPitchDeck != "" && JSON.parse(this.props.unicorn.tudPitchDeck) != "" ? "File Uploaded" : ""}
-                            </div>
+                            {this.props.unicorn.tudPitchDeck != "" && JSON.parse(this.props.unicorn.tudPitchDeck) != "" ? (
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+                                <span style={{ color: 'green' }}>✓ File Uploaded</span>
+                                <Button 
+                                  type="primary" 
+                                  size="small" 
+                                  icon={<DeleteOutlined />}
+                                  onClick={() => this.removeFile("tudPitchDeck")}
+                                >
+                                  Remove File
+                                </Button>
+                              </div>
+                            ) : null}
 
                             <input
                               type="file"
@@ -324,13 +345,23 @@ class SupportingDocuments extends Component {
 
                         <div className="form-group ">
                           <div className="mt-4">
-                            <label className="mb-2">
-                              Select Product PDF (Max file size should be 10MB)
-                             
+                            <label className="mb-2" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                              Upload Product Brochure
+                              <InfoTooltip title="Optional: Share a product sheet, use-case guide, or tech whitepaper (Max 10MB)." />
                             </label>
-                            <div className="mb-1">
-                              {this.props.unicorn.tudProductDeck != null && this.props.unicorn.tudProductDeck != "" && JSON.parse(this.props.unicorn.tudProductDeck) != "" ? "File Uploaded" : ""}
-                            </div>
+                            {this.props.unicorn.tudProductDeck != null && this.props.unicorn.tudProductDeck != "" && JSON.parse(this.props.unicorn.tudProductDeck) != "" ? (
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+                                <span style={{ color: 'green' }}>✓ File Uploaded</span>
+                                <Button 
+                                  type="primary" 
+                                  size="small" 
+                                  icon={<DeleteOutlined />}
+                                  onClick={() => this.removeFile("tudProductDeck")}
+                                >
+                                  Remove File
+                                </Button>
+                              </div>
+                            ) : null}
 
                             <input
                               type="file"
@@ -343,30 +374,60 @@ class SupportingDocuments extends Component {
                         </div>
                       </Spin>
                       <div className="form-group">
-                        <label for="">Banner Image<span className="text-danger">*</span></label>
-                        {
-                          this.props.unicorn.tudBannerImage != "" && JSON.parse(this.props.unicorn.tudBannerImage) != "" ? 
-                          <img style={{maxWidth:"100%"}} src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${JSON.parse(this.props.unicorn.tudBannerImage)}`} /> : null
-                        }
+                        <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          Upload Banner Image<span className="text-danger">*</span>
+                          <InfoTooltip title="Horizontal image showcasing your brand. Size: 1080x450px preferred." />
+                        </label>
+                        {this.props.unicorn.tudBannerImage != "" && JSON.parse(this.props.unicorn.tudBannerImage) != "" ? (
+                          <div>
+                            <img style={{maxWidth:"100%", marginBottom: '10px'}} src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${JSON.parse(this.props.unicorn.tudBannerImage)}`} />
+                            <div style={{ marginBottom: '10px' }}>
+                              <Button 
+                                type="primary" 
+                                size="small" 
+                                icon={<DeleteOutlined />}
+                                onClick={() => this.removeFile("tudBannerImage")}
+                              >
+                                Remove File
+                              </Button>
+                            </div>
+                          </div>
+                        ) : null}
                         
                         <input
                           type="file"
                           onWheel={() => document.activeElement.blur()}
                           name="tudBannerImage"
+                          accept="image/*"
                           // value={this.props.unicorn.tudBannerImage||""}
                           onChange={(e) => this.onChangeMultipleFile(e)}
                         />
                       </div>{" "}
                       <div className="form-group">
-                        <label for="">Select Logo<span className="text-danger">*</span></label>
-                        {
-                          this.props.unicorn.tudLogoImage != "" && JSON.parse(this.props.unicorn.tudLogoImage) != "" ? 
-                          <img style={{maxWidth:"100%"}} src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${JSON.parse(this.props.unicorn.tudLogoImage)}`} /> : null
-                        }
+                        <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          Upload Logo<span className="text-danger">*</span>
+                          <InfoTooltip title="High-quality startup logo (JPG or PNG)." />
+                        </label>
+                        {this.props.unicorn.tudLogoImage != "" && JSON.parse(this.props.unicorn.tudLogoImage) != "" ? (
+                          <div>
+                            <img style={{maxWidth:"100%", marginBottom: '10px'}} src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${JSON.parse(this.props.unicorn.tudLogoImage)}`} />
+                            <div style={{ marginBottom: '10px' }}>
+                              <Button 
+                                type="primary" 
+                                size="small" 
+                                icon={<DeleteOutlined />}
+                                onClick={() => this.removeFile("tudLogoImage")}
+                              >
+                                Remove File
+                              </Button>
+                            </div>
+                          </div>
+                        ) : null}
                         <input
                           type="file"
                           onWheel={() => document.activeElement.blur()}
                           name="tudLogoImage"
+                          accept="image/*"
                           // value={this.props.unicorn.tudLogoImage || ""}
                           onChange={(e) => this.onChangeMultipleFile(e)}
                         />
@@ -374,10 +435,18 @@ class SupportingDocuments extends Component {
                       {this.state.startuphighlight.map((item, index) => {
                         return (
                           <div className="form-group">
-                            <label for="">
-                              {" "}
-                              Highlight {index + 1}
+                            <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                              {index === 0 && "Highlight #1: Revenue"}
+                              {index === 1 && "Highlight #2: Ops & Efficiency"}
+                              {index === 2 && "Highlight #3: Traction"}
+                              {index === 3 && "Highlight #4: Fundraising"}
                               <span className="text-danger">*</span>
+                              <InfoTooltip title={
+                                index === 0 ? "Key revenue growth, monetization, or repeat customer insights." :
+                                index === 1 ? "Process improvements, team efficiency, or tech upgrades." :
+                                index === 2 ? "Milestones like users, cities served, recognitions, or partnerships." :
+                                "Share prior funding, usage, and future fundraising plan."
+                              } />
                             </label>
                             <>
                             <textarea
@@ -403,12 +472,27 @@ class SupportingDocuments extends Component {
                       {/* <button onClick={this.addstartuphighlight}>
                         Add new highlight
                       </button> */}
+                      <div style={{ 
+                        backgroundColor: '#f0f8ff', 
+                        padding: '15px', 
+                        borderRadius: '5px', 
+                        marginBottom: '20px',
+                        border: '1px solid #d1ecf1',
+                        fontSize: '14px',
+                        color: '#0c5460'
+                      }}>
+                        <strong>Note:</strong> Please make sure not to leave this column empty, kindly add something related to traction, even if it's early-stage (like pilot users, waitlist signups, partnerships, or early interest).
+                      </div>
                       {this.state.marketoverview.map((item, index) => {
                         return (
                           <div className="form-group">
-                            <label for="">
-                              {" "}
-                              Market Overview of the product {index + 1}<span className="text-danger">*</span>
+                            <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                              Market Insight {index + 1}<span className="text-danger">*</span>
+                              <InfoTooltip title={
+                                index === 0 ? "Define the gap/problem your product is solving. (Max 750 characters)" :
+                                index === 1 ? "Add supporting industry insight or demand data." :
+                                "Add trends, whitespace, or unique value angle."
+                              } />
                             </label>
                             <textarea
                               id="selected-field"
@@ -430,12 +514,23 @@ class SupportingDocuments extends Component {
                           </div>
                         );
                       })}
-
+                      <div style={{ 
+                        backgroundColor: '#f0f8ff', 
+                        padding: '15px', 
+                        borderRadius: '5px', 
+                        marginBottom: '20px',
+                        border: '1px solid #d1ecf1',
+                        fontSize: '14px',
+                        color: '#0c5460'
+                      }}>
+                        <strong>Note:</strong> Please don't leave this section empty, make sure to include TAM, SAM, and SOM wherever possible.
+                      </div>
 
                       <div className="form-group ">
                           <div className="mt-4">
-                            <label className="mb-2">
-                              Name of the Sponsor / Incubator
+                            <label className="mb-2" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                              Referred By (Name of Incubator/entity/Individual)
+                              <InfoTooltip title="If referred, mention mentor/VC/incubator name." />
                             </label>
                             <div style={{ fontSize: "12px", color: "#666", marginTop: "5px", marginBottom: "10px" }}>
                               Note: If you provide a sponsor name or image, both fields become mandatory.
@@ -453,13 +548,25 @@ class SupportingDocuments extends Component {
                             <div className="character-count" style={{marginBottom: "20px"}}>
                               {`${this.props.unicorn.tudSponsorName.length}/100 characters`}
                             </div>
-                            <label className="mb-2">
-                              Logo of the Sponsor / Incubator
+                            <label className="mb-2" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                              Referred By (Logo)
+                              <InfoTooltip title="Upload logo of the referring entity (mandatory if name provided)." />
                             </label>
-                            {
-                              this.props.unicorn.tudSponsorImage != "" && JSON.parse(this.props.unicorn.tudSponsorImage) != "" ?
-                                <img style={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${JSON.parse(this.props.unicorn.tudSponsorImage)}`} /> : null
-                            }
+                            {this.props.unicorn.tudSponsorImage != "" && JSON.parse(this.props.unicorn.tudSponsorImage) != "" ? (
+                              <div>
+                                <img style={{ maxWidth: "100%", marginBottom: '10px' }} src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${JSON.parse(this.props.unicorn.tudSponsorImage)}`} />
+                                <div style={{ marginBottom: '10px' }}>
+                                  <Button 
+                                    type="primary" 
+                                    size="small" 
+                                    icon={<DeleteOutlined />}
+                                    onClick={() => this.removeFile("tudSponsorImage")}
+                                  >
+                                    Remove File
+                                  </Button>
+                                </div>
+                              </div>
+                            ) : null}
                             <input
                               type="file"
                               onWheel={() => document.activeElement.blur()}

@@ -965,7 +965,7 @@ class Startup extends CI_Controller {
 			
 			$allowedKeys = array(
 				"tudStartupName", "tudSocialInsta", "tudSocialFacebook", "tudSocialLinkedIn", 
-				"tudSocialYouTube", "tudSocialOthers", "founderID", 
+				"tudSocialYouTube", "tudSocialOthers", "founderID", "tudWebsite",
 				"tudDeclare"
 			);
 
@@ -1151,7 +1151,7 @@ class Startup extends CI_Controller {
 			
 			$allowedKeys = array(
 				"tudStartupName", "tudSocialInsta", "tudSocialFacebook", "tudSocialLinkedIn", 
-				"tudSocialYouTube", "tudSocialOthers", "founderID", 
+				"tudSocialYouTube", "tudSocialOthers", "founderID", "tudWebsite",
 				"tudDeclare"
 			);
 
@@ -1797,16 +1797,23 @@ class Startup extends CI_Controller {
 			// POst data for table 1
 			extract($formdata);
 			$unicornDealID =$formdata['unicornDealID'];
-			$udPublished=$formdata['udPublished'];
+			$udCategory=$formdata['udCategory'];
 			$post_data=[
 				'udPublished'=>$formdata['udPublished'],
-				
 			];
 			$this->db->where('unicornDealID', $unicornDealID);
 			$id = $this->db->update('unicorndeals', $post_data);
+			
+			// Also update unicorndeals2 table
+			$post_data2 = [];
+			if(!empty($udCategory)) {
+				$post_data2['udCategory'] = $udCategory;
+				$this->db->where('unicornDealID', $unicornDealID);
+				$this->db->update('unicorndeals2', $post_data2);
+			}
 			$response = [
 				'status' => '1',
-				'message' => 'Deal '.$udPublished.' successfully.',
+				'message' => 'Unicorn updated successfully.',
 				'id' => $id,
 			];
 		} else {

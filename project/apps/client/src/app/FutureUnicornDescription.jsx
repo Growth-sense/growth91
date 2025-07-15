@@ -3,7 +3,7 @@ import { NewWebFooter } from "./common/NewWebFooter";
 import NewWebHeader from "./common/NewWebHeader.jsx";
 import $ from "jquery";
 import Bridge from "./constants/Bridge.js";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { Modal, message as mess } from "antd";
 import SinglePagePDFViewer from "./components/PdfViewer/single-page";
@@ -31,6 +31,12 @@ export const FutureUnicornDescription = (props) => {
 
   const search = useLocation().search;
   const id = props.id || new URLSearchParams(search).get("id");
+  const history = useHistory();
+
+  const handleSponsorClick = (sponsorName) => {
+    // Navigate to FutureUnicornList with sponsor filter
+    history.push(`/FutureUnicornList?sponsorFilter=${encodeURIComponent(sponsorName)}`);
+  };
   useEffect(() => {
     getuniondata();
     window.scrollTo(0, 0);
@@ -803,19 +809,24 @@ text-align: justify;
                             <div
                               style={{ marginTop: "8px", marginBottom: "8px" }}
                             >
-                              <span
-                                style={{
-                                  display: "inline-block",
-                                  backgroundColor: "#e6f7ff",
-                                  color: "#0066cc",
-                                  padding: "3px 10px",
-                                  borderRadius: "4px",
-                                  fontSize: "12px",
-                                  fontWeight: "500",
-                                }}
-                              >
-                                {item.udTag}
-                              </span>
+                              {item.udTag.split(",").map((tag, tagIndex) => (
+                                <span
+                                  key={tagIndex}
+                                  style={{
+                                    display: "inline-block",
+                                    backgroundColor: "#e6f7ff",
+                                    color: "#0066cc",
+                                    padding: "3px 10px",
+                                    borderRadius: "4px",
+                                    fontSize: "12px",
+                                    fontWeight: "500",
+                                    marginRight: "5px",
+                                    marginBottom: "3px"
+                                  }}
+                                >
+                                  {tag.trim()}
+                                </span>
+                              ))}
                             </div>
                           )}
                           <div>
@@ -845,7 +856,9 @@ text-align: justify;
                               style={{
                                 textAlign: "center",
                                 marginLeft: "20px",
+                                cursor: "pointer"
                               }}
+                              onClick={() => handleSponsorClick(item.udSponsorName)}
                             >
                               {item.udSponsorImage && (
                                 <img
@@ -859,8 +872,11 @@ text-align: justify;
                                     maxWidth: "120px",
                                     maxHeight: "60px",
                                     marginBottom: "5px",
-                                    objectFit: "fill"
+                                    objectFit: "fill",
+                                    transition: "opacity 0.3s ease"
                                   }}
+                                  onMouseEnter={(e) => e.target.style.opacity = "0.8"}
+                                  onMouseLeave={(e) => e.target.style.opacity = "1"}
                                 />
                               )}
                               <p
@@ -873,7 +889,12 @@ text-align: justify;
                                 Incubated / Supported By
                               </p>
                               <p
-                                style={{ fontSize: "14px", fontWeight: "500" }}
+                                style={{ 
+                                  fontSize: "14px", 
+                                  fontWeight: "500",
+                                  color: "#191964",
+                                  textDecoration: "underline"
+                                }}
                               >
                                 {item.udSponsorName}
                               </p>

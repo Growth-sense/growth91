@@ -998,6 +998,20 @@ class Founderadmindashboard extends Component {
       return;
     }
 
+    const page3requiredFields = [
+      'tudWebsite'
+    ];
+
+    const isPage3FormInvalid = page3requiredFields.some(field => 
+      !this.state.unicorn[field] || this.state.unicorn[field].trim() === ''
+    );
+    
+    if (isPage3FormInvalid) {
+      this.activeform(2);
+      toast.error("Please fill Social Media Presence Section");
+      return;
+    }
+
     let mediaValidation = true;
     let mediaData = JSON.parse(this.state.unicorn.tudMediaCoverageFiles);
     if(mediaData.mediaData > 0){
