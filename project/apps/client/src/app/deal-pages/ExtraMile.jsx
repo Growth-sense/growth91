@@ -120,7 +120,7 @@ const staticDealData = {
 
   addressOfCompany: 
     `
-    712 BAJAJ NIVAS LINKING ROAD KHAR WEST MUMBAI 400052
+    712 Bajaj Nivas, Linking road, Khar, West Mumbai - 400052
     `,
 
   highlight1Image: "./assets/images/deals-details/Petmojo/highlight4.jpg",
