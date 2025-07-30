@@ -242,6 +242,7 @@ import Garudaaerospace from "./app/deal-pages/Garudaaerospace.jsx";
 import CombinedRegistration from "./app/investor/register/CombinedRegistration.js";
 import UnicornAdminAll from "./app/admin/UnicornAdminAll.jsx";
 import UnicornAdminPayment from "./app/admin/UnicornAdminPayment.jsx";
+import ExtraMile from "./app/deal-pages/ExtraMile.jsx";
 
 ReactGA.initialize(TRACKING_ID);
 
@@ -664,6 +665,9 @@ function App() {
           </Route>
           <Route path="/theEleFant" exact>
             <ProtectDeals Component={EleFant2} />
+          </Route>
+          <Route path="/extramile" exact>
+            <ProtectDeals Component={ExtraMile} />
           </Route>
           <Route path="/garudaaerospace" exact>
             <ProtectDeals Component={Garudaaerospace} />

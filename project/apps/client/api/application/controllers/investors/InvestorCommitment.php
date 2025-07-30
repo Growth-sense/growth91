@@ -4,13 +4,14 @@ defined("BASEPATH") OR exit("No direct script access allowed");
 
 class InvestorCommitment extends CI_Controller
 {
+	// private $formatter; 
 
 	public function __construct()
     {
         parent::__construct();
+		// $this->formatter = new NumberFormatter('en_IN', NumberFormatter::DECIMAL);
     }
-
-	private function formatIndianCurrency($number, $decimals = 0) {
+	function formatIndianCurrency($number, $decimals = 0) {
 		// Round the number to specified decimals
 		$number = round($number, $decimals);
 		
@@ -55,9 +56,9 @@ class InvestorCommitment extends CI_Controller
 
 	public function save_investor_interest_deal()
 	{
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -99,9 +100,9 @@ class InvestorCommitment extends CI_Controller
 
 	public function save_investor_commitment()
 	{
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -344,6 +345,7 @@ class InvestorCommitment extends CI_Controller
 															time of commitment (GST if any, shall be added at applicable rates).</small>"
 															)
 															.'
+
 					                                      <br>
 					                                      <br>
 					                                    </br>
@@ -693,9 +695,9 @@ class InvestorCommitment extends CI_Controller
 
 	public function display_investor_commitment()
 	{
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -757,9 +759,9 @@ class InvestorCommitment extends CI_Controller
 
 	public function get_investor_investment_for_deal()
 	{
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
+		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -800,5 +802,131 @@ class InvestorCommitment extends CI_Controller
 		$this->output
 		->set_content_type('application/json')
 		->set_output(json_encode($response));
+	}
+
+	public function add_aif_investment()
+	{
+		// header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		// header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		$deal_id = $formdata["deal_id"];
+		$investor_id = $formdata["investor_id"];
+		$aif_amount = $formdata["aif_amount"];
+
+		if(empty($deal_id) || empty($investor_id) || empty($aif_amount))
+		{
+			$response = [
+				'status' => '0',
+				'message' => 'Deal ID, Investor ID and AIF Amount are required'
+			];
+		}
+		else
+		{
+			// Get investor details
+			$investor_details = $this -> db -> where("investor_id", $investor_id) -> get("users") -> result_array();
+			
+			// Get deal details
+			$deal_details = $this -> db -> where("deal_id", $deal_id) -> get("deals") -> result_array();
+		
+			// Load email helper
+			$this->load->helper('send_email');
+
+			// Prepare email content
+			$investor_name = $investor_details[0]["first_name"] . " " . $investor_details[0]["last_name"];
+			$investor_email = $investor_details[0]["email"];
+			$investor_mobile = isset($investor_details[0]["mobile"]) ? $investor_details[0]["mobile"] : "N/A";
+			$deal_name = $deal_details[0]["deal_name"];
+			$formatted_amount = $this->formatIndianCurrency($aif_amount);
+			$investment_date = date("d/m/Y H:i:s");
+
+			$body = '<!doctype html>
+			<html>
+				<head>
+					<meta name="viewport" content="width=device-width, initial-scale=1.0">
+					<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+					<title>AIF Investment Request</title>
+					<style>
+						body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+						.container { max-width: 600px; margin: 0 auto; padding: 20px; }
+						.header { background-color: #f8f9fa; padding: 20px; text-align: center; }
+						.content { padding: 20px; background-color: #ffffff; }
+						.footer { background-color: #f8f9fa; padding: 15px; text-align: center; font-size: 12px; color: #666; }
+						.info-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+						.info-table th, .info-table td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+						.info-table th { background-color: #f8f9fa; font-weight: bold; }
+						.logo { width: 120px; height: auto; }
+					</style>
+				</head>
+				<body>
+					<div class="container">
+						<div class="header">
+							<img src="https://growth91.com/web/growth91LOGO%20(4).png" alt="Growth91 Logo" class="logo">
+							<h2>AIF Investment Request</h2>
+						</div>
+						
+						<div class="content">
+							<p>Dear Growth91 Team,</p>
+							
+							<p>A new AIF (Alternative Investment Fund) investment request has been submitted. Please find the details below:</p>
+							
+							<table class="info-table">
+								<tr>
+									<th>Deal ID</th>
+									<td>' . $deal_id . '</td>
+								</tr>
+								<tr>
+									<th>Deal Name</th>
+									<td>' . $deal_name . '</td>
+								</tr>
+								<tr>
+									<th>Investor Name</th>
+									<td>' . $investor_name . '</td>
+								</tr>
+								<tr>
+									<th>Investor Email</th>
+									<td>' . $investor_email . '</td>
+								</tr>
+								<tr>
+									<th>Investor Mobile</th>
+									<td>' . $investor_mobile . '</td>
+								</tr>
+								<tr>
+									<th>AIF Investment Amount</th>
+									<td>₹ ' . $formatted_amount . '</td>
+								</tr>
+								<tr>
+									<th>Date of Investment Request</th>
+									<td>' . $investment_date . '</td>
+								</tr>
+							</table>
+							
+						</div>
+					</div>
+				</body>
+			</html>';
+
+			$subject = "New AIF Investment Request - " . $deal_name . " - ₹" . $formatted_amount;
+			$to_email = "contact@growth91.com";
+			
+			// Send email
+			send_email($body, $subject, $to_email, '');
+			$response = [
+				'status' => '1',
+				'message' => 'AIF investment request submitted successfully. You will receive an email confirmation.',
+				'data' => [
+					'deal_name' => $deal_name,
+					'amount' => $formatted_amount
+				]
+			];	
+		}
+
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
 	}
 }

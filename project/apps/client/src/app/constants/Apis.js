@@ -8,6 +8,7 @@ const URLs = {
   commentlist: "Blog/commentlist",
   getstatusdata: "Users/getstatusdata",
   invest: "Investor/invest",
+  addAIF: "investors/InvestorCommitment/add_aif_investment",
   getinvestmentdetails: "Investor/getinvestmentdetails",
   get_premium_members: "admin/Investors/premium_members",
   get_invited_user_list: "Authenticate/get_invited_user_list",

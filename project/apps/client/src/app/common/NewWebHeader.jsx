@@ -854,14 +854,17 @@ class NewWebHeader extends Component {
                       className="mobilenew-menus"
                       style={{ display: isActive ? "block" : "block" }}
                     >
-                      <ul
-                        className={`desktop-menu col-xl col-xxl col-sm col-md col-lg ${isActive ? "menumobile-opens" : ""
-                          }`}
-                        style={{
-                          position: "relative",
-                          justifyContent: "center",
-                        }}
-                      >
+                        <ul
+                          className={`desktop-menu col-xl col-xxl col-sm col-md col-lg ${isActive ? "menumobile-opens" : ""
+                            }`}
+                          style={{
+                            position: "relative",
+                            justifyContent: "center",
+                            flexWrap: "nowrap",
+                            overflow: "hidden",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
                         <li>
                           <Link
                             to="/"

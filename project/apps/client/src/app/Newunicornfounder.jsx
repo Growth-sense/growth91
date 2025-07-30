@@ -38,13 +38,12 @@ const Newunicornfounder = () => {
                         background-image: url('background-image.jpg'); /* Add the background image here */
                         background-size: cover;
                         background-position: center;
-                            background-color: #100050;
+                        background-color: #100050;
                     }
                     .hero h1 {
                         font-size: 4em;
                         margin-bottom: 20px;
                         color: white !important;
-
                     }
                     .hero p {
                         font-size: 1.5em;
@@ -55,6 +54,7 @@ const Newunicornfounder = () => {
                         display: flex;
                         justify-content: center;
                         gap: 20px;
+                        flex-wrap: wrap;
                     }
                     .buttons a {
                         text-decoration: none;
@@ -67,6 +67,48 @@ const Newunicornfounder = () => {
                     }
                     .buttons a:hover {
                         background-color: #574bda;
+                    }
+
+                    /* Mobile responsiveness for hero section */
+                    @media (max-width: 768px) {
+                        .hero {
+                            height: auto;
+                            min-height: 100vh;
+                            padding: 20px;
+                        }
+                        .hero h1 {
+                            font-size: 2.5em;
+                            margin-bottom: 15px;
+                        }
+                        .hero p {
+                            font-size: 1.2em;
+                            margin-bottom: 25px;
+                        }
+                        .buttons {
+                            flex-direction: column;
+                            align-items: center;
+                            gap: 15px;
+                        }
+                        .buttons a {
+                            width: 100%;
+                            max-width: 250px;
+                            text-align: center;
+                            font-size: 1.1em;
+                            padding: 12px 25px;
+                        }
+                    }
+
+                    @media (max-width: 480px) {
+                        .hero h1 {
+                            font-size: 2em;
+                        }
+                        .hero p {
+                            font-size: 1.1em;
+                        }
+                        .buttons a {
+                            font-size: 1em;
+                            padding: 10px 20px;
+                        }
                     }
 
                     /* Why to list section */
@@ -84,12 +126,16 @@ const Newunicornfounder = () => {
                         display: flex;
                         justify-content: center;
                         gap: 30px;
+                        flex-wrap: wrap;
                     }
                     .feature-box {
                         background-color: #f5f5f5;
                         padding: 20px;
                         border-radius: 10px;
                         width: 400px;
+                        max-width: 100%;
+                        flex: 1;
+                        min-width: 280px;
                     }
                     .feature-box h3 {
                         font-size: 1.5em;
@@ -101,6 +147,32 @@ const Newunicornfounder = () => {
                         color: #666;
                     }
 
+                    /* Mobile responsiveness for Why to list */
+                    @media (max-width: 768px) {
+                        .why-to-list {
+                            padding: 30px 15px;
+                        }
+                        .why-to-list h2 {
+                            font-size: 2em;
+                            margin-bottom: 30px;
+                        }
+                        .features {
+                            flex-direction: column;
+                            gap: 20px;
+                            align-items: center;
+                        }
+                        .feature-box {
+                            width: 100%;
+                            max-width: 350px;
+                        }
+                        .feature-box h3 {
+                            font-size: 1.3em;
+                        }
+                        .feature-box p {
+                            font-size: 1.1em;
+                        }
+                    }
+
                     /* Key Features Section */
                     .key-features {
                         padding: 50px 20px;
@@ -108,9 +180,9 @@ const Newunicornfounder = () => {
                         color: black;
                         text-align: left;
                         display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
                     }
                     .key-features h2 {
                         font-size: 2.5em;
@@ -118,16 +190,17 @@ const Newunicornfounder = () => {
                         margin-bottom: 40px;
                         color: #333;
                     }
-                      .features-list {
-                    
+                    .features-list {
                         display: grid;
                         grid-template-columns: repeat(2, 1fr);
                         grid-gap: 30px;
-                        margin : 20px 90px;
+                        margin: 20px 90px;
+                        max-width: 1200px;
+                        width: 100%;
                     }
                     .feature-item {
                         display: flex;
-                        // align-items: center;
+                        align-items: flex-start;
                     }
                     .feature-item-number {
                         width: 30px;
@@ -140,9 +213,11 @@ const Newunicornfounder = () => {
                         font-size: 1.5em;
                         margin-right: 20px;
                         color: #333;
+                        flex-shrink: 0;
                     }
                     .feature-description {
                         max-width: 700px;
+                        flex: 1;
                     }
                     .feature-description h3 {
                         font-size: 1.5em;
@@ -152,6 +227,56 @@ const Newunicornfounder = () => {
                     .feature-description p {
                         font-size: 1.3em;
                         color: #666;
+                    }
+
+                    /* Mobile responsiveness for Key Features */
+                    @media (max-width: 768px) {
+                        .key-features {
+                            padding: 30px 15px;
+                        }
+                        .key-features h2 {
+                            font-size: 2em;
+                            margin-bottom: 30px;
+                        }
+                        .features-list {
+                            grid-template-columns: 1fr;
+                            grid-gap: 20px;
+                            margin: 10px 0;
+                        }
+                        .feature-item {
+                            align-items: flex-start;
+                        }
+                        .feature-item-number {
+                            width: 25px;
+                            height: 25px;
+                            font-size: 1.2em;
+                            margin-right: 15px;
+                        }
+                        .feature-description h3 {
+                            font-size: 1.3em;
+                            margin-bottom: 8px;
+                        }
+                        .feature-description p {
+                            font-size: 1.1em;
+                        }
+                    }
+
+                    @media (max-width: 480px) {
+                        .features-list {
+                            margin: 0;
+                        }
+                        .feature-item-number {
+                            width: 22px;
+                            height: 22px;
+                            font-size: 1em;
+                            margin-right: 12px;
+                        }
+                        .feature-description h3 {
+                            font-size: 1.2em;
+                        }
+                        .feature-description p {
+                            font-size: 1em;
+                        }
                     }
                         .investor-benifit{
                         background : #ffffff;
@@ -179,6 +304,7 @@ const Newunicornfounder = () => {
     display: flex;
     justify-content: center;
     gap: 30px;
+    flex-wrap: wrap;
 }
 
 .founder-benefit .feature-box {
@@ -186,18 +312,46 @@ const Newunicornfounder = () => {
     padding: 20px;
     border-radius: 10px;
     width: 400px;
+    max-width: 100%;
+    flex: 1;
+    min-width: 280px;
 }
 
 .founder-benefit .feature-box h3 {
     font-size: 1.5em;
     margin-bottom: 10px;
-                        color: ##100050 !important;
-
+    color: #100050 !important;
 }
 
 .founder-benefit .feature-box p {
     font-size: 1.3em;
     color: #666;
+}
+
+/* Mobile responsiveness for Benefits for Founders */
+@media (max-width: 768px) {
+    .founder-benefit {
+        padding: 30px 15px;
+    }
+    .founder-benefit h2 {
+        font-size: 2em;
+        margin-bottom: 30px;
+    }
+    .founder-benefit .features {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+    .founder-benefit .feature-box {
+        width: 100%;
+        max-width: 350px;
+    }
+    .founder-benefit .feature-box h3 {
+        font-size: 1.3em;
+    }
+    .founder-benefit .feature-box p {
+        font-size: 1.1em;
+    }
 }
 
                 `}

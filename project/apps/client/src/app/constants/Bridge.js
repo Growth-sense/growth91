@@ -183,6 +183,10 @@ export default {
   },
 
   deal: {
+    addAIF: (data) =>
+      api.post(URLs.addAIF, data).then((response) => {
+        return response.data;
+      }),
     list: () =>
       api.get(URLs.admindeallist).then((response) => {
         return response.data;
