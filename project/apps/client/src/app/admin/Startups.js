@@ -698,6 +698,13 @@ class Startups extends Component {
                 value={this.state.selectedfounder}
                 onChange={(value) => this.selectFounder(value)}
                 mode="multiple"
+                showSearch
+                placeholder="Search and select founders"
+                filterOption={(input, option) => {
+                  const text = typeof option.children === 'string' ? option.children : option.children.join('');
+                  console.log(text);
+                  return text.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+                }}
               >
                 {this.state.founderlist &&
                   this.state.founderlist.map((item, index) => {

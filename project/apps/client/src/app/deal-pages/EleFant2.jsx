@@ -30,35 +30,36 @@ const staticDealData = {
   title: "The EleFant Round 2 - Growth91 - Startup Marketplace ",
   dealId: "43",
   imageList: [
-    "./assets/images/deals-details/new_theEleFant/Pitch/1.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/2.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/3.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/4.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/5.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/6.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/7.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/8.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/9.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/10.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/11.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/12.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/13.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/14.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/15.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/16.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/17.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/18.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/19.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/20.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/21.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/22.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/23.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/24.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/25.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/26.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/27.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/28.jpg",
-    "./assets/images/deals-details/new_theEleFant/Pitch/29.jpg"
+    "./assets/images/deals-details/new_theEleFant/new_pitch/1.jpg",
+    "./assets/images/deals-details/new_theEleFant/new_pitch/2.jpg",
+    "./assets/images/deals-details/new_theEleFant/new_pitch/3.jpg",
+    "./assets/images/deals-details/new_theEleFant/new_pitch/4.jpg",
+    "./assets/images/deals-details/new_theEleFant/new_pitch/5.jpg",
+    "./assets/images/deals-details/new_theEleFant/new_pitch/6.jpg",
+    "./assets/images/deals-details/new_theEleFant/new_pitch/7.jpg",
+    "./assets/images/deals-details/new_theEleFant/new_pitch/8.jpg",
+    "./assets/images/deals-details/new_theEleFant/new_pitch/9.jpg",
+    "./assets/images/deals-details/new_theEleFant/new_pitch/10.jpg",
+    "./assets/images/deals-details/new_theEleFant/new_pitch/11.jpg",
+    "./assets/images/deals-details/new_theEleFant/new_pitch/12.jpg",
+    "./assets/images/deals-details/new_theEleFant/new_pitch/13.jpg",
+    "./assets/images/deals-details/new_theEleFant/new_pitch/14.jpg",
+    "./assets/images/deals-details/new_theEleFant/new_pitch/15.jpg",
+    "./assets/images/deals-details/new_theEleFant/new_pitch/16.jpg",
+    "./assets/images/deals-details/new_theEleFant/new_pitch/17.jpg",
+    "./assets/images/deals-details/new_theEleFant/new_pitch/18.jpg",
+    "./assets/images/deals-details/new_theEleFant/new_pitch/19.jpg",
+    "./assets/images/deals-details/new_theEleFant/new_pitch/20.jpg",
+    "./assets/images/deals-details/new_theEleFant/new_pitch/21.jpg",
+    "./assets/images/deals-details/new_theEleFant/new_pitch/22.jpg",
+    "./assets/images/deals-details/new_theEleFant/new_pitch/23.jpg",
+    "./assets/images/deals-details/new_theEleFant/new_pitch/24.jpg",
+    "./assets/images/deals-details/new_theEleFant/new_pitch/25.jpg",
+    "./assets/images/deals-details/new_theEleFant/new_pitch/26.jpg",
+    "./assets/images/deals-details/new_theEleFant/new_pitch/27.jpg",
+    "./assets/images/deals-details/new_theEleFant/new_pitch/28.jpg",
+    "./assets/images/deals-details/new_theEleFant/new_pitch/29.jpg",
+    "./assets/images/deals-details/new_theEleFant/new_pitch/30.jpg",
   ],
   logoImage: "./assets/images/deals-details/new_theEleFant/logo.png",
   dealTitle: "The Elefant Round 2",
@@ -69,7 +70,7 @@ const staticDealData = {
   legalName: "Madshades Technologies Private Ltd",
   foundedDate: "2022-08-19",
   status: "Private Limited Company",
-  employees: "48",
+  employees: "42",
   websiteHref: "https://www.theelefant.com",
   websiteName: "www.theelefant.com",
   facebookUrl: "https://www.facebook.com/theelefantofficial",
@@ -244,19 +245,19 @@ const staticDealData = {
 
   highlight1Text:
     `
-    The EleFant is India’s first mobile-based go to toy library subscription platform,Since launch, The EleFant has achieved 42,000+ registered users and 3,100+ paid subscribers, generating a ₹1.05 Cr monthly revenue run rate. With a presence in 85+ centres, 95+ partnerships, and physical stores in Mumbai & Noida, the platform is rapidly becoming India’s go-to toy rental solution. 
+    The EleFant is India’s #1 toy subscription platform, offering a sustainable, clutter-free, and cost-effective way for families to access high-quality toys. With a mobile-based experience and a circular economy-led model, the company has onboarded over 1.2 lakh registered users across 18+ cities, with physical hubs in Mumbai and Noida.
     `,
   highlight2Text:
     `
-    The EleFant is implementing a Hub & Spoke Supply Chain Model to optimize logistics and efficiently serve its expanding user base. It is also focusing on scaling B2B, B2B2C, and referral-based revenue models.
+    The platform currently generates over ₹1.23 Cr. in monthly revenue and has been EBITDA positive since February 2025, demonstrating strong unit economics and operational discipline. With a robust Hub & Spoke supply chain, The EleFant ensures efficient toy delivery, returns, and inventory management through its 85+ librarian network and 95+ partnerships.
     `,
   highlight3Text:
     `
-    The EleFant is focused on strong growth, aiming to reach approximately 27K users by 2025, 71k by 2026, and 1.3 lakh by 2027. Over the next 12 months, it projects an MRR of over ₹3 Cr and an ARR of ₹33 Cr. The roadmap includes expanding to 20+ new cities, reaching 25,000+ paid users, and achieving ₹2.65 Cr MRR by Dec 2025.
+    The company raised ₹5.5 Cr in April 2024 at a ₹26 Cr valuation, and is now raising ₹8 Cr to fuel its next phase of growth. The new capital will help expand operations to 20+ additional cities, onboard 25,000+ paid subscribers, and hit a ₹2.65 Cr monthly revenue run rate by December 2025.
     `,
   highlight4Text:
     `
-    Having raised ₹5.5 Cr in Seed Funding (Apr 2024) at a ₹26 Cr valuation, The EleFant is now seeking ₹8 Cr to scale operations.  With a strong foundation and strategic growth plans, The EleFant is set to reshape playtime in India with toys.
+    The EleFant is led by Sourabh Jain, a seasoned entrepreneur and a qualified CA and CS, with prior experience at EY and Chai Point. Backed by a strong leadership team with deep expertise in operations, finance, education, and technology, Sourabh brings a sharp execution mindset and a long-term vision for building a category-defining consumer brand. Under his leadership, The EleFant has not only achieved profitability but also built a scalable and impact-driven business poised for rapid expansion.
     `,
 
 
@@ -325,10 +326,10 @@ const staticDealData = {
     and impactful solution.
     `,
     `
-    The EleFant’s Franchise and Librarian Model enables 
+    The EleFant's Franchise and Librarian Model enables 
     rapid expansion and community-driven growth. 
     Through franchises, partners can establish toy libraries 
-    with EleFant’s brand, tech, and logistics support, 
+    with EleFant's brand, tech, and logistics support, 
     ensuring seamless operations. The Librarian Model empowers 
     women entrepreneurs to manage toys subrciption, sanitization, 
     and returns from home or small hubs, earning a flexible income. With 
@@ -337,7 +338,8 @@ const staticDealData = {
     This asset-light approach boosts last-mile delivery, customer service, 
     and sustainability, making EleFant a scalable and impactful business.
     `
-  ]
+  ],
+  aifValue: 200000
     
 };
 
@@ -348,6 +350,9 @@ class EleFant2 extends Component {
         ...defaultDealData,
       deal_id: staticDealData.dealId,
       images: staticDealData.imageList,
+      investmentOptionsModal: false,
+      aifInvestmentModal: false,
+      aifAmount: "",
     };
     
   }
@@ -867,15 +872,23 @@ class EleFant2 extends Component {
       return;
     }
 
-    this.setState(
-      {
+    // Check if aifValue is set
+    if (staticDealData.aifValue && staticDealData.aifValue !== "") {
+      this.setState({
         selectInvestorModal: false,
-        investmentmodal: true,
-      },
-      () => {
-        this.calculategst();
-      }
-    );
+        investmentOptionsModal: true,
+      });
+    } else {
+      this.setState(
+        {
+          selectInvestorModal: false,
+          investmentmodal: true,
+        },
+        () => {
+          this.calculategst();
+        }
+      );
+    }
   };
 
   // post api hit on express
@@ -912,6 +925,73 @@ class EleFant2 extends Component {
   handleCancel1 = () => {
     this.setState({
       investmentmodal: false,
+    });
+  };
+
+  handleInvestmentOptionsCancel = () => {
+    this.setState({
+      investmentOptionsModal: false,
+    });
+  };
+
+  handleDirectCapTableInvestment = () => {
+    this.setState(
+      {
+        investmentOptionsModal: false,
+        investmentmodal: true,
+      },
+      () => {
+        this.calculategst();
+      }
+    );
+  };
+
+  handleAIFInvestment = () => {
+    this.setState({
+      investmentOptionsModal: false,
+      aifInvestmentModal: true,
+      aifAmount: staticDealData.aifValue.toString(),
+    });
+  };
+
+  handleAIFAmountChange = (e) => {
+    this.setState({
+      aifAmount: e.target.value,
+    });
+  };
+
+  handleAIFSubmit = () => {
+    const aifAmount = parseFloat(this.state.aifAmount);
+    if (aifAmount < staticDealData.aifValue) {
+      message.error(`Minimum AIF investment amount is ₹${this.formatNumberWithCommas(staticDealData.aifValue)}`);
+      return;
+    }
+
+    let params = {
+      "deal_id": this.state.deal_id,
+      "investor_id": this.state.selectedInvestorId,
+      "aif_amount": aifAmount
+    }
+
+    Bridge.deal.addAIF(params).then(() => {
+      message.success("AIF investment request submitted successfully! You will receive an email confirmation.");
+      this.setState({
+          aifInvestmentModal: false,
+          aifAmount: "",
+        });
+    }).catch((error) => {
+        message.error("Failed to submit AIF investment request. Please try again.");
+        this.setState({
+          aifInvestmentModal: false,
+          aifAmount: "",
+        });
+      });
+  };
+
+  handleAIFCancel = () => {
+    this.setState({
+      aifInvestmentModal: false,
+      aifAmount: "",
     });
   };
 
@@ -1787,6 +1867,91 @@ class EleFant2 extends Component {
                     </button>
                   </Modal>
                   <Modal
+                    title="Choose Investment Type"
+                    visible={this.state.investmentOptionsModal}
+                    onCancel={this.handleInvestmentOptionsCancel}
+                    width={600}
+                    footer={false}
+                  >
+                    <div className="investment-options-modal">
+                      <div style={{ marginBottom: "20px" }}>
+                        <h4>Please select your preferred investment option:</h4>
+                      </div>
+                      
+                      <div className="investment-option" style={{ marginBottom: "15px", padding: "15px", border: "1px solid #d9d9d9", borderRadius: "4px" }}>
+                        <h5>1. Invest through Direct Cap Table Entry</h5>
+                        <p>Minimum Investment Amount: ₹{this.formatNumberWithCommas(this.state.minamount)}</p>
+                        <button
+                          type="button"
+                          className="login-button prime-bg"
+                          style={{ width: "100%", marginTop: "10px" }}
+                          onClick={this.handleDirectCapTableInvestment}
+                        >
+                          Select Direct Cap Table Entry
+                        </button>
+                      </div>
+
+                      <div className="investment-option" style={{ padding: "15px", border: "1px solid #d9d9d9", borderRadius: "4px" }}>
+                        <h5>2. Invest through Alternative Investment Fund (AIF)</h5>
+                        <p>Minimum Investment Amount: ₹{this.formatNumberWithCommas(staticDealData.aifValue)}</p>
+                        <button
+                          type="button"
+                          className="login-button prime-bg"
+                          style={{ width: "100%", marginTop: "10px" }}
+                          onClick={this.handleAIFInvestment}
+                        >
+                          Select AIF Investment
+                        </button>
+                      </div>
+                    </div>
+                  </Modal>
+                  <Modal
+                    title="AIF Investment"
+                    visible={this.state.aifInvestmentModal}
+                    onCancel={this.handleAIFCancel}
+                    width={500}
+                    footer={false}
+                  >
+                    <div className="aif-investment-modal">
+                      <div style={{ marginBottom: "20px" }}>
+                        <h4>Alternative Investment Fund (AIF) Investment</h4>
+                        <p>Please enter your investment amount (minimum ₹{this.formatNumberWithCommas(staticDealData.aifValue)}):</p>
+                      </div>
+                      
+                      <div className="form-group">
+                        <label>Investment Amount (₹):</label>
+                        <input
+                          type="number"
+                          className="form-control"
+                          style={{ marginTop: "10px", padding: "10px", fontSize: "16px" }}
+                          placeholder={`Minimum ${this.formatNumberWithCommas(staticDealData.aifValue)}`}
+                          value={this.state.aifAmount}
+                          onChange={this.handleAIFAmountChange}
+                          min={staticDealData.aifValue}
+                        />
+                      </div>
+
+                      <div style={{ marginTop: "20px", display: "flex", gap: "10px" }}>
+                        <button
+                          type="button"
+                          className="login-button prime-bg"
+                          style={{ flex: 1 }}
+                          onClick={this.handleAIFSubmit}
+                        >
+                          Submit
+                        </button>
+                        <button
+                          type="button"
+                          className="login-button btn-secondary"
+                          style={{ flex: 1, backgroundColor: "#6c757d", borderColor: "#6c757d" }}
+                          onClick={this.handleAIFCancel}
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  </Modal>
+                  <Modal
                     title={`Invest in ${this.state.deal_name}`}
                     visible={this.state.investmentmodal}
                     onOk={this.handleOk1}
@@ -2438,6 +2603,18 @@ class EleFant2 extends Component {
                                               )}{" "}
                                               for {this.state.deal_service}
                                             </h4>
+
+                                            {staticDealData.aifValue &&
+                                              staticDealData.aifValue != "" && (
+                                                <h4>
+                                                  ₹{" "}
+                                                  {this.formatNumberWithCommas(
+                                                    staticDealData.aifValue
+                                                  )}{" "}
+                                                  for Alternative Investment Fund (AIF)
+                                                </h4>
+                                              )}
+
                                           </div>
                                           <div className="info">
                                             <span>Valuation</span>
