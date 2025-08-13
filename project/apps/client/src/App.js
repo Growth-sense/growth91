@@ -243,6 +243,7 @@ import CombinedRegistration from "./app/investor/register/CombinedRegistration.j
 import UnicornAdminAll from "./app/admin/UnicornAdminAll.jsx";
 import UnicornAdminPayment from "./app/admin/UnicornAdminPayment.jsx";
 import ExtraMile from "./app/deal-pages/ExtraMile.jsx";
+import Goodmelts from "./app/deal-pages/Goodmelts.jsx";
 
 ReactGA.initialize(TRACKING_ID);
 
@@ -668,6 +669,9 @@ function App() {
           </Route>
           <Route path="/extramile" exact>
             <ProtectDeals Component={ExtraMile} />
+          </Route>
+          <Route path="/goodmelts" exact>
+            <ProtectDeals Component={Goodmelts} />
           </Route>
           <Route path="/garudaaerospace" exact>
             <ProtectDeals Component={Garudaaerospace} />
