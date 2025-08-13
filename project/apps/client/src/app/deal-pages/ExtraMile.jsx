@@ -2571,6 +2571,205 @@ class ExtraMile extends Component {
                               marginTop: "50px !important",
                             }}
                           >
+                            <div className="deal-terms-section">
+                              <div
+                                className="container"
+                                style={{ marginTop: "1px !important" }}
+                              >
+                                <div className="row">
+                                  <div className="col-lg-10 m-auto">
+                                    <h1>Documents</h1>
+                                    <div className="row document-section">
+                                      <div className="col-lg-2"></div>
+                                      <div className="col-lg-8">
+                                        <div
+                                          className="download-section"
+                                          style={{
+                                            backgroundColor: "white",
+                                            padding: "4rem 19px",
+                                          }}
+                                        >
+                                          <>
+                                            <div>
+                                              <table
+                                                className="download-document-table"
+                                                style={{ width: "100%" }}
+                                              >
+                                                <tr
+                                                  style={{
+                                                    background: "#29176f",
+                                                    color: "#fff",
+                                                  }}
+                                                >
+                                                  <th>Sr no</th>
+                                                  <th>Document</th>
+                                                  <th>Type</th>
+                                                  <th>Download</th>
+                                                </tr>
+                                                {this.state.documents.length >
+                                                  0 &&
+                                                  this.state.documents
+                                                    .filter(item => item.docname !== "Due Diligence Report")
+                                                    .map((item, index) => {
+                                                      let documentlink = `${process.env.REACT_APP_BASE_URL}api/uploads/docs/${item.documentid}/${item.document}`;
+                                                      return (
+                                                        <tr
+                                                          key={index}
+                                                          style={{ height: 70 }}
+                                                        >
+                                                          <td
+                                                            style={{
+                                                              width: 40,
+                                                            }}
+                                                          >
+                                                            {index + 1}
+                                                          </td>
+                                                          <td
+                                                            style={{
+                                                              width: 140,
+                                                            }}
+                                                          >
+                                                            {item.docname}
+                                                          </td>
+                                                          <td
+                                                            style={{
+                                                              width: 40,
+                                                            }}
+                                                          >
+                                                            {item.paid == "Paid"
+                                                              ? this.state
+                                                                  .check_membership_type ==
+                                                                "premium"
+                                                                ? item.premium_price ==
+                                                                  "0"
+                                                                  ? "Free"
+                                                                  : "₹" +
+                                                                    item.premium_price
+                                                                : item.regular_price ==
+                                                                  "0"
+                                                                ? "Free"
+                                                                : "₹" +
+                                                                  item.regular_price
+                                                              : "Free"}
+                                                          </td>
+                                                          <td
+                                                            style={{
+                                                              width: 50,
+                                                            }}
+                                                          >
+                                                            {this.state
+                                                              .investor_id && (
+                                                              <center>
+                                                                {(item.user_paid ==
+                                                                  true ||
+                                                                  item.paid ==
+                                                                    "Free") && (
+                                                                  <a
+                                                                    href={
+                                                                      documentlink
+                                                                    }
+                                                                    target="_blank"
+                                                                    style={{
+                                                                      width: 80,
+                                                                    }}
+                                                                  >
+                                                                    <img
+                                                                      src="./download.ico"
+                                                                      style={{
+                                                                        maxWidth: 50,
+                                                                      }}
+                                                                    />
+                                                                  </a>
+                                                                )}
+                                                                {item.paid ==
+                                                                  "Paid" &&
+                                                                  this.state
+                                                                    .check_membership_type ==
+                                                                    "premium" &&
+                                                                  (item.premium_price ==
+                                                                  "0" ? (
+                                                                    <a
+                                                                      href={
+                                                                        documentlink
+                                                                      }
+                                                                      target="_blank"
+                                                                      style={{
+                                                                        width: 80,
+                                                                      }}
+                                                                    >
+                                                                      <img
+                                                                        src="./download.ico"
+                                                                        style={{
+                                                                          maxWidth: 50,
+                                                                        }}
+                                                                      />
+                                                                    </a>
+                                                                  ) : (
+                                                                    ""
+                                                                  ))}
+                                                              </center>
+                                                            )}
+                                                          </td>
+                                                        </tr>
+                                                      );
+                                                    })
+                                                }
+                                                {this.state.documents.some(item => item.docname === "Due Diligence Report") && (
+                                                  <tr style={{ height: 70 }}>
+                                                    <td colSpan="4" style={{ textAlign: "center", padding: "20px", fontStyle: "italic" }}>
+                                                      To access the Due Diligence Report, please email us at contact@Growth91.com
+                                                    </td>
+                                                  </tr>
+                                                )}
+                                              </table>
+                                            </div>
+                                          </>
+                                          {this.state.button_status ==
+                                            false && (
+                                            <button
+                                              className="download-button"
+                                              onClick={() => this.documentPay()}
+                                            >
+                                              Pay
+                                            </button>
+                                          )}
+                                          {!this.state.investor_id && (
+                                            <>
+                                              <button
+                                                className="download-button"
+                                                style={{
+                                                  background: "rgb(41 23 111)",
+                                                }}
+                                                onClick={() =>
+                                                  window.location.assign(
+                                                    "/login"
+                                                  )
+                                                }
+                                              >
+                                                Login to View
+                                              </button>
+                                              {/* <em
+                                            style={{
+                                              fontSize: 14,
+                                              fontWeight: "700",
+                                            }}
+                                          >
+                                            Become Growth91
+                                            <sup style={{ fontSize: "0.6rem" }}>
+                                              TM
+                                            </sup>{" "}
+                                            member to access the document{" "}
+                                          </em> */}
+                                            </>
+                                          )}
+                                        </div>
+                                      </div>
+                                      <div className="col-lg-2"></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                             <div className="tab-wrapper">
                               <div className="container">
                                 <div className="row">
