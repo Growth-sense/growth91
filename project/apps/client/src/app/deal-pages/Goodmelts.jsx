@@ -2595,12 +2595,9 @@ class Goodmelts extends Component {
                                                 </tr>
                                                 {this.state.documents.length >
                                                   0 &&
-                                                  this.state.documents.map(
-                                                    (item, index) => {
-                                                      // console.log(
-                                                      //   this.state.documents
-                                                      //     .length
-                                                      // );
+                                                  this.state.documents
+                                                    .filter(item => item.document != null)
+                                                    .map((item, index) => {
                                                       let documentlink = `${process.env.REACT_APP_BASE_URL}api/uploads/docs/${item.documentid}/${item.document}`;
                                                       return (
                                                         <tr
@@ -2704,6 +2701,40 @@ class Goodmelts extends Component {
                                                       );
                                                     }
                                                   )}
+                                                {/* Static Document */}
+                                                <tr style={{ height: 70 }}>
+                                                  <td style={{ width: 40 }}>
+                                                    {this.state.documents.filter(item => item.document != null).length + 1}
+                                                  </td>
+                                                  <td style={{ width: 140 }}>
+                                                    Goodmelts Important Documents
+                                                  </td>
+                                                  <td style={{ width: 40 }}>
+                                                    Free
+                                                  </td>
+                                                  <td style={{ width: 50 }}>
+                                                    <center>
+                                                      <a
+                                                        href="https://drive.google.com/drive/folders/1vMFivXhlHSOXIgPbc81fNHmhBURLJ1yx?usp=drive_link"
+                                                        target="_blank"
+                                                        style={{ width: 80 }}
+                                                      >
+                                                        <button
+                                                          style={{
+                                                            background: "#29176f",
+                                                            color: "white",
+                                                            border: "none",
+                                                            padding: "5px 10px",
+                                                            borderRadius: "3px",
+                                                            cursor: "pointer"
+                                                          }}
+                                                        >
+                                                          View
+                                                        </button>
+                                                      </a>
+                                                    </center>
+                                                  </td>
+                                                </tr>
                                               </table>
                                             </div>
                                           </>
