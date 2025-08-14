@@ -132,19 +132,19 @@ const staticDealData = {
 
   highlight1Text:
     `
-    From Zero to ₹7 Cr+ in Just 24 Months. Goodmelts has rapidly emerged as a category leader in the home fragrance space. Bootstrapped and profitable, we’ve scaled to ₹7 Cr+ in revenue with positive EBITDA. Over 60% of our customers have already repurchased, and 30% of our monthly revenue is driven from repeat customers—clear validation of product-market fit and love for the fragrances.
+    Goodmelts is India’s first wellness-led, clean-label home fragrance brand using IFRA-certified, vegan, and toxin-free wax melts—offering a flame-free, smoke-free, and soot-free alternative to traditional methods like incense and candles.
     `,
   highlight2Text:
     `
-    Designed, Built, and Perfected In-House. Goodmelts is proudly Made in India, with end-to-end ownership; from in-house product design to 100% controlled manufacturing. This vertical integration allows rapid product launches, zero dead stock, and agile iteration. We’ve been granted 3 design patents on our wax warmers. Our focus is on solving real customer pain points with products that are functional & seamlessly integrated into modern lifestyles.
+    Designed, Built, and Perfected In-House. Goodmelts is proudly Made in India, with end-to-end ownership; from in-house product design to 100% controlled manufacturing. This vertical integration allows rapid product launches, zero dead stock, and agile iteration. They have been granted 3 design patents on our wax warmers. Their focus is on solving real customer pain points with products that are functional & seamlessly integrated into modern lifestyles.
     `,
   highlight3Text:
     `
-    We’ve scented 35,000+ of homes across India and partnered with brands like PwC, Apollo, Max Hospitals, and Puravankara for gifting. We are the official scenting partner for premium hotels, spas, and businesses like Kosmoderma, Envision Scientific, and The Space Fitness. In D2C with a 35% repeat rate—highest in the category—we’ve grown sustainably month-on-month, driven by deep brand love and product performance.
+    With strong repeat rate and 70% of users using the product daily or multiple times a week, Goodmelts has already built strong consumer loyalty and usage frequency. With scented 35,000+ of homes across India and partnered with brands like PwC, Apollo, Max Hospitals, and Puravankara for gifting.
     `,
   highlight4Text:
     `
-    Goodmelts is bootstrapped and profitable. We're now raising ₹4Cr in our first round to build a core team across marketing, sales, and production, and expand into other verticals of special scenting. This raise targets an ARR of ₹24 Cr in 18 months. A $2M growth round is planned around month 12 to fuel offline and global expansion, unlocking our next phase of scale.
+    Goodmelts is bootstrapped and profitable. They are now raising to build a core team across marketing, sales, and production, and expand into other verticals of special scenting. This raise targets an ARR of ₹24 Cr in 18 months. A $2M growth round is planned around month 12 to fuel offline and global expansion, unlocking our next phase of scale.
     `,
 
 
