@@ -244,6 +244,7 @@ import UnicornAdminAll from "./app/admin/UnicornAdminAll.jsx";
 import UnicornAdminPayment from "./app/admin/UnicornAdminPayment.jsx";
 import ExtraMile from "./app/deal-pages/ExtraMile.jsx";
 import Goodmelts from "./app/deal-pages/Goodmelts.jsx";
+import Stroom2 from "./app/deal-pages/Stroom2.jsx";
 
 ReactGA.initialize(TRACKING_ID);
 
@@ -685,8 +686,11 @@ function App() {
           <Route path="/Tulua" >
             <ProtectDeals Component={Tulua} />
           </Route>
-          <Route path="/Stroom" >
+          <Route path="/StroomRound1" >
             <ProtectDeals Component={Stroom} />
+          </Route>
+          <Route path="/Stroom" >
+            <ProtectDeals Component={Stroom2} />
           </Route>
           <Route path="/Liaplus" >
             <ProtectDeals Component={LiaPlus} />
