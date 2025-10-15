@@ -5,6 +5,7 @@ import { Link } from '@material-ui/core';
 import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
 import Bridge from './constants/Bridge';
 import { ViewPlan } from './Unicorn/ViewPlan';
+import { LastUpdatedBadge } from './components/LastUpdatedBadge';
 
 const Newunicornfounder = () => {
   const [filteredData, setfilterdata] = useState();
@@ -470,7 +471,7 @@ const Newunicornfounder = () => {
         <div className="row justify-content-center card-box col-12 col-md-12 col-lg-12 col-xl-10">
           {filteredData && filteredData.length > 0 ? (
             filteredData.map((item, index) => (
-              <div key={index} className="grid-cards col-md-4"
+              <div key={index} className="grid-cards col-lg-4 col-md-6 col-sm-12"
                     onClick={() => {window.location.assign(`/FutureUnicornDescription?id=${item.unicornDealID}`)}}>
                 <div
                   className="community-all-contents"
@@ -479,6 +480,7 @@ const Newunicornfounder = () => {
                     display: "flex",
                     flexDirection: "column",
                     height: "100%",
+                    position: "relative",
                   }}
                 >
                   <div className="img-community-box">
@@ -541,8 +543,7 @@ const Newunicornfounder = () => {
                         }}>{item.udDealDescription}</p>
                   </div>
                   <div
-                    className="community-paragraph-box"
-                    style={{ marginTop: "auto" }}
+                    className="community-paragraph-box card-bottom-container"
                   >
                     <Link
                       onClick={() => {window.location.replace(`/FutureUnicornDescription?id=${item.unicornDealID}`)}}
@@ -551,6 +552,9 @@ const Newunicornfounder = () => {
                     >
                       View More
                     </Link>
+                    
+                    {/* Last Updated Badge */}
+                    <LastUpdatedBadge udPublishedDate={item.udPublishedDate} />
                   </div>
                 </div>
               </div>

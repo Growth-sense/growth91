@@ -7,6 +7,7 @@ import { Link, useLocation } from "react-router-dom";
 import Bridge from "./constants/Bridge.js";
 import { set } from "react-ga";
 import { Button, Modal, Input } from "antd";
+import { LastUpdatedBadge } from "./components/LastUpdatedBadge";
 
 export const FutureUnicornList = () => {
   const location = useLocation();
@@ -370,7 +371,7 @@ export const FutureUnicornList = () => {
             <div className="row justify-content-center card-box gy-4">
               {filteredData && filteredData.length > 0 ? (
                 filteredData.map((item, index) => (
-                  <div key={index} className="grid-cards col-md-4"
+                  <div key={index} className="grid-cards col-lg-4 col-md-6 col-sm-12"
                         onClick={() => {window.location.assign(`/FutureUnicornDescription?id=${item.unicornDealID}`)}}>
                     <div
                       className="community-all-contents"
@@ -379,6 +380,7 @@ export const FutureUnicornList = () => {
                         display: "flex",
                         flexDirection: "column",
                         height: "100%",
+                        position: "relative",
                       }}
                     >
                       <div className="img-community-box">
@@ -440,8 +442,7 @@ export const FutureUnicornList = () => {
                         }}>{item.udDealDescription}</p>
                       </div>
                       <div
-                        className="community-paragraph-box"
-                        style={{ marginTop: "auto" }}
+                        className="community-paragraph-box card-bottom-container"
                       >
                         <Link
                           to={`/FutureUnicornDescription?id=${item.unicornDealID}`}
@@ -449,6 +450,9 @@ export const FutureUnicornList = () => {
                         >
                           View More
                         </Link>
+                        
+                        {/* Last Updated Badge */}
+                        <LastUpdatedBadge udPublishedDate={item.udPublishedDate} />
                       </div>
                     </div>
                   </div>

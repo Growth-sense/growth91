@@ -10,6 +10,7 @@ import SinglePagePDFViewer from "./components/PdfViewer/single-page";
 import { extractVideoIDFromYoutubeUrl, getAbsoluteUrl } from "./helper/utilHelper.js";
 import moment from "moment";
 import { FaYoutube, FaInstagram, FaFacebook, FaLinkedin } from 'react-icons/fa';
+import { LastUpdatedBadge } from "./components/LastUpdatedBadge";
 
 export const FutureUnicornDescription = (props) => {
   const settings = {
@@ -805,6 +806,12 @@ text-align: justify;
                       <div className="text-section d-flex justify-content-between align-items-start w-100">
                         <div>
                           <h1>{item.udStartupName}</h1>
+                          
+                          {/* Last Updated Badge */}
+                          <div style={{ marginBottom: "8px" }}>
+                            <LastUpdatedBadge udPublishedDate={item.udPublishedDate} />
+                          </div>
+                          
                           {item.udTag && item.udTag !== "None" && (
                             <div
                               style={{ marginTop: "8px", marginBottom: "8px" }}

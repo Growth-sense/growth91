@@ -11,3 +11,47 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Last Updated Badge Styles */
+.last-updated-badge {
+  background-color: #f5f5f5;
+  color: #333333;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+/* Bottom container for button and badge */
+.card-bottom-container {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 8px !important;
+  margin-top: auto !important;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+  .last-updated-badge {
+    font-size: 10px;
+    padding: 2px 6px;
+  }
+  
+  .card-bottom-container {
+    gap: 4px !important;
+  }
+}
+
+/* Hover effect for parent card */
+.community-all-contents:hover .last-updated-badge {
+  opacity: 0.9;
+}
