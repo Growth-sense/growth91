@@ -37,9 +37,12 @@ export const ViewPlan = (props) => {
       edits: "2",
       originalPrice: "₹6,000",
       price: "₹3,000",
-      priceId: "3000",
+      finalPrice: "₹0",
+      priceId: "0",
       originalPriceId: "6000",
+      discountedPriceId: "3000",
       features: ["2 edits per year", "1 year validity"],
+      isDiwaliOffer: true,
     },
     {
       name: "Gold",
@@ -346,13 +349,17 @@ export const ViewPlan = (props) => {
                       className="text-center h-100"
                       style={{
                         borderRadius: "24px",
-                        border: "none",
+                        border: plan.isDiwaliOffer ? "2px solid #ff6b35" : "none",
                         background:
-                          plan.name === "Gold"
+                          plan.isDiwaliOffer
+                            ? "linear-gradient(135deg, #fff5f0 0%, #ffe8d6 100%)"
+                            : plan.name === "Gold"
                             ? "linear-gradient(135deg, #ffffff 0%, #fff6e6 100%)"
                             : "#ffffff",
                         boxShadow:
-                          plan.name === "Gold"
+                          plan.isDiwaliOffer
+                            ? "0 20px 40px rgba(255, 107, 53, 0.15)"
+                            : plan.name === "Gold"
                             ? "0 20px 40px rgba(255, 164, 28, 0.1)"
                             : "0 20px 40px rgba(0, 0, 0, 0.05)",
                         overflow: "hidden",
@@ -376,6 +383,25 @@ export const ViewPlan = (props) => {
                           POPULAR
                         </div>
                       )}
+                      
+                      {plan.isDiwaliOffer && (
+                        <div
+                          style={{
+                            position: "absolute",
+                            top: "12px",
+                            right: "12px",
+                            background: "linear-gradient(135deg, #ff6b35 0%, #f7931e 100%)",
+                            color: "white",
+                            padding: "4px 12px",
+                            borderRadius: "12px",
+                            fontSize: "12px",
+                            fontWeight: "600",
+                            boxShadow: "0 2px 8px rgba(255, 107, 53, 0.3)",
+                          }}
+                        >
+                          🪔 DIWALI SPECIAL
+                        </div>
+                      )}
 
                       <div style={{ padding: "32px" }}>
                         <h3
@@ -397,7 +423,9 @@ export const ViewPlan = (props) => {
                         <div
                           style={{
                             background:
-                              plan.name === "Gold"
+                              plan.isDiwaliOffer
+                                ? "linear-gradient(135deg, #fff5f0 0%, #ffe8d6 100%)"
+                                : plan.name === "Gold"
                                 ? "rgba(255, 164, 28, 0.1)"
                                 : "rgba(100, 116, 139, 0.05)",
                             borderRadius: "16px",
@@ -405,6 +433,7 @@ export const ViewPlan = (props) => {
                             marginBottom: "24px",
                             position: "relative",
                             textAlign: "center",
+                            border: plan.isDiwaliOffer ? "2px solid #ff6b35" : "none",
                           }}
                         >
                           {/* Discount Tag */}
@@ -414,17 +443,19 @@ export const ViewPlan = (props) => {
                               top: "-10px",
                               left: "50%",
                               transform: "translateX(-50%)",
-                              background: "#ff4444",
+                              background: plan.isDiwaliOffer ? "#ff6b35" : "#ff4444",
                               color: "white",
                               padding: "4px 12px",
                               borderRadius: "20px",
-                              fontSize: "14px",
+                              fontSize: plan.isDiwaliOffer ? "12px" : "14px",
                               fontWeight: "600",
-                              boxShadow: "0 2px 4px rgba(255, 68, 68, 0.2)",
+                              boxShadow: plan.isDiwaliOffer 
+                                ? "0 2px 4px rgba(255, 107, 53, 0.2)" 
+                                : "0 2px 4px rgba(255, 68, 68, 0.2)",
                               zIndex: "1",
                             }}
                           >
-                            50% OFF
+                            {plan.isDiwaliOffer ? "100% OFF!" : "50% OFF"}
                           </div>
 
                           {/* Original Price */}
@@ -452,28 +483,63 @@ export const ViewPlan = (props) => {
                             )}
                           </div>
 
+                          {/* Discounted Price (for Diwali offer) */}
+                          {plan.isDiwaliOffer && (
+                            <div
+                              style={{
+                                fontSize: "20px",
+                                color: "#64748b",
+                                textDecoration: "line-through",
+                                marginBottom: "8px",
+                                opacity: "0.8",
+                              }}
+                            >
+                              <span
+                                style={{
+                                  fontSize: "14px",
+                                  marginRight: "4px",
+                                  textDecoration: "none",
+                                }}
+                              >
+                                ₹
+                              </span>
+                              {plan.discountedPriceId.replace(
+                                /\B(?=(\d{3})+(?!\d))/g,
+                                ","
+                              )}
+                            </div>
+                          )}
+
                           {/* Final Price */}
                           <div
                             style={{
                               fontSize: "42px",
                               fontWeight: "700",
-                              color: "#1a1f36",
+                              color: plan.isDiwaliOffer ? "#ff6b35" : "#1a1f36",
                               marginBottom: "4px",
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "center",
                             }}
                           >
-                            <span
-                              style={{
-                                fontSize: "24px",
-                                marginRight: "4px",
-                                fontWeight: "600",
-                              }}
-                            >
-                              ₹
-                            </span>
-                            {plan.priceId.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                            {plan.isDiwaliOffer ? (
+                              <span style={{ fontSize: "42px", fontWeight: "700" }}>
+                                FREE
+                              </span>
+                            ) : (
+                              <>
+                                <span
+                                  style={{
+                                    fontSize: "24px",
+                                    marginRight: "4px",
+                                    fontWeight: "600",
+                                  }}
+                                >
+                                  ₹
+                                </span>
+                                {plan.priceId.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                              </>
+                            )}
                           </div>
 
                           {/* Per Year Text */}
@@ -484,7 +550,7 @@ export const ViewPlan = (props) => {
                               marginTop: "4px",
                             }}
                           >
-                            + GST
+                            {plan.isDiwaliOffer ? "Limited Time Offer!" : "+ GST"}
                           </div>
 
                           {/* Save Amount */}
@@ -492,14 +558,22 @@ export const ViewPlan = (props) => {
                             style={{
                               marginTop: "12px",
                               fontSize: "14px",
-                              color: "#22c55e",
+                              color: plan.isDiwaliOffer ? "#ff6b35" : "#22c55e",
                               fontWeight: "500",
                             }}
                           >
-                            Save ₹
-                            {(
-                              plan.originalPriceId - plan.priceId
-                            ).toLocaleString("en-IN")}
+                            {plan.isDiwaliOffer ? (
+                              <span style={{ fontWeight: "600" }}>
+                                🎉 You Save ₹{plan.originalPriceId.toLocaleString("en-IN")}!
+                              </span>
+                            ) : (
+                              <>
+                                Save ₹
+                                {(
+                                  plan.originalPriceId - plan.priceId
+                                ).toLocaleString("en-IN")}
+                              </>
+                            )}
                           </div>
                         </div>
 
@@ -729,14 +803,32 @@ export const ViewPlan = (props) => {
                                 fontWeight: "600",
                                 marginBottom: "12px",
                                 color: "#1a1f36",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "8px",
                               }}
                             >
-                              Silver Plan
+                              Silver Plan 
+                              <span
+                                style={{
+                                  background: "#ff6b35",
+                                  color: "white",
+                                  padding: "2px 8px",
+                                  borderRadius: "8px",
+                                  fontSize: "10px",
+                                  fontWeight: "600",
+                                }}
+                              >
+                                🪔 DIWALI SPECIAL
+                              </span>
                             </h4>
                             <p
                               style={{ margin: "0 0 8px 0", color: "#4a5568" }}
                             >
-                              Price: ₹6,000 (Discounted Price: ₹3,000)
+                              Original Price: ₹6,000 → Discounted: ₹3,000 → 
+                              <span style={{ color: "#ff6b35", fontWeight: "600" }}>
+                                {" "}Diwali Offer: FREE!
+                              </span>
                             </p>
                             <ul
                               style={{
@@ -747,6 +839,9 @@ export const ViewPlan = (props) => {
                             >
                               <li>Includes 2 edits</li>
                               <li>Validity: 1 year</li>
+                              <li style={{ color: "#ff6b35", fontWeight: "500" }}>
+                                🎉 Limited time Diwali offer - Completely FREE!
+                              </li>
                             </ul>
                           </div>
 

@@ -1878,8 +1878,8 @@ class Startup extends CI_Controller {
 		
 			$plans = [
 				'Silver' => [
-					'price' => 3000,
-					'editLeft' => 2
+					'price' => 0, // Changed to 0 for Diwali offer
+					'editLeft' => 1
 				],
 				'Gold' => [
 					'price' => 10000,
@@ -1895,140 +1895,218 @@ class Startup extends CI_Controller {
 				]
 			];
 
-			$amount = $plans[$plan_name]['price'];
-
-			$current_user = $this->db
-					->select('unicorn_plan, unicorn_start_date, left_edit, unicorn_gst_name, email, mobile')
+			// Special handling for Silver plan - Diwali Offer (FREE)
+			if ($plan_name === 'Silver') {
+				$current_user = $this->db
+					->select('unicorn_plan, unicorn_start_date, left_edit, unicorn_gst_name, email, mobile, first_name, last_name, startup_name, unicorn_gst, unicorn_gst_registered_address')
 					->where('investor_id', $founder_id)
 					->get('users')
 					->row();
 
-			if ($is_upgrade) {
+				$new_edit_left = $plans[$plan_name]['editLeft'];
 
-				if ($current_user && $current_user->unicorn_plan && $current_user->unicorn_start_date) {
-					$start_date = new DateTime($current_user->unicorn_start_date);
-					$current_date = new DateTime();
-					
-					// Calculate the year and month difference
-					$year_diff = $current_date->format('Y') - $start_date->format('Y');
-					$month_diff = $current_date->format('n') - $start_date->format('n');
-					
-					// Calculate base months between dates
-					$months_used = ($year_diff * 12) + $month_diff;
-					
-					// Adjust for incomplete month
-					if ($current_date->format('j') < $start_date->format('j')) {
-						$months_used -= 1;
-					}
-	
-					// Calculate monthly rate for current plan
-					$current_plan_price = $plans[$current_user->unicorn_plan]['price'];
-					$current_plan_monthly_rate = $current_plan_price / 12;
-					
-					// Calculate remaining months
-					$remaining_months = 12 - $months_used;
-	
-					// Calculate refund amount for unused months
-					$refund_amount = $current_plan_monthly_rate * $remaining_months;
-	
-					// Calculate final upgrade price
-					$amount = max(0, $plans[$plan_name]['price'] - $refund_amount);
-				}
-			}
+				$planStartDate = date('Y-m-d');
+				$planEndDate = date('Y-m-d', strtotime('+1 year'));
 
-			// Generate unique link ID
-			$link_id = $is_upgrade ? 
-            "upgrade_{$founder_id}_{$plan_name}_" . time() : 
-            "{$founder_id}_{$plan_name}_" . time();
-			
-
-			$curl = curl_init();
-
-			// Get current time and add 10 minutes
-			$expiryTime = date('Y-m-d\TH:i:sP', strtotime('+10 minutes'));
-
-			$roundAmount = round($amount);
-			$gstTwice = ceil($roundAmount * 0.09) * 2;
-			$finalAmount = $roundAmount + $gstTwice;
-
-			// Prepare the request payload
-			if ($current_user->mobile === null) {
-					$current_user->mobile = '1111111111';
-			}
-
-			$payload = [
-				'customer_details' => [
-					'customer_name' => $current_user->unicorn_gst_name,
-					'customer_email' => $current_user->email,
-					'customer_phone' => $current_user->mobile
-				],
-				'link_amount' => $finalAmount, // Using the amount variable
-				'link_auto_reminders' => true,
-				'link_currency' => 'INR',
-				'link_expiry_time' => $expiryTime,
-				'link_id' => $link_id,
-				'link_meta' => [
-					'notify_url' => CASHFREE_RESPONSE_DOMAIN_URL.'/api/founder/Startup/handle_payment_link',
-					'return_url' => CASHFREE_RESPONSE_DOMAIN_URL.'/MyUnicornPlan',
-					'upi_intent' => false
-				],
-				'link_notify' => [
-					'send_email' => false,
-					'send_sms' => false
-				],
-				'link_purpose' => 'Growth91',
-			];
-
-			curl_setopt_array($curl, [
-				CURLOPT_URL => CASHFREE_BASE_URL,
-				CURLOPT_RETURNTRANSFER => true,
-				CURLOPT_ENCODING => "",
-				CURLOPT_MAXREDIRS => 10,
-				CURLOPT_TIMEOUT => 30,
-				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-				CURLOPT_CUSTOMREQUEST => "POST",
-				CURLOPT_POSTFIELDS => json_encode($payload),
-				CURLOPT_HTTPHEADER => [
-					"Content-Type: application/json",
-					"x-api-version: 2023-08-01",
-					"x-client-id: ".CASHFREE_CLIENT_ID,
-					"x-client-secret: ".CASHFREE_CLIENT_SECRET
-				],
-			]);
-
-
-			$response = curl_exec($curl);
-			$err = curl_error($curl);
-			$http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-
-			curl_close($curl);
-
-			if ($err) {
-				$response = [
-					'status' => '0',
-					'message'=> 'Something went wrong. Please try again later.',
-					'error_details' => $err
+				// Update users table with Silver plan details (FREE)
+				$post_data = [
+					'unicorn_plan' => $plan_name,
+					'unicorn_start_date' => $planStartDate,
+					'unicorn_end_date' => $planEndDate,
+					'left_edit' => $new_edit_left
 				];
-			} else {
-				$decoded_response = json_decode($response, true);
-				if ($http_code >= 200 && $http_code < 300) {
+				$this->db->where('investor_id', $founder_id);
+				$update_result = $this->db->update('users', $post_data);
+
+				if ($update_result) {
+					// Record the free payment in unicorn_payments table
+					$payment_data = [
+						'amount' => 0,
+						'order_id' => 'DIWALI_FREE_' . $founder_id . '_' . time(),
+						'event_time' => date('Y-m-d\TH:i:sP'),
+						'founder_id' => $founder_id,
+						'plan_name' => $plan_name,
+						'unicorn_gst' => $current_user->unicorn_gst,
+						'unicorn_gst_registered_address' => $current_user->unicorn_gst_registered_address,
+						'unicorn_gst_name' => $current_user->unicorn_gst_name
+					];
+					$this->db->insert('unicorn_payments', $payment_data);
+
+					// Send notification email for free plan activation
+					$this->load->helper('send_email');
+					$formatted_date = date('d-M-Y');
+					$body = "<p><strongDiwali Special Offer Activated!</strong></p>";
+					$body .= "<p><strong>Name as per invoice:</strong> {$current_user->unicorn_gst_name}</p>";
+					$body .= "<p><strong>Founder Email ID:</strong> {$current_user->email}</p>";
+					$body .= "<p><strong>Founder Name:</strong> {$current_user->first_name} {$current_user->last_name}</p>";
+					$body .= "<p><strong>Company name:</strong> {$current_user->startup_name}</p>";
+					$body .= "<p><strong>Mobile Number:</strong> {$current_user->mobile}</p>";
+					$body .= "<p><strong>GST:</strong> {$current_user->unicorn_gst}</p>";
+					$body .= "<p><strong>Address:</strong> {$current_user->unicorn_gst_registered_address}</p>";
+					$body .= "<p><strong>Activation Date:</strong> {$formatted_date}</p>";
+					$body .= "<p><strong>Plan:</strong> Silver Plan - Diwali Offer (FREE)</p>";
+					$body .= "<p><strong>Transaction amount:</strong> ₹0 (FREE)</p>";
+
+					$subject = "Diwali Special - Silver Plan Activated for FREE!";
+
+					send_email(
+						$body,
+						$subject,
+						'invest@growth91.com',
+						''
+					);
+
+					// Return success response with redirect URL
 					$response = [
-						'status' => '1', // Changed to '1' for success
-						'message' => 'Payment link created successfully',
-						'data' => $decoded_response
+						'status' => '1',
+						'message' => 'Diwali Silver Plan activated successfully for FREE!',
+						'data' => [
+							'link_url' => CASHFREE_RESPONSE_DOMAIN_URL.'/MyUnicornPlan'
+						]
 					];
 				} else {
 					$response = [
 						'status' => '0',
-						'message' => 'API error: ' . ($decoded_response['message'] ?? 'Unknown error'),
-						'http_code' => $http_code,
-						'error_details' => $decoded_response
+						'message' => 'Failed to activate Silver plan. Please try again.'
 					];
 				}
-				// $response = [
-				// 	'status' => '0',
-				// 	'data'=> $response,
-				// ];
+			} else {
+				// Original payment link logic for other plans
+				$amount = $plans[$plan_name]['price'];
+
+				$current_user = $this->db
+						->select('unicorn_plan, unicorn_start_date, left_edit, unicorn_gst_name, email, mobile')
+						->where('investor_id', $founder_id)
+						->get('users')
+						->row();
+
+				if ($is_upgrade) {
+
+					if ($current_user && $current_user->unicorn_plan && $current_user->unicorn_start_date) {
+						$start_date = new DateTime($current_user->unicorn_start_date);
+						$current_date = new DateTime();
+						
+						// Calculate the year and month difference
+						$year_diff = $current_date->format('Y') - $start_date->format('Y');
+						$month_diff = $current_date->format('n') - $start_date->format('n');
+						
+						// Calculate base months between dates
+						$months_used = ($year_diff * 12) + $month_diff;
+						
+						// Adjust for incomplete month
+						if ($current_date->format('j') < $start_date->format('j')) {
+							$months_used -= 1;
+						}
+		
+						// Calculate monthly rate for current plan
+						$current_plan_price = $plans[$current_user->unicorn_plan]['price'];
+						$current_plan_monthly_rate = $current_plan_price / 12;
+						
+						// Calculate remaining months
+						$remaining_months = 12 - $months_used;
+		
+						// Calculate refund amount for unused months
+						$refund_amount = $current_plan_monthly_rate * $remaining_months;
+		
+						// Calculate final upgrade price
+						$amount = max(0, $plans[$plan_name]['price'] - $refund_amount);
+					}
+				}
+
+				// Generate unique link ID
+				$link_id = $is_upgrade ? 
+	            "upgrade_{$founder_id}_{$plan_name}_" . time() : 
+	            "{$founder_id}_{$plan_name}_" . time();
+				
+
+				$curl = curl_init();
+
+				// Get current time and add 10 minutes
+				$expiryTime = date('Y-m-d\TH:i:sP', strtotime('+10 minutes'));
+
+				$roundAmount = round($amount);
+				$gstTwice = ceil($roundAmount * 0.09) * 2;
+				$finalAmount = $roundAmount + $gstTwice;
+
+				// Prepare the request payload
+				if ($current_user->mobile === null) {
+						$current_user->mobile = '1111111111';
+				}
+
+				$payload = [
+					'customer_details' => [
+						'customer_name' => $current_user->unicorn_gst_name,
+						'customer_email' => $current_user->email,
+						'customer_phone' => $current_user->mobile
+					],
+					'link_amount' => $finalAmount, // Using the amount variable
+					'link_auto_reminders' => true,
+					'link_currency' => 'INR',
+					'link_expiry_time' => $expiryTime,
+					'link_id' => $link_id,
+					'link_meta' => [
+						'notify_url' => CASHFREE_RESPONSE_DOMAIN_URL.'/api/founder/Startup/handle_payment_link',
+						'return_url' => CASHFREE_RESPONSE_DOMAIN_URL.'/MyUnicornPlan',
+						'upi_intent' => false
+					],
+					'link_notify' => [
+						'send_email' => false,
+						'send_sms' => false
+					],
+					'link_purpose' => 'Growth91',
+				];
+
+				curl_setopt_array($curl, [
+					CURLOPT_URL => CASHFREE_BASE_URL,
+					CURLOPT_RETURNTRANSFER => true,
+					CURLOPT_ENCODING => "",
+					CURLOPT_MAXREDIRS => 10,
+					CURLOPT_TIMEOUT => 30,
+					CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+					CURLOPT_CUSTOMREQUEST => "POST",
+					CURLOPT_POSTFIELDS => json_encode($payload),
+					CURLOPT_HTTPHEADER => [
+						"Content-Type: application/json",
+						"x-api-version: 2023-08-01",
+						"x-client-id: ".CASHFREE_CLIENT_ID,
+						"x-client-secret: ".CASHFREE_CLIENT_SECRET
+					],
+				]);
+
+
+				$response = curl_exec($curl);
+				$err = curl_error($curl);
+				$http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+				curl_close($curl);
+
+				if ($err) {
+					$response = [
+						'status' => '0',
+						'message'=> 'Something went wrong. Please try again later.',
+						'error_details' => $err
+					];
+				} else {
+					$decoded_response = json_decode($response, true);
+					if ($http_code >= 200 && $http_code < 300) {
+						$response = [
+							'status' => '1', // Changed to '1' for success
+							'message' => 'Payment link created successfully',
+							'data' => $decoded_response
+						];
+					} else {
+						$response = [
+							'status' => '0',
+							'message' => 'API error: ' . ($decoded_response['message'] ?? 'Unknown error'),
+							'http_code' => $http_code,
+							'error_details' => $decoded_response
+						];
+					}
+					// $response = [
+					// 	'status' => '0',
+					// 	'data'=> $response,
+					// ];
+				}
 			}
 		} else {
 			$response = [
