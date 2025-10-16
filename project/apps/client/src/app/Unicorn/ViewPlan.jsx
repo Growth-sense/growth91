@@ -41,7 +41,7 @@ export const ViewPlan = (props) => {
       priceId: "0",
       originalPriceId: "6000",
       discountedPriceId: "3000",
-      features: ["2 edits per year", "1 year validity"],
+      features: ["1 edit per year", "1 year validity"],
       isDiwaliOffer: true,
     },
     {
@@ -837,7 +837,7 @@ export const ViewPlan = (props) => {
                                 color: "#4a5568",
                               }}
                             >
-                              <li>Includes 2 edits</li>
+                              <li>Includes 1 edit</li>
                               <li>Validity: 1 year</li>
                               <li style={{ color: "#ff6b35", fontWeight: "500" }}>
                                 🎉 Limited time Diwali offer - Completely FREE!
