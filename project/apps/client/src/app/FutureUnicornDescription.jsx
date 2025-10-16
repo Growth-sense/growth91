@@ -230,14 +230,14 @@ export const FutureUnicornDescription = (props) => {
         }
         .image-section img {
          width:100%;
-height:350px;
+height:auto;
 object-fit:cover;
         }
         .logo-section {
           width: 150px;
           height: 150px;
           min-width: 150px;
-          border-radius: 50%;
+          
           background-color: #ffffff;
           display: flex;
           justify-content: center;
@@ -245,10 +245,15 @@ object-fit:cover;
           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
           margin-bottom: 1.5rem;
           margin-top:-75px;
+          padding: 0;
         }
         .logo-section img {
-          width: 100%;
-          height: 100%;
+          max-width: 150px;
+          max-height: 150px;
+          width: auto;
+          height: auto;
+          object-fit: contain;
+          display: block;
         }
         
         .text-section h1 {
@@ -765,7 +770,9 @@ text-align: justify;
                       <img
                         className="heroSectionImage"
                         style={{
-                          objectFit: "fill",
+                          objectFit: "cover",
+                          width: "100%",
+                          height: "auto",
                         }}
                         src={
                           (item.udBannerImage &&
@@ -796,7 +803,11 @@ text-align: justify;
                           }
                           alt="Logo"
                           style={{
-                            objectFit: "fill",
+                            objectFit: "contain",
+                            maxWidth: "100%",
+                            maxHeight: "100%",
+                            width: "auto",
+                            height: "auto",
                             // borderRadius: "50%",
                             boxShadow: "0px 3px 6px #000",
                           }}
