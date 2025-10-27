@@ -381,6 +381,15 @@ export const FutureUnicornList = () => {
                         flexDirection: "column",
                         height: "100%",
                         position: "relative",
+                        cursor: "pointer",
+                      }}
+                      onMouseOver={(e) => {
+                        e.currentTarget.style.transform = "scale(1.02)";
+                        e.currentTarget.style.backgroundColor = "lightgray";
+                      }}
+                      onMouseOut={(e) => {
+                        e.currentTarget.style.transform = "scale(1)";
+                        e.currentTarget.style.backgroundColor = "white";
                       }}
                     >
                       <div className="img-community-box">

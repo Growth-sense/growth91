@@ -332,7 +332,18 @@ const NewFutureUnicorn = () => {
                     flexDirection: "column",
                     height: "100%",
                     position: "relative",
+                    cursor: "pointer"
                   }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.transform = "scale(1.02)";
+                    e.currentTarget.style.backgroundColor = "lightgray";
+                    e.currentTarget.style.zIndex = "100";
+                  }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.transform = "scale(1)";
+                  e.currentTarget.style.backgroundColor = "white";
+                  e.currentTarget.style.zIndex = "1";
+                }}
                 >
                   <div className="img-community-box">
                     <img
@@ -437,33 +448,6 @@ const NewFutureUnicorn = () => {
 
       {/* Key Features Section */}
 
-
-      <div className="why-to-list founder-benefit">
-        {/* <h2>Benefits for</h2> */}
-        <div class="heading-title founder-text">
-          <p>
-            <span></span>{" "}
-          </p>
-          <h2>Benefits for Investors</h2>
-        </div>
-        <div className="container">
-          <div className="features">
-            <div className="feature-box">
-              <h3>Vetted Opportunities</h3>
-              <p>Access to a broad range of thoroughly vetted startups.</p>
-            </div>
-            <div className="feature-box">
-              <h3>Informed Decisions</h3>
-              <p>Detailed information and insights to support investment choices.</p>
-            </div>
-            <div className="feature-box">
-              <h3>Easy Management</h3>
-              <p>Tools to track and manage investments efficiently.</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
 
 
 

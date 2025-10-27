@@ -481,6 +481,17 @@ const Newunicornfounder = () => {
                     flexDirection: "column",
                     height: "100%",
                     position: "relative",
+                    cursor: "pointer"
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.transform = "scale(1.02)";
+                    e.currentTarget.style.backgroundColor = "lightgray";
+                    e.currentTarget.style.zIndex = "100";
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.transform = "scale(1)";
+                    e.currentTarget.style.backgroundColor = "white";
+                    e.currentTarget.style.zIndex = "1";
                   }}
                 >
                   <div className="img-community-box">
