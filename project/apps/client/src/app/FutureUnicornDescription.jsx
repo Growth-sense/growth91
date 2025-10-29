@@ -76,89 +76,6 @@ export const FutureUnicornDescription = (props) => {
       $("body").removeClass("newClass");
     }
   });
-  function SimpleNextArrow(props) {
-    const { onClick } = props;
-    return (
-      <>
-        <div className="nextArrow" onClick={onClick}>
-          <span class="next-arrows slick-arrow">
-            <i class="fa fa-angle-right" aria-hidden="true"></i>
-          </span>
-        </div>
-      </>
-    );
-  }
-
-  function SimplePrevArrow(props) {
-    const { onClick } = props;
-    return (
-      <>
-        <div className="prevArrow" onClick={onClick}>
-          <span class="prev-arrows slick-arrow">
-            {" "}
-            <i class="fa fa-angle-left" aria-hidden="true"></i>{" "}
-          </span>
-        </div>
-      </>
-    );
-  }
-  const highlightimages = [
-    "./assets/images/deals-details/Petmojo/highlight4.jpg",
-    "./assets/images/deals-details/Petmojo/highlight01.jpg",
-    "./assets/images/deals-details/highlight2.jfif",
-    "./assets/images/deals-details/highlight3.jpg",
-  ];
-  const sliderSettings = {
-    dots: true,
-    infinite: true,
-    arrows: false,
-    speed: 2000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplaySpeed: 3000,
-    autoplay: true,
-
-    prevArrow: <SimplePrevArrow />,
-    nextArrow: <SimpleNextArrow />,
-
-    responsive: [
-      {
-        breakpoint: 1200,
-        settings: {
-          autoplay: true,
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 993,
-        settings: {
-          autoplay: true,
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          autoplay: true,
-          speed: 100,
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 400,
-        settings: {
-          arrows: true,
-          speed: 100,
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          autoplay: false,
-        },
-      },
-    ],
-  };
   const openiamintrest = () => {
     setiamintrestmodal(true);
   };
@@ -677,6 +594,7 @@ color: #fff;
 text-align: justify;  
 }
 
+}
 
 /* Responsive Styling */
 
@@ -729,6 +647,29 @@ color: #fff;
 text-align: justify;  
 }
 
+}
+
+/* Responsive for Pitch Deck Slider */
+@media only screen and (max-width: 768px) {
+  #pitchDeck h1, #productDeck h2 {
+    font-size: 24px !important;
+    margin-bottom: 20px !important;
+  }
+  
+  #pitchDeck .p-5, #productDeck .p-5 {
+    padding: 2rem !important;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  #pitchDeck h1, #productDeck h2 {
+    font-size: 20px !important;
+    margin-bottom: 15px !important;
+  }
+  
+  #pitchDeck .p-5, #productDeck .p-5 {
+    padding: 1.5rem !important;
+  }
 }
 
 `}
@@ -817,12 +758,12 @@ text-align: justify;
                       <div className="text-section d-flex justify-content-between align-items-start w-100">
                         <div>
                           <h1>{item.udStartupName}</h1>
-                          
+
                           {/* Last Updated Badge */}
                           <div style={{ marginBottom: "8px" }}>
                             <LastUpdatedBadge udPublishedDate={item.udPublishedDate} />
                           </div>
-                          
+
                           {item.udTag && item.udTag !== "None" && (
                             <div
                               style={{ marginTop: "8px", marginBottom: "8px" }}
@@ -884,7 +825,7 @@ text-align: justify;
                                     process.env.REACT_APP_BASE_URL
                                   }api/uploads/unicorndeals/${
                                     item.tudTempUdID
-                                  }/${JSON.parse(item.udSponsorImage)}`}
+                                    }/${JSON.parse(item.udSponsorImage)}`}
                                   alt="Sponsor"
                                   style={{
                                     maxWidth: "120px",
@@ -907,8 +848,8 @@ text-align: justify;
                                 Incubated / Supported By
                               </p>
                               <p
-                                style={{ 
-                                  fontSize: "14px", 
+                                style={{
+                                  fontSize: "14px",
                                   fontWeight: "500",
                                   color: "#191964",
                                   textDecoration: "underline"
@@ -1005,7 +946,7 @@ text-align: justify;
                                   style={{ textAlign: "justify" }}
                                 >
                                   <img
-                                    src={highlightimages[indexstartuphighlight]} // Replace with the actual icon path
+                                    src={`${process.env.PUBLIC_URL}/assets/images/deals-details/highlight2.jfif`}
                                     alt="Highlight Icon"
                                     style={{
                                       width: "100px",
@@ -1074,154 +1015,50 @@ text-align: justify;
                     )}
                 </section>
 
-                <section id="teamSection" className="container my-5">
-                  <h2 className="text-center mb-3">Team</h2>
-                  <div className="row row-box-linse Grid-team px-1 justify-content-center">
-                    {item.udVendorId &&
-                      JSON.parse(item.udVendorId).map(
-                        (itemudVendorId, indexudVendorId) => (
-                          <div className="col-md-6 mb-4" key={index}>
-                            <div
-                              className="shadow-lg"
-                              style={{
-                                borderRadius: "15px",
-                                overflow: "hidden",
-                                backgroundColor: "#ffffff",
-                              }}
-                            >
-                              {/* Header with Gradient Background */}
-                              <div
-                                style={{
-                                  background:
-                                    "linear-gradient(90deg, #191964, #222276)",
-                                  color: "white",
-                                  padding: "20px",
-                                }}
-                              >
-                                <div className="d-flex align-items-center">
-                                  <img
-                                    src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${itemudVendorId.imgname}`}
-                                    alt=""
-                                    style={{
-                                      width: "100px",
-                                      height: "100px",
-                                      borderRadius: "50%",
-                                      objectFit: "cover",
-                                      marginRight: "15px",
-                                      boxShadow: "0px 3px 6px #000",
-                                    }}
-                                  />
-                                  <div>
-                                    <h5 className="mb-0 text-white">
-                                      {itemudVendorId.name ||
-                                        "Name not provided"}
-                                    </h5>
-                                    <p className="mb-0 text-white">
-                                      {itemudVendorId.Role ||
-                                        "Role not specified"}
-                                    </p>
-                                  </div>
-                                </div>
-                              </div>
-                              {/* Description Section */}
-                              <div
-                                className="p-3"
-                                style={{
-                                  height: "210px",
-                                  textAlign: "justify",
-                                }}
-                              >
-                                <p>
-                                  {itemudVendorId.description1
-                                    ? itemudVendorId.description1
-                                    : "Description not available for this team member."}
-                                </p>
-                                <p>
-                                  {itemudVendorId.description2
-                                    ? itemudVendorId.description2
-                                    : ""}
-                                </p>
-                                <div className="mt-3">
-                                  <a
-                                    href={itemudVendorId.linkedinUrl || "#"}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="social-icons__item"
-                                    style={{ color: "#0A66C2" }}
-                                  >
-                                    <i className="bx bxl-linkedin fs-19"></i>
-                                  </a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        )
-                      )}
-                  </div>
-                </section>
-
-                <section id="pitchDeck">
+                <section id="pitchDeck" className="container my-5">
                   {item.udPitchDeck != "" &&
                     JSON.parse(item.udPitchDeck) != "" && (
-                      <div className="container">
-                        <div className="row">
-                          <div className="col-md-12">
-                            {/* blue bg */}
-                            <div
-                              className="shadow-lg p-5"
-                              style={{
-                                backgroundColor: "#191964",
-                                color: "white",
-                                borderRadius: "20px",
-                              }}
-                            >
-                              <h2 className="text-left text-white mb-4">
-                                Investor Presentation
-                              </h2>
-                              <SinglePagePDFViewer
-                                pdf={`${
-                                  process.env.REACT_APP_BASE_URL
-                                }api/uploads/unicorndeals/${
-                                  item.tudTempUdID
-                                }/${JSON.parse(item.udPitchDeck)}`}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      <>
+                        <h1
+                          style={{
+                            fontSize: 32,
+                            marginBottom: 30,
+                            textAlign: "center",
+                            color: "#000",
+                          }}
+                        >
+                          Investor Presentation
+                        </h1>
+                        <SinglePagePDFViewer
+                          pdf={`${process.env.REACT_APP_BASE_URL
+                            }api/uploads/unicorndeals/${item.tudTempUdID
+                            }/${JSON.parse(item.udPitchDeck)}`}
+                        />
+                      </>
                     )}
                 </section>
 
-                <section id="productDeck">
+                <section id="productDeck" className="container my-5">
                   {item.udProductDeck != null &&
                     item.udProductDeck != "" &&
                     JSON.parse(item.udProductDeck) != "" && (
-                      <div className="container">
-                        <div className="row">
-                          <div className="col-md-12">
-                            {/* blue bg */}
-                            <div
-                              className="shadow-lg p-5"
-                              style={{
-                                backgroundColor: "#191964",
-                                color: "white",
-                                borderRadius: "20px",
-                              }}
-                            >
-                              <h2 className="text-left text-white mb-4">
-                                Product Presentation
-                              </h2>
-                              <SinglePagePDFViewer
-                                pdf={`${
-                                  process.env.REACT_APP_BASE_URL
-                                }api/uploads/unicorndeals/${
-                                  item.tudTempUdID
-                                }/${JSON.parse(item.udProductDeck)}`}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      <>
+                        <h1
+                          style={{
+                            fontSize: 32,
+                            marginBottom: 30,
+                            textAlign: "center",
+                            color: "#000",
+                          }}
+                        >
+                          Product Presentation
+                        </h1>
+                        <SinglePagePDFViewer
+                          pdf={`${process.env.REACT_APP_BASE_URL
+                            }api/uploads/unicorndeals/${item.tudTempUdID
+                            }/${JSON.parse(item.udProductDeck)}`}
+                        />
+                      </>
                     )}
                 </section>
 
@@ -1267,27 +1104,27 @@ text-align: justify;
                             {/* udStartupFounderMobileNumber */}
                             {(item.udStartupFounderMobileCountryCode || "") +
                               item.udStartupFounderMobileNumber &&
-                            item.udStartupFounderMobileNumber.length > 8
+                              item.udStartupFounderMobileNumber.length > 8
                               ? item.udStartupFounderMobileNumber.substring(
-                                  0,
-                                  2
-                                ) +
-                                "XXXXX" +
-                                item.udStartupFounderMobileNumber.substring(7)
+                                0,
+                                2
+                              ) +
+                              "XXXXX" +
+                              item.udStartupFounderMobileNumber.substring(7)
                               : item.udStartupFounderMobileNumber}
                           </li>
                           <li>
                             <i className="fas fa-envelope"></i>
                             {item.udStartupFounderEmail && item.udStartupFounderEmail.includes("@")
                               ? item.udStartupFounderEmail.substring(
-                                  0,
-                                  item.udStartupFounderEmail.indexOf("@") - 3
-                                ) +
-                                "***" +
-                                "@" +
-                                item.udStartupFounderEmail
-                                  .substring(item.udStartupFounderEmail.indexOf("@") + 1)
-                                  .replace(/[^.]+/, "***")
+                                0,
+                                item.udStartupFounderEmail.indexOf("@") - 3
+                              ) +
+                              "***" +
+                              "@" +
+                              item.udStartupFounderEmail
+                                .substring(item.udStartupFounderEmail.indexOf("@") + 1)
+                                .replace(/[^.]+/, "***")
                               : item.udStartupFounderEmail}
                           </li>
                           <li>
@@ -1396,8 +1233,8 @@ text-align: justify;
                               <p>
                                 {item.udFoundedon
                                   ? moment(item.udFoundedon).format(
-                                      "DD-MM-YYYY"
-                                    )
+                                    "DD-MM-YYYY"
+                                  )
                                   : ""}
                               </p>
                             </li>
