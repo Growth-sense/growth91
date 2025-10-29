@@ -11,11 +11,11 @@ import { LastUpdatedBadge } from "./components/LastUpdatedBadge";
 
 export const FutureUnicornList = () => {
   const location = useLocation();
-  
+
   useEffect(() => {
     getuniondata();
     window.scrollTo(0, 0);
-    
+
     // Check for sponsor filter in URL
     const urlParams = new URLSearchParams(location.search);
     const sponsorFilter = urlParams.get('sponsorFilter');
@@ -23,7 +23,7 @@ export const FutureUnicornList = () => {
       setFilters(prev => ({ ...prev, sponsorName: sponsorFilter }));
     }
   }, [location.search]);
-  
+
   const [unicorn, setUnicorn] = useState();
   const [filterdata, setfilterdata] = useState();
   const [searchQuery, setSearchQuery] = useState("");
@@ -150,18 +150,18 @@ export const FutureUnicornList = () => {
     sponsorName: ""
   });
   function filterData(data, filters, searchQuery) {
-    
+
     if (!data) return [];
 
     if (data) {
-      
+
       let filteredResults = data.filter((obj) => {
-        
+
         const matchesCategory = filters.category ? obj.udCategory === filters.category : true;
         const matchesStartupName = filters.startupName ? obj.udStartupName === filters.startupName : true;
         const matchesFounder = filters.founder ? obj.udStartupFounderName === filters.founder : true;
         const matchesSponsor = filters.sponsorName ? obj.udSponsorName === filters.sponsorName : true;
-        
+
         return matchesCategory && matchesStartupName && matchesFounder && matchesSponsor;
 
       });
@@ -178,19 +178,175 @@ export const FutureUnicornList = () => {
           )
         );
       }
-      
+
       return filteredResults;
-     
+
     }
   }
   const filteredData = filterData(unicorn, filters, searchQuery);
-  
+
   return (
     <div>
       <div classname="newabout">
         <NewWebHeader newabout={"newabout"} />
       </div>
+      <style>
+        {`
+          /* Card banner image box */
+          .img-community-box {
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 12px 12px 0 0;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
 
+          .img-community-box img {
+            width: 100%;
+            height: 100%;
+            /* object-fit: contain; */
+            object-position: center;
+            transition: transform 0.3s ease;
+            display: block;
+          }
+
+          .community-all-contents {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 14px 16px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #e5e7eb;
+          }
+
+          .community-all-contents:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+          }
+
+          /* Title row logo icon */
+          .community-paragraph-box ul li img {
+            width: 50px;
+            height: 50px;
+            // border-radius: 8px;
+            object-fit: contain;
+            flex-shrink: 0;
+          }
+
+          /* Card Grid (match Founder/Investor) */
+          .card-container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+          }
+
+          .cards-grid {
+            display: grid;
+            gap: 20px;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+          }
+
+          /* Desktop (≥1440px): 4 cards per row */
+          @media (min-width: 1440px) {
+            .cards-grid {
+              grid-template-columns: repeat(3, minmax(0, 1fr));
+              gap: 18px;
+              align-items: stretch;
+            }
+            .card-container { padding: 0 40px; }
+          }
+
+          /* Large Laptop (≥1200px): 4 cards per row */
+          @media (min-width: 1200px) and (max-width: 1439px) {
+            .cards-grid {
+              grid-template-columns: repeat(3, minmax(0, 1fr));
+              gap: 22px;
+              align-items: stretch;
+            }
+          }
+
+          /* Laptop (≥1024px): 3 cards per row */
+          @media (min-width: 1024px) and (max-width: 1199px) {
+            .cards-grid {
+              grid-template-columns: repeat(3, minmax(0, 1fr));
+              gap: 20px;
+              align-items: stretch;
+            }
+          }
+
+          /* Large Tablet (≥992px): 3 cards per row */
+          @media (min-width: 992px) and (max-width: 1023px) {
+            .cards-grid {
+              grid-template-columns: repeat(3, minmax(0, 1fr));
+              gap: 20px;
+              align-items: stretch;
+            }
+          }
+
+          /* Tablet (≥768px): 2 cards per row */
+          @media (min-width: 768px) and (max-width: 991px) {
+            .cards-grid {
+              grid-template-columns: repeat(2, minmax(0, 1fr));
+              gap: 18px;
+              align-items: stretch;
+            }
+            .card-container { padding: 0 15px; }
+          }
+
+          /* Large Mobile (≥576px): 2 cards per row */
+          @media (min-width: 576px) and (max-width: 767px) {
+            .cards-grid {
+              grid-template-columns: repeat(2, minmax(0, 1fr));
+              gap: 16px;
+              align-items: stretch;
+            }
+            .card-container { padding: 0 20px; margin: 0 10px; }
+          }
+
+          /* Small Mobile (<576px): 1 card per row */
+          @media (max-width: 575px) {
+            .cards-grid {
+              grid-template-columns: minmax(0, 1fr);
+              gap: 16px;
+              align-items: stretch;
+            }
+            .card-container { padding: 0 20px; margin: 0 15px; }
+          }
+
+          /* Mobile heights to match other pages */
+          @media (max-width: 768px) { .img-community-box { height: 200px; } }
+          @media (max-width: 480px) { .img-community-box { height: 200px; } }
+
+          /* Prevent overflow and ensure consistent sizing of cards */
+          .grid-card-item { min-width: 0; }
+
+          /* Mobile logo size tweak */
+          @media (max-width: 480px) {
+            .community-paragraph-box ul li img { width: 50px; height: 50px; }
+          }
+
+          /* Override any global styles that alter image box */
+          .grid-card-item .img-community-box,
+          .community-all-contents .img-community-box {
+            border-top: none !important;
+            border: none !important;
+            padding: 0 !important;
+            background: transparent !important;
+          }
+        `}
+      </style>
       <section className="community-sections">
         <div className="container unicorn-list-container">
           <div className="row">
@@ -277,7 +433,7 @@ export const FutureUnicornList = () => {
                     className="form-control"
                   >
                     <option value="">--Select--</option>
-                    {filterdata && 
+                    {filterdata &&
                       [...new Set(filterdata
                         .filter(item => item.udStartupName)
                         .map(item => item.udStartupName))]
@@ -301,7 +457,7 @@ export const FutureUnicornList = () => {
                     className="form-control"
                   >
                     <option value="">--Select--</option>
-                    {filterdata && 
+                    {filterdata &&
                       [...new Set(filterdata
                         .filter(item => item.udCategory)
                         .map(item => item.udCategory))]
@@ -325,7 +481,7 @@ export const FutureUnicornList = () => {
                     className="form-control"
                   >
                     <option value="">--Select--</option>
-                    {filterdata && 
+                    {filterdata &&
                       [...new Set(filterdata
                         .filter(item => item.udStartupFounderName)
                         .map(item => item.udStartupFounderName))]
@@ -351,7 +507,7 @@ export const FutureUnicornList = () => {
                     className="form-control"
                   >
                     <option value="">--Select--</option>
-                    {filterdata && 
+                    {filterdata &&
                       [...new Set(filterdata
                         .filter(item => item.udSponsorName)
                         .map(item => item.udSponsorName))]
@@ -367,129 +523,130 @@ export const FutureUnicornList = () => {
               </div>
             </Modal>
 
-            {/* Filtered Cards */}
-            <div className="row justify-content-center card-box gy-4">
-              {filteredData && filteredData.length > 0 ? (
-                filteredData.map((item, index) => (
-                  <div key={index} className="grid-cards col-lg-4 col-md-6 col-sm-12"
-                        onClick={() => {window.location.assign(`/FutureUnicornDescription?id=${item.unicornDealID}`)}}>
-                    <div
-                      className="community-all-contents"
-                      style={{
-                        minHeight: "300px",
-                        display: "flex",
-                        flexDirection: "column",
-                        height: "100%",
-                        position: "relative",
-                        cursor: "pointer",
-                      }}
-                      onMouseOver={(e) => {
-                        e.currentTarget.style.transform = "scale(1.02)";
-                        e.currentTarget.style.backgroundColor = "lightgray";
-                      }}
-                      onMouseOut={(e) => {
-                        e.currentTarget.style.transform = "scale(1)";
-                        e.currentTarget.style.backgroundColor = "white";
-                      }}
-                    >
-                      <div className="img-community-box">
-                        <img
-                          src={
-                            (item.udBannerImage &&
-                              `${
-                                process.env.REACT_APP_BASE_URL
-                              }api/uploads/unicorndeals/${
-                                item.tudTempUdID
-                              }/${JSON.parse(item.udBannerImage)}`) ||
-                            "https://growth91.com/api/uploads/deal/banner/34/1719999515.jpg"
-                          }
-                          alt="Banner"
-                        />
-                      </div>
-                      <div className="community-paragraph-box">
-                        <ul>
-                          <li style={{ width: "100%" }}>
+            {/* Filtered Cards - CSS Grid (matches Founder/Investor) */}
+            <div className='row justify-content-center'>
+              <div className="card-container">
+                <div className="cards-grid">
+                  {filteredData && filteredData.length > 0 ? (
+                    filteredData.map((item, index) => (
+                      <div key={index} className="grid-card-item"
+                        onClick={() => { window.location.assign(`/FutureUnicornDescription?id=${item.unicornDealID}`) }}>
+                        <div
+                          className="community-all-contents"
+                          style={{
+                            minHeight: "300px",
+                            display: "flex",
+                            flexDirection: "column",
+                            height: "100%",
+                            position: "relative",
+                            cursor: "pointer",
+                          }}
+                          onMouseOver={(e) => {
+                            e.currentTarget.style.transform = "scale(1.02)";
+                            e.currentTarget.style.backgroundColor = "lightgray";
+                          }}
+                          onMouseOut={(e) => {
+                            e.currentTarget.style.transform = "scale(1)";
+                            e.currentTarget.style.backgroundColor = "white";
+                          }}
+                        >
+                          <div className="img-community-box">
                             <img
                               src={
-                                (item.udLogoImage &&
-                                  `${
-                                    process.env.REACT_APP_BASE_URL
-                                  }api/uploads/unicorndeals/${
-                                    item.tudTempUdID
-                                  }/${JSON.parse(item.udLogoImage)}`) ||
-                                "https://growth91.com/api/uploads/deal/logo/34/1719999515.jpg"
+                                (item.udBannerImage &&
+                                  `${process.env.REACT_APP_BASE_URL
+                                  }api/uploads/unicorndeals/${item.tudTempUdID
+                                  }/${JSON.parse(item.udBannerImage)}`) ||
+                                "https://growth91.com/api/uploads/deal/banner/34/1719999515.jpg"
                               }
-                              alt="Logo"
+                              alt="Banner"
                             />
-                            <h5>{item.udStartupName}</h5>
-                          </li>
-                        </ul>
-                        {item.udTag && item.udTag !== "None" && (
-                          <div style={{ marginTop: "8px" }}>
-                            {item.udTag.split(",").map((tag, tagIndex) => (
-                              <span key={tagIndex} style={{
-                                display: "inline-block",
-                                backgroundColor: "#e6f7ff",
-                                color: "#0066cc",
-                                padding: "3px 10px",
-                                borderRadius: "4px",
-                                fontSize: "12px",
-                                fontWeight: "500",
-                                marginRight: "5px",
-                                marginBottom: "3px"
-                              }}>
-                                {tag.trim()}
-                              </span>
-                            ))}
                           </div>
-                        )}
-                        <p style={{
-                          WebkitLineClamp: 3,
-                          WebkitBoxOrient: "vertical",
-                          overflow: "hidden",
-                          display: "-webkit-box",
-                        }}>{item.udDealDescription}</p>
+                          <div className="community-paragraph-box">
+                            <ul>
+                              <li style={{ width: "100%" }}>
+                                <img
+                                  src={
+                                    (item.udLogoImage &&
+                                      `${process.env.REACT_APP_BASE_URL
+                                      }api/uploads/unicorndeals/${item.tudTempUdID
+                                      }/${JSON.parse(item.udLogoImage)}`) ||
+                                    "https://growth91.com/api/uploads/deal/logo/34/1719999515.jpg"
+                                  }
+                                  alt="Logo"
+                                />
+                                <h5>{item.udStartupName}</h5>
+                              </li>
+                            </ul>
+                            {item.udTag && item.udTag !== "None" && (
+                              <div style={{ marginTop: "8px" }}>
+                                {item.udTag.split(",").map((tag, tagIndex) => (
+                                  <span key={tagIndex} style={{
+                                    display: "inline-block",
+                                    backgroundColor: "#e6f7ff",
+                                    color: "#0066cc",
+                                    padding: "3px 10px",
+                                    borderRadius: "4px",
+                                    fontSize: "12px",
+                                    fontWeight: "500",
+                                    marginRight: "5px",
+                                    marginBottom: "3px"
+                                  }}>
+                                    {tag.trim()}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+                            <p style={{
+                              WebkitLineClamp: 3,
+                              WebkitBoxOrient: "vertical",
+                              overflow: "hidden",
+                              display: "-webkit-box",
+                            }}>{item.udDealDescription}</p>
+                          </div>
+                          <div
+                            className="community-paragraph-box card-bottom-container"
+                          >
+                            <Link
+                              to={`/FutureUnicornDescription?id=${item.unicornDealID}`}
+                              className="btn-com"
+                            >
+                              View More
+                            </Link>
+
+                            {/* Last Updated Badge */}
+                            <LastUpdatedBadge udPublishedDate={item.udPublishedDate} />
+                          </div>
+                        </div>
                       </div>
-                      <div
-                        className="community-paragraph-box card-bottom-container"
-                      >
-                        <Link
-                          to={`/FutureUnicornDescription?id=${item.unicornDealID}`}
-                          className="btn-com"
-                        >
-                          View More
-                        </Link>
-                        
-                        {/* Last Updated Badge */}
-                        <LastUpdatedBadge udPublishedDate={item.udPublishedDate} />
-                      </div>
+                    ))
+                  ) : (
+                    <div className="text-center mt-4">
+                      <h4>No Data Found</h4>
                     </div>
-                  </div>
-                ))
-              ) : (
-                <div className="text-center mt-4">
-                  <h4>No Data Found</h4>
+                  )}
                 </div>
-              )}
+              </div>
+            </div>
+
+            <div className="row pagination-row">
+              <div class="pagination">
+                {/* <a href="#">&laquo;</a>
+                <a href="#" className='active'>1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <a href="#">6</a> */}
+                <a href="#">&raquo;</a>
+              </div>
             </div>
           </div>
 
-          <div className="row pagination-row">
-            <div class="pagination">
-              {/* <a href="#">&laquo;</a>
-              <a href="#" className='active'>1</a>
-              <a href="#">2</a>
-              <a href="#">3</a>
-              <a href="#">4</a>
-              <a href="#">5</a>
-              <a href="#">6</a> */}
-              <a href="#">&raquo;</a>
-            </div>
-          </div>
+          <NewWebFooter />
         </div>
       </section>
 
-      <NewWebFooter />
     </div>
   );
 };
