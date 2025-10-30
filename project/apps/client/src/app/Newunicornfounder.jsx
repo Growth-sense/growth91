@@ -565,25 +565,51 @@ const Newunicornfounder = () => {
                     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
                 }
 
+                /* Banner image container: fixed height, centers image */
                 .img-community-box {
                     width: 100%;
-                    height: 180px;
+                    height: 180px;                /* desktop default */
                     overflow: hidden;
                     position: relative;
                     border-radius: 12px 12px 0 0;
-                    background: #ffffff;
+                    background: #ffffff;          /* neutral background for letterboxing */
                     display: flex;
-                    align-items: center;
-                    justify-content: center;
+                    align-items: center;          /* vertical center */
+                    justify-content: center;      /* horizontal center */
                 }
 
-                .img-community-box img {
-                    width: 100%;
-                    height: 100%;
-                    // object-fit: contain;
-                    object-position: center;
-                    transition: transform 0.3s ease;
-                    display: block;
+                /* Banner image: keep original aspect, never stretch (hardened) */
+                .img-community-box > img {
+                    width: auto !important;        /* keep original aspect */
+                    height: auto !important;       /* keep original aspect */
+                    max-width: 100% !important;    /* scale down if wider than box */
+                    max-height: 100% !important;   /* scale down if taller than box */
+                    object-fit: initial !important; /* ignore any global cover/contain */
+                    display: block !important;                 /* avoid inline gaps */
+                    flex: 0 0 auto !important;                /* do not stretch in flex context */
+                    image-rendering: auto !important;
+                }
+
+                /* Hardened overrides to avoid global CSS conflicts */
+                .grid-card-item .img-community-box,
+                .community-all-contents .img-community-box {
+                    border-top: none !important;
+                    border: none !important;
+                    padding: 0 !important;
+                    background: transparent !important;
+                }
+
+                /* Explicit mobile heights for consistent look */
+                @media (min-width: 576px) and (max-width: 767px) {
+                    .img-community-box { height: 200px; }
+                }
+
+                @media (max-width: 768px) {
+                    .img-community-box { height: 200px; }
+                }
+
+                @media (max-width: 480px) {
+                    .img-community-box { height: 200px; }
                 }
 
                 .community-paragraph-box {
@@ -680,7 +706,7 @@ const Newunicornfounder = () => {
                 /* Responsive adjustments for smaller screens */
                 @media (max-width: 768px) {
                     .img-community-box {
-                        height: 200px;
+                        height: 200px; /* larger box on mobile, image remains original aspect */
                     }
                     
                     .community-paragraph-box {
@@ -717,7 +743,7 @@ const Newunicornfounder = () => {
 
                 @media (max-width: 480px) {
                     .img-community-box {
-                        height: 200px;
+                        height: 200px; /* same: show original aspect, allow empty space */
                     }
                     
                     .community-paragraph-box ul li img {
