@@ -195,29 +195,32 @@ export const FutureUnicornList = () => {
           /* Card banner image box */
           .img-community-box {
             width: 100%;
-            height: 180px;
+            height: 180px;                /* desktop default */
             overflow: hidden;
             position: relative;
             border-radius: 12px 12px 0 0;
-            background: #ffffff;
+            background: #ffffff;          /* neutral background for letterboxing */
             display: flex;
-            align-items: center;
-            justify-content: center;
-          }
+            align-items: center;          /* vertical center */
+            justify-content: center;      /* horizontal center */
+           }
 
-          .img-community-box img {
-            width: 100%;
-            height: 100%;
-            /* object-fit: contain; */
-            object-position: center;
-            transition: transform 0.3s ease;
-            display: block;
+          /* Banner image: keep original aspect, never stretch (hardened) */
+          .img-community-box > img {
+            width: auto !important;        /* keep original aspect */
+            height: auto !important;       /* keep original aspect */
+            max-width: 100% !important;    /* scale down if wider than box */
+            max-height: 100% !important;   /* scale down if taller than box */
+            object-fit: initial !important; /* ignore any global cover/contain */
+            display: block !important;      /* avoid inline gaps */
+            flex: 0 0 auto !important;     /* do not stretch in flex context */
+            image-rendering: auto !important;
           }
 
           .community-all-contents {
             background: white;
             border-radius: 12px;
-            box-shadow: 0 14px 16px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             overflow: hidden;
             height: 100%;
@@ -226,26 +229,12 @@ export const FutureUnicornList = () => {
             border: 1px solid #e5e7eb;
           }
 
-          .community-all-contents:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-          }
-
-          /* Title row logo icon */
-          .community-paragraph-box ul li img {
-            width: 50px;
-            height: 50px;
-            // border-radius: 8px;
-            object-fit: contain;
-            flex-shrink: 0;
-          }
-
           /* Card Grid (match Founder/Investor) */
           .card-container {
             width: 100%;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 10px;               /* slightly tighter */
             box-sizing: border-box;
           }
 
@@ -261,20 +250,21 @@ export const FutureUnicornList = () => {
           /* Desktop (≥1440px): 4 cards per row */
           @media (min-width: 1440px) {
             .cards-grid {
-              grid-template-columns: repeat(3, minmax(0, 1fr));
+              grid-template-columns: repeat(4, minmax(0, 1fr));
               gap: 18px;
               align-items: stretch;
             }
-            .card-container { padding: 0 40px; }
+            .card-container { padding: 0 16px; }
           }
 
           /* Large Laptop (≥1200px): 4 cards per row */
           @media (min-width: 1200px) and (max-width: 1439px) {
             .cards-grid {
-              grid-template-columns: repeat(3, minmax(0, 1fr));
+              grid-template-columns: repeat(4, minmax(0, 1fr));
               gap: 22px;
               align-items: stretch;
             }
+            .card-container { padding: 0 16px; }
           }
 
           /* Laptop (≥1024px): 3 cards per row */
@@ -302,7 +292,7 @@ export const FutureUnicornList = () => {
               gap: 18px;
               align-items: stretch;
             }
-            .card-container { padding: 0 15px; }
+            .card-container { padding: 0 10px; }
           }
 
           /* Large Mobile (≥576px): 2 cards per row */
@@ -312,7 +302,7 @@ export const FutureUnicornList = () => {
               gap: 16px;
               align-items: stretch;
             }
-            .card-container { padding: 0 20px; margin: 0 10px; }
+            .card-container { padding: 0 12px; margin: 0 6px; }
           }
 
           /* Small Mobile (<576px): 1 card per row */
@@ -322,20 +312,13 @@ export const FutureUnicornList = () => {
               gap: 16px;
               align-items: stretch;
             }
-            .card-container { padding: 0 20px; margin: 0 15px; }
+            .card-container { padding: 0 12px; margin: 0 8px; }
           }
 
           /* Mobile heights to match other pages */
+          @media (min-width: 576px) and (max-width: 767px) { .img-community-box { height: 200px; } }
           @media (max-width: 768px) { .img-community-box { height: 200px; } }
           @media (max-width: 480px) { .img-community-box { height: 200px; } }
-
-          /* Prevent overflow and ensure consistent sizing of cards */
-          .grid-card-item { min-width: 0; }
-
-          /* Mobile logo size tweak */
-          @media (max-width: 480px) {
-            .community-paragraph-box ul li img { width: 50px; height: 50px; }
-          }
 
           /* Override any global styles that alter image box */
           .grid-card-item .img-community-box,
@@ -344,6 +327,72 @@ export const FutureUnicornList = () => {
             border: none !important;
             padding: 0 !important;
             background: transparent !important;
+          }
+
+          /* Neutralize Bootstrap container padding/margins and gutters just for this page */
+          .unicorn-list-container {
+            max-width: 100% !important;         /* ignore Bootstrap container widths */
+            padding-left: 0 !important;         /* kill side padding from .container */
+            padding-right: 0 !important;
+            margin-left: 0 !important;          /* avoid extra outer margins */
+            margin-right: 0 !important;
+          }
+          .unicorn-list-container .row {
+            --bs-gutter-x: 0 !important;        /* remove horizontal gutters */
+            margin-left: 20px !important;
+            margin-right: 20px !important;
+          }
+
+          /* Trim outer section padding if any */
+          section.community-sections {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+          }
+
+          /* Search bar: align left with cards, responsive width */
+          .search-bar-container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto 24px auto;
+            padding: 0 10px;               /* match card-container base */
+            box-sizing: border-box;
+          }
+          .search-bar-container .search-input {
+            width: 100%;                   /* mobile: full width */
+          }
+
+          /* Desktop/Laptop: 60% width */
+          @media (min-width: 1024px) {
+            .search-bar-container {
+              padding: 0 16px;             /* match card-container on desktop */
+            }
+            .search-bar-container .search-input {
+              width: 60%;
+            }
+          }
+
+          /* Tablet/Mobile: 100% width */
+          @media (max-width: 1023px) {
+            .search-bar-container .search-input {
+              width:96%;
+            }
+          }
+
+          /* Match card-container padding at each breakpoint */
+          @media (min-width: 1440px) {
+            .search-bar-container { padding: 0 16px; }
+          }
+          @media (min-width: 1200px) and (max-width: 1439px) {
+            .search-bar-container { padding: 0 16px; }
+          }
+          @media (min-width: 768px) and (max-width: 991px) {
+            .search-bar-container { padding: 0 10px; }
+          }
+          @media (min-width: 576px) and (max-width: 767px) {
+            .search-bar-container { padding: 0 12px; margin-left: 8px; margin-right: 8px; }
+          }
+          @media (max-width: 575px) {
+            .search-bar-container { padding: 0 12px; margin-left: 10px; margin-right: 10px; }
           }
         `}
       </style>
