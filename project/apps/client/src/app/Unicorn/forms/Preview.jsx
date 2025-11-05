@@ -9,6 +9,7 @@ import NewWebHeader from "../../common/NewWebHeader.jsx";
 import { NewWebFooter } from "../../common/NewWebFooter.jsx";
 import { Modal, message as mess, Spin } from "antd";
 import SinglePagePDFViewer from "./../../components/PdfViewer/single-page";
+import CoverImageCarousel from "../../components/CoverImageCarousel.jsx";
 
 import Bridge from "./../../constants/Bridge.js";
 import { extractVideoIDFromYoutubeUrl, getAbsoluteUrl } from "../../helper/utilHelper.js";
@@ -27,6 +28,66 @@ export const Preview = (props) => {
 
   const [unicorn, setunicorn] = useState();
   console.log(unicorn);
+
+  // Helper function to parse banner images (single string or JSON array)
+  const parseBannerImage = (bannerImage) => {
+    if (!bannerImage) return '';
+    try {
+      const parsed = JSON.parse(bannerImage);
+      return Array.isArray(parsed) ? parsed[0] : parsed;
+    } catch (e) {
+      return bannerImage;
+    }
+  };
+
+  // Helper function to parse banner images into array for carousel
+  const parseBannerImages = (bannerImage) => {
+    if (!bannerImage) return [];
+    try {
+      const parsed = JSON.parse(bannerImage);
+      return Array.isArray(parsed) ? parsed : [parsed];
+    } catch (e) {
+      return [bannerImage];
+    }
+  };
+
+  // Helper to get full URLs for carousel images (handles mixed old/new images)
+  const getCarouselImageUrls = (images, tudTempUdID) => {
+    return images.map(image => {
+      const baseUrl = process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL;
+      return `${baseUrl}api/uploads/unicorndeals/${tudTempUdID}/${image}`;
+    });
+  };
+
+  // Helper function to get correct image URL (localhost for new uploads, production for existing)
+  const getImageUrl = (filename, tudTempUdID) => {
+    if (!filename) return '';
+
+    // Parse JSON if needed
+    let parsedFilename = filename;
+    try {
+      parsedFilename = JSON.parse(filename);
+      // If array, get first image
+      if (Array.isArray(parsedFilename)) {
+        parsedFilename = parsedFilename[0];
+      }
+    } catch (e) {
+      // Already a plain string
+    }
+
+    if (!parsedFilename) return '';
+
+    const baseUrl = process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL;
+    return `${baseUrl}api/uploads/unicorndeals/${tudTempUdID}/${parsedFilename}`;
+  };
+
+  // Helper for plain image filenames (not JSON encoded)
+  const getPlainImageUrl = (filename, tudTempUdID) => {
+    if (!filename) return '';
+    const baseUrl = process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL;
+    return `${baseUrl}api/uploads/unicorndeals/${tudTempUdID}/${filename}`;
+  };
+
   $(window).scroll(function () {
     if ($(this).scrollTop() > 30) {
       $("body").addClass("newClass");
@@ -264,10 +325,12 @@ export const Preview = (props) => {
       
         .image-section {
           width: 100%;
-          
           border-radius: 8px;
           overflow: hidden;
           margin-bottom: 1.5rem;
+          margin-top: -5px;
+          display: block;
+          position: relative;
         }
         .image-section img {
          width:100%;
@@ -293,6 +356,7 @@ object-fit:cover;
           height: auto;
           object-fit: contain;
           display: block;
+          z-index:1
         }
         
         .text-section h1 {
@@ -770,6 +834,18 @@ text-align: justify;
 
 }
 
+@media only screen and (max-width: 768px) {
+  .image-section {
+    margin-top: 100px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .image-section {
+    margin-top: -26px;
+  }
+}
+
 `}
       </style>
       <div classname="newabout">
@@ -790,26 +866,15 @@ text-align: justify;
                     style={{
                       borderRadius: "15px",
                       border: "1px solid #ddd",
-                      marginTop: "-5px",
                     }}
                   >
-                    {/* Add your image manually here */}
-                    <img
-                      className="heroSectionImage"
-                      style={{
-                        objectFit: "cover",
-                        width: "100%",
-                        height: "auto",
-                      }}
-                      src={
-                        item.tudBannerImage &&
-                        `${
-                          process.env.REACT_APP_BASE_URL
-                        }api/uploads/unicorndeals/${
-                          item.tudTempUdID
-                        }/${JSON.parse(item.tudBannerImage)}`
-                      }
-                      alt="Team"
+                    {/* Cover Image Carousel - supports multiple images */}
+                    <CoverImageCarousel
+                      images={parseBannerImages(item.tudBannerImage)}
+                      imageUrls={getCarouselImageUrls(parseBannerImages(item.tudBannerImage), item.tudTempUdID)}
+                      altText="Cover Image"
+                      autoPlayInterval={4000}
+                      showControls={true}
                     />
                   </div>
 
@@ -818,11 +883,7 @@ text-align: justify;
                     <div className="logo-section">
                       {/* Replace with your logo */}
                       <img
-                        src={`${
-                          process.env.REACT_APP_BASE_URL
-                        }api/uploads/unicorndeals/${
-                          item.tudTempUdID
-                        }/${JSON.parse(item.tudLogoImage)}`}
+                        src={getImageUrl(item.tudLogoImage, item.tudTempUdID)}
                         alt=""
                         style={{
                           objectFit: "contain",
@@ -891,11 +952,7 @@ text-align: justify;
                           >
                             {item.tudSponsorImage && (
                               <img
-                                src={`${
-                                  process.env.REACT_APP_BASE_URL
-                                }api/uploads/unicorndeals/${
-                                  item.tudTempUdID
-                                }/${JSON.parse(item.tudSponsorImage)}`}
+                                src={getImageUrl(item.tudSponsorImage, item.tudTempUdID)}
                                 alt="Sponsor"
                                 style={{
                                   maxWidth: "120px",
@@ -955,7 +1012,7 @@ text-align: justify;
 
                     {/* Right Text Section */}
                     <div className="col-md-8 d-flex flex-column justify-content-center">
-                      <p className="about-text" style={{overflowWrap: "anywhere"}}>{item.tudDealDescription}</p>
+                      <p className="about-text" style={{ overflowWrap: "anywhere" }}>{item.udDealDescription}</p>
                     </div>
                   </div>
                 </div>
@@ -1045,7 +1102,7 @@ text-align: justify;
                             >
                               <div className="media-card">
                                 <img
-                                  src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${itemudMediaCoverageFiles.imgname}`}
+                                  src={getPlainImageUrl(itemudMediaCoverageFiles.imgname, item.tudTempUdID)}
                                   alt=""
                                   className="media-card-image"
                                 />
@@ -1102,7 +1159,7 @@ text-align: justify;
                             >
                               <div className="d-flex align-items-center">
                                 <img
-                                  src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${itemudVendorId.imgname}`}
+                                  src={getPlainImageUrl(itemudVendorId.imgname, item.tudTempUdID)}
                                   alt=""
                                   style={{
                                     width: "100px",
@@ -1179,11 +1236,9 @@ text-align: justify;
                                 Investor Presentation
                               </h2>
                               <SinglePagePDFViewer
-                                pdf={`${
-                                  process.env.REACT_APP_BASE_URL
-                                }api/uploads/unicorndeals/${
-                                  item.tudTempUdID
-                                }/${JSON.parse(item.tudPitchDeck)}`}
+                                pdf={`${process.env.REACT_APP_BASE_URL
+                                  }api/uploads/unicorndeals/${item.tudTempUdID
+                                  }/${JSON.parse(item.tudPitchDeck)}`}
                               />
                             </div>
                           </div>
@@ -1214,11 +1269,9 @@ text-align: justify;
                                 Product Presentation
                               </h2>
                               <SinglePagePDFViewer
-                                pdf={`${
-                                  process.env.REACT_APP_BASE_URL
-                                }api/uploads/unicorndeals/${
-                                  item.tudTempUdID
-                                }/${JSON.parse(item.tudProductDeck)}`}
+                                pdf={`${process.env.REACT_APP_BASE_URL
+                                  }api/uploads/unicorndeals/${item.tudTempUdID
+                                  }/${JSON.parse(item.tudProductDeck)}`}
                               />
                             </div>
                           </div>
@@ -1267,27 +1320,27 @@ text-align: justify;
                           {/* udStartupFounderMobileNumber */}
                           {(item.tudStartupFounderMobileCountryCode || "") +
                             item.tudStartupFounderMobileNumber &&
-                          item.tudStartupFounderMobileNumber.length > 8
+                            item.tudStartupFounderMobileNumber.length > 8
                             ? item.tudStartupFounderMobileNumber.substring(
-                                0,
-                                2
-                              ) +
-                              "XXXXX" +
-                              item.tudStartupFounderMobileNumber.substring(7)
+                              0,
+                              2
+                            ) +
+                            "XXXXX" +
+                            item.tudStartupFounderMobileNumber.substring(7)
                             : item.tudStartupFounderMobileNumber}
                         </li>
                         <li>
                           <i className="fas fa-envelope"></i>
                           {item.tudStartupFounderEmail && item.tudStartupFounderEmail.includes("@")
                             ? item.tudStartupFounderEmail.substring(
-                                0,
-                                item.tudStartupFounderEmail.indexOf("@") - 3
-                              ) +
-                              "***" +
-                              "@" +
-                              item.tudStartupFounderEmail
-                                .substring(item.tudStartupFounderEmail.indexOf("@") + 1)
-                                .replace(/[^.]+/, "***")
+                              0,
+                              item.tudStartupFounderEmail.indexOf("@") - 3
+                            ) +
+                            "***" +
+                            "@" +
+                            item.tudStartupFounderEmail
+                              .substring(item.tudStartupFounderEmail.indexOf("@") + 1)
+                              .replace(/[^.]+/, "***")
                             : item.tudStartupFounderEmail}
                         </li>
                         <li>

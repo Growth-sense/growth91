@@ -462,11 +462,7 @@ class Startup extends CI_Controller {
 					'tudYoutubeLink'=> $tudYoutubeLink,
 					'tudCategory'=> $tudCategory,
 					'tudBannerImage'=> $tudBannerImage,
-					'tudSelectLogo'=> $tudSelectLogo,
-					'tudPageLink'=> $tudPageLink,
-					'tudVendorId'=> $tudVendorId,
-					'tudStartupHighlights'=> $tudStartupHighlights,
-					'tudMediaCoverages'=> $tudMediaCoverages,
+					'tudLogoImage'=> $tudLogoImage,
 					'tudMark'=> $tudMark,
 
 					'tudValuation'=> $tudValuation,
@@ -520,6 +516,15 @@ class Startup extends CI_Controller {
 	 
 	public function unicornListByFounders()
 	{
+		// Enable error display for debugging
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
+		
+		// Debug log file
+		$debugLog = FCPATH . 'debug_unicorn.txt';
+		file_put_contents($debugLog, "\n\n=== NEW REQUEST ===\n", FILE_APPEND);
+		file_put_contents($debugLog, date('Y-m-d H:i:s') . "\n", FILE_APPEND);
+		
 		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
 		// header("Access-Control-Allow-Origin: *");
@@ -527,40 +532,80 @@ class Startup extends CI_Controller {
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 		$formdata = json_decode(file_get_contents('php://input'), true);
-			extract($formdata);
+		
+		// Debug: Log received data
+		file_put_contents($debugLog, "Received POST data: " . print_r($formdata, true) . "\n", FILE_APPEND);
+		flush();
+		
+		// Check if founderID exists
+		if (empty($formdata['founderID'])) {
+			file_put_contents($debugLog, "ERROR: founderID is missing!\n", FILE_APPEND);
+			$response = [
+				'status' => '0',
+				'message' => 'founderID is required but was not provided',
+				'debug' => $formdata
+			];
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($response));
+			return;
+		}
+		
+		extract($formdata);
+		
 		// sql query
 		$sql = "SELECT tempunicorndeals.*,tempunicorndeals2.*  FROM `tempunicorndeals` 
 		LEFT JOIN tempunicorndeals2 on tempunicorndeals2.tudTempUdID = tempunicorndeals.tudTempUdID WHERE founderID='".$founderID."'
 		ORDER BY tempunicorndeals.tudTempUdID DESC;";
-		$query = $this->db->query($sql);
-		$list = $query->result();
-		for ($i = 0; $i < count($list); $i++) {
-			 
-			// get Published ID
-			/*$sql2 = "SELECT * FROM `private_deal_invities` WHERE `deal_id`='$deal_id'";
-			$query2 = $this->db->query($sql2);
-			$data3=$query2->result();
-			$num_rows = $query2->num_rows();
-			if($list[$i] -> deal_type == "Private" || $list[$i] -> deal_type == "Public"){
-				$list[$i]->total_invitions=$num_rows;
-			}else{
-				$list[$i]->total_invitions='0';
-			}*/
-			 
-		}
-		if (count($list) >= 0) {
-			$response = [
-				'status' => '1',
-				'message' => 'List fetched successfully.',
-				'data' => $list,
-			];
-		}
-		else {
+		
+		// Debug: Log SQL query
+		file_put_contents($debugLog, "Executing SQL: " . $sql . "\n", FILE_APPEND);
+		flush();
+		
+		try {
+			$query = $this->db->query($sql);
+			$list = $query->result();
+			
+			file_put_contents($debugLog, "Query returned " . count($list) . " rows\n", FILE_APPEND);
+			flush();
+			
+			for ($i = 0; $i < count($list); $i++) {
+				 
+				// get Published ID
+				/*$sql2 = "SELECT * FROM `private_deal_invities` WHERE `deal_id`='$deal_id'";
+				$query2 = $this->db->query($sql2);
+				$data3=$query2->result();
+				$num_rows = $query2->num_rows();
+				if($list[$i] -> deal_type == "Private" || $list[$i] -> deal_type == "Public"){
+					$list[$i]->total_invitions=$num_rows;
+				}else{
+					$list[$i]->total_invitions='0';
+				}*/
+				 
+			}
+			if (count($list) >= 0) {
+				$response = [
+					'status' => '1',
+					'message' => 'List fetched successfully.',
+					'data' => $list,
+				];
+			}
+			else {
+				$response = [
+					'status' => '0',
+					'message' => 'Please try again!'
+				];
+			}
+		} catch (Exception $e) {
+			file_put_contents($debugLog, "Database error: " . $e->getMessage() . "\n", FILE_APPEND);
+			flush();
 			$response = [
 				'status' => '0',
-				'message' => 'Please try again!'
+				'message' => 'Database error: ' . $e->getMessage(),
+				'sql' => $sql
 			];
 		}
+		
 		$this->output
 			->set_content_type('application/json')
 			->set_output(json_encode($response));
@@ -857,6 +902,8 @@ class Startup extends CI_Controller {
 					'tudBackedBy'=> $tudBackedBy,
 					'tudSelectLogo'=> $tudSelectLogo,
 					'tudPageLink'=> $tudPageLink,
+					'tudVendorId'=> $tudVendorId,
+					'tudStartupHighlights'=> $tudStartupHighlights,
 					'tudMediaCoverages'=> $tudMediaCoverages,
 					'tudValuation'=> $tudValuation,
 					'tudFocusedOnProduct'=> $tudFocusedOnProduct,
@@ -1354,213 +1401,152 @@ class Startup extends CI_Controller {
 		->set_output(json_encode($response));	
 	}
 
-	// Unicorn deals for Investors
-	function getAllUnicorns() {
-		// header("Access-Control-Allow-Origin: *");
+	// Upload Cover Images (Multiple) - Max 5 images
+	function uploadCoverImages()
+	{
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-		$formdata = json_decode(file_get_contents('php://input'), true);
-		if(!empty($formdata)) {
-			// POst data for table 1
-			extract($formdata);
-			/* Steps
-			Assume that form data have keys to filter so build SQL String
-
-			 */
-			$whereClause= " 1 = 1 ";
-			foreach($formdata as $Key => $Value)
-			{
-				if($Key!="page" && $Key!="pagesize" )
-				{
-					if($Key=="udPublished")
-					{
-						$whereClause.= " AND ".$Key." = '".$Value."' ";
-					}
-					else
-					{
-					$whereClause.= " AND ".$Key." LIKE '%".$Value."%' ";
-					}
-				}
-				
+		if (!empty($_POST)) {
+			$id = $this->input->post('tudTempUdID');
+			$existingImages = $this->input->post('existingImages'); // JSON string of existing images
+			
+			// Parse existing images
+			$currentImages = [];
+			if (!empty($existingImages)) {
+				$decoded = json_decode($existingImages, true);
+				$currentImages = is_array($decoded) ? $decoded : [$decoded];
 			}
 			
-			//Step1
-			$sql= <<<EOT
-			SELECT tempunicorndeals.*,tempunicorndeals2.*, ud.udPublished as mainPublished
-			FROM tempunicorndeals 
-			LEFT JOIN tempunicorndeals2 on tempunicorndeals.tudTempUdID = tempunicorndeals2.tudTempUdID 
-			LEFT JOIN unicorndeals ud ON tempunicorndeals.tudTempUdID = ud.unicornDealID 
-			WHERE $whereClause
-			EOT;
+			// Validation constants
+			$MAX_IMAGES = 5;
+			$MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB in bytes
+			$ALLOWED_FORMATS = ['jpg', 'jpeg', 'png', 'webp'];
 			
-			$query = $this->db->query($sql);
-			//echo $sql;die;
-			$list = $query->result();
-			$response = [
-				'status' => '1',
-				'message'=> 'Data found.',
-				'data'=>$list,
-			];
+			$uploadedImages = [];
+			$errors = [];
+			
+			if ($id) {
+				$dir = FCPATH . "uploads/unicorndeals/" . $id . "/";
+				
+				if (!is_dir($dir)) {
+					@mkdir($dir, 0777, true);
+				}
+				
+				// Check if files are uploaded
+				if (isset($_FILES['coverImages'])) {
+					$files = $_FILES['coverImages'];
+					
+					// Handle both single and multiple file uploads
+					if (is_array($files['name'])) {
+						$fileCount = count($files['name']);
+					} else {
+						$fileCount = 1;
+						$files = [
+							'name' => [$files['name']],
+							'type' => [$files['type']],
+							'tmp_name' => [$files['tmp_name']],
+							'error' => [$files['error']],
+							'size' => [$files['size']]
+						];
+					}
+					
+					// Check total count doesn't exceed limit
+					if (count($currentImages) + $fileCount > $MAX_IMAGES) {
+						$response = [
+							'status' => '0',
+							'message' => 'Maximum ' . $MAX_IMAGES . ' cover images allowed. You currently have ' . count($currentImages) . ' images.',
+						];
+						$this->output
+							->set_content_type('application/json')
+							->set_output(json_encode($response));
+						return;
+					}
+					
+					// Process each file
+					for ($i = 0; $i < $fileCount; $i++) {
+						$fileName = $files['name'][$i];
+						$fileTmpName = $files['tmp_name'][$i];
+						$fileSize = $files['size'][$i];
+						$fileError = $files['error'][$i];
+						
+						if ($fileError === 0) {
+							// Validate file size
+							if ($fileSize > $MAX_FILE_SIZE) {
+								$errors[] = $fileName . ' exceeds 5MB size limit';
+								continue;
+							}
+							
+							// Validate file format
+							$temp = explode(".", $fileName);
+							$extension = strtolower(end($temp));
+							
+							if (!in_array($extension, $ALLOWED_FORMATS)) {
+								$errors[] = $fileName . ' format not allowed. Only jpg, jpeg, png, webp accepted';
+								continue;
+							}
+							
+							// Validate it's actually an image
+							$imageInfo = @getimagesize($fileTmpName);
+							if ($imageInfo === false) {
+								$errors[] = $fileName . ' is not a valid image file';
+								continue;
+							}
+							
+							// Generate unique filename
+							$newfilename = round(microtime(true)) . '_' . $i . '.' . $extension;
+							
+							// Upload file
+							if (move_uploaded_file($fileTmpName, $dir . $newfilename)) {
+								// Compress and optimize image
+								$this->compressImage($dir . $newfilename, $extension);
+								$uploadedImages[] = $newfilename;
+							} else {
+								$errors[] = 'Failed to upload ' . $fileName;
+							}
+						} else {
+							$errors[] = 'Error uploading ' . $fileName;
+						}
+					}
+					
+					// Merge with existing images
+					$allImages = array_merge($currentImages, $uploadedImages);
+					
+					if (count($uploadedImages) > 0) {
+						$response = [
+							'status' => '1',
+							'message' => count($uploadedImages) . ' image(s) uploaded successfully.',
+							'data' => [
+								'newImages' => $uploadedImages,
+								'allImages' => $allImages,
+								'totalCount' => count($allImages)
+							],
+							'errors' => $errors
+						];
+					} else {
+						$response = [
+							'status' => '0',
+							'message' => 'No images were uploaded.',
+							'errors' => $errors
+						];
+					}
+				} else {
+					$response = [
+						'status' => '0',
+						'message' => 'No files uploaded.'
+					];
+				}
+			} else {
+				$response = [
+					'status' => '0',
+					'message' => 'Invalid tudTempUdID.'
+				];
+			}
 		} else {
 			$response = [
 				'status' => '0',
-				'message'=> 'Please enter values of all fields.',
-			];
-		}
-		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($response));	
-	}
-
-	function getUnicornPayment() {
-		// header("Access-Control-Allow-Origin: *");
-		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		// header("Access-Control-Allow-Origin: *");
-		header("Access-Control-Allow-Headers: access");
-		header("Content-Type: application/json; charset=UTF-8");
-		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-
-		$sql = <<<EOT
-			SELECT p.*, u.*, 
-			CASE 
-				WHEN ud.udFounderId IS NOT NULL THEN 'Published' 
-				WHEN tud.founderID IS NOT NULL THEN 'Draft' 
-				ELSE 'Not started' 
-			END AS unicorn_form_status 
-			FROM unicorn_payments p
-			LEFT JOIN users u ON p.founder_id = u.investor_id
-			LEFT JOIN unicorndeals ud ON u.investor_id = ud.udFounderId 
-			LEFT JOIN tempunicorndeals tud ON u.investor_id = tud.founderID
-			ORDER BY STR_TO_DATE(p.event_time, '%Y-%m-%dT%H:%i:%s%T') DESC
-			EOT;
-
-		$query = $this->db->query($sql);
-		$list = $query->result();
-		$response = [
-			'status' => '1',
-			'message' => 'Data found.',
-			'data' => $list,
-		];
-		
-		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($response));	
-	}
-
-	function uploadunicornFiles()
-	{
-		// header("Access-Control-Allow-Origin: *");
-		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		// header("Access-Control-Allow-Origin: *");
-		header("Access-Control-Allow-Headers: access");
-		header("Content-Type: application/json; charset=UTF-8");
-		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-		$formdata = json_decode(file_get_contents('php://input'), true);
-
-		if (!empty($_POST)) {
-			$id = $this->input->post('tudTempUdID');
-			$image_details = array();
-			if ($id) {
-				// logo
-				if (isset($_FILES['tudPitchDeck']['name']) && $_FILES['tudPitchDeck']['name'] != "") {
-					$dir = FCPATH . "uploads/unicorndeals/" . $id . "/";
-
-					if (!is_dir($dir)) {
-						@mkdir($dir, 0777, true);
-					}
-
-					$image = $_FILES['tudPitchDeck']['tmp_name'];
-					$temp = explode(".", $_FILES["tudPitchDeck"]["name"]);
-					$newfilename = round(microtime(true)) . '.' . end($temp);
-
-					$hash = $_FILES['tudPitchDeck']['name'];
-
-					if (move_uploaded_file($image, $dir . $newfilename)) {
-						$image_details["tudPitchDeck"] = $newfilename;
-						
-						
-					}
-				}
-				// logo
-				if (isset($_FILES['tudDoc1']['name']) && $_FILES['tudDoc1']['name'] != "") {
-					$dir = FCPATH . "uploads/unicorndeals/" . $id . "/";
-
-					if (!is_dir($dir)) {
-						@mkdir($dir, 0777, true);
-					}
-
-					$image = $_FILES['tudDoc1']['tmp_name'];
-					$temp = explode(".", $_FILES["tudDoc1"]["name"]);
-					$newfilename = round(microtime(true)) . '.' . end($temp);
-
-					$hash = $_FILES['tudDoc1']['name'];
-
-					if (move_uploaded_file($image, $dir . $newfilename)) {
-						$image_details["tudDoc1"] = $newfilename;
-						 
-					}
-				}
-				// banner
-				if (isset($_FILES['tudDoc2']['name']) && $_FILES['tudDoc2']['name'] != "") {
-					$dir = FCPATH . "uploads/unicorndeals/" . $id . "/";
-
-					if (!is_dir($dir)) {
-						@mkdir($dir, 0777, true);
-					}
-
-					$image = $_FILES['tudDoc2']['tmp_name'];
-					$temp = explode(".", $_FILES["tudDoc2"]["name"]);
-					$newfilename = round(microtime(true)) . '.' . end($temp);
-
-					$hash = $_FILES['tudDoc2']['name'];
-
-					if (move_uploaded_file($image, $dir . $newfilename)) {
-						$image_details["tudDoc2"] = $newfilename;
-						 
-					}
-				}
-
-				// pdf
-				if (isset($_FILES['tudDoc3']['name']) && $_FILES['tudDoc3']['name'] != "") {
-					$dir = FCPATH . "uploads/unicorndeals/" . $id . "/";
-
-					if (!is_dir($dir)) {
-						@mkdir($dir, 0777, true);
-					}
-
-					$image = $_FILES['tudDoc3']['tmp_name'];
-					$temp = explode(".", $_FILES["tudDoc3"]["name"]);
-					$newfilename = round(microtime(true)) . '.' . end($temp);
-
-					$hash = $_FILES['tudDoc3']['name'];
-
-					if (move_uploaded_file($image, $dir . $newfilename)) {
-						$image_details["tudDoc3"] = $newfilename;
-						 
-					}
-				}
-
-				$response = [
-					'status' => '1',
-					'message' => 'Image is uploaded successfully.',
-					'data'=> $image_details
-				];
-			}
-			else {
-				$response = [
-					'status' => '0',
-					'message' => 'Please try again!'
-				];
-			}
-
-		}
-		else {
-			$response = [
-				'status' => '0',
-				'message' => 'Please enter values of all fields.',
+				'message' => 'Please provide required data.',
 			];
 		}
 
@@ -1568,60 +1554,139 @@ class Startup extends CI_Controller {
 			->set_content_type('application/json')
 			->set_output(json_encode($response));
 	}
-	function uploadFiles()
+
+	// Helper function to compress images
+	private function compressImage($filePath, $extension) {
+		// Skip if file doesn't exist
+		if (!file_exists($filePath)) {
+			return false;
+		}
+		
+		// Load image based on type
+		$image = null;
+		switch ($extension) {
+			case 'jpg':
+			case 'jpeg':
+				$image = @imagecreatefromjpeg($filePath);
+				break;
+			case 'png':
+				$image = @imagecreatefrompng($filePath);
+				break;
+			case 'webp':
+				$image = @imagecreatefromwebp($filePath);
+				break;
+		}
+		
+		if (!$image) {
+			return false;
+		}
+		
+		// Get original dimensions
+		$width = imagesx($image);
+		$height = imagesy($image);
+		
+		// Calculate new dimensions (max 1920x1080 for 16:9)
+		$maxWidth = 1920;
+		$maxHeight = 1080;
+		
+		if ($width > $maxWidth || $height > $maxHeight) {
+			$ratio = min($maxWidth / $width, $maxHeight / $height);
+			$newWidth = round($width * $ratio);
+			$newHeight = round($height * $ratio);
+			
+			// Create new image with new dimensions
+			$newImage = imagecreatetruecolor($newWidth, $newHeight);
+			
+			// Preserve transparency for PNG
+			if ($extension === 'png') {
+				imagealphablending($newImage, false);
+				imagesavealpha($newImage, true);
+			}
+			
+			// Resize
+			imagecopyresampled($newImage, $image, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+			imagedestroy($image);
+			$image = $newImage;
+		}
+		
+		// Save compressed image
+		$quality = 85; // Good balance between quality and size
+		switch ($extension) {
+			case 'jpg':
+			case 'jpeg':
+				imagejpeg($image, $filePath, $quality);
+				break;
+			case 'png':
+				// PNG compression level 0-9 (9 = best compression)
+				imagepng($image, $filePath, 6);
+				break;
+			case 'webp':
+				imagewebp($image, $filePath, $quality);
+				break;
+		}
+		
+		imagedestroy($image);
+		return true;
+	}
+
+	// Delete specific cover image
+	function deleteCoverImage()
 	{
-		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		
 		$formdata = json_decode(file_get_contents('php://input'), true);
-
-		if (!empty($_POST)) {
-			$id = $this->input->post('tudTempUdID');
-			$image_details = array();
-			if ($id) {
-				// logo
-				if (isset($_FILES['upfile']['name']) && $_FILES['upfile']['name'] != "") {
-					$dir = FCPATH . "uploads/unicorndeals/" . $id . "/";
-
-					if (!is_dir($dir)) {
-						@mkdir($dir, 0777, true);
-					}
-
-					$image = $_FILES['upfile']['tmp_name'];
-					$temp = explode(".", $_FILES["upfile"]["name"]);
-					$newfilename = round(microtime(true)) . '.' . end($temp);
-
-					$hash = $_FILES['upfile']['name'];
-
-					if (move_uploaded_file($image, $dir . $newfilename)) {
-						$image_details["upfile"] = $newfilename;
-						
-						
-					}
+		
+		if (!empty($formdata)) {
+			$tudTempUdID = $formdata['tudTempUdID'];
+			$imageName = $formdata['imageName'];
+			$currentImages = $formdata['currentImages']; // JSON string or array
+			
+			if ($tudTempUdID && $imageName) {
+				$dir = FCPATH . "uploads/unicorndeals/" . $tudTempUdID . "/";
+				$filePath = $dir . $imageName;
+				
+				// Parse current images
+				$imagesArray = [];
+				if (is_string($currentImages)) {
+					$decoded = json_decode($currentImages, true);
+					$imagesArray = is_array($decoded) ? $decoded : [$decoded];
+				} else if (is_array($currentImages)) {
+					$imagesArray = $currentImages;
 				}
 				
-
+				// Remove image from array
+				$updatedImages = array_values(array_filter($imagesArray, function($img) use ($imageName) {
+					return $img !== $imageName;
+				}));
+				
+				// Delete physical file
+				$fileDeleted = false;
+				if (file_exists($filePath)) {
+					$fileDeleted = @unlink($filePath);
+				}
+				
 				$response = [
 					'status' => '1',
-					'message' => 'Image is uploaded successfully.',
-					'data'=> $image_details
+					'message' => 'Image deleted successfully.',
+					'data' => [
+						'remainingImages' => $updatedImages,
+						'fileDeleted' => $fileDeleted,
+						'totalCount' => count($updatedImages)
+					]
 				];
-			}
-			else {
+			} else {
 				$response = [
 					'status' => '0',
-					'message' => 'Please try again!'
+					'message' => 'Invalid parameters provided.'
 				];
 			}
-
-		}
-		else {
+		} else {
 			$response = [
 				'status' => '0',
-				'message' => 'Please enter values of all fields.',
+				'message' => 'Please provide required data.',
 			];
 		}
 
@@ -1629,6 +1694,113 @@ class Startup extends CI_Controller {
 			->set_content_type('application/json')
 			->set_output(json_encode($response));
 	}
+
+	// Get current cover images for a startup
+	function getCoverImages()
+	{
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		
+		if (!empty($formdata)) {
+			$tudTempUdID = $formdata['tudTempUdID'];
+			
+			if ($tudTempUdID) {
+				$sql = "SELECT tudBannerImage FROM tempunicorndeals2 WHERE tudTempUdID = ?";
+				$query = $this->db->query($sql, [$tudTempUdID]);
+				$result = $query->row();
+				
+				if ($result) {
+					$images = [];
+					if (!empty($result->tudBannerImage)) {
+						$decoded = json_decode($result->tudBannerImage, true);
+						$images = is_array($decoded) ? $decoded : [$decoded];
+					}
+					
+					$response = [
+						'status' => '1',
+						'message' => 'Cover images retrieved successfully.',
+						'data' => [
+							'images' => $images,
+							'totalCount' => count($images)
+						]
+					];
+				} else {
+					$response = [
+						'status' => '0',
+						'message' => 'Startup not found.'
+					];
+				}
+			} else {
+				$response = [
+					'status' => '0',
+					'message' => 'Invalid tudTempUdID.'
+				];
+			}
+		} else {
+			$response = [
+				'status' => '0',
+				'message' => 'Please provide required data.',
+			];
+		}
+
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
+
+	// Reorder cover images
+	function reorderCoverImages()
+	{
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		
+		if (!empty($formdata)) {
+			$tudTempUdID = $formdata['tudTempUdID'];
+			$imageOrder = $formdata['imageOrder']; // Array of image names in new order
+			
+			if ($tudTempUdID && is_array($imageOrder)) {
+				// Validate max 5 images
+				if (count($imageOrder) > 5) {
+					$response = [
+						'status' => '0',
+						'message' => 'Maximum 5 cover images allowed.'
+					];
+				} else {
+					$response = [
+						'status' => '1',
+						'message' => 'Images reordered successfully.',
+						'data' => [
+							'images' => $imageOrder,
+							'totalCount' => count($imageOrder)
+						]
+					];
+				}
+			} else {
+				$response = [
+					'status' => '0',
+					'message' => 'Invalid parameters provided.'
+				];
+			}
+		} else {
+			$response = [
+				'status' => '0',
+				'message' => 'Please provide required data.',
+			];
+		}
+
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
+
 	// I am interested
 	function add_unicorn_interest() {
 		// header("Access-Control-Allow-Origin: *");
@@ -1870,8 +2042,6 @@ class Startup extends CI_Controller {
 		
 		// Add logic to get founder id from formdata and get that details from db and return as response
 		if(!empty($formdata)) {
-			// POst data for table 1
-
 			$founder_id=$formdata['founder_id'];
 			$plan_name=$formdata['plan_name'];
 			$is_upgrade = isset($formdata['is_upgrade']) ? $formdata['is_upgrade'] : false;
@@ -1898,7 +2068,7 @@ class Startup extends CI_Controller {
 			// Special handling for Silver plan - Diwali Offer (FREE)
 			if ($plan_name === 'Silver') {
 				$current_user = $this->db
-					->select('unicorn_plan, unicorn_start_date, left_edit, unicorn_gst_name, email, mobile, first_name, last_name, startup_name, unicorn_gst, unicorn_gst_registered_address')
+					->select('unicorn_plan, unicorn_start_date, left_edit, unicorn_gst, unicorn_gst_registered_address, unicorn_gst_name')
 					->where('investor_id', $founder_id)
 					->get('users')
 					->row();
@@ -1916,7 +2086,7 @@ class Startup extends CI_Controller {
 					'left_edit' => $new_edit_left
 				];
 				$this->db->where('investor_id', $founder_id);
-				$update_result = $this->db->update('users', $post_data);
+				$update_result = $this->db->update('users');
 
 				if ($update_result) {
 					// Record the free payment in unicorn_payments table
@@ -1975,7 +2145,7 @@ class Startup extends CI_Controller {
 				$amount = $plans[$plan_name]['price'];
 
 				$current_user = $this->db
-						->select('unicorn_plan, unicorn_start_date, left_edit, unicorn_gst_name, email, mobile')
+						->select('unicorn_gst, unicorn_gst_registered_address, unicorn_gst_name')
 						->where('investor_id', $founder_id)
 						->get('users')
 						->row();
@@ -2332,37 +2502,33 @@ class Startup extends CI_Controller {
 		if (!empty($formdata)) {
 			extract($formdata);
 			
-			// Check if order_id already exists
+			// Check if record already exists in unicorn_payments
 			$existing_payment = $this->db
 				->where('order_id', $order_id)
 				->get('unicorn_payments')
 				->row();
-			
-			if ($existing_payment) {
-				$response = [
-					'status' => '0',
-					'message' => 'Payment record with this order ID already exists.'
-				];
-			} else {
-				$current_user = $this->db
-						->select('unicorn_gst, unicorn_gst_registered_address, unicorn_gst_name')
-						->where('investor_id', $founder_id)
-						->get('users')
-						->row();
+
+			if (!$existing_payment) {
+				// Insert new record
 				$payment_data = [
 					'amount' => $amount,
 					'order_id' => $order_id,
 					'event_time' => $event_time,
 					'founder_id' => $founder_id,
 					'plan_name' => $planName,
-					'unicorn_gst' => $current_user->unicorn_gst,
-					'unicorn_gst_registered_address' => $current_user->unicorn_gst_registered_address,
-					'unicorn_gst_name' => $current_user->unicorn_gst_name
+					'unicorn_gst' => $unicorn_gst,
+					'unicorn_gst_registered_address' => $unicorn_gst_registered_address,
+					'unicorn_gst_name' => $unicorn_gst_name
 				];
 				$this->db->insert('unicorn_payments', $payment_data);
 				$response = [
 					'status' => '1',
 					'message' => 'Payment recorded successfully.'
+				];
+			} else {
+				$response = [
+					'status' => '0',
+					'message' => 'Payment record with this order ID already exists.'
 				];
 			}
 		} else {

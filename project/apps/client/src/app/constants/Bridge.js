@@ -1014,6 +1014,22 @@ export default {
       api.post(URLs.uploadFiles, data).then((response) => {
         return response.data;
       }),
+    uploadCoverImages: (data) =>
+      api.post(URLs.uploadCoverImages, data).then((response) => {
+        return response.data;
+      }),
+    deleteCoverImage: (data) =>
+      api.post(URLs.deleteCoverImage, data).then((response) => {
+        return response.data;
+      }),
+    getCoverImages: (data) =>
+      api.post(URLs.getCoverImages, data).then((response) => {
+        return response.data;
+      }),
+    reorderCoverImages: (data) =>
+      api.post(URLs.reorderCoverImages, data).then((response) => {
+        return response.data;
+      }),
     add_unicorn_interest: (data) =>
       api.post(URLs.add_unicorn_interest, data).then((response) => {
         return response.data;

@@ -38,7 +38,13 @@ export const FounderMyListing = () => {
         { headers }
       )
       .then((res) => {
-        setunideatils(res.data.data[0]);
+        // Check if data exists and has at least one item
+        if (res.data && res.data.data && res.data.data.length > 0) {
+          setunideatils(res.data.data[0]);
+        } else {
+          // Handle empty data case
+          setunideatils(null);
+        }
         setTimeout(() => {
           let par = {
             page: 0,

@@ -11,6 +11,7 @@ import { extractVideoIDFromYoutubeUrl, getAbsoluteUrl } from "./helper/utilHelpe
 import moment from "moment";
 import { FaYoutube, FaInstagram, FaFacebook, FaLinkedin } from 'react-icons/fa';
 import { LastUpdatedBadge } from "./components/LastUpdatedBadge";
+import CoverImageCarousel from "./components/CoverImageCarousel";
 
 export const FutureUnicornDescription = (props) => {
   const settings = {
@@ -130,6 +131,43 @@ export const FutureUnicornDescription = (props) => {
   };
   const dat = JSON.stringify(localStorage.getItem("investor_id"));
 
+  // Helper function to get correct image URL (localhost for new uploads, production for existing)
+  const getImageUrl = (filename, tudTempUdID) => {
+    if (!filename) return '';
+
+    // Parse JSON if needed (for logo, sponsor, pitch deck images)
+    let parsedFilename = filename;
+    try {
+      parsedFilename = JSON.parse(filename);
+    } catch (e) {
+      // Already a plain string, no parsing needed
+    }
+
+    if (!parsedFilename) return '';
+
+    const baseUrl = process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL;
+    return `${baseUrl}api/uploads/unicorndeals/${tudTempUdID}/${parsedFilename}`;
+  };
+
+  // Helper to get full URLs for carousel images (handles mixed old/new images)
+  const getCarouselImageUrls = (images, tudTempUdID) => {
+    return images.map(image => {
+      const baseUrl = process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL;
+      return `${baseUrl}api/uploads/unicorndeals/${tudTempUdID}/${image}`;
+    });
+  };
+
+  // Helper function to parse banner images into array for carousel
+  const parseBannerImages = (bannerImage) => {
+    if (!bannerImage) return [];
+    try {
+      const parsed = JSON.parse(bannerImage);
+      return Array.isArray(parsed) ? parsed : [parsed];
+    } catch (e) {
+      return [bannerImage];
+    }
+  };
+
   return (
     <div style={{ backgroundColor: "#F8F9FA" }}>
       <style>
@@ -140,10 +178,13 @@ export const FutureUnicornDescription = (props) => {
       
         .image-section {
           width: 100%;
-          
-          border-radius: 8px;
+          border: 1px solid #ddd;
+          border-radius: 15px;
           overflow: hidden;
           margin-bottom: 1.5rem;
+          display: block;
+          position: relative;
+          margin-top: -5px;
         }
         .image-section img {
          width:100%;
@@ -171,10 +212,10 @@ object-fit:cover;
           height: auto;
           object-fit: contain;
           display: block;
+          z-index:1
         }
         
         .text-section h1 {
-        text-align: left;
           font-size: 2rem;
           font-weight: bold;
           margin-bottom: 1rem;
@@ -188,9 +229,9 @@ object-fit:cover;
         .text-section button {
           padding: 0.75rem 1.5rem;
           font-size: 1rem;
-          color: #00000;
+          color: #000000;
           background-color: transparent;    
-          border: 1px solid #00000;
+          border: 1px solid #000000;
           border-radius: 50px;
           cursor: pointer;
         }
@@ -585,15 +626,11 @@ align-content:center;
 background-color: white;
 box-shadow: 0px 3px 6px #000;
 border-radius: 15px;
-
-
 }
 
 .about-text {
 color: #fff;
 text-align: justify;  
-}
-
 }
 
 /* Responsive Styling */
@@ -603,9 +640,9 @@ text-align: justify;
 .text-section button {
     width: 200px;
     font-size: 1rem;
-    color: #0000 0;
+    color: #000000;
     background-color: transparent;
-    border: 1px solid #0000 0;
+    border: 1px solid #000000;
     border-radius: 50px;
     cursor: pointer;
 }
@@ -672,6 +709,32 @@ text-align: justify;
   }
 }
 
+/* Responsive media query for image-section on tablets */
+@media only screen and (max-width: 768px) {
+  .image-section {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    display: block;
+    position: relative;
+    margin-top: 100px !important;
+  }
+  .image-section img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+}
+
+/* Mobile specific - smaller margin */
+@media only screen and (max-width: 576px) {
+  .image-section {
+    margin-top: -26px !important;
+  }
+}
+
 `}
       </style>
 
@@ -698,7 +761,7 @@ text-align: justify;
 
                 <section className="design-space">
                   <div className="container">
-                    {/* Image Section */}
+                    {/* Cover Image Section with Carousel */}
                     <div
                       className="image-section"
                       style={{
@@ -707,24 +770,12 @@ text-align: justify;
                         marginTop: "-5px",
                       }}
                     >
-                      {/* Add your image manually here */}
-                      <img
-                        className="heroSectionImage"
-                        style={{
-                          objectFit: "cover",
-                          width: "100%",
-                          height: "auto",
-                        }}
-                        src={
-                          (item.udBannerImage &&
-                            `${
-                              process.env.REACT_APP_BASE_URL
-                            }api/uploads/unicorndeals/${
-                              item.tudTempUdID
-                            }/${JSON.parse(item.udBannerImage)}`) ||
-                          ""
-                        }
-                        alt="Team"
+                      <CoverImageCarousel
+                        images={parseBannerImages(item.udBannerImage)}
+                        imageUrls={getCarouselImageUrls(parseBannerImages(item.udBannerImage), item.tudTempUdID)}
+                        altText={item.udStartupName || "Startup Cover"}
+                        autoPlayInterval={4000}
+                        showControls={true}
                       />
                     </div>
 
@@ -733,15 +784,7 @@ text-align: justify;
                       <div className="logo-section">
                         {/* Replace with your logo */}
                         <img
-                          src={
-                            (item.udLogoImage &&
-                              `${
-                                process.env.REACT_APP_BASE_URL
-                              }api/uploads/unicorndeals/${
-                                item.tudTempUdID
-                              }/${JSON.parse(item.udLogoImage)}`) ||
-                            ""
-                          }
+                          src={getImageUrl(item.udLogoImage, item.tudTempUdID)}
                           alt="Logo"
                           style={{
                             objectFit: "contain",
@@ -821,11 +864,7 @@ text-align: justify;
                             >
                               {item.udSponsorImage && (
                                 <img
-                                  src={`${
-                                    process.env.REACT_APP_BASE_URL
-                                  }api/uploads/unicorndeals/${
-                                    item.tudTempUdID
-                                    }/${JSON.parse(item.udSponsorImage)}`}
+                                  src={getImageUrl(item.udSponsorImage, item.tudTempUdID)}
                                   alt="Sponsor"
                                   style={{
                                     maxWidth: "120px",
@@ -894,7 +933,7 @@ text-align: justify;
 
                       {/* Right Text Section */}
                       <div className="col-md-8 d-flex flex-column justify-content-center">
-                        <p className="about-text" style={{overflowWrap: "anywhere"}}>{item.udDealDescription}</p>
+                        <p className="about-text" style={{ overflowWrap: "anywhere" }}>{item.udDealDescription}</p>
                       </div>
                     </div>
                   </div>
@@ -987,7 +1026,7 @@ text-align: justify;
                               >
                                 <div className="media-card">
                                   <img
-                                    src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${itemudMediaCoverageFiles.imgname}`}
+                                    src={getImageUrl(itemudMediaCoverageFiles.imgname, item.tudTempUdID)}
                                     alt=""
                                     className="media-card-image"
                                   />
@@ -1030,9 +1069,7 @@ text-align: justify;
                           Investor Presentation
                         </h1>
                         <SinglePagePDFViewer
-                          pdf={`${process.env.REACT_APP_BASE_URL
-                            }api/uploads/unicorndeals/${item.tudTempUdID
-                            }/${JSON.parse(item.udPitchDeck)}`}
+                          pdf={getImageUrl(item.udPitchDeck, item.tudTempUdID)}
                         />
                       </>
                     )}
@@ -1054,9 +1091,7 @@ text-align: justify;
                           Product Presentation
                         </h1>
                         <SinglePagePDFViewer
-                          pdf={`${process.env.REACT_APP_BASE_URL
-                            }api/uploads/unicorndeals/${item.tudTempUdID
-                            }/${JSON.parse(item.udProductDeck)}`}
+                          pdf={getImageUrl(item.udProductDeck, item.tudTempUdID)}
                         />
                       </>
                     )}
@@ -1315,7 +1350,7 @@ text-align: justify;
               <div className="para-proceed">
                 <form action="" className="form-checkbox">
                   <div className="row">
-                    <div  className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
+                    <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
                       <input
                         type="radio"
                         name="I Want to know more about it"
@@ -1323,11 +1358,11 @@ text-align: justify;
                         checked={data["I Want to know more about it"] == true}
                         onClick={adddata}
                       />
-                      <label style={{cursor:"pointer"}}  onClick={() => { setdata({ "I Want to know more about it": true  }) }} htmlFor="">
+                      <label style={{ cursor: "pointer" }} onClick={() => { setdata({ "I Want to know more about it": true }) }} htmlFor="">
                         I want to know more about your startup
                       </label>
                     </div>
-                    <div  className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
+                    <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
                       <input
                         type="radio"
                         name="I want to work with you"
@@ -1335,9 +1370,9 @@ text-align: justify;
                         checked={data["I want to work with you"] == true}
                         onClick={adddata}
                       />
-                      <label style={{cursor:"pointer"}} onClick={() => { setdata({ "I want to work with you": true  }) }} htmlFor="">I want to explore collaboration </label>
+                      <label style={{ cursor: "pointer" }} onClick={() => { setdata({ "I want to work with you": true }) }} htmlFor="">I want to explore collaboration </label>
                     </div>
-                    <div  className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
+                    <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
                       <input
                         type="radio"
                         name="I am excited to invest in your startups"
@@ -1348,7 +1383,7 @@ text-align: justify;
                         }
                         onClick={adddata}
                       />
-                      <label style={{cursor:"pointer"}} htmlFor="" onClick={() => { setdata({ "I am excited to invest in your startups": true  }) }} >
+                      <label style={{ cursor: "pointer" }} htmlFor="" onClick={() => { setdata({ "I am excited to invest in your startups": true }) }} >
                         I am interested to invest in your startup
                       </label>
                     </div>

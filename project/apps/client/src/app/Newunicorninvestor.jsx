@@ -5,6 +5,7 @@ import { Link } from '@material-ui/core';
 import { Link as NewLINK } from 'react-router-dom/cjs/react-router-dom.min';
 import Bridge from './constants/Bridge';
 import { LastUpdatedBadge } from './components/LastUpdatedBadge';
+import { parseBannerImage } from './helper/utilHelper.js';
 
 const NewFutureUnicorn = () => {
   const [filteredData, setfilterdata] = useState([]);
@@ -841,7 +842,7 @@ const NewFutureUnicorn = () => {
                           (item.udBannerImage &&
                             `${process.env.REACT_APP_BASE_URL
                             }api/uploads/unicorndeals/${item.tudTempUdID
-                            }/${JSON.parse(item.udBannerImage)}`) ||
+                            }/${parseBannerImage(item.udBannerImage)}`) ||
                           "https://growth91.com/api/uploads/deal/banner/34/1719999515.jpg"
                         }
                         alt="Banner"

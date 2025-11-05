@@ -8,6 +8,7 @@ import Bridge from "./constants/Bridge.js";
 import { set } from "react-ga";
 import { Button, Modal, Input } from "antd";
 import { LastUpdatedBadge } from "./components/LastUpdatedBadge";
+import { parseBannerImage } from "./helper/utilHelper.js";
 
 export const FutureUnicornList = () => {
   const location = useLocation();
@@ -605,7 +606,7 @@ export const FutureUnicornList = () => {
                                 (item.udBannerImage &&
                                   `${process.env.REACT_APP_BASE_URL
                                   }api/uploads/unicorndeals/${item.tudTempUdID
-                                  }/${JSON.parse(item.udBannerImage)}`) ||
+                                  }/${parseBannerImage(item.udBannerImage)}`) ||
                                 "https://growth91.com/api/uploads/deal/banner/34/1719999515.jpg"
                               }
                               alt="Banner"

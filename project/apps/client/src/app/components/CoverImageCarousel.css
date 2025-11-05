@@ -1,0 +1,303 @@
+/* Cover Image Carousel Container */
+.cover-carousel-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: inherit;
+  display: block;
+}
+
+/* Carousel Wrapper */
+.cover-carousel-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Individual Slide */
+.cover-carousel-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+  pointer-events: none;
+}
+
+.cover-carousel-slide.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Carousel Image */
+.cover-carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Paused state indicator */
+.cover-carousel-slide.paused {
+  cursor: pointer;
+}
+
+.cover-carousel-slide.paused::after {
+  content: 'Paused - Click to resume';
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.cover-carousel-slide.paused:hover::after {
+  opacity: 1;
+}
+
+/* Navigation Arrows */
+.cover-carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+  font-size: 20px;
+  backdrop-filter: blur(4px);
+}
+
+.cover-carousel-arrow:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.cover-carousel-arrow:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.cover-carousel-arrow-left {
+  left: 20px;
+}
+
+.cover-carousel-arrow-right {
+  right: 20px;
+}
+
+/* Dot Indicators */
+.cover-carousel-dots {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.cover-carousel-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.cover-carousel-dot:hover {
+  background: rgba(255, 255, 255, 0.8);
+  transform: scale(1.2);
+}
+
+.cover-carousel-dot.active {
+  background: white;
+  width: 32px;
+  border-radius: 6px;
+}
+
+/* Image Counter */
+.cover-carousel-counter {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 10;
+  backdrop-filter: blur(4px);
+}
+
+/* Placeholder for no images */
+.cover-carousel-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f0f0;
+  color: #666;
+  font-size: 16px;
+}
+
+/* ==================== RESPONSIVE STYLES ==================== */
+
+/* Tablet and below */
+@media (max-width: 992px) {
+  .cover-carousel-arrow {
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+  }
+
+  .cover-carousel-arrow-left {
+    left: 15px;
+  }
+
+  .cover-carousel-arrow-right {
+    right: 15px;
+  }
+
+  .cover-carousel-counter {
+    top: 15px;
+    right: 15px;
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+
+  .cover-carousel-dots {
+    bottom: 15px;
+    gap: 8px;
+  }
+
+  .cover-carousel-dot {
+    width: 10px;
+    height: 10px;
+  }
+
+  .cover-carousel-dot.active {
+    width: 28px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .cover-carousel-container {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+
+  .cover-carousel-wrapper {
+    height: 100%;
+  }
+
+  .cover-carousel-arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  .cover-carousel-arrow-left {
+    left: 10px;
+  }
+
+  .cover-carousel-arrow-right {
+    right: 10px;
+  }
+
+  .cover-carousel-counter {
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+  .cover-carousel-dots {
+    bottom: 10px;
+    gap: 6px;
+  }
+
+  .cover-carousel-dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .cover-carousel-dot.active {
+    width: 24px;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+  .cover-carousel-arrow {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+  }
+
+  .cover-carousel-arrow-left {
+    left: 8px;
+  }
+
+  .cover-carousel-arrow-right {
+    right: 8px;
+  }
+
+  .cover-carousel-counter {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+}
+
+/* Accessibility improvements */
+.cover-carousel-arrow:focus,
+.cover-carousel-dot:focus {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* Smooth hover transition for desktop only */
+@media (hover: hover) {
+  .cover-carousel-arrow {
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .cover-carousel-container:hover .cover-carousel-arrow {
+    opacity: 1;
+  }
+}
+
+/* Always show arrows on mobile */
+@media (max-width: 768px) {
+  .cover-carousel-arrow {
+    opacity: 1 !important;
+  }
+}

@@ -7,6 +7,8 @@ import $ from "jquery";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import InfoTooltip from "./InfoTooltip";
+import { parseBannerImages } from "../../helper/utilHelper";
+
 class SupportingDocuments extends Component {
   constructor(props) {
     super(props);
@@ -51,6 +53,10 @@ class SupportingDocuments extends Component {
         "Performance and Achievements ",
         " Previous Funding/Future Funding and its Utilization",
       ],
+      coverImages: [],
+      uploadingCoverImages: false,
+      draggedIndex: null, // For drag and drop reordering
+      dragOverIndex: null, // For drag and drop reordering
     };
   }
   componentDidMount() {
@@ -60,6 +66,11 @@ class SupportingDocuments extends Component {
     if (this.props.unicorn.tudStartupHighlights) {
       this.setState({ startuphighlight: JSON.parse(this.props.unicorn.tudStartupHighlights) });
     }    
+    // Use helper function to safely parse banner images (handles both string and array)
+    if (this.props.unicorn.tudBannerImage) {
+      const images = parseBannerImages(this.props.unicorn.tudBannerImage);
+      this.setState({ coverImages: images });
+    }
     this.props.check();
   }
   addmarketcv = (e) => {
@@ -88,6 +99,7 @@ class SupportingDocuments extends Component {
     this.props.setMultiple({
       "tudStartupHighlights": JSON.stringify(this.state.startuphighlight),
       "tudMark": JSON.stringify(this.state.marketoverview),
+      "tudBannerImage": JSON.stringify(this.state.coverImages),
     })
     
     this.savedata();
@@ -149,6 +161,8 @@ class SupportingDocuments extends Component {
       this.setState({ pitchpdffile: "" });
     } else if (fieldName === "tudProductDeck") {
       this.setState({ productpdffile: "" });
+    } else if (fieldName === "tudBannerImage") {
+      this.setState({ coverImages: [] });
     }
     message.success("File removed successfully");
   };
@@ -190,25 +204,86 @@ class SupportingDocuments extends Component {
         );
       }
     } else if (e.target.name == "tudBannerImage") {
-      formData.append("upfile", e.target.files[0]);
-      formData.append("tudTempUdID", this.props.unicorn.tudTempUdID);
-
-      const response = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}api/founder/Startup/uploadFiles`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-
-      if (response) {
-        this.props.onInput(
-          "tudBannerImage",
-          JSON.stringify(response.data.data.upfile)
-        );
+      // Multi-image upload with full validation
+      const files = Array.from(e.target.files);
+      const currentImages = this.state.coverImages || [];
+      
+      // Validation constants
+      const MAX_IMAGES = 5;
+      const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+      const ALLOWED_FORMATS = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+      
+      // Validate total count
+      if (currentImages.length + files.length > MAX_IMAGES) {
+        message.error(`Maximum ${MAX_IMAGES} cover images allowed. You currently have ${currentImages.length} image(s).`);
+        e.target.value = '';
+        return;
       }
+      
+      // Validate each file
+      for (let file of files) {
+        if (file.size > MAX_FILE_SIZE) {
+          message.error(`${file.name} exceeds 5MB size limit`);
+          e.target.value = '';
+          return;
+        }
+        if (!ALLOWED_FORMATS.includes(file.type)) {
+          message.error(`${file.name} format not allowed. Only jpg, jpeg, png, webp accepted.`);
+          e.target.value = '';
+          return;
+        }
+      }
+      
+      this.setState({ uploadingCoverImages: true });
+      
+      formData.append("tudTempUdID", this.props.unicorn.tudTempUdID);
+      formData.append("existingImages", JSON.stringify(currentImages));
+      
+      // Append multiple files with correct parameter name
+      files.forEach((file) => {
+        formData.append("coverImages", file);
+      });
+
+      try {
+        const response = await axios.post(
+          `${process.env.REACT_APP_BASE_URL}api/founder/Startup/uploadCoverImages`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        if (response.data.status == "1") {
+          const allImages = response.data.data.allImages;
+          this.setState({ 
+            coverImages: allImages,
+            uploadingCoverImages: false 
+          });
+          
+          this.props.onInput(
+            "tudBannerImage",
+            JSON.stringify(allImages)
+          );
+          
+          message.success(response.data.message);
+          
+          // Show any individual file errors
+          if (response.data.errors && response.data.errors.length > 0) {
+            response.data.errors.forEach(err => message.warning(err));
+          }
+        } else {
+          message.error(response.data.message);
+          this.setState({ uploadingCoverImages: false });
+        }
+      } catch (error) {
+        console.error("Upload error:", error);
+        message.error("Failed to upload images. Please try again.");
+        this.setState({ uploadingCoverImages: false });
+      }
+      
+      e.target.value = ''; // Reset input
     } else if (e.target.name == "tudLogoImage") {
       formData.append("upfile", e.target.files[0]);
       console.log(formData.get("tudTempUdID"));
@@ -252,6 +327,140 @@ class SupportingDocuments extends Component {
       }
     }
   };
+
+  // Delete cover image with backend API call
+  deleteCoverImage = async (imageName) => {
+    this.setState({ uploadingCoverImages: true });
+    
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}api/founder/Startup/deleteCoverImage`,
+        {
+          tudTempUdID: this.props.unicorn.tudTempUdID,
+          imageName: imageName,
+          currentImages: this.state.coverImages
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.data.status == "1") {
+        const remainingImages = response.data.data.remainingImages;
+        this.setState({ 
+          coverImages: remainingImages,
+          uploadingCoverImages: false 
+        });
+        
+        this.props.onInput(
+          "tudBannerImage",
+          JSON.stringify(remainingImages)
+        );
+        
+        message.success("Image deleted successfully");
+      } else {
+        message.error(response.data.message);
+        this.setState({ uploadingCoverImages: false });
+      }
+    } catch (error) {
+      console.error("Delete error:", error);
+      message.error("Failed to delete image. Please try again.");
+      this.setState({ uploadingCoverImages: false });
+    }
+  };
+
+  // ===== DRAG AND DROP HANDLERS FOR REORDERING COVER IMAGES =====
+  handleDragStart = (e, index) => {
+    this.setState({ draggedIndex: index });
+    e.dataTransfer.effectAllowed = 'move';
+    e.currentTarget.style.opacity = '0.5';
+  };
+
+  handleDragEnd = (e) => {
+    e.currentTarget.style.opacity = '1';
+    this.setState({ draggedIndex: null, dragOverIndex: null });
+  };
+
+  handleDragOver = (e, index) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    
+    if (this.state.draggedIndex !== index) {
+      this.setState({ dragOverIndex: index });
+    }
+  };
+
+  handleDragLeave = () => {
+    this.setState({ dragOverIndex: null });
+  };
+
+  handleDrop = async (e, dropIndex) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const { draggedIndex } = this.state;
+    
+    if (draggedIndex === null || draggedIndex === dropIndex) {
+      this.setState({ draggedIndex: null, dragOverIndex: null });
+      return;
+    }
+
+    // Reorder array
+    const reorderedImages = [...this.state.coverImages];
+    const [draggedImage] = reorderedImages.splice(draggedIndex, 1);
+    reorderedImages.splice(dropIndex, 0, draggedImage);
+
+    // Update state immediately for smooth UI
+    this.setState({ 
+      coverImages: reorderedImages,
+      draggedIndex: null,
+      dragOverIndex: null,
+      uploadingCoverImages: true
+    });
+
+    // Call backend to persist the new order
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}api/founder/Startup/reorderCoverImages`,
+        {
+          tudTempUdID: this.props.unicorn.tudTempUdID,
+          imageOrder: reorderedImages
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.data.status == "1") {
+        this.props.onInput(
+          "tudBannerImage",
+          JSON.stringify(reorderedImages)
+        );
+        message.success("Images reordered successfully");
+        this.setState({ uploadingCoverImages: false });
+      } else {
+        // Revert on error
+        message.error(response.data.message);
+        this.setState({ 
+          coverImages: this.props.unicorn.tudBannerImage ? parseBannerImages(this.props.unicorn.tudBannerImage) : [],
+          uploadingCoverImages: false 
+        });
+      }
+    } catch (error) {
+      console.error("Reorder error:", error);
+      message.error("Failed to save new order. Please try again.");
+      // Revert to original order
+      this.setState({ 
+        coverImages: this.props.unicorn.tudBannerImage ? parseBannerImages(this.props.unicorn.tudBannerImage) : [],
+        uploadingCoverImages: false 
+      });
+    }
+  };
+  // ===== END DRAG AND DROP HANDLERS =====
 
   render() {
     let active =
@@ -375,34 +584,160 @@ class SupportingDocuments extends Component {
                       </Spin>
                       <div className="form-group">
                         <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                          Upload Banner Image<span className="text-danger">*</span>
-                          <InfoTooltip title="Horizontal image showcasing your brand. Size: 1080x450px preferred." />
+                          Upload Cover Images ({this.state.coverImages.length}/5)<span className="text-danger">*</span>
+                          <InfoTooltip title="Upload up to 5 cover images. First image will be the main thumbnail. Format: jpg, jpeg, png, webp. Max 5MB per image. Recommended: 16:9 aspect ratio (1920x1080px)." />
                         </label>
-                        {this.props.unicorn.tudBannerImage != "" && JSON.parse(this.props.unicorn.tudBannerImage) != "" ? (
-                          <div>
-                            <img style={{maxWidth:"100%", marginBottom: '10px'}} src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${JSON.parse(this.props.unicorn.tudBannerImage)}`} />
-                            <div style={{ marginBottom: '10px' }}>
-                              <Button 
-                                type="primary" 
-                                size="small" 
-                                icon={<DeleteOutlined />}
-                                onClick={() => this.removeFile("tudBannerImage")}
-                              >
-                                Remove File
-                              </Button>
-                            </div>
-                          </div>
-                        ) : null}
                         
-                        <input
-                          type="file"
-                          onWheel={() => document.activeElement.blur()}
-                          name="tudBannerImage"
-                          accept="image/*"
-                          // value={this.props.unicorn.tudBannerImage||""}
-                          onChange={(e) => this.onChangeMultipleFile(e)}
-                        />
-                      </div>{" "}
+                        {/* Image Count Info */}
+                        <div style={{ 
+                          padding: '10px', 
+                          background: '#f0f8ff', 
+                          borderRadius: '5px', 
+                          marginBottom: '15px',
+                          fontSize: '13px',
+                          color: '#333'
+                        }}>
+                          <strong>📸 Cover Images:</strong> {this.state.coverImages.length} of 5 uploaded
+                          {this.state.coverImages.length === 0 && " - At least 1 image required"}
+                          {this.state.coverImages.length === 5 && " - Maximum reached"}
+                          {this.state.coverImages.length > 1 && (
+                            <div style={{ marginTop: '5px', fontSize: '12px', color: '#666' }}>
+                              💡 <strong>Tip:</strong> Drag and drop images to reorder. First image will be the main cover.
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Uploaded Images Grid */}
+                        {this.state.coverImages.length > 0 && (
+                          <div style={{ 
+                            display: 'grid', 
+                            gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+                            gap: '15px',
+                            marginBottom: '20px'
+                          }}>
+                            {this.state.coverImages.map((image, index) => (
+                              <div 
+                                key={index} 
+                                style={{
+                                  position: 'relative',
+                                  border: this.state.dragOverIndex === index ? '2px solid #1890ff' : '2px solid #e0e0e0',
+                                  borderRadius: '8px',
+                                  overflow: 'hidden',
+                                  background: this.state.dragOverIndex === index ? '#e6f7ff' : '#f9f9f9',
+                                  cursor: 'move',
+                                  transition: 'all 0.2s ease',
+                                  transform: this.state.dragOverIndex === index ? 'scale(1.02)' : 'scale(1)'
+                                }}
+                                draggable={!this.state.uploadingCoverImages}
+                                onDragStart={(e) => this.handleDragStart(e, index)}
+                                onDragEnd={this.handleDragEnd}
+                                onDragOver={(e) => this.handleDragOver(e, index)}
+                                onDragLeave={this.handleDragLeave}
+                                onDrop={(e) => this.handleDrop(e, index)}
+                              >
+                                {/* First Image Badge */}
+                                {index === 0 && (
+                                  <div style={{
+                                    position: 'absolute',
+                                    top: '8px',
+                                    left: '8px',
+                                    background: '#4CAF50',
+                                    color: 'white',
+                                    padding: '4px 8px',
+                                    borderRadius: '4px',
+                                    fontSize: '11px',
+                                    fontWeight: 'bold',
+                                    zIndex: 2
+                                  }}>
+                                    ⭐ MAIN
+                                  </div>
+                                )}
+
+                                {/* Image */}
+                                <img 
+                                  style={{
+                                    width: '100%',
+                                    height: '140px',
+                                    objectFit: 'cover',
+                                    display: 'block'
+                                  }} 
+                                  src={
+                                    `${process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${image}`
+                                  }
+                                  alt={`Cover ${index + 1}`}
+                                />
+                                
+                                {/* Image Info & Actions */}
+                                <div style={{
+                                  padding: '10px',
+                                  background: 'white'
+                                }}>
+                                  <div style={{
+                                    fontSize: '12px',
+                                    color: '#666',
+                                    marginBottom: '8px',
+                                    wordBreak: 'break-all'
+                                  }}>
+                                    {image.length > 25 ? image.substring(0, 25) + '...' : image}
+                                  </div>
+                                  <Button 
+                                    type="primary" 
+                                    danger
+                                    size="small"
+                                    block
+                                    icon={<DeleteOutlined />}
+                                    onClick={() => this.deleteCoverImage(image)}
+                                    disabled={this.state.uploadingCoverImages}
+                                  >
+                                    Remove
+                                  </Button>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                        
+                        {/* Upload Button - Only show if less than 5 images */}
+                        {this.state.coverImages.length < 5 && (
+                          <div style={{ marginTop: '15px' }}>
+                            <input
+                              type="file"
+                              id="cover-image-input"
+                              onWheel={() => document.activeElement.blur()}
+                              name="tudBannerImage"
+                              accept="image/jpeg,image/jpg,image/png,image/webp"
+                              multiple
+                              onChange={(e) => this.onChangeMultipleFile(e)}
+                              style={{ display: 'none' }}
+                            />
+                            <Button
+                              type="primary"
+                              size="large"
+                              loading={this.state.uploadingCoverImages}
+                              onClick={() => document.getElementById('cover-image-input').click()}
+                              style={{ marginRight: '10px' }}
+                            >
+                              {this.state.coverImages.length === 0 ? '📤 Upload Cover Images' : '➕ Add More Images'}
+                            </Button>
+                            <span style={{ fontSize: '12px', color: '#999' }}>
+                              {5 - this.state.coverImages.length} slot(s) available
+                            </span>
+                          </div>
+                        )}
+
+                        {/* Remove All Button */}
+                        {this.state.coverImages.length > 0 && (
+                          <Button 
+                            danger
+                            size="small"
+                            icon={<DeleteOutlined />}
+                            onClick={() => this.removeFile("tudBannerImage")}
+                            style={{ marginTop: '10px' }}
+                          >
+                            Remove All Images
+                          </Button>
+                        )}
+                      </div>
                       <div className="form-group">
                         <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                           Upload Logo<span className="text-danger">*</span>
@@ -410,7 +745,7 @@ class SupportingDocuments extends Component {
                         </label>
                         {this.props.unicorn.tudLogoImage != "" && JSON.parse(this.props.unicorn.tudLogoImage) != "" ? (
                           <div>
-                            <img style={{maxWidth:"100%", marginBottom: '10px'}} src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${JSON.parse(this.props.unicorn.tudLogoImage)}`} />
+                            <img style={{maxWidth:"100%", marginBottom: '10px'}} src={`${process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${JSON.parse(this.props.unicorn.tudLogoImage)}`} />
                             <div style={{ marginBottom: '10px' }}>
                               <Button 
                                 type="primary" 
@@ -554,7 +889,7 @@ class SupportingDocuments extends Component {
                             </label>
                             {this.props.unicorn.tudSponsorImage != "" && JSON.parse(this.props.unicorn.tudSponsorImage) != "" ? (
                               <div>
-                                <img style={{ maxWidth: "100%", marginBottom: '10px' }} src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${JSON.parse(this.props.unicorn.tudSponsorImage)}`} />
+                                <img style={{ maxWidth: "100%", marginBottom: '10px' }} src={`${process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${JSON.parse(this.props.unicorn.tudSponsorImage)}`} />
                                 <div style={{ marginBottom: '10px' }}>
                                   <Button 
                                     type="primary" 

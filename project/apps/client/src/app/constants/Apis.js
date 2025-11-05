@@ -132,7 +132,7 @@ const URLs = {
   getFounderDetails: "Founders/getFounderDetails",
   uploadpitchfile: "Founders/uploadpitchfile",
   // url
-  IMAGEURL: `${process.env.REACT_APP_BASE_URL}api/uploads/`,
+  IMAGEURL: `${process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL}api/uploads/`,
 
   get_startup_details: "founder/Startup/get_startup_details",
   update_startup_founder: "founder/Startup/update_startup_founder",
@@ -281,6 +281,10 @@ const URLs = {
   getUnicornPayment:"founder/Startup/getUnicornPayment",
   uploadunicornFiles:"founder/Startup/uploadunicornFiles",
   uploadFiles:"founder/Startup/uploadFiles",
+  uploadCoverImages:"founder/Startup/uploadCoverImages",
+  deleteCoverImage:"founder/Startup/deleteCoverImage",
+  getCoverImages:"founder/Startup/getCoverImages",
+  reorderCoverImages:"founder/Startup/reorderCoverImages",
   add_unicorn_interest:"founder/Startup/add_unicorn_interest",
   unicorn_interested_list:"founder/Startup/unicorn_interested_list",
   unicorn_Publish_unpublish:"founder/Startup/unicorn_Publish_unpublish",
