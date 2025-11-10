@@ -298,6 +298,24 @@ export const FounderMyListing = () => {
                     <Title level={2}>Unicorn Details</Title>
                     <Divider />
                   </div>
+                  {/* Welcome Message Banner */}
+                  <div style={{
+                    background: '#f0f5ff',
+                    padding: '20px 24px',
+                    borderRadius: '8px',
+                    marginBottom: '24px',
+                    border: '1px solid #d6e4ff'
+                  }}>
+                    <p style={{
+                      color: '#1890ff',
+                      marginBottom: '0',
+                      fontSize: '15px',
+                      textAlign: 'center'
+                    }}>
+                      Thank you for choosing Future Unicorn, your gateway to showcasing your business to the world in a structured and impactful way.
+                      <br/>To list your startup, please fill in and submit the form by clicking the button below.
+                    </p>
+                  </div>
 
                   {unideatils ? (
                     <Card className="unicorn-card">

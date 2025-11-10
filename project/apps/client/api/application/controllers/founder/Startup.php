@@ -1961,7 +1961,7 @@ class Startup extends CI_Controller {
 						'status' => '1',
 						'message' => 'Diwali Silver Plan activated successfully for FREE!',
 						'data' => [
-							'link_url' => CASHFREE_RESPONSE_DOMAIN_URL.'/MyUnicornPlan'
+							'link_url' => CASHFREE_RESPONSE_DOMAIN_URL.'/FounderMyListing'
 						]
 					];
 				} else {
@@ -2046,7 +2046,7 @@ class Startup extends CI_Controller {
 					'link_id' => $link_id,
 					'link_meta' => [
 						'notify_url' => CASHFREE_RESPONSE_DOMAIN_URL.'/api/founder/Startup/handle_payment_link',
-						'return_url' => CASHFREE_RESPONSE_DOMAIN_URL.'/MyUnicornPlan',
+						'return_url' => CASHFREE_RESPONSE_DOMAIN_URL.'/FounderMyListing',
 						'upi_intent' => false
 					],
 					'link_notify' => [
