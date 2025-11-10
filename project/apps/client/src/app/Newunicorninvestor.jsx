@@ -48,50 +48,35 @@ const NewFutureUnicorn = () => {
     }
 
     // Calculate items per page based on available highlighted items
-    let actualItemsPerPage;
-    const idealItemsPerPage = columns * rowsToShow;
+    const itemsPerPage = columns * rowsToShow;
 
-    if (availableItemsCount === 0) {
-      // No items available, return 0
-      actualItemsPerPage = 0;
-    } else if (availableItemsCount <= idealItemsPerPage) {
-      // We have fewer or equal items than ideal, show all available items
-      actualItemsPerPage = availableItemsCount;
-    } else {
-      // We have more items than ideal, limit to ideal count
-      actualItemsPerPage = idealItemsPerPage;
-    }
-
-    return {
-      itemsPerPage: actualItemsPerPage,
-      columns,
-      screenType,
-      availableItems: availableItemsCount,
-      hasMoreItems: availableItemsCount > actualItemsPerPage
-    };
+    // If there are fewer items than itemsPerPage, return the actual count
+    return Math.min(itemsPerPage, availableItemsCount);
   };
 
-  // Function to handle responsive display
   const updateDisplayedItems = (data) => {
-    const availableCount = data ? data.length : 0;
-    const { itemsPerPage, screenType, hasMoreItems } = getItemsPerPage(availableCount);
-    setScreenSize(screenType);
-
-    if (data && data.length > 0 && itemsPerPage > 0) {
-      // Limit items to show complete rows only based on actual highlighted count
-      const itemsToShow = data.slice(0, itemsPerPage);
-      setDisplayedItems(itemsToShow);
-      setHasMoreItems(hasMoreItems);
-    } else {
+    if (!data || data.length === 0) {
       setDisplayedItems([]);
       setHasMoreItems(false);
+      return;
     }
+
+    const itemsToShow = getItemsPerPage(data.length);
+    setDisplayedItems(data.slice(0, itemsToShow));
+    setHasMoreItems(data.length > itemsToShow);
+    setScreenSize(window.innerWidth >= 1440 ? 'desktop' :
+      window.innerWidth >= 1200 ? 'large-laptop' :
+        window.innerWidth >= 1024 ? 'laptop' :
+          window.innerWidth >= 992 ? 'large-tablet' :
+            window.innerWidth >= 768 ? 'tablet' :
+              window.innerWidth >= 576 ? 'large-mobile' : 'mobile');
   };
 
-  // Handle window resize
   useEffect(() => {
     const handleResize = () => {
-      updateDisplayedItems(filteredData);
+      if (filteredData && filteredData.length > 0) {
+        updateDisplayedItems(filteredData);
+      }
     };
 
     window.addEventListener('resize', handleResize);
@@ -111,9 +96,11 @@ const NewFutureUnicorn = () => {
       updateDisplayedItems(filtered);
     });
   }
+
   useEffect(() => {
     getuniondata();
   }, []);
+
   return (
     <div>
       <style>
@@ -458,7 +445,7 @@ const NewFutureUnicorn = () => {
                     background: #ffffff;          /* neutral background for letterboxing */
                     display: flex;
                     align-items: center;          /* vertical center */
-                    justify-content: center;      /* horizontal center */
+                    justify-content: flex-start;      /* horizontal center */
                 }
 
                 .img-community-box > img {
@@ -814,7 +801,8 @@ const NewFutureUnicorn = () => {
             {displayedItems && displayedItems.length > 0 ? (
               displayedItems.map((item, index) => (
                 <div key={index} className="grid-card-item"
-                  onClick={() => { window.location.assign(`/FutureUnicornDescription?id=${item.unicornDealID}`) }}>
+                  onClick={() => { window.location.assign(`/FutureUnicornDescription?id=${item.unicornDealID}`) }}
+                >
                   <div
                     className="community-all-contents"
                     style={{
@@ -826,23 +814,51 @@ const NewFutureUnicorn = () => {
                       cursor: "pointer"
                     }}
                     onMouseOver={(e) => {
-                      e.currentTarget.style.transform = "scale(1.02)";
-                      e.currentTarget.style.backgroundColor = "lightgray";
+                      e.currentTarget.style.transform = "scale(1.05)";
+                      e.currentTarget.style.backgroundColor = "rgba(240, 240, 240, 0.8)";
                       e.currentTarget.style.zIndex = "100";
+                      // Make all child sections transparent to show parent background
+                      const paragraphBoxes = e.currentTarget.querySelectorAll('.community-paragraph-box');
+                      paragraphBoxes.forEach(box => {
+                        box.style.backgroundColor = 'transparent';
+                      });
+                      const cardBottomContainers = e.currentTarget.querySelectorAll('.card-bottom-container');
+                      cardBottomContainers.forEach(box => {
+                        box.style.backgroundColor = 'transparent';
+                      });
+                      // Also update View More button
+                      const viewMoreBtn = e.currentTarget.querySelector('.btn-com');
+                      if (viewMoreBtn) {
+                        viewMoreBtn.style.backgroundColor = "rgba(240, 240, 240, 0.8)";
+                        viewMoreBtn.style.borderColor = "rgba(240, 240, 240, 0.8)";
+                      }
                     }}
                     onMouseOut={(e) => {
                       e.currentTarget.style.transform = "scale(1)";
                       e.currentTarget.style.backgroundColor = "white";
                       e.currentTarget.style.zIndex = "1";
+                      // Reset all child sections
+                      const paragraphBoxes = e.currentTarget.querySelectorAll('.community-paragraph-box');
+                      paragraphBoxes.forEach(box => {
+                        box.style.backgroundColor = '';
+                      });
+                      const cardBottomContainers = e.currentTarget.querySelectorAll('.card-bottom-container');
+                      cardBottomContainers.forEach(box => {
+                        box.style.backgroundColor = '';
+                      });
+                      // Reset View More button
+                      const viewMoreBtn = e.currentTarget.querySelector('.btn-com');
+                      if (viewMoreBtn) {
+                        viewMoreBtn.style.backgroundColor = "";
+                        viewMoreBtn.style.borderColor = "";
+                      }
                     }}
                   >
                     <div className="img-community-box">
                       <img
                         src={
                           (item.udBannerImage &&
-                            `${process.env.REACT_APP_BASE_URL
-                            }api/uploads/unicorndeals/${item.tudTempUdID
-                            }/${parseBannerImage(item.udBannerImage)}`) ||
+                            `${process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.udBannerImage)}`) ||
                           "https://growth91.com/api/uploads/deal/banner/34/1719999515.jpg"
                         }
                         alt="Banner"
@@ -854,9 +870,7 @@ const NewFutureUnicorn = () => {
                           <img
                             src={
                               (item.udLogoImage &&
-                                `${process.env.REACT_APP_BASE_URL
-                                }api/uploads/unicorndeals/${item.tudTempUdID
-                                }/${JSON.parse(item.udLogoImage)}`) ||
+                                `${process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.udLogoImage)}`) ||
                               "https://growth91.com/api/uploads/deal/logo/34/1719999515.jpg"
                             }
                             alt="Logo"

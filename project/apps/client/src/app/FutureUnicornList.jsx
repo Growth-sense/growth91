@@ -37,20 +37,18 @@ export const FutureUnicornList = () => {
     }
   });
 
-  const [showModal, setShowModal] = useState(false); // State to toggle the modal
-  // const [filters, setFilters] = useState({
-  //   startupName: '',
-  //   category: '',
-  //   founder: '',
-  // });
+  const [showModal, setShowModal] = useState(false);
 
   const handleApplyFilters = () => {
-    setShowModal(false); // Close modal after applying filters
-    // Logic to apply filters can be added here
+    setShowModal(false);
   };
 
-
-
+  const [filters, setFilters] = useState({
+    startupName: "",
+    category: "",
+    founder: "",
+    sponsorName: ""
+  });
 
   function SimpleNextArrow(props) {
     const { onClick } = props;
@@ -144,12 +142,7 @@ export const FutureUnicornList = () => {
       },
     ],
   };
-  const [filters, setFilters] = useState({
-    startupName: "",
-    category: "",
-    founder: "",
-    sponsorName: ""
-  });
+
   function filterData(data, filters, searchQuery) {
 
     if (!data) return [];
@@ -203,7 +196,7 @@ export const FutureUnicornList = () => {
             background: #ffffff;          /* neutral background for letterboxing */
             display: flex;
             align-items: center;          /* vertical center */
-            justify-content: center;      /* horizontal center */
+            justify-content: flex-start;      /* horizontal center */
            }
 
           /* Banner image: keep original aspect, never stretch (hardened) */
@@ -578,8 +571,8 @@ export const FutureUnicornList = () => {
               <div className="card-container">
                 <div className="cards-grid">
                   {filteredData && filteredData.length > 0 ? (
-                    filteredData.map((item, index) => (
-                      <div key={index} className="grid-card-item"
+                    filteredData.map((item) => (
+                      <div key={item.unicornDealID} className="grid-card-item"
                         onClick={() => { window.location.assign(`/FutureUnicornDescription?id=${item.unicornDealID}`) }}>
                         <div
                           className="community-all-contents"
@@ -592,21 +585,51 @@ export const FutureUnicornList = () => {
                             cursor: "pointer",
                           }}
                           onMouseOver={(e) => {
-                            e.currentTarget.style.transform = "scale(1.02)";
-                            e.currentTarget.style.backgroundColor = "lightgray";
+                            e.currentTarget.style.transform = "scale(1.05)";
+                            e.currentTarget.style.backgroundColor = "rgba(240, 240, 240, 0.8)";
+                            e.currentTarget.style.zIndex = "100";
+                            // Make all child sections transparent to show parent background
+                            const paragraphBoxes = e.currentTarget.querySelectorAll('.community-paragraph-box');
+                            paragraphBoxes.forEach(box => {
+                              box.style.backgroundColor = 'transparent';
+                            });
+                            const cardBottomContainers = e.currentTarget.querySelectorAll('.card-bottom-container');
+                            cardBottomContainers.forEach(box => {
+                              box.style.backgroundColor = 'transparent';
+                            });
+                            // Also update View More button
+                            const viewMoreBtn = e.currentTarget.querySelector('.btn-com');
+                            if (viewMoreBtn) {
+                              viewMoreBtn.style.backgroundColor = "rgba(240, 240, 240, 0.8)";
+                              viewMoreBtn.style.borderColor = "rgba(240, 240, 240, 0.8)";
+                            }
                           }}
                           onMouseOut={(e) => {
                             e.currentTarget.style.transform = "scale(1)";
                             e.currentTarget.style.backgroundColor = "white";
+                            e.currentTarget.style.zIndex = "1";
+                            // Reset all child sections
+                            const paragraphBoxes = e.currentTarget.querySelectorAll('.community-paragraph-box');
+                            paragraphBoxes.forEach(box => {
+                              box.style.backgroundColor = '';
+                            });
+                            const cardBottomContainers = e.currentTarget.querySelectorAll('.card-bottom-container');
+                            cardBottomContainers.forEach(box => {
+                              box.style.backgroundColor = '';
+                            });
+                            // Reset View More button
+                            const viewMoreBtn = e.currentTarget.querySelector('.btn-com');
+                            if (viewMoreBtn) {
+                              viewMoreBtn.style.backgroundColor = "";
+                              viewMoreBtn.style.borderColor = "";
+                            }
                           }}
                         >
                           <div className="img-community-box">
                             <img
                               src={
                                 (item.udBannerImage &&
-                                  `${process.env.REACT_APP_BASE_URL
-                                  }api/uploads/unicorndeals/${item.tudTempUdID
-                                  }/${parseBannerImage(item.udBannerImage)}`) ||
+                                  `${process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${parseBannerImage(item.udBannerImage)}`) ||
                                 "https://growth91.com/api/uploads/deal/banner/34/1719999515.jpg"
                               }
                               alt="Banner"
@@ -618,9 +641,7 @@ export const FutureUnicornList = () => {
                                 <img
                                   src={
                                     (item.udLogoImage &&
-                                      `${process.env.REACT_APP_BASE_URL
-                                      }api/uploads/unicorndeals/${item.tudTempUdID
-                                      }/${JSON.parse(item.udLogoImage)}`) ||
+                                      `${process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.udLogoImage)}`) ||
                                     "https://growth91.com/api/uploads/deal/logo/34/1719999515.jpg"
                                   }
                                   alt="Logo"

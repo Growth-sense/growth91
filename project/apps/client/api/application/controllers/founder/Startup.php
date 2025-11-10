@@ -1060,7 +1060,7 @@ class Startup extends CI_Controller {
 					"tudSponsorImage", "tudStartupFounderName", "tudLegalname", "tudStartupFounderMobileCountryCode", 
 					"tudStartupFounderMobileNumber", "tudStartupFounderEmail", "tudFoundedon", "tudAddress", 
 					"tudEmployees", "tudDealDescription", "tudYoutubeLink", "tudCategory", 
-					"tudTag", "tudMediaCoverageFiles", "tudVendorId"
+					"tudTag", "tudMediaCoverageFiles", "tudVendorId", "tudTheme"
 				);
 
 				foreach($tempunicorn2Arr[0] as $Key => $Value)
@@ -1246,7 +1246,7 @@ class Startup extends CI_Controller {
 					"tudSponsorImage", "tudStartupFounderName", "tudLegalname", "tudStartupFounderMobileCountryCode", 
 					"tudStartupFounderMobileNumber", "tudStartupFounderEmail", "tudFoundedon", "tudAddress", 
 					"tudEmployees", "tudDealDescription", "tudYoutubeLink", "tudCategory", 
-					"tudTag", "tudMediaCoverageFiles", "tudVendorId"
+					"tudTag", "tudMediaCoverageFiles", "tudVendorId", "tudTheme"
 				);
 
 				foreach($tempunicorn2Arr[0] as $Key => $Value)
@@ -2617,6 +2617,157 @@ class Startup extends CI_Controller {
 			];
 		}
 		
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
+	
+	// Get Unicorn Theme
+	function getUnicornTheme()
+	{
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		
+		if (!empty($formdata)) {
+			$tudTempUdID = isset($formdata['tudTempUdID']) ? $formdata['tudTempUdID'] : null;
+			$unicornDealID = isset($formdata['unicornDealID']) ? $formdata['unicornDealID'] : null;
+			
+			if ($tudTempUdID) {
+				// For draft/temp unicorn deals
+				$sql = "SELECT tudTheme FROM tempunicorndeals2 WHERE tudTempUdID = ?";
+				$query = $this->db->query($sql, [$tudTempUdID]);
+				$result = $query->row();
+				
+				if ($result) {
+					$theme = !empty($result->tudTheme) ? $result->tudTheme : 'default';
+					$response = [
+						'status' => '1',
+						'message' => 'Theme retrieved successfully.',
+						'data' => [
+							'theme' => $theme
+						]
+					];
+				} else {
+					$response = [
+						'status' => '0',
+						'message' => 'Startup not found.'
+					];
+				}
+			} elseif ($unicornDealID) {
+				// For published unicorn deals
+				$sql = "SELECT udTheme FROM unicorndeals2 WHERE unicornDealID = ?";
+				$query = $this->db->query($sql, [$unicornDealID]);
+				$result = $query->row();
+				
+				if ($result) {
+					$theme = !empty($result->udTheme) ? $result->udTheme : 'default';
+					$response = [
+						'status' => '1',
+						'message' => 'Theme retrieved successfully.',
+						'data' => [
+							'theme' => $theme
+						]
+					];
+				} else {
+					$response = [
+						'status' => '0',
+						'message' => 'Startup not found.'
+					];
+				}
+			} else {
+				$response = [
+					'status' => '0',
+					'message' => 'Please provide tudTempUdID or unicornDealID.'
+				];
+			}
+		} else {
+			$response = [
+				'status' => '0',
+				'message' => 'Please provide required data.',
+			];
+		}
+
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
+
+	// Update Unicorn Theme
+	function updateUnicornTheme()
+	{
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		
+		if (!empty($formdata)) {
+			$tudTempUdID = isset($formdata['tudTempUdID']) ? $formdata['tudTempUdID'] : null;
+			$unicornDealID = isset($formdata['unicornDealID']) ? $formdata['unicornDealID'] : null;
+			$theme = isset($formdata['theme']) ? $formdata['theme'] : 'default';
+			
+			// Validate theme selection
+			$allowedThemes = ['default', 'teal', 'purple', 'red'];
+			if (!in_array($theme, $allowedThemes)) {
+				$theme = 'default';
+			}
+			
+			if ($tudTempUdID) {
+				// Update draft/temp unicorn deals
+				$this->db->where('tudTempUdID', $tudTempUdID);
+				$status = $this->db->update('tempunicorndeals2', ['tudTheme' => $theme]);
+				
+				if ($status) {
+					$response = [
+						'status' => '1',
+						'message' => 'Theme updated successfully.',
+						'data' => [
+							'theme' => $theme
+						]
+					];
+				} else {
+					$response = [
+						'status' => '0',
+						'message' => 'Failed to update theme. Please try again.'
+					];
+				}
+			} elseif ($unicornDealID) {
+				// Update published unicorn deals
+				$this->db->where('unicornDealID', $unicornDealID);
+				$status = $this->db->update('unicorndeals2', ['udTheme' => $theme]);
+				
+				if ($status) {
+					$response = [
+						'status' => '1',
+						'message' => 'Theme updated successfully.',
+						'data' => [
+							'theme' => $theme
+						]
+					];
+				} else {
+					$response = [
+						'status' => '0',
+						'message' => 'Failed to update theme. Please try again.'
+					];
+				}
+			} else {
+				$response = [
+					'status' => '0',
+					'message' => 'Please provide tudTempUdID or unicornDealID.'
+				];
+			}
+		} else {
+			$response = [
+				'status' => '0',
+				'message' => 'Please provide required data.',
+			];
+		}
+
 		$this->output
 			->set_content_type('application/json')
 			->set_output(json_encode($response));

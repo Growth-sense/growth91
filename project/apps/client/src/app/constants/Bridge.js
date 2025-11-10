@@ -1062,5 +1062,13 @@ export default {
       api.post(URLs.toggle_unicorn_highlight, data).then((response) => {
         return response.data;
       }),
+    getUnicornTheme: (data) =>
+      api.post(URLs.getUnicornTheme, data).then((response) => {
+        return response.data;
+      }),
+    updateUnicornTheme: (data) =>
+      api.post(URLs.updateUnicornTheme, data).then((response) => {
+        return response.data;
+      }),
   },
 };

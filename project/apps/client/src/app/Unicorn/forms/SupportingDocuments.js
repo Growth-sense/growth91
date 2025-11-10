@@ -55,8 +55,9 @@ class SupportingDocuments extends Component {
       ],
       coverImages: [],
       uploadingCoverImages: false,
-      draggedIndex: null, // For drag and drop reordering
-      dragOverIndex: null, // For drag and drop reordering
+      viewingImageIndex: null, // For modal image viewer
+      draggedIndex: null,
+      dragOverIndex: null
     };
   }
   componentDidMount() {
@@ -602,96 +603,121 @@ class SupportingDocuments extends Component {
                           {this.state.coverImages.length === 5 && " - Maximum reached"}
                           {this.state.coverImages.length > 1 && (
                             <div style={{ marginTop: '5px', fontSize: '12px', color: '#666' }}>
-                              💡 <strong>Tip:</strong> Drag and drop images to reorder. First image will be the main cover.
+                              💡 <strong>Tip:</strong> Drag and drop to reorder. First image = main cover. Click to view full size.
                             </div>
                           )}
                         </div>
 
-                        {/* Uploaded Images Grid */}
+                        {/* Uploaded Images Row */}
                         {this.state.coverImages.length > 0 && (
                           <div style={{ 
-                            display: 'grid', 
-                            gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-                            gap: '15px',
-                            marginBottom: '20px'
+                            display: 'flex', 
+                            flexWrap: 'wrap',
+                            gap: '10px',
+                            marginBottom: '20px',
+                            padding: '15px',
+                            background: '#fafafa',
+                            borderRadius: '8px',
+                            border: '1px solid #e0e0e0'
                           }}>
                             {this.state.coverImages.map((image, index) => (
                               <div 
                                 key={index} 
                                 style={{
                                   position: 'relative',
-                                  border: this.state.dragOverIndex === index ? '2px solid #1890ff' : '2px solid #e0e0e0',
+                                  width: '79px',
+                                  height: '79px',
+                                  border: index === 0 ? '3px solid #4CAF50' : '2px solid #ddd',
                                   borderRadius: '8px',
                                   overflow: 'hidden',
-                                  background: this.state.dragOverIndex === index ? '#e6f7ff' : '#f9f9f9',
-                                  cursor: 'move',
+                                  cursor: 'pointer',
                                   transition: 'all 0.2s ease',
-                                  transform: this.state.dragOverIndex === index ? 'scale(1.02)' : 'scale(1)'
+                                  boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
                                 }}
-                                draggable={!this.state.uploadingCoverImages}
+                                draggable={true}
                                 onDragStart={(e) => this.handleDragStart(e, index)}
                                 onDragEnd={this.handleDragEnd}
                                 onDragOver={(e) => this.handleDragOver(e, index)}
                                 onDragLeave={this.handleDragLeave}
                                 onDrop={(e) => this.handleDrop(e, index)}
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.transform = 'scale(1.05)';
+                                  e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.transform = 'scale(1)';
+                                  e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+                                }}
                               >
-                                {/* First Image Badge */}
-                                {index === 0 && (
-                                  <div style={{
-                                    position: 'absolute',
-                                    top: '8px',
-                                    left: '8px',
-                                    background: '#4CAF50',
-                                    color: 'white',
-                                    padding: '4px 8px',
-                                    borderRadius: '4px',
-                                    fontSize: '11px',
-                                    fontWeight: 'bold',
-                                    zIndex: 2
-                                  }}>
-                                    ⭐ MAIN
-                                  </div>
-                                )}
+                                {/* Number Badge */}
+                                <div style={{
+                                  position: 'absolute',
+                                  top: '4px',
+                                  left: '4px',
+                                  background: index === 0 ? '#4CAF50' : '#1890ff',
+                                  color: 'white',
+                                  width: '18px',
+                                  height: '18px',
+                                  borderRadius: '50%',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  fontSize: '10px',
+                                  fontWeight: 'bold',
+                                  zIndex: 2,
+                                  boxShadow: '0 2px 4px rgba(0,0,0,0.3)'
+                                }}>
+                                  {index + 1}
+                                </div>
 
-                                {/* Image */}
+                                {/* Delete Button */}
+                                <div 
+                                  style={{
+                                    position: 'absolute',
+                                    top: '4px',
+                                    right: '4px',
+                                    background: '#ff4d4f',
+                                    color: 'white',
+                                    width: '18px',
+                                    height: '18px',
+                                    borderRadius: '50%',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    fontSize: '12px',
+                                    fontWeight: 'bold',
+                                    zIndex: 3,
+                                    cursor: 'pointer',
+                                    boxShadow: '0 2px 4px rgba(0,0,0,0.3)',
+                                    opacity: 0.9
+                                  }}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    this.deleteCoverImage(image);
+                                  }}
+                                  onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
+                                  onMouseLeave={(e) => e.currentTarget.style.opacity = '0.9'}
+                                  title="Delete image"
+                                >
+                                  ×
+                                </div>
+
+                                {/* Thumbnail Image */}
                                 <img 
                                   style={{
                                     width: '100%',
-                                    height: '140px',
+                                    height: '100%',
                                     objectFit: 'cover',
                                     display: 'block'
                                   }} 
                                   src={
-                                    `${process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${image}`
+                                    image.startsWith('cover_') 
+                                      ? `${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${image}`
+                                      : `${process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${image}`
                                   }
                                   alt={`Cover ${index + 1}`}
+                                  onClick={() => this.setState({ viewingImageIndex: index })}
                                 />
-                                
-                                {/* Image Info & Actions */}
-                                <div style={{
-                                  padding: '10px',
-                                  background: 'white'
-                                }}>
-                                  <div style={{
-                                    fontSize: '12px',
-                                    color: '#666',
-                                    marginBottom: '8px',
-                                    wordBreak: 'break-all'
-                                  }}>
-                                    {image.length > 25 ? image.substring(0, 25) + '...' : image}
-                                  </div>
-                                  <Button 
-                                    type="primary" 
-                                    danger
-                                    size="small"
-                                    block
-                                    icon={<DeleteOutlined />}
-                                    onClick={() => this.deleteCoverImage(image)}
-                                    disabled={this.state.uploadingCoverImages}
-                                  >
-                                    Remove
-                                  </Button>
-                                </div>
                               </div>
                             ))}
                           </div>
@@ -738,6 +764,7 @@ class SupportingDocuments extends Component {
                           </Button>
                         )}
                       </div>
+
                       <div className="form-group">
                         <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                           Upload Logo<span className="text-danger">*</span>
@@ -763,195 +790,8 @@ class SupportingDocuments extends Component {
                           onWheel={() => document.activeElement.blur()}
                           name="tudLogoImage"
                           accept="image/*"
-                          // value={this.props.unicorn.tudLogoImage || ""}
                           onChange={(e) => this.onChangeMultipleFile(e)}
                         />
-                      </div>
-                      {this.state.startuphighlight.map((item, index) => {
-                        return (
-                          <div className="form-group">
-                            <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                              {index === 0 && "Highlight #1: Revenue"}
-                              {index === 1 && "Highlight #2: Ops & Efficiency"}
-                              {index === 2 && "Highlight #3: Traction"}
-                              {index === 3 && "Highlight #4: Fundraising"}
-                              <span className="text-danger">*</span>
-                              <InfoTooltip title={
-                                index === 0 ? "Key revenue growth, monetization, or repeat customer insights." :
-                                index === 1 ? "Process improvements, team efficiency, or tech upgrades." :
-                                index === 2 ? "Milestones like users, cities served, recognitions, or partnerships." :
-                                "Share prior funding, usage, and future fundraising plan."
-                              } />
-                            </label>
-                            <>
-                            <textarea
-                              id="selected-field"
-                              cols="30"
-                              rows="6"
-                              maxLength="500"
-                              placeholder={this.state.titlestartuphigh[index]}
-                              name="content1"
-                              value={item.content1}
-                              onChange={(e) => {
-                                this.handleInputhighlightChange(index, e);
-                              }}
-                              style={{marginBottom: "5px"}}
-                            ></textarea>
-                            <div className="character-count" style={{marginBottom: "20px"}}>
-                              {`${item.content1.length}/500 characters`}
-                            </div>
-                            </>
-                          </div>
-                        );
-                      })}
-                      {/* <button onClick={this.addstartuphighlight}>
-                        Add new highlight
-                      </button> */}
-                      <div style={{ 
-                        backgroundColor: '#f0f8ff', 
-                        padding: '15px', 
-                        borderRadius: '5px', 
-                        marginBottom: '20px',
-                        border: '1px solid #d1ecf1',
-                        fontSize: '14px',
-                        color: '#0c5460'
-                      }}>
-                        <strong>Note:</strong> Please make sure not to leave this column empty, kindly add something related to traction, even if it's early-stage (like pilot users, waitlist signups, partnerships, or early interest).
-                      </div>
-                      {this.state.marketoverview.map((item, index) => {
-                        return (
-                          <div className="form-group">
-                            <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                              Market Insight {index + 1}<span className="text-danger">*</span>
-                              <InfoTooltip title={
-                                index === 0 ? "Define the gap/problem your product is solving. (Max 750 characters)" :
-                                index === 1 ? "Add supporting industry insight or demand data." :
-                                "Add trends, whitespace, or unique value angle."
-                              } />
-                            </label>
-                            <textarea
-                              id="selected-field"
-                              cols="30"
-                              rows="6"
-                              maxLength="750"
-                              name="content1"
-                              value={item.content1}
-                              onChange={(e) => {
-                                this.handleInputChange(index, e);
-                              }}
-                              style={{marginBottom: "5px"}}
-                            >
-                              {" "}
-                            </textarea>
-                            <div className="character-count" style={{marginBottom: "20px"}}>
-                              {`${item.content1.length}/750 characters`}
-                            </div>
-                          </div>
-                        );
-                      })}
-                      <div style={{ 
-                        backgroundColor: '#f0f8ff', 
-                        padding: '15px', 
-                        borderRadius: '5px', 
-                        marginBottom: '20px',
-                        border: '1px solid #d1ecf1',
-                        fontSize: '14px',
-                        color: '#0c5460'
-                      }}>
-                        <strong>Note:</strong> Please don't leave this section empty, make sure to include TAM, SAM, and SOM wherever possible.
-                      </div>
-
-                      <div className="form-group ">
-                          <div className="mt-4">
-                            <label className="mb-2" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                              Referred By (Name of Incubator/entity/Individual)
-                              <InfoTooltip title="If referred, mention mentor/VC/incubator name." />
-                            </label>
-                            <div style={{ fontSize: "12px", color: "#666", marginTop: "5px", marginBottom: "10px" }}>
-                              Note: If you provide a sponsor name or image, both fields become mandatory.
-                            </div>
-                            <input
-                              type="text"
-                              maxLength={100}
-                              placeholder="Name of the Sponsor / Incubator"
-                              name="tudSponsorName"
-                              value={this.props.unicorn.tudSponsorName}
-                              onChange={(e) =>
-                                this.props.onInput(e.target.name, e.target.value)
-                              }
-                            />
-                            <div className="character-count" style={{marginBottom: "20px"}}>
-                              {`${this.props.unicorn.tudSponsorName.length}/100 characters`}
-                            </div>
-                            <label className="mb-2" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                              Referred By (Logo)
-                              <InfoTooltip title="Upload logo of the referring entity (mandatory if name provided)." />
-                            </label>
-                            {this.props.unicorn.tudSponsorImage != "" && JSON.parse(this.props.unicorn.tudSponsorImage) != "" ? (
-                              <div>
-                                <img style={{ maxWidth: "100%", marginBottom: '10px' }} src={`${process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${JSON.parse(this.props.unicorn.tudSponsorImage)}`} />
-                                <div style={{ marginBottom: '10px' }}>
-                                  <Button 
-                                    type="primary" 
-                                    size="small" 
-                                    icon={<DeleteOutlined />}
-                                    onClick={() => this.removeFile("tudSponsorImage")}
-                                  >
-                                    Remove File
-                                  </Button>
-                                </div>
-                              </div>
-                            ) : null}
-                            <input
-                              type="file"
-                              onWheel={() => document.activeElement.blur()}
-                              name="tudSponsorImage"
-                              accept="image/*"
-                              onChange={(e) => this.onChangeMultipleFile(e)}
-                            />                      
-                          </div>
-                        </div>
-
-
-                      {/* <button onClick={this.addmarketcv}>
-                        Add new market Overview
-                      </button> */}
-                      <div
-                        className="form-group  justify-content-between"
-                        style={{ display: "none !important" }}
-                      >
-                        <div className="arrow-buttons">
-                          <button
-                            style={{
-                              position: "relative",
-                              left: -20,
-                              background: "#fff",
-                              border: "1px solid #29176f",
-                              color: "#29176f",
-                            }}
-                            onClick={this.prev}
-                            class="submit-button"
-                          >
-                            <i className="bx bx-chevron-left"></i>
-                          </button>
-                          <button
-                            style={{
-                              position: "relative",
-                              left: -20,
-                              background: active == false ? "#fff" : "#fff",
-                              border:
-                                active == false
-                                  ? "1px solid #29176f"
-                                  : "1px solid #29176f",
-                              color: active == false ? "#29176f" : "#29176f",
-                            }}
-                            onClick={this.next}
-                            class="submit-button"
-                          >
-                            <i className="bx bx-chevron-right"></i>
-                          </button>
-                        </div>
-                        <div></div>
                       </div>
                     </div>
                   </div>
@@ -960,6 +800,149 @@ class SupportingDocuments extends Component {
             </div>
           </Spin>
           <ToastContainer/>
+
+          {/* Image Modal Viewer */}
+          {this.state.viewingImageIndex !== null && (
+            <div 
+              style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: 'rgba(0, 0, 0, 0.9)',
+                zIndex: 9999,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexDirection: 'column',
+                padding: '20px'
+              }}
+              onClick={() => this.setState({ viewingImageIndex: null })}
+            >
+              {/* Close Button */}
+              <div 
+                style={{
+                  position: 'absolute',
+                  top: '20px',
+                  right: '20px',
+                  background: 'white',
+                  color: '#333',
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '24px',
+                  fontWeight: 'bold',
+                  cursor: 'pointer',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+                  zIndex: 10001
+                }}
+                onClick={() => this.setState({ viewingImageIndex: null })}
+              >
+                ×
+              </div>
+
+              {/* Image Counter */}
+              <div style={{
+                position: 'absolute',
+                top: '20px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                background: 'rgba(255, 255, 255, 0.9)',
+                color: '#333',
+                padding: '8px 16px',
+                borderRadius: '20px',
+                fontSize: '14px',
+                fontWeight: 'bold',
+                zIndex: 10001
+              }}>
+                {this.state.viewingImageIndex + 1} / {this.state.coverImages.length}
+              </div>
+
+              {/* Previous Button */}
+              {this.state.viewingImageIndex > 0 && (
+                <div 
+                  style={{
+                    position: 'absolute',
+                    left: '20px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    background: 'rgba(255, 255, 255, 0.9)',
+                    color: '#333',
+                    width: '50px',
+                    height: '50px',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '24px',
+                    fontWeight: 'bold',
+                    cursor: 'pointer',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+                    zIndex: 10001
+                  }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    this.setState({ viewingImageIndex: this.state.viewingImageIndex - 1 });
+                  }}
+                >
+                  ‹
+                </div>
+              )}
+
+              {/* Next Button */}
+              {this.state.viewingImageIndex < this.state.coverImages.length - 1 && (
+                <div 
+                  style={{
+                    position: 'absolute',
+                    right: '20px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    background: 'rgba(255, 255, 255, 0.9)',
+                    color: '#333',
+                    width: '50px',
+                    height: '50px',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '24px',
+                    fontWeight: 'bold',
+                    cursor: 'pointer',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+                    zIndex: 10001
+                  }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    this.setState({ viewingImageIndex: this.state.viewingImageIndex + 1 });
+                  }}
+                >
+                  ›
+                </div>
+              )}
+
+              {/* Full Size Image */}
+              <img 
+                src={
+                  this.state.coverImages[this.state.viewingImageIndex].startsWith('cover_') 
+                    ? `${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${this.state.coverImages[this.state.viewingImageIndex]}`
+                    : `${process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${this.state.coverImages[this.state.viewingImageIndex]}`
+                }
+                alt={`Cover ${this.state.viewingImageIndex + 1}`}
+                style={{
+                  maxWidth: '90%',
+                  maxHeight: '90vh',
+                  objectFit: 'contain',
+                  borderRadius: '8px',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.5)'
+                }}
+                onClick={(e) => e.stopPropagation()}
+              />
+            </div>
+          )}
         </section>
       </div>
     );

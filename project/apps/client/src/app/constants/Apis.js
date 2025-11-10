@@ -293,7 +293,9 @@ const URLs = {
   adminEditUnicornPlan: "founder/Startup/update_unicorn_plan_by_admin",
   save_gst_number: "founder/Startup/update_unicorn_gst",
   addOfflinePayment: "founder/Startup/record_unicorn_payment_offline",
-  toggle_unicorn_highlight: "founder/Startup/toggle_unicorn_highlight"
+  toggle_unicorn_highlight: "founder/Startup/toggle_unicorn_highlight",
+  getUnicornTheme: "founder/Startup/getUnicornTheme",
+  updateUnicornTheme: "founder/Startup/updateUnicornTheme"
 };
 
 export default URLs;

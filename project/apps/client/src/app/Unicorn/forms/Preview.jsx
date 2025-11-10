@@ -14,19 +14,57 @@ import CoverImageCarousel from "../../components/CoverImageCarousel.jsx";
 import Bridge from "./../../constants/Bridge.js";
 import { extractVideoIDFromYoutubeUrl, getAbsoluteUrl } from "../../helper/utilHelper.js";
 import moment from "moment";
+import { applyTheme, GROWTH91_THEMES } from "../../helper/themes";
+import "../../styles/unicorn-theme.css";
 
 export const Preview = (props) => {
   const location = useLocation();
+  const [unicorn, setunicorn] = useState();
+  const [loadedTheme, setLoadedTheme] = useState('default');
+
+  // Load and apply theme for preview
+  const loadAndApplyTheme = async (tudTempUdID) => {
+    try {
+      console.log('Loading theme for:', tudTempUdID);
+      const result = await Bridge.Unicorn.getUnicornTheme({ tudTempUdID });
+      console.log('Theme API response:', result);
+
+      if (result && result.status === '1' && result.data && result.data.theme) {
+        const theme = result.data.theme;
+        console.log('Preview - Applying theme:', theme);
+        applyTheme(theme);
+        setLoadedTheme(theme);
+      } else {
+        // Apply default theme
+        console.log('Preview - No theme found, using default');
+        applyTheme('default');
+        setLoadedTheme('default');
+      }
+    } catch (error) {
+      console.error('Preview - Error loading theme:', error);
+      // Apply default theme on error
+      applyTheme('default');
+      setLoadedTheme('default');
+    }
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
     if (location.state) {
       setunicorn(location.state);
+      console.log('Preview location.state:', location.state);
+      // Load theme when preview data is available
+      if (location.state.tudTempUdID) {
+        console.log('Calling loadAndApplyTheme with:', location.state.tudTempUdID);
+        loadAndApplyTheme(location.state.tudTempUdID);
+      } else {
+        console.log('No tudTempUdID found in location.state');
+      }
     }
 
     console.log(location);
-  }, []);
+  }, [location.state]);
 
-  const [unicorn, setunicorn] = useState();
   console.log(unicorn);
 
   // Helper function to parse banner images (single string or JSON array)
@@ -54,7 +92,10 @@ export const Preview = (props) => {
   // Helper to get full URLs for carousel images (handles mixed old/new images)
   const getCarouselImageUrls = (images, tudTempUdID) => {
     return images.map(image => {
-      const baseUrl = process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL;
+      // Use localhost for newly uploaded images (cover_*), production for existing images
+      const baseUrl = image.startsWith('cover_')
+        ? process.env.REACT_APP_BASE_URL
+        : (process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL);
       return `${baseUrl}api/uploads/unicorndeals/${tudTempUdID}/${image}`;
     });
   };
@@ -77,14 +118,18 @@ export const Preview = (props) => {
 
     if (!parsedFilename) return '';
 
-    const baseUrl = process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL;
+    const baseUrl = parsedFilename.startsWith('cover_')
+      ? process.env.REACT_APP_BASE_URL
+      : (process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL);
     return `${baseUrl}api/uploads/unicorndeals/${tudTempUdID}/${parsedFilename}`;
   };
 
   // Helper for plain image filenames (not JSON encoded)
   const getPlainImageUrl = (filename, tudTempUdID) => {
     if (!filename) return '';
-    const baseUrl = process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL;
+    const baseUrl = filename.startsWith('cover_')
+      ? process.env.REACT_APP_BASE_URL
+      : (process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL);
     return `${baseUrl}api/uploads/unicorndeals/${tudTempUdID}/${filename}`;
   };
 
@@ -318,7 +363,7 @@ export const Preview = (props) => {
   };
   const dat = JSON.stringify(localStorage.getItem("investor_id"));
   return (
-    <div style={{ backgroundColor: "#F8F9FA" }}>
+    <div className="unicorn-themed-page" style={{ backgroundColor: "#F8F9FA" }}>
       <style>
         {`
 
@@ -328,7 +373,7 @@ export const Preview = (props) => {
           border-radius: 8px;
           overflow: hidden;
           margin-bottom: 1.5rem;
-          margin-top: -5px;
+          margin-top: -1px;
           display: block;
           position: relative;
         }
@@ -848,7 +893,7 @@ text-align: justify;
 
 `}
       </style>
-      <div classname="newabout">
+      <div className="newabout">
         <NewWebHeader newabout={"newabout"} />
       </div>
 
@@ -985,7 +1030,6 @@ text-align: justify;
                 <div
                   className="about-all shadow-lg p-5"
                   style={{
-                    backgroundColor: "#191964",
                     color: "white",
                     borderRadius: "20px",
                   }}
@@ -1150,9 +1194,8 @@ text-align: justify;
                           >
                             {/* Header with Gradient Background */}
                             <div
+                              className="team-member-header"
                               style={{
-                                background:
-                                  "linear-gradient(90deg, #191964, #222276)",
                                 color: "white",
                                 padding: "20px",
                               }}
@@ -1219,31 +1262,22 @@ text-align: justify;
                 {item.tudPitchDeck &&
                   item.tudPitchDeck != "" &&
                   JSON.parse(item.tudPitchDeck) != "" && (
-                    <section>
-                      <div className="container">
-                        <div className="row">
-                          <div className="col-md-12">
-                            {/* blue bg */}
-                            <div
-                              className="shadow-lg p-5"
-                              style={{
-                                backgroundColor: "#191964",
-                                color: "white",
-                                borderRadius: "20px",
-                              }}
-                            >
-                              <h2 className="text-left text-white mb-4">
-                                Investor Presentation
-                              </h2>
-                              <SinglePagePDFViewer
-                                pdf={`${process.env.REACT_APP_BASE_URL
-                                  }api/uploads/unicorndeals/${item.tudTempUdID
-                                  }/${JSON.parse(item.tudPitchDeck)}`}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                    <section className="container my-5">
+                      <>
+                        <h1
+                          style={{
+                            fontSize: 32,
+                            marginBottom: 30,
+                            textAlign: "center",
+                            color: "#000",
+                          }}
+                        >
+                          Investor Presentation
+                        </h1>
+                        <SinglePagePDFViewer
+                          pdf={`${process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.tudPitchDeck)}`}
+                        />
+                      </>
                     </section>
                   )}
               </section>

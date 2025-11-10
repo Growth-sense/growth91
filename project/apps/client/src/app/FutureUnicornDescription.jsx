@@ -12,6 +12,10 @@ import moment from "moment";
 import { FaYoutube, FaInstagram, FaFacebook, FaLinkedin } from 'react-icons/fa';
 import { LastUpdatedBadge } from "./components/LastUpdatedBadge";
 import CoverImageCarousel from "./components/CoverImageCarousel";
+import ImageLightbox from "./components/ImageLightbox";
+import { applyTheme, GROWTH91_THEMES } from "./helper/themes";
+// ONLY IMPORT THEME CSS ON INVESTOR VIEW PAGE - NOT IN FORMS
+import "./styles/unicorn-theme.css";
 
 export const FutureUnicornDescription = (props) => {
   const settings = {
@@ -53,6 +57,7 @@ export const FutureUnicornDescription = (props) => {
   const [unicorn, setUnicorn] = useState();
   const [memberdata, setmemberdata] = useState();
   const [message, setmessage] = useState();
+  const [loadedTheme, setLoadedTheme] = useState('default');
   const [iamintrestmodal, setiamintrestmodal] = useState(false);
   const [data, setdata] = useState({
     "I Want to know more about it": false,
@@ -60,16 +65,63 @@ export const FutureUnicornDescription = (props) => {
     "I am excited to invest in your startups": false,
     message: "",
   });
+
+  // Load and apply theme for the unicorn page - MUST BE BEFORE getuniondata
+  const loadAndApplyTheme = async (unicornDealID, tudTempUdID = null) => {
+    try {
+      console.log('🔄 Loading theme for unicorn:', unicornDealID, tudTempUdID);
+      // Try to load theme from published unicorn first
+      let result = await Bridge.Unicorn.getUnicornTheme({ unicornDealID });
+      console.log('📦 Theme API response (published):', result);
+
+      // If no theme found and we have draft ID, try draft
+      if ((!result || result.status !== '1' || !result.data?.theme) && tudTempUdID) {
+        console.log('No theme in published, checking draft...');
+        result = await Bridge.Unicorn.getUnicornTheme({ tudTempUdID });
+        console.log('📦 Theme API response (draft):', result);
+      }
+
+      if (result && result.status === '1' && result.data && result.data.theme) {
+        const theme = result.data.theme;
+        console.log('✅ FutureUnicorn - Applying theme:', theme);
+        applyTheme(theme);
+        setLoadedTheme(theme);
+      } else {
+        // Apply default theme
+        console.log('⚪ No theme found, using default');
+        applyTheme('default');
+        setLoadedTheme('default');
+      }
+    } catch (error) {
+      console.error('❌ Error loading theme:', error);
+      // Apply default theme on error
+      applyTheme('default');
+      setLoadedTheme('default');
+    }
+  };
+
   function getuniondata() {
     let params = {
       page: 0,
       pagesize: 10,
     };
     Bridge.Unicorn.unicorndealsByInvestors(params).then((result) => {
-      console.log(result);
+      console.log('📋 Unicorn data loaded:', result);
       setUnicorn(result.data);
+
+      // Load and apply theme for this unicorn
+      if (result.data && result.data.length > 0) {
+        const currentUnicorn = result.data.find(item => item.unicornDealID == id);
+        if (currentUnicorn) {
+          console.log('🎨 Found unicorn, loading theme...');
+          loadAndApplyTheme(currentUnicorn.unicornDealID, currentUnicorn.tudTempUdID);
+        } else {
+          console.log('⚠️ Unicorn not found with ID:', id);
+        }
+      }
     });
   }
+
   $(window).scroll(function () {
     if ($(this).scrollTop() > 30) {
       $("body").addClass("newClass");
@@ -145,14 +197,19 @@ export const FutureUnicornDescription = (props) => {
 
     if (!parsedFilename) return '';
 
-    const baseUrl = process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL;
+    // Use localhost for newly uploaded images (cover_*), production for existing images
+    const baseUrl = parsedFilename.startsWith('cover_')
+      ? process.env.REACT_APP_BASE_URL
+      : (process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL);
     return `${baseUrl}api/uploads/unicorndeals/${tudTempUdID}/${parsedFilename}`;
   };
 
   // Helper to get full URLs for carousel images (handles mixed old/new images)
   const getCarouselImageUrls = (images, tudTempUdID) => {
     return images.map(image => {
-      const baseUrl = process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL;
+      const baseUrl = image.startsWith('cover_')
+        ? process.env.REACT_APP_BASE_URL
+        : (process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL);
       return `${baseUrl}api/uploads/unicorndeals/${tudTempUdID}/${image}`;
     });
   };
@@ -168,8 +225,23 @@ export const FutureUnicornDescription = (props) => {
     }
   };
 
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [lightboxImages, setLightboxImages] = useState([]);
+  const [lightboxInitialIndex, setLightboxInitialIndex] = useState(0);
+
+  const onImageClick = (index, imageUrls) => {
+    // imageUrls should be the full URLs array from getCarouselImageUrls
+    setLightboxImages(imageUrls);
+    setLightboxInitialIndex(index);
+    setIsLightboxOpen(true);
+  };
+
+  const handleLightboxClose = () => {
+    setIsLightboxOpen(false);
+  };
+
   return (
-    <div style={{ backgroundColor: "#F8F9FA" }}>
+    <div className="unicorn-themed-page" style={{ backgroundColor: "#F8F9FA" }}>
       <style>
         {`
         .para-proceed label{
@@ -184,7 +256,7 @@ export const FutureUnicornDescription = (props) => {
           margin-bottom: 1.5rem;
           display: block;
           position: relative;
-          margin-top: -5px;
+          margin-top: -1px;
         }
         .image-section img {
          width:100%;
@@ -738,7 +810,7 @@ text-align: justify;
 `}
       </style>
 
-      <div classname="newabout">
+      <div className="newabout">
         <NewWebHeader newabout={"newabout"} />
       </div>
 
@@ -767,7 +839,6 @@ text-align: justify;
                       style={{
                         borderRadius: "15px",
                         border: "1px solid #ddd",
-                        marginTop: "-5px",
                       }}
                     >
                       <CoverImageCarousel
@@ -776,6 +847,7 @@ text-align: justify;
                         altText={item.udStartupName || "Startup Cover"}
                         autoPlayInterval={4000}
                         showControls={true}
+                        onImageClick={onImageClick}
                       />
                     </div>
 
@@ -792,7 +864,6 @@ text-align: justify;
                             maxHeight: "100%",
                             width: "auto",
                             height: "auto",
-                            // borderRadius: "50%",
                             boxShadow: "0px 3px 6px #000",
                           }}
                         />
@@ -808,9 +879,7 @@ text-align: justify;
                           </div>
 
                           {item.udTag && item.udTag !== "None" && (
-                            <div
-                              style={{ marginTop: "8px", marginBottom: "8px" }}
-                            >
+                            <div style={{ marginTop: "8px", marginBottom: "8px" }}>
                               {item.udTag.split(",").map((tag, tagIndex) => (
                                 <span
                                   key={tagIndex}
@@ -831,12 +900,12 @@ text-align: justify;
                               ))}
                             </div>
                           )}
+
                           <div>
                             <button
                               onClick={openiamintrest}
                               className="primaryInterested"
                               style={{
-                                // height: "100%",
                                 backgroundColor: "#191964",
                                 color: "white",
                                 border: "none",
@@ -906,7 +975,6 @@ text-align: justify;
                   <div
                     className="about-all shadow-lg p-5"
                     style={{
-                      backgroundColor: "#191964",
                       color: "white",
                       borderRadius: "20px",
                     }}
@@ -941,7 +1009,8 @@ text-align: justify;
 
                 <section
                   id="marketOverviewSection"
-                  className="container my-5  market-overview-section"
+                  className="container my-5 market-overview-section alternate-section"
+                  style={{ padding: "40px 20px", borderRadius: "12px" }}
                 >
                   <h2 className="text-center mb-5">Market Overview</h2>
                   <div className="row market-overreview-row">
@@ -974,7 +1043,7 @@ text-align: justify;
                           return (
                             <div className="col-md-6 mb-4">
                               <div
-                                className="p-4 shadow-sm h-100"
+                                className="startup-highlight-card card p-4 shadow-sm h-100"
                                 style={{
                                   backgroundColor: "#fff",
                                   borderRadius: "15px",
@@ -1100,7 +1169,8 @@ text-align: justify;
                 {item.udYoutubeLink && item.udYoutubeLink != "" && (
                   <section
                     id="videoSection"
-                    className="container my-5 videos-section"
+                    className="container my-5 videos-section alternate-section"
+                    style={{ padding: "40px 20px", borderRadius: "12px" }}
                   >
                     <h2 className="text-center mb-5">Videos</h2>
                     <div className="video-slide">
@@ -1308,6 +1378,14 @@ text-align: justify;
               </>
             );
           })}
+      {isLightboxOpen && (
+        <ImageLightbox
+          images={lightboxImages}
+          initialIndex={lightboxInitialIndex}
+          isOpen={isLightboxOpen}
+          onClose={handleLightboxClose}
+        />
+      )}
       <Modal
         // title={`Invest in ${this.state.deal_name}`}
         visible={iamintrestmodal}

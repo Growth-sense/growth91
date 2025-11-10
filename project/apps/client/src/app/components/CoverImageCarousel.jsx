@@ -15,12 +15,14 @@ const CoverImageCarousel = ({
     imageUrls = null, // Optional: full URLs for each image (for mixed old/new images)
     altText = 'Cover Image',
     autoPlayInterval = 4000,
-    showControls = true
+    showControls = true,
+    onImageClick = null, // Optional: callback when image is clicked
+    isPaused = false // Optional: external control to pause carousel
 }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isHovered, setIsHovered] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
-    const [isPaused, setIsPaused] = useState(false);
+    const [isManuallyPaused, setIsManuallyPaused] = useState(false);
     const autoPlayRef = useRef(null);
 
     // Detect mobile device
@@ -37,8 +39,8 @@ const CoverImageCarousel = ({
 
     // Auto-play functionality
     useEffect(() => {
-        // Only auto-play if multiple images, not hovered (on desktop), and not manually paused
-        if (images.length > 1 && (!isHovered || isMobile) && !isPaused) {
+        // Only auto-play if multiple images, not hovered (on desktop), not manually paused, and not externally paused
+        if (images.length > 1 && (!isHovered || isMobile) && !isManuallyPaused && !isPaused) {
             autoPlayRef.current = setInterval(() => {
                 setCurrentIndex((prevIndex) =>
                     prevIndex === images.length - 1 ? 0 : prevIndex + 1
@@ -51,7 +53,7 @@ const CoverImageCarousel = ({
                 clearInterval(autoPlayRef.current);
             }
         };
-    }, [images.length, isHovered, isMobile, autoPlayInterval, isPaused]);
+    }, [images.length, isHovered, isMobile, autoPlayInterval, isManuallyPaused, isPaused]);
 
     const goToSlide = (index) => {
         setCurrentIndex(index);
@@ -71,13 +73,19 @@ const CoverImageCarousel = ({
 
     // Handle click on image to pause carousel
     const handleImageClick = () => {
-        if (isPaused) {
-            // Resuming - clear hover state to force carousel to start
-            setIsPaused(false);
-            setIsHovered(false);
+        if (onImageClick) {
+            // Build full image URLs array
+            const fullImageUrls = images.map((_, index) => getImageUrl(index));
+            onImageClick(currentIndex, fullImageUrls);
         } else {
-            // Pausing
-            setIsPaused(true);
+            if (isManuallyPaused) {
+                // Resuming - clear hover state to force carousel to start
+                setIsManuallyPaused(false);
+                setIsHovered(false);
+            } else {
+                // Pausing
+                setIsManuallyPaused(true);
+            }
         }
     };
 
@@ -115,7 +123,7 @@ const CoverImageCarousel = ({
                 {images.map((image, index) => (
                     <div
                         key={index}
-                        className={`cover-carousel-slide ${index === currentIndex ? 'active' : ''} ${isPaused && index === currentIndex ? 'paused' : ''}`}
+                        className={`cover-carousel-slide ${index === currentIndex ? 'active' : ''} ${isManuallyPaused && index === currentIndex ? 'paused' : ''}`}
                         onClick={handleImageClick}
                         style={{ cursor: images.length > 1 ? 'pointer' : 'default' }}
                     >
