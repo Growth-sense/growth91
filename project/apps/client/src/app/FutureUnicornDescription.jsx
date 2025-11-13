@@ -5,12 +5,17 @@ import $ from "jquery";
 import Bridge from "./constants/Bridge.js";
 import { useLocation, useHistory } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import { Modal, message as mess } from "antd";
+import { Modal, message as mess, Tooltip } from "antd";
 import SinglePagePDFViewer from "./components/PdfViewer/single-page";
 import { extractVideoIDFromYoutubeUrl, getAbsoluteUrl } from "./helper/utilHelper.js";
 import moment from "moment";
 import { FaYoutube, FaInstagram, FaFacebook, FaLinkedin } from 'react-icons/fa';
 import { LastUpdatedBadge } from "./components/LastUpdatedBadge";
+import CoverImageCarousel from "./components/CoverImageCarousel";
+import ImageLightbox from "./components/ImageLightbox";
+import { applyTheme, GROWTH91_THEMES } from "./helper/themes";
+// ONLY IMPORT THEME CSS ON INVESTOR VIEW PAGE - NOT IN FORMS
+import "./styles/unicorn-theme.css";
 
 export const FutureUnicornDescription = (props) => {
   const settings = {
@@ -52,6 +57,7 @@ export const FutureUnicornDescription = (props) => {
   const [unicorn, setUnicorn] = useState();
   const [memberdata, setmemberdata] = useState();
   const [message, setmessage] = useState();
+  const [loadedTheme, setLoadedTheme] = useState('default');
   const [iamintrestmodal, setiamintrestmodal] = useState(false);
   const [data, setdata] = useState({
     "I Want to know more about it": false,
@@ -59,16 +65,63 @@ export const FutureUnicornDescription = (props) => {
     "I am excited to invest in your startups": false,
     message: "",
   });
+
+  // Load and apply theme for the unicorn page - MUST BE BEFORE getuniondata
+  const loadAndApplyTheme = async (unicornDealID, tudTempUdID = null) => {
+    try {
+      console.log('🔄 Loading theme for unicorn:', unicornDealID, tudTempUdID);
+      // Try to load theme from published unicorn first
+      let result = await Bridge.Unicorn.getUnicornTheme({ unicornDealID });
+      console.log('📦 Theme API response (published):', result);
+
+      // If no theme found and we have draft ID, try draft
+      if ((!result || result.status !== '1' || !result.data?.theme) && tudTempUdID) {
+        console.log('No theme in published, checking draft...');
+        result = await Bridge.Unicorn.getUnicornTheme({ tudTempUdID });
+        console.log('📦 Theme API response (draft):', result);
+      }
+
+      if (result && result.status === '1' && result.data && result.data.theme) {
+        const theme = result.data.theme;
+        console.log('✅ FutureUnicorn - Applying theme:', theme);
+        applyTheme(theme);
+        setLoadedTheme(theme);
+      } else {
+        // Apply default theme
+        console.log('⚪ No theme found, using default');
+        applyTheme('default');
+        setLoadedTheme('default');
+      }
+    } catch (error) {
+      console.error('❌ Error loading theme:', error);
+      // Apply default theme on error
+      applyTheme('default');
+      setLoadedTheme('default');
+    }
+  };
+
   function getuniondata() {
     let params = {
       page: 0,
       pagesize: 10,
     };
     Bridge.Unicorn.unicorndealsByInvestors(params).then((result) => {
-      console.log(result);
+      console.log('📋 Unicorn data loaded:', result);
       setUnicorn(result.data);
+
+      // Load and apply theme for this unicorn
+      if (result.data && result.data.length > 0) {
+        const currentUnicorn = result.data.find(item => item.unicornDealID == id);
+        if (currentUnicorn) {
+          console.log('🎨 Found unicorn, loading theme...');
+          loadAndApplyTheme(currentUnicorn.unicornDealID, currentUnicorn.tudTempUdID);
+        } else {
+          console.log('⚠️ Unicorn not found with ID:', id);
+        }
+      }
     });
   }
+
   $(window).scroll(function () {
     if ($(this).scrollTop() > 30) {
       $("body").addClass("newClass");
@@ -76,89 +129,6 @@ export const FutureUnicornDescription = (props) => {
       $("body").removeClass("newClass");
     }
   });
-  function SimpleNextArrow(props) {
-    const { onClick } = props;
-    return (
-      <>
-        <div className="nextArrow" onClick={onClick}>
-          <span class="next-arrows slick-arrow">
-            <i class="fa fa-angle-right" aria-hidden="true"></i>
-          </span>
-        </div>
-      </>
-    );
-  }
-
-  function SimplePrevArrow(props) {
-    const { onClick } = props;
-    return (
-      <>
-        <div className="prevArrow" onClick={onClick}>
-          <span class="prev-arrows slick-arrow">
-            {" "}
-            <i class="fa fa-angle-left" aria-hidden="true"></i>{" "}
-          </span>
-        </div>
-      </>
-    );
-  }
-  const highlightimages = [
-    "./assets/images/deals-details/Petmojo/highlight4.jpg",
-    "./assets/images/deals-details/Petmojo/highlight01.jpg",
-    "./assets/images/deals-details/highlight2.jfif",
-    "./assets/images/deals-details/highlight3.jpg",
-  ];
-  const sliderSettings = {
-    dots: true,
-    infinite: true,
-    arrows: false,
-    speed: 2000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplaySpeed: 3000,
-    autoplay: true,
-
-    prevArrow: <SimplePrevArrow />,
-    nextArrow: <SimpleNextArrow />,
-
-    responsive: [
-      {
-        breakpoint: 1200,
-        settings: {
-          autoplay: true,
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 993,
-        settings: {
-          autoplay: true,
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          autoplay: true,
-          speed: 100,
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 400,
-        settings: {
-          arrows: true,
-          speed: 100,
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          autoplay: false,
-        },
-      },
-    ],
-  };
   const openiamintrest = () => {
     setiamintrestmodal(true);
   };
@@ -213,8 +183,65 @@ export const FutureUnicornDescription = (props) => {
   };
   const dat = JSON.stringify(localStorage.getItem("investor_id"));
 
+  // Helper function to get correct image URL (localhost for new uploads, production for existing)
+  const getImageUrl = (filename, tudTempUdID) => {
+    if (!filename) return '';
+
+    // Parse JSON if needed (for logo, sponsor, pitch deck images)
+    let parsedFilename = filename;
+    try {
+      parsedFilename = JSON.parse(filename);
+    } catch (e) {
+      // Already a plain string, no parsing needed
+    }
+
+    if (!parsedFilename) return '';
+
+    // Use localhost for newly uploaded images (cover_*), production for existing images
+    const baseUrl = parsedFilename.startsWith('cover_')
+      ? process.env.REACT_APP_BASE_URL
+      : (process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL);
+    return `${baseUrl}api/uploads/unicorndeals/${tudTempUdID}/${parsedFilename}`;
+  };
+
+  // Helper to get full URLs for carousel images (handles mixed old/new images)
+  const getCarouselImageUrls = (images, tudTempUdID) => {
+    return images.map(image => {
+      const baseUrl = image.startsWith('cover_')
+        ? process.env.REACT_APP_BASE_URL
+        : (process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL);
+      return `${baseUrl}api/uploads/unicorndeals/${tudTempUdID}/${image}`;
+    });
+  };
+
+  // Helper function to parse banner images into array for carousel
+  const parseBannerImages = (bannerImage) => {
+    if (!bannerImage) return [];
+    try {
+      const parsed = JSON.parse(bannerImage);
+      return Array.isArray(parsed) ? parsed : [parsed];
+    } catch (e) {
+      return [bannerImage];
+    }
+  };
+
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [lightboxImages, setLightboxImages] = useState([]);
+  const [lightboxInitialIndex, setLightboxInitialIndex] = useState(0);
+
+  const onImageClick = (index, imageUrls) => {
+    // imageUrls should be the full URLs array from getCarouselImageUrls
+    setLightboxImages(imageUrls);
+    setLightboxInitialIndex(index);
+    setIsLightboxOpen(true);
+  };
+
+  const handleLightboxClose = () => {
+    setIsLightboxOpen(false);
+  };
+
   return (
-    <div style={{ backgroundColor: "#F8F9FA" }}>
+    <div className="unicorn-themed-page" style={{ backgroundColor: "#F8F9FA" }}>
       <style>
         {`
         .para-proceed label{
@@ -223,10 +250,13 @@ export const FutureUnicornDescription = (props) => {
       
         .image-section {
           width: 100%;
-          
-          border-radius: 8px;
+          border: 1px solid #ddd;
+          border-radius: 15px;
           overflow: hidden;
           margin-bottom: 1.5rem;
+          display: block;
+          position: relative;
+          margin-top: -1px;
         }
         .image-section img {
          width:100%;
@@ -254,10 +284,10 @@ object-fit:cover;
           height: auto;
           object-fit: contain;
           display: block;
+          z-index:1
         }
         
         .text-section h1 {
-        text-align: left;
           font-size: 2rem;
           font-weight: bold;
           margin-bottom: 1rem;
@@ -271,9 +301,9 @@ object-fit:cover;
         .text-section button {
           padding: 0.75rem 1.5rem;
           font-size: 1rem;
-          color: #00000;
+          color: #000000;
           background-color: transparent;    
-          border: 1px solid #00000;
+          border: 1px solid #000000;
           border-radius: 50px;
           cursor: pointer;
         }
@@ -668,15 +698,12 @@ align-content:center;
 background-color: white;
 box-shadow: 0px 3px 6px #000;
 border-radius: 15px;
-
-
 }
 
 .about-text {
 color: #fff;
 text-align: justify;  
 }
-
 
 /* Responsive Styling */
 
@@ -685,9 +712,9 @@ text-align: justify;
 .text-section button {
     width: 200px;
     font-size: 1rem;
-    color: #0000 0;
+    color: #000000;
     background-color: transparent;
-    border: 1px solid #0000 0;
+    border: 1px solid #000000;
     border-radius: 50px;
     cursor: pointer;
 }
@@ -731,10 +758,59 @@ text-align: justify;
 
 }
 
+/* Responsive for Pitch Deck Slider */
+@media only screen and (max-width: 768px) {
+  #pitchDeck h1, #productDeck h2 {
+    font-size: 24px !important;
+    margin-bottom: 20px !important;
+  }
+  
+  #pitchDeck .p-5, #productDeck .p-5 {
+    padding: 2rem !important;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  #pitchDeck h1, #productDeck h2 {
+    font-size: 20px !important;
+    margin-bottom: 15px !important;
+  }
+  
+  #pitchDeck .p-5, #productDeck .p-5 {
+    padding: 1.5rem !important;
+  }
+}
+
+/* Responsive media query for image-section on tablets */
+@media only screen and (max-width: 768px) {
+  .image-section {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    display: block;
+    position: relative;
+    margin-top: 100px !important;
+  }
+  .image-section img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+}
+
+/* Mobile specific - smaller margin */
+@media only screen and (max-width: 576px) {
+  .image-section {
+    margin-top: -26px !important;
+  }
+}
+
 `}
       </style>
 
-      <div classname="newabout">
+      <div className="newabout">
         <NewWebHeader newabout={"newabout"} />
       </div>
 
@@ -757,33 +833,22 @@ text-align: justify;
 
                 <section className="design-space">
                   <div className="container">
-                    {/* Image Section */}
+                    {/* Cover Image Section with Carousel */}
                     <div
                       className="image-section"
                       style={{
                         borderRadius: "15px",
                         border: "1px solid #ddd",
-                        marginTop: "-5px",
                       }}
                     >
-                      {/* Add your image manually here */}
-                      <img
-                        className="heroSectionImage"
-                        style={{
-                          objectFit: "cover",
-                          width: "100%",
-                          height: "auto",
-                        }}
-                        src={
-                          (item.udBannerImage &&
-                            `${
-                              process.env.REACT_APP_BASE_URL
-                            }api/uploads/unicorndeals/${
-                              item.tudTempUdID
-                            }/${JSON.parse(item.udBannerImage)}`) ||
-                          ""
-                        }
-                        alt="Team"
+                      <CoverImageCarousel
+                        images={parseBannerImages(item.udBannerImage)}
+                        imageUrls={getCarouselImageUrls(parseBannerImages(item.udBannerImage), item.tudTempUdID)}
+                        altText={item.udStartupName || "Startup Cover"}
+                        autoPlayInterval={4000}
+                        showControls={true}
+                        onImageClick={onImageClick}
+                        isPaused={isLightboxOpen}
                       />
                     </div>
 
@@ -792,15 +857,7 @@ text-align: justify;
                       <div className="logo-section">
                         {/* Replace with your logo */}
                         <img
-                          src={
-                            (item.udLogoImage &&
-                              `${
-                                process.env.REACT_APP_BASE_URL
-                              }api/uploads/unicorndeals/${
-                                item.tudTempUdID
-                              }/${JSON.parse(item.udLogoImage)}`) ||
-                            ""
-                          }
+                          src={getImageUrl(item.udLogoImage, item.tudTempUdID)}
                           alt="Logo"
                           style={{
                             objectFit: "contain",
@@ -808,7 +865,6 @@ text-align: justify;
                             maxHeight: "100%",
                             width: "auto",
                             height: "auto",
-                            // borderRadius: "50%",
                             boxShadow: "0px 3px 6px #000",
                           }}
                         />
@@ -817,42 +873,110 @@ text-align: justify;
                       <div className="text-section d-flex justify-content-between align-items-start w-100">
                         <div>
                           <h1>{item.udStartupName}</h1>
-                          
+
+                          {/* Profile Badges - Stage + Sector + All Visibility Tags */}
+                          <div style={{
+                            marginTop: "12px",
+                            marginBottom: "12px",
+                            display: "flex",
+                            flexWrap: "wrap",
+                            gap: "8px"
+                          }}>
+                            {/* Stage Badge */}
+                            {(item.udStage || item.tudStage) && (
+                              <Tooltip title={`Funding Stage: ${item.udStage || item.tudStage}`}>
+                                <span style={{
+                                  backgroundColor: "var(--custom-theme-color, #191964)",
+                                  color: "#ffffff",
+                                  padding: "3px 8px",
+                                  borderRadius: "20px",
+                                  fontSize: "14px",
+                                  fontWeight: "600",
+                                  border: "1px solid rgba(255, 255, 255, 0.3)",
+                                  opacity: "0.6"
+                                }}
+                                >
+                                  {item.udStage || item.tudStage}
+                                </span>
+                              </Tooltip>
+                            )}
+
+                            {/* Sector Badge */}
+                            {(item.udCategory || item.tudCategory) && (
+                              <Tooltip title={`Industry Sector: ${item.udCategory || item.tudCategory}`}>
+                                <span style={{
+                                  backgroundColor: "var(--custom-theme-color, #191964)",
+                                  color: "#ffffff",
+                                  padding: "3px 8px",
+                                  borderRadius: "20px",
+                                  fontSize: "14px",
+                                  fontWeight: "600",
+                                  border: "1px solid rgba(255, 255, 255, 0.3)",
+                                  opacity: "0.6"
+                                }}
+                                >
+                                  {item.udCategory || item.tudCategory}
+                                </span>
+                              </Tooltip>
+                            )}
+
+                            {/* Visibility Tags */}
+                            {((item.udTag && item.udTag !== "None") || (item.tudTag && item.tudTag !== "None")) && (
+                              <>
+                                {/* Show first 3 visibility tags */}
+                                {(item.udTag || item.tudTag).split(",").slice(0, 3).map((tag, tagIndex) => (
+                                  <Tooltip title={`Visibility Tag: ${tag.trim()}`}>
+                                    <span
+                                      key={tagIndex}
+                                      style={{
+                                        backgroundColor: "var(--custom-theme-color, #191964)",
+                                        color: "#ffffff",
+                                        padding: "3px 8px",
+                                        borderRadius: "20px",
+                                        fontSize: "14px",
+                                        fontWeight: "600",
+                                        border: "1px solid rgba(255, 255, 255, 0.3)",
+                                        opacity: "0.6"
+                                      }}
+                                    >
+                                      {tag.trim()}
+                                    </span>
+                                  </Tooltip>
+                                ))}
+
+                                {/* Show "+X more" if there are more than 3 tags */}
+                                {(item.udTag || item.tudTag).split(",").length > 3 && (
+                                  <Tooltip title={`Additional tags: ${(item.udTag || item.tudTag).split(",").slice(3).map(t => t.trim()).join(", ")}`}>
+                                    <span
+                                      style={{
+                                        backgroundColor: "var(--custom-theme-color, #191964)",
+                                        color: "#ffffff",
+                                        padding: "3px 8px",
+                                        borderRadius: "20px",
+                                        fontSize: "14px",
+                                        fontWeight: "600",
+                                        border: "1px solid rgba(255, 255, 255, 0.3)",
+                                        opacity: "0.6"
+                                      }}
+                                    >
+                                      +{(item.udTag || item.tudTag).split(",").length - 3} more
+                                    </span>
+                                  </Tooltip>
+                                )}
+                              </>
+                            )}
+                          </div>
+
                           {/* Last Updated Badge */}
                           <div style={{ marginBottom: "8px" }}>
                             <LastUpdatedBadge udPublishedDate={item.udPublishedDate} />
                           </div>
-                          
-                          {item.udTag && item.udTag !== "None" && (
-                            <div
-                              style={{ marginTop: "8px", marginBottom: "8px" }}
-                            >
-                              {item.udTag.split(",").map((tag, tagIndex) => (
-                                <span
-                                  key={tagIndex}
-                                  style={{
-                                    display: "inline-block",
-                                    backgroundColor: "#e6f7ff",
-                                    color: "#0066cc",
-                                    padding: "3px 10px",
-                                    borderRadius: "4px",
-                                    fontSize: "12px",
-                                    fontWeight: "500",
-                                    marginRight: "5px",
-                                    marginBottom: "3px"
-                                  }}
-                                >
-                                  {tag.trim()}
-                                </span>
-                              ))}
-                            </div>
-                          )}
+
                           <div>
                             <button
                               onClick={openiamintrest}
                               className="primaryInterested"
                               style={{
-                                // height: "100%",
                                 backgroundColor: "#191964",
                                 color: "white",
                                 border: "none",
@@ -880,11 +1004,7 @@ text-align: justify;
                             >
                               {item.udSponsorImage && (
                                 <img
-                                  src={`${
-                                    process.env.REACT_APP_BASE_URL
-                                  }api/uploads/unicorndeals/${
-                                    item.tudTempUdID
-                                  }/${JSON.parse(item.udSponsorImage)}`}
+                                  src={getImageUrl(item.udSponsorImage, item.tudTempUdID)}
                                   alt="Sponsor"
                                   style={{
                                     maxWidth: "120px",
@@ -907,8 +1027,8 @@ text-align: justify;
                                 Incubated / Supported By
                               </p>
                               <p
-                                style={{ 
-                                  fontSize: "14px", 
+                                style={{
+                                  fontSize: "14px",
                                   fontWeight: "500",
                                   color: "#191964",
                                   textDecoration: "underline"
@@ -926,7 +1046,6 @@ text-align: justify;
                   <div
                     className="about-all shadow-lg p-5"
                     style={{
-                      backgroundColor: "#191964",
                       color: "white",
                       borderRadius: "20px",
                     }}
@@ -953,7 +1072,7 @@ text-align: justify;
 
                       {/* Right Text Section */}
                       <div className="col-md-8 d-flex flex-column justify-content-center">
-                        <p className="about-text" style={{overflowWrap: "anywhere"}}>{item.udDealDescription}</p>
+                        <p className="about-text" style={{ overflowWrap: "anywhere" }}>{item.udDealDescription}</p>
                       </div>
                     </div>
                   </div>
@@ -961,7 +1080,8 @@ text-align: justify;
 
                 <section
                   id="marketOverviewSection"
-                  className="container my-5  market-overview-section"
+                  className="container my-5 market-overview-section alternate-section"
+                  style={{ padding: "40px 20px", borderRadius: "12px" }}
                 >
                   <h2 className="text-center mb-5">Market Overview</h2>
                   <div className="row market-overreview-row">
@@ -994,7 +1114,7 @@ text-align: justify;
                           return (
                             <div className="col-md-6 mb-4">
                               <div
-                                className="p-4 shadow-sm h-100"
+                                className="startup-highlight-card card p-4 shadow-sm h-100"
                                 style={{
                                   backgroundColor: "#fff",
                                   borderRadius: "15px",
@@ -1005,7 +1125,7 @@ text-align: justify;
                                   style={{ textAlign: "justify" }}
                                 >
                                   <img
-                                    src={highlightimages[indexstartuphighlight]} // Replace with the actual icon path
+                                    src={`${process.env.PUBLIC_URL}/assets/images/deals-details/highlight2.jfif`}
                                     alt="Highlight Icon"
                                     style={{
                                       width: "100px",
@@ -1046,7 +1166,7 @@ text-align: justify;
                               >
                                 <div className="media-card">
                                   <img
-                                    src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${itemudMediaCoverageFiles.imgname}`}
+                                    src={getImageUrl(itemudMediaCoverageFiles.imgname, item.tudTempUdID)}
                                     alt=""
                                     className="media-card-image"
                                   />
@@ -1074,161 +1194,54 @@ text-align: justify;
                     )}
                 </section>
 
-                <section id="teamSection" className="container my-5">
-                  <h2 className="text-center mb-3">Team</h2>
-                  <div className="row row-box-linse Grid-team px-1 justify-content-center">
-                    {item.udVendorId &&
-                      JSON.parse(item.udVendorId).map(
-                        (itemudVendorId, indexudVendorId) => (
-                          <div className="col-md-6 mb-4" key={index}>
-                            <div
-                              className="shadow-lg"
-                              style={{
-                                borderRadius: "15px",
-                                overflow: "hidden",
-                                backgroundColor: "#ffffff",
-                              }}
-                            >
-                              {/* Header with Gradient Background */}
-                              <div
-                                style={{
-                                  background:
-                                    "linear-gradient(90deg, #191964, #222276)",
-                                  color: "white",
-                                  padding: "20px",
-                                }}
-                              >
-                                <div className="d-flex align-items-center">
-                                  <img
-                                    src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${itemudVendorId.imgname}`}
-                                    alt=""
-                                    style={{
-                                      width: "100px",
-                                      height: "100px",
-                                      borderRadius: "50%",
-                                      objectFit: "cover",
-                                      marginRight: "15px",
-                                      boxShadow: "0px 3px 6px #000",
-                                    }}
-                                  />
-                                  <div>
-                                    <h5 className="mb-0 text-white">
-                                      {itemudVendorId.name ||
-                                        "Name not provided"}
-                                    </h5>
-                                    <p className="mb-0 text-white">
-                                      {itemudVendorId.Role ||
-                                        "Role not specified"}
-                                    </p>
-                                  </div>
-                                </div>
-                              </div>
-                              {/* Description Section */}
-                              <div
-                                className="p-3"
-                                style={{
-                                  height: "210px",
-                                  textAlign: "justify",
-                                }}
-                              >
-                                <p>
-                                  {itemudVendorId.description1
-                                    ? itemudVendorId.description1
-                                    : "Description not available for this team member."}
-                                </p>
-                                <p>
-                                  {itemudVendorId.description2
-                                    ? itemudVendorId.description2
-                                    : ""}
-                                </p>
-                                <div className="mt-3">
-                                  <a
-                                    href={itemudVendorId.linkedinUrl || "#"}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="social-icons__item"
-                                    style={{ color: "#0A66C2" }}
-                                  >
-                                    <i className="bx bxl-linkedin fs-19"></i>
-                                  </a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        )
-                      )}
-                  </div>
-                </section>
-
-                <section id="pitchDeck">
+                <section id="pitchDeck" className="container my-5">
                   {item.udPitchDeck != "" &&
                     JSON.parse(item.udPitchDeck) != "" && (
-                      <div className="container">
-                        <div className="row">
-                          <div className="col-md-12">
-                            {/* blue bg */}
-                            <div
-                              className="shadow-lg p-5"
-                              style={{
-                                backgroundColor: "#191964",
-                                color: "white",
-                                borderRadius: "20px",
-                              }}
-                            >
-                              <h2 className="text-left text-white mb-4">
-                                Investor Presentation
-                              </h2>
-                              <SinglePagePDFViewer
-                                pdf={`${
-                                  process.env.REACT_APP_BASE_URL
-                                }api/uploads/unicorndeals/${
-                                  item.tudTempUdID
-                                }/${JSON.parse(item.udPitchDeck)}`}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      <>
+                        <h1
+                          style={{
+                            fontSize: 32,
+                            marginBottom: 30,
+                            textAlign: "center",
+                            color: "#000",
+                          }}
+                        >
+                          Investor Presentation
+                        </h1>
+                        <SinglePagePDFViewer
+                          pdf={getImageUrl(item.udPitchDeck, item.tudTempUdID)}
+                        />
+                      </>
                     )}
                 </section>
 
-                <section id="productDeck">
+                <section id="productDeck" className="container my-5">
                   {item.udProductDeck != null &&
                     item.udProductDeck != "" &&
                     JSON.parse(item.udProductDeck) != "" && (
-                      <div className="container">
-                        <div className="row">
-                          <div className="col-md-12">
-                            {/* blue bg */}
-                            <div
-                              className="shadow-lg p-5"
-                              style={{
-                                backgroundColor: "#191964",
-                                color: "white",
-                                borderRadius: "20px",
-                              }}
-                            >
-                              <h2 className="text-left text-white mb-4">
-                                Product Presentation
-                              </h2>
-                              <SinglePagePDFViewer
-                                pdf={`${
-                                  process.env.REACT_APP_BASE_URL
-                                }api/uploads/unicorndeals/${
-                                  item.tudTempUdID
-                                }/${JSON.parse(item.udProductDeck)}`}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      <>
+                        <h1
+                          style={{
+                            fontSize: 32,
+                            marginBottom: 30,
+                            textAlign: "center",
+                            color: "#000",
+                          }}
+                        >
+                          Product Presentation
+                        </h1>
+                        <SinglePagePDFViewer
+                          pdf={getImageUrl(item.udProductDeck, item.tudTempUdID)}
+                        />
+                      </>
                     )}
                 </section>
 
                 {item.udYoutubeLink && item.udYoutubeLink != "" && (
                   <section
                     id="videoSection"
-                    className="container my-5 videos-section"
+                    className="container my-5 videos-section alternate-section"
+                    style={{ padding: "40px 20px", borderRadius: "12px" }}
                   >
                     <h2 className="text-center mb-5">Videos</h2>
                     <div className="video-slide">
@@ -1267,27 +1280,27 @@ text-align: justify;
                             {/* udStartupFounderMobileNumber */}
                             {(item.udStartupFounderMobileCountryCode || "") +
                               item.udStartupFounderMobileNumber &&
-                            item.udStartupFounderMobileNumber.length > 8
+                              item.udStartupFounderMobileNumber.length > 8
                               ? item.udStartupFounderMobileNumber.substring(
-                                  0,
-                                  2
-                                ) +
-                                "XXXXX" +
-                                item.udStartupFounderMobileNumber.substring(7)
+                                0,
+                                2
+                              ) +
+                              "XXXXX" +
+                              item.udStartupFounderMobileNumber.substring(7)
                               : item.udStartupFounderMobileNumber}
                           </li>
                           <li>
                             <i className="fas fa-envelope"></i>
                             {item.udStartupFounderEmail && item.udStartupFounderEmail.includes("@")
                               ? item.udStartupFounderEmail.substring(
-                                  0,
-                                  item.udStartupFounderEmail.indexOf("@") - 3
-                                ) +
-                                "***" +
-                                "@" +
-                                item.udStartupFounderEmail
-                                  .substring(item.udStartupFounderEmail.indexOf("@") + 1)
-                                  .replace(/[^.]+/, "***")
+                                0,
+                                item.udStartupFounderEmail.indexOf("@") - 3
+                              ) +
+                              "***" +
+                              "@" +
+                              item.udStartupFounderEmail
+                                .substring(item.udStartupFounderEmail.indexOf("@") + 1)
+                                .replace(/[^.]+/, "***")
                               : item.udStartupFounderEmail}
                           </li>
                           <li>
@@ -1396,8 +1409,8 @@ text-align: justify;
                               <p>
                                 {item.udFoundedon
                                   ? moment(item.udFoundedon).format(
-                                      "DD-MM-YYYY"
-                                    )
+                                    "DD-MM-YYYY"
+                                  )
                                   : ""}
                               </p>
                             </li>
@@ -1436,6 +1449,14 @@ text-align: justify;
               </>
             );
           })}
+      {isLightboxOpen && (
+        <ImageLightbox
+          images={lightboxImages}
+          initialIndex={lightboxInitialIndex}
+          isOpen={isLightboxOpen}
+          onClose={handleLightboxClose}
+        />
+      )}
       <Modal
         // title={`Invest in ${this.state.deal_name}`}
         visible={iamintrestmodal}
@@ -1478,7 +1499,7 @@ text-align: justify;
               <div className="para-proceed">
                 <form action="" className="form-checkbox">
                   <div className="row">
-                    <div  className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
+                    <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
                       <input
                         type="radio"
                         name="I Want to know more about it"
@@ -1486,11 +1507,11 @@ text-align: justify;
                         checked={data["I Want to know more about it"] == true}
                         onClick={adddata}
                       />
-                      <label style={{cursor:"pointer"}}  onClick={() => { setdata({ "I Want to know more about it": true  }) }} htmlFor="">
+                      <label style={{ cursor: "pointer" }} onClick={() => { setdata({ "I Want to know more about it": true }) }} htmlFor="">
                         I want to know more about your startup
                       </label>
                     </div>
-                    <div  className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
+                    <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
                       <input
                         type="radio"
                         name="I want to work with you"
@@ -1498,9 +1519,9 @@ text-align: justify;
                         checked={data["I want to work with you"] == true}
                         onClick={adddata}
                       />
-                      <label style={{cursor:"pointer"}} onClick={() => { setdata({ "I want to work with you": true  }) }} htmlFor="">I want to explore collaboration </label>
+                      <label style={{ cursor: "pointer" }} onClick={() => { setdata({ "I want to work with you": true }) }} htmlFor="">I want to explore collaboration </label>
                     </div>
-                    <div  className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
+                    <div className="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-2">
                       <input
                         type="radio"
                         name="I am excited to invest in your startups"
@@ -1511,7 +1532,7 @@ text-align: justify;
                         }
                         onClick={adddata}
                       />
-                      <label style={{cursor:"pointer"}} htmlFor="" onClick={() => { setdata({ "I am excited to invest in your startups": true  }) }} >
+                      <label style={{ cursor: "pointer" }} htmlFor="" onClick={() => { setdata({ "I am excited to invest in your startups": true }) }} >
                         I am interested to invest in your startup
                       </label>
                     </div>

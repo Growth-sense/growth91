@@ -9,24 +9,131 @@ import NewWebHeader from "../../common/NewWebHeader.jsx";
 import { NewWebFooter } from "../../common/NewWebFooter.jsx";
 import { Modal, message as mess, Spin } from "antd";
 import SinglePagePDFViewer from "./../../components/PdfViewer/single-page";
+import CoverImageCarousel from "../../components/CoverImageCarousel.jsx";
+import ImageLightbox from "../../components/ImageLightbox";
 
 import Bridge from "./../../constants/Bridge.js";
 import { extractVideoIDFromYoutubeUrl, getAbsoluteUrl } from "../../helper/utilHelper.js";
 import moment from "moment";
+import { applyTheme, GROWTH91_THEMES } from "../../helper/themes";
+import "../../styles/unicorn-theme.css";
 
 export const Preview = (props) => {
   const location = useLocation();
+  const [unicorn, setunicorn] = useState();
+  const [loadedTheme, setLoadedTheme] = useState('default');
+
+  // Load and apply theme for preview
+  const loadAndApplyTheme = async (tudTempUdID) => {
+    try {
+      console.log('Loading theme for:', tudTempUdID);
+      const result = await Bridge.Unicorn.getUnicornTheme({ tudTempUdID });
+      console.log('Theme API response:', result);
+
+      if (result && result.status === '1' && result.data && result.data.theme) {
+        const theme = result.data.theme;
+        console.log('Preview - Applying theme:', theme);
+        applyTheme(theme);
+        setLoadedTheme(theme);
+      } else {
+        // Apply default theme
+        console.log('Preview - No theme found, using default');
+        applyTheme('default');
+        setLoadedTheme('default');
+      }
+    } catch (error) {
+      console.error('Preview - Error loading theme:', error);
+      // Apply default theme on error
+      applyTheme('default');
+      setLoadedTheme('default');
+    }
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
     if (location.state) {
       setunicorn(location.state);
+      console.log('Preview location.state:', location.state);
+      // Load theme when preview data is available
+      if (location.state.tudTempUdID) {
+        console.log('Calling loadAndApplyTheme with:', location.state.tudTempUdID);
+        loadAndApplyTheme(location.state.tudTempUdID);
+      } else {
+        console.log('No tudTempUdID found in location.state');
+      }
     }
 
     console.log(location);
-  }, []);
+  }, [location.state]);
 
-  const [unicorn, setunicorn] = useState();
   console.log(unicorn);
+
+  // Helper function to parse banner images (single string or JSON array)
+  const parseBannerImage = (bannerImage) => {
+    if (!bannerImage) return '';
+    try {
+      const parsed = JSON.parse(bannerImage);
+      return Array.isArray(parsed) ? parsed[0] : parsed;
+    } catch (e) {
+      return bannerImage;
+    }
+  };
+
+  // Helper function to parse banner images into array for carousel
+  const parseBannerImages = (bannerImage) => {
+    if (!bannerImage) return [];
+    try {
+      const parsed = JSON.parse(bannerImage);
+      return Array.isArray(parsed) ? parsed : [parsed];
+    } catch (e) {
+      return [bannerImage];
+    }
+  };
+
+  // Helper to get full URLs for carousel images (handles mixed old/new images)
+  const getCarouselImageUrls = (images, tudTempUdID) => {
+    return images.map(image => {
+      // Use localhost for newly uploaded images (cover_*), production for existing images
+      const baseUrl = image.startsWith('cover_')
+        ? process.env.REACT_APP_BASE_URL
+        : (process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL);
+      return `${baseUrl}api/uploads/unicorndeals/${tudTempUdID}/${image}`;
+    });
+  };
+
+  // Helper function to get correct image URL (localhost for new uploads, production for existing)
+  const getImageUrl = (filename, tudTempUdID) => {
+    if (!filename) return '';
+
+    // Parse JSON if needed
+    let parsedFilename = filename;
+    try {
+      parsedFilename = JSON.parse(filename);
+      // If array, get first image
+      if (Array.isArray(parsedFilename)) {
+        parsedFilename = parsedFilename[0];
+      }
+    } catch (e) {
+      // Already a plain string
+    }
+
+    if (!parsedFilename) return '';
+
+    const baseUrl = parsedFilename.startsWith('cover_')
+      ? process.env.REACT_APP_BASE_URL
+      : (process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL);
+    return `${baseUrl}api/uploads/unicorndeals/${tudTempUdID}/${parsedFilename}`;
+  };
+
+  // Helper for plain image filenames (not JSON encoded)
+  const getPlainImageUrl = (filename, tudTempUdID) => {
+    if (!filename) return '';
+    const baseUrl = filename.startsWith('cover_')
+      ? process.env.REACT_APP_BASE_URL
+      : (process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL);
+    return `${baseUrl}api/uploads/unicorndeals/${tudTempUdID}/${filename}`;
+  };
+
   $(window).scroll(function () {
     if ($(this).scrollTop() > 30) {
       $("body").addClass("newClass");
@@ -101,6 +208,24 @@ export const Preview = (props) => {
     "I am excited to invest in your startups": false,
     message: "",
   });
+
+  // Lightbox state
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [lightboxImages, setLightboxImages] = useState([]);
+  const [lightboxInitialIndex, setLightboxInitialIndex] = useState(0);
+
+  // Handle image click to open lightbox
+  const onImageClick = (index, imageUrls) => {
+    setLightboxImages(imageUrls);
+    setLightboxInitialIndex(index);
+    setIsLightboxOpen(true);
+  };
+
+  // Handle lightbox close
+  const handleLightboxClose = () => {
+    setIsLightboxOpen(false);
+  };
+
   function getuniondata() {
     let params = {
       page: 0,
@@ -257,17 +382,19 @@ export const Preview = (props) => {
   };
   const dat = JSON.stringify(localStorage.getItem("investor_id"));
   return (
-    <div style={{ backgroundColor: "#F8F9FA" }}>
+    <div className="unicorn-themed-page" style={{ backgroundColor: "#F8F9FA" }}>
       <style>
         {`
 
       
         .image-section {
           width: 100%;
-          
           border-radius: 8px;
           overflow: hidden;
           margin-bottom: 1.5rem;
+          margin-top: -1px;
+          display: block;
+          position: relative;
         }
         .image-section img {
          width:100%;
@@ -293,6 +420,7 @@ object-fit:cover;
           height: auto;
           object-fit: contain;
           display: block;
+          z-index:1
         }
         
         .text-section h1 {
@@ -770,9 +898,21 @@ text-align: justify;
 
 }
 
+@media only screen and (max-width: 768px) {
+  .image-section {
+    margin-top: 100px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .image-section {
+    margin-top: -26px;
+  }
+}
+
 `}
       </style>
-      <div classname="newabout">
+      <div className="newabout">
         <NewWebHeader newabout={"newabout"} />
       </div>
 
@@ -790,26 +930,17 @@ text-align: justify;
                     style={{
                       borderRadius: "15px",
                       border: "1px solid #ddd",
-                      marginTop: "-5px",
                     }}
                   >
-                    {/* Add your image manually here */}
-                    <img
-                      className="heroSectionImage"
-                      style={{
-                        objectFit: "cover",
-                        width: "100%",
-                        height: "auto",
-                      }}
-                      src={
-                        item.tudBannerImage &&
-                        `${
-                          process.env.REACT_APP_BASE_URL
-                        }api/uploads/unicorndeals/${
-                          item.tudTempUdID
-                        }/${JSON.parse(item.tudBannerImage)}`
-                      }
-                      alt="Team"
+                    {/* Cover Image Carousel - supports multiple images */}
+                    <CoverImageCarousel
+                      images={parseBannerImages(item.tudBannerImage)}
+                      imageUrls={getCarouselImageUrls(parseBannerImages(item.tudBannerImage), item.tudTempUdID)}
+                      altText="Cover Image"
+                      autoPlayInterval={4000}
+                      showControls={true}
+                      onImageClick={onImageClick}
+                      isPaused={isLightboxOpen}
                     />
                   </div>
 
@@ -818,11 +949,7 @@ text-align: justify;
                     <div className="logo-section">
                       {/* Replace with your logo */}
                       <img
-                        src={`${
-                          process.env.REACT_APP_BASE_URL
-                        }api/uploads/unicorndeals/${
-                          item.tudTempUdID
-                        }/${JSON.parse(item.tudLogoImage)}`}
+                        src={getImageUrl(item.tudLogoImage, item.tudTempUdID)}
                         alt=""
                         style={{
                           objectFit: "contain",
@@ -838,30 +965,74 @@ text-align: justify;
                     <div className="text-section d-flex justify-content-between align-items-start w-100">
                       <div>
                         <h1>{item.tudStartupName}</h1>
-                        {item.tudTag && item.tudTag !== "None" && (
-                          <div
-                            style={{ marginTop: "8px", marginBottom: "8px" }}
-                          >
-                            {item.tudTag.split(",").map((tag, tagIndex) => (
-                              <span
-                                key={tagIndex}
-                                style={{
-                                  display: "inline-block",
-                                  backgroundColor: "#e6f7ff",
-                                  color: "#0066cc",
-                                  padding: "3px 10px",
-                                  borderRadius: "4px",
-                                  fontSize: "12px",
-                                  fontWeight: "500",
-                                  marginRight: "5px",
-                                  marginBottom: "3px"
-                                }}
-                              >
-                                {tag.trim()}
-                              </span>
-                            ))}
-                          </div>
-                        )}
+                        {/* Simple Badge System */}
+                        <div style={{
+                          marginTop: "12px",
+                          marginBottom: "12px",
+                          display: "flex",
+                          flexWrap: "wrap",
+                          gap: "8px"
+                        }}>
+                          {/* Stage Badge */}
+                          {item.tudStage && (
+                            <span style={{
+                              backgroundColor: "var(--custom-theme-color, #191964)",
+                              color: "#ffffff",
+                              padding: "3px 8px",
+                              borderRadius: "16px",
+                              fontSize: "13px",
+                              fontWeight: "600",
+                              border: "1px solid rgba(255, 255, 255, 0.3)",
+                              opacity: "0.6"
+                            }}
+                              title={`Funding Stage: ${item.tudStage}`}
+                            >
+                              {item.tudStage}
+                            </span>
+                          )}
+
+                          {/* Sector Badge */}
+                          {item.tudCategory && (
+                            <span style={{
+                              backgroundColor: "var(--custom-theme-color, #191964)",
+                              color: "#ffffff",
+                              padding: "3px 8px",
+                              borderRadius: "16px",
+                              fontSize: "13px",
+                              fontWeight: "600",
+                              border: "1px solid rgba(255, 255, 255, 0.3)",
+                              opacity: "0.6"
+                            }}
+                              title={`Industry Sector: ${item.tudCategory}`}
+                            >
+                              {item.tudCategory}
+                            </span>
+                          )}
+
+                          {/* Visibility Tags */}
+                          {item.tudTag && item.tudTag !== "None" && (
+                            <>
+                              {item.tudTag.split(",").map((tag, tagIndex) => (
+                                <span
+                                  key={tagIndex}
+                                  style={{
+                                    backgroundColor: "var(--custom-theme-color, #191964)",
+                                    color: "#ffffff",
+                                    padding: "3px 8px",
+                                    borderRadius: "16px",
+                                    fontSize: "13px",
+                                    fontWeight: "600",
+                                    border: "1px solid rgba(255, 255, 255, 0.3)",
+                                    opacity: "0.6"
+                                  }}
+                                  title={`Visibility Tag: ${tag.trim()}`}
+                                >
+                                  {tag.trim()}
+                                </span>
+                              ))}
+                            </>
+                          )}
+                        </div>
                         <div>
                           <button
                             onClick={openiamintrest}
@@ -891,11 +1062,7 @@ text-align: justify;
                           >
                             {item.tudSponsorImage && (
                               <img
-                                src={`${
-                                  process.env.REACT_APP_BASE_URL
-                                }api/uploads/unicorndeals/${
-                                  item.tudTempUdID
-                                }/${JSON.parse(item.tudSponsorImage)}`}
+                                src={getImageUrl(item.tudSponsorImage, item.tudTempUdID)}
                                 alt="Sponsor"
                                 style={{
                                   maxWidth: "120px",
@@ -928,7 +1095,6 @@ text-align: justify;
                 <div
                   className="about-all shadow-lg p-5"
                   style={{
-                    backgroundColor: "#191964",
                     color: "white",
                     borderRadius: "20px",
                   }}
@@ -955,7 +1121,7 @@ text-align: justify;
 
                     {/* Right Text Section */}
                     <div className="col-md-8 d-flex flex-column justify-content-center">
-                      <p className="about-text" style={{overflowWrap: "anywhere"}}>{item.tudDealDescription}</p>
+                      <p className="about-text" style={{ overflowWrap: "anywhere" }}>{item.udDealDescription}</p>
                     </div>
                   </div>
                 </div>
@@ -1045,7 +1211,7 @@ text-align: justify;
                             >
                               <div className="media-card">
                                 <img
-                                  src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${itemudMediaCoverageFiles.imgname}`}
+                                  src={getPlainImageUrl(itemudMediaCoverageFiles.imgname, item.tudTempUdID)}
                                   alt=""
                                   className="media-card-image"
                                 />
@@ -1093,16 +1259,15 @@ text-align: justify;
                           >
                             {/* Header with Gradient Background */}
                             <div
+                              className="team-member-header"
                               style={{
-                                background:
-                                  "linear-gradient(90deg, #191964, #222276)",
                                 color: "white",
                                 padding: "20px",
                               }}
                             >
                               <div className="d-flex align-items-center">
                                 <img
-                                  src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${itemudVendorId.imgname}`}
+                                  src={getPlainImageUrl(itemudVendorId.imgname, item.tudTempUdID)}
                                   alt=""
                                   style={{
                                     width: "100px",
@@ -1162,33 +1327,22 @@ text-align: justify;
                 {item.tudPitchDeck &&
                   item.tudPitchDeck != "" &&
                   JSON.parse(item.tudPitchDeck) != "" && (
-                    <section>
-                      <div className="container">
-                        <div className="row">
-                          <div className="col-md-12">
-                            {/* blue bg */}
-                            <div
-                              className="shadow-lg p-5"
-                              style={{
-                                backgroundColor: "#191964",
-                                color: "white",
-                                borderRadius: "20px",
-                              }}
-                            >
-                              <h2 className="text-left text-white mb-4">
-                                Investor Presentation
-                              </h2>
-                              <SinglePagePDFViewer
-                                pdf={`${
-                                  process.env.REACT_APP_BASE_URL
-                                }api/uploads/unicorndeals/${
-                                  item.tudTempUdID
-                                }/${JSON.parse(item.tudPitchDeck)}`}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                    <section className="container my-5">
+                      <>
+                        <h1
+                          style={{
+                            fontSize: 32,
+                            marginBottom: 30,
+                            textAlign: "center",
+                            color: "#000",
+                          }}
+                        >
+                          Investor Presentation
+                        </h1>
+                        <SinglePagePDFViewer
+                          pdf={`${process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.tudPitchDeck)}`}
+                        />
+                      </>
                     </section>
                   )}
               </section>
@@ -1214,11 +1368,9 @@ text-align: justify;
                                 Product Presentation
                               </h2>
                               <SinglePagePDFViewer
-                                pdf={`${
-                                  process.env.REACT_APP_BASE_URL
-                                }api/uploads/unicorndeals/${
-                                  item.tudTempUdID
-                                }/${JSON.parse(item.tudProductDeck)}`}
+                                pdf={`${process.env.REACT_APP_BASE_URL
+                                  }api/uploads/unicorndeals/${item.tudTempUdID
+                                  }/${JSON.parse(item.tudProductDeck)}`}
                               />
                             </div>
                           </div>
@@ -1267,27 +1419,27 @@ text-align: justify;
                           {/* udStartupFounderMobileNumber */}
                           {(item.tudStartupFounderMobileCountryCode || "") +
                             item.tudStartupFounderMobileNumber &&
-                          item.tudStartupFounderMobileNumber.length > 8
+                            item.tudStartupFounderMobileNumber.length > 8
                             ? item.tudStartupFounderMobileNumber.substring(
-                                0,
-                                2
-                              ) +
-                              "XXXXX" +
-                              item.tudStartupFounderMobileNumber.substring(7)
+                              0,
+                              2
+                            ) +
+                            "XXXXX" +
+                            item.tudStartupFounderMobileNumber.substring(7)
                             : item.tudStartupFounderMobileNumber}
                         </li>
                         <li>
                           <i className="fas fa-envelope"></i>
                           {item.tudStartupFounderEmail && item.tudStartupFounderEmail.includes("@")
                             ? item.tudStartupFounderEmail.substring(
-                                0,
-                                item.tudStartupFounderEmail.indexOf("@") - 3
-                              ) +
-                              "***" +
-                              "@" +
-                              item.tudStartupFounderEmail
-                                .substring(item.tudStartupFounderEmail.indexOf("@") + 1)
-                                .replace(/[^.]+/, "***")
+                              0,
+                              item.tudStartupFounderEmail.indexOf("@") - 3
+                            ) +
+                            "***" +
+                            "@" +
+                            item.tudStartupFounderEmail
+                              .substring(item.tudStartupFounderEmail.indexOf("@") + 1)
+                              .replace(/[^.]+/, "***")
                             : item.tudStartupFounderEmail}
                         </li>
                         <li>
@@ -1415,6 +1567,16 @@ text-align: justify;
           );
         })}
 
+      {/* Image Lightbox */}
+      {isLightboxOpen && (
+        <ImageLightbox
+          images={lightboxImages}
+          initialIndex={lightboxInitialIndex}
+          isOpen={isLightboxOpen}
+          onClose={handleLightboxClose}
+        />
+      )}
+      +
       <ToastContainer />
       <NewWebFooter />
     </div>

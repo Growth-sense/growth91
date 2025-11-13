@@ -128,8 +128,8 @@ class Dellistinicorn extends Component {
     if (checked) {
       // Remove "None" if it was selected and add new tag
       const filteredTags = currentTags.filter(tag => tag !== "None");
-      if (filteredTags.length >= 2) {
-        // Already have 2 tags, don't add more
+      if (filteredTags.length >= 3) {
+        // Already have 3 tags, don't add more
         e.target.checked = false;
         return;
       }
@@ -349,9 +349,9 @@ class Dellistinicorn extends Component {
                           style={{marginBottom : 35}}
                           name="tudCategory"
                           value={this.props.unicorn.tudCategory}
-                          onChange={(value) =>
-                            this.props.onInput("tudCategory", value)
-                          }
+                          onChange={(value) => {
+                            this.props.onInput("tudCategory", value);
+                          }}
                           className="form-control"
                         >
                           <option value="">--Select Sector--</option>
@@ -376,14 +376,38 @@ class Dellistinicorn extends Component {
                           <option value="Toy Library">Toy Library</option>
                         </Select>
                       </div>{" "}
+                       <div className="form-group">
+                        <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          Startup Stage<span className="text-danger">*</span>
+                          <InfoTooltip title="Select the current funding/growth stage of your startup." />
+                        </label>
+                        <Select
+                          style={{marginBottom : 35}}
+                          name="tudStage"
+                          value={this.props.unicorn.tudStage}
+                          onChange={(value) => {
+                            this.props.onInput("tudStage", value);
+                          }}
+                          className="form-control"
+                        >
+                          <option value="">--Select Stage--</option>
+                          <option value="Idea Stage">Idea Stage</option>
+                          <option value="MVP Stage">MVP Stage</option>
+                          <option value="Early Revenue/ Seed">Early Revenue/ Seed</option>
+                          <option value="Growth Stage">Growth Stage</option>
+                          <option value="Pre-Series A">Pre-Series A</option>
+                          <option value="Series A+">Series A+</option>
+                          <option value="Profitable / Mature">Profitable / Mature</option>
+                        </Select>
+                      </div>{" "}
                    
                       <div className="form-group">
                         <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                           Visibility Tags<span className="text-danger">*</span>
-                          <InfoTooltip title="Select up to 2 tags like 'Need Investment', 'Hiring', 'Looking for Partnerships'." />
+                          <InfoTooltip title="Select up to 3 tags like 'Need Investment', 'Hiring', 'Looking for Partnerships'." />
                         </label>
                         <div style={{ fontSize: "12px", color: "#666", marginBottom: "10px" }}>
-                          Select up to 2 options
+                          Select up to 3 options
                         </div>
                         <div className="checkbox-options" style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                           <label style={{ display: "flex", alignItems: "flex-start", fontSize: "14px" }}>

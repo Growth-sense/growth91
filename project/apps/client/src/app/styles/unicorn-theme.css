@@ -1,0 +1,107 @@
+/* Unicorn Theme - Custom Color for Specific Sections Only */
+/* Applies --custom-theme-color to: About, Team, Contact sections, and Action Buttons */
+
+/* TEST: This should make wrapper have a border when CSS loads */
+.unicorn-themed-page {
+  /* border: 2px solid red; */ /* Uncomment to test if CSS loads */
+}
+
+/* 1. About section (.about-all with shadow) - Original: rgb(25, 25, 100) */
+.unicorn-themed-page .about-all.shadow-lg,
+.about-all.shadow-lg {
+  background-color: var(--custom-theme-color, rgb(25, 25, 100)) !important;
+}
+
+/* 2. Team section header - Original: linear-gradient(90deg, rgb(25, 25, 100), rgb(34, 34, 118)) */
+.unicorn-themed-page .team-member-header,
+.team-member-header {
+  background: var(--custom-theme-color, linear-gradient(90deg, rgb(25, 25, 100), rgb(34, 34, 118))) !important;
+}
+
+/* 3. Contact info card - Original: linear-gradient(90deg, rgb(25, 25, 100), rgb(34, 34, 118)) */
+.unicorn-themed-page .contact-info-card,
+.contact-info-card {
+  background: var(--custom-theme-color, linear-gradient(90deg, rgb(25, 25, 100), rgb(34, 34, 118))) !important;
+}
+
+/* 4. Action Buttons - "Edit Unicorn" and "I am Interested" buttons */
+.unicorn-themed-page .primaryInterested,
+.unicorn-themed-page button.primaryInterested,
+.primaryInterested {
+  background-color: var(--custom-theme-color, #191964) !important;
+  border-color: var(--custom-theme-color, #191964) !important;
+}
+
+.unicorn-themed-page .primaryInterested:hover,
+.unicorn-themed-page button.primaryInterested:hover,
+.primaryInterested:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
+
+/* 5. Section Headings - Market Overview, Highlights, Media Coverage, Team, Videos, Contact Us, Investor Presentation */
+/* Exclude: Contact Information heading inside contact-info-card */
+.unicorn-themed-page h2:not(.contact-info-card h2),
+.unicorn-themed-page h1.text-center,
+.unicorn-themed-page .text-section h1 {
+  color: var(--custom-theme-color, #29176f) !important;
+}
+
+/* Specific section heading selectors */
+.unicorn-themed-page .market-overview-section h2,
+.unicorn-themed-page .media-coverage-section h2,
+.unicorn-themed-page .videos-section h2,
+.unicorn-themed-page .contact-us-section h2:not(.contact-info-card h2),
+.unicorn-themed-page #pitchDeck h1,
+.unicorn-themed-page #productDeck h2,
+.unicorn-themed-page section h2:not(.contact-info-card h2) {
+  color: var(--custom-theme-color, #29176f) !important;
+}
+
+/* Keep Contact Information heading white */
+.unicorn-themed-page .contact-info-card h2 {
+  color: white !important;
+}
+
+/* ===== RESPONSIVE STYLES ===== */
+
+/* Tablet */
+@media (max-width: 992px) and (min-width: 577px) {
+  .unicorn-themed-page .about-all.shadow-lg,
+  .about-all.shadow-lg {
+    padding: 30px 20px !important;
+  }
+  
+  .unicorn-themed-page .team-member-header,
+  .team-member-header {
+    padding: 15px !important;
+  }
+  
+  .unicorn-themed-page .contact-info-card,
+  .contact-info-card {
+    padding: 20px !important;
+    margin-bottom: 20px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+  /* Section padding adjustments */
+  .unicorn-themed-page .about-all.shadow-lg,
+  .about-all.shadow-lg {
+    padding: 20px 15px !important;
+    border-radius: 15px !important;
+  }
+  
+  .unicorn-themed-page .team-member-header,
+  .team-member-header {
+    padding: 12px !important;
+  }
+  
+  .unicorn-themed-page .contact-info-card,
+  .contact-info-card {
+    padding: 15px !important;
+    border-radius: 12px !important;
+  }
+}

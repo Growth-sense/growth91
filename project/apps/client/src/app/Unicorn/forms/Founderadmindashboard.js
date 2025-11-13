@@ -3,6 +3,7 @@ import { Modal, Spin, Steps, message } from "antd";
 
 // Mandatory Forms
 import BasicDetails from "./BasicDetails";
+import ThemeStep from "./ThemeStep"; // Import ThemeStep component
 import Step20 from "./SupportingDocuments";
 import Step9 from "./SocialMediaPresence";
 import Dellistinicorn from "./Deallist.js";
@@ -22,6 +23,7 @@ class Founderadmindashboard extends Component {
     
     this.additionalSteps = [
       "Basic Details",
+      "Themes",
       "Supporting Documents",
       "Social Media Presence",
       "Other info",
@@ -31,6 +33,7 @@ class Founderadmindashboard extends Component {
 
     this.formConfig = [
       BasicDetails, 
+      ThemeStep, // Add ThemeStep component to formConfig array at index 1
       Step20,
       Step9,
       Dellistinicorn,

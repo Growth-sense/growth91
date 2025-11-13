@@ -379,7 +379,7 @@ class Mediacoverager extends Component {
                           )}
                           {
                             item.imgname &&
-                            <img style={{maxWidth:"100%"}} src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${item.imgname}`} />
+                            <img style={{maxWidth:"100%"}} src={`${process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${item.imgname}`} />
                           }
                           
                         </div>
