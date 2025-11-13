@@ -45,19 +45,12 @@ export const applyTheme = (themeId) => {
   const theme = GROWTH91_THEMES[themeId] || GROWTH91_THEMES.default;
   const root = document.documentElement;
   
-  console.log('🎨 applyTheme called with:', themeId);
-  console.log('🎨 Theme object:', theme);
-  
   if (themeId === 'default' || !themeId) {
     // Remove theme color - use original styles
     root.style.removeProperty('--custom-theme-color');
-    console.log('✅ Removed CSS variable, using fallback rgb(25, 25, 100)');
-    console.log('🔍 Current CSS variable value:', root.style.getPropertyValue('--custom-theme-color'));
   } else {
     // Apply custom theme color
     root.style.setProperty('--custom-theme-color', theme.colors.themeColor);
-    console.log(`✅ Applied: ${theme.name} - ${theme.colors.themeColor}`);
-    console.log('🔍 Current CSS variable value:', root.style.getPropertyValue('--custom-theme-color'));
   }
   
   localStorage.setItem('growth91-unicorn-theme', themeId || 'default');

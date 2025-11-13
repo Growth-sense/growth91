@@ -663,6 +663,7 @@ class Startup extends CI_Controller {
 					'tudYoutubeLink'=> $tudYoutubeLink,
 					'tudCategory'=> $tudCategory,
 					'tudTag' => $tudTag,
+					'tudStage'=> $tudStage,
 					'tudMediaCoverageFiles'=> $tudMediaCoverageFiles,
 					'tudVendorId'=> $tudVendorId,
 				];	
@@ -963,18 +964,40 @@ class Startup extends CI_Controller {
 		if(!empty($formdata)) {
 			// POst data for table 1
 			extract($formdata);
-			/* Steps
-			1) Decide by selecting tempID from Published table that its create OR UPDATE and set flag accodingly
-			2) based on temp unicorn ID select from temp table1 
-			3) Set Post array for master unicorn table 1
-			4) update/insert in master unicorn table and get ID of the master table 1
-			5) based on temp unicorn ID select from temp table2 
-			6) Set Post array for master unicorn table 2
-			7) update/insert in master unicorn table and get ID of the master table 2
-			 */
 
+			// Validate compulsory badge fields (Stage and Sector) before publishing
+			$this->db->select('tudStage, tudCategory');
+			$this->db->from('tempunicorndeals2');
+			$this->db->where('tudTempUdID', $tudTempUdID);
+			$badgeValidation = $this->db->get();
 			
+			if($badgeValidation->num_rows() > 0) {
+				$badgeData = $badgeValidation->row();
+				
+				if(empty($badgeData->tudStage)) {
+					$response = [
+						'status' => '0',
+						'message' => 'Stage is a compulsory field. Please select your startup stage before publishing.',
+					];
+					$this->output
+						->set_content_type('application/json')
+						->set_output(json_encode($response));
+					return;
+				}
+				
+				if(empty($badgeData->tudCategory)) {
+					$response = [
+						'status' => '0',
+						'message' => 'Sector is a compulsory field. Please select your startup sector before publishing.',
+					];
+					$this->output
+						->set_content_type('application/json')
+						->set_output(json_encode($response));
+					return;
+				}
+			}
 
+			// check if user has any left_edit if left_edit is not > 0 return error to user and if user has edit left, at the end we will reduce it by 1
 			$isNew= true;	
 
 
@@ -1059,7 +1082,7 @@ class Startup extends CI_Controller {
 					"tudMark", "tudStartupHighlights", "tudSponsorName", 
 					"tudSponsorImage", "tudStartupFounderName", "tudLegalname", "tudStartupFounderMobileCountryCode", 
 					"tudStartupFounderMobileNumber", "tudStartupFounderEmail", "tudFoundedon", "tudAddress", 
-					"tudEmployees", "tudDealDescription", "tudYoutubeLink", "tudCategory", 
+					"tudEmployees", "tudDealDescription", "tudYoutubeLink", "tudCategory","tudStage", 
 					"tudTag", "tudMediaCoverageFiles", "tudVendorId", "tudTheme"
 				);
 
@@ -2765,6 +2788,74 @@ class Startup extends CI_Controller {
 			$response = [
 				'status' => '0',
 				'message' => 'Please provide required data.',
+			];
+		}
+
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
+	// Get Startup Badges (Stage, Sector, Visibility Tags)
+	function getStartupBadges()
+	{
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		
+		if (!empty($formdata)) {
+			$unicornDealID = $formdata['unicornDealID'] ?? null;
+			$tudTempUdID = $formdata['tudTempUdID'] ?? null;
+			
+			$badges = [
+				'stage' => null,
+				'sector' => null,
+				'tags' => null
+			];
+			
+			if ($unicornDealID) {
+				// Fetch from published table
+				$this->db->select('udStage, udCategory, udTag');
+				$this->db->from('unicorndeals2');
+				$this->db->where('unicornDealID', $unicornDealID);
+				$query = $this->db->get();
+				
+				if ($query->num_rows() > 0) {
+					$result = $query->row();
+					$badges = [
+						'stage' => $result->udStage ?? null,
+						'sector' => $result->udCategory ?? null,
+						'tags' => $result->udTag ?? null
+					];
+				}
+			} elseif ($tudTempUdID) {
+				// Fetch from draft table
+				$this->db->select('tudStage, tudCategory, tudTag');
+				$this->db->from('tempunicorndeals2');
+				$this->db->where('tudTempUdID', $tudTempUdID);
+				$query = $this->db->get();
+				
+				if ($query->num_rows() > 0) {
+					$result = $query->row();
+					$badges = [
+						'stage' => $result->tudStage ?? null,
+						'sector' => $result->tudCategory ?? null,
+						'tags' => $result->tudTag ?? null
+					];
+				}
+			}
+			
+			$response = [
+				'status' => '1',
+				'message' => 'Badges retrieved successfully.',
+				'data' => $badges
+			];
+		} else {
+			$response = [
+				'status' => '0',
+				'message' => 'Please provide unicornDealID or tudTempUdID.'
 			];
 		}
 

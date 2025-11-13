@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { NewWebFooter } from "./common/NewWebFooter";
 import Slider from "react-slick";
 import NewWebHeader from "./common/NewWebHeader.jsx";
@@ -29,6 +29,25 @@ export const FutureUnicornList = () => {
   const [filterdata, setfilterdata] = useState();
   const [searchQuery, setSearchQuery] = useState("");
 
+  // Create stable random selections for tags (random on page load, stable during session)
+  const randomTagSelections = useMemo(() => {
+    const selections = {};
+    return selections;
+  }, []);
+
+  const getRandomTag = (item) => {
+    const itemId = item.udID || item.tudTempUdID || Math.random();
+
+    if (!randomTagSelections[itemId]) {
+      const tags = item.udTag.split(",").map(tag => tag.trim()).filter(tag => tag);
+      if (tags.length > 0) {
+        randomTagSelections[itemId] = tags[Math.floor(Math.random() * tags.length)];
+      }
+    }
+
+    return randomTagSelections[itemId];
+  };
+
   $(window).scroll(function () {
     if ($(this).scrollTop() > 30) {
       $("body").addClass("newClass");
@@ -46,6 +65,7 @@ export const FutureUnicornList = () => {
   const [filters, setFilters] = useState({
     startupName: "",
     category: "",
+    stage: "",
     founder: "",
     sponsorName: ""
   });
@@ -155,12 +175,13 @@ export const FutureUnicornList = () => {
         const matchesStartupName = filters.startupName ? obj.udStartupName === filters.startupName : true;
         const matchesFounder = filters.founder ? obj.udStartupFounderName === filters.founder : true;
         const matchesSponsor = filters.sponsorName ? obj.udSponsorName === filters.sponsorName : true;
+        const matchesStage = filters.stage ? obj.udStage === filters.stage : true;
 
-        return matchesCategory && matchesStartupName && matchesFounder && matchesSponsor;
+        return matchesCategory && matchesStartupName && matchesFounder && matchesSponsor && matchesStage;
 
       });
 
-      if (!filters.category && !filters.startupName && !filters.founder && !filters.sponsorName) {
+      if (!filters.category && !filters.startupName && !filters.founder && !filters.sponsorName && !filters.stage) {
         filteredResults = [...data];
       }
 
@@ -446,6 +467,7 @@ export const FutureUnicornList = () => {
                   setFilters({
                     startupName: "",
                     category: "",
+                    stage: "",
                     founder: "",
                     sponsorName: ""
                   });
@@ -508,6 +530,30 @@ export const FutureUnicornList = () => {
                         .map((category, index) => (
                           <option key={index} value={category}>
                             {category}
+                          </option>
+                        ))
+                    }
+                  </select>
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="stage">View by Stage:</label>
+                  <select
+                    id="stage"
+                    value={filters.stage}
+                    onChange={(e) =>
+                      setFilters({ ...filters, stage: e.target.value })
+                    }
+                    className="form-control"
+                  >
+                    <option value="">--Select--</option>
+                    {filterdata &&
+                      [...new Set(filterdata
+                        .filter(item => item.udStage)
+                        .map(item => item.udStage))]
+                        .sort()
+                        .map((stage, index) => (
+                          <option key={index} value={stage}>
+                            {stage}
                           </option>
                         ))
                     }
@@ -626,6 +672,65 @@ export const FutureUnicornList = () => {
                           }}
                         >
                           <div className="img-community-box">
+                            {/* Badge Container - Top-left corner */}
+                            <div style={{
+                              position: "absolute",
+                              top: "12px",
+                              left: "12px",
+                              display: "flex",
+                              gap: "8px",
+                              zIndex: "10",
+                              maxWidth: "calc(100% - 24px)",
+                              flexWrap: "wrap"
+                            }}>
+                              {/* Stage Badge (Compulsory) */}
+                              {item.udStage && (
+                                <span style={{
+                                  backgroundColor: "rgba(255, 255, 255, 0.9)",
+                                  color: "#333333",
+                                  padding: "3px 8px",
+                                  borderRadius: "16px",
+                                  fontSize: "12px",
+                                  fontWeight: "600",
+                                  border: "1px solid rgba(255, 255, 255, 0.3)",
+                                  backdropFilter: "blur(4px)"
+                                }}>
+                                  {item.udStage}
+                                </span>
+                              )}
+
+                              {/* Sector Badge (Compulsory) */}
+                              {item.udCategory && (
+                                <span style={{
+                                  backgroundColor: "rgba(255, 255, 255, 0.9)",
+                                  color: "#333333",
+                                  padding: "3px 8px",
+                                  borderRadius: "16px",
+                                  fontSize: "12px",
+                                  fontWeight: "600",
+                                  border: "1px solid rgba(255, 255, 255, 0.3)",
+                                  backdropFilter: "blur(4px)"
+                                }}>
+                                  {item.udCategory}
+                                </span>
+                              )}
+
+                              {/* Optional Tag Badge (1 tag only if available) */}
+                              {item.udTag && item.udTag !== "None" && (
+                                <span style={{
+                                  backgroundColor: "rgba(255, 255, 255, 0.9)",
+                                  color: "#333333",
+                                  padding: "3px 8px",
+                                  borderRadius: "12px",
+                                  fontSize: "12px",
+                                  fontWeight: "600",
+                                  border: "1px solid rgba(255, 255, 255, 0.3)",
+                                  backdropFilter: "blur(4px)"
+                                }}>
+                                  {getRandomTag(item)}
+                                </span>
+                              )}
+                            </div>
                             <img
                               src={
                                 (item.udBannerImage &&
@@ -649,25 +754,6 @@ export const FutureUnicornList = () => {
                                 <h5>{item.udStartupName}</h5>
                               </li>
                             </ul>
-                            {item.udTag && item.udTag !== "None" && (
-                              <div style={{ marginTop: "8px" }}>
-                                {item.udTag.split(",").map((tag, tagIndex) => (
-                                  <span key={tagIndex} style={{
-                                    display: "inline-block",
-                                    backgroundColor: "#e6f7ff",
-                                    color: "#0066cc",
-                                    padding: "3px 10px",
-                                    borderRadius: "4px",
-                                    fontSize: "12px",
-                                    fontWeight: "500",
-                                    marginRight: "5px",
-                                    marginBottom: "3px"
-                                  }}>
-                                    {tag.trim()}
-                                  </span>
-                                ))}
-                              </div>
-                            )}
                             <p style={{
                               WebkitLineClamp: 3,
                               WebkitBoxOrient: "vertical",

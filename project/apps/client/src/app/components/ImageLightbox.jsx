@@ -73,21 +73,19 @@ const ImageLightbox = ({
     useEffect(() => {
         if (!isOpen || images.length <= 1) return;
 
-        // Only auto-play if not hovered (on desktop) or always on mobile
-        if (!isHovered || isMobile) {
-            autoPlayRef.current = setInterval(() => {
-                setCurrentIndex((prevIndex) =>
-                    prevIndex === images.length - 1 ? 0 : prevIndex + 1
-                );
-            }, 4000); // 4 second interval
-        }
+        // Always auto-play in lightbox for better experience
+        autoPlayRef.current = setInterval(() => {
+            setCurrentIndex((prevIndex) =>
+                prevIndex === images.length - 1 ? 0 : prevIndex + 1
+            );
+        }, 4000); // 4 second interval
 
         return () => {
             if (autoPlayRef.current) {
                 clearInterval(autoPlayRef.current);
             }
         };
-    }, [isOpen, images.length, isHovered, isMobile]);
+    }, [isOpen, images.length]);
 
     const goToPrevious = () => {
         setCurrentIndex((prevIndex) =>

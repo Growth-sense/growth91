@@ -5,7 +5,7 @@ import $ from "jquery";
 import Bridge from "./constants/Bridge.js";
 import { useLocation, useHistory } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import { Modal, message as mess } from "antd";
+import { Modal, message as mess, Tooltip } from "antd";
 import SinglePagePDFViewer from "./components/PdfViewer/single-page";
 import { extractVideoIDFromYoutubeUrl, getAbsoluteUrl } from "./helper/utilHelper.js";
 import moment from "moment";
@@ -848,6 +848,7 @@ text-align: justify;
                         autoPlayInterval={4000}
                         showControls={true}
                         onImageClick={onImageClick}
+                        isPaused={isLightboxOpen}
                       />
                     </div>
 
@@ -873,33 +874,103 @@ text-align: justify;
                         <div>
                           <h1>{item.udStartupName}</h1>
 
+                          {/* Profile Badges - Stage + Sector + All Visibility Tags */}
+                          <div style={{
+                            marginTop: "12px",
+                            marginBottom: "12px",
+                            display: "flex",
+                            flexWrap: "wrap",
+                            gap: "8px"
+                          }}>
+                            {/* Stage Badge */}
+                            {(item.udStage || item.tudStage) && (
+                              <Tooltip title={`Funding Stage: ${item.udStage || item.tudStage}`}>
+                                <span style={{
+                                  backgroundColor: "var(--custom-theme-color, #191964)",
+                                  color: "#ffffff",
+                                  padding: "3px 8px",
+                                  borderRadius: "20px",
+                                  fontSize: "14px",
+                                  fontWeight: "600",
+                                  border: "1px solid rgba(255, 255, 255, 0.3)",
+                                  opacity: "0.6"
+                                }}
+                                >
+                                  {item.udStage || item.tudStage}
+                                </span>
+                              </Tooltip>
+                            )}
+
+                            {/* Sector Badge */}
+                            {(item.udCategory || item.tudCategory) && (
+                              <Tooltip title={`Industry Sector: ${item.udCategory || item.tudCategory}`}>
+                                <span style={{
+                                  backgroundColor: "var(--custom-theme-color, #191964)",
+                                  color: "#ffffff",
+                                  padding: "3px 8px",
+                                  borderRadius: "20px",
+                                  fontSize: "14px",
+                                  fontWeight: "600",
+                                  border: "1px solid rgba(255, 255, 255, 0.3)",
+                                  opacity: "0.6"
+                                }}
+                                >
+                                  {item.udCategory || item.tudCategory}
+                                </span>
+                              </Tooltip>
+                            )}
+
+                            {/* Visibility Tags */}
+                            {((item.udTag && item.udTag !== "None") || (item.tudTag && item.tudTag !== "None")) && (
+                              <>
+                                {/* Show first 3 visibility tags */}
+                                {(item.udTag || item.tudTag).split(",").slice(0, 3).map((tag, tagIndex) => (
+                                  <Tooltip title={`Visibility Tag: ${tag.trim()}`}>
+                                    <span
+                                      key={tagIndex}
+                                      style={{
+                                        backgroundColor: "var(--custom-theme-color, #191964)",
+                                        color: "#ffffff",
+                                        padding: "3px 8px",
+                                        borderRadius: "20px",
+                                        fontSize: "14px",
+                                        fontWeight: "600",
+                                        border: "1px solid rgba(255, 255, 255, 0.3)",
+                                        opacity: "0.6"
+                                      }}
+                                    >
+                                      {tag.trim()}
+                                    </span>
+                                  </Tooltip>
+                                ))}
+
+                                {/* Show "+X more" if there are more than 3 tags */}
+                                {(item.udTag || item.tudTag).split(",").length > 3 && (
+                                  <Tooltip title={`Additional tags: ${(item.udTag || item.tudTag).split(",").slice(3).map(t => t.trim()).join(", ")}`}>
+                                    <span
+                                      style={{
+                                        backgroundColor: "var(--custom-theme-color, #191964)",
+                                        color: "#ffffff",
+                                        padding: "3px 8px",
+                                        borderRadius: "20px",
+                                        fontSize: "14px",
+                                        fontWeight: "600",
+                                        border: "1px solid rgba(255, 255, 255, 0.3)",
+                                        opacity: "0.6"
+                                      }}
+                                    >
+                                      +{(item.udTag || item.tudTag).split(",").length - 3} more
+                                    </span>
+                                  </Tooltip>
+                                )}
+                              </>
+                            )}
+                          </div>
+
                           {/* Last Updated Badge */}
                           <div style={{ marginBottom: "8px" }}>
                             <LastUpdatedBadge udPublishedDate={item.udPublishedDate} />
                           </div>
-
-                          {item.udTag && item.udTag !== "None" && (
-                            <div style={{ marginTop: "8px", marginBottom: "8px" }}>
-                              {item.udTag.split(",").map((tag, tagIndex) => (
-                                <span
-                                  key={tagIndex}
-                                  style={{
-                                    display: "inline-block",
-                                    backgroundColor: "#e6f7ff",
-                                    color: "#0066cc",
-                                    padding: "3px 10px",
-                                    borderRadius: "4px",
-                                    fontSize: "12px",
-                                    fontWeight: "500",
-                                    marginRight: "5px",
-                                    marginBottom: "3px"
-                                  }}
-                                >
-                                  {tag.trim()}
-                                </span>
-                              ))}
-                            </div>
-                          )}
 
                           <div>
                             <button

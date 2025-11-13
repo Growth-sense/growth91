@@ -10,6 +10,7 @@ import { NewWebFooter } from "../../common/NewWebFooter.jsx";
 import { Modal, message as mess, Spin } from "antd";
 import SinglePagePDFViewer from "./../../components/PdfViewer/single-page";
 import CoverImageCarousel from "../../components/CoverImageCarousel.jsx";
+import ImageLightbox from "../../components/ImageLightbox";
 
 import Bridge from "./../../constants/Bridge.js";
 import { extractVideoIDFromYoutubeUrl, getAbsoluteUrl } from "../../helper/utilHelper.js";
@@ -207,6 +208,24 @@ export const Preview = (props) => {
     "I am excited to invest in your startups": false,
     message: "",
   });
+
+  // Lightbox state
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [lightboxImages, setLightboxImages] = useState([]);
+  const [lightboxInitialIndex, setLightboxInitialIndex] = useState(0);
+
+  // Handle image click to open lightbox
+  const onImageClick = (index, imageUrls) => {
+    setLightboxImages(imageUrls);
+    setLightboxInitialIndex(index);
+    setIsLightboxOpen(true);
+  };
+
+  // Handle lightbox close
+  const handleLightboxClose = () => {
+    setIsLightboxOpen(false);
+  };
+
   function getuniondata() {
     let params = {
       page: 0,
@@ -920,6 +939,8 @@ text-align: justify;
                       altText="Cover Image"
                       autoPlayInterval={4000}
                       showControls={true}
+                      onImageClick={onImageClick}
+                      isPaused={isLightboxOpen}
                     />
                   </div>
 
@@ -944,30 +965,74 @@ text-align: justify;
                     <div className="text-section d-flex justify-content-between align-items-start w-100">
                       <div>
                         <h1>{item.tudStartupName}</h1>
-                        {item.tudTag && item.tudTag !== "None" && (
-                          <div
-                            style={{ marginTop: "8px", marginBottom: "8px" }}
-                          >
-                            {item.tudTag.split(",").map((tag, tagIndex) => (
-                              <span
-                                key={tagIndex}
-                                style={{
-                                  display: "inline-block",
-                                  backgroundColor: "#e6f7ff",
-                                  color: "#0066cc",
-                                  padding: "3px 10px",
-                                  borderRadius: "4px",
-                                  fontSize: "12px",
-                                  fontWeight: "500",
-                                  marginRight: "5px",
-                                  marginBottom: "3px"
-                                }}
-                              >
-                                {tag.trim()}
-                              </span>
-                            ))}
-                          </div>
-                        )}
+                        {/* Simple Badge System */}
+                        <div style={{
+                          marginTop: "12px",
+                          marginBottom: "12px",
+                          display: "flex",
+                          flexWrap: "wrap",
+                          gap: "8px"
+                        }}>
+                          {/* Stage Badge */}
+                          {item.tudStage && (
+                            <span style={{
+                              backgroundColor: "var(--custom-theme-color, #191964)",
+                              color: "#ffffff",
+                              padding: "3px 8px",
+                              borderRadius: "16px",
+                              fontSize: "13px",
+                              fontWeight: "600",
+                              border: "1px solid rgba(255, 255, 255, 0.3)",
+                              opacity: "0.6"
+                            }}
+                              title={`Funding Stage: ${item.tudStage}`}
+                            >
+                              {item.tudStage}
+                            </span>
+                          )}
+
+                          {/* Sector Badge */}
+                          {item.tudCategory && (
+                            <span style={{
+                              backgroundColor: "var(--custom-theme-color, #191964)",
+                              color: "#ffffff",
+                              padding: "3px 8px",
+                              borderRadius: "16px",
+                              fontSize: "13px",
+                              fontWeight: "600",
+                              border: "1px solid rgba(255, 255, 255, 0.3)",
+                              opacity: "0.6"
+                            }}
+                              title={`Industry Sector: ${item.tudCategory}`}
+                            >
+                              {item.tudCategory}
+                            </span>
+                          )}
+
+                          {/* Visibility Tags */}
+                          {item.tudTag && item.tudTag !== "None" && (
+                            <>
+                              {item.tudTag.split(",").map((tag, tagIndex) => (
+                                <span
+                                  key={tagIndex}
+                                  style={{
+                                    backgroundColor: "var(--custom-theme-color, #191964)",
+                                    color: "#ffffff",
+                                    padding: "3px 8px",
+                                    borderRadius: "16px",
+                                    fontSize: "13px",
+                                    fontWeight: "600",
+                                    border: "1px solid rgba(255, 255, 255, 0.3)",
+                                    opacity: "0.6"
+                                  }}
+                                  title={`Visibility Tag: ${tag.trim()}`}
+                                >
+                                  {tag.trim()}
+                                </span>
+                              ))}
+                            </>
+                          )}
+                        </div>
                         <div>
                           <button
                             onClick={openiamintrest}
@@ -1502,6 +1567,16 @@ text-align: justify;
           );
         })}
 
+      {/* Image Lightbox */}
+      {isLightboxOpen && (
+        <ImageLightbox
+          images={lightboxImages}
+          initialIndex={lightboxInitialIndex}
+          isOpen={isLightboxOpen}
+          onClose={handleLightboxClose}
+        />
+      )}
+      +
       <ToastContainer />
       <NewWebFooter />
     </div>

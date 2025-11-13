@@ -39,8 +39,14 @@ const CoverImageCarousel = ({
 
     // Auto-play functionality
     useEffect(() => {
-        // Only auto-play if multiple images, not hovered (on desktop), not manually paused, and not externally paused
-        if (images.length > 1 && (!isHovered || isMobile) && !isManuallyPaused && !isPaused) {
+        // Clear any existing interval first
+        if (autoPlayRef.current) {
+            clearInterval(autoPlayRef.current);
+            autoPlayRef.current = null;
+        }
+
+        // Only auto-play if multiple images and conditions are met
+        if (images.length > 1 && !isManuallyPaused && !isPaused) {
             autoPlayRef.current = setInterval(() => {
                 setCurrentIndex((prevIndex) =>
                     prevIndex === images.length - 1 ? 0 : prevIndex + 1
@@ -51,9 +57,10 @@ const CoverImageCarousel = ({
         return () => {
             if (autoPlayRef.current) {
                 clearInterval(autoPlayRef.current);
+                autoPlayRef.current = null;
             }
         };
-    }, [images.length, isHovered, isMobile, autoPlayInterval, isManuallyPaused, isPaused]);
+    }, [images.length, autoPlayInterval, isManuallyPaused, isPaused]);
 
     const goToSlide = (index) => {
         setCurrentIndex(index);

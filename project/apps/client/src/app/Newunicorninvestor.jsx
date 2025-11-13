@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { NewWebFooter } from './common/NewWebFooter';
 import NewWebHeader from './common/NewWebHeader';
 import { Link } from '@material-ui/core';
@@ -12,6 +12,25 @@ const NewFutureUnicorn = () => {
   const [displayedItems, setDisplayedItems] = useState([]);
   const [screenSize, setScreenSize] = useState('desktop');
   const [hasMoreItems, setHasMoreItems] = useState(false);
+
+  // Create stable random selections for tags (random on page load, stable during session)
+  const randomTagSelections = useMemo(() => {
+    const selections = {};
+    return selections;
+  }, []);
+
+  const getRandomTag = (item) => {
+    const itemId = item.udID || item.tudTempUdID || Math.random();
+
+    if (!randomTagSelections[itemId]) {
+      const tags = item.udTag ? item.udTag.split(",").map(tag => tag.trim()).filter(tag => tag) : [];
+      if (tags.length > 0) {
+        randomTagSelections[itemId] = tags[Math.floor(Math.random() * tags.length)];
+      }
+    }
+
+    return randomTagSelections[itemId];
+  };
 
   // Function to detect screen size and determine items per page
   const getItemsPerPage = (availableItemsCount = 0) => {
@@ -855,6 +874,66 @@ const NewFutureUnicorn = () => {
                     }}
                   >
                     <div className="img-community-box">
+                      {/* Badge Container - Top-left corner */}
+                      <div style={{
+                        position: "absolute",
+                        top: "12px",
+                        left: "12px",
+                        display: "flex",
+                        gap: "8px",
+                        zIndex: "10",
+                        maxWidth: "calc(100% - 24px)",
+                        flexWrap: "wrap"
+                      }}>
+                        {/* Stage Badge (Compulsory) */}
+                        {item.udStage && (
+                          <span style={{
+                            backgroundColor: "rgba(255, 255, 255, 0.9)",
+                            color: "#333333",
+                            padding: "3px 8px",
+                            borderRadius: "16px",
+                            fontSize: "12px",
+                            fontWeight: "600",
+                            border: "1px solid rgba(255, 255, 255, 0.3)",
+                            backdropFilter: "blur(4px)"
+                          }}>
+                            {item.udStage}
+                          </span>
+                        )}
+
+                        {/* Sector Badge (Compulsory) */}
+                        {item.udCategory && (
+                          <span style={{
+                            backgroundColor: "rgba(255, 255, 255, 0.9)",
+                            color: "#333333",
+                            padding: "3px 8px",
+                            borderRadius: "16px",
+                            fontSize: "12px",
+                            fontWeight: "600",
+                            border: "1px solid rgba(255, 255, 255, 0.3)",
+                            backdropFilter: "blur(4px)"
+                          }}>
+                            {item.udCategory}
+                          </span>
+                        )}
+
+                        {/* Optional Tag Badge */}
+                        {item.udTag && item.udTag !== "None" && getRandomTag(item) && (
+                          <span style={{
+                            backgroundColor: "rgba(255, 255, 255, 0.9)",
+                            color: "#333333",
+                            padding: "3px 8px",
+                            borderRadius: "12px",
+                            fontSize: "12px",
+                            fontWeight: "600",
+                            border: "1px solid rgba(255, 255, 255, 0.3)",
+                            backdropFilter: "blur(4px)"
+                          }}>
+                            {getRandomTag(item)}
+                          </span>
+                        )}
+                      </div>
+
                       <img
                         src={
                           (item.udBannerImage &&
@@ -878,25 +957,6 @@ const NewFutureUnicorn = () => {
                           <h5>{item.udStartupName}</h5>
                         </li>
                       </ul>
-                      {item.udTag && item.udTag !== "None" && (
-                        <div style={{ marginTop: "8px" }}>
-                          {item.udTag.split(",").map((tag, tagIndex) => (
-                            <span key={tagIndex} style={{
-                              display: "inline-block",
-                              backgroundColor: "#e6f7ff",
-                              color: "#0066cc",
-                              padding: "3px 10px",
-                              borderRadius: "4px",
-                              fontSize: "12px",
-                              fontWeight: "500",
-                              marginRight: "5px",
-                              marginBottom: "3px"
-                            }}>
-                              {tag.trim()}
-                            </span>
-                          ))}
-                        </div>
-                      )}
                       <p style={{
                         WebkitLineClamp: 3,
                         WebkitBoxOrient: "vertical",
