@@ -38,8 +38,23 @@ class ThemeStep extends Component {
     this.setState({ currentTheme: newTheme });
   };
 
+  // Navigation handlers similar to other founder forms
+  next = () => {
+    if (this.props.next) {
+      this.props.next();
+    }
+  };
+
+  prev = () => {
+    if (this.props.prev) {
+      this.props.prev();
+    }
+  };
+
   render() {
+    let active = false;
     return (
+       <section className="StepForm-section" style={{ display: "block" }}>
       <div className="form-group">
         <div className="form-group">
           <div className="row">
@@ -74,7 +89,40 @@ class ThemeStep extends Component {
             <strong>Note:</strong> The selected theme will apply to your Future Unicorn page sections including About, Team, Contact, and action buttons.
           </p>
         </div>
+
+        {/* Step Navigation Buttons */}
+          <div className="form-group d-flex justify-content-between">
+            <div className='arrow-buttons'>
+              <button
+                style={{ 
+                  position:'relative',
+                  left:-20,
+                  background: '#fff',
+                  border: '1px solid #29176f',
+                  color: '#29176f',
+                }} 
+                onClick={this.prev}
+                className="submit-button"
+              >
+                <i className='bx bx-chevron-left'></i>
+              </button>
+              <button
+                style={{ 
+                  position:'relative',
+                  left:-20,
+                  background: '#fff',
+                  border: '1px solid #29176f',
+                  color: '#29176f',
+                }} 
+                onClick={this.next}
+                className="submit-button"
+              >
+                <i className='bx bx-chevron-right'></i>
+              </button>
+            </div>
+          </div>
       </div>
+      </section>
     );
   }
 }

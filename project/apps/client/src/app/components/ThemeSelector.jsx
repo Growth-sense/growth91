@@ -43,7 +43,7 @@ const ThemeSelector = ({
 
             if (result.status === '1') {
                 const themeName = GROWTH91_THEMES[themeId]?.name || themeId;
-                message.success(`✅ ${themeName} theme saved! Click Preview to see changes.`);
+                message.success(`${themeName} theme saved! Click Preview to see changes.`);
                 setSavedTheme(themeId);
 
                 if (onThemeChange) {

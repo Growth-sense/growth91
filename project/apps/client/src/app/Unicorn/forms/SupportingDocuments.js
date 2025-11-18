@@ -241,9 +241,9 @@ class SupportingDocuments extends Component {
       formData.append("existingImages", JSON.stringify(currentImages));
       
       // Append multiple files with correct parameter name
-      files.forEach((file) => {
-        formData.append("coverImages", file);
-      });
+        files.forEach((file) => {
+          formData.append("coverImages[]", file);
+        });
 
       try {
         const response = await axios.post(
@@ -943,6 +943,38 @@ class SupportingDocuments extends Component {
               />
             </div>
           )}
+
+          {/* Step Navigation Buttons */}
+          <div className="form-group d-flex justify-content-between">
+            <div className='arrow-buttons'>
+              <button
+                style={{ 
+                  position:'relative',
+                  left:-20,
+                  background: '#fff',
+                  border: '1px solid #29176f',
+                  color: '#29176f',
+                }} 
+                onClick={this.prev}
+                className="submit-button"
+              >
+                <i className='bx bx-chevron-left'></i>
+              </button>
+              <button
+                style={{ 
+                  position:'relative',
+                  left:-20,
+                  background: '#fff',
+                  border: '1px solid #29176f',
+                  color: '#29176f',
+                }} 
+                onClick={this.next}
+                className="submit-button"
+              >
+                <i className='bx bx-chevron-right'></i>
+              </button>
+            </div>
+          </div>
         </section>
       </div>
     );

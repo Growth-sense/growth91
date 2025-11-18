@@ -300,6 +300,7 @@ class Founderadmindashboard extends Component {
         tudBackedBy: "",
         tudYoutubeLink: "",
         tudCategory: "",
+        tudStage: "",
         tudBannerImage: "",
         tudSelectLogo: "",
         tudPageLink: "",
@@ -996,7 +997,7 @@ class Founderadmindashboard extends Component {
       (this.state.unicorn.tudSponsorName != "" && this.state.unicorn.tudSponsorImage == "") || 
       (this.state.unicorn.tudSponsorName == "" && this.state.unicorn.tudSponsorImage != "")
     ) {
-      this.activeform(1);
+      this.activeform(2);
       toast.error("Please fill Supporting Documents Section");
       return;
     }
@@ -1021,7 +1022,7 @@ class Founderadmindashboard extends Component {
     }
 
     if(!mediaValidation){
-        this.activeform(2);
+        this.activeform(3);
         toast.error("Please fill Social Media Presence Section");
         return;
     }
@@ -1046,15 +1047,17 @@ class Founderadmindashboard extends Component {
       !this.state.unicorn.tudDealDescription ||
       this.state.unicorn.tudDealDescription == "" ||
       !this.state.unicorn.tudCategory ||
-      this.state.unicorn.tudCategory == ""
+      this.state.unicorn.tudCategory == "" ||
+      !this.state.unicorn.tudStage ||
+      this.state.unicorn.tudStage == ""
     ) {
-      this.activeform(3);
+      this.activeform(4);
       toast.error("Please fill Other Info Section");
       return;
     }
 
     if(this.state.unicorn.tudDealDescription.length < 500){
-      this.activeform(3);
+      this.activeform(4);
       toast.error(`Please complete your startup introduction. You still need to add approximately ${500 - this.state.unicorn.tudDealDescription.length} more characters to meet the minimum requirement of 500 characters.`);
       return;
     }
@@ -1085,7 +1088,7 @@ class Founderadmindashboard extends Component {
     
 
     if(!teamValidation){
-        this.activeform(4);
+        this.activeform(5);
         toast.error("Please fill Team Section");
         return;
     }
