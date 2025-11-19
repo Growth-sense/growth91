@@ -462,7 +462,11 @@ class Startup extends CI_Controller {
 					'tudYoutubeLink'=> $tudYoutubeLink,
 					'tudCategory'=> $tudCategory,
 					'tudBannerImage'=> $tudBannerImage,
-					'tudLogoImage'=> $tudLogoImage,
+					'tudSelectLogo'=> $tudSelectLogo,
+					'tudPageLink'=> $tudPageLink,
+					'tudVendorId'=> $tudVendorId,
+					'tudStartupHighlights'=> $tudStartupHighlights,
+					'tudMediaCoverages'=> $tudMediaCoverages,
 					'tudMark'=> $tudMark,
 
 					'tudValuation'=> $tudValuation,
@@ -515,16 +519,7 @@ class Startup extends CI_Controller {
 
 	 
 	public function unicornListByFounders()
-	{
-		// Enable error display for debugging
-		error_reporting(E_ALL);
-		ini_set('display_errors', 1);
-		
-		// Debug log file
-		$debugLog = FCPATH . 'debug_unicorn.txt';
-		file_put_contents($debugLog, "\n\n=== NEW REQUEST ===\n", FILE_APPEND);
-		file_put_contents($debugLog, date('Y-m-d H:i:s') . "\n", FILE_APPEND);
-		
+	{	
 		// header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
 		// header("Access-Control-Allow-Origin: *");
@@ -532,43 +527,13 @@ class Startup extends CI_Controller {
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 		$formdata = json_decode(file_get_contents('php://input'), true);
-		
-		// Debug: Log received data
-		file_put_contents($debugLog, "Received POST data: " . print_r($formdata, true) . "\n", FILE_APPEND);
-		flush();
-		
-		// Check if founderID exists
-		if (empty($formdata['founderID'])) {
-			file_put_contents($debugLog, "ERROR: founderID is missing!\n", FILE_APPEND);
-			$response = [
-				'status' => '0',
-				'message' => 'founderID is required but was not provided',
-				'debug' => $formdata
-			];
-			$this->output
-				->set_content_type('application/json')
-				->set_output(json_encode($response));
-			return;
-		}
-		
 		extract($formdata);
-		
 		// sql query
 		$sql = "SELECT tempunicorndeals.*,tempunicorndeals2.*  FROM `tempunicorndeals` 
 		LEFT JOIN tempunicorndeals2 on tempunicorndeals2.tudTempUdID = tempunicorndeals.tudTempUdID WHERE founderID='".$founderID."'
 		ORDER BY tempunicorndeals.tudTempUdID DESC;";
-		
-		// Debug: Log SQL query
-		file_put_contents($debugLog, "Executing SQL: " . $sql . "\n", FILE_APPEND);
-		flush();
-		
-		try {
-			$query = $this->db->query($sql);
+					$query = $this->db->query($sql);
 			$list = $query->result();
-			
-			file_put_contents($debugLog, "Query returned " . count($list) . " rows\n", FILE_APPEND);
-			flush();
-			
 			for ($i = 0; $i < count($list); $i++) {
 				 
 				// get Published ID
@@ -596,16 +561,6 @@ class Startup extends CI_Controller {
 					'message' => 'Please try again!'
 				];
 			}
-		} catch (Exception $e) {
-			file_put_contents($debugLog, "Database error: " . $e->getMessage() . "\n", FILE_APPEND);
-			flush();
-			$response = [
-				'status' => '0',
-				'message' => 'Database error: ' . $e->getMessage(),
-				'sql' => $sql
-			];
-		}
-		
 		$this->output
 			->set_content_type('application/json')
 			->set_output(json_encode($response));
@@ -903,8 +858,6 @@ class Startup extends CI_Controller {
 					'tudBackedBy'=> $tudBackedBy,
 					'tudSelectLogo'=> $tudSelectLogo,
 					'tudPageLink'=> $tudPageLink,
-					'tudVendorId'=> $tudVendorId,
-					'tudStartupHighlights'=> $tudStartupHighlights,
 					'tudMediaCoverages'=> $tudMediaCoverages,
 					'tudValuation'=> $tudValuation,
 					'tudFocusedOnProduct'=> $tudFocusedOnProduct,
@@ -964,40 +917,18 @@ class Startup extends CI_Controller {
 		if(!empty($formdata)) {
 			// POst data for table 1
 			extract($formdata);
+/* Steps
+			1) Decide by selecting tempID from Published table that its create OR UPDATE and set flag accodingly
+			2) based on temp unicorn ID select from temp table1 
+			3) Set Post array for master unicorn table 1
+			4) update/insert in master unicorn table and get ID of the master table 1
+			5) based on temp unicorn ID select from temp table2 
+			6) Set Post array for master unicorn table 2
+			7) update/insert in master unicorn table and get ID of the master table 2
+			 */
 
-			// Validate compulsory badge fields (Stage and Sector) before publishing
-			$this->db->select('tudStage, tudCategory');
-			$this->db->from('tempunicorndeals2');
-			$this->db->where('tudTempUdID', $tudTempUdID);
-			$badgeValidation = $this->db->get();
 			
-			if($badgeValidation->num_rows() > 0) {
-				$badgeData = $badgeValidation->row();
-				
-				if(empty($badgeData->tudStage)) {
-					$response = [
-						'status' => '0',
-						'message' => 'Stage is a compulsory field. Please select your startup stage before publishing.',
-					];
-					$this->output
-						->set_content_type('application/json')
-						->set_output(json_encode($response));
-					return;
-				}
-				
-				if(empty($badgeData->tudCategory)) {
-					$response = [
-						'status' => '0',
-						'message' => 'Sector is a compulsory field. Please select your startup sector before publishing.',
-					];
-					$this->output
-						->set_content_type('application/json')
-						->set_output(json_encode($response));
-					return;
-				}
-			}
 
-			// check if user has any left_edit if left_edit is not > 0 return error to user and if user has edit left, at the end we will reduce it by 1
 			$isNew= true;	
 
 
@@ -1268,7 +1199,7 @@ class Startup extends CI_Controller {
 					"tudMark", "tudStartupHighlights", "tudSponsorName", 
 					"tudSponsorImage", "tudStartupFounderName", "tudLegalname", "tudStartupFounderMobileCountryCode", 
 					"tudStartupFounderMobileNumber", "tudStartupFounderEmail", "tudFoundedon", "tudAddress", 
-					"tudEmployees", "tudDealDescription", "tudYoutubeLink", "tudCategory", 
+					"tudEmployees", "tudDealDescription", "tudYoutubeLink", "tudCategory", "tudStage",
 					"tudTag", "tudMediaCoverageFiles", "tudVendorId", "tudTheme"
 				);
 
@@ -1423,6 +1354,282 @@ class Startup extends CI_Controller {
 		->set_content_type('application/json')
 		->set_output(json_encode($response));	
 	}
+
+	// Unicorn deals for Investors
+	function getAllUnicorns() {
+		// header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		// header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		if(!empty($formdata)) {
+			// POst data for table 1
+			extract($formdata);
+			/* Steps
+			Assume that form data have keys to filter so build SQL String
+
+			 */
+			$whereClause= " 1 = 1 ";
+			foreach($formdata as $Key => $Value)
+			{
+				if($Key!="page" && $Key!="pagesize" )
+				{
+					if($Key=="udPublished")
+					{
+						$whereClause.= " AND ".$Key." = '".$Value."' ";
+					}
+					else
+					{
+					$whereClause.= " AND ".$Key." LIKE '%".$Value."%' ";
+					}
+				}
+				
+			}
+			
+			//Step1
+			$sql= <<<EOT
+			SELECT tempunicorndeals.*,tempunicorndeals2.*, ud.udPublished as mainPublished
+			FROM tempunicorndeals 
+			LEFT JOIN tempunicorndeals2 on tempunicorndeals.tudTempUdID = tempunicorndeals2.tudTempUdID 
+			LEFT JOIN unicorndeals ud ON tempunicorndeals.tudTempUdID = ud.unicornDealID 
+			WHERE $whereClause
+			EOT;
+			
+			$query = $this->db->query($sql);
+			//echo $sql;die;
+			$list = $query->result();
+			$response = [
+				'status' => '1',
+				'message'=> 'Data found.',
+				'data'=>$list,
+			];
+		} else {
+			$response = [
+				'status' => '0',
+				'message'=> 'Please enter values of all fields.',
+			];
+		}
+		$this->output
+		->set_content_type('application/json')
+		->set_output(json_encode($response));	
+	}
+
+	function getUnicornPayment() {
+		// header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		// header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
+		$sql = <<<EOT
+			SELECT p.*, u.*, 
+			CASE 
+				WHEN ud.udFounderId IS NOT NULL THEN 'Published' 
+				WHEN tud.founderID IS NOT NULL THEN 'Draft' 
+				ELSE 'Not started' 
+			END AS unicorn_form_status 
+			FROM unicorn_payments p
+			LEFT JOIN users u ON p.founder_id = u.investor_id
+			LEFT JOIN unicorndeals ud ON u.investor_id = ud.udFounderId 
+			LEFT JOIN tempunicorndeals tud ON u.investor_id = tud.founderID
+			ORDER BY STR_TO_DATE(p.event_time, '%Y-%m-%dT%H:%i:%s%T') DESC
+			EOT;
+
+		$query = $this->db->query($sql);
+		$list = $query->result();
+		$response = [
+			'status' => '1',
+			'message' => 'Data found.',
+			'data' => $list,
+		];
+		
+		$this->output
+		->set_content_type('application/json')
+		->set_output(json_encode($response));	
+	}
+
+	function uploadunicornFiles()
+	{
+		// header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		// header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+
+		if (!empty($_POST)) {
+			$id = $this->input->post('tudTempUdID');
+			$image_details = array();
+			if ($id) {
+				// logo
+				if (isset($_FILES['tudPitchDeck']['name']) && $_FILES['tudPitchDeck']['name'] != "") {
+					$dir = FCPATH . "uploads/unicorndeals/" . $id . "/";
+
+					if (!is_dir($dir)) {
+						@mkdir($dir, 0777, true);
+					}
+
+					$image = $_FILES['tudPitchDeck']['tmp_name'];
+					$temp = explode(".", $_FILES["tudPitchDeck"]["name"]);
+					$newfilename = round(microtime(true)) . '.' . end($temp);
+
+					$hash = $_FILES['tudPitchDeck']['name'];
+
+					if (move_uploaded_file($image, $dir . $newfilename)) {
+						$image_details["tudPitchDeck"] = $newfilename;
+						
+						
+					}
+				}
+				// logo
+				if (isset($_FILES['tudDoc1']['name']) && $_FILES['tudDoc1']['name'] != "") {
+					$dir = FCPATH . "uploads/unicorndeals/" . $id . "/";
+
+					if (!is_dir($dir)) {
+						@mkdir($dir, 0777, true);
+					}
+
+					$image = $_FILES['tudDoc1']['tmp_name'];
+					$temp = explode(".", $_FILES["tudDoc1"]["name"]);
+					$newfilename = round(microtime(true)) . '.' . end($temp);
+
+					$hash = $_FILES['tudDoc1']['name'];
+
+					if (move_uploaded_file($image, $dir . $newfilename)) {
+						$image_details["tudDoc1"] = $newfilename;
+						 
+					}
+				}
+				// banner
+				if (isset($_FILES['tudDoc2']['name']) && $_FILES['tudDoc2']['name'] != "") {
+					$dir = FCPATH . "uploads/unicorndeals/" . $id . "/";
+
+					if (!is_dir($dir)) {
+						@mkdir($dir, 0777, true);
+					}
+
+					$image = $_FILES['tudDoc2']['tmp_name'];
+					$temp = explode(".", $_FILES["tudDoc2"]["name"]);
+					$newfilename = round(microtime(true)) . '.' . end($temp);
+
+					$hash = $_FILES['tudDoc2']['name'];
+
+					if (move_uploaded_file($image, $dir . $newfilename)) {
+						$image_details["tudDoc2"] = $newfilename;
+						 
+					}
+				}
+
+				// pdf
+				if (isset($_FILES['tudDoc3']['name']) && $_FILES['tudDoc3']['name'] != "") {
+					$dir = FCPATH . "uploads/unicorndeals/" . $id . "/";
+
+					if (!is_dir($dir)) {
+						@mkdir($dir, 0777, true);
+					}
+
+					$image = $_FILES['tudDoc3']['tmp_name'];
+					$temp = explode(".", $_FILES["tudDoc3"]["name"]);
+					$newfilename = round(microtime(true)) . '.' . end($temp);
+
+					$hash = $_FILES['tudDoc3']['name'];
+
+					if (move_uploaded_file($image, $dir . $newfilename)) {
+						$image_details["tudDoc3"] = $newfilename;
+						 
+					}
+				}
+
+				$response = [
+					'status' => '1',
+					'message' => 'Image is uploaded successfully.',
+					'data'=> $image_details
+				];
+			}
+			else {
+				$response = [
+					'status' => '0',
+					'message' => 'Please try again!'
+				];
+			}
+
+		}
+		else {
+			$response = [
+				'status' => '0',
+				'message' => 'Please enter values of all fields.',
+			];
+		}
+
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
+	function uploadFiles()
+	{
+		// header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		// header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+
+		if (!empty($_POST)) {
+			$id = $this->input->post('tudTempUdID');
+			$image_details = array();
+			if ($id) {
+				// logo
+				if (isset($_FILES['upfile']['name']) && $_FILES['upfile']['name'] != "") {
+					$dir = FCPATH . "uploads/unicorndeals/" . $id . "/";
+
+					if (!is_dir($dir)) {
+						@mkdir($dir, 0777, true);
+					}
+
+					$image = $_FILES['upfile']['tmp_name'];
+					$temp = explode(".", $_FILES["upfile"]["name"]);
+					$newfilename = round(microtime(true)) . '.' . end($temp);
+
+					$hash = $_FILES['upfile']['name'];
+
+					if (move_uploaded_file($image, $dir . $newfilename)) {
+						$image_details["upfile"] = $newfilename;
+						
+						
+					}
+				}
+				
+
+				$response = [
+					'status' => '1',
+					'message' => 'Image is uploaded successfully.',
+					'data'=> $image_details
+				];
+			}
+			else {
+				$response = [
+					'status' => '0',
+					'message' => 'Please try again!'
+				];
+			}
+
+		}
+		else {
+			$response = [
+				'status' => '0',
+				'message' => 'Please enter values of all fields.',
+			];
+		}
+
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+    }
 
 	// Upload Cover Images (Multiple) - Max 5 images
 	function uploadCoverImages()
@@ -1823,7 +2030,6 @@ class Startup extends CI_Controller {
 			->set_content_type('application/json')
 			->set_output(json_encode($response));
 	}
-
 	// I am interested
 	function add_unicorn_interest() {
 		// header("Access-Control-Allow-Origin: *");
@@ -2065,13 +2271,15 @@ class Startup extends CI_Controller {
 		
 		// Add logic to get founder id from formdata and get that details from db and return as response
 		if(!empty($formdata)) {
+			// POst data for table 1
+
 			$founder_id=$formdata['founder_id'];
 			$plan_name=$formdata['plan_name'];
 			$is_upgrade = isset($formdata['is_upgrade']) ? $formdata['is_upgrade'] : false;
 		
 			$plans = [
 				'Silver' => [
-					'price' => 0, // Changed to 0 for Diwali offer
+					'price' => 0,
 					'editLeft' => 1
 				],
 				'Gold' => [
@@ -2091,7 +2299,7 @@ class Startup extends CI_Controller {
 			// Special handling for Silver plan - Diwali Offer (FREE)
 			if ($plan_name === 'Silver') {
 				$current_user = $this->db
-					->select('unicorn_plan, unicorn_start_date, left_edit, unicorn_gst, unicorn_gst_registered_address, unicorn_gst_name')
+					->select('unicorn_plan, unicorn_start_date, left_edit, unicorn_gst_name, email, mobile, first_name, last_name, startup_name, unicorn_gst, unicorn_gst_registered_address')
 					->where('investor_id', $founder_id)
 					->get('users')
 					->row();
@@ -2109,7 +2317,7 @@ class Startup extends CI_Controller {
 					'left_edit' => $new_edit_left
 				];
 				$this->db->where('investor_id', $founder_id);
-				$update_result = $this->db->update('users');
+				$update_result = $this->db->update('users', $post_data);
 
 				if ($update_result) {
 					// Record the free payment in unicorn_payments table
@@ -2165,10 +2373,11 @@ class Startup extends CI_Controller {
 				}
 			} else {
 				// Original payment link logic for other plans
+
 				$amount = $plans[$plan_name]['price'];
 
 				$current_user = $this->db
-						->select('unicorn_gst, unicorn_gst_registered_address, unicorn_gst_name')
+						->select('unicorn_plan, unicorn_start_date, left_edit, unicorn_gst_name, email, mobile')
 						->where('investor_id', $founder_id)
 						->get('users')
 						->row();
@@ -2525,33 +2734,37 @@ class Startup extends CI_Controller {
 		if (!empty($formdata)) {
 			extract($formdata);
 			
-			// Check if record already exists in unicorn_payments
+			// Check if order_id already exists
 			$existing_payment = $this->db
 				->where('order_id', $order_id)
 				->get('unicorn_payments')
 				->row();
 
-			if (!$existing_payment) {
-				// Insert new record
+			if ($existing_payment) {
+				$response = [
+					'status' => '0',
+					'message' => 'Payment record with this order ID already exists.'
+				];
+			} else {
+				$current_user = $this->db
+						->select('unicorn_gst, unicorn_gst_registered_address, unicorn_gst_name')
+						->where('investor_id', $founder_id)
+						->get('users')
+						->row();
 				$payment_data = [
 					'amount' => $amount,
 					'order_id' => $order_id,
 					'event_time' => $event_time,
 					'founder_id' => $founder_id,
 					'plan_name' => $planName,
-					'unicorn_gst' => $unicorn_gst,
-					'unicorn_gst_registered_address' => $unicorn_gst_registered_address,
-					'unicorn_gst_name' => $unicorn_gst_name
+					'unicorn_gst' => $current_user->unicorn_gst,
+					'unicorn_gst_registered_address' => $current_user->unicorn_gst_registered_address,
+					'unicorn_gst_name' => $current_user->unicorn_gst_name
 				];
 				$this->db->insert('unicorn_payments', $payment_data);
 				$response = [
 					'status' => '1',
 					'message' => 'Payment recorded successfully.'
-				];
-			} else {
-				$response = [
-					'status' => '0',
-					'message' => 'Payment record with this order ID already exists.'
 				];
 			}
 		} else {
@@ -2863,68 +3076,5 @@ class Startup extends CI_Controller {
 			->set_content_type('application/json')
 			->set_output(json_encode($response));
 	}
-
-	function uploadFiles() {
-		header("Access-Control-Allow-Origin: *");
-		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Origin: *");
-		header("Access-Control-Allow-Headers: access");
-		header("Content-Type: application/json; charset=UTF-8");
-		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-		$formdata = json_decode(file_get_contents('php://input'), true);
-
-		if (!empty($_POST)) {
-			$id = $this->input->post('tudTempUdID');
-			$image_details = array();
-			if ($id) {
-				// logo
-				if (isset($_FILES['upfile']['name']) && $_FILES['upfile']['name'] != "") {
-					$dir = FCPATH . "uploads/unicorndeals/" . $id . "/";
-
-					if (!is_dir($dir)) {
-						@mkdir($dir, 0777, true);
-					}
-
-					$image = $_FILES['upfile']['tmp_name'];
-					$temp = explode(".", $_FILES["upfile"]["name"]);
-					$newfilename = round(microtime(true)) . '.' . end($temp);
-
-					$hash = $_FILES['upfile']['name'];
-
-					if (move_uploaded_file($image, $dir . $newfilename)) {
-						$image_details["upfile"] = $newfilename;
-						
-						
-					}
-				}
-				
-
-				$response = [
-					'status' => '1',
-					'message' => 'Image is uploaded successfully.',
-					'data'=> $image_details
-				];
-			}
-			else {
-				$response = [
-					'status' => '0',
-					'message' => 'Please try again!'
-				];
-			}
-
-		}
-		else {
-			$response = [
-				'status' => '0',
-				'message' => 'Please enter values of all fields.',
-			];
-		}
-
-		$this->output
-			->set_content_type('application/json')
-			->set_output(json_encode($response));
-    }
-
-
 
 }
