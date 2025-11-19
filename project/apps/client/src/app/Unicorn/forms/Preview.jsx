@@ -937,7 +937,7 @@ text-align: justify;
                       images={parseBannerImages(item.tudBannerImage)}
                       imageUrls={getCarouselImageUrls(parseBannerImages(item.tudBannerImage), item.tudTempUdID)}
                       altText="Cover Image"
-                      autoPlayInterval={4000}
+                      autoPlayInterval={6500}
                       showControls={true}
                       onImageClick={onImageClick}
                       isPaused={isLightboxOpen}
@@ -983,7 +983,6 @@ text-align: justify;
                               fontSize: "13px",
                               fontWeight: "600",
                               border: "1px solid rgba(255, 255, 255, 0.3)",
-                              opacity: "0.6"
                             }}
                               title={`Funding Stage: ${item.tudStage}`}
                             >
@@ -1001,7 +1000,6 @@ text-align: justify;
                               fontSize: "13px",
                               fontWeight: "600",
                               border: "1px solid rgba(255, 255, 255, 0.3)",
-                              opacity: "0.6"
                             }}
                               title={`Industry Sector: ${item.tudCategory}`}
                             >
@@ -1023,7 +1021,6 @@ text-align: justify;
                                     fontSize: "13px",
                                     fontWeight: "600",
                                     border: "1px solid rgba(255, 255, 255, 0.3)",
-                                    opacity: "0.6"
                                   }}
                                   title={`Visibility Tag: ${tag.trim()}`}
                                 >

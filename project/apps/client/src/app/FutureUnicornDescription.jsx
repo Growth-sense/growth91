@@ -845,7 +845,7 @@ text-align: justify;
                         images={parseBannerImages(item.udBannerImage)}
                         imageUrls={getCarouselImageUrls(parseBannerImages(item.udBannerImage), item.tudTempUdID)}
                         altText={item.udStartupName || "Startup Cover"}
-                        autoPlayInterval={4000}
+                        autoPlayInterval={6500}
                         showControls={true}
                         onImageClick={onImageClick}
                         isPaused={isLightboxOpen}
@@ -893,7 +893,6 @@ text-align: justify;
                                   fontSize: "14px",
                                   fontWeight: "600",
                                   border: "1px solid rgba(255, 255, 255, 0.3)",
-                                  opacity: "0.6"
                                 }}
                                 >
                                   {item.udStage || item.tudStage}
@@ -912,7 +911,6 @@ text-align: justify;
                                   fontSize: "14px",
                                   fontWeight: "600",
                                   border: "1px solid rgba(255, 255, 255, 0.3)",
-                                  opacity: "0.6"
                                 }}
                                 >
                                   {item.udCategory || item.tudCategory}
@@ -936,7 +934,6 @@ text-align: justify;
                                         fontSize: "14px",
                                         fontWeight: "600",
                                         border: "1px solid rgba(255, 255, 255, 0.3)",
-                                        opacity: "0.6"
                                       }}
                                     >
                                       {tag.trim()}

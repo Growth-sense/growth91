@@ -78,7 +78,7 @@ const ImageLightbox = ({
             setCurrentIndex((prevIndex) =>
                 prevIndex === images.length - 1 ? 0 : prevIndex + 1
             );
-        }, 4000); // 4 second interval
+        }, 6500); // 4 second interval
 
         return () => {
             if (autoPlayRef.current) {
