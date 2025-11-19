@@ -499,43 +499,6 @@ class SocialMediaPresence extends Component {
                           }
                         ></textarea>
                       </div>
-                      <div
-                        className="form-group  justify-content-between"
-                        style={{ display: "none !important" }}
-                      >
-                        <div className="arrow-buttons">
-                          <button
-                            style={{
-                              position: "relative",
-                              left: -20,
-                              background: "#fff",
-                              border: "1px solid #29176f",
-                              color: "#29176f",
-                            }}
-                            onClick={this.prev}
-                            class="submit-button"
-                          >
-                            <i className="bx bx-chevron-left"></i>
-                          </button>
-                          <button
-                            style={{
-                              position: "relative",
-                              left: -20,
-                              background: active == false ? "#fff" : "#fff",
-                              border:
-                                active == false
-                                  ? "1px solid #29176f"
-                                  : "1px solid #29176f",
-                              color: active == false ? "#29176f" : "#29176f",
-                            }}
-                            onClick={this.next}
-                            class="submit-button"
-                          >
-                            <i className="bx bx-chevron-right"></i>
-                          </button>
-                        </div>
-                        <div></div>
-                      </div>
                     </div>
                   </div>
 
@@ -645,6 +608,44 @@ class SocialMediaPresence extends Component {
                     </Button>
                   </div>
                 </div>
+
+                   <div
+                        className="form-group  justify-content-between"
+                        style={{ display: "none !important" }}
+                      >
+                        <div className="arrow-buttons">
+                          <button
+                            style={{
+                              position: "relative",
+                              left: -20,
+                              background: "#fff",
+                              border: "1px solid #29176f",
+                              color: "#29176f",
+                            }}
+                            onClick={this.prev}
+                            class="submit-button"
+                          >
+                            <i className="bx bx-chevron-left"></i>
+                          </button>
+                          <button
+                            style={{
+                              position: "relative",
+                              left: -20,
+                              background: active == false ? "#fff" : "#fff",
+                              border:
+                                active == false
+                                  ? "1px solid #29176f"
+                                  : "1px solid #29176f",
+                              color: active == false ? "#29176f" : "#29176f",
+                            }}
+                            onClick={this.next}
+                            class="submit-button"
+                          >
+                            <i className="bx bx-chevron-right"></i>
+                          </button>
+                        </div>
+                        <div></div>
+                      </div>
 
                 </div>
               </div>

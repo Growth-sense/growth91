@@ -425,31 +425,6 @@ class BasicDetails extends Component {
                         <strong>Note:</strong> Please don't leave this section empty, make sure to include TAM, SAM, and SOM wherever possible.
                       </div>
 
-                      <div className="form-group ">
-                          <div className="mt-4">
-                            <label className="mb-2" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                              Referred By (Name of Incubator/entity/Individual)
-                              <InfoTooltip title="If referred, mention mentor/VC/incubator name." />
-                            </label>
-                            <div style={{ fontSize: "12px", color: "#666", marginTop: "5px", marginBottom: "10px" }}>
-                              Note: If you provide a sponsor name or image, both fields become mandatory.
-                            </div>
-                            <input
-                              type="text"
-                              maxLength={100}
-                              placeholder="Name of the Sponsor / Incubator"
-                              name="tudSponsorName"
-                              value={this.props.unicorn.tudSponsorName}
-                              onChange={(e) =>
-                                this.props.onInput(e.target.name, e.target.value)
-                              }
-                            />
-                            <div className="character-count" style={{marginBottom: "20px"}}>
-                              {`${this.props.unicorn.tudSponsorName.length}/100 characters`}
-                            </div>
-                          </div>
-                        </div>
-
                       {/* <input type="file" multiple onChange={this.fileSelectedHandler} /> */}
                       <div
                         className="form-group  justify-content-between"
