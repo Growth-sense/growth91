@@ -2863,4 +2863,68 @@ class Startup extends CI_Controller {
 			->set_content_type('application/json')
 			->set_output(json_encode($response));
 	}
+
+	function uploadFiles() {
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+
+		if (!empty($_POST)) {
+			$id = $this->input->post('tudTempUdID');
+			$image_details = array();
+			if ($id) {
+				// logo
+				if (isset($_FILES['upfile']['name']) && $_FILES['upfile']['name'] != "") {
+					$dir = FCPATH . "uploads/unicorndeals/" . $id . "/";
+
+					if (!is_dir($dir)) {
+						@mkdir($dir, 0777, true);
+					}
+
+					$image = $_FILES['upfile']['tmp_name'];
+					$temp = explode(".", $_FILES["upfile"]["name"]);
+					$newfilename = round(microtime(true)) . '.' . end($temp);
+
+					$hash = $_FILES['upfile']['name'];
+
+					if (move_uploaded_file($image, $dir . $newfilename)) {
+						$image_details["upfile"] = $newfilename;
+						
+						
+					}
+				}
+				
+
+				$response = [
+					'status' => '1',
+					'message' => 'Image is uploaded successfully.',
+					'data'=> $image_details
+				];
+			}
+			else {
+				$response = [
+					'status' => '0',
+					'message' => 'Please try again!'
+				];
+			}
+
+		}
+		else {
+			$response = [
+				'status' => '0',
+				'message' => 'Please enter values of all fields.',
+			];
+		}
+
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+    }
+
+
+
 }

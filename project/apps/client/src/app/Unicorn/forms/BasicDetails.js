@@ -20,6 +20,22 @@ class BasicDetails extends Component {
       valueispresent: false,
       processtype: "",
       files: [],
+      marketoverview: [{ content1: "" }, { content1: "" }, { content1: "" }],
+      startuphighlight: [
+        { title: "Revenue Growth ", content1: "" },
+        { title: " New Initiatives, Operational Efficiency", content1: "" },
+        { title: "Performance and Achievements ", content1: "" },
+        {
+          title: " Previous Funding/Future Funding and its Utilization",
+          content1: "",
+        },
+      ],
+      titlestartuphigh: [
+        "Revenue Growth ",
+        " New Initiatives, Operational Efficiency",
+        "Performance and Achievements ",
+        " Previous Funding/Future Funding and its Utilization",
+      ],
     };
   }
   componentDidMount() {
@@ -35,12 +51,61 @@ class BasicDetails extends Component {
         valueispresent: false,
         processtype: "",
         files: [],
+        marketoverview: [{ content1: "" }, { content1: "" }, { content1: "" }],
+        startuphighlight: [
+          { title: "Revenue Growth ", content1: "" },
+          { title: " New Initiatives, Operational Efficiency", content1: "" },
+          { title: "Performance and Achievements ", content1: "" },
+          {
+            title: " Previous Funding/Future Funding and its Utilization",
+            content1: "",
+          },
+        ],
+        titlestartuphigh: [
+          "Revenue Growth ",
+          " New Initiatives, Operational Efficiency",
+          "Performance and Achievements ",
+          " Previous Funding/Future Funding and its Utilization",
+        ],
       };
       let id = this.props.id;
     }
     console.log(this.props.tab);
     $("#selected-field").focus();
+
+    if (this.props.unicorn.tudMark) {
+      this.setState({ marketoverview: JSON.parse(this.props.unicorn.tudMark) });
+    }
+    if (this.props.unicorn.tudStartupHighlights) {
+      this.setState({ startuphighlight: JSON.parse(this.props.unicorn.tudStartupHighlights) });
+    }
+
     this.props.check(1);
+  }
+
+  componentDidUpdate(prevProps) {
+    // When unicorn data loads asynchronously in parent, sync tudMark/tudStartupHighlights into local state
+    if (prevProps.unicorn.tudMark !== this.props.unicorn.tudMark && this.props.unicorn.tudMark) {
+      try {
+        const mark = JSON.parse(this.props.unicorn.tudMark);
+        if (Array.isArray(mark) && mark.length === 3) {
+          this.setState({ marketoverview: mark });
+        }
+      } catch (e) {
+        // ignore parse errors, keep existing state
+      }
+    }
+
+    if (prevProps.unicorn.tudStartupHighlights !== this.props.unicorn.tudStartupHighlights && this.props.unicorn.tudStartupHighlights) {
+      try {
+        const highlights = JSON.parse(this.props.unicorn.tudStartupHighlights);
+        if (Array.isArray(highlights) && highlights.length === 4) {
+          this.setState({ startuphighlight: highlights });
+        }
+      } catch (e) {
+        // ignore parse errors, keep existing state
+      }
+    }
   }
   //get form data
   // getData = (id) => {
@@ -157,6 +222,26 @@ class BasicDetails extends Component {
     this.setState({ files: [...this.state.files, ...e.target.files] });
   };
 
+  handleInputChange = (index, e) => {
+    const { name, value } = e.target;
+    const newEntries = [...this.state.marketoverview];
+    newEntries[index][name] = value;
+    this.setState({ marketoverview: newEntries });
+    if (this.props.setMultiple) {
+      this.props.setMultiple({ tudMark: JSON.stringify(newEntries) });
+    }
+  };
+
+  handleInputhighlightChange = (index, e) => {
+    const { name, value } = e.target;
+    const newEntries = [...this.state.startuphighlight];
+    newEntries[index][name] = value;
+    this.setState({ startuphighlight: newEntries });
+    if (this.props.setMultiple) {
+      this.props.setMultiple({ tudStartupHighlights: JSON.stringify(newEntries) });
+    }
+  };
+
   render() {
     return (
       <div>
@@ -245,6 +330,126 @@ class BasicDetails extends Component {
                           } //.
                         />
                       </div>
+
+                      {this.state.startuphighlight.map((item, index) => {
+                        return (
+                          <div className="form-group">
+                            <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                              {index === 0 && "Highlight #1: Revenue"}
+                              {index === 1 && "Highlight #2: Ops & Efficiency"}
+                              {index === 2 && "Highlight #3: Traction"}
+                              {index === 3 && "Highlight #4: Fundraising"}
+                              <span className="text-danger">*</span>
+                              <InfoTooltip title={
+                                index === 0 ? "Key revenue growth, monetization, or repeat customer insights." :
+                                index === 1 ? "Process improvements, team efficiency, or tech upgrades." :
+                                index === 2 ? "Milestones like users, cities served, recognitions, or partnerships." :
+                                "Share prior funding, usage, and future fundraising plan."
+                              } />
+                            </label>
+                            <>
+                            <textarea
+                              id="selected-field"
+                              cols="30"
+                              rows="6"
+                              maxLength="500"
+                              placeholder={this.state.titlestartuphigh[index]}
+                              name="content1"
+                              value={item.content1}
+                              onChange={(e) => {
+                                this.handleInputhighlightChange(index, e);
+                              }}
+                              style={{marginBottom: "5px"}}
+                            ></textarea>
+                            <div className="character-count" style={{marginBottom: "20px"}}>
+                              {`${item.content1.length}/500 characters`}
+                            </div>
+                            </>
+                          </div>
+                        );
+                      })}
+
+                      <div style={{ 
+                        backgroundColor: '#f0f8ff', 
+                        padding: '15px', 
+                        borderRadius: '5px', 
+                        marginBottom: '20px',
+                        border: '1px solid #d1ecf1',
+                        fontSize: '14px',
+                        color: '#0c5460'
+                      }}>
+                        <strong>Note:</strong> Please make sure not to leave this column empty, kindly add something related to traction, even if it's early-stage (like pilot users, waitlist signups, partnerships, or early interest).
+                      </div>
+
+                      {this.state.marketoverview.map((item, index) => {
+                        return (
+                          <div className="form-group">
+                            <label for="" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                              Market Insight {index + 1}<span className="text-danger">*</span>
+                              <InfoTooltip title={
+                                index === 0 ? "Define the gap/problem your product is solving. (Max 750 characters)" :
+                                index === 1 ? "Add supporting industry insight or demand data." :
+                                "Add trends, whitespace, or unique value angle."
+                              } />
+                            </label>
+                            <textarea
+                              id="selected-field"
+                              cols="30"
+                              rows="6"
+                              maxLength="750"
+                              name="content1"
+                              value={item.content1}
+                              onChange={(e) => {
+                                this.handleInputChange(index, e);
+                              }}
+                              style={{marginBottom: "5px"}}
+                            >
+                              {" "}
+                            </textarea>
+                            <div className="character-count" style={{marginBottom: "20px"}}>
+                              {`${item.content1.length}/750 characters`}
+                            </div>
+                          </div>
+                        );
+                      })}
+
+                      <div style={{ 
+                        backgroundColor: '#f0f8ff', 
+                        padding: '15px', 
+                        borderRadius: '5px', 
+                        marginBottom: '20px',
+                        border: '1px solid #d1ecf1',
+                        fontSize: '14px',
+                        color: '#0c5460'
+                      }}>
+                        <strong>Note:</strong> Please don't leave this section empty, make sure to include TAM, SAM, and SOM wherever possible.
+                      </div>
+
+                      <div className="form-group ">
+                          <div className="mt-4">
+                            <label className="mb-2" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                              Referred By (Name of Incubator/entity/Individual)
+                              <InfoTooltip title="If referred, mention mentor/VC/incubator name." />
+                            </label>
+                            <div style={{ fontSize: "12px", color: "#666", marginTop: "5px", marginBottom: "10px" }}>
+                              Note: If you provide a sponsor name or image, both fields become mandatory.
+                            </div>
+                            <input
+                              type="text"
+                              maxLength={100}
+                              placeholder="Name of the Sponsor / Incubator"
+                              name="tudSponsorName"
+                              value={this.props.unicorn.tudSponsorName}
+                              onChange={(e) =>
+                                this.props.onInput(e.target.name, e.target.value)
+                              }
+                            />
+                            <div className="character-count" style={{marginBottom: "20px"}}>
+                              {`${this.props.unicorn.tudSponsorName.length}/100 characters`}
+                            </div>
+                          </div>
+                        </div>
+
                       {/* <input type="file" multiple onChange={this.fileSelectedHandler} /> */}
                       <div
                         className="form-group  justify-content-between"

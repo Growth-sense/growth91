@@ -793,6 +793,37 @@ class SupportingDocuments extends Component {
                           onChange={(e) => this.onChangeMultipleFile(e)}
                         />
                       </div>
+
+                      <div className="form-group ">
+                          <div className="mt-4">
+                            <label className="mb-2" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                              Referred By (Logo)
+                              <InfoTooltip title="Upload logo of the referring entity (mandatory if name provided)." />
+                            </label>
+                            {this.props.unicorn.tudSponsorImage != "" && JSON.parse(this.props.unicorn.tudSponsorImage) != "" ? (
+                              <div>
+                                <img style={{ maxWidth: "100%", marginBottom: '10px' }} src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${JSON.parse(this.props.unicorn.tudSponsorImage)}`} />
+                                <div style={{ marginBottom: '10px' }}>
+                                  <Button 
+                                    type="primary" 
+                                    size="small" 
+                                    icon={<DeleteOutlined />}
+                                    onClick={() => this.removeFile("tudSponsorImage")}
+                                  >
+                                    Remove File
+                                  </Button>
+                                </div>
+                              </div>
+                            ) : null}
+                            <input
+                              type="file"
+                              onWheel={() => document.activeElement.blur()}
+                              name="tudSponsorImage"
+                              accept="image/*"
+                              onChange={(e) => this.onChangeMultipleFile(e)}
+                            />                      
+                          </div>
+                        </div>
                     </div>
                   </div>
                 </div>

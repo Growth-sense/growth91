@@ -1351,31 +1351,22 @@ text-align: justify;
                 {item.tudProductDeck &&
                   item.tudProductDeck != "" &&
                   JSON.parse(item.tudProductDeck) != "" && (
-                    <section>
-                      <div className="container">
-                        <div className="row">
-                          <div className="col-md-12">
-                            {/* blue bg */}
-                            <div
-                              className="shadow-lg p-5"
-                              style={{
-                                backgroundColor: "#191964",
-                                color: "white",
-                                borderRadius: "20px",
-                              }}
-                            >
-                              <h2 className="text-left text-white mb-4">
-                                Product Presentation
-                              </h2>
-                              <SinglePagePDFViewer
-                                pdf={`${process.env.REACT_APP_BASE_URL
-                                  }api/uploads/unicorndeals/${item.tudTempUdID
-                                  }/${JSON.parse(item.tudProductDeck)}`}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                    <section className="container my-5">
+                      <>
+                        <h1
+                          style={{
+                            fontSize: 32,
+                            marginBottom: 30,
+                            textAlign: "center",
+                            color: "#000",
+                          }}
+                        >
+                          Product Presentation
+                        </h1>
+                        <SinglePagePDFViewer
+                          pdf={`${process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.tudProductDeck)}`}
+                        />
+                      </>
                     </section>
                   )}
               </section>

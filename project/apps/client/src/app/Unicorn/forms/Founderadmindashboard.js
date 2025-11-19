@@ -950,44 +950,38 @@ class Founderadmindashboard extends Component {
     const isPage1FormInvalid = page1requiredFields.some(field => 
       !this.state.unicorn[field] || this.state.unicorn[field].trim() === ''
     );
-    
-    if (isPage1FormInvalid) {
+
+    const overviewInvalid = (() => {
+      try {
+        const tudMarkArray = JSON.parse(this.state.unicorn.tudMark || "[]");
+        if (!Array.isArray(tudMarkArray) || tudMarkArray.length !== 3) {
+          return true;
+        }
+        return tudMarkArray.some(item => !item.content1 || item.content1.trim() === "");
+      } catch (e) {
+        return true;
+      }
+    })();
+
+    const highlightInvalid = (() => {
+      try {
+        const tudStartupHighlightArray = JSON.parse(this.state.unicorn.tudStartupHighlights || "[]");
+        if (!Array.isArray(tudStartupHighlightArray) || tudStartupHighlightArray.length !== 4) {
+          return true;
+        }
+        return tudStartupHighlightArray.some(item => !item.content1 || item.content1.trim() === "");
+      } catch (e) {
+        return true;
+      }
+    })();
+
+    if (isPage1FormInvalid || overviewInvalid || highlightInvalid) {
       this.activeform(0);
       toast.error("Please fill Basic Details Section");
       return;
     }
-    
+
     if (
-      !this.state.unicorn.tudMark ||
-      this.state.unicorn.tudMark == "" ||
-      (() => {
-        try {
-          const tudMarkArray = JSON.parse(this.state.unicorn.tudMark);
-          // Check if it's an array with exactly 3 members
-          if (!Array.isArray(tudMarkArray) || tudMarkArray.length !== 3) {
-            return true; // validation failed
-          }
-          // Check if each member has content1 key and non-empty value
-          return tudMarkArray.some(item => !item.content1 || item.content1.trim() === "");
-        } catch (e) {
-          return true; // JSON parse failed, validation failed
-        }
-      })() ||
-      !this.state.unicorn.tudStartupHighlights ||
-      this.state.unicorn.tudStartupHighlights == "" ||
-      (() => {
-        try {
-          const tudStartupHighlightArray = JSON.parse(this.state.unicorn.tudStartupHighlights);
-          // Check if it's an array with exactly 3 members
-          if (!Array.isArray(tudStartupHighlightArray) || tudStartupHighlightArray.length !== 4) {
-            return true; // validation failed
-          }
-          // Check if each member has content1 key and non-empty value
-          return tudStartupHighlightArray.some(item => !item.content1 || item.content1.trim() === "");
-        } catch (e) {
-          return true; // JSON parse failed, validation failed
-        }
-      })() ||
       !this.state.unicorn.tudLogoImage ||
       this.state.unicorn.tudLogoImage == "" ||
       !this.state.unicorn.tudBannerImage ||
@@ -1158,37 +1152,31 @@ class Founderadmindashboard extends Component {
     // Check if required fields in step 1 (Basic Details) are filled
     const step1Valid = unicorn.tudStartupName;
 
-    const step3Valid = unicorn.tudMark && unicorn.tudStartupHighlights && unicorn.tudLogoImage && unicorn.tudBannerImage && unicorn.tudPitchDeck;
-
     const overviewInvalid = (() => {
       try {
-        const tudMarkArray = JSON.parse(this.state.unicorn.tudMark);
-        // Check if it's an array with exactly 3 members
+        const tudMarkArray = JSON.parse(this.state.unicorn.tudMark || "[]");
         if (!Array.isArray(tudMarkArray) || tudMarkArray.length !== 3) {
-          return true; // validation failed
+          return true;
         }
-        // Check if each member has content1 key and non-empty value
         return tudMarkArray.some(item => !item.content1 || item.content1.trim() === "");
       } catch (e) {
-        return true; // JSON parse failed, validation failed
+        return true;
       }
     })();
 
     const highlightInvalid = (() => {
       try {
-        const tudStartupHighlightArray = JSON.parse(this.state.unicorn.tudStartupHighlights);
-        // Check if it's an array with exactly 3 members
+        const tudStartupHighlightArray = JSON.parse(this.state.unicorn.tudStartupHighlights || "[]");
         if (!Array.isArray(tudStartupHighlightArray) || tudStartupHighlightArray.length !== 4) {
-          return true; // validation failed
+          return true;
         }
-        // Check if each member has content1 key and non-empty value
         return tudStartupHighlightArray.some(item => !item.content1 || item.content1.trim() === "");
       } catch (e) {
-        return true; // JSON parse failed, validation failed
+        return true;
       }
     })();
 
-    return step1Valid && step3Valid && !highlightInvalid && !overviewInvalid;
+    return step1Valid && !highlightInvalid && !overviewInvalid;
   };
 
   renderActiveForm = () => {
