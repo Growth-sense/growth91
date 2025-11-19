@@ -1070,5 +1070,11 @@ export default {
       api.post(URLs.updateUnicornTheme, data).then((response) => {
         return response.data;
       }),
+    GuestAnalytics: {
+      addEvent: (data) =>
+        api.post(URLs.guestAnalyticsAddEvent, data).then((response) => {
+          return response.data;
+        }),
+    },
   },
 };

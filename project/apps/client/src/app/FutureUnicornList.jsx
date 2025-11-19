@@ -9,21 +9,40 @@ import { set } from "react-ga";
 import { Button, Modal, Input } from "antd";
 import { LastUpdatedBadge } from "./components/LastUpdatedBadge";
 import { parseBannerImage } from "./helper/utilHelper.js";
+import GuestAccessModal from "./components/GuestAccessModal.jsx";
 
 export const FutureUnicornList = () => {
   const location = useLocation();
+  const [showGuestModal, setShowGuestModal] = useState(false);
 
-  useEffect(() => {
+ useEffect(() => {
+  window.scrollTo(0, 0);
+
+  // Check for sponsor filter in URL
+  const urlParams = new URLSearchParams(location.search);
+  const sponsorFilter = urlParams.get('sponsorFilter');
+  if (sponsorFilter) {
+    setFilters(prev => ({ ...prev, sponsorName: sponsorFilter }));
+  }
+}, [location.search]);
+
+useEffect(() => {
+  const investor = localStorage.getItem("investor_id");
+  const founder = localStorage.getItem("founder_id");
+  const isLoggedIn = investor || founder;
+
+  const guestUntil = localStorage.getItem("unicorn_guest_until");
+  const now = Date.now();
+  const shouldShowModal = !isLoggedIn && (!guestUntil || now > Number(guestUntil));
+
+  if (shouldShowModal) {
+    // show guest modal, do NOT call API yet
+    setShowGuestModal(true);
+  } else {
+    // logged in or valid guest → load data immediately
     getuniondata();
-    window.scrollTo(0, 0);
-
-    // Check for sponsor filter in URL
-    const urlParams = new URLSearchParams(location.search);
-    const sponsorFilter = urlParams.get('sponsorFilter');
-    if (sponsorFilter) {
-      setFilters(prev => ({ ...prev, sponsorName: sponsorFilter }));
-    }
-  }, [location.search]);
+  }
+}, []);
 
   const [unicorn, setUnicorn] = useState();
   const [filterdata, setfilterdata] = useState();
@@ -202,6 +221,20 @@ export const FutureUnicornList = () => {
 
   return (
     <div>
+      <GuestAccessModal
+      visible={showGuestModal}
+      onClose={() => {
+        setShowGuestModal(false);
+        getuniondata();           // load list after guest continues
+      }}
+    />
+    <div
+      style={{
+        filter: showGuestModal ? "blur(4px)" : "none",
+        pointerEvents: showGuestModal ? "none" : "auto",
+        transition: "filter 0.2s ease",
+      }}
+    >
       <div classname="newabout">
         <NewWebHeader newabout={"newabout"} />
       </div>
@@ -804,6 +837,7 @@ export const FutureUnicornList = () => {
         </div>
       </section>
 
+    </div>
     </div>
   );
 };

@@ -16,6 +16,8 @@ import ImageLightbox from "./components/ImageLightbox";
 import { applyTheme, GROWTH91_THEMES } from "./helper/themes";
 // ONLY IMPORT THEME CSS ON INVESTOR VIEW PAGE - NOT IN FORMS
 import "./styles/unicorn-theme.css";
+import GuestAccessModal from "./components/GuestAccessModal.jsx";
+import LoginRequiredModal from "./components/LoginRequiredModal.jsx";
 
 export const FutureUnicornDescription = (props) => {
   const settings = {
@@ -38,16 +40,45 @@ export const FutureUnicornDescription = (props) => {
   const search = useLocation().search;
   const id = props.id || new URLSearchParams(search).get("id");
   const history = useHistory();
+  const [showGuestModal, setShowGuestModal] = useState(false);
+  const [showLoginRequired, setShowLoginRequired] = useState(false);
+  const [showUpgradeNudge, setShowUpgradeNudge] = useState(false);
 
   const handleSponsorClick = (sponsorName) => {
     // Navigate to FutureUnicornList with sponsor filter
     history.push(`/FutureUnicornList?sponsorFilter=${encodeURIComponent(sponsorName)}`);
   };
-  useEffect(() => {
+useEffect(() => {
+  const investor = localStorage.getItem("investor_id");
+  const founder = localStorage.getItem("founder_id");
+  const isLoggedIn = investor || founder;
+
+  const guestUntil = localStorage.getItem("unicorn_guest_until");
+  const now = Date.now();
+  const shouldShowModal = !isLoggedIn && (!guestUntil || now > Number(guestUntil));
+
+  if (shouldShowModal) {
+    // show guest modal, do NOT call API yet
+    setShowGuestModal(true);
+  } else {
+    // logged in or valid guest session → load data immediately
     getuniondata();
     window.scrollTo(0, 0);
-  }, []);
-  console.log(id);
+  }
+}, []);
+
+const getOrCreateGuestId = () => {
+  let guestId = localStorage.getItem("unicorn_guest_id");
+  if (!guestId) {
+    guestId =
+      "g91_guest_" +
+      Date.now() +
+      "_" +
+      Math.random().toString(36).substr(2, 9);
+    localStorage.setItem("unicorn_guest_id", guestId);
+  }
+  return guestId;
+};
 
   const [showModal, setShowModal] = useState(false);
 
@@ -130,8 +161,56 @@ export const FutureUnicornDescription = (props) => {
     }
   });
   const openiamintrest = () => {
+  const investor = localStorage.getItem("investor_id");
+  const founder = localStorage.getItem("founder_id");
+  const isLoggedIn = investor || founder;
+
+  const guestUntil = localStorage.getItem("unicorn_guest_until");
+  const now = Date.now();
+  const isGuest = !isLoggedIn && guestUntil && now <= Number(guestUntil);
+
+  if (isLoggedIn) {
+    // normal behavior
     setiamintrestmodal(true);
-  };
+  } else if (isGuest) {
+    // analytics for gated click
+    try {
+      const guestID = getOrCreateGuestId();
+      const eventData = {
+        page: "FutureUnicornDescription",
+        path: window.location.pathname + window.location.search,
+        action: "im_interested",
+      };
+
+      Bridge.Unicorn.GuestAnalytics.addEvent({
+        guestID,
+        unicornDealID: id, // current unicornDealID from URL
+        eventType: "guest_attempt_gated_action",
+        eventData,
+      });
+    } catch (e) {
+      console.error("guest analytics error", e);
+    }
+
+    // guest: block action, show login required modal
+    setShowLoginRequired(true);
+
+    // progressive upgrade counter
+    const attempts =
+      Number(localStorage.getItem("unicorn_guest_gated_attempts") || "0") + 1;
+    localStorage.setItem("unicorn_guest_gated_attempts", String(attempts));
+
+    if (attempts >= 2) {
+      setShowUpgradeNudge(true);
+    }
+  } else {
+    // fully anonymous (should already see GuestAccessModal on page load),
+    // but if they reach here, also show login required
+    setShowLoginRequired(true);
+  }
+};
+
+
   const adddata = (e) => {
     if (e.target.name == "message") {
       // setdata({ ...data, [e.target.name]: [e.target.value] });
@@ -241,7 +320,29 @@ export const FutureUnicornDescription = (props) => {
   };
 
   return (
-    <div className="unicorn-themed-page" style={{ backgroundColor: "#F8F9FA" }}>
+    <>
+    <GuestAccessModal
+      visible={showGuestModal}
+      onClose={() => {
+        setShowGuestModal(false);
+        getuniondata();           // load data after guest continues
+        window.scrollTo(0, 0);
+      }}
+    />
+
+    <LoginRequiredModal
+      visible={showLoginRequired}
+      onClose={() => setShowLoginRequired(false)}
+    />
+   <div
+      className="unicorn-themed-page"
+      style={{
+        backgroundColor: "#F8F9FA",
+        filter: showGuestModal ? "blur(4px)" : "none",
+        pointerEvents: showGuestModal ? "none" : "auto",
+        transition: "filter 0.2s ease",
+      }}
+    >
       <style>
         {`
         .para-proceed label{
@@ -813,6 +914,43 @@ text-align: justify;
       <div className="newabout">
         <NewWebHeader newabout={"newabout"} />
       </div>
+
+      {showUpgradeNudge && (
+  <div
+    style={{
+      margin: "16px auto",
+      maxWidth: "900px",
+      padding: "12px 16px",
+      borderRadius: "8px",
+      background: "#fff7e6",
+      border: "1px solid #ffd591",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      gap: 12,
+    }}
+  >
+    <div style={{ fontSize: 14 }}>
+      <strong>Browse as guest —</strong> sign in to express interest, save
+      profiles, and get personalised updates.
+    </div>
+    <button
+      style={{
+        border: "none",
+        borderRadius: "4px",
+        padding: "6px 12px",
+        background: "#ff6b35",
+        color: "#fff",
+        fontSize: 13,
+        cursor: "pointer",
+        whiteSpace: "nowrap",
+      }}
+      onClick={() => history.push("/Login")}
+    >
+      Sign in / Sign up
+    </button>
+  </div>
+)}
 
       {unicorn &&
         unicorn
@@ -1566,5 +1704,6 @@ text-align: justify;
       <ToastContainer />
       <NewWebFooter />
     </div>
+    </>
   );
 };

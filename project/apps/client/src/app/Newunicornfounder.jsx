@@ -6,12 +6,14 @@ import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
 import Bridge from './constants/Bridge';
 import { ViewPlan } from './Unicorn/ViewPlan';
 import { LastUpdatedBadge } from './components/LastUpdatedBadge';
+import GuestAccessModal from './components/GuestAccessModal';
 
 const Newunicornfounder = () => {
   const [filteredData, setfilterdata] = useState();
   const [displayedItems, setDisplayedItems] = useState([]);
   const [screenSize, setScreenSize] = useState('desktop');
   const [hasMoreItems, setHasMoreItems] = useState(false);
+  const [showGuestModal, setShowGuestModal] = useState(false);
 
   // Create stable random selections for tags (random on page load, stable during session)
   const randomTagSelections = useMemo(() => {
@@ -31,6 +33,22 @@ const Newunicornfounder = () => {
 
     return randomTagSelections[itemId];
   };
+
+  useEffect(() => {
+    const investor = localStorage.getItem("investor_id");
+    const founder = localStorage.getItem("founder_id");
+    const isLoggedIn = investor || founder;
+
+    const guestUntil = localStorage.getItem("unicorn_guest_until");
+    const now = Date.now();
+    const shouldShowModal = !isLoggedIn && (!guestUntil || now > Number(guestUntil));
+
+    if (shouldShowModal) {
+      setShowGuestModal(true);
+    } else {
+      getuniondata();
+    }
+  }, []);
 
   // Function to detect screen size and determine items per page
   const getItemsPerPage = (availableItemsCount = 0) => {
@@ -119,12 +137,14 @@ const Newunicornfounder = () => {
   }, [filteredData]);
 
   function getuniondata() {
+    console.log("ttttt getuniondata");
     let params = {
       page: 0,
       udPublished: "Published",
       pagesize: 10,
     };
     Bridge.Unicorn.unicorndealsByInvestors(params).then((result) => {
+      console.log("ttttt api called");
       // from result.data only select where isHighlighted is true
       let filtered = result.data.filter((item) => item.isHighlighted == true);
       setfilterdata(filtered);
@@ -132,12 +152,25 @@ const Newunicornfounder = () => {
     });
   }
 
-  useEffect(() => {
-    getuniondata();
-  }, []);
+
 
   return (
     <div>
+      <GuestAccessModal
+        visible={showGuestModal}
+        onClose={() => {
+          console.log("ttttt modal closed");
+          setShowGuestModal(false);
+          getuniondata();        // always call when modal closes
+        }}
+      />
+      <div
+        style={{
+          filter: showGuestModal ? "blur(4px)" : "none",
+          pointerEvents: showGuestModal ? "none" : "auto",
+          transition: "filter 0.2s ease",
+        }}
+      >
       <style>
         {`
                    
@@ -1329,6 +1362,7 @@ const Newunicornfounder = () => {
         </div>
       </section>
       <NewWebFooter />
+    </div>
     </div>
   );
 };

@@ -295,7 +295,9 @@ const URLs = {
   addOfflinePayment: "founder/Startup/record_unicorn_payment_offline",
   toggle_unicorn_highlight: "founder/Startup/toggle_unicorn_highlight",
   getUnicornTheme: "founder/Startup/getUnicornTheme",
-  updateUnicornTheme: "founder/Startup/updateUnicornTheme"
+  updateUnicornTheme: "founder/Startup/updateUnicornTheme",
+  // guest analytics
+  guestAnalyticsAddEvent: "founder/Startup/add_guest_analytics_event",
 };
 
 export default URLs;

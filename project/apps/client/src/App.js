@@ -315,13 +315,9 @@ function App() {
 
           <Route path="/FamilyDashboard" exact component={FamilyDashboard} />
           <Route path="/Preview" exact component={Preview} />
-          <Route path="/FutureUnicornList" exact  >
-            <ProtectUnicorn Component2={FutureUnicornList}   Conditon={true} />
-            </Route>
-          <Route path="/FutureUnicornDescription" exact  >
-            <ProtectUnicorn Component2={FutureUnicornDescription}   Conditon={true} />
-            </Route>
-          <Route path="/FutureUnicornForm" exact  >
+          <Route path="/FutureUnicornList" exact component={FutureUnicornList} />
+          <Route path="/FutureUnicornDescription" exact  component={FutureUnicornDescription} />
+          <Route path="/FutureUnicornForm" exact  component={FutureUnicornForm} >
             <ProtectUnicorn Component2={FutureUnicornForm}   Conditon={true} />
             </Route>
           <Route path="/InformationList" exact  >
@@ -427,9 +423,9 @@ function App() {
           <Route path="/family-Remove-Request" exact component={familyRemoveRequest} />
           <Route path="/admin-family-manage" exact component={Familymanage} />
           <Route path="/future-unicorn-startups" exact component={FUnicornStartup} />
-          <Route path="/FutureUnicorn" exact  >
-            <ProtectUnicorn Component2={FutureUnicorn}   Conditon={true} />
-            </Route>
+          <Route path="/FutureUnicorn" exact component={FutureUnicorn}  />
+            {/* <ProtectUnicorn Component2={FutureUnicorn}   Conditon={true} />
+            </Route> */}
           <Route path="/future-unicorn-investors" exact component={FUnicornInvestors} />
           <Route path="/future-unicorn-founders" exact component={FUnicornFounders} />
 

@@ -2926,5 +2926,62 @@ class Startup extends CI_Controller {
     }
 
 
+	// Record guest analytics event
+function add_guest_analytics_event() {
+    header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+    header("Access-Control-Allow-Headers: access");
+    header("Content-Type: application/json; charset=UTF-8");
+    header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
+    $formdata = json_decode(file_get_contents('php://input'), true);
+
+    if (!empty($formdata) && !empty($formdata['guestID']) && !empty($formdata['eventType'])) {
+        $guestID       = $formdata['guestID'];
+        $unicornDealID = !empty($formdata['unicornDealID']) ? $formdata['unicornDealID'] : null;
+        $eventType     = $formdata['eventType'];
+        $eventDataRaw  = isset($formdata['eventData']) ? $formdata['eventData'] : null;
+
+        // Ensure eventData is stored as JSON string if array/object
+        if (is_array($eventDataRaw) || is_object($eventDataRaw)) {
+            $eventData = json_encode($eventDataRaw);
+        } else {
+            $eventData = $eventDataRaw; // already string or null
+        }
+
+        $post_data = array(
+            'gaGuestID'       => $guestID,
+            'gaUnicornDealID' => $unicornDealID,
+            'gaEventType'     => $eventType,
+            'gaEventData'     => $eventData,
+            // gaEventDate column can use DEFAULT CURRENT_TIMESTAMP
+        );
+
+        $this->db->insert('guest_analytics', $post_data);
+        $insertId = $this->db->insert_id();
+
+        if ($insertId) {
+            $response = array(
+                'status'  => '1',
+                'message' => 'Guest analytics event saved.',
+                'id'      => $insertId,
+            );
+        } else {
+            $response = array(
+                'status'  => '0',
+                'message' => 'Failed to save guest analytics event.',
+            );
+        }
+    } else {
+        $response = array(
+            'status'  => '0',
+            'message' => 'guestID and eventType are required.',
+        );
+    }
+
+    $this->output
+        ->set_content_type('application/json')
+        ->set_output(json_encode($response));
+}
+
 
 }

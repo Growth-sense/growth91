@@ -6,12 +6,14 @@ import { Link as NewLINK } from 'react-router-dom/cjs/react-router-dom.min';
 import Bridge from './constants/Bridge';
 import { LastUpdatedBadge } from './components/LastUpdatedBadge';
 import { parseBannerImage } from './helper/utilHelper.js';
+import GuestAccessModal from "./components/GuestAccessModal.jsx";
 
 const NewFutureUnicorn = () => {
   const [filteredData, setfilterdata] = useState([]);
   const [displayedItems, setDisplayedItems] = useState([]);
   const [screenSize, setScreenSize] = useState('desktop');
   const [hasMoreItems, setHasMoreItems] = useState(false);
+  const [showGuestModal, setShowGuestModal] = useState(false);
 
   // Create stable random selections for tags (random on page load, stable during session)
   const randomTagSelections = useMemo(() => {
@@ -31,6 +33,22 @@ const NewFutureUnicorn = () => {
 
     return randomTagSelections[itemId];
   };
+
+      useEffect(() => {
+    const investor = localStorage.getItem("investor_id");
+    const founder = localStorage.getItem("founder_id");
+    const isLoggedIn = investor || founder;
+
+    const guestUntil = localStorage.getItem("unicorn_guest_until");
+    const now = Date.now();
+    const shouldShowModal = !isLoggedIn && (!guestUntil || now > Number(guestUntil));
+
+    if (shouldShowModal) {
+      setShowGuestModal(true);
+    } else {
+      getuniondata();
+    }
+  }, []);
 
   // Function to detect screen size and determine items per page
   const getItemsPerPage = (availableItemsCount = 0) => {
@@ -116,12 +134,23 @@ const NewFutureUnicorn = () => {
     });
   }
 
-  useEffect(() => {
-    getuniondata();
-  }, []);
 
   return (
     <div>
+     <GuestAccessModal
+       visible={showGuestModal}
+       onClose={() => {
+         setShowGuestModal(false);
+         getuniondata();        // call API once guest continues or logs in
+       }}
+     />
+      <div
+        style={{
+          filter: showGuestModal ? "blur(4px)" : "none",
+          pointerEvents: showGuestModal ? "none" : "auto",
+          transition: "filter 0.2s ease",
+        }}
+      >
       <style>
         {`
                    
@@ -1081,6 +1110,7 @@ const NewFutureUnicorn = () => {
       </section>
       <NewWebFooter />
 
+    </div>
     </div>
   );
 };
