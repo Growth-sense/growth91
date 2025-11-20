@@ -1,16 +1,16 @@
-import React, { useEffect, useState, useMemo } from 'react';
-import { NewWebFooter } from './common/NewWebFooter';
-import NewWebHeader from './common/NewWebHeader';
-import { Link } from '@material-ui/core';
-import { Link as NewLINK } from 'react-router-dom/cjs/react-router-dom.min';
-import Bridge from './constants/Bridge';
-import { LastUpdatedBadge } from './components/LastUpdatedBadge';
-import { parseBannerImage } from './helper/utilHelper.js';
+import React, { useEffect, useState, useMemo } from "react";
+import { NewWebFooter } from "./common/NewWebFooter";
+import NewWebHeader from "./common/NewWebHeader";
+import { Link } from "@material-ui/core";
+import { Link as NewLINK } from "react-router-dom/cjs/react-router-dom.min";
+import Bridge from "./constants/Bridge";
+import { LastUpdatedBadge } from "./components/LastUpdatedBadge";
+import { parseBannerImage } from "./helper/utilHelper.js";
 
 const NewFutureUnicorn = () => {
   const [filteredData, setfilterdata] = useState([]);
   const [displayedItems, setDisplayedItems] = useState([]);
-  const [screenSize, setScreenSize] = useState('desktop');
+  const [screenSize, setScreenSize] = useState("desktop");
   const [hasMoreItems, setHasMoreItems] = useState(false);
 
   // Create stable random selections for tags (random on page load, stable during session)
@@ -23,9 +23,15 @@ const NewFutureUnicorn = () => {
     const itemId = item.udID || item.tudTempUdID || Math.random();
 
     if (!randomTagSelections[itemId]) {
-      const tags = item.udTag ? item.udTag.split(",").map(tag => tag.trim()).filter(tag => tag) : [];
+      const tags = item.udTag
+        ? item.udTag
+            .split(",")
+            .map((tag) => tag.trim())
+            .filter((tag) => tag)
+        : [];
       if (tags.length > 0) {
-        randomTagSelections[itemId] = tags[Math.floor(Math.random() * tags.length)];
+        randomTagSelections[itemId] =
+          tags[Math.floor(Math.random() * tags.length)];
       }
     }
 
@@ -42,27 +48,27 @@ const NewFutureUnicorn = () => {
     // Determine columns and screen type based on screen size
     if (width >= 1440) {
       columns = 4;
-      screenType = 'desktop';
+      screenType = "desktop";
     } else if (width >= 1200) {
       columns = 4;
-      screenType = 'large-laptop';
+      screenType = "large-laptop";
     } else if (width >= 1024) {
       columns = 3;
-      screenType = 'laptop';
+      screenType = "laptop";
     } else if (width >= 992) {
       columns = 3;
-      screenType = 'large-tablet';
+      screenType = "large-tablet";
     } else if (width >= 768) {
       columns = 2;
-      screenType = 'tablet';
+      screenType = "tablet";
       rowsToShow = 3; // Show 3 rows on tablet
     } else if (width >= 576) {
       columns = 2;
-      screenType = 'large-mobile';
+      screenType = "large-mobile";
       rowsToShow = 3; // Show 3 rows on large mobile
     } else {
       columns = 1;
-      screenType = 'mobile';
+      screenType = "mobile";
       rowsToShow = 6; // Show 6 rows on mobile
     }
 
@@ -83,12 +89,21 @@ const NewFutureUnicorn = () => {
     const itemsToShow = getItemsPerPage(data.length);
     setDisplayedItems(data.slice(0, itemsToShow));
     setHasMoreItems(data.length > itemsToShow);
-    setScreenSize(window.innerWidth >= 1440 ? 'desktop' :
-      window.innerWidth >= 1200 ? 'large-laptop' :
-        window.innerWidth >= 1024 ? 'laptop' :
-          window.innerWidth >= 992 ? 'large-tablet' :
-            window.innerWidth >= 768 ? 'tablet' :
-              window.innerWidth >= 576 ? 'large-mobile' : 'mobile');
+    setScreenSize(
+      window.innerWidth >= 1440
+        ? "desktop"
+        : window.innerWidth >= 1200
+        ? "large-laptop"
+        : window.innerWidth >= 1024
+        ? "laptop"
+        : window.innerWidth >= 992
+        ? "large-tablet"
+        : window.innerWidth >= 768
+        ? "tablet"
+        : window.innerWidth >= 576
+        ? "large-mobile"
+        : "mobile"
+    );
   };
 
   useEffect(() => {
@@ -98,8 +113,8 @@ const NewFutureUnicorn = () => {
       }
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, [filteredData]);
 
   function getuniondata() {
@@ -588,12 +603,12 @@ const NewFutureUnicorn = () => {
                     }
                     
                     .card-bottom-container {
-                        padding: 12px 15px 15px 15px;
-                        flex-direction: row;
-                        gap: 8px;
-                        align-items: center;
-                        justify-content: space-between;
-                    }
+    padding: 12px 15px 15px 15px;
+    flex-direction: column;      /* badges on row 1, bottom row on row 2 */
+    gap: 8px;
+    align-items: flex-start;     /* left-align badges */
+    justify-content: flex-start; /* don’t spread vertically */
+  }
                     
                     .community-paragraph-box ul li h5 {
                         font-size: 0.95em;
@@ -636,14 +651,13 @@ const NewFutureUnicorn = () => {
                         padding: 3px 6px;
                     }
 
-                    /* Ensure button layout is consistent on very small screens */
-                    .card-bottom-container {
-                        padding: 10px 15px 15px 15px;
-                        flex-direction: row;
-                        gap: 6px;
-                        align-items: center;
-                        justify-content: space-between;
-                    }
+                      .card-bottom-container {
+    padding: 10px 15px 15px 15px;
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
 
                     /* Slightly smaller button on very small screens but same style */
                     .btn-com {
@@ -750,15 +764,19 @@ const NewFutureUnicorn = () => {
                   <div className="item">
                     <div className="row align-items-center">
                       <div className="col-lg-6 col-xl-24 col-sm-24">
-                        <div className="left-content" style={{ textAlign: "center" }}>
+                        <div
+                          className="left-content"
+                          style={{ textAlign: "center" }}
+                        >
                           <h2 className="wow fadeInUp " data-wow-delay="0.3s">
                             Future Unicorns
-
                           </h2>
-                          <span className="text-white " style={{ fontSize: "1.5em" }}>
-                            Connecting innovative startups with visionary investors on Growth91 platform.
-
-
+                          <span
+                            className="text-white "
+                            style={{ fontSize: "1.5em" }}
+                          >
+                            Connecting innovative startups with visionary
+                            investors on Growth91 platform.
                           </span>
                           {/* <ul className="text-white">
                                                     <li><a href="Howitworks.html" className=""><span><img src="./web/images/hand-index.svg" width="24" alt="img"/> </span><u>How do i invest?</u></a></li>
@@ -774,7 +792,6 @@ const NewFutureUnicorn = () => {
                             data-wow-delay="0.7s"
                           >
                             <div className="form-wraper justify-content-center">
-
                               {/* <a
                                     href="/synergy-form"
                                     className="theme-btn "
@@ -782,8 +799,12 @@ const NewFutureUnicorn = () => {
                                   >
                                     Let's Connect
                                   </a> */}
-                              <NewLINK to="FutureUnicornList" class="theme-btn center-btn"  >Explore Investments</NewLINK>
-
+                              <NewLINK
+                                to="FutureUnicornList"
+                                class="theme-btn center-btn"
+                              >
+                                Explore Investments
+                              </NewLINK>
                             </div>
                           </form>
                         </div>
@@ -793,7 +814,11 @@ const NewFutureUnicorn = () => {
                           className="right-side-images wow fadeInRight"
                           data-wow-delay="0.6s"
                         >
-                          <img src="./web/images/unicorn.webp" class="unicorn-img" alt="img" />
+                          <img
+                            src="./web/images/unicorn.webp"
+                            class="unicorn-img"
+                            alt="img"
+                          />
                         </div>
                       </div>
                     </div>
@@ -805,8 +830,6 @@ const NewFutureUnicorn = () => {
         </div>
       </section>
 
-
-
       <div class="heading-title founder-text">
         <p>
           <span></span>{" "}
@@ -814,13 +837,19 @@ const NewFutureUnicorn = () => {
         <h2>Unicorn Spotlight</h2>
       </div>
       {/* I want below div to be only covering 80% width */}
-      <div className='row justify-content-center'>
+      <div className="row justify-content-center">
         <div className="card-container">
           <div className="cards-grid">
             {displayedItems && displayedItems.length > 0 ? (
               displayedItems.map((item, index) => (
-                <div key={index} className="grid-card-item"
-                  onClick={() => { window.location.assign(`/FutureUnicornDescription?id=${item.unicornDealID}`) }}
+                <div
+                  key={index}
+                  className="grid-card-item"
+                  onClick={() => {
+                    window.location.assign(
+                      `/FutureUnicornDescription?id=${item.unicornDealID}`
+                    );
+                  }}
                 >
                   <div
                     className="community-all-contents"
@@ -830,26 +859,35 @@ const NewFutureUnicorn = () => {
                       flexDirection: "column",
                       height: "100%",
                       position: "relative",
-                      cursor: "pointer"
+                      cursor: "pointer",
                     }}
                     onMouseOver={(e) => {
                       e.currentTarget.style.transform = "scale(1.05)";
-                      e.currentTarget.style.backgroundColor = "rgba(240, 240, 240, 0.8)";
+                      e.currentTarget.style.backgroundColor =
+                        "rgba(240, 240, 240, 0.8)";
                       e.currentTarget.style.zIndex = "100";
                       // Make all child sections transparent to show parent background
-                      const paragraphBoxes = e.currentTarget.querySelectorAll('.community-paragraph-box');
-                      paragraphBoxes.forEach(box => {
-                        box.style.backgroundColor = 'transparent';
+                      const paragraphBoxes = e.currentTarget.querySelectorAll(
+                        ".community-paragraph-box"
+                      );
+                      paragraphBoxes.forEach((box) => {
+                        box.style.backgroundColor = "transparent";
                       });
-                      const cardBottomContainers = e.currentTarget.querySelectorAll('.card-bottom-container');
-                      cardBottomContainers.forEach(box => {
-                        box.style.backgroundColor = 'transparent';
+                      const cardBottomContainers =
+                        e.currentTarget.querySelectorAll(
+                          ".card-bottom-container"
+                        );
+                      cardBottomContainers.forEach((box) => {
+                        box.style.backgroundColor = "transparent";
                       });
                       // Also update View More button
-                      const viewMoreBtn = e.currentTarget.querySelector('.btn-com');
+                      const viewMoreBtn =
+                        e.currentTarget.querySelector(".btn-com");
                       if (viewMoreBtn) {
-                        viewMoreBtn.style.backgroundColor = "rgba(240, 240, 240, 0.8)";
-                        viewMoreBtn.style.borderColor = "rgba(240, 240, 240, 0.8)";
+                        viewMoreBtn.style.backgroundColor =
+                          "rgba(240, 240, 240, 0.8)";
+                        viewMoreBtn.style.borderColor =
+                          "rgba(240, 240, 240, 0.8)";
                       }
                     }}
                     onMouseOut={(e) => {
@@ -857,16 +895,22 @@ const NewFutureUnicorn = () => {
                       e.currentTarget.style.backgroundColor = "white";
                       e.currentTarget.style.zIndex = "1";
                       // Reset all child sections
-                      const paragraphBoxes = e.currentTarget.querySelectorAll('.community-paragraph-box');
-                      paragraphBoxes.forEach(box => {
-                        box.style.backgroundColor = '';
+                      const paragraphBoxes = e.currentTarget.querySelectorAll(
+                        ".community-paragraph-box"
+                      );
+                      paragraphBoxes.forEach((box) => {
+                        box.style.backgroundColor = "";
                       });
-                      const cardBottomContainers = e.currentTarget.querySelectorAll('.card-bottom-container');
-                      cardBottomContainers.forEach(box => {
-                        box.style.backgroundColor = '';
+                      const cardBottomContainers =
+                        e.currentTarget.querySelectorAll(
+                          ".card-bottom-container"
+                        );
+                      cardBottomContainers.forEach((box) => {
+                        box.style.backgroundColor = "";
                       });
                       // Reset View More button
-                      const viewMoreBtn = e.currentTarget.querySelector('.btn-com');
+                      const viewMoreBtn =
+                        e.currentTarget.querySelector(".btn-com");
                       if (viewMoreBtn) {
                         viewMoreBtn.style.backgroundColor = "";
                         viewMoreBtn.style.borderColor = "";
@@ -874,70 +918,15 @@ const NewFutureUnicorn = () => {
                     }}
                   >
                     <div className="img-community-box">
-                      {/* Badge Container - Top-left corner */}
-                      <div style={{
-                        position: "absolute",
-                        top: "12px",
-                        left: "12px",
-                        display: "flex",
-                        gap: "8px",
-                        zIndex: "10",
-                        maxWidth: "calc(100% - 24px)",
-                        flexWrap: "wrap"
-                      }}>
-                        {/* Stage Badge (Compulsory) */}
-                        {item.udStage && (
-                          <span style={{
-                            backgroundColor: "rgba(255, 255, 255, 0.9)",
-                            color: "#333333",
-                            padding: "3px 8px",
-                            borderRadius: "16px",
-                            fontSize: "12px",
-                            fontWeight: "600",
-                            border: "1px solid rgba(255, 255, 255, 0.3)",
-                            backdropFilter: "blur(4px)"
-                          }}>
-                            {item.udStage}
-                          </span>
-                        )}
-
-                        {/* Sector Badge (Compulsory) */}
-                        {item.udCategory && (
-                          <span style={{
-                            backgroundColor: "rgba(255, 255, 255, 0.9)",
-                            color: "#333333",
-                            padding: "3px 8px",
-                            borderRadius: "16px",
-                            fontSize: "12px",
-                            fontWeight: "600",
-                            border: "1px solid rgba(255, 255, 255, 0.3)",
-                            backdropFilter: "blur(4px)"
-                          }}>
-                            {item.udCategory}
-                          </span>
-                        )}
-
-                        {/* Optional Tag Badge */}
-                        {item.udTag && item.udTag !== "None" && getRandomTag(item) && (
-                          <span style={{
-                            backgroundColor: "rgba(255, 255, 255, 0.9)",
-                            color: "#333333",
-                            padding: "3px 8px",
-                            borderRadius: "12px",
-                            fontSize: "12px",
-                            fontWeight: "600",
-                            border: "1px solid rgba(255, 255, 255, 0.3)",
-                            backdropFilter: "blur(4px)"
-                          }}>
-                            {getRandomTag(item)}
-                          </span>
-                        )}
-                      </div>
-
                       <img
                         src={
                           (item.udBannerImage &&
-                            `${process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.udBannerImage)}`) ||
+                            `${
+                              process.env.REACT_APP_IMAGE_BASE_URL ||
+                              process.env.REACT_APP_BASE_URL
+                            }api/uploads/unicorndeals/${
+                              item.tudTempUdID
+                            }/${JSON.parse(item.udBannerImage)}`) ||
                           "https://growth91.com/api/uploads/deal/banner/34/1719999515.jpg"
                         }
                         alt="Banner"
@@ -949,7 +938,12 @@ const NewFutureUnicorn = () => {
                           <img
                             src={
                               (item.udLogoImage &&
-                                `${process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.udLogoImage)}`) ||
+                                `${
+                                  process.env.REACT_APP_IMAGE_BASE_URL ||
+                                  process.env.REACT_APP_BASE_URL
+                                }api/uploads/unicorndeals/${
+                                  item.tudTempUdID
+                                }/${JSON.parse(item.udLogoImage)}`) ||
                               "https://growth91.com/api/uploads/deal/logo/34/1719999515.jpg"
                             }
                             alt="Logo"
@@ -957,26 +951,44 @@ const NewFutureUnicorn = () => {
                           <h5>{item.udStartupName}</h5>
                         </li>
                       </ul>
-                      <p style={{
-                        WebkitLineClamp: 3,
-                        WebkitBoxOrient: "vertical",
-                        overflow: "hidden",
-                        display: "-webkit-box",
-                      }}>{item.udDealDescription}</p>
+                      <p
+                        style={{
+                          WebkitLineClamp: 3,
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden",
+                          display: "-webkit-box",
+                        }}
+                      >
+                        {item.udDealDescription}
+                      </p>
                     </div>
                     <div
                       className="community-paragraph-box card-bottom-container"
+                      style={{ display: "block", width: "100%" }}
                     >
-                      <Link
-                        onClick={() => { window.location.replace(`/FutureUnicornDescription?id=${item.unicornDealID}`) }}
-                        // to={`/FutureUnicornDescription?id=${item.unicornDealID}`}
-                        className="btn-com"
+                      <div
+                        style={{
+                          display: "flex",
+                          width: "100%",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
                       >
-                        View More
-                      </Link>
+                        <Link
+                          onClick={() => {
+                            window.location.replace(
+                              `/FutureUnicornDescription?id=${item.unicornDealID}`
+                            );
+                          }}
+                          className="btn-com"
+                        >
+                          View More
+                        </Link>
 
-                      {/* Last Updated Badge */}
-                      <LastUpdatedBadge udPublishedDate={item.udPublishedDate} />
+                        <LastUpdatedBadge
+                          udPublishedDate={item.udPublishedDate}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -998,7 +1010,9 @@ const NewFutureUnicorn = () => {
               border: "none",
               transition: "all 0.3s ease",
             }}
-            onClick={() => { window.location.replace("/FutureUnicornList") }}
+            onClick={() => {
+              window.location.replace("/FutureUnicornList");
+            }}
           >
             Explore all
           </button>
@@ -1007,15 +1021,7 @@ const NewFutureUnicorn = () => {
 
       {/* Why to list section */}
 
-
       {/* Key Features Section */}
-
-
-
-
-
-
-
 
       <div className="key-features ">
         {/* <h2>Key Features</h2> */}
@@ -1030,34 +1036,44 @@ const NewFutureUnicorn = () => {
             <div className="feature-item-number">1</div>
             <div className="feature-description">
               <h3>Startup Submission Form</h3>
-              <p>Intuitive interface for founders to submit company details and documentation.</p>
+              <p>
+                Intuitive interface for founders to submit company details and
+                documentation.
+              </p>
             </div>
           </div>
           <div className="feature-item">
             <div className="feature-item-number">2</div>
             <div className="feature-description">
               <h3>Startup Directory</h3>
-              <p>Searchable database with detailed profiles and industry insights.</p>
+              <p>
+                Searchable database with detailed profiles and industry
+                insights.
+              </p>
             </div>
           </div>
           <div className="feature-item">
             <div className="feature-item-number">3</div>
             <div className="feature-description">
               <h3>Investor Dashboard</h3>
-              <p>Personalized recommendations and notifications for new investment opportunities.</p>
+              <p>
+                Personalized recommendations and notifications for new
+                investment opportunities.
+              </p>
             </div>
           </div>
           <div className="feature-item">
             <div className="feature-item-number">4</div>
             <div className="feature-description">
               <h3>Security and Compliance</h3>
-              <p>Robust data protection and thorough startup verification process.</p>
+              <p>
+                Robust data protection and thorough startup verification
+                process.
+              </p>
             </div>
           </div>
         </div>
       </div>
-
-
 
       <section class="custom-section">
         <div class="join-section join-sec-yellow join-sec-white undefined join-divide mobile-join">
@@ -1080,7 +1096,6 @@ const NewFutureUnicorn = () => {
         </div>
       </section>
       <NewWebFooter />
-
     </div>
   );
 };

@@ -12,16 +12,15 @@ import { parseBannerImage } from "./helper/utilHelper.js";
 
 export const FutureUnicornList = () => {
   const location = useLocation();
-
   useEffect(() => {
     getuniondata();
     window.scrollTo(0, 0);
 
     // Check for sponsor filter in URL
     const urlParams = new URLSearchParams(location.search);
-    const sponsorFilter = urlParams.get('sponsorFilter');
+    const sponsorFilter = urlParams.get("sponsorFilter");
     if (sponsorFilter) {
-      setFilters(prev => ({ ...prev, sponsorName: sponsorFilter }));
+      setFilters((prev) => ({ ...prev, sponsorName: sponsorFilter }));
     }
   }, [location.search]);
 
@@ -39,9 +38,13 @@ export const FutureUnicornList = () => {
     const itemId = item.udID || item.tudTempUdID || Math.random();
 
     if (!randomTagSelections[itemId]) {
-      const tags = item.udTag.split(",").map(tag => tag.trim()).filter(tag => tag);
+      const tags = item.udTag
+        .split(",")
+        .map((tag) => tag.trim())
+        .filter((tag) => tag);
       if (tags.length > 0) {
-        randomTagSelections[itemId] = tags[Math.floor(Math.random() * tags.length)];
+        randomTagSelections[itemId] =
+          tags[Math.floor(Math.random() * tags.length)];
       }
     }
 
@@ -67,7 +70,7 @@ export const FutureUnicornList = () => {
     category: "",
     stage: "",
     founder: "",
-    sponsorName: ""
+    sponsorName: "",
   });
 
   function SimpleNextArrow(props) {
@@ -164,38 +167,59 @@ export const FutureUnicornList = () => {
   };
 
   function filterData(data, filters, searchQuery) {
-
     if (!data) return [];
 
     if (data) {
-
       let filteredResults = data.filter((obj) => {
+        const matchesCategory = filters.category
+          ? obj.udCategory === filters.category
+          : true;
+        const matchesStartupName = filters.startupName
+          ? obj.udStartupName === filters.startupName
+          : true;
+        const matchesFounder = filters.founder
+          ? obj.udStartupFounderName === filters.founder
+          : true;
+        const matchesSponsor = filters.sponsorName
+          ? obj.udSponsorName === filters.sponsorName
+          : true;
+        const matchesStage = filters.stage
+          ? obj.udStage === filters.stage
+          : true;
 
-        const matchesCategory = filters.category ? obj.udCategory === filters.category : true;
-        const matchesStartupName = filters.startupName ? obj.udStartupName === filters.startupName : true;
-        const matchesFounder = filters.founder ? obj.udStartupFounderName === filters.founder : true;
-        const matchesSponsor = filters.sponsorName ? obj.udSponsorName === filters.sponsorName : true;
-        const matchesStage = filters.stage ? obj.udStage === filters.stage : true;
-
-        return matchesCategory && matchesStartupName && matchesFounder && matchesSponsor && matchesStage;
-
+        return (
+          matchesCategory &&
+          matchesStartupName &&
+          matchesFounder &&
+          matchesSponsor &&
+          matchesStage
+        );
       });
 
-      if (!filters.category && !filters.startupName && !filters.founder && !filters.sponsorName && !filters.stage) {
+      if (
+        !filters.category &&
+        !filters.startupName &&
+        !filters.founder &&
+        !filters.sponsorName &&
+        !filters.stage
+      ) {
         filteredResults = [...data];
       }
 
       if (searchQuery) {
         const lowerSearch = searchQuery.toLowerCase();
         filteredResults = filteredResults.filter((obj) =>
-          ["udStartupName", "udStartupFounderName", "udCategory", "udDealDescription", "udSponsorName"].some(
-            (key) => obj[key]?.toLowerCase().includes(lowerSearch)
-          )
+          [
+            "udStartupName",
+            "udStartupFounderName",
+            "udCategory",
+            "udDealDescription",
+            "udSponsorName",
+          ].some((key) => obj[key]?.toLowerCase().includes(lowerSearch))
         );
       }
 
       return filteredResults;
-
     }
   }
   const filteredData = filterData(unicorn, filters, searchQuery);
@@ -463,16 +487,19 @@ export const FutureUnicornList = () => {
               onCancel={() => setShowModal(false)} // Use `onCancel` to close the modal
               centered
               footer={[
-                <Button key="back" onClick={() => {
-                  setFilters({
-                    startupName: "",
-                    category: "",
-                    stage: "",
-                    founder: "",
-                    sponsorName: ""
-                  });
-                  setShowModal(false)
-                }}>
+                <Button
+                  key="back"
+                  onClick={() => {
+                    setFilters({
+                      startupName: "",
+                      category: "",
+                      stage: "",
+                      founder: "",
+                      sponsorName: "",
+                    });
+                    setShowModal(false);
+                  }}
+                >
                   Reset
                 </Button>,
                 <Button
@@ -499,16 +526,19 @@ export const FutureUnicornList = () => {
                   >
                     <option value="">--Select--</option>
                     {filterdata &&
-                      [...new Set(filterdata
-                        .filter(item => item.udStartupName)
-                        .map(item => item.udStartupName))]
+                      [
+                        ...new Set(
+                          filterdata
+                            .filter((item) => item.udStartupName)
+                            .map((item) => item.udStartupName)
+                        ),
+                      ]
                         .sort()
                         .map((name, index) => (
                           <option key={index} value={name}>
                             {name}
                           </option>
-                        ))
-                    }
+                        ))}
                   </select>
                 </div>
                 <div className="mb-3">
@@ -523,16 +553,19 @@ export const FutureUnicornList = () => {
                   >
                     <option value="">--Select--</option>
                     {filterdata &&
-                      [...new Set(filterdata
-                        .filter(item => item.udCategory)
-                        .map(item => item.udCategory))]
+                      [
+                        ...new Set(
+                          filterdata
+                            .filter((item) => item.udCategory)
+                            .map((item) => item.udCategory)
+                        ),
+                      ]
                         .sort()
                         .map((category, index) => (
                           <option key={index} value={category}>
                             {category}
                           </option>
-                        ))
-                    }
+                        ))}
                   </select>
                 </div>
                 <div className="mb-3">
@@ -547,16 +580,19 @@ export const FutureUnicornList = () => {
                   >
                     <option value="">--Select--</option>
                     {filterdata &&
-                      [...new Set(filterdata
-                        .filter(item => item.udStage)
-                        .map(item => item.udStage))]
+                      [
+                        ...new Set(
+                          filterdata
+                            .filter((item) => item.udStage)
+                            .map((item) => item.udStage)
+                        ),
+                      ]
                         .sort()
                         .map((stage, index) => (
                           <option key={index} value={stage}>
                             {stage}
                           </option>
-                        ))
-                    }
+                        ))}
                   </select>
                 </div>
                 <div className="mb-3">
@@ -571,22 +607,23 @@ export const FutureUnicornList = () => {
                   >
                     <option value="">--Select--</option>
                     {filterdata &&
-                      [...new Set(filterdata
-                        .filter(item => item.udStartupFounderName)
-                        .map(item => item.udStartupFounderName))]
+                      [
+                        ...new Set(
+                          filterdata
+                            .filter((item) => item.udStartupFounderName)
+                            .map((item) => item.udStartupFounderName)
+                        ),
+                      ]
                         .sort()
                         .map((founderName, index) => (
                           <option key={index} value={founderName}>
                             {founderName}
                           </option>
-                        ))
-                    }
+                        ))}
                   </select>
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="sponsorName">
-                    View by Sponsor Name:
-                  </label>
+                  <label htmlFor="sponsorName">View by Sponsor Name:</label>
                   <select
                     id="sponsorName"
                     value={filters.sponsorName}
@@ -597,29 +634,39 @@ export const FutureUnicornList = () => {
                   >
                     <option value="">--Select--</option>
                     {filterdata &&
-                      [...new Set(filterdata
-                        .filter(item => item.udSponsorName)
-                        .map(item => item.udSponsorName))]
+                      [
+                        ...new Set(
+                          filterdata
+                            .filter((item) => item.udSponsorName)
+                            .map((item) => item.udSponsorName)
+                        ),
+                      ]
                         .sort()
                         .map((sponsorName, index) => (
                           <option key={index} value={sponsorName}>
                             {sponsorName}
                           </option>
-                        ))
-                    }
+                        ))}
                   </select>
                 </div>
               </div>
             </Modal>
 
             {/* Filtered Cards - CSS Grid (matches Founder/Investor) */}
-            <div className='row justify-content-center'>
+            <div className="row justify-content-center">
               <div className="card-container">
                 <div className="cards-grid">
                   {filteredData && filteredData.length > 0 ? (
                     filteredData.map((item) => (
-                      <div key={item.unicornDealID} className="grid-card-item"
-                        onClick={() => { window.location.assign(`/FutureUnicornDescription?id=${item.unicornDealID}`) }}>
+                      <div
+                        key={item.unicornDealID}
+                        className="grid-card-item"
+                        onClick={() => {
+                          window.location.assign(
+                            `/FutureUnicornDescription?id=${item.unicornDealID}`
+                          );
+                        }}
+                      >
                         <div
                           className="community-all-contents"
                           style={{
@@ -632,22 +679,32 @@ export const FutureUnicornList = () => {
                           }}
                           onMouseOver={(e) => {
                             e.currentTarget.style.transform = "scale(1.05)";
-                            e.currentTarget.style.backgroundColor = "rgba(240, 240, 240, 0.8)";
+                            e.currentTarget.style.backgroundColor =
+                              "rgba(240, 240, 240, 0.8)";
                             e.currentTarget.style.zIndex = "100";
                             // Make all child sections transparent to show parent background
-                            const paragraphBoxes = e.currentTarget.querySelectorAll('.community-paragraph-box');
-                            paragraphBoxes.forEach(box => {
-                              box.style.backgroundColor = 'transparent';
+                            const paragraphBoxes =
+                              e.currentTarget.querySelectorAll(
+                                ".community-paragraph-box"
+                              );
+                            paragraphBoxes.forEach((box) => {
+                              box.style.backgroundColor = "transparent";
                             });
-                            const cardBottomContainers = e.currentTarget.querySelectorAll('.card-bottom-container');
-                            cardBottomContainers.forEach(box => {
-                              box.style.backgroundColor = 'transparent';
+                            const cardBottomContainers =
+                              e.currentTarget.querySelectorAll(
+                                ".card-bottom-container"
+                              );
+                            cardBottomContainers.forEach((box) => {
+                              box.style.backgroundColor = "transparent";
                             });
                             // Also update View More button
-                            const viewMoreBtn = e.currentTarget.querySelector('.btn-com');
+                            const viewMoreBtn =
+                              e.currentTarget.querySelector(".btn-com");
                             if (viewMoreBtn) {
-                              viewMoreBtn.style.backgroundColor = "rgba(240, 240, 240, 0.8)";
-                              viewMoreBtn.style.borderColor = "rgba(240, 240, 240, 0.8)";
+                              viewMoreBtn.style.backgroundColor =
+                                "rgba(240, 240, 240, 0.8)";
+                              viewMoreBtn.style.borderColor =
+                                "rgba(240, 240, 240, 0.8)";
                             }
                           }}
                           onMouseOut={(e) => {
@@ -655,16 +712,23 @@ export const FutureUnicornList = () => {
                             e.currentTarget.style.backgroundColor = "white";
                             e.currentTarget.style.zIndex = "1";
                             // Reset all child sections
-                            const paragraphBoxes = e.currentTarget.querySelectorAll('.community-paragraph-box');
-                            paragraphBoxes.forEach(box => {
-                              box.style.backgroundColor = '';
+                            const paragraphBoxes =
+                              e.currentTarget.querySelectorAll(
+                                ".community-paragraph-box"
+                              );
+                            paragraphBoxes.forEach((box) => {
+                              box.style.backgroundColor = "";
                             });
-                            const cardBottomContainers = e.currentTarget.querySelectorAll('.card-bottom-container');
-                            cardBottomContainers.forEach(box => {
-                              box.style.backgroundColor = '';
+                            const cardBottomContainers =
+                              e.currentTarget.querySelectorAll(
+                                ".card-bottom-container"
+                              );
+                            cardBottomContainers.forEach((box) => {
+                              box.style.backgroundColor = "";
                             });
                             // Reset View More button
-                            const viewMoreBtn = e.currentTarget.querySelector('.btn-com');
+                            const viewMoreBtn =
+                              e.currentTarget.querySelector(".btn-com");
                             if (viewMoreBtn) {
                               viewMoreBtn.style.backgroundColor = "";
                               viewMoreBtn.style.borderColor = "";
@@ -672,69 +736,15 @@ export const FutureUnicornList = () => {
                           }}
                         >
                           <div className="img-community-box">
-                            {/* Badge Container - Top-left corner */}
-                            <div style={{
-                              position: "absolute",
-                              top: "12px",
-                              left: "12px",
-                              display: "flex",
-                              gap: "8px",
-                              zIndex: "10",
-                              maxWidth: "calc(100% - 24px)",
-                              flexWrap: "wrap"
-                            }}>
-                              {/* Stage Badge (Compulsory) */}
-                              {item.udStage && (
-                                <span style={{
-                                  backgroundColor: "rgba(255, 255, 255, 0.9)",
-                                  color: "#333333",
-                                  padding: "3px 8px",
-                                  borderRadius: "16px",
-                                  fontSize: "12px",
-                                  fontWeight: "600",
-                                  border: "1px solid rgba(255, 255, 255, 0.3)",
-                                  backdropFilter: "blur(4px)"
-                                }}>
-                                  {item.udStage}
-                                </span>
-                              )}
-
-                              {/* Sector Badge (Compulsory) */}
-                              {item.udCategory && (
-                                <span style={{
-                                  backgroundColor: "rgba(255, 255, 255, 0.9)",
-                                  color: "#333333",
-                                  padding: "3px 8px",
-                                  borderRadius: "16px",
-                                  fontSize: "12px",
-                                  fontWeight: "600",
-                                  border: "1px solid rgba(255, 255, 255, 0.3)",
-                                  backdropFilter: "blur(4px)"
-                                }}>
-                                  {item.udCategory}
-                                </span>
-                              )}
-
-                              {/* Optional Tag Badge (1 tag only if available) */}
-                              {item.udTag && item.udTag !== "None" && (
-                                <span style={{
-                                  backgroundColor: "rgba(255, 255, 255, 0.9)",
-                                  color: "#333333",
-                                  padding: "3px 8px",
-                                  borderRadius: "12px",
-                                  fontSize: "12px",
-                                  fontWeight: "600",
-                                  border: "1px solid rgba(255, 255, 255, 0.3)",
-                                  backdropFilter: "blur(4px)"
-                                }}>
-                                  {getRandomTag(item)}
-                                </span>
-                              )}
-                            </div>
                             <img
                               src={
                                 (item.udBannerImage &&
-                                  `${process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${parseBannerImage(item.udBannerImage)}`) ||
+                                  `${
+                                    process.env.REACT_APP_IMAGE_BASE_URL ||
+                                    process.env.REACT_APP_BASE_URL
+                                  }api/uploads/unicorndeals/${
+                                    item.tudTempUdID
+                                  }/${parseBannerImage(item.udBannerImage)}`) ||
                                 "https://growth91.com/api/uploads/deal/banner/34/1719999515.jpg"
                               }
                               alt="Banner"
@@ -746,7 +756,12 @@ export const FutureUnicornList = () => {
                                 <img
                                   src={
                                     (item.udLogoImage &&
-                                      `${process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.udLogoImage)}`) ||
+                                      `${
+                                        process.env.REACT_APP_IMAGE_BASE_URL ||
+                                        process.env.REACT_APP_BASE_URL
+                                      }api/uploads/unicorndeals/${
+                                        item.tudTempUdID
+                                      }/${JSON.parse(item.udLogoImage)}`) ||
                                     "https://growth91.com/api/uploads/deal/logo/34/1719999515.jpg"
                                   }
                                   alt="Logo"
@@ -754,25 +769,45 @@ export const FutureUnicornList = () => {
                                 <h5>{item.udStartupName}</h5>
                               </li>
                             </ul>
-                            <p style={{
-                              WebkitLineClamp: 3,
-                              WebkitBoxOrient: "vertical",
-                              overflow: "hidden",
-                              display: "-webkit-box",
-                            }}>{item.udDealDescription}</p>
+                            <p
+                              style={{
+                                WebkitLineClamp: 3,
+                                WebkitBoxOrient: "vertical",
+                                overflow: "hidden",
+                                display: "-webkit-box",
+                              }}
+                            >
+                              {item.udDealDescription}
+                            </p>
                           </div>
                           <div
                             className="community-paragraph-box card-bottom-container"
+                            style={{
+                              display: "block", // ensure vertical layout
+                              width: "100%",
+                            }}
                           >
-                            <Link
-                              to={`/FutureUnicornDescription?id=${item.unicornDealID}`}
-                              className="btn-com"
-                            >
-                              View More
-                            </Link>
 
-                            {/* Last Updated Badge */}
-                            <LastUpdatedBadge udPublishedDate={item.udPublishedDate} />
+                            {/* BOTTOM ROW: View More + Last Updated */}
+                            <div
+                              style={{
+                                display: "flex",
+                                width: "100%",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                              }}
+                            >
+                              <Link
+                                to={`/FutureUnicornDescription?id=${item.unicornDealID}`}
+                                className="btn-com"
+                              >
+                                View More
+                              </Link>
+
+                              <LastUpdatedBadge
+                                udPublishedDate={item.udPublishedDate}
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -803,7 +838,6 @@ export const FutureUnicornList = () => {
           <NewWebFooter />
         </div>
       </section>
-
     </div>
   );
 };
