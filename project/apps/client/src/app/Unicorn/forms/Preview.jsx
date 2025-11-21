@@ -397,9 +397,7 @@ export const Preview = (props) => {
           position: relative;
         }
         .image-section img {
-         width:100%;
-height:auto;
-object-fit:cover;
+        object-fit:contain;
         }
         .logo-section {
           width: 150px;
@@ -413,6 +411,45 @@ object-fit:cover;
           margin-bottom: 1.5rem;
           margin-top:-75px;
         }
+          /* XL screens – bigger logo */
+@media (min-width: 1800px) {
+  .logo-section {
+    width: 200px;
+    height: 200px;
+    min-width: 200px;
+  }
+  .logo-section img {
+    max-width: 200px;
+    max-height: 200px;
+  }
+}
+
+/* Tablet – medium logo */
+@media (min-width: 577px) and (max-width: 992px) {
+  .logo-section {
+    width: 110px;
+    height: 110px;
+    min-width: 110px;
+  }
+  .logo-section img {
+    max-width: 110px;
+    max-height: 110px;
+  }
+}
+
+/* Mobile – smaller logo */
+@media (max-width: 576px) {
+  .logo-section {
+    width: 70px;
+    height: 70px;
+    min-width: 70px;
+  }
+  .logo-section img {
+    max-width: 70px;
+    max-height: 70px;
+  }
+}
+
         .logo-section img {
           max-width: 150px;
           max-height: 150px;
@@ -937,7 +974,7 @@ text-align: justify;
                       images={parseBannerImages(item.tudBannerImage)}
                       imageUrls={getCarouselImageUrls(parseBannerImages(item.tudBannerImage), item.tudTempUdID)}
                       altText="Cover Image"
-                      autoPlayInterval={4000}
+                      autoPlayInterval={6500}
                       showControls={true}
                       onImageClick={onImageClick}
                       isPaused={isLightboxOpen}
@@ -983,7 +1020,6 @@ text-align: justify;
                               fontSize: "13px",
                               fontWeight: "600",
                               border: "1px solid rgba(255, 255, 255, 0.3)",
-                              opacity: "0.6"
                             }}
                               title={`Funding Stage: ${item.tudStage}`}
                             >
@@ -1001,7 +1037,6 @@ text-align: justify;
                               fontSize: "13px",
                               fontWeight: "600",
                               border: "1px solid rgba(255, 255, 255, 0.3)",
-                              opacity: "0.6"
                             }}
                               title={`Industry Sector: ${item.tudCategory}`}
                             >
@@ -1023,7 +1058,6 @@ text-align: justify;
                                     fontSize: "13px",
                                     fontWeight: "600",
                                     border: "1px solid rgba(255, 255, 255, 0.3)",
-                                    opacity: "0.6"
                                   }}
                                   title={`Visibility Tag: ${tag.trim()}`}
                                 >

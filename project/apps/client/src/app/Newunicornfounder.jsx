@@ -11,7 +11,7 @@ import GuestAccessModal from './components/GuestAccessModal';
 const Newunicornfounder = () => {
   const [filteredData, setfilterdata] = useState();
   const [displayedItems, setDisplayedItems] = useState([]);
-  const [screenSize, setScreenSize] = useState('desktop');
+  const [screenSize, setScreenSize] = useState("desktop");
   const [hasMoreItems, setHasMoreItems] = useState(false);
   const [showGuestModal, setShowGuestModal] = useState(false);
 
@@ -25,9 +25,15 @@ const Newunicornfounder = () => {
     const itemId = item.udID || item.tudTempUdID || Math.random();
 
     if (!randomTagSelections[itemId]) {
-      const tags = item.udTag ? item.udTag.split(",").map(tag => tag.trim()).filter(tag => tag) : [];
+      const tags = item.udTag
+        ? item.udTag
+            .split(",")
+            .map((tag) => tag.trim())
+            .filter((tag) => tag)
+        : [];
       if (tags.length > 0) {
-        randomTagSelections[itemId] = tags[Math.floor(Math.random() * tags.length)];
+        randomTagSelections[itemId] =
+          tags[Math.floor(Math.random() * tags.length)];
       }
     }
 
@@ -57,31 +63,31 @@ const Newunicornfounder = () => {
 
     if (width >= 1440) {
       columns = 4;
-      screenType = 'desktop';
+      screenType = "desktop";
       rowsToShow = 2; // Show 2 rows on desktop
     } else if (width >= 1200) {
       columns = 4;
-      screenType = 'large-laptop';
+      screenType = "large-laptop";
       rowsToShow = 2; // Show 2 rows on large laptop
     } else if (width >= 1024) {
       columns = 3;
-      screenType = 'laptop';
+      screenType = "laptop";
       rowsToShow = 2; // Show 2 rows on laptop
     } else if (width >= 992) {
       columns = 3;
-      screenType = 'large-tablet';
+      screenType = "large-tablet";
       rowsToShow = 2; // Show 2 rows on large tablet
     } else if (width >= 768) {
       columns = 2;
-      screenType = 'tablet';
+      screenType = "tablet";
       rowsToShow = 3; // Show 3 rows on tablet
     } else if (width >= 576) {
       columns = 2;
-      screenType = 'large-mobile';
+      screenType = "large-mobile";
       rowsToShow = 3; // Show 3 rows on large mobile
     } else {
       columns = 1;
-      screenType = 'mobile';
+      screenType = "mobile";
       rowsToShow = 6; // Show 6 rows on mobile
     }
 
@@ -105,14 +111,15 @@ const Newunicornfounder = () => {
       columns,
       screenType,
       availableItems: availableItemsCount,
-      hasMoreItems: availableItemsCount > actualItemsPerPage
+      hasMoreItems: availableItemsCount > actualItemsPerPage,
     };
   };
 
   // Function to handle responsive display
   const updateDisplayedItems = (data) => {
     const availableCount = data ? data.length : 0;
-    const { itemsPerPage, screenType, hasMoreItems } = getItemsPerPage(availableCount);
+    const { itemsPerPage, screenType, hasMoreItems } =
+      getItemsPerPage(availableCount);
     setScreenSize(screenType);
 
     if (data && data.length > 0 && itemsPerPage > 0) {
@@ -132,8 +139,8 @@ const Newunicornfounder = () => {
       updateDisplayedItems(filteredData);
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, [filteredData]);
 
   function getuniondata() {
@@ -628,7 +635,7 @@ const Newunicornfounder = () => {
                     background: #ffffff;          /* neutral background for letterboxing */
                     display: flex;
                     align-items: center;          /* vertical center */
-                    justify-content: flex-start;  /* horizontal left-align */
+                    justify-content: center;  /* horizontal left-align */
                 }
 
                 /* Banner image: keep original aspect, never stretch (hardened) */
@@ -709,15 +716,17 @@ const Newunicornfounder = () => {
                     flex-grow: 1;
                 }
 
-                .card-bottom-container {
-                    padding: 15px 20px 20px 20px;
-                    margin-top: auto;
-                    border-top: 1px solid #f3f4f6;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    background: #fafafa;
-                }
+               .card-bottom-container {
+    padding: 15px 20px 20px 20px;
+    margin-top: auto;
+    border-top: 1px solid #f3f4f6;
+    display: flex;
+    flex-direction: column;      /* badges row + bottom row vertical */
+    gap: 8px;
+    align-items: flex-start;     /* left-align contents */
+    justify-content: flex-start;
+    background: #fafafa;
+}
 
                 .btn-com {
                     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -766,13 +775,13 @@ const Newunicornfounder = () => {
                         padding: 15px;
                     }
                     
-                    .card-bottom-container {
-                        padding: 12px 15px 15px 15px;
-                        flex-direction: row;
-                        gap: 8px;
-                        align-items: center;
-                        justify-content: space-between;
-                    }
+           .card-bottom-container {
+      padding: 12px 15px 15px 15px !important;
+      flex-direction: column !important;
+      gap: 8px !important;
+      align-items: flex-start !important;
+      justify-content: flex-start !important;
+  }
                     
                     .community-paragraph-box ul li h5 {
                         font-size: 1em;
@@ -810,13 +819,13 @@ const Newunicornfounder = () => {
                     }
 
                     /* Ensure button layout is consistent on very small screens */
-                    .card-bottom-container {
-                        padding: 10px 15px 15px 15px;
-                        flex-direction: row;
-                        gap: 6px;
-                        align-items: center;
-                        justify-content: space-between;
-                    }
+                   .card-bottom-container {
+      padding: 10px 15px 15px 15px !important;
+      flex-direction: column !important;
+      gap: 6px !important;
+      align-items: flex-start !important;
+      justify-content: flex-start !important;
+  }
 
                     /* Slightly smaller button on very small screens but same style */
                     .btn-com {
@@ -1027,13 +1036,19 @@ const Newunicornfounder = () => {
         <h2>Unicorn Spotlight</h2>
       </div>
       {/* I want below div to be only covering 80% width */}
-      <div className='row justify-content-center'>
+      <div className="row justify-content-center">
         <div className="card-container">
           <div className="cards-grid">
             {displayedItems && displayedItems.length > 0 ? (
               displayedItems.map((item, index) => (
-                <div key={index} className="grid-card-item"
-                  onClick={() => { window.location.assign(`/FutureUnicornDescription?id=${item.unicornDealID}`) }}
+                <div
+                  key={index}
+                  className="grid-card-item"
+                  onClick={() => {
+                    window.location.assign(
+                      `/FutureUnicornDescription?id=${item.unicornDealID}`
+                    );
+                  }}
                 >
                   <div
                     className="community-all-contents"
@@ -1043,26 +1058,35 @@ const Newunicornfounder = () => {
                       flexDirection: "column",
                       height: "100%",
                       position: "relative",
-                      cursor: "pointer"
+                      cursor: "pointer",
                     }}
                     onMouseOver={(e) => {
                       e.currentTarget.style.transform = "scale(1.05)";
-                      e.currentTarget.style.backgroundColor = "rgba(240, 240, 240, 0.8)";
+                      e.currentTarget.style.backgroundColor =
+                        "rgba(240, 240, 240, 0.8)";
                       e.currentTarget.style.zIndex = "100";
                       // Make all child sections transparent to show parent background
-                      const paragraphBoxes = e.currentTarget.querySelectorAll('.community-paragraph-box');
-                      paragraphBoxes.forEach(box => {
-                        box.style.backgroundColor = 'transparent';
+                      const paragraphBoxes = e.currentTarget.querySelectorAll(
+                        ".community-paragraph-box"
+                      );
+                      paragraphBoxes.forEach((box) => {
+                        box.style.backgroundColor = "transparent";
                       });
-                      const cardBottomContainers = e.currentTarget.querySelectorAll('.card-bottom-container');
-                      cardBottomContainers.forEach(box => {
-                        box.style.backgroundColor = 'transparent';
+                      const cardBottomContainers =
+                        e.currentTarget.querySelectorAll(
+                          ".card-bottom-container"
+                        );
+                      cardBottomContainers.forEach((box) => {
+                        box.style.backgroundColor = "transparent";
                       });
                       // Also update View More button
-                      const viewMoreBtn = e.currentTarget.querySelector('.btn-com');
+                      const viewMoreBtn =
+                        e.currentTarget.querySelector(".btn-com");
                       if (viewMoreBtn) {
-                        viewMoreBtn.style.backgroundColor = "rgba(240, 240, 240, 0.8)";
-                        viewMoreBtn.style.borderColor = "rgba(240, 240, 240, 0.8)";
+                        viewMoreBtn.style.backgroundColor =
+                          "rgba(240, 240, 240, 0.8)";
+                        viewMoreBtn.style.borderColor =
+                          "rgba(240, 240, 240, 0.8)";
                       }
                     }}
                     onMouseOut={(e) => {
@@ -1070,16 +1094,22 @@ const Newunicornfounder = () => {
                       e.currentTarget.style.backgroundColor = "white";
                       e.currentTarget.style.zIndex = "1";
                       // Reset all child sections
-                      const paragraphBoxes = e.currentTarget.querySelectorAll('.community-paragraph-box');
-                      paragraphBoxes.forEach(box => {
-                        box.style.backgroundColor = '';
+                      const paragraphBoxes = e.currentTarget.querySelectorAll(
+                        ".community-paragraph-box"
+                      );
+                      paragraphBoxes.forEach((box) => {
+                        box.style.backgroundColor = "";
                       });
-                      const cardBottomContainers = e.currentTarget.querySelectorAll('.card-bottom-container');
-                      cardBottomContainers.forEach(box => {
-                        box.style.backgroundColor = '';
+                      const cardBottomContainers =
+                        e.currentTarget.querySelectorAll(
+                          ".card-bottom-container"
+                        );
+                      cardBottomContainers.forEach((box) => {
+                        box.style.backgroundColor = "";
                       });
                       // Reset View More button
-                      const viewMoreBtn = e.currentTarget.querySelector('.btn-com');
+                      const viewMoreBtn =
+                        e.currentTarget.querySelector(".btn-com");
                       if (viewMoreBtn) {
                         viewMoreBtn.style.backgroundColor = "";
                         viewMoreBtn.style.borderColor = "";
@@ -1087,70 +1117,15 @@ const Newunicornfounder = () => {
                     }}
                   >
                     <div className="img-community-box">
-                      {/* Badge Container - Top-left corner */}
-                      <div style={{
-                        position: "absolute",
-                        top: "12px",
-                        left: "12px",
-                        display: "flex",
-                        gap: "8px",
-                        zIndex: "10",
-                        maxWidth: "calc(100% - 24px)",
-                        flexWrap: "wrap"
-                      }}>
-                        {/* Stage Badge (Compulsory) */}
-                        {item.udStage && (
-                          <span style={{
-                            backgroundColor: "rgba(255, 255, 255, 0.9)",
-                            color: "#333333",
-                            padding: "3px 8px",
-                            borderRadius: "16px",
-                            fontSize: "12px",
-                            fontWeight: "600",
-                            border: "1px solid rgba(255, 255, 255, 0.3)",
-                            backdropFilter: "blur(4px)"
-                          }}>
-                            {item.udStage}
-                          </span>
-                        )}
-
-                        {/* Sector Badge (Compulsory) */}
-                        {item.udCategory && (
-                          <span style={{
-                            backgroundColor: "rgba(255, 255, 255, 0.9)",
-                            color: "#333333",
-                            padding: "3px 8px",
-                            borderRadius: "16px",
-                            fontSize: "12px",
-                            fontWeight: "600",
-                            border: "1px solid rgba(255, 255, 255, 0.3)",
-                            backdropFilter: "blur(4px)"
-                          }}>
-                            {item.udCategory}
-                          </span>
-                        )}
-
-                        {/* Optional Tag Badge */}
-                        {item.udTag && item.udTag !== "None" && getRandomTag(item) && (
-                          <span style={{
-                            backgroundColor: "rgba(255, 255, 255, 0.9)",
-                            color: "#333333",
-                            padding: "3px 8px",
-                            borderRadius: "16px",
-                            fontSize: "12px",
-                            fontWeight: "600",
-                            border: "1px solid rgba(255, 255, 255, 0.3)",
-                            backdropFilter: "blur(4px)"
-                          }}>
-                            {getRandomTag(item)}
-                          </span>
-                        )}
-                      </div>
-
                       <img
                         src={
                           (item.udBannerImage &&
-                            `${process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.udBannerImage)}`) ||
+                            `${
+                              process.env.REACT_APP_IMAGE_BASE_URL ||
+                              process.env.REACT_APP_BASE_URL
+                            }api/uploads/unicorndeals/${
+                              item.tudTempUdID
+                            }/${JSON.parse(item.udBannerImage)}`) ||
                           "https://growth91.com/api/uploads/deal/banner/34/1719999515.jpg"
                         }
                         alt="Banner"
@@ -1162,35 +1137,58 @@ const Newunicornfounder = () => {
                           <img
                             src={
                               (item.udLogoImage &&
-                                `${process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.udLogoImage)}`) ||
+                                `${
+                                  process.env.REACT_APP_IMAGE_BASE_URL ||
+                                  process.env.REACT_APP_BASE_URL
+                                }api/uploads/unicorndeals/${
+                                  item.tudTempUdID
+                                }/${JSON.parse(item.udLogoImage)}`) ||
                               "https://growth91.com/api/uploads/deal/logo/34/1719999515.jpg"
                             }
                             alt="Logo"
                           />
                           <h5>{item.udStartupName}</h5>
                         </li>
-
                       </ul>
-                      <p style={{
-                        WebkitLineClamp: 3,
-                        WebkitBoxOrient: "vertical",
-                        overflow: "hidden",
-                        display: "-webkit-box",
-                      }}>{item.udDealDescription}</p>
+                      <p
+                        style={{
+                          WebkitLineClamp: 3,
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden",
+                          display: "-webkit-box",
+                        }}
+                      >
+                        {item.udDealDescription}
+                      </p>
                     </div>
                     <div
                       className="community-paragraph-box card-bottom-container"
+                      style={{ width: "100%" }}
                     >
-                      <Link
-                        onClick={() => { window.location.replace(`/FutureUnicornDescription?id=${item.unicornDealID}`) }}
-                        // to={`/FutureUnicornDescription?id=${item.unicornDealID}`}
-                        className="btn-com"
-                      >
-                        View More
-                      </Link>
 
-                      {/* Last Updated Badge */}
-                      <LastUpdatedBadge udPublishedDate={item.udPublishedDate} />
+                      <div
+                        style={{
+                          display: "flex",
+                          width: "100%",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Link
+                          onClick={() => {
+                            window.location.replace(
+                              `/FutureUnicornDescription?id=${item.unicornDealID}`
+                            );
+                          }}
+                          className="btn-com"
+                        >
+                          View More
+                        </Link>
+
+                        <LastUpdatedBadge
+                          udPublishedDate={item.udPublishedDate}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1202,7 +1200,6 @@ const Newunicornfounder = () => {
         </div>
       </div>
 
-
       {filteredData && filteredData.length > 0 && (
         <div className="text-center mt-4">
           <button
@@ -1213,7 +1210,9 @@ const Newunicornfounder = () => {
               border: "none",
               transition: "all 0.3s ease",
             }}
-            onClick={() => { window.location.replace("/FutureUnicornList") }}
+            onClick={() => {
+              window.location.replace("/FutureUnicornList");
+            }}
           >
             Explore all
           </button>
@@ -1243,8 +1242,8 @@ const Newunicornfounder = () => {
           <div className="feature-box">
             <h3>Investment Flexibility</h3>
             <p>
-              Allows investments from NRO/Indian and NRE/overseas accounts
-              with founder consent.
+              Allows investments from NRO/Indian and NRE/overseas accounts with
+              founder consent.
             </p>
           </div>
         </div>
@@ -1290,9 +1289,7 @@ const Newunicornfounder = () => {
             <div className="feature-item-number">1</div>
             <div className="feature-description">
               <h3>Startup Submission Form</h3>
-              <p>
-                Intuitive interface for founders to submit startup details.
-              </p>
+              <p>Intuitive interface for founders to submit startup details.</p>
             </div>
           </div>
           <div className="feature-item">

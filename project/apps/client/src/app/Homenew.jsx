@@ -568,7 +568,7 @@ class Homenew extends Component {
                           </h1>
                           <p class=" p-0">
                             <span>
-                              Growth 91 connects you with the next big thing
+                              Growth91 connects you with the next big thing
                             </span>
                           </p>
 
