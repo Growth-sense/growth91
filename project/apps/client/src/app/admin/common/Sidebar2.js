@@ -367,6 +367,9 @@ class Sidebar extends Component {
               <li>
                <a href="/analytic-interest">Dropoff</a>
               </li>
+              <li>
+               <a href="/guest-analytics">Guest Analytics</a>
+              </li>
             </ul>
           </li>
           <li>

@@ -6,41 +6,13 @@ import Bridge from "../constants/Bridge";
 const LoginRequiredModal = ({ visible, onClose }) => {
   const history = useHistory();
 
-  const getOrCreateGuestId = () => {
-  let guestId = localStorage.getItem("unicorn_guest_id");
-  if (!guestId) {
-    guestId =
-      "g91_guest_" +
-      Date.now() +
-      "_" +
-      Math.random().toString(36).substr(2, 9);
-    localStorage.setItem("unicorn_guest_id", guestId);
-  }
-  return guestId;
-};
+   const attempts =
+    Number(localStorage.getItem("unicorn_guest_gated_attempts") || "0");
+  const showBenefits = attempts > 2;
 
   const handleLogin = () => {
-  try {
-    const guestID = getOrCreateGuestId();
-    const eventData = {
-      page: window.location.pathname,
-      path: window.location.pathname + window.location.search,
-      source: "LoginRequiredModal",
-      action: "click_login",
-    };
-
-    Bridge.Unicorn.GuestAnalytics.addEvent({
-      guestID,
-      unicornDealID: null,
-      eventType: "guest_click_login_from_login_required",
-      eventData,
-    });
-  } catch (e) {
-    console.error("guest analytics error", e);
-  }
-
   onClose();
-  history.push("/Login");
+  history.push("/Signup");
 };
 
   return (
@@ -53,10 +25,39 @@ const LoginRequiredModal = ({ visible, onClose }) => {
       onCancel={onClose}
     >
       <h3>Please sign in to continue</h3>
-      <p>
-        You’re viewing as a guest. To perform this action please sign in or create
-        an account. It’s quick — takes less than a minute.
-      </p>
+      {!showBenefits ? (
+        <p>
+          You’re viewing as a guest. To perform this action please sign in or create
+          an account. It’s quick — takes less than a minute.
+        </p>
+      ) : (
+        <div
+          style={{
+            marginTop: 8,
+            padding: "10px 12px",
+            borderRadius: 8,
+            background: "#f9fafb",
+            border: "1px solid #e5e7eb",
+          }}
+        >
+          <p style={{ marginBottom: 8 }}>
+            You’re viewing as a guest. Sign in or create a free account to:
+          </p>
+          <ul
+            style={{
+              margin: 0,
+              paddingLeft: 18,
+              fontSize: 13,
+              color: "#555",
+              lineHeight: 1.5,
+            }}
+          >
+            <li>Unlock full profiles & pitch decks</li>
+            <li>Express interest in startups</li>
+            <li>Build your startup profile for free</li>
+          </ul>
+        </div>
+      )}
 
       <div
         style={{

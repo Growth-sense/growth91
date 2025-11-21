@@ -2939,20 +2939,12 @@ function add_guest_analytics_event() {
         $guestID       = $formdata['guestID'];
         $unicornDealID = !empty($formdata['unicornDealID']) ? $formdata['unicornDealID'] : null;
         $eventType     = $formdata['eventType'];
-        $eventDataRaw  = isset($formdata['eventData']) ? $formdata['eventData'] : null;
-
-        // Ensure eventData is stored as JSON string if array/object
-        if (is_array($eventDataRaw) || is_object($eventDataRaw)) {
-            $eventData = json_encode($eventDataRaw);
-        } else {
-            $eventData = $eventDataRaw; // already string or null
-        }
 
         $post_data = array(
             'gaGuestID'       => $guestID,
             'gaUnicornDealID' => $unicornDealID,
             'gaEventType'     => $eventType,
-            'gaEventData'     => $eventData,
+            'gaEventData'     => null,
             // gaEventDate column can use DEFAULT CURRENT_TIMESTAMP
         );
 

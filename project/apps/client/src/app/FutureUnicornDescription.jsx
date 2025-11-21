@@ -9,7 +9,7 @@ import { Modal, message as mess, Tooltip } from "antd";
 import SinglePagePDFViewer from "./components/PdfViewer/single-page";
 import { extractVideoIDFromYoutubeUrl, getAbsoluteUrl } from "./helper/utilHelper.js";
 import moment from "moment";
-import { FaYoutube, FaInstagram, FaFacebook, FaLinkedin } from 'react-icons/fa';
+import { FaYoutube, FaInstagram, FaFacebook, FaLinkedin, FaLock } from 'react-icons/fa';
 import { LastUpdatedBadge } from "./components/LastUpdatedBadge";
 import CoverImageCarousel from "./components/CoverImageCarousel";
 import ImageLightbox from "./components/ImageLightbox";
@@ -81,6 +81,12 @@ const getOrCreateGuestId = () => {
 };
 
   const [showModal, setShowModal] = useState(false);
+  const investorIdLS = localStorage.getItem("investor_id");
+  const founderIdLS = localStorage.getItem("founder_id");
+  const isLoggedInUser = investorIdLS || founderIdLS;
+  const guestUntilLS = localStorage.getItem("unicorn_guest_until");
+  const nowTs = Date.now();
+  const hasActiveGuestSession = !isLoggedInUser && guestUntilLS && nowTs <= Number(guestUntilLS);
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
@@ -176,17 +182,10 @@ const getOrCreateGuestId = () => {
     // analytics for gated click
     try {
       const guestID = getOrCreateGuestId();
-      const eventData = {
-        page: "FutureUnicornDescription",
-        path: window.location.pathname + window.location.search,
-        action: "im_interested",
-      };
-
       Bridge.Unicorn.GuestAnalytics.addEvent({
         guestID,
         unicornDealID: id, // current unicornDealID from URL
         eventType: "guest_attempt_gated_action",
-        eventData,
       });
     } catch (e) {
       console.error("guest analytics error", e);
@@ -202,6 +201,8 @@ const getOrCreateGuestId = () => {
 
     if (attempts >= 2) {
       setShowUpgradeNudge(true);
+      console.log("guest attempts", attempts);
+console.log("isGuest", isGuest);
     }
   } else {
     // fully anonymous (should already see GuestAccessModal on page load),
@@ -914,44 +915,6 @@ text-align: justify;
       <div className="newabout">
         <NewWebHeader newabout={"newabout"} />
       </div>
-
-      {showUpgradeNudge && (
-  <div
-    style={{
-      margin: "16px auto",
-      maxWidth: "900px",
-      padding: "12px 16px",
-      borderRadius: "8px",
-      background: "#fff7e6",
-      border: "1px solid #ffd591",
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      gap: 12,
-    }}
-  >
-    <div style={{ fontSize: 14 }}>
-      <strong>Browse as guest —</strong> sign in to express interest, save
-      profiles, and get personalised updates.
-    </div>
-    <button
-      style={{
-        border: "none",
-        borderRadius: "4px",
-        padding: "6px 12px",
-        background: "#ff6b35",
-        color: "#fff",
-        fontSize: 13,
-        cursor: "pointer",
-        whiteSpace: "nowrap",
-      }}
-      onClick={() => history.push("/Login")}
-    >
-      Sign in / Sign up
-    </button>
-  </div>
-)}
-
       {unicorn &&
         unicorn
           .filter((item) => item.unicornDealID == id)
@@ -1111,19 +1074,41 @@ text-align: justify;
                           </div>
 
                           <div>
-                            <button
-                              onClick={openiamintrest}
-                              className="primaryInterested"
-                              style={{
-                                backgroundColor: "#191964",
-                                color: "white",
-                                border: "none",
-                                cursor: "pointer",
-                                boxShadow: "0px 3px 6px #000",
-                              }}
-                            >
-                              I am Interested
-                            </button>
+                            {hasActiveGuestSession ? (
+                              <Tooltip title="Sign in to do this">
+                                <button
+                                  onClick={openiamintrest}
+                                  className="primaryInterested"
+                                  style={{
+                                    backgroundColor: "#191964",
+                                    color: "white",
+                                    border: "none",
+                                    cursor: "pointer",
+                                    boxShadow: "0px 3px 6px #000",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: "6px",
+                                  }}
+                                >
+                                  <FaLock style={{ fontSize: 10 }} />
+                                  I am Interested
+                                </button>
+                              </Tooltip>
+                            ) : (
+                              <button
+                                onClick={openiamintrest}
+                                className="primaryInterested"
+                                style={{
+                                  backgroundColor: "#191964",
+                                  color: "white",
+                                  border: "none",
+                                  cursor: "pointer",
+                                  boxShadow: "0px 3px 6px #000",
+                                }}
+                              >
+                                I am Interested
+                              </button>
+                            )}
                           </div>
                         </div>
 
@@ -1567,20 +1552,43 @@ text-align: justify;
                 <section className="container text-section">
                   <div className="row">
                     <div className="col-md-12 text-center my-5">
-                      <button
-                        onClick={openiamintrest}
-                        className="primaryInterested"
-                        style={{
-                          // height: "100%",
-                          backgroundColor: "#191964",
-                          color: "white",
-                          border: "none",
-                          cursor: "pointer",
-                          boxShadow: "0px 3px 6px #000",
-                        }}
-                      >
-                        I am Interested
-                      </button>
+                        {hasActiveGuestSession ? (
+                          <Tooltip title="Sign in to do this">
+                            <button
+                              onClick={openiamintrest}
+                              className="primaryInterested"
+                            style={{
+                              backgroundColor: "#191964",
+                              color: "white",
+                              border: "none",
+                              cursor: "pointer",
+                              boxShadow: "0px 3px 6px #000",
+                              display: "inline-flex",        // keep button itself inline for centering
+                              alignItems: "center",          // center icon + text vertically
+                              justifyContent: "center",
+                              gap: "6px",
+                            }}
+                            >
+                              <FaLock style={{ fontSize: 10 }} />
+                              I am Interested
+                            </button>
+                          </Tooltip>
+                        ) : (
+                          <button
+                            onClick={openiamintrest}
+                            className="primaryInterested"
+                            style={{
+                              // height: "100%",
+                              backgroundColor: "#191964",
+                              color: "white",
+                              border: "none",
+                              cursor: "pointer",
+                              boxShadow: "0px 3px 6px #000",
+                            }}
+                          >
+                            I am Interested
+                          </button>
+                        )}
                     </div>
                   </div>
                 </section>

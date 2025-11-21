@@ -103,6 +103,7 @@ import adminstartups from "./app/admin/Startups";
 import adminpayments from "./app/admin/Payments";
 import InstitutionalReferral from "./app/admin/InstitutionalReferral";
 import InstitutionalReferralView from "./app/admin/InstitutionalReferralView";
+import GuestAnalytics from "./app/admin/GuestAnalytics";
 import RetailReferral from "./app/admin/RetailReferral";
 import admindealsettings from "./app/admin/Settings";
 import Payments from "./app/investor/Payments";
@@ -413,6 +414,7 @@ function App() {
           <Route path="/admin-deals" exact component={admindeals} />
           <Route path="/open-deals" exact component={opendeals} />
           <Route path="/analytic-interest" exact component={analyticinterest} />
+          <Route path="/guest-analytics" exact component={GuestAnalytics} />
           <Route path="/admin-founders" exact component={adminfounders} />
           <Route path="/admin-investors" exact component={admininvestors} />
           <Route path="/admin-startups" exact component={adminstartups} />
