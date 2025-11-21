@@ -376,6 +376,7 @@ console.log("isGuest", isGuest);
           margin-bottom: 1.5rem;
           margin-top:-75px;
           padding: 0;
+          z-index:999
         }
           /* XL screens – bigger logo */
 @media (min-width: 1800px) {

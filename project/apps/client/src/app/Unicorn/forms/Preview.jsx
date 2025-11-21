@@ -410,6 +410,7 @@ export const Preview = (props) => {
           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
           margin-bottom: 1.5rem;
           margin-top:-75px;
+          z-index:999
         }
           /* XL screens – bigger logo */
 @media (min-width: 1800px) {
