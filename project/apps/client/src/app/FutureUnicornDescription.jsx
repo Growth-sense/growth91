@@ -16,8 +16,8 @@ import ImageLightbox from "./components/ImageLightbox";
 import { applyTheme, GROWTH91_THEMES } from "./helper/themes";
 // ONLY IMPORT THEME CSS ON INVESTOR VIEW PAGE - NOT IN FORMS
 import "./styles/unicorn-theme.css";
-import GuestAccessModal from "./components/GuestAccessModal.jsx";
-import LoginRequiredModal from "./components/LoginRequiredModal.jsx";
+// import GuestAccessModal from "./components/GuestAccessModal.jsx";
+// import LoginRequiredModal from "./components/LoginRequiredModal.jsx";
 
 export const FutureUnicornDescription = (props) => {
   const settings = {
@@ -49,22 +49,22 @@ export const FutureUnicornDescription = (props) => {
     history.push(`/FutureUnicornList?sponsorFilter=${encodeURIComponent(sponsorName)}`);
   };
 useEffect(() => {
-  const investor = localStorage.getItem("investor_id");
-  const founder = localStorage.getItem("founder_id");
-  const isLoggedIn = investor || founder;
+  // const investor = localStorage.getItem("investor_id");
+  // const founder = localStorage.getItem("founder_id");
+  // const isLoggedIn = investor || founder;
 
-  const guestUntil = localStorage.getItem("unicorn_guest_until");
-  const now = Date.now();
-  const shouldShowModal = !isLoggedIn && (!guestUntil || now > Number(guestUntil));
+  // const guestUntil = localStorage.getItem("unicorn_guest_until");
+  // const now = Date.now();
+  // const shouldShowModal = !isLoggedIn && (!guestUntil || now > Number(guestUntil));
 
-  if (shouldShowModal) {
-    // show guest modal, do NOT call API yet
-    setShowGuestModal(true);
-  } else {
-    // logged in or valid guest session → load data immediately
+  // if (shouldShowModal) {
+  //   // show guest modal, do NOT call API yet
+  //   setShowGuestModal(true);
+  // } else {
+  //   // logged in or valid guest session → load data immediately
     getuniondata();
     window.scrollTo(0, 0);
-  }
+  // }
 }, []);
 
 const getOrCreateGuestId = () => {
@@ -322,7 +322,7 @@ console.log("isGuest", isGuest);
 
   return (
     <>
-    <GuestAccessModal
+    {/* <GuestAccessModal
       visible={showGuestModal}
       onClose={() => {
         setShowGuestModal(false);
@@ -343,7 +343,7 @@ console.log("isGuest", isGuest);
         pointerEvents: showGuestModal ? "none" : "auto",
         transition: "filter 0.2s ease",
       }}
-    >
+    > */}
       <style>
         {`
         .para-proceed label{
@@ -1741,7 +1741,7 @@ text-align: justify;
       </Modal>
       <ToastContainer />
       <NewWebFooter />
-    </div>
+    {/* </div> */}
     </>
   );
 };
