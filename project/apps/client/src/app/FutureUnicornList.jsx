@@ -241,7 +241,7 @@ export const FutureUnicornList = () => {
             background: #ffffff;          /* neutral background for letterboxing */
             display: flex;
             align-items: center;          /* vertical center */
-            justify-content: flex-start;      /* horizontal center */
+            justify-content: center;      /* horizontal center */
            }
 
           /* Banner image: keep original aspect, never stretch (hardened) */

@@ -479,7 +479,7 @@ const NewFutureUnicorn = () => {
                     background: #ffffff;          /* neutral background for letterboxing */
                     display: flex;
                     align-items: center;          /* vertical center */
-                    justify-content: flex-start;      /* horizontal center */
+                    justify-content: center;      /* horizontal center */
                 }
 
                 .img-community-box > img {
