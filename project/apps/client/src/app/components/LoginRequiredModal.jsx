@@ -53,8 +53,8 @@ const LoginRequiredModal = ({ visible, onClose }) => {
             border: "1px solid #e5e7eb",
           }}
         >
-          <p style={{ marginBottom: 8 }}>
-            You’re viewing as a guest. Sign in or create a free account to:
+          <p style={{ marginBottom: 8, fontWeight: 800, fontSize: 18 }}>
+            You’re viewing as a <span style={{ fontSize: 20 }}>G</span>uest. Sign in or create a free account to:
           </p>
           <ul
             style={{
@@ -63,11 +63,40 @@ const LoginRequiredModal = ({ visible, onClose }) => {
               fontSize: 13,
               color: "#555",
               lineHeight: 1.5,
+              listStyleType: "disc",
+              listStylePosition: "outside",
             }}
           >
-            <li>Unlock full profiles & pitch decks</li>
-            <li>Express interest in startups</li>
-            <li>Build your startup profile for free</li>
+            <li
+              style={{
+                listStyleType: "disc",
+                color: "#000",
+              }}
+            >
+              <span style={{ color: "#23ad23", fontStyle: "italic", fontWeight: 900 }}>
+                Unlock full profiles & pitch decks
+              </span>
+            </li>
+            <li
+              style={{
+                listStyleType: "disc",
+                color: "#000",
+              }}
+            >
+              <span style={{ color: "#23ad23", fontStyle: "italic", fontWeight: 900 }}>
+                Express interest in startups
+              </span>
+            </li>
+            <li
+              style={{
+                listStyleType: "disc",
+                color: "#000",
+              }}
+            >
+              <span style={{ color: "#23ad23", fontStyle: "italic", fontWeight: 900 }}>
+                Build your startup profile&nbsp;for&nbsp;free
+              </span>
+            </li>
           </ul>
         </div>
       )}
