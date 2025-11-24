@@ -222,6 +222,12 @@ class Login extends Component {
             " " +
             this.state.otpoutput[0].last_name
           );
+          const guestID = localStorage.getItem("unicorn_guest_id");
+          if (guestID) {
+            localStorage.removeItem("unicorn_guest_id");
+            localStorage.removeItem("unicorn_guest_until");
+            localStorage.removeItem("unicorn_guest_gated_attempts");
+          }
           window.location.assign("/deals");
           message.success("OTP verified successfully.");
           break;

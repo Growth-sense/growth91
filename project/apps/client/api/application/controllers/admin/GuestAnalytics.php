@@ -45,12 +45,19 @@ class GuestAnalytics extends CI_Controller
         $this->db->where('gaEventDate <=', $to_dt);
         $metrics['guest_attempt_gated_action'] = (int)$this->db->count_all_results();
 
-        // guest_upgraded_to_user
+        // signup_started
         $this->db->from('guest_analytics');
-        $this->db->where('gaEventType', 'guest_upgraded_to_user');
+        $this->db->where('gaEventType', 'signup_started');
         $this->db->where('gaEventDate >=', $from_dt);
         $this->db->where('gaEventDate <=', $to_dt);
-        $metrics['guest_upgraded_to_user'] = (int)$this->db->count_all_results();
+        $metrics['signup_started'] = (int)$this->db->count_all_results();
+
+        // signup_completed
+        $this->db->from('guest_analytics');
+        $this->db->where('gaEventType', 'signup_completed');
+        $this->db->where('gaEventDate >=', $from_dt);
+        $this->db->where('gaEventDate <=', $to_dt);
+        $metrics['signup_completed'] = (int)$this->db->count_all_results();
 
         // Aggregated "I'm interested" counts per unicorn
         $this->db->select('gaUnicornDealID AS unicorn_id, COUNT(*) AS interest_count');

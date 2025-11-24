@@ -184,6 +184,25 @@ class Step1 extends Component {
       if (result.status == 1) {
         message.success(result.message);
         this.setState({ loading: false });
+
+        try {
+          const guestID = localStorage.getItem("unicorn_guest_id");
+          if (guestID) {
+            Bridge.Unicorn.GuestAnalytics.addEvent({
+              guestID,
+              unicornDealID: null,
+              eventType: "signup_completed",
+            });
+
+            // optional: clear guest state
+            localStorage.removeItem("unicorn_guest_id");
+            localStorage.removeItem("unicorn_guest_until");
+            localStorage.removeItem("unicorn_guest_gated_attempts");
+          }
+        } catch (e) {
+          console.error("guest analytics error", e);
+        }
+        
         if (result.data) {
           console.log("result", result);
           // return

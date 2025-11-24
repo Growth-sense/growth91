@@ -22,7 +22,8 @@ class GuestAnalytics extends Component {
       metrics: {
         guest_started: 0,
         guest_attempt_gated_action: 0,
-        guest_upgraded_to_user: 0,
+        signup_started: 0,
+        signup_completed: 0,
       },
       events: [], // keep raw events if needed later
       unicornInterest: [], // aggregated I am interested counts per unicorn
@@ -72,7 +73,8 @@ class GuestAnalytics extends Component {
           metrics: metrics || {
             guest_started: 0,
             guest_attempt_gated_action: 0,
-            guest_upgraded_to_user: 0,
+            signup_started: 0,
+            signup_completed: 0,
           },
           events: events || [],
           unicornInterest: unicorn_interest || [],
@@ -209,7 +211,7 @@ class GuestAnalytics extends Component {
 
                 <Spin spinning={loading}>
                   <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
-                    <Col xs={24} md={8}>
+                    <Col xs={24} md={6}>
                       <Card bordered style={{ borderRadius: 8 }}>
                         <Statistic
                           title="Guest sessions started"
@@ -217,7 +219,7 @@ class GuestAnalytics extends Component {
                         />
                       </Card>
                     </Col>
-                    <Col xs={24} md={8}>
+                    <Col xs={24} md={6}>
                       <Card bordered style={{ borderRadius: 8 }}>
                         <Statistic
                           title="Gated clicks (I'm interested)"
@@ -225,11 +227,19 @@ class GuestAnalytics extends Component {
                         />
                       </Card>
                     </Col>
-                    <Col xs={24} md={8}>
+                    <Col xs={24} md={6}>
                       <Card bordered style={{ borderRadius: 8 }}>
                         <Statistic
-                          title="Guests upgraded to users"
-                          value={metrics.guest_upgraded_to_user || 0}
+                          title="Signup started"
+                          value={metrics.signup_started || 0}
+                        />
+                      </Card>
+                    </Col>
+                    <Col xs={24} md={6}>
+                      <Card bordered style={{ borderRadius: 8 }}>
+                        <Statistic
+                          title="Signup completed"
+                          value={metrics.signup_completed || 0}
                         />
                       </Card>
                     </Col>

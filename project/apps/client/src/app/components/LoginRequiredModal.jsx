@@ -6,14 +6,27 @@ import Bridge from "../constants/Bridge";
 const LoginRequiredModal = ({ visible, onClose }) => {
   const history = useHistory();
 
-   const attempts =
+  const attempts =
     Number(localStorage.getItem("unicorn_guest_gated_attempts") || "0");
   const showBenefits = attempts > 2;
 
   const handleLogin = () => {
-  onClose();
-  history.push("/Signup");
-};
+    try {
+      const guestID = localStorage.getItem("unicorn_guest_id");
+      if (guestID) {
+        Bridge.Unicorn.GuestAnalytics.addEvent({
+          guestID,
+          unicornDealID: null,
+          eventType: "signup_started",
+        });
+      }
+    } catch (e) {
+      console.error("guest analytics error", e);
+    }
+
+    onClose();
+    history.push("/Signup");
+  };
 
   return (
     <Modal

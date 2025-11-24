@@ -297,6 +297,24 @@ class FounderRegistration extends Component {
         localStorage.setItem("founder_is_investor", result.data[0].is_investor);
         localStorage.setItem("founder_email", result.data[0].email);
         localStorage.setItem("founder_kycstatus", result.data[0].kycstatus);
+
+        try {
+          const guestID = localStorage.getItem("unicorn_guest_id");
+          if (guestID) {
+            Bridge.Unicorn.GuestAnalytics.addEvent({
+              guestID,
+              unicornDealID: null,
+              eventType: "signup_completed",
+            });
+
+            // optional: clear guest state
+            localStorage.removeItem("unicorn_guest_id");
+            localStorage.removeItem("unicorn_guest_until");
+            localStorage.removeItem("unicorn_guest_gated_attempts");
+          }
+        } catch (e) {
+          console.error("guest analytics error", e);
+        }
         window.location.assign("/founder-dashboard");
         message.success("Registration is completed successfully.");
         this.setState({ loading: false });
