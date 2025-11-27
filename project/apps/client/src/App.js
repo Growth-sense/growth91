@@ -317,7 +317,7 @@ function App() {
           <Route path="/FamilyDashboard" exact component={FamilyDashboard} />
           <Route path="/Preview" exact component={Preview} />
           <Route path="/FutureUnicornList" exact component={FutureUnicornList} />
-          <Route path="/FutureUnicornDescription/:urlName" exact  component={FutureUnicornDescription} />
+          {/* <Route path="/FutureUnicornDescription/:urlName" exact  component={FutureUnicornDescription} /> */}
           <Route path="/FutureUnicornForm" exact  component={FutureUnicornForm} >
             <ProtectUnicorn Component2={FutureUnicornForm}   Conditon={true} />
             </Route>
@@ -426,6 +426,7 @@ function App() {
           <Route path="/admin-family-manage" exact component={Familymanage} />
           <Route path="/future-unicorn-startups" exact component={FUnicornStartup} />
           <Route path="/FutureUnicorn" exact component={FutureUnicorn}  />
+          <Route path="/FutureUnicorn/:urlName" component={FutureUnicornDescription} />
             {/* <ProtectUnicorn Component2={FutureUnicorn}   Conditon={true} />
             </Route> */}
           <Route path="/future-unicorn-investors" exact component={FUnicornInvestors} />

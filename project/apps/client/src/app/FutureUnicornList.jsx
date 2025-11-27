@@ -3,7 +3,7 @@ import { NewWebFooter } from "./common/NewWebFooter";
 import Slider from "react-slick";
 import NewWebHeader from "./common/NewWebHeader.jsx";
 import $ from "jquery";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import Bridge from "./constants/Bridge.js";
 import { set } from "react-ga";
 import { Button, Modal, Input } from "antd";
@@ -13,6 +13,7 @@ import { parseBannerImage } from "./helper/utilHelper.js";
 
 export const FutureUnicornList = () => {
   const location = useLocation();
+  const history = useHistory();
   const [showGuestModal, setShowGuestModal] = useState(false);
 
  useEffect(() => {
@@ -696,9 +697,7 @@ useEffect(() => {
                         key={item.unicornDealID}
                         className="grid-card-item"
                         onClick={() => {
-                          window.location.assign(
-                            `/FutureUnicornDescription/${item.udUrlName}`
-                          );
+                          history.push(`/FutureUnicorn/${item.udUrlName}`);
                         }}
                       >
                         <div
@@ -832,7 +831,7 @@ useEffect(() => {
                               }}
                             >
                               <Link
-                                to={`/FutureUnicornDescription/${item.udUrlName}`}
+                                to={`/FutureUnicorn/${item.udUrlName}`}
                                 className="btn-com"
                               >
                                 View More

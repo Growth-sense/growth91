@@ -2,13 +2,14 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { NewWebFooter } from './common/NewWebFooter';
 import NewWebHeader from './common/NewWebHeader';
 import { Link } from '@material-ui/core';
-import { Link as NewLINK } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link as NewLINK, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Bridge from './constants/Bridge';
 import { LastUpdatedBadge } from './components/LastUpdatedBadge';
 import { parseBannerImage } from './helper/utilHelper.js';
 // import GuestAccessModal from "./components/GuestAccessModal.jsx";
 
 const NewFutureUnicorn = () => {
+  const history = useHistory();
   const [filteredData, setfilterdata] = useState([]);
   const [displayedItems, setDisplayedItems] = useState([]);
   const [screenSize, setScreenSize] = useState("desktop");
@@ -879,9 +880,7 @@ const NewFutureUnicorn = () => {
                   key={index}
                   className="grid-card-item"
                   onClick={() => {
-                    window.location.assign(
-                      `/FutureUnicornDescription/${item.udUrlName}`
-                    );
+                    history.push(`/FutureUnicorn/${item.udUrlName}`)
                   }}
                 >
                   <div
@@ -1008,11 +1007,7 @@ const NewFutureUnicorn = () => {
                         }}
                       >
                         <Link
-                          onClick={() => {
-                            window.location.replace(
-                              `/FutureUnicornDescription/${item.udUrlName}`
-                            );
-                          }}
+                          to={`/FutureUnicorn/${item.udUrlName}`}
                           className="btn-com"
                         >
                           View More

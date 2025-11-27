@@ -2,13 +2,14 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { NewWebFooter } from './common/NewWebFooter';
 import NewWebHeader from './common/NewWebHeader';
 import { Link } from '@material-ui/core';
-import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
+import { NavLink, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Bridge from './constants/Bridge';
 import { ViewPlan } from './Unicorn/ViewPlan';
 import { LastUpdatedBadge } from './components/LastUpdatedBadge';
 // import GuestAccessModal from './components/GuestAccessModal';
 
 const Newunicornfounder = () => {
+  const history = useHistory();
   const [filteredData, setfilterdata] = useState();
   const [displayedItems, setDisplayedItems] = useState([]);
   const [screenSize, setScreenSize] = useState("desktop");
@@ -1047,9 +1048,7 @@ const Newunicornfounder = () => {
                   key={index}
                   className="grid-card-item"
                   onClick={() => {
-                    window.location.assign(
-                      `/FutureUnicornDescription/${item.udUrlName}`
-                    );
+                    history.push(`/FutureUnicorn/${item.udUrlName}`);
                   }}
                 >
                   <div
@@ -1178,9 +1177,7 @@ const Newunicornfounder = () => {
                       >
                         <Link
                           onClick={() => {
-                            window.location.replace(
-                              `/FutureUnicornDescription/${item.udUrlName}`
-                            );
+                            history.push(`/FutureUnicorn/${item.udUrlName}`);
                           }}
                           className="btn-com"
                         >
@@ -1213,7 +1210,7 @@ const Newunicornfounder = () => {
               transition: "all 0.3s ease",
             }}
             onClick={() => {
-              window.location.replace("/FutureUnicornList");
+              history.push("/FutureUnicornList");
             }}
           >
             Explore all
