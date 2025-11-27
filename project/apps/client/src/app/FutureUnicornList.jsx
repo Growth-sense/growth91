@@ -697,7 +697,7 @@ useEffect(() => {
                         className="grid-card-item"
                         onClick={() => {
                           window.location.assign(
-                            `/FutureUnicornDescription?urlName=${item.udUrlName}`
+                            `/FutureUnicornDescription/${item.udUrlName}`
                           );
                         }}
                       >
@@ -832,7 +832,7 @@ useEffect(() => {
                               }}
                             >
                               <Link
-                                to={`/FutureUnicornDescription?urlName=${item.udUrlName}`}
+                                to={`/FutureUnicornDescription/${item.udUrlName}`}
                                 className="btn-com"
                               >
                                 View More

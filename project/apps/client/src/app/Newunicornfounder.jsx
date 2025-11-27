@@ -1048,7 +1048,7 @@ const Newunicornfounder = () => {
                   className="grid-card-item"
                   onClick={() => {
                     window.location.assign(
-                      `/FutureUnicornDescription?urlName=${item.udUrlName}`
+                      `/FutureUnicornDescription/${item.udUrlName}`
                     );
                   }}
                 >
@@ -1179,7 +1179,7 @@ const Newunicornfounder = () => {
                         <Link
                           onClick={() => {
                             window.location.replace(
-                              `/FutureUnicornDescription?urlName=${item.udUrlName}`
+                              `/FutureUnicornDescription/${item.udUrlName}`
                             );
                           }}
                           className="btn-com"

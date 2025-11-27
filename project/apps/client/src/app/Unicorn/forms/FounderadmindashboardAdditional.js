@@ -1222,7 +1222,7 @@ class FounderadmindashboardAdditional extends Component {
             footer={[
               <>
                 <Link
-                  to={`/FutureUnicornDescription?urlName=${this.state.udUrlName}`}
+                  to={`/FutureUnicornDescription/${this.state.udUrlName}`}
                 >
                   <button className="btn btn-block">View Startup</button>
                 </Link>

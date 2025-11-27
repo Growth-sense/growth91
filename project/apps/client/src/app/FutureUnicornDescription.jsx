@@ -37,8 +37,9 @@ export const FutureUnicornDescription = (props) => {
     ],
   };
 
+  const { urlName: urlNameParam } = useParams();
   const search = useLocation().search;
-  const urlName = props.urlName || new URLSearchParams(search).get("urlName");
+  const urlName = props.urlName || urlNameParam || new URLSearchParams(search).get("urlName");
   const history = useHistory();
   const [showGuestModal, setShowGuestModal] = useState(false);
   const [showLoginRequired, setShowLoginRequired] = useState(false);

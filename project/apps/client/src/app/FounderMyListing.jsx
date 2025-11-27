@@ -366,7 +366,7 @@ export const FounderMyListing = () => {
                         <div className="action-buttons">
                           {unicorn && unicorn.length !== 0 && (
                             <Link
-                              to={`/FutureUnicornDescription?urlName=${unicorn[0].udUrlName}`}
+                              to={`/FutureUnicornDescription/${unicorn[0].udUrlName}`}
                               className="action-button"
                             >
                               <i className="fa-regular fa-eye"></i>

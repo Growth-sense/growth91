@@ -317,7 +317,7 @@ function App() {
           <Route path="/FamilyDashboard" exact component={FamilyDashboard} />
           <Route path="/Preview" exact component={Preview} />
           <Route path="/FutureUnicornList" exact component={FutureUnicornList} />
-          <Route path="/FutureUnicornDescription" exact  component={FutureUnicornDescription} />
+          <Route path="/FutureUnicornDescription/:urlName" exact  component={FutureUnicornDescription} />
           <Route path="/FutureUnicornForm" exact  component={FutureUnicornForm} >
             <ProtectUnicorn Component2={FutureUnicornForm}   Conditon={true} />
             </Route>
