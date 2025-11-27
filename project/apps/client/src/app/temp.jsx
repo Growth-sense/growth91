@@ -311,7 +311,7 @@ export const FutureUnicornList = () => {
                           </ul>
                           <p>{item.udDealDescription}</p>
                           <Link
-                            to={`/FutureUnicornDescription?id=${item.unicornDealID}`}
+                            to={`/FutureUnicornDescription?urlName=${item.udUrlName}`}
                             className="btn-com"
                           >
                             View More{" "}
