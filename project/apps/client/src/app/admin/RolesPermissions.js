@@ -25,7 +25,6 @@ class RolesPermissions extends Component {
     perms: {},
     addRoleVisible: false,
     newRoleName: "",
-    newRoleDisplayName: "",
   };
 
   componentDidMount() {
@@ -58,17 +57,17 @@ class RolesPermissions extends Component {
         }
       );
 
-        if (res.data && res.data.status === "1") {
-            const allRoles = res.data.data || [];
-            const roles = allRoles.filter((r) => r.name !== "super_admin");
+      if (res.data && res.data.status === "1") {
+        const allRoles = res.data.data || [];
+        const roles = allRoles.filter((r) => r.name !== "super_admin");
 
-            this.setState({ roles });
+        this.setState({ roles });
 
-            if (roles.length > 0) {
-                const firstId = parseInt(roles[0].id, 10);
-                this.loadRolePermissions(firstId);
-            }
-        } else {
+        if (roles.length > 0) {
+          const firstId = parseInt(roles[0].id, 10);
+          this.loadRolePermissions(firstId);
+        }
+      } else {
         message.error(res.data?.message || "Failed to load roles");
       }
     } catch (err) {
@@ -145,6 +144,16 @@ class RolesPermissions extends Component {
           >
             View
           </Checkbox>
+
+          <Checkbox
+            checked={check("startups", "add")}
+            onChange={(e) =>
+              this.togglePerm("startups", "add", e.target.checked)
+            }
+          >
+            Add New Startup
+          </Checkbox>
+
           <Checkbox
             checked={check("startups", "edit")}
             onChange={(e) =>
@@ -153,13 +162,40 @@ class RolesPermissions extends Component {
           >
             Edit
           </Checkbox>
+
           <Checkbox
-            checked={check("startups", "approve")}
+            checked={check("startups", "delete")}
             onChange={(e) =>
-              this.togglePerm("startups", "approve", e.target.checked)
+              this.togglePerm("startups", "delete", e.target.checked)
             }
           >
-            Approve
+            Delete
+          </Checkbox>
+
+          <Checkbox
+            checked={check("startups", "export")}
+            onChange={(e) =>
+              this.togglePerm("startups", "export", e.target.checked)
+            }
+          >
+            Export Data
+          </Checkbox>
+
+          <Checkbox
+            checked={check("startups", "documents")}
+            onChange={(e) =>
+              this.togglePerm("startups", "documents", e.target.checked)
+            }
+          >
+            Documents
+          </Checkbox>
+          <Checkbox
+            checked={check("startups", "analytics")}
+            onChange={(e) =>
+              this.togglePerm("startups", "analytics", e.target.checked)
+            }
+          >
+            Analytics
           </Checkbox>
         </div>
 
@@ -499,7 +535,6 @@ class RolesPermissions extends Component {
     this.setState({
       addRoleVisible: true,
       newRoleName: "",
-      newRoleDisplayName: "",
     });
   };
 
@@ -508,12 +543,11 @@ class RolesPermissions extends Component {
   };
 
   handleCreateRole = async () => {
-    const { newRoleName, newRoleDisplayName } = this.state;
+    const { newRoleName } = this.state;
     const name = (newRoleName || "").trim();
-    const displayName = (newRoleDisplayName || "").trim();
 
-    if (!name || !displayName) {
-      message.error("Please enter both role name and display name");
+    if (!name) {
+      message.error("Please enter role name");
       return;
     }
 
@@ -526,7 +560,7 @@ class RolesPermissions extends Component {
     try {
       const res = await axios.post(
         `${process.env.REACT_APP_BASE_URL}api/admin/Roles/create`,
-        { name, display_name: displayName },
+        { name },
         { headers: { "X-Admin-Id": adminId } }
       );
 
@@ -589,7 +623,6 @@ class RolesPermissions extends Component {
       perms,
       addRoleVisible,
       newRoleName,
-      newRoleDisplayName,
     } = this.state;
 
     return (
@@ -634,7 +667,7 @@ class RolesPermissions extends Component {
                         style={{ marginBottom: 8 }}
                         onClick={() => this.loadRolePermissions(parseInt(r.id, 10))}
                       >
-                        {r.display_name}
+                        {r.name}
                       </Button>
                     ))}
                   </Card>
@@ -671,19 +704,10 @@ class RolesPermissions extends Component {
           cancelText="Cancel"
         >
           <div style={{ marginBottom: 12 }}>
-            <label>Role Name (unique, e.g. relationship_manager)</label>
+            <label>Role Name</label>
             <Input
               value={newRoleName}
               onChange={(e) => this.setState({ newRoleName: e.target.value })}
-            />
-          </div>
-          <div>
-            <label>Display Name (e.g. Relationship Manager)</label>
-            <Input
-              value={newRoleDisplayName}
-              onChange={(e) =>
-                this.setState({ newRoleDisplayName: e.target.value })
-              }
             />
           </div>
         </Modal>

@@ -40,7 +40,6 @@ class Roles extends CI_Controller
             'data'    => [
                 'id'               => $role->id,
                 'name'             => $role->name,
-                'display_name'     => $role->display_name,
                 'permissions_json' => $role->permissions_json,
             ],
         ]);
@@ -97,7 +96,7 @@ class Roles extends CI_Controller
         }
 
         $roles = $this->db
-            ->select('id, name, display_name, permissions_json')
+            ->select('id, name, permissions_json')
             ->from('admin_roles_master')
             ->order_by('id', 'ASC')
             ->get()
@@ -120,11 +119,10 @@ class Roles extends CI_Controller
         }
 
         $formdata = json_decode(file_get_contents('php://input'), true);
-        $name         = isset($formdata['name']) ? trim($formdata['name']) : '';
-        $display_name = isset($formdata['display_name']) ? trim($formdata['display_name']) : '';
+        $name = isset($formdata['name']) ? trim($formdata['name']) : '';
 
-        if ($name === '' || $display_name === '') {
-            echo json_encode(['status' => '0', 'message' => 'name and display_name required']); return;
+        if ($name === '') {
+            echo json_encode(['status' => '0', 'message' => 'name required']); return;
         }
 
         $existing = $this->db->get_where('admin_roles_master', ['name' => $name])->row();
@@ -132,9 +130,9 @@ class Roles extends CI_Controller
             echo json_encode(['status' => '0', 'message' => 'Role name already exists']); return;
         }
 
+        // Only set the technical name; display_name column (if present) is unused
         $data = [
             'name'             => $name,
-            'display_name'     => $display_name,
             'permissions_json' => '{}',
         ];
 
@@ -194,9 +192,11 @@ class Roles extends CI_Controller
         }
 
         $users = $this->db
-            ->select('id, username, is_super_admin')
-            ->from('admin_master')
-            ->order_by('id', 'ASC')
+            ->select('am.id, am.username, am.is_super_admin, arm.name AS role_name')
+            ->from('admin_master am')
+            ->join('admin_user_roles aur', 'aur.admin_id = am.id', 'left')
+            ->join('admin_roles_master arm', 'arm.id = aur.role_id', 'left')
+            ->order_by('am.id', 'ASC')
             ->get()
             ->result_array();
 
@@ -264,45 +264,40 @@ public function updateUserRoles()
     }
 
     // 3) Normalize role IDs to integers
-    $normalizedRoleIds = [];
-    foreach ($roleIds as $rid) {
-        $rid = (int)$rid;
-        if ($rid > 0) {
-            $normalizedRoleIds[] = $rid;
-        }
+$normalizedRoleIds = [];
+foreach ($roleIds as $rid) {
+    $rid = (int)$rid;
+    if ($rid > 0) {
+        $normalizedRoleIds[] = $rid;
     }
+}
 
-    // 4) Replace rows in admin_user_roles
-    $this->db->where('admin_id', $userId)->delete('admin_user_roles');
+// 4) Prevent assigning super_admin role from this endpoint
+$superRole = $this->db
+    ->select('id')
+    ->from('admin_roles_master')
+    ->where('name', 'super_admin')
+    ->get()
+    ->row();
 
-    foreach ($normalizedRoleIds as $rid) {
-        $this->db->insert('admin_user_roles', [
-            'admin_id' => $userId,
-            'role_id'  => $rid,
-        ]);
-    }
+$superId = $superRole ? (int)$superRole->id : null;
+if ($superId && in_array($superId, $normalizedRoleIds, true)) {
+    echo json_encode(['status' => '0', 'message' => 'Cannot assign super_admin role from this endpoint']);
+    return;
+}
 
-    // 5) Sync admin_master.is_super_admin based on presence of 'super_admin' role
-    //    - Look up super_admin role id
-    $superRole = $this->db
-        ->select('id')
-        ->from('admin_roles_master')
-        ->where('name', 'super_admin')
-        ->get()
-        ->row();
+// 5) Replace rows in admin_user_roles (only non-super_admin roles)
+$this->db->where('admin_id', $userId)->delete('admin_user_roles');
 
-    $superId = $superRole ? (int)$superRole->id : null;
-    $isSuperAdmin = 0;
+foreach ($normalizedRoleIds as $rid) {
+    $this->db->insert('admin_user_roles', [
+        'admin_id' => $userId,
+        'role_id'  => $rid,
+    ]);
+}
 
-    if ($superId) {
-        // if submitted role_ids contain the super_admin role, set flag = 1
-        $isSuperAdmin = in_array($superId, $normalizedRoleIds, true) ? 1 : 0;
-
-        $this->db->where('id', $userId)
-                 ->update('admin_master', ['is_super_admin' => $isSuperAdmin]);
-    }
-
-    echo json_encode(['status' => '1', 'message' => 'User roles updated']);
+// Do not change admin_master.is_super_admin here; Super Admins are managed outside this screen.
+echo json_encode(['status' => '1', 'message' => 'User roles updated']);
 }
 
     // GET /api/admin/Roles/myPermissions
@@ -357,28 +352,30 @@ public function createAdminUser()
         echo json_encode(['status' => '0', 'message' => 'Username already exists']); return;
     }
 
-    // Verify role exists
-    $role = $this->db->get_where('admin_roles_master', ['id' => $roleId])->row();
-    if (!$role) {
-        echo json_encode(['status' => '0', 'message' => 'Invalid role_id']); return;
-    }
+   // Verify role exists
+$role = $this->db->get_where('admin_roles_master', ['id' => $roleId])->row();
+if (!$role) {
+    echo json_encode(['status' => '0', 'message' => 'Invalid role_id']); return;
+}
 
-    // Determine super admin flag from role name
-    $isSuperAdmin = ($role->name === 'super_admin') ? 1 : 0;
+// Do not allow creating Super Admin users from this endpoint
+if ($role->name === 'super_admin') {
+    echo json_encode(['status' => '0', 'message' => 'Cannot create super_admin user from this endpoint']);
+    return;
+}
 
-    // Match existing admin login hashing (Admin::signin uses md5)
-    $hashedPassword = md5($password);
+// Match existing admin login hashing (Admin::signin uses md5)
+$hashedPassword = md5($password);
 
-    // Insert into admin_master
-    $adminInsert = [
-        'username'        => $username,
-        'password'        => $hashedPassword,
-        'is_super_admin'  => $isSuperAdmin,
-        'failAttempt'     => 0,
-        'blocked'         => 0,
-        'permissions_json'=> '',
-    ];
-
+// Insert into admin_master (always non-super-admin)
+$adminInsert = [
+    'username'        => $username,
+    'password'        => $hashedPassword,
+    'is_super_admin'  => 0,
+    'failAttempt'     => 0,
+    'blocked'         => 0,
+    'permissions_json'=> '',
+];
     $this->db->insert('admin_master', $adminInsert);
 
     // Check insert result

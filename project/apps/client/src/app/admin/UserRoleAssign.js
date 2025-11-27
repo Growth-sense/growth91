@@ -73,14 +73,20 @@ class UserRoleAssign extends Component {
         ),
       ]);
 
-      const users =
+      const usersRaw =
         usersRes.data && usersRes.data.status === "1"
           ? usersRes.data.data || []
           : [];
-      const roles =
+      const rolesRaw =
         rolesRes.data && rolesRes.data.status === "1"
           ? rolesRes.data.data || []
           : [];
+
+      // Hide any super_admin users from this UI completely
+      const users = usersRaw.filter((u) => Number(u.is_super_admin) !== 1);
+
+      // Hide super_admin role from this UI completely
+      const roles = rolesRaw.filter((r) => r.name !== "super_admin");
 
       this.setState(
         {
@@ -123,22 +129,8 @@ class UserRoleAssign extends Component {
       );
 
       if (res.data && res.data.status === "1") {
-        // Normalize role IDs to numbers
+        // Normalize role IDs to numbers (super_admin role is already filtered out of roles list)
         let userRoles = (res.data.data || []).map((id) => Number(id));
-
-        // If selected user is super admin (is_super_admin === 1), force 'super_admin' role selected
-        const { users, roles } = this.state;
-        const selectedUser = users.find((u) => u.id === userId);
-        const isSuperAdminFlag =
-          selectedUser && Number(selectedUser.is_super_admin) === 1;
-
-        if (isSuperAdminFlag) {
-          const superAdminRole = roles.find((r) => r.name === "super_admin");
-          if (superAdminRole) {
-            const superId = Number(superAdminRole.id);
-            userRoles = [superId]; // always only Super Admin role
-          }
-        }
 
         this.setState({ userRoles });
       } else {
@@ -216,42 +208,14 @@ class UserRoleAssign extends Component {
       return;
     }
 
-    // At least one role must be selected
     if (!userRoles || userRoles.length === 0) {
       message.error("Please select at least one role for this user.");
       return;
     }
 
-    const selectedUser = users.find((u) => u.id === selectedUserId);
-    const isCurrentlySuperAdmin =
-      selectedUser && Number(selectedUser.is_super_admin) === 1;
-
-    const superAdminRole = roles.find((r) => r.name === "super_admin");
-    const superAdminRoleId = superAdminRole
-      ? Number(superAdminRole.id)
-      : null;
-
-    const isSuperRoleSelected =
-      superAdminRoleId !== null &&
-      userRoles.includes(superAdminRoleId);
-
-    // If user is currently Super Admin and we are removing the super_admin role,
-    // show a confirmation dialog.
-    if (isCurrentlySuperAdmin && superAdminRoleId !== null && !isSuperRoleSelected) {
-      Modal.confirm({
-        title: "Remove Super Admin access?",
-        content:
-          "This user is currently Super Admin. Changing their role will remove Super Admin access. Do you want to continue?",
-        okText: "Yes, update role",
-        cancelText: "Cancel",
-        onOk: () => {
-          this.performSaveUserRoles();
-        },
-      });
-    } else {
-      // Normal save
-      this.performSaveUserRoles();
-    }
+    // We no longer manage Super Admin status from this screen.
+    // Just save the selected non-super_admin roles.
+    this.performSaveUserRoles();
   };
 
   // --- Add Admin modal handlers (button in Admins card on left) ---
@@ -401,7 +365,7 @@ class UserRoleAssign extends Component {
                               description={
                                 Number(u.is_super_admin) === 1
                                   ? "Super Admin"
-                                  : "Admin"
+                                  :  u.role_name || "Admin"
                               }
                             />
                           </List.Item>
@@ -435,7 +399,7 @@ class UserRoleAssign extends Component {
                               this.toggleUserRole(r.id, e.target.checked)
                             }
                           >
-                            {r.display_name} ({r.name})
+                            {r.display_name} {r.name}
                           </Checkbox>
                         </div>
                       ))}
@@ -486,16 +450,14 @@ class UserRoleAssign extends Component {
               placeholder="Select role"
               style={{ width: "100%" }}
             >
-              {roles.map((r) => (
-                <Option key={r.id} value={Number(r.id)}>
-                  {r.display_name} ({r.name})
-                </Option>
-              ))}
+              {roles
+                .filter((r) => r.name !== "super_admin")
+                .map((r) => (
+                  <Option key={r.id} value={Number(r.id)}>
+                    {r.display_name} ({r.name})
+                  </Option>
+                ))}
             </Select>
-          </div>
-          <div style={{ fontSize: 12, color: "#888" }}>
-            New admin will be created in <code>admin_master</code> and assigned
-            to the selected role.
           </div>
         </Modal>
       </Layout>

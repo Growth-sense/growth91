@@ -428,7 +428,13 @@ function App() {
           <Route exact path="/admin/user-roles" component={UserRoleAssign} />
           <Route path="/admin-founders" exact component={adminfounders} />
           <Route path="/admin-investors" exact component={admininvestors} />
-          <Route path="/admin-startups" exact component={adminstartups} />
+          <ProtectedAdminRoute
+            exact
+            path="/admin-startups"
+            component={adminstartups}
+            requiredModule="startups"
+            requiredAction="view"
+          />
           <Route path="/admin-family" exact component={FamilyAdmin} />
           <Route path="/admin-unicorn" exact component={UnicornAdmin} />
           <Route path="/admin-all-unicorn" exact component={UnicornAdminAll} />

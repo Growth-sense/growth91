@@ -24,6 +24,8 @@ import Sidebar2 from "./common/Sidebar2";
 import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
 import moment from "moment";
+import axios from "axios";
+import NoPermission from "./common/NoPermission";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -61,17 +63,77 @@ class Startups extends Component {
       operational_founder: "",
       edit_authorised_founder: "",
       edit_operational_founder: "",
+
+      // permissions
+      canAddStartup: false,
+      canEditStartup: false,
+      canDeleteStartup: false,
+      canExportStartup: false,
+      canManageStartupDocs: false,
+      canViewStartupAnalytics: false,
     };
   }
 
   componentDidMount() {
+    this.loadPermissions();
     this.getstartuplist();
     setTimeout(() => {
       this.getfounderlist();
     }, 1000);
   }
 
+  loadPermissions = async () => {
+    // Read admin id from localStorage (same pattern as ProtectedAdminRoute)
+    let adminId = null;
+    const raw = localStorage.getItem("admin_login");
+    if (raw) {
+      try {
+        const parsed = JSON.parse(raw);
+        adminId = parsed.value;
+      } catch (e) {
+        adminId = null;
+      }
+    }
+
+    if (!adminId) {
+      // If we can't find admin ID, leave all permissions false
+      return;
+    }
+
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}api/admin/Roles/myPermissions`,
+        {
+          headers: { "X-Admin-Id": adminId },
+        }
+      );
+
+      let perms = {};
+      if (res.data && res.data.status === "1") {
+        perms = res.data.data || {};
+      }
+
+      const s = perms.startups || {};
+
+      this.setState({
+        canAddStartup: s.add === true,
+        canEditStartup: s.edit === true,
+        canDeleteStartup: s.delete === true,
+        canExportStartup: s.export === true,
+        canManageStartupDocs: s.documents === true,
+        canViewStartupAnalytics: s.analytics === true,
+      });
+    } catch (e) {
+      console.error("Error loading startups permissions", e);
+      // On error, keep defaults (all false)
+    }
+  };
+
   showAddModal = () => {
+    if (!this.state.canAddStartup) {
+      message.error("You do not have permission to add startups.");
+      return;
+    }
     this.setState({
       addModalStatus: true,
     });
@@ -82,20 +144,6 @@ class Startups extends Component {
     this.setState({ loading: true });
     Bridge.founders.list().then((result) => {
       if (result.status == 1) {
-        // console.log('result', result.data);
-        // let arr=[];
-        // for(let item of result.data){
-        //   let status=false;
-        //   for(let item2 of this.state.cstartups){
-        //     if(item2.founder_id==item.investor_id){
-        //       status=true;
-        //     }
-        //   }
-        //   if(status==false){
-        //     arr=[...arr,item];
-        //   }
-        // }
-        // console.log('arr',arr);
         this.setState({
           founderlist: result.data,
           cfounderlist: result.data,
@@ -144,13 +192,19 @@ class Startups extends Component {
 
   // show edit modal
   showEditModal = (item) => {
+    if (!this.state.canEditStartup) {
+      message.error("You do not have permission to edit startups.");
+      return;
+    }
     this.setState({
       editname: item.name,
       editstatus: item.status,
       editModalStatus: true,
       startupid: item.startupid,
       editselectedfounder:
-        item.founder_id.length > 0 ? JSON.parse(item.founder_id) : [],
+        item.founder_id && item.founder_id.length > 0
+          ? JSON.parse(item.founder_id)
+          : [],
       edit_authorised_founder: item.authorised_founder,
       edit_operational_founder: item.operational_founder,
     });
@@ -158,6 +212,11 @@ class Startups extends Component {
 
   // update post
   updatestartup = () => {
+    if (!this.state.canEditStartup) {
+      message.error("You do not have permission to edit startups.");
+      return;
+    }
+
     if (this.state.editname == "") {
       message.warning("Name is required");
       return false;
@@ -209,6 +268,10 @@ class Startups extends Component {
   };
 
   showDeleteModal = (item) => {
+    if (!this.state.canDeleteStartup) {
+      message.error("You do not have permission to delete startups.");
+      return;
+    }
     this.setState({
       deleteModalStatus: true,
       startupid: item.startupid,
@@ -216,6 +279,11 @@ class Startups extends Component {
   };
 
   deletestartup = () => {
+    if (!this.state.canDeleteStartup) {
+      message.error("You do not have permission to delete startups.");
+      return;
+    }
+
     if (this.state.startupid == "") {
       message.warning("Please select the startup first.");
       return false;
@@ -256,7 +324,8 @@ class Startups extends Component {
       let arr = [];
       for (let item of this.state.cstartups) {
         if (
-          (item.name && item.name.toLowerCase().includes(text.toLowerCase())) ||
+          (item.name &&
+            item.name.toLowerCase().includes(text.toLowerCase())) ||
           (item.status &&
             item.status.toLowerCase().includes(text.toLowerCase())) ||
           (item.startupid && item.startupid.includes(text.toLowerCase()))
@@ -307,11 +376,9 @@ class Startups extends Component {
   };
 
   handleChangeSelected = (value) => {
-    // console.log('value', value);
     this.setState({ category: value });
   };
   handleChangeSelectededit = (value) => {
-    // console.log('value', value);
     this.setState({ editcategory: value });
   };
 
@@ -324,6 +391,11 @@ class Startups extends Component {
 
   // add new deal
   addstartup = () => {
+    if (!this.state.canAddStartup) {
+      message.error("You do not have permission to add startups.");
+      return;
+    }
+
     if (this.state.name == "") {
       message.warning("Startup name is required");
       return false;
@@ -400,6 +472,11 @@ class Startups extends Component {
   };
 
   exportToCSV = (fileName) => {
+    if (!this.state.canExportStartup) {
+      message.error("You do not have permission to export startups data.");
+      return;
+    }
+
     let arr = [];
     let count = 1;
     for (let item of this.state.startups) {
@@ -414,12 +491,8 @@ class Startups extends Component {
         "Total Investment": item.total_investment ? item.total_investment : "---",
         "Total Fees": item.total_fees ? item.total_fees : "---",
         Status: item.status,
-        // 'Tax Type': item.payment_type,
-        // 'KYC Status': item.isapproved,
-        // 'Invested date': item.Invested_dt ? moment(item.Invested_dt).format('DD MMM, YYYY') : '---',
       };
       arr = [...arr, obj];
-      // count++;
     }
     const ws = XLSX.utils.json_to_sheet(arr);
     const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
@@ -450,20 +523,20 @@ class Startups extends Component {
   };
 
   render() {
-   
-    const disdingid = (datas)=>{
+    const { noPermission } = this.props;
+    const disdingid = (datas) => {
       const data = [...this.state.startups].sort((a, b) =>
-        a.datas > b.datas ? 1 : -1,
+        a.datas > b.datas ? 1 : -1
       );
       this.setState({
-        startups:data
-      })
+        startups: data,
+      });
       console.log(data);
-    }
+    };
     const dataSource =
       this.state.startups &&
       this.state.startups.map((item, index) => {
-        return {                    
+        return {
           key: index,
           startupid: item.startupid,
           startupname: item.name ? item.name : "---",
@@ -478,15 +551,14 @@ class Startups extends Component {
 
     const columns = [
       {
-        title:<span onClick={()=>{disdingid("id")}}>Startup Id</span> ,
+        title: <span onClick={() => disdingid("id")}>Startup Id</span>,
         dataIndex: "startupid",
         key: "startupid",
         width: 160,
         fixed: "left",
-        // onclick: assdingid()
       },
       {
-        title: <span onClick={()=>{disdingid("name")}}>Startup Name</span>,
+        title: <span onClick={() => disdingid("name")}>Startup Name</span>,
         dataIndex: "startupname",
         key: "startupname",
         width: 180,
@@ -496,7 +568,7 @@ class Startups extends Component {
         dataIndex: "investors",
         key: "investors",
         width: 180,
-        render: (text, record) => {
+        render: (text) => {
           return <Investors id={text.startupid} />;
         },
       },
@@ -504,7 +576,17 @@ class Startups extends Component {
         title: "Analytics",
         dataIndex: "analytics",
         key: "analytics",
-        render: (text, record) => {
+        render: (text) => {
+          if (!this.state.canViewStartupAnalytics) {
+            return (
+              <span
+                style={{ color: "#1890ff", cursor: "not-allowed" }}
+                onClick={(e) => e.preventDefault()}
+              >
+                Analytics
+              </span>
+            );
+          }
           return <Analytics id={text.startupid} />;
         },
       },
@@ -512,7 +594,19 @@ class Startups extends Component {
         title: "Documents",
         dataIndex: "documents",
         key: "documents",
-        render: (text, record) => {
+        render: (text) => {
+          if (!this.state.canManageStartupDocs) {
+            // Show link-style text but do nothing on click
+            return (
+              <span
+                style={{ color: "#1890ff", cursor: "not-allowed" }}
+                onClick={(e) => e.preventDefault()}
+              >
+                Documents
+              </span>
+            );
+          }
+          // Full working modal when allowed
           return <Documents id={text.startupid} user="admin" />;
         },
       },
@@ -534,20 +628,32 @@ class Startups extends Component {
               defaultSelectedKeys={[this.state.path]}
               style={{ width: 200 }}
             >
-              <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />}>
+              <Menu.Item
+                key={`Edit${record.key}`}
+                icon={<EditOutlined />}
+                disabled={!this.state.canEditStartup}
+              >
                 <a
                   href="#"
-                  onClick={() => this.showEditModal(text)}
+                  onClick={() =>
+                    this.state.canEditStartup && this.showEditModal(text)
+                  }
                   style={{ fontSize: 14 }}
                 >
                   &nbsp;&nbsp;Edit
                 </a>
               </Menu.Item>
-              <Menu.Item key={`Delete${record.key}`} icon={<DeleteOutlined />}>
+              <Menu.Item
+                key={`Delete${record.key}`}
+                icon={<DeleteOutlined />}
+                disabled={!this.state.canDeleteStartup}
+              >
                 <a
                   href="#"
                   style={{ fontSize: 14 }}
-                  onClick={() => this.showDeleteModal(text)}
+                  onClick={() =>
+                    this.state.canDeleteStartup && this.showDeleteModal(text)
+                  }
                 >
                   &nbsp;&nbsp;Delete
                 </a>
@@ -579,93 +685,84 @@ class Startups extends Component {
           <Layout className="site-layout">
             <Sidebar2 />
 
-            <Content className="home-section">'
-              <Card
-                title="Startups"
-                extra={
-                  <Button type="primary" onClick={this.showAddModal}>
-                    <i
-                      className="bx bxs-plus-circle"
-                      style={{
-                        color: "#fff",
-                        position: "relative",
-                        top: 3,
-                        left: -3,
-                      }}
-                    ></i>{" "}
-                    Add New Startup
-                  </Button>
-                }
-                style={{ margin: 16 }}
-              >
-                <Breadcrumb
-                  style={{
-                    margin: "0",
-                  }}
-                >
-                  <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
-                  <Breadcrumb.Item>Startups</Breadcrumb.Item>
-                </Breadcrumb>
-                <br />
-                <br />
-                {/* <Input 
-                  value={this.state.searchinput}
-                  placeholder="Search" 
-                  onChange={(e) => this.searchinput(e)}
-                  style={{ maxWidth:300,marginBottom:20,height:40 }}
-                /> */}
 
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
+            {noPermission ? <NoPermission /> : <>
+              <Content className="home-section">
+                <Card
+                  title="Startups"
+                  extra={
+                    <Button
+                      type="primary"
+                      onClick={this.showAddModal}
+                      disabled={!this.state.canAddStartup}
+                    >
+                      <i
+                        className="bx bxs-plus-circle"
+                        style={{
+                          color: "#fff",
+                          position: "relative",
+                          top: 3,
+                          left: -3,
+                        }}
+                      ></i>{" "}
+                      Add New Startup
+                    </Button>
+                  }
+                  style={{ margin: 16 }}
                 >
-                  <Input
-                    value={this.state.searchinput}
-                    placeholder="Search"
-                    onChange={(e) => this.searchinput(e)}
-                    style={{ maxWidth: 300, marginBottom: 20, height: 40 }}
+                  <Breadcrumb
+                    style={{
+                      margin: "0",
+                    }}
+                  >
+                    <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+                    <Breadcrumb.Item>Startups</Breadcrumb.Item>
+                  </Breadcrumb>
+                  <br />
+                  <br />
+
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Input
+                      value={this.state.searchinput}
+                      placeholder="Search"
+                      onChange={(e) => this.searchinput(e)}
+                      style={{ maxWidth: 300, marginBottom: 20, height: 40 }}
+                    />
+
+                    <Button
+                      type="primary"
+                      onClick={() => this.exportToCSV("Investment Details")}
+                      disabled={!this.state.canExportStartup}
+                    >
+                      <i
+                        className="bx bxs-cloud-download"
+                        style={{
+                          color: "#fff",
+                          position: "relative",
+                          top: 3,
+                          left: -3,
+                        }}
+                      ></i>{" "}
+                      Export Data
+                    </Button>
+                  </div>
+                  <Table
+                    dataSource={dataSource}
+                    columns={columns}
+                    loading={this.state.loading}
+                    bordered
                   />
-                  {/* <Button 
-                    type='primary' 
-                    onClick={()=>this.refresh()}
-                  >
-                    <i className='bx bxs-cloud-download' 
-                      style={{ 
-                      color:'#fff',
-                      position:'relative',
-                      top:3,
-                      left:-3
-                  }}
-                    ></i> Refersh data
-                  </Button> */}
-                  <Button
-                    type="primary"
-                    onClick={() => this.exportToCSV("Investment Details")}
-                  >
-                    <i
-                      className="bx bxs-cloud-download"
-                      style={{
-                        color: "#fff",
-                        position: "relative",
-                        top: 3,
-                        left: -3,
-                      }}
-                    ></i>{" "}
-                    Export Data
-                  </Button>
-                </div>
-                <Table
-                  dataSource={dataSource}
-                  columns={columns}
-                  loading={this.state.loading}
-                  bordered
-                />
-              </Card>
-            </Content>
+                </Card>
+              </Content>
+            </>
+            }
 
-            <BottomBar />
+             {noPermission ? '' : <BottomBar /> }
           </Layout>
         </Layout>
 
@@ -701,8 +798,10 @@ class Startups extends Component {
                 showSearch
                 placeholder="Search and select founders"
                 filterOption={(input, option) => {
-                  const text = typeof option.children === 'string' ? option.children : option.children.join('');
-                  console.log(text);
+                  const text =
+                    typeof option.children === "string"
+                      ? option.children
+                      : option.children.join("");
                   return text.toLowerCase().indexOf(input.toLowerCase()) >= 0;
                 }}
               >
@@ -739,6 +838,7 @@ class Startups extends Component {
                         </Option>
                       );
                     }
+                    return null;
                   })}
               </Select>
             </div>
@@ -765,6 +865,7 @@ class Startups extends Component {
                         </Option>
                       );
                     }
+                    return null;
                   })}
               </Select>
             </div>
@@ -832,7 +933,8 @@ class Startups extends Component {
             </div>
             <div className="form-group mt-3">
               <label className="mb-2">
-                Select Authorised Founder <span className="text-danger">*</span>
+                Select Authorised Founder{" "}
+                <span className="text-danger">*</span>
               </label>
               <Select
                 name="status"
@@ -854,6 +956,7 @@ class Startups extends Component {
                         </Option>
                       );
                     }
+                    return null;
                   })}
               </Select>
             </div>
@@ -882,6 +985,7 @@ class Startups extends Component {
                         </Option>
                       );
                     }
+                    return null;
                   })}
               </Select>
             </div>
@@ -931,8 +1035,8 @@ class Startups extends Component {
           <Spin spinning={this.state.formloader}>
             <div className="mt-4">
               <label className="mb-2">
-                {" "}
-                Approve / Pending Status<span className="text-danger">*</span>
+                Approve / Pending Status
+                <span className="text-danger">*</span>
               </label>
 
               <Select
@@ -949,7 +1053,6 @@ class Startups extends Component {
             </div>
             <div className="mt-4">
               <label className="mb-2">
-                {" "}
                 Deal Status<span className="text-danger">*</span>
               </label>
 
