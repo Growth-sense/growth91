@@ -1,10 +1,22 @@
 import React, { Component } from "react";
-import { Layout, Breadcrumb, Card, DatePicker, Row, Col, Statistic, Table, Button, Spin } from "antd";
+import {
+  Layout,
+  Breadcrumb,
+  Card,
+  DatePicker,
+  Row,
+  Col,
+  Statistic,
+  Table,
+  Button,
+  Spin,
+} from "antd";
 import moment from "moment";
 import axios from "axios";
 import Sidebar2 from "./common/Sidebar2";
 import Navbar from "./common/Navbar";
 import BottomBar from "./common/BottomBar";
+import NoPermission from "./common/NoPermission";
 
 const { Content } = Layout;
 const { RangePicker } = DatePicker;
@@ -25,14 +37,23 @@ class GuestAnalytics extends Component {
         signup_started: 0,
         signup_completed: 0,
       },
-      events: [], // keep raw events if needed later
-      unicornInterest: [], // aggregated I am interested counts per unicorn
+      events: [],
+      unicornInterest: [],
       hasAppliedFilter: false,
     };
   }
 
   componentDidMount() {
+    // If no permission, don't call API
+    if (this.props.noPermission) return;
     this.fetchData();
+  }
+
+  componentDidUpdate(prevProps) {
+    // If permission changes from no → yes, load data
+    if (prevProps.noPermission && !this.props.noPermission) {
+      this.fetchData();
+    }
   }
 
   buildTitle = () => {
@@ -40,7 +61,6 @@ class GuestAnalytics extends Component {
     if (!startDate || !endDate) return "Guest Activity";
 
     if (!hasAppliedFilter) {
-      // default: last 7 days
       return "Guest Activity in last 7 days";
     }
 
@@ -60,11 +80,25 @@ class GuestAnalytics extends Component {
         to_date: endDate.endOf("day").format("YYYY-MM-DD"),
       };
 
-      // Placeholder admin API endpoint. Backend can implement:
-      // GET /api/admin/GuestAnalytics/summary?from_date=YYYY-MM-DD&to_date=YYYY-MM-DD
+      const adminLoginRaw = localStorage.getItem("admin_login");
+      let adminId = null;
+      if (adminLoginRaw) {
+        try {
+          const adminLogin = JSON.parse(adminLoginRaw);
+          adminId = adminLogin.value;
+        } catch (e) {
+          adminId = null;
+        }
+      }
+
       const response = await axios.get(
         `${process.env.REACT_APP_BASE_URL}api/admin/GuestAnalytics/summary`,
-        { params }
+        {
+          params,
+          headers: {
+            "X-Admin-Id": adminId,
+          },
+        }
       );
 
       if (response.data && response.data.status === "1") {
@@ -94,6 +128,9 @@ class GuestAnalytics extends Component {
   };
 
   handleApply = () => {
+    // Do nothing if no access
+    if (this.props.noPermission) return;
+
     const [start, end] = this.state.pickerValue || [];
     if (!start || !end) return;
 
@@ -108,6 +145,9 @@ class GuestAnalytics extends Component {
   };
 
   handleReset = () => {
+    // Do nothing if no access
+    if (this.props.noPermission) return;
+
     const end = moment().endOf("day");
     const start = moment().subtract(6, "days").startOf("day");
 
@@ -124,6 +164,7 @@ class GuestAnalytics extends Component {
 
   render() {
     const { loading, pickerValue, metrics, unicornInterest } = this.state;
+    const { noPermission } = this.props;
 
     const columns = [
       {
@@ -174,15 +215,15 @@ class GuestAnalytics extends Component {
                       display: "flex",
                       gap: 8,
                       alignItems: "center",
-                      flexWrap: "wrap",          // allow wrap on small screens
-                      justifyContent: "flex-end"
+                      flexWrap: "wrap",
+                      justifyContent: "flex-end",
                     }}
                   >
                     <RangePicker
                       value={pickerValue}
                       onChange={this.handleRangeChange}
                       allowClear={false}
-                      style={{ minWidth: 260, maxWidth: "100%" }}   // responsive width
+                      style={{ minWidth: 260, maxWidth: "100%" }}
                     />
                     <Button
                       type="primary"
@@ -209,50 +250,54 @@ class GuestAnalytics extends Component {
                   <Breadcrumb.Item>Guest Analytics</Breadcrumb.Item>
                 </Breadcrumb>
 
-                <Spin spinning={loading}>
-                  <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
-                    <Col xs={24} md={6}>
-                      <Card bordered style={{ borderRadius: 8 }}>
-                        <Statistic
-                          title="Guest sessions started"
-                          value={metrics.guest_started || 0}
-                        />
-                      </Card>
-                    </Col>
-                    <Col xs={24} md={6}>
-                      <Card bordered style={{ borderRadius: 8 }}>
-                        <Statistic
-                          title="Gated clicks (I'm interested)"
-                          value={metrics.guest_attempt_gated_action || 0}
-                        />
-                      </Card>
-                    </Col>
-                    <Col xs={24} md={6}>
-                      <Card bordered style={{ borderRadius: 8 }}>
-                        <Statistic
-                          title="Signup started"
-                          value={metrics.signup_started || 0}
-                        />
-                      </Card>
-                    </Col>
-                    <Col xs={24} md={6}>
-                      <Card bordered style={{ borderRadius: 8 }}>
-                        <Statistic
-                          title="Signup completed"
-                          value={metrics.signup_completed || 0}
-                        />
-                      </Card>
-                    </Col>
-                  </Row>
+                {noPermission ? (
+                  <NoPermission />
+                ) : (
+                  <Spin spinning={loading}>
+                    <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
+                      <Col xs={24} md={6}>
+                        <Card bordered style={{ borderRadius: 8 }}>
+                          <Statistic
+                            title="Guest sessions started"
+                            value={metrics.guest_started || 0}
+                          />
+                        </Card>
+                      </Col>
+                      <Col xs={24} md={6}>
+                        <Card bordered style={{ borderRadius: 8 }}>
+                          <Statistic
+                            title="Gated clicks (I'm interested)"
+                            value={metrics.guest_attempt_gated_action || 0}
+                          />
+                        </Card>
+                      </Col>
+                      <Col xs={24} md={6}>
+                        <Card bordered style={{ borderRadius: 8 }}>
+                          <Statistic
+                            title="Signup started"
+                            value={metrics.signup_started || 0}
+                          />
+                        </Card>
+                      </Col>
+                      <Col xs={24} md={6}>
+                        <Card bordered style={{ borderRadius: 8 }}>
+                          <Statistic
+                            title="Signup completed"
+                            value={metrics.signup_completed || 0}
+                          />
+                        </Card>
+                      </Col>
+                    </Row>
 
-                  <Table
-                    dataSource={unicornInterest || []}
-                    columns={columns}
-                    rowKey={(_record, index) => index}
-                    bordered
-                    scroll={{ x: "max-content" }}
-                  />
-                </Spin>
+                    <Table
+                      dataSource={unicornInterest || []}
+                      columns={columns}
+                      rowKey={(_record, index) => index}
+                      bordered
+                      scroll={{ x: "max-content" }}
+                    />
+                  </Spin>
+                )}
               </Card>
             </Content>
 

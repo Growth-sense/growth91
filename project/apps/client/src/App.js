@@ -246,6 +246,9 @@ import UnicornAdminPayment from "./app/admin/UnicornAdminPayment.jsx";
 import ExtraMile from "./app/deal-pages/ExtraMile.jsx";
 import Goodmelts from "./app/deal-pages/Goodmelts.jsx";
 import Stroom2 from "./app/deal-pages/Stroom2.jsx";
+import RolesPermissions from "./app/admin/RolesPermissions";
+import UserRoleAssign from "./app/admin/UserRoleAssign";
+import ProtectedAdminRoute from "./app/admin/common/ProtectedAdminRoute";
 
 ReactGA.initialize(TRACKING_ID);
 
@@ -414,7 +417,15 @@ function App() {
           <Route path="/admin-deals" exact component={admindeals} />
           <Route path="/open-deals" exact component={opendeals} />
           <Route path="/analytic-interest" exact component={analyticinterest} />
-          <Route path="/guest-analytics" exact component={GuestAnalytics} />
+          <ProtectedAdminRoute
+            exact
+            path="/guest-analytics"
+            component={GuestAnalytics}
+            requiredModule="analytics"
+            requiredAction="view_guest"
+          />
+          <Route path="/admin/roles-permissions" component={RolesPermissions} />
+          <Route exact path="/admin/user-roles" component={UserRoleAssign} />
           <Route path="/admin-founders" exact component={adminfounders} />
           <Route path="/admin-investors" exact component={admininvestors} />
           <Route path="/admin-startups" exact component={adminstartups} />

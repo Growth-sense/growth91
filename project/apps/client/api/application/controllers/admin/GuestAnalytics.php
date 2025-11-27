@@ -73,8 +73,8 @@ class GuestAnalytics extends CI_Controller
             'status'  => '1',
             'message' => 'Guest analytics summary',
             'data'    => [
-                'metrics' => $metrics,
-                'unicorn_interest' => $unicornInterest,
+                'metrics'           => $metrics,
+                'unicorn_interest'  => $unicornInterest,
             ],
         ]);
     }

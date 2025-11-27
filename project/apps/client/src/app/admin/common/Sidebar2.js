@@ -12,7 +12,18 @@ class Sidebar extends Component {
       window.location.assign(loc);
     }
   }
+  
   render() {
+     let isSuperAdmin = false;
+try {
+  const raw = localStorage.getItem("super_admin");
+  if (raw !== null) {
+    const parsed = JSON.parse(raw);
+    isSuperAdmin = parsed === 1 || parsed === "1" || parsed === true;
+  }
+} catch (e) {
+  isSuperAdmin = false;
+}
     return (
       <div id="menu" className="sidebar close">
         {/* close  showMenu to toggle */}
@@ -372,6 +383,35 @@ class Sidebar extends Component {
               </li>
             </ul>
           </li>
+          {isSuperAdmin && (
+            <li>
+              <div className="iocn-link">
+                <a href="#">
+                  <i className="bx bx-shield-quarter"></i>
+                  <span className="link_name">User Access</span>
+                </a>
+                <i
+                  className="bx bxs-chevron-down arrow"
+                  onClick={() =>
+                    document.getElementById("md-access").classList.toggle("hide")
+                  }
+                ></i>
+              </div>
+              <ul id="md-access" className="sub-menu hide">
+                <li>
+                  <a className="link_name" href="#">
+                    Access Management
+                  </a>
+                </li>
+                <li>
+                  <a href="/admin/roles-permissions">Roles &amp; Permissions</a>
+                </li>
+                <li>
+                  <a href="/admin/user-roles">User Roles</a>
+                </li>
+              </ul>
+            </li>
+          )}
           <li>
            <a href="#" onClick={this.community}>
               <i className="bx bx-command"></i>
