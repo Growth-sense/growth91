@@ -1143,7 +1143,7 @@ text-align: justify;
                       >
                         <img
                           // assets/images/unicorn-about-us
-                          src="assets/images/unicorn-about-us.png"
+                          src="/assets/images/unicorn-about-us.png"
                           alt="Growth Illustration"
                           style={{
                             maxWidth: "100%",

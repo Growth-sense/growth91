@@ -9,7 +9,7 @@ import { set } from "react-ga";
 import { Button, Modal, Input } from "antd";
 import { LastUpdatedBadge } from "./components/LastUpdatedBadge";
 import { parseBannerImage } from "./helper/utilHelper.js";
-// import GuestAccessModal from "./components/GuestAccessModal.jsx";
+import GuestAccessModal from "./components/GuestAccessModal.jsx";
 
 export const FutureUnicornList = () => {
   const location = useLocation();
@@ -28,21 +28,21 @@ export const FutureUnicornList = () => {
 }, [location.search]);
 
 useEffect(() => {
-  // const investor = localStorage.getItem("investor_id");
-  // const founder = localStorage.getItem("founder_id");
-  // const isLoggedIn = investor || founder;
+  const investor = localStorage.getItem("investor_id");
+  const founder = localStorage.getItem("founder_id");
+  const isLoggedIn = investor || founder;
 
-  // const guestUntil = localStorage.getItem("unicorn_guest_until");
-  // const now = Date.now();
-  // const shouldShowModal = !isLoggedIn && (!guestUntil || now > Number(guestUntil));
+  const guestUntil = localStorage.getItem("unicorn_guest_until");
+  const now = Date.now();
+  const shouldShowModal = !isLoggedIn && (!guestUntil || now > Number(guestUntil));
 
-  // if (shouldShowModal) {
-  //   // show guest modal, do NOT call API yet
-  //   setShowGuestModal(true);
-  // } else {
+  if (shouldShowModal) {
+    // show guest modal, do NOT call API yet
+    setShowGuestModal(true);
+  } else {
     // logged in or valid guest → load data immediately
     getuniondata();
-  // }
+  }
 }, []);
 
   const [unicorn, setUnicorn] = useState();
@@ -247,7 +247,7 @@ useEffect(() => {
 
   return (
     <div>
-      {/* <GuestAccessModal
+      <GuestAccessModal
       visible={showGuestModal}
       onClose={() => {
         setShowGuestModal(false);
@@ -260,7 +260,7 @@ useEffect(() => {
         pointerEvents: showGuestModal ? "none" : "auto",
         transition: "filter 0.2s ease",
       }}
-    > */}
+    >
       <div classname="newabout">
         <NewWebHeader newabout={"newabout"} />
       </div>
@@ -873,6 +873,6 @@ useEffect(() => {
       </section>
 
     </div>
-    // </div>
+    </div>
   );
 };
