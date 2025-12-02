@@ -54,7 +54,7 @@ const LoginRequiredModal = ({ visible, onClose }) => {
           }}
         >
           <p style={{ marginBottom: 8, fontWeight: 800, fontSize: 18 }}>
-            You’re viewing as a <span style={{ fontSize: 20 }}>G</span>uest. Sign in or create a free account to:
+            You’re viewing as a <span style={{ fontSize: 20,fontWeight: 800 }}>G</span>uest. Sign in or create a free account to:
           </p>
           <ul
             style={{

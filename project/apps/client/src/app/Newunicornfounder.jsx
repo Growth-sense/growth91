@@ -2,13 +2,14 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { NewWebFooter } from './common/NewWebFooter';
 import NewWebHeader from './common/NewWebHeader';
 import { Link } from '@material-ui/core';
-import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
+import { NavLink, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Bridge from './constants/Bridge';
 import { ViewPlan } from './Unicorn/ViewPlan';
 import { LastUpdatedBadge } from './components/LastUpdatedBadge';
-// import GuestAccessModal from './components/GuestAccessModal';
+import GuestAccessModal from './components/GuestAccessModal';
 
 const Newunicornfounder = () => {
+  const history = useHistory();
   const [filteredData, setfilterdata] = useState();
   const [displayedItems, setDisplayedItems] = useState([]);
   const [screenSize, setScreenSize] = useState("desktop");
@@ -40,21 +41,21 @@ const Newunicornfounder = () => {
     return randomTagSelections[itemId];
   };
 
-  // useEffect(() => {
-  //   const investor = localStorage.getItem("investor_id");
-  //   const founder = localStorage.getItem("founder_id");
-  //   const isLoggedIn = investor || founder;
+  useEffect(() => {
+    const investor = localStorage.getItem("investor_id");
+    const founder = localStorage.getItem("founder_id");
+    const isLoggedIn = investor || founder;
 
-  //   const guestUntil = localStorage.getItem("unicorn_guest_until");
-  //   const now = Date.now();
-  //   const shouldShowModal = !isLoggedIn && (!guestUntil || now > Number(guestUntil));
+    const guestUntil = localStorage.getItem("unicorn_guest_until");
+    const now = Date.now();
+    const shouldShowModal = !isLoggedIn && (!guestUntil || now > Number(guestUntil));
 
-  //   if (shouldShowModal) {
-  //     setShowGuestModal(true);
-  //   } else {
-  //     getuniondata();
-  //   }
-  // }, []);
+    if (shouldShowModal) {
+      setShowGuestModal(true);
+    } else {
+      getuniondata();
+    }
+  }, []);
 
   // Function to detect screen size and determine items per page
   const getItemsPerPage = (availableItemsCount = 0) => {
@@ -159,13 +160,10 @@ const Newunicornfounder = () => {
     });
   }
 
-    useEffect(() => { 
-       getuniondata();
-    }, []);
 
   return (
     <div>
-      {/* <GuestAccessModal
+      <GuestAccessModal
         visible={showGuestModal}
         onClose={() => {
           console.log("ttttt modal closed");
@@ -179,7 +177,7 @@ const Newunicornfounder = () => {
           pointerEvents: showGuestModal ? "none" : "auto",
           transition: "filter 0.2s ease",
         }}
-      > */}
+      >
       <style>
         {`
                    
@@ -1047,9 +1045,7 @@ const Newunicornfounder = () => {
                   key={index}
                   className="grid-card-item"
                   onClick={() => {
-                    window.location.assign(
-                      `/FutureUnicornDescription?id=${item.unicornDealID}`
-                    );
+                    history.push(`/FutureUnicorn/${item.udUrlName}`);
                   }}
                 >
                   <div
@@ -1178,9 +1174,7 @@ const Newunicornfounder = () => {
                       >
                         <Link
                           onClick={() => {
-                            window.location.replace(
-                              `/FutureUnicornDescription?id=${item.unicornDealID}`
-                            );
+                            history.push(`/FutureUnicorn/${item.udUrlName}`);
                           }}
                           className="btn-com"
                         >
@@ -1213,7 +1207,7 @@ const Newunicornfounder = () => {
               transition: "all 0.3s ease",
             }}
             onClick={() => {
-              window.location.replace("/FutureUnicornList");
+              history.push("/FutureUnicornList");
             }}
           >
             Explore all
@@ -1362,7 +1356,7 @@ const Newunicornfounder = () => {
       </section>
       <NewWebFooter />
     </div>
-    // </div>
+    </div>
   );
 };
 

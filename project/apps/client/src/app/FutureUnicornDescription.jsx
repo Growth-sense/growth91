@@ -3,7 +3,7 @@ import { NewWebFooter } from "./common/NewWebFooter";
 import NewWebHeader from "./common/NewWebHeader.jsx";
 import $ from "jquery";
 import Bridge from "./constants/Bridge.js";
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation, useHistory, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { Modal, message as mess, Tooltip } from "antd";
 import SinglePagePDFViewer from "./components/PdfViewer/single-page";
@@ -16,8 +16,8 @@ import ImageLightbox from "./components/ImageLightbox";
 import { applyTheme, GROWTH91_THEMES } from "./helper/themes";
 // ONLY IMPORT THEME CSS ON INVESTOR VIEW PAGE - NOT IN FORMS
 import "./styles/unicorn-theme.css";
-// import GuestAccessModal from "./components/GuestAccessModal.jsx";
-// import LoginRequiredModal from "./components/LoginRequiredModal.jsx";
+import GuestAccessModal from "./components/GuestAccessModal.jsx";
+import LoginRequiredModal from "./components/LoginRequiredModal.jsx";
 
 export const FutureUnicornDescription = (props) => {
   const settings = {
@@ -37,8 +37,9 @@ export const FutureUnicornDescription = (props) => {
     ],
   };
 
+  const { urlName: urlNameParam } = useParams();
   const search = useLocation().search;
-  const id = props.id || new URLSearchParams(search).get("id");
+  const urlName = props.urlName || urlNameParam || new URLSearchParams(search).get("urlName");
   const history = useHistory();
   const [showGuestModal, setShowGuestModal] = useState(false);
   const [showLoginRequired, setShowLoginRequired] = useState(false);
@@ -49,22 +50,22 @@ export const FutureUnicornDescription = (props) => {
     history.push(`/FutureUnicornList?sponsorFilter=${encodeURIComponent(sponsorName)}`);
   };
 useEffect(() => {
-  // const investor = localStorage.getItem("investor_id");
-  // const founder = localStorage.getItem("founder_id");
-  // const isLoggedIn = investor || founder;
+  const investor = localStorage.getItem("investor_id");
+  const founder = localStorage.getItem("founder_id");
+  const isLoggedIn = investor || founder;
 
-  // const guestUntil = localStorage.getItem("unicorn_guest_until");
-  // const now = Date.now();
-  // const shouldShowModal = !isLoggedIn && (!guestUntil || now > Number(guestUntil));
+  const guestUntil = localStorage.getItem("unicorn_guest_until");
+  const now = Date.now();
+  const shouldShowModal = !isLoggedIn && (!guestUntil || now > Number(guestUntil));
 
-  // if (shouldShowModal) {
-  //   // show guest modal, do NOT call API yet
-  //   setShowGuestModal(true);
-  // } else {
-  //   // logged in or valid guest session → load data immediately
+  if (shouldShowModal) {
+    // show guest modal, do NOT call API yet
+    setShowGuestModal(true);
+  } else {
+    // logged in or valid guest session → load data immediately
     getuniondata();
     window.scrollTo(0, 0);
-  // }
+  }
 }, []);
 
 const getOrCreateGuestId = () => {
@@ -96,6 +97,7 @@ const getOrCreateGuestId = () => {
   const [message, setmessage] = useState();
   const [loadedTheme, setLoadedTheme] = useState('default');
   const [iamintrestmodal, setiamintrestmodal] = useState(false);
+  const [currentUnicornId, setCurrentUnicornId] = useState(null);
   const [data, setdata] = useState({
     "I Want to know more about it": false,
     "I want to work with you": false,
@@ -106,31 +108,31 @@ const getOrCreateGuestId = () => {
   // Load and apply theme for the unicorn page - MUST BE BEFORE getuniondata
   const loadAndApplyTheme = async (unicornDealID, tudTempUdID = null) => {
     try {
-      console.log('🔄 Loading theme for unicorn:', unicornDealID, tudTempUdID);
+      console.log('Loading theme for unicorn:', unicornDealID, tudTempUdID);
       // Try to load theme from published unicorn first
       let result = await Bridge.Unicorn.getUnicornTheme({ unicornDealID });
-      console.log('📦 Theme API response (published):', result);
+      console.log('Theme API response (published):', result);
 
       // If no theme found and we have draft ID, try draft
       if ((!result || result.status !== '1' || !result.data?.theme) && tudTempUdID) {
         console.log('No theme in published, checking draft...');
         result = await Bridge.Unicorn.getUnicornTheme({ tudTempUdID });
-        console.log('📦 Theme API response (draft):', result);
+        console.log('Theme API response (draft):', result);
       }
 
       if (result && result.status === '1' && result.data && result.data.theme) {
         const theme = result.data.theme;
-        console.log('✅ FutureUnicorn - Applying theme:', theme);
+        console.log('FutureUnicorn - Applying theme:', theme);
         applyTheme(theme);
         setLoadedTheme(theme);
       } else {
         // Apply default theme
-        console.log('⚪ No theme found, using default');
+        console.log('No theme found, using default');
         applyTheme('default');
         setLoadedTheme('default');
       }
     } catch (error) {
-      console.error('❌ Error loading theme:', error);
+      console.error('Error loading theme:', error);
       // Apply default theme on error
       applyTheme('default');
       setLoadedTheme('default');
@@ -143,17 +145,18 @@ const getOrCreateGuestId = () => {
       pagesize: 10,
     };
     Bridge.Unicorn.unicorndealsByInvestors(params).then((result) => {
-      console.log('📋 Unicorn data loaded:', result);
+      console.log('Unicorn data loaded:', result);
       setUnicorn(result.data);
 
       // Load and apply theme for this unicorn
-      if (result.data && result.data.length > 0) {
-        const currentUnicorn = result.data.find(item => item.unicornDealID == id);
+      if (result.data && result.data.length > 0 && urlName) {
+        const currentUnicorn = result.data.find(item => item.udUrlName == urlName);
         if (currentUnicorn) {
-          console.log('🎨 Found unicorn, loading theme...');
+          console.log('Found unicorn by urlName, loading theme...');
           loadAndApplyTheme(currentUnicorn.unicornDealID, currentUnicorn.tudTempUdID);
+          setCurrentUnicornId(currentUnicorn.unicornDealID); 
         } else {
-          console.log('⚠️ Unicorn not found with ID:', id);
+          console.log('Unicorn not found with urlName:', urlName);
         }
       }
     });
@@ -184,7 +187,7 @@ const getOrCreateGuestId = () => {
       const guestID = getOrCreateGuestId();
       Bridge.Unicorn.GuestAnalytics.addEvent({
         guestID,
-        unicornDealID: id, // current unicornDealID from URL
+        unicornDealID: currentUnicornId, // numeric unicornDealID resolved from urlName
         eventType: "guest_attempt_gated_action",
       });
     } catch (e) {
@@ -221,7 +224,7 @@ console.log("isGuest", isGuest);
   };
   const submitintrest = () => {
     // console.log(unicorn);
-    let datas = unicorn.filter((item) => item.unicornDealID == id);
+    let datas = unicorn.filter((item) => item.udUrlName == urlName);
     console.log(data);
 
     let params = {
@@ -322,7 +325,7 @@ console.log("isGuest", isGuest);
 
   return (
     <>
-    {/* <GuestAccessModal
+    <GuestAccessModal
       visible={showGuestModal}
       onClose={() => {
         setShowGuestModal(false);
@@ -343,7 +346,7 @@ console.log("isGuest", isGuest);
         pointerEvents: showGuestModal ? "none" : "auto",
         transition: "filter 0.2s ease",
       }}
-    > */}
+    >
       <style>
         {`
         .para-proceed label{
@@ -950,7 +953,7 @@ text-align: justify;
       </div>
       {unicorn &&
         unicorn
-          .filter((item) => item.unicornDealID == id)
+          .filter((item) => item.udUrlName == urlName)
           .map((item, index) => {
             return (
               <>
@@ -1212,7 +1215,7 @@ text-align: justify;
                         >
                           <img
                             // assets/images/unicorn-about-us
-                            src="assets/images/unicorn-about-us.png"
+                            src="/assets/images/unicorn-about-us.png"
                             alt="Growth Illustration"
                             style={{
                               maxWidth: "100%",
@@ -1741,7 +1744,7 @@ text-align: justify;
       </Modal>
       <ToastContainer />
       <NewWebFooter />
-    {/* </div> */}
+    </div>
     </>
   );
 };

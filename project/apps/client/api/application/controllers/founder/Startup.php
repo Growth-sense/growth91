@@ -963,6 +963,9 @@ class Startup extends CI_Controller {
 			
 			$tempunicornArr = $this -> db -> select("tempunicorndeals.*") -> from("tempunicorndeals") -> where("tempunicorndeals.tudTempUdID",$tudTempUdID) -> get() -> result_array();
 			$mainunicornArr=array();
+
+			$startupName = isset($tempunicornArr[0]['tudStartupName']) ? $tempunicornArr[0]['tudStartupName'] : '';
+			$urlName = preg_replace('/\s+/', '', $startupName);
 			
 			$allowedKeys = array(
 				"tudStartupName", "tudSocialInsta", "tudSocialFacebook", "tudSocialLinkedIn", 
@@ -1034,6 +1037,7 @@ class Startup extends CI_Controller {
 						}
 					}
 				}
+				$mainunicorn2Arr["udUrlName"] = $urlName;
 				//Step 7
 				if($isNew)
 				{

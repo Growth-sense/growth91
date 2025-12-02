@@ -1098,11 +1098,14 @@ class Founderadmindashboard extends Component {
       founderID: this.state.unicorn.founderID,
     };
     Bridge.Unicorn.publishunicorndeal(params).then((result) => {
+      const startupName = this.state.unicorn.tudStartupName || "";
+      const udUrlName = startupName.replace(/\s+/g, ""); // same rule as backend
       if(result.status == 1){
         this.setState({
           loading: false,
           show_thankyou_modal: true,
           unicornid: result.id,
+          udUrlName
         });
         toast.success("Unicorn Publish Successfully");
       }
@@ -1340,7 +1343,7 @@ class Founderadmindashboard extends Component {
             footer={[
               <>
                 <Link
-                  to={`/FutureUnicornDescription?id=${this.state.unicornid}`}
+                  to={`/FutureUnicorn/${this.state.udUrlName}`}
                 >
                   <button className="btn btn-block">View Unicorn</button>
                 </Link>

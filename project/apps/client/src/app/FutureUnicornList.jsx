@@ -3,16 +3,17 @@ import { NewWebFooter } from "./common/NewWebFooter";
 import Slider from "react-slick";
 import NewWebHeader from "./common/NewWebHeader.jsx";
 import $ from "jquery";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import Bridge from "./constants/Bridge.js";
 import { set } from "react-ga";
 import { Button, Modal, Input } from "antd";
 import { LastUpdatedBadge } from "./components/LastUpdatedBadge";
 import { parseBannerImage } from "./helper/utilHelper.js";
-// import GuestAccessModal from "./components/GuestAccessModal.jsx";
+import GuestAccessModal from "./components/GuestAccessModal.jsx";
 
 export const FutureUnicornList = () => {
   const location = useLocation();
+  const history = useHistory();
   const [showGuestModal, setShowGuestModal] = useState(false);
 
  useEffect(() => {
@@ -27,21 +28,21 @@ export const FutureUnicornList = () => {
 }, [location.search]);
 
 useEffect(() => {
-  // const investor = localStorage.getItem("investor_id");
-  // const founder = localStorage.getItem("founder_id");
-  // const isLoggedIn = investor || founder;
+  const investor = localStorage.getItem("investor_id");
+  const founder = localStorage.getItem("founder_id");
+  const isLoggedIn = investor || founder;
 
-  // const guestUntil = localStorage.getItem("unicorn_guest_until");
-  // const now = Date.now();
-  // const shouldShowModal = !isLoggedIn && (!guestUntil || now > Number(guestUntil));
+  const guestUntil = localStorage.getItem("unicorn_guest_until");
+  const now = Date.now();
+  const shouldShowModal = !isLoggedIn && (!guestUntil || now > Number(guestUntil));
 
-  // if (shouldShowModal) {
-  //   // show guest modal, do NOT call API yet
-  //   setShowGuestModal(true);
-  // } else {
+  if (shouldShowModal) {
+    // show guest modal, do NOT call API yet
+    setShowGuestModal(true);
+  } else {
     // logged in or valid guest → load data immediately
     getuniondata();
-  // }
+  }
 }, []);
 
   const [unicorn, setUnicorn] = useState();
@@ -246,7 +247,7 @@ useEffect(() => {
 
   return (
     <div>
-      {/* <GuestAccessModal
+      <GuestAccessModal
       visible={showGuestModal}
       onClose={() => {
         setShowGuestModal(false);
@@ -259,7 +260,7 @@ useEffect(() => {
         pointerEvents: showGuestModal ? "none" : "auto",
         transition: "filter 0.2s ease",
       }}
-    > */}
+    >
       <div classname="newabout">
         <NewWebHeader newabout={"newabout"} />
       </div>
@@ -696,9 +697,7 @@ useEffect(() => {
                         key={item.unicornDealID}
                         className="grid-card-item"
                         onClick={() => {
-                          window.location.assign(
-                            `/FutureUnicornDescription?id=${item.unicornDealID}`
-                          );
+                          history.push(`/FutureUnicorn/${item.udUrlName}`);
                         }}
                       >
                         <div
@@ -832,7 +831,7 @@ useEffect(() => {
                               }}
                             >
                               <Link
-                                to={`/FutureUnicornDescription?id=${item.unicornDealID}`}
+                                to={`/FutureUnicorn/${item.udUrlName}`}
                                 className="btn-com"
                               >
                                 View More
@@ -874,6 +873,6 @@ useEffect(() => {
       </section>
 
     </div>
-    // </div>
+    </div>
   );
 };

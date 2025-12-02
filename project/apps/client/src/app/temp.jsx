@@ -1,3 +1,5 @@
+// Not used anywhere
+
 import React, { useEffect, useState } from "react";
 import { NewWebFooter } from "./common/NewWebFooter";
 import Slider from "react-slick";
@@ -311,7 +313,7 @@ export const FutureUnicornList = () => {
                           </ul>
                           <p>{item.udDealDescription}</p>
                           <Link
-                            to={`/FutureUnicornDescription?id=${item.unicornDealID}`}
+                            to={`/FutureUnicorn/${item.udUrlName}`}
                             className="btn-com"
                           >
                             View More{" "}
