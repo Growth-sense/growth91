@@ -424,7 +424,7 @@ class RolesPermissions extends Component {
         <Divider />
 
         {/* Groups */}
-        <h6>Groups</h6>
+        <h6>Group Investments Data - Group Investments</h6>
         <div className="mb-2">
           <Checkbox
             checked={check("groups", "view")}
@@ -434,6 +434,16 @@ class RolesPermissions extends Component {
           >
             View Group Investments
           </Checkbox>
+
+          <Checkbox
+            checked={check("groups", "export")}
+            onChange={(e) =>
+              this.togglePerm("groups", "export", e.target.checked)
+            }
+          >
+            Export Group Investments
+          </Checkbox>
+
           <Checkbox
             checked={check("groups", "manage")}
             onChange={(e) =>
@@ -443,6 +453,40 @@ class RolesPermissions extends Component {
             Manage / Remove
           </Checkbox>
         </div>
+
+        <Divider />
+
+        <h6>Group Investments Data - Group Remove Requests</h6>
+        <div className="mb-2">
+          <Checkbox
+            checked={check("group_remove_requests", "view")}
+            onChange={(e) =>
+              this.togglePerm("group_remove_requests", "view", e.target.checked)
+            }
+          >
+            View Group Remove Requests
+          </Checkbox>
+
+          <Checkbox
+            checked={check("group_remove_requests", "export")}
+            onChange={(e) =>
+              this.togglePerm("group_remove_requests", "export", e.target.checked)
+            }
+          >
+            Export Group Remove Requests
+          </Checkbox>
+
+          <Checkbox
+            checked={check("group_remove_requests", "approve")}
+            onChange={(e) =>
+              this.togglePerm("group_remove_requests", "approve", e.target.checked)
+            }
+          >
+            Approve / Delete Requests
+          </Checkbox>
+        </div>
+
+        <Divider />
 
         {/* Unicorns */}
         <h6>Unicorns</h6>

@@ -448,11 +448,23 @@ function App() {
             requiredModule="startups"
             requiredAction="view"
           />
-          <Route path="/admin-family" exact component={FamilyAdmin} />
+          <ProtectedAdminRoute 
+            exact 
+            path="/admin-family"          
+            component={FamilyAdmin}
+            requiredModule="groups"
+            requiredAction="view"
+          />
           <Route path="/admin-unicorn" exact component={UnicornAdmin} />
           <Route path="/admin-all-unicorn" exact component={UnicornAdminAll} />
           <Route path="/admin-unicorn-payments" exact component={UnicornAdminPayment} />
-          <Route path="/family-Remove-Request" exact component={familyRemoveRequest} />
+          <ProtectedAdminRoute
+            exact
+            path="/family-Remove-Request"
+            component={familyRemoveRequest}
+            requiredModule="group_remove_requests"
+            requiredAction="view"
+          />
           <Route path="/admin-family-manage" exact component={Familymanage} />
           <Route path="/future-unicorn-startups" exact component={FUnicornStartup} />
           <Route path="/FutureUnicorn" exact component={FutureUnicorn}  />

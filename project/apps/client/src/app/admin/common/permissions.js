@@ -51,6 +51,8 @@ function fullAccessPermissions() {
     // extra optional capabilities used by some modules (e.g. investments)
     canTransfer: true,
     canRequestSign: true,
+    // extra optional capabilities used by some modules (e.g. groups)
+    canManage: true,
   };
 }
 
@@ -87,8 +89,18 @@ export async function loadModulePermissions(moduleKey) {
     isSuperAdmin = false;
   }
 
-  // Global feature flag – when false OR super admin => full access, no API
-  if (!featureFlags.ENABLE_MASTERDATA_PERMISSIONS || isSuperAdmin) {
+  // Module-specific feature flags – match ProtectedAdminRoute behaviour
+  const isAnalyticsModule = moduleKey === "analytics";
+  const isGroupsModule =
+    moduleKey === "groups" || moduleKey === "group_remove_requests";
+  const featureEnabled = isAnalyticsModule
+    ? featureFlags.ENABLE_ANALYTICS_PERMISSIONS
+    : isGroupsModule
+    ? featureFlags.ENABLE_GROUPS_INVESTMENTS_PERMISSIONS
+    : featureFlags.ENABLE_MASTERDATA_PERMISSIONS;
+
+  // When the relevant feature flag is OFF OR super admin => full access, no API
+  if (!featureEnabled || isSuperAdmin) {
     return fullAccessPermissions();
   }
 
@@ -120,5 +132,8 @@ export async function loadModulePermissions(moduleKey) {
     // Optional extra booleans for modules that define these actions (investments)
     canTransfer: m.transfer === true,
     canRequestSign: m.request_sign === true,
+
+    // Optional extra booleans for modules that define these actions (groups)
+    canManage: m.manage === true,
   };
 }

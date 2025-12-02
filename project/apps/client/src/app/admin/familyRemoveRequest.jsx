@@ -27,6 +27,8 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 import Urldata from "../investor/components/Urldata";
 import { toast, ToastContainer } from "react-toastify";
+import NoPermission from "./common/NoPermission";
+import { loadModulePermissions } from "./common/permissions";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -64,10 +66,16 @@ class familyRemoveReq extends Component {
       operational_founder: "",
       edit_authorised_founder: "",
       edit_operational_founder: "",
+
+      // permissions for Group Remove Requests
+      canViewGroupRemoveRequests: false,
+      canExportGroupRemoveRequests: false,
+      canApproveGroupRemoveRequests: false,
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    await this.loadPermissions();
     this.getDeleteRequest();
     // this.getstartuplist();
     setTimeout(() => {
@@ -78,6 +86,16 @@ class familyRemoveReq extends Component {
   showAddModal = () => {
     this.setState({
       addModalStatus: true,
+    });
+  };
+
+  loadPermissions = async () => {
+    const perms = await loadModulePermissions("group_remove_requests");
+
+    this.setState({
+      canViewGroupRemoveRequests: perms.canView,
+      canExportGroupRemoveRequests: perms.canExport,
+      canApproveGroupRemoveRequests: perms.canApprove,
     });
   };
 
@@ -111,6 +129,10 @@ class familyRemoveReq extends Component {
     });
   };
   removereqesteduser = (item) => {
+    if (!this.state.canApproveGroupRemoveRequests) {
+      message.error("You do not have permission to approve group remove requests.");
+      return;
+    }
     console.log(item);
     
     let params = {
@@ -210,6 +232,10 @@ class familyRemoveReq extends Component {
   };
 
   exportToCSV = (fileName) => {
+    if (!this.state.canExportGroupRemoveRequests) {
+      message.error("You do not have permission to export group remove requests.");
+      return;
+    }
     let arr = [];
     let count = 1;
     for (let item of this.state.startups) {
@@ -295,6 +321,7 @@ class familyRemoveReq extends Component {
     });
   };
   render() {
+    const { noPermission } = this.props;
     const dataSource =
       this.state.startups &&
       this.state.startups.map((item, index) => {
@@ -369,7 +396,11 @@ class familyRemoveReq extends Component {
               defaultSelectedKeys={[this.state.path]}
               style={{ width: 200 }}
             >
-              <Menu.Item key={`Delete${record.key}`} icon={<DeleteOutlined />}>
+              <Menu.Item
+                key={`Delete${record.key}`}
+                icon={<DeleteOutlined />}
+                disabled={!this.state.canApproveGroupRemoveRequests}
+              >
                 <a
                   href="#"
                   style={{ fontSize: 14 }}
@@ -405,6 +436,11 @@ class familyRemoveReq extends Component {
           <Navbar />
           <Layout className="site-layout">
             <Sidebar2 />
+
+            {noPermission ? (
+              <NoPermission />
+            ) : (
+            <>
 
             <Content className="home-section">
               <Card
@@ -456,6 +492,7 @@ class familyRemoveReq extends Component {
                   <Button
                     type="primary"
                     onClick={() => this.exportToCSV("Investment Details")}
+                    disabled={!this.state.canExportGroupRemoveRequests}
                   >
                     <i
                       className="bx bxs-cloud-download"
@@ -479,6 +516,9 @@ class familyRemoveReq extends Component {
             </Content>
 
             <BottomBar />
+
+            </>
+            )}
           </Layout>
         </Layout>
 

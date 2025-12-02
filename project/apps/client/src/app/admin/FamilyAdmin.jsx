@@ -26,6 +26,8 @@ import * as XLSX from "xlsx";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import Urldata from "../investor/components/Urldata";
+import NoPermission from "./common/NoPermission";
+import { loadModulePermissions } from "./common/permissions";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -64,10 +66,16 @@ class FamilyAdmin extends Component {
       operational_founder: "",
       edit_authorised_founder: "",
       edit_operational_founder: "",
+
+      // permissions for Group Investments
+      canViewGroups: false,
+      canExportGroups: false,
+      canManageGroups: false,
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    await this.loadPermissions();
     this.getgrouplist()
     // this.getstartuplist();
     setTimeout(() => {
@@ -78,6 +86,16 @@ class FamilyAdmin extends Component {
   showAddModal = () => {
     this.setState({
       addModalStatus: true,
+    });
+  };
+
+  loadPermissions = async () => {
+    const perms = await loadModulePermissions("groups");
+
+    this.setState({
+      canViewGroups: perms.canView,
+      canExportGroups: perms.canExport,
+      canManageGroups: perms.canManage,
     });
   };
 
@@ -267,6 +285,10 @@ class FamilyAdmin extends Component {
  
 
   exportToCSV = (fileName) => {
+    if (!this.state.canExportGroups) {
+      message.error("You do not have permission to export group investments.");
+      return;
+    }
     let arr = [];
     let count = 1;
     for (let item of this.state.startups) {
@@ -359,6 +381,7 @@ class FamilyAdmin extends Component {
     });
   };
   render() {
+    const { noPermission } = this.props;
     const dataSource =
       this.state.startups &&
       this.state.startups.map((item, index) => {
@@ -447,15 +470,15 @@ class FamilyAdmin extends Component {
                   &nbsp;&nbsp;Delete
                 </a>
               </Menu.Item> */}
-              <Menu.Item key={`Delete${record.key}`} icon={<ManOutlined/>}>
-                <Link
-                  to={`/admin-family-manage?id=${record.key}&userid=${record.userId} `}
-                  style={{ fontSize: 14 }}
+                <Menu.Item key={`Delete${record.key}`} icon={<ManOutlined/>} disabled={!this.state.canManageGroups}>
+                  <Link
+                    to={`/admin-family-manage?id=${record.key}&userid=${record.userId} `}
+                    style={{ fontSize: 14 }}
                 //   onClick={() => this.showDeleteModal(text)}
-                >
-                  &nbsp;&nbsp;Manage
-                </Link>
-              </Menu.Item>
+                  >
+                    &nbsp;&nbsp;Manage
+                  </Link>
+                </Menu.Item>
             </Menu>
           );
           return (
@@ -484,12 +507,16 @@ class FamilyAdmin extends Component {
           <Layout className="site-layout">
             <Sidebar2 />
 
-            <Content className="home-section">
-              <Card
-                title="Groups"
-                
-                style={{ margin: 16 }}
-              >
+            {noPermission ? (
+              <NoPermission />
+            ) : (
+              <>
+                <Content className="home-section">
+                  <Card
+                    title="Groups"
+                    
+                    style={{ margin: 16 }}
+                  >
                 <Breadcrumb
                   style={{
                     margin: "0",
@@ -536,6 +563,7 @@ class FamilyAdmin extends Component {
                   <Button
                     type="primary"
                     onClick={() => this.exportToCSV("Investment Details")}
+                    disabled={!this.state.canExportGroups}
                   >
                     <i
                       className="bx bxs-cloud-download"
@@ -559,6 +587,8 @@ class FamilyAdmin extends Component {
             </Content>
 
             <BottomBar />
+              </>
+            )}
           </Layout>
         </Layout>
 

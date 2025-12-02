@@ -86,10 +86,15 @@ class ProtectedAdminRouteInner extends Component {
 
     // Feature flag shortcuts:
     // - Analytics routes (requiredModule === "analytics") use ENABLE_ANALYTICS_PERMISSIONS
+    // - Group Investments routes (requiredModule === "groups" or "group_remove_requests") use ENABLE_GROUPS_INVESTMENTS_PERMISSIONS
     // - All other routes (master-data etc.) use ENABLE_MASTERDATA_PERMISSIONS
     const isAnalyticsRoute = requiredModule === "analytics";
+    const isGroupsRoute =
+      requiredModule === "groups" || requiredModule === "group_remove_requests";
     const featureEnabled = isAnalyticsRoute
       ? featureFlags.ENABLE_ANALYTICS_PERMISSIONS
+      : isGroupsRoute
+      ? featureFlags.ENABLE_GROUPS_INVESTMENTS_PERMISSIONS
       : featureFlags.ENABLE_MASTERDATA_PERMISSIONS;
 
     // When the relevant permissions feature flag is OFF, skip myPermissions API
