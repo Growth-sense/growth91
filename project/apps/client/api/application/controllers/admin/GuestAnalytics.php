@@ -7,7 +7,12 @@ class GuestAnalytics extends CI_Controller
     {
         parent::__construct();
         $this->load->database();
-        header("Content-Type: application/json; charset=UTF-8");
+        // header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		// header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
     }
 
     // GET /api/admin/GuestAnalytics/summary?from_date=YYYY-MM-DD&to_date=YYYY-MM-DD
