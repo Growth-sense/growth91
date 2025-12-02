@@ -9,6 +9,7 @@ import {
   message,
   Modal,
   Input,
+  Divider,
 } from "antd";
 import Navbar from "./common/Navbar";
 import Sidebar2 from "./common/Sidebar2";
@@ -199,9 +200,12 @@ class RolesPermissions extends Component {
           </Checkbox>
         </div>
 
+        <Divider/>
+
         {/* Master Data – Investors */}
         <h6>Master Data – Investors</h6>
         <div className="mb-2">
+          {/* View list & basic info */}
           <Checkbox
             checked={check("investors", "view")}
             onChange={(e) =>
@@ -210,27 +214,84 @@ class RolesPermissions extends Component {
           >
             View
           </Checkbox>
+
+          {/* Create new investor records */}
+          <Checkbox
+            checked={check("investors", "add")}
+            onChange={(e) =>
+              this.togglePerm("investors", "add", e.target.checked)
+            }
+          >
+            Add Investor
+          </Checkbox>
+
+          {/* Edit existing investor profile fields */}
+          <Checkbox
+            checked={check("investors", "edit")}
+            onChange={(e) =>
+              this.togglePerm("investors", "edit", e.target.checked)
+            }
+          >
+            Edit Investor
+          </Checkbox>
+
+          {/* Block / Unblock investor account */}
+          <Checkbox
+            checked={check("investors", "block")}
+            onChange={(e) =>
+              this.togglePerm("investors", "block", e.target.checked)
+            }
+          >
+            Block / Unblock Investor
+          </Checkbox>
+
+          {/* Export investor list */}
           <Checkbox
             checked={check("investors", "export")}
             onChange={(e) =>
               this.togglePerm("investors", "export", e.target.checked)
             }
           >
-            Export
+            Export Data
           </Checkbox>
+
+          {/* KYC verification & approval actions */}
           <Checkbox
             checked={check("investors", "approve")}
             onChange={(e) =>
               this.togglePerm("investors", "approve", e.target.checked)
             }
           >
-            KYC Approve
+            KYC Approve / Update
+          </Checkbox>
+
+          {/* View individual investor dashboard/portfolio */}
+          <Checkbox
+            checked={check("investors", "dashboard")}
+            onChange={(e) =>
+              this.togglePerm("investors", "dashboard", e.target.checked)
+            }
+          >
+            View Investor Dashboard
+          </Checkbox>
+
+          {/* G91 Money modal & operations */}
+          <Checkbox
+            checked={check("investors", "g91_money")}
+            onChange={(e) =>
+              this.togglePerm("investors", "g91_money", e.target.checked)
+            }
+          >
+            Manage G91 Money
           </Checkbox>
         </div>
+
+         <Divider/>
 
         {/* Master Data – Founders */}
         <h6>Master Data – Founders</h6>
         <div className="mb-2">
+          {/* View list & basic info */}
           <Checkbox
             checked={check("founders", "view")}
             onChange={(e) =>
@@ -239,25 +300,70 @@ class RolesPermissions extends Component {
           >
             View
           </Checkbox>
+
+          {/* Create new founder records */}
+          <Checkbox
+            checked={check("founders", "add")}
+            onChange={(e) =>
+              this.togglePerm("founders", "add", e.target.checked)
+            }
+          >
+            Add Founder
+          </Checkbox>
+
+          {/* Edit existing founder profile fields */}
           <Checkbox
             checked={check("founders", "edit")}
             onChange={(e) =>
               this.togglePerm("founders", "edit", e.target.checked)
             }
           >
-            Edit
+            Edit Founder
           </Checkbox>
+
+          {/* Export founders list */}
           <Checkbox
-            checked={check("founders", "approve")}
+            checked={check("founders", "export")}
             onChange={(e) =>
-              this.togglePerm("founders", "approve", e.target.checked)
+              this.togglePerm("founders", "export", e.target.checked)
             }
           >
-            Approve / KYC
+            Export Data
+          </Checkbox>
+
+          {/* Block / Unblock founder account */}
+          <Checkbox
+            checked={check("founders", "block")}
+            onChange={(e) =>
+              this.togglePerm("founders", "block", e.target.checked)
+            }
+          >
+            Block / Unblock Founder
+          </Checkbox>
+
+          {/* Access founder dashboard */}
+          <Checkbox
+            checked={check("founders", "dashboard")}
+            onChange={(e) =>
+              this.togglePerm("founders", "dashboard", e.target.checked)
+            }
+          >
+            Access Dashboard
+          </Checkbox>
+
+          {/* Edit unicorn plan details */}
+          <Checkbox
+            checked={check("founders", "unicorn_plan")}
+            onChange={(e) =>
+              this.togglePerm("founders", "unicorn_plan", e.target.checked)
+            }
+          >
+            Edit Unicorn Plan
           </Checkbox>
         </div>
 
-        {/* Master Data – Investments */}
+        <Divider />
+
         <h6>Master Data – Investments</h6>
         <div className="mb-2">
           <Checkbox
@@ -268,15 +374,54 @@ class RolesPermissions extends Component {
           >
             View
           </Checkbox>
+
           <Checkbox
             checked={check("investments", "export")}
             onChange={(e) =>
               this.togglePerm("investments", "export", e.target.checked)
             }
           >
-            Export
+            Export Data
+          </Checkbox>
+
+          <Checkbox
+            checked={check("investments", "approve")}
+            onChange={(e) =>
+              this.togglePerm("investments", "approve", e.target.checked)
+            }
+          >
+            Approve Investment
+          </Checkbox>
+
+          <Checkbox
+            checked={check("investments", "transfer")}
+            onChange={(e) =>
+              this.togglePerm("investments", "transfer", e.target.checked)
+            }
+          >
+            Transfer Funds
+          </Checkbox>
+
+          <Checkbox
+            checked={check("investments", "edit")}
+            onChange={(e) =>
+              this.togglePerm("investments", "edit", e.target.checked)
+            }
+          >
+            Edit Investment
+          </Checkbox>
+
+          <Checkbox
+            checked={check("investments", "request_sign")}
+            onChange={(e) =>
+              this.togglePerm("investments", "request_sign", e.target.checked)
+            }
+          >
+            Request Document Signing
           </Checkbox>
         </div>
+
+        <Divider />
 
         {/* Groups */}
         <h6>Groups</h6>

@@ -24,8 +24,8 @@ import Sidebar2 from "./common/Sidebar2";
 import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
 import moment from "moment";
-import axios from "axios";
 import NoPermission from "./common/NoPermission";
+import { loadModulePermissions } from "./common/permissions";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -74,8 +74,8 @@ class Startups extends Component {
     };
   }
 
-  componentDidMount() {
-    this.loadPermissions();
+  async componentDidMount() {
+    await this.loadPermissions();
     this.getstartuplist();
     setTimeout(() => {
       this.getfounderlist();
@@ -83,50 +83,17 @@ class Startups extends Component {
   }
 
   loadPermissions = async () => {
-    // Read admin id from localStorage (same pattern as ProtectedAdminRoute)
-    let adminId = null;
-    const raw = localStorage.getItem("admin_login");
-    if (raw) {
-      try {
-        const parsed = JSON.parse(raw);
-        adminId = parsed.value;
-      } catch (e) {
-        adminId = null;
-      }
-    }
+    // Uses shared helper: respects feature flag + super_admin + myPermissions
+    const perms = await loadModulePermissions("startups");
 
-    if (!adminId) {
-      // If we can't find admin ID, leave all permissions false
-      return;
-    }
-
-    try {
-      const res = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}api/admin/Roles/myPermissions`,
-        {
-          headers: { "X-Admin-Id": adminId },
-        }
-      );
-
-      let perms = {};
-      if (res.data && res.data.status === "1") {
-        perms = res.data.data || {};
-      }
-
-      const s = perms.startups || {};
-
-      this.setState({
-        canAddStartup: s.add === true,
-        canEditStartup: s.edit === true,
-        canDeleteStartup: s.delete === true,
-        canExportStartup: s.export === true,
-        canManageStartupDocs: s.documents === true,
-        canViewStartupAnalytics: s.analytics === true,
-      });
-    } catch (e) {
-      console.error("Error loading startups permissions", e);
-      // On error, keep defaults (all false)
-    }
+    this.setState({
+      canAddStartup: perms.canAdd,
+      canEditStartup: perms.canEdit,
+      canDeleteStartup: perms.canDelete,
+      canExportStartup: perms.canExport,
+      canManageStartupDocs: perms.canDocuments,
+      canViewStartupAnalytics: perms.canAnalytics,
+    });
   };
 
   showAddModal = () => {
@@ -488,7 +455,9 @@ class Startups extends Component {
         "Founder Email": item.founder_email ? item.founder_email : "---",
         "Founder Mobile": item.founder_mobile ? item.founder_mobile : "---",
         "No of Investors": item.investors_count ? item.investors_count : "---",
-        "Total Investment": item.total_investment ? item.total_investment : "---",
+        "Total Investment": item.total_investment
+          ? item.total_investment
+          : "---",
         "Total Fees": item.total_fees ? item.total_fees : "---",
         Status: item.status,
       };
@@ -685,84 +654,92 @@ class Startups extends Component {
           <Layout className="site-layout">
             <Sidebar2 />
 
-
-            {noPermission ? <NoPermission /> : <>
-              <Content className="home-section">
-                <Card
-                  title="Startups"
-                  extra={
-                    <Button
-                      type="primary"
-                      onClick={this.showAddModal}
-                      disabled={!this.state.canAddStartup}
+            {noPermission ? (
+              <NoPermission />
+            ) : (
+              <>
+                <Content className="home-section">
+                  <Card
+                    title="Startups"
+                    extra={
+                      <Button
+                        type="primary"
+                        onClick={this.showAddModal}
+                        disabled={!this.state.canAddStartup}
+                      >
+                        <i
+                          className="bx bxs-plus-circle"
+                          style={{
+                            color: "#fff",
+                            position: "relative",
+                            top: 3,
+                            left: -3,
+                          }}
+                        ></i>{" "}
+                        Add New Startup
+                      </Button>
+                    }
+                    style={{ margin: 16 }}
+                  >
+                    <Breadcrumb
+                      style={{
+                        margin: "0",
+                      }}
                     >
-                      <i
-                        className="bx bxs-plus-circle"
-                        style={{
-                          color: "#fff",
-                          position: "relative",
-                          top: 3,
-                          left: -3,
-                        }}
-                      ></i>{" "}
-                      Add New Startup
-                    </Button>
-                  }
-                  style={{ margin: 16 }}
-                >
-                  <Breadcrumb
-                    style={{
-                      margin: "0",
-                    }}
-                  >
-                    <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
-                    <Breadcrumb.Item>Startups</Breadcrumb.Item>
-                  </Breadcrumb>
-                  <br />
-                  <br />
+                      <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+                      <Breadcrumb.Item>Startups</Breadcrumb.Item>
+                    </Breadcrumb>
+                    <br />
+                    <br />
 
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <Input
-                      value={this.state.searchinput}
-                      placeholder="Search"
-                      onChange={(e) => this.searchinput(e)}
-                      style={{ maxWidth: 300, marginBottom: 20, height: 40 }}
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Input
+                        value={this.state.searchinput}
+                        placeholder="Search"
+                        onChange={(e) => this.searchinput(e)}
+                        style={{
+                          maxWidth: 300,
+                          marginBottom: 20,
+                          height: 40,
+                        }}
+                      />
+
+                      <Button
+                        type="primary"
+                        onClick={() =>
+                          this.exportToCSV("Investment Details")
+                        }
+                        disabled={!this.state.canExportStartup}
+                      >
+                        <i
+                          className="bx bxs-cloud-download"
+                          style={{
+                            color: "#fff",
+                            position: "relative",
+                            top: 3,
+                            left: -3,
+                          }}
+                        ></i>{" "}
+                        Export Data
+                      </Button>
+                    </div>
+                    <Table
+                      dataSource={dataSource}
+                      columns={columns}
+                      loading={this.state.loading}
+                      bordered
                     />
+                  </Card>
+                </Content>
+              </>
+            )}
 
-                    <Button
-                      type="primary"
-                      onClick={() => this.exportToCSV("Investment Details")}
-                      disabled={!this.state.canExportStartup}
-                    >
-                      <i
-                        className="bx bxs-cloud-download"
-                        style={{
-                          color: "#fff",
-                          position: "relative",
-                          top: 3,
-                          left: -3,
-                        }}
-                      ></i>{" "}
-                      Export Data
-                    </Button>
-                  </div>
-                  <Table
-                    dataSource={dataSource}
-                    columns={columns}
-                    loading={this.state.loading}
-                    bordered
-                  />
-                </Card>
-              </Content>
-            </>
-            }
-
-             {noPermission ? '' : <BottomBar /> }
+            {noPermission ? "" : <BottomBar />}
           </Layout>
         </Layout>
 

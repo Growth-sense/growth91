@@ -20,6 +20,8 @@ import Sidebar2 from "./common/Sidebar2";
 import Navbar from "./common/Navbar";
 import BottomBar from "./common/BottomBar";
 import Bridge from "../constants/Bridge";
+import NoPermission from "./common/NoPermission";
+import { loadModulePermissions } from "./common/permissions";
 import {
   EditOutlined,
   EyeInvisibleOutlined,
@@ -137,15 +139,43 @@ class Founders extends Component {
       edit_ifsc_code: "",
       edit_profile_image: "",
       isActiveValue: 0,
-      modes:"ass"
+      modes: "ass",
+
+      // permissions for master-data Founders
+      canViewFounders: false,
+      canAddFounder: false,
+      canEditFounder: false,
+      canBlockFounder: false,
+      canExportFounders: false,
+      canAccessFounderDashboard: false,
+      canEditFounderUnicornPlan: false,
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    await this.loadPermissions();
     this.getfounderlist();
   }
 
+  loadPermissions = async () => {
+    const perms = await loadModulePermissions("founders");
+
+    this.setState({
+      canViewFounders: perms.canView,
+      canAddFounder: perms.canAdd,
+      canEditFounder: perms.canEdit,
+      canBlockFounder: perms.canDelete,
+      canExportFounders: perms.canExport,
+      canAccessFounderDashboard: perms.canDashboard,
+      canEditFounderUnicornPlan: perms.canUnicornPlan,
+    });
+  };
+
   showAddModal = () => {
+    if (!this.state.canAddFounder) {
+      message.error("You do not have permission to add founders.");
+      return;
+    }
     this.setState({
       addModalStatus: true,
     });
@@ -186,6 +216,10 @@ class Founders extends Component {
 
   // show edit modal
   showEditModal = (item) => {
+    if (!this.state.canEditFounder) {
+      message.error("You do not have permission to edit founders.");
+      return;
+    }
     console.log("item", item);
     // let logourl = Apis.IMAGEURL+'deal/logo/'+item.deal_id+'/'+item.logo;
     // let bannerimg = Apis.IMAGEURL+'deal/banner/'+item.deal_id+'/'+item.banner_img;
@@ -209,6 +243,10 @@ class Founders extends Component {
   };
 
   showEditUnicornModal = (item) => {
+    if (!this.state.canEditFounderUnicornPlan) {
+      message.error("You do not have permission to edit unicorn plans.");
+      return;
+    }
     console.log("item", item);
 
     this.setState({
@@ -236,6 +274,10 @@ class Founders extends Component {
 
   // update post
   updatedeal = () => {
+    if (!this.state.canEditFounder) {
+      message.error("You do not have permission to edit founders.");
+      return;
+    }
     if (this.state.edit_first_name == "") {
       message.warning("First name is required");
       return false;
@@ -378,6 +420,10 @@ class Founders extends Component {
   };
 
   showDisableModel = (item) => {
+    if (!this.state.canBlockFounder) {
+      message.error("You do not have permission to block or unblock founders.");
+      return;
+    }
     this.setState({
       disableModelStatus: true,
       founder_id: item.investor_id,
@@ -713,6 +759,10 @@ class Founders extends Component {
     });
   };
   exportToCSV = (fileName) => {
+    if (!this.state.canExportFounders) {
+      message.error("You do not have permission to export founders data.");
+      return;
+    }
     let arr = [];
     let count = 1;
     for (let item of this.state.founderlist) {
@@ -736,6 +786,8 @@ class Founders extends Component {
   };
 
   render() {
+    const { noPermission } = this.props;
+
     const disdingid = (datas) => {
       console.log(this.state.modes);
       if(this.state.modes=="ass"){
@@ -889,32 +941,52 @@ class Founders extends Component {
               defaultSelectedKeys={[this.state.path]}
               style={{ width: 200 }}
             >
-              <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />}>
+              <Menu.Item
+                key={`Edit${record.key}`}
+                icon={<EditOutlined />}
+                disabled={!this.state.canEditFounder}
+              >
                 <a
                   href="#"
-                  onClick={() => this.showEditModal(text)}
+                  onClick={() =>
+                    this.state.canEditFounder && this.showEditModal(text)
+                  }
                   style={{ fontSize: 14 }}
                 >
                   &nbsp;&nbsp;Edit
                 </a>
               </Menu.Item>
-              <Menu.Item key={`EditUnicornPlan${record.key}`} icon={<EditOutlined />}>
+              <Menu.Item
+                key={`EditUnicornPlan${record.key}`}
+                icon={<EditOutlined />}
+                disabled={!this.state.canEditFounderUnicornPlan}
+              >
                 <a
                   href="#"
-                  onClick={() => this.showEditUnicornModal(text)}
+                  onClick={() =>
+                    this.state.canEditFounderUnicornPlan &&
+                    this.showEditUnicornModal(text)
+                  }
                   style={{ fontSize: 14 }}
                 >
                   &nbsp;&nbsp;Edit Unicorn Plan
                 </a>
               </Menu.Item>
-              <Menu.Item key={`AccessDashboard${record.key}`} icon={<UnlockOutlined />}>
+              <Menu.Item
+                key={`AccessDashboard${record.key}`}
+                icon={<UnlockOutlined />}
+                disabled={!this.state.canAccessFounderDashboard}
+              >
                 <a
                   href="#"
                   onClick={() => {
+                    if (!this.state.canAccessFounderDashboard) return;
                     console.log(text.investor_id);
                     localStorage.setItem("founder_id", text.investor_id);
-                    window.open(`${process.env.REACT_APP_BASE_URL}founder-dashboard`, "_blank");
-                    
+                    window.open(
+                      `${process.env.REACT_APP_BASE_URL}founder-dashboard`,
+                      "_blank"
+                    );
                   }}
                   style={{ fontSize: 14 }}
                 >
@@ -926,21 +998,30 @@ class Founders extends Component {
                 <Menu.Item
                   key={`disable${record.key}`}
                   icon={<EyeInvisibleOutlined />}
+                  disabled={!this.state.canBlockFounder}
                 >
                   <a
                     href="#"
                     style={{ fontSize: 14 }}
-                    onClick={() => this.showDisableModel(text)}
+                    onClick={() =>
+                      this.state.canBlockFounder && this.showDisableModel(text)
+                    }
                   >
                     &nbsp;&nbsp;Disable/Block
                   </a>
                 </Menu.Item>
               ) : (
-                <Menu.Item key={`unblock${record.key}`} icon={<EyeOutlined />}>
+                <Menu.Item
+                  key={`unblock${record.key}`}
+                  icon={<EyeOutlined />}
+                  disabled={!this.state.canBlockFounder}
+                >
                   <a
                     href="#"
                     style={{ fontSize: 14 }}
-                    onClick={() => this.showDisableModel(text)}
+                    onClick={() =>
+                      this.state.canBlockFounder && this.showDisableModel(text)
+                    }
                   >
                     &nbsp;&nbsp;Unblock
                   </a>
@@ -976,11 +1057,15 @@ class Founders extends Component {
           <Layout className="site-layout">
             <Sidebar2 />
 
+            {noPermission ? (
+              <NoPermission />
+            ) : (
+              <>
             <Content className="home-section">
               <Card
                 title="Founders"
                 extra={
-                  <Button type="primary" onClick={this.showAddModal}>
+                  <Button type="primary" onClick={this.showAddModal} disabled={!this.state.canAddFounder}>
                     <i
                       className="bx bxs-plus-circle"
                       style={{
@@ -1020,6 +1105,7 @@ class Founders extends Component {
                   <Button
                     type="primary"
                     onClick={() => this.exportToCSV("Founder list")}
+                    disabled={!this.state.canExportFounders}
                   >
                     <i
                       className="bx bxs-cloud-download"
@@ -1043,6 +1129,8 @@ class Founders extends Component {
             </Content>
 
             <BottomBar />
+              </>
+            )}
           </Layout>
         </Layout>
 

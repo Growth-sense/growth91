@@ -426,8 +426,20 @@ function App() {
           />
           <Route path="/admin/roles-permissions" component={RolesPermissions} />
           <Route exact path="/admin/user-roles" component={UserRoleAssign} />
-          <Route path="/admin-founders" exact component={adminfounders} />
-          <Route path="/admin-investors" exact component={admininvestors} />
+          <ProtectedAdminRoute
+            exact
+            path="/admin-founders"
+            component={adminfounders}
+            requiredModule="founders"
+            requiredAction="view"
+          />
+          <ProtectedAdminRoute
+            exact
+            path="/admin-investors"
+            component={admininvestors}
+            requiredModule="investors"
+            requiredAction="view"
+          />
           <ProtectedAdminRoute
             exact
             path="/admin-startups"
@@ -452,7 +464,13 @@ function App() {
 
 
 
-          <Route path="/admin-investments" exact component={admininvestments} />
+          <ProtectedAdminRoute
+            exact
+            path="/admin-investments"
+            component={admininvestments}
+            requiredModule="investments"
+            requiredAction="view"
+          />
           <Route path="/admin-payments" exact component={adminpayments} />
           <Route
             path="/online-document-payments"

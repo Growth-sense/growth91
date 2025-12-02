@@ -22,6 +22,8 @@ import Navbar from "./common/Navbar";
 import BottomBar from "./common/BottomBar";
 import Bridge from "../constants/Bridge";
 import axios from "axios";
+import NoPermission from "./common/NoPermission";
+import { loadModulePermissions } from "./common/permissions";
 import {
   EditOutlined,
   EyeInvisibleFilled,
@@ -73,6 +75,16 @@ class Investors extends Component {
       allInvestors: [],
       searchinput: "",
       image_to_show: "",
+
+      // permissions for master-data Investors
+      canViewInvestors: false,
+      canAddInvestor: false,
+      canEditInvestor: false,
+      canBlockInvestor: false,
+      canExportInvestors: false,
+      canApproveInvestorKyc: false,
+      canViewInvestorDashboard: false,
+      canManageInvestorG91Money: false,
 
       // kyc Images
       pan_image_kyc: "",
@@ -155,11 +167,31 @@ class Investors extends Component {
     document.title = "Investors - Growth91 - Startup Marketplace";
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    await this.loadPermissions();
     this.getinvestorlist();
   }
 
+  loadPermissions = async () => {
+    const perms = await loadModulePermissions("investors");
+
+    this.setState({
+      canViewInvestors: perms.canView,
+      canAddInvestor: perms.canAdd,
+      canEditInvestor: perms.canEdit,
+      canBlockInvestor: perms.canDelete,
+      canExportInvestors: perms.canExport,
+      canApproveInvestorKyc: perms.canApprove,
+      canViewInvestorDashboard: perms.canDashboard,
+      canManageInvestorG91Money: perms.canG91Money,
+    });
+  };
+
   showAddModal = () => {
+    if (!this.state.canAddInvestor) {
+      message.error("You do not have permission to add investors.");
+      return;
+    }
     this.setState({
       addModalStatus: true,
     });
@@ -244,6 +276,10 @@ class Investors extends Component {
 
   // show edit modal
   showEditModal = (item) => {
+    if (!this.state.canEditInvestor) {
+      message.error("You do not have permission to edit investors.");
+      return;
+    }
     // console.log('item',item);
     let url =
       Apis.IMAGEURL +
@@ -280,6 +316,10 @@ class Investors extends Component {
 
   // update post
   updateinvestor = () => {
+    if (!this.state.canEditInvestor) {
+      message.error("You do not have permission to edit investors.");
+      return;
+    }
     if (this.state.edit_first_name == "") {
       message.warning("First name is required");
       return false;
@@ -373,6 +413,10 @@ class Investors extends Component {
   // }
 
   showDesableModel = (item) => {
+    if (!this.state.canBlockInvestor) {
+      message.error("You do not have permission to block or unblock investors.");
+      return;
+    }
     this.setState({
       disableModalStatus: true,
       investor_id: item.investor_id,
@@ -381,6 +425,10 @@ class Investors extends Component {
   };
 
   disableUser = () => {
+    if (!this.state.canBlockInvestor) {
+      message.error("You do not have permission to block or unblock investors.");
+      return;
+    }
     if (this.state.investor_id == "") {
       message.warning("Please Select Any Investor", 5);
       return false;
@@ -683,6 +731,10 @@ class Investors extends Component {
   };
 
   showkycmodal = (item) => {
+    if (!this.state.canApproveInvestorKyc) {
+      message.error("You do not have permission to verify or approve investor KYC.");
+      return;
+    }
     this.setState({
       kycmodalstatus: true,
       investor_id: item.investor_id,
@@ -767,6 +819,10 @@ class Investors extends Component {
   };
 
   showg91modal = (item) => {
+    if (!this.state.canManageInvestorG91Money) {
+      message.error("You do not have permission to manage G91 Money.");
+      return;
+    }
     this.setState({
       g91modalstatus: true,
     });
@@ -841,6 +897,10 @@ class Investors extends Component {
   };
   // update kyc details
   updatekycdetails = () => {
+    if (!this.state.canApproveInvestorKyc) {
+      message.error("You do not have permission to update investor KYC.");
+      return;
+    }
     if (this.state.nationality == "Non Resident") {
       let params = {
         investor_id: this.state.investor_id,
@@ -1051,6 +1111,10 @@ class Investors extends Component {
   };
 
   exportToCSV = (fileName) => {
+    if (!this.state.canExportInvestors) {
+      message.error("You do not have permission to export investors data.");
+      return;
+    }
     let arr = [];
     let count = 1;
     for (let item of this.state.investors) {
@@ -1112,6 +1176,8 @@ class Investors extends Component {
   };
 
   render() {
+    const { noPermission } = this.props;
+
     const disdingid = () => {
       console.log(this.state.modes);
       if (this.state.modes == "ass") {
@@ -1363,28 +1429,44 @@ class Investors extends Component {
               <Menu.Item
                 key={`kyc_update_${record.key}`}
                 icon={<EditOutlined />}
+                disabled={!this.state.canApproveInvestorKyc}
               >
                 <a
                   href="#"
-                  onClick={() => this.showkycmodal(text)}
+                  onClick={() =>
+                    this.state.canApproveInvestorKyc && this.showkycmodal(text)
+                  }
                   style={{ fontSize: 14 }}
                 >
                   &nbsp;&nbsp;Verify Kyc
                 </a>
               </Menu.Item>
-              <Menu.Item key={`g91money_${record.key}`} icon={<EditOutlined />}>
+              <Menu.Item
+                key={`g91money_${record.key}`}
+                icon={<EditOutlined />}
+                disabled={!this.state.canManageInvestorG91Money}
+              >
                 <a
                   href="#"
-                  onClick={() => this.showg91modal(text)}
+                  onClick={() =>
+                    this.state.canManageInvestorG91Money &&
+                    this.showg91modal(text)
+                  }
                   style={{ fontSize: 14 }}
                 >
                   &nbsp;&nbsp;G91 Money
                 </a>
               </Menu.Item>
-              <Menu.Item key={`update_${record.key}`} icon={<EditOutlined />}>
+              <Menu.Item
+                key={`update_${record.key}`}
+                icon={<EditOutlined />}
+                disabled={!this.state.canEditInvestor}
+              >
                 <a
                   href="#"
-                  onClick={() => this.showEditModal(text)}
+                  onClick={() =>
+                    this.state.canEditInvestor && this.showEditModal(text)
+                  }
                   style={{ fontSize: 14 }}
                 >
                   &nbsp;&nbsp;Edit
@@ -1393,10 +1475,12 @@ class Investors extends Component {
               <Menu.Item
                 key={`view_dashboard_${record.key}`}
                 icon={<EditOutlined />}
+                disabled={!this.state.canViewInvestorDashboard}
               >
                 <a
                   href="#"
                   onClick={() => {
+                    if (!this.state.canViewInvestorDashboard) return;
                     this.setState({
                       displayInvestorDashboardId: text.investor_id,
                     });
@@ -1411,21 +1495,30 @@ class Investors extends Component {
                 <Menu.Item
                   key={`disable_${record.key}`}
                   icon={<EyeInvisibleFilled />}
+                  disabled={!this.state.canBlockInvestor}
                 >
                   <a
                     href="#"
                     style={{ fontSize: 14 }}
-                    onClick={() => this.showDesableModel(text)}
+                    onClick={() =>
+                      this.state.canBlockInvestor && this.showDesableModel(text)
+                    }
                   >
                     &nbsp;&nbsp;Block/Disable
                   </a>
                 </Menu.Item>
               ) : (
-                <Menu.Item key={`unblock${record.key}`} icon={<EyeOutlined />}>
+                <Menu.Item
+                  key={`unblock${record.key}`}
+                  icon={<EyeOutlined />}
+                  disabled={!this.state.canBlockInvestor}
+                >
                   <a
                     href="#"
                     style={{ fontSize: 14 }}
-                    onClick={() => this.showDesableModel(text)}
+                    onClick={() =>
+                      this.state.canBlockInvestor && this.showDesableModel(text)
+                    }
                   >
                     &nbsp;&nbsp;Unblock Investor
                   </a>
@@ -1479,7 +1572,11 @@ class Investors extends Component {
           <Layout className="site-layout">
             <Sidebar2 />
 
-            <Content className="home-section" style={{ margin: "0 16px" }}>
+            {noPermission ? (
+              <NoPermission />
+            ) : (
+              <>
+                <Content className="home-section" style={{ margin: "0 16px" }}>
               {this.state.displayInvestorDashboardId != null && (
                 <>
                   <Button
@@ -1503,7 +1600,11 @@ class Investors extends Component {
                 <Card
                   title="Investors"
                   extra={
-                    <Button type="primary" onClick={this.showAddModal}>
+                    <Button
+                      type="primary"
+                      onClick={this.showAddModal}
+                      disabled={!this.state.canAddInvestor}
+                    >
                       <i
                         className="bx bxs-plus-circle"
                         style={{
@@ -1543,6 +1644,7 @@ class Investors extends Component {
                     <Button
                       type="primary"
                       onClick={() => this.exportToCSV("Investor list")}
+                      disabled={!this.state.canExportInvestors}
                     >
                       <i
                         className="bx bxs-cloud-download"
@@ -1566,7 +1668,9 @@ class Investors extends Component {
               )}
             </Content>
 
-            <BottomBar />
+                <BottomBar />
+              </>
+            )}
           </Layout>
         </Layout>
 

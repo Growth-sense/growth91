@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import { Spin } from "antd";
 import axios from "axios";
+import featureFlags from "../../../config/featureFlags";
 
 // Simple in-memory cache so we only hit myPermissions once per reload
 let cachedPerms = null;
@@ -79,6 +80,21 @@ class ProtectedAdminRouteInner extends Component {
     }
 
     if (isSuperAdmin) {
+      this.setState({ loading: false, allowed: true });
+      return;
+    }
+
+    // Feature flag shortcuts:
+    // - Analytics routes (requiredModule === "analytics") use ENABLE_ANALYTICS_PERMISSIONS
+    // - All other routes (master-data etc.) use ENABLE_MASTERDATA_PERMISSIONS
+    const isAnalyticsRoute = requiredModule === "analytics";
+    const featureEnabled = isAnalyticsRoute
+      ? featureFlags.ENABLE_ANALYTICS_PERMISSIONS
+      : featureFlags.ENABLE_MASTERDATA_PERMISSIONS;
+
+    // When the relevant permissions feature flag is OFF, skip myPermissions API
+    // and allow all routes handled by this wrapper.
+    if (!featureEnabled) {
       this.setState({ loading: false, allowed: true });
       return;
     }

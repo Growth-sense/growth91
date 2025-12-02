@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import featureFlags from "../../../config/featureFlags";
 class Sidebar extends Component {
   community() {
     if (localStorage.getItem("admin_user") == "1") {
@@ -24,6 +25,8 @@ try {
 } catch (e) {
   isSuperAdmin = false;
 }
+ const enableSidebarPerms =
+    featureFlags.ENABLE_SIDEBAR_PERMISSIONS === true;
     return (
       <div id="menu" className="sidebar close">
         {/* close  showMenu to toggle */}
@@ -383,7 +386,7 @@ try {
               </li>
             </ul>
           </li>
-          {isSuperAdmin && (
+          {isSuperAdmin && enableSidebarPerms && (
             <li>
               <div className="iocn-link">
                 <a href="#">

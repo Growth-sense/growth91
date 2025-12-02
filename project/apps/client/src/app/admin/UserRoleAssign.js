@@ -454,7 +454,7 @@ class UserRoleAssign extends Component {
                 .filter((r) => r.name !== "super_admin")
                 .map((r) => (
                   <Option key={r.id} value={Number(r.id)}>
-                    {r.display_name} ({r.name})
+                    {r.display_name} {r.name}
                   </Option>
                 ))}
             </Select>

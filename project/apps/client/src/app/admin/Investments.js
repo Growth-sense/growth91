@@ -31,6 +31,8 @@ import Userdetails from "./common/Userdetails";
 import Dealflow from "./common/Dealflow";
 import axios from "axios";
 import $ from "jquery";
+import NoPermission from "./common/NoPermission";
+import { loadModulePermissions } from "./common/permissions";
 
 const { Option } = Select;
 const { Content } = Layout;
@@ -86,14 +88,35 @@ class Investments extends Component {
       ac_edit_interested_id: "",
       ac_edit_commitment_id: "",
 
+      // permissions for master-data Investments
+      canViewInvestments: false,
+      canExportInvestments: false,
+      canApproveInvestments: false,
+      canTransferInvestments: false,
+      canEditInvestments: false,
+      canRequestSignInvestments: false,
 
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    await this.loadPermissions();
     this.getinvestments();
     // this.get_investment_signed_status();
   }
+
+  loadPermissions = async () => {
+    const perms = await loadModulePermissions("investments");
+
+    this.setState({
+      canViewInvestments: perms.canView,
+      canExportInvestments: perms.canExport,
+      canApproveInvestments: perms.canApprove,
+      canTransferInvestments: perms.canTransfer,
+      canEditInvestments: perms.canEdit,
+      canRequestSignInvestments: perms.canRequestSign,
+    });
+  };
 
   // get post list
   getinvestments = () => {
@@ -167,6 +190,10 @@ class Investments extends Component {
   };
 
   showapprovemodal = (item) => {
+    if (!this.state.canApproveInvestments) {
+      message.error("You do not have permission to approve investments.");
+      return;
+    }
     if (item.kycstatus != "Approved" && item.kycstatus != "admin_approved") {
       message.warning("KYC is pending. Please complete kyc process first.", 5);
       return;
@@ -255,6 +282,10 @@ class Investments extends Component {
       });
   };
   showeditmodal = (item,record) => {
+    if (!this.state.canEditInvestments) {
+      message.error("You do not have permission to edit investments.");
+      return;
+    }
     // console.log(record);
     this.setState({
       ac_edit_deal_id: record.dealid,
@@ -280,6 +311,10 @@ class Investments extends Component {
   
 
   approve = () => {
+    if (!this.state.canApproveInvestments) {
+      message.error("You do not have permission to approve investments.");
+      return;
+    }
     if (!this.state.remarks) {
       message.warning("Please enter remarks");
       return;
@@ -311,6 +346,10 @@ class Investments extends Component {
     });
   };
   showfundtransfermodal = (item) => {
+    if (!this.state.canTransferInvestments) {
+      message.error("You do not have permission to transfer funds.");
+      return;
+    }
     this.setState({
       fundtransferstatus: true,
       deal_id: item.deal_id,
@@ -336,6 +375,10 @@ class Investments extends Component {
   };
 
   transfer = () => {
+    if (!this.state.canTransferInvestments) {
+      message.error("You do not have permission to transfer funds.");
+      return;
+    }
     if (this.state.isapproved == "Pending" || this.state.isapproved == "") {
       message.warning("Investment is not approved");
       return;
@@ -389,6 +432,10 @@ class Investments extends Component {
   };
 
   exportToCSV = (fileName) => {
+    if (!this.state.canExportInvestments) {
+      message.error("You do not have permission to export investments data.");
+      return;
+    }
     let arr = [];
     let count = 1;
     for (let item of this.state.investments) {
@@ -421,6 +468,10 @@ class Investments extends Component {
   };
 
   openmodal = (item) => {
+    if (!this.state.canRequestSignInvestments) {
+      message.error("You do not have permission to request document signing.");
+      return;
+    }
     // console.log('item',item);
     this.setState(
       {
@@ -574,6 +625,7 @@ class Investments extends Component {
     }
   };
   render() {
+    const { noPermission } = this.props;
     var nf = new Intl.NumberFormat('en-IN');
     const disdingid = (datas) => {
       if (this.state.modes=="ass") {
@@ -972,11 +1024,18 @@ class Investments extends Component {
               {text.admin_approval_status == "admin_approval" &&
                 text.founder_document_sign_status != "fndr_sign_success" &&
                 text.fund_raise_status != "success" && (
-                  <Menu.Item key={`send${record.key}`} icon={<FundOutlined />}>
+                  <Menu.Item
+                    key={`send${record.key}`}
+                    icon={<FundOutlined />}
+                    disabled={!this.state.canRequestSignInvestments}
+                  >
                     <a
                       href="#"
                       style={{ fontSize: 14 }}
-                      onClick={() => this.openmodal(text)}
+                      onClick={() =>
+                        this.state.canRequestSignInvestments &&
+                        this.openmodal(text)
+                      }
                     >
                       &nbsp;&nbsp; Request Dcoument Signing
                     </a>
@@ -986,33 +1045,41 @@ class Investments extends Component {
                 text.fund_raise_status != "success" &&
                 text.founder_document_sign_status != "fndr_sign_success" && (
                   <>
-                  <Menu.Item
-                    key={`Edit${record.key}`}
-                    icon={<WindowsOutlined />}
+                    <Menu.Item
+                      key={`Edit${record.key}`}
+                      icon={<WindowsOutlined />}
+                      disabled={!this.state.canApproveInvestments}
                     >
-                    <a
-                      href="#"
-                      onClick={() => this.showapprovemodal(text)}
-                      style={{ fontSize: 14 }}
-                    >
-                      &nbsp;&nbsp;Approve Status
-                    </a>
-                  </Menu.Item>
+                      <a
+                        href="#"
+                        onClick={() =>
+                          this.state.canApproveInvestments &&
+                          this.showapprovemodal(text)
+                        }
+                        style={{ fontSize: 14 }}
+                      >
+                        &nbsp;&nbsp;Approve Status
+                      </a>
+                    </Menu.Item>
                   {JSON.parse(localStorage.getItem("super_admin")) === "1" && 
-                  <Menu.Item
-                    key={`Edits${record.key}`}
-                    icon={<WindowsOutlined />}
-                  >
-                    <a
-                      href="#"
-                      onClick={() => this.showeditmodal(text, record)}
-                      style={{ fontSize: 14 }}
+                    <Menu.Item
+                      key={`Edits${record.key}`}
+                      icon={<WindowsOutlined />}
+                      disabled={!this.state.canEditInvestments}
                     >
-                      &nbsp;&nbsp;Edit
-                    </a>
-                  </Menu.Item>
+                      <a
+                        href="#"
+                        onClick={() =>
+                          this.state.canEditInvestments &&
+                          this.showeditmodal(text, record)
+                        }
+                        style={{ fontSize: 14 }}
+                      >
+                        &nbsp;&nbsp;Edit
+                      </a>
+                    </Menu.Item>
                    } 
-                    </>
+                  </>
                 )
                 }
               {text.founder_document_sign_status == "fndr_sign_success" &&
@@ -1020,11 +1087,15 @@ class Investments extends Component {
                   <Menu.Item
                     key={`Delete${record.key}`}
                     icon={<FundOutlined />}
+                    disabled={!this.state.canTransferInvestments}
                   >
                     <a
                       href="#"
                       style={{ fontSize: 14 }}
-                      onClick={() => this.showfundtransfermodal(text)}
+                      onClick={() =>
+                        this.state.canTransferInvestments &&
+                        this.showfundtransfermodal(text)
+                      }
                     >
                       &nbsp;&nbsp; Transfer Funds
                     </a>
@@ -1072,71 +1143,84 @@ class Investments extends Component {
           <Layout className="site-layout">
             <Sidebar2 />
 
-            <Content className="home-section">
-              <Card title="Investments" style={{ margin: 16 }}>
-                <Breadcrumb
-                  style={{
-                    margin: "0",
-                  }}
-                >
-                  <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
-                  <Breadcrumb.Item>Investments</Breadcrumb.Item>
-                </Breadcrumb>
-                <br />
-                <br />
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Input
-                    value={this.state.searchinput}
-                    placeholder="Search"
-                    onChange={(e) => this.searchinput(e)}
-                    style={{ maxWidth: 300, marginBottom: 20, height: 40 }}
-                  />
-                  {/* <Button 
-                    type='primary' 
-                    onClick={()=>this.refresh()}
-                  >
-                    <i className='bx bxs-cloud-download' 
-                    style={{ 
-                      color:'#fff',
-                      position:'relative',
-                      top:3,
-                      left:-3
-                  }}
-                    ></i> Refersh data
-                  </Button> */}
-                  <Button
-                    type="primary"
-                    onClick={() => this.exportToCSV("Investment Details")}
-                  >
-                    <i
-                      className="bx bxs-cloud-download"
+            {noPermission ? (
+              <NoPermission />
+            ) : (
+              <>
+                <Content className="home-section">
+                  <Card title="Investments" style={{ margin: 16 }}>
+                    <Breadcrumb
                       style={{
-                        color: "#fff",
-                        position: "relative",
-                        top: 3,
-                        left: -3,
+                        margin: "0",
                       }}
-                    ></i>{" "}
-                    Export Data
-                  </Button>
-                </div>
+                    >
+                      <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+                      <Breadcrumb.Item>Investments</Breadcrumb.Item>
+                    </Breadcrumb>
+                    <br />
+                    <br />
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Input
+                        value={this.state.searchinput}
+                        placeholder="Search"
+                        onChange={(e) => this.searchinput(e)}
+                        style={{
+                          maxWidth: 300,
+                          marginBottom: 20,
+                          height: 40,
+                        }}
+                      />
+                      {/* <Button 
+                        type='primary' 
+                        onClick={()=>this.refresh()}
+                      >
+                        <i className='bx bxs-cloud-download' 
+                        style={{ 
+                          color:'#fff',
+                          position:'relative',
+                          top:3,
+                          left:-3
+                      }}
+                        ></i> Refersh data
+                      </Button> */}
+                      <Button
+                        type="primary"
+                        onClick={() =>
+                          this.exportToCSV("Investment Details")
+                        }
+                        disabled={!this.state.canExportInvestments}
+                      >
+                        <i
+                          className="bx bxs-cloud-download"
+                          style={{
+                            color: "#fff",
+                            position: "relative",
+                            top: 3,
+                            left: -3,
+                          }}
+                        ></i>{" "}
+                        Export Data
+                      </Button>
+                    </div>
 
-                <Table
-                  dataSource={dataSource}
-                  columns={columns}
-                  loading={this.state.loading}
-                  bordered
-                  scroll={{ x: "max-content" }}
-                />
-              </Card>
-            </Content>
+                    <Table
+                      dataSource={dataSource}
+                      columns={columns}
+                      loading={this.state.loading}
+                      bordered
+                      scroll={{ x: "max-content" }}
+                    />
+                  </Card>
+                </Content>
 
-            <BottomBar />
+                <BottomBar />
+              </>
+            )}
           </Layout>
         </Layout>
 
