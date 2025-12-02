@@ -246,6 +246,7 @@ import UnicornAdminPayment from "./app/admin/UnicornAdminPayment.jsx";
 import ExtraMile from "./app/deal-pages/ExtraMile.jsx";
 import Goodmelts from "./app/deal-pages/Goodmelts.jsx";
 import Stroom2 from "./app/deal-pages/Stroom2.jsx";
+import Tulua2 from './app/deal-pages/Tulua2.jsx'
 
 ReactGA.initialize(TRACKING_ID);
 
@@ -617,6 +618,9 @@ function App() {
             <ProtectDeals Component={Homversity} />
           </Route>
           <Route path="/Tulua" exact>
+            <ProtectDeals Component={Tulua2} />
+          </Route>
+          <Route path="/TuluaRound1" exact>
             <ProtectDeals Component={Tulua} />
           </Route>
           <Route path="/HumSafer" exact>
@@ -682,7 +686,7 @@ function App() {
           <Route path="/EcoRatings" >
             <ProtectDeals Component={EcoRatings} />
           </Route>
-          <Route path="/Tulua" >
+          <Route path="/TuluaRound1" >
             <ProtectDeals Component={Tulua} />
           </Route>
           <Route path="/StroomRound1" >
