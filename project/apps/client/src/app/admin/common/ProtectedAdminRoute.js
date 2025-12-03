@@ -91,10 +91,16 @@ class ProtectedAdminRouteInner extends Component {
     const isAnalyticsRoute = requiredModule === "analytics";
     const isGroupsRoute =
       requiredModule === "groups" || requiredModule === "group_remove_requests";
+    const isFutureUnicornRoute =
+      requiredModule === "unicorns_published" ||
+      requiredModule === "unicorns_all" ||
+      requiredModule === "unicorns_payments";
     const featureEnabled = isAnalyticsRoute
       ? featureFlags.ENABLE_ANALYTICS_PERMISSIONS
       : isGroupsRoute
       ? featureFlags.ENABLE_GROUPS_INVESTMENTS_PERMISSIONS
+      : isFutureUnicornRoute
+      ? featureFlags.ENABLE_FUTURE_UNICORN_PERMISSIONS
       : featureFlags.ENABLE_MASTERDATA_PERMISSIONS;
 
     // When the relevant permissions feature flag is OFF, skip myPermissions API

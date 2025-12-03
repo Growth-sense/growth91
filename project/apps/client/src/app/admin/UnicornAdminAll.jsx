@@ -21,6 +21,8 @@ import * as XLSX from "xlsx";
 import Urldata from "../investor/components/Urldata";
 import { DownloadOutlined } from "@ant-design/icons";
 import URLs from "../constants/Apis";
+import NoPermission from "./common/NoPermission";
+import { loadModulePermissions } from "./common/permissions";
 
 const { Content } = Layout;
 
@@ -68,15 +70,36 @@ class UnicornAdminAll extends Component {
       previewmodal: false,
       formpreviewmodal: false,
       downloadingFile: false,
+
+      // permissions for Future Unicorn – View All Unicorns
+      canExportAllList: false,
+      canExportSingle: false,
+      canDownloadProductDeck: false,
+      canDownloadPitchDeck: false,
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    await this.loadPermissions();
     this.getgrouplist();
     // this.getstartuplist();
     setTimeout(() => {
     }, 1000);
   }
+
+  loadPermissions = async () => {
+    try {
+      const perms = await loadModulePermissions("unicorns_all");
+      this.setState({
+        canExportAllList: perms.canUnicornsAllExportList,
+        canExportSingle: perms.canUnicornsAllExportSingle,
+        canDownloadProductDeck: perms.canUnicornsAllDownloadProductDeck,
+        canDownloadPitchDeck: perms.canUnicornsAllDownloadPitchDeck,
+      });
+    } catch (e) {
+      // if permissions fail to load, keep defaults (no change)
+    }
+  };
 
   // get post list
   getgrouplist = () => {
@@ -141,6 +164,10 @@ class UnicornAdminAll extends Component {
   };
 
   exportToCSV = (fileName) => {
+    if (!this.state.canExportAllList) {
+      message.error("You do not have permission to export all unicorns list.");
+      return;
+    }
     let arr = [];
     let count = 1;
     for (let item of this.state.startups) {
@@ -169,6 +196,10 @@ class UnicornAdminAll extends Component {
   };
 
   exportToExcel = (item) => {
+  if (!this.state.canExportSingle) {
+    message.error("You do not have permission to export single unicorn data.");
+    return;
+  }
   this.setState({ loading: true });
   try {
     let obj = {
@@ -521,6 +552,19 @@ class UnicornAdminAll extends Component {
       message.error("File not available for download");
       return;
     }
+
+    // Permission checks based on file type inferred from fileName
+    if (fileName.includes("_Product_Deck")) {
+      if (!this.state.canDownloadProductDeck) {
+        message.error("You do not have permission to download product deck.");
+        return;
+      }
+    } else if (fileName.includes("_Pitch_Deck")) {
+      if (!this.state.canDownloadPitchDeck) {
+        message.error("You do not have permission to download pitch deck.");
+        return;
+      }
+    }
     
     this.setState({ downloadingFile: true });
     
@@ -602,6 +646,8 @@ class UnicornAdminAll extends Component {
 
   render() {
     
+    const { noPermission } = this.props;
+
     const dataSource =
       this.state.startups &&
       this.state.startups.map((item, index) => {
@@ -699,19 +745,23 @@ class UnicornAdminAll extends Component {
         render: (text, record) => {
           const menu = (
             <Menu mode="vertical" style={{ width: 250 }}>
-              <Menu.Item key="export" icon={<DownloadOutlined />}>
+              <Menu.Item
+                key="export"
+                icon={<DownloadOutlined />}
+                disabled={!this.state.canExportSingle}
+              >
                 <a
                   href="#"
                   onClick={() => this.exportToExcel(text)}
-                  style={{ fontSize: 14 }}
+                  style={{ fontSize: 14, color: this.state.canExportSingle ? 'inherit' : '#d9d9d9' }}
                 >
                   &nbsp;&nbsp;Export Data
                 </a>
               </Menu.Item>
-              <Menu.Item 
-                key="productDeck" 
+              <Menu.Item
+                key="productDeck"
                 icon={<DownloadOutlined />}
-                disabled={!record.productDeckUrl}
+                disabled={!record.productDeckUrl || !this.state.canDownloadProductDeck}
               >
                 <a
                   href="#"
@@ -721,10 +771,10 @@ class UnicornAdminAll extends Component {
                   &nbsp;&nbsp;Download Product Deck
                 </a>
               </Menu.Item>
-              <Menu.Item 
-                key="pitchDeck" 
+              <Menu.Item
+                key="pitchDeck"
                 icon={<DownloadOutlined />}
-                disabled={!record.pitchDeckUrl}
+                disabled={!record.pitchDeckUrl || !this.state.canDownloadPitchDeck}
               >
                 <a
                   href="#"
@@ -763,6 +813,11 @@ class UnicornAdminAll extends Component {
           <Layout className="site-layout">
             <Sidebar2 />
 
+            {noPermission ? (
+              <NoPermission />
+            ) : (
+            <>
+
             <Content className="home-section">
               <Card title="Future Unicorn" style={{ margin: 16 }}>
                 <Breadcrumb
@@ -792,6 +847,7 @@ class UnicornAdminAll extends Component {
                   <Button
                     type="primary"
                     onClick={() => this.exportToCSV("Unicorn_Details_All")}
+                    disabled={!this.state.canExportAllList}
                   >
                     <i
                       className="bx bxs-cloud-download"
@@ -815,6 +871,8 @@ class UnicornAdminAll extends Component {
             </Content>
 
             <BottomBar />
+            </>
+            )}
           </Layout>
         </Layout>
       </>

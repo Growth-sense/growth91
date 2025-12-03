@@ -53,6 +53,24 @@ function fullAccessPermissions() {
     canRequestSign: true,
     // extra optional capabilities used by some modules (e.g. groups)
     canManage: true,
+    // extra optional capabilities used by Future Unicorn – Published list
+    canUnicornsPublishedPreview: true,
+    canUnicornsPublishedViewPlan: true,
+    canUnicornsPublishedViewForm: true,
+    canUnicornsPublishedViewAdditionalForm: true,
+    canUnicornsPublishedViewEnquiries: true,
+    canUnicornsPublishedExportEnquiries: true,
+    canUnicornsPublishedEditPublish: true,
+    canUnicornsPublishedToggleHighlight: true,
+    // extra optional capabilities used by Future Unicorn – View All Unicorns
+    canUnicornsAllView: true,
+    canUnicornsAllExportList: true,
+    canUnicornsAllExportSingle: true,
+    canUnicornsAllDownloadProductDeck: true,
+    canUnicornsAllDownloadPitchDeck: true,
+    // extra optional capabilities used by Future Unicorn – Payments
+    canUnicornsPaymentsExport: true,
+    canUnicornsPaymentsAddOfflinePayment: true,
   };
 }
 
@@ -93,10 +111,16 @@ export async function loadModulePermissions(moduleKey) {
   const isAnalyticsModule = moduleKey === "analytics";
   const isGroupsModule =
     moduleKey === "groups" || moduleKey === "group_remove_requests";
+  const isFutureUnicornModule =
+    moduleKey === "unicorns_published" ||
+    moduleKey === "unicorns_all" ||
+    moduleKey === "unicorns_payments";
   const featureEnabled = isAnalyticsModule
     ? featureFlags.ENABLE_ANALYTICS_PERMISSIONS
     : isGroupsModule
     ? featureFlags.ENABLE_GROUPS_INVESTMENTS_PERMISSIONS
+    : isFutureUnicornModule
+    ? featureFlags.ENABLE_FUTURE_UNICORN_PERMISSIONS
     : featureFlags.ENABLE_MASTERDATA_PERMISSIONS;
 
   // When the relevant feature flag is OFF OR super admin => full access, no API
@@ -135,5 +159,26 @@ export async function loadModulePermissions(moduleKey) {
 
     // Optional extra booleans for modules that define these actions (groups)
     canManage: m.manage === true,
+
+    // Optional extra booleans for modules that define these actions (Future Unicorn – Published list)
+    canUnicornsPublishedPreview: m.preview === true,
+    canUnicornsPublishedViewPlan: m.view_plan === true,
+    canUnicornsPublishedViewForm: m.view_form === true,
+    canUnicornsPublishedViewAdditionalForm: m.view_additional_form === true,
+    canUnicornsPublishedViewEnquiries: m.view_enquiries === true,
+    canUnicornsPublishedExportEnquiries: m.export_enquiries === true,
+    canUnicornsPublishedEditPublish: m.edit_publish === true,
+    canUnicornsPublishedToggleHighlight: m.toggle_highlight === true,
+
+    // Optional extra booleans for modules that define these actions (Future Unicorn – View All Unicorns)
+    canUnicornsAllView: m.view === true,
+    canUnicornsAllExportList: m.export === true,
+    canUnicornsAllExportSingle: m.export_single === true,
+    canUnicornsAllDownloadProductDeck: m.download_product_deck === true,
+    canUnicornsAllDownloadPitchDeck: m.download_pitch_deck === true,
+
+    // Optional extra booleans for modules that define these actions (Future Unicorn – Payments)
+    canUnicornsPaymentsExport: m.export === true,
+    canUnicornsPaymentsAddOfflinePayment: m.add_offline_payment === true,
   };
 }

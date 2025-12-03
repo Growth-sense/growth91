@@ -21,6 +21,8 @@ import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
 import Urldata from "../investor/components/Urldata";
 import moment from "moment";
+import NoPermission from "./common/NoPermission";
+import { loadModulePermissions } from "./common/permissions";
 
 const { Content } = Layout;
 
@@ -74,15 +76,27 @@ class UnicornAdminPayment extends Component {
       orderId: "",
       eventTime: "",
       selectedPlan: "",
+      canExportPayments: false,
+      canAddOfflinePayment: false,
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    await this.loadPermissions();
     this.getgrouplist();
-    // this.getstartuplist();
-    setTimeout(() => {
-    }, 1000);
   }
+
+  loadPermissions = async () => {
+    try {
+      const perms = await loadModulePermissions("unicorns_payments");
+      this.setState({
+        canExportPayments: perms.canUnicornsPaymentsExport,
+        canAddOfflinePayment: perms.canUnicornsPaymentsAddOfflinePayment,
+      });
+    } catch (e) {
+      console.error("Error loading unicorns_payments permissions", e);
+    }
+  };
 
   // get post list
   getgrouplist = () => {
@@ -111,6 +125,10 @@ class UnicornAdminPayment extends Component {
 
   // Export data to CSV
   exportToCSV = (fileName) => {
+    if (!this.state.canExportPayments) {
+      message.error("You do not have permission to export payments data.");
+      return;
+    }
     let arr = [];
     let count = 1;
     for (let item of this.state.startups) {
@@ -190,6 +208,10 @@ class UnicornAdminPayment extends Component {
 
   // Add offline payment
   addOfflinePayment = () => {
+    if (!this.state.canAddOfflinePayment) {
+      message.error("You do not have permission to add offline payments.");
+      return;
+    }
     const { founderDetails, paymentAmount, orderId, eventTime, selectedPlan } = this.state;
     
     if (!founderDetails || !paymentAmount || !orderId || !eventTime || !selectedPlan) {
@@ -275,7 +297,8 @@ class UnicornAdminPayment extends Component {
   };
 
   render() {
-    
+    const { noPermission } = this.props;
+
     const dataSource =
       this.state.startups &&
       this.state.startups.map((item, index) => {
@@ -414,6 +437,11 @@ class UnicornAdminPayment extends Component {
           <Layout className="site-layout">
             <Sidebar2 />
 
+            {noPermission ? (
+              <NoPermission />
+            ) : (
+              <>
+
             <Content className="home-section">
               <Card title="Future Unicorn" style={{ margin: 16 }}>
                 <Breadcrumb
@@ -440,11 +468,12 @@ class UnicornAdminPayment extends Component {
                     onChange={(e) => this.searchinput(e)}
                     style={{ maxWidth: 300, marginBottom: 20, height: 40 }}
                   />
-                  
+
                   <Button
                     type="primary"
                     onClick={() => this.exportToCSV("Unicorn_Payment_Details")}
-                    style={{height: 40, marginLeft: 10}}
+                    style={{ height: 40, marginLeft: 10 }}
+                    disabled={!this.state.canExportPayments}
                   >
                     <i
                       className="bx bxs-cloud-download"
@@ -461,6 +490,7 @@ class UnicornAdminPayment extends Component {
                     type="primary"
                     onClick={() => this.setState({ offlinePaymentModal: true })}
                     style={{ marginLeft: 30, height: 40 }}
+                    disabled={!this.state.canAddOfflinePayment}
                   >
                     Add Offline Payment
                   </Button>
@@ -505,6 +535,7 @@ class UnicornAdminPayment extends Component {
                       type="primary" 
                       loading={this.state.formloader}
                       onClick={this.addOfflinePayment}
+                      disabled={!this.state.canAddOfflinePayment}
                     >
                       Add Payment
                     </Button>
@@ -596,6 +627,8 @@ class UnicornAdminPayment extends Component {
             </Content>
 
             <BottomBar />
+              </>
+            )}
           </Layout>
         </Layout>
       </>

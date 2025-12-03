@@ -32,6 +32,8 @@ import { useLocation } from "react-router-dom";
 import Founderadmindashboard from "../Unicorn/forms/Founderadmindashboard";
 import { FutureUnicornDescription } from "../FutureUnicornDescription";
 import FounderadmindashboardAdditional from "../Unicorn/forms/FounderadmindashboardAdditional";
+import NoPermission from "./common/NoPermission";
+import { loadModulePermissions } from "./common/permissions";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -84,16 +86,47 @@ class UnicornAdmin extends Component {
       formpreviewmodal: false,
       additionalformpreviewmodal: false,
       viewPlanModel: false,
+
+      // permissions for Future Unicorn – View Published Unicorns
+      canExportUnicorns: false,
+      canPreviewUnicorn: false,
+      canViewPlanUnicorn: false,
+      canViewFormUnicorn: false,
+      canViewAdditionalFormUnicorn: false,
+      canViewEnquiriesUnicorn: false,
+      canExportEnquiriesUnicorn: false,
+      canEditPublishUnicorn: false,
+      canToggleHighlightUnicorn: false,
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    await this.loadPermissions();
     this.getgrouplist();
     // this.getstartuplist();
     setTimeout(() => {
       // this.getfounderlist();
     }, 1000);
   }
+
+  loadPermissions = async () => {
+    try {
+      const perms = await loadModulePermissions("unicorns_published");
+      this.setState({
+        canExportUnicorns: perms.canExport,
+        canPreviewUnicorn: perms.canUnicornsPublishedPreview,
+        canViewPlanUnicorn: perms.canUnicornsPublishedViewPlan,
+        canViewFormUnicorn: perms.canUnicornsPublishedViewForm,
+        canViewAdditionalFormUnicorn: perms.canUnicornsPublishedViewAdditionalForm,
+        canViewEnquiriesUnicorn: perms.canUnicornsPublishedViewEnquiries,
+        canExportEnquiriesUnicorn: perms.canUnicornsPublishedExportEnquiries,
+        canEditPublishUnicorn: perms.canUnicornsPublishedEditPublish,
+        canToggleHighlightUnicorn: perms.canUnicornsPublishedToggleHighlight,
+      });
+    } catch (e) {
+      // If permissions fail to load, keep default (no change)
+    }
+  };
 
   showAddModal = () => {
     this.setState({
@@ -219,6 +252,10 @@ class UnicornAdmin extends Component {
   // update post
 
   showenquiremodal = (item) => {
+    if (!this.state.canViewEnquiriesUnicorn) {
+      message.error("You do not have permission to view unicorn enquiries.");
+      return;
+    }
     // console.log(item);
     this.getintrestedlist(item.udFounderID);
     this.setState({
@@ -227,6 +264,10 @@ class UnicornAdmin extends Component {
     });
   };
   showpublishmodal = (item) => {
+    if (!this.state.canEditPublishUnicorn) {
+      message.error("You do not have permission to edit unicorn publish status.");
+      return;
+    }
     console.log(item);
     // this.getintrestedlist(item.udFounderID);
     this.setState({
@@ -238,6 +279,10 @@ class UnicornAdmin extends Component {
   };
 
   toggleHighlight = (unicornDealID) => {
+    if (!this.state.canToggleHighlightUnicorn) {
+      message.error("You do not have permission to change unicorn highlight status.");
+      return;
+    }
     this.setState({ loading: true });
     let params = {
       unicornDealID: unicornDealID,
@@ -333,6 +378,10 @@ class UnicornAdmin extends Component {
   };
 
   exportToCSV = (fileName) => {
+    if (!this.state.canExportUnicorns) {
+      message.error("You do not have permission to export Unicorns.");
+      return;
+    }
     let arr = [];
     let count = 1;
     for (let item of this.state.startups) {
@@ -367,6 +416,10 @@ class UnicornAdmin extends Component {
     message.success("Unicorns data exported successfully.");
   };
   exportToCSV_CommitList = (fileName) => {
+    if (!this.state.canExportEnquiriesUnicorn) {
+      message.error("You do not have permission to export unicorn enquiries.");
+      return;
+    }
     let arr = [];
     let count = 1;
     // console.log(this.state.commitexport);
@@ -471,6 +524,7 @@ class UnicornAdmin extends Component {
   };
   render() {
     // console.log(this.state.formpreviewid);
+    const { noPermission } = this.props;
 
     const highlightimages = [
       "./assets/images/deals-details/Petmojo/highlight4.jpg",
@@ -586,23 +640,31 @@ class UnicornAdmin extends Component {
                   &nbsp;&nbsp;Delete
                 </a>
               </Menu.Item> */}
-              <Menu.Item icon={<ManOutlined />}>
+              <Menu.Item icon={<ManOutlined />} disabled={!this.state.canPreviewUnicorn}>
                 <a
                   style={{ fontSize: 14 }}
-                  onClick={() =>
+                  onClick={() => {
+                    if (!this.state.canPreviewUnicorn) {
+                      message.error("You do not have permission to preview Unicorn.");
+                      return;
+                    }
                     this.setState({
                       previewid: record.UnicornID,
                       previewmodal: true,
                     })
-                  }
+                  }}
                 >
                   &nbsp;&nbsp;Unicorn Preview
                 </a>
               </Menu.Item>
-              <Menu.Item icon={<ManOutlined />}>
+              <Menu.Item icon={<ManOutlined />} disabled={!this.state.canViewPlanUnicorn}>
                 <a
                   style={{ fontSize: 14 }}
-                  onClick={() =>{
+                  onClick={() => {
+                    if (!this.state.canViewPlanUnicorn) {
+                      message.error("You do not have permission to view Unicorn plan.");
+                      return;
+                    }
                     this.setState({
                       viewPlanModel: true,
                       edit_unicorn_plan_name: record.action.unicorn_plan,
@@ -613,41 +675,47 @@ class UnicornAdmin extends Component {
                       edit_unicorn_gst: record.action.unicorn_gst,
                       edit_unicorn_address: record.action.unicorn_gst_registered_address,
                       edit_unicorn_business_name: record.action.unicorn_gst_name,
-                    })
-                  }
-                    
-                  }
+                    });
+                  }}
                 >
                   &nbsp;&nbsp;View Unicorn Plan
                 </a>
               </Menu.Item>
-              <Menu.Item icon={<ManOutlined />}>
+              <Menu.Item icon={<ManOutlined />} disabled={!this.state.canViewFormUnicorn}>
                 <a
                   style={{ fontSize: 14 }}
-                  onClick={() =>
+                  onClick={() => {
+                    if (!this.state.canViewFormUnicorn) {
+                      message.error("You do not have permission to view Unicorn form.");
+                      return;
+                    }
                     this.setState({
                       formpreviewid: record.action.udFounderID,
                       formpreviewmodal: true,
-                    })
-                  }
+                    });
+                  }}
                 >
                   &nbsp;&nbsp;Unicorn Form Preview
                 </a>
               </Menu.Item>
-              <Menu.Item icon={<ManOutlined />}>
+              <Menu.Item icon={<ManOutlined />} disabled={!this.state.canViewAdditionalFormUnicorn}>
                 <a
                   style={{ fontSize: 14 }}
-                  onClick={() =>
+                  onClick={() => {
+                    if (!this.state.canViewAdditionalFormUnicorn) {
+                      message.error("You do not have permission to view additional Unicorn form.");
+                      return;
+                    }
                     this.setState({
                       formpreviewid: record.action.udFounderID,
                       additionalformpreviewmodal: true,
-                    })
-                  }
+                    });
+                  }}
                 >
                   &nbsp;&nbsp;Unicorn Additional Form Preview
                 </a>
               </Menu.Item>
-              <Menu.Item icon={<ManOutlined />}>
+              <Menu.Item icon={<ManOutlined />} disabled={!this.state.canViewEnquiriesUnicorn}>
                 <a
                   onClick={() => this.showenquiremodal(text)}
                   style={{ fontSize: 14 }}
@@ -656,7 +724,7 @@ class UnicornAdmin extends Component {
                   &nbsp;&nbsp;View Enquires for Unicorn
                 </a>
               </Menu.Item>
-              <Menu.Item icon={<ManOutlined />}>
+              <Menu.Item icon={<ManOutlined />} disabled={!this.state.canEditPublishUnicorn}>
                 <a
                   onClick={() => this.showpublishmodal(text)}
                   style={{ fontSize: 14 }}
@@ -665,7 +733,7 @@ class UnicornAdmin extends Component {
                   &nbsp;&nbsp;Edit
                 </a>
               </Menu.Item>
-              <Menu.Item icon={<ManOutlined />}>
+              <Menu.Item icon={<ManOutlined />} disabled={!this.state.canToggleHighlightUnicorn}>
                 <a
                   onClick={() => this.toggleHighlight(text.unicornDealID)}
                   style={{ fontSize: 14 }}
@@ -761,76 +829,83 @@ class UnicornAdmin extends Component {
           <Layout className="site-layout">
             <Sidebar2 />
 
-            <Content className="home-section">
-              <Card title="Future Unicorn" style={{ margin: 16 }}>
-                <Breadcrumb
-                  style={{
-                    margin: "0",
-                  }}
-                >
-                  <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
-                  <Breadcrumb.Item>Unicorn</Breadcrumb.Item>
-                </Breadcrumb>
-                <br />
-                <br />
-                {/* <Input 
-                  value={this.state.searchinput}
-                  placeholder="Search" 
-                  onChange={(ee) => this.searchinput(e)}
-                  style={{ maxWidth:300,marginBottom:20,height:40 }}
-                /> */}
-
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "end",
-                  }}
-                >
-                  <Input
-                    value={this.state.searchinput}
-                    placeholder="Search"
-                    onChange={(e) => this.searchinput(e)}
-                    style={{ maxWidth: 300, marginBottom: 20, height: 40 }}
-                  />
-                  {/* <Button 
-                    type='primary' 
-                    onClick={()=>this.refresh()}
-                  >
-                    <i className='bx bxs-cloud-download' 
-                      style={{ 
-                      color:'#fff',
-                      position:'relative',
-                      top:3,
-                      left:-3
-                  }}
-                    ></i> Refersh data
-                  </Button> */}
-                  <Button
-                    type="primary"
-                    onClick={() => this.exportToCSV("Unicorn Details")}
-                  >
-                    <i
-                      className="bx bxs-cloud-download"
+            {noPermission ? (
+              <NoPermission />
+            ) : (
+              <>
+                <Content className="home-section">
+                  <Card title="Future Unicorn" style={{ margin: 16 }}>
+                    <Breadcrumb
                       style={{
-                        color: "#fff",
-                        position: "relative",
-                        top: 3,
-                        left: -3,
+                        margin: "0",
                       }}
-                    ></i>{" "}
-                    Export Data
-                  </Button>
-                </div>
-                <Table
-                  dataSource={dataSource}
-                  columns={columns}
-                  loading={this.state.loading}
-                  bordered
-                />
-              </Card>
-            </Content>
+                    >
+                      <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+                      <Breadcrumb.Item>Unicorn</Breadcrumb.Item>
+                    </Breadcrumb>
+                    <br />
+                    <br />
+                    {/* <Input 
+                      value={this.state.searchinput}
+                      placeholder="Search" 
+                      onChange={(ee) => this.searchinput(e)}
+                      style={{ maxWidth:300,marginBottom:20,height:40 }}
+                    /> */}
 
-            <BottomBar />
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "end",
+                      }}
+                    >
+                      <Input
+                        value={this.state.searchinput}
+                        placeholder="Search"
+                        onChange={(e) => this.searchinput(e)}
+                        style={{ maxWidth: 300, marginBottom: 20, height: 40 }}
+                      />
+                      {/* <Button 
+                        type='primary' 
+                        onClick={()=>this.refresh()}
+                      >
+                        <i className='bx bxs-cloud-download' 
+                          style={{ 
+                          color:'#fff',
+                          position:'relative',
+                          top:3,
+                          left:-3
+                      }}
+                        ></i> Refersh data
+                      </Button> */}
+                      <Button
+                        type="primary"
+                        onClick={() => this.exportToCSV("Unicorn Details")}
+                        disabled={!this.state.canExportUnicorns}
+                      >
+                        <i
+                          className="bx bxs-cloud-download"
+                          style={{
+                            color: "#fff",
+                            position: "relative",
+                            top: 3,
+                            left: -3,
+                          }}
+                        ></i>{" "}
+                        Export Data
+                      </Button>
+                    </div>
+                    <Table
+                      dataSource={dataSource}
+                      columns={columns}
+                      loading={this.state.loading}
+                      bordered
+                    />
+                  </Card>
+                </Content>
+
+                <BottomBar />
+              </>
+            )}
           </Layout>
         </Layout>
 
@@ -856,6 +931,7 @@ class UnicornAdmin extends Component {
             <Button
               type="primary"
               onClick={() => this.exportToCSV_CommitList("Commitment List")}
+              disabled={!this.state.canExportEnquiriesUnicorn}
             >
               <i
                 className="bx bxs-cloud-download"

@@ -455,9 +455,27 @@ function App() {
             requiredModule="groups"
             requiredAction="view"
           />
-          <Route path="/admin-unicorn" exact component={UnicornAdmin} />
-          <Route path="/admin-all-unicorn" exact component={UnicornAdminAll} />
-          <Route path="/admin-unicorn-payments" exact component={UnicornAdminPayment} />
+          <ProtectedAdminRoute
+            exact
+            path="/admin-unicorn"
+            component={UnicornAdmin}
+            requiredModule="unicorns_published"
+            requiredAction="view"
+          />
+          <ProtectedAdminRoute
+            exact
+            path="/admin-all-unicorn"
+            component={UnicornAdminAll}
+            requiredModule="unicorns_all"
+            requiredAction="view"
+          />
+          <ProtectedAdminRoute
+            exact
+            path="/admin-unicorn-payments"
+            component={UnicornAdminPayment}
+            requiredModule="unicorns_payments"
+            requiredAction="view"
+          />
           <ProtectedAdminRoute
             exact
             path="/family-Remove-Request"

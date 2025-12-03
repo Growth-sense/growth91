@@ -488,34 +488,204 @@ class RolesPermissions extends Component {
 
         <Divider />
 
-        {/* Unicorns */}
-        <h6>Unicorns</h6>
+        {/* Future Unicorn – View Published Unicorns */}
+        <h6>Future Unicorn – View Published Unicorns</h6>
         <div className="mb-2">
           <Checkbox
-            checked={check("unicorns", "view_published")}
+            checked={check("unicorns_published", "view")}
             onChange={(e) =>
-              this.togglePerm("unicorns", "view_published", e.target.checked)
+              this.togglePerm("unicorns_published", "view", e.target.checked)
             }
           >
-            View Published
+            View Published Unicorns
           </Checkbox>
+
           <Checkbox
-            checked={check("unicorns", "view_all")}
+            checked={check("unicorns_published", "export")}
             onChange={(e) =>
-              this.togglePerm("unicorns", "view_all", e.target.checked)
+              this.togglePerm("unicorns_published", "export", e.target.checked)
             }
           >
-            View All
+            Export Unicorns List
           </Checkbox>
+
           <Checkbox
-            checked={check("unicorns", "view_payments")}
+            checked={check("unicorns_published", "preview")}
             onChange={(e) =>
-              this.togglePerm("unicorns", "view_payments", e.target.checked)
+              this.togglePerm("unicorns_published", "preview", e.target.checked)
+            }
+          >
+            Unicorn Preview
+          </Checkbox>
+
+          <Checkbox
+            checked={check("unicorns_published", "view_plan")}
+            onChange={(e) =>
+              this.togglePerm("unicorns_published", "view_plan", e.target.checked)
+            }
+          >
+            View Unicorn Plan
+          </Checkbox>
+
+          <Checkbox
+            checked={check("unicorns_published", "view_form")}
+            onChange={(e) =>
+              this.togglePerm("unicorns_published", "view_form", e.target.checked)
+            }
+          >
+            Unicorn Form Preview
+          </Checkbox>
+
+          <Checkbox
+            checked={check("unicorns_published", "view_additional_form")}
+            onChange={(e) =>
+              this.togglePerm(
+                "unicorns_published",
+                "view_additional_form",
+                e.target.checked
+              )
+            }
+          >
+            Unicorn Additional Form Preview
+          </Checkbox>
+
+          <Checkbox
+            checked={check("unicorns_published", "view_enquiries")}
+            onChange={(e) =>
+              this.togglePerm("unicorns_published", "view_enquiries", e.target.checked)
+            }
+          >
+            View Enquiries
+          </Checkbox>
+
+          <Checkbox
+            checked={check("unicorns_published", "export_enquiries")}
+            onChange={(e) =>
+              this.togglePerm(
+                "unicorns_published",
+                "export_enquiries",
+                e.target.checked
+              )
+            }
+          >
+            Export Enquiries
+          </Checkbox>
+
+          <Checkbox
+            checked={check("unicorns_published", "edit_publish")}
+            onChange={(e) =>
+              this.togglePerm("unicorns_published", "edit_publish", e.target.checked)
+            }
+          >
+            Edit Publish / Category
+          </Checkbox>
+
+          <Checkbox
+            checked={check("unicorns_published", "toggle_highlight")}
+            onChange={(e) =>
+              this.togglePerm(
+                "unicorns_published",
+                "toggle_highlight",
+                e.target.checked
+              )
+            }
+          >
+            Mark / Remove Highlight
+          </Checkbox>
+        </div>
+
+        <Divider />
+
+        {/* Future Unicorn – View All Unicorns */}
+        <h6>Future Unicorn – View All Unicorns</h6>
+        <div className="mb-2">
+          <Checkbox
+            checked={!!(perms["unicorns_all"] && perms["unicorns_all"].view)}
+            onChange={(e) =>
+              this.togglePerm("unicorns_all", "view", e.target.checked)
+            }
+          >
+            View All Unicorns
+          </Checkbox>
+
+          <Checkbox
+            checked={!!(perms["unicorns_all"] && perms["unicorns_all"].export)}
+            onChange={(e) =>
+              this.togglePerm("unicorns_all", "export", e.target.checked)
+            }
+          >
+            Export All Unicorns List
+          </Checkbox>
+
+          <Checkbox
+            checked={!!(perms["unicorns_all"] && perms["unicorns_all"].export_single)}
+            onChange={(e) =>
+              this.togglePerm("unicorns_all", "export_single", e.target.checked)
+            }
+          >
+            Export Single Unicorn Data
+          </Checkbox>
+
+          <Checkbox
+            checked={!!(perms["unicorns_all"] && perms["unicorns_all"].download_product_deck)}
+            onChange={(e) =>
+              this.togglePerm("unicorns_all", "download_product_deck", e.target.checked)
+            }
+          >
+            Download Product Deck
+          </Checkbox>
+
+          <Checkbox
+            checked={!!(perms["unicorns_all"] && perms["unicorns_all"].download_pitch_deck)}
+            onChange={(e) =>
+              this.togglePerm("unicorns_all", "download_pitch_deck", e.target.checked)
+            }
+          >
+            Download Pitch Deck
+          </Checkbox>
+        </div>
+
+        <Divider />
+
+
+
+        {/* Future Unicorn – Payments */}
+        <h6>Future Unicorn – Payments</h6>
+        <div className="mb-2">
+          <Checkbox
+            checked={check("unicorns_payments", "view")}
+            onChange={(e) =>
+              this.togglePerm("unicorns_payments", "view", e.target.checked)
             }
           >
             View Payments
           </Checkbox>
+
+          <Checkbox
+            checked={check("unicorns_payments", "export")}
+            onChange={(e) =>
+              this.togglePerm("unicorns_payments", "export", e.target.checked)
+            }
+          >
+            Export Payments Data
+          </Checkbox>
+
+          <Checkbox
+            checked={check("unicorns_payments", "add_offline_payment")}
+            onChange={(e) =>
+              this.togglePerm(
+                "unicorns_payments",
+                "add_offline_payment",
+                e.target.checked
+              )
+            }
+          >
+            Add Offline Payment
+          </Checkbox>
         </div>
+
+        <Divider/>
+        
 
         {/* Premium Members */}
         <h6>Premium Members</h6>
