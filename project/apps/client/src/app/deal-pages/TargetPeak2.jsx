@@ -545,9 +545,8 @@ class TargetPeak2 extends Component {
                 d.invitations.includes(investor_id)
               ) {
               } else {
-                // TODO uncomment
-                // window.location.assign("/deals");
-                // return;
+                window.location.assign("/deals");
+                return;
               }
             }
             let logourl =
