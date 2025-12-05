@@ -247,6 +247,7 @@ import ExtraMile from "./app/deal-pages/ExtraMile.jsx";
 import Goodmelts from "./app/deal-pages/Goodmelts.jsx";
 import Stroom2 from "./app/deal-pages/Stroom2.jsx";
 import Tulua2 from './app/deal-pages/Tulua2.jsx'
+import TargetPeak2 from "./app/deal-pages/TargetPeak2.jsx";
 
 ReactGA.initialize(TRACKING_ID);
 
@@ -605,7 +606,7 @@ function App() {
           {/* <Route path="/petmojo" exact>
             <ProtectDeals Component={Petmojo} />
           </Route> */}
-          <Route path="/Targetpeak" exact>
+          <Route path="/Targetpeak-0" exact>
             <ProtectDeals Component={Targetpeak} />
           </Route>
           <Route path="/Yolo" exact>
@@ -619,6 +620,9 @@ function App() {
           </Route>
           <Route path="/Tulua" exact>
             <ProtectDeals Component={Tulua2} />
+          </Route>
+          <Route path="/TargetPeak" exact>
+            <ProtectDeals Component={TargetPeak2} />
           </Route>
           <Route path="/TuluaRound1" exact>
             <ProtectDeals Component={Tulua} />
