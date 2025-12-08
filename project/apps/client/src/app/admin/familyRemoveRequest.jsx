@@ -76,6 +76,9 @@ class familyRemoveReq extends Component {
 
   async componentDidMount() {
     await this.loadPermissions();
+    if (this.props.noPermission) {
+    return; // no view access → don't call list APIs, founder list, etc.
+  }
     this.getDeleteRequest();
     // this.getstartuplist();
     setTimeout(() => {

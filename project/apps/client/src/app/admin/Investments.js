@@ -101,6 +101,9 @@ class Investments extends Component {
 
   async componentDidMount() {
     await this.loadPermissions();
+    if (this.props.noPermission) {
+    return; // no view access → don't call list APIs, founder list, etc.
+  }
     this.getinvestments();
     // this.get_investment_signed_status();
   }

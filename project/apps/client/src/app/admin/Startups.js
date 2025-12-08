@@ -76,6 +76,11 @@ class Startups extends Component {
 
   async componentDidMount() {
     await this.loadPermissions();
+
+    if(this.props.noPermission){
+      return;
+    }
+
     this.getstartuplist();
     setTimeout(() => {
       this.getfounderlist();
