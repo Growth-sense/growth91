@@ -1440,7 +1440,7 @@ class Deal extends CI_Controller
 							if($cctofouder=="Yes")
 							$resp = $this->send_invitation($formdata['email'],"Invitation by $founder_name: Growth91 Investment Opportunity - $deal_name (Transaction Banking Platform)",$body,$cc,$bcc);
 							else
-								$resp = $this->send_invitation($formdata['email'],"Invitation by $founder_name: Growth91 Investment Opportunity - $deal_name (Transaction Banking Platform)",$body,$this->send_invitation($formdata['email']),$bcc);
+								$resp = $this->send_invitation($formdata['email'],"Invitation by $founder_name: Growth91 Investment Opportunity - $deal_name (Transaction Banking Platform)",$body,'',$bcc);
 
 				if($resp=='1'){
 					$data=[

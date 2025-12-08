@@ -43,6 +43,8 @@ import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
 import Invitation_list from "./common/Invitation_list";
 import { toast, ToastContainer } from "react-toastify";
+import NoPermission from "./common/NoPermission";
+import { loadModulePermissions } from "./common/permissions";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -272,15 +274,53 @@ class Deals extends Component {
       show_edit_commitment_status_modal: false,
       Commitmentstatus: "",
       commitmentstatusid: "",
+
+      canDealsCompletedExport: false,
+      canDealsCompletedUpdateStatus: false,
+      canDealsCompletedEditDeal: false,
+      canDealsCompletedViewCommitments: false,
+      canDealsCompletedManagePaymentLink: false,
+      canDealsCompletedInviteInvestors: false,
+      canDealsCompletedOfflinePayment: false,
+      canDealsCompletedCopyUrl: false,
+      canDealsCompletedViewPitches: false,
+      canDealsCompletedAddCommitment: false,
+      canDealsCompletedEditCommitment: false,
+      canDealsCompletedExportCommitments: false,
     };
     this.button = React.createRef()
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    await this.loadPermissions();
+    if (this.props.noPermission) {
+      return;
+    }
     this.getdeallist();
     this.getstartuplist();
     this.getinvestorlist();
   }
+
+  loadPermissions = async () => {
+    try {
+      const perms = await loadModulePermissions("deals_completed");
+      this.setState({
+        canDealsCompletedExport: perms.canDealsCompletedExport,
+        canDealsCompletedUpdateStatus: perms.canDealsCompletedUpdateStatus,
+        canDealsCompletedEditDeal: perms.canDealsCompletedEditDeal,
+        canDealsCompletedViewCommitments: perms.canDealsCompletedViewCommitments,
+        canDealsCompletedManagePaymentLink: perms.canDealsCompletedManagePaymentLink,
+        canDealsCompletedInviteInvestors: perms.canDealsCompletedInviteInvestors,
+        canDealsCompletedOfflinePayment: perms.canDealsCompletedOfflinePayment,
+        canDealsCompletedCopyUrl: perms.canDealsCompletedCopyUrl,
+        canDealsCompletedViewPitches: perms.canDealsCompletedViewPitches,
+        canDealsCompletedAddCommitment: perms.canDealsCompletedAddCommitment,
+        canDealsCompletedEditCommitment: perms.canDealsCompletedEditCommitment,
+        canDealsCompletedExportCommitments: perms.canDealsCompletedExportCommitments,
+      });
+    } catch (e) {
+    }
+  };
 
   // get post list
   getstartuplist = () => {
@@ -345,6 +385,10 @@ class Deals extends Component {
     }
   };
   ac_commit_value = () => {
+    if (!this.state.canDealsCompletedAddCommitment) {
+      message.error("You do not have permission to add commitments.");
+      return;
+    }
     const formData = new FormData();
     formData.append("deal_id", this.state.ac_deal_id);
     formData.append("investor_id", this.state.ac_investor.investor_id);
@@ -470,6 +514,10 @@ class Deals extends Component {
 
   // show Commitment modal
   showCommitmentModal = (item) => {
+    if (!this.state.canDealsCompletedViewCommitments) {
+      message.error("You do not have permission to view commitments.");
+      return;
+    }
     this.setState({
       Commitment_list_modal: true,
       ac_deal_id: item.deal_id,
@@ -1209,6 +1257,10 @@ class Deals extends Component {
   };
   //end function
   showInviteInvestorModal = (item) => {
+    if (!this.state.canDealsCompletedInviteInvestors) {
+      message.error("You do not have permission to invite investors.");
+      return;
+    }
     let deal_id = item.deal_id;
     let params = {
       deal_id,
@@ -1622,6 +1674,10 @@ class Deals extends Component {
   //     window.location.reload();
   // }
   showOfflinePaymentModal = (text) => {
+    if (!this.state.canDealsCompletedOfflinePayment) {
+      message.error("You do not have permission to manage offline payments.");
+      return;
+    }
     this.setState({
       show_offline_payment_modal: true,
       offline_deal_id: text.deal_id,
@@ -1759,6 +1815,10 @@ class Deals extends Component {
   };
 
   exportToCSV = (fileName) => {
+    if (!this.state.canDealsCompletedExport) {
+      message.error("You do not have permission to export deals data.");
+      return;
+    }
     let arr = [];
     let count = 1;
     for (let item of this.state.deallist) {
@@ -1794,6 +1854,10 @@ class Deals extends Component {
   };
 
   exportToCSV_CommitList = (fileName) => {
+    if (!this.state.canDealsCompletedExportCommitments) {
+      message.error("You do not have permission to export the commitment list.");
+      return;
+    }
     let arr = [];
     let count = 1;
     for (let item of this.state.commitment_investor_list) {
@@ -1820,6 +1884,10 @@ class Deals extends Component {
     message.success("Commitment data exported successfully.");
   };
   showEditCommitmentModal = (item, record) => {
+    if (!this.state.canDealsCompletedEditCommitment) {
+      message.error("You do not have permission to edit commitments.");
+      return;
+    }
     this.setState({
       ac_edit_deal_id: record.data.deal_id,
       ac_edit_investor_id: record.data.investor_id,
@@ -2349,6 +2417,7 @@ class Deals extends Component {
     });
   };
   render() {
+   const { noPermission } = this.props;
     const dataSource =
       this.state.deallist &&
       this.state.deallist.map((item, index) => {
@@ -2487,7 +2556,7 @@ class Deals extends Component {
                 defaultSelectedKeys={[this.state.path]}
                 style={{ width: 200 }}
               >
-                <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />}>
+                <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />} disabled={!this.state.canDealsCompletedEditCommitment}>
                   <a
                     href="#"
                     onClick={() => this.showEditCommitmentModal(text, record)}
@@ -2763,7 +2832,7 @@ class Deals extends Component {
               defaultSelectedKeys={[this.state.path]}
               style={{ width: 215 }}
             >
-              <Menu.Item key={`Update${record.key}`} icon={<EditOutlined />}>
+              <Menu.Item key={`Update${record.key}`} icon={<EditOutlined />} disabled={!this.state.canDealsCompletedUpdateStatus}>
                 <a
                   href="#"
                   onClick={() => this.showupdatemodal(text)}
@@ -2772,8 +2841,18 @@ class Deals extends Component {
                   &nbsp;&nbsp;Update Status
                 </a>
               </Menu.Item>
-              <DealPitches data={text} key={record.key} />
-              <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />}>
+              {this.state.canDealsCompletedViewPitches ? <DealPitches data={text} key={record.key} />:
+              <Menu.Item key={`ViewPitches${record.key}`} icon={<EyeOutlined />} disabled={!this.state.canDealsCompletedViewPitches}>
+                <a
+                  href="#"
+                  onClick={() => this.showPitchesModal(text)}
+                  style={{ fontSize: 14 }}
+                >
+                  &nbsp;&nbsp;View Pitches
+                </a>
+              </Menu.Item>
+              }
+              <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />} disabled={!this.state.canDealsCompletedEditDeal}>
                 <a
                   href="#"
                   onClick={() => this.showEditModal(text)}
@@ -2786,6 +2865,7 @@ class Deals extends Component {
                ref={this.button}
                 key={`ViewCommitment${record.key}`}
                 icon={<EyeOutlined />}
+                disabled={!this.state.canDealsCompletedViewCommitments}
               >
                 <a
                   href="#"
@@ -2798,6 +2878,7 @@ class Deals extends Component {
               <Menu.Item
                 key={`ActivatePaymentLink${record.key}`}
                 icon={<EyeOutlined />}
+                disabled={!this.state.canDealsCompletedManagePaymentLink}
               >
                 {record.accept_payment === "yes" ? (
                   <a href="#" style={{ fontSize: 14 }}>
@@ -2814,7 +2895,7 @@ class Deals extends Component {
                 )}
               </Menu.Item>
               {/* {text.deal_type == "Private" && ( */}
-              <Menu.Item key={`invite_${record.key}`} icon={<UserOutlined />}>
+              <Menu.Item key={`invite_${record.key}`} icon={<UserOutlined />} disabled={!this.state.canDealsCompletedInviteInvestors}>
                 <a
                   href="#"
                   onClick={() => this.showInviteInvestorModal(text)}
@@ -2827,6 +2908,7 @@ class Deals extends Component {
               <Menu.Item
                 key={`offline_${record.key}`}
                 icon={<PayCircleOutlined />}
+                disabled={!this.state.canDealsCompletedOfflinePayment}
               >
                 <a
                   href="#"
@@ -2844,6 +2926,7 @@ class Deals extends Component {
                 }}
                 key={`share${record.key}`}
                 icon={<ShareAltOutlined />}
+                disabled={!this.state.canDealsCompletedCopyUrl}
               >
                 <p style={{ fontSize: 14 }}>&nbsp;&nbsp;Copy URL</p>
               </Menu.Item>
@@ -2938,7 +3021,7 @@ class Deals extends Component {
               defaultSelectedKeys={[this.state.path]}
               style={{ width: 200 }}
             >
-              <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />}>
+              <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />} disabled={!this.state.canDealsCompletedEditCommitment}>
                 <a
                   href="#"
                   onClick={() =>
@@ -2983,6 +3066,10 @@ class Deals extends Component {
           <Layout className="site-layout">
             <Sidebar2 />
 
+              {noPermission ? (
+              <NoPermission />
+            ) : (
+              <>
             <Content className="home-section">
               <Card
                 title="Completed Deals"
@@ -3031,6 +3118,7 @@ class Deals extends Component {
                   <Button
                     type="primary"
                     onClick={() => this.exportToCSV("Deals Overview")}
+                    disabled={!this.state.canDealsCompletedExport}
                   >
                     <i
                       className="bx bxs-cloud-download"
@@ -3053,8 +3141,10 @@ class Deals extends Component {
                 />
               </Card>
             </Content>
-
             <BottomBar />
+            </>
+            )}
+
           </Layout>
         </Layout>
         {/* Start Eligibility modal  */}
@@ -5001,6 +5091,7 @@ class Deals extends Component {
               onClick={() => {
                 this.setState({ show_add_commitment_modal: true });
               }}
+              disabled={!this.state.canDealsCompletedAddCommitment}
             >
               <i
                 className="bx bxs-plus-circle"
@@ -5016,6 +5107,7 @@ class Deals extends Component {
             <Button
               type="primary"
               onClick={() => this.exportToCSV_CommitList("Commitment List")}
+              disabled={!this.state.canDealsCompletedExportCommitments}
             >
               <i
                 className="bx bxs-cloud-download"

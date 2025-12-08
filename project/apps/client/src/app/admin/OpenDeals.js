@@ -37,6 +37,8 @@ import DealPitches from "./DealPitches";
 import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
 import Invitation_list from "./common/Invitation_list";
+import NoPermission from "./common/NoPermission";
+import { loadModulePermissions } from "./common/permissions";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -275,16 +277,58 @@ class Deals extends Component {
       regular_percentage: "",
       commitment_investor_list: [],
       commitment_investor_listc: [],
+
+      // deals permissions (loaded from RBAC)
+      canDealsCreate: false,
+      canDealsEdit: false,
+      canDealsUpdateStatus: false,
+      canDealsViewCommitments: false,
+      canDealsAddCommitment: false,
+      canDealsInviteInvestors: false,
+      canDealsOfflinePayment: false,
+      canDealsExport: false,
+      canDealsExportCommitmentsList: false,
+      canDealsExportCommitmentsFounder: false,
+      canDealsExportCommitmentsReconciliation: false,
+      canDealsCopyUrl: false,
+      canDealsViewPitches: false,
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    await this.loadPermissions();
+    if (this.props.noPermission) {
+      return; // no view access 5 don't call list APIs or other data loaders
+    }
     this.getdeallist();
     this.getstartuplist();
     this.getinvestorlist();
     this.getordertoken();
     this.getGst();
   }
+
+  loadPermissions = async () => {
+    try {
+      const perms = await loadModulePermissions("deals");
+      this.setState({
+        canDealsCreate: perms.canDealsCreate,
+        canDealsEdit: perms.canDealsEdit,
+        canDealsUpdateStatus: perms.canDealsUpdateStatus,
+        canDealsViewCommitments: perms.canDealsViewCommitments,
+        canDealsAddCommitment: perms.canDealsAddCommitment,
+        canDealsInviteInvestors: perms.canDealsInviteInvestors,
+        canDealsOfflinePayment: perms.canDealsOfflinePayment,
+        canDealsExport: perms.canExport,
+        canDealsExportCommitmentsList: perms.canDealsExportCommitmentsList,
+        canDealsExportCommitmentsFounder: perms.canDealsExportCommitmentsFounder,
+        canDealsExportCommitmentsReconciliation: perms.canDealsExportCommitmentsReconciliation,
+        canDealsCopyUrl: perms.canDealsCopyUrl,
+        canDealsViewPitches: perms.canDealsViewPitches,
+      });
+    } catch (e) {
+      // keep default false flags on error
+    }
+  };
 
   getinvestorlist = () => {
     this.setState({ loading: true });
@@ -433,6 +477,10 @@ class Deals extends Component {
 
   // show Commitment modal
   showCommitmentModal = (item) => {
+    if (!this.state.canDealsViewCommitments) {
+      message.error("You do not have permission to view commitments.");
+      return;
+    }
     this.setState({
       Commitment_list_modal: true,
       ac_deal_id: item.deal_id,
@@ -465,6 +513,10 @@ class Deals extends Component {
   };
 
   showupdatemodal = (item) => {
+    if (!this.state.canDealsUpdateStatus) {
+      message.error("You do not have permission to update deal status.");
+      return;
+    }
     this.setState({
       deal_id: item.deal_id,
       approvestatus: item.user_status,
@@ -1172,6 +1224,10 @@ class Deals extends Component {
   };
   //end function
   showInviteInvestorModal = (item) => {
+    if (!this.state.canDealsInviteInvestors) {
+      message.error("You do not have permission to invite investors.");
+      return;
+    }
     let deal_id = item.deal_id;
     let params = {
       deal_id,
@@ -1530,6 +1586,10 @@ class Deals extends Component {
 
   //for pay offline
   payOffline = () => {
+    if (!this.state.canDealsOfflinePayment) {
+      message.error("You do not have permission to manage offline payments.");
+      return;
+    }
     if (this.state.investor_email == "") {
       message.warning("investor email is required");
       return false;
@@ -1614,6 +1674,10 @@ class Deals extends Component {
   //     window.location.reload();
   // }
   showOfflinePaymentModal = (text) => {
+    if (!this.state.canDealsOfflinePayment) {
+      message.error("You do not have permission to manage offline payments.");
+      return;
+    }
     this.setState({
       show_offline_payment_modal: true,
       offline_deal_id: text.deal_id,
@@ -1752,6 +1816,10 @@ class Deals extends Component {
   };
 
   exportToCSV = (fileName) => {
+    if (!this.state.canDealsExport) {
+      message.error("You do not have permission to export deals data.");
+      return;
+    }
     let arr = [];
     let count = 1;
     for (let item of this.state.deallist) {
@@ -1787,6 +1855,10 @@ class Deals extends Component {
   };
 
   exportToCSV_CommitList = (fileName) => {
+    if (!this.state.canDealsExportCommitmentsFounder) {
+      message.error("You do not have permission to export the commitment list.");
+      return;
+    }
     let arr = [];
     console.log(this.state.commitment_investor_list);
     let count = 1;
@@ -1823,6 +1895,10 @@ class Deals extends Component {
   };
 
   exportToCSV_startupfounder = (fileName) => {
+    if (!this.state.canDealsExportCommitmentsFounder) {
+      message.error("You do not have permission to export commitment data for founders.");
+      return;
+    }
     let arr = [];
     console.log(this.state.commitment_investor_list);
     let count = 1;
@@ -2321,6 +2397,10 @@ class Deals extends Component {
   };
 
   showEditCommitmentModal = (item, record) => {
+    if (!this.state.canDealsAddCommitment) {
+      message.error("You do not have permission to edit commitments.");
+      return;
+    }
     console.log(record);
     this.setState({
       ac_edit_deal_id: record.data.deal_id,
@@ -2413,6 +2493,7 @@ class Deals extends Component {
   };
 
   render() {
+    const { noPermission } = this.props;
     const filterDealList = this.state.deallist &&
       this.state.deallist.filter((item, index) => {
         // console.log(item)
@@ -2545,7 +2626,7 @@ class Deals extends Component {
                 defaultSelectedKeys={[this.state.path]}
                 style={{ width: 200 }}
               >
-                <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />}>
+                <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />} disabled={!this.state.canDealsAddCommitment}>
                   <a
                     href="#"
                     onClick={() => this.showEditCommitmentModal(text, record)}
@@ -2814,7 +2895,7 @@ class Deals extends Component {
               defaultSelectedKeys={[this.state.path]}
               style={{ width: 200 }}
             >
-              <Menu.Item key={`Update${record.key}`} icon={<EditOutlined />}>
+              <Menu.Item key={`Update${record.key}`} icon={<EditOutlined />} disabled={!this.state.canDealsUpdateStatus}>
                 <a
                   href="#"
                   onClick={() => this.showupdatemodal(text)}
@@ -2823,7 +2904,19 @@ class Deals extends Component {
                   &nbsp;&nbsp;Update Status
                 </a>
               </Menu.Item>
-              <DealPitches data={text} key={record.key} />
+
+              {this.state.canDealsViewPitches ? (
+                <DealPitches data={text} key={record.key} />
+              ) : (
+                <Menu.Item
+                  key={`ViewPitches${record.key}`}
+                  icon={<EyeOutlined />}
+                  disabled
+                >
+                  <span style={{ fontSize: 14 }}>&nbsp;&nbsp;View Pitches</span>
+                </Menu.Item>
+              )}
+
               <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />}>
                 <a
                   href="#"
@@ -2833,7 +2926,7 @@ class Deals extends Component {
                   &nbsp;&nbsp;Edit
                 </a>
               </Menu.Item>
-              <Menu.Item key={`ViewCommitment${record.key}`} icon={<EyeOutlined />}>
+              <Menu.Item key={`ViewCommitment${record.key}`} icon={<EyeOutlined />} disabled={!this.state.canDealsViewCommitments}>
                 <a
                   href="#"
                   onClick={() => this.showCommitmentModal(text)}
@@ -2843,7 +2936,7 @@ class Deals extends Component {
                 </a>
               </Menu.Item>
               {/* {text.deal_type == "Private" && ( */}
-              <Menu.Item key={`invite_${record.key}`} icon={<UserOutlined />}>
+              <Menu.Item key={`invite_${record.key}`} icon={<UserOutlined />} disabled={!this.state.canDealsInviteInvestors}>
                 <a
                   href="#"
                   onClick={() => this.showInviteInvestorModal(text)}
@@ -2856,6 +2949,7 @@ class Deals extends Component {
               <Menu.Item
                 key={`offline_${record.key}`}
                 icon={<PayCircleOutlined />}
+                disabled={!this.state.canDealsOfflinePayment}
               >
                 <a
                   href="#"
@@ -2867,12 +2961,17 @@ class Deals extends Component {
               </Menu.Item>
               <Menu.Item
                 onClick={() => {
+                  if (!this.state.canDealsCopyUrl) {
+                    message.error("You do not have permission to copy deal URLs.");
+                    return;
+                  }
                   const linkToCopy = `https://growth91.com${text.page_link}`;
                   navigator.clipboard.writeText(linkToCopy);
                   message.success(`Copied link to clipboard: ${linkToCopy}`);
                 }}
                 key={`share${record.key}`}
                 icon={<ShareAltOutlined />}
+                disabled={!this.state.canDealsCopyUrl}
               >
                 <p style={{ fontSize: 14 }}>&nbsp;&nbsp;Copy URL</p>
               </Menu.Item>
@@ -2978,11 +3077,12 @@ class Deals extends Component {
             style={{ width: 200 }}
           >
             {/* {localStorage.getItem("super_admin") === "1" ? ( */}
-              <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />}>
+              <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />} disabled={!this.state.canDealsAddCommitment}>
                 <a
                   href="#"
                   onClick={() => this.showEditCommitmentModal(text, record)}
                   style={{ fontSize: 14 }}
+                  
                 >
                   &nbsp;&nbsp;Edit
                 </a>
@@ -3020,78 +3120,87 @@ class Deals extends Component {
           <Layout className="site-layout">
             <Sidebar2 />
 
-            <Content className="home-section">
-              <Card
-                title="Open Deals"
-                extra={
-                  <Button
-                    type="primary"
-                    onClick={() => {
-                      this.setState({ show_eligibility_modal: true });
-                    }}
-                  >
-                    <i
-                      className="bx bxs-plus-circle"
-                      style={{
-                        color: "#fff",
-                        position: "relative",
-                        top: 3,
-                        left: -3,
-                      }}
-                    ></i>{" "}
-                    Add New Deal
-                  </Button>
-                }
-                style={{ margin: 16 }}
-              >
-                <Breadcrumb
-                  style={{
-                    margin: "0",
-                  }}
-                >
-                  <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
-                  <Breadcrumb.Item>Open Deals</Breadcrumb.Item>
-                </Breadcrumb>
-                <br />
-                <br />
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Input
-                    placeholder="Search"
-                    onChange={(e) => this.searchinput(e)}
-                    style={{ maxWidth: 300, marginBottom: 20, height: 40 }}
-                  />
-                  <Button
-                    type="primary"
-                    onClick={() => this.exportToCSV("Deals Overview")}
-                  >
-                    <i
-                      className="bx bxs-cloud-download"
-                      style={{
-                        color: "#fff",
-                        position: "relative",
-                        top: 3,
-                        left: -3,
-                      }}
-                    ></i>{" "}
-                    Export Data
-                  </Button>
-                </div>
-                <Table
-                  dataSource={dataSource}
-                  columns={columns}
-                  loading={this.state.loading}
-                  bordered
-                  scroll={{ x: "max-content" }}
-                />
-              </Card>
-            </Content>
+            {noPermission ? (
+              <NoPermission />
+            ) : (
+              <>
 
-            <BottomBar />
+                <Content className="home-section">
+                  <Card
+                    title="Open Deals"
+                    extra={
+                      <Button
+                        type="primary"
+                        onClick={() => {
+                          this.setState({ show_eligibility_modal: true });
+                        }}
+                        disabled={!this.state.canDealsCreate}
+                      >
+                        <i
+                          className="bx bxs-plus-circle"
+                          style={{
+                            color: "#fff",
+                            position: "relative",
+                            top: 3,
+                            left: -3,
+                          }}
+                        ></i>{" "}
+                        Add New Deal
+                      </Button>
+                    }
+                    style={{ margin: 16 }}
+                  >
+                    <Breadcrumb
+                      style={{
+                        margin: "0",
+                      }}
+                    >
+                      <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+                      <Breadcrumb.Item>Open Deals</Breadcrumb.Item>
+                    </Breadcrumb>
+                    <br />
+                    <br />
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Input
+                        placeholder="Search"
+                        onChange={(e) => this.searchinput(e)}
+                        style={{ maxWidth: 300, marginBottom: 20, height: 40 }}
+                      />
+                      <Button
+                        type="primary"
+                        onClick={() => this.exportToCSV("Deals Overview")}
+                        disabled={!this.state.canDealsExport}
+                      >
+                        <i
+                          className="bx bxs-cloud-download"
+                          style={{
+                            color: "#fff",
+                            position: "relative",
+                            top: 3,
+                            left: -3,
+                          }}
+                        ></i>{" "}
+                        Export Data
+                      </Button>
+                    </div>
+                    <Table
+                      dataSource={dataSource}
+                      columns={columns}
+                      loading={this.state.loading}
+                      bordered
+                      scroll={{ x: "max-content" }}
+                    />
+                  </Card>
+                </Content>
+                <BottomBar />
+              </>
+            )}
+
           </Layout>
         </Layout>
         {/* Start Eligibility modal  */}
@@ -4725,6 +4834,7 @@ class Deals extends Component {
                 onClick={() => {
                   this.setState({ show_add_commitment_modal: true });
                 }}
+                disabled={!this.state.canDealsAddCommitment}
               >
                 <i
                   className="bx bxs-plus-circle"
@@ -4738,36 +4848,38 @@ class Deals extends Component {
                 Add New Commitment
               </Button>
               <Button
-              type="primary"
-              onClick={() => this.exportToCSV_CommitList("Commitment List")}
-            >
-              <i
-                className="bx bxs-cloud-download"
-                style={{
-                  color: "#fff",
-                  position: "relative",
-                  top: 3,
-                  left: -3,
-                }}
-              ></i>{" "}
-              Export For Startup Founder
-            </Button>
+                type="primary"
+                onClick={() => this.exportToCSV_CommitList("Commitment List")}
+                disabled={!this.state.canDealsExportCommitmentsFounder}
+                              >
+                <i
+                  className="bx bxs-cloud-download"
+                  style={{
+                    color: "#fff",
+                    position: "relative",
+                    top: 3,
+                    left: -3,
+                  }}
+                ></i>{" "}
+                Export For Startup Founder
+              </Button>
           
-            <Button
-              type="primary"
-              onClick={() => this.exportToCSV_Reconcillation("ReconcillationList")}
-            >
-              <i
-                className="bx bxs-cloud-download"
-                style={{
-                  color: "#fff",
-                  position: "relative",
-                  top: 3,
-                  left: -3,
-                }}
-              ></i>{" "}
-              Export For Reconcillation
-            </Button>
+              <Button
+                type="primary"
+                onClick={() => this.exportToCSV_Reconcillation("ReconcillationList")}
+                disabled={!this.state.canDealsExportCommitmentsReconciliation}
+              >
+                <i
+                  className="bx bxs-cloud-download"
+                  style={{
+                    color: "#fff",
+                    position: "relative",
+                    top: 3,
+                    left: -3,
+                  }}
+                ></i>{" "}
+                Export For Reconcillation
+              </Button>
             </div>
           }
           visible={this.state.Commitment_list_modal}

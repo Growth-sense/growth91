@@ -19,17 +19,26 @@ function send_email_invite($body,$subject,$email,$cc,$bcc)
 		    "email" => $toEmail
 		    )
 	    ),
-	    "bcc" => array(
-	    	array(
-	    		"email" => $bcc
-	    		),
-			array(
-	    		"email" => $cc
-	    		)
-	    ),
 	    "subject" => $subject,
 	    "htmlContent" => $htmlMessage
 	); 
+
+	if (empty($cc)) {
+		$data_cc = array(
+			"bcc" => array(
+				array("email" => "contact@growth91.com")
+			)
+		);
+	} else {
+		$data_cc = array(
+			"bcc" => array(
+				array("email" => "contact@growth91.com"),
+				array("email" => $cc)
+			)
+		);
+	}
+	
+	$data = array_merge($data, $data_cc);
 
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, 'https://api.sendinblue.com/v3/smtp/email');
@@ -42,16 +51,23 @@ function send_email_invite($body,$subject,$email,$cc,$bcc)
 	$headers[] = 'Content-Type: application/json';  
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 	$result = curl_exec($ch);
-	
-	if (curl_exec($ch) === false)
-	{
-	    	return 0;
-	}
-	else
-	{
-		return 1;
-	}
-	curl_close($ch);
+    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    
+    if ($result === false) {
+        error_log('CURL Error: ' . curl_error($ch));
+        curl_close($ch);
+        return 0;
+    }
+    
+    curl_close($ch);
+    
+    // Check if email was sent successfully
+    if ($http_code == 201 || $http_code == 200) {
+        return 1;
+    } else {
+        error_log('SendinBlue API Error (HTTP ' . $http_code . '): ' . $result);
+        return 0;
+    }
 	
 }
 

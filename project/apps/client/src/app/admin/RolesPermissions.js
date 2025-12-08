@@ -712,8 +712,9 @@ class RolesPermissions extends Component {
         <Divider/>
 
         {/* Deal Setup */}
-        <h6>Deal Setup</h6>
+        <h6>Deal Setup - Open Deal</h6>
         <div className="mb-2">
+          {/* Existing */}
           <Checkbox
             checked={check("deals", "view_open")}
             onChange={(e) =>
@@ -722,31 +723,243 @@ class RolesPermissions extends Component {
           >
             View Open Deals
           </Checkbox>
-          <Checkbox
-            checked={check("deals", "view_completed")}
-            onChange={(e) =>
-              this.togglePerm("deals", "view_completed", e.target.checked)
-            }
-          >
-            View Completed Deals
-          </Checkbox>
+
           <Checkbox
             checked={check("deals", "create")}
             onChange={(e) =>
               this.togglePerm("deals", "create", e.target.checked)
             }
           >
-            Create / Edit Deals
+            Create Deals
           </Checkbox>
+
           <Checkbox
             checked={check("deals", "export")}
             onChange={(e) =>
               this.togglePerm("deals", "export", e.target.checked)
             }
           >
-            Export
+            Export Deals Overview
           </Checkbox>
+
+          {/* NEW granular actions for OpenDeals.js */}
+          <Checkbox
+            checked={check("deals", "update_status")}
+            onChange={(e) =>
+              this.togglePerm("deals", "update_status", e.target.checked)
+            }
+          >
+            Update Deal Status
+          </Checkbox>
+          
+          <Checkbox
+            checked={check("deals", "view_pitches")}
+            onChange={(e) =>
+              this.togglePerm("deals", "view_pitches", e.target.checked)
+            }
+          >
+            View Pitch List
+          </Checkbox>
+
+          <Checkbox
+            checked={check("deals", "edit")}
+            onChange={(e) =>
+              this.togglePerm("deals", "edit", e.target.checked)
+            }
+          >
+            Edit Deal 
+          </Checkbox>
+
+          <Checkbox
+            checked={check("deals", "view_commitments")}
+            onChange={(e) =>
+              this.togglePerm("deals", "view_commitments", e.target.checked)
+            }
+          >
+            View Commitments
+          </Checkbox>
+
+          <Checkbox
+            checked={check("deals", "invite_investors")}
+            onChange={(e) =>
+              this.togglePerm("deals", "invite_investors", e.target.checked)
+            }
+          >
+            Invite Investors
+          </Checkbox>
+
+          <Checkbox
+            checked={check("deals", "offline_payment")}
+            onChange={(e) =>
+              this.togglePerm("deals", "offline_payment", e.target.checked)
+            }
+          >
+            Offline Payment
+          </Checkbox>
+
+           <Checkbox
+            checked={check("deals", "copy_url")}
+            onChange={(e) =>
+              this.togglePerm("deals", "copy_url", e.target.checked)
+            }
+          >
+            Copy Deal URL
+          </Checkbox>
+
+          <Checkbox
+            checked={check("deals", "add_commitment")}
+            onChange={(e) =>
+              this.togglePerm("deals", "add_commitment", e.target.checked)
+            }
+          >
+            Add Commitment
+          </Checkbox>
+
+          <Checkbox
+            checked={check("deals", "export_commitments_founder")}
+            onChange={(e) =>
+              this.togglePerm("deals", "export_commitments_founder", e.target.checked)
+            }
+          >
+            Export For Startup Founder
+          </Checkbox>
+
+          <Checkbox
+            checked={check("deals", "export_commitments_reconciliation")}
+            onChange={(e) =>
+              this.togglePerm(
+                "deals",
+                "export_commitments_reconciliation",
+                e.target.checked
+              )
+            }
+          >
+            Export For Reconciliation
+          </Checkbox>
+
+         
         </div>
+        <Divider/>
+
+        <h6>Deal Setup - Completed Deal</h6>
+        <Checkbox
+          checked={check("deals_completed", "view")}
+          onChange={(e) =>
+            this.togglePerm("deals_completed", "view", e.target.checked)
+          }
+        >
+          View Completed Deals page
+        </Checkbox>
+
+        <Checkbox
+          checked={check("deals_completed", "export")}
+          onChange={(e) =>
+            this.togglePerm("deals_completed", "export", e.target.checked)
+          }
+        >
+          Export Deals Overview
+        </Checkbox>
+
+        <Checkbox
+          checked={check("deals_completed", "update_status")}
+          onChange={(e) =>
+            this.togglePerm("deals_completed", "update_status", e.target.checked)
+          }
+        >
+          Update Deal Status
+        </Checkbox>
+
+         <Checkbox
+          checked={check("deals_completed", "view_pitches")}
+          onChange={(e) =>
+            this.togglePerm("deals_completed", "view_pitches", e.target.checked)
+          }
+        >
+          View Pitch List
+        </Checkbox>
+
+        <Checkbox
+          checked={check("deals_completed", "edit_deal")}
+          onChange={(e) =>
+            this.togglePerm("deals_completed", "edit_deal", e.target.checked)
+          }
+        >
+          Edit Deal
+        </Checkbox>
+
+        <Checkbox
+          checked={check("deals_completed", "view_commitments")}
+          onChange={(e) =>
+            this.togglePerm("deals_completed", "view_commitments", e.target.checked)
+          }
+        >
+          View Commitments
+        </Checkbox>
+
+        <Checkbox
+          checked={check("deals_completed", "manage_payment_link")}
+          onChange={(e) =>
+            this.togglePerm("deals_completed", "manage_payment_link", e.target.checked)
+          }
+        >
+          Activate Payment Link
+        </Checkbox>
+
+        <Checkbox
+          checked={check("deals_completed", "invite_investors")}
+          onChange={(e) =>
+            this.togglePerm("deals_completed", "invite_investors", e.target.checked)
+          }
+        >
+          Invite Investors
+        </Checkbox>
+
+        <Checkbox
+          checked={check("deals_completed", "offline_payment")}
+          onChange={(e) =>
+            this.togglePerm("deals_completed", "offline_payment", e.target.checked)
+          }
+        >
+          Offline Payment
+        </Checkbox>
+
+        <Checkbox
+          checked={check("deals_completed", "copy_url")}
+          onChange={(e) =>
+            this.togglePerm("deals_completed", "copy_url", e.target.checked)
+          }
+        >
+          Copy Deal URL
+        </Checkbox>
+
+        <Checkbox
+          checked={check("deals_completed", "add_commitment")}
+          onChange={(e) =>
+            this.togglePerm("deals_completed", "add_commitment", e.target.checked)
+          }
+        >
+          Add New Commitment
+        </Checkbox>
+
+        <Checkbox
+          checked={check("deals_completed", "edit_commitment")}
+          onChange={(e) =>
+            this.togglePerm("deals_completed", "edit_commitment", e.target.checked)
+          }
+        >
+          Edit / Update Commitment 
+        </Checkbox>
+
+        <Checkbox
+          checked={check("deals_completed", "export_commitments")}
+          onChange={(e) =>
+            this.togglePerm("deals_completed", "export_commitments", e.target.checked)
+          }
+        >
+          Export Commitment List
+        </Checkbox>
+
+        <Divider />
 
         {/* Referral */}
         <h6>Referral</h6>

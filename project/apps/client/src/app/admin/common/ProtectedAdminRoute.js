@@ -96,6 +96,8 @@ class ProtectedAdminRouteInner extends Component {
       requiredModule === "unicorns_all" ||
       requiredModule === "unicorns_payments";
     const isPremiumMembersRoute = requiredModule === "premium_members";
+    const isDealsRoute =
+      requiredModule === "deals" || requiredModule === "deals_completed";
     const featureEnabled = isAnalyticsRoute
       ? featureFlags.ENABLE_ANALYTICS_PERMISSIONS
       : isGroupsRoute
@@ -104,6 +106,8 @@ class ProtectedAdminRouteInner extends Component {
       ? featureFlags.ENABLE_FUTURE_UNICORN_PERMISSIONS
       : isPremiumMembersRoute
       ? featureFlags.ENABLE_PREMIUM_MEMBERS_PERMISSIONS
+      : isDealsRoute
+      ? featureFlags.ENABLE_DEALS_PERMISSIONS
       : featureFlags.ENABLE_MASTERDATA_PERMISSIONS;
 
     // When the relevant permissions feature flag is OFF, skip myPermissions API

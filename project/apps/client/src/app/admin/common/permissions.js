@@ -71,6 +71,34 @@ function fullAccessPermissions() {
     // extra optional capabilities used by Future Unicorn – Payments
     canUnicornsPaymentsExport: true,
     canUnicornsPaymentsAddOfflinePayment: true,
+
+    // extra optional capabilities used by Deals – Open Deals
+    canDealsCreate: true,
+    canDealsEdit: true,
+    canDealsUpdateStatus: true,
+    canDealsViewCommitments: true,
+    canDealsAddCommitment: true,
+    canDealsInviteInvestors: true,
+    canDealsOfflinePayment: true,
+    canDealsExportCommitmentsList: true,
+    canDealsExportCommitmentsFounder: true,
+    canDealsExportCommitmentsReconciliation: true,
+    canDealsCopyUrl: true,
+    canDealsViewPitches: true,
+
+    // extra optional capabilities used by Deals – Completed Deals
+    canDealsCompletedExport: true,
+    canDealsCompletedUpdateStatus: true,
+    canDealsCompletedEditDeal: true,
+    canDealsCompletedViewCommitments: true,
+    canDealsCompletedManagePaymentLink: true,
+    canDealsCompletedInviteInvestors: true,
+    canDealsCompletedOfflinePayment: true,
+    canDealsCompletedCopyUrl: true,
+    canDealsCompletedViewPitches: true,
+    canDealsCompletedAddCommitment: true,
+    canDealsCompletedEditCommitment: true,
+    canDealsCompletedExportCommitments: true,
   };
 }
 
@@ -116,6 +144,7 @@ export async function loadModulePermissions(moduleKey) {
     moduleKey === "unicorns_all" ||
     moduleKey === "unicorns_payments";
   const isPremiumMembersModule = moduleKey === "premium_members";
+  const isDealsModule = moduleKey === "deals" || moduleKey === "deals_completed";
   const featureEnabled = isAnalyticsModule
     ? featureFlags.ENABLE_ANALYTICS_PERMISSIONS
     : isGroupsModule
@@ -124,6 +153,8 @@ export async function loadModulePermissions(moduleKey) {
     ? featureFlags.ENABLE_FUTURE_UNICORN_PERMISSIONS
     : isPremiumMembersModule
     ? featureFlags.ENABLE_PREMIUM_MEMBERS_PERMISSIONS
+    : isDealsModule
+    ? featureFlags.ENABLE_DEALS_PERMISSIONS
     : featureFlags.ENABLE_MASTERDATA_PERMISSIONS;
 
   // When the relevant feature flag is OFF OR super admin => full access, no API
@@ -183,5 +214,33 @@ export async function loadModulePermissions(moduleKey) {
     // Optional extra booleans for modules that define these actions (Future Unicorn – Payments)
     canUnicornsPaymentsExport: m.export === true,
     canUnicornsPaymentsAddOfflinePayment: m.add_offline_payment === true,
+
+    // Optional extra booleans for modules that define these actions (Deals – Open Deals)
+    canDealsCreate: m.create === true,
+    canDealsEdit: m.edit === true,
+    canDealsUpdateStatus: m.update_status === true,
+    canDealsViewCommitments: m.view_commitments === true,
+    canDealsAddCommitment: m.add_commitment === true,
+    canDealsInviteInvestors: m.invite_investors === true,
+    canDealsOfflinePayment: m.offline_payment === true,
+    canDealsExportCommitmentsList: m.export_commitments_list === true,
+    canDealsExportCommitmentsFounder: m.export_commitments_founder === true,
+    canDealsExportCommitmentsReconciliation: m.export_commitments_reconciliation === true,
+    canDealsCopyUrl: m.copy_url === true,
+    canDealsViewPitches: m.view_pitches === true,
+
+    // Optional extra booleans for modules that define these actions (Deals – Completed Deals)
+    canDealsCompletedExport: m.export === true,
+    canDealsCompletedUpdateStatus: m.update_status === true,
+    canDealsCompletedEditDeal: m.edit_deal === true,
+    canDealsCompletedViewCommitments: m.view_commitments === true,
+    canDealsCompletedManagePaymentLink: m.manage_payment_link === true,
+    canDealsCompletedInviteInvestors: m.invite_investors === true,
+    canDealsCompletedOfflinePayment: m.offline_payment === true,
+    canDealsCompletedCopyUrl: m.copy_url === true,
+    canDealsCompletedViewPitches: m.view_pitches === true,
+    canDealsCompletedAddCommitment: m.add_commitment === true,
+    canDealsCompletedEditCommitment: m.edit_commitment === true,
+    canDealsCompletedExportCommitments: m.export_commitments === true,
   };
 }

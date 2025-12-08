@@ -415,8 +415,20 @@ function App() {
           <Route path="/admin" exact component={adminlogin} />
           <Route path="/admin-dashboard" exact component={admindashboard} />
           <Route path="/admin-blog" exact component={adminblog} />
-          <Route path="/admin-deals" exact component={admindeals} />
-          <Route path="/open-deals" exact component={opendeals} />
+          <ProtectedAdminRoute
+            exact
+            path="/admin-deals"
+            component={admindeals}
+            requiredModule="deals_completed"
+            requiredAction="view"
+          />
+          <ProtectedAdminRoute
+            exact
+            path="/open-deals"
+            component={opendeals}
+            requiredModule="deals"
+            requiredAction="view_open"
+          />
           <Route path="/analytic-interest" exact component={analyticinterest} />
           <ProtectedAdminRoute
             exact
