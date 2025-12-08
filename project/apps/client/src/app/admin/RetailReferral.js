@@ -16,6 +16,8 @@ import BottomBar from "./common/BottomBar";
 import Bridge from "../constants/Bridge";
 import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
+import NoPermission from "./common/NoPermission";
+import { loadModulePermissions } from "./common/permissions";
 const fileType =
   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
 const fileExtension = ".xlsx";
@@ -38,11 +40,24 @@ class RetailReferral extends Component {
       retailReferralList: [],
       cretailReferralList: [],
       loading: false,
+      canExport: false,
     };
   }
-  componentDidMount() {
+
+  async componentDidMount() {
+    await this.loadPermissions();
+    if (this.props.noPermission) {
+      return;
+    }
     this.setState({ loading: true }, () => this.getretailreferral());
   }
+
+  loadPermissions = async () => {
+    try {
+      const perms = await loadModulePermissions("retail_referral");
+      this.setState({ canExport: perms.canExport });
+    } catch (e) {}
+  };
 
   getretailreferral = () => {
     Bridge.adminretailReferral.list().then((result) => {
@@ -91,6 +106,10 @@ class RetailReferral extends Component {
     }
   };
   exportToCSV = (fileName) => {
+    if (!this.state.canExport) {
+      message.error("You do not have permission to export retail referrals.");
+      return;
+    }
     let arr = [];
     let count = 1;
     for (let item of this.state.retailReferralList) {
@@ -117,6 +136,7 @@ class RetailReferral extends Component {
     message.success("RetailReferral data exported successfully.");
   };
   render() {
+    const { noPermission } = this.props;
     const dataSource =
       this.state.retailReferralList &&
       this.state.retailReferralList.map((item, index) => {
@@ -208,8 +228,12 @@ class RetailReferral extends Component {
           <Layout className="site-layout">
             <Sidebar2 />
 
-            <Content className="home-section">
-              <Card title="Referrals" style={{ margin: 16 }}>
+            {noPermission ? (
+              <NoPermission />
+            ) : (
+              <>
+                <Content className="home-section">
+                  <Card title="Referrals" style={{ margin: 16 }}>
                 <Breadcrumb
                   style={{
                     margin: "0",
@@ -236,6 +260,7 @@ class RetailReferral extends Component {
                   <Button
                     type="primary"
                     onClick={() => this.exportToCSV("Retail Referral")}
+                    disabled={!this.state.canExport}
                   >
                     <i
                       className="bx bxs-cloud-download"
@@ -262,6 +287,8 @@ class RetailReferral extends Component {
             </Content>
 
             <BottomBar />
+              </>
+            )}
           </Layout>
         </Layout>
       </>

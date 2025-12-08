@@ -99,6 +99,13 @@ function fullAccessPermissions() {
     canDealsCompletedAddCommitment: true,
     canDealsCompletedEditCommitment: true,
     canDealsCompletedExportCommitments: true,
+
+    // extra optional capabilities used by Institutional Referral
+    canInstitutionalReferralCreate: true,
+    canInstitutionalReferralUpdateStatus: true,
+    canInstitutionalReferralDelete: true,
+    canInstitutionalReferralViewDetail: true,
+    canInstitutionalReferralExport: true,
   };
 }
 
@@ -145,6 +152,8 @@ export async function loadModulePermissions(moduleKey) {
     moduleKey === "unicorns_payments";
   const isPremiumMembersModule = moduleKey === "premium_members";
   const isDealsModule = moduleKey === "deals" || moduleKey === "deals_completed";
+  const isReferralsModule =
+    moduleKey === "retail_referral" || moduleKey === "institutional_referral";
   const featureEnabled = isAnalyticsModule
     ? featureFlags.ENABLE_ANALYTICS_PERMISSIONS
     : isGroupsModule
@@ -155,6 +164,8 @@ export async function loadModulePermissions(moduleKey) {
     ? featureFlags.ENABLE_PREMIUM_MEMBERS_PERMISSIONS
     : isDealsModule
     ? featureFlags.ENABLE_DEALS_PERMISSIONS
+    : isReferralsModule
+    ? featureFlags.ENABLE_REFERRAL_PERMISSIONS
     : featureFlags.ENABLE_MASTERDATA_PERMISSIONS;
 
   // When the relevant feature flag is OFF OR super admin => full access, no API
@@ -242,5 +253,12 @@ export async function loadModulePermissions(moduleKey) {
     canDealsCompletedAddCommitment: m.add_commitment === true,
     canDealsCompletedEditCommitment: m.edit_commitment === true,
     canDealsCompletedExportCommitments: m.export_commitments === true,
+
+    // Optional extra booleans for modules that define these actions (Institutional Referral)
+    canInstitutionalReferralCreate: m.create === true,
+    canInstitutionalReferralUpdateStatus: m.update_status === true,
+    canInstitutionalReferralDelete: m.delete === true,
+    canInstitutionalReferralViewDetail: m.view_detail === true,
+    canInstitutionalReferralExport: m.export === true,
   };
 }

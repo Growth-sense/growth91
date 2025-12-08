@@ -516,25 +516,29 @@ function App() {
             requiredAction="view"
           />
           <Route path="/admin-payments" exact component={adminpayments} />
+          <ProtectedAdminRoute
+            path="/admin-institutional-referral"
+            exact
+            component={InstitutionalReferral}
+            requiredModule="institutional_referral"
+            requiredAction="view"
+          />
           <Route
             path="/online-document-payments"
             exact
             component={Paiddocuments}
           />
           <Route
-            path="/admin-institutional-referral"
-            exact
-            component={InstitutionalReferral}
-          />
-          <Route
             path="/admin-referral-view"
             exact
             component={InstitutionalReferralView}
           />
-          <Route
+          <ProtectedAdminRoute
             path="/admin-retail-referral"
             exact
             component={RetailReferral}
+            requiredModule="retail_referral"
+            requiredAction="view"
           />
           <Route path="/admin-settings" exact component={admindealsettings} />
           <Route path="/test" exact component={Test} />

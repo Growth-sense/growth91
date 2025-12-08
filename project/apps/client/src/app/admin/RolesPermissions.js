@@ -961,30 +961,92 @@ class RolesPermissions extends Component {
 
         <Divider />
 
-        {/* Referral */}
-        <h6>Referral</h6>
+        {/* Retail Referral */}
+        <h6>Referral - Retail Referral</h6>
         <div className="mb-2">
           <Checkbox
-            checked={check("referrals", "view_retail")}
+            checked={check("retail_referral", "view")}
             onChange={(e) =>
-              this.togglePerm("referrals", "view_retail", e.target.checked)
+              this.togglePerm("retail_referral", "view", e.target.checked)
             }
           >
             View Retail Referral
           </Checkbox>
+
           <Checkbox
-            checked={check("referrals", "view_institutional")}
+            checked={check("retail_referral", "export")}
             onChange={(e) =>
-              this.togglePerm(
-                "referrals",
-                "view_institutional",
-                e.target.checked
-              )
+              this.togglePerm("retail_referral", "export", e.target.checked)
+            }
+          >
+            Export Retail Referral
+          </Checkbox>
+        </div>
+        <Divider />
+
+        {/* Institutional Referral */}
+        <h6>Referral - Institutional Referral</h6>
+        <div className="mb-2">
+          <Checkbox
+            checked={check("institutional_referral", "view")}
+            onChange={(e) =>
+              this.togglePerm("institutional_referral", "view", e.target.checked)
             }
           >
             View Institutional Referral
           </Checkbox>
+
+          <Checkbox
+            checked={check("institutional_referral", "create")}
+            onChange={(e) =>
+              this.togglePerm("institutional_referral", "create", e.target.checked)
+            }
+          >
+            Add New Institutional Referral
+          </Checkbox>
+
+          <Checkbox
+            checked={check("institutional_referral", "update_status")}
+            onChange={(e) =>
+              this.togglePerm(
+                "institutional_referral",
+                "update_status",
+                e.target.checked
+              )
+            }
+          >
+            Update Referral Status
+          </Checkbox>
+
+          <Checkbox
+            checked={check("institutional_referral", "delete")}
+            onChange={(e) =>
+              this.togglePerm("institutional_referral", "delete", e.target.checked)
+            }
+          >
+            Delete Referral
+          </Checkbox>
+
+          <Checkbox
+            checked={check("institutional_referral", "view_detail")}
+            onChange={(e) =>
+              this.togglePerm("institutional_referral", "view_detail", e.target.checked)
+            }
+          >
+            View Referral Details
+          </Checkbox>
+
+          <Checkbox
+            checked={check("institutional_referral", "export")}
+            onChange={(e) =>
+              this.togglePerm("institutional_referral", "export", e.target.checked)
+            }
+          >
+            Export Institutional Referral
+          </Checkbox>
         </div>
+
+        <Divider />
 
         {/* Payments */}
         <h6>Payments</h6>

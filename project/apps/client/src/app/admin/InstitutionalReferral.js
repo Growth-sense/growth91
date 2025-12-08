@@ -20,6 +20,8 @@ import Navbar from "./common/Navbar";
 import BottomBar from "./common/BottomBar";
 import Bridge from "../constants/Bridge";
 import moment from "moment";
+import NoPermission from "./common/NoPermission";
+import { loadModulePermissions } from "./common/permissions";
 
 import { EyeOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
@@ -63,10 +65,42 @@ class InstitutionalReferral extends Component {
       toggle: "",
       showStatus: false,
       modalLoading: false,
+      canInstitutionalReferralCreate: false,
+      canInstitutionalReferralUpdateStatus: false,
+      canInstitutionalReferralDelete: false,
+      canInstitutionalReferralViewDetail: false,
+      canInstitutionalReferralExport: false,
     };
   }
 
+  async componentDidMount() {
+    await this.loadPermissions();
+    if (this.props.noPermission) {
+      return;
+    }
+    this.getlist();
+  }
+
+  loadPermissions = async () => {
+    try {
+      const perms = await loadModulePermissions("institutional_referral");
+      this.setState({
+        canInstitutionalReferralCreate: perms.canInstitutionalReferralCreate,
+        canInstitutionalReferralUpdateStatus:
+          perms.canInstitutionalReferralUpdateStatus,
+        canInstitutionalReferralDelete: perms.canInstitutionalReferralDelete,
+        canInstitutionalReferralViewDetail:
+          perms.canInstitutionalReferralViewDetail,
+        canInstitutionalReferralExport: perms.canInstitutionalReferralExport,
+      });
+    } catch (e) {}
+  };
+
   showAddModal = () => {
+    if (!this.state.canInstitutionalReferralCreate) {
+      message.error("You do not have permission to add institutional referrals.");
+      return;
+    }
     this.setState({
       addModalStatus: true,
     });
@@ -81,12 +115,12 @@ class InstitutionalReferral extends Component {
     });
   };
 
-  componentDidMount() {
-    this.getlist();
-  }
-
   //to pass data throw url
   saveIdLocalStorage = (text) => {
+    if (!this.state.canInstitutionalReferralViewDetail) {
+      message.error("You do not have permission to view referral details.");
+      return;
+    }
     localStorage.setItem("referral_id", text.referral_id);
 
     setTimeout(function () {
@@ -119,6 +153,10 @@ class InstitutionalReferral extends Component {
 
   //delete referral
   deleteReferral = () => {
+    if (!this.state.canInstitutionalReferralDelete) {
+      message.error("You do not have permission to delete institutional referrals.");
+      return;
+    }
     if (this.state.id == "") {
       message.warning("Please select the referral List");
       return false;
@@ -312,6 +350,10 @@ class InstitutionalReferral extends Component {
 
   //for status change API Calling
   onChangeStatus = () => {
+    if (!this.state.canInstitutionalReferralUpdateStatus) {
+      message.error("You do not have permission to update referral status.");
+      return;
+    }
     let params = {
       referral_id: this.state.id,
       toggle: this.state.toggle,
@@ -353,6 +395,12 @@ class InstitutionalReferral extends Component {
     // window.location.reload();
   }
   exportToCSV = (fileName) => {
+    if (!this.state.canInstitutionalReferralExport) {
+      message.error(
+        "You do not have permission to export institutional referrals."
+      );
+      return;
+    }
     let arr = [];
     let count = 1;
     for (let item of this.state.referralList) {
@@ -375,6 +423,7 @@ class InstitutionalReferral extends Component {
   };
 
   render() {
+    const { noPermission } = this.props;
     const dataSource =
       this.state.referralList &&
       this.state.referralList.map((item, index) => {
@@ -434,6 +483,7 @@ class InstitutionalReferral extends Component {
                 <label
                   onClick={() => this.showStatusModal(text)}
                   style={{ fontSize: 14 }}
+                  disabled={!this.state.canInstitutionalReferralUpdateStatus}
                 >
                   &nbsp;&nbsp;Status
                 </label>
@@ -443,6 +493,7 @@ class InstitutionalReferral extends Component {
                   to="#"
                   onClick={() => this.saveIdLocalStorage(text)}
                   style={{ fontSize: 14 }}
+                  disabled={!this.state.canInstitutionalReferralViewDetail}
                 >
                   &nbsp;&nbsp;View
                 </Link>
@@ -451,6 +502,7 @@ class InstitutionalReferral extends Component {
                 <label
                   style={{ fontSize: 14 }}
                   onClick={() => this.showDeleteModal(text)}
+                  disabled={!this.state.canInstitutionalReferralDelete}
                 >
                   &nbsp;&nbsp;Delete
                 </label>
@@ -482,6 +534,10 @@ class InstitutionalReferral extends Component {
 
           <Layout className="site-layout">
             <Sidebar2 />
+             {noPermission ? (
+              <NoPermission />
+            ) : (
+              <>
 
             <Content className="home-section">
               <Card
@@ -527,6 +583,7 @@ class InstitutionalReferral extends Component {
                   <Button
                     type="primary"
                     onClick={() => this.exportToCSV("Premium Membership")}
+                    disabled={!this.state.canInstitutionalReferralExport}
                   >
                     <i
                       className="bx bxs-cloud-download"
@@ -551,6 +608,8 @@ class InstitutionalReferral extends Component {
             </Content>
 
             <BottomBar />
+            </>
+            )}
           </Layout>
         </Layout>
 
