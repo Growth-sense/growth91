@@ -547,7 +547,13 @@ function App() {
             exact
             component={FounderformdetailsPdf}
           />
-          <Route path="/premium-members" exact component={PremiumMembers} />
+          <ProtectedAdminRoute
+            exact
+            path="/premium-members"
+            component={PremiumMembers}
+            requiredModule="premium_members"
+            requiredAction="view"
+          />
           <Route path="/register-success" exact component={Registersuccess} />
           <Route path="/register-error" exact component={Registererror} />
           <Route

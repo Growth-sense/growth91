@@ -115,12 +115,15 @@ export async function loadModulePermissions(moduleKey) {
     moduleKey === "unicorns_published" ||
     moduleKey === "unicorns_all" ||
     moduleKey === "unicorns_payments";
+  const isPremiumMembersModule = moduleKey === "premium_members";
   const featureEnabled = isAnalyticsModule
     ? featureFlags.ENABLE_ANALYTICS_PERMISSIONS
     : isGroupsModule
     ? featureFlags.ENABLE_GROUPS_INVESTMENTS_PERMISSIONS
     : isFutureUnicornModule
     ? featureFlags.ENABLE_FUTURE_UNICORN_PERMISSIONS
+    : isPremiumMembersModule
+    ? featureFlags.ENABLE_PREMIUM_MEMBERS_PERMISSIONS
     : featureFlags.ENABLE_MASTERDATA_PERMISSIONS;
 
   // When the relevant feature flag is OFF OR super admin => full access, no API

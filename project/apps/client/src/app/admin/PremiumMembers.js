@@ -7,6 +7,8 @@ import moment from "moment";
 import Bridge from "../constants/Bridge";
 import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
+import NoPermission from "./common/NoPermission";
+import { loadModulePermissions } from "./common/permissions";
 
 const { Content } = Layout;
 const fileType =
@@ -21,13 +23,28 @@ class PremiumMembers extends Component {
       loading: false,
       list: [],
       clist: [],
-
+      canExportPremiumMembers: false,
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    await this.loadPermissions();
+    if (this.props.noPermission) {
+      return; // no view access → don't call list APIs
+    }
     this.getformdetails();
   }
+
+  loadPermissions = async () => {
+    try {
+      const perms = await loadModulePermissions("premium_members");
+      this.setState({
+        canExportPremiumMembers: perms.canExport,
+      });
+    } catch (e) {
+      // if permissions fail to load, keep defaults
+    }
+  };
 
   // get post list
   getformdetails = () => {
@@ -85,6 +102,10 @@ class PremiumMembers extends Component {
   };
 
   exportToCSV = (fileName) => {
+    if (!this.state.canExportPremiumMembers) {
+      message.error("You do not have permission to export premium members data.");
+      return;
+    }
     let arr = [];
     let count = 1;
     for (let item of this.state.list) {
@@ -107,6 +128,7 @@ class PremiumMembers extends Component {
   };
 
   render() {
+    const { noPermission } = this.props;
     const disdingid = (datas) => {
       console.log(this.state.modes);
         console.log("aa");
@@ -189,57 +211,64 @@ class PremiumMembers extends Component {
           <Layout className="site-layout">
             <Sidebar2 />
 
-            <Content className="home-section">
-              <Card title="Premium Members" style={{ margin: 16 }}>
-                <Breadcrumb
-                  style={{
-                    margin: "0",
-                  }}
-                >
-                  <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
-                  <Breadcrumb.Item>Premium Members</Breadcrumb.Item>
-                </Breadcrumb>
-                <br />
-                <br />
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Input
-                    value={this.state.searchinput}
-                    placeholder="Search"
-                    onChange={(e) => this.searchinput(e)}
-                    style={{ maxWidth: 300, marginBottom: 20, height: 40 }}
-                  />
-                  <Button
-                    type="primary"
-                    onClick={() => this.exportToCSV("Premium Membership")}
-                  >
-                    <i
-                      className="bx bxs-cloud-download"
+            {noPermission ? (
+              <NoPermission />
+            ) : (
+              <>
+                <Content className="home-section">
+                  <Card title="Premium Members" style={{ margin: 16 }}>
+                    <Breadcrumb
                       style={{
-                        color: "#fff",
-                        position: "relative",
-                        top: 3,
-                        left: -3,
+                        margin: "0",
                       }}
-                    ></i>{" "}
-                    Export Data
-                  </Button>
-                </div>
-                <Table
-                  dataSource={dataSource}
-                  columns={columns}
-                  loading={this.state.loading}
-                  bordered
-                  scroll={{ x: "max-content" }}
-                />
-              </Card>
-            </Content>
+                    >
+                      <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+                      <Breadcrumb.Item>Premium Members</Breadcrumb.Item>
+                    </Breadcrumb>
+                    <br />
+                    <br />
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Input
+                        value={this.state.searchinput}
+                        placeholder="Search"
+                        onChange={(e) => this.searchinput(e)}
+                        style={{ maxWidth: 300, marginBottom: 20, height: 40 }}
+                      />
+                      <Button
+                        type="primary"
+                        onClick={() => this.exportToCSV("Premium Membership")}
+                        disabled={!this.state.canExportPremiumMembers}
+                      >
+                        <i
+                          className="bx bxs-cloud-download"
+                          style={{
+                            color: "#fff",
+                            position: "relative",
+                            top: 3,
+                            left: -3,
+                          }}
+                        ></i>{" "}
+                        Export Data
+                      </Button>
+                    </div>
+                    <Table
+                      dataSource={dataSource}
+                      columns={columns}
+                      loading={this.state.loading}
+                      bordered
+                      scroll={{ x: "max-content" }}
+                    />
+                  </Card>
+                </Content>
 
-            <BottomBar />
+                <BottomBar />
+              </>
+            )}
           </Layout>
         </Layout>
       </>

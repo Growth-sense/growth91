@@ -698,7 +698,18 @@ class RolesPermissions extends Component {
           >
             View
           </Checkbox>
+
+          <Checkbox
+            checked={check("premium_members", "export")}
+            onChange={(e) =>
+              this.togglePerm("premium_members", "export", e.target.checked)
+            }
+          >
+            Export Data
+          </Checkbox>
         </div>
+
+        <Divider/>
 
         {/* Deal Setup */}
         <h6>Deal Setup</h6>
