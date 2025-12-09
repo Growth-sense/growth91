@@ -9,6 +9,8 @@ import Navbar from './common/Navbar';
 import BottomBar from './common/BottomBar';
 import Bridge from '../constants/Bridge';
 import { removeSubsets } from 'domutils';
+import NoPermission from './common/NoPermission';
+import { loadModulePermissions } from './common/permissions';
 const { Content } = Layout;
 const { Option } = Select;
 class Settings extends Component {
@@ -61,10 +63,32 @@ class Settings extends Component {
         digio_prod_client_id:'',
         digio_prod_client_secret:'',
         digio_environment:'',
-        digio_modal_loader:false
+        digio_modal_loader:false,
+
+        // permissions
+        canSettingsDeals: false,
+        canSettingsMembership: false,
+        canSettingsTaxation: false,
+        canSettingsCashfree: false,
+        canSettingsDigio: false,
       }
     }
-    componentDidMount() {
+    async componentDidMount() {
+      try {
+        const perms = await loadModulePermissions("settings");
+        this.setState({
+          canSettingsDeals: perms.canSettingsDeals,
+          canSettingsMembership: perms.canSettingsMembership,
+          canSettingsTaxation: perms.canSettingsTaxation,
+          canSettingsCashfree: perms.canSettingsCashfree,
+          canSettingsDigio: perms.canSettingsDigio,
+        });
+      } catch (e) {}
+
+      if (this.props.noPermission) {
+        return;
+      }
+
       this.getdealsettings();
       this.getsettings();
       this.get_cashfree_details();
@@ -186,6 +210,10 @@ class Settings extends Component {
 
     //update digio settings
     updateDigioSetting=()=>{
+      if (!this.state.canSettingsDigio) {
+        message.error('You do not have permission to update Digio settings.');
+        return;
+      }
       if(this.state.digio_id=='1'){
         if(this.state.digio_test_url==''){
           message.warn("Digio test Url Required!",5);
@@ -238,6 +266,10 @@ class Settings extends Component {
 
     // update post
     updatesettings = () => {
+      if (!this.state.canSettingsDeals) {
+        message.error('You do not have permission to update deal settings.');
+        return;
+      }
       if (this.state.label == ''){
         message.warning('Invalid label');
         return false;
@@ -273,6 +305,10 @@ class Settings extends Component {
       });
     }
     updateramount=()=>{
+      if (!this.state.canSettingsMembership) {
+        message.error('You do not have permission to update membership amount.');
+        return;
+      }
       if(!this.state.ramount){
         message.warning('Registration amount is required.');
         return;
@@ -308,6 +344,10 @@ class Settings extends Component {
     }
 
     updateTaxation=()=>{
+      if (!this.state.canSettingsTaxation) {
+        message.error('You do not have permission to update taxation.');
+        return;
+      }
       if(!this.state.taxation_percentage){
         message.warning('Taxation percentage is required.');
         return;
@@ -330,6 +370,10 @@ class Settings extends Component {
     }
     // UPDATE CASHFREE DETAILS
     update_cashfree_details=()=>{
+      if (!this.state.canSettingsCashfree) {
+        message.error('You do not have permission to update Cashfree details.');
+        return;
+      }
       if(!this.state.test_base_url){
         message.warning('Invalid Test Base url value');
         return;
@@ -393,6 +437,14 @@ class Settings extends Component {
     }
     
     render() {
+    const { noPermission } = this.props;
+    const {
+      canSettingsDeals,
+      canSettingsMembership,
+      canSettingsTaxation,
+      canSettingsCashfree,
+      canSettingsDigio,
+    } = this.state;
     
     return (
       <>
@@ -402,6 +454,10 @@ class Settings extends Component {
       ><Navbar />
         <Layout className="site-layout">
         <Sidebar2 />
+          {noPermission ? (
+            <NoPermission />
+          ) : (
+            <>
           <Content className='home-section'
             style={{  }}
           >
@@ -438,7 +494,13 @@ class Settings extends Component {
                               style={{ maxWidth:'100%',marginBottom:20,height:40 }}
                             />
                           </div>
-                          <Button type="primary" onClick={this.updatesettings}>Update</Button>
+                          <Button
+                            type="primary"
+                            onClick={this.updatesettings}
+                            disabled={!canSettingsDeals}
+                          >
+                            Update
+                          </Button>
                         </div>
                       </div>
                     </Spin>
@@ -480,7 +542,13 @@ class Settings extends Component {
                               style={{ maxWidth:'100%',marginBottom:20,height:40 }}
                             />
                           </div>
-                          <Button type="primary" onClick={this.updateramount}>Update</Button>
+                          <Button
+                            type="primary"
+                            onClick={this.updateramount}
+                            disabled={!canSettingsMembership}
+                          >
+                            Update
+                          </Button>
                         </div>
                       </div>
                     </Spin>
@@ -503,7 +571,13 @@ class Settings extends Component {
                               style={{ maxWidth:'100%',marginBottom:20,height:40 }}
                             />
                           </div>
-                          <Button type="primary" onClick={this.updateTaxation}>Update</Button>
+                          <Button
+                            type="primary"
+                            onClick={this.updateTaxation}
+                            disabled={!canSettingsTaxation}
+                          >
+                            Update
+                          </Button>
                         </div>
                       </div>
                       </Spin>
@@ -719,7 +793,10 @@ class Settings extends Component {
                           <Button
                             type="primary" 
                             onClick={this.update_cashfree_details}
-                          >Update</Button>
+                            disabled={!canSettingsCashfree}
+                          >
+                            Update
+                          </Button>
                         </div>
                       </div>
                     </Spin>
@@ -797,7 +874,7 @@ class Settings extends Component {
                               style={{ maxWidth:'100%',marginBottom:20,height:40 }}
                             />
                           </div>
-                          <Button type="primary" onClick={this.updateDigioSetting}>Save</Button>
+                          <Button type="primary" onClick={this.updateDigioSetting} disabled={!canSettingsDigio}>Save</Button>
                         </div>
                       </div>
                     </Spin>
@@ -806,6 +883,8 @@ class Settings extends Component {
               </div>
             </Content>
           <BottomBar />
+          </>
+          )}
         </Layout>
 
       </Layout>

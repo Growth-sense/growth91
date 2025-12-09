@@ -547,7 +547,13 @@ function App() {
             requiredModule="retail_referral"
             requiredAction="view"
           />
-          <Route path="/admin-settings" exact component={admindealsettings} />
+          <ProtectedAdminRoute 
+          path="/admin-settings" 
+          exact 
+          component={admindealsettings}
+          requiredModule="settings"
+          requiredAction="view"
+           />
           <Route path="/test" exact component={Test} />
           <Route path="/success" exact component={Success} />
           <Route path="/basic-details" exact component={BasicDetails} />

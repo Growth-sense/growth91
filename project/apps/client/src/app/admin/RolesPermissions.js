@@ -1238,37 +1238,61 @@ class RolesPermissions extends Component {
 
         <Divider />
 
-        {/* Reports */}
-        <h6>Reports</h6>
-        <div className="mb-2">
-          <Checkbox
-            checked={check("reports", "view")}
-            onChange={(e) =>
-              this.togglePerm("reports", "view", e.target.checked)
-            }
-          >
-            View Reports
-          </Checkbox>
-          <Checkbox
-            checked={check("reports", "export")}
-            onChange={(e) =>
-              this.togglePerm("reports", "export", e.target.checked)
-            }
-          >
-            Export Reports
-          </Checkbox>
-        </div>
-
         {/* Settings */}
         <h6>Settings</h6>
         <div className="mb-2">
           <Checkbox
-            checked={check("settings", "settings_access")}
+            checked={check("settings", "view")}
             onChange={(e) =>
-              this.togglePerm("settings", "settings_access", e.target.checked)
+              this.togglePerm("settings", "view", e.target.checked)
             }
           >
-            Settings Access
+            View Settings
+          </Checkbox>
+
+          <Checkbox
+            checked={check("settings", "deals")}
+            onChange={(e) =>
+              this.togglePerm("settings", "deals", e.target.checked)
+            }
+          >
+            Update Deal Settings
+          </Checkbox>
+
+          <Checkbox
+            checked={check("settings", "membership")}
+            onChange={(e) =>
+              this.togglePerm("settings", "membership", e.target.checked)
+            }
+          >
+            Update Membership Amount
+          </Checkbox>
+
+          <Checkbox
+            checked={check("settings", "taxation")}
+            onChange={(e) =>
+              this.togglePerm("settings", "taxation", e.target.checked)
+            }
+          >
+            Update Taxation
+          </Checkbox>
+
+          <Checkbox
+            checked={check("settings", "cashfree")}
+            onChange={(e) =>
+              this.togglePerm("settings", "cashfree", e.target.checked)
+            }
+          >
+            Update Cashfree Environment
+          </Checkbox>
+
+          <Checkbox
+            checked={check("settings", "digio")}
+            onChange={(e) =>
+              this.togglePerm("settings", "digio", e.target.checked)
+            }
+          >
+            Update Digio Environment
           </Checkbox>
         </div>
 

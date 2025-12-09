@@ -121,6 +121,12 @@ function fullAccessPermissions() {
     canAdminDocumentsEdit: true,
     canAdminDocumentsDelete: true,
     canAdminDocumentsDownload: true,
+    // extra optional capabilities used by Settings
+    canSettingsDeals: true,
+    canSettingsMembership: true,
+    canSettingsTaxation: true,
+    canSettingsCashfree: true,
+    canSettingsDigio: true,
   };
 }
 
@@ -176,6 +182,7 @@ export async function loadModulePermissions(moduleKey) {
     moduleKey === "payments_documents";
   const isFounderDocumentsModule = moduleKey === "founder_documents";
   const isDocumentsModule = moduleKey === "documents";
+  const isSettingsModule = moduleKey === "settings";
   const featureEnabled = isAnalyticsModule
     ? featureFlags.ENABLE_ANALYTICS_PERMISSIONS
     : isGroupsModule
@@ -194,7 +201,9 @@ export async function loadModulePermissions(moduleKey) {
                   ? featureFlags.ENABLE_FOUNDER_DOCUMENTS_PERMISSIONS
                   : isDocumentsModule
                     ? featureFlags.ENABLE_DOCUMENTS_PERMISSIONS
-                    : featureFlags.ENABLE_MASTERDATA_PERMISSIONS;
+                    : isSettingsModule
+                      ? featureFlags.ENABLE_SETTINGS_PERMISSIONS
+                      : featureFlags.ENABLE_MASTERDATA_PERMISSIONS;
 
   // When the relevant feature flag is OFF OR super admin => full access, no API
   if (!featureEnabled || isSuperAdmin) {
@@ -306,5 +315,12 @@ export async function loadModulePermissions(moduleKey) {
     canAdminDocumentsEdit: m.edit === true,
     canAdminDocumentsDelete: m.delete === true,
     canAdminDocumentsDownload: m.download === true,
+
+    // Optional extra booleans for modules that define these actions (Settings)
+    canSettingsDeals: m.deals === true,
+    canSettingsMembership: m.membership === true,
+    canSettingsTaxation: m.taxation === true,
+    canSettingsCashfree: m.cashfree === true,
+    canSettingsDigio: m.digio === true,
   };
 }
