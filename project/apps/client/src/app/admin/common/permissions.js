@@ -106,6 +106,13 @@ function fullAccessPermissions() {
     canInstitutionalReferralDelete: true,
     canInstitutionalReferralViewDetail: true,
     canInstitutionalReferralExport: true,
+    // extra optional capabilities used by Payments
+    canPaymentsOnlineExport: true,
+    // NEW: Pending Offline Payments
+    canPaymentsOfflinePendingExport: true,
+    canPaymentsOfflinePendingApprove: true,
+    // NEW: Document Payments
+    canPaymentsDocumentsExport: true,
   };
 }
 
@@ -154,19 +161,26 @@ export async function loadModulePermissions(moduleKey) {
   const isDealsModule = moduleKey === "deals" || moduleKey === "deals_completed";
   const isReferralsModule =
     moduleKey === "retail_referral" || moduleKey === "institutional_referral";
+  const isPaymentsModule =
+    moduleKey === "payments_online" ||
+    moduleKey === "payments_offline" ||
+    moduleKey === "payments_offline_pending" ||
+    moduleKey === "payments_documents";
   const featureEnabled = isAnalyticsModule
     ? featureFlags.ENABLE_ANALYTICS_PERMISSIONS
     : isGroupsModule
-    ? featureFlags.ENABLE_GROUPS_INVESTMENTS_PERMISSIONS
-    : isFutureUnicornModule
-    ? featureFlags.ENABLE_FUTURE_UNICORN_PERMISSIONS
-    : isPremiumMembersModule
-    ? featureFlags.ENABLE_PREMIUM_MEMBERS_PERMISSIONS
-    : isDealsModule
-    ? featureFlags.ENABLE_DEALS_PERMISSIONS
-    : isReferralsModule
-    ? featureFlags.ENABLE_REFERRAL_PERMISSIONS
-    : featureFlags.ENABLE_MASTERDATA_PERMISSIONS;
+      ? featureFlags.ENABLE_GROUPS_INVESTMENTS_PERMISSIONS
+      : isFutureUnicornModule
+        ? featureFlags.ENABLE_FUTURE_UNICORN_PERMISSIONS
+        : isPremiumMembersModule
+          ? featureFlags.ENABLE_PREMIUM_MEMBERS_PERMISSIONS
+          : isDealsModule
+            ? featureFlags.ENABLE_DEALS_PERMISSIONS
+            : isReferralsModule
+              ? featureFlags.ENABLE_REFERRAL_PERMISSIONS
+              : isPaymentsModule
+                ? featureFlags.ENABLE_PAYMENTS_PERMISSIONS
+                : featureFlags.ENABLE_MASTERDATA_PERMISSIONS;
 
   // When the relevant feature flag is OFF OR super admin => full access, no API
   if (!featureEnabled || isSuperAdmin) {
@@ -260,5 +274,13 @@ export async function loadModulePermissions(moduleKey) {
     canInstitutionalReferralDelete: m.delete === true,
     canInstitutionalReferralViewDetail: m.view_detail === true,
     canInstitutionalReferralExport: m.export === true,
+
+    // Optional extra booleans for modules that define these actions (Payments)
+    canPaymentsOnlineExport: m.export === true,
+
+    // Optional extra booleans for modules that define these actions (Payments)
+    canPaymentsOfflinePendingExport: m.export === true,
+    canPaymentsOfflinePendingApprove: m.approve === true,
+    canPaymentsDocumentsExport: m.export === true,
   };
 }

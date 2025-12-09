@@ -515,7 +515,12 @@ function App() {
             requiredModule="investments"
             requiredAction="view"
           />
-          <Route path="/admin-payments" exact component={adminpayments} />
+          <ProtectedAdminRoute path="/admin-payments"
+            exact
+            component={adminpayments}
+            requiredModule="payments_online"
+            requiredAction="view"
+          />
           <ProtectedAdminRoute
             path="/admin-institutional-referral"
             exact
@@ -523,10 +528,12 @@ function App() {
             requiredModule="institutional_referral"
             requiredAction="view"
           />
-          <Route
+          <ProtectedAdminRoute
             path="/online-document-payments"
             exact
             component={Paiddocuments}
+            requiredModule="payments_documents"
+            requiredAction="view"
           />
           <Route
             path="/admin-referral-view"
@@ -599,15 +606,19 @@ function App() {
           <Route path="/document-error" exact component={documenterror} />
           <Route path="/document-success" exact component={documentsuccess} />
           <Route path="/fashiondeal" exact component={Fashiondeal} />
-          <Route
+          <ProtectedAdminRoute
             path="/admin-payments-offline"
             exact
             component={OfflinePayments}
+            requiredModule="payments_offline"
+            requiredAction="view"
           />
-          <Route
+          <ProtectedAdminRoute
             path="/pending-offline-payments"
             exact
             component={PendingOfflinePayments}
+            requiredModule="payments_offline_pending"
+            requiredAction="view"
           />
           <Route
             path="/founder-as-investor"

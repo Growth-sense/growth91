@@ -9,6 +9,8 @@ import BottomBar from "../../common/BottomBar";
 import moment from "moment";
 import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
+import NoPermission from "../../common/NoPermission";
+import { loadModulePermissions } from "../../common/permissions";
 const fileType =
   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
 const fileExtension = ".xlsx";
@@ -24,10 +26,21 @@ export default class Paiddocuments extends Component {
       cdocuments: [],
       addmodalstatus: false,
       searchinput: "",
+      canExport:false
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    try {
+      const perms = await loadModulePermissions("payments_documents");
+      this.setState({ canExport: perms.canExport });
+    } catch (e) { }
+
+    // If no view permission, do not call API
+    if (this.props.noPermission) {
+      return;
+    }
+
     this.get_document_purchased_list();
   }
 
@@ -81,6 +94,10 @@ export default class Paiddocuments extends Component {
     });
   };
   exportToCSV = (fileName) => {
+    if (this.state.canExport === false) {
+      message.error("You do not have permission to export document payments.");
+      return;
+    }
     let arr = [];
     let count = 1;
     for (let item of this.state.documents) {
@@ -105,6 +122,8 @@ export default class Paiddocuments extends Component {
     message.success("Founders data exported successfully.");
   };
   render() {
+    const { noPermission } = this.props;
+    const { canExport } = this.state;
     const documentdataSource =
       this.state.documents &&
       this.state.documents.map((item, index) => {
@@ -186,6 +205,11 @@ export default class Paiddocuments extends Component {
           <Layout className="site-layout">
             <Sidebar2 />
 
+            {noPermission ? (
+              <NoPermission />
+            ) : (
+              <>
+
             <Content className="home-section">
               <Card title="Document Payments" style={{ margin: 16 }}>
                 <Breadcrumb
@@ -213,6 +237,7 @@ export default class Paiddocuments extends Component {
                   <Button
                     type="primary"
                     onClick={() => this.exportToCSV("Premium Membership")}
+                    disabled={!canExport}
                   >
                     <i
                       className="bx bxs-cloud-download"
@@ -237,6 +262,8 @@ export default class Paiddocuments extends Component {
             </Content>
 
             <BottomBar />
+              </>
+            )}
           </Layout>
         </Layout>
       </div>

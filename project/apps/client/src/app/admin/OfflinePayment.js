@@ -19,6 +19,8 @@ import moment from "moment";
 import Apis from "../constants/Apis";
 import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
+import { loadModulePermissions } from "./common/permissions";
+import NoPermission from "./common/NoPermission";
 const fileType =
   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
 const fileExtension = ".xlsx";
@@ -32,10 +34,20 @@ class OfflinePayment extends Component {
     this.state = {
       offline_list: [],
       modes: "ass",
+      canExport: false,
 
     };
   }
-  componentDidMount() {
+  async componentDidMount() {
+    try {
+      const perms = await loadModulePermissions("payments_offline");
+      this.setState({ canExport: perms.canExport });
+    } catch (e) { }
+
+    if (this.props.noPermission) {
+      return;
+    }
+
     Bridge.admin.get_all_offline_payment_history().then((result) => {
       if (result.status == "1") {
         this.setState({
@@ -43,7 +55,7 @@ class OfflinePayment extends Component {
             return{ ...el,investor_id :Number(el.investor_id)}
           }).sort((a, b) => {
             return new Date (a.payment_dt).toISOString() >new Date (b.payment_dt).toISOString()? -1 : 1;
-          }),
+            }),
           coffline_list: result.data,
         });
       }
@@ -89,6 +101,10 @@ class OfflinePayment extends Component {
   };
 
   exportToCSV = (fileName) => {
+    if (this.state.canExport === false) {
+      message.error("You do not have permission to export offline payments.");
+      return;
+    }
     let arr = [];
     let count = 1;
     for (let item of this.state.offline_list) {
@@ -117,6 +133,8 @@ class OfflinePayment extends Component {
     message.success("Founders data exported successfully.");
   };
   render() {
+    const { noPermission } = this.props;
+    const { canExport } = this.state;
     const dataSource =
       this.state.offline_list &&
       this.state.offline_list.map((item, index) => {
@@ -301,6 +319,11 @@ class OfflinePayment extends Component {
         <Layout className="site-layout">
           <Sidebar2 />
 
+          {noPermission ? (
+            <NoPermission />
+          ) : (
+            <>
+
           <Content className="home-section">
             <Card title="Offline Payments" style={{ margin: 16 }}>
               <Breadcrumb
@@ -331,6 +354,7 @@ class OfflinePayment extends Component {
                 <Button
                   type="primary"
                   onClick={() => this.exportToCSV("Premium Membership")}
+                  disabled={!this.state.canExport}
                 >
                   <i
                     className="bx bxs-cloud-download"
@@ -355,6 +379,8 @@ class OfflinePayment extends Component {
           </Content>
 
           <BottomBar />
+          </>
+          )}
         </Layout>
       </Layout>
     );

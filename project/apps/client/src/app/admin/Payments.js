@@ -3,6 +3,8 @@ import { Layout, Breadcrumb, Card, Select, message, Button, Input } from "antd";
 import Sidebar2 from "./common/Sidebar2";
 import Navbar from "./common/Navbar";
 import BottomBar from "./common/BottomBar";
+import NoPermission from "./common/NoPermission";
+import { loadModulePermissions } from "./common/permissions";
 
 import Transactions from "../common/Transactions";
 // import * as FileSaver from "file-saver";
@@ -14,6 +16,17 @@ import Transactions from "../common/Transactions";
 const { Content } = Layout;
 
 class Payments extends Component {
+  state = {
+    canExport: false,
+  };
+
+  async componentDidMount() {
+    try {
+      const perms = await loadModulePermissions("payments_online");
+      this.setState({ canExport: perms.canPaymentsOnlineExport });
+    } catch (e) {}
+  }
+
   // exportToCSV = (fileName) => {
   //   let arr = [];
   //   let count=1;
@@ -45,6 +58,8 @@ class Payments extends Component {
   // };
 
   render() {
+    const { noPermission } = this.props;
+    const { canExport } = this.state;
     return (
       <>
         <Layout
@@ -56,24 +71,30 @@ class Payments extends Component {
           <Layout className="site-layout">
             <Sidebar2 />
 
-            <Content className="home-section">
-              <Card title="Online Payments" style={{ margin: 16 }}>
-                <Breadcrumb
-                  style={{
-                    margin: "0",
-                  }}
-                >
-                  <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
-                  <Breadcrumb.Item>Online Payments</Breadcrumb.Item>
-                </Breadcrumb>
-                <br />
-                <br />
+            {noPermission ? (
+              <NoPermission />
+            ) : (
+              <>
+                <Content className="home-section">
+                  <Card title="Online Payments" style={{ margin: 16 }}>
+                    <Breadcrumb
+                      style={{
+                        margin: "0",
+                      }}
+                    >
+                      <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+                      <Breadcrumb.Item>Online Payments</Breadcrumb.Item>
+                    </Breadcrumb>
+                    <br />
+                    <br />
 
-                <Transactions type="admin" />
-              </Card>
-            </Content>
+                    <Transactions type="admin" canExport={canExport} />
+                  </Card>
+                </Content>
 
-            <BottomBar />
+                <BottomBar />
+              </>
+            )}
           </Layout>
         </Layout>
       </>

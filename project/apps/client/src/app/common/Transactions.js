@@ -500,6 +500,10 @@ class Transactions extends Component {
     });
   }
   exportToCSV = (fileName) => {
+    if (this.props.canExport === false) {
+    message.error("You do not have permission to export online payments.");
+    return;
+  }
     let arr = [];
     let count = 1;
     for (let item of this.state.paymentlist) {
@@ -595,7 +599,7 @@ class Transactions extends Component {
   }
 
   render() {
-
+    const { canExport } = this.props;
     const dataSource = this.state.paymentlist && this.state.paymentlist.map((item, index) => {
       return {
         key: index,
@@ -748,6 +752,7 @@ class Transactions extends Component {
               <Button
                 type='primary'
                 onClick={() => this.exportToCSV('Premium Membership')}
+                disabled={!canExport}
               >
                 <i className='bx bxs-cloud-download'
                   style={{

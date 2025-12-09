@@ -101,19 +101,26 @@ class ProtectedAdminRouteInner extends Component {
     const isReferralsRoute =
       requiredModule === "retail_referral" ||
       requiredModule === "institutional_referral";
+    const isPaymentsRoute =
+      requiredModule === "payments_online" ||
+      requiredModule === "payments_offline" ||
+      requiredModule === "payments_offline_pending" ||
+      requiredModule === "payments_documents";
     const featureEnabled = isAnalyticsRoute
       ? featureFlags.ENABLE_ANALYTICS_PERMISSIONS
       : isGroupsRoute
-      ? featureFlags.ENABLE_GROUPS_INVESTMENTS_PERMISSIONS
-      : isFutureUnicornRoute
-      ? featureFlags.ENABLE_FUTURE_UNICORN_PERMISSIONS
-      : isPremiumMembersRoute
-      ? featureFlags.ENABLE_PREMIUM_MEMBERS_PERMISSIONS
-      : isDealsRoute
-      ? featureFlags.ENABLE_DEALS_PERMISSIONS
-      : isReferralsRoute
-      ? featureFlags.ENABLE_REFERRAL_PERMISSIONS
-      : featureFlags.ENABLE_MASTERDATA_PERMISSIONS;
+        ? featureFlags.ENABLE_GROUPS_INVESTMENTS_PERMISSIONS
+        : isFutureUnicornRoute
+          ? featureFlags.ENABLE_FUTURE_UNICORN_PERMISSIONS
+          : isPremiumMembersRoute
+            ? featureFlags.ENABLE_PREMIUM_MEMBERS_PERMISSIONS
+            : isDealsRoute
+              ? featureFlags.ENABLE_DEALS_PERMISSIONS
+              : isReferralsRoute
+                ? featureFlags.ENABLE_REFERRAL_PERMISSIONS
+                : isPaymentsRoute
+                  ? featureFlags.ENABLE_PAYMENTS_PERMISSIONS
+                  : featureFlags.ENABLE_MASTERDATA_PERMISSIONS;
 
     // When the relevant permissions feature flag is OFF, skip myPermissions API
     // and allow all routes handled by this wrapper.

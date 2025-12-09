@@ -18,6 +18,8 @@ import Navbar from "./common/Navbar";
 import BottomBar from "./common/BottomBar";
 import Bridge from "../constants/Bridge";
 import Sidebar2 from "./common/Sidebar2";
+import NoPermission from "./common/NoPermission";
+import { loadModulePermissions } from "./common/permissions";
 import moment from "moment";
 import Apis from "../constants/Apis";
 import * as FileSaver from "file-saver";
@@ -35,9 +37,28 @@ class PendingOfflinePayments extends Component {
     this.state = {
       offline_list: [],
       visible: false,
+      canExport: false,
+      canApprove: false,
     };
   }
-  componentDidMount() {
+
+  async componentDidMount() {
+    // load permissions for payments_offline_pending
+    try {
+      const perms = await loadModulePermissions("payments_offline_pending");
+      this.setState({
+        canExport: perms.canExport,
+        canApprove: perms.canApprove,
+      });
+    } catch (e) {}
+
+    // If no view permission, do not call API
+    if (this.props.noPermission) {
+      return;
+    }
+
+
+    // existing data load
     Bridge.admin.get_all_pending_offline_payment_history().then((result) => {
       if (result.status == "1") {
         this.setState({
@@ -87,6 +108,11 @@ class PendingOfflinePayments extends Component {
   };
 
   approveOfflinePayment = (item) => {
+    if (this.state.canApprove === false) {
+      message.error("You do not have permission to approve pending offline payments.");
+      return;
+    }
+
     const newFormData = new FormData();
     const config = {
       headers: {
@@ -118,6 +144,11 @@ class PendingOfflinePayments extends Component {
   };
 
   exportToCSV = (fileName) => {
+    if (this.state.canExport === false) {
+      message.error("You do not have permission to export pending offline payments.");
+      return;
+    }
+
     let arr = [];
     let count = 1;
     for (let item of this.state.offline_list) {
@@ -146,6 +177,9 @@ class PendingOfflinePayments extends Component {
     message.success("Founders data exported successfully.");
   };
   render() {
+    const { noPermission } = this.props;
+    const { canExport, canApprove } = this.state;
+
     const dataSource =
       this.state.offline_list &&
       this.state.offline_list.map((item, index) => {
@@ -274,17 +308,17 @@ class PendingOfflinePayments extends Component {
         render: (text, record) => {
           return (
             <>
-              <Popconfirm
-                title={"Are you sure to approve this payment?"}
-                description={"This action cannot be undone."}
-                onConfirm={() => {
-                  this.approveOfflinePayment(record);
-                }}
-                okText="Yes"
-                cancelText="No"
-              >
-                <Button>Approve</Button>
-              </Popconfirm>
+          <Popconfirm
+            title={"Are you sure to approve this payment?"}
+            description={"This action cannot be undone."}
+            onConfirm={() => {
+              this.approveOfflinePayment(record);
+            }}
+            okText="Yes"
+            cancelText="No"
+          >
+                <Button disabled={canApprove === false}>Approve</Button>
+          </Popconfirm>
             </>
           );
         },
@@ -300,67 +334,74 @@ class PendingOfflinePayments extends Component {
         <Layout className="site-layout">
           <Sidebar2 />
 
-          <Content className="home-section">
-            <Card title="Pending Offline Payments" style={{ margin: 16 }}>
-              <Breadcrumb
-                style={{
-                  margin: "0",
-                }}
-              >
-                <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
-                <Breadcrumb.Item>Pending Offline Payments</Breadcrumb.Item>
-              </Breadcrumb>
-              <br />
-
-              <Alert
-                style={{ maxWidth: 500 }}
-                message="Note:"
-                description="After Approving the payment will added to offline payment list."
-                type="success"
-              />
-              <br />
-
-              <Input
-                value={this.state.searchinput}
-                placeholder="Search"
-                onChange={(e) => this.searchinput(e)}
-                style={{ maxWidth: 300, marginBottom: 20, height: 40 }}
-              />
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  float: "right",
-                  paddingBottom: "10px",
-                }}
-              >
-                <Button
-                  type="primary"
-                  onClick={() => this.exportToCSV("Premium Membership")}
-                >
-                  <i
-                    className="bx bxs-cloud-download"
+          {noPermission ? (
+            <NoPermission />
+          ) : (
+            <>
+              <Content className="home-section">
+                <Card title="Pending Offline Payments" style={{ margin: 16 }}>
+                  <Breadcrumb
                     style={{
-                      color: "#fff",
-                      position: "relative",
-                      top: 3,
-                      left: -3,
+                      margin: "0",
                     }}
-                  ></i>{" "}
-                  Export Data
-                </Button>
-              </div>
-              <Table
-                dataSource={dataSource}
-                columns={columns}
-                loading={this.state.loading}
-                bordered
-                scroll={{ x: "max-content" }}
-              />
-            </Card>
-          </Content>
+                  >
+                    <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+                <Breadcrumb.Item>Pending Offline Payments</Breadcrumb.Item>
+                  </Breadcrumb>
+                  <br />
 
-          <BottomBar />
+                  <Alert
+                    style={{ maxWidth: 500 }}
+                    message="Note:"
+                    description="After Approving the payment will added to offline payment list."
+                    type="success"
+                  />
+                  <br />
+
+                  <Input
+                    value={this.state.searchinput}
+                    placeholder="Search"
+                    onChange={(e) => this.searchinput(e)}
+                    style={{ maxWidth: 300, marginBottom: 20, height: 40 }}
+                  />
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      float: "right",
+                      paddingBottom: "10px",
+                    }}
+                  >
+                    <Button
+                      type="primary"
+                  onClick={() => this.exportToCSV("Premium Membership")}
+                  disabled={canExport === false}
+                    >
+                      <i
+                        className="bx bxs-cloud-download"
+                        style={{
+                          color: "#fff",
+                          position: "relative",
+                          top: 3,
+                          left: -3,
+                        }}
+                      ></i>{" "}
+                      Export Data
+                    </Button>
+                  </div>
+                  <Table
+                    dataSource={dataSource}
+                    columns={columns}
+                    loading={this.state.loading}
+                    bordered
+                    scroll={{ x: "max-content" }}
+                  />
+                </Card>
+              </Content>
+
+              <BottomBar />
+            </>
+          )}
         </Layout>
       </Layout>
     );

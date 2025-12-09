@@ -1048,6 +1048,112 @@ class RolesPermissions extends Component {
 
         <Divider />
 
+        {/* Payments – Online Payments */}
+        <h6>Payments – Online Payments</h6>
+        <div className="mb-2">
+          <Checkbox
+            checked={check("payments_online", "view")}
+            onChange={(e) =>
+              this.togglePerm("payments_online", "view", e.target.checked)
+            }
+          >
+            View Online Payments
+          </Checkbox>
+
+          {/* Optional: export permission, if/when you add export button */}
+          <Checkbox
+            checked={check("payments_online", "export")}
+            onChange={(e) =>
+              this.togglePerm("payments_online", "export", e.target.checked)
+            }
+          >
+            Export Online Payments
+          </Checkbox>
+        </div>
+
+        <Divider />
+
+        {/* Payments – Offline Payments */}
+        <h6>Payments – Offline Payments</h6>
+        <div className="mb-2">
+          <Checkbox
+            checked={check("payments_offline", "view")}
+            onChange={(e) =>
+              this.togglePerm("payments_offline", "view", e.target.checked)
+            }
+          >
+            View Offline Payments
+          </Checkbox>
+
+          <Checkbox
+            checked={check("payments_offline", "export")}
+            onChange={(e) =>
+              this.togglePerm("payments_offline", "export", e.target.checked)
+            }
+          >
+            Export Offline Payments
+          </Checkbox>
+        </div>
+
+        <Divider />
+
+        {/* Payments – Pending Offline Payments */}
+        <h6>Payments – Pending Offline Payments</h6>
+        <div className="mb-2">
+          <Checkbox
+            checked={check("payments_offline_pending", "view")}
+            onChange={(e) =>
+              this.togglePerm("payments_offline_pending", "view", e.target.checked)
+            }
+          >
+            View Pending Offline Payments
+          </Checkbox>
+
+          <Checkbox
+            checked={check("payments_offline_pending", "export")}
+            onChange={(e) =>
+              this.togglePerm("payments_offline_pending", "export", e.target.checked)
+            }
+          >
+            Export Pending Offline Payments
+          </Checkbox>
+
+          <Checkbox
+            checked={check("payments_offline_pending", "approve")}
+            onChange={(e) =>
+              this.togglePerm("payments_offline_pending", "approve", e.target.checked)
+            }
+          >
+            Approve Pending Offline Payments
+          </Checkbox>
+        </div>
+
+        <Divider />
+
+        {/* Payments – Document Payments */}
+        <h6>Payments – Document Payments</h6>
+        <div className="mb-2">
+          <Checkbox
+            checked={check("payments_documents", "view")}
+            onChange={(e) =>
+              this.togglePerm("payments_documents", "view", e.target.checked)
+            }
+          >
+            View Document Payments
+          </Checkbox>
+
+          <Checkbox
+            checked={check("payments_documents", "export")}
+            onChange={(e) =>
+              this.togglePerm("payments_documents", "export", e.target.checked)
+            }
+          >
+            Export Document Payments
+          </Checkbox>
+        </div>
+
+        <Divider />
+
         {/* Payments */}
         <h6>Payments</h6>
         <div className="mb-2">
