@@ -15,6 +15,8 @@ import {
 import Navbar from "./common/Navbar";
 import Sidebar2 from "./common/Sidebar2";
 import BottomBar from "./common/BottomBar";
+import NoPermission from "./common/NoPermission";
+import featureFlags from "../../config/featureFlags";
 import axios from "axios";
 
 const { Content } = Layout;
@@ -35,9 +37,34 @@ class UserRoleAssign extends Component {
     newPassword: "",
     newRoleId: null,
     creatingAdmin: false,
+
+    blocked: false,
   };
 
   componentDidMount() {
+    let isSuperAdmin = false;
+    try {
+      const raw = localStorage.getItem("super_admin");
+      if (raw !== null) {
+        const parsed = JSON.parse(raw);
+        isSuperAdmin =
+          parsed === 1 ||
+          parsed === "1" ||
+          parsed === true ||
+          parsed === "true";
+      }
+    } catch (e) {
+      isSuperAdmin = false;
+    }
+
+    const enableSidebarPerms =
+      featureFlags.ENABLE_SIDEBAR_PERMISSIONS === true;
+
+    if (!isSuperAdmin || !enableSidebarPerms) {
+      this.setState({ blocked: true });
+      return;
+    }
+
     this.loadUsersAndRoles();
   }
 
@@ -312,6 +339,7 @@ class UserRoleAssign extends Component {
       newPassword,
       newRoleId,
       creatingAdmin,
+      blocked,
     } = this.state;
 
     return (
@@ -323,94 +351,100 @@ class UserRoleAssign extends Component {
         <Layout className="site-layout">
           <Sidebar2 />
 
-          <Content className="home-section">
-            <Card
-              style={{ margin: 16 }}
-              title={
-                <Breadcrumb style={{ margin: 0 }}>
-                  <Breadcrumb.Item>Admin</Breadcrumb.Item>
-                  <Breadcrumb.Item>Access Management</Breadcrumb.Item>
-                  <Breadcrumb.Item>User Roles</Breadcrumb.Item>
-                </Breadcrumb>
-              }
-            >
-              <div className="row">
-                {/* Left: Admins list + Add Admin button */}
-                <div className="col-md-4 mb-3">
-                  <Card
-                    size="small"
-                    title="Admins"
-                    extra={
-                      <Button size="small" onClick={this.openAddAdminModal}>
-                        Add Admin
-                      </Button>
-                    }
-                  >
-                    <Spin spinning={loadingUsers}>
-                      <List
-                        dataSource={users}
-                        renderItem={(u) => (
-                          <List.Item
-                            onClick={() => this.selectUser(u.id)}
-                            style={{
-                              cursor: "pointer",
-                              background:
-                                selectedUserId === u.id
-                                  ? "#e6f7ff"
-                                  : "transparent",
-                            }}
-                          >
-                            <List.Item.Meta
-                              title={u.username || `Admin #${u.id}`}
-                              description={
-                                Number(u.is_super_admin) === 1
-                                  ? "Super Admin"
-                                  :  u.role_name || "Admin"
+          {blocked ? (
+            <NoPermission />
+          ) : (
+            <>
+            <Content className="home-section">
+              <Card
+                style={{ margin: 16 }}
+                title={
+                  <Breadcrumb style={{ margin: 0 }}>
+                    <Breadcrumb.Item>Admin</Breadcrumb.Item>
+                    <Breadcrumb.Item>Access Management</Breadcrumb.Item>
+                    <Breadcrumb.Item>User Roles</Breadcrumb.Item>
+                  </Breadcrumb>
+                }
+              >
+                <div className="row">
+                  {/* Left: Admins list + Add Admin button */}
+                  <div className="col-md-4 mb-3">
+                    <Card
+                      size="small"
+                      title="Admins"
+                      extra={
+                        <Button size="small" onClick={this.openAddAdminModal}>
+                          Add Admin
+                        </Button>
+                      }
+                    >
+                      <Spin spinning={loadingUsers}>
+                        <List
+                          dataSource={users}
+                          renderItem={(u) => (
+                            <List.Item
+                              onClick={() => this.selectUser(u.id)}
+                              style={{
+                                cursor: "pointer",
+                                background:
+                                  selectedUserId === u.id
+                                    ? "#e6f7ff"
+                                    : "transparent",
+                              }}
+                            >
+                              <List.Item.Meta
+                                title={u.username || `Admin #${u.id}`}
+                                description={
+                                  Number(u.is_super_admin) === 1
+                                    ? "Super Admin"
+                                    : u.role_name || "Admin"
+                                }
+                              />
+                            </List.Item>
+                          )}
+                        />
+                      </Spin>
+                    </Card>
+                  </div>
+
+                  {/* Right: roles for selected user */}
+                  <div className="col-md-8 mb-3">
+                    <Card
+                      size="small"
+                      title="Roles for selected user"
+                      extra={
+                        <Button
+                          type="primary"
+                          onClick={this.saveUserRoles}
+                          loading={saving}
+                        >
+                          Save
+                        </Button>
+                      }
+                    >
+                      <Spin spinning={loadingRoles}>
+                        {roles.map((r) => (
+                          <div key={r.id} style={{ marginBottom: 8 }}>
+                            <Checkbox
+                              checked={userRoles.includes(Number(r.id))}
+                              onChange={(e) =>
+                                this.toggleUserRole(r.id, e.target.checked)
                               }
-                            />
-                          </List.Item>
-                        )}
-                      />
-                    </Spin>
-                  </Card>
+                            >
+                              {r.display_name} {r.name}
+                            </Checkbox>
+                          </div>
+                        ))}
+                      </Spin>
+                    </Card>
+                  </div>
                 </div>
-
-                {/* Right: roles for selected user */}
-                <div className="col-md-8 mb-3">
-                  <Card
-                    size="small"
-                    title="Roles for selected user"
-                    extra={
-                      <Button
-                        type="primary"
-                        onClick={this.saveUserRoles}
-                        loading={saving}
-                      >
-                        Save
-                      </Button>
-                    }
-                  >
-                    <Spin spinning={loadingRoles}>
-                      {roles.map((r) => (
-                        <div key={r.id} style={{ marginBottom: 8 }}>
-                          <Checkbox
-                            checked={userRoles.includes(Number(r.id))}
-                            onChange={(e) =>
-                              this.toggleUserRole(r.id, e.target.checked)
-                            }
-                          >
-                            {r.display_name} {r.name}
-                          </Checkbox>
-                        </div>
-                      ))}
-                    </Spin>
-                  </Card>
-                </div>
-              </div>
-            </Card>
-          </Content>
-
+              </Card>
+            </Content>
           <BottomBar />
+            </>
+          )}
+
         </Layout>
 
         {/* Add Admin Modal (with role dropdown) */}

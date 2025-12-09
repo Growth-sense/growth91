@@ -14,6 +14,8 @@ import {
 import Navbar from "./common/Navbar";
 import Sidebar2 from "./common/Sidebar2";
 import BottomBar from "./common/BottomBar";
+import NoPermission from "./common/NoPermission";
+import featureFlags from "../../config/featureFlags";
 import axios from "axios";
 
 const { Content } = Layout;
@@ -26,9 +28,33 @@ class RolesPermissions extends Component {
     perms: {},
     addRoleVisible: false,
     newRoleName: "",
+    blocked: false,
   };
 
   componentDidMount() {
+    let isSuperAdmin = false;
+    try {
+      const raw = localStorage.getItem("super_admin");
+      if (raw !== null) {
+        const parsed = JSON.parse(raw);
+        isSuperAdmin =
+          parsed === 1 ||
+          parsed === "1" ||
+          parsed === true ||
+          parsed === "true";
+      }
+    } catch (e) {
+      isSuperAdmin = false;
+    }
+
+    const enableSidebarPerms =
+      featureFlags.ENABLE_SIDEBAR_PERMISSIONS === true;
+
+    if (!isSuperAdmin || !enableSidebarPerms) {
+      this.setState({ blocked: true });
+      return;
+    }
+
     this.loadRoles();
   }
 
@@ -1430,6 +1456,7 @@ class RolesPermissions extends Component {
       perms,
       addRoleVisible,
       newRoleName,
+      blocked,
     } = this.state;
 
     return (
@@ -1441,65 +1468,77 @@ class RolesPermissions extends Component {
         <Layout className="site-layout">
           <Sidebar2 />
 
-          <Content className="home-section">
-            <Card
-              style={{ margin: 16 }}
-              title={
-                <Breadcrumb style={{ margin: 0 }}>
-                  <Breadcrumb.Item>Admin</Breadcrumb.Item>
-                  <Breadcrumb.Item>Roles & Permissions</Breadcrumb.Item>
-                </Breadcrumb>
-              }
-            >
-              <div className="row">
-                <div className="col-md-3 mb-3">
-                  <Card
-                    size="small"
-                    title="Roles"
-                    extra={
-                      <Button
-                        size="small"
-                        type="primary"
-                        onClick={this.openAddRoleModal}
-                      >
-                        Add Role
-                      </Button>
-                    }
-                  >
-                    {roles.map((r) => (
-                      <Button
-                        key={r.id}
-                        block
-                        type={parseInt(r.id, 10) === selectedRoleId ? "primary" : "default"}
-                        style={{ marginBottom: 8 }}
-                        onClick={() => this.loadRolePermissions(parseInt(r.id, 10))}
-                      >
-                        {r.name}
-                      </Button>
-                    ))}
-                  </Card>
-                </div>
+          {blocked ? (
+            <NoPermission />
+          ) : (
+            <>
+            <Content className="home-section">
+              <Card
+                style={{ margin: 16 }}
+                title={
+                  <Breadcrumb style={{ margin: 0 }}>
+                    <Breadcrumb.Item>Admin</Breadcrumb.Item>
+                    <Breadcrumb.Item>Roles & Permissions</Breadcrumb.Item>
+                  </Breadcrumb>
+                }
+              >
+                <div className="row">
+                  <div className="col-md-3 mb-3">
+                    <Card
+                      size="small"
+                      title="Roles"
+                      extra={
+                        <Button
+                          size="small"
+                          type="primary"
+                          onClick={this.openAddRoleModal}
+                        >
+                          Add Role
+                        </Button>
+                      }
+                    >
+                      {roles.map((r) => (
+                        <Button
+                          key={r.id}
+                          block
+                          type={
+                            parseInt(r.id, 10) === selectedRoleId
+                              ? "primary"
+                              : "default"
+                          }
+                          style={{ marginBottom: 8 }}
+                          onClick={() =>
+                            this.loadRolePermissions(parseInt(r.id, 10))
+                          }
+                        >
+                          {r.name}
+                        </Button>
+                      ))}
+                    </Card>
+                  </div>
 
-                <div className="col-md-9 mb-3">
-                  <Card
-                    size="small"
-                    title="Permissions"
-                    extra={
-                      <Button type="primary" onClick={this.savePermissions}>
-                        Save
-                      </Button>
-                    }
-                  >
-                    <Spin spinning={permsLoading}>
-                      {this.renderPermissionsMatrix(perms)}
-                    </Spin>
-                  </Card>
+                  <div className="col-md-9 mb-3">
+                    <Card
+                      size="small"
+                      title="Permissions"
+                      extra={
+                        <Button type="primary" onClick={this.savePermissions}>
+                          Save
+                        </Button>
+                      }
+                    >
+                      <Spin spinning={permsLoading}>
+                        {this.renderPermissionsMatrix(perms)}
+                      </Spin>
+                    </Card>
+                  </div>
                 </div>
-              </div>
-            </Card>
-          </Content>
-
+              </Card>
+            </Content>
           <BottomBar />
+            </>
+          )}
+
         </Layout>
 
         <Modal
