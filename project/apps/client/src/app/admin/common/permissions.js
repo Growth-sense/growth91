@@ -116,6 +116,11 @@ function fullAccessPermissions() {
     // extra optional capabilities used by Founder Documents
     canFounderDocumentsFounder: true,
     canFounderDocumentsAssessment: true,
+    // extra optional capabilities used by Admin Documents
+    canAdminDocumentsAdd: true,
+    canAdminDocumentsEdit: true,
+    canAdminDocumentsDelete: true,
+    canAdminDocumentsDownload: true,
   };
 }
 
@@ -170,6 +175,7 @@ export async function loadModulePermissions(moduleKey) {
     moduleKey === "payments_offline_pending" ||
     moduleKey === "payments_documents";
   const isFounderDocumentsModule = moduleKey === "founder_documents";
+  const isDocumentsModule = moduleKey === "documents";
   const featureEnabled = isAnalyticsModule
     ? featureFlags.ENABLE_ANALYTICS_PERMISSIONS
     : isGroupsModule
@@ -186,7 +192,9 @@ export async function loadModulePermissions(moduleKey) {
                 ? featureFlags.ENABLE_PAYMENTS_PERMISSIONS
                 : isFounderDocumentsModule
                   ? featureFlags.ENABLE_FOUNDER_DOCUMENTS_PERMISSIONS
-                  : featureFlags.ENABLE_MASTERDATA_PERMISSIONS;
+                  : isDocumentsModule
+                    ? featureFlags.ENABLE_DOCUMENTS_PERMISSIONS
+                    : featureFlags.ENABLE_MASTERDATA_PERMISSIONS;
 
   // When the relevant feature flag is OFF OR super admin => full access, no API
   if (!featureEnabled || isSuperAdmin) {
@@ -292,5 +300,11 @@ export async function loadModulePermissions(moduleKey) {
     // Optional extra booleans for modules that define these actions (Founder Documents)
     canFounderDocumentsFounder: m.founder === true,
     canFounderDocumentsAssessment: m.assessment === true,
+
+    // Optional extra booleans for modules that define these actions (Admin Documents)
+    canAdminDocumentsAdd: m.add === true,
+    canAdminDocumentsEdit: m.edit === true,
+    canAdminDocumentsDelete: m.delete === true,
+    canAdminDocumentsDownload: m.download === true,
   };
 }

@@ -566,7 +566,13 @@ function App() {
             exact
             component={TableComponent}
           />
-          <Route path="/documents" exact component={AdminDocuments} />
+          <ProtectedAdminRoute
+            path="/documents"
+            exact
+            component={AdminDocuments}
+            requiredModule="documents"
+            requiredAction="view"
+          />
           <Route
             path="/founder-documentsPdf"
             exact

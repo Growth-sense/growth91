@@ -1186,6 +1186,57 @@ class RolesPermissions extends Component {
         </div>
 
         <Divider />
+        
+        {/* Documents */}
+        <h6>Documents</h6>
+        <div className="mb-2">
+          <Checkbox
+            checked={check("documents", "view")}
+            onChange={(e) =>
+              this.togglePerm("documents", "view", e.target.checked)
+            }
+          >
+            View Documents
+          </Checkbox>
+
+          <Checkbox
+            checked={check("documents", "add")}
+            onChange={(e) =>
+              this.togglePerm("documents", "add", e.target.checked)
+            }
+          >
+            Add Document
+          </Checkbox>
+
+          <Checkbox
+            checked={check("documents", "edit")}
+            onChange={(e) =>
+              this.togglePerm("documents", "edit", e.target.checked)
+            }
+          >
+            Edit Document
+          </Checkbox>
+
+          <Checkbox
+            checked={check("documents", "delete")}
+            onChange={(e) =>
+              this.togglePerm("documents", "delete", e.target.checked)
+            }
+          >
+            Delete Document
+          </Checkbox>
+
+          <Checkbox
+            checked={check("documents", "download")}
+            onChange={(e) =>
+              this.togglePerm("documents", "download", e.target.checked)
+            }
+          >
+            Download Document
+          </Checkbox>
+        </div>
+
+        <Divider />
 
         {/* Reports */}
         <h6>Reports</h6>

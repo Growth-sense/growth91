@@ -19,6 +19,8 @@ import Navbar from "./common/Navbar";
 import BottomBar from "./common/BottomBar";
 import Bridge from "../constants/Bridge";
 import { EditOutlined, DeleteOutlined, DownloadOutlined } from "@ant-design/icons";
+import NoPermission from "./common/NoPermission";
+import { loadModulePermissions } from "./common/permissions";
 const { TextArea } = Input;
 const { Option } = Select;
 const { Content } = Layout;
@@ -61,10 +63,31 @@ class AdminDocuments extends Component {
 
       // delete states
       admindocID: "",
+
+      // permissions
+      canAdd: false,
+      canEdit: false,
+      canDelete: false,
+      canDownload: false,
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    try {
+      const perms = await loadModulePermissions("documents");
+      this.setState({
+        canAdd: perms.canAdminDocumentsAdd,
+        canEdit: perms.canAdminDocumentsEdit,
+        canDelete: perms.canAdminDocumentsDelete,
+        canDownload: perms.canAdminDocumentsDownload,
+      });
+    } catch (e) {}
+
+    // If no view permission, do not call APIs
+    if (this.props.noPermission) {
+      return;
+    }
+
     this.getDocumentList();
     this.getdeallist();
     this.getinvestorlist();
@@ -191,6 +214,11 @@ class AdminDocuments extends Component {
   };
 
   handleSubmit = () => {
+    if (this.state.canAdd === false) {
+      message.error("You do not have permission to add documents.");
+      return;
+    }
+
     const {
       documentType,
       selectedDeals,
@@ -278,6 +306,11 @@ class AdminDocuments extends Component {
   };
 
   updatedocument = () => {
+    if (this.state.canEdit === false) {
+      message.error("You do not have permission to edit documents.");
+      return;
+    }
+
     const {
       editdocumentType,
       editselectedDeals,
@@ -378,6 +411,11 @@ class AdminDocuments extends Component {
   };
 
   showDeleteModal = (id) => {
+    if (this.state.canDelete === false) {
+      message.error("You do not have permission to delete documents.");
+      return;
+    }
+
     this.setState({
       deleteModalStatus: true,
       admindocID: id,
@@ -385,6 +423,11 @@ class AdminDocuments extends Component {
   };
 
   showEditModal = (id, item) => {
+    if (this.state.canEdit === false) {
+      message.error("You do not have permission to edit documents.");
+      return;
+    }
+
     this.setState({
       admindocID: id,
       editadmindocName: item.documentName,
@@ -395,6 +438,11 @@ class AdminDocuments extends Component {
   };
 
   deletedocument = () => {
+    if (this.state.canDelete === false) {
+      message.error("You do not have permission to delete documents.");
+      return;
+    }
+
     if (this.state.admindocID == "") {
       message.warning("Please select the document first.");
       return false;
@@ -485,6 +533,8 @@ class AdminDocuments extends Component {
   };
 
   render() {
+    const { noPermission } = this.props;
+    const { canAdd, canEdit, canDelete, canDownload } = this.state;
     const dataSource = this.state.documentlist.map((item, index) => {
       console.log(item);
       return {
@@ -556,7 +606,11 @@ class AdminDocuments extends Component {
               defaultSelectedKeys={[this.state.path]}
               style={{ width: 200 }}
             >
-              <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />}>
+              <Menu.Item
+                key={`Edit${record.key}`}
+                icon={<EditOutlined />}
+                disabled={!canEdit}
+              >
                 <a
                   href="#"
                   onClick={() => this.showEditModal(record.key, record)}
@@ -565,7 +619,11 @@ class AdminDocuments extends Component {
                   &nbsp;&nbsp;Edit
                 </a>
               </Menu.Item>
-              <Menu.Item key={`Delete${record.key}`} icon={<DeleteOutlined />}>
+              <Menu.Item
+                key={`Delete${record.key}`}
+                icon={<DeleteOutlined />}
+                disabled={!canDelete}
+              >
                 <a
                   href="#"
                   style={{ fontSize: 14 }}
@@ -574,11 +632,19 @@ class AdminDocuments extends Component {
                   &nbsp;&nbsp;Delete
                 </a>
               </Menu.Item>
-              <Menu.Item key={`Delete${record.key}`} icon={<DownloadOutlined />}>
+              <Menu.Item key={`Delete${record.key}`} icon={<DownloadOutlined />} disabled={!canDownload}>
                 <a
                   href="#"
                   style={{ fontSize: 14 }}
-                  onClick={() => window.open(`${process.env.REACT_APP_BASE_URL}api/uploads/admindocs/${record.action.admindocID }/${record.action["admindocFile"]}`)}
+                  onClick={() => {
+                    if (!canDownload) {
+                      message.error("You do not have permission to download documents.");
+                      return;
+                    }
+                    window.open(
+                      `${process.env.REACT_APP_BASE_URL}api/uploads/admindocs/${record.action.admindocID}/${record.action["admindocFile"]}`
+                    );
+                  }}
                 >
                   &nbsp;&nbsp;Download
                 </a>
@@ -611,68 +677,76 @@ class AdminDocuments extends Component {
           <Layout className="site-layout">
             <Sidebar2 />
 
-            <Content className="home-section">
-              <Card
-                title="Documents"
-                extra={
-                  <Button
-                    type="primary"
-                    onClick={() => {
-                      this.setState({ addModalStatus: true });
-                    }}
+            {noPermission ? (
+              <NoPermission />
+            ) : (
+              <>
+
+                <Content className="home-section">
+                  <Card
+                    title="Documents"
+                    extra={
+                      <Button
+                        type="primary"
+                        onClick={() => {
+                          this.setState({ addModalStatus: true });
+                        }}
+                        disabled={!canAdd}
+                      >
+                        <i
+                          className="bx bxs-plus-circle"
+                          style={{
+                            color: "#fff",
+                            position: "relative",
+                            top: 3,
+                            left: -3,
+                          }}
+                        ></i>{" "}
+                        Add New Document
+                      </Button>
+                    }
+                    style={{ margin: 16 }}
                   >
-                    <i
-                      className="bx bxs-plus-circle"
+                    <Breadcrumb
                       style={{
-                        color: "#fff",
-                        position: "relative",
-                        top: 3,
-                        left: -3,
+                        margin: "0",
                       }}
-                    ></i>{" "}
-                    Add New Document
-                  </Button>
-                }
-                style={{ margin: 16 }}
-              >
-                <Breadcrumb
-                  style={{
-                    margin: "0",
-                  }}
-                >
-                  <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
-                  <Breadcrumb.Item>Documents</Breadcrumb.Item>
-                </Breadcrumb>
-                <br />
-                <br />
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Input
-                    placeholder="Search"
-                    onChange={(e) => this.searchinput(e)}
-                    style={{ maxWidth: 300, marginBottom: 20, height: 40 }}
-                  />
-                </div>
-                <Table
-                  dataSource={dataSource}
-                  columns={columns}
-                  loading={this.state.loading}
-                  bordered
+                    >
+                      <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+                      <Breadcrumb.Item>Documents</Breadcrumb.Item>
+                    </Breadcrumb>
+                    <br />
+                    <br />
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Input
+                        placeholder="Search"
+                        onChange={(e) => this.searchinput(e)}
+                        style={{ maxWidth: 300, marginBottom: 20, height: 40 }}
+                      />
+                    </div>
+                    <Table
+                      dataSource={dataSource}
+                      columns={columns}
+                      loading={this.state.loading}
+                      bordered
                   // onRow={(r) => ({
                       //  onClick: () =>window.open(`${process.env.REACT_APP_BASE_URL}api/uploads/admindocs/${r.admindocID }/${r["admindocFile"]}`)
                   // onClick: () =>{ window.open(`${process.env.REACT_APP_BASE_URL}api/uploads/admindocs/${r.srno }/${r["admindocFile"]}`
                   //   )}
               //  })}
-                  scroll={{ x: "max-content" }}
-                />
-              </Card>
-            </Content>
+                      scroll={{ x: "max-content" }}
+                    />
+                  </Card>
+                </Content>
 
-            <BottomBar />
+                <BottomBar />
+              </>
+            )}
           </Layout>
         </Layout>
 
