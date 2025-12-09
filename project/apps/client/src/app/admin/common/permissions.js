@@ -113,6 +113,9 @@ function fullAccessPermissions() {
     canPaymentsOfflinePendingApprove: true,
     // NEW: Document Payments
     canPaymentsDocumentsExport: true,
+    // extra optional capabilities used by Founder Documents
+    canFounderDocumentsFounder: true,
+    canFounderDocumentsAssessment: true,
   };
 }
 
@@ -166,6 +169,7 @@ export async function loadModulePermissions(moduleKey) {
     moduleKey === "payments_offline" ||
     moduleKey === "payments_offline_pending" ||
     moduleKey === "payments_documents";
+  const isFounderDocumentsModule = moduleKey === "founder_documents";
   const featureEnabled = isAnalyticsModule
     ? featureFlags.ENABLE_ANALYTICS_PERMISSIONS
     : isGroupsModule
@@ -180,7 +184,9 @@ export async function loadModulePermissions(moduleKey) {
               ? featureFlags.ENABLE_REFERRAL_PERMISSIONS
               : isPaymentsModule
                 ? featureFlags.ENABLE_PAYMENTS_PERMISSIONS
-                : featureFlags.ENABLE_MASTERDATA_PERMISSIONS;
+                : isFounderDocumentsModule
+                  ? featureFlags.ENABLE_FOUNDER_DOCUMENTS_PERMISSIONS
+                  : featureFlags.ENABLE_MASTERDATA_PERMISSIONS;
 
   // When the relevant feature flag is OFF OR super admin => full access, no API
   if (!featureEnabled || isSuperAdmin) {
@@ -282,5 +288,9 @@ export async function loadModulePermissions(moduleKey) {
     canPaymentsOfflinePendingExport: m.export === true,
     canPaymentsOfflinePendingApprove: m.approve === true,
     canPaymentsDocumentsExport: m.export === true,
+
+    // Optional extra booleans for modules that define these actions (Founder Documents)
+    canFounderDocumentsFounder: m.founder === true,
+    canFounderDocumentsAssessment: m.assessment === true,
   };
 }

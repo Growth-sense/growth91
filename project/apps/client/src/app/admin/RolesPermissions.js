@@ -1154,49 +1154,8 @@ class RolesPermissions extends Component {
 
         <Divider />
 
-        {/* Payments */}
-        <h6>Payments</h6>
-        <div className="mb-2">
-          <Checkbox
-            checked={check("payments", "view_online")}
-            onChange={(e) =>
-              this.togglePerm("payments", "view_online", e.target.checked)
-            }
-          >
-            Online Payments
-          </Checkbox>
-          <Checkbox
-            checked={check("payments", "view_offline")}
-            onChange={(e) =>
-              this.togglePerm("payments", "view_offline", e.target.checked)
-            }
-          >
-            Offline Payments
-          </Checkbox>
-          <Checkbox
-            checked={check("payments", "view_pending_offline")}
-            onChange={(e) =>
-              this.togglePerm(
-                "payments",
-                "view_pending_offline",
-                e.target.checked
-              )
-            }
-          >
-            Pending Offline
-          </Checkbox>
-          <Checkbox
-            checked={check("payments", "view_document")}
-            onChange={(e) =>
-              this.togglePerm("payments", "view_document", e.target.checked)
-            }
-          >
-            Document Payments
-          </Checkbox>
-        </div>
-
-        {/* Documents */}
-        <h6>Documents</h6>
+        {/* Master Data – Founder Documents */}
+        <h6>Founder Documents</h6>
         <div className="mb-2">
           <Checkbox
             checked={check("founder_documents", "view")}
@@ -1204,25 +1163,29 @@ class RolesPermissions extends Component {
               this.togglePerm("founder_documents", "view", e.target.checked)
             }
           >
-            Founder Documents
+            View Founder Documents
           </Checkbox>
+
           <Checkbox
-            checked={check("documents", "view")}
+            checked={check("founder_documents", "founder")}
             onChange={(e) =>
-              this.togglePerm("documents", "view", e.target.checked)
+              this.togglePerm("founder_documents", "founder", e.target.checked)
             }
           >
-            Admin Documents
+            Founder
           </Checkbox>
+
           <Checkbox
-            checked={check("documents", "download_docs")}
+            checked={check("founder_documents", "assessment")}
             onChange={(e) =>
-              this.togglePerm("documents", "download_docs", e.target.checked)
+              this.togglePerm("founder_documents", "assessment", e.target.checked)
             }
           >
-            Download Docs
+            Founder Assessment
           </Checkbox>
         </div>
+
+        <Divider />
 
         {/* Reports */}
         <h6>Reports</h6>

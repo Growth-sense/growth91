@@ -106,6 +106,7 @@ class ProtectedAdminRouteInner extends Component {
       requiredModule === "payments_offline" ||
       requiredModule === "payments_offline_pending" ||
       requiredModule === "payments_documents";
+    const isFounderDocumentsRoute = requiredModule === "founder_documents";
     const featureEnabled = isAnalyticsRoute
       ? featureFlags.ENABLE_ANALYTICS_PERMISSIONS
       : isGroupsRoute
@@ -120,7 +121,9 @@ class ProtectedAdminRouteInner extends Component {
                 ? featureFlags.ENABLE_REFERRAL_PERMISSIONS
                 : isPaymentsRoute
                   ? featureFlags.ENABLE_PAYMENTS_PERMISSIONS
-                  : featureFlags.ENABLE_MASTERDATA_PERMISSIONS;
+                  : isFounderDocumentsRoute
+                    ? featureFlags.ENABLE_FOUNDER_DOCUMENTS_PERMISSIONS
+                    : featureFlags.ENABLE_MASTERDATA_PERMISSIONS;
 
     // When the relevant permissions feature flag is OFF, skip myPermissions API
     // and allow all routes handled by this wrapper.

@@ -554,10 +554,12 @@ function App() {
 
           <Route path="/startup-form" exact component={FounderNewRegister} />
           <Route path="/assessment-form" exact component={Startup} />
-          <Route
+          <ProtectedAdminRoute
             path="/founder-documents"
             exact
             component={Founderformdetails}
+            requiredModule="founder_documents"
+            requiredAction="view"
           />
           <Route
             path="/admin-founder-dashboard"

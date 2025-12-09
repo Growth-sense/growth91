@@ -18,6 +18,8 @@ import * as FileSaver from "file-saver";
 
 import * as XLSX from "xlsx-js-style";
 import ReactToPrint from "react-to-print";
+import NoPermission from "./common/NoPermission";
+import { loadModulePermissions } from "./common/permissions";
 import TableComponent from "./pdfview/TableComponent";
 import { useNavigate } from 'react-router-dom'; 
 import { Link } from "react-router-dom";
@@ -38,11 +40,27 @@ class Founderformdetails extends Component {
       clist: [],
       modalstatus: false,
       item: [],
+      canFounder: false,
+      canAssessment: false,
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     console.log(this.props.item);
+
+    try {
+      const perms = await loadModulePermissions("founder_documents");
+      this.setState({
+        canFounder: perms.canFounderDocumentsFounder,
+        canAssessment: perms.canFounderDocumentsAssessment,
+      });
+    } catch (e) {}
+
+    // If no view permission, do not call API
+    if (this.props.noPermission) {
+      return;
+    }
+
     this.getformdetails();
   }
 
@@ -93,6 +111,11 @@ class Founderformdetails extends Component {
   };
 
   exportToCSVF = (fileName, item) => {
+    if (this.state.canFounder === false) {
+      message.error("You do not have permission to export founder details.");
+      return;
+    }
+
     let arr = [];
     let obj = {
       "Main Founder Id": item.main_founder_id,
@@ -386,11 +409,20 @@ class Founderformdetails extends Component {
     message.success("Investor data exported successfully.");
   };
   downloadpdf = (item) => {
-    this.setState({ modalstatus: true, item: item });
+    if (this.state.canFounder === false) {
+      message.error("You do not have permission to view founder details.");
+      return;
+    }
 
+    this.setState({ modalstatus: true, item: item });
   };
   get_assesment_form_details = (item) => {
-    console.log(item.main_founder_id,);
+    if (this.state.canAssessment === false) {
+      message.error("You do not have permission to export founder assessment.");
+      return;
+    }
+
+    console.log(item.main_founder_id);
     let params = {
       founder_id: item.main_founder_id,
     };
@@ -1550,6 +1582,8 @@ class Founderformdetails extends Component {
   };
   
   render() {
+    const { noPermission } = this.props;
+    const { canFounder, canAssessment } = this.state;
     const disdingname= (datas) => {
       const data = [...this.state.list]
         .map((el) => {
@@ -1675,7 +1709,11 @@ class Founderformdetails extends Component {
             pathname: "/admin-founder-dashboard",
             state: { item:text}
           }} > */}
-              <Button type="primary" onClick={() => this.downloadpdf(text)}>
+              <Button
+                type="primary"
+                onClick={() => this.downloadpdf(text)}
+                disabled={!canFounder}
+              >
                 View Details{" "}
                 <i
                   className="bx bx-cloud-download ps-2"
@@ -1687,6 +1725,7 @@ class Founderformdetails extends Component {
               <Button
                 type="primary"
                 onClick={() => this.exportToCSVF(filename, text)}
+                disabled={!canFounder}
               >
                 Download Xlsx{" "}
                 <i
@@ -1711,6 +1750,7 @@ class Founderformdetails extends Component {
               <Button
                 type="primary"
                 onClick={() => this.get_assesment_form_details(text)}
+                disabled={!canAssessment}
               >
                 Download Xlsx{" "}
                 <i
@@ -1734,6 +1774,11 @@ class Founderformdetails extends Component {
 
           <Layout className="site-layout">
             <Sidebar2 />
+
+            {noPermission ? (
+              <NoPermission />
+            ) : (
+              <>
 
             <Content className="home-section">
               <Card title="Founder Documents" style={{ margin: 16 }}>
@@ -1780,6 +1825,8 @@ class Founderformdetails extends Component {
             </Content>
 
             <BottomBar />
+              </>
+            )}
           </Layout>
         </Layout>
 
