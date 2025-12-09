@@ -26,6 +26,8 @@ import BottomBar from "./common/BottomBar";
 import Bridge from "../constants/Bridge";
 import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
+import NoPermission from "./common/NoPermission";
+import { loadModulePermissions } from "./common/permissions";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -42,10 +44,24 @@ class Deals extends Component {
         canalytic_interest_list: [],
         searchinput: "",
         loading:false,
+
+        // permissions
+        canDropoffExport: false,
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    try {
+      const perms = await loadModulePermissions("dropoff");
+      this.setState({
+        canDropoffExport: perms.canDropoffExport,
+      });
+    } catch (e) {}
+
+    if (this.props.noPermission) {
+      return;
+    }
+
     axios.get(`${process.env.REACT_APP_BASE_URL}api/admin/InterestAnalytics/display_deal_interested_investor`)
       .then(response => {
         if (response.status != 1) {
@@ -177,6 +193,11 @@ class Deals extends Component {
     }
   };
   exportToCSV = (fileName) => {
+    if (!this.state.canDropoffExport) {
+      message.error("You do not have permission to export dropoff data.");
+      return;
+    }
+
     let arr = [];
     let count = 1;
     for (let item of this.state.deallist) {
@@ -212,6 +233,8 @@ class Deals extends Component {
   };
 
   render() {
+    const { noPermission } = this.props;
+    const { canDropoffExport } = this.state;
     const dataSource =
       this.state.analytic_interest_list &&
       this.state.analytic_interest_list.map((item, index) => {
@@ -282,6 +305,12 @@ class Deals extends Component {
 
           <Layout className="site-layout">
             <Sidebar2 />
+           
+           
+            {noPermission ? (
+              <NoPermission />
+            ) : (
+              <>
 
             <Content className="home-section">
               <Card
@@ -313,6 +342,7 @@ class Deals extends Component {
                   <Button
                     type="primary"
                     onClick={() => this.exportToCSV("Premium Membership")}
+                     disabled={!canDropoffExport}
                   >
                     <i
                       className="bx bxs-cloud-download"
@@ -337,6 +367,8 @@ class Deals extends Component {
             </Content>
 
             <BottomBar />
+              </>
+            )}
           </Layout>
         </Layout>
       </>

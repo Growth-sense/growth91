@@ -127,6 +127,8 @@ function fullAccessPermissions() {
     canSettingsTaxation: true,
     canSettingsCashfree: true,
     canSettingsDigio: true,
+    // extra optional capabilities used by Dropoff report
+    canDropoffExport: true,
   };
 }
 
@@ -165,6 +167,8 @@ export async function loadModulePermissions(moduleKey) {
 
   // Module-specific feature flags – match ProtectedAdminRoute behaviour
   const isAnalyticsModule = moduleKey === "analytics";
+  const isDropoffModule = moduleKey === "dropoff";
+  const isGuestAnalyticsModule = moduleKey === "guest_analytics";
   const isGroupsModule =
     moduleKey === "groups" || moduleKey === "group_remove_requests";
   const isFutureUnicornModule =
@@ -183,27 +187,28 @@ export async function loadModulePermissions(moduleKey) {
   const isFounderDocumentsModule = moduleKey === "founder_documents";
   const isDocumentsModule = moduleKey === "documents";
   const isSettingsModule = moduleKey === "settings";
-  const featureEnabled = isAnalyticsModule
-    ? featureFlags.ENABLE_ANALYTICS_PERMISSIONS
-    : isGroupsModule
-      ? featureFlags.ENABLE_GROUPS_INVESTMENTS_PERMISSIONS
-      : isFutureUnicornModule
-        ? featureFlags.ENABLE_FUTURE_UNICORN_PERMISSIONS
-        : isPremiumMembersModule
-          ? featureFlags.ENABLE_PREMIUM_MEMBERS_PERMISSIONS
-          : isDealsModule
-            ? featureFlags.ENABLE_DEALS_PERMISSIONS
-            : isReferralsModule
-              ? featureFlags.ENABLE_REFERRAL_PERMISSIONS
-              : isPaymentsModule
-                ? featureFlags.ENABLE_PAYMENTS_PERMISSIONS
-                : isFounderDocumentsModule
-                  ? featureFlags.ENABLE_FOUNDER_DOCUMENTS_PERMISSIONS
-                  : isDocumentsModule
-                    ? featureFlags.ENABLE_DOCUMENTS_PERMISSIONS
-                    : isSettingsModule
-                      ? featureFlags.ENABLE_SETTINGS_PERMISSIONS
-                      : featureFlags.ENABLE_MASTERDATA_PERMISSIONS;
+  const featureEnabled =
+    isAnalyticsModule || isDropoffModule || isGuestAnalyticsModule
+      ? featureFlags.ENABLE_ANALYTICS_PERMISSIONS
+      : isGroupsModule
+        ? featureFlags.ENABLE_GROUPS_INVESTMENTS_PERMISSIONS
+        : isFutureUnicornModule
+          ? featureFlags.ENABLE_FUTURE_UNICORN_PERMISSIONS
+          : isPremiumMembersModule
+            ? featureFlags.ENABLE_PREMIUM_MEMBERS_PERMISSIONS
+            : isDealsModule
+              ? featureFlags.ENABLE_DEALS_PERMISSIONS
+              : isReferralsModule
+                ? featureFlags.ENABLE_REFERRAL_PERMISSIONS
+                : isPaymentsModule
+                  ? featureFlags.ENABLE_PAYMENTS_PERMISSIONS
+                  : isFounderDocumentsModule
+                    ? featureFlags.ENABLE_FOUNDER_DOCUMENTS_PERMISSIONS
+                    : isDocumentsModule
+                      ? featureFlags.ENABLE_DOCUMENTS_PERMISSIONS
+                      : isSettingsModule
+                        ? featureFlags.ENABLE_SETTINGS_PERMISSIONS
+                        : featureFlags.ENABLE_MASTERDATA_PERMISSIONS;
 
   // When the relevant feature flag is OFF OR super admin => full access, no API
   if (!featureEnabled || isSuperAdmin) {
@@ -322,5 +327,8 @@ export async function loadModulePermissions(moduleKey) {
     canSettingsTaxation: m.taxation === true,
     canSettingsCashfree: m.cashfree === true,
     canSettingsDigio: m.digio === true,
+
+    // Optional extra booleans for modules that define these actions (Dropoff)
+    canDropoffExport: m.export === true,
   };
 }

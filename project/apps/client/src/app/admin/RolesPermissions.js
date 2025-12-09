@@ -1296,21 +1296,39 @@ class RolesPermissions extends Component {
           </Checkbox>
         </div>
 
-        {/* Analytics */}
-        <h6>Analytics</h6>
+        <Divider />
+
+        {/* Dropoff Analytics */}
+        <h6>Analytics - Dropoff</h6>
         <div className="mb-2">
           <Checkbox
-            checked={check("analytics", "view_dropoff")}
+            checked={check("dropoff", "view")}
             onChange={(e) =>
-              this.togglePerm("analytics", "view_dropoff", e.target.checked)
+              this.togglePerm("dropoff", "view", e.target.checked)
             }
           >
             View Dropoff
           </Checkbox>
+
           <Checkbox
-            checked={check("analytics", "view_guest")}
+            checked={check("dropoff", "export")}
             onChange={(e) =>
-              this.togglePerm("analytics", "view_guest", e.target.checked)
+              this.togglePerm("dropoff", "export", e.target.checked)
+            }
+          >
+            Export Dropoff Data
+          </Checkbox>
+        </div>
+
+        <Divider/>
+
+        {/* Guest Analytics */}
+        <h6>Analytics - Guest</h6>
+        <div className="mb-2">
+          <Checkbox
+            checked={check("guest_analytics", "view")}
+            onChange={(e) =>
+              this.togglePerm("guest_analytics", "view", e.target.checked)
             }
           >
             View Guest Analytics

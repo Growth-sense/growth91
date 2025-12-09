@@ -429,13 +429,19 @@ function App() {
             requiredModule="deals"
             requiredAction="view_open"
           />
-          <Route path="/analytic-interest" exact component={analyticinterest} />
+          <ProtectedAdminRoute
+            path="/analytic-interest"
+            exact
+            component={analyticinterest}
+            requiredModule="dropoff"
+            requiredAction="view"
+          />
           <ProtectedAdminRoute
             exact
             path="/guest-analytics"
             component={GuestAnalytics}
-            requiredModule="analytics"
-            requiredAction="view_guest"
+            requiredModule="guest_analytics"
+            requiredAction="view"
           />
           <Route path="/admin/roles-permissions" component={RolesPermissions} />
           <Route exact path="/admin/user-roles" component={UserRoleAssign} />

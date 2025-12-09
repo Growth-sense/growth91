@@ -201,6 +201,11 @@ class GuestAnalytics extends Component {
           <Layout className="site-layout">
             <Sidebar2 />
 
+            {noPermission ? (
+              <NoPermission />
+            ) : (
+              <>
+
             <Content className="home-section">
               <Card
                 title={
@@ -250,9 +255,6 @@ class GuestAnalytics extends Component {
                   <Breadcrumb.Item>Guest Analytics</Breadcrumb.Item>
                 </Breadcrumb>
 
-                {noPermission ? (
-                  <NoPermission />
-                ) : (
                   <Spin spinning={loading}>
                     <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
                       <Col xs={24} md={6}>
@@ -297,11 +299,12 @@ class GuestAnalytics extends Component {
                       scroll={{ x: "max-content" }}
                     />
                   </Spin>
-                )}
               </Card>
             </Content>
 
             <BottomBar />
+              </>
+            )}
           </Layout>
         </Layout>
       </>

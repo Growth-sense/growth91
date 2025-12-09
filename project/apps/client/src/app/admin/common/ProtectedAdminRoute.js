@@ -89,6 +89,8 @@ class ProtectedAdminRouteInner extends Component {
     // - Group Investments routes (requiredModule === "groups" or "group_remove_requests") use ENABLE_GROUPS_INVESTMENTS_PERMISSIONS
     // - All other routes (master-data etc.) use ENABLE_MASTERDATA_PERMISSIONS
     const isAnalyticsRoute = requiredModule === "analytics";
+    const isDropoffRoute = requiredModule === "dropoff";
+    const isGuestAnalyticsRoute = requiredModule === "guest_analytics";
     const isGroupsRoute =
       requiredModule === "groups" || requiredModule === "group_remove_requests";
     const isFutureUnicornRoute =
@@ -109,27 +111,28 @@ class ProtectedAdminRouteInner extends Component {
     const isFounderDocumentsRoute = requiredModule === "founder_documents";
     const isDocumentsRoute = requiredModule === "documents";
     const isSettingsRoute = requiredModule === "settings";
-    const featureEnabled = isAnalyticsRoute
-      ? featureFlags.ENABLE_ANALYTICS_PERMISSIONS
-      : isGroupsRoute
-        ? featureFlags.ENABLE_GROUPS_INVESTMENTS_PERMISSIONS
-        : isFutureUnicornRoute
-          ? featureFlags.ENABLE_FUTURE_UNICORN_PERMISSIONS
-          : isPremiumMembersRoute
-            ? featureFlags.ENABLE_PREMIUM_MEMBERS_PERMISSIONS
-            : isDealsRoute
-              ? featureFlags.ENABLE_DEALS_PERMISSIONS
-              : isReferralsRoute
-                ? featureFlags.ENABLE_REFERRAL_PERMISSIONS
-                : isPaymentsRoute
-                  ? featureFlags.ENABLE_PAYMENTS_PERMISSIONS
-                  : isFounderDocumentsRoute
-                    ? featureFlags.ENABLE_FOUNDER_DOCUMENTS_PERMISSIONS
-                    : isDocumentsRoute
-                      ? featureFlags.ENABLE_DOCUMENTS_PERMISSIONS
-                      : isSettingsRoute
-                        ? featureFlags.ENABLE_SETTINGS_PERMISSIONS
-                        : featureFlags.ENABLE_MASTERDATA_PERMISSIONS;
+    const featureEnabled =
+      isAnalyticsRoute || isDropoffRoute || isGuestAnalyticsRoute
+        ? featureFlags.ENABLE_ANALYTICS_PERMISSIONS
+        : isGroupsRoute
+          ? featureFlags.ENABLE_GROUPS_INVESTMENTS_PERMISSIONS
+          : isFutureUnicornRoute
+            ? featureFlags.ENABLE_FUTURE_UNICORN_PERMISSIONS
+            : isPremiumMembersRoute
+              ? featureFlags.ENABLE_PREMIUM_MEMBERS_PERMISSIONS
+              : isDealsRoute
+                ? featureFlags.ENABLE_DEALS_PERMISSIONS
+                : isReferralsRoute
+                  ? featureFlags.ENABLE_REFERRAL_PERMISSIONS
+                  : isPaymentsRoute
+                    ? featureFlags.ENABLE_PAYMENTS_PERMISSIONS
+                    : isFounderDocumentsRoute
+                      ? featureFlags.ENABLE_FOUNDER_DOCUMENTS_PERMISSIONS
+                      : isDocumentsRoute
+                        ? featureFlags.ENABLE_DOCUMENTS_PERMISSIONS
+                        : isSettingsRoute
+                          ? featureFlags.ENABLE_SETTINGS_PERMISSIONS
+                          : featureFlags.ENABLE_MASTERDATA_PERMISSIONS;
 
     // When the relevant permissions feature flag is OFF, skip myPermissions API
     // and allow all routes handled by this wrapper.
