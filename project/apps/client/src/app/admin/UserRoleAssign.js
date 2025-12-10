@@ -431,7 +431,7 @@ class UserRoleAssign extends Component {
                                 this.toggleUserRole(r.id, e.target.checked)
                               }
                             >
-                              {r.display_name} {r.name}
+                              {r.name}
                             </Checkbox>
                           </div>
                         ))}
@@ -488,7 +488,7 @@ class UserRoleAssign extends Component {
                 .filter((r) => r.name !== "super_admin")
                 .map((r) => (
                   <Option key={r.id} value={Number(r.id)}>
-                    {r.display_name} {r.name}
+                    {r.name}
                   </Option>
                 ))}
             </Select>

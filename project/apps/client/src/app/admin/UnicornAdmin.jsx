@@ -551,6 +551,13 @@ class UnicornAdmin extends Component {
           "Admin Mobile": item.udStartupFounderMobileNumber
             ? item.udStartupFounderMobileNumber
             : "---",
+          LastUpdatedDate:
+            item.udPublishedDate &&
+            item.udPublishedDate !== "0000-00-00" &&
+            item.udPublishedDate !== "0000-00-00 00:00:00" &&
+            moment(item.udPublishedDate).isValid()
+              ? moment(item.udPublishedDate).format("DD MMM, YYYY")
+              : "-",
           AdminId: item.udFounderID ? item.udFounderID : "---",
           action: item,
         };
@@ -607,7 +614,13 @@ class UnicornAdmin extends Component {
         title: "Founder Mobile No.",
         dataIndex: "Admin Mobile",
         key: "Admin Mobile",
-        width: 280,
+        width: 260,
+      },
+      {
+        title: "Last Updated Date",
+        dataIndex: "LastUpdatedDate",
+        key: "LastUpdatedDate",
+        width: 440,
       },
 
       {

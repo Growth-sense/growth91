@@ -155,13 +155,214 @@ class RolesPermissions extends Component {
     });
   };
 
+  selectAllPermissions = () => {
+    const all = {
+      startups: {
+        view: true,
+        add: true,
+        edit: true,
+        delete: true,
+        export: true,
+        documents: true,
+        analytics: true,
+      },
+      investors: {
+        view: true,
+        add: true,
+        edit: true,
+        block: true,
+        export: true,
+        approve: true,
+        dashboard: true,
+        g91_money: true,
+      },
+      founders: {
+        view: true,
+        add: true,
+        edit: true,
+        export: true,
+        block: true,
+        dashboard: true,
+        unicorn_plan: true,
+      },
+      investments: {
+        view: true,
+        export: true,
+        approve: true,
+        transfer: true,
+        edit: true,
+        request_sign: true,
+      },
+      groups: {
+        view: true,
+        export: true,
+        manage: true,
+      },
+      group_remove_requests: {
+        view: true,
+        export: true,
+        approve: true,
+      },
+      unicorns_published: {
+        view: true,
+        export: true,
+        preview: true,
+        view_plan: true,
+        view_form: true,
+        view_additional_form: true,
+        view_enquiries: true,
+        export_enquiries: true,
+        edit_publish: true,
+        toggle_highlight: true,
+      },
+      unicorns_all: {
+        view: true,
+        export: true,
+        export_single: true,
+        download_product_deck: true,
+        download_pitch_deck: true,
+      },
+      unicorns_payments: {
+        view: true,
+        export: true,
+        add_offline_payment: true,
+      },
+      premium_members: {
+        view: true,
+        export: true,
+      },
+      deals: {
+        view_open: true,
+        create: true,
+        export: true,
+        update_status: true,
+        view_pitches: true,
+        edit: true,
+        view_commitments: true,
+        invite_investors: true,
+        offline_payment: true,
+        copy_url: true,
+        add_commitment: true,
+        export_commitments_founder: true,
+        export_commitments_reconciliation: true,
+      },
+      deals_completed: {
+        view: true,
+        export: true,
+        update_status: true,
+        view_pitches: true,
+        edit_deal: true,
+        view_commitments: true,
+        manage_payment_link: true,
+        invite_investors: true,
+        offline_payment: true,
+        copy_url: true,
+        add_commitment: true,
+        edit_commitment: true,
+        export_commitments: true,
+      },
+      retail_referral: {
+        view: true,
+        export: true,
+      },
+      institutional_referral: {
+        view: true,
+        create: true,
+        update_status: true,
+        delete: true,
+        view_detail: true,
+        export: true,
+      },
+      payments_online: {
+        view: true,
+        export: true,
+      },
+      payments_offline: {
+        view: true,
+        export: true,
+      },
+      payments_offline_pending: {
+        view: true,
+        export: true,
+        approve: true,
+      },
+      payments_documents: {
+        view: true,
+        export: true,
+      },
+      founder_documents: {
+        view: true,
+        founder: true,
+        assessment: true,
+      },
+      documents: {
+        view: true,
+        add: true,
+        edit: true,
+        delete: true,
+        download: true,
+      },
+      settings: {
+        view: true,
+        deals: true,
+        membership: true,
+        taxation: true,
+        cashfree: true,
+        digio: true,
+      },
+      dropoff: {
+        view: true,
+        export: true,
+      },
+      guest_analytics: {
+        view: true,
+      },
+    };
+
+    this.setState({ perms: all });
+  };
+
+  unselectAllPermissions = () => {
+    this.setState({ perms: {} });
+  };
+
   renderPermissionsMatrix = (perms) => {
     const check = (m, a) => !!(perms[m] && perms[m][a]);
 
     return (
       <>
         {/* Master Data – Startups */}
-        <h6>Master Data – Startups</h6>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h6>Master Data – Startups</h6>
+          <Checkbox
+            checked={
+              check("startups", "view") &&
+              check("startups", "add") &&
+              check("startups", "edit") &&
+              check("startups", "delete") &&
+              check("startups", "export") &&
+              check("startups", "documents") &&
+              check("startups", "analytics")
+            }
+            onChange={(e) => {
+              const actions = [
+                "view",
+                "add",
+                "edit",
+                "delete",
+                "export",
+                "documents",
+                "analytics",
+              ];
+              actions.forEach((action) =>
+                this.togglePerm("startups", action, e.target.checked)
+              );
+            }}
+          >
+            Select All
+          </Checkbox>
+        </div>
+
         <div className="mb-2">
           <Checkbox
             checked={check("startups", "view")}
@@ -229,7 +430,38 @@ class RolesPermissions extends Component {
         <Divider/>
 
         {/* Master Data – Investors */}
-        <h6>Master Data – Investors</h6>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h6>Master Data – Investors</h6>
+          <Checkbox
+            checked={
+              check("investors", "view") &&
+              check("investors", "add") &&
+              check("investors", "edit") &&
+              check("investors", "block") &&
+              check("investors", "export") &&
+              check("investors", "approve") &&
+              check("investors", "dashboard") &&
+              check("investors", "g91_money")
+            }
+            onChange={(e) => {
+              const actions = [
+                "view",
+                "add",
+                "edit",
+                "block",
+                "export",
+                "approve",
+                "dashboard",
+                "g91_money",
+              ];
+              actions.forEach((action) =>
+                this.togglePerm("investors", action, e.target.checked)
+              );
+            }}
+          >
+            Select All
+          </Checkbox>
+        </div>
         <div className="mb-2">
           {/* View list & basic info */}
           <Checkbox
@@ -315,7 +547,36 @@ class RolesPermissions extends Component {
          <Divider/>
 
         {/* Master Data – Founders */}
-        <h6>Master Data – Founders</h6>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h6>Master Data – Founders</h6>
+          <Checkbox
+            checked={
+              check("founders", "view") &&
+              check("founders", "add") &&
+              check("founders", "edit") &&
+              check("founders", "export") &&
+              check("founders", "block") &&
+              check("founders", "dashboard") &&
+              check("founders", "unicorn_plan")
+            }
+            onChange={(e) => {
+              const actions = [
+                "view",
+                "add",
+                "edit",
+                "export",
+                "block",
+                "dashboard",
+                "unicorn_plan",
+              ];
+              actions.forEach((action) =>
+                this.togglePerm("founders", action, e.target.checked)
+              );
+            }}
+          >
+            Select All
+          </Checkbox>
+        </div>
         <div className="mb-2">
           {/* View list & basic info */}
           <Checkbox
@@ -390,7 +651,34 @@ class RolesPermissions extends Component {
 
         <Divider />
 
-        <h6>Master Data – Investments</h6>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h6>Master Data – Investments</h6>
+          <Checkbox
+            checked={
+              check("investments", "view") &&
+              check("investments", "export") &&
+              check("investments", "approve") &&
+              check("investments", "transfer") &&
+              check("investments", "edit") &&
+              check("investments", "request_sign")
+            }
+            onChange={(e) => {
+              const actions = [
+                "view",
+                "export",
+                "approve",
+                "transfer",
+                "edit",
+                "request_sign",
+              ];
+              actions.forEach((action) =>
+                this.togglePerm("investments", action, e.target.checked)
+              );
+            }}
+          >
+            Select All
+          </Checkbox>
+        </div>
         <div className="mb-2">
           <Checkbox
             checked={check("investments", "view")}
@@ -450,7 +738,24 @@ class RolesPermissions extends Component {
         <Divider />
 
         {/* Groups */}
-        <h6>Group Investments Data - Group Investments</h6>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h6>Group Investments Data - Group Investments</h6>
+          <Checkbox
+            checked={
+              check("groups", "view") &&
+              check("groups", "export") &&
+              check("groups", "manage")
+            }
+            onChange={(e) => {
+              const actions = ["view", "export", "manage"];
+              actions.forEach((action) =>
+                this.togglePerm("groups", action, e.target.checked)
+              );
+            }}
+          >
+            Select All
+          </Checkbox>
+        </div>
         <div className="mb-2">
           <Checkbox
             checked={check("groups", "view")}
@@ -482,7 +787,24 @@ class RolesPermissions extends Component {
 
         <Divider />
 
-        <h6>Group Investments Data - Group Remove Requests</h6>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h6>Group Investments Data - Group Remove Requests</h6>
+          <Checkbox
+            checked={
+              check("group_remove_requests", "view") &&
+              check("group_remove_requests", "export") &&
+              check("group_remove_requests", "approve")
+            }
+            onChange={(e) => {
+              const actions = ["view", "export", "approve"];
+              actions.forEach((action) =>
+                this.togglePerm("group_remove_requests", action, e.target.checked)
+              );
+            }}
+          >
+            Select All
+          </Checkbox>
+        </div>
         <div className="mb-2">
           <Checkbox
             checked={check("group_remove_requests", "view")}
@@ -515,7 +837,42 @@ class RolesPermissions extends Component {
         <Divider />
 
         {/* Future Unicorn – View Published Unicorns */}
-        <h6>Future Unicorn – View Published Unicorns</h6>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h6>Future Unicorn – View Published Unicorns</h6>
+          <Checkbox
+            checked={
+              check("unicorns_published", "view") &&
+              check("unicorns_published", "export") &&
+              check("unicorns_published", "preview") &&
+              check("unicorns_published", "view_plan") &&
+              check("unicorns_published", "view_form") &&
+              check("unicorns_published", "view_additional_form") &&
+              check("unicorns_published", "view_enquiries") &&
+              check("unicorns_published", "export_enquiries") &&
+              check("unicorns_published", "edit_publish") &&
+              check("unicorns_published", "toggle_highlight")
+            }
+            onChange={(e) => {
+              const actions = [
+                "view",
+                "export",
+                "preview",
+                "view_plan",
+                "view_form",
+                "view_additional_form",
+                "view_enquiries",
+                "export_enquiries",
+                "edit_publish",
+                "toggle_highlight",
+              ];
+              actions.forEach((action) =>
+                this.togglePerm("unicorns_published", action, e.target.checked)
+              );
+            }}
+          >
+            Select All
+          </Checkbox>
+        </div>
         <div className="mb-2">
           <Checkbox
             checked={check("unicorns_published", "view")}
@@ -623,7 +980,32 @@ class RolesPermissions extends Component {
         <Divider />
 
         {/* Future Unicorn – View All Unicorns */}
-        <h6>Future Unicorn – View All Unicorns</h6>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h6>Future Unicorn – View All Unicorns</h6>
+          <Checkbox
+            checked={
+              check("unicorns_all", "view") &&
+              check("unicorns_all", "export") &&
+              check("unicorns_all", "export_single") &&
+              check("unicorns_all", "download_product_deck") &&
+              check("unicorns_all", "download_pitch_deck")
+            }
+            onChange={(e) => {
+              const actions = [
+                "view",
+                "export",
+                "export_single",
+                "download_product_deck",
+                "download_pitch_deck",
+              ];
+              actions.forEach((action) =>
+                this.togglePerm("unicorns_all", action, e.target.checked)
+              );
+            }}
+          >
+            Select All
+          </Checkbox>
+        </div>
         <div className="mb-2">
           <Checkbox
             checked={!!(perms["unicorns_all"] && perms["unicorns_all"].view)}
@@ -676,7 +1058,28 @@ class RolesPermissions extends Component {
 
 
         {/* Future Unicorn – Payments */}
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
         <h6>Future Unicorn – Payments</h6>
+          <Checkbox
+            checked={
+              check("unicorns_payments", "view") &&
+              check("unicorns_payments", "export") &&
+              check("unicorns_payments", "add_offline_payment")
+            }
+            onChange={(e) => {
+              const actions = [
+                "view",
+                "export",
+                "add_offline_payment",
+              ];
+              actions.forEach((action) =>
+                this.togglePerm("unicorns_payments", action, e.target.checked)
+              );
+            }}
+          >
+            Select All
+          </Checkbox>
+        </div>
         <div className="mb-2">
           <Checkbox
             checked={check("unicorns_payments", "view")}
@@ -714,7 +1117,23 @@ class RolesPermissions extends Component {
         
 
         {/* Premium Members */}
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
         <h6>Premium Members</h6>
+          <Checkbox
+            checked={
+              check("premium_members", "view") &&
+              check("premium_members", "export")
+            }
+            onChange={(e) => {
+              const actions = ["view", "export"];
+              actions.forEach((action) =>
+                this.togglePerm("premium_members", action, e.target.checked)
+              );
+            }}
+          >
+            Select All
+          </Checkbox>
+        </div>
         <div className="mb-2">
           <Checkbox
             checked={check("premium_members", "view")}
@@ -738,7 +1157,48 @@ class RolesPermissions extends Component {
         <Divider/>
 
         {/* Deal Setup */}
-        <h6>Deal Setup - Open Deal</h6>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h6>Deal Setup - Open Deal</h6>
+          <Checkbox
+            checked={
+              check("deals", "view_open") &&
+              check("deals", "create") &&
+              check("deals", "export") &&
+              check("deals", "update_status") &&
+              check("deals", "view_pitches") &&
+              check("deals", "edit") &&
+              check("deals", "view_commitments") &&
+              check("deals", "invite_investors") &&
+              check("deals", "offline_payment") &&
+              check("deals", "copy_url") &&
+              check("deals", "add_commitment") &&
+              check("deals", "export_commitments_founder") &&
+              check("deals", "export_commitments_reconciliation")
+            }
+            onChange={(e) => {
+              const actions = [
+                "view_open",
+                "create",
+                "export",
+                "update_status",
+                "view_pitches",
+                "edit",
+                "view_commitments",
+                "invite_investors",
+                "offline_payment",
+                "copy_url",
+                "add_commitment",
+                "export_commitments_founder",
+                "export_commitments_reconciliation",
+              ];
+              actions.forEach((action) =>
+                this.togglePerm("deals", action, e.target.checked)
+              );
+            }}
+          >
+            Select All
+          </Checkbox>
+        </div>
         <div className="mb-2">
           {/* Existing */}
           <Checkbox
@@ -777,7 +1237,7 @@ class RolesPermissions extends Component {
           >
             Update Deal Status
           </Checkbox>
-          
+
           <Checkbox
             checked={check("deals", "view_pitches")}
             onChange={(e) =>
@@ -793,7 +1253,7 @@ class RolesPermissions extends Component {
               this.togglePerm("deals", "edit", e.target.checked)
             }
           >
-            Edit Deal 
+            Edit Deal
           </Checkbox>
 
           <Checkbox
@@ -823,7 +1283,7 @@ class RolesPermissions extends Component {
             Offline Payment
           </Checkbox>
 
-           <Checkbox
+          <Checkbox
             checked={check("deals", "copy_url")}
             onChange={(e) =>
               this.togglePerm("deals", "copy_url", e.target.checked)
@@ -867,7 +1327,48 @@ class RolesPermissions extends Component {
         </div>
         <Divider/>
 
-        <h6>Deal Setup - Completed Deal</h6>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h6>Deal Setup - Completed Deal</h6>
+          <Checkbox
+            checked={
+              check("deals_completed", "view") &&
+              check("deals_completed", "export") &&
+              check("deals_completed", "update_status") &&
+              check("deals_completed", "view_pitches") &&
+              check("deals_completed", "edit_deal") &&
+              check("deals_completed", "view_commitments") &&
+              check("deals_completed", "manage_payment_link") &&
+              check("deals_completed", "invite_investors") &&
+              check("deals_completed", "offline_payment") &&
+              check("deals_completed", "copy_url") &&
+              check("deals_completed", "add_commitment") &&
+              check("deals_completed", "edit_commitment") &&
+              check("deals_completed", "export_commitments")
+            }
+            onChange={(e) => {
+              const actions = [
+                "view",
+                "export",
+                "update_status",
+                "view_pitches",
+                "edit_deal",
+                "view_commitments",
+                "manage_payment_link",
+                "invite_investors",
+                "offline_payment",
+                "copy_url",
+                "add_commitment",
+                "edit_commitment",
+                "export_commitments",
+              ];
+              actions.forEach((action) =>
+                this.togglePerm("deals_completed", action, e.target.checked)
+              );
+            }}
+          >
+            Select All
+          </Checkbox>
+        </div>
         <Checkbox
           checked={check("deals_completed", "view")}
           onChange={(e) =>
@@ -895,7 +1396,7 @@ class RolesPermissions extends Component {
           Update Deal Status
         </Checkbox>
 
-         <Checkbox
+        <Checkbox
           checked={check("deals_completed", "view_pitches")}
           onChange={(e) =>
             this.togglePerm("deals_completed", "view_pitches", e.target.checked)
@@ -973,7 +1474,7 @@ class RolesPermissions extends Component {
             this.togglePerm("deals_completed", "edit_commitment", e.target.checked)
           }
         >
-          Edit / Update Commitment 
+          Edit / Update Commitment
         </Checkbox>
 
         <Checkbox
@@ -988,7 +1489,23 @@ class RolesPermissions extends Component {
         <Divider />
 
         {/* Retail Referral */}
-        <h6>Referral - Retail Referral</h6>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h6>Referral - Retail Referral</h6>
+          <Checkbox
+            checked={
+              check("retail_referral", "view") &&
+              check("retail_referral", "export")
+            }
+            onChange={(e) => {
+              const actions = ["view", "export"];
+              actions.forEach((action) =>
+                this.togglePerm("retail_referral", action, e.target.checked)
+              );
+            }}
+          >
+            Select All
+          </Checkbox>
+        </div>
         <div className="mb-2">
           <Checkbox
             checked={check("retail_referral", "view")}
@@ -1011,7 +1528,34 @@ class RolesPermissions extends Component {
         <Divider />
 
         {/* Institutional Referral */}
-        <h6>Referral - Institutional Referral</h6>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h6>Referral - Institutional Referral</h6>
+          <Checkbox
+            checked={
+              check("institutional_referral", "view") &&
+              check("institutional_referral", "create") &&
+              check("institutional_referral", "update_status") &&
+              check("institutional_referral", "delete") &&
+              check("institutional_referral", "view_detail") &&
+              check("institutional_referral", "export")
+            }
+            onChange={(e) => {
+              const actions = [
+                "view",
+                "create",
+                "update_status",
+                "delete",
+                "view_detail",
+                "export",
+              ];
+              actions.forEach((action) =>
+                this.togglePerm("institutional_referral", action, e.target.checked)
+              );
+            }}
+          >
+            Select All
+          </Checkbox>
+        </div>
         <div className="mb-2">
           <Checkbox
             checked={check("institutional_referral", "view")}
@@ -1075,7 +1619,23 @@ class RolesPermissions extends Component {
         <Divider />
 
         {/* Payments – Online Payments */}
-        <h6>Payments – Online Payments</h6>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h6>Payments – Online Payments</h6>
+          <Checkbox
+            checked={
+              check("payments_online", "view") &&
+              check("payments_online", "export")
+            }
+            onChange={(e) => {
+              const actions = ["view", "export"];
+              actions.forEach((a) =>
+                this.togglePerm("payments_online", a, e.target.checked)
+              );
+            }}
+          >
+            Select All
+          </Checkbox>
+        </div>
         <div className="mb-2">
           <Checkbox
             checked={check("payments_online", "view")}
@@ -1100,7 +1660,23 @@ class RolesPermissions extends Component {
         <Divider />
 
         {/* Payments – Offline Payments */}
-        <h6>Payments – Offline Payments</h6>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h6>Payments – Offline Payments</h6>
+          <Checkbox
+            checked={
+              check("payments_offline", "view") &&
+              check("payments_offline", "export")
+            }
+            onChange={(e) => {
+              const actions = ["view", "export"];
+              actions.forEach((a) =>
+                this.togglePerm("payments_offline", a, e.target.checked)
+              );
+            }}
+          >
+            Select All
+          </Checkbox>
+        </div>
         <div className="mb-2">
           <Checkbox
             checked={check("payments_offline", "view")}
@@ -1124,7 +1700,24 @@ class RolesPermissions extends Component {
         <Divider />
 
         {/* Payments – Pending Offline Payments */}
-        <h6>Payments – Pending Offline Payments</h6>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h6>Payments – Pending Offline Payments</h6>
+          <Checkbox
+            checked={
+              check("payments_offline_pending", "view") &&
+              check("payments_offline_pending", "export") &&
+              check("payments_offline_pending", "approve")
+            }
+            onChange={(e) => {
+              const actions = ["view", "export", "approve"];
+              actions.forEach((a) =>
+                this.togglePerm("payments_offline_pending", a, e.target.checked)
+              );
+            }}
+          >
+            Select All
+          </Checkbox>
+        </div>
         <div className="mb-2">
           <Checkbox
             checked={check("payments_offline_pending", "view")}
@@ -1157,7 +1750,23 @@ class RolesPermissions extends Component {
         <Divider />
 
         {/* Payments – Document Payments */}
-        <h6>Payments – Document Payments</h6>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h6>Payments – Document Payments</h6>
+          <Checkbox
+            checked={
+              check("payments_documents", "view") &&
+              check("payments_documents", "export")
+            }
+            onChange={(e) => {
+              const actions = ["view", "export"];
+              actions.forEach((a) =>
+                this.togglePerm("payments_documents", a, e.target.checked)
+              );
+            }}
+          >
+            Select All
+          </Checkbox>
+        </div>
         <div className="mb-2">
           <Checkbox
             checked={check("payments_documents", "view")}
@@ -1180,8 +1789,25 @@ class RolesPermissions extends Component {
 
         <Divider />
 
-        {/* Master Data – Founder Documents */}
-        <h6>Founder Documents</h6>
+        {/*Founder Documents */}
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h6>Founder Documents</h6>
+          <Checkbox
+            checked={
+              check("founder_documents", "view") &&
+              check("founder_documents", "founder") &&
+              check("founder_documents", "assessment")
+            }
+            onChange={(e) => {
+              const actions = ["view", "founder", "assessment"];
+              actions.forEach((a) =>
+                this.togglePerm("founder_documents", a, e.target.checked)
+              );
+            }}
+          >
+            Select All
+          </Checkbox>
+        </div>
         <div className="mb-2">
           <Checkbox
             checked={check("founder_documents", "view")}
@@ -1214,7 +1840,26 @@ class RolesPermissions extends Component {
         <Divider />
         
         {/* Documents */}
-        <h6>Documents</h6>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h6>Documents</h6>
+          <Checkbox
+            checked={
+              check("documents", "view") &&
+              check("documents", "add") &&
+              check("documents", "edit") &&
+              check("documents", "delete") &&
+              check("documents", "download")
+            }
+            onChange={(e) => {
+              const actions = ["view", "add", "edit", "delete", "download"];
+              actions.forEach((a) =>
+                this.togglePerm("documents", a, e.target.checked)
+              );
+            }}
+          >
+            Select All
+          </Checkbox>
+        </div>
         <div className="mb-2">
           <Checkbox
             checked={check("documents", "view")}
@@ -1265,7 +1910,34 @@ class RolesPermissions extends Component {
         <Divider />
 
         {/* Settings */}
-        <h6>Settings</h6>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h6>Settings</h6>
+          <Checkbox
+            checked={
+              check("settings", "view") &&
+              check("settings", "deals") &&
+              check("settings", "membership") &&
+              check("settings", "taxation") &&
+              check("settings", "cashfree") &&
+              check("settings", "digio")
+            }
+            onChange={(e) => {
+              const actions = [
+                "view",
+                "deals",
+                "membership",
+                "taxation",
+                "cashfree",
+                "digio",
+              ];
+              actions.forEach((action) =>
+                this.togglePerm("settings", action, e.target.checked)
+              );
+            }}
+          >
+            Select All
+          </Checkbox>
+        </div>
         <div className="mb-2">
           <Checkbox
             checked={check("settings", "view")}
@@ -1325,7 +1997,23 @@ class RolesPermissions extends Component {
         <Divider />
 
         {/* Dropoff Analytics */}
-        <h6>Analytics - Dropoff</h6>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h6>Analytics - Dropoff</h6>
+          <Checkbox
+            checked={
+              check("dropoff", "view") &&
+              check("dropoff", "export")
+            }
+            onChange={(e) => {
+              const actions = ["view", "export"];
+              actions.forEach((a) =>
+                this.togglePerm("dropoff", a, e.target.checked)
+              );
+            }}
+          >
+            Select All
+          </Checkbox>
+        </div>
         <div className="mb-2">
           <Checkbox
             checked={check("dropoff", "view")}
@@ -1349,7 +2037,20 @@ class RolesPermissions extends Component {
         <Divider/>
 
         {/* Guest Analytics */}
-        <h6>Analytics - Guest</h6>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h6>Analytics - Guest</h6>
+          <Checkbox
+            checked={check("guest_analytics", "view")}
+            onChange={(e) => {
+              const actions = ["view"];
+              actions.forEach((a) =>
+                this.togglePerm("guest_analytics", a, e.target.checked)
+              );
+            }}
+          >
+            Select All
+          </Checkbox>
+        </div>
         <div className="mb-2">
           <Checkbox
             checked={check("guest_analytics", "view")}
@@ -1520,9 +2221,28 @@ class RolesPermissions extends Component {
                   <div className="col-md-9 mb-3">
                     <Card
                       size="small"
-                      title="Permissions"
+                      title={
+                        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                          <span>Permissions</span>
+                          <Checkbox
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                this.selectAllPermissions();
+                              } else {
+                                this.unselectAllPermissions();
+                              }
+                            }}
+                          >
+                            Select All
+                          </Checkbox>
+                        </div>
+                      }
                       extra={
-                        <Button type="primary" onClick={this.savePermissions}>
+                        <Button
+                          size="small"
+                          type="primary"
+                          onClick={this.savePermissions}
+                        >
                           Save
                         </Button>
                       }

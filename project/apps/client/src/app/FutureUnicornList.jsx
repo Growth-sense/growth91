@@ -436,9 +436,20 @@ useEffect(() => {
           }
 
           /* Desktop/Laptop: 60% width */
-          @media (min-width: 1024px) {
+          /* 1024–1199px: match card-container base padding (0 10px) */
+          @media (min-width: 1024px) and (max-width: 1199px) {
             .search-bar-container {
-              padding: 0 16px;             /* match card-container on desktop */
+              padding: 0 10px;             /* match card-container at this breakpoint */
+            }
+            .search-bar-container .search-input {
+              width: 60%;
+            }
+          }
+
+          /* ≥1200px: match card-container desktop padding (0 16px) */
+          @media (min-width: 1200px) {
+            .search-bar-container {
+              padding: 0 16px;             /* match card-container on large desktop */
             }
             .search-bar-container .search-input {
               width: 60%;
@@ -468,6 +479,70 @@ useEffect(() => {
           @media (max-width: 575px) {
             .search-bar-container { padding: 0 12px; margin-left: 10px; margin-right: 10px; }
           }
+
+          /* Filter bar base styles */
+          .filter-bar-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+          }
+
+          /* Default (mobile/tablet): stack search on top, filter below */
+          .search-with-filter-row {
+            display: block;                /* no flex by default */
+          }
+
+          .search-with-filter-row .filter-bar-container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 8px auto 0 auto;      /* small gap under input */
+            padding: 0 10px;
+            box-sizing: border-box;
+          }
+
+          /* Tablet (768–991px): match search-bar-container padding */
+          @media (min-width: 768px) and (max-width: 991px) {
+            .search-with-filter-row .filter-bar-container {
+              padding: 0 16px;
+              margin-left: 0;
+              margin-right: 0;
+            }
+          }
+
+          /* Large Mobile (576–767px): match search-bar-container padding/margin */
+          @media (min-width: 576px) and (max-width: 767px) {
+            .search-with-filter-row .filter-bar-container {
+              padding: 0 12px;
+              margin-left: 8px;
+              margin-right: 8px;
+            }
+          }
+
+          /* Small Mobile (<576px): match search-bar-container padding/margin */
+          @media (max-width: 575px) {
+            .search-with-filter-row .filter-bar-container {
+              padding: 0 28px;
+              margin-left: 10px;
+              margin-right: 10px;
+            }
+          }
+
+          /* Desktop only: search left, filter right in same row */
+          @media (min-width: 1024px) {
+            .search-with-filter-row {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              gap: 12px;
+            }
+
+            .search-with-filter-row .filter-bar-container {
+              width: auto;
+              max-width: none;
+              margin: 0;
+              padding: 0 25px;
+            }
+          }
         `}
       </style>
       <section className="community-sections">
@@ -481,40 +556,37 @@ useEffect(() => {
             </div>
           </div>
 
-          {/* Search Bar */}
-          <div className="search-bar-container">
+          {/* Search Bar + Filter in same row */}
+          <div className="search-bar-container search-with-filter-row">
             <Input
               placeholder="Search..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="search-input py-2"
             />
+            {/* Filter Icon */}
+            <div className="filter-bar-container">
+              <div
+                className="search-input-unicorn1-filter"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginBottom: "20px",
+                }}
+              >
+                <h2 className="mx-4">Filters</h2>
+                <span
+                  onClick={() => setShowModal(true)}
+                  style={{ cursor: "pointer" }}
+                  className="filter-span"
+                >
+                  <i className="fa-solid fa-filter"></i>
+                </span>
+              </div>
+            </div>
           </div>
 
           <div className="list-container list-mobile-only">
-            {/* Filter Icon */}
-            <div className="row justify-content-end d-flex filter-box">
-              <div className="col-lg-12">
-                <div
-                  className="search-input-unicorn1-filter"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    marginBottom: "20px",
-                  }}
-                >
-                  <h2 className="mx-4">Filters</h2>
-                  <span
-                    onClick={() => setShowModal(true)}
-                    style={{ cursor: "pointer" }}
-                    className="filter-span"
-                  >
-                    <i className="fa-solid fa-filter"></i>
-                  </span>
-                </div>
-              </div>
-            </div>
-
             {/* Filter Modal */}
             {/* Filter Modal */}
             <Modal
