@@ -286,6 +286,12 @@ class SupportingDocuments extends Component {
       
       e.target.value = ''; // Reset input
     } else if (e.target.name == "tudLogoImage") {
+      const ALLOWED_FORMATS = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+      if (!ALLOWED_FORMATS.includes(e.target.files[0].type)) {
+          message.error(`${e.target.files[0].name} format not allowed. Only jpg, jpeg, png, webp accepted.`);
+          e.target.value = '';
+          return;
+      }
       formData.append("upfile", e.target.files[0]);
       console.log(formData.get("tudTempUdID"));
       formData.append("tudTempUdID", this.props.unicorn.tudTempUdID);
@@ -307,6 +313,12 @@ class SupportingDocuments extends Component {
         );
       }
     } else if (e.target.name == "tudSponsorImage") {
+      const ALLOWED_FORMATS = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+      if (!ALLOWED_FORMATS.includes(e.target.files[0].type)) {
+          message.error(`${e.target.files[0].name} format not allowed. Only jpg, jpeg, png, webp accepted.`);
+          e.target.value = '';
+          return;
+      }
       formData.append("upfile", e.target.files[0]);
       formData.append("tudTempUdID", this.props.unicorn.tudTempUdID);
 

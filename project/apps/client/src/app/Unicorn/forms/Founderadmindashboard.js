@@ -938,6 +938,15 @@ class Founderadmindashboard extends Component {
     });
   };
 
+  parseBannerImages = (bannerImage) => {
+    if (!bannerImage) return [];
+    try {
+      const parsed = JSON.parse(bannerImage);
+      return Array.isArray(parsed) ? parsed : [parsed];
+    } catch (e) {
+      return [bannerImage];
+    }
+  };
 
   publishunicorn = () => {
     
@@ -986,6 +995,7 @@ class Founderadmindashboard extends Component {
       this.state.unicorn.tudLogoImage == "" ||
       !this.state.unicorn.tudBannerImage ||
       this.state.unicorn.tudBannerImage == "" ||
+      this.parseBannerImages(this.state.unicorn.tudBannerImage).length < 1 ||
       !this.state.unicorn.tudPitchDeck ||
       this.state.unicorn.tudPitchDeck == "" ||
       (this.state.unicorn.tudSponsorName != "" && this.state.unicorn.tudSponsorImage == "") || 

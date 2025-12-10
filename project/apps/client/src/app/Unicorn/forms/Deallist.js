@@ -321,7 +321,7 @@ class Dellistinicorn extends Component {
                               ? "#ff4d4f"
                               : "green",
                         }}>
-                          {`${this.props.unicorn.tudDealDescription.length}/750 characters`}
+                          {`${this.props.unicorn.tudDealDescription.length}/750 characters (Min 500 characters)`}
                         </div>
                       </div>{" "}
                       <div className="form-group">

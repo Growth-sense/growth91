@@ -955,7 +955,7 @@ const NewFutureUnicorn = () => {
                               process.env.REACT_APP_BASE_URL
                             }api/uploads/unicorndeals/${
                               item.tudTempUdID
-                            }/${JSON.parse(item.udBannerImage)}`) ||
+                            }/${parseBannerImage(item.udBannerImage)}`) ||
                           "https://growth91.com/api/uploads/deal/banner/34/1719999515.jpg"
                         }
                         alt="Banner"

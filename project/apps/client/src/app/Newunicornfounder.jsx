@@ -6,6 +6,7 @@ import { NavLink, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Bridge from './constants/Bridge';
 import { ViewPlan } from './Unicorn/ViewPlan';
 import { LastUpdatedBadge } from './components/LastUpdatedBadge';
+import { parseBannerImage } from './helper/utilHelper.js';
 import GuestAccessModal from './components/GuestAccessModal';
 
 const Newunicornfounder = () => {
@@ -1123,7 +1124,7 @@ const Newunicornfounder = () => {
                               process.env.REACT_APP_BASE_URL
                             }api/uploads/unicorndeals/${
                               item.tudTempUdID
-                            }/${JSON.parse(item.udBannerImage)}`) ||
+                            }/${parseBannerImage(item.udBannerImage)}`) ||
                           "https://growth91.com/api/uploads/deal/banner/34/1719999515.jpg"
                         }
                         alt="Banner"
