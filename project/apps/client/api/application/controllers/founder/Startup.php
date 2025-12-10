@@ -1397,7 +1397,7 @@ class Startup extends CI_Controller {
 			SELECT tempunicorndeals.*,tempunicorndeals2.*, ud.udPublished as mainPublished
 			FROM tempunicorndeals 
 			LEFT JOIN tempunicorndeals2 on tempunicorndeals.tudTempUdID = tempunicorndeals2.tudTempUdID 
-			LEFT JOIN unicorndeals ud ON tempunicorndeals.tudTempUdID = ud.unicornDealID 
+			LEFT JOIN unicorndeals ud ON tempunicorndeals.tudTempUdID = ud.tudTempUdID 
 			WHERE $whereClause
 			EOT;
 			
@@ -2810,23 +2810,6 @@ class Startup extends CI_Controller {
 				$current_highlighted = $current_record->isHighlighted ?? 0;
 				$new_highlighted = $current_highlighted ? 0 : 1;
 				
-				// If trying to highlight, check if we already have 6 highlighted unicorns
-				if ($new_highlighted == 1) {
-					$highlighted_count = $this->db
-						->where('isHighlighted', 1)
-						->count_all_results('unicorndeals2');
-					
-					if ($highlighted_count >= 6) {
-						$response = [
-							'status' => '0',
-							'message' => 'Maximum 6 unicorns can be highlighted. Please unhighlight another unicorn first.'
-						];
-						$this->output
-							->set_content_type('application/json')
-							->set_output(json_encode($response));
-						return;
-					}
-				}
 				
 				// Update the highlight status
 				$post_data = [
