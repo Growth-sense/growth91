@@ -18,6 +18,7 @@ import { applyTheme, GROWTH91_THEMES } from "./helper/themes";
 import "./styles/unicorn-theme.css";
 import GuestAccessModal from "./components/GuestAccessModal.jsx";
 import LoginRequiredModal from "./components/LoginRequiredModal.jsx";
+import HelmetPage from "./components/HelmetPage.jsx";
 
 export const FutureUnicornDescription = (props) => {
   const settings = {
@@ -140,24 +141,33 @@ const getOrCreateGuestId = () => {
   };
 
   function getuniondata() {
-    let params = {
-      page: 0,
-      pagesize: 10,
-    };
-    Bridge.Unicorn.unicorndealsByInvestors(params).then((result) => {
-      console.log('Unicorn data loaded:', result);
-      setUnicorn(result.data);
+    if (!urlName) {
+      console.log('No urlName provided for unicorn detail page');
+      return;
+    }
 
-      // Load and apply theme for this unicorn
-      if (result.data && result.data.length > 0 && urlName) {
-        const currentUnicorn = result.data.find(item => item.udUrlName == urlName);
-        if (currentUnicorn) {
-          console.log('Found unicorn by urlName, loading theme...');
-          loadAndApplyTheme(currentUnicorn.unicornDealID, currentUnicorn.tudTempUdID);
-          setCurrentUnicornId(currentUnicorn.unicornDealID); 
-        } else {
-          console.log('Unicorn not found with urlName:', urlName);
+    const params = {
+      udUrlName: urlName,
+    };
+
+    Bridge.Unicorn.getUnicornByUrlName(params).then((result) => {
+      console.log('Unicorn data loaded by urlName:', result);
+
+      if (result && result.status === '1' && result.data) {
+        const item = result.data;
+
+        // Keep existing rendering logic which expects an array
+        setUnicorn([item]);
+
+        // Always load theme and track currentUnicornId when unicornDealID exists
+        if (item.unicornDealID) {
+          console.log('Loading theme for unicorn from getUnicornByUrlName...');
+          loadAndApplyTheme(item.unicornDealID, item.tudTempUdID);
+          setCurrentUnicornId(item.unicornDealID);
         }
+      } else {
+        console.log('Unicorn not found with udUrlName:', urlName);
+        setUnicorn([]);
       }
     });
   }
@@ -958,6 +968,13 @@ text-align: justify;
         unicorn
           .filter((item) => item.udUrlName == urlName)
           .map((item, index) => {
+            
+            const bannerImages = parseBannerImages(item.udBannerImage);
+            const firstBanner = bannerImages[0];
+            
+            const image = firstBanner
+              ? getImageUrl(firstBanner, item.tudTempUdID)
+              : undefined;
             return (
               <>
                 {/* loop through items and print all for debugging */}
@@ -970,6 +987,12 @@ text-align: justify;
                   </div>
                 );
               })} */}
+                <HelmetPage
+                  title={item.udStartupName}
+                  description={item.udDealDescription}
+                  image={image} 
+                  keywords={item.udCategory}
+                />
 
                 <section className="design-space">
                   <div className="container">

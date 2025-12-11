@@ -277,6 +277,7 @@ const URLs = {
   editunicorndraftadditional:"founder/Startup/editunicorndraftadditional",
   publishunicorndealadditional:"founder/Startup/publishunicorndealadditional",
   unicorndealsByInvestors:"founder/Startup/unicorndealsByInvestors",
+  getUnicornByUrlName:"founder/Startup/getUnicornByUrlName",
   getAllUnicorns:"founder/Startup/getAllUnicorns",
   getUnicornPayment:"founder/Startup/getUnicornPayment",
   uploadunicornFiles:"founder/Startup/uploadunicornFiles",

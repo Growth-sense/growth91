@@ -1359,6 +1359,56 @@ class Startup extends CI_Controller {
 		->set_output(json_encode($response));	
 	}
 
+	// Get single unicorn deal by URL name (supports guest vs full investor view)
+	function getUnicornByUrlName() {
+		// header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		// header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+
+		if (!empty($formdata) && !empty($formdata['udUrlName'])) {
+			$udUrlName = $formdata['udUrlName'];
+
+			$sql = <<<EOT
+			SELECT unicorndeals.*, unicorndeals2.*, users.unicorn_start_date, users.unicorn_end_date, users.left_edit, users.unicorn_plan, users.utrref, users.unicorn_gst, unicorn_gst_registered_address, unicorn_gst_name
+			FROM unicorndeals
+			LEFT JOIN unicorndeals2 ON unicorndeals.unicornDealID = unicorndeals2.unicornDealID
+			LEFT JOIN users ON unicorndeals.udFounderID = users.investor_id
+			WHERE unicorndeals2.udUrlName = ?
+			AND unicorndeals.udPublished = 'Published'
+			LIMIT 1
+			EOT;
+
+			$query = $this->db->query($sql, array($udUrlName));
+			$row = $query->row();
+
+			if ($row) {
+				$response = [
+					'status' => '1',
+					'message' => 'Data found.',
+					'data' => $row,
+				];
+			} else {
+				$response = [
+					'status' => '0',
+					'message' => 'Unicorn deal not found.',
+				];
+			}
+		} else {
+			$response = [
+				'status' => '0',
+				'message' => 'Please provide udUrlName.',
+			];
+		}
+
+		$this->output
+		->set_content_type('application/json')
+		->set_output(json_encode($response));	
+	}
+
 	// Unicorn deals for Investors
 	function getAllUnicorns() {
 		// header("Access-Control-Allow-Origin: *");

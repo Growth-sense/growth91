@@ -17,6 +17,7 @@ import { extractVideoIDFromYoutubeUrl, getAbsoluteUrl } from "../../helper/utilH
 import moment from "moment";
 import { applyTheme, GROWTH91_THEMES } from "../../helper/themes";
 import "../../styles/unicorn-theme.css";
+import HelmetPage from "../../components/HelmetPage";
 
 export const Preview = (props) => {
   const location = useLocation();
@@ -961,8 +962,21 @@ text-align: justify;
         [unicorn].map((item, index) => {
           console.log(item);
 
+          const bannerImages = parseBannerImages(item.udBannerImage);
+            const firstBanner = bannerImages[0];
+            
+            const image = firstBanner
+              ? getImageUrl(firstBanner, item.tudTempUdID)
+              : undefined;
+
           return (
             <>
+              <HelmetPage
+                title={item.udStartupName}
+                description={item.udDealDescription}
+                image={image}
+                keywords={item.udCategory}
+              />
               <section className="design-space">
                 <div className="container">
                   {/* Image Section */}
