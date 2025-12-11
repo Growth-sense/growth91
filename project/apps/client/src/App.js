@@ -250,6 +250,7 @@ import Tulua2 from './app/deal-pages/Tulua2.jsx'
 import RolesPermissions from "./app/admin/RolesPermissions";
 import UserRoleAssign from "./app/admin/UserRoleAssign";
 import ProtectedAdminRoute from "./app/admin/common/ProtectedAdminRoute";
+import TargetPeak2 from "./app/deal-pages/TargetPeak2.jsx";
 
 ReactGA.initialize(TRACKING_ID);
 
@@ -723,7 +724,7 @@ function App() {
           {/* <Route path="/petmojo" exact>
             <ProtectDeals Component={Petmojo} />
           </Route> */}
-          <Route path="/Targetpeak" exact>
+          <Route path="/Targetpeak-0" exact>
             <ProtectDeals Component={Targetpeak} />
           </Route>
           <Route path="/Yolo" exact>
@@ -737,6 +738,9 @@ function App() {
           </Route>
           <Route path="/Tulua" exact>
             <ProtectDeals Component={Tulua2} />
+          </Route>
+          <Route path="/TargetPeak" exact>
+            <ProtectDeals Component={TargetPeak2} />
           </Route>
           <Route path="/TuluaRound1" exact>
             <ProtectDeals Component={Tulua} />

@@ -659,8 +659,11 @@ console.log("isGuest", isGuest);
 
 .media-card-image {
   width: 100%;
-  height: 180px;
-  object-fit: fill;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  object-position: center;
+  display: block;
 }
 .row {
   display: flex;
@@ -980,7 +983,10 @@ text-align: justify;
                     >
                       <CoverImageCarousel
                         images={parseBannerImages(item.udBannerImage)}
-                        imageUrls={getCarouselImageUrls(parseBannerImages(item.udBannerImage), item.tudTempUdID)}
+                        imageUrls={getCarouselImageUrls(
+                          parseBannerImages(item.udBannerImage),
+                          item.tudTempUdID
+                        )}
                         altText={item.udStartupName || "Startup Cover"}
                         autoPlayInterval={6500}
                         showControls={true}
@@ -1012,25 +1018,34 @@ text-align: justify;
                           <h1>{item.udStartupName}</h1>
 
                           {/* Profile Badges - Stage + Sector + All Visibility Tags */}
-                          <div style={{
-                            marginTop: "12px",
-                            marginBottom: "12px",
-                            display: "flex",
-                            flexWrap: "wrap",
-                            gap: "8px"
-                          }}>
+                          <div
+                            style={{
+                              marginTop: "12px",
+                              marginBottom: "12px",
+                              display: "flex",
+                              flexWrap: "wrap",
+                              gap: "8px",
+                            }}
+                          >
                             {/* Stage Badge */}
                             {(item.udStage || item.tudStage) && (
-                              <Tooltip title={`Funding Stage: ${item.udStage || item.tudStage}`}>
-                                <span style={{
-                                  backgroundColor: "var(--custom-theme-color, #191964)",
-                                  color: "#ffffff",
-                                  padding: "3px 8px",
-                                  borderRadius: "20px",
-                                  fontSize: "14px",
-                                  fontWeight: "600",
-                                  border: "1px solid rgba(255, 255, 255, 0.3)",
-                                }}
+                              <Tooltip
+                                title={`Funding Stage: ${
+                                  item.udStage || item.tudStage
+                                }`}
+                              >
+                                <span
+                                  style={{
+                                    backgroundColor:
+                                      "var(--custom-theme-color, #191964)",
+                                    color: "#ffffff",
+                                    padding: "3px 8px",
+                                    borderRadius: "20px",
+                                    fontSize: "14px",
+                                    fontWeight: "600",
+                                    border:
+                                      "1px solid rgba(255, 255, 255, 0.3)",
+                                  }}
                                 >
                                   {item.udStage || item.tudStage}
                                 </span>
@@ -1039,16 +1054,23 @@ text-align: justify;
 
                             {/* Sector Badge */}
                             {(item.udCategory || item.tudCategory) && (
-                              <Tooltip title={`Industry Sector: ${item.udCategory || item.tudCategory}`}>
-                                <span style={{
-                                  backgroundColor: "var(--custom-theme-color, #191964)",
-                                  color: "#ffffff",
-                                  padding: "3px 8px",
-                                  borderRadius: "20px",
-                                  fontSize: "14px",
-                                  fontWeight: "600",
-                                  border: "1px solid rgba(255, 255, 255, 0.3)",
-                                }}
+                              <Tooltip
+                                title={`Industry Sector: ${
+                                  item.udCategory || item.tudCategory
+                                }`}
+                              >
+                                <span
+                                  style={{
+                                    backgroundColor:
+                                      "var(--custom-theme-color, #191964)",
+                                    color: "#ffffff",
+                                    padding: "3px 8px",
+                                    borderRadius: "20px",
+                                    fontSize: "14px",
+                                    fontWeight: "600",
+                                    border:
+                                      "1px solid rgba(255, 255, 255, 0.3)",
+                                  }}
                                 >
                                   {item.udCategory || item.tudCategory}
                                 </span>
@@ -1056,44 +1078,66 @@ text-align: justify;
                             )}
 
                             {/* Visibility Tags */}
-                            {((item.udTag && item.udTag !== "None") || (item.tudTag && item.tudTag !== "None")) && (
+                            {((item.udTag && item.udTag !== "None") ||
+                              (item.tudTag && item.tudTag !== "None")) && (
                               <>
                                 {/* Show first 3 visibility tags */}
-                                {(item.udTag || item.tudTag).split(",").slice(0, 3).map((tag, tagIndex) => (
-                                  <Tooltip title={`Visibility Tag: ${tag.trim()}`}>
-                                    <span
-                                      key={tagIndex}
-                                      style={{
-                                        backgroundColor: "var(--custom-theme-color, #191964)",
-                                        color: "#ffffff",
-                                        padding: "3px 8px",
-                                        borderRadius: "20px",
-                                        fontSize: "14px",
-                                        fontWeight: "600",
-                                        border: "1px solid rgba(255, 255, 255, 0.3)",
-                                      }}
+                                {(item.udTag || item.tudTag)
+                                  .split(",")
+                                  .slice(0, 3)
+                                  .map((tag, tagIndex) => (
+                                    <Tooltip
+                                      title={`Visibility Tag: ${tag.trim()}`}
                                     >
-                                      {tag.trim()}
-                                    </span>
-                                  </Tooltip>
-                                ))}
+                                      <span
+                                        key={tagIndex}
+                                        style={{
+                                          backgroundColor:
+                                            "var(--custom-theme-color, #191964)",
+                                          color: "#ffffff",
+                                          padding: "3px 8px",
+                                          borderRadius: "20px",
+                                          fontSize: "14px",
+                                          fontWeight: "600",
+                                          border:
+                                            "1px solid rgba(255, 255, 255, 0.3)",
+                                        }}
+                                      >
+                                        {tag.trim()}
+                                      </span>
+                                    </Tooltip>
+                                  ))}
 
                                 {/* Show "+X more" if there are more than 3 tags */}
-                                {(item.udTag || item.tudTag).split(",").length > 3 && (
-                                  <Tooltip title={`Additional tags: ${(item.udTag || item.tudTag).split(",").slice(3).map(t => t.trim()).join(", ")}`}>
+                                {(item.udTag || item.tudTag).split(",").length >
+                                  3 && (
+                                  <Tooltip
+                                    title={`Additional tags: ${(
+                                      item.udTag || item.tudTag
+                                    )
+                                      .split(",")
+                                      .slice(3)
+                                      .map((t) => t.trim())
+                                      .join(", ")}`}
+                                  >
                                     <span
                                       style={{
-                                        backgroundColor: "var(--custom-theme-color, #191964)",
+                                        backgroundColor:
+                                          "var(--custom-theme-color, #191964)",
                                         color: "#ffffff",
                                         padding: "3px 8px",
                                         borderRadius: "20px",
                                         fontSize: "14px",
                                         fontWeight: "600",
-                                        border: "1px solid rgba(255, 255, 255, 0.3)",
-                                        opacity: "0.6"
+                                        border:
+                                          "1px solid rgba(255, 255, 255, 0.3)",
+                                        opacity: "0.6",
                                       }}
                                     >
-                                      +{(item.udTag || item.tudTag).split(",").length - 3} more
+                                      +
+                                      {(item.udTag || item.tudTag).split(",")
+                                        .length - 3}{" "}
+                                      more
                                     </span>
                                   </Tooltip>
                                 )}
@@ -1103,7 +1147,9 @@ text-align: justify;
 
                           {/* Last Updated Badge */}
                           <div style={{ marginBottom: "8px" }}>
-                            <LastUpdatedBadge udPublishedDate={item.udPublishedDate} />
+                            <LastUpdatedBadge
+                              udPublishedDate={item.udPublishedDate}
+                            />
                           </div>
 
                           <div>
@@ -1123,8 +1169,8 @@ text-align: justify;
                                     gap: "6px",
                                   }}
                                 >
-                                  <FaLock style={{ fontSize: 10 }} />
-                                  I am Interested
+                                  <FaLock style={{ fontSize: 10 }} />I am
+                                  Interested
                                 </button>
                               </Tooltip>
                             ) : (
@@ -1154,23 +1200,32 @@ text-align: justify;
                               style={{
                                 textAlign: "center",
                                 marginLeft: "20px",
-                                cursor: "pointer"
+                                cursor: "pointer",
                               }}
-                              onClick={() => handleSponsorClick(item.udSponsorName)}
+                              onClick={() =>
+                                handleSponsorClick(item.udSponsorName)
+                              }
                             >
                               {item.udSponsorImage && (
                                 <img
-                                  src={getImageUrl(item.udSponsorImage, item.tudTempUdID)}
+                                  src={getImageUrl(
+                                    item.udSponsorImage,
+                                    item.tudTempUdID
+                                  )}
                                   alt="Sponsor"
                                   style={{
                                     maxWidth: "120px",
                                     maxHeight: "60px",
                                     marginBottom: "5px",
                                     objectFit: "fill",
-                                    transition: "opacity 0.3s ease"
+                                    transition: "opacity 0.3s ease",
                                   }}
-                                  onMouseEnter={(e) => e.target.style.opacity = "0.8"}
-                                  onMouseLeave={(e) => e.target.style.opacity = "1"}
+                                  onMouseEnter={(e) =>
+                                    (e.target.style.opacity = "0.8")
+                                  }
+                                  onMouseLeave={(e) =>
+                                    (e.target.style.opacity = "1")
+                                  }
                                 />
                               )}
                               <p
@@ -1187,7 +1242,7 @@ text-align: justify;
                                   fontSize: "14px",
                                   fontWeight: "500",
                                   color: "#191964",
-                                  textDecoration: "underline"
+                                  textDecoration: "underline",
                                 }}
                               >
                                 {item.udSponsorName}
@@ -1228,7 +1283,12 @@ text-align: justify;
 
                       {/* Right Text Section */}
                       <div className="col-md-8 d-flex flex-column justify-content-center">
-                        <p className="about-text" style={{ overflowWrap: "anywhere" }}>{item.udDealDescription}</p>
+                        <p
+                          className="about-text"
+                          style={{ overflowWrap: "anywhere" }}
+                        >
+                          {item.udDealDescription}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -1322,7 +1382,10 @@ text-align: justify;
                               >
                                 <div className="media-card">
                                   <img
-                                    src={getImageUrl(itemudMediaCoverageFiles.imgname, item.tudTempUdID)}
+                                    src={getImageUrl(
+                                      itemudMediaCoverageFiles.imgname,
+                                      item.tudTempUdID
+                                    )}
                                     alt=""
                                     className="media-card-image"
                                   />
@@ -1348,6 +1411,91 @@ text-align: justify;
                     </div> */}
                       </>
                     )}
+                </section>
+
+                <section className="container my-5">
+                  <h2 className="text-center mb-3">Team</h2>
+                  <div className="row row-box-linse Grid-team px-1 justify-content-center">
+                    {item.udVendorId &&
+                      JSON.parse(item.udVendorId).map(
+                        (itemudVendorId, indexudVendorId) => (
+                          <div className="col-md-6 mb-4" key={index}>
+                            <div
+                              className="shadow-lg"
+                              style={{
+                                borderRadius: "15px",
+                                overflow: "hidden",
+                                backgroundColor: "#ffffff",
+                              }}
+                            >
+                              {/* Header with Gradient Background */}
+                              <div
+                                className="team-member-header"
+                                style={{
+                                  color: "white",
+                                  padding: "20px",
+                                }}
+                              >
+                                <div className="d-flex align-items-center">
+                                  <img
+                                    src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${itemudVendorId.imgname}`}
+                                    alt=""
+                                    style={{
+                                      width: "100px",
+                                      height: "100px",
+                                      borderRadius: "50%",
+                                      objectFit: "cover",
+                                      marginRight: "15px",
+                                      boxShadow: "0px 3px 6px #000",
+                                    }}
+                                  />
+                                  <div>
+                                    <h5 className="mb-0 text-white">
+                                      {itemudVendorId.name ||
+                                        "Name not provided"}
+                                    </h5>
+                                    <p className="mb-0 text-white">
+                                      {itemudVendorId.Role ||
+                                        "Role not specified"}
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                              {/* Description Section */}
+                              <div
+                                className="p-3"
+                                style={{
+                                  height: "210px",
+                                  textAlign: "justify",
+                                }}
+                              >
+                                <p>
+                                  {itemudVendorId.description1
+                                    ? itemudVendorId.description1
+                                    : "Description not available for this team member."}
+                                </p>
+                                <p>
+                                  {itemudVendorId.description2
+                                    ? itemudVendorId.description2
+                                    : ""}
+                                </p>
+                                <div className="mt-3">
+                                  <a
+                                    href={itemudVendorId.linkedinUrl || "#"}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="social-icons__item"
+                                    style={{ color: "#0A66C2" }}
+                                  >
+                                    <i className="bx bxl-linkedin fs-19"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        )
+                      )}
+                  </div>
                 </section>
 
                 <section id="pitchDeck" className="container my-5">
@@ -1387,7 +1535,10 @@ text-align: justify;
                           Product Presentation
                         </h1>
                         <SinglePagePDFViewer
-                          pdf={getImageUrl(item.udProductDeck, item.tudTempUdID)}
+                          pdf={getImageUrl(
+                            item.udProductDeck,
+                            item.tudTempUdID
+                          )}
                         />
                       </>
                     )}
@@ -1436,27 +1587,30 @@ text-align: justify;
                             {/* udStartupFounderMobileNumber */}
                             {(item.udStartupFounderMobileCountryCode || "") +
                               item.udStartupFounderMobileNumber &&
-                              item.udStartupFounderMobileNumber.length > 8
+                            item.udStartupFounderMobileNumber.length > 8
                               ? item.udStartupFounderMobileNumber.substring(
-                                0,
-                                2
-                              ) +
-                              "XXXXX" +
-                              item.udStartupFounderMobileNumber.substring(7)
+                                  0,
+                                  2
+                                ) +
+                                "XXXXX" +
+                                item.udStartupFounderMobileNumber.substring(7)
                               : item.udStartupFounderMobileNumber}
                           </li>
                           <li>
                             <i className="fas fa-envelope"></i>
-                            {item.udStartupFounderEmail && item.udStartupFounderEmail.includes("@")
+                            {item.udStartupFounderEmail &&
+                            item.udStartupFounderEmail.includes("@")
                               ? item.udStartupFounderEmail.substring(
-                                0,
-                                item.udStartupFounderEmail.indexOf("@") - 3
-                              ) +
-                              "***" +
-                              "@" +
-                              item.udStartupFounderEmail
-                                .substring(item.udStartupFounderEmail.indexOf("@") + 1)
-                                .replace(/[^.]+/, "***")
+                                  0,
+                                  item.udStartupFounderEmail.indexOf("@") - 3
+                                ) +
+                                "***" +
+                                "@" +
+                                item.udStartupFounderEmail
+                                  .substring(
+                                    item.udStartupFounderEmail.indexOf("@") + 1
+                                  )
+                                  .replace(/[^.]+/, "***")
                               : item.udStartupFounderEmail}
                           </li>
                           <li>
@@ -1565,8 +1719,8 @@ text-align: justify;
                               <p>
                                 {item.udFoundedon
                                   ? moment(item.udFoundedon).format(
-                                    "DD-MM-YYYY"
-                                  )
+                                      "DD-MM-YYYY"
+                                    )
                                   : ""}
                               </p>
                             </li>
@@ -1585,43 +1739,42 @@ text-align: justify;
                 <section className="container text-section">
                   <div className="row">
                     <div className="col-md-12 text-center my-5">
-                        {hasActiveGuestSession ? (
-                          <Tooltip title="Sign in to do this">
-                            <button
-                              onClick={openiamintrest}
-                              className="primaryInterested"
-                            style={{
-                              backgroundColor: "#191964",
-                              color: "white",
-                              border: "none",
-                              cursor: "pointer",
-                              boxShadow: "0px 3px 6px #000",
-                              display: "inline-flex",        // keep button itself inline for centering
-                              alignItems: "center",          // center icon + text vertically
-                              justifyContent: "center",
-                              gap: "6px",
-                            }}
-                            >
-                              <FaLock style={{ fontSize: 10 }} />
-                              I am Interested
-                            </button>
-                          </Tooltip>
-                        ) : (
+                      {hasActiveGuestSession ? (
+                        <Tooltip title="Sign in to do this">
                           <button
                             onClick={openiamintrest}
                             className="primaryInterested"
                             style={{
-                              // height: "100%",
                               backgroundColor: "#191964",
                               color: "white",
                               border: "none",
                               cursor: "pointer",
                               boxShadow: "0px 3px 6px #000",
+                              display: "inline-flex", // keep button itself inline for centering
+                              alignItems: "center", // center icon + text vertically
+                              justifyContent: "center",
+                              gap: "6px",
                             }}
                           >
-                            I am Interested
+                            <FaLock style={{ fontSize: 10 }} />I am Interested
                           </button>
-                        )}
+                        </Tooltip>
+                      ) : (
+                        <button
+                          onClick={openiamintrest}
+                          className="primaryInterested"
+                          style={{
+                            // height: "100%",
+                            backgroundColor: "#191964",
+                            color: "white",
+                            border: "none",
+                            cursor: "pointer",
+                            boxShadow: "0px 3px 6px #000",
+                          }}
+                        >
+                          I am Interested
+                        </button>
+                      )}
                     </div>
                   </div>
                 </section>

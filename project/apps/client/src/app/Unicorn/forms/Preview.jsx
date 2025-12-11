@@ -694,8 +694,11 @@ export const Preview = (props) => {
 
 .media-card-image {
   width: 100%;
-  height: 180px;
-  object-fit: fill;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  object-position: center;
+  display: block;
 }
 .row {
   display: flex;
