@@ -55,19 +55,20 @@ useEffect(() => {
   const founder = localStorage.getItem("founder_id");
   const isLoggedIn = investor || founder;
 
-  const guestUntil = localStorage.getItem("unicorn_guest_until");
-  const now = Date.now();
-  const shouldShowModal = !isLoggedIn && (!guestUntil || now > Number(guestUntil));
+    const guestUntil = localStorage.getItem("unicorn_guest_until");
+    const now = Date.now();
+    const shouldShowModal = !isLoggedIn && (!guestUntil || now > Number(guestUntil));
 
-  if (shouldShowModal) {
-    // show guest modal, do NOT call API yet
-    setShowGuestModal(true);
-  } else {
-    // logged in or valid guest session → load data immediately
-    getuniondata();
-    window.scrollTo(0, 0);
-  }
-}, []);
+    if (shouldShowModal) {
+      // show guest modal and also load limited guest data behind it
+      setShowGuestModal(true);
+      getuniondata(true);
+    } else {
+      // logged in or valid guest session → load data immediately
+      getuniondata();
+      window.scrollTo(0, 0);
+    }
+  }, []);
 
 const getOrCreateGuestId = () => {
   let guestId = localStorage.getItem("unicorn_guest_id");
@@ -140,14 +141,19 @@ const getOrCreateGuestId = () => {
     }
   };
 
-  function getuniondata() {
+  function getuniondata(forceGuest = false) {
     if (!urlName) {
       console.log('No urlName provided for unicorn detail page');
       return;
     }
+    // For backend: send limited guest data ONLY when explicitly forced
+    // (first visit or after guest expiry when GuestAccessModal is shown).
+    // In all other cases (investor, founder, or active guest session), send full data.
+    const isGuest = !!forceGuest;
 
     const params = {
       udUrlName: urlName,
+      isGuest,
     };
 
     Bridge.Unicorn.getUnicornByUrlName(params).then((result) => {
@@ -972,9 +978,12 @@ text-align: justify;
             const bannerImages = parseBannerImages(item.udBannerImage);
             const firstBanner = bannerImages[0];
             
-            const image = firstBanner
-              ? getImageUrl(firstBanner, item.tudTempUdID)
-              : undefined;
+            let image;
+
+            // Prefer banner image when available (full data case)
+            if (firstBanner) {
+              image = getImageUrl(firstBanner, item.tudTempUdID);
+            }
             return (
               <>
                 {/* loop through items and print all for debugging */}
@@ -1522,7 +1531,9 @@ text-align: justify;
                 </section>
 
                 <section id="pitchDeck" className="container my-5">
-                  {item.udPitchDeck != "" &&
+                  {item.udPitchDeck &&
+                    item.udPitchDeck !== "" &&
+                    item.udPitchDeck !== "undefined" &&
                     JSON.parse(item.udPitchDeck) != "" && (
                       <>
                         <h1
@@ -1608,16 +1619,25 @@ text-align: justify;
                           <li>
                             <i className="fas fa-phone"></i>
                             {/* udStartupFounderMobileNumber */}
-                            {(item.udStartupFounderMobileCountryCode || "") +
-                              item.udStartupFounderMobileNumber &&
-                            item.udStartupFounderMobileNumber.length > 8
-                              ? item.udStartupFounderMobileNumber.substring(
-                                  0,
-                                  2
-                                ) +
-                                "XXXXX" +
-                                item.udStartupFounderMobileNumber.substring(7)
-                              : item.udStartupFounderMobileNumber}
+                            {(() => {
+                              const country = item.udStartupFounderMobileCountryCode || "";
+                              const mobile = item.udStartupFounderMobileNumber;
+
+                              if (!mobile) {
+                                return "";
+                              }
+
+                              if (mobile.length > 8) {
+                                return (
+                                  country +
+                                  mobile.substring(0, 2) +
+                                  "XXXXX" +
+                                  mobile.substring(7)
+                                );
+                              }
+
+                              return country + mobile;
+                            })()}
                           </li>
                           <li>
                             <i className="fas fa-envelope"></i>

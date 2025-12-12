@@ -1395,6 +1395,7 @@ class Startup extends CI_Controller {
 					$guestData->udUrlName         = isset($row->udUrlName) ? $row->udUrlName : '';
 					$guestData->udStartupName     = isset($row->udStartupName) ? $row->udStartupName : '';
 					$guestData->udSelectLogo      = isset($row->udSelectLogo) ? $row->udSelectLogo : '';
+					$guestData->udBannerImage     = isset($row->udBannerImage) ? $row->udBannerImage : '';
 					$guestData->udDealDescription = isset($row->udDealDescription) ? $row->udDealDescription : '';
 					$guestData->udCategory        = isset($row->udCategory) ? $row->udCategory : '';
 
