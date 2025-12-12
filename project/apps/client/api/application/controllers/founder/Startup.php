@@ -1371,6 +1371,7 @@ class Startup extends CI_Controller {
 
 		if (!empty($formdata) && !empty($formdata['udUrlName'])) {
 			$udUrlName = $formdata['udUrlName'];
+			$isGuest = isset($formdata['isGuest']) ? (bool)$formdata['isGuest'] : false;
 
 			$sql = <<<EOT
 			SELECT unicorndeals.*, unicorndeals2.*, users.unicorn_start_date, users.unicorn_end_date, users.left_edit, users.unicorn_plan, users.utrref, users.unicorn_gst, unicorn_gst_registered_address, unicorn_gst_name
@@ -1386,11 +1387,29 @@ class Startup extends CI_Controller {
 			$row = $query->row();
 
 			if ($row) {
-				$response = [
-					'status' => '1',
-					'message' => 'Data found.',
-					'data' => $row,
-				];
+				if ($isGuest) {
+					// For guests, expose only limited public fields + IDs needed for theme
+					$guestData = new stdClass();
+					$guestData->unicornDealID     = isset($row->unicornDealID) ? $row->unicornDealID : '';
+					$guestData->tudTempUdID       = isset($row->tudTempUdID) ? $row->tudTempUdID : '';
+					$guestData->udUrlName         = isset($row->udUrlName) ? $row->udUrlName : '';
+					$guestData->udStartupName     = isset($row->udStartupName) ? $row->udStartupName : '';
+					$guestData->udSelectLogo      = isset($row->udSelectLogo) ? $row->udSelectLogo : '';
+					$guestData->udDealDescription = isset($row->udDealDescription) ? $row->udDealDescription : '';
+					$guestData->udCategory        = isset($row->udCategory) ? $row->udCategory : '';
+
+					$response = [
+						'status'  => '1',
+						'message' => 'Data found.',
+						'data'    => $guestData,
+					];
+				} else {
+					$response = [
+						'status'  => '1',
+						'message' => 'Data found.',
+						'data'    => $row,
+					];
+				}
 			} else {
 				$response = [
 					'status' => '0',
