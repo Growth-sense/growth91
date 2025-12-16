@@ -270,12 +270,16 @@ console.log("isGuest", isGuest);
   const getImageUrl = (filename, tudTempUdID) => {
     if (!filename) return '';
 
-    // Parse JSON if needed (for logo, sponsor, pitch deck images)
     let parsedFilename = filename;
     try {
-      parsedFilename = JSON.parse(filename);
+      const parsed = JSON.parse(filename);
+      if (Array.isArray(parsed)) {
+        parsedFilename = parsed[0] || '';
+      } else {
+        parsedFilename = parsed;
+      }
     } catch (e) {
-      // Already a plain string, no parsing needed
+      // Already a plain string or not JSON, no parsing needed
     }
 
     if (!parsedFilename) return '';
@@ -306,6 +310,144 @@ console.log("isGuest", isGuest);
     } catch (e) {
       return [bannerImage];
     }
+  };
+
+  // Helper to parse pitch deck field (new image-array format only)
+  const parsePitchDeckField = (pitchDeckValue) => {
+    if (!pitchDeckValue) {
+      return { type: 'none', pages: [], file: '' };
+    }
+
+    // If API already returns an array (not a JSON string), handle directly
+    if (Array.isArray(pitchDeckValue)) {
+      const pageFiles = pitchDeckValue.filter(
+        (name) => typeof name === 'string' && name.trim() !== ''
+      );
+      if (!pageFiles.length) {
+        return { type: 'none', pages: [], file: '' };
+      }
+
+      return { type: 'images', pages: pageFiles, file: '' };
+    }
+
+    // If it's a string, normalize HTML encoding and parse
+    if (typeof pitchDeckValue === 'string') {
+      let str = pitchDeckValue.trim();
+      if (!str) {
+        return { type: 'none', pages: [], file: '' };
+      }
+
+      // Decode HTML "&quot;" entities to real quotes
+      str = str.replace(/&quot;/g, '"');
+
+      const isValidName = (name) =>
+        typeof name === 'string' && name.trim() !== '';
+
+      try {
+        const parsed = JSON.parse(str);
+
+        // New format: JSON array of image filenames
+        if (Array.isArray(parsed)) {
+          const pageFiles = parsed.filter(isValidName);
+          if (pageFiles.length) {
+            return { type: 'images', pages: pageFiles, file: '' };
+          }
+        }
+
+        // Double-encoded array: parsed is a string that itself looks like ["pitchdeck_0.png", ...]
+        if (typeof parsed === 'string') {
+          let inner = parsed.trim().replace(/&quot;/g, '"');
+          if (inner.startsWith('[') && inner.endsWith(']')) {
+            try {
+              const innerArr = JSON.parse(inner);
+              if (Array.isArray(innerArr)) {
+                const pageFiles = innerArr.filter(isValidName);
+                if (pageFiles.length) {
+                  return { type: 'images', pages: pageFiles, file: '' };
+                }
+              }
+            } catch (err) {
+              // ignore and fall back to regex
+            }
+          }
+        }
+      } catch (e) {
+        // JSON.parse failed, fall through to regex below
+      }
+
+      // Regex fallback: extract ALL pitchdeck_* image filenames from the string
+      const regexMatches = str.match(/pitchdeck_[^",\]]+\.(png|jpg|jpeg|webp)/gi);
+      if (regexMatches && regexMatches.length) {
+        const pageFiles = regexMatches
+          .map((name) => name && name.trim())
+          .filter(isValidName);
+        if (pageFiles.length) {
+          return { type: 'images', pages: pageFiles, file: '' };
+        }
+      }
+
+      // As a last resort, treat as a single filename if it's not a PDF
+      const lower = str.toLowerCase();
+      if (lower.endsWith('.pdf')) {
+        return { type: 'none', pages: [], file: '' };
+      }
+      return { type: 'images', pages: [str], file: '' };
+    }
+
+    return { type: 'none', pages: [], file: '' };
+  };
+
+  // Helper to build full URLs for pitch deck page images
+  const getPitchDeckImageUrls = (pages, tudTempUdID) => {
+    if (!pages || !pages.length || !tudTempUdID) return [];
+
+    return pages
+      .map((filename) => {
+        if (!filename) return '';
+
+        let effective = filename;
+
+        // If this "filename" is actually a JSON array string like
+        // "[\"pitchdeck_0.png\", ...]", try to extract the first entry.
+        if (typeof effective === 'string') {
+          const trimmed = effective.trim();
+          if (trimmed.startsWith('[') && trimmed.endsWith(']')) {
+            try {
+              const nested = JSON.parse(trimmed);
+              if (Array.isArray(nested) && nested[0]) {
+                effective = nested[0];
+              }
+            } catch (err) {
+              // fall through, we'll just use a regex fallback below
+            }
+          }
+
+          // Extra safety: if anything went wrong above or the string still
+          // contains a JSON-ish value, pull out the first pitchdeck_* image
+          // filename using a regex. This guarantees we never keep the whole
+          // JSON array in the URL.
+          if (effective && typeof effective === 'string' && effective.includes('pitchdeck_')) {
+            const match = effective.match(/pitchdeck_[^",\]]+\.(png|jpg|jpeg|webp)/i);
+            if (match && match[0]) {
+              effective = match[0];
+            }
+          }
+        }
+
+        if (!effective || typeof effective !== 'string') return '';
+
+        // New locally-generated pitch deck images (from Imagick)
+        // should always be loaded from the local API base URL.
+        const isNewPitchImage = effective.startsWith('pitchdeck_');
+        
+
+        const baseUrl = isNewPitchImage
+          ? process.env.REACT_APP_BASE_URL
+          : process.env.REACT_APP_BASE_URL;
+
+        return `${baseUrl}api/uploads/unicorndeals/${tudTempUdID}/${effective}`;
+      })
+      .filter((url) => !!url);
   };
 
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
@@ -1499,49 +1641,127 @@ text-align: justify;
                 </section>
 
                 <section id="pitchDeck" className="container my-5">
-                  {item.udPitchDeck != "" &&
-                    JSON.parse(item.udPitchDeck) != "" && (
-                      <>
-                        <h1
-                          style={{
-                            fontSize: 32,
-                            marginBottom: 30,
-                            textAlign: "center",
-                            color: "#000",
-                          }}
-                        >
-                          Investor Presentation
-                        </h1>
-                        <SinglePagePDFViewer
-                          pdf={getImageUrl(item.udPitchDeck, item.tudTempUdID)}
-                        />
-                      </>
-                    )}
+                  {(() => {
+                    // 1) Prefer new image-array field from backend (udPitchDeckImages)
+                    const imagesField = item.udPitchDeckImages || "";
+                    const pitchDeckImagesInfo = parsePitchDeckField(imagesField);
+
+                    if (
+                      pitchDeckImagesInfo.type === "images" &&
+                      Array.isArray(pitchDeckImagesInfo.pages) &&
+                      pitchDeckImagesInfo.pages.length
+                    ) {
+                      const imageUrls = getPitchDeckImageUrls(
+                        pitchDeckImagesInfo.pages,
+                        item.tudTempUdID
+                      );
+
+                      if (imageUrls.length) {
+                        return (
+                          <>
+                            <h1
+                              style={{
+                                fontSize: 32,
+                                marginBottom: 30,
+                                textAlign: "center",
+                                color: "#000",
+                              }}
+                            >
+                              Investor Presentation
+                            </h1>
+                            <SinglePagePDFViewer imageUrls={imageUrls} />
+                          </>
+                        );
+                      }
+                    }
+
+                    // 2) Fallback: if no converted images yet, use original PDF from udPitchDeck
+                    if (
+                      item.udPitchDeck &&
+                      typeof item.udPitchDeck === "string" &&
+                      item.udPitchDeck.trim() !== ""
+                    ) {
+                      return (
+                        <>
+                          <h1
+                            style={{
+                              fontSize: 32,
+                              marginBottom: 30,
+                              textAlign: "center",
+                              color: "#000",
+                            }}
+                          >
+                            Investor Presentation
+                          </h1>
+                          <SinglePagePDFViewer
+                            pdf={getImageUrl(item.udPitchDeck, item.tudTempUdID)}
+                          />
+                        </>
+                      );
+                    }
+
+                    // Nothing to show
+                    return null;
+                  })()}
                 </section>
 
                 <section id="productDeck" className="container my-5">
-                  {item.udProductDeck != null &&
-                    item.udProductDeck != "" &&
-                    JSON.parse(item.udProductDeck) != "" && (
-                      <>
-                        <h1
-                          style={{
-                            fontSize: 32,
-                            marginBottom: 30,
-                            textAlign: "center",
-                            color: "#000",
-                          }}
-                        >
-                          Product Presentation
-                        </h1>
-                        <SinglePagePDFViewer
-                          pdf={getImageUrl(
-                            item.udProductDeck,
-                            item.tudTempUdID
-                          )}
-                        />
-                      </>
-                    )}
+                  {(() => {
+                    const imagesField = item.udProductDeckImages || "";
+                    const productDeckImagesInfo = parsePitchDeckField(imagesField);
+
+                    if (
+                      productDeckImagesInfo.type === "images" &&
+                      Array.isArray(productDeckImagesInfo.pages) &&
+                      productDeckImagesInfo.pages.length
+                    ) {
+                      const imageUrls = getPitchDeckImageUrls(
+                        productDeckImagesInfo.pages,
+                        item.tudTempUdID
+                      );
+                      return (
+                        <>
+                          <h1
+                            style={{
+                              fontSize: 32,
+                              marginBottom: 30,
+                              textAlign: "center",
+                              color: "#000",
+                            }}
+                          >
+                            Product Presentation
+                          </h1>
+                          <SinglePagePDFViewer imageUrls={imageUrls} />
+                        </>
+                      );
+                    }
+
+                    if (
+                      item.udProductDeck &&
+                      typeof item.udProductDeck === "string" &&
+                      item.udProductDeck.trim() !== ""
+                    ) {
+                      return (
+                        <>
+                          <h1
+                            style={{
+                              fontSize: 32,
+                              marginBottom: 30,
+                              textAlign: "center",
+                              color: "#000",
+                            }}
+                          >
+                            Product Presentation
+                          </h1>
+                          <SinglePagePDFViewer
+                            pdf={getImageUrl(item.udProductDeck, item.tudTempUdID)}
+                          />
+                        </>
+                      );
+                    }
+
+                    return null;
+                  })()}
                 </section>
 
                 {item.udYoutubeLink && item.udYoutubeLink != "" && (
