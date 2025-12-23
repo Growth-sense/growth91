@@ -308,6 +308,32 @@ console.log("isGuest", isGuest);
     }
   };
 
+  // Helper to safely parse startup highlights, handling raw newlines
+  const parseStartupHighlights = (value) => {
+    if (!value) return [];
+    if (Array.isArray(value)) return value;
+
+    if (typeof value === "string") {
+      try {
+        // First try parsing as-is
+        return JSON.parse(value);
+      } catch (e) {
+        try {
+          // Replace raw newlines with escaped \n and try again
+          const sanitized = value
+            .replace(/\r/g, "")
+            .replace(/\n/g, "\\n");
+          return JSON.parse(sanitized);
+        } catch (e2) {
+          console.error("Failed to parse udStartupHighlights", e2, value);
+          return [];
+        }
+      }
+    }
+
+    return [];
+  };
+
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [lightboxImages, setLightboxImages] = useState([]);
   const [lightboxInitialIndex, setLightboxInitialIndex] = useState(0);
@@ -1322,42 +1348,43 @@ text-align: justify;
                   <div className="row">
                     {/* Highlight 1 */}
 
-                    {item.udStartupHighlights &&
-                      JSON.parse(item.udStartupHighlights).map(
-                        (itemstartuphighlight, indexstartuphighlight) => {
-                          console.log(itemstartuphighlight);
+                    {parseStartupHighlights(item.udStartupHighlights).map(
+                      (itemstartuphighlight, indexstartuphighlight) => {
+                        console.log(itemstartuphighlight);
 
-                          return (
-                            <div className="col-md-6 mb-4">
+                        return (
+                          <div className="col-md-6 mb-4" key={indexstartuphighlight}>
+                            <div
+                              className="startup-highlight-card card p-4 shadow-sm h-100"
+                              style={{
+                                backgroundColor: "#fff",
+                                borderRadius: "15px",
+                              }}
+                            >
                               <div
-                                className="startup-highlight-card card p-4 shadow-sm h-100"
-                                style={{
-                                  backgroundColor: "#fff",
-                                  borderRadius: "15px",
-                                }}
+                                className="d-flex"
+                                style={{ textAlign: "justify" }}
                               >
-                                <div
-                                  className="d-flex"
-                                  style={{ textAlign: "justify" }}
-                                >
-                                  <img
-                                    src={`${process.env.PUBLIC_URL}/assets/images/deals-details/highlight2.jfif`}
-                                    alt="Highlight Icon"
-                                    style={{
-                                      width: "100px",
-                                      height: "100px",
-                                      borderRadius: "50%",
-                                      marginRight: "15px",
-                                      boxShadow: "0px 3px 6px #000",
-                                    }}
-                                  />
-                                  <p>{itemstartuphighlight.content1}</p>
-                                </div>
+                                <img
+                                  src={`${process.env.PUBLIC_URL}/assets/images/deals-details/highlight2.jfif`}
+                                  alt="Highlight Icon"
+                                  style={{
+                                    width: "100px",
+                                    height: "100px",
+                                    borderRadius: "50%",
+                                    marginRight: "15px",
+                                    boxShadow: "0px 3px 6px #000",
+                                  }}
+                                />
+                                <p style={{ whiteSpace: "pre-line" }}>
+                                  {itemstartuphighlight.content1}
+                                </p>
                               </div>
                             </div>
-                          );
-                        }
-                      )}
+                          </div>
+                        );
+                      }
+                    )}
                   </div>
                 </section>
 
