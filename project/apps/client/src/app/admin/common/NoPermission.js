@@ -6,7 +6,7 @@ const NoPermission = () => {
     <Result
       status="403"
       title="No access"
-      subTitle="You don't have permission to view this page. Please contact the administrator."
+      subTitle="You don't have permission to view this page."
     />
   );
 };

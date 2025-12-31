@@ -69,7 +69,10 @@ class Startups extends Component {
       canEditStartup: false,
       canDeleteStartup: false,
       canExportStartup: false,
-      canManageStartupDocs: false,
+      canViewStartupDocs: false,
+      canAddStartupDoc: false,
+      canEditStartupDoc: false,
+      canDeleteStartupDoc: false,
       canViewStartupAnalytics: false,
     };
   }
@@ -96,7 +99,10 @@ class Startups extends Component {
       canEditStartup: perms.canEdit,
       canDeleteStartup: perms.canDelete,
       canExportStartup: perms.canExport,
-      canManageStartupDocs: perms.canDocuments,
+      canViewStartupDocs: perms.canStartupDocsView,
+      canAddStartupDoc: perms.canStartupDocsAdd,
+      canEditStartupDoc: perms.canStartupDocsEdit,
+      canDeleteStartupDoc: perms.canStartupDocsDelete,
       canViewStartupAnalytics: perms.canAnalytics,
     });
   };
@@ -569,7 +575,7 @@ class Startups extends Component {
         dataIndex: "documents",
         key: "documents",
         render: (text) => {
-          if (!this.state.canManageStartupDocs) {
+          if (!this.state.canViewStartupDocs) {
             // Show link-style text but do nothing on click
             return (
               <span
@@ -580,8 +586,16 @@ class Startups extends Component {
               </span>
             );
           }
-          // Full working modal when allowed
-          return <Documents id={text.startupid} user="admin" />;
+          // Pass granular document permissions to the modal
+          return (
+            <Documents
+              id={text.startupid}
+              user="admin"
+              canAdd={this.state.canAddStartupDoc}
+              canEdit={this.state.canEditStartupDoc}
+              canDelete={this.state.canDeleteStartupDoc}
+            />
+          );
         },
       },
       {

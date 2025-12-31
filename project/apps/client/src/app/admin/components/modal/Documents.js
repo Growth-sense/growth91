@@ -287,6 +287,7 @@ export default class Documents extends Component {
   };
 
   render() {
+    const { canAdd = true, canEdit = true, canDelete = true } = this.props;
     const documentdataSource =
       this.state.documents &&
       this.state.documents.map((item, index) => {
@@ -369,20 +370,28 @@ export default class Documents extends Component {
                   &nbsp;&nbsp;View
                 </a>
               </Menu.Item>
-              <Menu.Item key={`Edit${record.key}`} icon={<EditOutlined />}>
+              <Menu.Item
+                key={`Edit${record.key}`}
+                icon={<EditOutlined />}
+                disabled={!canEdit}
+              >
                 <a
                   href="#"
-                  onClick={() => this.showEditModal(text)}
+                  onClick={() => canEdit && this.showEditModal(text)}
                   style={{ fontSize: 14 }}
                 >
                   &nbsp;&nbsp;Edit
                 </a>
               </Menu.Item>
-              <Menu.Item key={`Delete${record.key}`} icon={<DeleteOutlined />}>
+              <Menu.Item
+                key={`Delete${record.key}`}
+                icon={<DeleteOutlined />}
+                disabled={!canDelete}
+              >
                 <a
                   href="#"
                   style={{ fontSize: 14 }}
-                  onClick={() => this.showDeleteModal(text)}
+                  onClick={() => canDelete && this.showDeleteModal(text)}
                 >
                   &nbsp;&nbsp;Delete
                 </a>
@@ -484,7 +493,11 @@ export default class Documents extends Component {
             title=""
             extra={
               this.state.visible == true && (
-                <Button type="primary" onClick={this.showaddmodal}>
+                <Button
+                  type="primary"
+                  onClick={this.showaddmodal}
+                  disabled={!canAdd}
+                >
                   Add New Document
                 </Button>
               )

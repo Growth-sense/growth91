@@ -129,6 +129,11 @@ function fullAccessPermissions() {
     canSettingsDigio: true,
     // extra optional capabilities used by Dropoff report
     canDropoffExport: true,
+    // granular startup documents permissions (used by Startups.js)
+    canStartupDocsView: true,
+    canStartupDocsAdd: true,
+    canStartupDocsEdit: true,
+    canStartupDocsDelete: true,
   };
 }
 
@@ -229,7 +234,18 @@ export async function loadModulePermissions(moduleKey) {
       (moduleKey === "investors" && m.block === true) ||
       (moduleKey === "founders" && m.block === true),
     canExport: m.export === true,
-    canDocuments: m.documents === true,
+    canDocuments:
+      m.documents === true ||
+      m.documents_view === true ||
+      m.documents_add === true ||
+      m.documents_edit === true ||
+      m.documents_delete === true,
+    // granular startup documents permissions (view/add/edit/delete)
+    // remain backward compatible by also treating legacy m.documents as full access
+    canStartupDocsView: m.documents_view === true || m.documents === true,
+    canStartupDocsAdd: m.documents_add === true || m.documents === true,
+    canStartupDocsEdit: m.documents_edit === true || m.documents === true,
+    canStartupDocsDelete: m.documents_delete === true || m.documents === true,
     canAnalytics: m.analytics === true,
 
     // Optional extra booleans for modules that define these actions (investors)

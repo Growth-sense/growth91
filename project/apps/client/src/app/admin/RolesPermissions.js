@@ -10,6 +10,8 @@ import {
   Modal,
   Input,
   Divider,
+  Dropdown,
+  Menu,
 } from "antd";
 import Navbar from "./common/Navbar";
 import Sidebar2 from "./common/Sidebar2";
@@ -163,7 +165,10 @@ class RolesPermissions extends Component {
         edit: true,
         delete: true,
         export: true,
-        documents: true,
+        documents_view: true,
+        documents_add: true,
+        documents_edit: true,
+        documents_delete: true,
         analytics: true,
       },
       investors: {
@@ -341,7 +346,10 @@ class RolesPermissions extends Component {
               check("startups", "edit") &&
               check("startups", "delete") &&
               check("startups", "export") &&
-              check("startups", "documents") &&
+              check("startups", "documents_view") &&
+              check("startups", "documents_add") &&
+              check("startups", "documents_edit") &&
+              check("startups", "documents_delete") &&
               check("startups", "analytics")
             }
             onChange={(e) => {
@@ -351,7 +359,10 @@ class RolesPermissions extends Component {
                 "edit",
                 "delete",
                 "export",
-                "documents",
+                "documents_view",
+                "documents_add",
+                "documents_edit",
+                "documents_delete",
                 "analytics",
               ];
               actions.forEach((action) =>
@@ -409,15 +420,73 @@ class RolesPermissions extends Component {
             Export Data
           </Checkbox>
 
+          {/* Startup Documents – controls the Documents modal actions in Startups.js */}
+          <div style={{ display: "inline-block", marginRight: 16 }}>
+            <Dropdown
+              overlay={
+                <div
+                  onClick={(e) => e.stopPropagation()}
+                  onMouseDown={(e) => e.stopPropagation()}
+                  style={{
+                    background: "#fff",
+                    boxShadow:
+                      "0 3px 6px -4px rgba(0,0,0,0.12), 0 6px 16px 0 rgba(0,0,0,0.08), 0 9px 28px 8px rgba(0,0,0,0.05)",
+                    borderRadius: 4,
+                    padding: 8,
+                    minWidth: 200,
+                  }}
+                >
+                  <div style={{ marginBottom: 4 }}>
+                    <Checkbox
+                      checked={check("startups", "documents_view")}
+                      onChange={(e) =>
+                        this.togglePerm("startups", "documents_view", e.target.checked)
+                      }
+                    >
+                      View Documents
+                    </Checkbox>
+                  </div>
+                  <div style={{ marginBottom: 4 }}>
+                    <Checkbox
+                      checked={check("startups", "documents_add")}
+                      onChange={(e) =>
+                        this.togglePerm("startups", "documents_add", e.target.checked)
+                      }
+                    >
+                      Add New Document
+                    </Checkbox>
+                  </div>
+                  <div style={{ marginBottom: 4 }}>
+                    <Checkbox
+                      checked={check("startups", "documents_edit")}
+                      onChange={(e) =>
+                        this.togglePerm("startups", "documents_edit", e.target.checked)
+                      }
+                    >
+                      Edit Document
+                    </Checkbox>
+                  </div>
+                  <div>
+                    <Checkbox
+                      checked={check("startups", "documents_delete")}
+                      onChange={(e) =>
+                        this.togglePerm("startups", "documents_delete", e.target.checked)
+                      }
+                    >
+                      Delete Document
+                    </Checkbox>
+                  </div>
+                </div>
+              }
+              placement="bottomLeft"
+              trigger={["click"]}
+            >
+              <Button size="small">Startup Documents</Button>
+            </Dropdown>
+          </div>
+
           <Checkbox
-            checked={check("startups", "documents")}
-            onChange={(e) =>
-              this.togglePerm("startups", "documents", e.target.checked)
-            }
-          >
-            Documents
-          </Checkbox>
-          <Checkbox
+            style={{ marginLeft: 2 }}
             checked={check("startups", "analytics")}
             onChange={(e) =>
               this.togglePerm("startups", "analytics", e.target.checked)
