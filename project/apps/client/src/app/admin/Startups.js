@@ -70,6 +70,7 @@ class Startups extends Component {
       canDeleteStartup: false,
       canExportStartup: false,
       canViewStartupDocs: false,
+      canViewStartupDocFile: false,
       canAddStartupDoc: false,
       canEditStartupDoc: false,
       canDeleteStartupDoc: false,
@@ -100,6 +101,7 @@ class Startups extends Component {
       canDeleteStartup: perms.canDelete,
       canExportStartup: perms.canExport,
       canViewStartupDocs: perms.canStartupDocsView,
+      canViewStartupDocFile: perms.canStartupDocsViewFile,
       canAddStartupDoc: perms.canStartupDocsAdd,
       canEditStartupDoc: perms.canStartupDocsEdit,
       canDeleteStartupDoc: perms.canStartupDocsDelete,
@@ -586,11 +588,12 @@ class Startups extends Component {
               </span>
             );
           }
-          // Pass granular document permissions to the modal
+          // Pass granular document permissions (list, per-file view, add, edit, delete) to the modal
           return (
             <Documents
               id={text.startupid}
               user="admin"
+              canViewFile={this.state.canViewStartupDocFile}
               canAdd={this.state.canAddStartupDoc}
               canEdit={this.state.canEditStartupDoc}
               canDelete={this.state.canDeleteStartupDoc}

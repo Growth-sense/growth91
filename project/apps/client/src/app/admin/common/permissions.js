@@ -131,6 +131,7 @@ function fullAccessPermissions() {
     canDropoffExport: true,
     // granular startup documents permissions (used by Startups.js)
     canStartupDocsView: true,
+    canStartupDocsViewFile: true,
     canStartupDocsAdd: true,
     canStartupDocsEdit: true,
     canStartupDocsDelete: true,
@@ -237,12 +238,14 @@ export async function loadModulePermissions(moduleKey) {
     canDocuments:
       m.documents === true ||
       m.documents_view === true ||
+      m.documents_view_file === true ||
       m.documents_add === true ||
       m.documents_edit === true ||
       m.documents_delete === true,
-    // granular startup documents permissions (view/add/edit/delete)
+    // granular startup documents permissions (view/add/edit/delete and per-document view)
     // remain backward compatible by also treating legacy m.documents as full access
     canStartupDocsView: m.documents_view === true || m.documents === true,
+    canStartupDocsViewFile: m.documents_view_file === true || m.documents === true,
     canStartupDocsAdd: m.documents_add === true || m.documents === true,
     canStartupDocsEdit: m.documents_edit === true || m.documents === true,
     canStartupDocsDelete: m.documents_delete === true || m.documents === true,

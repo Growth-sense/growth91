@@ -287,7 +287,7 @@ export default class Documents extends Component {
   };
 
   render() {
-    const { canAdd = true, canEdit = true, canDelete = true } = this.props;
+    const { canAdd = true, canEdit = true, canDelete = true, canViewFile = true } = this.props;
     const documentdataSource =
       this.state.documents &&
       this.state.documents.map((item, index) => {
@@ -361,10 +361,14 @@ export default class Documents extends Component {
               defaultSelectedKeys={[this.state.path]}
               style={{ width: 130 }}
             >
-              <Menu.Item key={`View${record.key}`} icon={<EyeOutlined />}>
+              <Menu.Item
+                key={`View${record.key}`}
+                icon={<EyeOutlined />}
+                disabled={!canViewFile}
+              >
                 <a
                   href="#"
-                  onClick={() => this.showdocument(text)}
+                  onClick={() => canViewFile && this.showdocument(text)}
                   style={{ fontSize: 14 }}
                 >
                   &nbsp;&nbsp;View
@@ -427,6 +431,10 @@ export default class Documents extends Component {
         key: "documentname",
         width: 180,
         render: (text, record) => {
+          // When canViewFile is false, show plain text instead of a clickable link
+          if (!this.props.canViewFile) {
+            return <span>{text.docname}</span>;
+          }
           return (
             <div>
               <a

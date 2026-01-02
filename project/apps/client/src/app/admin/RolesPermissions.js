@@ -166,6 +166,7 @@ class RolesPermissions extends Component {
         delete: true,
         export: true,
         documents_view: true,
+        documents_view_file: true,
         documents_add: true,
         documents_edit: true,
         documents_delete: true,
@@ -347,6 +348,7 @@ class RolesPermissions extends Component {
               check("startups", "delete") &&
               check("startups", "export") &&
               check("startups", "documents_view") &&
+              check("startups", "documents_view_file") &&
               check("startups", "documents_add") &&
               check("startups", "documents_edit") &&
               check("startups", "documents_delete") &&
@@ -360,6 +362,7 @@ class RolesPermissions extends Component {
                 "delete",
                 "export",
                 "documents_view",
+                "documents_view_file",
                 "documents_add",
                 "documents_edit",
                 "documents_delete",
@@ -443,7 +446,7 @@ class RolesPermissions extends Component {
                         this.togglePerm("startups", "documents_view", e.target.checked)
                       }
                     >
-                      View Documents
+                      Open Documents List
                     </Checkbox>
                   </div>
                   <div style={{ marginBottom: 4 }}>
@@ -454,6 +457,16 @@ class RolesPermissions extends Component {
                       }
                     >
                       Add New Document
+                    </Checkbox>
+                  </div>
+                  <div style={{ marginBottom: 4 }}>
+                    <Checkbox
+                      checked={check("startups", "documents_view_file")}
+                      onChange={(e) =>
+                        this.togglePerm("startups", "documents_view_file", e.target.checked)
+                      }
+                    >
+                      View Document File
                     </Checkbox>
                   </div>
                   <div style={{ marginBottom: 4 }}>
