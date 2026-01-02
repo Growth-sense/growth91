@@ -217,8 +217,14 @@ class Roles extends CI_Controller
         }
 
         $userId = (int)$this->input->get('admin_id', TRUE);
-        if ($userId <= 0) {
-            echo json_encode(['status' => '0', 'message' => 'admin_id required']); return;
+        if ($userId < 0) {
+        echo json_encode(['status' => '0', 'message' => 'admin_id required']); return;
+        }
+
+        $user = $this->db->get_where('admin_master', ['id' => $userId])->row();
+        if (!$user) {
+            echo json_encode(['status' => '0', 'message' => 'admin not found']); 
+            return;
         }
 
         $rows = $this->db
@@ -259,8 +265,14 @@ public function updateUserRoles()
         ? $formdata['role_ids']
         : [];
 
-    if ($userId <= 0) {
-        echo json_encode(['status' => '0', 'message' => 'admin_id required']); return;
+    if ($userId < 0) {
+    echo json_encode(['status' => '0', 'message' => 'admin_id required']); return;
+    }
+   
+    $user = $this->db->get_where('admin_master', ['id' => $userId])->row();
+    if (!$user) {
+        echo json_encode(['status' => '0', 'message' => 'admin not found']); 
+        return;
     }
 
     // 3) Normalize role IDs to integers
@@ -407,7 +419,7 @@ $adminInsert = [
         'data'    => [
             'id'            => $newAdminId,
             'username'      => $username,
-            'is_super_admin'=> $isSuperAdmin,
+            'is_super_admin'=> 0,
             'role_id'       => $roleId,
         ],
     ]);
