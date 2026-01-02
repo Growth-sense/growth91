@@ -102,6 +102,9 @@ class Deals extends Component {
       ac_deal_id: "",
       ac_investor: {},
       ac_investor_name: "",
+      ac_investor_id: "",
+      ac_investor_details: null,
+      ac_investor_not_found: false,
       ac_interested_id: "",
       ac_deal_name: "",
       ac_commaAmount: 0,
@@ -2200,9 +2203,7 @@ class Deals extends Component {
   onChangeInvestorSelect = (value, option) => {
     
     const { data } = option.props;
-    console.log(data);
     const fullName = `${data.first_name} ${data.last_name}`;
-
     this.setState(
       {
         ac_investor: data,
@@ -2214,6 +2215,58 @@ class Deals extends Component {
         this.getInterestedID();
       }
     );
+  };
+
+  onChangeInvestorId = (e) => {
+    const investorId = e.target.value;
+    
+    this.setState({
+      ac_investor_id: investorId,
+      ac_investor_details: null,
+      ac_investor_not_found: false
+    });
+
+    // If input is empty, clear everything
+    if (!investorId.trim()) {
+      this.setState({
+        ac_investor: {},
+        ac_investor_name: "",
+        ac_investor_details: null,
+        ac_investor_not_found: false
+      });
+      return;
+    }
+
+    // Search for investor in ac_investor_list
+    const foundInvestor = this.state.ac_investor_list.find(
+      investor => investor.investor_id === investorId.trim()
+    );
+
+    if (foundInvestor) {
+      const fullName = `${foundInvestor.first_name} ${foundInvestor.middle_name ? foundInvestor.middle_name + ' ' : ''}${foundInvestor.last_name}`;
+      
+      this.setState(
+        {
+          ac_investor: foundInvestor,
+          ac_investor_name: fullName,
+          ac_investor_details: foundInvestor,
+          ac_investor_not_found: false
+        },
+        () => {
+          this.get_invest_amt();
+          this.check_for_membership_type();
+          this.getInterestedID();
+        }
+      );
+    } else {
+      // Investor not found
+      this.setState({
+        ac_investor: {},
+        ac_investor_name: "",
+        ac_investor_details: null,
+        ac_investor_not_found: true
+      });
+    }
   };
 
 
@@ -4917,34 +4970,67 @@ class Deals extends Component {
         <Modal
           title={`Invest in ${this.state.ac_deal_name}`}
           visible={this.state.show_add_commitment_modal}
-          onOk={() => this.setState({ show_add_commitment_modal: false })}
-          onCancel={() => this.setState({ show_add_commitment_modal: false })}
+          onOk={() => this.setState({ 
+            show_add_commitment_modal: false,
+            ac_investor_id: "",
+            ac_investor_details: null,
+            ac_investor_not_found: false,
+            ac_investor: {},
+            ac_investor_name: ""
+          })}
+          onCancel={() => this.setState({ 
+            show_add_commitment_modal: false,
+            ac_investor_id: "",
+            ac_investor_details: null,
+            ac_investor_not_found: false,
+            ac_investor: {},
+            ac_investor_name: ""
+          })}
           width={600}
           footer={false}
         >
           <div className="form-group">
             <label className="mb-2">
-              Select Investor{" "}
+              Enter Investor ID{" "}
               <span className="text-danger">*</span>
             </label>
-            <Select
-              name="ac_investor"
+            <Input
+              name="ac_investor_id"
               className="form-input-field"
-              value={this.state.ac_investor_name}
+              value={this.state.ac_investor_id || ''}
               style={{ width: '100%' }}
-              showSearch
-              placeholder="Select an Investor"
-              optionFilterProp="children"
-              onChange={this.onChangeInvestorSelect}
-              filterOption={this.filterOptionInvestorSelect}
-            >
-              {this.state.ac_investor_list &&
-                this.state.ac_investor_list.map((item, index) => (
-                  <Option key={index} value={item.investor_id} data={item}>
-                    {`${item.first_name} ${item.last_name}`}
-                  </Option>
-                ))}
-            </Select>
+              placeholder="Enter Investor ID"
+              onChange={this.onChangeInvestorId}
+            />
+            
+            {/* Display investor details if found */}
+            {this.state.ac_investor_details && (
+              <div style={{ 
+                marginTop: '10px', 
+                padding: '10px', 
+                border: '1px solid #d9d9d9', 
+                borderRadius: '4px',
+                backgroundColor: '#f6f6f6'
+              }}>
+                <div><strong>Investor Name:</strong> {this.state.ac_investor_details.first_name} {this.state.ac_investor_details.middle_name} {this.state.ac_investor_details.last_name}</div>
+                <div><strong>Investor ID:</strong> {this.state.ac_investor_details.investor_id}</div>
+                <div><strong>Mobile Number:</strong> {this.state.ac_investor_details.mobile}</div>
+              </div>
+            )}
+            
+            {/* Show error if investor not found */}
+            {this.state.ac_investor_not_found && (
+              <div style={{ 
+                marginTop: '10px', 
+                padding: '10px', 
+                border: '1px solid #ff4d4f', 
+                borderRadius: '4px',
+                backgroundColor: '#fff2f0',
+                color: '#ff4d4f'
+              }}>
+                Investor not found with ID: {this.state.ac_investor_id}
+              </div>
+            )}
           </div>
           <div style={{height:20}} />
           <div className="login mt-3">

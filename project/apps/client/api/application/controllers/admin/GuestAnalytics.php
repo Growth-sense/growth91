@@ -74,13 +74,15 @@ class GuestAnalytics extends CI_Controller
         $this->db->group_by('gaUnicornDealID');
         $unicornInterest = $this->db->get()->result_array();
 
-        echo json_encode([
-            'status'  => '1',
-            'message' => 'Guest analytics summary',
-            'data'    => [
-                'metrics'           => $metrics,
-                'unicorn_interest'  => $unicornInterest,
-            ],
-        ]);
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode([
+                'status'  => '1',
+                'message' => 'Guest analytics summary',
+                'data'    => [
+                    'metrics' => $metrics,
+                    'unicorn_interest' => $unicornInterest,
+                ],
+            ]));
     }
 }

@@ -363,7 +363,7 @@ class InvestorController extends CI_Controller
 			$userID = $formdata['userID'];
 			if ($userID <> "-1")
 				$sql = "SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inner join users on users.investor_id = groups.userID WHERE userID = '$userID' union 
-				SELECT g.*, first_name,middle_name,last_name,email,mobile FROM groups g INNER JOIN group_invites gi ON g.groupID = gi.groupID INNER JOIN users u ON gi.member_id = u.investor_id WHERE gi.member_id = '$userID'";
+				SELECT g.*, first_name,middle_name,last_name,email,mobile FROM `groups` g INNER JOIN group_invites gi ON g.groupID = gi.groupID INNER JOIN users u ON gi.member_id = u.investor_id WHERE gi.member_id = '$userID'";
 			else
 				$sql = "SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inner join users on users.investor_id = groups.userID  WHERE 1 = '1' ORDER BY groupName";
 			$query = $this->db->query($sql);
@@ -415,7 +415,7 @@ class InvestorController extends CI_Controller
 				u.email,
 				u.mobile,
 				gi.invite_status
-			FROM groups g
+			FROM `groups` g
 			LEFT JOIN group_invites gi ON g.groupID = gi.groupID
 			LEFT JOIN users u ON gi.member_id = u.investor_id
 			WHERE gi.invite_status = 'Accepted' AND g.userID = '$userID'
@@ -563,7 +563,7 @@ class InvestorController extends CI_Controller
 					$result1 = $query->result();
 					$inviteeName = $result1[0]->first_name . ' ' . $result1[0]->last_name;
 
-					$sql = "SELECT * FROM groups WHERE groupID='$groupID'";
+					$sql = "SELECT * FROM `groups` WHERE groupID='$groupID'";
 					$query = $this->db->query($sql);
 					$result2 = $query->result();
 					$groupName = $result2[0]->groupName;
