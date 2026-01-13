@@ -581,6 +581,7 @@ class Startup extends CI_Controller {
 			
 			$post_data=[		
 				'tudStartupName' => $tudStartupName ,
+				'tudWebsite' => $tudWebsite,
 				'tudSocialInsta'  => $tudSocialInsta,
 				'tudSocialFacebook'  => $tudSocialFacebook,
 				'tudSocialLinkedIn'  => $tudSocialLinkedIn,
@@ -718,7 +719,6 @@ class Startup extends CI_Controller {
 				'tudOpportunities' => $tudOpportunities,
 				'tudThreats' => $tudThreats,
 				'tudLeagalName' => $tudLeagalName,
-				'tudWebsite' => $tudWebsite,
 				'tudLegalCin' => $tudLegalCin,
 				'tudLegalPan'  => $tudLegalPan,
 				'tudLegalCountry' => $tudLegalCountry,
