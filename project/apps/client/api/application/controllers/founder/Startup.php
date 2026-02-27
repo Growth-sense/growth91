@@ -2300,7 +2300,7 @@ class Startup extends CI_Controller {
 				]
 			];
 
-			// Special handling for Silver plan - Diwali Offer (FREE)
+			// Special handling for Silver plan - Exclusive Limited Time Offer Offer (FREE)
 			if ($plan_name === 'Silver') {
 				$current_user = $this->db
 					->select('unicorn_plan, unicorn_start_date, left_edit, unicorn_gst_name, email, mobile, first_name, last_name, startup_name, unicorn_gst, unicorn_gst_registered_address')
@@ -2327,7 +2327,7 @@ class Startup extends CI_Controller {
 					// Record the free payment in unicorn_payments table
 					$payment_data = [
 						'amount' => 0,
-						'order_id' => 'DIWALI_FREE_' . $founder_id . '_' . time(),
+						'order_id' => 'Exclusive_Limited_FREE_' . $founder_id . '_' . time(),
 						'event_time' => date('Y-m-d\TH:i:sP'),
 						'founder_id' => $founder_id,
 						'plan_name' => $plan_name,
@@ -2340,7 +2340,7 @@ class Startup extends CI_Controller {
 					// Send notification email for free plan activation
 					$this->load->helper('send_email');
 					$formatted_date = date('d-M-Y');
-					$body = "<p><strongDiwali Special Offer Activated!</strong></p>";
+					$body = "<p><strongExclusive Limited Time Offer Special Offer Activated!</strong></p>";
 					$body .= "<p><strong>Name as per invoice:</strong> {$current_user->unicorn_gst_name}</p>";
 					$body .= "<p><strong>Founder Email ID:</strong> {$current_user->email}</p>";
 					$body .= "<p><strong>Founder Name:</strong> {$current_user->first_name} {$current_user->last_name}</p>";
@@ -2349,10 +2349,10 @@ class Startup extends CI_Controller {
 					$body .= "<p><strong>GST:</strong> {$current_user->unicorn_gst}</p>";
 					$body .= "<p><strong>Address:</strong> {$current_user->unicorn_gst_registered_address}</p>";
 					$body .= "<p><strong>Activation Date:</strong> {$formatted_date}</p>";
-					$body .= "<p><strong>Plan:</strong> Silver Plan - Diwali Offer (FREE)</p>";
+					$body .= "<p><strong>Plan:</strong> Silver Plan - Exclusive Limited Time Offer Offer (FREE)</p>";
 					$body .= "<p><strong>Transaction amount:</strong> ₹0 (FREE)</p>";
 
-					$subject = "Diwali Special - Silver Plan Activated for FREE!";
+					$subject = "Exclusive Limited Time Offer Special - Silver Plan Activated for FREE!";
 
 					send_email(
 						$body,
@@ -2364,7 +2364,7 @@ class Startup extends CI_Controller {
 					// Return success response with redirect URL
 					$response = [
 						'status' => '1',
-						'message' => 'Diwali Silver Plan activated successfully for FREE!',
+						'message' => 'Exclusive Limited Time Offer Silver Plan activated successfully for FREE!',
 						'data' => [
 							'link_url' => CASHFREE_RESPONSE_DOMAIN_URL.'/FounderMyListing'
 						]

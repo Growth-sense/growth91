@@ -8,33 +8,36 @@ class Roles extends CI_Controller
         parent::__construct();
         $this->load->database();
         $this->load->model('AdminRole_model');
-        header("Content-Type: application/json; charset=UTF-8");
     }
 
     public function getRole()
     {
         $adminId = $this->input->get_request_header('X-Admin-Id', TRUE);
         if (empty($adminId)) {
-            echo json_encode(['status' => '0', 'message' => 'Admin ID required']); return;
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Admin ID required']));
+            return;
         }
 
         // Only super_admin can manage roles
         $admin = $this->db->get_where('admin_master', ['id' => $adminId])->row();
         if (!$admin || (int)$admin->is_super_admin !== 1) {
-            echo json_encode(['status' => '0', 'message' => 'Unauthorized']); return;
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Unauthorized']));
+            return;
         }
 
         $roleId = $this->input->get('role_id', TRUE);
         if (empty($roleId)) {
-            echo json_encode(['status' => '0', 'message' => 'role_id required']); return;
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'role_id required']));
+            return;
         }
 
         $role = $this->db->get_where('admin_roles_master', ['id' => $roleId])->row();
         if (!$role) {
-            echo json_encode(['status' => '0', 'message' => 'Role not found']); return;
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Role not found']));
+            return;
         }
 
-        echo json_encode([
+        $response = [
             'status'  => '1',
             'message' => 'Role loaded',
             'data'    => [
@@ -42,24 +45,28 @@ class Roles extends CI_Controller
                 'name'             => $role->name,
                 'permissions_json' => $role->permissions_json,
             ],
-        ]);
+        ];
+        $this->output->set_content_type('application/json')->set_output(json_encode($response));
     }
 
     public function updatePermissions()
     {
         $adminId = $this->input->get_request_header('X-Admin-Id', TRUE);
         if (empty($adminId)) {
-            echo json_encode(['status' => '0', 'message' => 'Admin ID required']); return;
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Admin ID required']));
+            return;
         }
 
         $admin = $this->db->get_where('admin_master', ['id' => $adminId])->row();
         if (!$admin || (int)$admin->is_super_admin !== 1) {
-            echo json_encode(['status' => '0', 'message' => 'Unauthorized']); return;
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Unauthorized']));
+            return;
         }
 
         $formdata = json_decode(file_get_contents('php://input'), true);
         if (empty($formdata['role_id']) || !isset($formdata['permissions_json'])) {
-            echo json_encode(['status' => '0', 'message' => 'role_id and permissions_json required']); return;
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'role_id and permissions_json required']));
+            return;
         }
 
         $roleId    = (int)$formdata['role_id'];
@@ -67,7 +74,8 @@ class Roles extends CI_Controller
 
         json_decode($permsJson);
         if (json_last_error() !== JSON_ERROR_NONE) {
-            echo json_encode(['status' => '0', 'message' => 'Invalid JSON']); return;
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Invalid JSON']));
+            return;
         }
 
         $this->db->where('id', $roleId);
@@ -76,10 +84,11 @@ class Roles extends CI_Controller
         ]);
 
         if ($ok) {
-            echo json_encode(['status' => '1', 'message' => 'Permissions updated']);
+            $response = ['status' => '1', 'message' => 'Permissions updated'];
         } else {
-            echo json_encode(['status' => '0', 'message' => 'Update failed']);
+            $response = ['status' => '0', 'message' => 'Update failed'];
         }
+        $this->output->set_content_type('application/json')->set_output(json_encode($response));
     }
 
     // GET /api/admin/Roles/listRoles
@@ -87,12 +96,14 @@ class Roles extends CI_Controller
     {
         $adminId = $this->input->get_request_header('X-Admin-Id', TRUE);
         if (empty($adminId)) {
-            echo json_encode(['status' => '0', 'message' => 'Admin ID required']); return;
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Admin ID required']));
+            return;
         }
 
         $admin = $this->db->get_where('admin_master', ['id' => $adminId])->row();
         if (!$admin || (int)$admin->is_super_admin !== 1) {
-            echo json_encode(['status' => '0', 'message' => 'Unauthorized']); return;
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Unauthorized']));
+            return;
         }
 
         $roles = $this->db
@@ -102,7 +113,8 @@ class Roles extends CI_Controller
             ->get()
             ->result_array();
 
-        echo json_encode(['status' => '1', 'message' => 'Roles list', 'data' => $roles]);
+        $response = ['status' => '1', 'message' => 'Roles list', 'data' => $roles];
+        $this->output->set_content_type('application/json')->set_output(json_encode($response));
     }
 
     // POST /api/admin/Roles/create
@@ -110,24 +122,28 @@ class Roles extends CI_Controller
     {
         $adminId = $this->input->get_request_header('X-Admin-Id', TRUE);
         if (empty($adminId)) {
-            echo json_encode(['status' => '0', 'message' => 'Admin ID required']); return;
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Admin ID required']));
+            return;
         }
 
         $admin = $this->db->get_where('admin_master', ['id' => $adminId])->row();
         if (!$admin || (int)$admin->is_super_admin !== 1) {
-            echo json_encode(['status' => '0', 'message' => 'Unauthorized']); return;
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Unauthorized']));
+            return;
         }
 
         $formdata = json_decode(file_get_contents('php://input'), true);
         $name = isset($formdata['name']) ? trim($formdata['name']) : '';
 
         if ($name === '') {
-            echo json_encode(['status' => '0', 'message' => 'name required']); return;
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'name required']));
+            return;
         }
 
         $existing = $this->db->get_where('admin_roles_master', ['name' => $name])->row();
         if ($existing) {
-            echo json_encode(['status' => '0', 'message' => 'Role name already exists']); return;
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Role name already exists']));
+            return;
         }
 
         // Only set the technical name; display_name column (if present) is unused
@@ -138,11 +154,13 @@ class Roles extends CI_Controller
 
         $ok = $this->db->insert('admin_roles_master', $data);
         if (!$ok) {
-            echo json_encode(['status' => '0', 'message' => 'Insert failed']); return;
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Insert failed']));
+            return;
         }
 
         $data['id'] = $this->db->insert_id();
-        echo json_encode(['status' => '1', 'message' => 'Role created', 'data' => $data]);
+        $response = ['status' => '1', 'message' => 'Role created', 'data' => $data];
+        $this->output->set_content_type('application/json')->set_output(json_encode($response));
     }
 
     // POST /api/admin/Roles/delete
@@ -150,32 +168,38 @@ class Roles extends CI_Controller
     {
         $adminId = $this->input->get_request_header('X-Admin-Id', TRUE);
         if (empty($adminId)) {
-            echo json_encode(['status' => '0', 'message' => 'Admin ID required']); return;
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Admin ID required']));
+            return;
         }
 
         $admin = $this->db->get_where('admin_master', ['id' => $adminId])->row();
         if (!$admin || (int)$admin->is_super_admin !== 1) {
-            echo json_encode(['status' => '0', 'message' => 'Unauthorized']); return;
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Unauthorized']));
+            return;
         }
 
         $formdata = json_decode(file_get_contents('php://input'), true);
         $roleId   = isset($formdata['role_id']) ? (int)$formdata['role_id'] : 0;
         if ($roleId <= 0) {
-            echo json_encode(['status' => '0', 'message' => 'role_id required']); return;
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'role_id required']));
+            return;
         }
 
         $role = $this->db->get_where('admin_roles_master', ['id' => $roleId])->row();
         if (!$role) {
-            echo json_encode(['status' => '0', 'message' => 'Role not found']); return;
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Role not found']));
+            return;
         }
         if ($role->name === 'super_admin') {
-            echo json_encode(['status' => '0', 'message' => 'Cannot delete super_admin role']); return;
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Cannot delete super_admin role']));
+            return;
         }
 
         $this->db->where('role_id', $roleId)->delete('admin_user_roles');
         $this->db->where('id', $roleId)->delete('admin_roles_master');
 
-        echo json_encode(['status' => '1', 'message' => 'Role deleted']);
+        $response = ['status' => '1', 'message' => 'Role deleted'];
+        $this->output->set_content_type('application/json')->set_output(json_encode($response));
     }
 
     // GET /api/admin/Roles/listUsers
@@ -183,12 +207,14 @@ class Roles extends CI_Controller
     {
         $adminId = $this->input->get_request_header('X-Admin-Id', TRUE);
         if (empty($adminId)) {
-            echo json_encode(['status' => '0', 'message' => 'Admin ID required']); return;
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Admin ID required']));
+            return;
         }
 
         $admin = $this->db->get_where('admin_master', ['id' => $adminId])->row();
         if (!$admin || (int)$admin->is_super_admin !== 1) {
-            echo json_encode(['status' => '0', 'message' => 'Unauthorized']); return;
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Unauthorized']));
+            return;
         }
 
         $users = $this->db
@@ -200,7 +226,8 @@ class Roles extends CI_Controller
             ->get()
             ->result_array();
 
-        echo json_encode(['status' => '1', 'message' => 'Users list', 'data' => $users]);
+        $response = ['status' => '1', 'message' => 'Users list', 'data' => $users];
+        $this->output->set_content_type('application/json')->set_output(json_encode($response));
     }
 
     // GET /api/admin/Roles/getUserRoles?admin_id=5
@@ -208,22 +235,19 @@ class Roles extends CI_Controller
     {
         $adminId = $this->input->get_request_header('X-Admin-Id', TRUE);
         if (empty($adminId)) {
-            echo json_encode(['status' => '0', 'message' => 'Admin ID required']); return;
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Admin ID required']));
+            return;
         }
 
         $admin = $this->db->get_where('admin_master', ['id' => $adminId])->row();
         if (!$admin || (int)$admin->is_super_admin !== 1) {
-            echo json_encode(['status' => '0', 'message' => 'Unauthorized']); return;
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Unauthorized']));
+            return;
         }
 
         $userId = (int)$this->input->get('admin_id', TRUE);
-        if ($userId < 0) {
-        echo json_encode(['status' => '0', 'message' => 'admin_id required']); return;
-        }
-
-        $user = $this->db->get_where('admin_master', ['id' => $userId])->row();
-        if (!$user) {
-            echo json_encode(['status' => '0', 'message' => 'admin not found']); 
+        if ($userId <= 0) {
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'admin_id required']));
             return;
         }
 
@@ -236,192 +260,199 @@ class Roles extends CI_Controller
 
         $roleIds = array_map(function ($r) { return (int)$r['role_id']; }, $rows);
 
-        echo json_encode([
+        $response = [
             'status'  => '1',
             'message' => 'User roles',
             'data'    => $roleIds,
-        ]);
+        ];
+        $this->output->set_content_type('application/json')->set_output(json_encode($response));
     }
 
     // POST /api/admin/Roles/updateUserRoles
-   // POST /api/admin/Roles/updateUserRoles
-public function updateUserRoles()
-{
-    // 1) Auth: only Super Admin (caller) can update user roles
-    $adminId = $this->input->get_request_header('X-Admin-Id', TRUE);
-    if (empty($adminId)) {
-        echo json_encode(['status' => '0', 'message' => 'Admin ID required']); return;
+    public function updateUserRoles()
+    {
+        // 1) Auth: only Super Admin (caller) can update user roles
+        $adminId = $this->input->get_request_header('X-Admin-Id', TRUE);
+        if (empty($adminId)) {
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Admin ID required']));
+            return;
+        }
+
+        $admin = $this->db->get_where('admin_master', ['id' => $adminId])->row();
+        if (!$admin || (int)$admin->is_super_admin !== 1) {
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Unauthorized']));
+            return;
+        }
+
+        // 2) Read payload
+        $formdata = json_decode(file_get_contents('php://input'), true);
+        $userId   = isset($formdata['admin_id']) ? (int)$formdata['admin_id'] : 0;
+        $roleIds  = isset($formdata['role_ids']) && is_array($formdata['role_ids'])
+            ? $formdata['role_ids']
+            : [];
+
+        if ($userId <= 0) {
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'admin_id required']));
+            return;
+        }
+
+        // 3) Normalize role IDs to integers
+        $normalizedRoleIds = [];
+        foreach ($roleIds as $rid) {
+            $rid = (int)$rid;
+            if ($rid > 0) {
+                $normalizedRoleIds[] = $rid;
+            }
+        }
+
+        // 4) Prevent assigning super_admin role from this endpoint
+        $superRole = $this->db
+            ->select('id')
+            ->from('admin_roles_master')
+            ->where('name', 'super_admin')
+            ->get()
+            ->row();
+
+        $superId = $superRole ? (int)$superRole->id : null;
+        if ($superId && in_array($superId, $normalizedRoleIds, true)) {
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Cannot assign super_admin role from this endpoint']));
+            return;
+        }
+
+        // 5) Replace rows in admin_user_roles (only non-super_admin roles)
+        $this->db->where('admin_id', $userId)->delete('admin_user_roles');
+
+        foreach ($normalizedRoleIds as $rid) {
+            $this->db->insert('admin_user_roles', [
+                'admin_id' => $userId,
+                'role_id'  => $rid,
+            ]);
+        }
+
+        // Do not change admin_master.is_super_admin here; Super Admins are managed outside this screen.
+        $response = ['status' => '1', 'message' => 'User roles updated'];
+        $this->output->set_content_type('application/json')->set_output(json_encode($response));
     }
-
-    $admin = $this->db->get_where('admin_master', ['id' => $adminId])->row();
-    if (!$admin || (int)$admin->is_super_admin !== 1) {
-        echo json_encode(['status' => '0', 'message' => 'Unauthorized']); return;
-    }
-
-    // 2) Read payload
-    $formdata = json_decode(file_get_contents('php://input'), true);
-    $userId   = isset($formdata['admin_id']) ? (int)$formdata['admin_id'] : 0;
-    $roleIds  = isset($formdata['role_ids']) && is_array($formdata['role_ids'])
-        ? $formdata['role_ids']
-        : [];
-
-    if ($userId < 0) {
-    echo json_encode(['status' => '0', 'message' => 'admin_id required']); return;
-    }
-   
-    $user = $this->db->get_where('admin_master', ['id' => $userId])->row();
-    if (!$user) {
-        echo json_encode(['status' => '0', 'message' => 'admin not found']); 
-        return;
-    }
-
-    // 3) Normalize role IDs to integers
-$normalizedRoleIds = [];
-foreach ($roleIds as $rid) {
-    $rid = (int)$rid;
-    if ($rid > 0) {
-        $normalizedRoleIds[] = $rid;
-    }
-}
-
-// 4) Prevent assigning super_admin role from this endpoint
-$superRole = $this->db
-    ->select('id')
-    ->from('admin_roles_master')
-    ->where('name', 'super_admin')
-    ->get()
-    ->row();
-
-$superId = $superRole ? (int)$superRole->id : null;
-if ($superId && in_array($superId, $normalizedRoleIds, true)) {
-    echo json_encode(['status' => '0', 'message' => 'Cannot assign super_admin role from this endpoint']);
-    return;
-}
-
-// 5) Replace rows in admin_user_roles (only non-super_admin roles)
-$this->db->where('admin_id', $userId)->delete('admin_user_roles');
-
-foreach ($normalizedRoleIds as $rid) {
-    $this->db->insert('admin_user_roles', [
-        'admin_id' => $userId,
-        'role_id'  => $rid,
-    ]);
-}
-
-// Do not change admin_master.is_super_admin here; Super Admins are managed outside this screen.
-echo json_encode(['status' => '1', 'message' => 'User roles updated']);
-}
 
     // GET /api/admin/Roles/myPermissions
     public function myPermissions()
     {
         $adminId = $this->input->get_request_header('X-Admin-Id', TRUE);
         if (empty($adminId)) {
-            echo json_encode(['status' => '0', 'message' => 'Admin ID required']); return;
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Admin ID required']));
+            return;
         }
 
         $perms = $this->AdminRole_model->getEffectivePermissions($adminId);
 
-        echo json_encode([
+        $response = [
             'status'  => '1',
             'message' => 'Permissions loaded',
             'data'    => $perms,
+        ];
+        $this->output->set_content_type('application/json')->set_output(json_encode($response));
+    }
+
+
+    // POST /api/admin/Roles/createAdminUser
+    public function createAdminUser()
+    {
+        // Only Super Admin can create admin users
+        $adminId = $this->input->get_request_header('X-Admin-Id', TRUE);
+        if (empty($adminId)) {
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Admin ID required']));
+            return;
+        }
+
+        $admin = $this->db->get_where('admin_master', ['id' => $adminId])->row();
+        if (!$admin || (int)$admin->is_super_admin !== 1) {
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Unauthorized']));
+            return;
+        }
+
+        // Read JSON body: { username, password, role_id }
+        $formdata = json_decode(file_get_contents('php://input'), true);
+
+        $username = isset($formdata['username']) ? trim($formdata['username']) : '';
+        $password = isset($formdata['password']) ? $formdata['password'] : '';
+        $roleId   = isset($formdata['role_id']) ? (int)$formdata['role_id'] : 0;
+
+        if ($username === '' || $password === '') {
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'username and password are required']));
+            return;
+        }
+        if ($roleId <= 0) {
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'role_id is required']));
+            return;
+        }
+
+        // Check username uniqueness
+        $exists = $this->db->get_where('admin_master', ['username' => $username])->row();
+        if ($exists) {
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Username already exists']));
+            return;
+        }
+
+        // Verify role exists
+        $role = $this->db->get_where('admin_roles_master', ['id' => $roleId])->row();
+        if (!$role) {
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Invalid role_id']));
+            return;
+        }
+
+        // Do not allow creating Super Admin users from this endpoint
+        if ($role->name === 'super_admin') {
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Cannot create super_admin user from this endpoint']));
+            return;
+        }
+
+        // Match existing admin login hashing (Admin::signin uses md5)
+        $hashedPassword = md5($password);
+
+        // Insert into admin_master (always non-super-admin)
+        $adminInsert = [
+            'username'        => $username,
+            'password'        => $hashedPassword,
+            'is_super_admin'  => 0,
+            'failAttempt'     => 0,
+            'blocked'         => 0,
+            'permissions_json'=> '',
+        ];
+        $this->db->insert('admin_master', $adminInsert);
+
+        // Check insert result
+        if ($this->db->affected_rows() <= 0) {
+            $err = $this->db->error();
+            $msg = !empty($err['message']) ? $err['message'] : 'Failed to create admin user';
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => $msg]));
+            return;
+        }
+
+        // Always re-fetch the new admin by username to get its id
+        $row = $this->db->get_where('admin_master', ['username' => $username])->row();
+        if (!$row) {
+            $this->output->set_content_type('application/json')->set_output(json_encode(['status' => '0', 'message' => 'Failed to load created admin user']));
+            return;
+        }
+
+        $newAdminId = (int)$row->id;
+
+        // Insert into admin_user_roles
+        $this->db->insert('admin_user_roles', [
+            'admin_id' => $newAdminId,
+            'role_id'  => $roleId,
         ]);
+
+        $response = [
+            'status'  => '1',
+            'message' => 'Admin user created',
+            'data'    => [
+                'id'            => $newAdminId,
+                'username'      => $username,
+                'is_super_admin'=> 0,
+                'role_id'       => $roleId,
+            ],
+        ];
+        $this->output->set_content_type('application/json')->set_output(json_encode($response));
     }
-
-
-// POST /api/admin/Roles/createAdminUser
-public function createAdminUser()
-{
-    // Only Super Admin can create admin users
-    $adminId = $this->input->get_request_header('X-Admin-Id', TRUE);
-    if (empty($adminId)) {
-        echo json_encode(['status' => '0', 'message' => 'Admin ID required']); return;
-    }
-
-    $admin = $this->db->get_where('admin_master', ['id' => $adminId])->row();
-    if (!$admin || (int)$admin->is_super_admin !== 1) {
-        echo json_encode(['status' => '0', 'message' => 'Unauthorized']); return;
-    }
-
-    // Read JSON body: { username, password, role_id }
-    $formdata = json_decode(file_get_contents('php://input'), true);
-
-    $username = isset($formdata['username']) ? trim($formdata['username']) : '';
-    $password = isset($formdata['password']) ? $formdata['password'] : '';
-    $roleId   = isset($formdata['role_id']) ? (int)$formdata['role_id'] : 0;
-
-    if ($username === '' || $password === '') {
-        echo json_encode(['status' => '0', 'message' => 'username and password are required']); return;
-    }
-    if ($roleId <= 0) {
-        echo json_encode(['status' => '0', 'message' => 'role_id is required']); return;
-    }
-
-    // Check username uniqueness
-    $exists = $this->db->get_where('admin_master', ['username' => $username])->row();
-    if ($exists) {
-        echo json_encode(['status' => '0', 'message' => 'Username already exists']); return;
-    }
-
-   // Verify role exists
-$role = $this->db->get_where('admin_roles_master', ['id' => $roleId])->row();
-if (!$role) {
-    echo json_encode(['status' => '0', 'message' => 'Invalid role_id']); return;
-}
-
-// Do not allow creating Super Admin users from this endpoint
-if ($role->name === 'super_admin') {
-    echo json_encode(['status' => '0', 'message' => 'Cannot create super_admin user from this endpoint']);
-    return;
-}
-
-// Match existing admin login hashing (Admin::signin uses md5)
-$hashedPassword = md5($password);
-
-// Insert into admin_master (always non-super-admin)
-$adminInsert = [
-    'username'        => $username,
-    'password'        => $hashedPassword,
-    'is_super_admin'  => 0,
-    'failAttempt'     => 0,
-    'blocked'         => 0,
-    'permissions_json'=> '',
-];
-    $this->db->insert('admin_master', $adminInsert);
-
-    // Check insert result
-    if ($this->db->affected_rows() <= 0) {
-        $err = $this->db->error();
-        $msg = !empty($err['message']) ? $err['message'] : 'Failed to create admin user';
-        echo json_encode(['status' => '0', 'message' => $msg]);
-        return;
-    }
-
-    // Always re-fetch the new admin by username to get its id
-    $row = $this->db->get_where('admin_master', ['username' => $username])->row();
-    if (!$row) {
-        echo json_encode(['status' => '0', 'message' => 'Failed to load created admin user']); 
-        return;
-    }
-
-    $newAdminId = (int)$row->id;
-
-    // Insert into admin_user_roles
-    $this->db->insert('admin_user_roles', [
-        'admin_id' => $newAdminId,
-        'role_id'  => $roleId,
-    ]);
-
-    echo json_encode([
-        'status'  => '1',
-        'message' => 'Admin user created',
-        'data'    => [
-            'id'            => $newAdminId,
-            'username'      => $username,
-            'is_super_admin'=> 0,
-            'role_id'       => $roleId,
-        ],
-    ]);
-}
 }
