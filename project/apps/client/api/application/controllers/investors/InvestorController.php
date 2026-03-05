@@ -362,10 +362,10 @@ class InvestorController extends CI_Controller
 		if (!empty($formdata)) {
 			$userID = $formdata['userID'];
 			if ($userID <> "-1")
-				$sql = "SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inner join users on users.investor_id = groups.userID WHERE userID = '$userID' union 
+				$sql = "SELECT `groups`.*,first_name,middle_name,last_name,email,mobile FROM `groups` inner join users on users.investor_id = `groups`.userID WHERE userID = '$userID' union 
 				SELECT g.*, first_name,middle_name,last_name,email,mobile FROM `groups` g INNER JOIN group_invites gi ON g.groupID = gi.groupID INNER JOIN users u ON gi.member_id = u.investor_id WHERE gi.member_id = '$userID'";
 			else
-				$sql = "SELECT groups.*,first_name,middle_name,last_name,email,mobile FROM `groups` inner join users on users.investor_id = groups.userID  WHERE 1 = '1' ORDER BY groupName";
+				$sql = "SELECT `groups`.*,first_name,middle_name,last_name,email,mobile FROM `groups` inner join users on users.investor_id = `groups`.userID  WHERE 1 = '1' ORDER BY groupName";
 			$query = $this->db->query($sql);
 			$result = $query->result();
 			$num_rows = $query->num_rows();
@@ -1745,7 +1745,7 @@ class InvestorController extends CI_Controller
 			$deleteRequested = $formdata['deleteRequested'];
 
 
-			$sql = $sql = "SELECT groups.groupName, group_invites.*,first_name,middle_name,last_name,email,mobile, concat(first_name,' ',middle_name,' ',last_name) as fullName FROM `group_invites` inner join users on users.investor_id = group_invites.userID inner join groups on groups.groupID = group_invites.groupID  WHERE deleteRequested = 'Yes' ORDER BY first_name";
+			$sql = $sql = "SELECT `groups`.groupName, group_invites.*,first_name,middle_name,last_name,email,mobile, concat(first_name,' ',middle_name,' ',last_name) as fullName FROM `group_invites` inner join users on users.investor_id = group_invites.userID inner join `groups` on `groups`.groupID = group_invites.groupID  WHERE deleteRequested = 'Yes' ORDER BY first_name";
 			$query = $this->db->query($sql);
 			$result = $query->result();
 			$num_rows = $query->num_rows();

@@ -49,6 +49,30 @@ useEffect(() => {
   const [filterdata, setfilterdata] = useState();
   const [searchQuery, setSearchQuery] = useState("");
 
+  // Helper function to check if a startup matches the published timeframe
+  const checkPublishedTimeframe = (publishedDate, timeframe) => {
+    if (!publishedDate) return false;
+
+    const currentDate = new Date();
+    const pubDate = new Date(publishedDate);
+    const daysDifference = Math.floor((currentDate - pubDate) / (1000 * 60 * 60 * 24));
+
+    switch (timeframe) {
+      case "14days":
+        return daysDifference <= 14;
+      case "1month":
+        return daysDifference <= 30;
+      case "3months":
+        return daysDifference <= 90;
+      case "6months":
+        return daysDifference <= 180;
+      case "1year":
+        return daysDifference <= 365;
+      default:
+        return true;
+    }
+  };
+
   // Create stable random selections for tags (random on page load, stable during session)
   const randomTagSelections = useMemo(() => {
     const selections = {};
@@ -92,6 +116,7 @@ useEffect(() => {
     stage: "",
     founder: "",
     sponsorName: "",
+    published: "", 
   });
 
   function SimpleNextArrow(props) {
@@ -207,13 +232,17 @@ useEffect(() => {
         const matchesStage = filters.stage
           ? obj.udStage === filters.stage
           : true;
+        const matchesPublished = filters.published
+          ? checkPublishedTimeframe(obj.udPublishedDate, filters.published)
+          : true;
 
         return (
           matchesCategory &&
           matchesStartupName &&
           matchesFounder &&
           matchesSponsor &&
-          matchesStage
+          matchesStage &&
+          matchesPublished
         );
       });
 
@@ -222,7 +251,8 @@ useEffect(() => {
         !filters.startupName &&
         !filters.founder &&
         !filters.sponsorName &&
-        !filters.stage
+        !filters.stage &&
+        !filters.published
       ) {
         filteredResults = [...data];
       }
@@ -603,6 +633,7 @@ useEffect(() => {
                       stage: "",
                       founder: "",
                       sponsorName: "",
+                      published: "",
                     });
                     setShowModal(false);
                   }}
@@ -754,6 +785,24 @@ useEffect(() => {
                             {sponsorName}
                           </option>
                         ))}
+                  </select>
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="published">Published:</label>
+                  <select
+                    id="published"
+                    value={filters.published}
+                    onChange={(e) =>
+                      setFilters({ ...filters, published: e.target.value })
+                    }
+                    className="form-control"
+                  >
+                    <option value="">--Select--</option>
+                    <option value="14days">Last 14 Days</option>
+                    <option value="1month">Last 1 Month</option>
+                    <option value="3months">Last 3 Months</option>
+                    <option value="6months">Last 6 Months</option>
+                    <option value="1year">Last 1 Year</option>
                   </select>
                 </div>
               </div>
