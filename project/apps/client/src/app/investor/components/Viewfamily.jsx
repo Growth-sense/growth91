@@ -529,11 +529,11 @@ class Viewfamily extends Component {
       });
       return;
     }
-
+    
     this.setState({ loading: true });
     axios({
       method: "post",
-      url: `https://growth91.growthmetaverse.in/api/Panverification/verify_pan`,
+      url: `https://growth91.com/api/Panverification/verify_pan`,
       headers: {
         "Content-Type": "application/json",
       },
