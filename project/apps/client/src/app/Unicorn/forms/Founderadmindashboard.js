@@ -323,8 +323,6 @@ class Founderadmindashboard extends Component {
         show_error_modal: false,
         show_confirmation_modal: false,
         show_additional_info_modal: false,
-        show_unpublish_warning_modal: false,
-        show_unpublish_email_modal: false,
         unicornid: "",
         tudDeclare: 0,
         tudSponsorName: "",
@@ -1162,29 +1160,6 @@ class Founderadmindashboard extends Component {
       this.setState({ loading: false });
     }
   };
-
-  handleUnpublishClick = () => {
-    this.setState({ show_unpublish_warning_modal: true });
-  };
-
-  handleUnpublishWarningContinue = () => {
-    this.setState({ 
-      show_unpublish_warning_modal: false,
-      show_unpublish_email_modal: true 
-    });
-  };
-
-  handleCopyEmail = () => {
-    navigator.clipboard.writeText('contact@growth91.com');
-    message.success('Email copied to clipboard');
-  };
-
-  handleCopySubject = () => {
-    const startupName = this.state.unicorn?.tudStartupName;
-    const subject = `Unpublish Request – ${startupName}`;
-    navigator.clipboard.writeText(subject);
-    message.success('Subject copied to clipboard');
-  };
   
   validatePreview = () => {
     const { unicorn } = this.state;
@@ -1364,19 +1339,6 @@ class Founderadmindashboard extends Component {
                     Publish
                   </a>
                 </div>
-                <div className="text-center" style={{marginTop:'14px'}}>
-                  <a
-                    onClick={this.handleUnpublishClick}
-                    style={{
-                      fontSize: '14px',
-                      textDecoration: 'underline',
-                      cursor: 'pointer',
-                      color: 'red',
-                    }}
-                  >
-                    Unpublish My Startup Profile
-                  </a>
-                </div>
               </div>
             )}
           </div>
@@ -1495,166 +1457,6 @@ class Founderadmindashboard extends Component {
                   Clicking on 'Publish' will use your edit access. Close this box if you haven't made any edits, and proceed with publishing only if you have made changes to the Unicorn page.
                   </p>
                 </div>
-              </div>
-            </div>
-          </Modal>
-          
-          {/* Unpublish Warning Modal */}
-          <Modal
-            title={
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <i className="fa-solid fa-triangle-exclamation" style={{ color: '#ff4d4f', fontSize: '24px' }}></i>
-                <span style={{ fontSize: '18px', fontWeight: '600', color: '#1a1f36' }}>Confirm Unpublish Request</span>
-              </div>
-            }
-            open={this.state.show_unpublish_warning_modal}
-            onCancel={() => this.setState({ show_unpublish_warning_modal: false })}
-            footer={[
-              <Button key="cancel" onClick={() => this.setState({ show_unpublish_warning_modal: false })}>
-                Cancel
-              </Button>,
-              <Button key="continue" type="primary" danger onClick={this.handleUnpublishWarningContinue}>
-                Continue to Unpublish
-              </Button>,
-            ]}
-            width={600}
-            centered={true}
-            style={{
-              borderRadius: '16px',
-              overflow: 'hidden',
-              top: '20px'
-            }}
-            headStyle={{
-              padding: '10px 24px',
-              borderBottom: 'none'
-            }}
-            bodyStyle={{
-              padding: '0px 24px'
-            }}
-          >
-            <div style={{ padding: '0' }}>
-              <div style={{
-                background: '#f8fafc',
-                padding: '24px',
-                borderRadius: '12px',
-                marginBottom: '20px',
-              }}>
-                <p style={{ fontSize: '16px', marginBottom: '16px', fontWeight: '600', color: '#1a1f36' }}>
-                  By unpublishing your startup profile:
-                </p>
-                <ul style={{ 
-                  margin: '0',
-                  paddingLeft: '20px', 
-                  lineHeight: '1.8',
-                  color: '#4a5568',
-                  listStyleType: 'none'
-                }}>
-                  <li style={{ marginBottom: '8px' }}>1. Your startup will no longer be visible to investors.</li>
-                  <li style={{ marginBottom: '8px' }}>2. You will lose ongoing visibility on the platform.</li>
-                  <li style={{ marginBottom: '8px' }}>3. Your deal may be removed from active consideration, as the public link will no longer remain accessible.</li>
-                  <li>4. Investor engagement history may be paused.</li>
-                </ul>
-              </div>
-              <p style={{ marginTop: '16px', color: '#ff4d4f', fontWeight: '600', fontSize: '16px' }}>
-                Are you sure you want to proceed?
-              </p>
-            </div>
-          </Modal>
-
-          {/* Unpublish Email Instruction Modal */}
-          <Modal
-            title={
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <i className="fa-solid fa-envelope" style={{ color: '#1890ff', fontSize: '24px' }}></i>
-                <span style={{ fontSize: '18px', fontWeight: '600', color: '#1a1f36' }}>Email Confirmation Required</span>
-              </div>
-            }
-            open={this.state.show_unpublish_email_modal}
-            onCancel={() => this.setState({ show_unpublish_email_modal: false })}
-            footer={[
-              <Button key="close" type="primary" onClick={() => this.setState({ show_unpublish_email_modal: false })}>
-                Close
-              </Button>,
-            ]}
-            width={650}
-            centered={true}
-            style={{
-              borderRadius: '16px',
-              overflow: 'hidden',
-              top: '20px'
-            }}
-            headStyle={{
-              padding: '10px 24px',
-              borderBottom: 'none'
-            }}
-            bodyStyle={{
-              padding: '0px 24px'
-            }}
-          >
-            <div style={{ padding: '0' }}>
-              <p style={{ fontSize: '16px', marginBottom: '20px', color: '#4a5568' }}>
-                To proceed with unpublishing your startup profile, please send an email to:
-              </p>
-              
-              <div style={{ 
-                background: '#f8fafc', 
-                padding: '24px', 
-                borderRadius: '12px', 
-                marginBottom: '20px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center'
-              }}>
-                <div>
-                  <strong style={{ fontSize: '16px', fontWeight: '600', color: '#1a1f36' }}>Email:</strong>
-                  <div style={{ fontSize: '18px', color: '#1890ff', marginTop: '8px' }}>
-                    contact@growth91.com
-                  </div>
-                </div>
-                <Button 
-                  icon={<i className="fa-solid fa-copy"></i>} 
-                  onClick={this.handleCopyEmail}
-                  size="small"
-                >
-                  Copy
-                </Button>
-              </div>
-
-              <div style={{ 
-                background: '#fff7e6', 
-                padding: '24px', 
-                borderRadius: '12px', 
-                border: '1px solid #ffd591',
-                marginBottom: '20px'
-              }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                  <div style={{ flex: 1 }}>
-                    <strong style={{ fontSize: '16px', fontWeight: '600', color: '#d46b08' }}>Subject Line (Mandatory Format):</strong>
-                    <div style={{ fontSize: '14px', marginTop: '8px', wordBreak: 'break-word', color: '#4a5568', lineHeight: '1.6' }}>
-                      Unpublish Request – {this.state.unicorn?.tudStartupName || '[Startup Name]'}
-                    </div>
-                  </div>
-                  <Button 
-                    icon={<i className="fa-solid fa-copy"></i>} 
-                    onClick={this.handleCopySubject}
-                    size="small"
-                    style={{ marginLeft: '10px', flexShrink: 0 }}
-                  >
-                    Copy
-                  </Button>
-                </div>
-              </div>
-
-              <div style={{ 
-                background: '#e6f7ff', 
-                padding: '24px', 
-                borderRadius: '12px',
-                border: '1px solid #91d5ff'
-              }}>
-                <p style={{ margin: 0, color: '#0050b3', fontSize: '14px' }}>
-                  <i className="fa-solid fa-info-circle" style={{ marginRight: '8px' }}></i>
-                  Our team will review and process the request.
-                </p>
               </div>
             </div>
           </Modal>
