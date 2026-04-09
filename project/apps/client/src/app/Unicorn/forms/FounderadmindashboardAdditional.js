@@ -618,7 +618,7 @@ class FounderadmindashboardAdditional extends Component {
 
   activeform = (value) => {
     this.setState({ activeform: value });
-    $("#additionalForms").animate({ scrollTop: 0 }, 200);
+    // Removed scroll to top - keep focus on clicked step
   };
 
   onChange = (value) => {
@@ -1141,7 +1141,11 @@ class FounderadmindashboardAdditional extends Component {
                       const classKey = `class${formIndex}`;
                       
                       return (
-                        <li key={stepIndex} onClick={() => this.activethistab(formIndex)}>
+                        <li key={stepIndex} onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          this.activethistab(formIndex);
+                        }}>
                           <div>
                             <div
                               className={
