@@ -627,7 +627,7 @@ class FounderadmindashboardAdditional extends Component {
 
   activethistab = (num) => {
     this.setState({ activeform: num });
-    $("#additionalForms").animate({ scrollTop: 0 }, 200);
+    // Removed scroll to top - keep focus on clicked step
   };
 
   checkforvalidation = (ind) => {

@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import ReactGA from "react-ga4";
+import SEO from "./app/components/SEO";
 
 import Home from "./app/Home";
 import Homenew from "./app/Homenew.jsx";
@@ -275,6 +276,7 @@ function App() {
   return (
     <div className="App">
       <Router>
+        <SEO />
         <RouteChangeTracker />
         <Switch>
           <Route exact path="/the EleFant">

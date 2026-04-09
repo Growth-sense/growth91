@@ -192,7 +192,16 @@ export const FutureUnicornForm = () => {
                                     <div className="button-container">
                                         <button 
                                             className="action-button ok-button" 
-                                            onClick={() => setShowSecondComponent(true)}
+                                            onClick={() => {
+                                                setShowSecondComponent(true);
+                                                // Scroll to content2 section
+                                                setTimeout(() => {
+                                                    const content2 = document.getElementById('content2');
+                                                    if (content2) {
+                                                        content2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                                    }
+                                                }, 100);
+                                            }}
                                         >
                                             Ok
                                         </button>
