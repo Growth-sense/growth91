@@ -723,23 +723,12 @@ class Retnerai extends Component {
       return;
     }
 
-    // Check if aifValue is set
-    if (staticDealData.aifValue && staticDealData.aifValue !== "") {
-      this.setState({
-        selectInvestorModal: false,
-        investmentOptionsModal: true,
-      });
-    } else {
-      this.setState(
-        {
-          selectInvestorModal: false,
-          investmentmodal: true,
-        },
-        () => {
-          this.calculategst();
-        }
-      );
-    }
+    // For Retner.ai deal, only AIF investment is available
+    this.setState({
+      selectInvestorModal: false,
+      aifInvestmentModal: true,
+      aifAmount: staticDealData.aifValue.toString(),
+    });
   };
 
   // post api hit on express
@@ -2477,13 +2466,13 @@ class Retnerai extends Component {
                                           </div>
                                           <div className="info">
                                             <span> Min Investment</span>
-                                            <h4>
+                                            {/* <h4>
                                               ₹{" "}
                                               {this.formatNumberWithCommas(
                                                 this.state.minamount
                                               )}{" "}
                                               for {this.state.deal_service}
-                                            </h4>
+                                            </h4> */}
 
                                             {staticDealData.aifValue &&
                                               staticDealData.aifValue != "" && (
