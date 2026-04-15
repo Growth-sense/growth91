@@ -33,7 +33,7 @@
 
 /* Force override any height restrictions */
 .highlight-rows .col-lg-6 .single {
-    height: 500px !important;
+    height: 300px !important;
     max-height: none !important;
 }
 

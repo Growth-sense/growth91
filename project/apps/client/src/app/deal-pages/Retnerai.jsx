@@ -30,7 +30,6 @@ const staticDealData = {
   title: "Retner.ai - Growth91 - Startup Marketplace ",
   dealId: "51",
   imageList: [
-    "./assets/images/deals-details/Retner-ai/pitch/1.jpg",
     "./assets/images/deals-details/Retner-ai/pitch/2.jpg",
     "./assets/images/deals-details/Retner-ai/pitch/3.jpg",
     "./assets/images/deals-details/Retner-ai/pitch/4.jpg",
@@ -188,7 +187,7 @@ const staticDealData = {
     improve conversion and retention.
     `
   ],
-  aifValue: "3 lakhs through"
+  aifValue: 300000
     
 };
 
@@ -2198,7 +2197,7 @@ class Retnerai extends Component {
                     </div>
                   </Modal>
                   <div className="col-lg-7 deal-banner deals-video-banner">
-                    <iframe
+                    {/* <iframe
                       style={{
                         boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
                         borderRadius: 3,
@@ -2210,7 +2209,7 @@ class Retnerai extends Component {
                       frameborder="10"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowfullscreen
-                    ></iframe>
+                    ></iframe> */}
                   </div>
 
                   <div
