@@ -240,6 +240,7 @@ import  {Preview} from "./app/Unicorn/forms/Preview.jsx";
 import UnicornEnquiryFutureUnicorn from "./app/Founder/UnicornEnquiryFutureunicorn.js";
 import EleFant2 from "./app/deal-pages/EleFant2.jsx";
 import Mannlich from "./app/deal-pages/Mannlich.jsx";
+import Retnerai from "./app/deal-pages/Retnerai.jsx";
 import CareerCompany from "./app/deal-pages/CareerCompany.jsx";
 import Garudaaerospace from "./app/deal-pages/Garudaaerospace.jsx";
 import CombinedRegistration from "./app/investor/register/CombinedRegistration.js";
@@ -798,6 +799,9 @@ function App() {
           </Route>
           <Route path="/Mannlich" exact>
             <ProtectDeals Component={Mannlich} />
+          </Route>
+          <Route path="/Retner-ai" exact>
+            <ProtectDeals Component={Retnerai} />
           </Route>
           <Route path="/extramile" exact>
             <ProtectDeals Component={ExtraMile} />
