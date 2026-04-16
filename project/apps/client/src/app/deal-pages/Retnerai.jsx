@@ -187,7 +187,7 @@ const staticDealData = {
     improve conversion and retention.
     `
   ],
-  aifValue: 300000
+  aifValue: 200000
     
 };
 
@@ -515,10 +515,8 @@ class Retnerai extends Component {
               } else if (current_date > deal_regular_show_date) {
                 this.setState({ show_data: "block" });
               } else {
-                this.setState({ show_data: "block" });
-                //uncomment this
-                // this.setState({ show_data: "none" });
-                // window.location.assign("/deals");
+                this.setState({ show_data: "none" });
+                window.location.assign("/deals");
                 return;
               }
             }
@@ -2197,19 +2195,17 @@ class Retnerai extends Component {
                     </div>
                   </Modal>
                   <div className="col-lg-7 deal-banner deals-video-banner">
-                    {/* <iframe
+                    <img
+                      src="https://www.retner.ai/_next/image?url=%2Fhero-dashboard-analytics.png&w=3840&q=75"
+                      alt="Retner.ai Dashboard"
                       style={{
                         boxShadow: "0px 0px 2rem -0.5rem rgb(0 0 0 / 40%)",
                         borderRadius: 3,
-                        // marginLeft: 65,
+                        width: "100%",
+                        height: "auto",
+                        objectFit: "cover"
                       }}
-                      width="100%"
-                      height="335"
-                      src={staticDealData.youtubeVideoLink}
-                      frameborder="10"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowfullscreen
-                    ></iframe> */}
+                    />
                   </div>
 
                   <div
