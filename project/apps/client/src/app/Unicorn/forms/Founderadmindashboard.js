@@ -344,11 +344,14 @@ class Founderadmindashboard extends Component {
     this.getData();
   }
 
-  fetchReferralCode = async () => {
+  fetchReferralCode = async (tempUdId = null) => {
     try {
+      // Use passed tempUdId or fallback to state values
+      const udId = tempUdId || this.state.unicorn.tudTempUdID || this.state.tudTempUdID;
+      
       const params = {
         founder_id: localStorage.getItem("founder_id"),
-        temp_ud_id: this.state.unicorn.tudTempUdID || this.state.tudTempUdID
+        temp_ud_id: udId
       };
       const headers = {
         "content-type": "application/json",
@@ -396,10 +399,11 @@ class Founderadmindashboard extends Component {
             `${process.env.REACT_APP_BASE_URL}api/founder/Startup/createunicorndraft`,
             this.state.unicorn
           );
-          this.setState({ tudTempUdID: datas.data.id });
+          const newTempUdID = datas.data.id;
+          this.setState({ tudTempUdID: newTempUdID });
           
-          // Fetch and auto-fill referral code if exists
-          this.fetchReferralCode();
+          // Fetch and auto-fill referral code if exists, pass the new ID directly
+          this.fetchReferralCode(newTempUdID);
         } else {
           const data = Object.keys(result.data.data[0]).reduce(
             (acc, key, index) => {
@@ -412,7 +416,7 @@ class Founderadmindashboard extends Component {
           
           // Auto-fill referral code if sponsor fields are empty
           if (!data.tudSponsorName && !data.tudSponsorImage) {
-            this.fetchReferralCode();
+            this.fetchReferralCode(data.tudTempUdID);
           }
         }
 
