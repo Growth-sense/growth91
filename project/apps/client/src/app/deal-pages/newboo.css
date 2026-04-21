@@ -33,8 +33,21 @@
 
 /* Force override any height restrictions */
 .highlight-rows .col-lg-6 .single {
-    height: 500px !important;
+    height: 300px !important;
     max-height: none !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.highlight-rows .col-lg-6 .single .hightlights-images {
+    display: flex !important;
+    align-items: center !important;
+}
+
+.highlight-rows .col-lg-6 .single p {
+    display: flex !important;
+    align-items: center !important;
+    margin: 0 !important;
 }
 
 .highlight-rows .col-lg-6 {
