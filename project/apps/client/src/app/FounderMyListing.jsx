@@ -52,15 +52,18 @@ export const FounderMyListing = () => {
           };
           Bridge.Unicorn.unicorndealsByInvestors(par).then((result) => {
             try {
-              if (res.data.data) {
+              if (res.data && res.data.data && res.data.data.length > 0 && res.data.data[0].tudTempUdID) {
                 setUnicorn(
                   result.data.filter(
                     (item) => item.tudTempUdID == res.data.data[0].tudTempUdID
                   )
                 );
+              } else {
+                setUnicorn([]);
               }
             } catch (error) {
               console.log(error);
+              setUnicorn([]);
             }
           });
           setloading(false);

@@ -10,6 +10,11 @@ ReactGA.initialize(TRACKING_ID);
 class FounderRegistration extends Component {
   constructor(props) {
     super(props);
+    
+    // Get referral code from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const referralCode = urlParams.get('referral_code') || '';
+    
     this.state = {
       screen1: true,
       loading: false,
@@ -19,6 +24,7 @@ class FounderRegistration extends Component {
       email: "",
       mobile: "",
       companyName: "",
+      founder_referral_code: referralCode, // Store referral code from URL
       num1: "",
       num2: "",
       num3: "",
@@ -282,6 +288,7 @@ class FounderRegistration extends Component {
       last_name: this.state.last_name,
       email: this.state.email,
       referral_code: name + "RR",
+      founder_referral_code: this.state.founder_referral_code, // Add founder referral code
       startup_name: this.state.companyName,
       mobile: this.state.phone,
     };

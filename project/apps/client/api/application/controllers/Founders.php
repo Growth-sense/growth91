@@ -350,6 +350,8 @@ function addnewfounder() {
 			$email = $formdata['email'];
 			$mobile=$formdata['mobile'];
 			$companyname = $formdata['startup_name'];
+			$founder_referral_code = isset($formdata['founder_referral_code']) ? $formdata['founder_referral_code'] : '';
+			
 			$post_data = [
 				'first_name' => $first_name,
 				'middle_name' => $middle_name,
@@ -359,6 +361,7 @@ function addnewfounder() {
 				'mobile' => $mobile,
 				'user_type' => 'founder',
 				'user_registered_dt' => date('Y-m-d'),
+				'founder_referral_code' => $founder_referral_code,
 			];
 			$sql="SELECT  * FROM `users` WHERE email='$email'";
 			$query=$this->db->query($sql);
@@ -617,6 +620,87 @@ function addnewfounder() {
 
 }
 //end founder
+
+	// Get founder's referral code
+	function getFounderReferralCode() {
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		$formdata = json_decode(file_get_contents('php://input'), true);
+		
+		if(!empty($formdata)) {
+			$founder_id = $formdata['founder_id'];
+			$temp_ud_id = isset($formdata['temp_ud_id']) ? $formdata['temp_ud_id'] : null;
+			
+			// Get founder's referral code from users table
+			$sql = "SELECT founder_referral_code FROM `users` WHERE investor_id='$founder_id'";
+			$query = $this->db->query($sql);
+			$founder = $query->result();
+			
+			if(count($founder) > 0 && !empty($founder[0]->founder_referral_code)) {
+				$referral_code = $founder[0]->founder_referral_code;
+				$default_logo_filename = '';
+				
+				// Download and save default Unsplash image if temp_ud_id exists
+				if($temp_ud_id) {
+					$upload_dir = './uploads/unicorndeals/' . $temp_ud_id . '/';
+					
+					// Check if default logo already exists
+					$existing_files = glob($upload_dir . 'default_referral_logo_*.jpg');
+					
+					if(!empty($existing_files)) {
+						// Use existing file
+						$default_logo_filename = basename($existing_files[0]);
+					} else {
+						// Download new image
+						$unsplash_url = 'https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=400';
+						
+						// Create directory if it doesn't exist
+						if (!file_exists($upload_dir)) {
+							mkdir($upload_dir, 0777, true);
+						}
+						
+						// Generate filename
+						$filename = 'default_referral_logo_' . time() . '.jpg';
+						$file_path = $upload_dir . $filename;
+						
+						// Download image from Unsplash
+						$image_content = @file_get_contents($unsplash_url);
+						if($image_content !== false) {
+							file_put_contents($file_path, $image_content);
+							$default_logo_filename = $filename;
+						}
+					}
+				}
+				
+				$response = [
+					'status' => '1',
+					'message' => 'Referral code fetched successfully.',
+					'data' => [
+						'referral_code' => $referral_code,
+						'default_logo_filename' => $default_logo_filename
+					]
+				];
+			} else {
+				$response = [
+					'status' => '0',
+					'message' => 'No referral code found for this founder.'
+				];
+			}
+		} else {
+			$response = [
+				'status' => '0',
+				'message' => 'Please provide founder_id.'
+			];
+		}
+		
+		$this->output
+		->set_content_type('application/json')
+		->set_output(json_encode($response));
+	}
 
 	function registernewfounder() {
 		header("Access-Control-Allow-Origin: *");

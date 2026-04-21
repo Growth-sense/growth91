@@ -344,6 +344,39 @@ class Founderadmindashboard extends Component {
     this.getData();
   }
 
+  fetchReferralCode = async () => {
+    try {
+      const params = {
+        founder_id: localStorage.getItem("founder_id"),
+        temp_ud_id: this.state.unicorn.tudTempUdID || this.state.tudTempUdID
+      };
+      const headers = {
+        "content-type": "application/json",
+      };
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}api/Founders/getFounderReferralCode`,
+        params,
+        { headers }
+      );
+      
+      if (response.data.status === '1' && response.data.data.referral_code) {
+        const referralCode = response.data.data.referral_code;
+        const defaultLogoFilename = response.data.data.default_logo_filename;
+        
+        // Use referral code as name and downloaded logo filename
+        this.setState({
+          unicorn: {
+            ...this.state.unicorn,
+            tudSponsorName: "Prefilled Sponser Name",
+            tudSponsorImage: defaultLogoFilename ? JSON.stringify(defaultLogoFilename) : ''
+          }
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching referral code:", error);
+    }
+  };
+
   getData = async (id) => {
     let params = {
       founderID: this.props.adminview || localStorage.getItem("founder_id"),
@@ -364,6 +397,9 @@ class Founderadmindashboard extends Component {
             this.state.unicorn
           );
           this.setState({ tudTempUdID: datas.data.id });
+          
+          // Fetch and auto-fill referral code if exists
+          this.fetchReferralCode();
         } else {
           const data = Object.keys(result.data.data[0]).reduce(
             (acc, key, index) => {
@@ -373,6 +409,11 @@ class Founderadmindashboard extends Component {
             {}
           );
           this.setState({ unicorn: { ...this.state.unicorn, ...data } });
+          
+          // Auto-fill referral code if sponsor fields are empty
+          if (!data.tudSponsorName && !data.tudSponsorImage) {
+            this.fetchReferralCode();
+          }
         }
 
         // if (result.status == 1) {
