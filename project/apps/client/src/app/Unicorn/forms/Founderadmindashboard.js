@@ -400,7 +400,13 @@ class Founderadmindashboard extends Component {
             this.state.unicorn
           );
           const newTempUdID = datas.data.id;
-          this.setState({ tudTempUdID: newTempUdID });
+          this.setState({ 
+            tudTempUdID: newTempUdID,
+            unicorn: {
+              ...this.state.unicorn,
+              tudTempUdID: newTempUdID
+            }
+          });
           
           // Fetch and auto-fill referral code if exists, pass the new ID directly
           this.fetchReferralCode(newTempUdID);
