@@ -846,7 +846,7 @@ const NewFutureUnicorn = () => {
                           data-wow-delay="0.6s"
                         >
                           <img
-                            src="./web/images/unicorn.webp"
+                            src="./web/images/new_logo.jpeg"
                             class="unicorn-img"
                             alt="img"
                           />

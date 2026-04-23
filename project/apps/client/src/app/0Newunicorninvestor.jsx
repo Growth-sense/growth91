@@ -571,7 +571,7 @@ align-content:center;
                           className="right-side-images wow fadeInRight"
                           data-wow-delay="0.6s"
                         >
-                          <img src="./web/images/unicorn.webp" class="unicorn-img" alt="img" />
+                          <img src="./web/images/new_logo.jpeg" class="unicorn-img" alt="img" />
                         </div>
                       </div>
                     </div>

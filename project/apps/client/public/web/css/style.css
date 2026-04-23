@@ -717,13 +717,23 @@ body button:hover {
   /* background-position: center center !important; */
   /* background-repeat: no-repeat !important; */ 
 
-  background: var(--linearbg) !important;
-  background: 65%, url(images/table-bg.html) top center no-repeat;
+  background: #ffffff !important;
   background-size: cover;
-  padding-top: 80px;
+  padding-top: 60px;
   overflow: hidden;
   padding-bottom: 25px;
   margin-top: 5rem;
+}
+.banner_section .text-white,
+.banner_section span,
+.banner_section p,
+.banner_section h1,
+.banner_section h2,
+.banner_section h3,
+.banner_section h4,
+.banner_section h5,
+.banner_section h6 {
+  color: #000000 !important;
 }
 .banner_section .slider-area .item .left-content h6 {
   font-size: 18px;
@@ -736,7 +746,7 @@ body button:hover {
 .banner_section .slider-area .item .left-content h2 , .toph1 {
   font-size: 60px;
   font-weight: 700;
-  color: #fff !important;
+  color: #000000 !important;
   line-height: 72px;
   font-family: Nunito, serif;
   padding-bottom: 30px;
@@ -745,13 +755,21 @@ body button:hover {
   font-size: 18px;
   font-weight: 400;
   line-height: 32px;
-  color: #fff;
+  color: #000000;
   font-family: Nunito, sans-serif;
   max-width: 500px;
   padding-bottom: 25px;
 }
+.banner_section .right-side-images {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .banner_section .right-side-images img {
-  width: 730px;
+  max-width: 500px;
+  max-height: 500px;
+  width: auto;
+  height: auto;
 }
 .banner_section .carousel-control-next,
 .banner_section .carousel-control-prev {
@@ -2763,6 +2781,7 @@ body.search.search-results .content-area {
 @media (max-width: 1600px) {
   .banner_section .right-side-images img {
     max-width: 100%;
+    height: auto;
   }
   .faq-section .images-side {
     margin: 0;
