@@ -487,7 +487,7 @@ class Startup extends CI_Controller {
 					$response = [
 						'status' => '1',
 						'message' => 'Details updated successfully.',
-						'id' => $id2,
+						'id' => $id,
 					];
 				}
 				else
@@ -495,7 +495,6 @@ class Startup extends CI_Controller {
 					$response = [
 						'status' => '0',
 						'message' => 'Please try again!',
-						'id' => $id,
 					];
 				}
 			
