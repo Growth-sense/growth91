@@ -632,8 +632,8 @@ function addnewfounder() {
 		$formdata = json_decode(file_get_contents('php://input'), true);
 		
 		if(!empty($formdata)) {
-			$founder_id = $formdata['founder_id'];
-			$temp_ud_id = isset($formdata['temp_ud_id']) ? $formdata['temp_ud_id'] : null;
+			$founder_id = $this->db->escape_str($formdata['founder_id']);
+			$temp_ud_id = isset($formdata['temp_ud_id']) ? $this->db->escape_str($formdata['temp_ud_id']) : null;
 			
 			// Get founder's referral code from users table
 			$sql = "SELECT founder_referral_code FROM `users` WHERE investor_id='$founder_id'";
@@ -642,48 +642,75 @@ function addnewfounder() {
 			
 			if(count($founder) > 0 && !empty($founder[0]->founder_referral_code)) {
 				$referral_code = $founder[0]->founder_referral_code;
-				$default_logo_filename = '';
 				
-				// Download and save default Unsplash image if temp_ud_id exists
-				if($temp_ud_id) {
-					$upload_dir = './uploads/unicorndeals/' . $temp_ud_id . '/';
-					
-					// Check if default logo already exists
-					$existing_files = glob($upload_dir . 'default_referral_logo_*.jpg');
-					
-					if(!empty($existing_files)) {
-						// Use existing file
-						$default_logo_filename = basename($existing_files[0]);
-					} else {
-						// Download new image
-						$unsplash_url = 'https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=400';
-						
-						// Create directory if it doesn't exist
-						if (!file_exists($upload_dir)) {
-							mkdir($upload_dir, 0777, true);
-						}
-						
-						// Generate filename
-						$filename = 'default_referral_logo_' . time() . '.jpg';
-						$file_path = $upload_dir . $filename;
-						
-						// Download image from Unsplash
-						$image_content = @file_get_contents($unsplash_url);
-						if($image_content !== false) {
-							file_put_contents($file_path, $image_content);
-							$default_logo_filename = $filename;
-						}
-					}
-				}
-				
-				$response = [
-					'status' => '1',
-					'message' => 'Referral code fetched successfully.',
-					'data' => [
-						'referral_code' => $referral_code,
-						'default_logo_filename' => $default_logo_filename
+				$referral_mapping = [
+					'5MLC' => [
+						'name' => 'The $5 Million Cohort Application',
+						'image' => '5mlc.jpeg'
+					],
+					'ISN' => [
+						'name' => 'Indian Startup News (ISN)',
+						'image' => 'isn.png'
 					]
 				];
+				
+				if(isset($referral_mapping[$referral_code])) {
+					$sponsor_name = $referral_mapping[$referral_code]['name'];
+					$source_image = $referral_mapping[$referral_code]['image'];
+					$default_logo_filename = '';
+					
+					if($temp_ud_id) {
+						$upload_dir = './uploads/unicorndeals/' . $temp_ud_id . '/';
+						$referral_source_dir = './uploads/referral/';
+						
+						$existing_files = glob($upload_dir . 'referral_logo_*');
+						
+						if(!empty($existing_files)) {
+							// Use existing file
+							$default_logo_filename = basename($existing_files[0]);
+						} else {
+							$source_path = $referral_source_dir . $source_image;
+							
+							if(file_exists($source_path)) {
+								if (!file_exists($upload_dir)) {
+									mkdir($upload_dir, 0777, true);
+								}
+								
+								// Get original file extension
+								$extension = pathinfo($source_image, PATHINFO_EXTENSION);
+								
+								$filename = 'referral_logo_' . $referral_code . '_' . time() . '.' . $extension;
+								$dest_path = $upload_dir . $filename;
+								
+								// Copy image
+								if(copy($source_path, $dest_path)) {
+									$default_logo_filename = $filename;
+								}
+							}
+						}
+					}
+					
+					$response = [
+						'status' => '1',
+						'message' => 'Referral code fetched successfully.',
+						'data' => [
+							'referral_code' => $referral_code,
+							'sponsor_name' => $sponsor_name,
+							'default_logo_filename' => $default_logo_filename
+						]
+					];
+				} else {
+					// Referral code not in mapping - return code as name, no image
+					$response = [
+						'status' => '1',
+						'message' => 'Referral code fetched successfully.',
+						'data' => [
+							'referral_code' => $referral_code,
+							'sponsor_name' => $referral_code,
+							'default_logo_filename' => ''
+						]
+					];
+				}
 			} else {
 				$response = [
 					'status' => '0',

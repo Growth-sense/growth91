@@ -363,15 +363,18 @@ class Founderadmindashboard extends Component {
       );
       
       if (response.data.status === '1' && response.data.data.referral_code) {
-        const referralCode = response.data.data.referral_code;
+        const sponsorName = response.data.data.sponsor_name;
         const defaultLogoFilename = response.data.data.default_logo_filename;
         
-        // Use referral code as name and downloaded logo filename
+        // Only set defaults if sponsor fields are currently empty (don't overwrite user's saved values)
+        const currentSponsorName = this.state.unicorn.tudSponsorName || '';
+        const currentSponsorImage = this.state.unicorn.tudSponsorImage || '';
+        
         this.setState({
           unicorn: {
             ...this.state.unicorn,
-            tudSponsorName: "Prefilled Sponser Name",
-            tudSponsorImage: defaultLogoFilename ? JSON.stringify(defaultLogoFilename) : ''
+            tudSponsorName: currentSponsorName || sponsorName,
+            tudSponsorImage: currentSponsorImage || (defaultLogoFilename ? JSON.stringify(defaultLogoFilename) : '')
           }
         });
       }
