@@ -931,7 +931,7 @@ const Newunicornfounder = () => {
       <div classname="newabout">
         <NewWebHeader newabout={"newabout"} />
       </div>
-      <section className="banner_section">
+      <section className="banner_section white-variant">
         <div
           id="carouselExampleIndicators"
           className="carousel slide"

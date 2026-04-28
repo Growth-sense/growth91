@@ -717,23 +717,13 @@ body button:hover {
   /* background-position: center center !important; */
   /* background-repeat: no-repeat !important; */ 
 
-  background: #ffffff !important;
+  background: var(--linearbg) !important;
+  background: 65%, url(images/table-bg.html) top center no-repeat;
   background-size: cover;
-  padding-top: 60px;
+  padding-top: 80px;
   overflow: hidden;
   padding-bottom: 25px;
   margin-top: 5rem;
-}
-.banner_section .text-white,
-.banner_section span,
-.banner_section p,
-.banner_section h1,
-.banner_section h2,
-.banner_section h3,
-.banner_section h4,
-.banner_section h5,
-.banner_section h6 {
-  color: #000000 !important;
 }
 .banner_section .slider-area .item .left-content h6 {
   font-size: 18px;
@@ -746,7 +736,7 @@ body button:hover {
 .banner_section .slider-area .item .left-content h2 , .toph1 {
   font-size: 60px;
   font-weight: 700;
-  color: #000000 !important;
+  color: #fff !important;
   line-height: 72px;
   font-family: Nunito, serif;
   padding-bottom: 30px;
@@ -755,22 +745,59 @@ body button:hover {
   font-size: 18px;
   font-weight: 400;
   line-height: 32px;
-  color: #000000;
+  color: #fff;
   font-family: Nunito, sans-serif;
   max-width: 500px;
   padding-bottom: 25px;
 }
-.banner_section .right-side-images {
+.banner_section .right-side-images img {
+  width: 730px;
+}
+
+/* White background variant for specific pages only */
+.banner_section.white-variant {
+  background: #ffffff !important;
+  padding-top: 60px;
+}
+
+.banner_section.white-variant .text-white,
+.banner_section.white-variant span,
+.banner_section.white-variant p,
+.banner_section.white-variant h1,
+.banner_section.white-variant h2,
+.banner_section.white-variant h3,
+.banner_section.white-variant h4,
+.banner_section.white-variant h5,
+.banner_section.white-variant h6 {
+  color: #000000 !important;
+}
+
+.banner_section.white-variant .slider-area .item .left-content h6 {
+  color: #000000;
+}
+
+.banner_section.white-variant .slider-area .item .left-content h2,
+.banner_section.white-variant .toph1 {
+  color: #000000 !important;
+}
+
+.banner_section.white-variant .slider-area .item .left-content p {
+  color: #000000;
+}
+
+.banner_section.white-variant .right-side-images {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.banner_section .right-side-images img {
+
+.banner_section.white-variant .right-side-images img {
   max-width: 500px;
   max-height: 500px;
   width: auto;
   height: auto;
 }
+
 .banner_section .carousel-control-next,
 .banner_section .carousel-control-prev {
   background: 0 0;
@@ -2781,7 +2808,6 @@ body.search.search-results .content-area {
 @media (max-width: 1600px) {
   .banner_section .right-side-images img {
     max-width: 100%;
-    height: auto;
   }
   .faq-section .images-side {
     margin: 0;

@@ -515,7 +515,7 @@ align-content:center;
         <NewWebHeader newabout={"newabout"} />
       </div>
       {/* <NewWebHeader /> */}
-      <section className="banner_section">
+      <section className="banner_section white-variant">
         <div
           id="carouselExampleIndicators"
           className="carousel slide"

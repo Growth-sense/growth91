@@ -366,17 +366,18 @@ class Founderadmindashboard extends Component {
         const sponsorName = response.data.data.sponsor_name;
         const defaultLogoFilename = response.data.data.default_logo_filename;
         
-        // Only set defaults if sponsor fields are currently empty (don't overwrite user's saved values)
-        const currentSponsorName = this.state.unicorn.tudSponsorName || '';
-        const currentSponsorImage = this.state.unicorn.tudSponsorImage || '';
+        // Set defaults in state
+        const updatedUnicorn = {
+          ...this.state.unicorn,
+          tudSponsorName: sponsorName,
+          tudSponsorImage: defaultLogoFilename ? JSON.stringify(defaultLogoFilename) : ''
+        };
         
         this.setState({
-          unicorn: {
-            ...this.state.unicorn,
-            tudSponsorName: currentSponsorName || sponsorName,
-            tudSponsorImage: currentSponsorImage || (defaultLogoFilename ? JSON.stringify(defaultLogoFilename) : '')
-          }
+          unicorn: updatedUnicorn
         });
+        
+        await Bridge.Unicorn.editunicorndraft(updatedUnicorn);
       }
     } catch (error) {
       console.error("Error fetching referral code:", error);
@@ -411,7 +412,7 @@ class Founderadmindashboard extends Component {
             }
           });
           
-          // Fetch and auto-fill referral code if exists, pass the new ID directly
+          // ONLY auto-fill on first creation
           this.fetchReferralCode(newTempUdID);
         } else {
           const data = Object.keys(result.data.data[0]).reduce(
@@ -423,10 +424,6 @@ class Founderadmindashboard extends Component {
           );
           this.setState({ unicorn: { ...this.state.unicorn, ...data } });
           
-          // Auto-fill referral code if sponsor fields are empty
-          if (!data.tudSponsorName && !data.tudSponsorImage) {
-            this.fetchReferralCode(data.tudTempUdID);
-          }
         }
 
         // if (result.status == 1) {
