@@ -284,19 +284,15 @@ console.log("isGuest", isGuest);
 
     if (!parsedFilename) return '';
 
-    // Use localhost for newly uploaded images (cover_*), production for existing images
-    const baseUrl = parsedFilename.startsWith('cover_')
-      ? process.env.REACT_APP_BASE_URL
-      : (process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL);
+    // Simple URL construction
+    const baseUrl = process.env.REACT_APP_BASE_URL;
     return `${baseUrl}api/uploads/unicorndeals/${tudTempUdID}/${parsedFilename}`;
   };
 
   // Helper to get full URLs for carousel images (handles mixed old/new images)
   const getCarouselImageUrls = (images, tudTempUdID) => {
     return images.map(image => {
-      const baseUrl = image.startsWith('cover_')
-        ? process.env.REACT_APP_BASE_URL
-        : (process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL);
+      const baseUrl = process.env.REACT_APP_BASE_URL;
       return `${baseUrl}api/uploads/unicorndeals/${tudTempUdID}/${image}`;
     });
   };

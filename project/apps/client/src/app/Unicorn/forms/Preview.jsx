@@ -90,18 +90,13 @@ export const Preview = (props) => {
     }
   };
 
-  // Helper to get full URLs for carousel images (handles mixed old/new images)
   const getCarouselImageUrls = (images, tudTempUdID) => {
     return images.map(image => {
-      // Use localhost for newly uploaded images (cover_*), production for existing images
-      const baseUrl = image.startsWith('cover_')
-        ? process.env.REACT_APP_BASE_URL
-        : (process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL);
+      const baseUrl = process.env.REACT_APP_BASE_URL;
       return `${baseUrl}api/uploads/unicorndeals/${tudTempUdID}/${image}`;
     });
   };
 
-  // Helper function to get correct image URL (localhost for new uploads, production for existing)
   const getImageUrl = (filename, tudTempUdID) => {
     if (!filename) return '';
 
@@ -119,18 +114,14 @@ export const Preview = (props) => {
 
     if (!parsedFilename) return '';
 
-    const baseUrl = parsedFilename.startsWith('cover_')
-      ? process.env.REACT_APP_BASE_URL
-      : (process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL);
+    const baseUrl = process.env.REACT_APP_BASE_URL;
     return `${baseUrl}api/uploads/unicorndeals/${tudTempUdID}/${parsedFilename}`;
   };
 
   // Helper for plain image filenames (not JSON encoded)
   const getPlainImageUrl = (filename, tudTempUdID) => {
     if (!filename) return '';
-    const baseUrl = filename.startsWith('cover_')
-      ? process.env.REACT_APP_BASE_URL
-      : (process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL);
+    const baseUrl = process.env.REACT_APP_BASE_URL;
     return `${baseUrl}api/uploads/unicorndeals/${tudTempUdID}/${filename}`;
   };
 
@@ -1378,14 +1369,14 @@ text-align: justify;
                           Investor Presentation
                         </h1>
                         <SinglePagePDFViewer
-                          pdf={`${process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.tudPitchDeck)}`}
+                          pdf={getImageUrl(item.tudPitchDeck, item.tudTempUdID)}
                         />
                       </>
                     </section>
                   )}
               </section>
 
-              <section id="pitchDeck">
+              <section id="productDeck">
                 {item.tudProductDeck &&
                   item.tudProductDeck != "" &&
                   JSON.parse(item.tudProductDeck) != "" && (
@@ -1402,7 +1393,7 @@ text-align: justify;
                           Product Presentation
                         </h1>
                         <SinglePagePDFViewer
-                          pdf={`${process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${JSON.parse(item.tudProductDeck)}`}
+                          pdf={getImageUrl(item.tudProductDeck, item.tudTempUdID)}
                         />
                       </>
                     </section>

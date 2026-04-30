@@ -1830,7 +1830,7 @@ class Startup extends CI_Controller {
 
 		try {
 			$imagick = new Imagick();
-			$imagick->setResolution(120, 120);
+			$imagick->setResolution(150, 150);
 			$imagick->readImage($pdfFullPath);
 
 			$pageIndex = 0;
@@ -1838,11 +1838,18 @@ class Startup extends CI_Controller {
 
 			foreach ($imagick as $page) {
 				$page->setImageFormat('png');
-				$page->setImageCompressionQuality(100);
+				$page->setImageCompressionQuality(95);
 
 				$page->setImageBackgroundColor(new ImagickPixel('white'));
 				if (method_exists($page, 'setImageAlphaChannel')) {
 					$page->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);
+				}
+
+				// Optional: Resize if image is too large (max width 1920px for web display)
+				$width = $page->getImageWidth();
+				$height = $page->getImageHeight();
+				if ($width > 1920) {
+					$page->thumbnailImage(1920, 0, false); // Maintain aspect ratio
 				}
 
 				$pageFileName = $baseName . '_' . $pageIndex . '.png';
