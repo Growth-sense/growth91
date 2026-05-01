@@ -651,6 +651,10 @@ function addnewfounder() {
 					'ISN' => [
 						'name' => 'Indian Startup News (ISN)',
 						'image' => 'isn.png'
+					],
+					'D26' => [
+						'name' => 'G91 x FundEnable x DBS DemoDay',
+						'image' => 'd26.jpeg'
 					]
 				];
 				
