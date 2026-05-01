@@ -1072,6 +1072,8 @@ class Startup extends CI_Controller {
 						$newPitch = (string)$mainunicorn2Arr["udPitchDeck"];
 						if ($oldPitch !== $newPitch) {
 							$pitchDeckChanged = true;
+							// Delete old PDF and images from disk
+							$this->_deleteOldDeckFiles($tudTempUdID, $oldPitch, 'udPitchDeckImages', $unicornDealID);
 							// Clear old images so UI falls back to PDF until new images are generated
 							$mainunicorn2Arr["udPitchDeckImages"] = "";
 						}
@@ -1082,6 +1084,8 @@ class Startup extends CI_Controller {
 						$newProd = (string)$mainunicorn2Arr["udProductDeck"];
 						if ($oldProd !== $newProd) {
 							$productDeckChanged = true;
+							// Delete old PDF and images from disk
+							$this->_deleteOldDeckFiles($tudTempUdID, $oldProd, 'udProductDeckImages', $unicornDealID);
 							$mainunicorn2Arr["udProductDeckImages"] = "";
 						}
 					}
@@ -3352,6 +3356,55 @@ function add_guest_analytics_event() {
     $this->output
         ->set_content_type('application/json')
         ->set_output(json_encode($response));
+}
+
+
+private function _deleteOldDeckFiles($tudTempUdID, $oldPdfFilename, $imagesField, $unicornDealID)
+{
+	if (empty($oldPdfFilename) || empty($tudTempUdID)) {
+		return;
+	}
+
+	// Clean up the filename
+	$decoded = json_decode($oldPdfFilename, true);
+	if (is_string($decoded) && $decoded !== '') {
+		$oldPdfFilename = $decoded;
+	} elseif (is_array($decoded) && !empty($decoded)) {
+		$oldPdfFilename = $decoded[0];
+	} else {
+		$oldPdfFilename = trim($oldPdfFilename, "\"'");
+	}
+
+	$dir = FCPATH . "uploads/unicorndeals/" . $tudTempUdID . "/";
+
+	// Delete old PDF file
+	$oldPdfPath = $dir . $oldPdfFilename;
+	if (file_exists($oldPdfPath)) {
+		@unlink($oldPdfPath);
+	}
+
+	// Delete old converted images
+	if (!empty($unicornDealID)) {
+		$row = $this->db->select($imagesField)
+			->from('unicorndeals2')
+			->where('unicornDealID', $unicornDealID)
+			->get()
+			->row();
+
+		if ($row && !empty($row->{$imagesField})) {
+			$imagesJson = $row->{$imagesField};
+			$images = json_decode($imagesJson, true);
+			
+			if (is_array($images)) {
+				foreach ($images as $imageFile) {
+					$imagePath = $dir . $imageFile;
+					if (file_exists($imagePath)) {
+						@unlink($imagePath);
+					}
+				}
+			}
+		}
+	}
 }
 
 
