@@ -1719,9 +1719,14 @@ class Startup extends CI_Controller {
 			return;
 		}
 
-		$php = PHP_BINARY;
-		if (!$php) {
-			return;
+		// Use PHP CLI binary, not PHP-FPM
+		$php = '/usr/bin/php';
+		if (!file_exists($php)) {
+			// Fallback to finding php in PATH
+			$php = trim(shell_exec('which php'));
+			if (!$php) {
+				return;
+			}
 		}
 
 		$php = escapeshellarg($php);
@@ -1755,9 +1760,14 @@ class Startup extends CI_Controller {
 			return;
 		}
 
-		$php = PHP_BINARY;
-		if (!$php) {
-			return;
+		// Use PHP CLI binary, not PHP-FPM
+		$php = '/usr/bin/php';
+		if (!file_exists($php)) {
+			// Fallback to finding php in PATH
+			$php = trim(shell_exec('which php'));
+			if (!$php) {
+				return;
+			}
 		}
 
 		$php = escapeshellarg($php);
