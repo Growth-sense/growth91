@@ -31,6 +31,7 @@ class Investors extends CI_Controller {
 			$query1 = $this->db->query($totalSql);
 			$data2=$query1->result();
 			$list[$i]->total_invested_amount=$data2[0]->total_investment;
+			$list[$i]->registration_date = $list[$i]->created_at ? $list[$i]->created_at : 'N/A';
 		}
 		
 		if(count($list) >= 0) {

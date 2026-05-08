@@ -501,12 +501,36 @@ class UnicornAdminPayment extends Component {
 
                 
 
-                <Table
-                  dataSource={dataSource}
-                  columns={columns}
-                  loading={this.state.loading}
-                  bordered
-                />
+                <div className="admin-table-wrapper">
+                  <Table
+                    dataSource={dataSource}
+                    columns={columns}
+                    loading={this.state.loading}
+                    bordered
+                  />
+                </div>
+                <style>{`
+                  .admin-table-wrapper {
+                    width: 100%;
+                  }
+                  
+                  @media (max-width: 768px) {
+                    .admin-table-wrapper {
+                      overflow-x: auto;
+                      -webkit-overflow-scrolling: touch;
+                    }
+                    
+                    .admin-table-wrapper .ant-table-cell-fix-left,
+                    .admin-table-wrapper .ant-table-cell-fix-right {
+                      position: static !important;
+                    }
+                    
+                    .admin-table-wrapper .ant-table-ping-left .ant-table-cell-fix-left-last::after,
+                    .admin-table-wrapper .ant-table-ping-right .ant-table-cell-fix-right-first::after {
+                      box-shadow: none !important;
+                    }
+                  }
+                `}</style>
 
                 {/* Offline Payment Modal */}
                 <Modal

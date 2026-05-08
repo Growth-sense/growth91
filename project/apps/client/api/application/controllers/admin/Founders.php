@@ -16,10 +16,36 @@ class Founders extends CI_Controller {
 		header("Access-Control-Allow-Headers: access");
 		header("Content-Type: application/json; charset=UTF-8");
 		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		
+		// Referral code to sponsor name mapping
+		$referral_mapping = [
+			'5MLC' => 'The $5 Million Cohort Application',
+			'ISN' => 'Indian Startup News (ISN)',
+			'D26' => 'G91 x FundEnable x DBS DemoDay'
+		];
+		
 		// sql query
 		$sql = "SELECT * FROM `users` WHERE user_type='founder' ORDER BY investor_id DESC";
 		$query=$this->db->query($sql);
 		$list =$query->result();
+		
+		// Add sponsor name and registration date to each founder record
+		foreach($list as $founder) {
+			// Set registration date (use created_at)
+			$founder->registration_date = $founder->created_at ? $founder->created_at : 'N/A';
+			
+			// Map founder_referral_code to sponsor name
+			if(!empty($founder->founder_referral_code)) {
+				if(isset($referral_mapping[$founder->founder_referral_code])) {
+					$founder->sponsor_name = $referral_mapping[$founder->founder_referral_code];
+				} else {
+					// If code not in mapping, use the code itself as sponsor name
+					$founder->sponsor_name = $founder->founder_referral_code;
+				}
+			} else {
+				$founder->sponsor_name = 'N/A';
+			}
+		}
 		
 		if(count($list) >= 0) {
 			$response = [

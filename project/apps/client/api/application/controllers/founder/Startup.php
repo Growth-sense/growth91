@@ -1342,6 +1342,17 @@ class Startup extends CI_Controller {
 			$query = $this->db->query($sql);
 			//echo $sql;die;
 			$list = $query->result();
+			
+			// Add sponsor name to each record
+			foreach($list as $item) {
+				// Show udSponsorName if exists, otherwise N/A
+				if(!empty($item->udSponsorName) && trim($item->udSponsorName) !== '') {
+					$item->sponsor_name = trim($item->udSponsorName);
+				} else {
+					$item->sponsor_name = 'N/A';
+				}
+			}
+			
 			$response = [
 				'status' => '1',
 				'message'=> 'Data found.',
@@ -1403,6 +1414,17 @@ class Startup extends CI_Controller {
 			$query = $this->db->query($sql);
 			//echo $sql;die;
 			$list = $query->result();
+			
+			// Add sponsor name to each record
+			foreach($list as $item) {
+				// Show tudSponsorName if exists, otherwise N/A
+				if(!empty($item->tudSponsorName) && trim($item->tudSponsorName) !== '') {
+					$item->sponsor_name = trim($item->tudSponsorName);
+				} else {
+					$item->sponsor_name = 'N/A';
+				}
+			}
+			
 			$response = [
 				'status' => '1',
 				'message'=> 'Data found.',

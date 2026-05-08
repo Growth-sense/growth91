@@ -1142,6 +1142,7 @@ class Investors extends Component {
         "Contact No": item.mobile,
         "Nationality": item.nationality,
         Email: item.email,
+        "Date of Registration": item.registration_date && item.registration_date !== 'N/A' ? moment(item.registration_date).format('DD-MM-YYYY HH:mm:ss') : 'N/A',
         "KYC Status": status,
         "Pan Id": item.panno,
         "Aadhaar Address": item.adhaar_address,
@@ -1310,6 +1311,7 @@ class Investors extends Component {
           investment_amt: item.email ? item.email : "---",
           isActive: item.user_block_status ? item.user_block_status : 0,
           Referral: item.referred_by,
+          registrationdate: item.registration_date ? item.registration_date : "N/A",
           total_invested_amount: item.total_invested_amount
             ? "₹" + item.total_invested_amount
             : "---",
@@ -1363,6 +1365,18 @@ class Investors extends Component {
         title: "Email",
         dataIndex: "email",
         key: "email",
+      },
+      {
+        title: "Date of Registration",
+        dataIndex: "registrationdate",
+        key: "registrationdate",
+        width: 180,
+        render: (text) => {
+          if (text && text !== 'N/A') {
+            return moment(text).format('DD-MM-YYYY');
+          }
+          return 'N/A';
+        }
       },
       {
         title: "Referral",
@@ -1661,12 +1675,36 @@ class Investors extends Component {
                       Export Data
                     </Button>
                   </div>
-                  <Table
-                    dataSource={dataSource}
-                    columns={columns}
-                    loading={this.state.loading}
-                    bordered
-                  />
+                  <div className="admin-table-wrapper">
+                    <Table
+                      dataSource={dataSource}
+                      columns={columns}
+                      loading={this.state.loading}
+                      bordered
+                    />
+                  </div>
+                  <style>{`
+                    .admin-table-wrapper {
+                      width: 100%;
+                    }
+                    
+                    @media (max-width: 768px) {
+                      .admin-table-wrapper {
+                        overflow-x: auto;
+                        -webkit-overflow-scrolling: touch;
+                      }
+                      
+                      .admin-table-wrapper .ant-table-cell-fix-left,
+                      .admin-table-wrapper .ant-table-cell-fix-right {
+                        position: static !important;
+                      }
+                      
+                      .admin-table-wrapper .ant-table-ping-left .ant-table-cell-fix-left-last::after,
+                      .admin-table-wrapper .ant-table-ping-right .ant-table-cell-fix-right-first::after {
+                        box-shadow: none !important;
+                      }
+                    }
+                  `}</style>
                 </Card>
               )}
             </Content>

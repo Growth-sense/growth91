@@ -321,6 +321,8 @@ class UnicornAdmin extends Component {
             item.udStartupName.toLowerCase().includes(text.toLowerCase())) ||
           (item.udStartupFounderEmail &&
             item.udStartupFounderEmail.toLowerCase().includes(text.toLowerCase())) ||
+          (item.sponsor_name &&
+            item.sponsor_name.toLowerCase().includes(text.toLowerCase())) ||
           // (item.status &&
           //   item.status.toLowerCase().includes(text.toLowerCase())) ||
           (item.unicornDealID &&
@@ -402,6 +404,7 @@ class UnicornAdmin extends Component {
         "Founder Mobile": item.udStartupFounderMobileNumber
           ? item.udStartupFounderMobileNumber
           : "---",
+        "Sponsor Name": item.sponsor_name ? item.sponsor_name : "N/A",
 
         // Status: item.status,
         // 'Tax Type': item.payment_type,
@@ -551,6 +554,7 @@ class UnicornAdmin extends Component {
           "Admin Mobile": item.udStartupFounderMobileNumber
             ? item.udStartupFounderMobileNumber
             : "---",
+          "Sponsor Name": item.sponsor_name ? item.sponsor_name : "N/A",
           LastUpdatedDate:
             item.udPublishedDate &&
             item.udPublishedDate !== "0000-00-00" &&
@@ -615,6 +619,12 @@ class UnicornAdmin extends Component {
         dataIndex: "Admin Mobile",
         key: "Admin Mobile",
         width: 260,
+      },
+      {
+        title: "Sponsor Name",
+        dataIndex: "Sponsor Name",
+        key: "Sponsor Name",
+        width: 280,
       },
       {
         title: "Last Updated Date",
@@ -910,12 +920,36 @@ class UnicornAdmin extends Component {
                         Export Data
                       </Button>
                     </div>
-                    <Table
-                      dataSource={dataSource}
-                      columns={columns}
-                      loading={this.state.loading}
-                      bordered
-                    />
+                    <div className="admin-table-wrapper">
+                      <Table
+                        dataSource={dataSource}
+                        columns={columns}
+                        loading={this.state.loading}
+                        bordered
+                      />
+                    </div>
+                    <style>{`
+                      .admin-table-wrapper {
+                        width: 100%;
+                      }
+                      
+                      @media (max-width: 768px) {
+                        .admin-table-wrapper {
+                          overflow-x: auto;
+                          -webkit-overflow-scrolling: touch;
+                        }
+                        
+                        .admin-table-wrapper .ant-table-cell-fix-left,
+                        .admin-table-wrapper .ant-table-cell-fix-right {
+                          position: static !important;
+                        }
+                        
+                        .admin-table-wrapper .ant-table-ping-left .ant-table-cell-fix-left-last::after,
+                        .admin-table-wrapper .ant-table-ping-right .ant-table-cell-fix-right-first::after {
+                          box-shadow: none !important;
+                        }
+                      }
+                    `}</style>
                   </Card>
                 </Content>
 

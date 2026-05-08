@@ -511,7 +511,8 @@ class Founders extends Component {
           (item.last_name && item.last_name.toLowerCase().includes(text.toLowerCase())) ||
           (item.investor_id && item.investor_id.includes(text)) ||
           (item.email && item.email.includes(text)) ||
-          (item.mobile && item.mobile.includes(text))
+          (item.mobile && item.mobile.includes(text)) ||
+          (item.sponsor_name && item.sponsor_name.toLowerCase().includes(text.toLowerCase()))
         ) {
           arr = [...arr, item];
         }
@@ -776,6 +777,8 @@ class Founders extends Component {
         "Startup Name": item.startup_name,
         "Contact No": item.mobile,
         Email: item.email,
+        "Date of Registration": item.registration_date && item.registration_date !== 'N/A' ? moment(item.registration_date).format('DD-MM-YYYY HH:mm:ss') : 'N/A',
+        "Sponsor Name": item.sponsor_name ? item.sponsor_name : 'N/A',
       };
       arr = [...arr, obj];
       count++;
@@ -868,9 +871,11 @@ class Founders extends Component {
           key: index,
           founderid: item.investor_id,
           name:item.name && (item.name).toLowerCase(),  
-                  startupname: item.startup_name ? item.startup_name : "---",
+          startupname: item.startup_name ? item.startup_name : "---",
           contactno: item.mobile ? item.mobile : "---",
           email: item.email ? item.email : "---",
+          registrationdate: item.registration_date ? item.registration_date : "N/A",
+          sponsorname: item.sponsor_name ? item.sponsor_name : "N/A",
           isActive: item.user_block_status ? item.user_block_status : 0,
           action: item,
         };
@@ -918,6 +923,24 @@ class Founders extends Component {
         title: "Email",
         dataIndex: "email",
         key: "email",
+      },
+      {
+        title: "Date of Registration",
+        dataIndex: "registrationdate",
+        key: "registrationdate",
+        width: 180,
+        render: (text) => {
+          if (text && text !== 'N/A') {
+            return moment(text).format('DD-MM-YYYY');
+          }
+          return 'N/A';
+        }
+      },
+      {
+        title: "Sponsor Name",
+        dataIndex: "sponsorname",
+        key: "sponsorname",
+        width: 280,
       },
       {
         title: "User Status",
@@ -1122,12 +1145,36 @@ class Founders extends Component {
                     Export Data
                   </Button>
                 </div>
-                <Table
-                  dataSource={dataSource}
-                  columns={columns}
-                  loading={this.state.loading}
-                  bordered
-                />
+                <div className="admin-table-wrapper">
+                  <Table
+                    dataSource={dataSource}
+                    columns={columns}
+                    loading={this.state.loading}
+                    bordered
+                  />
+                </div>
+                <style>{`
+                  .admin-table-wrapper {
+                    width: 100%;
+                  }
+                  
+                  @media (max-width: 768px) {
+                    .admin-table-wrapper {
+                      overflow-x: auto;
+                      -webkit-overflow-scrolling: touch;
+                    }
+                    
+                    .admin-table-wrapper .ant-table-cell-fix-left,
+                    .admin-table-wrapper .ant-table-cell-fix-right {
+                      position: static !important;
+                    }
+                    
+                    .admin-table-wrapper .ant-table-ping-left .ant-table-cell-fix-left-last::after,
+                    .admin-table-wrapper .ant-table-ping-right .ant-table-cell-fix-right-first::after {
+                      box-shadow: none !important;
+                    }
+                  }
+                `}</style>
               </Card>
             </Content>
 
