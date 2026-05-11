@@ -12,7 +12,7 @@ export default function SinglePage(props) {
   const [image, setImage] = useState([]);
   const [pdfRendering, setPdfRendering] = useState(true);
 
-  const { pdf, useOldStyle } = props;
+  const { pdf, useOldStyle, imageUrls } = props;
 
   // Slider settings matching Deal pages
   const sliderSettings = {
@@ -71,8 +71,19 @@ export default function SinglePage(props) {
   }
 
   useEffect(() => {
-    showPdf();
-  }, []);
+    // If imageUrls are provided explicitly, use them instead of rendering from PDF
+    if (Array.isArray(imageUrls) && imageUrls.length > 0) {
+      setImage(imageUrls);
+      setTotalPages(imageUrls.length);
+      setPdfRendering(false);
+      return;
+    }
+
+    // Fallback: original behavior, render images from PDF
+    if (pdf) {
+      showPdf();
+    }
+  }, [pdf, imageUrls]);
 
   const previousPage = () => {
     if (currentPage > 1) {
