@@ -916,7 +916,7 @@ class Startup extends CI_Controller {
 		if(!empty($formdata)) {
 			// POst data for table 1
 			extract($formdata);
-/* Steps
+            /* Steps
 			1) Decide by selecting tempID from Published table that its create OR UPDATE and set flag accodingly
 			2) based on temp unicorn ID select from temp table1 
 			3) Set Post array for master unicorn table 1
@@ -1037,9 +1037,22 @@ class Startup extends CI_Controller {
 					}
 				}
 				$mainunicorn2Arr["udUrlName"] = $urlName;
+
+				// Track whether pitch/product PDFs changed so we know which images to clear/regen
+				$pitchDeckChanged = false;
+				$productDeckChanged = false;
+
 				//Step 7
 				if($isNew)
 				{
+					// For new deals, if there is any pitch/product deck, mark as changed
+					if (!empty($mainunicorn2Arr["udPitchDeck"])) {
+						$pitchDeckChanged = true;
+					}
+					if (!empty($mainunicorn2Arr["udProductDeck"])) {
+						$productDeckChanged = true;
+					}
+
 					$this->db->insert('unicorndeals2',$mainunicorn2Arr);
 					$unicornDealID2=$this->db->insert_id();
 					if($unicornDealID2>0)
@@ -1047,6 +1060,36 @@ class Startup extends CI_Controller {
 				}
 				else
 				{
+					// For existing deals, compare PDFs to see what actually changed
+					$existingDecks = $this->db->select('udPitchDeck, udProductDeck')
+						->from('unicorndeals2')
+						->where('unicornDealID', $unicornDealID)
+						->get()
+						->row_array();
+
+					if (isset($mainunicorn2Arr["udPitchDeck"])) {
+						$oldPitch = isset($existingDecks['udPitchDeck']) ? (string)$existingDecks['udPitchDeck'] : '';
+						$newPitch = (string)$mainunicorn2Arr["udPitchDeck"];
+						if ($oldPitch !== $newPitch) {
+							$pitchDeckChanged = true;
+							// Delete old PDF and images from disk
+							$this->_deleteOldDeckFiles($tudTempUdID, $oldPitch, 'udPitchDeckImages', $unicornDealID);
+							// Clear old images so UI falls back to PDF until new images are generated
+							$mainunicorn2Arr["udPitchDeckImages"] = "";
+						}
+					}
+
+					if (isset($mainunicorn2Arr["udProductDeck"])) {
+						$oldProd = isset($existingDecks['udProductDeck']) ? (string)$existingDecks['udProductDeck'] : '';
+						$newProd = (string)$mainunicorn2Arr["udProductDeck"];
+						if ($oldProd !== $newProd) {
+							$productDeckChanged = true;
+							// Delete old PDF and images from disk
+							$this->_deleteOldDeckFiles($tudTempUdID, $oldProd, 'udProductDeckImages', $unicornDealID);
+							$mainunicorn2Arr["udProductDeckImages"] = "";
+						}
+					}
+
 					$this -> db -> where("unicornDealID",$unicornDealID);
 					$status = $this -> db -> update("unicorndeals2",$mainunicorn2Arr);
 					if($status)
@@ -1110,6 +1153,23 @@ class Startup extends CI_Controller {
 		$this->output
 		->set_content_type('application/json')
 		->set_output(json_encode($response));	
+		 // After sending response to client, optionally continue with best-effort
+        // pitch deck conversion, so the frontend is not blocked by Imagick work.
+        if (function_exists('fastcgi_finish_request')) {
+            // On PHP-FPM/Apache, this flushes all response data and closes client connection.
+            @fastcgi_finish_request();
+        }
+
+        // Run conversion only when publish actually succeeded and IDs are valid.
+        if (!empty($processDone) && !empty($unicornDealID) && !empty($tudTempUdID)) {
+			// Only spawn workers for decks whose PDFs actually changed
+			if (!empty($pitchDeckChanged)) {
+				$this->_spawnPitchDeckWorker($unicornDealID, $tudTempUdID);
+			}
+			if (!empty($productDeckChanged)) {
+				$this->_spawnProductDeckWorker($unicornDealID, $tudTempUdID);
+			}
+        }
 	}
 
 	function publishunicorndealadditional() {
@@ -1655,6 +1715,200 @@ class Startup extends CI_Controller {
 			->set_content_type('application/json')
 			->set_output(json_encode($response));
     }
+
+	/**
+	 * Helper: convert a single unicorn's pitch deck PDF (udPitchDeck)
+	 * into PNG images and store the filenames in unicorndeals2.udPitchDeckImages.
+	 *
+	 * This is a best-effort operation and should not throw fatal errors if anything
+	 * is missing or misconfigured; instead it simply returns false.
+	 */
+	function convertPitchDeckWorker($unicornDealID = null, $tudTempUdID = null)
+	{
+		$unicornDealID = (int)$unicornDealID;
+		$tudTempUdID = (int)$tudTempUdID;
+		if (!$unicornDealID || !$tudTempUdID) {
+			return;
+		}
+		$this->_convertPitchDeckForUnicorn($unicornDealID, $tudTempUdID);
+	}
+
+	private function _spawnPitchDeckWorker($unicornDealID, $tudTempUdID)
+	{
+		$unicornDealID = (int)$unicornDealID;
+		$tudTempUdID = (int)$tudTempUdID;
+		if (!$unicornDealID || !$tudTempUdID) {
+			return;
+		}
+
+		// Use PHP CLI binary, not PHP-FPM
+		$php = '/usr/bin/php';
+		if (!file_exists($php)) {
+			// Fallback to finding php in PATH
+			$php = trim(shell_exec('which php'));
+			if (!$php) {
+				return;
+			}
+		}
+
+		$php = escapeshellarg($php);
+		$script = escapeshellarg(FCPATH . 'index.php');
+		$cmd = $php . ' ' . $script . ' founder/Startup/convertPitchDeckWorker ' . $unicornDealID . ' ' . $tudTempUdID;
+
+		if (stripos(PHP_OS, 'WIN') === 0) {
+			$cmd = 'start /B "" ' . $cmd;
+			@pclose(@popen($cmd, 'r'));
+		} else {
+			$cmd .= ' > /dev/null 2>&1 &';
+			@exec($cmd);
+		}
+	}
+
+	function convertProductDeckWorker($unicornDealID = null, $tudTempUdID = null)
+	{
+		$unicornDealID = (int)$unicornDealID;
+		$tudTempUdID = (int)$tudTempUdID;
+		if (!$unicornDealID || !$tudTempUdID) {
+			return;
+		}
+		$this->_convertProductDeckForUnicorn($unicornDealID, $tudTempUdID);
+	}
+
+	private function _spawnProductDeckWorker($unicornDealID, $tudTempUdID)
+	{
+		$unicornDealID = (int)$unicornDealID;
+		$tudTempUdID = (int)$tudTempUdID;
+		if (!$unicornDealID || !$tudTempUdID) {
+			return;
+		}
+
+		// Use PHP CLI binary, not PHP-FPM
+		$php = '/usr/bin/php';
+		if (!file_exists($php)) {
+			// Fallback to finding php in PATH
+			$php = trim(shell_exec('which php'));
+			if (!$php) {
+				return;
+			}
+		}
+
+		$php = escapeshellarg($php);
+		$script = escapeshellarg(FCPATH . 'index.php');
+		$cmd = $php . ' ' . $script . ' founder/Startup/convertProductDeckWorker ' . $unicornDealID . ' ' . $tudTempUdID;
+
+		if (stripos(PHP_OS, 'WIN') === 0) {
+			$cmd = 'start /B "" ' . $cmd;
+			@pclose(@popen($cmd, 'r'));
+		} else {
+			$cmd .= ' > /dev/null 2>&1 &';
+			@exec($cmd);
+		}
+	}
+
+	private function _convertPitchDeckForUnicorn($unicornDealID, $tudTempUdID)
+	{
+		return $this->_convertDeckForUnicorn($unicornDealID, $tudTempUdID, 'udPitchDeck', 'udPitchDeckImages');
+	}
+
+	private function _convertProductDeckForUnicorn($unicornDealID, $tudTempUdID)
+	{
+		return $this->_convertDeckForUnicorn($unicornDealID, $tudTempUdID, 'udProductDeck', 'udProductDeckImages');
+	}
+
+	private function _convertDeckForUnicorn($unicornDealID, $tudTempUdID, $pdfField, $imagesField)
+	{
+		if (!$unicornDealID || !$tudTempUdID) {
+			return false;
+		}
+
+		$this->load->database();
+
+		$row = $this->db->select($pdfField . ', ' . $imagesField)
+			->from('unicorndeals2')
+			->where('unicornDealID', $unicornDealID)
+			->get()
+			->row();
+
+		if (!$row || empty($row->{$pdfField})) {
+			return false;
+		}
+
+		$pdfFileName = $row->{$pdfField};
+
+		$decoded = json_decode($pdfFileName, true);
+		if (is_string($decoded) && $decoded !== '') {
+			$pdfFileName = $decoded;
+		} elseif (is_array($decoded) && !empty($decoded)) {
+			$pdfFileName = $decoded[0];
+		} else {
+			$pdfFileName = trim($pdfFileName, "\"'");
+		}
+
+		if (!preg_match('/\.pdf$/i', $pdfFileName)) {
+			return false;
+		}
+
+		if (!class_exists('Imagick')) {
+			return false;
+		}
+
+		$dir = FCPATH . "uploads/unicorndeals/" . $tudTempUdID . "/";
+		$pdfFullPath = $dir . $pdfFileName;
+
+		if (!file_exists($pdfFullPath)) {
+			return false;
+		}
+
+		@set_time_limit(1800);
+		@ini_set('memory_limit', '512M');
+
+		$pageImages = [];
+
+		try {
+			$imagick = new Imagick();
+			$imagick->setResolution(150, 150);
+			$imagick->readImage($pdfFullPath);
+
+			$pageIndex = 0;
+			$baseName = pathinfo($pdfFileName, PATHINFO_FILENAME);
+
+			foreach ($imagick as $page) {
+				$page->setImageFormat('png');
+				$page->setImageCompressionQuality(95);
+
+				$page->setImageBackgroundColor(new ImagickPixel('white'));
+				if (method_exists($page, 'setImageAlphaChannel')) {
+					$page->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);
+				}
+
+				// Optional: Resize if image is too large (max width 1920px for web display)
+				$width = $page->getImageWidth();
+				$height = $page->getImageHeight();
+				if ($width > 1920) {
+					$page->thumbnailImage(1920, 0, false); // Maintain aspect ratio
+				}
+
+				$pageFileName = $baseName . '_' . $pageIndex . '.png';
+				$pageFullPath = $dir . $pageFileName;
+				$page->writeImage($pageFullPath);
+
+				$pageImages[] = $pageFileName;
+				$pageIndex++;
+			}
+
+			$imagick->clear();
+			$imagick->destroy();
+
+			$this->db->where('unicornDealID', $unicornDealID);
+			$this->db->update('unicorndeals2', [
+				$imagesField => json_encode($pageImages),
+			]);
+		
+			return true;
+		} catch (Exception $e) {
+			return false;
+		}
+	}
 
 	// Upload Cover Images (Multiple) - Max 5 images
 	function uploadCoverImages()
@@ -3134,6 +3388,55 @@ function add_guest_analytics_event() {
     $this->output
         ->set_content_type('application/json')
         ->set_output(json_encode($response));
+}
+
+
+private function _deleteOldDeckFiles($tudTempUdID, $oldPdfFilename, $imagesField, $unicornDealID)
+{
+	if (empty($oldPdfFilename) || empty($tudTempUdID)) {
+		return;
+	}
+
+	// Clean up the filename
+	$decoded = json_decode($oldPdfFilename, true);
+	if (is_string($decoded) && $decoded !== '') {
+		$oldPdfFilename = $decoded;
+	} elseif (is_array($decoded) && !empty($decoded)) {
+		$oldPdfFilename = $decoded[0];
+	} else {
+		$oldPdfFilename = trim($oldPdfFilename, "\"'");
+	}
+
+	$dir = FCPATH . "uploads/unicorndeals/" . $tudTempUdID . "/";
+
+	// Delete old PDF file
+	$oldPdfPath = $dir . $oldPdfFilename;
+	if (file_exists($oldPdfPath)) {
+		@unlink($oldPdfPath);
+	}
+
+	// Delete old converted images
+	if (!empty($unicornDealID)) {
+		$row = $this->db->select($imagesField)
+			->from('unicorndeals2')
+			->where('unicornDealID', $unicornDealID)
+			->get()
+			->row();
+
+		if ($row && !empty($row->{$imagesField})) {
+			$imagesJson = $row->{$imagesField};
+			$images = json_decode($imagesJson, true);
+			
+			if (is_array($images)) {
+				foreach ($images as $imageFile) {
+					$imagePath = $dir . $imageFile;
+					if (file_exists($imagePath)) {
+						@unlink($imagePath);
+					}
+				}
+			}
+		}
+	}
 }
 
 
