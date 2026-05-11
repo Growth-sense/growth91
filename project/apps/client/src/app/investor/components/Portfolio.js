@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Bridge from "../../constants/Bridge";
-import { Table, Spin, message, Input } from "antd";
+import { Table, Spin, message, Input, Tag } from "antd";
 import moment from "moment";
 import Apis from "../../constants/Apis";
 import Paiddocuments from "../../admin/components/modal/Paiddocuments2";
@@ -185,6 +185,7 @@ export default class Portfolio extends Component {
           dateinvested: item.Invested_dt
             ? moment(item.Invested_dt).format("DD MMM, YYYY")
             : "---",
+          remarks: item.remarks ? item.remarks : "NA",
           documents: item,
           action: item,
         };
@@ -228,6 +229,22 @@ export default class Portfolio extends Component {
           return <Paiddocuments data={text} />;
         },
       },
+       {
+        title: "Remarks",
+        dataIndex: "remarks",
+        key: "remarks",
+        render: (text) => {
+          if (text === 'Exited') {
+            return (
+              <Tag color="blue">{text}</Tag>
+            )
+          } else {
+            return (
+              <span></span>
+            )
+          }
+        }
+      }
       // {
       //   title: "Signed Document",
       //   dataIndex: "documents",
