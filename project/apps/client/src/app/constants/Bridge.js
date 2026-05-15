@@ -1018,10 +1018,6 @@ export default {
       api.post(URLs.uploadCoverImages, data).then((response) => {
         return response.data;
       }),
-    deleteCoverImage: (data) =>
-      api.post(URLs.deleteCoverImage, data).then((response) => {
-        return response.data;
-      }),
     getCoverImages: (data) =>
       api.post(URLs.getCoverImages, data).then((response) => {
         return response.data;

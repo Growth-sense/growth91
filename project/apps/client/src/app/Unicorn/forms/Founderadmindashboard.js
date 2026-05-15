@@ -1063,11 +1063,13 @@ class Founderadmindashboard extends Component {
       try {
         let mediaData = JSON.parse(this.state.unicorn.tudMediaCoverageFiles);
         if (mediaData && mediaData.length > 0) {
-          mediaData.forEach(element => {
-            if(element.title != ""){
-              if(element.img == "" || element.content == "" || element.imgname == ""){
-                mediaValidation = false;
-              }
+          mediaData.forEach(m => {
+            const hasTitle = (m.title || "").trim() !== "";
+            const hasContent = (m.content || "").trim() !== "";
+            const hasImg = (m.imgname || "").trim() !== "";
+            // If any card is incomplete, block validation
+            if (!hasTitle || !hasContent || !hasImg) {
+              mediaValidation = false;
             }
           });
         }
@@ -1150,7 +1152,7 @@ class Founderadmindashboard extends Component {
     }
 
     if (!this.state.unicorn.tudDeclare || this.state.unicorn.tudDeclare == 0) {
-      this.activeform(5);
+      this.activeform(6);
       toast.error("Please fill Declaration Section");
       return;
     }
@@ -1455,7 +1457,7 @@ class Founderadmindashboard extends Component {
                 <Link
                   to={`/MyUnicornPlan`}
                 >
-                  <button className="btn btn-block">View Plans</button>
+                  <button className="btn btn-block">Select your free plan here</button>
                 </Link>
                 <Link to="/founder-dashboard">
                   <button className="btn btn-block">Go to Dashboard</button>

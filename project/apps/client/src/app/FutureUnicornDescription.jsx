@@ -1503,12 +1503,31 @@ text-align: justify;
                   id="mediaCoverageSection"
                   className="container my-5 media-coverage-section"
                 >
-                  {item.udMediaCoverageFiles &&
-                    JSON.parse(item.udMediaCoverageFiles).length > 0 && (
+                  {(() => {
+                      if (!item.udMediaCoverageFiles || item.udMediaCoverageFiles.trim() === "") return null;
+
+                      let allMedia = [];
+                      try { allMedia = JSON.parse(item.udMediaCoverageFiles); } catch(e) {}
+                      if (!Array.isArray(allMedia) || allMedia.length === 0) return null;
+
+                      // Each item has title, content, imgname — if ANY field in ANY item is empty or not an image, hide whole section
+                      const hasAnyBroken = allMedia.some(m => {
+                        const title = (typeof m.title === "string" ? m.title : "").trim();
+                        const imgname = (typeof m.imgname === "string" ? m.imgname : "").trim();
+                        const content = (typeof m.content === "string" ? m.content : "").trim();
+                        
+                        // Check if it's a valid image extension
+                        const isImage = /\.(jpg|jpeg|png|webp)$/i.test(imgname);
+                        
+                        return !title || !imgname || !content || !isImage;
+                      });
+                      if (hasAnyBroken) return null;
+                      const validMedia = allMedia;
+                      return (
                       <>
                         <h2 className="text-center mb-4">Media Coverage</h2>
                         <div className="row">
-                          {JSON.parse(item.udMediaCoverageFiles).map(
+                          {validMedia.map(
                             (
                               itemudMediaCoverageFiles,
                               indexudMediaCoverageFiles
@@ -1544,96 +1563,114 @@ text-align: justify;
                             )
                           )}
                         </div>
-                        {/* <div className="text-center mt-4">
-                      <button className="load-more-btn">Load more</button>
-                    </div> */}
                       </>
-                    )}
+                    );
+                    })()}
                 </section>
 
                 <section className="container my-5">
-                  <h2 className="text-center mb-3">Team</h2>
-                  <div className="row row-box-linse Grid-team px-1 justify-content-center">
-                    {item.udVendorId &&
-                      JSON.parse(item.udVendorId).map(
-                        (itemudVendorId, indexudVendorId) => (
-                          <div className="col-md-6 mb-4" key={index}>
-                            <div
-                              className="shadow-lg"
-                              style={{
-                                borderRadius: "15px",
-                                overflow: "hidden",
-                                backgroundColor: "#ffffff",
-                              }}
-                            >
-                              {/* Header with Gradient Background */}
+                  {(() => {
+                    if (!item.udVendorId || item.udVendorId.trim() === "") return null;
+
+                    let team = [];
+                    try {
+                      team = JSON.parse(item.udVendorId);
+                    } catch (e) {}
+                    if (!Array.isArray(team) || team.length === 0) return null;
+
+                    // Hide whole section if ANY item has a non-image extension
+                    const hasAnyBroken = team.some((m) => {
+                      const imgname = (typeof m.imgname === "string" ? m.imgname : "").trim();
+                      const isImage = /\.(jpg|jpeg|png|webp)$/i.test(imgname);
+                      return imgname && !isImage;
+                    });
+
+                    if (hasAnyBroken) return null;
+
+                    return (
+                      <>
+                        <h2 className="text-center mb-3">Team</h2>
+                        <div className="row row-box-linse Grid-team px-1 justify-content-center">
+                          {team.map((itemudVendorId, indexudVendorId) => (
+                            <div className="col-md-6 mb-4" key={indexudVendorId}>
                               <div
-                                className="team-member-header"
+                                className="shadow-lg"
                                 style={{
-                                  color: "white",
-                                  padding: "20px",
+                                  borderRadius: "15px",
+                                  overflow: "hidden",
+                                  backgroundColor: "#ffffff",
                                 }}
                               >
-                                <div className="d-flex align-items-center">
-                                  <img
-                                    src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${itemudVendorId.imgname}`}
-                                    alt=""
-                                    style={{
-                                      width: "100px",
-                                      height: "100px",
-                                      borderRadius: "50%",
-                                      objectFit: "cover",
-                                      marginRight: "15px",
-                                      boxShadow: "0px 3px 6px #000",
-                                    }}
-                                  />
-                                  <div>
-                                    <h5 className="mb-0 text-white">
-                                      {itemudVendorId.name ||
-                                        "Name not provided"}
-                                    </h5>
-                                    <p className="mb-0 text-white">
-                                      {itemudVendorId.Role ||
-                                        "Role not specified"}
-                                    </p>
+                                {/* Header with Gradient Background */}
+                                <div
+                                  className="team-member-header"
+                                  style={{
+                                    color: "white",
+                                    padding: "20px",
+                                  }}
+                                >
+                                  <div className="d-flex align-items-center">
+                                    <img
+                                      src={`${process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${item.tudTempUdID}/${itemudVendorId.imgname}`}
+                                      alt=""
+                                      style={{
+                                        width: "100px",
+                                        height: "100px",
+                                        borderRadius: "50%",
+                                        objectFit: "cover",
+                                        marginRight: "15px",
+                                        boxShadow: "0px 3px 6px #000",
+                                      }}
+                                    />
+                                    <div>
+                                      <h5 className="mb-0 text-white">
+                                        {itemudVendorId.name ||
+                                          "Name not provided"}
+                                      </h5>
+                                      <p className="mb-0 text-white">
+                                        {itemudVendorId.Role ||
+                                          "Role not specified"}
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                                {/* Description Section */}
+                                <div
+                                  className="p-3"
+                                  style={{
+                                    height: "210px",
+                                    textAlign: "justify",
+                                  }}
+                                >
+                                  <p>
+                                    {itemudVendorId.description1
+                                      ? itemudVendorId.description1
+                                      : "Description not available for this team member."}
+                                  </p>
+                                  <p>
+                                    {itemudVendorId.description2
+                                      ? itemudVendorId.description2
+                                      : ""}
+                                  </p>
+                                  <div className="mt-3">
+                                    <a
+                                      href={itemudVendorId.linkedinUrl || "#"}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="social-icons__item"
+                                      style={{ color: "#0A66C2" }}
+                                    >
+                                      <i className="bx bxl-linkedin fs-19"></i>
+                                    </a>
                                   </div>
                                 </div>
                               </div>
-                              {/* Description Section */}
-                              <div
-                                className="p-3"
-                                style={{
-                                  height: "210px",
-                                  textAlign: "justify",
-                                }}
-                              >
-                                <p>
-                                  {itemudVendorId.description1
-                                    ? itemudVendorId.description1
-                                    : "Description not available for this team member."}
-                                </p>
-                                <p>
-                                  {itemudVendorId.description2
-                                    ? itemudVendorId.description2
-                                    : ""}
-                                </p>
-                                <div className="mt-3">
-                                  <a
-                                    href={itemudVendorId.linkedinUrl || "#"}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="social-icons__item"
-                                    style={{ color: "#0A66C2" }}
-                                  >
-                                    <i className="bx bxl-linkedin fs-19"></i>
-                                  </a>
-                                </div>
-                              </div>
                             </div>
-                          </div>
-                        )
-                      )}
-                  </div>
+                          ))}
+                        </div>
+                      </>
+                    );
+                  })()}
                 </section>
 
                 <section id="pitchDeck" className="container my-5">

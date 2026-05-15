@@ -1268,7 +1268,7 @@ class FounderadmindashboardAdditional extends Component {
                 <Link
                   to={`/MyUnicornPlan`}
                 >
-                  <button className="btn btn-block">View Plans</button>
+                  <button className="btn btn-block">Select your free plan here</button>
                 </Link>
                 <Link to="/founder-dashboard">
                   <button className="btn btn-block">Go to Dashboard</button>

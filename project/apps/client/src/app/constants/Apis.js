@@ -282,7 +282,6 @@ const URLs = {
   uploadunicornFiles:"founder/Startup/uploadunicornFiles",
   uploadFiles:"founder/Startup/uploadFiles",
   uploadCoverImages:"founder/Startup/uploadCoverImages",
-  deleteCoverImage:"founder/Startup/deleteCoverImage",
   getCoverImages:"founder/Startup/getCoverImages",
   reorderCoverImages:"founder/Startup/reorderCoverImages",
   add_unicorn_interest:"founder/Startup/add_unicorn_interest",

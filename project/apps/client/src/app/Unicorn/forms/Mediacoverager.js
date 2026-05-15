@@ -97,6 +97,19 @@ class Mediacoverager extends Component {
     if (name === "img") {
       // File upload
       const file = e.target.files[0];
+      if (!file) return;
+
+      // Strict image validation
+      const ALLOWED_FORMATS = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+      const fileExtension = file.name.split('.').pop().toLowerCase();
+      const isAllowedExtension = ['jpg', 'jpeg', 'png', 'webp'].includes(fileExtension);
+
+      if (!ALLOWED_FORMATS.includes(file.type) && !isAllowedExtension) {
+        message.error(`${file.name} format not allowed. Only jpg, jpeg, png, webp accepted.`);
+        e.target.value = '';
+        return;
+      }
+
       newEntries[index].img = file;
 
       const formData = new FormData();
@@ -367,6 +380,7 @@ class Mediacoverager extends Component {
                           <input
                             type="file"
                             name="img"
+                            accept="image/jpeg,image/png,image/webp"
                             onChange={(e) => this.handleteamChange(index, e)}
                             className={`form-control-file ${
                               !item.imgname.trim() ? "is-invalid" : ""

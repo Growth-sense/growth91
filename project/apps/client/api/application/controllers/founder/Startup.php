@@ -964,7 +964,7 @@ class Startup extends CI_Controller {
 			$mainunicornArr=array();
 
 			$startupName = isset($tempunicornArr[0]['tudStartupName']) ? $tempunicornArr[0]['tudStartupName'] : '';
-			$urlName = preg_replace('/\s+/', '', $startupName);
+			$urlName = preg_replace('/[^a-zA-Z0-9]/', '', $startupName);
 			
 			$allowedKeys = array(
 				"tudStartupName", "tudSocialInsta", "tudSocialFacebook", "tudSocialLinkedIn", 
@@ -1155,10 +1155,10 @@ class Startup extends CI_Controller {
 		->set_output(json_encode($response));	
 		 // After sending response to client, optionally continue with best-effort
         // pitch deck conversion, so the frontend is not blocked by Imagick work.
-        if (function_exists('fastcgi_finish_request')) {
+		if (function_exists('fastcgi_finish_request')) {
             // On PHP-FPM/Apache, this flushes all response data and closes client connection.
-            @fastcgi_finish_request();
-        }
+			@fastcgi_finish_request();
+		}
 
         // Run conversion only when publish actually succeeded and IDs are valid.
         if (!empty($processDone) && !empty($unicornDealID) && !empty($tudTempUdID)) {
@@ -1910,157 +1910,77 @@ class Startup extends CI_Controller {
 		}
 	}
 
-	// Upload Cover Images (Multiple) - Max 5 images
+	// Upload Cover Images (Multiple)
 	function uploadCoverImages()
 	{
 		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Headers: access");
+		header("Access-Control-Allow-Headers: access, Content-Type, Authorization, X-Requested-With");
 		header("Content-Type: application/json; charset=UTF-8");
-		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-		if (!empty($_POST)) {
-			$id = $this->input->post('tudTempUdID');
-			$existingImages = $this->input->post('existingImages'); // JSON string of existing images
-			
-			// Parse existing images
-			$currentImages = [];
-			if (!empty($existingImages)) {
-				$decoded = json_decode($existingImages, true);
-				$currentImages = is_array($decoded) ? $decoded : [$decoded];
-			}
-			
-			// Validation constants
-			$MAX_IMAGES = 5;
-			$MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB in bytes
-			$ALLOWED_FORMATS = ['jpg', 'jpeg', 'png', 'webp'];
-			
-			$uploadedImages = [];
-			$errors = [];
-			
-			if ($id) {
-				$dir = FCPATH . "uploads/unicorndeals/" . $id . "/";
-				
-				if (!is_dir($dir)) {
-					@mkdir($dir, 0777, true);
-				}
-				
-				// Check if files are uploaded
-				if (isset($_FILES['coverImages'])) {
-					$files = $_FILES['coverImages'];
-					
-					// Handle both single and multiple file uploads
-					if (is_array($files['name'])) {
-						$fileCount = count($files['name']);
-					} else {
-						$fileCount = 1;
-						$files = [
-							'name' => [$files['name']],
-							'type' => [$files['type']],
-							'tmp_name' => [$files['tmp_name']],
-							'error' => [$files['error']],
-							'size' => [$files['size']]
-						];
-					}
-					
-					// Check total count doesn't exceed limit
-					if (count($currentImages) + $fileCount > $MAX_IMAGES) {
-						$response = [
-							'status' => '0',
-							'message' => 'Maximum ' . $MAX_IMAGES . ' cover images allowed. You currently have ' . count($currentImages) . ' images.',
-						];
-						$this->output
-							->set_content_type('application/json')
-							->set_output(json_encode($response));
-						return;
-					}
-					
-					// Process each file
-					for ($i = 0; $i < $fileCount; $i++) {
-						$fileName = $files['name'][$i];
-						$fileTmpName = $files['tmp_name'][$i];
-						$fileSize = $files['size'][$i];
-						$fileError = $files['error'][$i];
-						
-						if ($fileError === 0) {
-							// Validate file size
-							if ($fileSize > $MAX_FILE_SIZE) {
-								$errors[] = $fileName . ' exceeds 5MB size limit';
-								continue;
-							}
-							
-							// Validate file format
-							$temp = explode(".", $fileName);
-							$extension = strtolower(end($temp));
-							
-							if (!in_array($extension, $ALLOWED_FORMATS)) {
-								$errors[] = $fileName . ' format not allowed. Only jpg, jpeg, png, webp accepted';
-								continue;
-							}
-							
-							// Validate it's actually an image
-							$imageInfo = @getimagesize($fileTmpName);
-							if ($imageInfo === false) {
-								$errors[] = $fileName . ' is not a valid image file';
-								continue;
-							}
-							
-							// Generate unique filename
-							$newfilename = round(microtime(true)) . '_' . $i . '.' . $extension;
-							
-							// Upload file
-							if (move_uploaded_file($fileTmpName, $dir . $newfilename)) {
-								// Compress and optimize image
-								$this->compressImage($dir . $newfilename, $extension);
-								$uploadedImages[] = $newfilename;
-							} else {
-								$errors[] = 'Failed to upload ' . $fileName;
-							}
-						} else {
-							$errors[] = 'Error uploading ' . $fileName;
-						}
-					}
-					
-					// Merge with existing images
-					$allImages = array_merge($currentImages, $uploadedImages);
-					
-					if (count($uploadedImages) > 0) {
-						$response = [
-							'status' => '1',
-							'message' => count($uploadedImages) . ' image(s) uploaded successfully.',
-							'data' => [
-								'newImages' => $uploadedImages,
-								'allImages' => $allImages,
-								'totalCount' => count($allImages)
-							],
-							'errors' => $errors
-						];
-					} else {
-						$response = [
-							'status' => '0',
-							'message' => 'No images were uploaded.',
-							'errors' => $errors
-						];
-					}
-				} else {
-					$response = [
-						'status' => '0',
-						'message' => 'No files uploaded.'
-					];
-				}
-			} else {
-				$response = [
-					'status' => '0',
-					'message' => 'Invalid tudTempUdID.'
-				];
-			}
-		} else {
-			$response = [
-				'status' => '0',
-				'message' => 'Please provide required data.',
+
+		if (empty($_POST) || !$this->input->post('tudTempUdID') || empty($_FILES['coverImages'])) {
+			$this->output->set_content_type('application/json')
+				->set_output(json_encode(['status' => '0', 'message' => 'Invalid request.']));
+			return;
+		}
+
+		$id = $this->input->post('tudTempUdID');
+		$dir = FCPATH . "uploads/unicorndeals/" . $id . "/";
+		if (!is_dir($dir)) @mkdir($dir, 0777, true);
+
+		// Get existing images from frontend state
+		$currentImages = json_decode($this->input->post('existingImages') ?: '[]', true);
+		if (!is_array($currentImages)) $currentImages = [];
+
+		// Process uploaded files
+		$uploadedImages = [];
+		$files = $_FILES['coverImages'];
+
+		// Handle both single and multiple file uploads
+		if (!is_array($files['name'])) {
+			$files = [
+				'name' => [$files['name']],
+				'tmp_name' => [$files['tmp_name']],
+				'error' => [$files['error']],
+				'size' => [$files['size']]
 			];
 		}
 
-		$this->output
-			->set_content_type('application/json')
+		$fileCount = count($files['name']);
+		for ($i = 0; $i < $fileCount; $i++) {
+			if ($files['error'][$i] !== 0) continue;
+
+			$ext = strtolower(pathinfo($files['name'][$i], PATHINFO_EXTENSION));
+			if (!in_array($ext, ['jpg', 'jpeg', 'png', 'webp'])) continue;
+
+			$newFilename = round(microtime(true)) . '_' . $i . '.' . $ext;
+			if (move_uploaded_file($files['tmp_name'][$i], $dir . $newFilename)) {
+				$this->compressImage($dir . $newFilename, $ext);
+				$uploadedImages[] = $newFilename;
+			}
+		}
+
+		// Merge and save to database
+		$allImages = array_merge($currentImages, $uploadedImages);
+
+		if (!empty($uploadedImages)) {
+			$this->db->where('tudTempUdID', $id);
+			$this->db->update('tempunicorndeals2', [
+				'tudBannerImage' => json_encode($allImages)
+			]);
+
+			$response = [
+				'status' => '1',
+				'message' => count($uploadedImages) . ' image(s) uploaded successfully.',
+				'data' => ['allImages' => $allImages]
+			];
+		} else {
+			$response = [
+				'status' => '0',
+				'message' => 'No images were uploaded.'
+			];
+		}
+
+		$this->output->set_content_type('application/json')
 			->set_output(json_encode($response));
 	}
 
@@ -2136,72 +2056,6 @@ class Startup extends CI_Controller {
 		
 		imagedestroy($image);
 		return true;
-	}
-
-	// Delete specific cover image
-	function deleteCoverImage()
-	{
-		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
-		header("Access-Control-Allow-Headers: access");
-		header("Content-Type: application/json; charset=UTF-8");
-		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-		
-		$formdata = json_decode(file_get_contents('php://input'), true);
-		
-		if (!empty($formdata)) {
-			$tudTempUdID = $formdata['tudTempUdID'];
-			$imageName = $formdata['imageName'];
-			$currentImages = $formdata['currentImages']; // JSON string or array
-			
-			if ($tudTempUdID && $imageName) {
-				$dir = FCPATH . "uploads/unicorndeals/" . $tudTempUdID . "/";
-				$filePath = $dir . $imageName;
-				
-				// Parse current images
-				$imagesArray = [];
-				if (is_string($currentImages)) {
-					$decoded = json_decode($currentImages, true);
-					$imagesArray = is_array($decoded) ? $decoded : [$decoded];
-				} else if (is_array($currentImages)) {
-					$imagesArray = $currentImages;
-				}
-				
-				// Remove image from array
-				$updatedImages = array_values(array_filter($imagesArray, function($img) use ($imageName) {
-					return $img !== $imageName;
-				}));
-				
-				// Delete physical file
-				$fileDeleted = false;
-				if (file_exists($filePath)) {
-					$fileDeleted = @unlink($filePath);
-				}
-				
-				$response = [
-					'status' => '1',
-					'message' => 'Image deleted successfully.',
-					'data' => [
-						'remainingImages' => $updatedImages,
-						'fileDeleted' => $fileDeleted,
-						'totalCount' => count($updatedImages)
-					]
-				];
-			} else {
-				$response = [
-					'status' => '0',
-					'message' => 'Invalid parameters provided.'
-				];
-			}
-		} else {
-			$response = [
-				'status' => '0',
-				'message' => 'Please provide required data.',
-			];
-		}
-
-		$this->output
-			->set_content_type('application/json')
-			->set_output(json_encode($response));
 	}
 
 	// Get current cover images for a startup
@@ -2283,11 +2137,18 @@ class Startup extends CI_Controller {
 						'message' => 'Maximum 5 cover images allowed.'
 					];
 				} else {
+					// Persist new order to database
+					$this->db->where('tudTempUdID', $tudTempUdID);
+					$dbUpdated = $this->db->update('tempunicorndeals2', [
+						'tudBannerImage' => json_encode($imageOrder)
+					]);
+
 					$response = [
 						'status' => '1',
 						'message' => 'Images reordered successfully.',
 						'data' => [
 							'images' => $imageOrder,
+							'dbUpdated' => $dbUpdated,
 							'totalCount' => count($imageOrder)
 						]
 					];

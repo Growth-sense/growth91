@@ -92,6 +92,19 @@ class SocialMediaPresence extends Component {
     if (name === "img") {
       // File upload
       const file = e.target.files[0];
+      if (!file) return;
+
+      // Strict image validation
+      const ALLOWED_FORMATS = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+      const fileExtension = file.name.split('.').pop().toLowerCase();
+      const isAllowedExtension = ['jpg', 'jpeg', 'png', 'webp'].includes(fileExtension);
+
+      if (!ALLOWED_FORMATS.includes(file.type) && !isAllowedExtension) {
+        message.error(`${file.name} format not allowed. Only jpg, jpeg, png, webp accepted.`);
+        e.target.value = '';
+        return;
+      }
+
       newEntries[index].img = file;
 
       const formData = new FormData();
@@ -551,10 +564,10 @@ class SocialMediaPresence extends Component {
                           />
                           {item.title.trim() !== "" &&
                             item.content.trim() === "" && (
-                              <div className="invalid-feedback">
+                            <div className="invalid-feedback">
                                 This field is required.
-                              </div>
-                            )}
+                            </div>
+                          )}
                         </div>
 
                         {/* Media Image */}
@@ -568,6 +581,7 @@ class SocialMediaPresence extends Component {
                           <input
                             type="file"
                             name="img"
+                            accept="image/jpeg,image/png,image/webp"
                             onChange={(e) => this.handleInputChange(index, e)}
                             className={`form-control-file ${
                               item.title.trim() !== "" &&
@@ -578,10 +592,10 @@ class SocialMediaPresence extends Component {
                           />
                           {item.title.trim() !== "" &&
                             item.imgname.trim() === "" && (
-                              <div className="invalid-feedback">
+                            <div className="invalid-feedback">
                                 This field is required.
-                              </div>
-                            )}
+                            </div>
+                          )}
                           
                           {item.imgname && (
                             <img style={{maxWidth:"100%"}} src={`${process.env.REACT_APP_IMAGE_BASE_URL || process.env.REACT_APP_BASE_URL}api/uploads/unicorndeals/${this.props.unicorn.tudTempUdID}/${item.imgname}`} />

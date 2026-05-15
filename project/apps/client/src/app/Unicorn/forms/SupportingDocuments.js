@@ -171,7 +171,18 @@ class SupportingDocuments extends Component {
   onChangeMultipleFile = async (e) => {
     const formData = new FormData();
     if (e.target.name == "tudPitchDeck") {
-      formData.append("upfile", e.target.files[0]);
+      const file = e.target.files[0];
+      if (!file) return;
+
+      // Strict PDF validation
+      const isPdf = file.name.toLowerCase().endsWith('.pdf');
+      if (!isPdf) {
+        message.error("Only PDF files are allowed for Pitch Deck.");
+        e.target.value = ""; // Clear the input
+        return;
+      }
+
+      formData.append("upfile", file);
       formData.append("tudTempUdID", this.props.unicorn.tudTempUdID);
 
       const response = await axios.post(
@@ -188,7 +199,18 @@ class SupportingDocuments extends Component {
         );
       }
     } else if (e.target.name == "tudProductDeck") {
-      formData.append("upfile", e.target.files[0]);
+      const file = e.target.files[0];
+      if (!file) return;
+
+      // Strict PDF validation
+      const isPdf = file.name.toLowerCase().endsWith('.pdf');
+      if (!isPdf) {
+        message.error("Only PDF files are allowed for Product Brochure.");
+        e.target.value = ""; // Clear the input
+        return;
+      }
+
+      formData.append("upfile", file);
       formData.append("tudTempUdID", this.props.unicorn.tudTempUdID);
 
       const response = await axios.post(
@@ -286,13 +308,19 @@ class SupportingDocuments extends Component {
       
       e.target.value = ''; // Reset input
     } else if (e.target.name == "tudLogoImage") {
+      const file = e.target.files[0];
+      if (!file) return;
+
       const ALLOWED_FORMATS = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
-      if (!ALLOWED_FORMATS.includes(e.target.files[0].type)) {
-          message.error(`${e.target.files[0].name} format not allowed. Only jpg, jpeg, png, webp accepted.`);
+      const fileExtension = file.name.split('.').pop().toLowerCase();
+      const isAllowedExtension = ['jpg', 'jpeg', 'png', 'webp'].includes(fileExtension);
+
+      if (!ALLOWED_FORMATS.includes(file.type) && !isAllowedExtension) {
+          message.error(`${file.name} format not allowed. Only jpg, jpeg, png, webp accepted.`);
           e.target.value = '';
           return;
       }
-      formData.append("upfile", e.target.files[0]);
+      formData.append("upfile", file);
       console.log(formData.get("tudTempUdID"));
       formData.append("tudTempUdID", this.props.unicorn.tudTempUdID);
 
@@ -313,13 +341,19 @@ class SupportingDocuments extends Component {
         );
       }
     } else if (e.target.name == "tudSponsorImage") {
+      const file = e.target.files[0];
+      if (!file) return;
+
       const ALLOWED_FORMATS = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
-      if (!ALLOWED_FORMATS.includes(e.target.files[0].type)) {
-          message.error(`${e.target.files[0].name} format not allowed. Only jpg, jpeg, png, webp accepted.`);
+      const fileExtension = file.name.split('.').pop().toLowerCase();
+      const isAllowedExtension = ['jpg', 'jpeg', 'png', 'webp'].includes(fileExtension);
+
+      if (!ALLOWED_FORMATS.includes(file.type) && !isAllowedExtension) {
+          message.error(`${file.name} format not allowed. Only jpg, jpeg, png, webp accepted.`);
           e.target.value = '';
           return;
       }
-      formData.append("upfile", e.target.files[0]);
+      formData.append("upfile", file);
       formData.append("tudTempUdID", this.props.unicorn.tudTempUdID);
 
       const response = await axios.post(
@@ -341,47 +375,17 @@ class SupportingDocuments extends Component {
     }
   };
 
-  // Delete cover image with backend API call
-  deleteCoverImage = async (imageName) => {
-    this.setState({ uploadingCoverImages: true });
+  deleteCoverImage = (imageName) => {
+    const remainingImages = this.state.coverImages.filter(img => img !== imageName);
     
-    try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}api/founder/Startup/deleteCoverImage`,
-        {
-          tudTempUdID: this.props.unicorn.tudTempUdID,
-          imageName: imageName,
-          currentImages: this.state.coverImages
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (response.data.status == "1") {
-        const remainingImages = response.data.data.remainingImages;
-        this.setState({ 
-          coverImages: remainingImages,
-          uploadingCoverImages: false 
-        });
-        
-        this.props.onInput(
-          "tudBannerImage",
-          JSON.stringify(remainingImages)
-        );
-        
-        message.success("Image deleted successfully");
-      } else {
-        message.error(response.data.message);
-        this.setState({ uploadingCoverImages: false });
-      }
-    } catch (error) {
-      console.error("Delete error:", error);
-      message.error("Failed to delete image. Please try again.");
-      this.setState({ uploadingCoverImages: false });
-    }
+    this.setState({ coverImages: remainingImages });
+    
+    this.props.onInput(
+      "tudBannerImage",
+      JSON.stringify(remainingImages)
+    );
+    
+    message.success("Image removed successfully");
   };
 
   // ===== DRAG AND DROP HANDLERS FOR REORDERING COVER IMAGES =====
@@ -801,7 +805,7 @@ class SupportingDocuments extends Component {
                           type="file"
                           onWheel={() => document.activeElement.blur()}
                           name="tudLogoImage"
-                          accept="image/*"
+                          accept="image/jpeg,image/png,image/webp"
                           onChange={(e) => this.onChangeMultipleFile(e)}
                         />
                       </div>
@@ -856,7 +860,7 @@ class SupportingDocuments extends Component {
                               type="file"
                               onWheel={() => document.activeElement.blur()}
                               name="tudSponsorImage"
-                              accept="image/*"
+                              accept="image/jpeg,image/png,image/webp"
                               onChange={(e) => this.onChangeMultipleFile(e)}
                             />                      
                           </div>
