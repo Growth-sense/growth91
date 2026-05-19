@@ -23,6 +23,12 @@ User-Agent: *
 Disallow:
 
 # Disallow
+Disallow: /FutureUnicorn
+Disallow: /FutureUnicorn/
+Disallow: /FutureUnicorn/*
+Disallow: /FutureUnicornList
+Disallow: /FutureUnicornList/
+Disallow: /investor-future-unicorn
 Disallow: */login
 Disallow: /login
 Disallow: */login/
