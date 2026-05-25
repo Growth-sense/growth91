@@ -1,24 +1,133 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 export const NewWebFooter = () => {
+  const [userType, setUserType] = useState("");
+  const footerRef = useRef(null);
+  const [isNearFooter, setIsNearFooter] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("investor_id")) {
+      setUserType("investor");
+    } else if (localStorage.getItem("founder_id")) {
+      setUserType("founder");
+    } else {
+      setUserType("");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.IntersectionObserver) {
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsNearFooter(entry.isIntersecting);
+      },
+      {
+        root: null,
+        threshold: 0.05,
+      }
+    );
+
+    if (footerRef.current) {
+      observer.observe(footerRef.current);
+    }
+
+    return () => {
+      if (footerRef.current) {
+        observer.unobserve(footerRef.current);
+      }
+    };
+  }, []);
+
   return (
     <div
-      class="Footer_footer__Dhw_9 newfooter"
+      ref={footerRef}
+      className="Footer_footer__Dhw_9 newfooter"
       style={{ padding: "1rem 0rem !important" }}
     >
-      <div class="Footer_footerLogo__Dz6fy"></div>
-      <p class="Footer_footerText__YieoY">
+      <style>
+        {`
+          @media (min-width: 992px) {
+            .wid-icons, .top-butns button, .gotoTop, .top-butns {
+              bottom: ${isNearFooter ? "100px" : "10px"} !important;
+              transition: bottom 0.3s ease !important;
+            }
+            .social-widjet {
+              bottom: ${isNearFooter ? "158px" : "68px"} !important;
+              transition: bottom 0.3s ease !important;
+            }
+          }
+          @media (max-width: 991px) {
+            .Footer_footer__Dhw_9.newfooter {
+              display: flex !important;
+              flex-direction: column !important;
+              align-items: center !important;
+              justify-content: center !important;
+              gap: 1.5rem !important;
+              padding: 2.5rem 1rem !important;
+              text-align: center !important;
+            }
+            .Footer_footerLogo__Dz6fy {
+              display: none !important;
+            }
+            .Footer_footerMain__5yv_j {
+              order: 2 !important;
+              display: flex !important;
+              flex-direction: column !important;
+              align-items: center !important;
+              gap: 1.2rem !important;
+              width: 100% !important;
+            }
+            .Footer_footerMain__5yv_j > p {
+              justify-content: center !important;
+              padding-right: 0 !important;
+              text-align: center !important;
+              gap: 12px 20px !important;
+            }
+            .Footer_footerSocials__Dn41J {
+              justify-content: center !important;
+              margin: 0 !important;
+              gap: 15px !important;
+            }
+            .Footer_footerText__YieoY {
+              order: 3 !important;
+              padding-left: 0 !important;
+              text-align: center !important;
+              margin: 0 !important;
+              font-size: 13px !important;
+              line-height: 1.5 !important;
+            }
+          }
+        `}
+      </style>
+      <div className="Footer_footerLogo__Dz6fy"></div>
+      <p className="Footer_footerText__YieoY">
         Copyright <sup style={{fontSize:"10px"}}>&copy;</sup>  Growth91<sup>®</sup> 2024. All Rights Reserved{" "}
       </p>
-      <div class="Footer_footerMain__5yv_j">
-        {/* <p><a href="/disclaimer">Disclaimer</a></p> */}
-        <ul class="Footer_footerSocials__Dn41J">
+      <div className="Footer_footerMain__5yv_j">
+        <p style={{ display: "flex", gap: "15px", flexWrap: "wrap", margin: 0, paddingRight: "15px", fontSize: "14px", alignItems: "center", justifyContent: "center" }}>
+          <a href="/deals" style={{ color: "rgba(255, 255, 255, 0.85)", textDecoration: "none", transition: "color 0.3s" }} onMouseOver={(e) => e.target.style.color = '#f0bb62'} onMouseOut={(e) => e.target.style.color = 'rgba(255, 255, 255, 0.85)'}>Invest</a>
+          <a href="/resources" style={{ color: "rgba(255, 255, 255, 0.85)", textDecoration: "none", transition: "color 0.3s" }} onMouseOver={(e) => e.target.style.color = '#f0bb62'} onMouseOut={(e) => e.target.style.color = 'rgba(255, 255, 255, 0.85)'}>How it works</a>
+          <a href="/Learn" style={{ color: "rgba(255, 255, 255, 0.85)", textDecoration: "none", transition: "color 0.3s" }} onMouseOver={(e) => e.target.style.color = '#f0bb62'} onMouseOut={(e) => e.target.style.color = 'rgba(255, 255, 255, 0.85)'}>Learn</a>
+          {userType === "investor" ? (
+            <a href="/investor-dashboard" style={{ color: "rgba(255, 255, 255, 0.85)", textDecoration: "none", transition: "color 0.3s" }} onMouseOver={(e) => e.target.style.color = '#f0bb62'} onMouseOut={(e) => e.target.style.color = 'rgba(255, 255, 255, 0.85)'}>Dashboard</a>
+          ) : userType === "founder" ? (
+            <a href="/founder-dashboard" style={{ color: "rgba(255, 255, 255, 0.85)", textDecoration: "none", transition: "color 0.3s" }} onMouseOver={(e) => e.target.style.color = '#f0bb62'} onMouseOut={(e) => e.target.style.color = 'rgba(255, 255, 255, 0.85)'}>Dashboard</a>
+          ) : (
+            <a href="/Login" style={{ color: "rgba(255, 255, 255, 0.85)", textDecoration: "none", transition: "color 0.3s" }} onMouseOver={(e) => e.target.style.color = '#f0bb62'} onMouseOut={(e) => e.target.style.color = 'rgba(255, 255, 255, 0.85)'}>Log in</a>
+          )}
+          <a href="/TermsConditions" style={{ color: "rgba(255, 255, 255, 0.85)", textDecoration: "none", transition: "color 0.3s" }} onMouseOver={(e) => e.target.style.color = '#f0bb62'} onMouseOut={(e) => e.target.style.color = 'rgba(255, 255, 255, 0.85)'}>Terms & Conditions</a>
+          <a href="/PrivacyPolicy" style={{ color: "rgba(255, 255, 255, 0.85)", textDecoration: "none", transition: "color 0.3s" }} onMouseOver={(e) => e.target.style.color = '#f0bb62'} onMouseOut={(e) => e.target.style.color = 'rgba(255, 255, 255, 0.85)'}>Privacy Policy</a>
+          <a href="mailto:contact@Growth91.com" style={{ color: "rgba(255, 255, 255, 0.85)", textDecoration: "none", transition: "color 0.3s" }} onMouseOver={(e) => e.target.style.color = '#f0bb62'} onMouseOut={(e) => e.target.style.color = 'rgba(255, 255, 255, 0.85)'}>Contact</a>
+        </p>
+        <ul className="Footer_footerSocials__Dn41J">
           <li>
-            <a target="_blank" href="https://x.com/Growth_91">
+            <a target="_blank" href="https://x.com/Growth_91" rel="noreferrer">
               <svg
                 stroke="currentColor"
                 fill="currentColor"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 512 512"
                 height="1em"
                 width="1em"
@@ -31,11 +140,11 @@ export const NewWebFooter = () => {
           <li>
             <a
                href="https://www.instagram.com/growth.91/"
-               target="_blank"  >
+               target="_blank" rel="noreferrer" >
               <svg
                 stroke="currentColor"
                 fill="currentColor"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 448 512"
                 height="1em"
                 width="1em"
@@ -48,11 +157,11 @@ export const NewWebFooter = () => {
           <li>
             <a
                href="https://www.linkedin.com/company/growth91/"
-                          target="_blank">
+                          target="_blank" rel="noreferrer">
               <svg
                 stroke="currentColor"
                 fill="currentColor"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 448 512"
                 height="1em"
                 width="1em"
@@ -64,11 +173,11 @@ export const NewWebFooter = () => {
           </li>
           <li>
             <a   href="https://www.facebook.com/MyGrowth91?mibextid=ZbWKwL"
-                          target="_blank">
+                          target="_blank" rel="noreferrer">
               <svg
                 stroke="currentColor"
                 fill="currentColor"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 320 512"
                 height="1em"
                 width="1em"
@@ -83,3 +192,4 @@ export const NewWebFooter = () => {
     </div>
   );
 };
+
