@@ -256,6 +256,7 @@ import RolesPermissions from "./app/admin/RolesPermissions";
 import UserRoleAssign from "./app/admin/UserRoleAssign";
 import ProtectedAdminRoute from "./app/admin/common/ProtectedAdminRoute";
 import TargetPeak2 from "./app/deal-pages/TargetPeak2.jsx";
+import AdminSellerListings from "./app/admin/SellerListings/AdminSellerListings.jsx";
 
 ReactGA.initialize(TRACKING_ID);
 
@@ -491,6 +492,13 @@ function App() {
             path="/admin-unicorn"
             component={UnicornAdmin}
             requiredModule="unicorns_published"
+            requiredAction="view"
+          />
+          <ProtectedAdminRoute
+            exact
+            path="/admin-seller-listings"
+            component={AdminSellerListings}
+            requiredModule="seller_listings"
             requiredAction="view"
           />
           <ProtectedAdminRoute

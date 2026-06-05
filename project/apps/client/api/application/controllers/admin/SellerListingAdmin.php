@@ -1,0 +1,129 @@
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
+
+class SellerListingAdmin extends CI_Controller
+{
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->database();
+        date_default_timezone_set('Asia/Kolkata');
+    }
+
+    private function _json_response($status, $message, $extra = [])
+    {
+        $response = ['status' => $status, 'message' => $message];
+        if (!empty($extra)) {
+            $response = array_merge($response, $extra);
+        }
+        echo json_encode($response);
+        exit;
+    }
+
+    /**
+     * Get all seller listings for admin
+     */
+    public function get_listings()
+    {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+        header("Access-Control-Allow-Headers: access, Content-Type, Authorization, X-Requested-With");
+        header("Content-Type: application/json; charset=UTF-8");
+
+        $this->db->order_by('sdPublishedAt', 'DESC');
+        $listings = $this->db->get('seller_listings')->result_array();
+
+        // Also fetch admins for assignment mapping (assuming you have an admin table, if not we just return names)
+        // Here we just return listings. We can add a list of admins if needed.
+
+        return $this->_json_response(1, 'Listings fetched successfully.', ['data' => $listings]);
+    }
+
+    /**
+     * Update listing status
+     */
+    public function update_status()
+    {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+        header("Access-Control-Allow-Headers: access, Content-Type, Authorization, X-Requested-With");
+        header("Content-Type: application/json; charset=UTF-8");
+
+        $formdata = json_decode(file_get_contents('php://input'), true);
+        $sdID = isset($formdata['sdSdID']) ? $formdata['sdSdID'] : null;
+        $status = isset($formdata['sdStatus']) ? $formdata['sdStatus'] : null;
+
+        if (empty($sdID) || empty($status)) {
+            return $this->_json_response(0, 'Listing ID and Status are required.');
+        }
+
+        $this->db->where('sdSdID', $sdID);
+        $result = $this->db->update('seller_listings', ['sdStatus' => $status]);
+
+        if ($result) {
+            return $this->_json_response(1, 'Status updated successfully.');
+        } else {
+            return $this->_json_response(0, 'Failed to update status.');
+        }
+    }
+
+    /**
+     * Update admin comment
+     */
+    public function update_comment()
+    {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+        header("Access-Control-Allow-Headers: access, Content-Type, Authorization, X-Requested-With");
+        header("Content-Type: application/json; charset=UTF-8");
+
+        $formdata = json_decode(file_get_contents('php://input'), true);
+        $sdID = isset($formdata['sdSdID']) ? $formdata['sdSdID'] : null;
+        $comment = isset($formdata['sdAdminComment']) ? $formdata['sdAdminComment'] : '';
+
+        if (empty($sdID)) {
+            return $this->_json_response(0, 'Listing ID is required.');
+        }
+
+        $this->db->where('sdSdID', $sdID);
+        $result = $this->db->update('seller_listings', ['sdAdminComment' => $comment]);
+
+        if ($result) {
+            return $this->_json_response(1, 'Comment updated successfully.');
+        } else {
+            return $this->_json_response(0, 'Failed to update comment.');
+        }
+    }
+
+    /**
+     * Assign admin
+     */
+    public function assign_admin()
+    {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+        header("Access-Control-Allow-Headers: access, Content-Type, Authorization, X-Requested-With");
+        header("Content-Type: application/json; charset=UTF-8");
+
+        $formdata = json_decode(file_get_contents('php://input'), true);
+        $sdID = isset($formdata['sdSdID']) ? $formdata['sdSdID'] : null;
+        $assignedTo = isset($formdata['sdAssignedTo']) ? $formdata['sdAssignedTo'] : null;
+        $assignedToName = isset($formdata['sdAssignedToName']) ? $formdata['sdAssignedToName'] : null;
+
+        if (empty($sdID)) {
+            return $this->_json_response(0, 'Listing ID is required.');
+        }
+
+        $this->db->where('sdSdID', $sdID);
+        $result = $this->db->update('seller_listings', [
+            'sdAssignedTo' => $assignedTo,
+            'sdAssignedToName' => $assignedToName
+        ]);
+
+        if ($result) {
+            return $this->_json_response(1, 'Admin assigned successfully.');
+        } else {
+            return $this->_json_response(0, 'Failed to assign admin.');
+        }
+    }
+}

@@ -28,7 +28,7 @@ const stepSchemas = [
     z.object({
         tsdLegalName: z.string().min(1, "Legal Name of Company is required"),
         tsdStartupName: z.string().min(1, "Startup Brand Name is required"),
-        tsdYearOfInvestment: z.string().min(1, "Year of investment is required"),
+        tsdYearOfInvestment: z.string().regex(/^[12]\d{3}$/, "Please enter a valid 4-digit year (e.g., 2026)"),
     }),
     // Step 2: Security Details
     z.object({
@@ -44,10 +44,10 @@ const stepSchemas = [
     }),
     // Step 3: Security Information
     z.object({
-        tsdQuantity: z.string().min(1, "Quantity is required"),
-        tsdLastKnownPrice: z.string().min(1, "Last known price is required"),
-        tsdAskPriceMin: z.string().min(1, "Minimum Ask Price is required"),
-        tsdAskPriceExpected: z.string().min(1, "Expected Ask Price is required"),
+        tsdQuantity: z.string().refine(val => !isNaN(Number(val)) && Number(val) > 0, { message: "Quantity must be a valid number greater than 0" }),
+        tsdLastKnownPrice: z.string().refine(val => !isNaN(Number(val)) && Number(val) > 0, { message: "Last known price must be a valid number greater than 0" }),
+        tsdAskPriceMin: z.string().refine(val => !isNaN(Number(val)) && Number(val) > 0, { message: "Minimum Ask Price must be a valid number greater than 0" }),
+        tsdAskPriceExpected: z.string().refine(val => !isNaN(Number(val)) && Number(val) > 0, { message: "Expected Ask Price must be a valid number greater than 0" }),
     }),
     // Step 4: Upload Documents
     z.object({
@@ -63,10 +63,10 @@ const stepSchemas = [
         tsdIsinNumber: z.string().optional(),
     }).superRefine((data, ctx) => {
         if (data.tsdIsDemat) {
-            if (!data.tsdDpName) ctx.addIssue({ path: ["tsdDpName"], message: "DP Name is required", code: "custom" });
-            if (!data.tsdDpId) ctx.addIssue({ path: ["tsdDpId"], message: "DP ID is required", code: "custom" });
-            if (!data.tsdClientId) ctx.addIssue({ path: ["tsdClientId"], message: "Client ID is required", code: "custom" });
-            if (!data.tsdIsinNumber) ctx.addIssue({ path: ["tsdIsinNumber"], message: "ISIN Number is required", code: "custom" });
+            if (!data.tsdDpName || data.tsdDpName.trim().length < 2 || data.tsdDpName.trim() === "0") ctx.addIssue({ path: ["tsdDpName"], message: "Valid DP Name is required", code: "custom" });
+            if (!data.tsdDpId || data.tsdDpId.trim().length < 4 || data.tsdDpId.trim() === "0") ctx.addIssue({ path: ["tsdDpId"], message: "Valid DP ID is required", code: "custom" });
+            if (!data.tsdClientId || data.tsdClientId.trim().length < 4 || data.tsdClientId.trim() === "0") ctx.addIssue({ path: ["tsdClientId"], message: "Valid Client ID is required", code: "custom" });
+            if (!data.tsdIsinNumber || data.tsdIsinNumber.trim().length < 4 || data.tsdIsinNumber.trim() === "0") ctx.addIssue({ path: ["tsdIsinNumber"], message: "Valid ISIN Number is required", code: "custom" });
         }
     }),
     // Step 6: Additional Information & Declaration
@@ -392,6 +392,19 @@ export const SellerListingForm = () => {
         for (let i = 0; i < stepSchemas.length; i++) {
             if (!isStepValid(i)) {
                 setCurrentStep(i);
+                
+                // Highlight the errors on the form fields
+                const currentValues = getValues();
+                const result = stepSchemas[i].safeParse(currentValues);
+                if (!result.success) {
+                    result.error.issues.forEach(issue => {
+                        setError(issue.path[0], { type: "manual", message: issue.message });
+                    });
+                }
+                if (i === 0 && currentValues.tsdPanNumber && !currentValues.tsdPanName) {
+                    setError("tsdPanName", { type: "manual", message: "Please verify PAN to fetch Name" });
+                }
+
                 message.error(`Please complete all required fields in "${stepsList[i]}" before submitting.`);
                 window.scrollTo(0, 0);
                 return;

@@ -239,7 +239,7 @@ class SellerListing extends CI_Controller
                     "tsdQuantity", "tsdLastKnownPrice", "tsdAskPriceMin", "tsdAskPriceExpected",
                     "tsdShareCertificate", "tsdExecutedSha", "tsdDoa", "tsdPoaDoc",
                     "tsdIsDemat", "tsdDpName", "tsdDpId", "tsdClientId", "tsdIsinNumber",
-                    "tsdDeclare", "tsdHasPoa", "tsdAdminComment"
+                    "tsdDeclare", "tsdHasPoa"
                 );
 
                 $published_data = [];
@@ -292,7 +292,7 @@ class SellerListing extends CI_Controller
         // Fetch draft or editable staging rows
         $this->db->order_by('tsdTempSdID', 'DESC');
         $this->db->where('tsdUserId', $userId);
-        $this->db->where_in('tsdStatus', ['Draft', 'Additional Information Required']);
+        $this->db->where('tsdStatus', 'Draft');
         $draft = $this->db->get('temp_seller_listings', 1)->row_array();
 
         if ($draft) {
@@ -320,9 +320,9 @@ class SellerListing extends CI_Controller
             return $this->_json_response(0, 'User ID is required.');
         }
 
-        // Fetch Drafts and Additional Info Required from temp table
+        // Fetch Drafts from temp table
         $this->db->where('tsdUserId', $userId);
-        $this->db->where_in('tsdStatus', ['Draft', 'Additional Information Required']);
+        $this->db->where('tsdStatus', 'Draft');
         $drafts = $this->db->get('temp_seller_listings')->result_array();
 
         // Fetch Published items from main table

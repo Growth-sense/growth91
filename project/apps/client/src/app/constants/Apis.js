@@ -304,6 +304,12 @@ const URLs = {
   updateUnicornTheme: "founder/Startup/updateUnicornTheme",
   // guest analytics
   guestAnalyticsAddEvent: "founder/Startup/add_guest_analytics_event",
+
+  // Seller Listing Admin
+  adminGetSellerListings: "admin/SellerListingAdmin/get_listings",
+  adminUpdateSellerListingStatus: "admin/SellerListingAdmin/update_status",
+  adminUpdateSellerListingComment: "admin/SellerListingAdmin/update_comment",
+  adminAssignSellerListing: "admin/SellerListingAdmin/assign_admin",
 };
 
 export default URLs;

@@ -1098,5 +1098,23 @@ export default {
   deleteSellerListingDraft: (data) =>
     api.post(URLs.delete_seller_listing_draft, data).then((response) => {
       return response.data;
+    }),
+
+  // Admin Seller Listing
+  adminGetSellerListings: (data) =>
+    api.post(URLs.adminGetSellerListings, data).then((response) => {
+      return response.data;
+    }),
+  adminUpdateSellerListingStatus: (data) =>
+    api.post(URLs.adminUpdateSellerListingStatus, data).then((response) => {
+      return response.data;
+    }),
+  adminUpdateSellerListingComment: (data) =>
+    api.post(URLs.adminUpdateSellerListingComment, data).then((response) => {
+      return response.data;
+    }),
+  adminAssignSellerListing: (data) =>
+    api.post(URLs.adminAssignSellerListing, data).then((response) => {
+      return response.data;
     })
 };

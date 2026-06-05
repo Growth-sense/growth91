@@ -211,6 +211,38 @@ try {
             </ul>
             
           </li>
+
+          <li>
+            <div className="iocn-link">
+             <a href="#">
+                <i className="bx bx-transfer-alt"></i>
+                <span className="link_name">Buy/Sell</span>
+             </a>
+              <i
+                className="bx bxs-chevron-down arrow"
+                onClick={() =>
+                  document.getElementById("md-buysell").classList.toggle("hide")
+                }
+              ></i>
+            </div>
+            <ul id="md-buysell" className="sub-menu hide">
+              <li>
+               <a className="link_name" href="#">
+                 Buy/Sell
+               </a>
+              </li>
+              <li>
+               <a href="/admin-seller-listings">Seller Listings</a>
+              </li>
+              <li>
+               <a href="#">Opportunities</a>
+              </li>
+              <li>
+               <a href="#">Buyer Interests</a>
+              </li>
+            </ul>
+          </li>
+
           <li>
            <a href="/premium-members">
               <i className="bx bx-user-pin"></i>
