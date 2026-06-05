@@ -11,6 +11,7 @@ import SEO from "./app/components/SEO";
 import Home from "./app/Home";
 import Homenew from "./app/Homenew.jsx";
 import { Aboutnew } from "./app/Aboutnew.jsx";
+import { SecondarySharesHome } from "./app/SecondarySharesHome.jsx";
 import { FamilyDashboard } from "./app/FamilyDashboard.jsx"
 import { InformationList } from "./app/InformationList.jsx"
 import { LoginInvestor } from './app/LoginInvestor.jsx'
@@ -147,6 +148,7 @@ import TransBankPublic from "./app/deal-pages/TransBankPublic";
 
 import Test from "./app/components/Alerts/investment/Test";
 import Step1 from "./app/investor/register/Step1";
+import { SellerListingForm } from "./app/investor/SellerListing/SellerListingForm";
 import FounderRegistration from "./app/Founder/FounderRegistration";
 import OfflinePayments from "./app/admin/OfflinePayment";
 import covertfoundertoinvestor from "./app/Founder/NationalityDetails";
@@ -297,6 +299,7 @@ function App() {
 
 
           <Route path="/about" exact component={Aboutnew} />
+          <Route path="/secondary-shares" exact component={SecondarySharesHome} />
           <Route path="/synergy-partner" exact component={Synergy} />
           <Route path="/synergy-form" exact component={Synergypartner} />
 
@@ -383,8 +386,13 @@ function App() {
           />
           <Route
             path="/investor-dashboard"
-            exact
+            exact={true}
             component={Investordashbord}
+          />
+          <Route
+            path="/investor-seller-listing-form"
+            exact={true}
+            component={SellerListingForm}
           />
           <Route path="/investor-kyc" exact>
             <ProtectDeals Component2={InvestorKYCScreen} Conditon={true} />

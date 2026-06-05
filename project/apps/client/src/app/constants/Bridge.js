@@ -966,7 +966,7 @@ export default {
       }),
   },
   Unicorn: {
-    adminEditUnicornPlan: (data) => 
+    adminEditUnicornPlan: (data) =>
       api.post(URLs.adminEditUnicornPlan, data).then((response) => {
         return response.data;
       }),
@@ -1073,4 +1073,30 @@ export default {
         }),
     },
   },
+
+  // Seller Listing
+  initSellerListingDraft: (data) =>
+    api.post(URLs.init_seller_listing_draft, data).then((response) => {
+      return response.data;
+    }),
+  saveSellerListingDraft: (data, config) =>
+    api.post(URLs.save_seller_listing_draft, data, config).then((response) => {
+      return response.data;
+    }),
+  submitSellerListing: (data) =>
+    api.post(URLs.submit_seller_listing, data).then((response) => {
+      return response.data;
+    }),
+  getSellerListingDraft: (data) =>
+    api.post(URLs.get_seller_listing_draft, data).then((response) => {
+      return response.data;
+    }),
+  getMySellerListings: (data) =>
+    api.post(URLs.get_my_seller_listings, data).then((response) => {
+      return response.data;
+    }),
+  deleteSellerListingDraft: (data) =>
+    api.post(URLs.delete_seller_listing_draft, data).then((response) => {
+      return response.data;
+    })
 };

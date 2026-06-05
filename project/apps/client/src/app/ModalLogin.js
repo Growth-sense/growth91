@@ -230,6 +230,18 @@ class ModalLogin extends Component {
             " " +
             this.state.otpoutput[0].last_name
           );
+          localStorage.setItem(
+            "investor_mobile",
+            this.state.otpoutput[0].mobile || ""
+          );
+          localStorage.setItem(
+            "investor_pan",
+            this.state.otpoutput[0].panno || ""
+          );
+          localStorage.setItem(
+            "investor_pan_name",
+            this.state.otpoutput[0].pan_name || ""
+          );
           window.location.reload(true);
           message.success("OTP verified successfully.");
           break;

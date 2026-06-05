@@ -120,7 +120,14 @@ const URLs = {
   checkforadhar: "investors/Kyc/checkforadhar",
 
   setsignindata: "Users/setsignindata",
-
+  
+  // Seller Listing
+  init_seller_listing_draft: "investors/SellerListing/init_draft",
+  save_seller_listing_draft: "investors/SellerListing/save_draft",
+  submit_seller_listing: "investors/SellerListing/submit_for_review",
+  get_seller_listing_draft: "investors/SellerListing/get_draft_by_user",
+  get_my_seller_listings: "investors/SellerListing/get_my_listings",
+  delete_seller_listing_draft: "investors/SellerListing/delete_draft",
   getcashfreetoken: `${process.env.REACT_APP_BASE_URL}cashfree/js/fetchtoken.php`,
   getcheckstatus: `${process.env.REACT_APP_BASE_URL}cashfree/checkstatus.php`,
 

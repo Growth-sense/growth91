@@ -106,6 +106,16 @@ export default class Sidebar extends Component {
             <i className="bx bxs-pie-chart-alt-2"></i> &nbsp;&nbsp;Deals
           </li>
         </a>
+        <a
+          href="/investor-seller-listing-form"
+          className={
+            window.location.pathname == "/investor-seller-listing-form" ? "active" : ""
+          }
+        >
+          <li className="hiw-li">
+            <i className="bx bx-list-plus"></i> &nbsp;&nbsp;Seller Listing Form
+          </li>
+        </a>
       </ol>
     );
   }

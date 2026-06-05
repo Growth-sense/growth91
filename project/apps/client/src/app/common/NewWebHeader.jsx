@@ -718,6 +718,28 @@ class NewWebHeader extends Component {
 
     return (
       <div className="new">
+        <style>{`
+          @media screen and (min-width: 992px) and (max-width: 1440px) {
+            .new .main-header .main-navbar .nav-inner ul li a {
+              font-size: 14px !important;
+              margin: 0 8px !important;
+            }
+            .logo-menus {
+              gap: 15px !important;
+            }
+            .headers-btn a:nth-child(2) {
+              margin-left: 10px !important;
+              padding: 8px 16px !important;
+              font-size: 12px !important;
+            }
+            .headers-btn a:nth-child(1) {
+              font-size: 14px !important;
+            }
+            .new .main-header .main-navbar .nav-inner {
+              padding: 10px 20px !important;
+            }
+          }
+        `}</style>
         <header
           className={` main-header site-header selector  ${isScrolled ? "shift" : ""
             }`}
@@ -883,6 +905,16 @@ class NewWebHeader extends Component {
                             }
                           >
                             Deals
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/secondary-shares"
+                            className={
+                              window.location.pathname == "/secondary-shares" && "active"
+                            }
+                          >
+                            Buy/Sell
                           </Link>
                         </li>
                         <li>

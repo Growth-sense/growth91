@@ -1,0 +1,318 @@
+/* Premium UI Enhancements for Seller Listing Form */
+.seller-listing-wrapper {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.seller-listing-wrapper .form-step {
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Form Controls */
+.seller-listing-wrapper .form-control {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  color: #333;
+  transition: all 0.2s ease;
+  background-color: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+}
+
+.seller-listing-wrapper .form-control:focus {
+  border-color: #100050;
+  box-shadow: 0 0 0 4px rgba(16, 0, 80, 0.1);
+  outline: none;
+}
+
+.seller-listing-wrapper .form-control:disabled {
+  background-color: #f1f3f5;
+  color: #6c757d;
+  cursor: not-allowed;
+}
+
+/* Labels */
+.seller-listing-wrapper label {
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
+}
+
+/* Stepper - Left Side */
+.seller-listing-wrapper .multistep-form-icons {
+  background: white;
+  border-radius: 16px;
+  padding: 30px 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  position: sticky;
+  top: 100px;
+}
+
+.seller-listing-wrapper .multistep-form-icons ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.seller-listing-wrapper .multistep-form-icons li {
+  margin-bottom: 25px;
+  position: relative;
+  transition: opacity 0.2s;
+}
+
+.seller-listing-wrapper .multistep-form-icons li:last-child {
+  margin-bottom: 0;
+}
+
+.seller-listing-wrapper .multistep-form-icons .circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  margin-right: 15px;
+  transition: all 0.3s ease;
+  border: 2px solid #e0e0e0;
+  color: #888;
+  background: #fff;
+}
+
+.seller-listing-wrapper .multistep-form-icons .circle.active-tab {
+  background-color: #100050;
+  border-color: #100050;
+  color: white;
+  box-shadow: 0 4px 10px rgba(16, 0, 80, 0.2);
+}
+
+.seller-listing-wrapper .multistep-form-icons .circle.success-tab {
+  background-color: #ff9c1a;
+  border-color: #ff9c1a;
+  color: white;
+}
+
+.seller-listing-wrapper .multistep-form-icons span {
+  font-weight: 600;
+  color: #444 !important;
+  font-size: 1rem !important;
+  vertical-align: middle;
+}
+
+.seller-listing-wrapper .multistep-form-icons .active-tab + span {
+  color: #100050 !important;
+  font-weight: 700;
+}
+
+.seller-listing-wrapper .multistep-form-icons .line {
+  position: absolute;
+  left: 17px;
+  top: 40px;
+  height: calc(100% - 10px);
+  border-left: 2px dashed #e0e0e0;
+  z-index: 0;
+}
+
+/* Card */
+.seller-listing-wrapper .card {
+  border-radius: 16px !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05) !important;
+  border: 1px solid #eaeaea !important;
+}
+
+/* Buttons */
+.seller-listing-wrapper .btn-next {
+  background-color: #100050;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0.6rem 2rem;
+  border-radius: 8px;
+  transition: all 0.2s;
+  border: none;
+  box-shadow: 0 4px 12px rgba(16, 0, 80, 0.2);
+}
+
+.seller-listing-wrapper .btn-next:hover {
+  background-color: #1c056d;
+  transform: translateY(-1px);
+  color: #fff;
+}
+
+.seller-listing-wrapper .btn-prev {
+  background-color: #ffffff;
+  color: #100050;
+  font-weight: 600;
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #100050;
+  transition: all 0.2s;
+}
+
+.seller-listing-wrapper .btn-prev:hover {
+  background-color: #f8f9fa;
+  color: #100050;
+}
+
+.seller-listing-wrapper .btn-draft {
+  background-color: #f1f3f5;
+  color: #495057;
+  font-weight: 600;
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+  transition: all 0.2s;
+}
+
+.seller-listing-wrapper .btn-draft:hover {
+  background-color: #e9ecef;
+  color: #212529;
+}
+
+.seller-listing-wrapper .btn-submit {
+  background-color: #100050;
+  color: #ffffff;
+  font-weight: 700;
+  padding: 0.8rem 2.5rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 15px rgba(255, 156, 26, 0.3);
+  transition: all 0.2s;
+}
+
+/* File Input Customization */
+.seller-listing-wrapper input[type="file"] {
+  padding: 0.5rem;
+  background: #f8f9fa;
+  border: 1px dashed #ced4da;
+}
+.seller-listing-wrapper input[type="file"]::file-selector-button {
+  background: #100050;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  margin-right: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.seller-listing-wrapper input[type="file"]::file-selector-button:hover {
+  background: #1c056d;
+}
+
+/* Alerts */
+.seller-listing-wrapper .alert-warning {
+  background-color: #fff8e6;
+  border-left: 4px solid #ff9c1a;
+  border-radius: 8px;
+  color: #8a5a00;
+}
+
+/* Custom Checkbox/Radio */
+.seller-listing-wrapper .btn-group .btn {
+  border-radius: 6px;
+  font-weight: 600;
+  padding: 0.5rem 2rem;
+}
+.seller-listing-wrapper .btn-primary {
+  background-color: #100050;
+  border-color: #100050;
+}
+.seller-listing-wrapper .btn-outline-primary {
+  color: #100050;
+  border-color: #100050;
+}
+.seller-listing-wrapper .btn-outline-primary:hover {
+  background-color: rgba(16, 0, 80, 0.05);
+  color: #100050;
+}
+
+/* Beautiful Premium Toggle Switch */
+.premium-switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.premium-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.premium-switch .slider {
+  position: relative;
+  width: 50px;
+  height: 28px;
+  background-color: #ccc;
+  border-radius: 34px;
+  transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-right: 12px;
+}
+
+.premium-switch .slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.premium-switch input:checked + .slider {
+  background-color: #100050;
+}
+
+.premium-switch input:focus + .slider {
+  box-shadow: 0 0 1px #100050;
+}
+
+.premium-switch input:checked + .slider:before {
+  transform: translateX(22px);
+}
+
+.premium-switch .switch-label {
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #333;
+}
+
+/* Custom Declaration Checkbox */
+.declaration-checkbox-container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.declaration-checkbox-container input[type="checkbox"] {
+  margin-top: 5px;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.declaration-label {
+  font-weight: bold;
+  color: #1a1a1a !important;
+  cursor: pointer;
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+.declaration-label:hover {
+  color: #1a1a1a !important;
+}

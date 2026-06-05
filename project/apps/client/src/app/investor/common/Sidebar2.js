@@ -193,6 +193,17 @@ export default class Sidebar2 extends Component {
                 <div className="col-md-4 col-12 side-text">Future Unicorn</div>
               </li>
             </a>
+            <a
+              href="/investor-seller-listing-form"
+              className={
+                window.location.pathname == "/investor-seller-listing-form" ? "active" : ""
+              }
+            >
+              <li className="hiw-li row text-center">
+                <i className="bx bx-list-plus col-md-4" />
+                <div className="col-md-4 col-12 side-text">Seller Listing Form</div>
+              </li>
+            </a>
            
           
              {this.state.is_founder == "1" ? (
