@@ -122,6 +122,7 @@ const URLs = {
   setsignindata: "Users/setsignindata",
   
   // Seller Listing
+  get_investor_profile: "investors/SellerListing/get_investor_profile",
   init_seller_listing_draft: "investors/SellerListing/init_draft",
   save_seller_listing_draft: "investors/SellerListing/save_draft",
   submit_seller_listing: "investors/SellerListing/submit_for_review",

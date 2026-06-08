@@ -323,6 +323,10 @@ class RolesPermissions extends Component {
       guest_analytics: {
         view: true,
       },
+      seller_listings: {
+        view: true,
+        edit: true,
+      },
     };
 
     this.setState({ perms: all });
@@ -728,6 +732,49 @@ class RolesPermissions extends Component {
             }
           >
             Edit Unicorn Plan
+          </Checkbox>
+        </div>
+
+        <Divider />
+
+        {/* Master Data – Seller Listings */}
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h6>Master Data – Seller Listings</h6>
+          <Checkbox
+            checked={
+              check("seller_listings", "view") &&
+              check("seller_listings", "edit")
+            }
+            onChange={(e) => {
+              const actions = [
+                "view",
+                "edit",
+              ];
+              actions.forEach((action) =>
+                this.togglePerm("seller_listings", action, e.target.checked)
+              );
+            }}
+          >
+            Select All
+          </Checkbox>
+        </div>
+        <div className="mb-2">
+          <Checkbox
+            checked={check("seller_listings", "view")}
+            onChange={(e) =>
+              this.togglePerm("seller_listings", "view", e.target.checked)
+            }
+          >
+            View Seller Listings
+          </Checkbox>
+
+          <Checkbox
+            checked={check("seller_listings", "edit")}
+            onChange={(e) =>
+              this.togglePerm("seller_listings", "edit", e.target.checked)
+            }
+          >
+            Edit / Update Status
           </Checkbox>
         </div>
 

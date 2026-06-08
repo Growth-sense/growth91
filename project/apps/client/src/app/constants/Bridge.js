@@ -1075,6 +1075,10 @@ export default {
   },
 
   // Seller Listing
+  getInvestorProfile: (data) =>
+    api.post(URLs.get_investor_profile, data).then((response) => {
+      return response.data;
+    }),
   initSellerListingDraft: (data) =>
     api.post(URLs.init_seller_listing_draft, data).then((response) => {
       return response.data;

@@ -46,18 +46,27 @@ class SellerListing extends CI_Controller
         header("Content-Type: application/json; charset=UTF-8");
 
         $formdata = json_decode(file_get_contents('php://input'), true);
-        $userId = isset($formdata['tsdUserId']) ? $formdata['tsdUserId'] : null;
+        $userId = isset($formdata['sdUserId']) ? $formdata['sdUserId'] : null;
 
         if (empty($userId)) {
             return $this->_json_response(0, 'User ID is required.');
         }
 
         $post_data = [
-            'tsdUserId' => $userId,
-            'tsdStatus' => 'Draft'
+            'sdUserId' => $userId,
+            'sdUserName' => '',
+            'sdUserEmail' => '',
+            'sdUserMobile' => '',
+            'sdResidentialStatus' => '',
+            'sdLegalName' => '',
+            'sdStartupName' => '',
+            'sdInstrumentType' => '',
+            'sdAskPriceMin' => 0,
+            'sdAskPriceExpected' => 0,
+            'sdStatus' => 'Draft'
         ];
 
-        $this->db->insert('temp_seller_listings', $post_data);
+        $this->db->insert('seller_listings', $post_data);
         $listingId = $this->db->insert_id();
 
         if ($listingId) {
@@ -96,9 +105,7 @@ class SellerListing extends CI_Controller
             $new_filename = round(microtime(true)) . '.' . end($temp_ext);
 
             if (move_uploaded_file($tmp_name, $dir . $new_filename)) {
-                // Update the temp_seller_listings table with the new file path
-                $this->db->where('tsdTempSdID', $id);
-                $this->db->update('temp_seller_listings', [$type => $new_filename]);
+                // Return the filename to the frontend. The DB update is deferred until explicit save/submit.
 
                 return $this->_json_response(1, 'File uploaded successfully.', [
                     'filename' => $new_filename,
@@ -124,48 +131,61 @@ class SellerListing extends CI_Controller
         header("Content-Type: application/json; charset=UTF-8");
 
         // Since it's a multipart form upload, values are populated in $_POST
-        $userId = $this->input->post('tsdUserId');
+        $userId = $this->input->post('sdUserId');
         if (empty($userId)) {
             return $this->_json_response(0, 'User ID is required.');
         }
 
-        $tempId = $this->input->post('tsdTempSdID');
+        $sdId = $this->input->post('sdSdID');
 
-        // Map inputs to temp_seller_listings table fields
+        // Map inputs to seller_listings table fields
         $post_data = [
-            'tsdUserId' => $userId,
-            'tsdUserName' => $this->input->post('tsdUserName'),
-            'tsdUserEmail' => $this->input->post('tsdUserEmail'),
-            'tsdUserMobile' => $this->input->post('tsdUserMobile'),
-            'tsdInvestorName' => $this->input->post('tsdInvestorName'),
-            'tsdPanNumber' => $this->input->post('tsdPanNumber'),
-            'tsdPanName' => $this->input->post('tsdPanName'),
-            'tsdResidentialStatus' => $this->input->post('tsdResidentialStatus'),
-            'tsdLegalName' => $this->input->post('tsdLegalName'),
-            'tsdStartupName' => $this->input->post('tsdStartupName'),
-            'tsdYearOfInvestment' => $this->input->post('tsdYearOfInvestment'),
-            'tsdInstrumentType' => $this->input->post('tsdInstrumentType'),
-            'tsdInvestmentTerms' => $this->input->post('tsdInvestmentTerms'),
-            'tsdQuantity' => $this->input->post('tsdQuantity'),
-            'tsdLastKnownPrice' => $this->input->post('tsdLastKnownPrice'),
-            'tsdAskPriceMin' => $this->input->post('tsdAskPriceMin'),
-            'tsdAskPriceExpected' => $this->input->post('tsdAskPriceExpected'),
-            'tsdIsDemat' => $this->input->post('tsdIsDemat') ? 1 : 0,
-            'tsdDpName' => $this->input->post('tsdDpName'),
-            'tsdDpId' => $this->input->post('tsdDpId'),
-            'tsdClientId' => $this->input->post('tsdClientId'),
-            'tsdIsinNumber' => $this->input->post('tsdIsinNumber'),
-            'tsdDeclare' => $this->input->post('tsdDeclare') ? 1 : 0,
-            'tsdStatus' => 'Draft' // Reset/maintain draft status
+            'sdUserId' => $userId,
+            'sdUserName' => $this->input->post('sdUserName'),
+            'sdUserEmail' => $this->input->post('sdUserEmail'),
+            'sdUserMobile' => $this->input->post('sdUserMobile'),
+            'sdInvestorName' => $this->input->post('sdInvestorName'),
+            'sdPanNumber' => $this->input->post('sdPanNumber'),
+            'sdPanName' => $this->input->post('sdPanName'),
+            'sdResidentialStatus' => $this->input->post('sdResidentialStatus'),
+            'sdLegalName' => $this->input->post('sdLegalName'),
+            'sdStartupName' => $this->input->post('sdStartupName'),
+            'sdYearOfInvestment' => $this->input->post('sdYearOfInvestment') !== "" ? $this->input->post('sdYearOfInvestment') : 0,
+            'sdInstrumentType' => $this->input->post('sdInstrumentType'),
+            'sdInvestmentTerms' => $this->input->post('sdInvestmentTerms'),
+            'sdQuantity' => $this->input->post('sdQuantity') !== "" ? $this->input->post('sdQuantity') : 0,
+            'sdLastKnownPrice' => $this->input->post('sdLastKnownPrice') !== "" ? $this->input->post('sdLastKnownPrice') : null,
+            'sdAskPriceMin' => $this->input->post('sdAskPriceMin') !== "" ? $this->input->post('sdAskPriceMin') : 0,
+            'sdAskPriceExpected' => $this->input->post('sdAskPriceExpected') !== "" ? $this->input->post('sdAskPriceExpected') : 0,
+            'sdIsDemat' => $this->input->post('sdIsDemat') ? 1 : 0,
+            'sdDpName' => $this->input->post('sdDpName'),
+            'sdDpId' => $this->input->post('sdDpId'),
+            'sdClientId' => $this->input->post('sdClientId'),
+            'sdIsinNumber' => $this->input->post('sdIsinNumber'),
+            'sdDeclare' => $this->input->post('sdDeclare') ? 1 : 0,
+            'sdHasPoa' => $this->input->post('sdHasPoa') ? 1 : 0
         ];
 
+        // Process deferred file saves if present
+        $docTypes = ['sdShareCertificate', 'sdExecutedSha', 'sdDoa', 'sdPoaDoc'];
+        foreach ($docTypes as $doc) {
+            $docVal = $this->input->post($doc);
+            if (!empty($docVal)) {
+                $post_data[$doc] = $docVal;
+            }
+        }
+
+        // Notice: sdStatus is intentionally NOT updated here. 
+        // Save draft is only allowed by UI when it's already 'Draft'. 
+
         // 1. Insert or Update Row
-        if (!empty($tempId)) {
-            $this->db->where('tsdTempSdID', $tempId);
-            $this->db->update('temp_seller_listings', $post_data);
-            $listingId = $tempId;
+        if (!empty($sdId)) {
+            $this->db->where('sdSdID', $sdId);
+            $this->db->update('seller_listings', $post_data);
+            $listingId = $sdId;
         } else {
-            $this->db->insert('temp_seller_listings', $post_data);
+            $post_data['sdStatus'] = 'Draft';
+            $this->db->insert('seller_listings', $post_data);
             $listingId = $this->db->insert_id();
         }
 
@@ -175,7 +195,7 @@ class SellerListing extends CI_Controller
 
         // 2. Handle File Uploads
         $uploaded_files = [];
-        $file_fields = ['tsdShareCertificate', 'tsdExecutedSha', 'tsdDoa', 'tsdPoaDoc'];
+        $file_fields = ['sdShareCertificate', 'sdExecutedSha', 'sdDoa', 'sdPoaDoc'];
 
         foreach ($file_fields as $field) {
             if (isset($_FILES[$field]['name']) && $_FILES[$field]['name'] != "") {
@@ -196,8 +216,8 @@ class SellerListing extends CI_Controller
 
         // 3. Update paths in DB if files were uploaded
         if (!empty($uploaded_files)) {
-            $this->db->where('tsdTempSdID', $listingId);
-            $this->db->update('temp_seller_listings', $uploaded_files);
+            $this->db->where('sdSdID', $listingId);
+            $this->db->update('seller_listings', $uploaded_files);
         }
 
         return $this->_json_response(1, 'Draft saved successfully.', ['id' => $listingId]);
@@ -215,56 +235,19 @@ class SellerListing extends CI_Controller
         header("Content-Type: application/json; charset=UTF-8");
 
         $formdata = json_decode(file_get_contents('php://input'), true);
-        $tempId = isset($formdata['tsdTempSdID']) ? $formdata['tsdTempSdID'] : null;
+        $sdId = isset($formdata['sdSdID']) ? $formdata['sdSdID'] : null;
 
-        if (empty($tempId)) {
-            return $this->_json_response(0, 'Listing Temp ID is required.');
+        if (empty($sdId)) {
+            return $this->_json_response(0, 'Listing ID is required.');
         }
 
-        $this->db->where('tsdTempSdID', $tempId);
-        $result = $this->db->update('temp_seller_listings', ['tsdStatus' => 'Published']);
+        $this->db->where('sdSdID', $sdId);
+        $result = $this->db->update('seller_listings', [
+            'sdStatus' => 'Under Review',
+            'sdPublishedAt' => date('Y-m-d H:i:s')
+        ]);
 
         if ($result) {
-            // 1. Fetch from Staging Table
-            $staging = $this->db->get_where('temp_seller_listings', ['tsdTempSdID' => $tempId])->row_array();
-
-            if ($staging) {
-                // 2. Map Staging keys to Published keys using allowedKeys whitelist
-                // (Same pattern as publishunicorndeal in Startup.php)
-                $allowedKeys = array(
-                    "tsdUserId", "tsdUserName", "tsdUserEmail", "tsdUserMobile",
-                    "tsdInvestorName", "tsdPanNumber", "tsdPanName", "tsdResidentialStatus",
-                    "tsdLegalName", "tsdStartupName", "tsdYearOfInvestment",
-                    "tsdInstrumentType", "tsdInvestmentTerms",
-                    "tsdQuantity", "tsdLastKnownPrice", "tsdAskPriceMin", "tsdAskPriceExpected",
-                    "tsdShareCertificate", "tsdExecutedSha", "tsdDoa", "tsdPoaDoc",
-                    "tsdIsDemat", "tsdDpName", "tsdDpId", "tsdClientId", "tsdIsinNumber",
-                    "tsdDeclare", "tsdHasPoa"
-                );
-
-                $published_data = [];
-                $published_data['tsdTempSdID'] = $staging['tsdTempSdID'];
-
-                foreach ($staging as $key => $value) {
-                    if (in_array($key, $allowedKeys)) {
-                        $new_key = 'sd' . substr($key, 3);
-                        $published_data[$new_key] = $value;
-                    }
-                }
-
-                // 3. Set status in published row to Under Review
-                $published_data['sdStatus'] = 'Under Review';
-
-                // 4. Insert or Update Live Table
-                $exists = $this->db->get_where('seller_listings', ['tsdTempSdID' => $tempId])->row_array();
-                if ($exists) {
-                    $this->db->where('tsdTempSdID', $tempId);
-                    $this->db->update('seller_listings', $published_data);
-                } else {
-                    $this->db->insert('seller_listings', $published_data);
-                }
-            }
-
             return $this->_json_response(1, 'Listing submitted for review.');
         } else {
             return $this->_json_response(0, 'Failed to submit listing.');
@@ -283,17 +266,17 @@ class SellerListing extends CI_Controller
         header("Content-Type: application/json; charset=UTF-8");
 
         $formdata = json_decode(file_get_contents('php://input'), true);
-        $userId = isset($formdata['tsdUserId']) ? $formdata['tsdUserId'] : null;
+        $userId = isset($formdata['sdUserId']) ? $formdata['sdUserId'] : null;
 
         if (empty($userId)) {
             return $this->_json_response(0, 'User ID is required.');
         }
 
         // Fetch draft or editable staging rows
-        $this->db->order_by('tsdTempSdID', 'DESC');
-        $this->db->where('tsdUserId', $userId);
-        $this->db->where('tsdStatus', 'Draft');
-        $draft = $this->db->get('temp_seller_listings', 1)->row_array();
+        $this->db->order_by('sdSdID', 'DESC');
+        $this->db->where('sdUserId', $userId);
+        $this->db->where('sdStatus', 'Draft');
+        $draft = $this->db->get('seller_listings', 1)->row_array();
 
         if ($draft) {
             return $this->_json_response(1, 'Draft fetched successfully.', ['data' => $draft]);
@@ -314,58 +297,15 @@ class SellerListing extends CI_Controller
         header("Content-Type: application/json; charset=UTF-8");
 
         $formdata = json_decode(file_get_contents('php://input'), true);
-        $userId = isset($formdata['tsdUserId']) ? $formdata['tsdUserId'] : null;
+        $userId = isset($formdata['sdUserId']) ? $formdata['sdUserId'] : null;
 
         if (empty($userId)) {
             return $this->_json_response(0, 'User ID is required.');
         }
 
-        // Fetch Drafts from temp table
-        $this->db->where('tsdUserId', $userId);
-        $this->db->where('tsdStatus', 'Draft');
-        $drafts = $this->db->get('temp_seller_listings')->result_array();
-
-        // Fetch Published items from main table
         $this->db->where('sdUserId', $userId);
-        $published = $this->db->get('seller_listings')->result_array();
-
-        // Flag drafts that already exist in the main table
-        $published_ids = array_column($published, 'tsdTempSdID');
-        foreach ($drafts as &$draft) {
-            $draft['tsdHasMainRecord'] = in_array($draft['tsdTempSdID'], $published_ids);
-        }
-        unset($draft); // Unset reference
-
-        // Map main table keys back to tsd prefix so the frontend table works without changes
-        $mapped_published = [];
-        $draft_ids = array_column($drafts, 'tsdTempSdID');
-
-        foreach ($published as $pub) {
-            if (in_array($pub['tsdTempSdID'], $draft_ids)) {
-                continue; // Prevent duplicate rows if there's an active draft revision
-            }
-
-            $mapped_row = [];
-            foreach ($pub as $key => $val) {
-                if (strpos($key, 'sd') === 0) {
-                    $new_key = 'tsd' . substr($key, 2);
-                    $mapped_row[$new_key] = $val;
-                } else {
-                    $mapped_row[$key] = $val;
-                }
-            }
-            $mapped_published[] = $mapped_row;
-        }
-
-        // Merge both arrays
-        $listings = array_merge($drafts, $mapped_published);
-
-        // Sort by CreatedAt DESC
-        usort($listings, function($a, $b) {
-            $timeA = strtotime($a['tsdCreatedAt']);
-            $timeB = strtotime($b['tsdCreatedAt']);
-            return $timeB - $timeA;
-        });
+        $this->db->order_by('sdSdID', 'DESC');
+        $listings = $this->db->get('seller_listings')->result_array();
 
         return $this->_json_response(1, 'Listings fetched successfully.', ['data' => $listings]);
     }
@@ -382,20 +322,20 @@ class SellerListing extends CI_Controller
         header("Content-Type: application/json; charset=UTF-8");
 
         $formdata = json_decode(file_get_contents('php://input'), true);
-        $tempId = isset($formdata['tsdTempSdID']) ? $formdata['tsdTempSdID'] : null;
+        $sdId = isset($formdata['sdSdID']) ? $formdata['sdSdID'] : null;
 
-        if (empty($tempId)) {
+        if (empty($sdId)) {
             return $this->_json_response(0, 'Draft ID is required.');
         }
 
-        // Ensure it doesn't exist in the main table before deleting
-        $exists = $this->db->get_where('seller_listings', ['tsdTempSdID' => $tempId])->row_array();
-        if ($exists) {
-            return $this->_json_response(0, 'Cannot delete this draft because it has already been submitted to the main table.');
+        // Ensure it is still a draft before deleting
+        $exists = $this->db->get_where('seller_listings', ['sdSdID' => $sdId, 'sdStatus' => 'Draft'])->row_array();
+        if (!$exists) {
+            return $this->_json_response(0, 'Cannot delete this listing because it has already been submitted.');
         }
 
-        $this->db->where('tsdTempSdID', $tempId);
-        $this->db->delete('temp_seller_listings');
+        $this->db->where('sdSdID', $sdId);
+        $this->db->delete('seller_listings');
 
         return $this->_json_response(1, 'Draft deleted successfully.');
     }
@@ -412,18 +352,47 @@ class SellerListing extends CI_Controller
         header("Content-Type: application/json; charset=UTF-8");
 
         $formdata = json_decode(file_get_contents('php://input'), true);
-        $tempId = isset($formdata['tsdTempSdID']) ? $formdata['tsdTempSdID'] : null;
+        $sdId = isset($formdata['sdSdID']) ? $formdata['sdSdID'] : null;
 
-        if (empty($tempId)) {
-            return $this->_json_response(0, 'Listing Temp ID is required.');
+        if (empty($sdId)) {
+            return $this->_json_response(0, 'Listing ID is required.');
         }
 
-        $listing = $this->db->get_where('temp_seller_listings', ['tsdTempSdID' => $tempId])->row_array();
+        $listing = $this->db->get_where('seller_listings', ['sdSdID' => $sdId])->row_array();
 
         if ($listing) {
             return $this->_json_response(1, 'Listing details fetched successfully.', ['data' => $listing]);
         } else {
             return $this->_json_response(0, 'Listing not found.');
         }
+    }
+
+    /**
+     * Get investor profile data securely (Mobile, PAN)
+     * URL: /api/investors/SellerListing/get_investor_profile
+     */
+    public function get_investor_profile()
+    {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+        header("Access-Control-Allow-Headers: access, Content-Type, Authorization, X-Requested-With");
+        header("Content-Type: application/json; charset=UTF-8");
+
+        $formdata = json_decode(file_get_contents('php://input'), true);
+        $userId = isset($formdata['sdUserId']) ? $formdata['sdUserId'] : null;
+
+        if (empty($userId)) {
+            return $this->_json_response(0, 'User ID is required.');
+        }
+
+        $user = $this->db->get_where('users', ['investor_id' => $userId])->row_array();
+        if ($user) {
+            return $this->_json_response(1, 'Success', [
+                'mobile' => $user['mobile'],
+                'pan' => $user['panno'],
+                'pan_name' => $user['pan_name']
+            ]);
+        }
+        return $this->_json_response(0, 'User not found.');
     }
 }

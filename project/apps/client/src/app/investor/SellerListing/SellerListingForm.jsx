@@ -14,25 +14,25 @@ import "./SellerListing.css"; // We'll create this next
 const stepSchemas = [
     // Step 0: Basic Info
     z.object({
-        tsdUserName: z.string().min(1, "User Name is required"),
-        tsdUserEmail: z.string().email("Valid email is required"),
-        tsdUserMobile: z.string().min(10, "Valid mobile number is required"),
-        tsdInvestorName: z.string().min(1, "Investor Name is required"),
-        tsdPanNumber: z.string().optional(),
-        tsdPanName: z.string().optional(),
-        tsdResidentialStatus: z.enum(["Resident Indian", "NRI", "Foreign National", "Body Corporate", "LLP", "Trust", "Others"], {
+        sdUserName: z.string().min(1, "User Name is required"),
+        sdUserEmail: z.string().email("Valid email is required"),
+        sdUserMobile: z.string().min(10, "Valid mobile number is required"),
+        sdInvestorName: z.string().min(1, "Investor Name is required"),
+        sdPanNumber: z.string().min(10, "Valid PAN Number is required"),
+        sdPanName: z.string().min(1, "PAN Name must be verified"),
+        sdResidentialStatus: z.enum(["Resident Indian", "NRI", "Foreign National", "Body Corporate", "LLP", "Trust", "Others"], {
             errorMap: () => ({ message: "Please select a valid residential status" })
         }),
     }),
     // Step 1: Company Info
     z.object({
-        tsdLegalName: z.string().min(1, "Legal Name of Company is required"),
-        tsdStartupName: z.string().min(1, "Startup Brand Name is required"),
-        tsdYearOfInvestment: z.string().regex(/^[12]\d{3}$/, "Please enter a valid 4-digit year (e.g., 2026)"),
+        sdLegalName: z.string().min(1, "Legal Name of Company is required"),
+        sdStartupName: z.string().min(1, "Startup Brand Name is required"),
+        sdYearOfInvestment: z.string().regex(/^[12]\d{3}$/, "Please enter a valid 4-digit year (e.g., 2026)"),
     }),
     // Step 2: Security Details
     z.object({
-        tsdInstrumentType: z.enum([
+        sdInstrumentType: z.enum([
             "Equity Shares",
             "CCPS - Fixed Conversion Price",
             "CCPS - Variable Conversion Price",
@@ -40,14 +40,14 @@ const stepSchemas = [
             "CCD - Variable Conversion Price",
             "Other"
         ], { errorMap: () => ({ message: "Please select an instrument type" }) }),
-        tsdInvestmentTerms: z.string().max(64000, "Maximum 64,000 characters allowed. If your terms are longer, please summarize them.").optional(),
+        sdInvestmentTerms: z.string().max(64000, "Maximum 64,000 characters allowed. If your terms are longer, please summarize them.").optional(),
     }),
     // Step 3: Security Information
     z.object({
-        tsdQuantity: z.string().refine(val => !isNaN(Number(val)) && Number(val) > 0, { message: "Quantity must be a valid number greater than 0" }),
-        tsdLastKnownPrice: z.string().refine(val => !isNaN(Number(val)) && Number(val) > 0, { message: "Last known price must be a valid number greater than 0" }),
-        tsdAskPriceMin: z.string().refine(val => !isNaN(Number(val)) && Number(val) > 0, { message: "Minimum Ask Price must be a valid number greater than 0" }),
-        tsdAskPriceExpected: z.string().refine(val => !isNaN(Number(val)) && Number(val) > 0, { message: "Expected Ask Price must be a valid number greater than 0" }),
+        sdQuantity: z.string().refine(val => !isNaN(Number(val)) && Number(val) > 0, { message: "Quantity must be a valid number greater than 0" }),
+        sdLastKnownPrice: z.string().refine(val => !isNaN(Number(val)) && Number(val) > 0, { message: "Last known price must be a valid number greater than 0" }),
+        sdAskPriceMin: z.string().refine(val => !isNaN(Number(val)) && Number(val) > 0, { message: "Minimum Ask Price must be a valid number greater than 0" }),
+        sdAskPriceExpected: z.string().refine(val => !isNaN(Number(val)) && Number(val) > 0, { message: "Expected Ask Price must be a valid number greater than 0" }),
     }),
     // Step 4: Upload Documents
     z.object({
@@ -56,23 +56,23 @@ const stepSchemas = [
     }),
     // Step 5: Demat Information
     z.object({
-        tsdIsDemat: z.boolean(),
-        tsdDpName: z.string().optional(),
-        tsdDpId: z.string().optional(),
-        tsdClientId: z.string().optional(),
-        tsdIsinNumber: z.string().optional(),
+        sdIsDemat: z.boolean(),
+        sdDpName: z.string().optional(),
+        sdDpId: z.string().optional(),
+        sdClientId: z.string().optional(),
+        sdIsinNumber: z.string().optional(),
     }).superRefine((data, ctx) => {
-        if (data.tsdIsDemat) {
-            if (!data.tsdDpName || data.tsdDpName.trim().length < 2 || data.tsdDpName.trim() === "0") ctx.addIssue({ path: ["tsdDpName"], message: "Valid DP Name is required", code: "custom" });
-            if (!data.tsdDpId || data.tsdDpId.trim().length < 4 || data.tsdDpId.trim() === "0") ctx.addIssue({ path: ["tsdDpId"], message: "Valid DP ID is required", code: "custom" });
-            if (!data.tsdClientId || data.tsdClientId.trim().length < 4 || data.tsdClientId.trim() === "0") ctx.addIssue({ path: ["tsdClientId"], message: "Valid Client ID is required", code: "custom" });
-            if (!data.tsdIsinNumber || data.tsdIsinNumber.trim().length < 4 || data.tsdIsinNumber.trim() === "0") ctx.addIssue({ path: ["tsdIsinNumber"], message: "Valid ISIN Number is required", code: "custom" });
+        if (data.sdIsDemat) {
+            if (!data.sdDpName || data.sdDpName.trim().length < 2 || data.sdDpName.trim() === "0") ctx.addIssue({ path: ["sdDpName"], message: "Valid DP Name is required", code: "custom" });
+            if (!data.sdDpId || data.sdDpId.trim().length < 4 || data.sdDpId.trim() === "0") ctx.addIssue({ path: ["sdDpId"], message: "Valid DP ID is required", code: "custom" });
+            if (!data.sdClientId || data.sdClientId.trim().length < 4 || data.sdClientId.trim() === "0") ctx.addIssue({ path: ["sdClientId"], message: "Valid Client ID is required", code: "custom" });
+            if (!data.sdIsinNumber || data.sdIsinNumber.trim().length < 4 || data.sdIsinNumber.trim() === "0") ctx.addIssue({ path: ["sdIsinNumber"], message: "Valid ISIN Number is required", code: "custom" });
         }
     }),
     // Step 6: Additional Information & Declaration
     z.object({
-        tsdHasPoa: z.boolean(),
-        tsdDeclare: z.boolean().refine(val => val === true, {
+        sdHasPoa: z.boolean(),
+        sdDeclare: z.boolean().refine(val => val === true, {
             message: "You must accept the declaration"
         }),
     })
@@ -80,39 +80,39 @@ const stepSchemas = [
 
 // Combined schema for all fields so react-hook-form doesn't drop values on step change
 const fullSchema = z.object({
-    tsdUserName: z.string().optional(),
-    tsdUserEmail: z.string().optional(),
-    tsdUserMobile: z.string().optional(),
-    tsdInvestorName: z.string().optional(),
-    tsdPanNumber: z.string().optional(),
-    tsdResidentialStatus: z.string().optional(),
-    tsdLegalName: z.string().optional(),
-    tsdStartupName: z.string().optional(),
-    tsdYearOfInvestment: z.string().optional(),
-    tsdInstrumentType: z.string().optional(),
-    tsdInvestmentTerms: z.string().optional(),
-    tsdQuantity: z.string().optional(),
-    tsdLastKnownPrice: z.string().optional(),
-    tsdAskPriceMin: z.string().optional(),
-    tsdAskPriceExpected: z.string().optional(),
-    tsdIsDemat: z.boolean().optional(),
-    tsdDpName: z.string().optional(),
-    tsdDpId: z.string().optional(),
-    tsdClientId: z.string().optional(),
-    tsdIsinNumber: z.string().optional(),
-    tsdHasPoa: z.boolean().optional(),
-    tsdDeclare: z.boolean().optional(),
+    sdUserName: z.string().optional(),
+    sdUserEmail: z.string().optional(),
+    sdUserMobile: z.string().optional(),
+    sdInvestorName: z.string().optional(),
+    sdPanNumber: z.string().optional(),
+    sdResidentialStatus: z.string().optional(),
+    sdLegalName: z.string().optional(),
+    sdStartupName: z.string().optional(),
+    sdYearOfInvestment: z.string().optional(),
+    sdInstrumentType: z.string().optional(),
+    sdInvestmentTerms: z.string().optional(),
+    sdQuantity: z.string().optional(),
+    sdLastKnownPrice: z.string().optional(),
+    sdAskPriceMin: z.string().optional(),
+    sdAskPriceExpected: z.string().optional(),
+    sdIsDemat: z.boolean().optional(),
+    sdDpName: z.string().optional(),
+    sdDpId: z.string().optional(),
+    sdClientId: z.string().optional(),
+    sdIsinNumber: z.string().optional(),
+    sdHasPoa: z.boolean().optional(),
+    sdDeclare: z.boolean().optional(),
 });
 
 // Fields to validate per step
 const stepFields = [
-    ["tsdUserName", "tsdUserEmail", "tsdUserMobile", "tsdInvestorName", "tsdResidentialStatus"],
-    ["tsdLegalName", "tsdStartupName", "tsdYearOfInvestment"],
-    ["tsdInstrumentType"],
-    ["tsdQuantity", "tsdLastKnownPrice", "tsdAskPriceMin", "tsdAskPriceExpected"],
+    ["sdUserName", "sdUserEmail", "sdUserMobile", "sdInvestorName", "sdResidentialStatus"],
+    ["sdLegalName", "sdStartupName", "sdYearOfInvestment"],
+    ["sdInstrumentType"],
+    ["sdQuantity", "sdLastKnownPrice", "sdAskPriceMin", "sdAskPriceExpected"],
     [], // Step 4: file uploads validated manually
-    ["tsdIsDemat"], // Step 5: demat + conditional fields
-    ["tsdDeclare"], // Step 6: declaration
+    ["sdIsDemat"], // Step 5: demat + conditional fields
+    ["sdDeclare"], // Step 6: declaration
 ];
 
 export const SellerListingForm = () => {
@@ -122,6 +122,7 @@ export const SellerListingForm = () => {
     const [loading, setLoading] = useState(false);
     const [submitLoading, setSubmitLoading] = useState(false);
     const [listingId, setListingId] = useState(null);
+    const [currentListingStatus, setCurrentListingStatus] = useState("Draft");
 
     // Dashboard states
     const [viewMode, setViewMode] = useState("table");
@@ -130,10 +131,10 @@ export const SellerListingForm = () => {
 
     // Custom File States
     const [files, setFiles] = useState({
-        tsdShareCertificate: null,
-        tsdExecutedSha: null,
-        tsdDoa: null,
-        tsdPoaDoc: null
+        sdShareCertificate: null,
+        sdExecutedSha: null,
+        sdDoa: null,
+        sdPoaDoc: null
     });
 
     const [existingFiles, setExistingFiles] = useState({});
@@ -165,42 +166,63 @@ export const SellerListingForm = () => {
         mode: "onChange",
         shouldUnregister: false,
         defaultValues: {
-            tsdUserName: "",
-            tsdUserEmail: "",
-            tsdUserMobile: "",
-            tsdInvestorName: "",
-            tsdPanNumber: "",
-            tsdPanName: "",
-            tsdResidentialStatus: "Resident Indian",
-            tsdLegalName: "",
-            tsdStartupName: "",
-            tsdYearOfInvestment: "",
-            tsdInstrumentType: "Equity Shares",
-            tsdInvestmentTerms: "",
-            tsdQuantity: "",
-            tsdLastKnownPrice: "",
-            tsdAskPriceMin: "",
-            tsdAskPriceExpected: "",
-            tsdIsDemat: false,
-            tsdDpName: "",
-            tsdDpId: "",
-            tsdClientId: "",
-            tsdIsinNumber: "",
-            tsdHasPoa: false,
-            tsdDeclare: false
+            sdUserName: "",
+            sdUserEmail: "",
+            sdUserMobile: "",
+            sdInvestorName: "",
+            sdPanNumber: "",
+            sdPanName: "",
+            sdResidentialStatus: "Resident Indian",
+            sdLegalName: "",
+            sdStartupName: "",
+            sdYearOfInvestment: "",
+            sdInstrumentType: "Equity Shares",
+            sdInvestmentTerms: "",
+            sdQuantity: "",
+            sdLastKnownPrice: "",
+            sdAskPriceMin: "",
+            sdAskPriceExpected: "",
+            sdIsDemat: false,
+            sdDpName: "",
+            sdDpId: "",
+            sdClientId: "",
+            sdIsinNumber: "",
+            sdHasPoa: false,
+            sdDeclare: false
         }
     });
 
-    const isDemat = watch("tsdIsDemat");
-    const hasPoa = watch("tsdHasPoa");
-    const investmentTerms = watch("tsdInvestmentTerms") || "";
+    const isDemat = watch("sdIsDemat");
+    const hasPoa = watch("sdHasPoa");
+    const investmentTerms = watch("sdInvestmentTerms") || "";
+
+    const [fetchingPan, setFetchingPan] = useState(false);
+    const [investorProfile, setInvestorProfile] = useState({ mobile: "", pan: "", pan_name: "" });
+
+    const fetchProfile = async () => {
+        try {
+            const userId = secureStorage.getItem("investor_id");
+            if (userId) {
+                const res = await Bridge.getInvestorProfile({ sdUserId: userId });
+                if (String(res.status) === "1") {
+                    setInvestorProfile({
+                        mobile: res.mobile || "",
+                        pan: res.pan || "",
+                        pan_name: res.pan_name || ""
+                    });
+                }
+            }
+        } catch (err) {
+            console.error("Failed to fetch investor profile", err);
+        }
+    };
 
     const fetchListings = async () => {
         try {
             setFetchingListings(true);
             const userId = secureStorage.getItem("investor_id");
             if (userId) {
-                const res = await Bridge.getMySellerListings({ tsdUserId: userId });
+                const res = await Bridge.getMySellerListings({ sdUserId: userId });
                 console.log("Listings response:", res.data);
                 if (String(res.status) === "1" && res.data) {
                     setMyListings(res.data);
@@ -214,14 +236,13 @@ export const SellerListingForm = () => {
         }
     };
 
-    const [fetchingPan, setFetchingPan] = useState(false);
-
     useEffect(() => {
+        fetchProfile();
         fetchListings();
     }, []);
 
     const verifyPan = async () => {
-        const panno = getValues("tsdPanNumber");
+        const panno = getValues("sdPanNumber");
         if (!panno || panno.length !== 10) {
             message.error("Please enter a valid 10-character PAN number.");
             return;
@@ -246,16 +267,16 @@ export const SellerListingForm = () => {
             }
 
             if (verificationResult && verificationResult.valid === true) {
-                setValue("tsdPanName", verificationResult.registered_name);
-                clearErrors("tsdPanName");
+                setValue("sdPanName", verificationResult.registered_name);
+                clearErrors("sdPanName");
                 message.success("PAN verified successfully.");
             } else {
                 message.error(verificationResult?.message || "Invalid PAN number or verification failed.");
-                setValue("tsdPanName", "");
+                setValue("sdPanName", "");
             }
         } catch (err) {
             message.error("Error verifying PAN.");
-            setValue("tsdPanName", "");
+            setValue("sdPanName", "");
         } finally {
             setFetchingPan(false);
         }
@@ -276,23 +297,23 @@ export const SellerListingForm = () => {
 
         // Step 0: conditional pan validation
         if (stepIndex === 0) {
-            if (currentValues.tsdPanNumber && !currentValues.tsdPanName) return false;
+            if (currentValues.sdPanNumber && !currentValues.sdPanName) return false;
         }
 
         // Step 4: file uploads validated manually
         if (stepIndex === 4) {
-            if (!existingFiles.tsdShareCertificate) return false;
-            if (!existingFiles.tsdExecutedSha) return false;
+            if (!existingFiles.sdShareCertificate) return false;
+            if (!existingFiles.sdExecutedSha) return false;
         }
 
         // Step 5: conditional demat validation
-        if (stepIndex === 5 && currentValues.tsdIsDemat) {
-            if (!currentValues.tsdDpName || !currentValues.tsdDpId || !currentValues.tsdClientId || !currentValues.tsdIsinNumber) return false;
+        if (stepIndex === 5 && currentValues.sdIsDemat) {
+            if (!currentValues.sdDpName || !currentValues.sdDpId || !currentValues.sdClientId || !currentValues.sdIsinNumber) return false;
         }
 
         // Step 6: conditional poa validation
-        if (stepIndex === 6 && currentValues.tsdHasPoa) {
-            if (!existingFiles.tsdPoaDoc) return false;
+        if (stepIndex === 6 && currentValues.sdHasPoa) {
+            if (!existingFiles.sdPoaDoc) return false;
         }
 
         return result.success;
@@ -320,8 +341,8 @@ export const SellerListingForm = () => {
             }
 
             // Manual error highlights
-            if (currentStep === 0 && currentValues.tsdPanNumber && !currentValues.tsdPanName) {
-                setError("tsdPanName", { type: "manual", message: "Please verify PAN to fetch Name" });
+            if (currentStep === 0 && currentValues.sdPanNumber && !currentValues.sdPanName) {
+                setError("sdPanName", { type: "manual", message: "Please verify PAN to fetch Name" });
             }
         } else {
             (stepFields[currentStep] || []).forEach(field => clearErrors(field));
@@ -349,12 +370,19 @@ export const SellerListingForm = () => {
         const currentValues = watch();
         const userId = secureStorage.getItem("investor_id");
 
-        formData.append("tsdUserId", userId);
-        if (listingId) formData.append("tsdTempSdID", listingId);
+        formData.append("sdUserId", userId);
+        if (listingId) formData.append("sdSdID", listingId);
 
         Object.keys(currentValues).forEach(key => {
             const val = currentValues[key];
             formData.append(key, typeof val === 'boolean' ? (val ? "1" : "0") : (val || ""));
+        });
+
+        // Append existing file names so the DB updates properly
+        Object.keys(existingFiles).forEach(key => {
+            if (existingFiles[key]) {
+                formData.append(key, existingFiles[key]);
+            }
         });
 
         try {
@@ -401,8 +429,8 @@ export const SellerListingForm = () => {
                         setError(issue.path[0], { type: "manual", message: issue.message });
                     });
                 }
-                if (i === 0 && currentValues.tsdPanNumber && !currentValues.tsdPanName) {
-                    setError("tsdPanName", { type: "manual", message: "Please verify PAN to fetch Name" });
+                if (i === 0 && currentValues.sdPanNumber && !currentValues.sdPanName) {
+                    setError("sdPanName", { type: "manual", message: "Please verify PAN to fetch Name" });
                 }
 
                 message.error(`Please complete all required fields in "${stepsList[i]}" before submitting.`);
@@ -417,7 +445,7 @@ export const SellerListingForm = () => {
         if (finalId) {
             try {
                 const response = await Bridge.submitSellerListing({
-                    tsdTempSdID: finalId
+                    sdSdID: finalId
                 });
                 if (response.status === "1") {
                     Modal.success({
@@ -439,6 +467,8 @@ export const SellerListingForm = () => {
     };
 
     const renderSteps = () => {
+        const isPanLocked = !!(investorProfile.pan && investorProfile.pan_name);
+        
         return (
             <>
                 <div className="form-step" style={{ display: currentStep === 0 ? 'block' : 'none' }}>
@@ -446,53 +476,54 @@ export const SellerListingForm = () => {
                     <div className="row">
                         <div className="col-md-6 mb-3">
                             <label>User Name</label>
-                            <input className="form-control bg-light" disabled {...register("tsdUserName")} />
+                            <input className="form-control bg-light" disabled {...register("sdUserName")} />
                         </div>
                         <div className="col-md-6 mb-3">
                             <label>Email Address</label>
-                            <input className="form-control bg-light" disabled {...register("tsdUserEmail")} />
+                            <input className="form-control bg-light" disabled {...register("sdUserEmail")} />
                         </div>
                         <div className="col-md-6 mb-3">
                             <label>Mobile Number <span className="text-danger">*</span></label>
-                            <input className="form-control bg-light" disabled {...register("tsdUserMobile")} />
-                            {errors.tsdUserMobile && <small className="text-danger">{errors.tsdUserMobile.message}</small>}
+                            <input className={`form-control ${investorProfile.mobile ? 'bg-light' : ''}`} disabled={!!investorProfile.mobile} {...register("sdUserMobile")} />
+                            {errors.sdUserMobile && <small className="text-danger">{errors.sdUserMobile.message}</small>}
                         </div>
                         <div className="col-md-6 mb-3">
                             <label>Investor Name <span className="text-danger">*</span></label>
-                            <input className="form-control" {...register("tsdInvestorName")} />
+                            <input className="form-control" {...register("sdInvestorName")} />
                             <div className="mt-2">
                                 <input
                                     type="checkbox"
                                     id="sameAsUserName"
                                     onChange={(e) => {
                                         if (e.target.checked) {
-                                            setValue("tsdInvestorName", watch("tsdUserName"));
-                                            clearErrors("tsdInvestorName");
+                                            setValue("sdInvestorName", watch("sdUserName"));
+                                            clearErrors("sdInvestorName");
                                         } else {
-                                            setValue("tsdInvestorName", "");
+                                            setValue("sdInvestorName", "");
                                         }
                                     }}
                                 />
                                 <label htmlFor="sameAsUserName" className="ml-2 mb-0" style={{ marginLeft: "8px" }}>Same as User Name</label>
                             </div>
-                            {errors.tsdInvestorName && <small className="text-danger">{errors.tsdInvestorName.message}</small>}
+                            {errors.sdInvestorName && <small className="text-danger">{errors.sdInvestorName.message}</small>}
                         </div>
                         <div className="col-md-6 mb-3">
-                            <label>PAN Number</label>
+                            <label>PAN Number <span className="text-danger">*</span></label>
                             <div style={{ position: "relative" }}>
                                 <input
-                                    className="form-control"
+                                    className={`form-control ${isPanLocked ? 'bg-light' : ''}`}
+                                    disabled={isPanLocked}
                                     maxLength={10}
-                                    style={{ paddingRight: !watch("tsdPanName") ? "110px" : "15px", textTransform: "uppercase" }}
-                                    {...register("tsdPanNumber")}
+                                    style={{ paddingRight: !watch("sdPanName") ? "110px" : "15px", textTransform: "uppercase" }}
+                                    {...register("sdPanNumber")}
                                     onChange={(e) => {
-                                        setValue("tsdPanNumber", e.target.value.toUpperCase());
-                                        if (watch("tsdPanName")) {
-                                            setValue("tsdPanName", "");
+                                        setValue("sdPanNumber", e.target.value.toUpperCase());
+                                        if (watch("sdPanName")) {
+                                            setValue("sdPanName", "");
                                         }
                                     }}
                                 />
-                                {!watch("tsdPanName") && (
+                                {!watch("sdPanName") && (
                                     <Button
                                         type="primary"
                                         shape="round"
@@ -516,20 +547,20 @@ export const SellerListingForm = () => {
                                     </Button>
                                 )}
                             </div>
-                            {errors.tsdPanNumber && <small className="text-danger">{errors.tsdPanNumber.message}</small>}
+                            {errors.sdPanNumber && <small className="text-danger">{errors.sdPanNumber.message}</small>}
                         </div>
                         <div className="col-md-6 mb-3">
-                            <label>Name as per PAN</label>
+                            <label>Name as per PAN <span className="text-danger">*</span></label>
                             <input
                                 className="form-control bg-light"
                                 disabled
-                                placeholder={watch("tsdPanName") ? "" : "Please verify PAN"}
-                                {...register("tsdPanName")}
+                                placeholder={watch("sdPanName") ? "" : "Please verify PAN"}
+                                {...register("sdPanName")}
                             />
                         </div>
                         <div className="col-md-6 mb-3">
                             <label>Residential Status <span className="text-danger">*</span></label>
-                            <select className="form-control" {...register("tsdResidentialStatus")}>
+                            <select className="form-control" {...register("sdResidentialStatus")}>
                                 <option value="Resident Indian">Resident Indian</option>
                                 <option value="NRI">NRI</option>
                                 <option value="Foreign National">Foreign National</option>
@@ -538,7 +569,7 @@ export const SellerListingForm = () => {
                                 <option value="Trust">Trust</option>
                                 <option value="Others">Others</option>
                             </select>
-                            {errors.tsdResidentialStatus && <small className="text-danger">{errors.tsdResidentialStatus.message}</small>}
+                            {errors.sdResidentialStatus && <small className="text-danger">{errors.sdResidentialStatus.message}</small>}
                         </div>
                     </div>
                 </div>
@@ -553,8 +584,8 @@ export const SellerListingForm = () => {
                                     <i className="fa-solid fa-circle-info ml-2 text-muted" style={{ marginLeft: "8px", cursor: "pointer" }}></i>
                                 </Tooltip>
                             </label>
-                            <input className="form-control" {...register("tsdLegalName")} />
-                            {errors.tsdLegalName && <small className="text-danger">{errors.tsdLegalName.message}</small>}
+                            <input className="form-control" {...register("sdLegalName")} />
+                            {errors.sdLegalName && <small className="text-danger">{errors.sdLegalName.message}</small>}
                         </div>
                         <div className="col-md-12 mb-3">
                             <label>
@@ -563,13 +594,13 @@ export const SellerListingForm = () => {
                                     <i className="fa-solid fa-circle-info ml-2 text-muted" style={{ marginLeft: "8px", cursor: "pointer" }}></i>
                                 </Tooltip>
                             </label>
-                            <input className="form-control" {...register("tsdStartupName")} />
-                            {errors.tsdStartupName && <small className="text-danger">{errors.tsdStartupName.message}</small>}
+                            <input className="form-control" {...register("sdStartupName")} />
+                            {errors.sdStartupName && <small className="text-danger">{errors.sdStartupName.message}</small>}
                         </div>
                         <div className="col-md-6 mb-3">
                             <label>Year of Investment <span className="text-danger">*</span></label>
-                            <input type="number" className="form-control" {...register("tsdYearOfInvestment")} />
-                            {errors.tsdYearOfInvestment && <small className="text-danger">{errors.tsdYearOfInvestment.message}</small>}
+                            <input type="number" className="form-control" {...register("sdYearOfInvestment")} />
+                            {errors.sdYearOfInvestment && <small className="text-danger">{errors.sdYearOfInvestment.message}</small>}
                         </div>
                     </div>
                 </div>
@@ -579,7 +610,7 @@ export const SellerListingForm = () => {
                     <div className="row">
                         <div className="col-md-6 mb-3">
                             <label>Instrument Type <span className="text-danger">*</span></label>
-                            <select className="form-control" {...register("tsdInstrumentType")}>
+                            <select className="form-control" {...register("sdInstrumentType")}>
                                 <option value="Equity Shares">Equity Shares</option>
                                 <option value="CCPS - Fixed Conversion Price">CCPS – Fixed Conversion Price</option>
                                 <option value="CCPS - Variable Conversion Price">CCPS – Variable Conversion Price</option>
@@ -587,13 +618,13 @@ export const SellerListingForm = () => {
                                 <option value="CCD - Variable Conversion Price">CCD – Variable Conversion Price</option>
                                 <option value="Other">Other</option>
                             </select>
-                            {errors.tsdInstrumentType && <small className="text-danger">{errors.tsdInstrumentType.message}</small>}
+                            {errors.sdInstrumentType && <small className="text-danger">{errors.sdInstrumentType.message}</small>}
                         </div>
                         <div className="col-md-12 mb-3">
                             <label>Investment/Conversion Terms (Optional)</label>
-                            <textarea className="form-control" rows="4" maxLength="64000" {...register("tsdInvestmentTerms")}></textarea>
+                            <textarea className="form-control" rows="4" maxLength="64000" {...register("sdInvestmentTerms")}></textarea>
                             {investmentTerms.length >= 64000 && <small className="text-danger">Maximum 64,000 characters allowed. If your terms are longer, please summarize them.</small>}
-                            {errors.tsdInvestmentTerms && <small className="text-danger">{errors.tsdInvestmentTerms.message}</small>}
+                            {errors.sdInvestmentTerms && <small className="text-danger">{errors.sdInvestmentTerms.message}</small>}
                         </div>
                     </div>
                 </div>
@@ -603,23 +634,23 @@ export const SellerListingForm = () => {
                     <div className="row">
                         <div className="col-md-6 mb-3">
                             <label>Quantity <span className="text-danger">*</span></label>
-                            <input type="number" className="form-control" {...register("tsdQuantity")} />
-                            {errors.tsdQuantity && <small className="text-danger">{errors.tsdQuantity.message}</small>}
+                            <input type="number" className="form-control" {...register("sdQuantity")} />
+                            {errors.sdQuantity && <small className="text-danger">{errors.sdQuantity.message}</small>}
                         </div>
                         <div className="col-md-6 mb-3">
                             <label>Last Known Transaction Price <span className="text-danger">*</span></label>
-                            <input type="number" className="form-control" {...register("tsdLastKnownPrice")} />
-                            {errors.tsdLastKnownPrice && <small className="text-danger">{errors.tsdLastKnownPrice.message}</small>}
+                            <input type="number" className="form-control" {...register("sdLastKnownPrice")} />
+                            {errors.sdLastKnownPrice && <small className="text-danger">{errors.sdLastKnownPrice.message}</small>}
                         </div>
                         <div className="col-md-6 mb-3">
                             <label>Ask Price – Minimum <span className="text-danger">*</span></label>
-                            <input type="number" className="form-control" {...register("tsdAskPriceMin")} />
-                            {errors.tsdAskPriceMin && <small className="text-danger">{errors.tsdAskPriceMin.message}</small>}
+                            <input type="number" className="form-control" {...register("sdAskPriceMin")} />
+                            {errors.sdAskPriceMin && <small className="text-danger">{errors.sdAskPriceMin.message}</small>}
                         </div>
                         <div className="col-md-6 mb-3">
                             <label>Ask Price – Expected <span className="text-danger">*</span></label>
-                            <input type="number" className="form-control" {...register("tsdAskPriceExpected")} />
-                            {errors.tsdAskPriceExpected && <small className="text-danger">{errors.tsdAskPriceExpected.message}</small>}
+                            <input type="number" className="form-control" {...register("sdAskPriceExpected")} />
+                            {errors.sdAskPriceExpected && <small className="text-danger">{errors.sdAskPriceExpected.message}</small>}
                         </div>
                     </div>
                 </div>
@@ -630,29 +661,29 @@ export const SellerListingForm = () => {
                         <div className="col-md-12 mb-4">
                             <label className="font-weight-bold">Share Certificate <span className="text-danger">*</span></label>
                             <div className="mt-2">
-                                <Upload {...getUploadProps("tsdShareCertificate", "Share Certificate")} accept=".pdf">
+                                <Upload {...getUploadProps("sdShareCertificate", "Share Certificate")} accept=".pdf">
                                     <Button icon={<i className="fa-solid fa-cloud-arrow-up mr-2"></i>}>Select Document</Button>
                                 </Upload>
                             </div>
-                            {existingFiles.tsdShareCertificate && <div className="text-success small mt-2"><i className="fa fa-check"></i> Document successfully uploaded</div>}
+                            {existingFiles.sdShareCertificate && <div className="text-success small mt-2"><i className="fa fa-check"></i> Document successfully uploaded</div>}
                         </div>
                         <div className="col-md-12 mb-4">
                             <label className="font-weight-bold">Executed SHA <span className="text-danger">*</span></label>
                             <div className="mt-2">
-                                <Upload {...getUploadProps("tsdExecutedSha", "Executed SHA")} accept=".pdf">
+                                <Upload {...getUploadProps("sdExecutedSha", "Executed SHA")} accept=".pdf">
                                     <Button icon={<i className="fa-solid fa-cloud-arrow-up mr-2"></i>}>Select Document</Button>
                                 </Upload>
                             </div>
-                            {existingFiles.tsdExecutedSha && <div className="text-success small mt-2"><i className="fa fa-check"></i> Document successfully uploaded</div>}
+                            {existingFiles.sdExecutedSha && <div className="text-success small mt-2"><i className="fa fa-check"></i> Document successfully uploaded</div>}
                         </div>
                         <div className="col-md-12 mb-4">
                             <label className="font-weight-bold">DOA (if applicable)</label>
                             <div className="mt-2">
-                                <Upload {...getUploadProps("tsdDoa", "DOA")} accept=".pdf">
+                                <Upload {...getUploadProps("sdDoa", "DOA")} accept=".pdf">
                                     <Button icon={<i className="fa-solid fa-cloud-arrow-up mr-2"></i>}>Select Document</Button>
                                 </Upload>
                             </div>
-                            {existingFiles.tsdDoa && <div className="text-success small mt-2"><i className="fa fa-check"></i> Document successfully uploaded</div>}
+                            {existingFiles.sdDoa && <div className="text-success small mt-2"><i className="fa fa-check"></i> Document successfully uploaded</div>}
                         </div>
                     </div>
                 </div>
@@ -664,7 +695,7 @@ export const SellerListingForm = () => {
                             <label className="mr-3">Are the securities held in Demat form?</label>
                             <div className="mt-3">
                                 <label className="premium-switch">
-                                    <input type="checkbox" checked={isDemat} onChange={(e) => setValue("tsdIsDemat", e.target.checked)} />
+                                    <input type="checkbox" checked={isDemat} onChange={(e) => setValue("sdIsDemat", e.target.checked)} />
                                     <span className="slider"></span>
                                 </label>
                             </div>
@@ -673,19 +704,19 @@ export const SellerListingForm = () => {
                             <>
                                 <div className="col-md-6 mb-3">
                                     <label>DP Name <span className="text-danger">*</span></label>
-                                    <input className="form-control" {...register("tsdDpName")} />
+                                    <input className="form-control" {...register("sdDpName")} />
                                 </div>
                                 <div className="col-md-6 mb-3">
                                     <label>DP ID <span className="text-danger">*</span></label>
-                                    <input className="form-control" {...register("tsdDpId")} />
+                                    <input className="form-control" {...register("sdDpId")} />
                                 </div>
                                 <div className="col-md-6 mb-3">
                                     <label>Client ID <span className="text-danger">*</span></label>
-                                    <input className="form-control" {...register("tsdClientId")} />
+                                    <input className="form-control" {...register("sdClientId")} />
                                 </div>
                                 <div className="col-md-6 mb-3">
                                     <label>ISIN Number <span className="text-danger">*</span></label>
-                                    <input className="form-control" {...register("tsdIsinNumber")} />
+                                    <input className="form-control" {...register("sdIsinNumber")} />
                                 </div>
                             </>
                         )}
@@ -698,16 +729,16 @@ export const SellerListingForm = () => {
                         <label>Is any Power of Attorney (POA) granted?</label>
                         <div className="mt-2">
                             <label className="premium-switch">
-                                <input type="checkbox" checked={hasPoa} onChange={(e) => setValue("tsdHasPoa", e.target.checked)} />
+                                <input type="checkbox" checked={hasPoa} onChange={(e) => setValue("sdHasPoa", e.target.checked)} />
                                 <span className="slider"></span>
                             </label>
                         </div>
                         {hasPoa && (
                             <div className="mt-3">
-                                <Upload {...getUploadProps("tsdPoaDoc", "POA Document")} accept=".pdf">
+                                <Upload {...getUploadProps("sdPoaDoc", "POA Document")} accept=".pdf">
                                     <Button icon={<i className="fa-solid fa-cloud-arrow-up mr-2"></i>}>Select Document</Button>
                                 </Upload>
-                                {existingFiles.tsdPoaDoc && (
+                                {existingFiles.sdPoaDoc && (
                                     <small className="text-success mt-1 d-block"><i className="fa fa-check"></i> Document previously uploaded</small>
                                 )}
                             </div>
@@ -719,12 +750,12 @@ export const SellerListingForm = () => {
                     <h5 className="mb-3">Mandatory Declarations</h5>
                     
                     <div className="declaration-checkbox-container mb-2 mt-4">
-                        <input type="checkbox" id="declaration-checkbox" {...register("tsdDeclare")} />
+                        <input type="checkbox" id="declaration-checkbox" {...register("sdDeclare")} />
                         <label htmlFor="declaration-checkbox" className="declaration-label" style={{ fontWeight: "bold" }}>
                             I agree to the <a href="#!" onClick={(e) => { e.preventDefault(); setDeclarationModalVisible(true); }}>declarations</a> <span className="text-danger">*</span>
                         </label>
                     </div>
-                    {errors.tsdDeclare && <div className="text-danger mb-3">{errors.tsdDeclare.message}</div>}
+                    {errors.sdDeclare && <div className="text-danger mb-3">{errors.sdDeclare.message}</div>}
 
                     <Modal
                         title="Mandatory Declarations"
@@ -757,28 +788,29 @@ export const SellerListingForm = () => {
     const stepsList = ["Basic Info", "Company Info", "Security Details", "Security Info", "Documents", "Demat Info", "Declaration"];
 
     const editListing = (record) => {
-        setListingId(record.tsdTempSdID);
+        setListingId(record.sdSdID);
+        setCurrentListingStatus(record.sdStatus);
 
         // First, start with standard defaults (from local storage)
         const baseValues = {
-            tsdUserName: secureStorage.getItem("investor_name") || "",
-            tsdUserEmail: secureStorage.getItem("investor_email") || "",
-            tsdUserMobile: secureStorage.getItem("investor_mobile") || "",
-            tsdInvestorName: "",
-            tsdPanNumber: secureStorage.getItem("investor_pan") || "",
-            tsdPanName: secureStorage.getItem("investor_pan_name") || "",
-            tsdResidentialStatus: "Resident Indian",
-            tsdLegalName: "",
-            tsdStartupName: "", tsdYearOfInvestment: "", tsdInstrumentType: "Equity Shares",
-            tsdInvestmentTerms: "", tsdQuantity: "", tsdLastKnownPrice: "",
-            tsdAskPriceMin: "", tsdAskPriceExpected: "", tsdDpName: "",
-            tsdDpId: "", tsdClientId: "", tsdIsinNumber: "", tsdDeclare: false, tsdHasPoa: false, tsdIsDemat: false
+            sdUserName: secureStorage.getItem("investor_name") || "",
+            sdUserEmail: secureStorage.getItem("investor_email") || "",
+            sdUserMobile: investorProfile.mobile || "",
+            sdInvestorName: "",
+            sdPanNumber: investorProfile.pan || "",
+            sdPanName: investorProfile.pan_name || "",
+            sdResidentialStatus: "Resident Indian",
+            sdLegalName: "",
+            sdStartupName: "", sdYearOfInvestment: "", sdInstrumentType: "Equity Shares",
+            sdInvestmentTerms: "", sdQuantity: "", sdLastKnownPrice: "",
+            sdAskPriceMin: "", sdAskPriceExpected: "", sdDpName: "",
+            sdDpId: "", sdClientId: "", sdIsinNumber: "", sdDeclare: false, sdHasPoa: false, sdIsDemat: false
         };
 
         // Overlay whatever is actually saved in the DB record
         Object.keys(record).forEach(key => {
             if (record[key] !== null && record[key] !== "") {
-                if (key === "tsdIsDemat" || key === "tsdHasPoa" || key === "tsdDeclare") {
+                if (key === "sdIsDemat" || key === "sdHasPoa" || key === "sdDeclare") {
                     baseValues[key] = (record[key] == 1 || record[key] === true);
                 } else {
                     baseValues[key] = record[key];
@@ -790,10 +822,10 @@ export const SellerListingForm = () => {
         reset(baseValues);
 
         setExistingFiles({
-            tsdShareCertificate: record.tsdShareCertificate,
-            tsdExecutedSha: record.tsdExecutedSha,
-            tsdDoa: record.tsdDoa,
-            tsdPoaDoc: record.tsdPoaDoc
+            sdShareCertificate: record.sdShareCertificate,
+            sdExecutedSha: record.sdExecutedSha,
+            sdDoa: record.sdDoa,
+            sdPoaDoc: record.sdPoaDoc
         });
 
         setFiles({});
@@ -804,7 +836,7 @@ export const SellerListingForm = () => {
 
     const deleteDraft = async (tempId) => {
         try {
-            const response = await Bridge.deleteSellerListingDraft({ tsdTempSdID: tempId });
+            const response = await Bridge.deleteSellerListingDraft({ sdSdID: tempId });
             if (response && String(response.status) === "1") {
                 message.success("Draft deleted successfully.");
                 fetchListings();
@@ -817,33 +849,33 @@ export const SellerListingForm = () => {
     };
 
     const columns = [
-        { title: "Legal Name", dataIndex: "tsdLegalName", key: "tsdLegalName" },
-        { title: "Startup Name", dataIndex: "tsdStartupName", key: "tsdStartupName" },
+        { title: "Legal Name", dataIndex: "sdLegalName", key: "sdLegalName" },
+        { title: "Startup Name", dataIndex: "sdStartupName", key: "sdStartupName" },
         {
-            title: "Status", dataIndex: "tsdStatus", key: "tsdStatus", render: (status) => {
+            title: "Status", dataIndex: "sdStatus", key: "sdStatus", render: (status) => {
+                let displayStatus = status === "On Hold" ? "Under Review" : status;
                 let color = "blue";
-                if (status === "Approved") color = "green";
-                if (status === "Rejected") color = "red";
-                if (status === "Draft" || status === "Additional Information Required") color = "orange";
-                return <Tag color={color}>{status}</Tag>;
+                if (displayStatus === "Approved") color = "green";
+                if (displayStatus === "Rejected") color = "red";
+                if (displayStatus === "Draft" || displayStatus === "Additional Information Required") color = "orange";
+                return <Tag color={color}>{displayStatus}</Tag>;
             }
         },
         {
             title: "Submit Date",
             key: "date",
             render: (_, record) => {
-                if (record.tsdStatus === "Draft") return "-";
-                const dateStr = record.tsdPublishedAt || record.tsdCreatedAt;
-                return dateStr ? new Date(dateStr.replace(' ', 'T')).toLocaleDateString() : '-';
+                if (record.sdStatus === "Draft") return "-";
+                const dateStr = record.sdPublishedAt || record.sdCreatedAt;
+                return dateStr ? new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).format(new Date(dateStr.replace(' ', 'T'))).replace(/ ([0-9]{4})$/, ', $1') : '-';
             }
         },
         {
             title: "Action", key: "action", render: (_, record) => {
-                const canEdit = ["Draft", "Under Review", "Additional Information Required"].includes(record.tsdStatus);
+                const canEdit = ["Draft", "Under Review", "Additional Information Required", "Approved", "Rejected", "On Hold"].includes(record.sdStatus);
                 
-                const isDraft = record.tsdStatus === "Draft";
-                const hasBeenSubmitted = record.tsdHasMainRecord || myListings.some(r => r.tsdTempSdID === record.tsdTempSdID && r.tsdStatus !== "Draft");
-                const canDelete = isDraft && !hasBeenSubmitted;
+                const isDraft = record.sdStatus === "Draft";
+                const canDelete = isDraft;
 
                 return (
                     <div style={{ display: 'flex', gap: '8px' }}>
@@ -852,7 +884,7 @@ export const SellerListingForm = () => {
                             <Popconfirm
                                 title="Delete Draft"
                                 description="Are you sure you want to delete this draft?"
-                                onConfirm={() => deleteDraft(record.tsdTempSdID)}
+                                onConfirm={() => deleteDraft(record.sdSdID)}
                                 okText="Yes"
                                 cancelText="No"
                             >
@@ -883,23 +915,23 @@ export const SellerListingForm = () => {
                                 style={{ backgroundColor: "#ff9c1a", borderColor: "#ff9c1a", fontWeight: "bold" }}
                                 onClick={async () => {
                                     reset({
-                                        tsdUserName: secureStorage.getItem("investor_name") || "",
-                                        tsdUserEmail: secureStorage.getItem("investor_email") || "",
-                                        tsdUserMobile: secureStorage.getItem("investor_mobile") || "",
-                                        tsdInvestorName: "",
-                                        tsdPanNumber: secureStorage.getItem("investor_pan") || "",
-                                        tsdPanName: secureStorage.getItem("investor_pan_name") || "",
-                                        tsdResidentialStatus: "Resident Indian",
-                                        tsdLegalName: "",
-                                        tsdStartupName: "", tsdYearOfInvestment: "", tsdInstrumentType: "Equity Shares",
-                                        tsdInvestmentTerms: "", tsdQuantity: "", tsdLastKnownPrice: "",
-                                        tsdAskPriceMin: "", tsdAskPriceExpected: "", tsdDpName: "",
-                                        tsdDpId: "", tsdClientId: "", tsdIsinNumber: "", tsdDeclare: false, tsdHasPoa: false, tsdIsDemat: false
+                                        sdUserName: secureStorage.getItem("investor_name") || "",
+                                        sdUserEmail: secureStorage.getItem("investor_email") || "",
+                                        sdUserMobile: investorProfile.mobile || "",
+                                        sdInvestorName: "",
+                                        sdPanNumber: investorProfile.pan || "",
+                                        sdPanName: investorProfile.pan_name || "",
+                                        sdResidentialStatus: "Resident Indian",
+                                        sdLegalName: "",
+                                        sdStartupName: "", sdYearOfInvestment: "", sdInstrumentType: "Equity Shares",
+                                        sdInvestmentTerms: "", sdQuantity: "", sdLastKnownPrice: "",
+                                        sdAskPriceMin: "", sdAskPriceExpected: "", sdDpName: "",
+                                        sdDpId: "", sdClientId: "", sdIsinNumber: "", sdDeclare: false, sdHasPoa: false, sdIsDemat: false
                                     });
 
                                     try {
                                         const res = await Bridge.initSellerListingDraft({
-                                            tsdUserId: secureStorage.getItem("investor_id")
+                                            sdUserId: secureStorage.getItem("investor_id")
                                         });
                                         if (res.status === "1" && res.id) {
                                             setListingId(res.id);
@@ -914,6 +946,7 @@ export const SellerListingForm = () => {
 
                                     setCurrentStep(0);
                                     setHighestStepReached(0);
+                                    setCurrentListingStatus("Draft");
                                     setFiles({});
                                     setExistingFiles({});
                                     setViewMode("form");
@@ -927,7 +960,7 @@ export const SellerListingForm = () => {
                             <Table
                                 dataSource={myListings}
                                 columns={columns}
-                                rowKey="tsdTempSdID"
+                                rowKey="sdSdID"
                                 loading={fetchingListings}
                                 pagination={{ pageSize: 10 }}
                                 scroll={{ x: 'max-content' }}
@@ -1010,14 +1043,16 @@ export const SellerListingForm = () => {
                                                     </button>
 
                                                     <div className="d-flex align-items-center">
-                                                        <button
-                                                            type="button"
-                                                            className="btn-draft"
-                                                            style={{ marginRight: '16px' }}
-                                                            onClick={handleSaveDraftAndExit}
-                                                        >
-                                                            Save Draft
-                                                        </button>
+                                                        {currentListingStatus === "Draft" && (
+                                                            <button
+                                                                type="button"
+                                                                className="btn-draft"
+                                                                style={{ marginRight: '16px' }}
+                                                                onClick={handleSaveDraftAndExit}
+                                                            >
+                                                                Save Draft
+                                                            </button>
+                                                        )}
 
                                                         {currentStep < stepSchemas.length - 1 ? (
                                                             <button

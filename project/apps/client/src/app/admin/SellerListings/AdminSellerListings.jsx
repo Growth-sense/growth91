@@ -122,10 +122,12 @@ class AdminSellerListings extends Component {
 
   handleStatusUpdate = () => {
     const { selectedListing, newStatus } = this.state;
+    const adminData = JSON.parse(localStorage.getItem("admin_login"));
     this.setState({ loading: true });
     Bridge.adminUpdateSellerListingStatus({
       sdSdID: selectedListing.sdSdID,
       sdStatus: newStatus,
+      adminId: adminData ? adminData.value : null,
     }).then((result) => {
       this.setState({ loading: false, updateStatusModal: false });
       if (result.status == 1) {
@@ -139,10 +141,12 @@ class AdminSellerListings extends Component {
 
   handleCommentUpdate = () => {
     const { selectedListing, newComment } = this.state;
+    const adminData = JSON.parse(localStorage.getItem("admin_login"));
     this.setState({ loading: true });
     Bridge.adminUpdateSellerListingComment({
       sdSdID: selectedListing.sdSdID,
       sdAdminComment: newComment,
+      adminId: adminData ? adminData.value : null,
     }).then((result) => {
       this.setState({ loading: false, commentModal: false });
       if (result.status == 1) {
@@ -197,7 +201,7 @@ class AdminSellerListings extends Component {
         dataIndex: "sdPublishedAt",
         key: "sdPublishedAt",
         width: 150,
-        render: (text) => moment(text).format("DD MMM YYYY"),
+        render: (text) => moment(text).format("DD MMM, YYYY"),
       },
       {
         title: "Seller Name",
@@ -268,20 +272,16 @@ class AdminSellerListings extends Component {
                   &nbsp;&nbsp;View Details
                 </a>
               </Menu.Item>
-              {this.state.canEdit && (
-                <>
-                  <Menu.Item icon={<EditOutlined />}>
-                    <a onClick={() => this.openStatusModal(record)} style={{ fontSize: 14 }}>
-                      &nbsp;&nbsp;Update Status
-                    </a>
-                  </Menu.Item>
-                  <Menu.Item icon={<MessageOutlined />}>
-                    <a onClick={() => this.openCommentModal(record)} style={{ fontSize: 14 }}>
-                      &nbsp;&nbsp;Admin Comment
-                    </a>
-                  </Menu.Item>
-                </>
-              )}
+              <Menu.Item icon={<EditOutlined />} disabled={!this.state.canEdit}>
+                <a onClick={() => this.state.canEdit && this.openStatusModal(record)} style={{ fontSize: 14 }}>
+                  &nbsp;&nbsp;Update Status
+                </a>
+              </Menu.Item>
+              <Menu.Item icon={<MessageOutlined />} disabled={!this.state.canEdit}>
+                <a onClick={() => this.state.canEdit && this.openCommentModal(record)} style={{ fontSize: 14 }}>
+                  &nbsp;&nbsp;Admin Comment
+                </a>
+              </Menu.Item>
             </Menu>
           );
           return (
@@ -369,7 +369,8 @@ class AdminSellerListings extends Component {
               <Descriptions.Item label="Investor Name">{selectedListing.sdInvestorName || 'N/A'}</Descriptions.Item>
               <Descriptions.Item label="Email">{selectedListing.sdUserEmail}</Descriptions.Item>
               <Descriptions.Item label="Mobile">{selectedListing.sdUserMobile}</Descriptions.Item>
-              <Descriptions.Item label="PAN">{selectedListing.sdPanNumber || 'N/A'} ({selectedListing.sdPanName || 'N/A'})</Descriptions.Item>
+              <Descriptions.Item label="PAN Number">{selectedListing.sdPanNumber || 'N/A'}</Descriptions.Item>
+              <Descriptions.Item label="PAN Name">{selectedListing.sdPanName || 'N/A'}</Descriptions.Item>
               <Descriptions.Item label="Residential Status">{selectedListing.sdResidentialStatus}</Descriptions.Item>
             </Descriptions>
 
@@ -393,21 +394,15 @@ class AdminSellerListings extends Component {
               <Descriptions.Item label="Client ID">{selectedListing.sdClientId || 'N/A'}</Descriptions.Item>
               <Descriptions.Item label="DP ID">{selectedListing.sdDpId || 'N/A'}</Descriptions.Item>
               <Descriptions.Item label="ISIN">{selectedListing.sdIsinNumber || 'N/A'}</Descriptions.Item>
-              <Descriptions.Item label="Declarations Agreed">{selectedListing.sdDeclare ? "Yes" : "No"}</Descriptions.Item>
             </Descriptions>
 
             <Descriptions title="E. Uploaded Documents" bordered column={1} size="small" className="mb-4">
-              <Descriptions.Item label="Share Certificate">{this.renderDocumentLink(selectedListing.sdShareCertificate, "Share Certificate", selectedListing.tsdTempSdID)}</Descriptions.Item>
-              <Descriptions.Item label="SHA">{this.renderDocumentLink(selectedListing.sdExecutedSha, "SHA", selectedListing.tsdTempSdID)}</Descriptions.Item>
-              <Descriptions.Item label="DOA">{this.renderDocumentLink(selectedListing.sdDoa, "DOA", selectedListing.tsdTempSdID)}</Descriptions.Item>
-              <Descriptions.Item label="POA / Demat Doc">{this.renderDocumentLink(selectedListing.sdPoaDoc, "POA/Demat Document", selectedListing.tsdTempSdID)}</Descriptions.Item>
+              <Descriptions.Item label="Share Certificate">{this.renderDocumentLink(selectedListing.sdShareCertificate, "Share Certificate", selectedListing.sdSdID)}</Descriptions.Item>
+              <Descriptions.Item label="SHA">{this.renderDocumentLink(selectedListing.sdExecutedSha, "SHA", selectedListing.sdSdID)}</Descriptions.Item>
+              <Descriptions.Item label="DOA">{this.renderDocumentLink(selectedListing.sdDoa, "DOA", selectedListing.sdSdID)}</Descriptions.Item>
+              <Descriptions.Item label="POA / Demat Doc">{this.renderDocumentLink(selectedListing.sdPoaDoc, "POA/Demat Document", selectedListing.sdSdID)}</Descriptions.Item>
             </Descriptions>
 
-            {selectedListing.sdAdminComment && (
-              <Descriptions title="Admin Comment" bordered column={1} size="small" className="mb-4">
-                <Descriptions.Item label="Comment">{selectedListing.sdAdminComment}</Descriptions.Item>
-              </Descriptions>
-            )}
           </Modal>
         )}
 
@@ -444,7 +439,14 @@ class AdminSellerListings extends Component {
           confirmLoading={loading}
         >
           <div className="mb-3">
-            <label className="form-label">Comment (Visible to Admin only)</label>
+            <label className="form-label">
+              Comment (Visible to Admin only)
+              {this.state.selectedListing?.sdAssignedToName && (
+                <span style={{ fontSize: '12px', color: '#888', fontStyle: 'italic', marginLeft: '10px' }}>
+                  (Last updated by: {this.state.selectedListing.sdAssignedToName})
+                </span>
+              )}
+            </label>
             <TextArea 
               rows={4} 
               value={this.state.newComment} 

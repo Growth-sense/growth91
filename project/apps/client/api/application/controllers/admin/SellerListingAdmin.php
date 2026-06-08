@@ -50,17 +50,28 @@ class SellerListingAdmin extends CI_Controller
         header("Content-Type: application/json; charset=UTF-8");
 
         $formdata = json_decode(file_get_contents('php://input'), true);
-        $sdID = isset($formdata['sdSdID']) ? $formdata['sdSdID'] : null;
+        $sdId = isset($formdata['sdSdID']) ? $formdata['sdSdID'] : null;
         $status = isset($formdata['sdStatus']) ? $formdata['sdStatus'] : null;
+        $adminId = isset($formdata['adminId']) ? $formdata['adminId'] : null;
 
-        if (empty($sdID) || empty($status)) {
+        if (empty($sdId) || empty($status)) {
             return $this->_json_response(0, 'Listing ID and Status are required.');
         }
 
-        $this->db->where('sdSdID', $sdID);
-        $result = $this->db->update('seller_listings', ['sdStatus' => $status]);
+        $updateData = [
+            'sdStatus' => $status
+        ];
 
-        if ($result) {
+        // Capture admin who changed status
+        if (!empty($adminId)) {
+            $adminRow = $this->db->get_where('admin_master', ['id' => $adminId])->row_array();
+            if ($adminRow && isset($adminRow['username'])) {
+                $updateData['sdAssignedToName'] = $adminRow['username'];
+            }
+        }
+
+        $this->db->where('sdSdID', $sdId);
+        $result = $this->db->update('seller_listings', $updateData);  if ($result) {
             return $this->_json_response(1, 'Status updated successfully.');
         } else {
             return $this->_json_response(0, 'Failed to update status.');
@@ -80,13 +91,24 @@ class SellerListingAdmin extends CI_Controller
         $formdata = json_decode(file_get_contents('php://input'), true);
         $sdID = isset($formdata['sdSdID']) ? $formdata['sdSdID'] : null;
         $comment = isset($formdata['sdAdminComment']) ? $formdata['sdAdminComment'] : '';
+        $adminId = isset($formdata['adminId']) ? $formdata['adminId'] : null;
 
         if (empty($sdID)) {
             return $this->_json_response(0, 'Listing ID is required.');
         }
 
+        $updateData = ['sdAdminComment' => $comment];
+        
+        // Capture admin who commented
+        if (!empty($adminId)) {
+            $adminRow = $this->db->get_where('admin_master', ['id' => $adminId])->row_array();
+            if ($adminRow && isset($adminRow['username'])) {
+                $updateData['sdAssignedToName'] = $adminRow['username'];
+            }
+        }
+
         $this->db->where('sdSdID', $sdID);
-        $result = $this->db->update('seller_listings', ['sdAdminComment' => $comment]);
+        $result = $this->db->update('seller_listings', $updateData);
 
         if ($result) {
             return $this->_json_response(1, 'Comment updated successfully.');

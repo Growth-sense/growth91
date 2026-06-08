@@ -14,10 +14,8 @@ let encryptedKeys = [
   "founder_kycstatus",
   "investor_name",
   "founder_name",
-  "super_admin",
-  "investor_mobile",
-  "investor_pan",
-  "investor_pan_name"
+   "founder_name",
+  "super_admin"
 ];
 
 const originalLocalStorage = {
