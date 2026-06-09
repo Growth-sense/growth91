@@ -311,6 +311,21 @@ const URLs = {
   adminUpdateSellerListingStatus: "admin/SellerListingAdmin/update_status",
   adminUpdateSellerListingComment: "admin/SellerListingAdmin/update_comment",
   adminAssignSellerListing: "admin/SellerListingAdmin/assign_admin",
+
+  // Admin Opportunities
+  adminGetOpportunities: "admin/OpportunitiesAdmin/get_opportunities",
+  adminSaveOpportunityDraft: "admin/OpportunitiesAdmin/save_draft",
+  adminPublishOpportunity: "admin/OpportunitiesAdmin/publish_opportunity",
+  adminUpdateOpportunityStatus: "admin/OpportunitiesAdmin/update_status",
+  adminGetBuyerInterests: "admin/OpportunitiesAdmin/get_buyer_interests",
+  adminUpdateBuyerInterestStatus: "admin/OpportunitiesAdmin/update_buyer_interest_status",
+
+  // Public Opportunities
+  getPublicOpportunities: "founder/PublicOpportunities/get_published_opportunities",
+  getPublicOpportunityDetails: "founder/PublicOpportunities/get_opportunity_details",
+  submitOpportunityInterest: "founder/PublicOpportunities/submit_interest",
+  checkUserInterest: "founder/PublicOpportunities/check_user_interest",
+  getMyBuyerInterests: "founder/PublicOpportunities/get_my_interests",
 };
 
 export default URLs;

@@ -157,7 +157,6 @@ export default class Sidebar2 extends Component {
             </a>
           </div>
           <div className="col-md-12 col-2">
-            {" "}
             <a
               href="/Referral"
               className={
@@ -165,12 +164,12 @@ export default class Sidebar2 extends Component {
               }
             >
               <li className="hiw-li row text-center">
-                {/* <img className='col-md-4 col-12 ' src='icon/transaction.png' style={{width : '50px'}} alt=""/> */}
-                {/* <i className='bi bi-cash-coin col-md-4' ></i> */}
                 <i className="bx bx-transfer-alt col-md-4" />
                 <div className="col-md-4 col-12 side-text">Referral</div>
               </li>
             </a>
+          </div>
+          <div className="col-md-12 col-2">
             <a
               href="/Group-Investments"
               className={
@@ -182,6 +181,8 @@ export default class Sidebar2 extends Component {
                 <div className="col-md-4 col-12 side-text">Group Investments</div>
               </li>
             </a>
+          </div>
+          <div className="col-md-12 col-2">
             <a
               href="/My-Future-unicorn"
               className={
@@ -193,6 +194,8 @@ export default class Sidebar2 extends Component {
                 <div className="col-md-4 col-12 side-text">Future Unicorn</div>
               </li>
             </a>
+          </div>
+          <div className="col-md-12 col-2">
             <a
               href="/investor-seller-listing-form"
               className={
@@ -201,12 +204,25 @@ export default class Sidebar2 extends Component {
             >
               <li className="hiw-li row text-center">
                 <i className="bx bx-list-plus col-md-4" />
-                <div className="col-md-4 col-12 side-text">Seller Listing Form</div>
+                <div className="col-md-4 col-12 side-text">Seller Listing</div>
               </li>
             </a>
-           
-          
-             {this.state.is_founder == "1" ? (
+          </div>
+          <div className="col-md-12 col-2">
+            <a
+              href="/my-buyer-interests"
+              className={
+                window.location.pathname == "/my-buyer-interests" ? "active" : ""
+              }
+            >
+              <li className="hiw-li row text-center">
+                <i className="bx bx-star col-md-4" />
+                <div className="col-md-4 col-12 side-text">My Interests</div>
+              </li>
+            </a>
+          </div>
+          <div className="col-md-12 col-12 d-flex justify-content-center">
+            {this.state.is_founder == "1" ? (
               <div
                 style={{
                   background: "#ff9c1a",
@@ -215,6 +231,7 @@ export default class Sidebar2 extends Component {
                   margin: "20px auto",
                   textAlign: "center",
                   maxWidth: "80%",
+                  width: "100%",
                 }}
                 onClick={() => {
                   let founderId = localStorage.getItem("investor_id");
@@ -240,7 +257,6 @@ export default class Sidebar2 extends Component {
                   setTimeout(() => {
                     window.location.assign("/founder-dashboard");
                   }, 1000);
-
                 }}
               >
                 <a
@@ -255,39 +271,32 @@ export default class Sidebar2 extends Component {
                   Switch to Founder Dashboard
                 </a>
               </div>
-
-          
-        ) : 
-
-        (
-          <div
-          style={{marginBottom: "30px"}}
-            onClick={() => {
-              ReactGA.event({
-                category: "Founder",
-                action: "Apply As Founder",
-              });
-            }}
-          >
-            <a
-              href="/investor-as-founder"
-              style={{
-                background: "#ff9c1a",
-                color: "#fff",
-                padding: "7px 14px",
-                position: "relative",
-                left: 32,
-                top: 20,
-                borderRadius: "20px"
-              }}
-            >
-              Apply As Founder
-            </a>
+            ) : (
+              <div
+                style={{marginBottom: "30px", width: "100%", display: "flex", justifyContent: "center"}}
+                onClick={() => {
+                  ReactGA.event({
+                    category: "Founder",
+                    action: "Apply As Founder",
+                  });
+                }}
+              >
+                <a
+                  href="/investor-as-founder"
+                  style={{
+                    background: "#ff9c1a",
+                    color: "#fff",
+                    padding: "7px 14px",
+                    borderRadius: "20px",
+                    marginTop: "20px",
+                    display: "inline-block"
+                  }}
+                >
+                  Apply As Founder
+                </a>
+              </div>
+            )}
           </div>
-        )
-        }
-          </div>
-
         </div>
       </div>
     );

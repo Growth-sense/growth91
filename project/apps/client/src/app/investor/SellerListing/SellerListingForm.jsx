@@ -5,10 +5,13 @@ import * as z from "zod";
 import axios from "axios";
 import { message, Spin, Modal, Button, Table, Tag, Tooltip, Upload, Popconfirm } from "antd";
 import Bridge from "../../constants/Bridge";
-import NewWebHeader from "../../common/NewWebHeader";
+import Header from "../../common/Header";
 import { NewWebFooter } from "../../common/NewWebFooter";
+import MobileSidebar from "../common/Sidebar"; 
+import DesktopSidebar from "../common/Sidebar2"; 
+import FounderSidebar from "../../Founder/common/Sidebar";
 import secureStorage from "../../helper/storageEncryptionHelper";
-import "./SellerListing.css"; // We'll create this next
+import "./SellerListing.css";
 
 // --- Validation Schemas per Step ---
 const stepSchemas = [
@@ -116,6 +119,9 @@ const stepFields = [
 ];
 
 export const SellerListingForm = () => {
+    const isInvestor = localStorage.getItem("investor_id") ? true : false;
+    const isFounder = localStorage.getItem("founder_id") ? true : false;
+
     const [currentStep, setCurrentStep] = useState(0);
     const [highestStepReached, setHighestStepReached] = useState(0);
     const [declarationModalVisible, setDeclarationModalVisible] = useState(false);
@@ -898,13 +904,25 @@ export const SellerListingForm = () => {
     ];
 
     return (
-        <div
-            className="seller-listing-wrapper"
-            style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
-        >
-            <NewWebHeader newabout={"newabout"} />
+        <>
+            <div className="newabout">
+                <Header newabout={"newabout"} />
+            </div>
 
-            <div style={{ flex: 1, paddingBottom: "3rem" }}>
+            <div className="row" style={{ margin: 0, backgroundColor: "#f4f5f7" }}>
+                <div
+                    className="hiw-nav col-md-2 col-12 py-3 px-0 sidebar2 collapse navbar-collapse"
+                    id="navbarSupportedContent"
+                >
+                    {isInvestor ? <MobileSidebar /> : isFounder ? <FounderSidebar /> : <MobileSidebar />}
+                </div>
+                <div className="hiw-nav col-md-2 col-12 py-3 px-0 d-lg-block d-none">
+                    {isInvestor ? <DesktopSidebar /> : isFounder ? <FounderSidebar /> : <DesktopSidebar />}
+                </div>
+
+                <div className="col col-lg-10 pb-4">
+                    <div className="seller-listing-wrapper" style={{ minHeight: "100vh" }}>
+                        <div style={{ flex: 1, paddingBottom: "3rem" }}>
                 {viewMode === "table" ? (
                     <div className="container py-5 mt-5">
                         <div className="d-flex justify-content-between align-items-center mb-4">
@@ -1081,8 +1099,11 @@ export const SellerListingForm = () => {
                         </Spin>
                     </div>
                 )}
+                        </div>
+                    </div>
+                </div>
             </div>
             <NewWebFooter />
-        </div>
+        </>
     );
 };

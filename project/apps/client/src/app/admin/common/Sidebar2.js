@@ -235,10 +235,10 @@ try {
                <a href="/admin-seller-listings">Seller Listings</a>
               </li>
               <li>
-               <a href="#">Opportunities</a>
+               <a href="/admin-opportunities">Opportunities</a>
               </li>
               <li>
-               <a href="#">Buyer Interests</a>
+               <a href="/admin-buyer-interests">Buyer Interests</a>
               </li>
             </ul>
           </li>

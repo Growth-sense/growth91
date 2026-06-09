@@ -116,6 +116,16 @@ export default class Sidebar extends Component {
             <i className="bx bx-list-plus"></i> &nbsp;&nbsp;Seller Listing Form
           </li>
         </a>
+        <a
+          href="/my-buyer-interests"
+          className={
+            window.location.pathname == "/my-buyer-interests" ? "active" : ""
+          }
+        >
+          <li className="hiw-li">
+            <i className="bx bx-star"></i> &nbsp;&nbsp;My Interests
+          </li>
+        </a>
       </ol>
     );
   }

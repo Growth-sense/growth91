@@ -48,6 +48,8 @@ import { FutureUnicornForm } from './app/FutureUnicornForm.jsx'
 import { FounderEdit } from './app/FounderEdit.jsx'
 import { WaitApproval } from './app/WaitApproval.jsx';
 import { FutureUnicornList } from './app/FutureUnicornList.jsx';
+import { OpportunitiesList } from './app/OpportunitiesList.jsx';
+import { OpportunityDescription } from './app/OpportunityDescription.jsx';
 import { PaymentMethods } from './app/PaymentMethods.jsx'
 
 import Content from "./Content/Content";
@@ -257,6 +259,9 @@ import UserRoleAssign from "./app/admin/UserRoleAssign";
 import ProtectedAdminRoute from "./app/admin/common/ProtectedAdminRoute";
 import TargetPeak2 from "./app/deal-pages/TargetPeak2.jsx";
 import AdminSellerListings from "./app/admin/SellerListings/AdminSellerListings.jsx";
+import AdminOpportunities from "./app/admin/Opportunities/AdminOpportunities.jsx";
+import AdminBuyerInterests from "./app/admin/Opportunities/AdminBuyerInterests.jsx";
+import MyBuyerInterests from "./app/MyBuyerInterests.jsx";
 
 ReactGA.initialize(TRACKING_ID);
 
@@ -316,6 +321,7 @@ function App() {
           <Route path="/FounderDashboardType" exact component={FounderDashboardType} />
           <Route path="/FounderMyListing" exact component={FounderMyListing} />
           <Route path="/MyUnicornPlan" exact component={MyUnicornPlan} />
+          <Route path="/my-buyer-interests" exact component={MyBuyerInterests} />
           <Route path="/ViewUnicornPlan/:planName?" exact component={ViewPlan} />
           <Route path="/FounderMyPlan" exact component={FounderMyPlan} />
           <Route path="/FounderInterest" exact component={FounderInterest} />
@@ -330,6 +336,8 @@ function App() {
           <Route path="/FamilyDashboard" exact component={FamilyDashboard} />
           <Route path="/Preview" exact component={Preview} />
           <Route path="/FutureUnicornList" exact component={FutureUnicornList} />
+          <Route path="/secondary-opportunities" exact component={OpportunitiesList} />
+          <Route path="/secondary-opportunities/:id" component={OpportunityDescription} />
           {/* <Route path="/FutureUnicornDescription/:urlName" exact  component={FutureUnicornDescription} /> */}
           <Route path="/FutureUnicornForm" exact  component={FutureUnicornForm} >
             <ProtectUnicorn Component2={FutureUnicornForm}   Conditon={true} />
@@ -499,6 +507,20 @@ function App() {
             path="/admin-seller-listings"
             component={AdminSellerListings}
             requiredModule="seller_listings"
+            requiredAction="view"
+          />
+          <ProtectedAdminRoute
+            exact
+            path="/admin-opportunities"
+            component={AdminOpportunities}
+            requiredModule="opportunities"
+            requiredAction="view"
+          />
+          <ProtectedAdminRoute
+            exact
+            path="/admin-buyer-interests"
+            component={AdminBuyerInterests}
+            requiredModule="opportunities"
             requiredAction="view"
           />
           <ProtectedAdminRoute

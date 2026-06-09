@@ -1120,5 +1120,53 @@ export default {
   adminAssignSellerListing: (data) =>
     api.post(URLs.adminAssignSellerListing, data).then((response) => {
       return response.data;
-    })
+    }),
+
+  // Admin Opportunities
+  adminGetOpportunities: (data) =>
+    api.post(URLs.adminGetOpportunities, data).then((response) => {
+      return response.data;
+    }),
+  adminSaveOpportunityDraft: (data) =>
+    api.post(URLs.adminSaveOpportunityDraft, data).then((response) => {
+      return response.data;
+    }),
+  adminPublishOpportunity: (data) =>
+    api.post(URLs.adminPublishOpportunity, data).then((response) => {
+      return response.data;
+    }),
+  adminUpdateOpportunityStatus: (data) =>
+    api.post(URLs.adminUpdateOpportunityStatus, data).then((response) => {
+      return response.data;
+    }),
+  adminGetBuyerInterests: (data) =>
+    api.post(URLs.adminGetBuyerInterests, data).then((response) => {
+      return response.data;
+    }),
+  adminUpdateBuyerInterestStatus: (data) =>
+    api.post(URLs.adminUpdateBuyerInterestStatus, data).then((response) => {
+      return response.data;
+    }),
+
+  // Public Opportunities
+  getPublicOpportunities: (data) =>
+    api.post(URLs.getPublicOpportunities, data).then((response) => {
+      return response.data;
+    }),
+  getPublicOpportunityDetails: (data) =>
+    api.post(URLs.getPublicOpportunityDetails, data).then((response) => {
+      return response.data;
+    }),
+  submitOpportunityInterest: (data) =>
+    api.post(URLs.submitOpportunityInterest, data).then((response) => {
+      return response.data;
+    }),
+  checkUserInterest: (data) =>
+    api.post(URLs.checkUserInterest, data).then((response) => {
+      return response.data;
+    }),
+  getMyBuyerInterests: (data) =>
+    api.post(URLs.getMyBuyerInterests, data).then((response) => {
+      return response.data;
+    }),
 };

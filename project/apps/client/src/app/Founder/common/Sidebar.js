@@ -281,6 +281,18 @@ export default class Sidebar extends Component {
             </li>
           </a>
           
+          <a
+            href="/my-buyer-interests"
+            className={
+              window.location.pathname === "/my-buyer-interests" ? "active" : ""
+            }
+          >
+            <li className="hiw-li">
+              <i className="bx bx-star" style={{ fontSize: 20 }}></i>{" "}
+              &nbsp;&nbsp;My Interests
+            </li>
+          </a>
+          
           
          
         </div>
