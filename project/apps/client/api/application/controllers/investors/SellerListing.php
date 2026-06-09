@@ -158,10 +158,10 @@ class SellerListing extends CI_Controller
             'sdAskPriceMin' => $this->input->post('sdAskPriceMin') !== "" ? $this->input->post('sdAskPriceMin') : 0,
             'sdAskPriceExpected' => $this->input->post('sdAskPriceExpected') !== "" ? $this->input->post('sdAskPriceExpected') : 0,
             'sdIsDemat' => $this->input->post('sdIsDemat') ? 1 : 0,
-            'sdDpName' => $this->input->post('sdDpName'),
-            'sdDpId' => $this->input->post('sdDpId'),
-            'sdClientId' => $this->input->post('sdClientId'),
-            'sdIsinNumber' => $this->input->post('sdIsinNumber'),
+            'sdDpName' => $this->input->post('sdIsDemat') ? $this->input->post('sdDpName') : null,
+            'sdDpId' => $this->input->post('sdIsDemat') ? $this->input->post('sdDpId') : null,
+            'sdClientId' => $this->input->post('sdIsDemat') ? $this->input->post('sdClientId') : null,
+            'sdIsinNumber' => $this->input->post('sdIsDemat') ? $this->input->post('sdIsinNumber') : null,
             'sdDeclare' => $this->input->post('sdDeclare') ? 1 : 0,
             'sdHasPoa' => $this->input->post('sdHasPoa') ? 1 : 0
         ];
@@ -173,6 +173,11 @@ class SellerListing extends CI_Controller
             if (!empty($docVal)) {
                 $post_data[$doc] = $docVal;
             }
+        }
+
+        // Sanitize POA if HasPoa is 0
+        if ($post_data['sdHasPoa'] == 0) {
+            $post_data['sdPoaDoc'] = null;
         }
 
         // Notice: sdStatus is intentionally NOT updated here. 

@@ -96,11 +96,12 @@ export const OpportunityDescription = () => {
         }
         setLoading(false);
       })
-      .catch((err) => {
-        console.error(err);
-        message.error("Error loading details.");
-        setLoading(false);
-      });
+        .catch((err) => {
+          console.error(err);
+          message.error("Opportunity not found or currently disabled.");
+          history.push("/secondary-opportunities");
+          setLoading(false);
+        });
   };
 
   if (loading) {
