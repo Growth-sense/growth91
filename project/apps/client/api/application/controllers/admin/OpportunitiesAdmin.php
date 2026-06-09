@@ -12,12 +12,19 @@ class OpportunitiesAdmin extends CI_Controller
 
     private function _json_response($status, $message, $data = [])
     {
-        echo json_encode([
-            'status' => $status,
-            'message' => $message,
-            'data' => $data
-        ]);
-        exit;
+        if ($status == 1) {
+            $this->output->set_status_header(200);
+        } else {
+            $this->output->set_status_header(400);
+        }
+
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode([
+                'status' => $status,
+                'message' => $message,
+                'data' => $data
+            ]));
     }
 
     /**

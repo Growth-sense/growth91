@@ -12,12 +12,20 @@ class SellerListingAdmin extends CI_Controller
 
     private function _json_response($status, $message, $extra = [])
     {
-        $response = ['status' => $status, 'message' => $message];
-        if (!empty($extra)) {
-            $response = array_merge($response, $extra);
+        $response = array_merge([
+            'status' => (string) $status,
+            'message' => $message
+        ], $extra);
+
+        if ($status == 1) {
+            $this->output->set_status_header(200);
+        } else {
+            $this->output->set_status_header(400);
         }
-        echo json_encode($response);
-        exit;
+
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($response));
     }
 
     /**
