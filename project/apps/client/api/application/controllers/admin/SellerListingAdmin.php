@@ -85,7 +85,16 @@ class SellerListingAdmin extends CI_Controller
         }
 
         $this->db->where('sdSdID', $sdId);
-        $result = $this->db->update('seller_listings', $updateData);  if ($result) {
+        $result = $this->db->update('seller_listings', $updateData);
+        
+        if ($result) {
+            if ($status !== 'On Hold') {
+                $this->load->helper('notification_email');
+                $listing = $this->db->get_where('seller_listings', ['sdSdID' => $sdId])->row_array();
+                if ($listing) {
+                    notify_admin_status_escalation($listing, $status, $additionalInfo);
+                }
+            }
             return $this->_json_response(1, 'Status updated successfully.');
         } else {
             return $this->_json_response(0, 'Failed to update status.');

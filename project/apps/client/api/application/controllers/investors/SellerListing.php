@@ -245,6 +245,13 @@ class SellerListing extends CI_Controller
             return $this->_json_response(0, 'Listing ID is required.');
         }
 
+        // Fetch current listing to determine if it's a new submission or an edit
+        $listing = $this->db->get_where('seller_listings', ['sdSdID' => $sdId])->row_array();
+        if (!$listing) {
+            return $this->_json_response(0, 'Listing not found.');
+        }
+        $oldStatus = $listing['sdStatus'];
+
         $this->db->where('sdSdID', $sdId);
         $result = $this->db->update('seller_listings', [
             'sdStatus' => 'Under Review',
@@ -252,6 +259,18 @@ class SellerListing extends CI_Controller
         ]);
 
         if ($result) {
+            // Trigger Admin Notifications
+            $this->load->helper('notification_email');
+            
+            // Re-fetch to get any saved updates
+            $updatedListing = $this->db->get_where('seller_listings', ['sdSdID' => $sdId])->row_array();
+
+            if ($oldStatus === 'Draft') {
+                notify_admin_new_seller_listing($updatedListing);
+            } else {
+                notify_admin_seller_listing_edit($updatedListing, $oldStatus);
+            }
+
             return $this->_json_response(1, 'Listing submitted for review.');
         } else {
             return $this->_json_response(0, 'Failed to submit listing.');
