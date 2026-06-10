@@ -8,7 +8,8 @@ export default class Sidebar2 extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      is_founder: localStorage.getItem("founder_is_investor")
+      is_founder: localStorage.getItem("founder_is_investor"),
+      isBuySellOpen: window.location.pathname === "/investor-seller-listing-form" || window.location.pathname === "/my-buyer-interests"
     };
   }
   componentDidMount() {
@@ -46,6 +47,13 @@ export default class Sidebar2 extends Component {
       }
     });
   };
+
+  toggleBuySell = () => {
+    this.setState((prevState) => ({
+      isBuySellOpen: !prevState.isBuySellOpen,
+    }));
+  };
+
   render() {
     return (
       <div className="investor-sidebar container mt-5 pt-4">
@@ -156,6 +164,52 @@ export default class Sidebar2 extends Component {
               </li>
             </a>
           </div>
+
+          <div className="col-md-12 col-2">
+            <li className="hiw-li row text-center" style={{ cursor: "pointer" }} onClick={this.toggleBuySell}>
+              <i className="bx bx-store-alt col-md-4" />
+              <div className="col-md-8 col-12 side-text d-flex align-items-center justify-content-center" style={{ whiteSpace: "nowrap" }}>
+                Buy/Sell <i className={`bx bx-chevron-${this.state.isBuySellOpen ? "up" : "down"}`} style={{ fontSize: "1.2rem", marginLeft: "3rem" }}></i>
+              </div>
+            </li>
+          </div>
+          <div
+            className="col-12 p-0"
+            style={{
+              maxHeight: this.state.isBuySellOpen ? "200px" : "0",
+              overflow: "hidden",
+              transition: "max-height 0.3s ease-in-out",
+            }}
+          >
+            <div className="row m-0 p-0 w-100">
+              <div className="col-12 p-0 mt-1">
+                <a
+                  href="/investor-seller-listing-form"
+                  className={
+                    window.location.pathname == "/investor-seller-listing-form" ? "active" : ""
+                  }
+                >
+                  <li className="hiw-li row text-center">
+                    <i className="bx bx-list-plus col-md-4" />
+                    <div className="col-md-8 col-12 side-text text-start p-0">Seller Listing</div>
+                  </li>
+                </a>
+              </div>
+              <div className="col-12 p-0 mt-1">
+                <a
+                  href="/my-buyer-interests"
+                  className={
+                    window.location.pathname == "/my-buyer-interests" ? "active" : ""
+                  }
+                >
+                  <li className="hiw-li row text-center">
+                    <i className="bx bx-star col-md-4" />
+                    <div className="col-md-8 col-12 side-text text-start p-0">My Interests</div>
+                  </li>
+                </a>
+              </div>
+            </div>
+          </div>
           <div className="col-md-12 col-2">
             <a
               href="/Referral"
@@ -195,32 +249,7 @@ export default class Sidebar2 extends Component {
               </li>
             </a>
           </div>
-          <div className="col-md-12 col-2">
-            <a
-              href="/investor-seller-listing-form"
-              className={
-                window.location.pathname == "/investor-seller-listing-form" ? "active" : ""
-              }
-            >
-              <li className="hiw-li row text-center">
-                <i className="bx bx-list-plus col-md-4" />
-                <div className="col-md-4 col-12 side-text">Seller Listing</div>
-              </li>
-            </a>
-          </div>
-          <div className="col-md-12 col-2">
-            <a
-              href="/my-buyer-interests"
-              className={
-                window.location.pathname == "/my-buyer-interests" ? "active" : ""
-              }
-            >
-              <li className="hiw-li row text-center">
-                <i className="bx bx-star col-md-4" />
-                <div className="col-md-4 col-12 side-text">My Interests</div>
-              </li>
-            </a>
-          </div>
+
           <div className="col-md-12 col-12 d-flex justify-content-center">
             {this.state.is_founder == "1" ? (
               <div

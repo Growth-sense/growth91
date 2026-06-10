@@ -62,6 +62,7 @@ class SellerListingAdmin extends CI_Controller
         $sdId = isset($formdata['sdSdID']) ? $formdata['sdSdID'] : null;
         $status = isset($formdata['sdStatus']) ? $formdata['sdStatus'] : null;
         $adminId = isset($formdata['adminId']) ? $formdata['adminId'] : null;
+        $additionalInfo = isset($formdata['sdAdditionalInfoReqText']) ? $formdata['sdAdditionalInfoReqText'] : null;
 
         if (empty($sdId) || empty($status)) {
             return $this->_json_response(0, 'Listing ID and Status are required.');
@@ -70,6 +71,10 @@ class SellerListingAdmin extends CI_Controller
         $updateData = [
             'sdStatus' => $status
         ];
+
+        if ($status === 'Additional Information Required' && $additionalInfo !== null) {
+            $updateData['sdAdditionalInfoReqText'] = $additionalInfo;
+        }
 
         // Capture admin who changed status
         if (!empty($adminId)) {

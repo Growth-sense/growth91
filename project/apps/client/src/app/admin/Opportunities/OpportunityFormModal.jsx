@@ -394,14 +394,16 @@ const OpportunityFormModal = ({ visible, onClose, initialData, adminId, onSucces
                             <Input placeholder="Article Name" />
                           </Form.Item>
                         </div>
-                        
                         <div className="col-md-6">
                           <Form.Item
                             {...field}
                             name={[field.name, 'url']}
                             fieldKey={[field.fieldKey, 'url']}
                             label={`Media Link ${index + 1}`}
-                            rules={[{ type: 'url', message: 'Invalid URL' }]}
+                            rules={[
+                              { required: true, message: 'Missing media link' },
+                              { type: 'url', message: 'Invalid URL' }
+                            ]}
                           >
                             <Input placeholder="https://..." />
                           </Form.Item>
@@ -413,6 +415,7 @@ const OpportunityFormModal = ({ visible, onClose, initialData, adminId, onSucces
                             name={[field.name, 'description']}
                             fieldKey={[field.fieldKey, 'description']}
                             label="Description"
+                            rules={[{ required: true, message: 'Missing description' }]}
                           >
                             <TextArea rows={2} placeholder="Short description of the coverage..." />
                           </Form.Item>
@@ -420,7 +423,8 @@ const OpportunityFormModal = ({ visible, onClose, initialData, adminId, onSucces
 
                         <div className="col-md-12">
                           <Form.Item
-                            label="Media Image (Snapshot)"
+                            label="Media Image"
+                            required
                           >
                             <Upload
                               name="file"
@@ -446,7 +450,7 @@ const OpportunityFormModal = ({ visible, onClose, initialData, adminId, onSucces
                               }}
                               accept="image/*"
                             >
-                              <Button icon={<UploadOutlined />}>Upload Snapshot</Button>
+                              <Button icon={<UploadOutlined />}>Upload Image</Button>
                             </Upload>
                             
                             <Form.Item
@@ -457,18 +461,26 @@ const OpportunityFormModal = ({ visible, onClose, initialData, adminId, onSucces
                             >
                               {({ getFieldValue }) => {
                                 const imgName = getFieldValue(['newsArticles', field.name, 'imgname']);
-                                return imgName ? (
-                                  <div className="mt-2">
-                                    <img 
-                                      src={`${process.env.REACT_APP_BASE_URL}api/uploads/opportunities/${imgName}`} 
-                                      alt="Snapshot" 
-                                      style={{ height: 60, objectFit: 'contain' }} 
-                                    />
-                                    <Form.Item name={[field.name, 'imgname']} hidden>
-                                      <Input />
+                                return (
+                                  <>
+                                    <Form.Item 
+                                      name={[field.name, 'imgname']} 
+                                      rules={[{ required: true, message: 'Missing media image' }]}
+                                      style={{ margin: 0 }}
+                                    >
+                                      <Input style={{ display: 'none' }} />
                                     </Form.Item>
-                                  </div>
-                                ) : null;
+                                    {imgName ? (
+                                      <div className="mt-2">
+                                        <img 
+                                          src={`${process.env.REACT_APP_BASE_URL}api/uploads/opportunities/${imgName}`} 
+                                          alt="Snapshot" 
+                                          style={{ height: 60, objectFit: 'contain' }} 
+                                        />
+                                      </div>
+                                    ) : null}
+                                  </>
+                                );
                               }}
                             </Form.Item>
                           </Form.Item>

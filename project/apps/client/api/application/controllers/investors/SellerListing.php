@@ -167,11 +167,10 @@ class SellerListing extends CI_Controller
         ];
 
         // Process deferred file saves if present
-        $docTypes = ['sdShareCertificate', 'sdExecutedSha', 'sdDoa', 'sdPoaDoc'];
+        $docTypes = ['sdShareCertificate', 'sdExecutedSha', 'sdDoa', 'sdPoaDoc', 'sdAdditionalDoc'];
         foreach ($docTypes as $doc) {
-            $docVal = $this->input->post($doc);
-            if (!empty($docVal)) {
-                $post_data[$doc] = $docVal;
+            if (array_key_exists($doc, $_POST)) {
+                $post_data[$doc] = $this->input->post($doc);
             }
         }
 
@@ -200,7 +199,7 @@ class SellerListing extends CI_Controller
 
         // 2. Handle File Uploads
         $uploaded_files = [];
-        $file_fields = ['sdShareCertificate', 'sdExecutedSha', 'sdDoa', 'sdPoaDoc'];
+        $file_fields = ['sdShareCertificate', 'sdExecutedSha', 'sdDoa', 'sdPoaDoc', 'sdAdditionalDoc'];
 
         foreach ($file_fields as $field) {
             if (isset($_FILES[$field]['name']) && $_FILES[$field]['name'] != "") {

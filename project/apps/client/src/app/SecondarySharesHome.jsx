@@ -104,7 +104,7 @@ export const SecondarySharesHome = () => {
       </section>
 
       {/* Quick Access Action Buttons Section */}
-      <section className="action-buttons-section" style={{ padding: "30px 0", backgroundColor: "#ffffff", marginTop: "1.4rem" }}>
+      <section className="action-buttons-section" style={{ backgroundColor: "#ffffff", marginTop: "0.4rem" }}>
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-md-6 mb-3">
@@ -150,7 +150,7 @@ export const SecondarySharesHome = () => {
           
           <div className="row justify-content-center pt-2">
             <div className="col-lg-4 col-md-6 mb-4">
-              <div className="h-100 bg-white p-5 rounded text-center" style={{ borderRadius: "20px", boxShadow: "0 10px 30px rgba(16, 0, 80, 0.08)", border: "1px solid #f0ecf9", transition: "transform 0.3s ease", cursor: "pointer" }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
+              <div className="h-100 bg-white p-5 rounded text-center" style={{ borderRadius: "20px", boxShadow: "0 10px 30px rgba(16, 0, 80, 0.08)", border: "1px solid #f0ecf9", transition: "transform 0.3s ease"}} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
                 <div className="icon mb-4 d-flex justify-content-center align-items-center mx-auto" style={{ width: "80px", height: "80px", borderRadius: "50%", backgroundColor: "#f2ebfa" }}>
                   <img src="./web/images/icon1.png" alt="img" style={{ width: "40px" }} />
                 </div>
@@ -161,7 +161,7 @@ export const SecondarySharesHome = () => {
               </div>
             </div>
             <div className="col-lg-4 col-md-6 mb-4">
-              <div className="h-100 bg-white p-5 rounded text-center" style={{ borderRadius: "20px", boxShadow: "0 10px 30px rgba(16, 0, 80, 0.08)", border: "1px solid #f0ecf9", transition: "transform 0.3s ease", cursor: "pointer" }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
+              <div className="h-100 bg-white p-5 rounded text-center" style={{ borderRadius: "20px", boxShadow: "0 10px 30px rgba(16, 0, 80, 0.08)", border: "1px solid #f0ecf9", transition: "transform 0.3s ease"}} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
                 <div className="icon mb-4 d-flex justify-content-center align-items-center mx-auto" style={{ width: "80px", height: "80px", borderRadius: "50%", backgroundColor: "#f2ebfa" }}>
                   <img src="./web/images/icon2.png" alt="img" style={{ width: "40px" }} />
                 </div>
@@ -172,7 +172,7 @@ export const SecondarySharesHome = () => {
               </div>
             </div>
             <div className="col-lg-4 col-md-6 mb-4">
-              <div className="h-100 bg-white p-5 rounded text-center" style={{ borderRadius: "20px", boxShadow: "0 10px 30px rgba(16, 0, 80, 0.08)", border: "1px solid #f0ecf9", transition: "transform 0.3s ease", cursor: "pointer" }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
+              <div className="h-100 bg-white p-5 rounded text-center" style={{ borderRadius: "20px", boxShadow: "0 10px 30px rgba(16, 0, 80, 0.08)", border: "1px solid #f0ecf9", transition: "transform 0.3s ease"}} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
                 <div className="icon mb-4 d-flex justify-content-center align-items-center mx-auto" style={{ width: "80px", height: "80px", borderRadius: "50%", backgroundColor: "#f2ebfa" }}>
                   <img src="./web/images/icon3.png" alt="img" style={{ width: "40px" }} />
                 </div>
@@ -201,7 +201,7 @@ export const SecondarySharesHome = () => {
           
           <div className="row justify-content-center pt-2">
             <div className="col-lg-4 col-md-6 mb-4">
-              <div className="h-100 bg-white p-5 rounded text-center" style={{ borderRadius: "20px", boxShadow: "0 10px 30px rgba(16, 0, 80, 0.06)", border: "1px solid #f8f9fa", transition: "transform 0.3s ease", cursor: "pointer" }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
+              <div className="h-100 bg-white p-5 rounded text-center" style={{ borderRadius: "20px", boxShadow: "0 10px 30px rgba(16, 0, 80, 0.06)", border: "1px solid #f8f9fa", transition: "transform 0.3s ease" }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
                 <div className="icon mb-4 d-flex justify-content-center align-items-center mx-auto" style={{ width: "80px", height: "80px", borderRadius: "50%", backgroundColor: "#f8f9fa" }}>
                   <img src="./web/images/icon1.png" alt="img" style={{ width: "40px" }} />
                 </div>
@@ -212,7 +212,7 @@ export const SecondarySharesHome = () => {
               </div>
             </div>
             <div className="col-lg-4 col-md-6 mb-4">
-              <div className="h-100 bg-white p-5 rounded text-center" style={{ borderRadius: "20px", boxShadow: "0 10px 30px rgba(16, 0, 80, 0.06)", border: "1px solid #f8f9fa", transition: "transform 0.3s ease", cursor: "pointer" }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
+              <div className="h-100 bg-white p-5 rounded text-center" style={{ borderRadius: "20px", boxShadow: "0 10px 30px rgba(16, 0, 80, 0.06)", border: "1px solid #f8f9fa", transition: "transform 0.3s ease" }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
                 <div className="icon mb-4 d-flex justify-content-center align-items-center mx-auto" style={{ width: "80px", height: "80px", borderRadius: "50%", backgroundColor: "#f8f9fa" }}>
                   <img src="./web/images/icon2.png" alt="img" style={{ width: "40px" }} />
                 </div>
@@ -223,7 +223,7 @@ export const SecondarySharesHome = () => {
               </div>
             </div>
             <div className="col-lg-4 col-md-6 mb-4">
-              <div className="h-100 bg-white p-5 rounded text-center" style={{ borderRadius: "20px", boxShadow: "0 10px 30px rgba(16, 0, 80, 0.06)", border: "1px solid #f8f9fa", transition: "transform 0.3s ease", cursor: "pointer" }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
+              <div className="h-100 bg-white p-5 rounded text-center" style={{ borderRadius: "20px", boxShadow: "0 10px 30px rgba(16, 0, 80, 0.06)", border: "1px solid #f8f9fa", transition: "transform 0.3s ease" }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
                 <div className="icon mb-4 d-flex justify-content-center align-items-center mx-auto" style={{ width: "80px", height: "80px", borderRadius: "50%", backgroundColor: "#f8f9fa" }}>
                   <img src="./web/images/icon3.png" alt="img" style={{ width: "40px" }} />
                 </div>

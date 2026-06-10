@@ -354,8 +354,7 @@ class OpportunitiesAdmin extends CI_Controller
 
             if (move_uploaded_file($tmp_name, $dir . $new_filename)) {
                 return $this->_json_response(1, 'Logo uploaded successfully.', [
-                    'filename' => $new_filename,
-                    'url' => base_url() . 'uploads/opportunities/' . $new_filename
+                    'filename' => $new_filename
                 ]);
             } else {
                 return $this->_json_response(0, 'Failed to move uploaded file.');

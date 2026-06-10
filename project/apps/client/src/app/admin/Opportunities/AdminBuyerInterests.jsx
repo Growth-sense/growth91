@@ -27,6 +27,20 @@ const STATUS_OPTIONS = [
   "Cancelled"
 ];
 
+const getStatusColor = (status) => {
+  switch (status) {
+    case "Interest communicated to Seller": return "magenta";
+    case "Under Review": return "processing";
+    case "KYC Pending": return "warning";
+    case "Discussion Initiated": return "cyan";
+    case "Negotiation Stage": return "purple";
+    case "Documentation Stage": return "#009688";
+    case "Completed": return "success";
+    case "Cancelled": return "error";
+    default: return "default";
+  }
+};
+
 const AdminBuyerInterests = () => {
   const [loading, setLoading] = useState(false);
   const [interests, setInterests] = useState([]);
@@ -192,13 +206,7 @@ const AdminBuyerInterests = () => {
       dataIndex: "status",
       key: "status",
       width: 200,
-      render: (status) => {
-        let color = "default";
-        if (status === "Completed") color = "success";
-        if (status === "Under Review") color = "processing";
-        if (status === "Cancelled") color = "error";
-        return <span className={`ant-tag ant-tag-${color}`}>{status}</span>;
-      }
+      render: (status) => <Tag color={getStatusColor(status)}>{status}</Tag>
     },
     {
       title: "Submitted On",
@@ -333,7 +341,7 @@ const AdminBuyerInterests = () => {
                   <strong>{selectedInterest.interestType === 'securities' ? 'Number of Securities' : 'Investment Amount'}:</strong>{' '}
                   {selectedInterest.interestType === 'amount' ? `₹${selectedInterest.interestValue}` : selectedInterest.interestValue}
                 </p>
-                <p><strong>Status:</strong> <Tag color="blue">{selectedInterest.status}</Tag></p>
+                <p><strong>Status:</strong> <Tag color={getStatusColor(selectedInterest.status)}>{selectedInterest.status}</Tag></p>
                 <p><strong>Submitted On:</strong> {moment(selectedInterest.submittedOn).format("DD MMM, YYYY hh:mm A")}</p>
               </div>
             )}

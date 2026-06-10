@@ -257,7 +257,6 @@ const AdminSellerListings = React.lazy(() => import("./app/admin/SellerListings/
 const AdminOpportunities = React.lazy(() => import("./app/admin/Opportunities/AdminOpportunities.jsx"));
 const AdminBuyerInterests = React.lazy(() => import("./app/admin/Opportunities/AdminBuyerInterests.jsx"));
 
-import jqeryscript from "./jq.js";
 
 ReactGA.initialize(TRACKING_ID);
 

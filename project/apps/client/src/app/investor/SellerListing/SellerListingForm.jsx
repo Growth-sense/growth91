@@ -140,7 +140,8 @@ export const SellerListingForm = () => {
         sdShareCertificate: null,
         sdExecutedSha: null,
         sdDoa: null,
-        sdPoaDoc: null
+        sdPoaDoc: null,
+        sdAdditionalDoc: null
     });
 
     const [existingFiles, setExistingFiles] = useState({});
@@ -204,6 +205,8 @@ export const SellerListingForm = () => {
 
     const [fetchingPan, setFetchingPan] = useState(false);
     const [investorProfile, setInvestorProfile] = useState({ mobile: "", pan: "", pan_name: "" });
+    const [infoModalVisible, setInfoModalVisible] = useState(false);
+    const [selectedInfoText, setSelectedInfoText] = useState("");
 
     const fetchProfile = async () => {
         try {
@@ -386,9 +389,7 @@ export const SellerListingForm = () => {
 
         // Append existing file names so the DB updates properly
         Object.keys(existingFiles).forEach(key => {
-            if (existingFiles[key]) {
-                formData.append(key, existingFiles[key]);
-            }
+            formData.append(key, existingFiles[key] === null ? "" : existingFiles[key]);
         });
 
         try {
@@ -689,7 +690,30 @@ export const SellerListingForm = () => {
                                     <Button icon={<i className="fa-solid fa-cloud-arrow-up mr-2"></i>}>Select Document</Button>
                                 </Upload>
                             </div>
-                            {existingFiles.sdDoa && <div className="text-success small mt-2"><i className="fa fa-check"></i> Document successfully uploaded</div>}
+                            {existingFiles.sdDoa && (
+                                <div className="text-success small mt-2 d-flex align-items-center">
+                                    <i className="fa fa-check mr-2" style={{ marginRight: "4px" }}></i> Document successfully uploaded
+                                    <Button type="text" danger size="small" style={{ marginLeft: "8px", padding: 0 }} onClick={() => setExistingFiles(prev => ({ ...prev, sdDoa: null }))}>
+                                        <i className="fa fa-times"></i>
+                                    </Button>
+                                </div>
+                            )}
+                        </div>
+                        <div className="col-md-12 mb-4">
+                            <label className="font-weight-bold">Additional Document (Optional)</label>
+                            <div className="mt-2">
+                                <Upload {...getUploadProps("sdAdditionalDoc", "Additional Document")} accept=".pdf">
+                                    <Button icon={<i className="fa-solid fa-cloud-arrow-up mr-2"></i>}>Select Document</Button>
+                                </Upload>
+                            </div>
+                            {existingFiles.sdAdditionalDoc && (
+                                <div className="text-success small mt-2 d-flex align-items-center">
+                                    <i className="fa fa-check mr-2" style={{ marginRight: "4px" }}></i> Document successfully uploaded
+                                    <Button type="text" danger size="small" style={{ marginLeft: "8px", padding: 0 }} onClick={() => setExistingFiles(prev => ({ ...prev, sdAdditionalDoc: null }))}>
+                                        <i className="fa fa-times"></i>
+                                    </Button>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -831,7 +855,8 @@ export const SellerListingForm = () => {
             sdShareCertificate: record.sdShareCertificate,
             sdExecutedSha: record.sdExecutedSha,
             sdDoa: record.sdDoa,
-            sdPoaDoc: record.sdPoaDoc
+            sdPoaDoc: record.sdPoaDoc,
+            sdAdditionalDoc: record.sdAdditionalDoc
         });
 
         setFiles({});
@@ -858,13 +883,24 @@ export const SellerListingForm = () => {
         { title: "Legal Name", dataIndex: "sdLegalName", key: "sdLegalName" },
         { title: "Startup Name", dataIndex: "sdStartupName", key: "sdStartupName" },
         {
-            title: "Status", dataIndex: "sdStatus", key: "sdStatus", render: (status) => {
+            title: "Status", dataIndex: "sdStatus", key: "sdStatus", render: (status, record) => {
                 let displayStatus = status === "On Hold" ? "Under Review" : status;
                 let color = "blue";
                 if (displayStatus === "Approved") color = "green";
                 if (displayStatus === "Rejected") color = "red";
                 if (displayStatus === "Draft" || displayStatus === "Additional Information Required") color = "orange";
-                return <Tag color={color}>{displayStatus}</Tag>;
+                return (
+                    <div className="text-left">
+                        <Tag color={color}>{displayStatus}</Tag>
+                        {displayStatus === "Additional Information Required" && record.sdAdditionalInfoReqText && (
+                            <div className="mt-1">
+                                <Button type="link" size="small" style={{ padding: 0 }} onClick={() => { setInfoModalVisible(true); setSelectedInfoText(record.sdAdditionalInfoReqText); }}>
+                                    View Info
+                                </Button>
+                            </div>
+                        )}
+                    </div>
+                );
             }
         },
         {
@@ -1105,6 +1141,16 @@ export const SellerListingForm = () => {
                 </div>
             </div>
             <NewWebFooter />
+            <Modal
+                title="Additional Information Required"
+                open={infoModalVisible}
+                footer={[
+                    <Button key="close" onClick={() => setInfoModalVisible(false)}>Close</Button>
+                ]}
+                onCancel={() => setInfoModalVisible(false)}
+            >
+                <p style={{ whiteSpace: "pre-wrap" }}>{selectedInfoText}</p>
+            </Modal>
         </>
     );
 };

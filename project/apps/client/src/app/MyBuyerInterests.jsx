@@ -10,6 +10,20 @@ import FounderSidebar from "./Founder/common/Sidebar";
 
 const { Content } = Layout;
 
+const getStatusColor = (status) => {
+  switch (status) {
+    case "Interest communicated to Seller": return "magenta";
+    case "Under Review": return "processing";
+    case "KYC Pending": return "warning";
+    case "Discussion Initiated": return "cyan";
+    case "Negotiation Stage": return "purple";
+    case "Documentation Stage": return "#009688";
+    case "Completed": return "success";
+    case "Cancelled": return "error";
+    default: return "default";
+  }
+};
+
 const MyBuyerInterests = () => {
   const [loading, setLoading] = useState(false);
   const [interests, setInterests] = useState([]);
@@ -90,7 +104,7 @@ const MyBuyerInterests = () => {
       title: "Status", 
       dataIndex: "status", 
       key: "status",
-      render: (status) => <Tag color="blue">{status}</Tag>
+      render: (status) => <Tag color={getStatusColor(status)}>{status}</Tag>
     },
     { 
       title: "Submitted On", 

@@ -52,6 +52,9 @@ class AdminSellerListings extends Component {
       commentModal: false,
       newStatus: "",
       newComment: "",
+      additionalInfoReqText: "",
+      infoModalVisible: false,
+      selectedInfoText: "",
       assignedTo: "",
 
       // permissions
@@ -117,6 +120,7 @@ class AdminSellerListings extends Component {
     this.setState({
       selectedListing: record,
       newStatus: record.sdStatus,
+      additionalInfoReqText: record.sdAdditionalInfoReqText || "",
       updateStatusModal: true,
     });
   };
@@ -130,12 +134,13 @@ class AdminSellerListings extends Component {
   };
 
   handleStatusUpdate = () => {
-    const { selectedListing, newStatus } = this.state;
+    const { selectedListing, newStatus, additionalInfoReqText } = this.state;
     const adminData = JSON.parse(localStorage.getItem("admin_login"));
     this.setState({ loading: true });
     Bridge.adminUpdateSellerListingStatus({
       sdSdID: selectedListing.sdSdID,
       sdStatus: newStatus,
+      sdAdditionalInfoReqText: newStatus === "Additional Information Required" ? additionalInfoReqText : null,
       adminId: adminData ? adminData.value : null,
     }).then((result) => {
       this.setState({ loading: false, updateStatusModal: false });
@@ -218,8 +223,8 @@ class AdminSellerListings extends Component {
       let obj = {
         "Listing ID": item.sdSdID,
         "Submission Date": moment(item.sdPublishedAt).format("DD MMM, YYYY"),
-        "Seller Name": item.sdUserName || "---",
-        "Investor Name": item.sdInvestorName || "---",
+        "User Name": item.sdUserName || "---",
+        "Seller Name": item.sdInvestorName || "---",
         "Email": item.sdUserEmail || "---",
         "Mobile": item.sdUserMobile || "---",
         "PAN Number": item.sdPanNumber || "---",
@@ -263,8 +268,8 @@ class AdminSellerListings extends Component {
     let obj = {
       "Listing ID": item.sdSdID,
       "Submission Date": moment(item.sdPublishedAt).format("DD MMM, YYYY"),
-      "Seller Name": item.sdUserName || "---",
-      "Investor Name": item.sdInvestorName || "---",
+      "User Name": item.sdUserName || "---",
+      "Seller Name": item.sdInvestorName || "---",
       "Email": item.sdUserEmail || "---",
       "Mobile": item.sdUserMobile || "---",
       "PAN Number": item.sdPanNumber || "---",
@@ -339,13 +344,20 @@ class AdminSellerListings extends Component {
         sorter: (a, b) => moment(a.sdPublishedAt).unix() - moment(b.sdPublishedAt).unix(),
         render: (text) => moment(text).format("DD MMM, YYYY"),
       },
-      {
-        title: "Seller Name",
-        dataIndex: "sdUserName",
-        key: "sdUserName",
-        width: 200,
-        sorter: (a, b) => (a.sdUserName || "").localeCompare(b.sdUserName || ""),
-      },
+        {
+          title: "User Name",
+          dataIndex: "sdUserName",
+          key: "sdUserName",
+          width: 200,
+          sorter: (a, b) => (a.sdUserName || "").localeCompare(b.sdUserName || ""),
+        },
+        {
+          title: "Seller Name",
+          dataIndex: "sdInvestorName",
+          key: "sdInvestorName",
+          width: 200,
+          sorter: (a, b) => (a.sdInvestorName || "").localeCompare(b.sdInvestorName || ""),
+        },
       {
         title: "Startup Name",
         dataIndex: "sdStartupName",
@@ -381,14 +393,25 @@ class AdminSellerListings extends Component {
         key: "sdStatus",
         width: 180,
         sorter: (a, b) => (a.sdStatus || "").localeCompare(b.sdStatus || ""),
-        render: (text) => {
+        render: (text, record) => {
           let color = "default";
           if (text === "Approved") color = "success";
           if (text === "Under Review") color = "processing";
           if (text === "Rejected") color = "error";
           if (text === "Additional Information Required") color = "warning";
           if (text === "On Hold") color = "default";
-          return <span className={`ant-tag ant-tag-${color}`}>{text}</span>;
+          return (
+            <div className="text-center">
+              <span className={`ant-tag ant-tag-${color}`}>{text}</span>
+              {text === "Additional Information Required" && record.sdAdditionalInfoReqText && (
+                <div className="mt-2">
+                  <Button type="link" size="small" onClick={() => this.setState({ infoModalVisible: true, selectedInfoText: record.sdAdditionalInfoReqText })}>
+                    View Info
+                  </Button>
+                </div>
+              )}
+            </div>
+          );
         },
       },
       // {
@@ -617,6 +640,7 @@ class AdminSellerListings extends Component {
               <Descriptions.Item label="SHA">{this.renderDocumentLink(selectedListing.sdExecutedSha, "SHA", selectedListing.sdSdID)}</Descriptions.Item>
               <Descriptions.Item label="DOA">{this.renderDocumentLink(selectedListing.sdDoa, "DOA", selectedListing.sdSdID)}</Descriptions.Item>
               <Descriptions.Item label="POA / Demat Doc">{this.renderDocumentLink(selectedListing.sdPoaDoc, "POA/Demat Document", selectedListing.sdSdID)}</Descriptions.Item>
+              <Descriptions.Item label="Additional Document">{this.renderDocumentLink(selectedListing.sdAdditionalDoc, "Additional Document", selectedListing.sdSdID)}</Descriptions.Item>
             </Descriptions>
 
           </Modal>
@@ -644,6 +668,29 @@ class AdminSellerListings extends Component {
               <Option value="On Hold">On Hold</Option>
             </Select>
           </div>
+          {this.state.newStatus === "Additional Information Required" && (
+            <div className="mb-3">
+              <label className="form-label">Required Information Details</label>
+              <Input.TextArea
+                rows={4}
+                placeholder="Specify what additional information is required from the seller..."
+                value={this.state.additionalInfoReqText}
+                onChange={(e) => this.setState({ additionalInfoReqText: e.target.value })}
+              />
+            </div>
+          )}
+        </Modal>
+
+        {/* Additional Info View Modal */}
+        <Modal
+          title="Additional Information Required"
+          visible={this.state.infoModalVisible}
+          footer={[
+            <Button key="close" onClick={() => this.setState({ infoModalVisible: false })}>Close</Button>
+          ]}
+          onCancel={() => this.setState({ infoModalVisible: false })}
+        >
+          <p style={{ whiteSpace: "pre-wrap" }}>{this.state.selectedInfoText}</p>
         </Modal>
 
         {/* Comment Update Modal */}
