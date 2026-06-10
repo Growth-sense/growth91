@@ -162,7 +162,7 @@
 }
 
 .seller-listing-wrapper .btn-draft {
-  background-color: #f1f3f5;
+  background-color: #ffffff;
   color: #495057;
   font-weight: 600;
   padding: 0.6rem 1.5rem;
@@ -172,7 +172,7 @@
 }
 
 .seller-listing-wrapper .btn-draft:hover {
-  background-color: #e9ecef;
+  background-color: #ffffff;
   color: #212529;
 }
 

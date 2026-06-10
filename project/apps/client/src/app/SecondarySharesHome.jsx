@@ -18,7 +18,7 @@ export const SecondarySharesHome = () => {
   const isAuthenticated = localStorage.getItem("investor_id") || localStorage.getItem("founder_id");
 
   const getSellerRedirect = () => {
-    return isAuthenticated ? "/seller-listing" : "/login?redirect=/seller-listing";
+    return isAuthenticated ? "/investor-seller-listing-form" : "/login?redirect=/investor-seller-listing-form";
   };
 
   const getBuyerRedirect = () => {
@@ -136,11 +136,11 @@ export const SecondarySharesHome = () => {
       </section>
 
       {/* For Existing Investors Section */}
-      <section className="features-section" style={{ backgroundColor: "#f4effa", padding: "80px 0" }}>
+       <section className="features-section" style={{ backgroundColor: "#e8edef98", padding: "40px 0px" }}>
         <div className="container">
           <div className="text-center mb-5">
-            <h2 className="mb-3" style={{ color: "#100050", fontWeight: "800", fontSize: "2.5rem" }}>For Existing Investors</h2>
-            <p className="text-secondary mb-4" style={{ fontSize: "1.15rem", maxWidth: "650px", margin: "0 auto", lineHeight: "1.6" }}>
+            <h2 className="mb-3" style={{ fontWeight: "800", fontSize: "2.5rem" }}>For Existing Investors</h2>
+            <p className="mb-4" style={{ fontSize: "1.15rem", maxWidth: "650px", margin: "0 auto", lineHeight: "1.6" }}>
               Discover streamlined opportunities to gain liquidity for your current startup holdings through our trusted facilitation platform.
             </p>
             <a href={getSellerRedirect()} className="theme-btn shadow" style={{ background: "#ff9c1a", color: "#fff", border: "none", borderRadius: "50px", fontSize: "1.1rem", padding: "14px 40px", display: "inline-block", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "1px" }}>
@@ -187,7 +187,7 @@ export const SecondarySharesHome = () => {
       </section>
 
       {/* For Aspiring Investors Section */}
-      <section className="features-section" style={{ backgroundColor: "#ffffff", padding: "80px 0" }}>
+      <section className="features-section" style={{ backgroundColor: "#ffffff", padding: "40px 0px" }}>
         <div className="container">
           <div className="text-center mb-5">
             <h2 className="mb-3" style={{ color: "#100050", fontWeight: "800", fontSize: "2.5rem" }}>For Aspiring Investors</h2>
@@ -238,11 +238,11 @@ export const SecondarySharesHome = () => {
       </section>
 
       {/* FAQs Section */}
-      <section className="" style={{ backgroundColor: "#f4effa", padding: "80px 0" }}>
+      <section className="" style={{ backgroundColor: "#e8edef98", padding: "40px 0px" }}>
         <div className="container py-3">
           <div className="heading-title text-center mb-4">
             <h6><span></span></h6>
-            <h2>Frequently Asked Questions</h2>
+            <h2 style={{ fontWeight: "800" }}>Frequently Asked Questions</h2>
           </div>
           
           <div className="row justify-content-center">
@@ -251,22 +251,22 @@ export const SecondarySharesHome = () => {
                 {faqs.map((faq, index) => (
                   <div key={index} className="accordion-item shadow-sm border mb-3 rounded">
                     <h2 className="accordion-header" id={`heading${index}`}>
-                      <button 
-                        className="accordion-button collapsed font-weight-bold" 
-                        type="button" 
-                        data-bs-toggle="collapse" 
-                        data-bs-target={`#collapse${index}`} 
-                        aria-expanded="false" 
+                      <button
+                        className="accordion-button collapsed font-weight-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target={`#collapse${index}`}
+                        aria-expanded="false"
                         aria-controls={`collapse${index}`}
                         style={{ color: "#100050", fontSize: "1.1rem", padding: "1.2rem 1.5rem" }}
                       >
                         {faq.q}
                       </button>
                     </h2>
-                    <div 
-                      id={`collapse${index}`} 
-                      className="accordion-collapse collapse" 
-                      aria-labelledby={`heading${index}`} 
+                    <div
+                      id={`collapse${index}`}
+                      className="accordion-collapse collapse"
+                      aria-labelledby={`heading${index}`}
                       data-bs-parent="#faqAccordion"
                     >
                       <div className="accordion-body" style={{ color: "#666", fontSize: "1.05rem", lineHeight: "1.6", padding: "1.5rem" }}>

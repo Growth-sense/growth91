@@ -48,7 +48,7 @@ export default class Sidebar2 extends Component {
   };
   render() {
     return (
-      <div className="investor-sidebar container">
+      <div className="investor-sidebar container mt-5 pt-4">
         <div className="row row-cols-4">
         {this.state.is_founder == "1" && (
           <div className="founder-role-heading" style={{ width: "100%",padding:"0" }}>

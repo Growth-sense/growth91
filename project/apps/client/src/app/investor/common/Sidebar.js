@@ -12,7 +12,7 @@ export default class Sidebar extends Component {
 
   render() {
     return (
-      <ol className="investor-sidebar">
+      <ol className="investor-sidebar mt-5 pt-4">
         <a
           href="/investor-dashboard"
           className={

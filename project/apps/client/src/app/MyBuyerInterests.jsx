@@ -119,8 +119,8 @@ const MyBuyerInterests = () => {
 
         <div className="col col-lg-10 pb-4">
           <Content className="p-4" style={{ backgroundColor: "#f4f5f7", minHeight: "100vh" }}>
-            <div className="d-flex justify-content-between align-items-center mb-4 mt-3">
-              <h2 className="m-0" style={{ fontWeight: 600 }}>My Interests (Secondary Opportunities)</h2>
+            <div className="mb-4 mt-5 pt-4">
+              <h2 className="m-0" style={{ color: "#100050", fontWeight: "700" }}>My Interests</h2>
             </div>
 
             <div className="bg-white p-4 rounded shadow-sm">
