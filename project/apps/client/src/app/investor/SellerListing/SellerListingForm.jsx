@@ -987,11 +987,11 @@ export const SellerListingForm = () => {
                     </div>
                 ) : (
                     <div className="container py-5 mt-5">
-                        <div className="mb-4">
-                            <Button type="link" onClick={() => setViewMode("table")} style={{ padding: 0 }}>
-                                <i className="fa-solid fa-arrow-left mr-2"></i> Back to Dashboard
-                            </Button>
-                        </div>
+                          <div className="mb-4">
+                              <Button type="link" onClick={() => { fetchListings(); setViewMode("table"); }} style={{ padding: 0 }}>
+                                  <i className="fa-solid fa-arrow-left mr-2"></i> Back to Dashboard
+                              </Button>
+                          </div>
                         <div className="row">
                             <div className="col-lg-12 text-center mb-5">
                                 <h2 style={{ color: "#100050", fontWeight: "700" }}>Seller Listing Form</h2>
@@ -1012,6 +1012,7 @@ export const SellerListingForm = () => {
                                                 return (
                                                 <li key={index} style={{ cursor: 'pointer' }} onClick={() => {
                                                     setCurrentStep(index); // Allow jumping to any step directly
+                                                    setHighestStepReached((prev) => Math.max(prev, index));
                                                 }}>
                                                     <div>
                                                         <div

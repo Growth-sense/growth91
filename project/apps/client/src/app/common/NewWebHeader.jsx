@@ -893,6 +893,7 @@ class NewWebHeader extends Component {
                             className={
                               window.location.pathname == "/" && "active"
                             }
+                            style={{ margin: "0px 12px" }}
                           >
                             Home
                           </Link>
@@ -903,6 +904,7 @@ class NewWebHeader extends Component {
                             className={
                               window.location.pathname == "/deals" && "active"
                             }
+                            style={{ margin: "0px 12px" }}
                           >
                             Deals
                           </Link>
@@ -913,6 +915,7 @@ class NewWebHeader extends Component {
                             className={
                               window.location.pathname == "/secondary-shares" && "active"
                             }
+                            style={{ margin: "0px 12px" }}
                           >
                             Buy/Sell
                           </Link>
@@ -926,6 +929,7 @@ class NewWebHeader extends Component {
                               window.location.pathname == "/Founders/" &&
                               "active"
                             }
+                            style={{ margin: "0px 12px" }}
                           >
                             Founders
                           </a>
@@ -940,6 +944,7 @@ class NewWebHeader extends Component {
                               window.location.pathname == "/How-it-works/" &&
                               "active"
                             }
+                            style={{ margin: "0px 12px" }}
                           >
                             Resources
                           </Link>
@@ -950,6 +955,7 @@ class NewWebHeader extends Component {
                             className={
                               window.location.pathname == "/about" && "active"
                             }
+                            style={{ margin: "0px 12px" }}
                           >
                             About us
                           </Link>
@@ -961,6 +967,7 @@ class NewWebHeader extends Component {
                             className={
                               window.location.pathname == "/Blog" && "active"
                             }
+                            style={{ margin: "0px 12px" }}
                           >
                             Blog
                           </a>
@@ -972,6 +979,7 @@ class NewWebHeader extends Component {
                               window.location.pathname == "" && "active"
                             }
                               href="/FutureUnicorn"
+                            style={{ margin: "0px 12px" }}
                           >
                             Future Unicorns
                             <span 

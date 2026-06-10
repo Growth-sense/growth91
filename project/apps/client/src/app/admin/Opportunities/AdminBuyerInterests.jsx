@@ -33,7 +33,7 @@ const AdminBuyerInterests = () => {
   const [filteredInterests, setFilteredInterests] = useState([]);
   const [searchinput, setSearchinput] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
-  
+
   // Detail Modal
   const [detailModalVisible, setDetailModalVisible] = useState(false);
   const [selectedInterest, setSelectedInterest] = useState(null);
@@ -90,7 +90,7 @@ const AdminBuyerInterests = () => {
     }
     if (searchinput) {
       const lower = searchinput.toLowerCase();
-      result = result.filter(item => 
+      result = result.filter(item =>
         (item.buyerName && item.buyerName.toLowerCase().includes(lower)) ||
         (item.buyerEmail && item.buyerEmail.toLowerCase().includes(lower)) ||
         (item.opportunityName && item.opportunityName.toLowerCase().includes(lower))
@@ -101,7 +101,7 @@ const AdminBuyerInterests = () => {
 
   const handleUpdateStatus = () => {
     if (!newStatus || !selectedInterest) return;
-    
+
     Bridge.adminUpdateBuyerInterestStatus({ id: selectedInterest.id, status: newStatus })
       .then((res) => {
         if (res.status == 1) {
@@ -167,9 +167,9 @@ const AdminBuyerInterests = () => {
     { title: "Buyer Email ID", dataIndex: "buyerEmail", key: "buyerEmail", width: 250 },
     { title: "Buyer Mobile Number", dataIndex: "buyerMobile", key: "buyerMobile", width: 220 },
     { title: "Opportunity Name", dataIndex: "opportunityName", key: "opportunityName", width: 220 },
-    { 
-      title: "Amount Interested", 
-      key: "amountInterested", 
+    {
+      title: "Amount Interested",
+      key: "amountInterested",
       width: 180,
       render: (_, record) => (
         <span>
@@ -177,9 +177,9 @@ const AdminBuyerInterests = () => {
         </span>
       )
     },
-    { 
-      title: "Quantity Interested", 
-      key: "quantityInterested", 
+    {
+      title: "Quantity Interested",
+      key: "quantityInterested",
       width: 180,
       render: (_, record) => (
         <span>
@@ -187,9 +187,9 @@ const AdminBuyerInterests = () => {
         </span>
       )
     },
-    { 
-      title: "Status", 
-      dataIndex: "status", 
+    {
+      title: "Status",
+      dataIndex: "status",
       key: "status",
       width: 200,
       render: (status) => {
@@ -200,9 +200,9 @@ const AdminBuyerInterests = () => {
         return <span className={`ant-tag ant-tag-${color}`}>{status}</span>;
       }
     },
-    { 
-      title: "Submitted On", 
-      dataIndex: "submittedOn", 
+    {
+      title: "Submitted On",
+      dataIndex: "submittedOn",
       key: "submittedOn",
       width: 180,
       render: (val) => val ? moment(val).format("DD MMM, YYYY") : "N/A"
@@ -263,29 +263,29 @@ const AdminBuyerInterests = () => {
               </div>
 
               <div className="admin-filter-bar">
-                <Select 
+                <Select
                   size="large"
-                  value={statusFilter} 
-                  onChange={setStatusFilter} 
+                  value={statusFilter}
+                  onChange={setStatusFilter}
                   style={{ minWidth: 200 }}
                   className="custom-status-select"
                 >
                   <Option value="All">All Statuses</Option>
                   {STATUS_OPTIONS.map(opt => <Option key={opt} value={opt}>{opt}</Option>)}
                 </Select>
-                <Input 
+                <Input
                   size="large"
-                  placeholder="Search by Buyer Name, Email or Opportunity..." 
-                  value={searchinput} 
-                  onChange={e => setSearchinput(e.target.value)} 
+                  placeholder="Search by Buyer Name, Email or Opportunity..."
+                  value={searchinput}
+                  onChange={e => setSearchinput(e.target.value)}
                   style={{ maxWidth: 300 }}
                 />
               </div>
 
-              <Table 
-                columns={columns} 
-                dataSource={filteredInterests} 
-                rowKey="id" 
+              <Table
+                columns={columns}
+                dataSource={filteredInterests}
+                rowKey="id"
                 loading={loading}
                 scroll={{ x: 1500 }}
                 pagination={{ pageSize: 20 }}
@@ -330,7 +330,7 @@ const AdminBuyerInterests = () => {
                 <hr />
                 <h6>Interest Details</h6>
                 <p>
-                  <strong>{selectedInterest.interestType === 'securities' ? 'Number of Securities' : 'Investment Amount'}:</strong>{' '} 
+                  <strong>{selectedInterest.interestType === 'securities' ? 'Number of Securities' : 'Investment Amount'}:</strong>{' '}
                   {selectedInterest.interestType === 'amount' ? `₹${selectedInterest.interestValue}` : selectedInterest.interestValue}
                 </p>
                 <p><strong>Status:</strong> <Tag color="blue">{selectedInterest.status}</Tag></p>

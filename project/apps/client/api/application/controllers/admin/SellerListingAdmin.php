@@ -38,6 +38,7 @@ class SellerListingAdmin extends CI_Controller
         header("Access-Control-Allow-Headers: access, Content-Type, Authorization, X-Requested-With");
         header("Content-Type: application/json; charset=UTF-8");
 
+        $this->db->where('sdStatus !=', 'Draft');
         $this->db->order_by('sdPublishedAt', 'DESC');
         $listings = $this->db->get('seller_listings')->result_array();
 

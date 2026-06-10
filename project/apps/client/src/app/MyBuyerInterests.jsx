@@ -168,7 +168,7 @@ const MyBuyerInterests = () => {
               size="large" 
               onClick={() => {
                 setKycModalVisible(false);
-                window.location.href = "/kyc-instructions";
+                window.location.href = isFounder ? "/founder-kyc-instructions" : "/kyc-instructions";
               }}
             >
               Complete KYC Now

@@ -183,7 +183,7 @@ class PublicOpportunities extends CI_Controller
             'residential_status' => $user['nationality'] ?? null,
             'interest_type' => $interestType,
             'interest_value' => $interestValue,
-            'status' => 'Interest communicated to Seller',
+            'status' => 'Under Review',
             'submitted_on' => date('Y-m-d H:i:s')
         ];
 

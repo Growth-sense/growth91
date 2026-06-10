@@ -100,7 +100,7 @@ const OpportunityFormModal = ({ visible, onClose, initialData, adminId, onSucces
       if (response && String(response.status) === "1") {
         message.success("Logo uploaded successfully");
         setUploadedLogoName(response.data.filename);
-        setUploadedLogoUrl(response.data.url);
+        setUploadedLogoUrl(`${process.env.REACT_APP_BASE_URL}api/uploads/opportunities/${response.data.filename}`);
         setFileUploading(false);
       } else {
         message.error("Logo upload failed");

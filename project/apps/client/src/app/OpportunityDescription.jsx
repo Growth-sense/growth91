@@ -19,6 +19,7 @@ export const OpportunityDescription = () => {
   const [interestType, setInterestType] = useState('securities');
   const [interestValue, setInterestValue] = useState('');
   const [declarationsAccepted, setDeclarationsAccepted] = useState(false);
+  const [declarationsModalVisible, setDeclarationsModalVisible] = useState(false);
   const [alreadySubmitted, setAlreadySubmitted] = useState(false);
   const [submissionStatus, setSubmissionStatus] = useState('');
 
@@ -55,7 +56,7 @@ export const OpportunityDescription = () => {
           setInterestValue('');
           setDeclarationsAccepted(false);
           setAlreadySubmitted(true);
-          setSubmissionStatus("Interest communicated to Seller");
+          setSubmissionStatus("Under Review");
         } else {
           message.error(res.message || "Failed to submit interest.");
         }
@@ -663,28 +664,37 @@ export const OpportunityDescription = () => {
           </div>
         </div>
 
-        <div style={{ background: '#f8f9fc', padding: '20px', borderRadius: '8px', border: '1px solid #eaeaea' }}>
-          <h5 style={{ fontWeight: 'bold', marginBottom: '15px', color: '#100050' }}>Buyer Declarations</h5>
-          <ul style={{ paddingLeft: '20px', color: '#444', fontSize: '13px', lineHeight: '1.6', margin: 0 }}>
-            <li style={{ marginBottom: '8px' }}>I confirm that I am legally eligible to acquire securities of private companies under applicable laws. Specifically for this company, I am not restricted to acquire shares.</li>
-            <li style={{ marginBottom: '8px' }}>I understand that acquisition of private company securities may be subject to company approvals, transfer restrictions, regulatory requirements, and contractual obligations.</li>
-            <li style={{ marginBottom: '8px' }}>I agree to provide all KYC, AML, FEMA, taxation, and compliance-related documents as may be required.</li>
-            <li style={{ marginBottom: '8px' }}>I understand that submission of interest does not guarantee allotment or transfer of securities.</li>
-            <li style={{ marginBottom: '8px' }}>I agree to pay applicable fees, charges, and taxes communicated by Growth91.</li>
-            <li style={{ marginBottom: '8px' }}>I acknowledge that Growth91 acts solely as a facilitation platform and does not guarantee investment returns, liquidity, or transaction completion.</li>
-            <li style={{ marginBottom: '8px' }}>I agree to maintain confidentiality of all non-public information shared during the process.</li>
-          </ul>
-        </div>
-        
         <div style={{ marginTop: '20px' }}>
           <Checkbox 
             checked={declarationsAccepted} 
             onChange={(e) => setDeclarationsAccepted(e.target.checked)}
             style={{ fontWeight: 500 }}
           >
-            I have read and agree to the Buyer Declarations
+            I have read and agree to the <a onClick={(e) => { e.preventDefault(); setDeclarationsModalVisible(true); }} style={{ color: '#0d6efd' }}>Buyer Declarations</a>
           </Checkbox>
         </div>
+      </Modal>
+
+      <Modal
+        title={<span style={{ fontSize: '18px', fontWeight: 'bold', color: '#100050' }}>Buyer Declarations</span>}
+        visible={declarationsModalVisible}
+        width={800}
+        onCancel={() => setDeclarationsModalVisible(false)}
+        footer={[
+          <Button key="close" type="primary" onClick={() => setDeclarationsModalVisible(false)} style={{ backgroundColor: '#100050', borderColor: '#100050' }}>
+            Close
+          </Button>
+        ]}
+      >
+        <ul style={{ paddingLeft: '20px', color: '#444', fontSize: '14px', lineHeight: '1.6', margin: 0 }}>
+          <li style={{ marginBottom: '8px' }}>I confirm that I am legally eligible to acquire securities of private companies under applicable laws. Specifically for this company, I am not restricted to acquire shares.</li>
+          <li style={{ marginBottom: '8px' }}>I understand that acquisition of private company securities may be subject to company approvals, transfer restrictions, regulatory requirements, and contractual obligations.</li>
+          <li style={{ marginBottom: '8px' }}>I agree to provide all KYC, AML, FEMA, taxation, and compliance-related documents as may be required.</li>
+          <li style={{ marginBottom: '8px' }}>I understand that submission of interest does not guarantee allotment or transfer of securities.</li>
+          <li style={{ marginBottom: '8px' }}>I agree to pay applicable fees, charges, and taxes communicated by Growth91.</li>
+          <li style={{ marginBottom: '8px' }}>I acknowledge that Growth91 acts solely as a facilitation platform and does not guarantee investment returns, liquidity, or transaction completion.</li>
+          <li style={{ marginBottom: '8px' }}>I agree to maintain confidentiality of all non-public information shared during the process.</li>
+        </ul>
       </Modal>
 
       <NewWebFooter />
