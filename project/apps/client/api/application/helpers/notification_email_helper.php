@@ -76,9 +76,9 @@ function notify_admin_buyer_interest($interest, $opportunityName)
     $body = "<h3>New Buyer Interest Received</h3>";
     $body .= "<p>A buyer has expressed interest in an opportunity.</p>";
     $body .= "<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; text-align: left;'>";
-    $body .= "<tr><th>Buyer Name</th><td>" . $interest['user_name'] . "</td></tr>";
-    $body .= "<tr><th>Buyer Email</th><td>" . $interest['user_email'] . "</td></tr>";
-    $body .= "<tr><th>Buyer Mobile</th><td>" . $interest['user_phone'] . "</td></tr>";
+    $body .= "<tr><th>Buyer Name</th><td>" . $interest['buyer_name'] . "</td></tr>";
+    $body .= "<tr><th>Buyer Email</th><td>" . $interest['buyer_email'] . "</td></tr>";
+    $body .= "<tr><th>Buyer Mobile</th><td>" . $interest['buyer_mobile'] . "</td></tr>";
     $body .= "<tr><th>Opportunity</th><td>" . $opportunityName . "</td></tr>";
     $body .= "</table>";
     $body .= "<br><p>Please log in to the admin panel to process this interest.</p>";
@@ -94,7 +94,7 @@ function notify_admin_status_escalation($listing, $newStatus, $additionalInfo = 
     $CI =& get_instance();
     $CI->load->helper('send_email');
 
-    $subject = "Listing Status Escaplation - #" . $listing['sdSdID'] . " changed to " . $newStatus;
+    $subject = "Listing Status Escalation - #" . $listing['sdSdID'] . " changed to " . $newStatus;
     
     $body = "<h3>Listing Status Escalation</h3>";
     $body .= "<p>An administrator has updated the status of a seller listing.</p>";
