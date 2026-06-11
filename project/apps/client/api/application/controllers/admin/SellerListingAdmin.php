@@ -92,7 +92,9 @@ class SellerListingAdmin extends CI_Controller
                 $this->load->helper('notification_email');
                 $listing = $this->db->get_where('seller_listings', ['sdSdID' => $sdId])->row_array();
                 if ($listing) {
-                    notify_admin_status_escalation($listing, $status, $additionalInfo);
+                    $adminName = isset($updateData['sdAssignedToName']) ? $updateData['sdAssignedToName'] : 'Admin';
+                    notify_admin_status_escalation($listing, $status, $additionalInfo, $adminName);
+                    notify_seller_status_update($listing, $status, $additionalInfo);
                 }
             }
             return $this->_json_response(1, 'Status updated successfully.');

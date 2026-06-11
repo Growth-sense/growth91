@@ -267,6 +267,7 @@ class SellerListing extends CI_Controller
 
             if ($oldStatus === 'Draft') {
                 notify_admin_new_seller_listing($updatedListing);
+                notify_seller_listing_submitted($updatedListing);
             } else {
                 notify_admin_seller_listing_edit($updatedListing, $oldStatus);
             }

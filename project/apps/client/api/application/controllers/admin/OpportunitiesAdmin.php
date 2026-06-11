@@ -476,10 +476,24 @@ class OpportunitiesAdmin extends CI_Controller
             return $this->_json_response(0, 'ID and Status are required.');
         }
 
+        $interest = $this->db->get_where('buyer_interests', ['id' => $id])->row_array();
+        if (!$interest) {
+            return $this->_json_response(0, 'Interest not found.');
+        }
+        $oldStatus = $interest['status'];
+
         $this->db->where('id', $id);
         $this->db->update('buyer_interests', ['status' => $status]);
 
         if ($this->db->affected_rows() >= 0) {
+            $this->load->helper('notification_email');
+            $opportunity = $this->db->get_where('opportunities', ['opId' => $interest['opportunity_id']])->row_array();
+            $opportunityName = $opportunity ? $opportunity['opStartupName'] : 'Unknown Opportunity';
+            
+            if ($oldStatus !== $status) {
+                notify_buyer_status_update($interest, $opportunityName, $oldStatus, $status);
+            }
+
             return $this->_json_response(1, 'Status updated successfully.');
         } else {
             return $this->_json_response(0, 'Failed to update status.');

@@ -194,6 +194,7 @@ class PublicOpportunities extends CI_Controller
             $opportunity = $this->db->get_where('opportunities', ['opId' => $opportunityId])->row_array();
             $opportunityName = $opportunity ? $opportunity['opStartupName'] : 'Unknown Opportunity';
             notify_admin_buyer_interest($insertData, $opportunityName);
+            notify_buyer_interest_submitted($insertData, $opportunityName);
 
             return $this->_json_response(1, 'Interest submitted successfully.');
         } else {

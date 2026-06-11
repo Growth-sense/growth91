@@ -13,6 +13,51 @@ if (!defined('ADMIN_NOTIFICATION_EMAIL')) {
 
 /**
  * ============================================================================
+ * STANDARD HTML EMAIL TEMPLATE WRAPPER
+ * ============================================================================
+ */
+function get_growth91_email_template($content)
+{
+    // Make sure WEB_BASE_URL is defined, fallback if not
+    $baseUrl = defined('WEB_BASE_URL') ? WEB_BASE_URL : 'https://betag91.growth91.com/';
+    $html = '<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style type="text/css">
+        body { font-family: sans-serif; font-size: 14px; line-height: 1.4; color: #333; margin: 0; padding: 0; background-color: #f6f6f6; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; background: #ffffff; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .logo-container { text-align: center; margin-bottom: 20px; }
+        .logo-container img { max-width: 150px; height: auto; }
+        .content { margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f9f9f9; width: 40%; }
+        .footer { text-align: center; color: #999; font-size: 12px; margin-top: 20px; border-top: 1px solid #eee; padding-top: 10px; }
+    </style>
+</head>
+<body>
+    <div style="padding: 20px;">
+        <div class="container">
+            <div class="logo-container">
+                <img src="' . $baseUrl . 'web/glogo.png" alt="Growth91 Logo">
+            </div>
+            <div class="content">
+                ' . $content . '
+            </div>
+            <div class="footer">
+                <p>This is an automated email. Please do not reply.</p>
+                <p>&copy; ' . date("Y") . ' Growth91. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>';
+    return $html;
+}
+
+/**
+ * ============================================================================
  * ADMIN MODULE NOTIFICATIONS
  * ============================================================================
  */
@@ -89,7 +134,7 @@ function notify_admin_buyer_interest($interest, $opportunityName)
 /**
  * Notify Admin of a Status Escalation (Status change by Admin).
  */
-function notify_admin_status_escalation($listing, $newStatus, $additionalInfo = null)
+function notify_admin_status_escalation($listing, $newStatus, $additionalInfo = null, $adminName = 'Unknown Admin')
 {
     $CI =& get_instance();
     $CI->load->helper('send_email');
@@ -103,6 +148,7 @@ function notify_admin_status_escalation($listing, $newStatus, $additionalInfo = 
     $body .= "<tr><th>Startup Name</th><td>" . $listing['sdStartupName'] . "</td></tr>";
     $body .= "<tr><th>Seller Name</th><td>" . $listing['sdUserName'] . "</td></tr>";
     $body .= "<tr><th>New Status</th><td><strong>" . $newStatus . "</strong></td></tr>";
+    $body .= "<tr><th>Action By (Admin)</th><td>" . $adminName . "</td></tr>";
     
     if (!empty($additionalInfo)) {
         $body .= "<tr><th>Admin Comment</th><td>" . nl2br($additionalInfo) . "</td></tr>";
@@ -115,13 +161,127 @@ function notify_admin_status_escalation($listing, $newStatus, $additionalInfo = 
 
 /**
  * ============================================================================
- * SELLER MODULE NOTIFICATIONS (Reserved)
+ * SELLER MODULE NOTIFICATIONS
  * ============================================================================
  */
 
+function _get_user_email($userId)
+{
+    $CI =& get_instance();
+    $user = $CI->db->get_where('users', ['investor_id' => $userId])->row_array();
+    return $user ? $user['email'] : null;
+}
+
+function notify_seller_listing_submitted($listing)
+{
+    $CI =& get_instance();
+    $CI->load->helper('send_email');
+
+    $email = _get_user_email($listing['sdUserId']);
+    if (!$email) return false;
+
+    $subject = "Your Seller Listing has been Submitted";
+    
+    $body = "<h3>Listing Submitted Successfully</h3>";
+    $body .= "<p>Dear " . $listing['sdUserName'] . ",</p>";
+    $body .= "<p>Your listing has been submitted for review. Here are the details:</p>";
+    $body .= "<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; text-align: left;'>";
+    $body .= "<tr><th>Startup Name</th><td>" . $listing['sdStartupName'] . "</td></tr>";
+    $body .= "<tr><th>Instrument Type</th><td>" . $listing['sdInstrumentType'] . "</td></tr>";
+    $body .= "<tr><th>Quantity</th><td>" . $listing['sdQuantity'] . "</td></tr>";
+    $body .= "<tr><th>Ask Price</th><td>" . $listing['sdAskPriceExpected'] . "</td></tr>";
+    $body .= "</table>";
+    $body .= "<br><p>Our team will review the details and get back to you shortly.</p>";
+
+    $htmlBody = get_growth91_email_template($body);
+    return send_email($htmlBody, $subject, $email, '');
+}
+
+function notify_seller_status_update($listing, $newStatus, $adminComment = '')
+{
+    $CI =& get_instance();
+    $CI->load->helper('send_email');
+
+    $email = _get_user_email($listing['sdUserId']);
+    if (!$email) return false;
+
+    $subject = "Update on your Seller Listing - " . $listing['sdStartupName'];
+    
+    $body = "<h3>Listing Status Update</h3>";
+    $body .= "<p>Dear " . $listing['sdUserName'] . ",</p>";
+
+    if ($newStatus === 'Additional Information Required') {
+        $body .= "<p>We need some additional information to process your listing for <strong>" . $listing['sdStartupName'] . "</strong>.</p>";
+        if (!empty($adminComment)) {
+            $body .= "<div style='background-color: #fff3cd; padding: 15px; border-left: 4px solid #ffc107; margin: 20px 0;'>";
+            $body .= "<strong>Admin Note:</strong><br/>" . nl2br($adminComment);
+            $body .= "</div>";
+        }
+    } else if ($newStatus === 'Approved') {
+        $body .= "<p>Great news! Your listing for <strong>" . $listing['sdStartupName'] . "</strong> has been approved.</p>";
+    } else if ($newStatus === 'Rejected') {
+        $body .= "<p>We regret to inform you that your listing for <strong>" . $listing['sdStartupName'] . "</strong> has been rejected.</p>";
+    } else {
+        $body .= "<p>The status of your listing for <strong>" . $listing['sdStartupName'] . "</strong> has been updated to <strong>" . $newStatus . "</strong>.</p>";
+    }
+
+    $body .= "<br><p>Log in to your dashboard to view more details.</p>";
+
+    $htmlBody = get_growth91_email_template($body);
+    return send_email($htmlBody, $subject, $email, '');
+}
+
 /**
  * ============================================================================
- * BUYER MODULE NOTIFICATIONS (Reserved)
+ * BUYER MODULE NOTIFICATIONS
  * ============================================================================
  */
+
+function notify_buyer_interest_submitted($interest, $opportunityName)
+{
+    $CI =& get_instance();
+    $CI->load->helper('send_email');
+
+    $email = _get_user_email($interest['user_id']);
+    if (!$email) return false;
+
+    $subject = "Your Interest in " . $opportunityName . " has been received";
+    
+    $body = "<h3>Interest Submitted Successfully</h3>";
+    $body .= "<p>Thank you for expressing interest in <strong>" . $opportunityName . "</strong>.</p>";
+    $body .= "<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; text-align: left;'>";
+    $body .= "<tr><th>Opportunity Name</th><td>" . $opportunityName . "</td></tr>";
+    $body .= "<tr><th>Interest Type</th><td>" . $interest['interest_type'] . "</td></tr>";
+    $body .= "<tr><th>Interest Value</th><td>" . $interest['interest_value'] . "</td></tr>";
+    $body .= "</table>";
+    $body .= "<br><p>Our team will review your submission and contact you soon.</p>";
+
+    $htmlBody = get_growth91_email_template($body);
+    return send_email($htmlBody, $subject, $email, '');
+}
+
+function notify_buyer_status_update($interest, $opportunityName, $oldStatus, $newStatus)
+{
+    $CI =& get_instance();
+    $CI->load->helper('send_email');
+
+    $email = _get_user_email($interest['user_id']);
+    if (!$email) return false;
+
+    $subject = "Status Update: Your Interest in " . $opportunityName;
+    
+    $body = "<h3>Interest Status Update</h3>";
+    $body .= "<p>There is an update regarding your interest in <strong>" . $opportunityName . "</strong>.</p>";
+
+    if ($newStatus === 'Cancelled') {
+        $body .= "<p>Your opportunity interest has been <strong>Withdrawn</strong>.</p>";
+    } else {
+        $body .= "<p>The status of your interest has changed from <strong>" . $oldStatus . "</strong> to <strong>" . $newStatus . "</strong>.</p>";
+    }
+
+    $body .= "<br><p>Log in to your dashboard to view more details.</p>";
+
+    $htmlBody = get_growth91_email_template($body);
+    return send_email($htmlBody, $subject, $email, '');
+}
 ?>
