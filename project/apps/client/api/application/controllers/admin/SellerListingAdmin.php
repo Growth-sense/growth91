@@ -88,12 +88,16 @@ class SellerListingAdmin extends CI_Controller
         $result = $this->db->update('seller_listings', $updateData);
         
         if ($result) {
-            if ($status !== 'On Hold') {
-                $this->load->helper('notification_email');
-                $listing = $this->db->get_where('seller_listings', ['sdSdID' => $sdId])->row_array();
-                if ($listing) {
-                    $adminName = isset($updateData['sdAssignedToName']) ? $updateData['sdAssignedToName'] : 'Admin';
-                    notify_admin_status_escalation($listing, $status, $additionalInfo, $adminName);
+            $this->load->helper('notification_email');
+            $listing = $this->db->get_where('seller_listings', ['sdSdID' => $sdId])->row_array();
+            if ($listing) {
+                $adminName = isset($updateData['sdAssignedToName']) ? $updateData['sdAssignedToName'] : 'Admin';
+                
+                // Admin ALWAYS gets notified of status escalation
+                notify_admin_status_escalation($listing, $status, $additionalInfo, $adminName);
+                
+                // Seller only gets notified if status is NOT On Hold
+                if ($status !== 'On Hold') {
                     notify_seller_status_update($listing, $status, $additionalInfo);
                 }
             }

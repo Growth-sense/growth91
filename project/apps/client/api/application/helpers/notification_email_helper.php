@@ -19,33 +19,22 @@ if (!defined('ADMIN_NOTIFICATION_EMAIL')) {
 function get_growth91_email_template($content)
 {
     // Make sure WEB_BASE_URL is defined, fallback if not
-    $baseUrl = defined('WEB_BASE_URL') ? WEB_BASE_URL : 'https://betag91.growth91.com/';
+    $baseUrl = defined('WEB_BASE_URL') ? WEB_BASE_URL : 'https://growth91.com/';
     $html = '<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <style type="text/css">
-        body { font-family: sans-serif; font-size: 14px; line-height: 1.4; color: #333; margin: 0; padding: 0; background-color: #f6f6f6; }
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; background: #ffffff; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        .logo-container { text-align: center; margin-bottom: 20px; }
-        .logo-container img { max-width: 150px; height: auto; }
-        .content { margin-bottom: 20px; }
-        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f9f9f9; width: 40%; }
-        .footer { text-align: center; color: #999; font-size: 12px; margin-top: 20px; border-top: 1px solid #eee; padding-top: 10px; }
-    </style>
 </head>
-<body>
-    <div style="padding: 20px;">
-        <div class="container">
-            <div class="logo-container">
-                <img src="' . $baseUrl . 'web/glogo.png" alt="Growth91 Logo">
+<body style="font-family: sans-serif; font-size: 14px; line-height: 1.4; color: #333; margin: 0; padding: 0; background-color: #f6f6f6;">
+    <div style="padding: 20px; background-color: #f6f6f6;">
+        <div style="max-width: 600px; margin: 0 auto; padding: 20px; background: #ffffff; border-radius: 5px; border: 1px solid #ddd;">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <img src="' . $baseUrl . 'web/glogo.png" alt="Growth91 Logo" style="width: 150px; height: auto; max-width: 100%;">
             </div>
-            <div class="content">
+            <div style="margin-bottom: 20px;">
                 ' . $content . '
             </div>
-            <div class="footer">
+            <div style="text-align: center; color: #999; font-size: 12px; margin-top: 20px; border-top: 1px solid #eee; padding-top: 10px;">
                 <p>This is an automated email. Please do not reply.</p>
                 <p>&copy; ' . date("Y") . ' Growth91. All rights reserved.</p>
             </div>

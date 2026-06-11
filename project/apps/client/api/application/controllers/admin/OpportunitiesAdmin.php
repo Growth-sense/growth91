@@ -490,7 +490,8 @@ class OpportunitiesAdmin extends CI_Controller
             $opportunity = $this->db->get_where('opportunities', ['opId' => $interest['opportunity_id']])->row_array();
             $opportunityName = $opportunity ? $opportunity['opStartupName'] : 'Unknown Opportunity';
             
-            if ($oldStatus !== $status) {
+            $allowedStatuses = ['KYC Pending', 'Discussion Initiated', 'Cancelled'];
+            if ($oldStatus !== $status && in_array($status, $allowedStatuses)) {
                 notify_buyer_status_update($interest, $opportunityName, $oldStatus, $status);
             }
 
