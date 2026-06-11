@@ -341,11 +341,9 @@ const AdminOpportunities = () => {
         <Content className="home-section" style={{ backgroundColor: "#F9F9FC", padding: "24px" }}>
           <div className="d-flex justify-content-between align-items-center mb-4">
             <h4 className="mb-0">Opportunities Management</h4>
-            {canAdd && (
-              <Button type="primary" icon={<PlusOutlined />} onClick={openAddDrawer}>
-                Add New Opportunity
-              </Button>
-            )}
+            <Button type="primary" icon={<PlusOutlined />} onClick={openAddDrawer} disabled={!canAdd}>
+              Add New Opportunity
+            </Button>
           </div>
 
           <div className="bg-white p-4 rounded shadow-sm">

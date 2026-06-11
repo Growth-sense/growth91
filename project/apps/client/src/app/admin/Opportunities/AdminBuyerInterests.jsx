@@ -63,7 +63,7 @@ const AdminBuyerInterests = () => {
   useEffect(() => {
     const initialize = async () => {
       try {
-        const perms = await loadModulePermissions("opportunities");
+        const perms = await loadModulePermissions("buyer_interests");
         if (!perms.canView) {
           setNoPermission(true);
           return;
@@ -223,13 +223,11 @@ const AdminBuyerInterests = () => {
       render: (_, record) => {
         const menu = (
           <Menu mode="vertical" style={{ width: 150 }}>
-            {canEdit && (
-              <Menu.Item key="status">
-                <a onClick={() => { setSelectedInterest(record); setNewStatus(record.status); setStatusModalVisible(true); }} style={{ fontSize: 14 }}>
-                  &nbsp;&nbsp;Update Status
-                </a>
-              </Menu.Item>
-            )}
+            <Menu.Item key="status" disabled={!canEdit}>
+              <a onClick={() => { if (canEdit) { setSelectedInterest(record); setNewStatus(record.status); setStatusModalVisible(true); } }} style={{ fontSize: 14 }}>
+                &nbsp;&nbsp;Update Status
+              </a>
+            </Menu.Item>
             <Menu.Item key="download">
               <a onClick={() => exportToCSVSingle(record)} style={{ fontSize: 14 }}>
                 &nbsp;&nbsp;Download
