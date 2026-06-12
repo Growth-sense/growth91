@@ -236,13 +236,11 @@ const AdminBuyerInterests = () => {
           </Menu>
         );
         return (
-          <div>
-            <Dropdown overlay={menu} placement="bottom">
-              <a onClick={(e) => e.preventDefault()}>
-                <div className="menu-action">
-                  <i className="bx bx-dots-vertical-rounded" style={{ fontSize: '20px', color: '#100050' }}></i>
-                </div>
-              </a>
+          <div style={{ textAlign: 'center' }}>
+            <Dropdown overlay={menu} placement="bottomRight" trigger={['click']}>
+              <Button type="text" style={{ padding: '4px 8px' }}>
+                <i className="bx bx-dots-vertical-rounded" style={{ fontSize: '24px', color: '#100050' }}></i>
+              </Button>
             </Dropdown>
           </div>
         );

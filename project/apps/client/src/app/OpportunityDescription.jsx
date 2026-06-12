@@ -447,6 +447,15 @@ export const OpportunityDescription = () => {
               height: 350px;
             }
           }
+          @media (max-width: 768px) {
+            .sector-separator {
+              display: none;
+            }
+            .stage-block {
+              display: block;
+              margin-top: 5px;
+            }
+          }
         `}
       </style>
 
@@ -483,7 +492,9 @@ export const OpportunityDescription = () => {
           <div className="hero-content">
             <h1 className="startup-title">{opportunity.startupName}</h1>
             <div className="startup-sector">
-              Sector: {opportunity.sector || "N/A"} &nbsp;|&nbsp; Stage: {opportunity.stage || "N/A"}
+              Sector: {opportunity.sector || "N/A"} 
+              <span className="sector-separator">&nbsp;|&nbsp;</span> 
+              <span className="stage-block">Stage: {opportunity.stage || "N/A"}</span>
             </div>
 
             <div className="stats-box">

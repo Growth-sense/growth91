@@ -319,13 +319,11 @@ const AdminOpportunities = () => {
           </Menu>
         );
         return (
-          <div>
-            <Dropdown overlay={menu} placement="bottomRight">
-              <a onClick={(e) => e.preventDefault()}>
-                <div className="menu-action">
-                  <i className="bx bx-dots-vertical-rounded" style={{ fontSize: '20px', color: '#100050' }}></i>
-                </div>
-              </a>
+          <div style={{ textAlign: 'center' }}>
+            <Dropdown overlay={menu} placement="bottomRight" trigger={['click']}>
+              <Button type="text" style={{ padding: '4px 8px' }}>
+                <i className="bx bx-dots-vertical-rounded" style={{ fontSize: '24px', color: '#100050' }}></i>
+              </Button>
             </Dropdown>
           </div>
         );
@@ -339,7 +337,7 @@ const AdminOpportunities = () => {
       <Layout className="site-layout">
         <Sidebar2 />
         <Content className="home-section" style={{ backgroundColor: "#F9F9FC", padding: "24px" }}>
-          <div className="d-flex justify-content-between align-items-center mb-4">
+          <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4" style={{ gap: '15px' }}>
             <h4 className="mb-0">Opportunities Management</h4>
             <Button type="primary" icon={<PlusOutlined />} onClick={openAddDrawer} disabled={!canAdd}>
               Add New Opportunity

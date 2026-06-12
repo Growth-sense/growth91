@@ -316,3 +316,27 @@
 .declaration-label:hover {
   color: #1a1a1a !important;
 }
+
+/* Responsive Overrides */
+@media (max-width: 768px) {
+  .seller-listing-wrapper .btn-next,
+  .seller-listing-wrapper .btn-prev,
+  .seller-listing-wrapper .btn-draft,
+  .seller-listing-wrapper .btn-submit {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+  
+  .seller-listing-wrapper .d-flex.justify-content-between.mt-5.pt-4.border-top {
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+
+  .seller-listing-wrapper .d-flex.align-items-center {
+    flex-wrap: nowrap;
+  }
+
+  .seller-listing-wrapper .btn-draft {
+    margin-right: 8px !important;
+  }
+}

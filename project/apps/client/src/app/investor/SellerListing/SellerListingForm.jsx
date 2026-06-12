@@ -798,15 +798,15 @@ export const SellerListingForm = () => {
                             </Button>
                         ]}
                     >
-                        <div className="declaration-list" style={{ padding: "10px", backgroundColor: "#f8f9fa", borderRadius: "8px", border: "1px solid #dee2e6" }}>
-                            <ul style={{ listStyleType: "disc", paddingLeft: "20px", marginBottom: "0", fontSize: "14px" }}>
-                                <li className="mb-2">I confirm that I am the lawful holder of the above-mentioned securities.</li>
-                                <li className="mb-2">I confirm that submission of this listing request does not violate any Shareholders’ Agreement, Articles of Association, investment agreement, lock-in provision, ROFO/ROFR obligation, or applicable law.</li>
-                                <li className="mb-2">I understand that listing on Growth91 does not guarantee finding a suitable buyer.</li>
-                                <li className="mb-2">I agree to cooperate with Growth91, the company, founders, legal advisors, and prospective buyers for verification and transaction facilitation purposes.</li>
-                                <li className="mb-2">I understand that all transactions are subject to applicable laws, company approvals, contractual rights, and due diligence.</li>
-                                <li className="mb-2">I agree to pay applicable fees, charges, and taxes as communicated by Growth91.</li>
-                                <li>I agree to indemnify Growth91, its affiliates, directors, employees, representatives, and associates against any loss, claim, dispute, liability, or regulatory action arising from incorrect information, breach of agreements, or unauthorized sale attempt.</li>
+                        <div className="declaration-list" style={{ padding: "20px", backgroundColor: "#f8f9fa", borderRadius: "8px", border: "1px solid #dee2e6" }}>
+                            <ul style={{ paddingLeft: "20px", marginLeft: "20px", marginBottom: "0", fontSize: "15px", lineHeight: "1.6", color: "#333" }}>
+                                <li style={{ display: "list-item", listStyleType: "disc", marginBottom: "12px" }}>I confirm that I am the lawful holder of the above-mentioned securities.</li>
+                                <li style={{ display: "list-item", listStyleType: "disc", marginBottom: "12px" }}>I confirm that submission of this listing request does not violate any Shareholders’ Agreement, Articles of Association, investment agreement, lock-in provision, ROFO/ROFR obligation, or applicable law.</li>
+                                <li style={{ display: "list-item", listStyleType: "disc", marginBottom: "12px" }}>I understand that listing on Growth91 does not guarantee finding a suitable buyer.</li>
+                                <li style={{ display: "list-item", listStyleType: "disc", marginBottom: "12px" }}>I agree to cooperate with Growth91, the company, founders, legal advisors, and prospective buyers for verification and transaction facilitation purposes.</li>
+                                <li style={{ display: "list-item", listStyleType: "disc", marginBottom: "12px" }}>I understand that all transactions are subject to applicable laws, company approvals, contractual rights, and due diligence.</li>
+                                <li style={{ display: "list-item", listStyleType: "disc", marginBottom: "12px" }}>I agree to pay applicable fees, charges, and taxes as communicated by Growth91.</li>
+                                <li style={{ display: "list-item", listStyleType: "disc", marginBottom: "0" }}>I agree to indemnify Growth91, its affiliates, directors, employees, representatives, and associates against any loss, claim, dispute, liability, or regulatory action arising from incorrect information, breach of agreements, or unauthorized sale attempt.</li>
                             </ul>
                         </div>
                     </Modal>

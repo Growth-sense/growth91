@@ -19,7 +19,7 @@ import {
 import Navbar from "../common/Navbar";
 import BottomBar from "../common/BottomBar";
 import Bridge from "../../constants/Bridge";
-import { EditOutlined, DownloadOutlined, FileTextOutlined, EyeOutlined, MessageOutlined } from "@ant-design/icons";
+import { EditOutlined, DownloadOutlined, FileTextOutlined, EyeOutlined, MessageOutlined, MoreOutlined } from "@ant-design/icons";
 import Sidebar2 from "../common/Sidebar2";
 import moment from "moment";
 import { loadModulePermissions } from "../common/permissions";
@@ -430,7 +430,7 @@ class AdminSellerListings extends Component {
           const menu = (
             <Menu
               mode="vertical"
-              style={{ width: 200 }}
+              style={{ width: 170 }}
             >
               <Menu.Item icon={<EyeOutlined />}>
                 <a onClick={() => this.openDetailDrawer(record)} style={{ fontSize: 14 }}>
@@ -449,17 +449,15 @@ class AdminSellerListings extends Component {
               </Menu.Item>
             </Menu>
           );
-          return (
-            <div>
-              <Dropdown overlay={menu} placement="bottom">
-                <a onClick={(e) => e.preventDefault()}>
-                  <div className="menu-action">
-                    <i className="bx bx-dots-vertical-rounded" style={{ fontSize: '20px', color: '#100050' }}></i>
-                  </div>
-                </a>
+            return (
+            <div style={{ textAlign: 'center' }}>
+              <Dropdown overlay={menu} placement="bottomRight" trigger={['click']}>
+                <Button type="text" style={{ padding: '4px 8px' }}>
+                  <i className="bx bx-dots-vertical-rounded" style={{ fontSize: '24px', color: '#100050' }}></i>
+                </Button>
               </Dropdown>
             </div>
-          );
+            );
         },
       },
     ];
