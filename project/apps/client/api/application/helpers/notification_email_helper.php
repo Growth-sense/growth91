@@ -158,6 +158,9 @@ function _get_user_email($userId)
 {
     $CI =& get_instance();
     $user = $CI->db->get_where('users', ['investor_id' => $userId])->row_array();
+    if (!$user) {
+        $user = $CI->db->get_where('users', ['founder_id' => $userId])->row_array();
+    }
     return $user ? $user['email'] : null;
 }
 

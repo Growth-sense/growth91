@@ -410,6 +410,9 @@ class SellerListing extends CI_Controller
         }
 
         $user = $this->db->get_where('users', ['investor_id' => $userId])->row_array();
+        if (!$user) {
+            $user = $this->db->get_where('users', ['founder_id' => $userId])->row_array();
+        }
         if ($user) {
             return $this->_json_response(1, 'Success', [
                 'mobile' => $user['mobile'],

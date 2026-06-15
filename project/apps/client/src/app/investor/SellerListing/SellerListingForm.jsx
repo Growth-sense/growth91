@@ -210,7 +210,7 @@ export const SellerListingForm = () => {
 
     const fetchProfile = async () => {
         try {
-            const userId = secureStorage.getItem("investor_id");
+            const userId = secureStorage.getItem("investor_id") || secureStorage.getItem("founder_id");
             if (userId) {
                 const res = await Bridge.getInvestorProfile({ sdUserId: userId });
                 if (String(res.status) === "1") {
@@ -229,7 +229,7 @@ export const SellerListingForm = () => {
     const fetchListings = async () => {
         try {
             setFetchingListings(true);
-            const userId = secureStorage.getItem("investor_id");
+            const userId = secureStorage.getItem("investor_id") || secureStorage.getItem("founder_id");
             if (userId) {
                 const res = await Bridge.getMySellerListings({ sdUserId: userId });
                 console.log("Listings response:", res.data);
@@ -377,7 +377,7 @@ export const SellerListingForm = () => {
     const saveDraft = async (isFinalSubmit = false) => {
         const formData = new FormData();
         const currentValues = watch();
-        const userId = secureStorage.getItem("investor_id");
+        const userId = secureStorage.getItem("investor_id") || secureStorage.getItem("founder_id");
 
         formData.append("sdUserId", userId);
         if (listingId) formData.append("sdSdID", listingId);
@@ -823,8 +823,8 @@ export const SellerListingForm = () => {
 
         // First, start with standard defaults (from local storage)
         const baseValues = {
-            sdUserName: secureStorage.getItem("investor_name") || "",
-            sdUserEmail: secureStorage.getItem("investor_email") || "",
+            sdUserName: secureStorage.getItem("investor_name") || secureStorage.getItem("founder_name") || "",
+            sdUserEmail: secureStorage.getItem("investor_email") || secureStorage.getItem("founder_email") || "",
             sdUserMobile: investorProfile.mobile || "",
             sdInvestorName: "",
             sdPanNumber: investorProfile.pan || "",
@@ -969,8 +969,8 @@ export const SellerListingForm = () => {
                                 style={{ backgroundColor: "#ff9c1a", borderColor: "#ff9c1a", fontWeight: "bold" }}
                                 onClick={async () => {
                                     reset({
-                                        sdUserName: secureStorage.getItem("investor_name") || "",
-                                        sdUserEmail: secureStorage.getItem("investor_email") || "",
+                                        sdUserName: secureStorage.getItem("investor_name") || secureStorage.getItem("founder_name") || "",
+                                        sdUserEmail: secureStorage.getItem("investor_email") || secureStorage.getItem("founder_email") || "",
                                         sdUserMobile: investorProfile.mobile || "",
                                         sdInvestorName: "",
                                         sdPanNumber: investorProfile.pan || "",
@@ -985,7 +985,7 @@ export const SellerListingForm = () => {
 
                                     try {
                                         const res = await Bridge.initSellerListingDraft({
-                                            sdUserId: secureStorage.getItem("investor_id")
+                                            sdUserId: secureStorage.getItem("investor_id") || secureStorage.getItem("founder_id")
                                         });
                                         if (res.status === "1" && res.id) {
                                             setListingId(res.id);

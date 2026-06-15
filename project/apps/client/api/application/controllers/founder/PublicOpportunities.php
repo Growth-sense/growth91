@@ -167,6 +167,10 @@ class PublicOpportunities extends CI_Controller
         $user = $this->db->get('users')->row_array();
 
         if (!$user) {
+            $user = $this->db->get_where('users', ['founder_id' => $investorId])->row_array();
+        }
+
+        if (!$user) {
             return $this->_json_response(0, 'User not found. Please log in.');
         }
 
