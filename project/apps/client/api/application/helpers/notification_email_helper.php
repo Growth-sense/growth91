@@ -29,7 +29,7 @@ function get_growth91_email_template($content)
     <div style="padding: 20px; background-color: #f6f6f6;">
         <div style="max-width: 600px; margin: 0 auto; padding: 20px; background: #ffffff; border-radius: 5px; border: 1px solid #ddd;">
             <div style="text-align: center; margin-bottom: 20px;">
-                <img src="' . $baseUrl . 'web/glogo.png" alt="Growth91 Logo" style="width: 150px; height: auto; max-width: 100%;">
+                <img src="https://growth91.com/web/glogo.png" alt="Growth91 Logo" style="width: 150px; height: auto; max-width: 100%;">
             </div>
             <div style="margin-bottom: 20px;">
                 ' . $content . '
