@@ -25,7 +25,7 @@ export default class Sidebar extends Component {
 
   render() {
     return (
-      <ol className="investor-sidebar mt-5 pt-4">
+      <ul className="investor-sidebar mt-5 pt-4" style={{ listStyle: 'none' }}>
         <a
           href="/investor-dashboard"
           className={
@@ -96,11 +96,11 @@ export default class Sidebar extends Component {
           <i className="bx bx-store-alt" /> &nbsp;&nbsp;Buy/Sell
           <i className={`bx bx-chevron-${this.state.isBuySellOpen ? "up" : "down"}`} style={{ float: "right", marginTop: "4px", marginRight: "10px" }}></i>
         </li>
-        <ol
+        <ul
           className="submenu"
           style={{
             listStyle: "none",
-            paddingLeft: "20px",
+            paddingLeft: "35px",
             maxHeight: this.state.isBuySellOpen ? "200px" : "0",
             overflow: "hidden",
             transition: "max-height 0.3s ease-out"
@@ -126,7 +126,7 @@ export default class Sidebar extends Component {
               <i className="bx bx-star"></i> &nbsp;&nbsp;My Interests
             </li>
           </a>
-        </ol>
+        </ul>
 
         <a
           href="/Referral"
@@ -156,7 +156,7 @@ export default class Sidebar extends Component {
             <i className="bx bxs-pie-chart-alt-2"></i> &nbsp;&nbsp;Deals
           </li>
         </a>
-      </ol>
+      </ul>
     );
   }
 }

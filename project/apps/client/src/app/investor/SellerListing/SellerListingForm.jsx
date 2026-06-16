@@ -945,7 +945,7 @@ export const SellerListingForm = () => {
                 <Header newabout={"newabout"} />
             </div>
 
-            <div className="row" style={{ margin: 0, backgroundColor: "#f4f5f7" }}>
+            <div className="row" style={{ margin: 0 }}>
                 <div
                     className="hiw-nav col-md-2 col-12 py-3 px-0 sidebar2 collapse navbar-collapse"
                     id="navbarSupportedContent"
@@ -957,11 +957,11 @@ export const SellerListingForm = () => {
                 </div>
 
                 <div className="col col-lg-10 pb-4">
-                    <div className="seller-listing-wrapper" style={{ minHeight: "100vh" }}>
+                    <div className="seller-listing-wrapper p-4" style={{ backgroundColor: "#f4f5f7", minHeight: "100vh", marginTop: "2rem" }}>
                         <div style={{ flex: 1, paddingBottom: "3rem" }}>
                 {viewMode === "table" ? (
-                    <div className="p-4 mt-5 pt-4">
-                        <div className="d-flex justify-content-between align-items-center mb-4 mt-4">
+                    <div className="mb-4 mt-5 pt-4">
+                        <div className="d-flex justify-content-between align-items-center">
                             <h2 style={{ color: "#100050", fontWeight: "700" }}>My Seller Listings</h2>
                             <Button
                                 type="primary"

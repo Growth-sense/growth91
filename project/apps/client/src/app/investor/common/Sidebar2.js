@@ -189,7 +189,7 @@ export default class Sidebar2 extends Component {
                     window.location.pathname == "/investor-seller-listing-form" ? "active" : ""
                   }
                 >
-                  <li className="hiw-li row text-center">
+                  <li className="hiw-li row text-center" style={{ paddingLeft: "65px" }}>
                     <i className="bx bx-list-plus col-md-4" />
                     <div className="col-md-8 col-12 side-text text-start p-0">Seller Listing</div>
                   </li>
@@ -202,7 +202,7 @@ export default class Sidebar2 extends Component {
                     window.location.pathname == "/my-buyer-interests" ? "active" : ""
                   }
                 >
-                  <li className="hiw-li row text-center">
+                  <li className="hiw-li row text-center" style={{ paddingLeft: "65px" }}>
                     <i className="bx bx-star col-md-4" />
                     <div className="col-md-8 col-12 side-text text-start p-0">My Interests</div>
                   </li>

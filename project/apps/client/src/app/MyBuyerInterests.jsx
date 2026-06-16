@@ -132,7 +132,7 @@ const MyBuyerInterests = () => {
         </div>
 
         <div className="col col-lg-10 pb-4">
-          <Content className="p-4" style={{ backgroundColor: "#f4f5f7", minHeight: "100vh" }}>
+          <Content className="p-4" style={{ backgroundColor: "#f4f5f7", minHeight: "100vh", marginTop: "2rem" }}>
             <div className="mb-4 mt-5 pt-4">
               <h2 className="m-0" style={{ color: "#100050", fontWeight: "700" }}>My Interests</h2>
             </div>

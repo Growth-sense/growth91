@@ -82,17 +82,7 @@ export default class Sidebar extends Component {
     const isNewTab = window.location.pathname === "/investor-seller-listing-form" || window.location.pathname === "/my-buyer-interests";
     return (
       <>
-        <style>{`
-          .founder-sidebar-list li.hiw-li {
-            list-style-type: decimal !important;
-            margin-left: 15px;
-          }
-          .founder-sidebar-list .submenu li.hiw-li {
-            list-style-type: none !important;
-            margin-left: 0;
-          }
-        `}</style>
-        <ol className={`investor-sidebar founder-sidebar-list ${isNewTab ? "mt-5 pt-4" : ""}`}>
+        <ul className={`investor-sidebar ${isNewTab ? "mt-5 pt-4" : ""}`} style={{ listStyle: 'none' }}>
         {this.state.is_investor === "1" && (
           <div className="founder-role-heading" style={{ margin: "0 25px" }}>
             <p>Founder</p>
@@ -308,7 +298,7 @@ export default class Sidebar extends Component {
             className="submenu"
             style={{
               listStyle: "none",
-              paddingLeft: "20px",
+              paddingLeft: "35px",
               maxHeight: this.state.isBuySellOpen ? "200px" : "0",
               overflow: "hidden",
               transition: "max-height 0.3s ease-out"
@@ -420,7 +410,7 @@ export default class Sidebar extends Component {
           
           </div>
         )}
-      </ol>
+      </ul>
       </>
     );
   }
