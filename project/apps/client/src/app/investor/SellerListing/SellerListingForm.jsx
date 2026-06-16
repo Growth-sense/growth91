@@ -960,8 +960,8 @@ export const SellerListingForm = () => {
                     <div className="seller-listing-wrapper" style={{ minHeight: "100vh" }}>
                         <div style={{ flex: 1, paddingBottom: "3rem" }}>
                 {viewMode === "table" ? (
-                    <div className="container py-5 mt-5">
-                        <div className="d-flex justify-content-between align-items-center mb-4">
+                    <div className="p-4 mt-5 pt-4">
+                        <div className="d-flex justify-content-between align-items-center mb-4 mt-4">
                             <h2 style={{ color: "#100050", fontWeight: "700" }}>My Seller Listings</h2>
                             <Button
                                 type="primary"
@@ -1010,7 +1010,7 @@ export const SellerListingForm = () => {
                             </Button>
                         </div>
 
-                        <div className="card border-0 shadow-sm" style={{ borderRadius: "12px", overflow: "hidden" }}>
+                        <div className="bg-white p-4 rounded shadow-sm">
                             <Table
                                 dataSource={myListings}
                                 columns={columns}
