@@ -242,6 +242,7 @@ import EleFant2 from "./app/deal-pages/EleFant2.jsx";
 import Mannlich from "./app/deal-pages/Mannlich.jsx";
 import Retnerai from "./app/deal-pages/Retnerai.jsx";
 import Rezlytix from "./app/deal-pages/Rezlytix.jsx";
+import Freshleaf from "./app/deal-pages/Freshleaf.jsx";
 import CareerCompany from "./app/deal-pages/CareerCompany.jsx";
 import Garudaaerospace from "./app/deal-pages/Garudaaerospace.jsx";
 import CombinedRegistration from "./app/investor/register/CombinedRegistration.js";
@@ -806,6 +807,9 @@ function App() {
           </Route>
           <Route path="/Rezlytix" exact>
             <ProtectDeals Component={Rezlytix} />
+          </Route>
+          <Route path="/Freshleaf" exact>
+            <ProtectDeals Component={Freshleaf} />
           </Route>
           <Route path="/extramile" exact>
             <ProtectDeals Component={ExtraMile} />

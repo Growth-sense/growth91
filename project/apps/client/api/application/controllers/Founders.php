@@ -655,6 +655,10 @@ function addnewfounder() {
 					'D26' => [
 						'name' => 'G91 x FundEnable x DBS DemoDay',
 						'image' => 'd26.jpeg'
+					],
+					'SCALORA' => [
+						'name' => 'Scalora Venture Studio',
+						'image' => 'scalora.jpeg'
 					]
 				];
 				
