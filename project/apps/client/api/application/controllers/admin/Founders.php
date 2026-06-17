@@ -21,7 +21,8 @@ class Founders extends CI_Controller {
 		$referral_mapping = [
 			'5MLC' => 'The $5 Million Cohort Application',
 			'ISN' => 'Indian Startup News (ISN)',
-			'D26' => 'G91 x FundEnable x DBS DemoDay'
+			'D26' => 'G91 x FundEnable x DBS DemoDay',
+			'SCALORA' => 'Scalora Venture Studio'
 		];
 		
 		// sql query
