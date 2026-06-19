@@ -860,11 +860,23 @@ class Freshleaf extends Component {
       return;
     }
 
-    this.setState({
-      selectInvestorModal: false,
-      aifInvestmentModal: true,
-      aifAmount: staticDealData.aifValue.toString(),
-    });
+    // Check if aifValue is set
+    if (staticDealData.aifValue && staticDealData.aifValue !== "") {
+      this.setState({
+        selectInvestorModal: false,
+        investmentOptionsModal: true,
+      });
+    } else {
+      this.setState(
+        {
+          selectInvestorModal: false,
+          investmentmodal: true,
+        },
+        () => {
+          this.calculategst();
+        }
+      );
+    }
   };
 
   // post api hit on express
@@ -2604,17 +2616,13 @@ class Freshleaf extends Component {
                                           </div>
                                           <div className="info">
                                             <span> Min Investment</span>
-                                            {/* <h4>
+                                            <h4>
                                               ₹{" "}
                                               {this.formatNumberWithCommas(
                                                 this.state.minamount
                                               )}{" "}
-                                              for {this.state.deal_service}
-                                            </h4> */}
-                                              <h4>
-                                              ₹ 10,00,000 (Direct Cap Table)
+                                              (Direct Cap Table)
                                             </h4>
-
                                             {staticDealData.aifValue &&
                                               staticDealData.aifValue != "" && (
                                                 <h4>
