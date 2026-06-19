@@ -2611,6 +2611,9 @@ class Freshleaf extends Component {
                                               )}{" "}
                                               for {this.state.deal_service}
                                             </h4> */}
+                                              <h4>
+                                              ₹ 10,00,000 (Direct Cap Table)
+                                            </h4>
 
                                             {staticDealData.aifValue &&
                                               staticDealData.aifValue != "" && (
