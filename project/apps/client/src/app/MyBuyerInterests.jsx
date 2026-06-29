@@ -91,14 +91,17 @@ const MyBuyerInterests = () => {
         return text;
       }
     },
-    { 
-      title: "Interest Expressed", 
-      key: "interest", 
-      render: (_, record) => (
-        <span>
-          {record.interestType === 'securities' ? `${record.interestValue} Securities` : `₹${record.interestValue}`}
-        </span>
-      )
+    {
+      title: "Type of Interest",
+      dataIndex: "interestType",
+      key: "interestType",
+      render: (text) => text === 'securities' ? 'Units' : 'Amount'
+    },
+    {
+      title: "Number of Securities / Amount of Interest Shown",
+      dataIndex: "interestValue",
+      key: "interestValue",
+      render: (text, record) => record.interestType === 'amount' ? `₹${text}` : text
     },
     { 
       title: "Status", 

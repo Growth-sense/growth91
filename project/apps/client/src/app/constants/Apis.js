@@ -326,6 +326,10 @@ const URLs = {
   submitOpportunityInterest: "founder/PublicOpportunities/submit_interest",
   checkUserInterest: "founder/PublicOpportunities/check_user_interest",
   getMyBuyerInterests: "founder/PublicOpportunities/get_my_interests",
+  submitStartupRequest: "founder/PublicOpportunities/submit_startup_request",
+  adminGetStartupRequests: "admin/OpportunitiesAdmin/get_startup_requests",
+  adminGetSystemSettings: "admin/OpportunitiesAdmin/get_system_settings",
+  adminUpdateSystemSetting: "admin/OpportunitiesAdmin/update_system_setting",
 };
 
 export default URLs;

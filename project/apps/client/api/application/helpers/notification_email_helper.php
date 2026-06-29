@@ -98,6 +98,30 @@ function notify_admin_seller_listing_edit($listing, $oldStatus)
 }
 
 /**
+ * Notify Admin of a new Startup Request from Discover Opportunities
+ */
+function notify_admin_startup_request($request, $userName, $userEmail)
+{
+    $CI =& get_instance();
+    $CI->load->helper('send_email');
+
+    $subject = "New Startup Request - " . $request['startup_name'];
+    
+    $body = "<h3>New Startup Request</h3>";
+    $body .= "<p>A user has requested a startup that was not listed on the Discover Opportunities page.</p>";
+    $body .= "<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; text-align: left;'>";
+    $body .= "<tr><th>User Name</th><td>" . $userName . "</td></tr>";
+    $body .= "<tr><th>User Email</th><td>" . $userEmail . "</td></tr>";
+    $body .= "<tr><th>Startup Name</th><td>" . $request['startup_name'] . "</td></tr>";
+    $body .= "<tr><th>Requirements</th><td>" . nl2br($request['requirements']) . "</td></tr>";
+    $body .= "<tr><th>Investment Amount</th><td>" . $request['investment_amount'] . "</td></tr>";
+    $body .= "</table>";
+    $body .= "<br><p>Please log in to the admin panel to view all requests.</p>";
+
+    return send_email($body, $subject, ADMIN_NOTIFICATION_EMAIL, '');
+}
+
+/**
  * Notify Admin of a new Buyer Interest.
  */
 function notify_admin_buyer_interest($interest, $opportunityName)

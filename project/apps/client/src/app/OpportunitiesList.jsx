@@ -3,7 +3,8 @@ import { NewWebFooter } from "./common/NewWebFooter";
 import NewWebHeader from "./common/NewWebHeader.jsx";
 import { Link, useHistory } from "react-router-dom";
 import Bridge from "./constants/Bridge.js";
-import { Button, Input, Modal } from "antd";
+import { Button, Input, Modal, Form, message } from "antd";
+const { TextArea } = Input;
 
 export const OpportunitiesList = () => {
   const history = useHistory();
@@ -11,6 +12,43 @@ export const OpportunitiesList = () => {
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [showFilterModal, setShowFilterModal] = useState(false);
+  const [showRequestModal, setShowRequestModal] = useState(false);
+  const [requestLoading, setRequestLoading] = useState(false);
+  const [form] = Form.useForm();
+
+  const handleStartupRequest = (values) => {
+    const userId = window.localStorage.getItem("investor_id") || window.localStorage.getItem("founder_id");
+    const userType = window.localStorage.getItem("investor_id") ? "investor" : "founder";
+
+    if (!userId) {
+      message.error("Please login to submit a request.");
+      return;
+    }
+
+    setRequestLoading(true);
+    Bridge.submitStartupRequest({
+      userId,
+      userType,
+      startupName: values.startupName,
+      requirements: values.requirements,
+      investmentAmount: values.investmentAmount
+    })
+    .then((res) => {
+      setRequestLoading(false);
+      if (res.status == 1) {
+        message.success("Request submitted successfully! We will contact you soon.");
+        setShowRequestModal(false);
+        form.resetFields();
+      } else {
+        message.error(res.message || "Failed to submit request.");
+      }
+    })
+    .catch((err) => {
+      setRequestLoading(false);
+      console.error(err);
+      message.error("Error submitting request.");
+    });
+  };
 
   // Filters
   const [filters, setFilters] = useState({
@@ -294,8 +332,68 @@ export const OpportunitiesList = () => {
               </div>
             )}
           </div>
+
+          {/* Startup Request CTA */}
+          <div className="text-center mt-5 mb-3">
+            <h5 style={{ color: '#444' }}>Didn't find the startup you were looking for?</h5>
+            <Button 
+              type="primary" 
+              size="large"
+              style={{ backgroundColor: '#100050', borderColor: '#100050', marginTop: '10px' }}
+              onClick={() => setShowRequestModal(true)}
+            >
+              Request a Startup
+            </Button>
+          </div>
         </div>
       </section>
+
+      {/* Request Modal */}
+      <Modal
+        title={<span style={{ fontSize: '20px', fontWeight: 'bold', color: '#100050' }}>Request a Startup</span>}
+        visible={showRequestModal}
+        onCancel={() => setShowRequestModal(false)}
+        footer={null}
+        width={600}
+      >
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={handleStartupRequest}
+          style={{ marginTop: '20px' }}
+        >
+          <Form.Item
+            name="startupName"
+            label={<span style={{ fontWeight: 500 }}>Startup Name</span>}
+            rules={[{ required: true, message: 'Please enter the startup name.' }]}
+          >
+            <Input size="large" placeholder="Enter the startup name you're looking for" />
+          </Form.Item>
+          
+          <Form.Item
+            name="requirements"
+            label={<span style={{ fontWeight: 500 }}>Comments / Requirements</span>}
+          >
+            <TextArea rows={4} placeholder="Any specific requirements or comments?" />
+          </Form.Item>
+          
+          <Form.Item
+            name="investmentAmount"
+            label={<span style={{ fontWeight: 500 }}>Intended Investment Amount (₹)</span>}
+          >
+            <Input size="large" type="number" placeholder="Enter approximate investment amount" />
+          </Form.Item>
+          
+          <Form.Item style={{ marginBottom: 0, textAlign: 'right' }}>
+            <Button onClick={() => setShowRequestModal(false)} style={{ marginRight: '10px' }}>
+              Cancel
+            </Button>
+            <Button type="primary" htmlType="submit" loading={requestLoading} style={{ backgroundColor: '#100050', borderColor: '#100050' }}>
+              Submit Request
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
 
       <NewWebFooter />
     </div>

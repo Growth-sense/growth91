@@ -79,6 +79,7 @@ class OpportunitiesAdmin extends CI_Controller
                     'startupLogo' => $draft['topStartupLogo'],
                     'startupDescription' => $draft['topStartupDescription'],
                     'founderInformation' => $draft['topFounderInformation'],
+                    'founderImage' => $draft['topFounderImage'],
                     'sector' => $draft['topSector'],
                     'stage' => $draft['topStage'],
                     'indicativePriceRange' => $draft['topIndicativePriceRange'],
@@ -108,6 +109,7 @@ class OpportunitiesAdmin extends CI_Controller
                     'startupLogo' => $draft['topStartupLogo'],
                     'startupDescription' => $draft['topStartupDescription'],
                     'founderInformation' => $draft['topFounderInformation'],
+                    'founderImage' => $draft['topFounderImage'],
                     'sector' => $draft['topSector'],
                     'stage' => $draft['topStage'],
                     'indicativePriceRange' => $draft['topIndicativePriceRange'],
@@ -126,6 +128,7 @@ class OpportunitiesAdmin extends CI_Controller
                         'startupLogo' => $main['opStartupLogo'],
                         'startupDescription' => $main['opStartupDescription'],
                         'founderInformation' => $main['opFounderInformation'],
+                        'founderImage' => $main['opFounderImage'],
                         'sector' => $main['opSector'],
                         'stage' => $main['opStage'],
                         'indicativePriceRange' => $main['opIndicativePriceRange'],
@@ -147,6 +150,7 @@ class OpportunitiesAdmin extends CI_Controller
                     'startupLogo' => $main['opStartupLogo'],
                     'startupDescription' => $main['opStartupDescription'],
                     'founderInformation' => $main['opFounderInformation'],
+                    'founderImage' => $main['opFounderImage'],
                     'sector' => $main['opSector'],
                     'stage' => $main['opStage'],
                     'indicativePriceRange' => $main['opIndicativePriceRange'],
@@ -197,6 +201,7 @@ class OpportunitiesAdmin extends CI_Controller
             'topStartupLogo' => isset($formdata['startupLogo']) ? $formdata['startupLogo'] : null,
             'topStartupDescription' => isset($formdata['startupDescription']) ? $formdata['startupDescription'] : null,
             'topFounderInformation' => isset($formdata['founderInformation']) ? $formdata['founderInformation'] : null,
+            'topFounderImage' => isset($formdata['founderImage']) ? $formdata['founderImage'] : null,
             'topSector' => isset($formdata['sector']) ? $formdata['sector'] : null,
             'topStage' => isset($formdata['stage']) ? $formdata['stage'] : null,
             'topIndicativePriceRange' => isset($formdata['indicativePriceRange']) ? $formdata['indicativePriceRange'] : null,
@@ -263,6 +268,7 @@ class OpportunitiesAdmin extends CI_Controller
             'opStartupLogo' => $draft['topStartupLogo'],
             'opStartupDescription' => $draft['topStartupDescription'],
             'opFounderInformation' => $draft['topFounderInformation'],
+            'opFounderImage' => $draft['topFounderImage'],
             'opSector' => $draft['topSector'],
             'opStage' => $draft['topStage'],
             'opIndicativePriceRange' => $draft['topIndicativePriceRange'],
@@ -499,5 +505,149 @@ class OpportunitiesAdmin extends CI_Controller
         } else {
             return $this->_json_response(0, 'Failed to update status.');
         }
+    }
+    /**
+     * Get Startup Discovery Requests
+     * URL: /api/admin/OpportunitiesAdmin/get_startup_requests
+     */
+    public function get_startup_requests()
+    {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+        header("Access-Control-Allow-Headers: access, Content-Type, Authorization, X-Requested-With");
+        header("Content-Type: application/json; charset=UTF-8");
+
+        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+            exit(0);
+        }
+
+        // Fetch requests and join with users to get name and email
+        $this->db->select('investor_startup_requests.*, 
+            u1.first_name as inv_first_name, u1.last_name as inv_last_name, u1.email as inv_email, u1.mobile as inv_mobile,
+            u2.first_name as fou_first_name, u2.last_name as fou_last_name, u2.email as fou_email, u2.mobile as fou_mobile');
+        $this->db->from('investor_startup_requests');
+        $this->db->join('users u1', 'u1.investor_id = investor_startup_requests.investor_id', 'left');
+        $this->db->join('users u2', 'u2.investor_id = investor_startup_requests.founder_id', 'left');
+        $this->db->order_by('investor_startup_requests.created_at', 'DESC');
+        
+        $requests = $this->db->get()->result_array();
+
+        $result = [];
+        foreach ($requests as $req) {
+            $userRole = 'Unknown';
+            $userName = 'Unknown';
+            $userEmail = '';
+            $userMobile = '';
+
+            if (!empty($req['investor_id'])) {
+                $userRole = 'Investor';
+                $userName = trim(($req['inv_first_name'] ?? '') . ' ' . ($req['inv_last_name'] ?? ''));
+                $userEmail = $req['inv_email'];
+                $userMobile = $req['inv_mobile'];
+            } elseif (!empty($req['founder_id'])) {
+                $userRole = 'Founder';
+                $userName = trim(($req['fou_first_name'] ?? '') . ' ' . ($req['fou_last_name'] ?? ''));
+                $userEmail = $req['fou_email'];
+                $userMobile = $req['fou_mobile'];
+            }
+
+            $result[] = [
+                'id' => $req['id'],
+                'userRole' => $userRole,
+                'userName' => $userName,
+                'userEmail' => $userEmail,
+                'userMobile' => $userMobile,
+                'startupName' => $req['startup_name'],
+                'requirements' => $req['requirements'],
+                'investmentAmount' => $req['investment_amount'],
+                'createdAt' => $req['created_at']
+            ];
+        }
+
+        return $this->_json_response(1, 'Requests fetched successfully.', $result);
+    }
+
+    /**
+     * Get System Settings
+     * URL: /api/admin/OpportunitiesAdmin/get_system_settings
+     */
+    public function get_system_settings()
+    {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+        header("Access-Control-Allow-Headers: access, Content-Type, Authorization, X-Requested-With");
+        header("Content-Type: application/json; charset=UTF-8");
+
+        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+            exit(0);
+        }
+
+        $settings = $this->db->get('system_settings')->result_array();
+        $result = [];
+        foreach ($settings as $setting) {
+            $result[$setting['setting_key']] = json_decode($setting['setting_value'], true);
+        }
+
+        return $this->_json_response(1, 'Settings fetched successfully.', $result);
+    }
+
+    /**
+     * Update System Setting
+     * URL: /api/admin/OpportunitiesAdmin/update_system_setting
+     */
+    public function update_system_setting()
+    {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+        header("Access-Control-Allow-Headers: access, Content-Type, Authorization, X-Requested-With");
+        header("Content-Type: application/json; charset=UTF-8");
+
+        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+            exit(0);
+        }
+
+        $formdata = json_decode(file_get_contents('php://input'), true);
+        $key = isset($formdata['setting_key']) ? $formdata['setting_key'] : null;
+        $value = isset($formdata['setting_value']) ? $formdata['setting_value'] : null;
+
+        if (!$key || !is_array($value)) {
+            return $this->_json_response(0, 'Valid Setting Key and JSON array Value are required.');
+        }
+
+        $jsonValue = json_encode($value);
+
+        // Check if exists
+        $exists = $this->db->get_where('system_settings', ['setting_key' => $key])->row_array();
+
+        if ($exists) {
+            // Find if any items are being deleted
+            $oldValue = json_decode($exists['setting_value'], true);
+            $deletedItems = array_diff($oldValue, $value);
+
+            if (!empty($deletedItems)) {
+                foreach ($deletedItems as $item) {
+                    if ($key === 'opportunity_sectors') {
+                        $this->db->where('opSector', $item);
+                        $count = $this->db->count_all_results('opportunities');
+                        if ($count > 0) {
+                            return $this->_json_response(0, "Cannot remove '$item' because it is currently assigned to one or more active opportunities.");
+                        }
+                    } else if ($key === 'opportunity_instruments') {
+                        $this->db->where('opInstrumentType', $item);
+                        $count = $this->db->count_all_results('opportunities');
+                        if ($count > 0) {
+                            return $this->_json_response(0, "Cannot remove '$item' because it is currently assigned to one or more active opportunities.");
+                        }
+                    }
+                }
+            }
+
+            $this->db->where('setting_key', $key);
+            $this->db->update('system_settings', ['setting_value' => $jsonValue]);
+        } else {
+            $this->db->insert('system_settings', ['setting_key' => $key, 'setting_value' => $jsonValue]);
+        }
+
+        return $this->_json_response(1, 'Setting updated successfully.');
     }
 }

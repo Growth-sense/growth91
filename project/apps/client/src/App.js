@@ -256,6 +256,7 @@ const TargetPeak2 = React.lazy(() => import("./app/deal-pages/TargetPeak2.jsx"))
 const AdminSellerListings = React.lazy(() => import("./app/admin/SellerListings/AdminSellerListings.jsx"));
 const AdminOpportunities = React.lazy(() => import("./app/admin/Opportunities/AdminOpportunities.jsx"));
 const AdminBuyerInterests = React.lazy(() => import("./app/admin/Opportunities/AdminBuyerInterests.jsx"));
+const AdminStartupRequests = React.lazy(() => import("./app/admin/Opportunities/AdminStartupRequests.jsx"));
 
 
 ReactGA.initialize(TRACKING_ID);
@@ -399,6 +400,7 @@ function App() {
           <ProtectedAdminRoute exact path="/admin-seller-listings" component={AdminSellerListings} requiredModule="seller_listings" requiredAction="view" />
           <ProtectedAdminRoute exact path="/admin-opportunities" component={AdminOpportunities} requiredModule="opportunities" requiredAction="view" />
           <ProtectedAdminRoute exact path="/admin-buyer-interests" component={AdminBuyerInterests} requiredModule="opportunities" requiredAction="view" />
+          <ProtectedAdminRoute exact path="/admin-startup-requests" component={AdminStartupRequests} requiredModule="opportunities" requiredAction="view" />
           <ProtectedAdminRoute exact path="/admin-all-unicorn" component={UnicornAdminAll} requiredModule="unicorns_all" requiredAction="view" />
           <ProtectedAdminRoute exact path="/admin-unicorn-payments" component={UnicornAdminPayment} requiredModule="unicorns_payments" requiredAction="view" />
           <ProtectedAdminRoute exact path="/family-Remove-Request" component={familyRemoveRequest} requiredModule="group_remove_requests" requiredAction="view" />

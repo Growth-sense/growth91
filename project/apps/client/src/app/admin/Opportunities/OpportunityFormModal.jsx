@@ -9,15 +9,98 @@ const { TextArea } = Input;
 
 const OpportunityFormModal = ({ visible, onClose, initialData, adminId, onSuccess }) => {
   const [form] = Form.useForm();
-  
+
   const [loading, setLoading] = useState(false);
   const [loadingType, setLoadingType] = useState(null); // 'draft' or 'publish'
   const [fileUploading, setFileUploading] = useState(false);
   const [uploadedLogoUrl, setUploadedLogoUrl] = useState(null);
   const [uploadedLogoName, setUploadedLogoName] = useState(null);
-  
+  const [founderFileUploading, setFounderFileUploading] = useState(false);
+  const [uploadedFounderImgUrl, setUploadedFounderImgUrl] = useState(null);
+  const [uploadedFounderImgName, setUploadedFounderImgName] = useState(null);
+
   const [urlStatus, setUrlStatus] = useState(''); // 'success', 'error', 'validating'
   const [urlHelp, setUrlHelp] = useState('');
+
+  // Dynamic Settings State
+  const [sectors, setSectors] = useState([]);
+  const [instruments, setInstruments] = useState([]);
+  const [newSector, setNewSector] = useState("");
+  const [newInstrument, setNewInstrument] = useState("");
+  const [settingsLoading, setSettingsLoading] = useState(false);
+
+  const fetchSystemSettings = async () => {
+    try {
+      const res = await Bridge.adminGetSystemSettings({});
+      if (res && res.status == 1) {
+        const data = res.data || {};
+        setSectors(data.opportunity_sectors || []);
+        setInstruments(data.opportunity_instruments || []);
+      }
+    } catch (e) {
+      console.error("Failed to load settings");
+    }
+  };
+
+  useEffect(() => {
+    fetchSystemSettings();
+  }, []);
+
+  const updateSetting = async (key, newValueArray) => {
+    setSettingsLoading(true);
+    try {
+      const res = await Bridge.adminUpdateSystemSetting({ setting_key: key, setting_value: newValueArray });
+      console.log("zoro", res);
+      if (res && res.status == 1) {
+        if (key === 'opportunity_sectors') setSectors(newValueArray);
+        if (key === 'opportunity_instruments') setInstruments(newValueArray);
+        message.success("Options updated successfully");
+      } else {
+
+        Modal.error({
+          title: 'Cannot Remove Option',
+          content: res?.message || "Failed to update options",
+        });
+      }
+    } catch (e) {
+      console.error("updateSetting threw an error:", e);
+      const errorMessage = e?.response?.data?.message || "Failed to update options";
+      Modal.error({
+        title: 'Error',
+        content: errorMessage,
+      });
+    } finally {
+      setSettingsLoading(false);
+    }
+  };
+
+  const addSector = (e) => {
+    e.preventDefault();
+    if (!newSector || sectors.includes(newSector)) return;
+    updateSetting('opportunity_sectors', [...sectors, newSector]);
+    setNewSector('');
+  };
+
+  const removeSector = (e, itemToRemove) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log("removeSector clicked for:", itemToRemove);
+    updateSetting('opportunity_sectors', sectors.filter(item => item !== itemToRemove));
+  };
+
+  const addInstrument = (e) => {
+    e.preventDefault();
+    if (!newInstrument || instruments.includes(newInstrument)) return;
+    updateSetting('opportunity_instruments', [...instruments, newInstrument]);
+    setNewInstrument('');
+  };
+
+  const removeInstrument = (e, itemToRemove) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log("removeInstrument clicked for:", itemToRemove);
+    updateSetting('opportunity_instruments', instruments.filter(item => item !== itemToRemove));
+  };
 
   const checkUrlAvailability = async (url, tempId, mainId) => {
     if (!url || url.trim() === '') {
@@ -25,7 +108,7 @@ const OpportunityFormModal = ({ visible, onClose, initialData, adminId, onSucces
       setUrlHelp('');
       return;
     }
-    
+
     // Auto format url to be url safe (lowercase, hyphens instead of spaces)
     const formattedUrl = url.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
     form.setFieldsValue({ customUrl: formattedUrl });
@@ -41,7 +124,7 @@ const OpportunityFormModal = ({ visible, onClose, initialData, adminId, onSucces
         body: JSON.stringify({ url: formattedUrl, tempId, mainId })
       });
       const res = await response.json();
-      
+
       if (res.status == 1) {
         setUrlStatus('success');
         setUrlHelp(''); // Clear text to show only icon
@@ -61,7 +144,7 @@ const OpportunityFormModal = ({ visible, onClose, initialData, adminId, onSucces
     if (visible) {
       setUrlStatus('');
       setUrlHelp('');
-      
+
       if (initialData) {
         form.setFieldsValue({
           startupName: initialData.startupName,
@@ -79,6 +162,8 @@ const OpportunityFormModal = ({ visible, onClose, initialData, adminId, onSucces
         });
         setUploadedLogoName(initialData.startupLogo);
         setUploadedLogoUrl(initialData.startupLogo ? `${process.env.REACT_APP_BASE_URL}api/uploads/opportunities/${initialData.startupLogo}` : null);
+        setUploadedFounderImgName(initialData.founderImage);
+        setUploadedFounderImgUrl(initialData.founderImage ? `${process.env.REACT_APP_BASE_URL}api/uploads/opportunities/${initialData.founderImage}` : null);
       } else {
         form.resetFields();
         form.setFieldsValue({
@@ -87,6 +172,8 @@ const OpportunityFormModal = ({ visible, onClose, initialData, adminId, onSucces
         });
         setUploadedLogoUrl(null);
         setUploadedLogoName(null);
+        setUploadedFounderImgUrl(null);
+        setUploadedFounderImgName(null);
       }
     }
   }, [visible, initialData, form]);
@@ -109,6 +196,27 @@ const OpportunityFormModal = ({ visible, onClose, initialData, adminId, onSucces
     } else if (info.file.status === 'error') {
       message.error("Logo upload failed");
       setFileUploading(false);
+    }
+  };
+
+  const handleFounderUpload = (info) => {
+    if (info.file.status === 'uploading') {
+      setFounderFileUploading(true);
+    }
+    if (info.file.status === 'done') {
+      const response = info.file.response;
+      if (response && String(response.status) === "1") {
+        message.success("Founder image uploaded successfully");
+        setUploadedFounderImgName(response.data.filename);
+        setUploadedFounderImgUrl(`${process.env.REACT_APP_BASE_URL}api/uploads/opportunities/${response.data.filename}`);
+        setFounderFileUploading(false);
+      } else {
+        message.error("Founder image upload failed");
+        setFounderFileUploading(false);
+      }
+    } else if (info.file.status === 'error') {
+      message.error("Founder image upload failed");
+      setFounderFileUploading(false);
     }
   };
 
@@ -147,6 +255,7 @@ const OpportunityFormModal = ({ visible, onClose, initialData, adminId, onSucces
     const payload = {
       ...values,
       startupLogo: uploadedLogoName,
+      founderImage: uploadedFounderImgName,
       adminId: adminId,
       tempId: initialData?.tempId || null,
       mainId: initialData?.mainId || null,
@@ -196,15 +305,15 @@ const OpportunityFormModal = ({ visible, onClose, initialData, adminId, onSucces
       width={720}
       onCancel={onClose}
       visible={visible}
-      
+
       footer={[
-          <Button key="cancel" onClick={onClose} disabled={loading}>Cancel</Button>,
-          <Button key="draft" onClick={onSaveDraft} loading={loading && loadingType === 'draft'} disabled={fileUploading || (loading && loadingType !== 'draft')}>
-            Save as Draft
-          </Button>,
-          <Button key="publish" onClick={onPublish} type="primary" loading={loading && loadingType === 'publish'} disabled={fileUploading || (loading && loadingType !== 'publish')}>
-            Publish
-          </Button>
+        <Button key="cancel" onClick={onClose} disabled={loading}>Cancel</Button>,
+        <Button key="draft" onClick={onSaveDraft} loading={loading && loadingType === 'draft'} disabled={fileUploading || (loading && loadingType !== 'draft')}>
+          Save as Draft
+        </Button>,
+        <Button key="publish" onClick={onPublish} type="primary" loading={loading && loadingType === 'publish'} disabled={fileUploading || (loading && loadingType !== 'publish')}>
+          Publish
+        </Button>
       ]}
     >
       <Form layout="vertical" form={form}>
@@ -251,10 +360,10 @@ const OpportunityFormModal = ({ visible, onClose, initialData, adminId, onSucces
                 { pattern: /^[a-z0-9-]+$/, message: "Only lowercase letters, numbers, and hyphens allowed" }
               ]}
             >
-              <Input 
+              <Input
                 // addonBefore="/secondary-opportunities/" 
-                placeholder="e.g., growth91-startup" 
-                onChange={(e) => debouncedCheckUrl(e.target.value, initialData?.tempId, initialData?.mainId)} 
+                placeholder="e.g., growth91-startup"
+                onChange={(e) => debouncedCheckUrl(e.target.value, initialData?.tempId, initialData?.mainId)}
               />
             </Form.Item>
           </div>
@@ -265,26 +374,42 @@ const OpportunityFormModal = ({ visible, onClose, initialData, adminId, onSucces
               label="Startup Sector"
               rules={[{ required: true, message: "Sector is required" }]}
             >
-              <Select placeholder="--Select Sector--" allowClear>
-                <Option value="Artificial Intelligence">Artificial Intelligence</Option>
-                <Option value="Astrology">Astrology</Option>
-                <Option value="AstroTech">AstroTech</Option>
-                <Option value="Career and Recruitment">Career and Recruitment</Option>
-                <Option value="CleanTech">CleanTech</Option>
-                <Option value="Cybersecurity">Cybersecurity</Option>
-                <Option value="EdTech">EdTech</Option>
-                <Option value="Entertainment">Entertainment</Option>
-                <Option value="Finance">Finance</Option>
-                <Option value="FinTech">FinTech</Option>
-                <Option value="Foods and Beverages">Foods and Beverages</Option>
-                <Option value="GenAI">GenAI</Option>
-                <Option value="HealthTech">HealthTech</Option>
-                <Option value="Healthy Snacking">Healthy Snacking</Option>
-                <Option value="HRTech">HRTech</Option>
-                <Option value="Other">Other</Option>
-                <Option value="PetCare">PetCare</Option>
-                <Option value="SpiritualTech">SpiritualTech</Option>
-                <Option value="Toy Library">Toy Library</Option>
+              <Select
+                placeholder="--Select Sector--"
+                allowClear
+                dropdownRender={(menu) => (
+                  <>
+                    {menu}
+                    <div style={{ display: 'flex', padding: '8px', borderTop: '1px solid #e8e8e8' }}>
+                      <Input
+                        placeholder="Add new sector"
+                        value={newSector}
+                        onChange={(e) => setNewSector(e.target.value)}
+                        onPressEnter={addSector}
+                        style={{ flex: 'auto', marginRight: 8 }}
+                      />
+                      <Button type="primary" onClick={addSector} icon={<PlusOutlined />} loading={settingsLoading}>
+                        Add
+                      </Button>
+                    </div>
+                  </>
+                )}
+              >
+                {sectors.map(sector => (
+                  <Option key={sector} value={sector}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span>{sector}</span>
+                      <Button
+                        type="text"
+                        danger
+                        size="small"
+                        icon={<MinusCircleOutlined />}
+                        onMouseDown={(e) => { e.preventDefault(); e.stopPropagation(); }}
+                        onClick={(e) => removeSector(e, sector)}
+                      />
+                    </div>
+                  </Option>
+                ))}
               </Select>
             </Form.Item>
           </div>
@@ -325,12 +450,42 @@ const OpportunityFormModal = ({ visible, onClose, initialData, adminId, onSucces
               label="Instrument Type"
               rules={[{ required: true, message: "Instrument Type is required" }]}
             >
-              <Select placeholder="Select Type" allowClear>
-                <Option value="Equity Shares">Equity Shares</Option>
-                <Option value="CCPS">CCPS</Option>
-                <Option value="Warrants">Warrants</Option>
-                <Option value="Convertible Notes">Convertible Notes</Option>
-                <Option value="ESOPs">ESOPs</Option>
+              <Select
+                placeholder="Select Type"
+                allowClear
+                dropdownRender={(menu) => (
+                  <>
+                    {menu}
+                    <div style={{ display: 'flex', padding: '8px', borderTop: '1px solid #e8e8e8' }}>
+                      <Input
+                        placeholder="Add new instrument"
+                        value={newInstrument}
+                        onChange={(e) => setNewInstrument(e.target.value)}
+                        onPressEnter={addInstrument}
+                        style={{ flex: 'auto', marginRight: 8 }}
+                      />
+                      <Button type="primary" onClick={addInstrument} icon={<PlusOutlined />} loading={settingsLoading}>
+                        Add
+                      </Button>
+                    </div>
+                  </>
+                )}
+              >
+                {instruments.map(inst => (
+                  <Option key={inst} value={inst}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span>{inst}</span>
+                      <Button
+                        type="text"
+                        danger
+                        size="small"
+                        icon={<MinusCircleOutlined />}
+                        onMouseDown={(e) => { e.preventDefault(); e.stopPropagation(); }}
+                        onClick={(e) => removeInstrument(e, inst)}
+                      />
+                    </div>
+                  </Option>
+                ))}
               </Select>
             </Form.Item>
           </div>
@@ -351,19 +506,45 @@ const OpportunityFormModal = ({ visible, onClose, initialData, adminId, onSucces
             <Form.Item
               name="startupDescription"
               label="Startup Description"
-              rules={[{ required: true, message: "Description is required" }]}
+              rules={[
+                { required: true, message: "Description is required" },
+                { min: 150, message: "Description must be at least 150 characters." }
+              ]}
             >
-              <TextArea rows={4} placeholder="Enter description..." />
+              <TextArea showCount maxLength={2000} rows={4} placeholder="Enter description..." />
             </Form.Item>
+          </div>
+
+          <div className="col-md-12 mb-3">
+            <label className="form-label">Founder Photograph (Optional)</label>
+            <div>
+              <Upload
+                name="file"
+                action={`${process.env.REACT_APP_BASE_URL}api/admin/OpportunitiesAdmin/upload_logo`}
+                showUploadList={false}
+                onChange={handleFounderUpload}
+                accept="image/*"
+              >
+                <Button icon={<UploadOutlined />} loading={founderFileUploading}>Click to Upload Image</Button>
+              </Upload>
+              {uploadedFounderImgUrl && (
+                <div className="mt-2">
+                  <img src={uploadedFounderImgUrl} alt="Founder" style={{ height: 60, objectFit: 'cover', borderRadius: 4 }} />
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="col-md-12">
             <Form.Item
               name="founderInformation"
               label="Founder Information"
-              rules={[{ required: true, message: "Founder Info is required" }]}
+              rules={[
+                { required: true, message: "Founder Info is required" },
+                { min: 100, message: "Founder Information must be at least 100 characters." }
+              ]}
             >
-              <TextArea rows={3} placeholder="Enter founder details..." />
+              <TextArea showCount maxLength={1000} rows={3} placeholder="Enter founder details..." />
             </Form.Item>
           </div>
 
@@ -374,14 +555,14 @@ const OpportunityFormModal = ({ visible, onClose, initialData, adminId, onSucces
                   <label className="form-label mb-2 fs-5">Media Coverage (News Articles)</label>
                   {fields.map((field, index) => (
                     <div key={field.key} style={{ marginBottom: 16, border: '1px solid #d9d9d9', padding: 16, borderRadius: 8, position: 'relative' }}>
-                      <Button 
-                        type="text" 
-                        danger 
-                        icon={<MinusCircleOutlined />} 
+                      <Button
+                        type="text"
+                        danger
+                        icon={<MinusCircleOutlined />}
                         onClick={() => remove(field.name)}
                         style={{ position: 'absolute', top: 10, right: 10, zIndex: 10 }}
                       />
-                      
+
                       <div className="row">
                         <div className="col-md-6">
                           <Form.Item
@@ -415,9 +596,12 @@ const OpportunityFormModal = ({ visible, onClose, initialData, adminId, onSucces
                             name={[field.name, 'description']}
                             fieldKey={[field.fieldKey, 'description']}
                             label="Description"
-                            rules={[{ required: true, message: 'Missing description' }]}
+                            rules={[
+                              { required: true, message: 'Missing description' },
+                              { min: 50, message: 'Media description must be at least 50 characters.' }
+                            ]}
                           >
-                            <TextArea rows={2} placeholder="Short description of the coverage..." />
+                            <TextArea showCount maxLength={300} rows={2} placeholder="Short description of the coverage..." />
                           </Form.Item>
                         </div>
 
@@ -452,10 +636,10 @@ const OpportunityFormModal = ({ visible, onClose, initialData, adminId, onSucces
                             >
                               <Button icon={<UploadOutlined />}>Upload Image</Button>
                             </Upload>
-                            
+
                             <Form.Item
                               noStyle
-                              shouldUpdate={(prevValues, currentValues) => 
+                              shouldUpdate={(prevValues, currentValues) =>
                                 prevValues.newsArticles?.[field.name]?.imgname !== currentValues.newsArticles?.[field.name]?.imgname
                               }
                             >
@@ -463,8 +647,8 @@ const OpportunityFormModal = ({ visible, onClose, initialData, adminId, onSucces
                                 const imgName = getFieldValue(['newsArticles', field.name, 'imgname']);
                                 return (
                                   <>
-                                    <Form.Item 
-                                      name={[field.name, 'imgname']} 
+                                    <Form.Item
+                                      name={[field.name, 'imgname']}
                                       rules={[{ required: true, message: 'Missing media image' }]}
                                       style={{ margin: 0 }}
                                     >
@@ -472,10 +656,10 @@ const OpportunityFormModal = ({ visible, onClose, initialData, adminId, onSucces
                                     </Form.Item>
                                     {imgName ? (
                                       <div className="mt-2">
-                                        <img 
-                                          src={`${process.env.REACT_APP_BASE_URL}api/uploads/opportunities/${imgName}`} 
-                                          alt="Snapshot" 
-                                          style={{ height: 60, objectFit: 'contain' }} 
+                                        <img
+                                          src={`${process.env.REACT_APP_BASE_URL}api/uploads/opportunities/${imgName}`}
+                                          alt="Snapshot"
+                                          style={{ height: 60, objectFit: 'contain' }}
                                         />
                                       </div>
                                     ) : null}
@@ -489,7 +673,7 @@ const OpportunityFormModal = ({ visible, onClose, initialData, adminId, onSucces
                     </div>
                   ))}
                   <Form.Item>
-                    <Button type="dashed" onClick={() => add({title: "", description: "", url: "", imgname: ""})} block icon={<PlusOutlined />}>
+                    <Button type="dashed" onClick={() => add({ title: "", description: "", url: "", imgname: "" })} block icon={<PlusOutlined />}>
                       Add Media Coverage
                     </Button>
                   </Form.Item>

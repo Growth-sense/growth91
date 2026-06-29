@@ -1169,4 +1169,20 @@ export default {
     api.post(URLs.getMyBuyerInterests, data).then((response) => {
       return response.data;
     }),
+  submitStartupRequest: (data) =>
+    api.post(URLs.submitStartupRequest, data).then((response) => {
+      return response.data;
+    }),
+  adminGetStartupRequests: (data) =>
+    api.post(URLs.adminGetStartupRequests, data).then((response) => {
+      return response.data;
+    }),
+  adminGetSystemSettings: (data) =>
+    api.post(URLs.adminGetSystemSettings, data).then((response) => {
+      return response.data;
+    }),
+  adminUpdateSystemSetting: (data) =>
+    api.post(URLs.adminUpdateSystemSetting, data).then((response) => {
+      return response.data;
+    }),
 };

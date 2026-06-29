@@ -336,6 +336,9 @@ class RolesPermissions extends Component {
         view: true,
         edit: true,
       },
+      startup_requests: {
+        view: true,
+      },
     };
 
     this.setState({ perms: all });
@@ -1348,6 +1351,31 @@ class RolesPermissions extends Component {
             }
           >
             Edit / Update Status
+          </Checkbox>
+        </div>
+
+        <Divider />
+
+        {/* Master Data – Startup Requests */}
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h6>Buyer/Seller – Startup Requests</h6>
+          <Checkbox
+            checked={check("startup_requests", "view")}
+            onChange={(e) => {
+              this.togglePerm("startup_requests", "view", e.target.checked);
+            }}
+          >
+            Select All
+          </Checkbox>
+        </div>
+        <div className="mb-2">
+          <Checkbox
+            checked={check("startup_requests", "view")}
+            onChange={(e) =>
+              this.togglePerm("startup_requests", "view", e.target.checked)
+            }
+          >
+            View Startup Requests
           </Checkbox>
         </div>
 

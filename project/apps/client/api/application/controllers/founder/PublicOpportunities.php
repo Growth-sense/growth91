@@ -122,6 +122,7 @@ class PublicOpportunities extends CI_Controller
             'startupLogo' => $main['opStartupLogo'],
             'startupDescription' => $main['opStartupDescription'],
             'founderInformation' => $main['opFounderInformation'],
+            'founderImage' => $main['opFounderImage'],
             'sector' => $main['opSector'],
             'stage' => $main['opStage'],
             'indicativePriceRange' => $main['opIndicativePriceRange'],
@@ -162,13 +163,9 @@ class PublicOpportunities extends CI_Controller
             return $this->_json_response(0, 'Missing required fields.');
         }
 
-        // Fetch user details from users table
+        // The 'users' table only has an 'investor_id' column.
         $this->db->where('investor_id', $investorId);
         $user = $this->db->get('users')->row_array();
-
-        if (!$user) {
-            $user = $this->db->get_where('users', ['founder_id' => $investorId])->row_array();
-        }
 
         if (!$user) {
             return $this->_json_response(0, 'User not found. Please log in.');
@@ -237,6 +234,62 @@ class PublicOpportunities extends CI_Controller
             return $this->_json_response(1, 'Interest already submitted.', ['submitted' => true, 'status' => $interest['status']]);
         } else {
             return $this->_json_response(1, 'No interest submitted yet.', ['submitted' => false]);
+        }
+    }
+
+    /**
+     * Submit a request for a startup not listed
+     * URL: /api/founder/PublicOpportunities/submit_startup_request
+     */
+    public function submit_startup_request()
+    {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+        header("Access-Control-Allow-Headers: access, Content-Type, Authorization, X-Requested-With");
+        header("Content-Type: application/json; charset=UTF-8");
+
+        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+            exit(0);
+        }
+
+        $formdata = json_decode(file_get_contents('php://input'), true);
+        
+        $userId = isset($formdata['userId']) ? $formdata['userId'] : null;
+        $userType = isset($formdata['userType']) ? $formdata['userType'] : null;
+        $startupName = isset($formdata['startupName']) ? $formdata['startupName'] : null;
+        $requirements = isset($formdata['requirements']) ? $formdata['requirements'] : null;
+        $investmentAmount = isset($formdata['investmentAmount']) ? $formdata['investmentAmount'] : null;
+
+        if (!$userId || !$startupName) {
+            return $this->_json_response(0, 'Missing required fields.');
+        }
+
+        $insertData = [
+            'startup_name' => $startupName,
+            'requirements' => $requirements,
+            'investment_amount' => $investmentAmount,
+            'created_at' => date('Y-m-d H:i:s')
+        ];
+        
+        if ($userType === 'founder') {
+            $insertData['founder_id'] = $userId;
+        } else {
+            $insertData['investor_id'] = $userId;
+        }
+
+        $this->db->insert('investor_startup_requests', $insertData);
+        if ($this->db->insert_id()) {
+            $this->load->helper('notification_email');
+            
+            // The 'users' table only has an 'investor_id' column, which acts as the universal user ID.
+            $user = $this->db->get_where('users', ['investor_id' => $userId])->row_array();
+            $userName = trim(($user['first_name'] ?? '') . ' ' . ($user['last_name'] ?? ''));
+
+            notify_admin_startup_request($insertData, $userName, $user['email'] ?? 'N/A');
+
+            return $this->_json_response(1, 'Startup request submitted successfully.');
+        } else {
+            return $this->_json_response(0, 'Failed to submit request.');
         }
     }
 

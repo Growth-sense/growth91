@@ -249,20 +249,12 @@ export const OpportunityDescription = () => {
             font-weight: bold;
             margin-bottom: 10px;
             color: #333;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
           }
 
           .media-card-content p {
             font-size: 14px;
             color: #666;
             margin-bottom: 10px;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
           }
           
           .read-more-link {
@@ -544,8 +536,24 @@ export const OpportunityDescription = () => {
               <div className="section-header">
                 <UserOutlined /> Founder Information
               </div>
-              <div className="section-body">
-                {opportunity.founderInformation || "No founder information available."}
+              <div className="section-body" style={{ display: 'flex', gap: '20px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+                {opportunity.founderImage && (
+                  <img 
+                    src={`${process.env.REACT_APP_BASE_URL}api/uploads/opportunities/${opportunity.founderImage}`} 
+                    alt="Founder" 
+                    style={{ 
+                      width: '120px', 
+                      height: '120px', 
+                      objectFit: 'cover', 
+                      borderRadius: '12px', 
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.08)', 
+                      flexShrink: 0 
+                    }}
+                  />
+                )}
+                <div style={{ flex: '1 1 300px' }}>
+                  {opportunity.founderInformation || "No founder information available."}
+                </div>
               </div>
             </div>
           </div>

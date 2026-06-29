@@ -240,6 +240,9 @@ try {
               <li>
                <a href="/admin-buyer-interests">Buyer Interests</a>
               </li>
+              <li>
+               <a href="/admin-startup-requests">Startup Requests</a>
+              </li>
             </ul>
           </li>
 
