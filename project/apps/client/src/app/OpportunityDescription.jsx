@@ -697,15 +697,17 @@ export const OpportunityDescription = () => {
           </Button>
         ]}
       >
-        <ul style={{ paddingLeft: '20px', color: '#444', fontSize: '14px', lineHeight: '1.6', margin: 0 }}>
-          <li style={{ marginBottom: '8px' }}>I confirm that I am legally eligible to acquire securities of private companies under applicable laws. Specifically for this company, I am not restricted to acquire shares.</li>
-          <li style={{ marginBottom: '8px' }}>I understand that acquisition of private company securities may be subject to company approvals, transfer restrictions, regulatory requirements, and contractual obligations.</li>
-          <li style={{ marginBottom: '8px' }}>I agree to provide all KYC, AML, FEMA, taxation, and compliance-related documents as may be required.</li>
-          <li style={{ marginBottom: '8px' }}>I understand that submission of interest does not guarantee allotment or transfer of securities.</li>
-          <li style={{ marginBottom: '8px' }}>I agree to pay applicable fees, charges, and taxes communicated by Growth91.</li>
-          <li style={{ marginBottom: '8px' }}>I acknowledge that Growth91 acts solely as a facilitation platform and does not guarantee investment returns, liquidity, or transaction completion.</li>
-          <li style={{ marginBottom: '8px' }}>I agree to maintain confidentiality of all non-public information shared during the process.</li>
-        </ul>
+        <div className="declaration-list" style={{ padding: "20px", backgroundColor: "#f8f9fa", borderRadius: "8px", border: "1px solid #dee2e6" }}>
+          <ul style={{ paddingLeft: "20px", marginLeft: "20px", marginBottom: "0", fontSize: "15px", lineHeight: "1.6", color: "#333" }}>
+            <li style={{ display: "list-item", listStyleType: "disc", marginBottom: "12px" }}>I confirm that I am legally eligible to acquire securities of private companies under applicable laws. Specifically for this company, I am not restricted to acquire shares.</li>
+            <li style={{ display: "list-item", listStyleType: "disc", marginBottom: "12px" }}>I understand that acquisition of private company securities may be subject to company approvals, transfer restrictions, regulatory requirements, and contractual obligations.</li>
+            <li style={{ display: "list-item", listStyleType: "disc", marginBottom: "12px" }}>I agree to provide all KYC, AML, FEMA, taxation, and compliance-related documents as may be required.</li>
+            <li style={{ display: "list-item", listStyleType: "disc", marginBottom: "12px" }}>I understand that submission of interest does not guarantee allotment or transfer of securities.</li>
+            <li style={{ display: "list-item", listStyleType: "disc", marginBottom: "12px" }}>I agree to pay applicable fees, charges, and taxes communicated by Growth91.</li>
+            <li style={{ display: "list-item", listStyleType: "disc", marginBottom: "12px" }}>I acknowledge that Growth91 acts solely as a facilitation platform and does not guarantee investment returns, liquidity, or transaction completion.</li>
+            <li style={{ display: "list-item", listStyleType: "disc", marginBottom: "0" }}>I agree to maintain confidentiality of all non-public information shared during the process.</li>
+          </ul>
+        </div>
       </Modal>
 
       <NewWebFooter />

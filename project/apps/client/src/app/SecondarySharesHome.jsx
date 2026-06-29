@@ -109,11 +109,11 @@ export const SecondarySharesHome = () => {
           <div className="row justify-content-center">
             <div className="col-md-6 mb-3">
               <div className="p-4 shadow-sm rounded border text-center" style={{ height: "100%", display: "flex", flexDirection: "column", backgroundColor: "#ffffff" }}>
-                <p className="text-secondary mb-4" style={{ fontSize: "1.05rem", lineHeight: "1.6", flexGrow: 1 }}>
+                <p className="text-black mb-4" style={{ fontSize: "1.05rem", lineHeight: "1.6", flexGrow: 1 }}>
                   Discover curated startup investment opportunities across sectors and stages.
                 </p>
                 <div>
-                  <Link to="/deals" className="theme-btn px-4 py-2" style={{ background: "#ff9c1a", color: "#fff", border: "none", fontSize: "1.1rem", borderRadius: "6px" }}>
+                  <Link to="/deals" className="theme-btn px-4 py-2" style={{ background: "#100050", color: "#fff", border: "none", fontSize: "1.1rem", borderRadius: "6px" }}>
                     Explore New Startup Deals
                   </Link>
                 </div>
@@ -121,7 +121,7 @@ export const SecondarySharesHome = () => {
             </div>
             <div className="col-md-6 mb-3">
               <div className="p-4 shadow-sm rounded border text-center" style={{ height: "100%", display: "flex", flexDirection: "column", backgroundColor: "#ffffff" }}>
-                <p className="text-secondary mb-4" style={{ fontSize: "1.05rem", lineHeight: "1.6", flexGrow: 1 }}>
+                <p className="text-black mb-4" style={{ fontSize: "1.05rem", lineHeight: "1.6", flexGrow: 1 }}>
                   Explore startups listed by founders for fundraising, collaborations, strategic partnerships, and investments.
                 </p>
                 <div>
@@ -150,34 +150,34 @@ export const SecondarySharesHome = () => {
           
           <div className="row justify-content-center pt-2">
             <div className="col-lg-4 col-md-6 mb-4">
-              <div className="h-100 bg-white p-5 rounded text-center" style={{ borderRadius: "20px", boxShadow: "0 10px 30px rgba(16, 0, 80, 0.08)", border: "1px solid #f0ecf9", transition: "transform 0.3s ease"}} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
-                <div className="icon mb-4 d-flex justify-content-center align-items-center mx-auto" style={{ width: "80px", height: "80px", borderRadius: "50%", backgroundColor: "#f2ebfa" }}>
-                  <img src="./web/images/icon1.png" alt="img" style={{ width: "40px" }} />
+              <div className="h-100 bg-white p-4 rounded text-center" style={{ borderRadius: "20px", boxShadow: "0 10px 30px rgba(16, 0, 80, 0.08)", border: "1px solid #f0ecf9", transition: "transform 0.3s ease"}} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
+                <div className="icon mb-4 d-flex justify-content-center align-items-center mx-auto" style={{ width: "75px", height: "75px", borderRadius: "50%", backgroundColor: "#f2ebfa" }}>
+                  <img src="./web/images/icon1.png" alt="img" style={{ width: "60px" }} />
                 </div>
-                <h4 style={{ color: "#100050", fontWeight: "700" }}>Liquidity <br /> Opportunities</h4>
-                <p className="mt-3 text-secondary" style={{ fontSize: "1.05rem", lineHeight: "1.6" }}>
+                <h4 style={{ color: "#100050", fontWeight: "700" }}>Liquidity Opportunities</h4>
+                <p className="mt-3 text-black" style={{ fontSize: "1.05rem", lineHeight: "1.6" }}>
                   Explore liquidity opportunities for your startup investments
                 </p>
               </div>
             </div>
             <div className="col-lg-4 col-md-6 mb-4">
-              <div className="h-100 bg-white p-5 rounded text-center" style={{ borderRadius: "20px", boxShadow: "0 10px 30px rgba(16, 0, 80, 0.08)", border: "1px solid #f0ecf9", transition: "transform 0.3s ease"}} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
-                <div className="icon mb-4 d-flex justify-content-center align-items-center mx-auto" style={{ width: "80px", height: "80px", borderRadius: "50%", backgroundColor: "#f2ebfa" }}>
-                  <img src="./web/images/icon2.png" alt="img" style={{ width: "40px" }} />
+              <div className="h-100 bg-white p-4 rounded text-center" style={{ borderRadius: "20px", boxShadow: "0 10px 30px rgba(16, 0, 80, 0.08)", border: "1px solid #f0ecf9", transition: "transform 0.3s ease"}} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
+                <div className="icon mb-4 d-flex justify-content-center align-items-center mx-auto" style={{ width: "75px", height: "75px", borderRadius: "50%", backgroundColor: "#f2ebfa" }}>
+                  <img src="./web/images/icon2.png" alt="img" style={{ width: "60px" }} />
                 </div>
-                <h4 style={{ color: "#100050", fontWeight: "700" }}>Trusted <br /> Process</h4>
-                <p className="mt-3 text-secondary" style={{ fontSize: "1.05rem", lineHeight: "1.6" }}>
+                <h4 style={{ color: "#100050", fontWeight: "700" }}>Trusted Process</h4>
+                <p className="mt-3 text-black" style={{ fontSize: "1.05rem", lineHeight: "1.6" }}>
                   Connect with interested investors through a trusted and transparent process
                 </p>
               </div>
             </div>
             <div className="col-lg-4 col-md-6 mb-4">
-              <div className="h-100 bg-white p-5 rounded text-center" style={{ borderRadius: "20px", boxShadow: "0 10px 30px rgba(16, 0, 80, 0.08)", border: "1px solid #f0ecf9", transition: "transform 0.3s ease"}} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
-                <div className="icon mb-4 d-flex justify-content-center align-items-center mx-auto" style={{ width: "80px", height: "80px", borderRadius: "50%", backgroundColor: "#f2ebfa" }}>
-                  <img src="./web/images/icon3.png" alt="img" style={{ width: "40px" }} />
+              <div className="h-100 bg-white p-4 rounded text-center" style={{ borderRadius: "20px", boxShadow: "0 10px 30px rgba(16, 0, 80, 0.08)", border: "1px solid #f0ecf9", transition: "transform 0.3s ease"}} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
+                <div className="icon mb-4 d-flex justify-content-center align-items-center mx-auto" style={{ width: "75px", height: "75px", borderRadius: "50%", backgroundColor: "#f2ebfa" }}>
+                  <img src="./web/images/icon3.png" alt="img" style={{ width: "60px" }} />
                 </div>
-                <h4 style={{ color: "#100050", fontWeight: "700" }}>Structured <br /> Transactions</h4>
-                <p className="mt-3 text-secondary" style={{ fontSize: "1.05rem", lineHeight: "1.6" }}>
+                <h4 style={{ color: "#100050", fontWeight: "700" }}>Structured Transactions</h4>
+                <p className="mt-3 text-black" style={{ fontSize: "1.05rem", lineHeight: "1.6" }}>
                   Facilitate transactions in a structured and compliant manner
                 </p>
               </div>
@@ -201,34 +201,34 @@ export const SecondarySharesHome = () => {
           
           <div className="row justify-content-center pt-2">
             <div className="col-lg-4 col-md-6 mb-4">
-              <div className="h-100 bg-white p-5 rounded text-center" style={{ borderRadius: "20px", boxShadow: "0 10px 30px rgba(16, 0, 80, 0.06)", border: "1px solid #f8f9fa", transition: "transform 0.3s ease" }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
-                <div className="icon mb-4 d-flex justify-content-center align-items-center mx-auto" style={{ width: "80px", height: "80px", borderRadius: "50%", backgroundColor: "#f8f9fa" }}>
-                  <img src="./web/images/icon1.png" alt="img" style={{ width: "40px" }} />
+              <div className="h-100 bg-white p-4 rounded text-center" style={{ borderRadius: "20px", boxShadow: "0 10px 30px rgba(16, 0, 80, 0.06)", border: "1px solid #f8f9fa", transition: "transform 0.3s ease" }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
+                <div className="icon mb-4 d-flex justify-content-center align-items-center mx-auto" style={{ width: "75px", height: "75px", borderRadius: "50%", backgroundColor: "#f2ebfa" }}>
+                  <img src="./web/images/icon1.png" alt="img" style={{ width: "60px" }} />
                 </div>
-                <h4 style={{ color: "#100050", fontWeight: "700" }}>Verified <br /> Opportunities</h4>
-                <p className="mt-3 text-secondary" style={{ fontSize: "1.05rem", lineHeight: "1.6" }}>
+                <h4 style={{ color: "#100050", fontWeight: "700" }}>Verified Opportunities</h4>
+                <p className="mt-3 text-black" style={{ fontSize: "1.05rem", lineHeight: "1.6" }}>
                   Access verified secondary investment opportunities
                 </p>
               </div>
             </div>
             <div className="col-lg-4 col-md-6 mb-4">
-              <div className="h-100 bg-white p-5 rounded text-center" style={{ borderRadius: "20px", boxShadow: "0 10px 30px rgba(16, 0, 80, 0.06)", border: "1px solid #f8f9fa", transition: "transform 0.3s ease" }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
-                <div className="icon mb-4 d-flex justify-content-center align-items-center mx-auto" style={{ width: "80px", height: "80px", borderRadius: "50%", backgroundColor: "#f8f9fa" }}>
-                  <img src="./web/images/icon2.png" alt="img" style={{ width: "40px" }} />
+              <div className="h-100 bg-white p-4 rounded text-center" style={{ borderRadius: "20px", boxShadow: "0 10px 30px rgba(16, 0, 80, 0.06)", border: "1px solid #f8f9fa", transition: "transform 0.3s ease" }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
+                <div className="icon mb-4 d-flex justify-content-center align-items-center mx-auto" style={{ width: "75px", height: "75px", borderRadius: "50%", backgroundColor: "#f2ebfa" }}>
+                  <img src="./web/images/icon2.png" alt="img" style={{ width: "60px" }} />
                 </div>
-                <h4 style={{ color: "#100050", fontWeight: "700" }}>Growth-Stage <br /> Access</h4>
-                <p className="mt-3 text-secondary" style={{ fontSize: "1.05rem", lineHeight: "1.6" }}>
+                <h4 style={{ color: "#100050", fontWeight: "700" }}>Growth-Stage Access</h4>
+                <p className="mt-3 text-black" style={{ fontSize: "1.05rem", lineHeight: "1.6" }}>
                   Participate in growth-stage startups before broader market access
                 </p>
               </div>
             </div>
             <div className="col-lg-4 col-md-6 mb-4">
-              <div className="h-100 bg-white p-5 rounded text-center" style={{ borderRadius: "20px", boxShadow: "0 10px 30px rgba(16, 0, 80, 0.06)", border: "1px solid #f8f9fa", transition: "transform 0.3s ease" }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
-                <div className="icon mb-4 d-flex justify-content-center align-items-center mx-auto" style={{ width: "80px", height: "80px", borderRadius: "50%", backgroundColor: "#f8f9fa" }}>
-                  <img src="./web/images/icon3.png" alt="img" style={{ width: "40px" }} />
+              <div className="h-100 bg-white p-4 rounded text-center" style={{ borderRadius: "20px", boxShadow: "0 10px 30px rgba(16, 0, 80, 0.06)", border: "1px solid #f8f9fa", transition: "transform 0.3s ease" }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-10px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
+                <div className="icon mb-4 d-flex justify-content-center align-items-center mx-auto" style={{ width: "75px", height: "75px", borderRadius: "50%", backgroundColor: "#f2ebfa" }}>
+                  <img src="./web/images/icon3.png" alt="img" style={{ width: "60px" }} />
                 </div>
-                <h4 style={{ color: "#100050", fontWeight: "700" }}>Diverse <br /> Discovery</h4>
-                <p className="mt-3 text-secondary" style={{ fontSize: "1.05rem", lineHeight: "1.6" }}>
+                <h4 style={{ color: "#100050", fontWeight: "700" }}>Diverse Discovery</h4>
+                <p className="mt-3 text-black" style={{ fontSize: "1.05rem", lineHeight: "1.6" }}>
                   Discover opportunities across sectors and stages
                 </p>
               </div>
