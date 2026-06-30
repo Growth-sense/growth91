@@ -128,7 +128,7 @@ const URLs = {
   submit_seller_listing: "investors/SellerListing/submit_for_review",
   get_seller_listing_draft: "investors/SellerListing/get_draft_by_user",
   get_my_seller_listings: "investors/SellerListing/get_my_listings",
-  delete_seller_listing_draft: "investors/SellerListing/delete_draft",
+  delete_seller_listing_draft: "investors/SellerListing/delete_listing",
   getcashfreetoken: `${process.env.REACT_APP_BASE_URL}cashfree/js/fetchtoken.php`,
   getcheckstatus: `${process.env.REACT_APP_BASE_URL}cashfree/checkstatus.php`,
 
@@ -325,6 +325,7 @@ const URLs = {
   getPublicOpportunityDetails: "founder/PublicOpportunities/get_opportunity_details",
   submitOpportunityInterest: "founder/PublicOpportunities/submit_interest",
   checkUserInterest: "founder/PublicOpportunities/check_user_interest",
+  withdrawOpportunityInterest: "founder/PublicOpportunities/withdraw_interest",
   getMyBuyerInterests: "founder/PublicOpportunities/get_my_interests",
   submitStartupRequest: "founder/PublicOpportunities/submit_startup_request",
   adminGetStartupRequests: "admin/OpportunitiesAdmin/get_startup_requests",

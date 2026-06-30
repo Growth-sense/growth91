@@ -124,7 +124,7 @@ function notify_admin_startup_request($request, $userName, $userEmail)
 /**
  * Notify Admin of a new Buyer Interest.
  */
-function notify_admin_buyer_interest($interest, $opportunityName)
+function notify_admin_buyer_interest($interest, $opportunityName, $currentType = 'N/A', $currentValue = 'N/A')
 {
     $CI =& get_instance();
     $CI->load->helper('send_email');
@@ -138,8 +138,57 @@ function notify_admin_buyer_interest($interest, $opportunityName)
     $body .= "<tr><th>Buyer Email</th><td>" . $interest['buyer_email'] . "</td></tr>";
     $body .= "<tr><th>Buyer Mobile</th><td>" . $interest['buyer_mobile'] . "</td></tr>";
     $body .= "<tr><th>Opportunity</th><td>" . $opportunityName . "</td></tr>";
+    $body .= "<tr><th>Interest Type</th><td>" . $currentType . "</td></tr>";
+    $body .= "<tr><th>Interest Value</th><td>" . $currentValue . "</td></tr>";
     $body .= "</table>";
     $body .= "<br><p>Please log in to the admin panel to process this interest.</p>";
+
+    return send_email($body, $subject, ADMIN_NOTIFICATION_EMAIL, '');
+}
+
+/**
+ * Notify Admin of an Edited Buyer Interest.
+ */
+function notify_admin_buyer_interest_edited($interest, $opportunityName, $currentType = 'N/A', $currentValue = 'N/A')
+{
+    $CI =& get_instance();
+    $CI->load->helper('send_email');
+
+    $subject = "Buyer Interest Edited - " . $opportunityName;
+    
+    $body = "<h3>Buyer Interest Edited</h3>";
+    $body .= "<p>A buyer has updated their interest details for an opportunity.</p>";
+    $body .= "<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; text-align: left;'>";
+    $body .= "<tr><th>Buyer Name</th><td>" . $interest['buyer_name'] . "</td></tr>";
+    $body .= "<tr><th>Buyer Email</th><td>" . $interest['buyer_email'] . "</td></tr>";
+    $body .= "<tr><th>Buyer Mobile</th><td>" . $interest['buyer_mobile'] . "</td></tr>";
+    $body .= "<tr><th>Opportunity</th><td>" . $opportunityName . "</td></tr>";
+    $body .= "<tr><th>New Interest Type</th><td>" . $currentType . "</td></tr>";
+    $body .= "<tr><th>New Interest Value</th><td>" . $currentValue . "</td></tr>";
+    $body .= "</table>";
+    $body .= "<br><p>Please log in to the admin panel to view the full history.</p>";
+
+    return send_email($body, $subject, ADMIN_NOTIFICATION_EMAIL, '');
+}
+
+/**
+ * Notify Admin of a Withdrawn Buyer Interest.
+ */
+function notify_admin_buyer_interest_withdrawn($interest, $opportunityName)
+{
+    $CI =& get_instance();
+    $CI->load->helper('send_email');
+
+    $subject = "Buyer Interest Withdrawn - " . $opportunityName;
+    
+    $body = "<h3>Buyer Interest Withdrawn</h3>";
+    $body .= "<p>A buyer has withdrawn their interest from an opportunity.</p>";
+    $body .= "<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; text-align: left;'>";
+    $body .= "<tr><th>Buyer Name</th><td>" . $interest['buyer_name'] . "</td></tr>";
+    $body .= "<tr><th>Buyer Email</th><td>" . $interest['buyer_email'] . "</td></tr>";
+    $body .= "<tr><th>Buyer Mobile</th><td>" . $interest['buyer_mobile'] . "</td></tr>";
+    $body .= "<tr><th>Opportunity</th><td>" . $opportunityName . "</td></tr>";
+    $body .= "</table>";
 
     return send_email($body, $subject, ADMIN_NOTIFICATION_EMAIL, '');
 }
@@ -167,6 +216,29 @@ function notify_admin_status_escalation($listing, $newStatus, $additionalInfo = 
         $body .= "<tr><th>Admin Comment</th><td>" . nl2br($additionalInfo) . "</td></tr>";
     }
 
+    $body .= "</table>";
+
+    return send_email($body, $subject, ADMIN_NOTIFICATION_EMAIL, '');
+}
+
+/**
+ * Notify Admin of a Deleted Seller Listing.
+ */
+function notify_admin_seller_listing_deleted($listing)
+{
+    $CI =& get_instance();
+    $CI->load->helper('send_email');
+
+    $subject = "Seller Listing Deleted - #" . $listing['sdSdID'];
+    
+    $body = "<h3>Seller Listing Deleted</h3>";
+    $body .= "<p>An investor has deleted their seller listing.</p>";
+    $body .= "<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; text-align: left;'>";
+    $body .= "<tr><th>Listing ID</th><td>" . $listing['sdSdID'] . "</td></tr>";
+    $body .= "<tr><th>Startup Name</th><td>" . $listing['sdStartupName'] . "</td></tr>";
+    $body .= "<tr><th>Seller Name</th><td>" . $listing['sdUserName'] . "</td></tr>";
+    $body .= "<tr><th>Seller Email</th><td>" . $listing['sdUserEmail'] . "</td></tr>";
+    $body .= "<tr><th>Seller Mobile</th><td>" . $listing['sdUserMobile'] . "</td></tr>";
     $body .= "</table>";
 
     return send_email($body, $subject, ADMIN_NOTIFICATION_EMAIL, '');
@@ -247,13 +319,32 @@ function notify_seller_status_update($listing, $newStatus, $adminComment = '')
     return send_email($htmlBody, $subject, $email, '');
 }
 
+function notify_user_seller_listing_deleted($listing)
+{
+    $CI =& get_instance();
+    $CI->load->helper('send_email');
+
+    $email = _get_user_email($listing['sdUserId']);
+    if (!$email) return false;
+
+    $subject = "Confirmation: Your Seller Listing has been deleted";
+    
+    $body = "<h3>Seller Listing Deleted Successfully</h3>";
+    $body .= "<p>You have successfully deleted your seller listing for <strong>" . $listing['sdStartupName'] . "</strong>.</p>";
+    $body .= "<p>This listing has been removed from your dashboard and is no longer active.</p>";
+    $body .= "<p>If you wish to list securities again, you may create a new listing from your dashboard.</p>";
+
+    $htmlBody = get_growth91_email_template($body);
+    return send_email($htmlBody, $subject, $email, '');
+}
+
 /**
  * ============================================================================
  * BUYER MODULE NOTIFICATIONS
  * ============================================================================
  */
 
-function notify_buyer_interest_submitted($interest, $opportunityName)
+function notify_buyer_interest_submitted($interest, $opportunityName, $currentType = 'N/A', $currentValue = 'N/A')
 {
     $CI =& get_instance();
     $CI->load->helper('send_email');
@@ -267,10 +358,51 @@ function notify_buyer_interest_submitted($interest, $opportunityName)
     $body .= "<p>Thank you for expressing interest in <strong>" . $opportunityName . "</strong>.</p>";
     $body .= "<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; text-align: left;'>";
     $body .= "<tr><th>Opportunity Name</th><td>" . $opportunityName . "</td></tr>";
-    $body .= "<tr><th>Interest Type</th><td>" . $interest['interest_type'] . "</td></tr>";
-    $body .= "<tr><th>Interest Value</th><td>" . $interest['interest_value'] . "</td></tr>";
+    $body .= "<tr><th>Interest Type</th><td>" . $currentType . "</td></tr>";
+    $body .= "<tr><th>Interest Value</th><td>" . $currentValue . "</td></tr>";
     $body .= "</table>";
     $body .= "<br><p>Our team will review your submission and contact you soon.</p>";
+
+    $htmlBody = get_growth91_email_template($body);
+    return send_email($htmlBody, $subject, $email, '');
+}
+
+function notify_buyer_interest_edited($interest, $opportunityName, $currentType = 'N/A', $currentValue = 'N/A')
+{
+    $CI =& get_instance();
+    $CI->load->helper('send_email');
+
+    $email = _get_user_email($interest['user_id']);
+    if (!$email) return false;
+
+    $subject = "Update: Your Interest in " . $opportunityName . " has been modified";
+    
+    $body = "<h3>Interest Updated Successfully</h3>";
+    $body .= "<p>You have successfully updated your interest in <strong>" . $opportunityName . "</strong>.</p>";
+    $body .= "<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; text-align: left;'>";
+    $body .= "<tr><th>Opportunity Name</th><td>" . $opportunityName . "</td></tr>";
+    $body .= "<tr><th>New Interest Type</th><td>" . $currentType . "</td></tr>";
+    $body .= "<tr><th>New Interest Value</th><td>" . $currentValue . "</td></tr>";
+    $body .= "</table>";
+    $body .= "<br><p>Our team will review your updated submission and contact you soon.</p>";
+
+    $htmlBody = get_growth91_email_template($body);
+    return send_email($htmlBody, $subject, $email, '');
+}
+
+function notify_buyer_interest_withdrawn($interest, $opportunityName)
+{
+    $CI =& get_instance();
+    $CI->load->helper('send_email');
+
+    $email = _get_user_email($interest['user_id']);
+    if (!$email) return false;
+
+    $subject = "Confirmation: Interest Withdrawn from " . $opportunityName;
+    
+    $body = "<h3>Interest Withdrawn Successfully</h3>";
+    $body .= "<p>You have successfully withdrawn your interest in <strong>" . $opportunityName . "</strong>.</p>";
+    $body .= "<p>If this was a mistake, you can log in to your dashboard at any time to express your interest again.</p>";
 
     $htmlBody = get_growth91_email_template($body);
     return send_email($htmlBody, $subject, $email, '');

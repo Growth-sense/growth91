@@ -107,7 +107,13 @@ const MyBuyerInterests = () => {
       title: "Status", 
       dataIndex: "status", 
       key: "status",
-      render: (status) => <Tag color={getStatusColor(status)}>{status}</Tag>
+      render: (status, record) => (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', alignItems: 'flex-start' }}>
+          <Tag color={getStatusColor(status)}>{status}</Tag>
+          {record.isDeleted && <strong style={{ fontSize: '11px', color: 'red' }}>Deleted</strong>}
+          {!record.isDeleted && record.isEdited && <strong style={{ fontSize: '11px', color: 'orange' }}>Edited</strong>}
+        </div>
+      )
     },
     { 
       title: "Submitted On", 

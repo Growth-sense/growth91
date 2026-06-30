@@ -1165,6 +1165,10 @@ export default {
     api.post(URLs.checkUserInterest, data).then((response) => {
       return response.data;
     }),
+  withdrawOpportunityInterest: (data) =>
+    api.post(URLs.withdrawOpportunityInterest, data).then((response) => {
+      return response.data;
+    }),
   getMyBuyerInterests: (data) =>
     api.post(URLs.getMyBuyerInterests, data).then((response) => {
       return response.data;

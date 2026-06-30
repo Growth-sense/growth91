@@ -328,6 +328,7 @@ class SellerListing extends CI_Controller
         }
 
         $this->db->where('sdUserId', $userId);
+        $this->db->where('sdStatus !=', 'Deleted');
         $this->db->order_by('sdSdID', 'DESC');
         $listings = $this->db->get('seller_listings')->result_array();
 
@@ -335,10 +336,10 @@ class SellerListing extends CI_Controller
     }
 
     /**
-     * Delete Draft Listing
-     * URL: /api/investors/SellerListing/delete_draft
+     * Delete Listing (Hard delete if Draft, Soft delete otherwise)
+     * URL: /api/investors/SellerListing/delete_listing
      */
-    public function delete_draft()
+    public function delete_listing()
     {
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
@@ -349,19 +350,31 @@ class SellerListing extends CI_Controller
         $sdId = isset($formdata['sdSdID']) ? $formdata['sdSdID'] : null;
 
         if (empty($sdId)) {
-            return $this->_json_response(0, 'Draft ID is required.');
+            return $this->_json_response(0, 'Listing ID is required.');
         }
 
-        // Ensure it is still a draft before deleting
-        $exists = $this->db->get_where('seller_listings', ['sdSdID' => $sdId, 'sdStatus' => 'Draft'])->row_array();
+        $exists = $this->db->get_where('seller_listings', ['sdSdID' => $sdId])->row_array();
         if (!$exists) {
-            return $this->_json_response(0, 'Cannot delete this listing because it has already been submitted.');
+            return $this->_json_response(0, 'Listing not found.');
         }
 
-        $this->db->where('sdSdID', $sdId);
-        $this->db->delete('seller_listings');
+        if ($exists['sdStatus'] === 'Draft') {
+            // Hard delete
+            $this->db->where('sdSdID', $sdId);
+            $this->db->delete('seller_listings');
+            return $this->_json_response(1, 'Draft deleted successfully.');
+        } else {
+            // Soft delete
+            $this->db->where('sdSdID', $sdId);
+            $this->db->update('seller_listings', ['sdStatus' => 'Deleted']);
 
-        return $this->_json_response(1, 'Draft deleted successfully.');
+            // Send Emails
+            $this->load->helper('notification_email');
+            notify_admin_seller_listing_deleted($exists);
+            notify_user_seller_listing_deleted($exists);
+
+            return $this->_json_response(1, 'Listing deleted successfully.');
+        }
     }
 
     /**

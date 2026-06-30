@@ -53,7 +53,6 @@ export const OpportunityDescription = () => {
         if (String(res.status) === "1") {
           message.success("Interest submitted successfully! We will contact you soon.");
           setIsInterestModalVisible(false);
-          setInterestValue('');
           setDeclarationsAccepted(false);
           setAlreadySubmitted(true);
           setSubmissionStatus("Under Review");
@@ -66,6 +65,42 @@ export const OpportunityDescription = () => {
         console.error(err);
         message.error("Error submitting interest.");
       });
+  };
+
+  const handleWithdrawInterest = () => {
+    Modal.confirm({
+      title: 'Are you sure you want to withdraw your interest?',
+      content: 'This will remove your active interest from this opportunity.',
+      okText: 'Yes, Withdraw',
+      okType: 'danger',
+      cancelText: 'Cancel',
+      onOk: () => {
+        const investorId = window.localStorage.getItem("investor_id") || window.localStorage.getItem("founder_id");
+        if (!investorId) return;
+
+        setLoading(true);
+        Bridge.withdrawOpportunityInterest({
+          opportunityId: opportunity.id,
+          investorId: investorId
+        })
+          .then((res) => {
+            setLoading(false);
+            if (String(res.status) === "1") {
+              message.success("Interest successfully withdrawn.");
+              setAlreadySubmitted(false);
+              setSubmissionStatus("");
+              setInterestValue("");
+            } else {
+              message.error(res.message || "Failed to withdraw interest.");
+            }
+          })
+          .catch((err) => {
+            setLoading(false);
+            console.error(err);
+            message.error("Error withdrawing interest.");
+          });
+      }
+    });
   };
 
   useEffect(() => {
@@ -85,9 +120,18 @@ export const OpportunityDescription = () => {
           if (investorId && res.data.id) {
             Bridge.checkUserInterest({ opportunityId: res.data.id, investorId })
               .then(checkRes => {
-                if (checkRes.data && checkRes.data.submitted) {
-                  setAlreadySubmitted(true);
-                  setSubmissionStatus(checkRes.data.status);
+                if (checkRes.data) {
+                  if (checkRes.data.submitted) {
+                    setAlreadySubmitted(true);
+                    setSubmissionStatus(checkRes.data.status);
+                  }
+                  // Always pre-fill the previous values if they exist (even for re-submissions)
+                  if (checkRes.data.interestType) {
+                    setInterestType(checkRes.data.interestType);
+                  }
+                  if (checkRes.data.interestValue) {
+                    setInterestValue(checkRes.data.interestValue);
+                  }
                 }
               });
           }
@@ -501,14 +545,26 @@ export const OpportunityDescription = () => {
               </div>
             </div>
 
-            <button 
-              className="invest-btn"
-              onClick={() => setIsInterestModalVisible(true)}
-              disabled={alreadySubmitted}
-              style={alreadySubmitted ? { backgroundColor: '#6c757d', cursor: 'not-allowed' } : {}}
-            >
-              {alreadySubmitted ? `Interest Submitted (${submissionStatus})` : "Express Interest"}
-            </button>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button 
+                className="invest-btn"
+                onClick={() => setIsInterestModalVisible(true)}
+                style={{ flex: 1 }}
+              >
+                {alreadySubmitted ? "Edit Interest" : "Express Interest"}
+              </button>
+              
+              {alreadySubmitted && (
+                <button 
+                  className="invest-btn"
+                  onClick={handleWithdrawInterest}
+                  style={{ backgroundColor: '#dc3545', width: 'auto', padding: '0 20px' }}
+                  title="Withdraw Interest"
+                >
+                  <i className="fa fa-trash"></i>
+                </button>
+              )}
+            </div>
 
             <div className="disclaimer-text">
               <strong>Disclaimer:</strong> Indicative pricing is for informational purposes only and does not constitute a binding offer,
@@ -654,7 +710,7 @@ export const OpportunityDescription = () => {
             disabled={!declarationsAccepted || !interestValue}
             onClick={handleInterestSubmit}
           >
-            Submit Interest
+            {alreadySubmitted ? "Update Interest" : "Submit Interest"}
           </Button>,
         ]}
       >

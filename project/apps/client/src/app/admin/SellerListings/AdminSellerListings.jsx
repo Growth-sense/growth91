@@ -398,6 +398,7 @@ class AdminSellerListings extends Component {
           if (text === "Approved") color = "success";
           if (text === "Under Review") color = "processing";
           if (text === "Rejected") color = "error";
+          if (text === "Deleted") color = "error";
           if (text === "Additional Information Required") color = "warning";
           if (text === "On Hold") color = "default";
           return (
@@ -437,13 +438,13 @@ class AdminSellerListings extends Component {
                   &nbsp;&nbsp;View Details
                 </a>
               </Menu.Item>
-              <Menu.Item icon={<EditOutlined />} disabled={!this.state.canEdit}>
-                <a onClick={() => this.state.canEdit && this.openStatusModal(record)} style={{ fontSize: 14 }}>
+              <Menu.Item icon={<EditOutlined />} disabled={!this.state.canEdit || record.sdStatus === "Deleted"}>
+                <a onClick={() => this.state.canEdit && record.sdStatus !== "Deleted" && this.openStatusModal(record)} style={{ fontSize: 14 }}>
                   &nbsp;&nbsp;Update Status
                 </a>
               </Menu.Item>
-              <Menu.Item icon={<MessageOutlined />} disabled={!this.state.canEdit}>
-                <a onClick={() => this.state.canEdit && this.openCommentModal(record)} style={{ fontSize: 14 }}>
+              <Menu.Item icon={<MessageOutlined />} disabled={!this.state.canEdit || record.sdStatus === "Deleted"}>
+                <a onClick={() => this.state.canEdit && record.sdStatus !== "Deleted" && this.openCommentModal(record)} style={{ fontSize: 14 }}>
                   &nbsp;&nbsp;Admin Comment
                 </a>
               </Menu.Item>
@@ -496,6 +497,7 @@ class AdminSellerListings extends Component {
                     <Option value="Approved">Approved</Option>
                     <Option value="Rejected">Rejected</Option>
                     <Option value="On Hold">On Hold</Option>
+                    <Option value="Deleted">Deleted</Option>
                   </Select>
 
                   <Input 

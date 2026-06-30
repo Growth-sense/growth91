@@ -440,6 +440,25 @@ class OpportunitiesAdmin extends CI_Controller
 
         $result = [];
         foreach ($interests as $interest) {
+            $history = [];
+            $currentType = null;
+            $currentValue = null;
+
+            if (!empty($interest['interest_history'])) {
+                $history = json_decode($interest['interest_history'], true);
+                if (is_array($history) && count($history) > 0) {
+                    $latest = end($history);
+                    $currentType = $latest['type'];
+                    $currentValue = $latest['value'];
+                }
+            }
+
+            $isDeleted = isset($interest['is_deleted']) && $interest['is_deleted'] == 1;
+            
+            // Determine display status based on Event Sourcing rules
+            $isDeleted = isset($interest['is_deleted']) && $interest['is_deleted'] == 1;
+            $isEdited = (count($history) > 1);
+
             $result[] = [
                 'id' => $interest['id'],
                 'userId' => $interest['user_id'],
@@ -449,10 +468,13 @@ class OpportunitiesAdmin extends CI_Controller
                 'buyerPan' => $interest['buyer_pan'],
                 'residentialStatus' => $interest['residential_status'],
                 'opportunityName' => $interest['opportunityName'] ?: 'Unknown Opportunity',
-                'interestType' => $interest['interest_type'],
-                'interestValue' => $interest['interest_value'],
-                'status' => $interest['status'],
-                'submittedOn' => $interest['submitted_on']
+                'interestType' => $currentType,
+                'interestValue' => $currentValue,
+                'status' => $interest['status'], // True status
+                'submittedOn' => $interest['submitted_on'],
+                'isDeleted' => $isDeleted,
+                'isEdited' => $isEdited,
+                'interestHistory' => $history
             ];
         }
 

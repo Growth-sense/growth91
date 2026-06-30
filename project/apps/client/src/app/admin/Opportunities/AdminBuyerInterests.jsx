@@ -37,6 +37,8 @@ const getStatusColor = (status) => {
     case "Documentation Stage": return "#009688";
     case "Completed": return "success";
     case "Cancelled": return "error";
+    case "Deleted": return "error";
+    case "Edited": return "warning";
     default: return "default";
   }
 };
@@ -55,6 +57,10 @@ const AdminBuyerInterests = () => {
   // Status Update Modal
   const [statusModalVisible, setStatusModalVisible] = useState(false);
   const [newStatus, setNewStatus] = useState("");
+
+  // History Modal
+  const [historyModalVisible, setHistoryModalVisible] = useState(false);
+  const [selectedHistory, setSelectedHistory] = useState([]);
 
   const [canEdit, setCanEdit] = useState(false);
   const [canView, setCanView] = useState(false);
@@ -206,7 +212,13 @@ const AdminBuyerInterests = () => {
       dataIndex: "status",
       key: "status",
       width: 200,
-      render: (status) => <Tag color={getStatusColor(status)}>{status}</Tag>
+      render: (status, record) => (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', alignItems: 'flex-start' }}>
+          <Tag color={getStatusColor(status)}>{status}</Tag>
+          {record.isDeleted && <strong style={{ fontSize: '11px', color: 'red' }}>Deleted</strong>}
+          {!record.isDeleted && record.isEdited && <strong style={{ fontSize: '11px', color: 'orange' }}>Edited</strong>}
+        </div>
+      )
     },
     {
       title: "Submitted On",
@@ -223,11 +235,18 @@ const AdminBuyerInterests = () => {
       render: (_, record) => {
         const menu = (
           <Menu mode="vertical" style={{ width: 150 }}>
-            <Menu.Item key="status" disabled={!canEdit}>
-              <a onClick={() => { if (canEdit) { setSelectedInterest(record); setNewStatus(record.status); setStatusModalVisible(true); } }} style={{ fontSize: 14 }}>
+            <Menu.Item key="status" disabled={!canEdit || record.isDeleted}>
+              <a onClick={() => { if (canEdit && !record.isDeleted) { setSelectedInterest(record); setNewStatus(record.status); setStatusModalVisible(true); } }} style={{ fontSize: 14 }}>
                 &nbsp;&nbsp;Update Status
               </a>
             </Menu.Item>
+            {record.interestHistory && record.interestHistory.length > 0 && (
+              <Menu.Item key="history">
+                <a onClick={() => { setSelectedHistory(record.interestHistory); setHistoryModalVisible(true); }} style={{ fontSize: 14 }}>
+                  &nbsp;&nbsp;View History
+                </a>
+              </Menu.Item>
+            )}
             <Menu.Item key="download">
               <a onClick={() => exportToCSVSingle(record)} style={{ fontSize: 14 }}>
                 &nbsp;&nbsp;Download
@@ -245,6 +264,38 @@ const AdminBuyerInterests = () => {
           </div>
         );
       }
+    }
+  ];
+
+  const historyColumns = [
+    {
+      title: 'Action',
+      dataIndex: 'action',
+      key: 'action',
+      render: (action) => {
+        let color = 'processing';
+        if (action === 'Deleted' || action === 'Withdrawn') color = 'error';
+        else if (action === 'Edited') color = 'warning';
+        return <Tag color={color}>{action}</Tag>;
+      }
+    },
+    {
+      title: 'Type',
+      dataIndex: 'type',
+      key: 'type',
+      render: (type) => type === 'amount' ? 'Investment Amount' : 'Number of Securities'
+    },
+    {
+      title: 'Value',
+      dataIndex: 'value',
+      key: 'value',
+      render: (value, record) => record.type === 'amount' ? `₹${value}` : value
+    },
+    {
+      title: 'Date',
+      dataIndex: 'date',
+      key: 'date',
+      render: (date) => moment(date).format("DD MMM YYYY, hh:mm A")
     }
   ];
 
@@ -308,6 +359,28 @@ const AdminBuyerInterests = () => {
             <Select value={newStatus} onChange={setNewStatus} style={{ width: '100%' }}>
               {STATUS_OPTIONS.map(opt => <Option key={opt} value={opt}>{opt}</Option>)}
             </Select>
+          </Modal>
+
+          {/* History Modal */}
+          <Modal
+            title={<span style={{ fontSize: "20px", fontWeight: "bold", color: "#100050" }}>Interest Edit History</span>}
+            visible={historyModalVisible}
+            onCancel={() => setHistoryModalVisible(false)}
+            width={700}
+            footer={[
+              <Button key="close" onClick={() => setHistoryModalVisible(false)}>
+                Close
+              </Button>
+            ]}
+          >
+            <Table
+              columns={historyColumns}
+              dataSource={selectedHistory}
+              rowKey={(record, index) => index}
+              pagination={false}
+              size="small"
+              bordered
+            />
           </Modal>
 
           {/* Detail Modal */}

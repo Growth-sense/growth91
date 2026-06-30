@@ -32,7 +32,8 @@ class PublicOpportunities extends CI_Controller
      */
     private function _safe_json_decode($json)
     {
-        if (empty($json)) return [];
+        if (empty($json))
+            return [];
         $decoded = json_decode($json, true);
         return is_array($decoded) ? $decoded : [];
     }
@@ -153,7 +154,7 @@ class PublicOpportunities extends CI_Controller
         }
 
         $formdata = json_decode(file_get_contents('php://input'), true);
-        
+
         $opportunityId = isset($formdata['opportunityId']) ? $formdata['opportunityId'] : null;
         $investorId = isset($formdata['investorId']) ? $formdata['investorId'] : null;
         $interestType = isset($formdata['interestType']) ? $formdata['interestType'] : null;
@@ -174,28 +175,67 @@ class PublicOpportunities extends CI_Controller
         // Construct name
         $name = trim(($user['first_name'] ?? '') . ' ' . ($user['last_name'] ?? ''));
 
-        $insertData = [
-            'user_id' => $investorId,
-            'opportunity_id' => $opportunityId,
-            'buyer_name' => $name,
-            'buyer_email' => $user['email'] ?? null,
-            'buyer_mobile' => $user['mobile'] ?? null,
-            'buyer_pan' => $user['panno'] ?? null,
-            'residential_status' => $user['nationality'] ?? null,
-            'interest_type' => $interestType,
-            'interest_value' => $interestValue,
-            'status' => 'Under Review',
-            'submitted_on' => date('Y-m-d H:i:s')
+        $this->db->where('user_id', $investorId);
+        $this->db->where('opportunity_id', $opportunityId);
+        $existing = $this->db->get('buyer_interests')->row_array();
+
+        $historyEntry = [
+            'type' => $interestType,
+            'value' => $interestValue,
+            'date' => date('Y-m-d H:i:s'),
+            'action' => $existing ? ($existing['is_deleted'] == 1 ? 'Re-submitted' : 'Edited') : 'Submitted'
         ];
 
-        $this->db->insert('buyer_interests', $insertData);
-        if ($this->db->insert_id()) {
+        if ($existing) {
+            $history = !empty($existing['interest_history']) ? json_decode($existing['interest_history'], true) : [];
+            if (!is_array($history)) {
+                // Migrate old data if history was somehow broken/empty but old columns exist
+                $history = [];
+            }
+            $history[] = $historyEntry;
+
+            $updateData = [
+                'interest_history' => json_encode($history),
+                'is_deleted' => 0,
+                'status' => 'Under Review'
+            ];
+            $this->db->where('id', $existing['id']);
+            $this->db->update('buyer_interests', $updateData);
+            $interestId = $existing['id'];
+        } else {
+            $insertData = [
+                'user_id' => $investorId,
+                'opportunity_id' => $opportunityId,
+                'buyer_name' => $name,
+                'buyer_email' => $user['email'] ?? null,
+                'buyer_mobile' => $user['mobile'] ?? null,
+                'buyer_pan' => $user['panno'] ?? null,
+                'residential_status' => $user['nationality'] ?? null,
+                'interest_history' => json_encode([$historyEntry]),
+                'is_deleted' => 0,
+                'status' => 'Under Review',
+                'submitted_on' => date('Y-m-d H:i:s')
+            ];
+            $this->db->insert('buyer_interests', $insertData);
+            $interestId = $this->db->insert_id();
+        }
+
+        if ($interestId) {
             // Trigger Admin Notification
             $this->load->helper('notification_email');
             $opportunity = $this->db->get_where('opportunities', ['opId' => $opportunityId])->row_array();
             $opportunityName = $opportunity ? $opportunity['opStartupName'] : 'Unknown Opportunity';
-            notify_admin_buyer_interest($insertData, $opportunityName);
-            notify_buyer_interest_submitted($insertData, $opportunityName);
+
+            // Re-fetch the updated/inserted data for email templates
+            $emailData = $this->db->get_where('buyer_interests', ['id' => $interestId])->row_array();
+
+            if ($existing) {
+                notify_admin_buyer_interest_edited($emailData, $opportunityName, $interestType, $interestValue);
+                notify_buyer_interest_edited($emailData, $opportunityName, $interestType, $interestValue);
+            } else {
+                notify_admin_buyer_interest($emailData, $opportunityName, $interestType, $interestValue);
+                notify_buyer_interest_submitted($emailData, $opportunityName, $interestType, $interestValue);
+            }
 
             return $this->_json_response(1, 'Interest submitted successfully.');
         } else {
@@ -226,15 +266,121 @@ class PublicOpportunities extends CI_Controller
             return $this->_json_response(0, 'Missing required fields.');
         }
 
-        $this->db->where('opportunity_id', $opportunityId);
-        $this->db->where('user_id', $investorId);
-        $interest = $this->db->get('buyer_interests')->row_array();
+        $this->db->select('buyer_interests.*, opportunities.opStatus');
+        $this->db->from('buyer_interests');
+        $this->db->join('opportunities', 'opportunities.opId = buyer_interests.opportunity_id', 'left');
+        $this->db->where('buyer_interests.opportunity_id', $opportunityId);
+        $this->db->where('buyer_interests.user_id', $investorId);
+        $interest = $this->db->get()->row_array();
 
         if ($interest) {
-            return $this->_json_response(1, 'Interest already submitted.', ['submitted' => true, 'status' => $interest['status']]);
+            $isDeleted = isset($interest['is_deleted']) && $interest['is_deleted'] == 1;
+
+            // Extract the latest interest details from interest_history
+            $currentType = null;
+            $currentValue = null;
+
+            if (!empty($interest['interest_history'])) {
+                $history = json_decode($interest['interest_history'], true);
+                if (is_array($history) && count($history) > 0) {
+                    $latest = end($history);
+                    $currentType = $latest['type'];
+                    $currentValue = $latest['value'];
+                }
+            }
+
+            if ($isDeleted) {
+                return $this->_json_response(1, 'No interest submitted yet (previously withdrawn).', [
+                    'submitted' => false,
+                    'interestType' => $currentType,
+                    'interestValue' => $currentValue
+                ]);
+            }
+
+            return $this->_json_response(1, 'Interest already submitted.', [
+                'submitted' => true,
+                'opStatus' => $interest['opStatus'],
+                'interestType' => $currentType,
+                'interestValue' => $currentValue,
+                'status' => $interest['status']
+            ]);
         } else {
             return $this->_json_response(1, 'No interest submitted yet.', ['submitted' => false]);
         }
+    }
+
+    /**
+     * Withdraw/Delete a user's interest from an opportunity
+     * URL: /api/founder/PublicOpportunities/withdraw_interest
+     */
+    public function withdraw_interest()
+    {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+        header("Access-Control-Allow-Headers: access, Content-Type, Authorization, X-Requested-With");
+        header("Content-Type: application/json; charset=UTF-8");
+
+        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+            exit(0);
+        }
+
+        $formdata = json_decode(file_get_contents('php://input'), true);
+        $opportunityId = isset($formdata['opportunityId']) ? $formdata['opportunityId'] : null;
+        $investorId = isset($formdata['investorId']) ? $formdata['investorId'] : null;
+
+        if (!$opportunityId || !$investorId) {
+            return $this->_json_response(0, 'Missing required fields.');
+        }
+
+        $this->db->where('opportunity_id', $opportunityId);
+        $this->db->where('user_id', $investorId);
+        $existing = $this->db->get('buyer_interests')->row_array();
+
+        if ($existing) {
+            $history = !empty($existing['interest_history']) ? json_decode($existing['interest_history'], true) : [];
+            if (!is_array($history)) $history = [];
+            
+            $lastType = null;
+            $lastValue = null;
+            if (count($history) > 0) {
+                $lastObj = end($history);
+                $lastType = $lastObj['type'] ?? null;
+                $lastValue = $lastObj['value'] ?? null;
+            }
+
+            $historyEntry = [
+                'type' => $lastType,
+                'value' => $lastValue,
+                'date' => date('Y-m-d H:i:s'),
+                'action' => 'Deleted'
+            ];
+            if (!is_array($history))
+                $history = [];
+            $history[] = $historyEntry;
+
+            $updateData = [
+                'is_deleted' => 1,
+                'interest_history' => json_encode($history)
+            ];
+
+            $this->db->where('id', $existing['id']);
+            if ($this->db->update('buyer_interests', $updateData)) {
+
+                // Trigger Admin Notification
+                $this->load->helper('notification_email');
+                $opportunity = $this->db->get_where('opportunities', ['opId' => $opportunityId])->row_array();
+                $opportunityName = $opportunity ? $opportunity['opStartupName'] : 'Unknown Opportunity';
+
+                notify_admin_buyer_interest_withdrawn($existing, $opportunityName);
+                notify_buyer_interest_withdrawn($existing, $opportunityName);
+
+                return $this->_json_response(1, 'Interest successfully withdrawn.');
+            } else {
+                return $this->_json_response(0, 'Failed to withdraw interest.');
+            }
+        }
+
+        return $this->_json_response(0, 'Interest not found.');
     }
 
     /**
@@ -253,7 +399,7 @@ class PublicOpportunities extends CI_Controller
         }
 
         $formdata = json_decode(file_get_contents('php://input'), true);
-        
+
         $userId = isset($formdata['userId']) ? $formdata['userId'] : null;
         $userType = isset($formdata['userType']) ? $formdata['userType'] : null;
         $startupName = isset($formdata['startupName']) ? $formdata['startupName'] : null;
@@ -270,7 +416,7 @@ class PublicOpportunities extends CI_Controller
             'investment_amount' => $investmentAmount,
             'created_at' => date('Y-m-d H:i:s')
         ];
-        
+
         if ($userType === 'founder') {
             $insertData['founder_id'] = $userId;
         } else {
@@ -280,7 +426,7 @@ class PublicOpportunities extends CI_Controller
         $this->db->insert('investor_startup_requests', $insertData);
         if ($this->db->insert_id()) {
             $this->load->helper('notification_email');
-            
+
             // The 'users' table only has an 'investor_id' column, which acts as the universal user ID.
             $user = $this->db->get_where('users', ['investor_id' => $userId])->row_array();
             $userName = trim(($user['first_name'] ?? '') . ' ' . ($user['last_name'] ?? ''));
@@ -320,19 +466,40 @@ class PublicOpportunities extends CI_Controller
         $this->db->join('opportunities', 'opportunities.opId = buyer_interests.opportunity_id', 'left');
         $this->db->where('buyer_interests.user_id', $investorId);
         $this->db->order_by('buyer_interests.submitted_on', 'DESC');
-        
+
         $interests = $this->db->get()->result_array();
 
         $result = [];
         foreach ($interests as $interest) {
+            $history = [];
+            $currentType = null;
+            $currentValue = null;
+
+            if (!empty($interest['interest_history'])) {
+                $history = json_decode($interest['interest_history'], true);
+                if (is_array($history) && count($history) > 0) {
+                    $latest = end($history);
+                    $currentType = $latest['type'];
+                    $currentValue = $latest['value'];
+                }
+            }
+
+            $isDeleted = isset($interest['is_deleted']) && $interest['is_deleted'] == 1;
+            
+            $isDeleted = isset($interest['is_deleted']) && $interest['is_deleted'] == 1;
+            $isEdited = (count($history) > 1);
+
             $result[] = [
                 'id' => $interest['id'],
                 'opportunityName' => $interest['opportunityName'] ?: 'Unknown Opportunity',
                 'opStatus' => $interest['opStatus'],
-                'interestType' => $interest['interest_type'],
-                'interestValue' => $interest['interest_value'],
+                'interestType' => $currentType,
+                'interestValue' => $currentValue,
                 'status' => $interest['status'],
-                'submittedOn' => $interest['submitted_on']
+                'submittedOn' => $interest['submitted_on'],
+                'isDeleted' => $isDeleted,
+                'isEdited' => $isEdited,
+                'interestHistory' => $history
             ];
         }
 

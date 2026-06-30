@@ -917,15 +917,15 @@ export const SellerListingForm = () => {
                 const canEdit = ["Draft", "Under Review", "Additional Information Required", "Approved", "Rejected", "On Hold"].includes(record.sdStatus);
                 
                 const isDraft = record.sdStatus === "Draft";
-                const canDelete = isDraft;
+                const canDelete = true;
 
                 return (
                     <div style={{ display: 'flex', gap: '8px' }}>
                         {canEdit && <Button size="small" type="primary" onClick={() => editListing(record)}>Edit</Button>}
                         {canDelete && (
                             <Popconfirm
-                                title="Delete Draft"
-                                description="Are you sure you want to delete this draft?"
+                                title={isDraft ? "Delete Draft" : "Delete Listing"}
+                                description={isDraft ? "Are you sure you want to delete this draft?" : "Are you sure you want to delete this listing?"}
                                 onConfirm={() => deleteDraft(record.sdSdID)}
                                 okText="Yes"
                                 cancelText="No"
