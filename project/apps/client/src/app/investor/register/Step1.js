@@ -208,7 +208,7 @@ class Step1 extends Component {
           // return
           // localStorage.removeItem('reg_id');
           localStorage.setItem("reg_id", result.data);
-          window.location.assign("/investor-registration");
+          window.location.assign("/investor-agreement");
 
           ReactGA.event({
             category: "Investor Registration",

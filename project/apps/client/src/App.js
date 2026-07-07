@@ -60,6 +60,7 @@ import DealDetailsInstapay from "./app/DealDetailsInstapay";
 import DealDetailsAutorobot from "./app/DealDetailsAutorobot";
 import Founders from "./app/Founders";
 import Investors from "./app/Investors";
+import InvestorStep2 from "./app/investor/register/Step2";
 import Learn from "./app/Learn";
 import { Contact } from "./app/Contact_us.jsx";
 import Login from "./app/Founder/Login";
@@ -324,6 +325,7 @@ function App() {
           {/* <Route path="/FutureUnicornList" exact component={FutureUnicornList} /> */}
           <Route path="/WaitApproval" exact component={WaitApproval} />
           <Route path="/CheckboxThank" exact component={CheckboxThank} />
+           <Route path="/investor-agreement" exact component={InvestorStep2} />
 
           <Route path="/FamilyDashboard" exact component={FamilyDashboard} />
           <Route path="/Preview" exact component={Preview} />
