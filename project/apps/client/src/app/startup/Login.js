@@ -164,6 +164,8 @@ class Login extends Component {
           // screen2:true,
           // otpoutput:result.data,
         });
+      } else if (result.error === "RATE_LIMIT_EXCEEDED" || result.status === 429) {
+        this.setState({ loading: false, formloader: false });
       } else {
         message.warning("Invaild otp");
         this.setState({loading:false});

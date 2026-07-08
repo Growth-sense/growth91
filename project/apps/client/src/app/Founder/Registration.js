@@ -119,6 +119,8 @@ class Registration extends Component {
           interestedraisingprivatefund: '',
           loading:false,
         });
+      } else if (result.error === "RATE_LIMIT_EXCEEDED" || result.status === 429) {
+        this.setState({ loading: false });
       } else {
         message.error(result.message);
         this.setState({

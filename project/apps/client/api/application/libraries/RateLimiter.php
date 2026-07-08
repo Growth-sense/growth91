@@ -21,8 +21,18 @@ class RateLimiter {
         $prefix   = isset($options['prefix'])   ? $options['prefix']         : 'global_ip';
 
    
-        $ip = $this->CI->input->ip_address();
-        if (empty($ip)) {
+        $ip = '';
+        if (!empty($_SERVER['HTTP_CF_CONNECTING_IP'])) {
+            $ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
+        } elseif (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ipList = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+            $ip = trim($ipList[0]);
+        } elseif (!empty($_SERVER['REMOTE_ADDR'])) {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+        if (empty($ip) || !filter_var($ip, FILTER_VALIDATE_IP)) {
             $ip = '0.0.0.0';
         }
 
@@ -31,10 +41,8 @@ class RateLimiter {
         if ($windowSeconds < 1) {
             $windowSeconds = 1;
         }
-        $timeWindow = (int) floor(time() / $windowSeconds);
 
-    
-        $cacheKey = "rl_" . md5("{$prefix}_{$ip}_{$timeWindow}");
+        $cacheKey = "rl_" . md5("{$prefix}_{$ip}");
 
         
         $currentCount = (int) $this->CI->cache->get($cacheKey);

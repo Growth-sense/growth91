@@ -123,6 +123,8 @@ class Login extends Component {
         );
       } else if (result.status == 2) {
         message.warning(result.message);
+      } else if (result.error === "RATE_LIMIT_EXCEEDED" || result.status === 429) {
+        this.setState({ formloader: false, loading: false });
       } else {
         message.warning(result.message);
       }
@@ -168,6 +170,8 @@ class Login extends Component {
       } else if (result.status == 2) {
         message.warning(result.message);
         this.setState({ formloader: false });
+      } else if (result.error === "RATE_LIMIT_EXCEEDED" || result.status === 429) {
+        this.setState({ formloader: false, loading: false });
       } else {
         // message.warning(result.message);
         message.warning(

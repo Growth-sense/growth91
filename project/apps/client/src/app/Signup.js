@@ -67,6 +67,8 @@ class Signup extends Component {
           localStorage.setItem('member_type',this.state.membertype);
           window.location.assign('/investor-registration');
         }
+      } else if (result.error === "RATE_LIMIT_EXCEEDED" || result.status === 429) {
+        this.setState({ loading: false });
       } else {
         message.error(result.message);
         this.setState({
