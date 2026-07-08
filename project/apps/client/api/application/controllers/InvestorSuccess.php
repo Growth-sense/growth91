@@ -254,7 +254,7 @@ class InvestorSuccess extends CI_Controller
                                     <tr>
                                       <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;" valign="top">
                                         <div style="text-align: center; margin-bottom: 20px;" class="imgRes col-sm-12 col-md-12 col-lg-12">
-                                            <img src="https://growth91.com/web/Growth91Logonew.png" alt="logo" style="width:140px;height:auto;">
+                                          <img src="https://growth91.com/web/Growth91Logonew.png" alt="Growth91 Logo" width="140" border="0" style="width:140px; max-width:140px; height:auto; display:inline-block; border:none; outline:none; text-decoration:none;">
                                         </div>
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;"> Dear <strong>' . $first_name . '</strong>, 
                                             <br><br>
