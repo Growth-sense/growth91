@@ -82,6 +82,8 @@ const GoogleAuth = () => {
           result.data[0].first_name + " " + result.data[0].last_name
         );  window.location.assign("/investor-dashboard");
         message.success("You have logged in successfully.");
+      } else if (result.error === "RATE_LIMIT_EXCEEDED" || result.status === 429) {
+        return;
       } else {
         message.warning('Please try to login as registered user or sign up for Growth91');
       }

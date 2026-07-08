@@ -180,6 +180,8 @@ class FounderRegistration extends Component {
           },
           () => this.startcountdown()
         );
+      } else if (result.error === "RATE_LIMIT_EXCEEDED" || result.status === 429) {
+        return;
       } else {
         message.warning(result.message);
       }
@@ -332,6 +334,8 @@ class FounderRegistration extends Component {
         });
 
         // window.location.assign('/login');
+      } else if (result.error === "RATE_LIMIT_EXCEEDED" || result.status === 429) {
+        this.setState({ loading: false });
       } else {
         message.error(result.message);
         this.setState({ loading: false });
@@ -409,6 +413,8 @@ class FounderRegistration extends Component {
         if (result.status == "1") {
           this.setState({ otpsent: true }, () => this.startcountdown2());
           message.success(result.message);
+        } else if (result.error === "RATE_LIMIT_EXCEEDED" || result.status === 429) {
+          return;
         } else {
           message.warning(result.message);
         }
@@ -453,6 +459,8 @@ class FounderRegistration extends Component {
             () => this.startcountdown2()
           );
           message.success(result.message);
+        } else if (result.error === "RATE_LIMIT_EXCEEDED" || result.status === 429) {
+          return;
         } else {
           message.warning(result.message);
         }

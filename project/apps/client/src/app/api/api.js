@@ -48,6 +48,14 @@ const response = () => {
       return response;
     },
     function (error) {
+      if (error.response && error.response.status === 429) {
+        const errorMsg =
+          error.response.data && error.response.data.message
+            ? error.response.data.message
+            : "Too many requests. Please wait before trying again.";
+        message.error(errorMsg);
+        return Promise.resolve(error.response);
+      }
       return Promise.reject(error);
     }
   );

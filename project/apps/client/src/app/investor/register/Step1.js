@@ -216,6 +216,8 @@ class Step1 extends Component {
             label: "Investor Registered Successfully",
           });
         }
+      } else if (result.error === "RATE_LIMIT_EXCEEDED" || result.status === 429) {
+        this.setState({ loading: false });
       } else {
         message.error(result.message);
         this.setState({ loading: false });
@@ -277,6 +279,8 @@ class Step1 extends Component {
           () => this.startcountdown()
         );
         this.start10mincountdown();
+      } else if (result.error === "RATE_LIMIT_EXCEEDED" || result.status === 429) {
+        this.setState({ loading: false });
       } else {
         message.warning(result.message);
         this.setState({ loading: false });
@@ -356,6 +360,8 @@ class Step1 extends Component {
           () => this.startcountdown()
         );
         this.start10mincountdown();
+      } else if (result.error === "RATE_LIMIT_EXCEEDED" || result.status === 429) {
+        this.setState({ loading: false });
       } else {
         message.warning(result.message);
         this.setState({ loading: false });
@@ -388,6 +394,8 @@ class Step1 extends Component {
           },
           () => this.startcountdown()
         );
+      } else if (result.error === "RATE_LIMIT_EXCEEDED" || result.status === 429) {
+        return;
       } else {
         message.warning(result.message);
       }
@@ -518,6 +526,8 @@ class Step1 extends Component {
           message.success(
             "OTP sent to your mobile successfully. please verify"
           );
+        } else if (result.error === "RATE_LIMIT_EXCEEDED" || result.status === 429) {
+          return;
         } else {
           message.warning(result.message);
         }
@@ -568,6 +578,8 @@ class Step1 extends Component {
           message.success(
             "OTP resent to your mobile successfully. please verify"
           );
+        } else if (result.error === "RATE_LIMIT_EXCEEDED" || result.status === 429) {
+          return;
         } else {
           message.warning(result.message);
         }

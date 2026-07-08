@@ -193,6 +193,8 @@ const GoogleAuth = ({ type = "investor" }) => {
         } else if (result.status == 2) {
           message.warning(result.message);
           return;
+        } else if (result.error === "RATE_LIMIT_EXCEEDED" || result.status === 429) {
+          return;
         } else {
           message.warning(
             "Your email is incorrect or this account doesn't exist. Please try agian or signup for Growth91."
