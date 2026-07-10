@@ -14,12 +14,12 @@ class RateLimitHook {
         
         $CI->load->library('RateLimiter');
 
-        // 1. Apply global IP limit: 5 requests per second (1000ms window)
+        // 1. Apply global IP limit: 35 requests per second (1000ms window)
         $CI->ratelimiter->check(array(
             'prefix'   => 'global_ip',
             'windowMs' => 1000,
-            'max'      => 5,   
-            'message'  => 'Rate limit exceeded. Maximum 5 requests per second allowed from your IP address.'
+            'max'      => 35,   
+            'message'  => 'Rate limit exceeded. Maximum 35 requests per second allowed from your IP address.'
         ));
 
         // 2. Define Explicit Whitelist Arrays for Signup and Login/OTP endpoints

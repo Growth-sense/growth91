@@ -47,6 +47,12 @@ class InvestorSuccess extends CI_Controller
             'description' => "Rezlytix is a deep-tech, AI-powered subsurface intelligence company improving oil & gas exploration through proprietary seismic super-resolution technology.",
             'aif_amount' => "₹3,00,000",
             'show_direct_cap' => 0
+          ],
+           'Zwilling' => [
+            'category' => "Industrial AI / Deep Tech / Manufacturing SaaS (Digital Twin)",
+            'description' => "Zwilling builds Zwillio, an AI-powered industrial digital twin platform that creates a live, intelligent replica of machines, shopfloors and entire factories.",
+            'aif_amount' => "₹5,00,000",
+            'show_direct_cap' => 1
           ]
         ];
 
