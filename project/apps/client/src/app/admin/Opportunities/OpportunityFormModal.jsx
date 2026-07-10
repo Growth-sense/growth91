@@ -157,6 +157,7 @@ const OpportunityFormModal = ({ visible, onClose, initialData, adminId, onSucces
           instrumentType: initialData.instrumentType,
           website: initialData.website,
           linkedIn: initialData.linkedIn,
+          founderLinkedIn: initialData.founderLinkedIn,
           newsArticles: initialData.newsArticles && initialData.newsArticles.length && typeof initialData.newsArticles[0] === 'object' ? initialData.newsArticles : [],
           socialMediaLinks: initialData.socialMediaLinks && initialData.socialMediaLinks.length ? initialData.socialMediaLinks : [""],
         });
@@ -533,6 +534,18 @@ const OpportunityFormModal = ({ visible, onClose, initialData, adminId, onSucces
                 </div>
               )}
             </div>
+          </div>
+
+          <div className="col-md-12">
+            <Form.Item
+              name="founderLinkedIn"
+              label="Founder LinkedIn Profile URL (Optional)"
+              rules={[
+                { type: 'url', message: 'Please enter a valid URL (e.g. https://linkedin.com/in/...)' }
+              ]}
+            >
+              <Input placeholder="https://linkedin.com/in/..." />
+            </Form.Item>
           </div>
 
           <div className="col-md-12">

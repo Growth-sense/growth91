@@ -299,6 +299,7 @@ export const OpportunityDescription = () => {
             font-size: 14px;
             color: #666;
             margin-bottom: 10px;
+            text-align: justify;
           }
           
           .read-more-link {
@@ -416,6 +417,7 @@ export const OpportunityDescription = () => {
             word-wrap: break-word;
             overflow-wrap: break-word;
             word-break: break-word;
+            text-align: justify;
           }
 
           /* Sidebar Cards */
@@ -472,6 +474,7 @@ export const OpportunityDescription = () => {
             line-height: 1.6;
             margin-top: 20px;
             border-radius: 0 4px 4px 0;
+            text-align: justify;
           }
 
           @media (max-width: 991px) {
@@ -594,20 +597,43 @@ export const OpportunityDescription = () => {
               </div>
               <div className="section-body" style={{ display: 'flex', gap: '20px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
                 {opportunity.founderImage && (
-                  <img 
-                    src={`${process.env.REACT_APP_BASE_URL}api/uploads/opportunities/${opportunity.founderImage}`} 
-                    alt="Founder" 
-                    style={{ 
-                      width: '120px', 
-                      height: '120px', 
-                      objectFit: 'cover', 
-                      borderRadius: '12px', 
-                      boxShadow: '0 4px 12px rgba(0,0,0,0.08)', 
-                      flexShrink: 0 
-                    }}
-                  />
+                  opportunity.founderLinkedIn ? (
+                    <a
+                      href={opportunity.founderLinkedIn}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="View Founder's LinkedIn Profile"
+                      style={{ display: 'inline-block', flexShrink: 0 }}
+                    >
+                      <img 
+                        src={`${process.env.REACT_APP_BASE_URL}api/uploads/opportunities/${opportunity.founderImage}`} 
+                        alt="Founder" 
+                        style={{ 
+                          width: '120px', 
+                          height: '120px', 
+                          objectFit: 'cover', 
+                          borderRadius: '12px', 
+                          boxShadow: '0 4px 12px rgba(0,0,0,0.08)', 
+                          cursor: 'pointer'
+                        }}
+                      />
+                    </a>
+                  ) : (
+                    <img 
+                      src={`${process.env.REACT_APP_BASE_URL}api/uploads/opportunities/${opportunity.founderImage}`} 
+                      alt="Founder" 
+                      style={{ 
+                        width: '120px', 
+                        height: '120px', 
+                        objectFit: 'cover', 
+                        borderRadius: '12px', 
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.08)', 
+                        flexShrink: 0 
+                      }}
+                    />
+                  )
                 )}
-                <div style={{ flex: '1 1 300px' }}>
+                <div style={{ flex: '1 1 300px', textAlign: 'justify' }}>
                   {opportunity.founderInformation || "No founder information available."}
                 </div>
               </div>
@@ -731,8 +757,20 @@ export const OpportunityDescription = () => {
           <div style={{ marginTop: '15px' }}>
             <Input 
               type="number"
+              min="0"
               placeholder={interestType === 'securities' ? "Enter number of securities" : "Enter approximate amount (₹)"}
               value={interestValue}
+              onKeyDown={(e) => {
+                if (["e", "E", "+", "-"].includes(e.key)) {
+                  e.preventDefault();
+                }
+              }}
+              onPaste={(e) => {
+                const pasteData = e.clipboardData.getData("text");
+                if (/[eE+-]/.test(pasteData)) {
+                  e.preventDefault();
+                }
+              }}
               onChange={(e) => setInterestValue(e.target.value)}
               style={{ width: '100%', padding: '10px', borderRadius: '6px' }}
             />
