@@ -157,6 +157,7 @@ const OpportunityFormModal = ({ visible, onClose, initialData, adminId, onSucces
           instrumentType: initialData.instrumentType,
           website: initialData.website,
           linkedIn: initialData.linkedIn,
+          founderName: initialData.founderName,
           founderLinkedIn: initialData.founderLinkedIn,
           newsArticles: initialData.newsArticles && initialData.newsArticles.length && typeof initialData.newsArticles[0] === 'object' ? initialData.newsArticles : [],
           socialMediaLinks: initialData.socialMediaLinks && initialData.socialMediaLinks.length ? initialData.socialMediaLinks : [""],
@@ -534,6 +535,15 @@ const OpportunityFormModal = ({ visible, onClose, initialData, adminId, onSucces
                 </div>
               )}
             </div>
+          </div>
+
+          <div className="col-md-12">
+            <Form.Item
+              name="founderName"
+              label="Founder Name (Optional)"
+            >
+              <Input placeholder="Enter founder's name" />
+            </Form.Item>
           </div>
 
           <div className="col-md-12">

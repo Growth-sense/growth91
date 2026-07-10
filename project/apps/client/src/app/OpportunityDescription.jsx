@@ -596,42 +596,64 @@ export const OpportunityDescription = () => {
                 <UserOutlined /> Founder Information
               </div>
               <div className="section-body" style={{ display: 'flex', gap: '20px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
-                {opportunity.founderImage && (
-                  opportunity.founderLinkedIn ? (
-                    <a
-                      href={opportunity.founderLinkedIn}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      title="View Founder's LinkedIn Profile"
-                      style={{ display: 'inline-block', flexShrink: 0 }}
-                    >
-                      <img 
-                        src={`${process.env.REACT_APP_BASE_URL}api/uploads/opportunities/${opportunity.founderImage}`} 
-                        alt="Founder" 
-                        style={{ 
-                          width: '120px', 
-                          height: '120px', 
-                          objectFit: 'cover', 
-                          borderRadius: '12px', 
-                          boxShadow: '0 4px 12px rgba(0,0,0,0.08)', 
-                          cursor: 'pointer'
-                        }}
-                      />
-                    </a>
-                  ) : (
-                    <img 
-                      src={`${process.env.REACT_APP_BASE_URL}api/uploads/opportunities/${opportunity.founderImage}`} 
-                      alt="Founder" 
-                      style={{ 
-                        width: '120px', 
-                        height: '120px', 
-                        objectFit: 'cover', 
-                        borderRadius: '12px', 
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.08)', 
-                        flexShrink: 0 
-                      }}
-                    />
-                  )
+                {(opportunity.founderImage || opportunity.founderName) && (
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '120px', flexShrink: 0, textAlign: 'center' }}>
+                    {opportunity.founderImage && (
+                      opportunity.founderLinkedIn ? (
+                        <a
+                          href={opportunity.founderLinkedIn}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title="View Founder's LinkedIn Profile"
+                          style={{ display: 'inline-block' }}
+                        >
+                          <img 
+                            src={`${process.env.REACT_APP_BASE_URL}api/uploads/opportunities/${opportunity.founderImage}`} 
+                            alt={opportunity.founderName || "Founder"} 
+                            style={{ 
+                              width: '120px', 
+                              height: '120px', 
+                              objectFit: 'cover', 
+                              borderRadius: '12px', 
+                              boxShadow: '0 4px 12px rgba(0,0,0,0.08)', 
+                              cursor: 'pointer'
+                            }}
+                          />
+                        </a>
+                      ) : (
+                        <img 
+                          src={`${process.env.REACT_APP_BASE_URL}api/uploads/opportunities/${opportunity.founderImage}`} 
+                          alt={opportunity.founderName || "Founder"} 
+                          style={{ 
+                            width: '120px', 
+                            height: '120px', 
+                            objectFit: 'cover', 
+                            borderRadius: '12px', 
+                            boxShadow: '0 4px 12px rgba(0,0,0,0.08)'
+                          }}
+                        />
+                      )
+                    )}
+                    {opportunity.founderName && (
+                      <div className="mt-2" style={{ fontWeight: 600, fontSize: '14px', lineHeight: '1.3' }}>
+                        {opportunity.founderLinkedIn ? (
+                          <a
+                            href={opportunity.founderLinkedIn}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="View Founder's LinkedIn Profile"
+                            style={{ color: 'inherit', textDecoration: 'none' }}
+                            onMouseOver={(e) => e.currentTarget.style.color = '#0a66c2'}
+                            onMouseOut={(e) => e.currentTarget.style.color = 'inherit'}
+                          >
+                            {opportunity.founderName}
+                          </a>
+                        ) : (
+                          opportunity.founderName
+                        )}
+                      </div>
+                    )}
+                  </div>
                 )}
                 <div style={{ flex: '1 1 300px', textAlign: 'justify' }}>
                   {opportunity.founderInformation || "No founder information available."}
