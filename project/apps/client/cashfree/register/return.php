@@ -113,6 +113,109 @@ if ($signature == $computedSignature) {
     $body='';
     if($type=='success'){
 
+      // Query active deals for dynamic section
+      $today = date('Y-m-d');
+      $sql_deals = "SELECT * FROM `deals` WHERE `show_status` = '1' AND DATE(`deal_st_date`) <= '$today' AND DATE(`deal_end_date`) >= '$today' ORDER BY `deal_id` DESC";
+      $query_deals = mysqli_query($con, $sql_deals);
+      $active_deals = [];
+      if ($query_deals) {
+        while ($row = mysqli_fetch_object($query_deals)) {
+          $active_deals[] = $row;
+        }
+      }
+
+      $deals_html = '';
+      if (!empty($active_deals)) {
+        $deal_custom_data = [
+          'FreshLeaf' => [
+            'category' => "Foods and Beverages",
+            'description' => "Freshleaf is building India's modern tea brand by upgrading the country's most consumed beverage category.",
+            'aif_amount' => "₹2,00,000",
+            'show_direct_cap' => 1
+          ],
+          'Rezlytix' => [
+            'category' => "Artificial Intelligence",
+            'description' => "Rezlytix is a deep-tech, AI-powered subsurface intelligence company improving oil & gas exploration through proprietary seismic super-resolution technology.",
+            'aif_amount' => "₹3,00,000",
+            'show_direct_cap' => 0
+          ],
+          'Zwilling' => [
+            'category' => "Industrial AI / Deep Tech / Manufacturing SaaS (Digital Twin)",
+            'description' => "Zwilling builds Zwillio, an AI-powered industrial digital twin platform that creates a live, intelligent replica of machines, shopfloors and entire factories.",
+            'aif_amount' => "₹5,00,000",
+            'show_direct_cap' => 1
+          ]
+        ];
+
+        $format_indian = function ($num) {
+          if (!is_numeric($num)) return $num;
+          $num = round($num);
+          $str = (string)$num;
+          $len = strlen($str);
+          if ($len <= 3) return $str;
+          $last3 = substr($str, -3);
+          $rem = substr($str, 0, -3);
+          $rem = preg_replace("/\B(?=(\d{2})+(?!\d))/", ",", $rem);
+          return $rem . "," . $last3;
+        };
+
+        $deals_html .= '<div style="margin: 25px 0 15px 0; border-top: 2px solid #e0e0e0; padding-top: 20px;">';
+        $deals_html .= '<h3 style="font-family: sans-serif; font-size: 16px; font-weight: bold; color: #100050; margin: 0 0 15px 0;">Current Active Startup Investment Opportunities:</h3>';
+        $deals_html .= '</div>';
+
+        $counter = 1;
+        foreach ($active_deals as $deal) {
+          $deal_name = !empty($deal->deal_name) ? $deal->deal_name : 'Startup Opportunity';
+          
+          $matched_custom = null;
+          foreach ($deal_custom_data as $key => $data) {
+            if (strcasecmp(trim($key), trim($deal_name)) === 0) {
+              $matched_custom = $data;
+              break;
+            }
+          }
+
+          if (isset($matched_custom['category'])) {
+            $deal_cat = $matched_custom['category'];
+          } else {
+            $deal_cat = !empty($deal->deal_category) ? urldecode($deal->deal_category) : 'High-Growth Startup';
+          }
+
+          if ($matched_custom && !empty($matched_custom['description'])) {
+            $desc_html = '<p style="font-family: sans-serif; font-size: 13px; color: #444; margin: 0 0 10px 0; line-height: 1.5;">' . $matched_custom['description'] . '</p>';
+          } else {
+            $desc_html = '<p style="font-family: sans-serif; font-size: 13px; color: #444; margin: 0 0 10px 0; line-height: 1.5;">A high-potential startup curated by Growth91.</p>';
+          }
+
+          $min_inv = !empty($deal->min_investment) ? '₹' . $format_indian($deal->min_investment) : '₹2,00,000';
+          $aif_text = ($matched_custom && !empty($matched_custom['aif_amount'])) ? $matched_custom['aif_amount'] : '₹2,00,000';
+
+          $deal_url = 'https://growth91.com/deals';
+
+          $deals_html .= '<div style="background-color: #fcfcfc; border: 1px solid #eaeaec; border-radius: 6px; padding: 15px; margin-bottom: 15px;">';
+          $deals_html .= '<h4 style="font-family: sans-serif; font-size: 15px; font-weight: bold; color: #100050; margin: 0 0 4px 0;">' . $counter . '. ' . $deal_name . '</h4>';
+          $deals_html .= '<p style="font-family: sans-serif; font-size: 12px; font-weight: bold; color: #666; text-transform: uppercase; margin: 0 0 8px 0;">Sector: ' . $deal_cat . '</p>';
+          $deals_html .= $desc_html;
+          $deals_html .= '<p style="font-family: sans-serif; font-size: 13px; font-weight: bold; margin: 0 0 5px 0;">Minimum Investment:</p>';
+          $deals_html .= '<ul style="font-family: sans-serif; font-size: 13px; margin: 0 0 15px 0; padding-left: 20px; color: #333;">';
+          if (isset($matched_custom['show_direct_cap']) && $matched_custom['show_direct_cap'] == 1) {
+            $deals_html .= '<li style="margin-bottom: 4px;">Invest through Direct Cap Table: <strong>' . $min_inv . '</strong></li>';
+          }
+          $deals_html .= '<li style="margin-bottom: 4px;">Invest through Alternative Investment Fund (AIF): <strong>' . $aif_text . '</strong></li>';
+          $deals_html .= '</ul>';
+          $deals_html .= '<div style="margin-top: 10px;">';
+          $deals_html .= '<a href="' . $deal_url . '" style="background-color: #100050; color: #ffffff; padding: 8px 16px; text-decoration: none; border-radius: 4px; display: inline-block; font-weight: bold; font-size: 13px;">Explore Deal &rarr;</a>';
+          $deals_html .= '</div>';
+          $deals_html .= '</div>';
+
+          $counter++;
+        }
+
+        $deals_html .= '<div style="text-align: center; margin-top: 25px; margin-bottom: 25px;">';
+        $deals_html .= '<a href="https://growth91.com/deals" style="background-color: #34495e; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 4px; display: inline-block; font-weight: bold; font-size: 14px;">Explore More Startup Investment Opportunities</a>';
+        $deals_html .= '</div>';
+      }
+
       // Mail reference : 005
       $body='<!doctype html>
         <html>
@@ -225,40 +328,40 @@ if ($signature == $computedSignature) {
                                     <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
                                       <tr>
                                         <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;" valign="top">
+                                          <div style="text-align: center; margin-bottom: 20px;" class="imgRes col-sm-12 col-md-12 col-lg-12">
+                                            <img src="https://growth91.com/web/Growth91Logonew.png" alt="Growth91 Logo" width="140" border="0" style="width:140px; max-width:140px; height:auto; display:inline-block; border:none; outline:none; text-decoration:none;">
+                                          </div>
                                           <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;"> Dear <strong>'.$name.'</strong>, 
-                                          <br>
-                                          <br>
-                                          Thank you for registering on Growth91 as an investor.
-                                          <br>
-                                          <br>
-                                          Growth91 platform provides access to highly vetted growth opportunities. 
-                              
-                                          <br>
-                                          <br>
+                                          <br><br>
+                                          Thank you for registering on Growth91.
+                                          <br><br>
+                                          We are delighted to welcome you to the Growth91 community - a startup investment marketplace that connects investors with carefully curated, high-potential startups seeking growth capital.
+                                          <br><br>
                                           We have successfully upgraded you as a premium member.
                                           '.($membership_fees=="0" ? "" : "We have received Rs. 999 towards the premium membership subscription.").'
-                                          <br>
-                                          <br>
+                                          <br><br>
                                           As a premium member, you have early access to view listed deals and priority for investment.
-                                          <br>
-                                          <br>
-                                          You can invest in exciting Deals using the link below:
-                                          <br>
-                                          <br>
-                                          https://growth91.com/deals
-                                          <br>
-                                          <br>
-                                          <i> Note: If you face any difficulty, please reach out to contact@growth91.com .</i>
-                                          <br>
-                                          <br>
-                                            Thank you, <br/>
-                                            Growth91 Team  <br/>
-                                            <br>
-                                            PS: This is system generated email. Please do not reply.
-                                          </br>
-                                          <div style="text-align: center;" class="imgRes col-sm-12 col-md-12 col-lg-12">
-                                                <img src="https://growth91.com/web/growth91LOGO%20(4).png" alt="logo" style="width:120px;height:auto;">
-                                              </div>
+                                          <br><br>
+                                          As a member of Growth91, you can:
+                                          </p>
+                                          <ul style="font-family: sans-serif; font-size: 14px; margin: 0 0 15px 0; padding-left: 20px; line-height: 1.6;">
+                                              <li>Explore curated startup investment opportunities across diverse sectors.</li>
+                                              <li>Access detailed information on startups, including their business model, traction, financials, and investment terms.</li>
+                                              <li>Track startups that are currently raising funds.</li>
+                                              <li>Build a diversified startup investment portfolio.</li>
+                                              <li>Receive updates on newly listed investment opportunities and key platform developments.</li>
+                                          </ul>
+                                          ' . $deals_html . '
+                                          <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
+                                              If you need any assistance or have any questions, our team will be happy to help. Simply write to <a href="mailto:contact@growth91.com" style="color: #100050; text-decoration: underline;">contact@growth91.com</a>.
+                                              <br><br>
+                                              Thank you for choosing Growth91. We look forward to being a part of your startup investment journey.
+                                              <br><br>
+                                              Warm regards,<br>
+                                              Growth91 Team <br><br>
+                                            
+                                            PS: This is an automated email. Please do not reply. 
+                                          </p>
                                         </td>
                                       </tr>
                                     </table>
