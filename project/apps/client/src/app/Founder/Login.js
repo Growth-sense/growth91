@@ -55,16 +55,15 @@ class Login extends Component {
       localStorage.getItem("investor_id") ||
       localStorage.getItem("founder_id")
     ) {
-      if (localStorage.getItem("investor_id")) {
+      const queryParams = new URLSearchParams(window.location.search);
+      const redirectPath = queryParams.get("redirect");
+      if (redirectPath) {
+        window.location.assign(redirectPath);
+      } else {
         window.location.assign("/deals");
-        this.setState({ show_data: "none" });
-        return;
       }
-      if (localStorage.getItem("founder_id")) {
-        window.location.assign("/deals");
-        this.setState({ show_data: "none" });
-        return;
-      }
+      this.setState({ show_data: "none" });
+      return;
     } else {
       this.setState({ show_data: "block" });
     }
@@ -232,7 +231,13 @@ class Login extends Component {
             localStorage.removeItem("unicorn_guest_until");
             localStorage.removeItem("unicorn_guest_gated_attempts");
           }
-          window.location.assign("/deals");
+          const queryParamsInvestor = new URLSearchParams(window.location.search);
+          const redirectPathInvestor = queryParamsInvestor.get("redirect");
+          if (redirectPathInvestor) {
+            window.location.assign(redirectPathInvestor);
+          } else {
+            window.location.assign("/deals");
+          }
           message.success("OTP verified successfully.");
           break;
 
@@ -256,7 +261,13 @@ class Login extends Component {
             "founder_kycstatus",
             this.state.otpoutput[0].kycstatus
           );
-          window.location.assign("/founder-dashboard");
+          const queryParamsFounder = new URLSearchParams(window.location.search);
+          const redirectPathFounder = queryParamsFounder.get("redirect");
+          if (redirectPathFounder) {
+            window.location.assign(redirectPathFounder);
+          } else {
+            window.location.assign("/founder-dashboard");
+          }
           message.success("You have logged In successfully.");
           ReactGA.event({
             category: "Login",

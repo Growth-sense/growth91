@@ -966,7 +966,7 @@ export default {
       }),
   },
   Unicorn: {
-    adminEditUnicornPlan: (data) => 
+    adminEditUnicornPlan: (data) =>
       api.post(URLs.adminEditUnicornPlan, data).then((response) => {
         return response.data;
       }),
@@ -1073,4 +1073,120 @@ export default {
         }),
     },
   },
+
+  // Seller Listing
+  getInvestorProfile: (data) =>
+    api.post(URLs.get_investor_profile, data).then((response) => {
+      return response.data;
+    }),
+  initSellerListingDraft: (data) =>
+    api.post(URLs.init_seller_listing_draft, data).then((response) => {
+      return response.data;
+    }),
+  saveSellerListingDraft: (data, config) =>
+    api.post(URLs.save_seller_listing_draft, data, config).then((response) => {
+      return response.data;
+    }),
+  submitSellerListing: (data) =>
+    api.post(URLs.submit_seller_listing, data).then((response) => {
+      return response.data;
+    }),
+  getSellerListingDraft: (data) =>
+    api.post(URLs.get_seller_listing_draft, data).then((response) => {
+      return response.data;
+    }),
+  getMySellerListings: (data) =>
+    api.post(URLs.get_my_seller_listings, data).then((response) => {
+      return response.data;
+    }),
+  deleteSellerListingDraft: (data) =>
+    api.post(URLs.delete_seller_listing_draft, data).then((response) => {
+      return response.data;
+    }),
+
+  // Admin Seller Listing
+  adminGetSellerListings: (data) =>
+    api.post(URLs.adminGetSellerListings, data).then((response) => {
+      return response.data;
+    }),
+  adminUpdateSellerListingStatus: (data) =>
+    api.post(URLs.adminUpdateSellerListingStatus, data).then((response) => {
+      return response.data;
+    }),
+  adminUpdateSellerListingComment: (data) =>
+    api.post(URLs.adminUpdateSellerListingComment, data).then((response) => {
+      return response.data;
+    }),
+  adminAssignSellerListing: (data) =>
+    api.post(URLs.adminAssignSellerListing, data).then((response) => {
+      return response.data;
+    }),
+
+  // Admin Opportunities
+  adminGetOpportunities: (data) =>
+    api.post(URLs.adminGetOpportunities, data).then((response) => {
+      return response.data;
+    }),
+  adminSaveOpportunityDraft: (data) =>
+    api.post(URLs.adminSaveOpportunityDraft, data).then((response) => {
+      return response.data;
+    }),
+  adminPublishOpportunity: (data) =>
+    api.post(URLs.adminPublishOpportunity, data).then((response) => {
+      return response.data;
+    }),
+  adminUpdateOpportunityStatus: (data) =>
+    api.post(URLs.adminUpdateOpportunityStatus, data).then((response) => {
+      return response.data;
+    }),
+  adminGetBuyerInterests: (data) =>
+    api.post(URLs.adminGetBuyerInterests, data).then((response) => {
+      return response.data;
+    }),
+  adminUpdateBuyerInterestStatus: (data) =>
+    api.post(URLs.adminUpdateBuyerInterestStatus, data).then((response) => {
+      return response.data;
+    }),
+
+  // Public Opportunities
+  getPublicOpportunities: (data) =>
+    api.post(URLs.getPublicOpportunities, data).then((response) => {
+      return response.data;
+    }),
+  getPublicOpportunityDetails: (data) =>
+    api.post(URLs.getPublicOpportunityDetails, data).then((response) => {
+      return response.data;
+    }),
+  submitOpportunityInterest: (data) =>
+    api.post(URLs.submitOpportunityInterest, data).then((response) => {
+      return response.data;
+    }),
+  checkUserInterest: (data) =>
+    api.post(URLs.checkUserInterest, data).then((response) => {
+      return response.data;
+    }),
+  withdrawOpportunityInterest: (data) =>
+    api.post(URLs.withdrawOpportunityInterest, data).then((response) => {
+      return response.data;
+    }),
+  getMyBuyerInterests: (data) =>
+    api.post(URLs.getMyBuyerInterests, data).then((response) => {
+      return response.data;
+    }),
+  submitStartupRequest: (data) =>
+    api.post(URLs.submitStartupRequest, data).then((response) => {
+      return response.data;
+    }),
+  adminGetStartupRequests: (data) =>
+    api.post(URLs.adminGetStartupRequests, data).then((response) => {
+      return response.data;
+    }),
+  adminGetSystemSettings: (data) =>
+    api.post(URLs.adminGetSystemSettings, data).then((response) => {
+      return response.data;
+    }),
+  adminUpdateSystemSetting: (data) =>
+    api.post(URLs.adminUpdateSystemSetting, data).then((response) => {
+      return response.data;
+    }),
 };

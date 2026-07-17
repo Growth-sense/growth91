@@ -3,6 +3,19 @@ import "../styles/common.css";
 // import'./web/vendors/fontawesome/css/fontawesome-all.min.css' ;
 import commientment from './3719eceb9a3562487051c17741aad593.png'
 export default class Sidebar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isBuySellOpen: window.location.pathname === "/investor-seller-listing-form" || window.location.pathname === "/my-buyer-interests"
+    };
+  }
+
+  toggleBuySell = () => {
+    this.setState((prevState) => ({
+      isBuySellOpen: !prevState.isBuySellOpen,
+    }));
+  };
+
   componentDidMount() {
     if (!localStorage.getItem("investor_id")) {
       window.location.assign("/Login");
@@ -12,7 +25,7 @@ export default class Sidebar extends Component {
 
   render() {
     return (
-      <ol className="investor-sidebar">
+      <ul className="investor-sidebar mt-5 pt-4" style={{ listStyle: 'none' }}>
         <a
           href="/investor-dashboard"
           className={
@@ -78,6 +91,43 @@ export default class Sidebar extends Component {
             <i className="bx bxs-file-doc" /> &nbsp;&nbsp;Documents
           </li>
         </a>
+
+        <li className="hiw-li" onClick={this.toggleBuySell} style={{ cursor: "pointer" }}>
+          <i className="bx bx-store-alt" /> &nbsp;&nbsp;Buy/Sell
+          <i className={`bx bx-chevron-${this.state.isBuySellOpen ? "up" : "down"}`} style={{ float: "right", marginTop: "4px", marginRight: "10px" }}></i>
+        </li>
+        <ul
+          className="submenu"
+          style={{
+            listStyle: "none",
+            paddingLeft: "35px",
+            maxHeight: this.state.isBuySellOpen ? "200px" : "0",
+            overflow: "hidden",
+            transition: "max-height 0.3s ease-out"
+          }}
+        >
+          <a
+            href="/investor-seller-listing-form"
+            className={
+              window.location.pathname == "/investor-seller-listing-form" ? "active" : ""
+            }
+          >
+            <li className="hiw-li">
+              <i className="bx bx-list-plus"></i> &nbsp;&nbsp;Seller Listing
+            </li>
+          </a>
+          <a
+            href="/my-buyer-interests"
+            className={
+              window.location.pathname == "/my-buyer-interests" ? "active" : ""
+            }
+          >
+            <li className="hiw-li">
+              <i className="bx bx-star"></i> &nbsp;&nbsp;My Interests
+            </li>
+          </a>
+        </ul>
+
         <a
           href="/Referral"
           className={window.location.pathname == "/Referral" ? "active" : ""}
@@ -106,7 +156,7 @@ export default class Sidebar extends Component {
             <i className="bx bxs-pie-chart-alt-2"></i> &nbsp;&nbsp;Deals
           </li>
         </a>
-      </ol>
+      </ul>
     );
   }
 }

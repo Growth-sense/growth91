@@ -25,13 +25,21 @@ import React, { Component } from 'react';
 
 
 class Sidebar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isBuySellOpen: window.location.pathname === "/investor-seller-listing-form" || window.location.pathname === "/my-buyer-interests"
+    };
+  }
 
-
-
+  toggleBuySell = () => {
+    this.setState({ isBuySellOpen: !this.state.isBuySellOpen });
+  };
 
   render() {
+    const isNewTab = window.location.pathname === "/investor-seller-listing-form" || window.location.pathname === "/my-buyer-interests";
     return (
-      <div className='investor-sidebar container'>
+      <div className={`investor-sidebar container ${isNewTab ? "mt-5 pt-4" : ""}`}>
       <div className="row row-cols-4">
           <div className="col-md-12 col-2"><a href='/founder-dashboard' className={
             window.location.pathname == "/founder-dashboard" ? "active" : ""
@@ -108,6 +116,52 @@ class Sidebar extends Component {
 
               </li>
           </a></div>
+
+          <div className="col-md-12 col-2">
+            <li className="hiw-li row text-center" style={{ cursor: "pointer" }} onClick={this.toggleBuySell}>
+              <i className="bx bx-store-alt col-md-4" />
+              <div className="col-md-8 col-12 side-text d-flex align-items-center justify-content-center" style={{ whiteSpace: "nowrap" }}>
+                Buy/Sell <i className={`bx bx-chevron-${this.state.isBuySellOpen ? "up" : "down"}`} style={{ fontSize: "1.2rem", marginLeft: "3rem" }}></i>
+              </div>
+            </li>
+          </div>
+          <div
+            className="col-12 p-0"
+            style={{
+              maxHeight: this.state.isBuySellOpen ? "500px" : "0",
+              overflow: "hidden",
+              transition: "max-height 0.3s ease-in-out",
+            }}
+          >
+            <div className="row m-0 p-0 w-100">
+              <div className="col-12 p-0">
+                <a
+                  href="/my-buyer-interests"
+                  className={
+                    window.location.pathname == "/my-buyer-interests" ? "active" : ""
+                  }
+                >
+                  <li className="hiw-li row text-center" style={{ paddingLeft: "35px" }}>
+                    <i className="bx bx-star col-md-4" />
+                    <div className="col-md-8 col-12 side-text text-start p-0">My Interests</div>
+                  </li>
+                </a>
+              </div>
+              <div className="col-12 p-0">
+                <a
+                  href="/investor-seller-listing-form"
+                  className={
+                    window.location.pathname == "/investor-seller-listing-form" ? "active" : ""
+                  }
+                >
+                  <li className="hiw-li row text-center" style={{ paddingLeft: "35px" }}>
+                    <i className="bx bx-list-plus col-md-4" />
+                    <div className="col-md-8 col-12 side-text text-start p-0">Seller Listing</div>
+                  </li>
+                </a>
+              </div>
+            </div>
+          </div>
       </div>
   </div>
     )

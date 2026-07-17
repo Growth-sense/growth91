@@ -120,7 +120,15 @@ const URLs = {
   checkforadhar: "investors/Kyc/checkforadhar",
 
   setsignindata: "Users/setsignindata",
-
+  
+  // Seller Listing
+  get_investor_profile: "investors/SellerListing/get_investor_profile",
+  init_seller_listing_draft: "investors/SellerListing/init_draft",
+  save_seller_listing_draft: "investors/SellerListing/save_draft",
+  submit_seller_listing: "investors/SellerListing/submit_for_review",
+  get_seller_listing_draft: "investors/SellerListing/get_draft_by_user",
+  get_my_seller_listings: "investors/SellerListing/get_my_listings",
+  delete_seller_listing_draft: "investors/SellerListing/delete_listing",
   getcashfreetoken: `${process.env.REACT_APP_BASE_URL}cashfree/js/fetchtoken.php`,
   getcheckstatus: `${process.env.REACT_APP_BASE_URL}cashfree/checkstatus.php`,
 
@@ -297,6 +305,32 @@ const URLs = {
   updateUnicornTheme: "founder/Startup/updateUnicornTheme",
   // guest analytics
   guestAnalyticsAddEvent: "founder/Startup/add_guest_analytics_event",
+
+  // Seller Listing Admin
+  adminGetSellerListings: "admin/SellerListingAdmin/get_listings",
+  adminUpdateSellerListingStatus: "admin/SellerListingAdmin/update_status",
+  adminUpdateSellerListingComment: "admin/SellerListingAdmin/update_comment",
+  adminAssignSellerListing: "admin/SellerListingAdmin/assign_admin",
+
+  // Admin Opportunities
+  adminGetOpportunities: "admin/OpportunitiesAdmin/get_opportunities",
+  adminSaveOpportunityDraft: "admin/OpportunitiesAdmin/save_draft",
+  adminPublishOpportunity: "admin/OpportunitiesAdmin/publish_opportunity",
+  adminUpdateOpportunityStatus: "admin/OpportunitiesAdmin/update_status",
+  adminGetBuyerInterests: "admin/OpportunitiesAdmin/get_buyer_interests",
+  adminUpdateBuyerInterestStatus: "admin/OpportunitiesAdmin/update_buyer_interest_status",
+
+  // Public Opportunities
+  getPublicOpportunities: "founder/PublicOpportunities/get_published_opportunities",
+  getPublicOpportunityDetails: "founder/PublicOpportunities/get_opportunity_details",
+  submitOpportunityInterest: "founder/PublicOpportunities/submit_interest",
+  checkUserInterest: "founder/PublicOpportunities/check_user_interest",
+  withdrawOpportunityInterest: "founder/PublicOpportunities/withdraw_interest",
+  getMyBuyerInterests: "founder/PublicOpportunities/get_my_interests",
+  submitStartupRequest: "founder/PublicOpportunities/submit_startup_request",
+  adminGetStartupRequests: "admin/OpportunitiesAdmin/get_startup_requests",
+  adminGetSystemSettings: "admin/OpportunitiesAdmin/get_system_settings",
+  adminUpdateSystemSetting: "admin/OpportunitiesAdmin/update_system_setting",
 };
 
 export default URLs;

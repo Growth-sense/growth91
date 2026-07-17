@@ -982,6 +982,9 @@ class WebHeadernew extends Component {
                   <a href="/deals">Deals</a>
                 </li>
                 <li>
+                  <a href="/secondary-shares">Buy/Sell</a>
+                </li>
+                <li>
                   <a href="/Founders">Founders</a>
                 </li>
                 <li>

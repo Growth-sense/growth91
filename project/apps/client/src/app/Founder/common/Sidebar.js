@@ -27,6 +27,7 @@ export default class Sidebar extends Component {
     this.state = {
       is_investor: "0",
       isFutureUnicornOpen: true, // New state to manage dropdown
+      isBuySellOpen: window.location.pathname === "/investor-seller-listing-form" || window.location.pathname === "/my-buyer-interests",
     };
   }
 
@@ -71,9 +72,17 @@ export default class Sidebar extends Component {
     }));
   };
 
+  toggleBuySell = () => {
+    this.setState((prevState) => ({
+      isBuySellOpen: !prevState.isBuySellOpen,
+    }));
+  };
+
   render() {
+    const isNewTab = window.location.pathname === "/investor-seller-listing-form" || window.location.pathname === "/my-buyer-interests";
     return (
-      <ol className="investor-sidebar">
+      <>
+        <ul className={`investor-sidebar ${isNewTab ? "mt-5 pt-4" : ""}`} style={{ listStyle: 'none' }}>
         {this.state.is_investor === "1" && (
           <div className="founder-role-heading" style={{ margin: "0 25px" }}>
             <p>Founder</p>
@@ -169,7 +178,7 @@ export default class Sidebar extends Component {
               <i className="bx bx-calendar-star" style={{ fontSize: 20 }}></i>{" "}
               &nbsp;&nbsp;Enquiry/Lead
             </li>
-          </a>
+          </a> */}
           
           {/* Future Unicorn Menu with My Plan as a Submenu */}
           <li className="hiw-li" style={{ cursor: "not-allowed" }} >
@@ -281,6 +290,42 @@ export default class Sidebar extends Component {
             </li>
           </a>
           
+          <li className="hiw-li" onClick={this.toggleBuySell} style={{ cursor: "pointer" }}>
+            <i className="bx bx-store-alt" style={{ fontSize: 20 }} /> &nbsp;&nbsp;Buy/Sell
+            <i className={`bx bx-chevron-${this.state.isBuySellOpen ? "up" : "down"}`} style={{ float: "right", marginTop: "4px", marginRight: "10px" }}></i>
+          </li>
+          <ol
+            className="submenu"
+            style={{
+              listStyle: "none",
+              paddingLeft: "35px",
+              maxHeight: this.state.isBuySellOpen ? "200px" : "0",
+              overflow: "hidden",
+              transition: "max-height 0.3s ease-out"
+            }}
+          >
+            <a
+              href="/investor-seller-listing-form"
+              className={
+                window.location.pathname === "/investor-seller-listing-form" ? "active" : ""
+              }
+            >
+              <li className="hiw-li">
+                <i className="bx bx-list-plus" style={{ fontSize: 20 }}></i> &nbsp;&nbsp;Seller Listing
+              </li>
+            </a>
+            <a
+              href="/my-buyer-interests"
+              className={
+                window.location.pathname === "/my-buyer-interests" ? "active" : ""
+              }
+            >
+              <li className="hiw-li">
+                <i className="bx bx-star" style={{ fontSize: 20 }}></i> &nbsp;&nbsp;My Interests
+              </li>
+            </a>
+          </ol>
+          
           
          
         </div>
@@ -365,7 +410,8 @@ export default class Sidebar extends Component {
           
           </div>
         )}
-      </ol>
+      </ul>
+      </>
     );
   }
 }

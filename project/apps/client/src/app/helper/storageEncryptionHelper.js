@@ -14,6 +14,7 @@ let encryptedKeys = [
   "founder_kycstatus",
   "investor_name",
   "founder_name",
+   "founder_name",
   "super_admin"
 ];
 

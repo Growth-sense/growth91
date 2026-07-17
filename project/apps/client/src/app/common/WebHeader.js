@@ -889,6 +889,16 @@ class WebHeader extends Component {
                     <li>
                       <a
                         className={
+                          window.location.pathname == "/secondary-shares" && "active"
+                        }
+                        href="/secondary-shares"
+                      >
+                        Buy/Sell
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        className={
                           window.location.pathname == "/Founders" && "active"
                         }
                         href="/Founders"
@@ -997,6 +1007,9 @@ class WebHeader extends Component {
                 </li>
                 <li>
                   <a href="/deals">Deals</a>
+                </li>
+                <li>
+                  <a href="/secondary-shares">Buy/Sell</a>
                 </li>
                 <li>
                   <a href="/Founders">Founders</a>

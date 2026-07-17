@@ -323,6 +323,22 @@ class RolesPermissions extends Component {
       guest_analytics: {
         view: true,
       },
+      seller_listings: {
+        view: true,
+        edit: true,
+      },
+      opportunities: {
+        view: true,
+        add: true,
+        edit: true,
+      },
+      buyer_interests: {
+        view: true,
+        edit: true,
+      },
+      startup_requests: {
+        view: true,
+      },
     };
 
     this.setState({ perms: all });
@@ -730,6 +746,9 @@ class RolesPermissions extends Component {
             Edit Unicorn Plan
           </Checkbox>
         </div>
+
+
+     
 
         <Divider />
 
@@ -1196,6 +1215,171 @@ class RolesPermissions extends Component {
         </div>
 
         <Divider/>
+
+           {/* Master Data – Seller Listings */}
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h6>Buyer/Seller – Seller Listings</h6>
+          <Checkbox
+            checked={
+              check("seller_listings", "view") &&
+              check("seller_listings", "edit")
+            }
+            onChange={(e) => {
+              const actions = [
+                "view",
+                "edit",
+              ];
+              actions.forEach((action) =>
+                this.togglePerm("seller_listings", action, e.target.checked)
+              );
+            }}
+          >
+            Select All
+          </Checkbox>
+        </div>
+        <div className="mb-2">
+          <Checkbox
+            checked={check("seller_listings", "view")}
+            onChange={(e) =>
+              this.togglePerm("seller_listings", "view", e.target.checked)
+            }
+          >
+            View Seller Listings
+          </Checkbox>
+
+          <Checkbox
+            checked={check("seller_listings", "edit")}
+            onChange={(e) =>
+              this.togglePerm("seller_listings", "edit", e.target.checked)
+            }
+          >
+            Edit / Update Status
+          </Checkbox>
+        </div>
+
+        <Divider />
+
+        {/* Master Data – Opportunities */}
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h6>Buyer/Seller – Opportunities</h6>
+          <Checkbox
+            checked={
+              check("opportunities", "view") &&
+              check("opportunities", "add") &&
+              check("opportunities", "edit")
+            }
+            onChange={(e) => {
+              const actions = [
+                "view",
+                "add",
+                "edit",
+              ];
+              actions.forEach((action) =>
+                this.togglePerm("opportunities", action, e.target.checked)
+              );
+            }}
+          >
+            Select All
+          </Checkbox>
+        </div>
+        <div className="mb-2">
+          <Checkbox
+            checked={check("opportunities", "view")}
+            onChange={(e) =>
+              this.togglePerm("opportunities", "view", e.target.checked)
+            }
+          >
+            View Opportunities
+          </Checkbox>
+
+          <Checkbox
+            checked={check("opportunities", "add")}
+            onChange={(e) =>
+              this.togglePerm("opportunities", "add", e.target.checked)
+            }
+          >
+            Add Opportunity
+          </Checkbox>
+
+          <Checkbox
+            checked={check("opportunities", "edit")}
+            onChange={(e) =>
+              this.togglePerm("opportunities", "edit", e.target.checked)
+            }
+          >
+            Edit / Update Status
+          </Checkbox>
+        </div>
+
+        <Divider />
+
+        {/* Master Data – Buyer Interests */}
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h6>Buyer/Seller – Buyer Interests</h6>
+          <Checkbox
+            checked={
+              check("buyer_interests", "view") &&
+              check("buyer_interests", "edit")
+            }
+            onChange={(e) => {
+              const actions = [
+                "view",
+                "edit",
+              ];
+              actions.forEach((action) =>
+                this.togglePerm("buyer_interests", action, e.target.checked)
+              );
+            }}
+          >
+            Select All
+          </Checkbox>
+        </div>
+        <div className="mb-2">
+          <Checkbox
+            checked={check("buyer_interests", "view")}
+            onChange={(e) =>
+              this.togglePerm("buyer_interests", "view", e.target.checked)
+            }
+          >
+            View Buyer Interests
+          </Checkbox>
+
+          <Checkbox
+            checked={check("buyer_interests", "edit")}
+            onChange={(e) =>
+              this.togglePerm("buyer_interests", "edit", e.target.checked)
+            }
+          >
+            Edit / Update Status
+          </Checkbox>
+        </div>
+
+        <Divider />
+
+        {/* Master Data – Startup Requests */}
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h6>Buyer/Seller – Startup Requests</h6>
+          <Checkbox
+            checked={check("startup_requests", "view")}
+            onChange={(e) => {
+              this.togglePerm("startup_requests", "view", e.target.checked);
+            }}
+          >
+            Select All
+          </Checkbox>
+        </div>
+        <div className="mb-2">
+          <Checkbox
+            checked={check("startup_requests", "view")}
+            onChange={(e) =>
+              this.togglePerm("startup_requests", "view", e.target.checked)
+            }
+          >
+            View Startup Requests
+          </Checkbox>
+        </div>
+
+        <Divider />
         
 
         {/* Premium Members */}

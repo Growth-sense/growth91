@@ -135,6 +135,9 @@ function fullAccessPermissions() {
     canStartupDocsAdd: true,
     canStartupDocsEdit: true,
     canStartupDocsDelete: true,
+
+    // extra optional capabilities used by Seller Listings
+    canSellerListingsUpdateStatus: true,
   };
 }
 
@@ -349,5 +352,8 @@ export async function loadModulePermissions(moduleKey) {
 
     // Optional extra booleans for modules that define these actions (Dropoff)
     canDropoffExport: m.export === true,
+
+    // Optional extra booleans for modules that define these actions (Seller Listings)
+    canSellerListingsUpdateStatus: m.update_status === true,
   };
 }

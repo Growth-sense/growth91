@@ -612,22 +612,27 @@ class Header extends Component {
               <div className="d-lg-block d-none">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
                   <li className="nav-item">
-                    <a className="nav-link" href="/">
+                    <a className="nav-link" href="/" style={{ padding: "12px 1px" }}>
                       Home
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/deals">
+                    <a className="nav-link" href="/deals" style={{ padding: "12px 1px" }}>
                       Deals
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/Founders">
+                    <a className="nav-link" href="/secondary-shares" style={{ padding: "12px 1px" }}>
+                      Buy/Sell
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="/Founders" style={{ padding: "12px 1px" }}>
                     Founders
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/resources">
+                    <a className="nav-link" href="/resources" style={{ padding: "12px 1px" }}>
                       Resources
                     </a>
                   </li>
@@ -637,17 +642,17 @@ class Header extends Component {
                     </a>
                   </li> */}
                   <li className="nav-item">
-                    <a className="nav-link" href="/Learn">
+                    <a className="nav-link" href="/Learn" style={{ padding: "12px 1px" }}>
                       About us
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link"  rel="noreferrer" href="https://growth91.com/blog/">
+                    <a className="nav-link"  rel="noreferrer" href="https://growth91.com/blog/" style={{ padding: "12px 1px" }}>
                      Blog
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link"  rel="noreferrer" href="/FutureUnicorn">
+                    <a className="nav-link"  rel="noreferrer" href="/FutureUnicorn" style={{ padding: "12px 1px" }}>
                      Future Unicorns
                      <span 
                        className="bounce-animation"
