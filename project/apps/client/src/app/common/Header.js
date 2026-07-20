@@ -624,6 +624,36 @@ class Header extends Component {
                   <li className="nav-item">
                     <a className="nav-link" href="/secondary-shares" style={{ padding: "12px 1px" }}>
                       Buy/Sell
+                      <span 
+                        className="bounce-animation"
+                        style={{ 
+                          backgroundColor: "#ff9c1a", 
+                          color: "white", 
+                          fontSize: "10px", 
+                          padding: "2px 6px", 
+                          borderRadius: "4px", 
+                          marginLeft: "5px",
+                          position: "relative", 
+                          top: "-8px",
+                          display: "inline-block",
+                          animation: "bounce 1s infinite"
+                        }}
+                      >
+                        NEW
+                      </span>
+                      <style jsx>{`
+                        @keyframes bounce {
+                          0%, 100% {
+                            transform: translateY(0);
+                          }
+                          50% {
+                            transform: translateY(-5px);
+                          }
+                        }
+                        .bounce-animation {
+                          animation: bounce 1s ease infinite;
+                        }
+                      `}</style>
                     </a>
                   </li>
                   <li className="nav-item">
@@ -652,38 +682,8 @@ class Header extends Component {
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link"  rel="noreferrer" href="/FutureUnicorn" style={{ padding: "12px 1px" }}>
+                    <a className="nav-link" rel="noreferrer" href="/FutureUnicorn" style={{ padding: "12px 1px" }}>
                      Future Unicorns
-                     <span 
-                       className="bounce-animation"
-                       style={{ 
-                         backgroundColor: "#ff9c1a", 
-                         color: "white", 
-                         fontSize: "10px", 
-                         padding: "2px 6px", 
-                         borderRadius: "4px", 
-                         marginLeft: "5px",
-                         position: "relative", 
-                         top: "-8px",
-                         display: "inline-block",
-                         animation: "bounce 1s infinite"
-                       }}
-                     >
-                       NEW
-                     </span>
-                     <style jsx>{`
-                       @keyframes bounce {
-                         0%, 100% {
-                           transform: translateY(0);
-                         }
-                         50% {
-                           transform: translateY(-5px);
-                         }
-                       }
-                       .bounce-animation {
-                         animation: bounce 1s ease infinite;
-                       }
-                     `}</style>
                     </a>
                   </li>
                   {/* <li className="nav-item">

@@ -2,6 +2,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Moment from "react-moment";
 import moment from "react-moment";
+function decodeHTMLEntities(str) {
+  if (!str) return "";
+  const parser = new DOMParser();
+  const decoded = parser.parseFromString(str, "text/html");
+  return decoded.body.textContent;
+}
 
 export const Homeblog = () => {
   const [blog, setBlog] = useState();
@@ -83,7 +89,7 @@ const [loading, setLoading] = useState()
                       </div>
                     </div>
                     <h5 class="following-blog-post-title">
-                      <a href={blog.link}>{blog && blog.title.rendered}</a>
+                      <a href={blog.link}>{blog && decodeHTMLEntities(blog.title.rendered)}</a>
                     </h5>
                     <div class="following-blog-post-meta">
                       <div class="post-meta-left-side">
@@ -135,7 +141,7 @@ const [loading, setLoading] = useState()
                       </div>
                     </div>
                     <h5 class="following-blog-post-title">
-                      <a href={blog1.link}> {blog && blog1.title.rendered}</a>
+                      <a href={blog1.link}> {blog && decodeHTMLEntities(blog1.title.rendered)}</a>
                     </h5>
                     <div class="following-blog-post-meta">
                       <div class="post-meta-left-side">
@@ -187,7 +193,7 @@ const [loading, setLoading] = useState()
                       </div>
                     </div>
                     <h5 class="following-blog-post-title">
-                      <a href={blog2.link}> {blog && blog2.title.rendered}</a>
+                      <a href={blog2.link}> {blog && decodeHTMLEntities(blog2.title.rendered)}</a>
                     </h5>
                     <div class="following-blog-post-meta">
                       <div class="post-meta-left-side">
