@@ -175,26 +175,43 @@ if ($signature == $computedSignature) {
             }
           }
 
-          if (isset($matched_custom['category'])) {
-            $deal_cat = $matched_custom['category'];
+          $sector = '';
+          if (!empty($matched_custom['category'])) {
+            $sector = $matched_custom['category'];
+          } elseif (!empty($matched_custom['deal_category'])) {
+            $sector = $matched_custom['deal_category'];
+          } elseif (!empty($deal->deal_category)) {
+            $cat_decoded = json_decode($deal->deal_category, true);
+            if (is_array($cat_decoded)) {
+              $sector = implode(", ", $cat_decoded);
+            } else {
+              $sector = $deal->deal_category;
+            }
           } else {
-            $deal_cat = !empty($deal->deal_category) ? urldecode($deal->deal_category) : 'High-Growth Startup';
+            $sector = 'General';
           }
 
-          if ($matched_custom && !empty($matched_custom['description'])) {
-            $desc_html = '<p style="font-family: sans-serif; font-size: 13px; color: #444; margin: 0 0 10px 0; line-height: 1.5;">' . $matched_custom['description'] . '</p>';
+          // Look up custom description from manual map (not from DB)
+          $desc_text = isset($matched_custom['description']) ? $matched_custom['description'] : "A high-potential startup curated by Growth91.";
+          $desc_html = '<p style="font-family: sans-serif; font-size: 13px; margin: 0 0 12px 0; color: #444; line-height: 1.5;">' . $desc_text . '</p>';
+
+          // Direct Cap Table amount (from DB field Min_inv_amt formatted in Indian numbering system)
+          $min_inv = !empty($deal->Min_inv_amt) && is_numeric($deal->Min_inv_amt) ? '₹' . $format_indian($deal->Min_inv_amt) : '₹' . ($deal->Min_inv_amt ? $deal->Min_inv_amt : '10,00,000');
+
+          // Look up custom AIF amount from manual map (not from DB)
+          $aif_text = isset($matched_custom['aif_amount']) ? $matched_custom['aif_amount'] : "₹2,00,000";
+
+          // Link
+          $deal_link = !empty($deal->page_link) ? $deal->page_link : 'deals';
+          if (strpos($deal_link, 'http://') !== 0 && strpos($deal_link, 'https://') !== 0) {
+            $deal_url = 'https://growth91.com/' . ltrim($deal_link, '/');
           } else {
-            $desc_html = '<p style="font-family: sans-serif; font-size: 13px; color: #444; margin: 0 0 10px 0; line-height: 1.5;">A high-potential startup curated by Growth91.</p>';
+            $deal_url = $deal_link;
           }
 
-          $min_inv = !empty($deal->min_investment) ? '₹' . $format_indian($deal->min_investment) : '₹2,00,000';
-          $aif_text = ($matched_custom && !empty($matched_custom['aif_amount'])) ? $matched_custom['aif_amount'] : '₹2,00,000';
-
-          $deal_url = 'https://growth91.com/deals';
-
-          $deals_html .= '<div style="background-color: #fcfcfc; border: 1px solid #eaeaec; border-radius: 6px; padding: 15px; margin-bottom: 15px;">';
-          $deals_html .= '<h4 style="font-family: sans-serif; font-size: 15px; font-weight: bold; color: #100050; margin: 0 0 4px 0;">' . $counter . '. ' . $deal_name . '</h4>';
-          $deals_html .= '<p style="font-family: sans-serif; font-size: 12px; font-weight: bold; color: #666; text-transform: uppercase; margin: 0 0 8px 0;">Sector: ' . $deal_cat . '</p>';
+          $deals_html .= '<div style="margin-bottom: 20px; padding: 15px; border: 1px solid #e0e0e0; border-radius: 6px; background-color: #fafafa;">';
+          $deals_html .= '<p style="font-family: sans-serif; font-size: 15px; font-weight: bold; margin: 0 0 5px 0; color: #100050;">' . $counter . '. ' . htmlspecialchars($deal_name) . '</p>';
+          $deals_html .= '<p style="font-family: sans-serif; font-size: 13px; margin: 0 0 10px 0; color: #555;"><strong>Sector:</strong> ' . htmlspecialchars($sector) . '</p>';
           $deals_html .= $desc_html;
           $deals_html .= '<p style="font-family: sans-serif; font-size: 13px; font-weight: bold; margin: 0 0 5px 0;">Minimum Investment:</p>';
           $deals_html .= '<ul style="font-family: sans-serif; font-size: 13px; margin: 0 0 15px 0; padding-left: 20px; color: #333;">';
