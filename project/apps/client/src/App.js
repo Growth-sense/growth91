@@ -244,6 +244,7 @@ const Retnerai = React.lazy(() => import("./app/deal-pages/Retnerai.jsx"));
 const Rezlytix = React.lazy(() => import("./app/deal-pages/Rezlytix.jsx"));
 const Freshleaf = React.lazy(() => import("./app/deal-pages/Freshleaf.jsx"));
 const Zwilling = React.lazy(() => import("./app/deal-pages/Zwilling.jsx"));
+const Scrapify = React.lazy(() => import("./app/deal-pages/Scrapify.jsx"));
 
 const CareerCompany = React.lazy(() => import("./app/deal-pages/CareerCompany.jsx"));
 const Garudaaerospace = React.lazy(() => import("./app/deal-pages/Garudaaerospace.jsx"));
@@ -559,6 +560,9 @@ function App() {
           </Route>
           <Route path="/Zwilling" exact>
             <ProtectDeals Component={Zwilling} />
+          </Route>
+          <Route path="/Scrapify" exact>
+            <ProtectDeals Component={Scrapify} />
           </Route>
           <Route path="/extramile" exact>
             <ProtectDeals Component={ExtraMile} />
