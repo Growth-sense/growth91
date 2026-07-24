@@ -1468,6 +1468,12 @@ class Investor extends CI_Controller
 					'description' => "Zwilling builds Zwillio, an AI-powered industrial digital twin platform that creates a live, intelligent replica of machines, shopfloors and entire factories.",
 					'aif_amount' => "₹5,00,000",
 					'show_direct_cap' => 1
+				],
+				'Scrapify' => [
+					'category' => "CLEANTECH",
+					'description' => "Scrapify Ecotech restores aquatic ecosystems through AI-driven automation. Its flagship product, EcoFloater, is an autonomous surface vehicle that detects and removes floating waste, water hyacinth, and oil spills while monitoring water quality in real time.",
+					'aif_amount' => "₹3,00,000",
+					'show_direct_cap' => 1
 				]
 			];
 

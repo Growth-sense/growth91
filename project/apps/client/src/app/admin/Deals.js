@@ -932,10 +932,12 @@ class Deals extends Component {
   };
 
   handleChangeSelected = (value) => {
-    this.setState({ category: value });
+    const filtered = Array.isArray(value) ? value.filter((v) => v !== "") : value;
+    this.setState({ category: filtered });
   };
   handleChangeSelectededit = (value) => {
-    this.setState({ editcategory: value });
+    const filtered = Array.isArray(value) ? value.filter((v) => v !== "") : value;
+    this.setState({ editcategory: filtered });
   };
 
   // on change file
@@ -4055,8 +4057,9 @@ class Deals extends Component {
                 value={this.state.category}
                 style={{ width: "100%" }}
                 onChange={this.handleChangeSelected}
-                mode="multiple"
+                mode="tags"
                 allowClear
+                placeholder="Select or type to add category"
               >
                 <Option value="">--Select--</Option>
                 <Option value="Fashion">Fashion</Option>
@@ -4583,8 +4586,9 @@ class Deals extends Component {
                 value={this.state.editcategory}
                 style={{ width: "100%" }}
                 onChange={this.handleChangeSelectededit}
-                mode="multiple"
+                mode="tags"
                 allowClear
+                placeholder="Select or type to add category"
               >
                 <Option value="">--Select--</Option>
                 <Option value="Fashion">Fashion</Option>
