@@ -100,6 +100,12 @@ class Users extends CI_Controller {
 					'description' => "Scrapify Ecotech restores aquatic ecosystems through AI-driven automation. Its flagship product, EcoFloater, is an autonomous surface vehicle that detects and removes floating waste, water hyacinth, and oil spills while monitoring water quality in real time.",
 					'aif_amount' => "₹3,00,000",
 					'show_direct_cap' => 1
+				],
+				'SalesAgents AI' => [
+					'category' => "Artificial Intelligence / SaaS",
+					'description' => "Deeply Integrated AI Sales force for BFSI. Global BFSI infrastructure for sales expansion. At scale, SalesAgents AI will be powering the entire financial industry's sales expansion by offering highest conversion and highest market access expansion, with a plug & play product for end-to-end sales. This will make credit-worthy lending frictionless, insurance universal, & wealth creation intuitive.",
+					'aif_amount' => "₹5,00,000",
+					'show_direct_cap' => 1
 				]
 			];
 
