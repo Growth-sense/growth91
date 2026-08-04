@@ -57,7 +57,7 @@ const staticDealData = {
 
   youtubeVideoLink: "https://www.youtube.com/embed/eOHC6iwHtYE?si=Q74I9Ceahpzco0nL", 
 
-  valuation: "Floor: ₹45 Cr (Pre-Money) Cap: ₹70 Cr (Pre-Money), applicable only if the Next Round of Funding closes within 15 (fifteen) months of the transfer of funds.",
+  valuation: "₹45 Cr Floor & ₹70 Cr Cap",
   legalName: "Fogteams Tech Private Limited",
   foundedDate: "2022-04-06",
 
