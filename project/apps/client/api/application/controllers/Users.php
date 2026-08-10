@@ -106,6 +106,12 @@ class Users extends CI_Controller {
 					'description' => "Deeply Integrated AI Sales force for BFSI. Global BFSI infrastructure for sales expansion. At scale, SalesAgents AI will be powering the entire financial industry's sales expansion by offering highest conversion and highest market access expansion, with a plug & play product for end-to-end sales. This will make credit-worthy lending frictionless, insurance universal, & wealth creation intuitive.",
 					'aif_amount' => "₹5,00,000",
 					'show_direct_cap' => 1
+				],
+				'Goodmelts Round 2' => [
+					'category' => "Consumer / D2C — Home & Lifestyle Fragrance",
+					'description' => "Changing the Way India Experiences Scent. Building India's largest scent-led consumer platform across home, mobility, personal care, laundry and cleaning.",
+					'aif_amount' => "₹5,00,000",
+					'show_direct_cap' => 1
 				]
 			];
 
