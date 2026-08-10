@@ -567,10 +567,9 @@ class Goodmelts2 extends Component {
               } else if (current_date > deal_regular_show_date) {
                 this.setState({ show_data: "block" });
               } else {
-                console.log("zoro 2");
                 
-                // this.setState({ show_data: "none" });
-                // window.location.assign("/deals");
+                this.setState({ show_data: "none" });
+                window.location.assign("/deals");
                 return;
               }
             }
