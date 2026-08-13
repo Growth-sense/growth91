@@ -204,7 +204,7 @@ const staticDealData = {
     
     The human ROI bottleneck exists at Industry scale.
     
-    We are Laser focused on sales and market expansion for BFSI.
+    SalesAgents AI is Laser focused on sales and market expansion for BFSI.
     `
   ],
   aifValue: 500000
