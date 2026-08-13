@@ -107,7 +107,7 @@ const staticDealData = {
    also delivering project-based outcomes and consulting
    services.
     `,
-  aboutHeader2: "What are the challanges for scale up and how these will be managed?",
+  aboutHeader2: "What are the challenges for scale up and how these will be managed?",
   aboutDetail2: 
     `
     `,

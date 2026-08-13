@@ -140,7 +140,7 @@ class Founderformdetails extends Component {
       "How roles and responsibilities are distributed between core team members?":
         item.responsibilities_distributted_members,
       "what are your moats?": item.moats,
-      "what are the challanges for scale up and how these will be managed?":
+      "what are the challenges for scale up and how these will be managed?":
         item.challenges_for_scale_up,
       Trademark: item.trademark,
       Patents: item.patents,

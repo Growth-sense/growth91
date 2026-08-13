@@ -103,7 +103,7 @@ const staticDealData = {
     `
     Goodmelts is a pure-play consumer product brand creating proprietary, clean-label home fragrance products and scaling through a brand-led, FMCG-style growth strategy.
     `,
-  aboutHeader2: "What are the challanges for scale up and how these will be managed?",
+  aboutHeader2: "What are the challenges for scale up and how these will be managed?",
   aboutDetail2: 
     `
     As we scale, a key challenge is maintaining operational excellence and agility. We’re addressing this through a phased growth strategy—starting with familiar, high-traction formats to drive adoption while steadily educating and converting users to wax melting. To support scale without compromising on quality, our goal is to bring 100% manufacturing in-house by the next financial year, ensuring tighter control, faster iteration, and long-term cost efficiency.

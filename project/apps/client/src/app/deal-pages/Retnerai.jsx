@@ -109,7 +109,7 @@ const staticDealData = {
    conversions, recover abandoned carts, and automate
    customer engagement. 
     `,
-  aboutHeader2: "What are the challanges for scale up and how these will be managed?",
+  aboutHeader2: "What are the challenges for scale up and how these will be managed?",
   aboutDetail2: 
     `
     `,

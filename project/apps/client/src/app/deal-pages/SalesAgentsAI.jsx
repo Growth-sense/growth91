@@ -111,7 +111,7 @@ const staticDealData = {
    conversion improvement as well as market expansion.
 
     `,
-  aboutHeader2: "What are the challanges for scale up and how these will be managed?",
+  aboutHeader2: "What are the challenges for scale up and how these will be managed?",
   aboutDetail2: 
     `
     `,
@@ -204,7 +204,7 @@ const staticDealData = {
     
     The human ROI bottleneck exists at Industry scale.
     
-    We are Laser focused on sales and market expansion for BFSI.
+    SalesAgents AI is Laser focused on sales and market expansion for BFSI.
     `
   ],
   aifValue: 500000

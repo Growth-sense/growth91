@@ -114,7 +114,7 @@ const staticDealData = {
   and strong repeat potential.
 
     `,
-  aboutHeader2: "What are the challanges for scale up and how these will be managed?",
+  aboutHeader2: "What are the challenges for scale up and how these will be managed?",
   aboutDetail2: 
     `
     `,
@@ -157,10 +157,9 @@ const staticDealData = {
 
   highlight1Text:
     `
-   We have built over ₹12 Cr in Gross revenue through
-   wax melting, validating both the category and our
-   product-led growth model. The next phase will be
-   driven by scaling Goodmelts across channels and
+   Goodmelts has built over ₹12 Cr in Gross revenue through wax melting, 
+   validating both the category and its product-led growth model.
+   The next phase will be driven by scaling Goodmelts across channels and
    entering significantly larger categories such as car
    fragrances and personal fragrances, creating multiple
    revenue engines on top of an already proven
@@ -178,24 +177,21 @@ const staticDealData = {
    alternative: flame-free, smoke-free, toxin-free, and
    made with IFRA-certified, natural, vegan fragrances
    with no harmful VOCs.
-   We transform scenting into a wellness-first lifestyle
-   experience—functional, beautiful, and conscious.
+   Goodmelts transforms scenting into a wellness-first lifestyle experience
     `,
   highlight3Text:
     `
-    We’ve scented 50,000+ of homes across India and
-    partnered with brands like PwC, Apollo, Max Hospitals,
-    and Puravankara for gifting. We are the official
-    scenting partner for premium hotels, spas, and
-    businesses like Kosmoderma, Envision Scientific, and
-    The Space Fitness. In D2C with a 35% repeat rate—
-    highest in the category—we’ve grown sustainably
-    month-on-month, driven by deep brand love and
-    product performance.
+    Goodmelts has scented 50,000+ homes across India and 
+    partnered with brands like PwC, Apollo, Max Hospitals, 
+    and Puravankara for gifting.Goodmelts is the official scenting partner 
+    for premium hotels, spas, and businesses like Kosmoderma, 
+    Envision Scientific, and The Space Fitness. In D2C, with a 35% repeat 
+    rate—highest in the category—Goodmelts has grown sustainably month-on-month, 
+    driven by deep brand love and product performance.
     `,
   highlight4Text:
     `
-    GoodMelts holds design patents across 6 products —
+    Goodmelts holds design patents across 6 products —
     including the Aura and Halo wax warmers, Luma plugin warmer, silicone diffuser cup, glass bottle reed
     diffuser, and refillable car fragrance diffusers — giving
     them a defensible edge in a category they're
@@ -218,21 +214,24 @@ const staticDealData = {
    gifting, with little focus on everyday wellness. Scent
    activates the same brain regions that process
    emotion—impacting mood, memory, and mental
-   wellbeing. With home fragrance and wellness
-   categories growing at 11% and 6% CAGR, respectively,
-   we’re positioned at the intersection of two of the
-   fastest-growing consumer trends.
+   wellbeing. Goodmelts is positioned at the intersection 
+   of two of the fastest-growing consumer trends.
 
     `,
   marketOverview3:
     `
     Wax melting makes up nearly one-third of the $13.5B global home 
-    fragrance market but remains untapped in India due to lack of innovation. Global brands like Scentsy generate over $400M annually, yet Indian consumers haven’t experienced its benefits. Goodmelts fills this whitespace with patented wax warmers that scent 600 sq. ft. and wax melts that last 3x longer than candles or diffusers. Our vegan, toxin-free, IFRA-certified fragrances meet growing demand at the intersection of wellness and home care. We’re not just selling fragrance, we’re transforming everyday scenting into a wellness ritual.
+    fragrance market but remains untapped in India due to lack of innovation. 
+    Global brands like Scentsy generate over $400M annually, yet Indian consumers haven’t experienced its benefits. 
+    Goodmelts fills this whitespace with patented wax warmers that scent 600 sq. ft. and 
+    wax melts that last 3x longer than candles or diffusers. 
+    Goodmelts is vegan, toxin-free, IFRA-certified fragrances meet growing demand 
+    Goodmelts isn't just selling fragrance — it's transforming everyday scenting into a wellness ritual.
     `,
 
   aboutDeal: [
     `
-    Changing the Way India Experiences Scent — Building
+    Changing the Way India Experiences Scent —
     Building Indiaʼs largest scent-led consumer platform across home, mobility, personal care, laundry and cleaning.
     `
   ],

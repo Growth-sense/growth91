@@ -98,7 +98,7 @@ const staticDealData = {
     `
     We are focused on building a product-first business. While engagement has traditionally been service-led, we’re changing that with a tech platform that delivers gamified experiences at scale. Our goal is to reduce dependency on manual facilitation and shift to self-serve, AI-powered modules that companies can run anytime, across their teams
     `,
-  aboutHeader2: "What are the challanges for scale up and how these will be managed?",
+  aboutHeader2: "What are the challenges for scale up and how these will be managed?",
   aboutDetail2: 
     `
     Content freshness – Solved by building modular AI-assisted game formats.\n

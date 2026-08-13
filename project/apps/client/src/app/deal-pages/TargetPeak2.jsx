@@ -117,7 +117,7 @@ const staticDealData = {
     `
     Product-focused. AI-enabled district-scale learning and monitoring platform for Government schools, combining competitive exam prep, intelligence training, academic monitoring, teacher evaluation and a robust exam engine, sold via annual per-student/per-district contracts to ZPs, Tribal and Social Justice departments.
     `,
-  aboutHeader2: "What are the challanges for scale up and how these will be managed?",
+  aboutHeader2: "What are the challenges for scale up and how these will be managed?",
   aboutDetail2: 
     `
     Challenges:\n

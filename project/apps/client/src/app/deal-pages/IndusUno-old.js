@@ -2250,7 +2250,7 @@ class IndusUno extends Component {
                                                     </div>
                                                   </Panel>
                                                   <Panel
-                                                    header="What are the challanges for scale up and how these will be managed?"
+                                                    header="What are the challenges for scale up and how these will be managed?"
                                                     key="4"
                                                     extra={genExtra()}
                                                   >

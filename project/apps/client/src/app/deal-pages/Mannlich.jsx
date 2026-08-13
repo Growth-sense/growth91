@@ -97,7 +97,7 @@ const staticDealData = {
     The focus is on providing an economical, clutter-free, and 
     environmentally friendly toy solution for children.
     `,
-  aboutHeader2: "What are the challanges for scale up and how these will be managed?",
+  aboutHeader2: "What are the challenges for scale up and how these will be managed?",
   aboutDetail2: 
     `
     Scaling up EleFant poses challenges such as 

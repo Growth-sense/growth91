@@ -122,7 +122,7 @@ const staticDealData = {
     `
     Product-focused. Premium packaged spices, masalas, and ready-to-cook pastes for retail, D2C, HoReCa, and export markets.
     `,
-  aboutHeader2: "What are the challanges for scale up and how these will be managed?",
+  aboutHeader2: "What are the challenges for scale up and how these will be managed?",
   aboutDetail2: 
     `
     Challenges:\n• Scaling consistent supply of origin-specific spices\n• Maintaining quality across larger batches\n• Increasing D2C visibility against legacy FMCG brands\n• Managing HoReCa receivable cycles and working capital\nManagement Approach:\n• Strengthening supplier relationships and long-term partnerships\n• Improving QC processes and certifications\n• Scaling marketing efforts and expanding Q-commerce presence\n• Maintaining adequate inventory and liquidity buffers for B2B operations
