@@ -2158,7 +2158,7 @@ class Invidata extends Component {
                                                     </div>
                                                   </Panel>
                                                   <Panel
-                                                    header="what are the challanges for scale up and how these will be managed?"
+                                                    header="what are the challenges for scale up and how these will be managed?"
                                                     key="2"
                                                     extra={genExtra()}
                                                   >

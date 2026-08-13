@@ -352,7 +352,7 @@ class IdeaBusiness extends Component {
                               ></textarea>
                               </div>
                               <div className="form-group">
-                              <label for="">what are the challanges for scale up and how these will be managed?<span className="text-danger">*</span></label>
+                              <label for="">what are the challenges for scale up and how these will be managed?<span className="text-danger">*</span></label>
                               <textarea disabled  
                                 id="" cols="30" rows="6"
                                 name='challenges_for_scale_up'

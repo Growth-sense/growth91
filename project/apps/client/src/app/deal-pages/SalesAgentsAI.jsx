@@ -111,7 +111,7 @@ const staticDealData = {
    conversion improvement as well as market expansion.
 
     `,
-  aboutHeader2: "What are the challanges for scale up and how these will be managed?",
+  aboutHeader2: "What are the challenges for scale up and how these will be managed?",
   aboutDetail2: 
     `
     `,

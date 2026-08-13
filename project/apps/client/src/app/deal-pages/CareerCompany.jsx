@@ -105,7 +105,7 @@ const staticDealData = {
     `,
   ],
   aboutHeader2:
-    "What are the challanges for scale up and how these will be managed?",
+    "What are the challenges for scale up and how these will be managed?",
   aboutDetail2: [
     {
       problem:

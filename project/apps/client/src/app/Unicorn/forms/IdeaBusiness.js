@@ -514,7 +514,7 @@ class IdeaBusiness extends Component {
                       </div>
                       <div className="form-group">
                         <label for="">
-                          what are the challanges for scale up and how these
+                          what are the challenges for scale up and how these
                           will be managed?<span className="text-danger">*</span>
                         </label>
                         <textarea

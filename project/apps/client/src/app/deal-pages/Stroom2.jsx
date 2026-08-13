@@ -129,7 +129,7 @@ const staticDealData = {
     `
     At Stroom, our primary focus is on developing and delivering innovative, high-quality products that blend taste with nutri on. We specialize in crea ng protein bars, energy bars, nut butters, and other health-focused snacks designed to meet evolving consumer needs. Product development and continuous innovation remain at the core of our strategy. Alongside this, we prioritize excellent service through eﬃcient distribution, responsive customer support, and engaging marketing initiatives. By combining exceptional products with a strong commitment to customer experience, we ensure satisfaction and loyalty. Stroom is a product-first brand that delivers both innovation and value across every customer touchpoint.
     `,
-  aboutHeader2: "What are the challanges for scale up and how these will be managed?",
+  aboutHeader2: "What are the challenges for scale up and how these will be managed?",
   aboutDetail2: 
     `
     Scaling Stroom requires addressing multiple challenges. Increasing demand necessitates higher production capacity, which can be managed through facility expansion, process optimization, and automation. Supply chain resilience is key, achieved by securing reliable suppliers, managing inventory, and adding backups. Quality control at scale demands strict audits, staff training, and robust standards. Efficient distribution requires strong logistics partners, expanded warehousing, and tech-driven tracking. Market expansion calls for research, localization, and strategic partnerships. Financial management is crucial for sustaining growth, requiring careful planning and funding. Finally, team growth is vital, with talent acquisition, culture-building, and professional development supporting scalability.
