@@ -355,6 +355,10 @@ function App() {
           <Route path="/Register" exact component={Register} />
           <Route path="/Signup" exact component={CombinedRegistration} />
           <Route path="/resources" exact component={Howitworks} />
+          <Redirect from="/How-it-works" to="/resources" />
+          <Redirect from="/How-it-works/" to="/resources" />
+          <Redirect from="/how-it-works" to="/resources" />
+          <Redirect from="/how-it-works/" to="/resources" />
           <Route path="/TermsConditions" exact component={TermsConditions} />
           <Route path="/PrivacyPolicy" exact component={PrivacyPolicy} />
           <Route path="/membership-plan" exact component={MembershipPlan} />
