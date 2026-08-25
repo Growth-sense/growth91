@@ -969,9 +969,7 @@ class NewWebHeader extends Component {
                           <Link
                             to="/resources"
                             className={
-                              window.location.pathname == "/resources" &&
-                              "active" ||
-                              window.location.pathname == "/How-it-works/" &&
+                              (window.location.pathname == "/resources" || window.location.pathname == "/resources/") &&
                               "active"
                             }
                             style={{ margin: "0px 12px" }}

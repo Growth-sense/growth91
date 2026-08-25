@@ -71,9 +71,6 @@ import Learn from "./app/Learn";
 import Login from "./app/Founder/Login";
 import Signup from "./app/Signup";
 import Howitworks from "./app/Howitworks";
-import Howitworks2 from "./app/Howitworks2";
-import Howitworks3 from "./app/Howitworks3";
-import Howitworks4 from "./app/Howitworks4";
 import Registration from "./app/Founder/Registration";
 import PrivacyPolicy from "./app/PrivacyPolicy";
 import TermsConditions from "./app/TermsConditions";
@@ -358,9 +355,6 @@ function App() {
           <Route path="/Register" exact component={Register} />
           <Route path="/Signup" exact component={CombinedRegistration} />
           <Route path="/resources" exact component={Howitworks} />
-          <Route path="/How-it-works2" exact component={Howitworks2} />
-          <Route path="/How-it-works3" exact component={Howitworks3} />
-          <Route path="/How-it-works4" exact component={Howitworks4} />
           <Route path="/TermsConditions" exact component={TermsConditions} />
           <Route path="/PrivacyPolicy" exact component={PrivacyPolicy} />
           <Route path="/membership-plan" exact component={MembershipPlan} />
