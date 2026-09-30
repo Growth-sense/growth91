@@ -252,6 +252,7 @@ import AdminStartupRequests from "./app/admin/Opportunities/AdminStartupRequests
 
 // adding After React.lazy 
 import Goodmelts2 from "./app/deal-pages/Goodmelts2.jsx";
+import Uprear from "./app/deal-pages/Uprear.jsx";
 // Preloader fallback component for Suspense
 const PageLoader = () => (
   <div id="loading" style={{ display: "block" }}>
@@ -572,6 +573,9 @@ function App() {
           </Route>
           <Route path="/goodmelts2" exact>
             <ProtectDeals Component={Goodmelts2} />
+          </Route>
+          <Route path="/uprear" exact>
+            <ProtectDeals Component={Uprear} />
           </Route>
           <Route path="/garudaaerospace" exact>
             <ProtectDeals Component={Garudaaerospace} />
