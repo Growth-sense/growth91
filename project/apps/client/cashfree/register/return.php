@@ -162,6 +162,12 @@ if ($signature == $computedSignature) {
             'description' => "Changing the Way India Experiences Scent. Building India's largest scent-led consumer platform across home, mobility, personal care, laundry and cleaning.",
             'aif_amount' => "₹5,00,000",
             'show_direct_cap' => 1
+          ],
+          'Uprear Build' => [
+            'category' => "Construction Tech / Modular Infrastructure Manufacturing",
+            'description' => "Turning Construction into Factory-Built Products. Bootstrapped to ~₹63 Cr cumulative revenue with 300+ structures delivered. Now scaling standardized, patented factory-built infrastructure across institutional, hospitality, workforce housing and energy.",
+            'aif_amount' => "₹5,00,000",
+            'show_direct_cap' => 1
           ]
         ];
 
