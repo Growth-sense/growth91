@@ -118,6 +118,13 @@ class Users extends CI_Controller {
 					'description' => "Turning Construction into Factory-Built Products. Bootstrapped to ~₹63 Cr cumulative revenue with 300+ structures delivered. Now scaling standardized, patented factory-built infrastructure across institutional, hospitality, workforce housing and energy.",
 					'aif_amount' => "₹5,00,000",
 					'show_direct_cap' => 1
+				],
+				'Legxi Originals' => [
+					'display_name' => "LEGXI",
+					'category' => "Consumer / Sports Collectibles & Licensed Memorabilia",
+					'description' => "India's Certified Sports Collectibles Brand. Official India licensing partner of the Argentine Football Association (AFA), with hand-signed collectibles from Messi and Argentina's 2022 World Cup-winning squad. ₹1.10 Cr lifetime sales in about 10 months, including ₹65 L+ from the AFA collection in its first 3 months. Now scaling officially licensed football and cricket collectibles, backed by an ownership registry and a collector resale marketplace. Indian cricketer Arshdeep Singh is a strategic partner.",
+					'aif_amount' => "₹3,00,000",
+					'show_direct_cap' => 1
 				]
 			];
 
@@ -148,6 +155,8 @@ class Users extends CI_Controller {
 						break;
 					}
 				}
+
+				$display_deal_name = !empty($matched_custom['display_name']) ? $matched_custom['display_name'] : $deal_name;
 
 				$sector = '';
 				if (!empty($matched_custom['category'])) {
@@ -184,7 +193,7 @@ class Users extends CI_Controller {
 				}
 
 				$deals_html .= '<div style="margin-bottom: 20px; padding: 15px; border: 1px solid #e0e0e0; border-radius: 6px; background-color: #fafafa;">';
-				$deals_html .= '<p style="font-family: sans-serif; font-size: 15px; font-weight: bold; margin: 0 0 5px 0; color: #100050;">' . $counter . '. ' . htmlspecialchars($deal_name) . '</p>';
+				$deals_html .= '<p style="font-family: sans-serif; font-size: 15px; font-weight: bold; margin: 0 0 5px 0; color: #100050;">' . $counter . '. ' . htmlspecialchars($display_deal_name) . '</p>';
 				$deals_html .= '<p style="font-family: sans-serif; font-size: 13px; margin: 0 0 10px 0; color: #555;"><strong>Sector:</strong> ' . htmlspecialchars($sector) . '</p>';
 				$deals_html .= $desc_html;
 				$deals_html .= '<p style="font-family: sans-serif; font-size: 13px; font-weight: bold; margin: 0 0 5px 0;">Minimum Investment:</p>';
