@@ -544,10 +544,9 @@ class Legxi extends Component {
               } else if (current_date > deal_regular_show_date) {
                 this.setState({ show_data: "block" });
               } else {
-                // zoro uncomment
-                // this.setState({ show_data: "none" });
-                // window.location.assign("/deals");
-                // return;
+                this.setState({ show_data: "none" });
+                window.location.assign("/deals");
+                return;
               }
             }
           }
