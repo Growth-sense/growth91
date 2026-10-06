@@ -124,6 +124,7 @@ import BlogCategory from "./app/BlogCategory";
 import BlogSearch from "./app/BlogSearch";
 import FounderformdetailsPdf from "./app/admin/FounderformdetailsPdf";
 import Founderformdetails from "./app/admin/Founderformdetails";
+import AdminAssessmentData from "./app/admin/AdminAssessmentData";
 import PremiumMembers from "./app/admin/PremiumMembers";
 import FounderFormStatus from "./app/Founder/FounderFormStatus";
 import AdminFormStatus from "./app/admin/AdminFormStatus";
@@ -431,6 +432,7 @@ function App() {
           <Route path="/startup-form" exact component={FounderNewRegister} />
           <Route path="/assessment-form" exact component={Startup} />
           <ProtectedAdminRoute path="/founder-documents" exact component={Founderformdetails} requiredModule="founder_documents" requiredAction="view" />
+          <ProtectedAdminRoute path="/admin-assessment-data" exact component={AdminAssessmentData} requiredModule="founder_documents" requiredAction="view" />
           <Route path="/admin-founder-dashboard" exact component={TableComponent} />
           <ProtectedAdminRoute path="/documents" exact component={AdminDocuments} requiredModule="documents" requiredAction="view" />
           <Route path="/founder-documentsPdf" exact component={FounderformdetailsPdf} />
