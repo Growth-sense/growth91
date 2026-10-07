@@ -266,6 +266,39 @@ class Documents extends CI_Controller {
 		->set_output(json_encode($response));	
 	}
 
+	// get list of founders who have assessment form entries
+	function get_assessment_founders_list(){
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Request-Headers: GET,POST,OPTIONS,DELETE,PUT");
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: access");
+		header("Content-Type: application/json; charset=UTF-8");
+		header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
+		$sql = "SELECT DISTINCT 
+			users_selected_by_founder.by_founder_id AS founder_id,
+			users.startup_name
+		FROM users_selected_by_founder
+		LEFT JOIN users ON users.investor_id = users_selected_by_founder.by_founder_id
+		WHERE users_selected_by_founder.form_status = 'submitted'
+		  AND users_selected_by_founder.by_founder_id IS NOT NULL 
+		  AND users_selected_by_founder.by_founder_id != ''
+		ORDER BY CAST(users_selected_by_founder.by_founder_id AS UNSIGNED) DESC";
+
+		$query = $this->db->query($sql);
+		$list = $query ? $query->result() : [];
+
+		$response = [
+			'status' => '1',
+			'message' => 'Assessment founders list fetched successfully.',
+			'data' => $list
+		];
+
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
+
 	// add new documents
     function addadmindocs() {
 		header("Access-Control-Allow-Origin: *");

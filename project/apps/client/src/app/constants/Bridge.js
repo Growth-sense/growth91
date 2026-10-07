@@ -571,6 +571,10 @@ export default {
       api.post(URLs.get_assesment_form_details, params).then((response) => {
         return response.data;
       }),
+    get_assessment_founders_list: (params) =>
+      api.post(URLs.get_assessment_founders_list, params).then((response) => {
+        return response.data;
+      }),
     create_founder_form_pdf: () =>
       api.get(URLs.create_founder_form_pdf).then((response) => {
         return response.data;

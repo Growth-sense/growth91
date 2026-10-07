@@ -369,6 +369,19 @@ try {
             </ul>
           </li>
           <li>
+           <a href="/admin-assessment-data">
+              <i className="bx bx-spreadsheet"></i>
+              <span className="link_name">Assessment Data</span>
+           </a>
+            <ul className="sub-menu blank">
+              <li>
+               <a className="link_name" href="/admin-assessment-data">
+                  Assessment Data
+               </a>
+              </li>
+            </ul>
+          </li>
+          <li>
            <a href="/documents">
               <i className="bx bxs-file-doc"></i>
               <span className="link_name">Documents</span>

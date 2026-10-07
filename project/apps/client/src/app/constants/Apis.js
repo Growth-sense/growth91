@@ -242,6 +242,7 @@ const URLs = {
   startupFormsSuccessEmail:
     "founder/FounderStartupform/startup_form_success_mail",
   get_assesment_form_details: "admin/Documents/get_assesment_form_details",
+  get_assessment_founders_list: "admin/Documents/get_assessment_founders_list",
   delete_startup_form_document: "Founders/delete_startup_form_document",
 
   get_blog_category_list: "admin/Blogcategory/list",
