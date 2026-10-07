@@ -277,7 +277,7 @@ class Documents extends CI_Controller {
 
 		$sql = "SELECT DISTINCT 
 			users_selected_by_founder.by_founder_id AS founder_id,
-			CONCAT_WS(' ', users.first_name, users.last_name) AS founder_name
+			users.startup_name
 		FROM users_selected_by_founder
 		LEFT JOIN users ON users.investor_id = users_selected_by_founder.by_founder_id
 		WHERE users_selected_by_founder.form_status = 'submitted'

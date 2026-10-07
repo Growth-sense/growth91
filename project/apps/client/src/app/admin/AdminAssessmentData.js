@@ -80,10 +80,10 @@ class AdminAssessmentData extends Component {
       let query = text.toLowerCase().trim();
       let arr = this.state.clist.filter((item) => {
         let idStr = item.founder_id ? String(item.founder_id).toLowerCase() : "";
-        let nameStr = item.founder_name
-          ? String(item.founder_name).toLowerCase()
+        let startupStr = item.startup_name
+          ? String(item.startup_name).toLowerCase()
           : "";
-        return idStr.includes(query) || nameStr.includes(query);
+        return idStr.includes(query) || startupStr.includes(query);
       });
       this.setState({ list: arr });
     } else {
@@ -131,7 +131,7 @@ class AdminAssessmentData extends Component {
           key: index,
           srno: index + 1,
           founder_id: item.founder_id,
-          founder_name: item.founder_name || "---",
+          startup_name: item.startup_name || "---",
           record: item,
         };
       });
@@ -150,9 +150,9 @@ class AdminAssessmentData extends Component {
         width: 150,
       },
       {
-        title: "Founder name",
-        dataIndex: "founder_name",
-        key: "founder_name",
+        title: "Startup name",
+        dataIndex: "startup_name",
+        key: "startup_name",
       },
       {
         title: "Assessment",
@@ -213,7 +213,7 @@ class AdminAssessmentData extends Component {
                 <div>
                   <Input
                     value={this.state.searchinput}
-                    placeholder="Search by Founder ID or Name"
+                    placeholder="Search by Founder ID or Startup Name"
                     onChange={(e) => this.searchinput(e)}
                     style={{ maxWidth: 300, marginBottom: 20, height: 40 }}
                   />
