@@ -291,6 +291,23 @@ class Deals extends Component {
     });
   };
 
+  getPercentRaised = (item) => {
+    const actual =
+      (item.total_invested_amount / item.deal_fund_requested) * 100 +
+      parseInt(item.raiegap || 0);
+    const buffer =
+      item.buffer_percentage !== undefined &&
+      item.buffer_percentage !== null &&
+      item.buffer_percentage !== ""
+        ? parseInt(item.buffer_percentage)
+        : 0;
+    if (buffer > 0) {
+      const maxCap = 100 + buffer;
+      return Math.min(actual, maxCap).toFixed(0);
+    }
+    return actual.toFixed(0);
+  };
+
   render() {
     const openDeals = this.state.deals?.filter(
       (item) => item.deal_status === "Open"
@@ -622,12 +639,7 @@ Compulsorily Convertible Preference Shares (CCPS) is a type of equity instrument
                                                 Percent Raised <br />
 
                                                 <p className="per">
-                                                  {parseFloat(
-                                                    (item.total_invested_amount /
-                                                      item.deal_fund_requested) *
-                                                      100 +
-                                                      parseInt(item.raiegap)
-                                                    ).toFixed(0)}
+                                                  {this.getPercentRaised(item)}
                                                   %
                                                 </p>
                                               </div>)
@@ -957,12 +969,7 @@ Compulsorily Convertible Preference Shares (CCPS) is a type of equity instrument
                                                 Percent Raised <br />
 
                                                 <p className="per">
-                                                  {parseFloat(
-                                                    (item.total_invested_amount /
-                                                      item.deal_fund_requested) *
-                                                      100 +
-                                                      parseInt(item.raiegap)
-                                                    ).toFixed(0)}
+                                                  {this.getPercentRaised(item)}
                                                   %
                                                 </p>
                                               </div>)
@@ -1196,12 +1203,7 @@ Compulsorily Convertible Preference Shares (CCPS) is a type of equity instrument
                                               <div>
                                                 Percent Raised <br />
                                                 <p className="per">
-                                                  {Math.floor(
-                                                    (item.total_invested_amount /
-                                                      item.deal_fund_requested) *
-                                                      100 +
-                                                      parseInt(item.raiegap)
-                                                  ).toFixed(0)}{" "}
+                                                  {this.getPercentRaised(item)}
                                                   %
                                                 </p>
                                               </div>

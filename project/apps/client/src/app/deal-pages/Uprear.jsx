@@ -524,10 +524,19 @@ class Uprear extends Component {
               d.deal_id +
               "/" +
               d.pitch_files;
-            let percetage_raised = parseFloat(
+            let actual_raised =
               (d.total_invested_amount / d.deal_fund_requested) * 100 +
-                parseInt(d.raiegap)
-            ).toFixed(0);
+              parseInt(d.raiegap || 0);
+            let buffer =
+              d.buffer_percentage !== undefined &&
+              d.buffer_percentage !== null &&
+              d.buffer_percentage !== ""
+                ? parseInt(d.buffer_percentage)
+                : 0;
+            let percetage_raised =
+              buffer > 0
+                ? Math.min(actual_raised, 100 + buffer).toFixed(0)
+                : actual_raised.toFixed(0);
             let deal_premium_start_date = moment(d.deal_start_dt_prem);
             let deal_regular_start_date = moment(d.deal_st_date);
             let deal_premium_end_date = moment(d.deal_end_dt_prem);

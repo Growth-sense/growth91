@@ -84,6 +84,7 @@ class Deals extends Component {
       multipleofdescription: "",
       escrowAct: "",
       raiseGap: "",
+      buffer_percentage: 0,
       backedby: "",
       category: "",
       logo: "",
@@ -178,6 +179,7 @@ class Deals extends Component {
       editmultipleofdescription: "",
       editescrowAct: "",
       editraiseGap: "",
+      edit_buffer_percentage: 0,
       editbackedby: "",
       editcategory: "",
       editlogo: "",
@@ -436,6 +438,12 @@ class Deals extends Component {
       edit_escrow_account_bank: item.escrow_account_bank,
       edit_escrow_account_branch: item.escrow_account_branch,
       editraiseGap: item.raiegap,
+      edit_buffer_percentage:
+        item.buffer_percentage !== undefined &&
+        item.buffer_percentage !== null &&
+        item.buffer_percentage !== ""
+          ? item.buffer_percentage
+          : 0,
       editenable_special_offer: item.enable_special_offer == 'Yes' ? true : false,
       editspecial_offer_text: item.special_offer_text,
       editdefault_special_offer_text: item.default_special_offer_text,
@@ -658,6 +666,10 @@ class Deals extends Component {
       escrow_account_bank: this.state.edit_escrow_account_bank,
       escrow_account_branch: this.state.edit_escrow_account_branch,
       raiseGap: this.state.editraiseGap,
+      buffer_percentage:
+        this.state.edit_buffer_percentage !== ""
+          ? this.state.edit_buffer_percentage
+          : 0,
       backedby: this.state.editbackedby,
       category: this.state.editcategory,
       id: this.state.deal_id,
@@ -706,6 +718,7 @@ class Deals extends Component {
             editbackedby: "",
             editcategory: "",
             editraiseGap: "",
+            edit_buffer_percentage: 0,
             editescrowAct: "",
             editdigioTemplateId: "",
             edit_investor_sign_coordinate: "",
@@ -1059,6 +1072,10 @@ class Deals extends Component {
           escrow_account_bank: this.state.escrow_account_bank,
           escrow_account_branch: this.state.escrow_account_branch,
           raiseGap: this.state.raiseGap,
+          buffer_percentage:
+            this.state.buffer_percentage !== ""
+              ? this.state.buffer_percentage
+              : 0,
           digioTemplateId: this.state.digioTemplateId,
           investor_sign_coordinate: this.state.investor_sign_coordinate,
           founder_sign_coordinate: this.state.founder_sign_coordinate,
@@ -1104,6 +1121,7 @@ class Deals extends Component {
                 backedby: "",
                 category: "",
                 raiseGap: "",
+                buffer_percentage: 0,
                 escrowAct: "",
                 signer_name: "",
                 signer_mobile: "",
@@ -2584,6 +2602,12 @@ class Deals extends Component {
         maxinvestment: item.Max_inv_amt ? item.Max_inv_amt : "---",
         muliplesof: item.Muliples_of ? item.Muliples_of : "---",
         multiplesof: item.multiples_of ? item.multiples_of : "---",
+        buffer_percentage:
+          item.buffer_percentage !== undefined &&
+          item.buffer_percentage !== null &&
+          item.buffer_percentage !== ""
+            ? item.buffer_percentage
+            : 0,
         action: item,
         deal_type: item.deal_type,
         deal_service: item.deal_service,
@@ -2898,6 +2922,18 @@ class Deals extends Component {
         dataIndex: "multiplesof",
         key: "multiplesof",
         align: "right",
+      },
+      {
+        title: "Buffer (%)",
+        dataIndex: "buffer_percentage",
+        key: "buffer_percentage",
+        align: "right",
+        render: (text, record) =>
+          record.buffer_percentage !== undefined &&
+          record.buffer_percentage !== null &&
+          record.buffer_percentage !== ""
+            ? record.buffer_percentage
+            : 0,
       },
       {
         title: "Number Of Invitations",
@@ -3589,6 +3625,18 @@ class Deals extends Component {
                 onChange={(e) => this.setState({ raiseGap: e.target.value })}
               />
             </div>
+            <div className="mt-4">
+              <label className="mb-2">Buffer Percentage (%)</label>
+              <Input
+                type="number"
+                placeholder="0"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.buffer_percentage}
+                onChange={(e) =>
+                  this.setState({ buffer_percentage: e.target.value })
+                }
+              />
+            </div>
             <div className="d-flex flex-row-reverse justify-content-end mt-4">
               <label className="mx-2" for="SpecialOffer" >
                 Enable Special Offer
@@ -4147,6 +4195,18 @@ class Deals extends Component {
                 value={this.state.editraiseGap}
                 onChange={(e) =>
                   this.setState({ editraiseGap: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt-4">
+              <label className="mb-2">Buffer Percentage (%)</label>
+              <Input
+                type="number"
+                placeholder="0"
+                onWheel={() => document.activeElement.blur()}
+                value={this.state.edit_buffer_percentage}
+                onChange={(e) =>
+                  this.setState({ edit_buffer_percentage: e.target.value })
                 }
               />
             </div>
