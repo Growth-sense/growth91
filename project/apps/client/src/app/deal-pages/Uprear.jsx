@@ -533,10 +533,7 @@ class Uprear extends Component {
               d.buffer_percentage !== ""
                 ? parseInt(d.buffer_percentage)
                 : 0;
-            let percetage_raised =
-              buffer > 0
-                ? Math.min(actual_raised, 100 + buffer).toFixed(0)
-                : actual_raised.toFixed(0);
+            let percetage_raised = Math.min(actual_raised, 100 + buffer).toFixed(0);
             let deal_premium_start_date = moment(d.deal_start_dt_prem);
             let deal_regular_start_date = moment(d.deal_st_date);
             let deal_premium_end_date = moment(d.deal_end_dt_prem);

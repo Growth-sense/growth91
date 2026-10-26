@@ -301,11 +301,8 @@ class Deals extends Component {
       item.buffer_percentage !== ""
         ? parseInt(item.buffer_percentage)
         : 0;
-    if (buffer > 0) {
-      const maxCap = 100 + buffer;
-      return Math.min(actual, maxCap).toFixed(0);
-    }
-    return actual.toFixed(0);
+    const maxCap = 100 + buffer;
+    return Math.min(actual, maxCap).toFixed(0);
   };
 
   render() {
