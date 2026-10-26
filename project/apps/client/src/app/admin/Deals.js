@@ -720,7 +720,7 @@ class Deals extends Component {
       raiseGap: this.state.editraiseGap,
       buffer_percentage:
         this.state.edit_buffer_percentage !== ""
-          ? this.state.edit_buffer_percentage
+          ? Math.max(0, parseInt(this.state.edit_buffer_percentage) || 0)
           : 0,
       backedby: this.state.editbackedby,
       category: this.state.editcategory,
@@ -1109,7 +1109,7 @@ class Deals extends Component {
           raiseGap: this.state.raiseGap,
           buffer_percentage:
             this.state.buffer_percentage !== ""
-              ? this.state.buffer_percentage
+              ? Math.max(0, parseInt(this.state.buffer_percentage) || 0)
               : 0,
           digioTemplateId: this.state.digioTemplateId,
           investor_sign_coordinate: this.state.investor_sign_coordinate,
@@ -3900,12 +3900,17 @@ class Deals extends Component {
               <label className="mb-2">Buffer Percentage (%)</label>
               <Input
                 type="number"
+                min="0"
                 placeholder="0"
                 onWheel={() => document.activeElement.blur()}
                 value={this.state.buffer_percentage}
-                onChange={(e) =>
-                  this.setState({ buffer_percentage: e.target.value })
-                }
+                onChange={(e) => {
+                  const val = e.target.value;
+                  this.setState({
+                    buffer_percentage:
+                      val === "" ? "" : Math.max(0, parseInt(val) || 0),
+                  });
+                }}
               />
             </div>
             {/* <div className="mt-4 d-flex flex-row-reverse justify-content-end">
@@ -4437,12 +4442,17 @@ class Deals extends Component {
               <label className="mb-2">Buffer Percentage (%)</label>
               <Input
                 type="number"
+                min="0"
                 placeholder="0"
                 onWheel={() => document.activeElement.blur()}
                 value={this.state.edit_buffer_percentage}
-                onChange={(e) =>
-                  this.setState({ edit_buffer_percentage: e.target.value })
-                }
+                onChange={(e) => {
+                  const val = e.target.value;
+                  this.setState({
+                    edit_buffer_percentage:
+                      val === "" ? "" : Math.max(0, parseInt(val) || 0),
+                  });
+                }}
               />
             </div>
             {/* <div className="mt-4 d-flex flex-row-reverse justify-content-end">

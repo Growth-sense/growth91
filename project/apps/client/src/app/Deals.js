@@ -292,14 +292,16 @@ class Deals extends Component {
   };
 
   getPercentRaised = (item) => {
+    const fundRequested = Number(item.deal_fund_requested || 0);
+    const totalInvested = Number(item.total_invested_amount || 0);
+    const raiseGap = parseInt(item.raiegap || 0);
     const actual =
-      (item.total_invested_amount / item.deal_fund_requested) * 100 +
-      parseInt(item.raiegap || 0);
+      fundRequested > 0 ? (totalInvested / fundRequested) * 100 + raiseGap : raiseGap;
     const buffer =
       item.buffer_percentage !== undefined &&
       item.buffer_percentage !== null &&
       item.buffer_percentage !== ""
-        ? parseInt(item.buffer_percentage)
+        ? Math.max(0, parseInt(item.buffer_percentage) || 0)
         : 0;
     const maxCap = 100 + buffer;
     return Math.min(actual, maxCap).toFixed(0);
