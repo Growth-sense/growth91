@@ -599,15 +599,10 @@ class Scrapify extends Component {
               d.deal_id +
               "/" +
               d.pitch_files;
-            let percetage_raised;
-            if (d.deal_id == "55" || d.deal_id == 55) {
-              percetage_raised = "125";
-            } else {
-              percetage_raised = parseFloat(
-                (d.total_invested_amount / d.deal_fund_requested) * 100 +
-                  parseInt(d.raiegap)
-              ).toFixed(0);
-            }
+            let percetage_raised = parseFloat(
+              (d.total_invested_amount / d.deal_fund_requested) * 100 +
+                parseInt(d.raiegap)
+            ).toFixed(0);
             let deal_premium_start_date = moment(d.deal_start_dt_prem);
             let deal_regular_start_date = moment(d.deal_st_date);
             let deal_premium_end_date = moment(d.deal_end_dt_prem);
