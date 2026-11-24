@@ -22,6 +22,505 @@ import { Slide } from "react-awesome-reveal";
 import CountUp from "react-countup";
 import { Link } from "react-router-dom";
 import { Homeblog } from "./Homeblog.jsx";
+
+const InvestmentApproachSection = ({ elementRef }) => {
+  const [currentIndex, setCurrentIndex] = React.useState(0);
+  const touchStartX = React.useRef(0);
+
+  const pathways = [
+    {
+      id: "direct-cap-table",
+      title: "Direct Cap Table",
+      subtitle: "Invest directly in selected startups.",
+      icon: (
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#ffffff"
+          strokeWidth="1.75"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <polygon points="12 2 2 7 12 12 22 7 12 2" />
+          <polyline points="2 17 12 22 22 17" />
+          <polyline points="2 12 12 17 22 12" />
+        </svg>
+      ),
+    },
+    {
+      id: "venture-fund",
+      title: "Growth Sense Venture Fund",
+      subtitle: "AIF Category I - Early Stage Investments (Angel Fund)",
+      icon: (
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#ffffff"
+          strokeWidth="1.75"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M12 22V11" />
+          <path d="M12 11c-2.5-3-6-3.5-7.5-1.5S4 14 7 15s5-2 5-4z" />
+          <path d="M12 11c2.5-3 6-3.5 7.5-1.5S20 14 17 15s-5-2-5-4z" />
+        </svg>
+      ),
+    },
+    {
+      id: "apex-fund",
+      title: "Growth Sense Apex Fund",
+      subtitle: "AIF Category II - Growth Stage Investments (VC Fund)",
+      icon: (
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#ffffff"
+          strokeWidth="1.75"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M4 11.5c3.5-3 8-4 14.5-8" />
+          <polyline points="13.5 3.5 18.5 3.5 18.5 8.5" />
+          <rect x="3" y="16.5" width="3" height="5" rx="0.6" />
+          <rect x="8.5" y="13" width="3" height="8.5" rx="0.6" />
+          <rect x="14" y="9" width="3" height="12.5" rx="0.6" />
+        </svg>
+      ),
+    },
+  ];
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + pathways.length) % pathways.length);
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % pathways.length);
+  };
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e) => {
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (diff > 50) handleNext();
+    else if (diff < -50) handlePrev();
+  };
+
+  const activeCard = pathways[currentIndex];
+
+  return (
+    <section
+      className="growth-pathways-section"
+      style={{
+        background:
+          "radial-gradient(130% 100% at 50% 0%, #1e0b57 0%, #160352 45%, #0f0238 100%)",
+        backgroundImage:
+          "radial-gradient(130% 100% at 50% 0%, #1e0b57 0%, #160352 45%, #0f0238 100%)",
+        padding: "32px 0 34px 0",
+        position: "relative",
+        overflow: "hidden",
+        color: "#ffffff",
+        width: "100%",
+      }}
+    >
+      <style>{`
+        .growth-pathways-section {
+          background: radial-gradient(130% 100% at 50% 0%, #1e0b57 0%, #160352 45%, #0f0238 100%) !important;
+          background-image: radial-gradient(130% 100% at 50% 0%, #1e0b57 0%, #160352 45%, #0f0238 100%) !important;
+        }
+        .growth-pathways-badge {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          background: #fe9a2b;
+          color: #ffffff;
+          font-size: 12.5px;
+          font-weight: 700;
+          padding: 4px 18px;
+          border-radius: 9999px;
+          letter-spacing: 0.3px;
+          box-shadow: 0 2px 10px rgba(254, 154, 43, 0.3);
+          margin-bottom: 10px;
+        }
+        .growth-pathways-title {
+          color: #ffffff !important;
+          font-size: clamp(22px, 3vw, 32px);
+          font-weight: 700;
+          text-align: center;
+          margin: 0 0 8px 0;
+          line-height: 1.25;
+          letter-spacing: -0.3px;
+        }
+        .growth-pathways-desc {
+          color: #b5b0da !important;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 1.5;
+          text-align: center;
+          max-width: 720px;
+          margin: 0 auto 22px auto;
+          padding: 0 16px;
+        }
+        .growth-pathways-arrow-btn {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.16);
+          color: #ffffff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          flex-shrink: 0;
+          transition: all 0.2s ease;
+          outline: none;
+          padding: 0;
+          user-select: none;
+        }
+        .growth-pathways-arrow-btn:hover {
+          background: rgba(255, 255, 255, 0.22);
+          border-color: rgba(255, 255, 255, 0.35);
+          transform: scale(1.05);
+        }
+        .growth-pathways-arrow-btn:active {
+          transform: scale(0.95);
+        }
+        .growth-pathways-card-box {
+          flex: 1 1 0;
+          min-width: 0;
+          background: rgba(36, 17, 94, 0.45);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border: 1px solid rgba(139, 92, 246, 0.3);
+          border-radius: 12px;
+          padding: 12px 16px;
+          display: flex;
+          align-items: center;
+          box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+          transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+        .growth-pathways-card-box:hover {
+          transform: translateY(-2px);
+          border-color: rgba(167, 139, 250, 0.6);
+          box-shadow: 0 10px 28px rgba(88, 28, 135, 0.35);
+        }
+        .growth-pathways-icon-wrap {
+          width: 32px;
+          height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          color: #ffffff;
+        }
+        .growth-pathways-divider {
+          width: 1px;
+          height: 30px;
+          background: rgba(255, 255, 255, 0.2);
+          margin: 0 14px;
+          flex-shrink: 0;
+        }
+        .growth-pathways-content {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          min-width: 0;
+          flex: 1;
+        }
+        .growth-pathways-card-title {
+          color: #ffffff !important;
+          font-size: 15px;
+          font-weight: 700;
+          margin: 0 0 2px 0;
+          line-height: 1.25;
+          letter-spacing: -0.2px;
+        }
+        .growth-pathways-card-sub {
+          color: #b5aedb !important;
+          font-size: 12.5px;
+          font-weight: 400;
+          line-height: 1.35;
+          margin: 0;
+        }
+        .growth-pathways-stats-wrap {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-top: 24px;
+          width: 100%;
+        }
+        .growth-pathways-stat-div {
+          width: 1px;
+          height: 30px;
+          background: rgba(255, 255, 255, 0.2);
+          margin: 0 38px;
+          flex-shrink: 0;
+        }
+        .growth-pathways-stat-num-box {
+          display: inline-flex;
+          align-items: baseline;
+          justify-content: center;
+          line-height: 1;
+        }
+        .growth-pathways-stat-val-span {
+          color: #ffffff !important;
+          font-size: 28px;
+          font-weight: 700;
+          line-height: 1;
+          letter-spacing: -0.4px;
+        }
+        .growth-pathways-stat-plus {
+          color: #ffffff !important;
+          font-size: 20px;
+          font-weight: 600;
+          line-height: 1;
+          margin-left: 2px;
+        }
+        .growth-pathways-stat-lbl {
+          color: #ffffff !important;
+          font-size: 14px;
+          font-weight: 500;
+          margin: 5px 0 0 0;
+          letter-spacing: 0.1px;
+          line-height: 1.3;
+        }
+        @media (max-width: 991px) {
+          .growth-pathways-desktop {
+            display: none !important;
+          }
+          .growth-pathways-mobile {
+            display: flex !important;
+          }
+          .growth-pathways-stat-div {
+            margin: 0 20px;
+          }
+        }
+        @media (min-width: 992px) {
+          .growth-pathways-desktop {
+            display: flex !important;
+          }
+          .growth-pathways-mobile {
+            display: none !important;
+          }
+        }
+        @media (max-width: 600px) {
+          .growth-pathways-section {
+            padding: 24px 0 26px 0 !important;
+          }
+          .growth-pathways-stats-wrap {
+            margin-top: 18px;
+            padding: 0 6px;
+          }
+          .growth-pathways-stat-div {
+            margin: 0 8px;
+            height: 24px;
+          }
+          .growth-pathways-stat-val-span {
+            font-size: 20px !important;
+          }
+          .growth-pathways-stat-plus {
+            font-size: 15px !important;
+          }
+          .growth-pathways-stat-lbl {
+            font-size: 11px !important;
+            margin-top: 3px;
+          }
+        }
+      `}</style>
+
+      <div className="container">
+        <div style={{ textAlign: "center" }}>
+          <div ref={elementRef} className="growth-pathways-badge">
+            Investment Approach
+          </div>
+          <h2 className="growth-pathways-title">
+            Multiple Pathways to Startup Investments
+          </h2>
+          <p className="growth-pathways-desc">
+            Explore curated startup investment opportunities through direct investments and SEBI-registered Alternative Investment Funds managed by Growth Sense.
+          </p>
+        </div>
+
+        {/* Desktop 3-Card Layout */}
+        <div
+          className="growth-pathways-desktop"
+          style={{
+            alignItems: "stretch",
+            justifyContent: "center",
+            gap: "16px",
+            width: "100%",
+          }}
+        >
+          {pathways.map((card) => (
+            <div key={card.id} className="growth-pathways-card-box">
+              <div className="growth-pathways-icon-wrap">{card.icon}</div>
+              <div className="growth-pathways-divider" />
+              <div className="growth-pathways-content">
+                <h4 className="growth-pathways-card-title">{card.title}</h4>
+                <p className="growth-pathways-card-sub">{card.subtitle}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Mobile / Tablet Carousel Layout */}
+        <div
+          className="growth-pathways-mobile"
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "10px",
+            width: "100%",
+          }}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          <button
+            type="button"
+            className="growth-pathways-arrow-btn"
+            onClick={handlePrev}
+            aria-label="Previous pathway"
+          >
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#ffffff"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+
+          <div className="growth-pathways-card-box" style={{ width: "100%" }}>
+            <div className="growth-pathways-icon-wrap">{activeCard.icon}</div>
+            <div className="growth-pathways-divider" />
+            <div className="growth-pathways-content">
+              <h4 className="growth-pathways-card-title">{activeCard.title}</h4>
+              <p className="growth-pathways-card-sub">{activeCard.subtitle}</p>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            className="growth-pathways-arrow-btn"
+            onClick={handleNext}
+            aria-label="Next pathway"
+          >
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#ffffff"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Mobile pagination dots */}
+        <div
+          className="growth-pathways-mobile"
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "5px",
+            marginTop: "10px",
+          }}
+        >
+          {pathways.map((_, idx) => (
+            <div
+              key={idx}
+              onClick={() => setCurrentIndex(idx)}
+              style={{
+                width: idx === currentIndex ? "16px" : "5px",
+                height: "5px",
+                borderRadius: "3px",
+                background:
+                  idx === currentIndex ? "#fe9a2b" : "rgba(255, 255, 255, 0.25)",
+                cursor: "pointer",
+                transition: "all 0.25s ease",
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Stats Row */}
+        <div className="growth-pathways-stats-wrap">
+          <div style={{ textAlign: "center" }}>
+            <div className="growth-pathways-stat-num-box">
+              <span className="growth-pathways-stat-val-span">
+                <CountUp
+                  duration={2}
+                  start={0}
+                  end={2000}
+                  separator=","
+                  enableScrollSpy={true}
+                  scrollSpyOnce={true}
+                />
+              </span>
+              <span className="growth-pathways-stat-plus">+</span>
+            </div>
+            <p className="growth-pathways-stat-lbl">Startups Evaluated</p>
+          </div>
+
+          <div className="growth-pathways-stat-div" />
+
+          <div style={{ textAlign: "center" }}>
+            <div className="growth-pathways-stat-num-box">
+              <span className="growth-pathways-stat-val-span">
+                <CountUp
+                  duration={2}
+                  start={0}
+                  end={94}
+                  enableScrollSpy={true}
+                  scrollSpyOnce={true}
+                />
+              </span>
+              <span className="growth-pathways-stat-plus">+</span>
+            </div>
+            <p className="growth-pathways-stat-lbl">Startups Invested</p>
+          </div>
+
+          <div className="growth-pathways-stat-div" />
+
+          <div style={{ textAlign: "center" }}>
+            <div className="growth-pathways-stat-num-box">
+              <span className="growth-pathways-stat-val-span">
+                <CountUp
+                  duration={2}
+                  start={0}
+                  end={3000}
+                  separator=","
+                  enableScrollSpy={true}
+                  scrollSpyOnce={true}
+                />
+              </span>
+              <span className="growth-pathways-stat-plus">+</span>
+            </div>
+            <p className="growth-pathways-stat-lbl">Registered Investors</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 class Homenew extends Component {
   constructor(props) {
     super(props);
@@ -464,58 +963,6 @@ class Homenew extends Component {
         },
       ],
     };
-    const countersettting = {
-      class: "flex-counters",
-      dots: false,
-      infinite: true,
-      arrows: true,
-      speed: 100,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      autoplaySpeed: 3000,
-      // fade: true,
-      // speed: 3000,
-      autoplay: false,
-      pauseOnHover: false,
-      cssEase: "linear",
-      prevArrow: <SimplePrevArrow />,
-      nextArrow: <SimpleNextArrow />,
-
-      responsive: [
-        {
-          breakpoint: 1200,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-          },
-        },
-        {
-          breakpoint: 993,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-          },
-        },
-        {
-          breakpoint: 600,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            autoplay: false,
-          },
-        },
-        {
-          breakpoint: 400,
-          settings: {
-            arrows: true,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            arrows: true,
-            autoplay: false,
-          },
-        },
-      ],
-    };
 
     $(window).scroll(function () {
       if ($(this).scrollTop() > 30) {
@@ -898,148 +1345,7 @@ class Homenew extends Component {
           </div>
         </section>
 
-        <section class="counter-sections">
-          <div class="container">
-            <div class="row">
-              <div class="">
-                <div class="main-heading-counter">
-                  <p ref={this.elementRef}>Investment Strategy</p>
-                  <h3>Data-Driven Decisions</h3>
-                  <p>
-                    We leverage AI and machine learning to identify
-                    high-potential startups early, ensuring our portfolio is
-                    positioned for success.
-                  </p>
-                </div>
-
-                {document.body.clientWidth < 600 ? (
-                  <Slider
-                    className="flex-counters sliderdriven"
-                    {...countersettting}
-                  >
-                    <div class="counter-container newcountercontainer">
-                      <div class="part-one-count">
-                        <div id="numbers">
-                          <span class=" fig-number">
-                            <CountUp
-                              duration={5}
-                              start={0}
-                              end={75}
-                              scrollSpyDelay={1000}
-                            />
-                          </span>
-                        </div>
-                        <p>+</p>
-                      </div>
-                      <span>Startups funded</span>
-                    </div>
-                    <div class="counter-container newcountercontainer ">
-                      <div class="part-one-count">
-                        <div id="numbers">
-                          <span class=" fig-number">
-                            <CountUp
-                              duration={3}
-                              start={0}
-                              end={90}
-                              scrollSpyDelay={1000}
-                            />
-                          </span>
-                        </div>
-                        <p>%</p>
-                      </div>
-
-                      <span>Success Rate</span>
-                    </div>
-
-                    <div class="counter-container newcountercontainer">
-                      <div class="part-one-count">
-                        <div id="numbers">
-                          <span class=" fig-number">
-                            <CountUp
-                              duration={3}
-                              start={0}
-                              end={1000}
-                              scrollSpyDelay={1000}
-                            />
-                          </span>
-                        </div>
-                        <p>+</p>
-                      </div>
-                      <span>Startups Analyzed</span>
-                    </div>
-                    <div class="counter-container newcountercontainer">
-                      <div class="part-one-count">
-                        <p>Top Quartile</p>
-                      </div>
-                      <span>Performance Ranking</span>
-                    </div>
-                  </Slider>
-                ) : (
-                  <>
-                    <div class="flex-counters">
-                      <div class="counter-container ">
-                        <div class="part-one-count">
-                          <div id="numbers">
-                            <span class=" fig-number">
-                              <CountUp
-                                duration={5}
-                                start={0}
-                                end={75}
-                                scrollSpyDelay={1000}
-                              />
-                            </span>
-                          </div>
-                          <p>+</p>
-                        </div>
-                        <span>Startups funded</span>
-                      </div>
-                      <div class="counter-container  ">
-                        <div class="part-one-count">
-                          <div id="numbers">
-                            <span class=" fig-number">
-                              <CountUp
-                                duration={3}
-                                start={0}
-                                end={90}
-                                scrollSpyDelay={1000}
-                              />
-                            </span>
-                          </div>
-                          <p>%</p>
-                        </div>
-
-                        <span>Success Rate</span>
-                      </div>
-
-                      <div class="counter-container ">
-                        <div class="part-one-count">
-                          <div id="numbers">
-                            <span class=" fig-number">
-                              <CountUp
-                                duration={3}
-                                start={0}
-                                end={1000}
-                                scrollSpyDelay={1000}
-                              />
-                            </span>
-                          </div>
-                          <p>+</p>
-                        </div>
-                        <span>Startups Analyzed</span>
-                      </div>
-                      <div class="counter-container ">
-                        <div class="part-one-count">
-                          <p>Top Quartile</p>
-                        </div>
-                        <span>Performance Ranking</span>
-                      </div>
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-        </section>
+        <InvestmentApproachSection elementRef={this.elementRef} />
 
         <section class="business-crowd">
           <div class="container">
